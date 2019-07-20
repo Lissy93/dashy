@@ -1,8 +1,10 @@
 <template>
-  <div class="item-group-outer">
-      <h2>{{ title }}</h2>
-      <div class="item-group-inner">
-          <span v-if="!items || items.length < 1" class="no-items">No Items to Show Yet</span>
+    <div class="item-group-outer">
+        <h2>{{ title }}</h2>
+        <div class="item-group-inner">
+            <span v-if="!items || items.length < 1" class="no-items">
+              No Items to Show Yet
+            </span>
       </div>
   </div>
 </template>

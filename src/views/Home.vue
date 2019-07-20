@@ -21,7 +21,7 @@ export default {
   },
   props: {
     title: { default: 'Panel', type: String },
-    subtitle: { default: 'All server management tools in one place', type: String }
+    subtitle: { default: 'All your server management tools in one place', type: String }
   }
 }
 </script>
