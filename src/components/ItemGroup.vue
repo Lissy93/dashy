@@ -5,16 +5,24 @@
             <span v-if="!items || items.length < 1" class="no-items">
               No Items to Show Yet
             </span>
+            <div v-else>
+              <Item title="Ahoy!"/>
+            </div>
       </div>
   </div>
 </template>
 
 <script>
+import Item from '@/components/Item.vue'
+
 export default {
   name: 'ItemGroup',
   props: {
     title: String,
     items: Array
+  },
+  components: {
+    Item
   }
 }
 </script>

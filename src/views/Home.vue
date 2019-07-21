@@ -3,7 +3,7 @@
     <h1>{{title}}</h1>
     <span class="subtitle">{{subtitle}}</span>
     <div class="item-group-container">
-      <ItemGroup title="Server Management"/>
+      <ItemGroup v-for="item in items" :key="item.id" :title="item.name"/>
       <ItemGroup title="External Infrastructure"/>
       <ItemGroup title="Utilities"/>
     </div>
@@ -13,11 +13,17 @@
 <script>
 
 import ItemGroup from '@/components/ItemGroup.vue'
+import * as linkData from './../data/item-data.json'
 
 export default {
   name: 'home',
   components: {
     ItemGroup
+  },
+  data: () => {
+    return {
+      items: linkData.default
+    }
   },
   props: {
     title: { default: 'Panel', type: String },

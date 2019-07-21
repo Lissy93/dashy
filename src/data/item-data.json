@@ -1,9 +1,10 @@
 [
     {
-        "name": "",
+        "id": "0",
+        "name": "Server Management",
         "items": [
             {
-                "title": "",
+                "title": "Tile 1!",
                 "description": "",
                 "provider": "",
                 "icon": "",
