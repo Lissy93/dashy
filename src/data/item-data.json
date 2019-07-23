@@ -4,24 +4,27 @@
         "name": "Server Management",
         "items": [
             {
-                "title": "Tile 1!",
+                "id":"001",
+                "title": "Server Monitoring",
                 "description": "",
                 "provider": "",
-                "icon": "",
+                "icon": "008-clock",
                 "url": ""
             },
             {
-                "title": "",
+                "id":"002",
+                "title": "Analytics",
                 "description": "",
                 "provider": "",
-                "icon": "",
+                "icon": "001-achievement",
                 "url": ""
             },
             {
-                "title": "",
+                "id":"003",
+                "title": "MongoDB Management",
                 "description": "",
                 "provider": "",
-                "icon": "",
+                "icon": "004-astrophysics-2",
                 "url": ""
             }
         ]

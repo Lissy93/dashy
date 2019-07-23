@@ -5,8 +5,14 @@
             <span v-if="!items || items.length < 1" class="no-items">
               No Items to Show Yet
             </span>
-            <div v-else>
-              <Item title="Ahoy!"/>
+            <div v-else class="there-are-items">
+              <Item
+                v-for="item in items"
+                :key="item.id"
+                :id="item.id"
+                :title="item.title"
+                :icon="item.icon"
+              />
             </div>
       </div>
   </div>
@@ -54,11 +60,11 @@ export default {
     background: #2f323ae6;
     height: 100%;
     width: 100%;
+    text-align: left;
     border-radius: 0 0 10px 10px;
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
-    text-align: center;
 }
 
 .no-items {
@@ -69,6 +75,11 @@ export default {
     padding: 0.8em;
     border-radius: 10px;
     box-shadow: 1px 1px 2px #373737;
+    cursor: default;
+}
+
+.there-are-items {
+  height: 100%;
 }
 
 </style>

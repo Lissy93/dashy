@@ -3,7 +3,12 @@
     <h1>{{title}}</h1>
     <span class="subtitle">{{subtitle}}</span>
     <div class="item-group-container">
-      <ItemGroup v-for="item in items" :key="item.id" :title="item.name"/>
+      <ItemGroup
+        v-for="item in items"
+        :key="item.id"
+        :title="item.name"
+        :items="item.items"
+      />
       <ItemGroup title="External Infrastructure"/>
       <ItemGroup title="Utilities"/>
     </div>
