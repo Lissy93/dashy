@@ -11,6 +11,7 @@
                 :key="item.id"
                 :id="item.id"
                 :title="item.title"
+                :description="item.description"
                 :icon="item.icon"
               />
             </div>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start":"node server",
+    "start": "node server",
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -11,6 +11,7 @@
   "dependencies": {
     "connect": "^3.7.0",
     "core-js": "^2.6.5",
+    "element-ui": "^2.11.0",
     "register-service-worker": "^1.6.2",
     "serve-static": "^1.14.1",
     "vue": "^2.6.10",

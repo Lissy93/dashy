@@ -1,5 +1,6 @@
 <template>
-    <div class="item">
+    <el-tooltip placement="bottom" effect="dark" :content="description" :disabled="!description">
+        <div class="item">
         <div class="tile-title" :id="`tile-${id}`">
             <span class="text">{{ title }}</span>
             <div class="overflow-dots">...</div>
@@ -9,10 +10,12 @@
             :src="`/img/tile-icons/${icon}.png`"
             class="tile-icon"
         />
-  </div>
+        </div>
+  </el-tooltip>
 </template>
 
 <script>
+
 export default {
   name: 'Item',
   props: {

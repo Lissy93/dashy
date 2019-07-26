@@ -6,6 +6,7 @@
       <ItemGroup
         v-for="item in items"
         :key="item.id"
+        :id="item.id"
         :title="item.name"
         :items="item.items"
       />
