@@ -12,6 +12,8 @@
       />
       <ItemGroup title="External Infrastructure"/>
       <ItemGroup title="Utilities"/>
+
+      <Collapsable />>
     </div>
   </div>
 </template>
@@ -19,12 +21,14 @@
 <script>
 
 import ItemGroup from '@/components/ItemGroup.vue'
+import Collapsable from '@/components/Collapsable.vue';
 import * as linkData from './../data/item-data.json'
 
 export default {
   name: 'home',
   components: {
-    ItemGroup
+    ItemGroup,
+    Collapsable,
   },
   data: () => {
     return {
