@@ -13,7 +13,9 @@
       <ItemGroup title="External Infrastructure"/>
       <ItemGroup title="Utilities"/>
 
-      <Collapsable />>
+      <Collapsable title="Server Management">
+        <p>Lorem Ipsum</p>
+      </Collapsable>
     </div>
   </div>
 </template>
@@ -61,6 +63,8 @@ span.subtitle {
 .item-group-container {
   display: flex;
   margin: 2em 0;
+  align-items:flex-start;
+  align-content:flex-start;
   .item-group-outer {
     margin: 10px;
   }
