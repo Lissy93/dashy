@@ -2,13 +2,14 @@
   <div class="home">
     <h1>{{title}}</h1>
     <span class="subtitle">{{subtitle}}</span>
+    <FilterTile @user-is-searchin="searching" />
     <div class="item-group-container">
       <ItemGroup
         v-for="item in items"
         :key="item.id"
         :groupId="item.id"
         :title="item.name"
-        :items="item.items"
+        :items="filterTiles(item.items)"
       />
     </div>
   </div>
@@ -16,17 +17,30 @@
 
 <script>
 
+import FilterTile from '@/components/FilterTile.vue'
 import ItemGroup from '@/components/ItemGroup.vue'
 import * as linkData from './../data/item-data.json'
 
 export default {
   name: 'home',
   components: {
+    FilterTile,
     ItemGroup
   },
   data: () => {
     return {
-      items: linkData.default
+      items: linkData.default,
+      searchTile: ''
+    }
+  },
+  methods: {
+    searching (searchTile) {
+      this.searchTile = searchTile
+    },
+    filterTiles (allTiles) {
+      return allTiles.filter(tile => {
+        return tile.title.toLowerCase().includes(this.searchTile.toLowerCase())
+      })
     }
   },
   props: {
