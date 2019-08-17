@@ -1,7 +1,7 @@
 <template>
   <div class="collapsable">
-        <input id="collapsible" class="toggle" type="checkbox" checked>
-        <label for="collapsible" class="lbl-toggle" tabindex="0">
+        <input :id="`collapsible-${uniqueKey}`" class="toggle" type="checkbox" checked>
+        <label :for="`collapsible-${uniqueKey}`" class="lbl-toggle" tabindex="0">
             <h2>{{ title }}</h2>
         </label>
         <div class="collapsible-content">
@@ -16,6 +16,7 @@
 export default {
   name: 'CollapsableContainer',
   props: {
+    uniqueKey: String,
     title: String
   }
 }
@@ -25,7 +26,7 @@ export default {
 <style scoped lang="scss">
 
 .collapsable {
-    min-width: 350px;
+    width: 310px;
     padding: 5px;
     margin: 10px;
     border-radius: 10px;
@@ -33,7 +34,7 @@ export default {
     background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     box-shadow: 1px 1px 2px #130f23;
-    
+
     .wrap-collabsible {
         margin-bottom: 1.2rem 0;
     }
@@ -101,7 +102,7 @@ export default {
     }
 
     .collapsible-content .content-inner {
-        padding: 0.5rem 1rem;
+        padding: 0.5rem;
     }
 }
 </style>

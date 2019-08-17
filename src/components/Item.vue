@@ -58,6 +58,7 @@ export default {
 .item {
     width: 120px;
     height: 100px;
+    color: #1CA8DD;
     display: inline-block;
     vertical-align: middle;
     margin: 8px;

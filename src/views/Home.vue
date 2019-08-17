@@ -6,16 +6,10 @@
       <ItemGroup
         v-for="item in items"
         :key="item.id"
-        :id="item.id"
+        :groupId="item.id"
         :title="item.name"
         :items="item.items"
       />
-      <ItemGroup title="External Infrastructure"/>
-      <ItemGroup title="Utilities"/>
-
-      <Collapsable title="Server Management">
-        <p>Lorem Ipsum</p>
-      </Collapsable>
     </div>
   </div>
 </template>
@@ -23,14 +17,12 @@
 <script>
 
 import ItemGroup from '@/components/ItemGroup.vue'
-import Collapsable from '@/components/Collapsable.vue';
 import * as linkData from './../data/item-data.json'
 
 export default {
   name: 'home',
   components: {
-    ItemGroup,
-    Collapsable,
+    ItemGroup
   },
   data: () => {
     return {
