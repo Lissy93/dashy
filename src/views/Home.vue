@@ -67,7 +67,7 @@ export default {
 
 section.top-section {
     margin: 0;
-    padding: 0.5em;
+    padding: 0.5rem;
     display: flex;
     justify-content: space-between;
     background: #282a32;
@@ -86,7 +86,7 @@ section.top-section {
     background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 3em;
+    font-size: 3rem;
     margin: 0;
   }
   span.subtitle {
@@ -96,13 +96,13 @@ section.top-section {
   }
   @media screen and (max-width: 600px) {
     text-align: center;
-    padding: 0.25em 0;
+    padding: 0.25rem 0;
   }
 }
 
 .item-group-container {
   display: flex;
-  margin: 2em;
+  margin: 2rem;
   align-items:flex-start;
   align-content:flex-start;
   .item-group-outer {

@@ -18,8 +18,8 @@ nav {
     align-items: center;
     .nav-item {
         display: inline-block;
-        padding: 0.75em 0.5em;
-        margin: 0.5em;
+        padding: 0.75rem 0.5rem;
+        margin: 0.5rem;
         outline: none;
         border: none;
         border-radius: 5px;

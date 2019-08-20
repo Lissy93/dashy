@@ -38,7 +38,7 @@ export default {
   }
   form {
     border-radius: 0 0 20px 0;
-    padding: 0 0.2em 0.2em 0;
+    padding: 0 0.2rem 0.2rem 0;
     background: #282a32;
     label {
         display: inline;
@@ -46,14 +46,14 @@ export default {
         background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin: 0.5em;
+        margin: 0.5rem;
         display: inline;
     }
     input {
       display: inline-block;
       width: 200px;
-      padding: 0.5em;
-      margin: 0.5em;
+      padding: 0.5rem;
+      margin: 0.5rem;
       outline: none;
       border: none;
       border-radius: 12px;
@@ -76,7 +76,7 @@ export default {
       flex: 1;
       border-radius: 0;
       text-align: center;
-      padding: 0.25em 0;
+      padding: 0.25rem 0;
     }
     .space-filler {
       display: none;
