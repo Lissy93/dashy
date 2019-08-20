@@ -1,12 +1,6 @@
 <template>
   <div class="home">
-    <section class="top-section">
-      <div class="heading">
-        <h1>{{title}}</h1>
-        <span class="subtitle">{{subtitle}}</span>
-      </div>
-      <Nav class="nav" />
-    </section>
+    <Header />
     <FilterTile @user-is-searchin="searching" class="filter-container" />
 
     <div class="item-group-container">
@@ -23,7 +17,7 @@
 
 <script>
 
-import Nav from '@/components/Nav.vue'
+import Header from '@/components/Header.vue'
 import FilterTile from '@/components/FilterTile.vue'
 import ItemGroup from '@/components/ItemGroup.vue'
 import * as linkData from './../data/item-data.json'
@@ -31,7 +25,7 @@ import * as linkData from './../data/item-data.json'
 export default {
   name: 'home',
   components: {
-    Nav,
+    Header,
     FilterTile,
     ItemGroup
   },
@@ -63,41 +57,6 @@ export default {
 .home {
   background: #2F323A;
   padding-bottom: 1px;
-}
-
-section.top-section {
-    margin: 0;
-    padding: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    background: #282a32;
-    align-items: center;
-    align-content: flex-start;
-    @media screen and (max-width: 600px) {
-      flex-direction: column-reverse;
-    }
-}
-
-.heading {
-  display: flex;
-  flex-direction: column;
-  h1 {
-    background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
-    background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 3rem;
-    margin: 0;
-  }
-  span.subtitle {
-    color: #9F86FF;
-    font-style: italic;
-    text-shadow: 1px 1px 2px #130f23;
-  }
-  @media screen and (max-width: 600px) {
-    text-align: center;
-    padding: 0.25rem 0;
-  }
 }
 
 .item-group-container {
