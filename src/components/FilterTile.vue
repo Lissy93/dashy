@@ -1,11 +1,14 @@
 <template>
   <section>
-    <label for="filter-tiles">Search</label>
-    <input
-      id="filter-tiles"
-      v-model="input"
-      placeholder="Start typing to filter tiles..."
-      v-on:input="userIsTypingSomething" />
+    <form>
+      <label for="filter-tiles">Search</label>
+      <input
+        id="filter-tiles"
+        v-model="input"
+        placeholder="Start typing to filter tiles..."
+        v-on:input="userIsTypingSomething" />
+      </form>
+      <div class="space-filler"></div>
   </section>
 </template>
 
@@ -30,37 +33,53 @@ export default {
   section {
     display: flex;
     align-items: center;
-    margin: 0.25em;
-    border-radius: 5px;
-    border: 1px solid transparent;
-
-    border: 1px solid #30556469;
-    -webkit-box-shadow: 1px 1px 2px #130f23;
-    box-shadow: 1px 1px 2px #130f23;
+    align-items: stretch;
+    background: linear-gradient(0deg, rgba(47,50,58,1) 0%, rgba(40,42,50,1) 100%);
   }
-  label {
-      display: inline;
-      background: -webkit-gradient(linear, right bottom, left top, from(#9F86FF), color-stop(#1CA8DD), to(#007AE1));
-      background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+  form {
+    border-radius: 0 0 20px 0;
+    padding: 0 0.2em 0.2em 0;
+    background: #282a32;
+    label {
+        display: inline;
+        background: -webkit-gradient(linear, right bottom, left top, from(#9F86FF), color-stop(#1CA8DD), to(#007AE1));
+        background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 0.5em;
+        display: inline;
+    }
+    input {
+      display: inline-block;
+      width: 200px;
+      padding: 0.5em;
       margin: 0.5em;
-      display: inline;
+      outline: none;
+      border: none;
+      border-radius: 12px;
+      background: #607d8b33;
+      box-shadow: 1px 1px 2px #232323;
+      color: #1CA8DD;
+      font-family: 'Comfortaa', cursive;
+      &:focus {
+        background: #607d8b4a;
+      }
+    }
   }
-  input {
-    display: inline-block;
-    width: 200px;
-    padding: 0.5em;
-    margin: 0.5em;
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    background: #607d8b33;
-    box-shadow: 1px 1px 2px #232323;
-    color: #1CA8DD;
-    font-family: 'Comfortaa', cursive;
-    &:focus {
-      background: #607d8b4a;
+  .space-filler {
+    flex: 1;
+    border-radius: 20px 0 0;
+    background: #2f323a;
+  }
+  @media screen and (max-width: 600px) {
+    form {
+      flex: 1;
+      border-radius: 0;
+      text-align: center;
+      padding: 0.25em 0;
+    }
+    .space-filler {
+      display: none;
     }
   }
 </style>

@@ -5,9 +5,10 @@
         <h1>{{title}}</h1>
         <span class="subtitle">{{subtitle}}</span>
       </div>
-      <FilterTile @user-is-searchin="searching" class="filter-container" />
       <Nav class="nav" />
     </section>
+    <FilterTile @user-is-searchin="searching" class="filter-container" />
+
     <div class="item-group-container">
       <ItemGroup
         v-for="item in items"
@@ -59,22 +60,21 @@ export default {
 
 <style lang="scss" scoped>
 
+.home {
+  background: #2F323A;
+  padding-bottom: 1px;
+}
+
 section.top-section {
     margin: 0;
     padding: 0.5em;
     display: flex;
     justify-content: space-between;
-    background: #1f222a7a;
+    background: #282a32;
     align-items: center;
     align-content: flex-start;
     @media screen and (max-width: 600px) {
-      flex-direction: column;
-      .nav {
-        order: -1;
-      }
-      .filter-container {
-        order: 1;
-      }
+      flex-direction: column-reverse;
     }
 }
 
@@ -93,6 +93,10 @@ section.top-section {
     color: #9F86FF;
     font-style: italic;
     text-shadow: 1px 1px 2px #130f23;
+  }
+  @media screen and (max-width: 600px) {
+    text-align: center;
+    padding: 0.25em 0;
   }
 }
 

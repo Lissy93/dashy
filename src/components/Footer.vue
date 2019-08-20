@@ -1,10 +1,10 @@
 <template>
-  <div class="footer">
+  <footer>
       Developed by <a :href="authorUrl">{{authorName}}</a>.
       Licensed under <a :href="licenseUrl">{{license}}</a>
       {{ showCopyright? '©': '' }} {{date}}.
       Get the <a :href="repoUrl">Source Code</a>.
-  </div>
+  </footer>
 </template>
 
 <script>
@@ -25,11 +25,17 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
-.footer, .footer a {
-    color: #5e6474;
+footer {
+  padding: 0.5rem;
+  text-align: center;
+  color: #5e6474;
 }
-.footer a:hover {
+
+footer a{
+  color: #5e6474;
+  &:hover {
     color: #9F86FF;
+  }
 }
 
 </style>
