@@ -1,30 +1,100 @@
 [
     {
         "id": "0",
-        "name": "Server Management",
+        "name": "Server Management | External",
         "items": [
             {
                 "id":"001",
-                "title": "Server Monitoring",
+                "title": "DNS Management",
+                "description": "Configure Server Gateways",
+                "provider": "CloudFlare",
+                "icon": "009-cloud",
+                "url": "https://dash.cloudflare.com"
+            },
+            {
+                "id":"002",
+                "title": "Servers",
+                "description": "Manage scaling, power and credentials",
+                "provider": "Digital Ocean",
+                "icon": "021-folder",
+                "url": "https://cloud.digitalocean.com"
+            },
+            {
+                "id":"003",
+                "title": "Domains",
+                "description": "Register and Renew Domain Names",
+                "provider": "GoDaddy",
+                "icon": "014-globe",
+                "url": "https://account.godaddy.com"
+            }
+        ]
+    },
+    {
+        "id": "0",
+        "name": "Server Management | Hosted",
+        "items": [
+            {
+                "id":"001",
+                "title": "Server Dashboard",
                 "description": "Hello",
-                "provider": "",
-                "icon": "008-clock",
+                "provider": "Cockpit",
+                "icon": "049-hosting-2",
                 "url": ""
             },
             {
                 "id":"002",
-                "title": "Analytics",
+                "title": "Web Log Analyser",
                 "description": "",
-                "provider": "",
-                "icon": "001-achievement",
+                "provider": "GoAccess",
+                "icon": "005-networking-2",
                 "url": ""
             },
             {
                 "id":"003",
-                "title": "MongoDB Management",
+                "title": "Web Analytics",
+                "description": "",
+                "provider": "Matomo",
+                "icon": "098-line-chart-3",
+                "url": ""
+            },
+            {
+                "id":"004",
+                "title": "SEO Performance",
+                "description": "",
+                "provider": "Serposcope",
+                "icon": "023-analytics",
+                "url": ""
+            },
+            {
+                "id":"005",
+                "title": "User Management",
                 "description": "",
                 "provider": "",
-                "icon": "004-astrophysics-2",
+                "icon": "033-maintenance",
+                "url": ""
+            },
+            {
+                "id":"006",
+                "title": "Resource Usage",
+                "description": "",
+                "provider": "afaqurk/ Linux Dash",
+                "icon": "063-cpu-5",
+                "url": ""
+            },
+            {
+                "id":"007",
+                "title": "File Browser",
+                "description": "",
+                "provider": "filestash",
+                "icon": "001-folder",
+                "url": ""
+            },
+            {
+                "id":"008",
+                "title": "Status Page",
+                "description": "",
+                "provider": "Cachet",
+                "icon": "048-computer",
                 "url": ""
             }
         ]

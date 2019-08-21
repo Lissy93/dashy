@@ -93,7 +93,7 @@ export default {
     }
 
     .toggle:checked + .lbl-toggle + .collapsible-content {
-        max-height: 350px;
+        max-height: 1000px;
     }
 
     .toggle:checked + .lbl-toggle {
