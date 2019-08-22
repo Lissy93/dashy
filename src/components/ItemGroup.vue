@@ -6,8 +6,8 @@
     <div v-else class="there-are-items">
       <Item
         v-for="item in items"
-        :key="item.id"
-        :id="item.id"
+        :key="`${groupId}-${item.id}`"
+        :id="`${groupId}-${item.id}`"
         :title="item.title"
         :description="item.description"
         :icon="item.icon"
