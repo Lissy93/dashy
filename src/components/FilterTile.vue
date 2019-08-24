@@ -6,7 +6,12 @@
         id="filter-tiles"
         v-model="input"
         placeholder="Start typing to filter tiles..."
-        v-on:input="userIsTypingSomething" />
+        v-on:input="userIsTypingSomething"
+        @keydown.esc="clearFilterInput" />
+        <i v-if="input.length > 0"
+          class="el-icon-circle-close clear-search"
+          title="Clear search"
+          @click="clearFilterInput"></i>
       </form>
       <div class="space-filler"></div>
   </section>
@@ -24,6 +29,11 @@ export default {
   methods: {
     userIsTypingSomething () {
       this.$emit('user-is-searchin', this.input)
+    },
+    clearFilterInput () {
+      console.log('Esc key pressed')
+      this.input = ''
+      this.userIsTypingSomething()
     }
   }
 }
@@ -63,6 +73,18 @@ export default {
       font-family: 'Comfortaa', cursive;
       &:focus {
         background: #607d8b4a;
+      }
+    }
+    .clear-search {
+      position: absolute;
+      margin: 1em 0 0 -2em;
+      color: #1CA8DD;
+      opacity: 0.5;
+      border-radius: 50px;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+        background: #282a32;
       }
     }
   }
