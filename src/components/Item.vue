@@ -1,15 +1,15 @@
 <template>
     <el-tooltip placement="bottom" effect="dark" :content="description" :disabled="!description">
-        <div class="item">
-        <div class="tile-title" :id="`tile-${id}`">
-            <span class="text">{{ title }}</span>
-            <div class="overflow-dots">...</div>
-        </div>
-        <img
-            v-if="icon"
-            :src="`/img/tile-icons/${icon}.png`"
-            class="tile-icon"
-        />
+        <div class="item" tabindex="0">
+            <div class="tile-title" :id="`tile-${id}`">
+                <span class="text">{{ title }}</span>
+                <div class="overflow-dots">...</div>
+            </div>
+            <img
+                v-if="icon"
+                :src="`/img/tile-icons/${icon}.png`"
+                class="tile-icon"
+            />
         </div>
   </el-tooltip>
 </template>
@@ -64,13 +64,18 @@ export default {
     margin: 8px;
     background: #607d8b33;
     text-align: center;
-    padding: 5px;
+    padding: 2px;
+    border: 2px solid transparent;
     border-radius: 10px;
     box-shadow: 1px 1px 2px #373737;
     cursor: pointer;
     &:hover {
         box-shadow: 1px 2px 4px #373737;
         background: #607d8b4d;
+    }
+    &:focus {
+        border: 2px solid #1CA8DD;
+        outline: none;
     }
 }
 .tile-title {

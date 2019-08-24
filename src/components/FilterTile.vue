@@ -5,6 +5,7 @@
       <input
         id="filter-tiles"
         v-model="input"
+        ref="filter"
         placeholder="Start typing to filter tiles..."
         v-on:input="userIsTypingSomething"
         @keydown.esc="clearFilterInput" />
@@ -31,11 +32,21 @@ export default {
       this.$emit('user-is-searchin', this.input)
     },
     clearFilterInput () {
-      console.log('Esc key pressed')
       this.input = ''
       this.userIsTypingSomething()
+      document.activeElement.blur()
+    },
+  },
+  mounted: function() {
+      window.addEventListener('keyup', (event) => {
+        const key = event.key
+        if(/^[a-zA-Z]$/.test(key) && !document.activeElement.id) {
+          this.input += key
+          this.$refs.filter.focus()
+          this.userIsTypingSomething()
+        }
+      });
     }
-  }
 }
 </script>
 
