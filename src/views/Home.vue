@@ -41,7 +41,10 @@ export default {
     },
     filterTiles (allTiles) {
       return allTiles.filter(tile => {
-        return tile.title.toLowerCase().includes(this.searchTile.toLowerCase())
+        const searchTerm = this.searchTile.toLowerCase()
+        return tile.title.toLowerCase().includes(searchTerm) ||
+          tile.description.toLowerCase().includes(searchTerm) ||
+          tile.url.toLowerCase().includes(searchTerm)
       })
     }
   },
