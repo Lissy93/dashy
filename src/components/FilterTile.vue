@@ -41,9 +41,13 @@ export default {
     window.addEventListener('keyup', (event) => {
       const { key } = event;
       if (/^[a-zA-Z]$/.test(key) && !document.activeElement.id) {
-        this.input += key;
-        this.$refs.filter.focus();
-        this.userIsTypingSomething();
+        try {
+          this.input += key;
+          this.$refs.filter.focus();
+          this.userIsTypingSomething();
+        } catch (e) {
+          // Do nothing
+        }
       }
     });
   },

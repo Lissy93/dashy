@@ -2,6 +2,7 @@
     {
         "id": "0",
         "name": "Server Management | External",
+        "collapsed": false,
         "items": [
             {
                 "id":"001",
@@ -32,6 +33,7 @@
     {
         "id": "1",
         "name": "Server Management | Hosted",
+        "collapsed": false,
         "items": [
             {
                 "id":"001",
@@ -96,6 +98,29 @@
                 "provider": "Cachet",
                 "icon": "048-computer",
                 "url": ""
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "name": "Dev Tools",
+        "collapsed": true,
+        "items": [
+            {
+                "id":"001",
+                "title": "DNS Management",
+                "description": "Configure Server Gateways",
+                "provider": "CloudFlare",
+                "icon": "009-cloud",
+                "url": "https://dash.cloudflare.com"
+            },
+            {
+                "id":"002",
+                "title": "Servers",
+                "description": "Manage scaling, power and credentials",
+                "provider": "Digital Ocean",
+                "icon": "021-folder",
+                "url": "https://cloud.digitalocean.com"
             }
         ]
     }

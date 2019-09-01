@@ -9,6 +9,7 @@
         :key="item.id"
         :groupId="item.id"
         :title="item.name"
+        :collapsed="item.collapsed"
         :items="filterTiles(item.items)"
       />
     </div>

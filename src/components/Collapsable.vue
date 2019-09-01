@@ -1,6 +1,10 @@
 <template>
   <div class="collapsable">
-        <input :id="`collapsible-${uniqueKey}`" class="toggle" type="checkbox" checked>
+        <input
+            :id="`collapsible-${uniqueKey}`"
+            class="toggle"
+            type="checkbox"
+            :checked="!collapsed">
         <label :for="`collapsible-${uniqueKey}`" class="lbl-toggle" tabindex="0">
             <h2>{{ title }}</h2>
         </label>
@@ -18,6 +22,7 @@ export default {
   props: {
     uniqueKey: String,
     title: String,
+    collapsed: Boolean,
   },
 };
 </script>
