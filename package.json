@@ -25,6 +25,7 @@
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-vue": "^5.0.0",
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
@@ -37,9 +38,12 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "@vue/standard"
+      "@vue/standard",
+      "airbnb-base"
     ],
-    "rules": {},
+    "rules": {
+      "import/no-unresolved": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

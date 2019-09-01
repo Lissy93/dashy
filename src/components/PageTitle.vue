@@ -7,8 +7,8 @@
 
 <script>
 export default {
-  name: 'PageTitle'
-}
+  name: 'PageTitle',
+};
 </script>
 
 <style scoped lang="scss">

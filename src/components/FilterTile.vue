@@ -22,32 +22,32 @@
 
 export default {
   name: 'FilterTile',
-  data () {
+  data() {
     return {
-      input: ''
-    }
+      input: '',
+    };
   },
   methods: {
-    userIsTypingSomething () {
-      this.$emit('user-is-searchin', this.input)
+    userIsTypingSomething() {
+      this.$emit('user-is-searchin', this.input);
     },
-    clearFilterInput () {
-      this.input = ''
-      this.userIsTypingSomething()
-      document.activeElement.blur()
+    clearFilterInput() {
+      this.input = '';
+      this.userIsTypingSomething();
+      document.activeElement.blur();
     },
   },
-  mounted: function() {
-      window.addEventListener('keyup', (event) => {
-        const key = event.key
-        if(/^[a-zA-Z]$/.test(key) && !document.activeElement.id) {
-          this.input += key
-          this.$refs.filter.focus()
-          this.userIsTypingSomething()
-        }
-      });
-    }
-}
+  mounted() {
+    window.addEventListener('keyup', (event) => {
+      const { key } = event;
+      if (/^[a-zA-Z]$/.test(key) && !document.activeElement.id) {
+        this.input += key;
+        this.$refs.filter.focus();
+        this.userIsTypingSomething();
+      }
+    });
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -63,7 +63,8 @@ export default {
     background: #282a32;
     label {
         display: inline;
-        background: -webkit-gradient(linear, right bottom, left top, from(#9F86FF), color-stop(#1CA8DD), to(#007AE1));
+        background: -webkit-gradient(
+          linear, right bottom, left top, from(#9F86FF), color-stop(#1CA8DD), to(#007AE1));
         background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;

@@ -29,27 +29,25 @@ export default {
     openingMethod: { // Where resource will open, either 'newtab', 'sametab' or 'iframe'
       type: String,
       default: 'newtab',
-      validator: (value) =>
-        ['newtab', 'sametab', 'iframe'].indexOf(value) !== -1
-    }
+      validator: (value) => ['newtab', 'sametab', 'iframe'].indexOf(value) !== -1,
+    },
   },
-  data () {
-    return { getId: this.id }
+  data() {
+    return { getId: this.id };
   },
-  mounted () {
+  mounted() {
     // Detects overflowing text, and allows is to marguee on hover
     // The below code is horifically bad, it is embarassing that I wrote it...
-    const tileElem = document.getElementById(`tile-${this.getId}`)
+    const tileElem = document.getElementById(`tile-${this.getId}`);
     if (tileElem) {
-      const isOverflowing =
-            tileElem.scrollHeight > tileElem.clientHeight ||
-            tileElem.scrollWidth > tileElem.clientWidth
+      const isOverflowing = tileElem.scrollHeight > tileElem.clientHeight
+            || tileElem.scrollWidth > tileElem.clientWidth;
       if (isOverflowing) {
-        tileElem.className += ' is-overflowing'
+        tileElem.className += ' is-overflowing';
       }
     }
-  }
-}
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

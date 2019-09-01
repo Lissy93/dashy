@@ -17,47 +17,45 @@
 
 <script>
 
-import Header from '@/components/Header.vue'
-import FilterTile from '@/components/FilterTile.vue'
-import ItemGroup from '@/components/ItemGroup.vue'
-import * as linkData from './../data/item-data.json'
+import Header from '@/components/Header.vue';
+import FilterTile from '@/components/FilterTile.vue';
+import ItemGroup from '@/components/ItemGroup.vue';
+import * as linkData from '../data/item-data.json';
 
 export default {
   name: 'home',
   props: {
     title: { default: 'Panel', type: String },
-    subtitle: { default: 'All your server management tools in one place', type: String }
+    subtitle: { default: 'All your server management tools in one place', type: String },
   },
   components: {
     Header,
     FilterTile,
-    ItemGroup
+    ItemGroup,
   },
-  data: () => {
-    return {
-      items: linkData.default,
-      searchTile: ''
-    }
-  },
+  data: () => ({
+    items: linkData.default,
+    searchTile: '',
+  }),
   methods: {
-    searching (searchTile) {
-      this.searchTile = searchTile
+    searching(searchTile) {
+      this.searchTile = searchTile;
     },
-    getDomainFromUrl (url) {
-      var urlPattern = /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d\.-]+)\.(?:[a-z\.]{2,10})(?:[/\w\.-]*)*/;
-      var domainPattern = url.match(urlPattern);
-      return domainPattern? domainPattern[1] : ''
+    getDomainFromUrl(url) {
+      const urlPattern = /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d.-]+)\.(?:[a-z.]{2,10})(?:[/\w.-]*)*/;
+      const domainPattern = url.match(urlPattern);
+      return domainPattern ? domainPattern[1] : '';
     },
-    filterTiles (allTiles) {
-      return allTiles.filter(tile => {
-        const searchTerm = this.searchTile.toLowerCase()
-        return tile.title.toLowerCase().includes(searchTerm) ||
-          tile.provider.toLowerCase().includes(searchTerm) ||
-          this.getDomainFromUrl(tile.url).includes(searchTerm)
-      })
-    }
-  }
-}
+    filterTiles(allTiles) {
+      return allTiles.filter((tile) => {
+        const searchTerm = this.searchTile.toLowerCase();
+        return tile.title.toLowerCase().includes(searchTerm)
+          || tile.provider.toLowerCase().includes(searchTerm)
+          || this.getDomainFromUrl(tile.url).includes(searchTerm);
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

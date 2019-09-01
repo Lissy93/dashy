@@ -17,21 +17,21 @@
 </template>
 
 <script>
-import Item from '@/components/Item.vue'
-import Collapsable from '@/components/Collapsable.vue'
+import Item from '@/components/Item.vue';
+import Collapsable from '@/components/Collapsable.vue';
 
 export default {
   name: 'ItemGroup',
   props: {
     groupId: String,
     title: String,
-    items: Array
+    items: Array,
   },
   components: {
     Collapsable,
-    Item
-  }
-}
+    Item,
+  },
+};
 </script>
 
 <style scoped lang="scss">

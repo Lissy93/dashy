@@ -17,9 +17,9 @@ export default {
   name: 'CollapsableContainer',
   props: {
     uniqueKey: String,
-    title: String
-  }
-}
+    title: String,
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

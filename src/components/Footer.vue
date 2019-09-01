@@ -17,9 +17,9 @@ export default {
     licenseUrl: { type: String, default: 'https://gist.github.com/Lissy93/143d2ee01ccc5c052a17' },
     date: { type: String, default: `${new Date().getFullYear()}` },
     showCopyright: { type: Boolean, default: true },
-    repoUrl: { type: String, default: 'https://github.com/lissy93/panel' }
-  }
-}
+    repoUrl: { type: String, default: 'https://github.com/lissy93/panel' },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

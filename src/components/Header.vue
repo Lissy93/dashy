@@ -6,15 +6,16 @@
 </template>
 
 <script>
-import PageTitle from '@/components/PageTitle.vue'
-import Nav from '@/components/Nav.vue'
+import PageTitle from '@/components/PageTitle.vue';
+import Nav from '@/components/Nav.vue';
+
 export default {
   name: 'Header',
   components: {
     PageTitle,
-    Nav
-  }
-}
+    Nav,
+  },
+};
 </script>
 
 <style scoped lang="scss">

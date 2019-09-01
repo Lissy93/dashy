@@ -7,14 +7,14 @@
 </template>
 <script>
 
-import Footer from '@/components/Footer.vue'
+import Footer from '@/components/Footer.vue';
 
 export default {
   name: 'app',
   components: {
-    Footer
-  }
-}
+    Footer,
+  },
+};
 </script>
 
 <style lang="scss">
