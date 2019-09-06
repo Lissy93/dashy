@@ -4,7 +4,8 @@
             :id="`collapsible-${uniqueKey}`"
             class="toggle"
             type="checkbox"
-            :checked="!collapsed">
+            :checked="getCollapseState()"
+            @change="collapseChanged">
         <label :for="`collapsible-${uniqueKey}`" class="lbl-toggle" tabindex="0">
             <h2>{{ title }}</h2>
         </label>
@@ -23,6 +24,43 @@ export default {
     uniqueKey: String,
     title: String,
     collapsed: Boolean,
+  },
+  data() {
+    return {
+      isOpen: !this.collapsed,
+    };
+  },
+  methods: {
+    initialiseStorage() {
+      const initStorage = () => localStorage.setItem('collapseState', JSON.stringify({}));
+      if (!localStorage.collapseState) initStorage(); // If not yet set, then init localstorage
+      try { // Check storage is valid JSON, and has not been corrupted
+        JSON.parse(localStorage.collapseState);
+      } catch {
+        initStorage();
+      }
+      return JSON.parse(localStorage.collapseState);
+    },
+    getCollapseState() {
+      const collapseStateObject = this.initialiseStorage();
+      let collapseState = !this.collapsed;
+      if (collapseStateObject[this.uniqueKey] !== undefined) {
+        collapseState = collapseStateObject[this.uniqueKey];
+      }
+      return collapseState;
+    },
+    setCollapseState(id, newState) {
+      // Get the current localstorage collapse state object
+      const collapseState = JSON.parse(localStorage.collapseState);
+      // Add the new state to it
+      collapseState[id] = newState;
+      // Stringify, and set the new object into local storage
+      localStorage.setItem('collapseState', JSON.stringify(collapseState));
+    },
+    collapseChanged(whatChanged) {
+      this.initialiseStorage();
+      this.setCollapseState(this.uniqueKey.toString(), whatChanged.srcElement.checked);
+    },
   },
 };
 </script>
