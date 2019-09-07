@@ -1,5 +1,5 @@
 <template>
-  <div class="collapsable">
+  <div :class="`collapsable col-${cols}`">
         <input
             :id="`collapsible-${uniqueKey}`"
             class="toggle"
@@ -10,7 +10,7 @@
             <h2>{{ title }}</h2>
         </label>
         <div class="collapsible-content">
-            <div class="content-inner">
+          <div class="content-inner">
             <slot></slot>
             </div>
         </div>
@@ -24,6 +24,7 @@ export default {
     uniqueKey: String,
     title: String,
     collapsed: Boolean,
+    cols: Number,
   },
   data() {
     return {
@@ -77,6 +78,12 @@ export default {
     background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     box-shadow: 1px 1px 2px #130f23;
+
+    &.col-1 { width: 155px; }
+    &.col-2 { width: 310px; }
+    &.col-3 { width: 465px; }
+    &.col-4 { width: 620px; }
+    &.col-5 { width: 775px; }
 
     .wrap-collabsible {
         margin-bottom: 1.2rem 0;

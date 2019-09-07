@@ -1,5 +1,5 @@
 <template>
-   <Collapsable :title="title" :uniqueKey="groupId" :collapsed="collapsed">
+   <Collapsable :title="title" :uniqueKey="groupId" :collapsed="collapsed" :cols="cols">
     <div v-if="!items || items.length < 1" class="no-items">
       No Items to Show Yet
     </div>
@@ -26,6 +26,7 @@ export default {
     groupId: String,
     title: String,
     collapsed: Boolean,
+    cols: Number,
     items: Array,
   },
   components: {

@@ -3,6 +3,7 @@
         "id": "0",
         "name": "Server Management | External",
         "collapsed": false,
+        "cols": 3,
         "items": [
             {
                 "id":"001",
@@ -34,6 +35,7 @@
         "id": "1",
         "name": "Server Management | Hosted",
         "collapsed": false,
+        "cols": 2,
         "items": [
             {
                 "id":"001",
@@ -105,22 +107,184 @@
         "id": "2",
         "name": "Dev Tools",
         "collapsed": true,
+        "cols": 3,
         "items": [
             {
                 "id":"001",
-                "title": "DNS Management",
-                "description": "Configure Server Gateways",
-                "provider": "CloudFlare",
-                "icon": "009-cloud",
-                "url": "https://dash.cloudflare.com"
+                "title": "Feature Flags",
+                "description": "Turning production app features on/ off",
+                "provider": "Bullet Train",
+                "icon": "011-flag",
+                "url": "https://bullet-train.io/projects"
             },
             {
                 "id":"002",
-                "title": "Servers",
-                "description": "Manage scaling, power and credentials",
-                "provider": "Digital Ocean",
-                "icon": "021-folder",
-                "url": "https://cloud.digitalocean.com"
+                "title": "Security Scanning",
+                "description": "Automated code security",
+                "provider": "Cloud Sploit",
+                "icon": "088-key",
+                "url": "https://console.cloudsploit.com"
+            },
+            {
+                "id":"003",
+                "title": "Error Tracking",
+                "description": "Monitor errors and warnings in production apps",
+                "provider": "Rollbar",
+                "icon": "007-bug-3",
+                "url": "https://rollbar.com/lissy93"
+            },
+            {
+                "id":"004",
+                "title": "Licensing",
+                "description": "",
+                "provider": "Crypto Lens",
+                "icon": "087-price-tag-1",
+                "url": "https://cryptolens.io/"
+            },
+            {
+                "id":"005",
+                "title": "Status Page",
+                "description": "",
+                "provider": "Cachet",
+                "icon": "048-computer",
+                "url": ""
+            },
+            {
+                "id":"006",
+                "title": "CI Pipelines",
+                "description": "",
+                "provider": "CircleCI",
+                "icon": "142-file-5",
+                "url": "https://circleci.com/dashboard"
+            }
+        ]
+    },
+    {
+        "id": "005",
+        "name": "Utilities",
+        "collapsed": true,
+        "cols": 1,
+        "items": [
+            {
+                "id":"001",
+                "title": "URL Shortener",
+                "provider": "AS93 Short URLs",
+                "icon": "014-globe",
+                "url": "#"
+            },
+            {
+                "id":"002",
+                "title": "Paste Bin",
+                "provider": "AS93 Paste Bin",
+                "icon": "045-post",
+                "url": "#"
+            },
+            {
+                "id":"003",
+                "title": "File Drop",
+                "provider": "AS93 File Drop",
+                "icon": "012-delivery",
+                "url": "#"
+            },
+            {
+                "id":"004",
+                "title": "Notes",
+                "provider": "AS93 TXT Notes",
+                "icon": "043-pencil",
+                "url": "#"
+            }
+        ]
+    },
+    {
+        "id": "006",
+        "name": "Productivity",
+        "collapsed": true,
+        "cols": 2,
+        "items": [
+            {
+                "id":"001",
+                "title": "Files",
+                "provider": "NextCloud",
+                "icon": "",
+                "url": "#"
+            },
+            {
+                "id":"002",
+                "title": "Notes",
+                "provider": "Standard Notes",
+                "icon": "",
+                "url": "#"
+            },
+            {
+                "id":"003",
+                "title": "Calendar",
+                "provider": "AS93 File Drop",
+                "icon": "",
+                "url": "#"
+            },
+            {
+                "id":"004",
+                "title": "Email",
+                "provider": "AS93 TXT Notes",
+                "icon": "",
+                "url": "#"
+            },
+            {
+                "id":"005",
+                "title": "Home",
+                "provider": "DuckDuckGo",
+                "icon": "",
+                "url": "#"
+            },
+            {
+                "id":"006",
+                "title": "Kanban",
+                "provider": "Trello",
+                "icon": "",
+                "url": "#"
+            },
+            {
+                "id":"007",
+                "title": "Message Drop",
+                "provider": "Hawk Post",
+                "icon": "",
+                "url": "#"
+            }
+        ]
+    },
+    {
+        "id": "007",
+        "name": "Business",
+        "collapsed": true,
+        "cols": 1,
+        "items": [
+            {
+                "id":"001",
+                "title": "Invoices",
+                "provider": "Wave",
+                "icon": "",
+                "url": "https://accounting.waveapps.com/dashboard/business/8060245"
+            },
+            {
+                "id":"002",
+                "title": "Receipts",
+                "provider": "1Tap",
+                "icon": "",
+                "url": "https://my.1tap.io"
+            },
+            {
+                "id":"003",
+                "title": "Email",
+                "provider": "Tutonata",
+                "icon": "",
+                "url": "https://mail.tutanota.com/mail"
+            },
+            {
+                "id":"004",
+                "title": "Accountancy",
+                "provider": "SJD",
+                "icon": "",
+                "url": "https://online.sjdaccountancy.com/dashboard"
             }
         ]
     }

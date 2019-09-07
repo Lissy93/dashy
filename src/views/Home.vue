@@ -10,6 +10,7 @@
         :groupId="item.id"
         :title="item.name"
         :collapsed="item.collapsed"
+        :cols="item.cols"
         :items="filterTiles(item.items)"
       />
     </div>
@@ -68,6 +69,7 @@ export default {
 
 .item-group-container {
   display: flex;
+  flex-wrap: wrap;
   margin: 2rem;
   align-items:flex-start;
   align-content:flex-start;

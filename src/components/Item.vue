@@ -1,6 +1,6 @@
 <template>
     <el-tooltip placement="bottom" effect="dark" :content="description" :disabled="!description">
-        <div class="item" tabindex="0">
+        <div :class="`item ${!icon? 'short': ''}`" tabindex="0">
             <div class="tile-title" :id="`tile-${id}`">
                 <span class="text">{{ title }}</span>
                 <div class="overflow-dots">...</div>
@@ -74,6 +74,10 @@ export default {
     &:focus {
         border: 2px solid #1CA8DD;
         outline: none;
+    }
+    &.short {
+        border-radius: 30px;
+        height: 18px;
     }
 }
 .tile-title {
