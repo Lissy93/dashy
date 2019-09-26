@@ -4,8 +4,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue';
 import router from './router';
 import './registerServiceWorker';
+import VueMasonry from './lib/vue-masonry-css'; // Thank you @PaulCollett 🙌 https://git.io/JeeYC
 
 Vue.use(Element);
+Vue.use(VueMasonry);
 Vue.config.productionTip = false;
 
 new Vue({

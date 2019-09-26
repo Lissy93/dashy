@@ -11,6 +11,7 @@
         :title="item.title"
         :description="item.description"
         :icon="item.icon"
+        :svg="item.svg"
       />
     </div>
   </Collapsable>

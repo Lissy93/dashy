@@ -287,5 +287,43 @@
                 "url": "https://online.sjdaccountancy.com/dashboard"
             }
         ]
+    },
+    {
+        "id": "008",
+        "name": "Social Profiles",
+        "collapsed": true,
+        "cols": 1,
+        "items": [
+            {
+                "id":"001",
+                "title": "Twitter",
+                "svg": "004-twitter",
+                "url": "https://twitter.com/Lissy_Sykes"
+            },
+            {
+                "id":"002",
+                "title": "Instagram",
+                "svg": "014-instagram",
+                "url": "https://www.instagram.com/lissy_sykes93/"
+            },
+            {
+                "id":"003",
+                "title": "Facebook",
+                "svg": "013-facebook",
+                "url": "https://fb.com/liss.sykes"
+            },
+            {
+                "id":"004",
+                "title": "LinkedIn",
+                "svg": "015-linkedin",
+                "url": "https://www.linkedin.com/in/aliciasykes/"
+            },
+            {
+                "id":"005",
+                "title": "VK",
+                "icon": "",
+                "url": "https://vk.com/id554636914"
+            }
+        ]
     }
 ]

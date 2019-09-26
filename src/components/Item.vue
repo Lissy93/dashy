@@ -1,6 +1,6 @@
 <template>
     <el-tooltip placement="bottom" effect="dark" :content="description" :disabled="!description">
-        <div :class="`item ${!icon? 'short': ''}`" tabindex="0">
+        <div :class="`item ${!icon && !svg? 'short': ''}`" tabindex="0">
             <div class="tile-title" :id="`tile-${id}`">
                 <span class="text">{{ title }}</span>
                 <div class="overflow-dots">...</div>
@@ -9,6 +9,11 @@
                 v-if="icon"
                 :src="`/img/tile-icons/${icon}.png`"
                 class="tile-icon"
+            />
+            <img
+                v-else-if="svg"
+                :src="`/img/tile-svgs/${svg}.svg`"
+                class="tile-svg"
             />
         </div>
   </el-tooltip>
@@ -24,6 +29,7 @@ export default {
     subtitle: String, // Optional sub-text
     description: String, // Optional tooltip hover text
     icon: String, // Optional path to icon, within public/img/tile-icons
+    svg: String, // Optional vector graphic, that is then dynamically filled
     color: String, // Optional background color, specified in hex code
     url: String, // URL to the resource, optional but recommended
     openingMethod: { // Where resource will open, either 'newtab', 'sametab' or 'iframe'
@@ -135,4 +141,14 @@ export default {
     width: 60px;
 }
 
+.tile-svg {
+    width: 56px;
+     filter:
+        invert(69%)
+        sepia(40%)
+        saturate(4686%)
+        hue-rotate(142deg)
+        brightness(96%)
+        contrast(102%);
+}
 </style>

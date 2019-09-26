@@ -4,15 +4,21 @@
     <FilterTile @user-is-searchin="searching" class="filter-container" />
 
     <div class="item-group-container">
-      <ItemGroup
-        v-for="item in items"
-        :key="item.id"
-        :groupId="item.id"
-        :title="item.name"
-        :collapsed="item.collapsed"
-        :cols="item.cols"
-        :items="filterTiles(item.items)"
-      />
+
+      <masonry
+        :cols="{600: 1, 780: 2, 1150: 2, 1780: 3, 9999: 4}"
+        :gutter="30"
+        >
+        <ItemGroup
+          v-for="item in items"
+          :key="item.id"
+          :groupId="item.id"
+          :title="item.name"
+          :collapsed="item.collapsed"
+          :cols="item.cols"
+          :items="filterTiles(item.items)"
+        />
+      </masonry>
     </div>
   </div>
 </template>
