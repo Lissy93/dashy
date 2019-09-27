@@ -5,8 +5,10 @@
             class="toggle"
             type="checkbox"
             :checked="getCollapseState()"
-            @change="collapseChanged">
-        <label :for="`collapsible-${uniqueKey}`" class="lbl-toggle" tabindex="0">
+            @change="collapseChanged"
+            tabIndex="-1"
+        >
+        <label :for="`collapsible-${uniqueKey}`" class="lbl-toggle" tabindex="-1">
             <h2>{{ title }}</h2>
         </label>
         <div class="collapsible-content">
