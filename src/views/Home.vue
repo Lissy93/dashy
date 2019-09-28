@@ -56,10 +56,14 @@ export default {
     },
     filterTiles(allTiles) {
       return allTiles.filter((tile) => {
+        const {
+          title, description, provider, url,
+        } = tile;
         const searchTerm = this.searchTile.toLowerCase();
-        return tile.title.toLowerCase().includes(searchTerm)
-          || tile.provider.toLowerCase().includes(searchTerm)
-          || this.getDomainFromUrl(tile.url).includes(searchTerm);
+        return (title && title.toLowerCase().includes(searchTerm))
+          || (provider && provider.toLowerCase().includes(searchTerm))
+          || (description && description.toLowerCase().includes(searchTerm))
+          || this.getDomainFromUrl(url).includes(searchTerm);
       });
     },
   },
