@@ -1,3 +1,4 @@
+/* eslint-disable */
 // the component name `<masonry />`
 // can be overridden with `Vue.use(Masonry, { name: 'the-masonry' });`
 const componentName = 'masonry';
@@ -5,32 +6,32 @@ const componentName = 'masonry';
 const props = {
   tag: {
     type: [String],
-    default: 'div'
+    default: 'div',
   },
   cols: {
     type: [Object, Number, String],
-    default: 2
+    default: 2,
   },
   gutter: {
     type: [Object, Number, String],
-    default: 0
+    default: 0,
   },
   css: {
     type: [Boolean],
-    default: true
+    default: true,
   },
   columnTag: {
     type: [String],
-    default: 'div'
+    default: 'div',
   },
   columnClass: {
     type: [String, Array, Object],
-    default: () => []
+    default: () => [],
   },
   columnAttr: {
     type: [Object],
-    default: () => ({})
-  }
+    default: () => ({}),
+  },
 };
 
 // Get the resulting value from  `:col=` prop
@@ -38,34 +39,34 @@ const props = {
 const breakpointValue = (mixed, windowWidth) => {
   const valueAsNum = parseInt(mixed);
 
-  if(valueAsNum > -1) {
+  if (valueAsNum > -1) {
     return mixed;
-  }else if(typeof mixed !== 'object') {
+  } if (typeof mixed !== 'object') {
     return 0;
   }
 
   let matchedBreakpoint = Infinity;
   let matchedValue = mixed.default || 0;
 
-  for(let k in mixed) {
+  for (const k in mixed) {
     const breakpoint = parseInt(k);
     const breakpointValRaw = mixed[breakpoint];
     const breakpointVal = parseInt(breakpointValRaw);
 
-    if(isNaN(breakpoint) || isNaN(breakpointVal)) {
+    if (isNaN(breakpoint) || isNaN(breakpointVal)) {
       continue;
     }
 
     const isNewBreakpoint = windowWidth <= breakpoint && breakpoint < matchedBreakpoint;
 
-    if(isNewBreakpoint) {
+    if (isNewBreakpoint) {
       matchedBreakpoint = breakpoint;
       matchedValue = breakpointValRaw;
     }
   }
 
   return matchedValue;
-}
+};
 
 const component = {
   props,
@@ -73,8 +74,8 @@ const component = {
   data() {
     return {
       displayColumns: 2,
-      displayGutter: 0
-    }
+      displayGutter: 0,
+    };
   },
 
   mounted() {
@@ -83,7 +84,7 @@ const component = {
     });
 
     // Bind resize handler to page
-    if(window) {
+    if (window) {
       window.addEventListener('resize', this.reCalculate);
     }
   },
@@ -95,7 +96,7 @@ const component = {
   },
 
   beforeDestroy() {
-    if(window) {
+    if (window) {
       window.removeEventListener('resize', this.reCalculate);
     }
   },
@@ -111,7 +112,7 @@ const component = {
       // Window resize events get triggered on page height
       // change which when loading the page can result in multiple
       // needless calculations. We prevent this here.
-      if(previousWindowWidth === this.windowWidth) {
+      if (previousWindowWidth === this.windowWidth) {
         return;
       }
 
@@ -139,7 +140,7 @@ const component = {
 
       // This component does not work with a child <transition-group /> ..yet,
       // so for now we think it may be helpful to ignore until we can find a way for support
-      if(childItems.length === 1 && childItems[0].componentOptions && childItems[0].componentOptions.tag == 'transition-group') {
+      if (childItems.length === 1 && childItems[0].componentOptions && childItems[0].componentOptions.tag == 'transition-group') {
         childItems = childItems[0].componentOptions.children;
       }
 
@@ -147,7 +148,7 @@ const component = {
       for (let i = 0, visibleItemI = 0; i < childItems.length; i++, visibleItemI++) {
         // skip Vue elements without tags, which includes
         // whitespace elements and also plain text
-        if(!childItems[i].tag) {
+        if (!childItems[i].tag) {
           visibleItemI--;
 
           continue;
@@ -156,7 +157,7 @@ const component = {
         // Get the column index the child item will end up in
         const columnIndex = visibleItemI % this.displayColumns;
 
-        if(!columns[columnIndex]) {
+        if (!columns[columnIndex]) {
           columns[columnIndex] = [];
         }
 
@@ -164,59 +165,59 @@ const component = {
       }
 
       return columns;
-    }
+    },
   },
 
   render(createElement) {
     const columnsContainingChildren = this._getChildItemsInColumnsArray();
     const isGutterSizeUnitless = parseInt(this.displayGutter) === this.displayGutter * 1;
-    const gutterSizeWithUnit =  isGutterSizeUnitless ? `${this.displayGutter}px` : this.displayGutter;
+    const gutterSizeWithUnit = isGutterSizeUnitless ? `${this.displayGutter}px` : this.displayGutter;
 
     const columnStyle = {
       boxSizing: 'border-box',
       backgroundClip: 'padding-box',
       width: `${100 / this.displayColumns}%`,
       border: '0 solid transparent',
-      borderLeftWidth: gutterSizeWithUnit
+      borderLeftWidth: gutterSizeWithUnit,
     };
 
-    const columns = columnsContainingChildren.map((children, index) => {
-      /// Create column element and inject the children
-      return createElement(this.columnTag, {
-        key: index + '-' + columnsContainingChildren.length,
+    const columns = columnsContainingChildren.map((children, index) =>
+      // / Create column element and inject the children
+      createElement(this.columnTag, {
+        key: `${index}-${columnsContainingChildren.length}`,
         style: this.css ? columnStyle : null,
         class: this.columnClass,
-        attrs: this.columnAttr
-      }, children); // specify child items here
-    });
+        attrs: this.columnAttr,
+      }, children), // specify child items here
+    );
 
     const containerStyle = {
       display: ['-webkit-box', '-ms-flexbox', 'flex'],
-      marginLeft: `-${gutterSizeWithUnit}`
+      marginLeft: `-${gutterSizeWithUnit}`,
     };
 
     // Return wrapper with columns
     return createElement(
       this.tag, // tag name
       this.css ? { style: containerStyle } : null, // element options
-      columns // column vue elements
+      columns, // column vue elements
     );
-  }
+  },
 };
 
-const Plugin = function () {}
+const Plugin = function () {};
 
 Plugin.install = function (Vue, options) {
   if (Plugin.installed) {
     return;
   }
 
-  if(options && options.name) {
+  if (options && options.name) {
     Vue.component(options.name, component);
   } else {
     Vue.component(componentName, component);
   }
-}
+};
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(Plugin);
