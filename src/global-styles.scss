@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 
 html {
@@ -10,13 +10,13 @@ body {
     margin: 0;
     padding: 0;
     background: #282a32;
-    font-family: 'Comfortaa', cursive;
+    font-family: 'Montserrat', sans-serif;
 }
 
 h1, h2, h3, h4, h5 {
-    font-family: 'Righteous', cursive;
+    font-family: 'Montserrat', sans-serif;
 }
 
-p, a, span, div {
-    font-family: 'Comfortaa', cursive;
+p, a, span, div, input {
+    font-family: 'Montserrat', sans-serif;
 }

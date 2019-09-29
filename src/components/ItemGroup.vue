@@ -8,6 +8,7 @@
         v-for="item in items"
         :key="`${groupId}-${item.id}`"
         :id="`${groupId}-${item.id}`"
+        :url="item.url"
         :title="item.title"
         :description="item.description"
         :icon="item.icon"

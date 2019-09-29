@@ -1,6 +1,7 @@
 <template>
     <el-tooltip placement="bottom" effect="dark" :content="description" :disabled="!description">
-        <div :class="`item ${!icon && !svg? 'short': ''}`" tabindex="0">
+        <a :href="url"  :class="`item ${!icon && !svg? 'short': ''}`"
+            tabindex="0" target="_blank" rel="noopener noreferrer">
             <div class="tile-title" :id="`tile-${id}`">
                 <span class="text">{{ title }}</span>
                 <div class="overflow-dots">...</div>
@@ -15,8 +16,8 @@
                 :src="`/img/tile-svgs/${svg}.svg`"
                 class="tile-svg"
             />
-        </div>
-  </el-tooltip>
+        </a>
+    </el-tooltip>
 </template>
 
 <script>
@@ -139,6 +140,21 @@ export default {
 
 .tile-icon {
     width: 60px;
+}
+
+.item:hover {
+    .tile-svg {
+        filter:
+            invert(70%)
+            sepia(52%)
+            saturate(5390%)
+            hue-rotate(198deg)
+            brightness(101%)
+            contrast(88%);
+    }
+    .tile-icon {
+        filter: hue-rotate(45deg);
+    }
 }
 
 .tile-svg {

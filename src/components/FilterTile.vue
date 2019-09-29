@@ -86,7 +86,6 @@ export default {
       background: #607d8b33;
       box-shadow: 1px 1px 2px #232323;
       color: #1CA8DD;
-      font-family: 'Comfortaa', cursive;
       &:focus {
         background: #607d8b4a;
       }

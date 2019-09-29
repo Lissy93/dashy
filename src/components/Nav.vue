@@ -27,7 +27,6 @@ nav {
         -webkit-box-shadow: 1px 1px 2px #232323;
         box-shadow: 1px 1px 2px #232323;
         color: #1CA8DD;
-        font-family: "Comfortaa", cursive;
         text-decoration: none;
         &:hover {
             background: #607d8b1c;
