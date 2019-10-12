@@ -106,7 +106,7 @@
     {
         "id": "2",
         "name": "Dev Tools",
-        "collapsed": true,
+        "collapsed": false,
         "cols": 3,
         "items": [
             {
@@ -160,9 +160,45 @@
         ]
     },
     {
+        "id": "007",
+        "name": "Business",
+        "collapsed": true,
+        "cols": 1,
+        "items": [
+            {
+                "id":"001",
+                "title": "Invoices",
+                "provider": "Wave",
+                "icon": "",
+                "url": "https://accounting.waveapps.com/dashboard/business/8060245"
+            },
+            {
+                "id":"002",
+                "title": "Receipts",
+                "provider": "1Tap",
+                "icon": "",
+                "url": "https://my.1tap.io"
+            },
+            {
+                "id":"003",
+                "title": "Email",
+                "provider": "Tutonata",
+                "icon": "",
+                "url": "https://mail.tutanota.com/mail"
+            },
+            {
+                "id":"004",
+                "title": "Accountancy",
+                "provider": "SJD",
+                "icon": "",
+                "url": "https://online.sjdaccountancy.com/dashboard"
+            }
+        ]
+    },
+    {
         "id": "005",
         "name": "Utilities",
-        "collapsed": true,
+        "collapsed": false,
         "cols": 1,
         "items": [
             {
@@ -198,7 +234,7 @@
     {
         "id": "006",
         "name": "Productivity",
-        "collapsed": true,
+        "collapsed": false,
         "cols": 2,
         "items": [
             {
@@ -249,42 +285,6 @@
                 "provider": "Hawk Post",
                 "icon": "",
                 "url": "#"
-            }
-        ]
-    },
-    {
-        "id": "007",
-        "name": "Business",
-        "collapsed": true,
-        "cols": 1,
-        "items": [
-            {
-                "id":"001",
-                "title": "Invoices",
-                "provider": "Wave",
-                "icon": "",
-                "url": "https://accounting.waveapps.com/dashboard/business/8060245"
-            },
-            {
-                "id":"002",
-                "title": "Receipts",
-                "provider": "1Tap",
-                "icon": "",
-                "url": "https://my.1tap.io"
-            },
-            {
-                "id":"003",
-                "title": "Email",
-                "provider": "Tutonata",
-                "icon": "",
-                "url": "https://mail.tutanota.com/mail"
-            },
-            {
-                "id":"004",
-                "title": "Accountancy",
-                "provider": "SJD",
-                "icon": "",
-                "url": "https://online.sjdaccountancy.com/dashboard"
             }
         ]
     },
