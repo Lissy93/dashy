@@ -2,9 +2,7 @@
   <div class="home">
     <Header />
     <FilterTile @user-is-searchin="searching" class="filter-container" />
-
     <div class="item-group-container">
-
       <masonry
         :cols="{600: 1, 780: 2, 1150: 2, 1780: 3, 9999: 4}"
         :gutter="30"

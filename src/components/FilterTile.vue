@@ -15,10 +15,12 @@
           @click="clearFilterInput"></i>
       </form>
       <div class="space-filler"></div>
+      <KeyboardShortcutInfo />
   </section>
 </template>
 
 <script>
+import KeyboardShortcutInfo from '@/components/KeyboardShortcutInfo';
 
 export default {
   name: 'FilterTile',
@@ -26,6 +28,9 @@ export default {
     return {
       input: '',
     };
+  },
+  components: {
+    KeyboardShortcutInfo,
   },
   methods: {
     userIsTypingSomething() {
