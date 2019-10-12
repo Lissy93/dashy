@@ -6,7 +6,7 @@
 
 This is a fairly simple app, which (at the moment), it's literally just a glorified list of links (with a slightly questionable color scheme, lol)
 
-![bad-quality-screen-recording](https://github.com/Lissy93/alicia-app/blob/master/demo.gif "I made a gif screenshot for you")
+![bad-quality-screen-recording](https://raw.githubusercontent.com/Lissy93/alicia-app/master/demo.gif "I made a gif screenshot for you")
 
 **Demo**: https://dash-demo.as93.net - Here is an example (I've changed the source of the links, stripped personal data, and removed auth so you can see something running)
 
