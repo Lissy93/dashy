@@ -59,61 +59,64 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .kb-sc-info {
-      position: fixed;
-      width: 30em;
-      bottom: 0;
-      right: 10px;
-      margin: 0.5em;
-      padding: 0.1em 0.3em;
-      z-index: 10;
-      border-radius: 12px;
-      border: 1px solid #282a32;
-      -webkit-box-shadow: 2px 1px 5px #130f23;
-      box-shadow: 2px 1px 5px #130f23;
-      border: 1px solid #39a1e5;
-      color: #39a1e5;
-      background: #282a32;
-      cursor: default;
-      opacity: 0.94;
-      @media screen and (max-width: 600px) {
-        display: none;
-      }
-      h5 { /* The dialog title */
-        position: absolute;
-        top: -35px;
-        left: 20px;
-        border: 1px solid #39a1e5;
-        color: #39a1e5;
-        background: #282a32;
-        padding: 4px;
-        border-radius: 5px;
-      }
-      .close { /* The little exit icon, in top-right */
-        float: right;
-        border-radius: 20px;
-        width: 1em;
-        padding: 0 0 6px 6px;
-        height: 1em;
-        background: #0000008a;
-        margin-top: 3px;
-        border: 1px solid transparent;
-        cursor: pointer;
-        &:hover {
-          border: 1px solid #39a1e5;
-          opacity: 0.6;
-        }
-      }
+
+@import '../../src/styles/color-pallet.scss';
+
+.kb-sc-info {
+  position: fixed;
+  width: 30em;
+  bottom: 0;
+  right: 10px;
+  margin: 0.5em;
+  padding: 0.1em 0.3em;
+  z-index: 10;
+  border-radius: 12px;
+  border: 1px solid $header-color;
+  -webkit-box-shadow: 2px 1px 5px #130f23;
+  box-shadow: 2px 1px 5px #130f23;
+  border: 1px solid $ascent;
+  color: $ascent;
+  background: $header-color;
+  cursor: default;
+  opacity: 0.94;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+  h5 { /* The dialog title */
+    position: absolute;
+    top: -35px;
+    left: 20px;
+    border: 1px solid $ascent;
+    color: $ascent;
+    background: $header-color;
+    padding: 4px;
+    border-radius: 5px;
+  }
+  .close { /* The little exit icon, in top-right */
+    float: right;
+    border-radius: 20px;
+    width: 1em;
+    padding: 0 0 6px 6px;
+    height: 1em;
+    background: $transparent-black;
+    margin-top: 3px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid $ascent;
+      opacity: 0.6;
     }
-    /* Animations, animations everywhere */
-    .slide-fade-enter-active {
-      transition: all 1s ease;
-    }
-    .slide-fade-leave-active {
-      transition: all .8s cubic-bezier(.93,.01,.89,.5);
-    }
-    .slide-fade-enter, .slide-fade-leave-to {
-      transform: translateY(35em);
-      opacity: 0;
-    }
+  }
+}
+/* Animations, animations everywhere */
+.slide-fade-enter-active {
+  transition: all 1s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(.93,.01,.89,.5);
+}
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateY(35em);
+  opacity: 0;
+}
 </style>

@@ -59,11 +59,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import '../../src/styles/color-pallet.scss';
 
 .item {
     width: 120px;
     height: 100px;
-    color: #1CA8DD;
+    color: $ascent;
     display: inline-block;
     vertical-align: middle;
     margin: 8px;
@@ -79,7 +80,7 @@ export default {
         background: #607d8b4d;
     }
     &:focus {
-        border: 2px solid #1CA8DD;
+        border: 2px solid $ascent;
         outline: none;
     }
     &.short {
@@ -120,7 +121,7 @@ export default {
     .overflow-dots {
         display: block;
         opacity: 1;
-        background: #354857;
+        background: #1b3550;
         position: absolute;
         z-index: 5;
         right: 0;

@@ -19,12 +19,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  @import '../../src/styles/color-pallet.scss';
+
   header {
     margin: 0;
     padding: 0.5rem;
     display: flex;
     justify-content: space-between;
-    background: #282a32;
+    background: $header-color;
     align-items: center;
     align-content: flex-start;
     @media screen and (max-width: 600px) {

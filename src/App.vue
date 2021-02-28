@@ -17,7 +17,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('../src/global-styles.scss');
+@import '../src/styles/global-styles.scss';
+@import '../src/styles/color-pallet.scss';
 
 #app {
   .footer {

@@ -12,19 +12,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '../../src/styles/color-pallet.scss';
+
 .page-titles {
   display: flex;
   flex-direction: column;
   h1 {
-    background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
-    background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: $ascent;
+    // background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
+    // background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
+    // -webkit-background-clip: text;
+    // -webkit-text-fill-color: transparent;
     font-size: 3rem;
     margin: 0;
   }
   span.subtitle {
-    color: #9F86FF;
+    color: $ascent-with-opacity;
     font-style: italic;
     text-shadow: 1px 1px 2px #130f23;
   }

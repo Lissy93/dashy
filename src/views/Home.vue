@@ -70,8 +70,10 @@ export default {
 
 <style lang="scss" scoped>
 
+@import '../../src/styles/color-pallet.scss';
+
 .home {
-  background: #2F323A;
+  background: $background;
   padding-bottom: 1px;
 }
 

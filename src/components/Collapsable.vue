@@ -68,17 +68,18 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+@import '../../src/styles/color-pallet.scss';
 
 .collapsable {
     // width: 310px;
     padding: 5px;
     margin: 10px;
     border-radius: 10px;
-    background: #1CA8DD;
-    background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
-    background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
+    background: $ascent;
+    // background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
+    // background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     box-shadow: 1px 1px 2px #130f23;
     width: auto;
     // &.col-1 { width: 155px; }
@@ -106,7 +107,7 @@ export default {
         border-radius: 7px;
         transition: all 0.25s ease-out;
         text-align: left;
-        color: #2f323ae6;
+        color:$bg-with-opacity;
 
         h2 {
             margin: 0;
@@ -116,7 +117,7 @@ export default {
     }
 
     .lbl-toggle:hover {
-        color: #2f323a;
+        color: $background;
     }
 
     .lbl-toggle::before {
@@ -140,7 +141,7 @@ export default {
         max-height: 0px;
         overflow: hidden;
         transition: max-height .25s ease-in-out;
-        background: #2f323ae6;
+        background: $bg-with-opacity;
         border-radius: 0 0 10px 10px;
     }
 

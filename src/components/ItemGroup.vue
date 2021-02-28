@@ -39,6 +39,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '../../src/styles/color-pallet.scss';
 
 .no-items {
     width: 100px;
@@ -48,7 +49,7 @@ export default {
     cursor: default;
     border-radius: 10px;
     background: #607d8b33;
-    color: #1CA8DD;
+    color: $ascent;
     box-shadow: 1px 1px 2px #373737;
 }
 

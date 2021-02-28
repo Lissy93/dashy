@@ -60,23 +60,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+@import '../../src/styles/color-pallet.scss';
+
   section {
     display: flex;
     align-items: center;
     align-items: stretch;
-    background: linear-gradient(0deg, rgba(47,50,58,1) 0%, rgba(40,42,50,1) 100%);
+    background: linear-gradient(0deg, $background 0%, $header-color 100%);
   }
   form {
     border-radius: 0 0 20px 0;
     padding: 0 0.2rem 0.2rem 0;
-    background: #282a32;
+    background: $header-color;
     label {
         display: inline;
-        background: -webkit-gradient(
-          linear, right bottom, left top, from(#9F86FF), color-stop(#1CA8DD), to(#007AE1));
-        background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: $ascent;
         margin: 0.5rem;
         display: inline;
     }
@@ -88,30 +87,29 @@ export default {
       outline: none;
       border: none;
       border-radius: 12px;
-      background: #607d8b33;
-      box-shadow: 1px 1px 2px #232323;
-      color: #1CA8DD;
+      background: $background;
+      color: $ascent;
       &:focus {
-        background: #607d8b4a;
+        background: $bg-with-opacity;
       }
     }
     .clear-search {
       position: absolute;
       margin: 1em 0 0 -2em;
-      color: #1CA8DD;
+      color: $ascent;
       opacity: 0.5;
       border-radius: 50px;
       cursor: pointer;
       &:hover {
         opacity: 1;
-        background: #282a32;
+        background: $header-color;
       }
     }
   }
   .space-filler {
     flex: 1;
     border-radius: 20px 0 0;
-    background: #2f323a;
+    background: $background;
   }
   @media screen and (max-width: 600px) {
     form {
