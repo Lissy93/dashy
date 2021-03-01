@@ -71,12 +71,13 @@ export default {
 <style scoped lang="scss">
 
 @import '../../src/styles/color-pallet.scss';
+@import '../../src/styles/constants.scss';
 
 .collapsable {
     // width: 310px;
     padding: 5px;
     margin: 10px;
-    border-radius: 10px;
+    border-radius: $curve-factor;
     background: $ascent;
     // background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     // background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
@@ -104,7 +105,7 @@ export default {
         display: block;
         padding: 0.25rem;
         cursor: pointer;
-        border-radius: 7px;
+        border-radius: $curve-factor;
         transition: all 0.25s ease-out;
         text-align: left;
         color:$bg-with-opacity;
@@ -142,7 +143,7 @@ export default {
         overflow: hidden;
         transition: max-height .25s ease-in-out;
         background: $bg-with-opacity;
-        border-radius: 0 0 10px 10px;
+        border-radius: 0 0 $inner-radius $inner-radius;
     }
 
     .toggle:checked + .lbl-toggle + .collapsible-content {

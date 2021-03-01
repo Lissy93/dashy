@@ -40,6 +40,7 @@ export default {
 
 <style scoped lang="scss">
 @import '../../src/styles/color-pallet.scss';
+@import '../../src/styles/constants.scss';
 
 .no-items {
     width: 100px;
@@ -47,7 +48,7 @@ export default {
     padding: 0.8rem;
     text-align: center;
     cursor: default;
-    border-radius: 10px;
+    border-radius: $curve-factor;
     background: #607d8b33;
     color: $ascent;
     box-shadow: 1px 1px 2px #373737;

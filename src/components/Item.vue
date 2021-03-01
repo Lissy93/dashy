@@ -59,6 +59,7 @@ export default {
 
 <style scoped lang="scss">
 @import '../../src/styles/color-pallet.scss';
+@import '../../src/styles/constants.scss';
 
 .item {
     flex-grow: 1;
@@ -70,7 +71,7 @@ export default {
     text-align: center;
     padding: 2px;
     border: 2px solid transparent;
-    border-radius: 10px;
+    border-radius: $curve-factor;
     box-shadow: 1px 1px 2px #373737;
     cursor: pointer;
     &:hover {
@@ -82,7 +83,6 @@ export default {
         outline: none;
     }
     &.short {
-        border-radius: 30px;
         height: 18px;
     }
 }
