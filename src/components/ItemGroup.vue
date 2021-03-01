@@ -55,6 +55,8 @@ export default {
 
 .there-are-items {
   height: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 </style>

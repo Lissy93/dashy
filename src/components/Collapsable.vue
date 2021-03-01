@@ -9,7 +9,7 @@
             tabIndex="-1"
         >
         <label :for="`collapsible-${uniqueKey}`" class="lbl-toggle" tabindex="-1">
-            <h2>{{ title }}</h2>
+            <h3>{{ title }}</h3>
         </label>
         <div class="collapsible-content">
           <div class="content-inner">
@@ -102,14 +102,14 @@ export default {
 
     .lbl-toggle {
         display: block;
-        padding: 1rem;
+        padding: 0.25rem;
         cursor: pointer;
         border-radius: 7px;
         transition: all 0.25s ease-out;
         text-align: left;
         color:$bg-with-opacity;
 
-        h2 {
+        h3 {
             margin: 0;
             padding: 0;
             display: inline;

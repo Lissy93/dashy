@@ -52,22 +52,20 @@ export default {
       if (isOverflowing) {
         tileElem.className += ' is-overflowing';
       }
-    }
+    } // Not from present me to past me: WTF?!
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @import '../../src/styles/color-pallet.scss';
 
 .item {
-    width: 120px;
+    flex-grow: 1;
     height: 100px;
     color: $ascent;
-    display: inline-block;
     vertical-align: middle;
-    margin: 8px;
+    margin: 0.5rem;
     background: #607d8b33;
     text-align: center;
     padding: 2px;
@@ -92,7 +90,7 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 120px;
+    min-width: 120px;
     height: 30px;
     overflow: hidden;
     position: relative;
@@ -109,7 +107,6 @@ export default {
         width: 100%;
     }
     .overflow-dots {
-        // display: none;
         opacity: 0;
     }
 }
@@ -121,7 +118,7 @@ export default {
     .overflow-dots {
         display: block;
         opacity: 1;
-        background: #1b3550;
+        background: $overflow-ellipse;
         position: absolute;
         z-index: 5;
         right: 0;
@@ -129,9 +126,8 @@ export default {
     }
 }
 
-.item:hover .tile-title{
+.item:hover .tile-title.is-overflowing{
     .overflow-dots {
-        // display: none;
         opacity: 0;
     }
     span.text {

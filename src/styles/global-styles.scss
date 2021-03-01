@@ -1,5 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
+
+@font-face {
+    font-family: 'Inconsolata';
+    src: url('./assets/Inconsolata-Light.ttf');
+}
 
 html {
     margin: 0;
@@ -7,16 +11,13 @@ html {
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background: #282a32;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inconsolata', sans-serif;
 }
 
 h1, h2, h3, h4, h5 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inconsolata', sans-serif;
 }
 
 p, a, span, div, input {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inconsolata', sans-serif;
 }

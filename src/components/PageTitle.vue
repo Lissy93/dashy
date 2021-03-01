@@ -1,7 +1,7 @@
 <template>
   <div class="page-titles">
-    <h1>Alicia App</h1>
-    <span class="subtitle">Dashboard of all the things</span>
+    <h1>Networking Services</h1>
+    <span class="subtitle">Local network management and moniroting</span>
   </div>
 </template>
 

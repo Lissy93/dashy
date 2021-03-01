@@ -20,6 +20,12 @@ export default {
 @import '../src/styles/global-styles.scss';
 @import '../src/styles/color-pallet.scss';
 
+body {
+  background: $background;
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   .footer {
     text-align: center;
