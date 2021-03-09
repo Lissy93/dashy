@@ -12,6 +12,7 @@
         :title="item.title"
         :description="item.description"
         :icon="item.icon"
+        :iconType="item.iconType"
         :svg="item.svg"
       />
     </div>

@@ -7,15 +7,20 @@
                 <div class="overflow-dots">...</div>
             </div>
             <img
-                v-if="icon"
-                :src="`/img/tile-icons/${icon}.png`"
+                v-if="iconType === 'img' && icon"
+                :src="`/img/item-icons/tile-icons/${icon}.png`"
                 class="tile-icon"
             />
             <img
-                v-else-if="svg"
-                :src="`/img/tile-svgs/${svg}.svg`"
+                v-else-if="iconType === 'svg' && icon"
+                :src="`/img/item-icons/tile-svgs/${icon}.svg`"
                 class="tile-svg"
             />
+            <!-- <img
+                v-else-if="fontAwesome"
+                :src="`/img/tile-svgs/${svg}.svg`"
+                class="tile-svg"
+            /> -->
         </a>
     </el-tooltip>
 </template>
@@ -30,6 +35,7 @@ export default {
     subtitle: String, // Optional sub-text
     description: String, // Optional tooltip hover text
     icon: String, // Optional path to icon, within public/img/tile-icons
+    iconType: String, // 'img' | 'svg' | 'fa' | undefined, // Type of icon
     svg: String, // Optional vector graphic, that is then dynamically filled
     color: String, // Optional background color, specified in hex code
     url: String, // URL to the resource, optional but recommended
@@ -40,7 +46,9 @@ export default {
     },
   },
   data() {
-    return { getId: this.id };
+    return {
+      getId: this.id,
+    };
   },
   mounted() {
     // Detects overflowing text, and allows is to marguee on hover
@@ -137,20 +145,17 @@ export default {
 
 .tile-icon {
     width: 60px;
+    filter: drop-shadow(2px 4px 6px $transparent-black);
 }
 
 .item:hover {
     .tile-svg {
-        filter:
-            invert(70%)
-            sepia(52%)
-            saturate(5390%)
-            hue-rotate(198deg)
-            brightness(101%)
-            contrast(88%);
+        filter: drop-shadow(4px 8px 3px $transparent-black);
     }
     .tile-icon {
-        filter: hue-rotate(45deg);
+        filter:
+            drop-shadow(4px 8px 3px $transparent-black)
+            saturate(2);
     }
 }
 

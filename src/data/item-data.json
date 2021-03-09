@@ -1,328 +1,292 @@
 [
     {
         "id": "0",
-        "name": "Server Management | External",
+        "name": "Firewall",
         "collapsed": false,
         "cols": 3,
         "items": [
             {
                 "id":"001",
-                "title": "DNS Management",
-                "description": "Configure Server Gateways",
-                "provider": "CloudFlare",
-                "icon": "009-cloud",
-                "url": "https://dash.cloudflare.com"
+                "title": "OPNsense",
+                "description": "Firewall Central Management",
+                "icon": "networking/opnsense",
+                "iconType": "img",
+                "url": "https://192.168.1.1"
             },
             {
                 "id":"002",
-                "title": "Servers",
-                "description": "Manage scaling, power and credentials",
-                "provider": "Digital Ocean",
-                "icon": "021-folder",
-                "url": "https://cloud.digitalocean.com"
+                "title": "NetData",
+                "description": "System resource usage on firewall",
+                "icon": "networking/netdata",
+                "iconType": "img",
+                "url": "http://192.168.1.1:19999/"
             },
             {
                 "id":"003",
-                "title": "Domains",
-                "description": "Register and Renew Domain Names",
-                "provider": "GoDaddy",
-                "icon": "014-globe",
-                "url": "https://account.godaddy.com"
+                "title": "MalTrail",
+                "description": "Malicious traffic detection system",
+                "icon": "networking/maltrail",
+                "iconType": "img",
+                "url": "192.168.1.1:8338"
+            },
+            {
+                "id":"004",
+                "title": "Ntopng",
+                "description": "Network traffic probe and network use monitor",
+                "icon": "networking/ntop",
+                "iconType": "img",
+                "url": "192.168.1.1:3001"
+            },
+            {
+                "id":"005",
+                "title": "Sensei",
+                "description": "Additional data features",
+                "icon": "networking/sensei",
+                "iconType": "img",
+                "url": "https://192.168.1.1/ui/sensei/"
+            },
+            {
+                "id":"006",
+                "title": "Monit",
+                "description": "Status of firewall system alerts",
+                "icon": "networking/monit",
+                "iconType": "img",
+                "url": "https://192.168.1.1/ui/monit/status"
+            },
+            {
+                "id":"007",
+                "title": "Firewall Logs",
+                "description": "Real-time view of firewall data and logs",
+                "icon": "networking/logs",
+                "iconType": "img",
+                "url": "https://192.168.1.1/ui/diagnostics/firewall/log"
+            },
+            {
+                "id":"008",
+                "title": "WireGuard",
+                "description": "Manage WireGuard client and server on firewall",
+                "icon": "networking/wireguard",
+                "iconType": "img",
+                "url": "https://192.168.1.1/ui/wireguard/general"
             }
         ]
     },
     {
         "id": "1",
-        "name": "Server Management | Hosted",
+        "name": "DNS Device",
         "collapsed": false,
         "cols": 2,
         "items": [
             {
                 "id":"001",
-                "title": "Server Dashboard",
-                "description": "Hello",
+                "title": "Pi-Hole",
+                "description": "DNS settings for ad & tracker blocking",
                 "provider": "Cockpit",
-                "icon": "049-hosting-2",
+                "iconType": "img",
+                "icon": "networking/pihole",
                 "url": ""
             },
             {
                 "id":"002",
-                "title": "Web Log Analyser",
-                "description": "",
+                "title": "PiAlert",
+                "description": "Presence monitoring and ARP scanning",
                 "provider": "GoAccess",
-                "icon": "005-networking-2",
+                "iconType": "img",
+                "icon": "networking/pialert",
                 "url": ""
             },
             {
                 "id":"003",
-                "title": "Web Analytics",
-                "description": "",
-                "provider": "Matomo",
-                "icon": "098-line-chart-3",
+                "title": "SmokePing",
+                "description": "Network latency monitoring",
+                "iconType": "img",
+                "icon": "networking/smokeping",
                 "url": ""
             },
             {
                 "id":"004",
-                "title": "SEO Performance",
-                "description": "",
-                "provider": "Serposcope",
-                "icon": "023-analytics",
+                "title": "StatPing",
+                "description": "Up-time monitoring for local service",
+                "iconType": "img",
+                "icon": "networking/statping",
                 "url": ""
             },
             {
                 "id":"005",
-                "title": "User Management",
-                "description": "",
-                "provider": "",
-                "icon": "033-maintenance",
+                "title": "LibreSpeed",
+                "description": "Local network speed and latency test",
+                "iconType": "img",
+                "icon": "networking/librespeed",
                 "url": ""
             },
             {
                 "id":"006",
-                "title": "Resource Usage",
-                "description": "",
-                "provider": "afaqurk/ Linux Dash",
-                "icon": "063-cpu-5",
+                "title": "NetData",
+                "description": "Real-time system resource usage",
+                "iconType": "img",
+                "icon": "networking/netdata",
                 "url": ""
             },
             {
                 "id":"007",
-                "title": "File Browser",
-                "description": "",
-                "provider": "filestash",
-                "icon": "001-folder",
+                "title": "Portainer",
+                "description": "Docker container management",
+                "iconType": "img",
+                "icon": "networking/portainer",
                 "url": ""
             },
             {
                 "id":"008",
-                "title": "Status Page",
-                "description": "",
-                "provider": "Cachet",
-                "icon": "048-computer",
+                "title": "cAdvisor",
+                "description": "Container monitoring",
+                "iconType": "img",
+                "icon": "networking/cadvisor",
+                "url": ""
+            },
+            {
+                "id":"009",
+                "title": "Glances",
+                "description": "Simple resource usage",
+                "iconType": "img",
+                "icon": "networking/glances",
                 "url": ""
             }
         ]
     },
     {
         "id": "2",
-        "name": "Dev Tools",
+        "name": "Other Devices",
         "collapsed": false,
         "cols": 3,
         "items": [
             {
                 "id":"001",
-                "title": "Feature Flags",
-                "description": "Turning production app features on/ off",
-                "provider": "Bullet Train",
-                "icon": "011-flag",
-                "url": "https://bullet-train.io/projects"
+                "title": "Modem",
+                "description": "ISP Router Modem Combo",
+                "iconType": "img",
+                "icon": "",
+                "url": "http://192.168.1.5"
             },
             {
                 "id":"002",
-                "title": "Security Scanning",
-                "description": "Automated code security",
-                "provider": "Cloud Sploit",
-                "icon": "088-key",
-                "url": "https://console.cloudsploit.com"
+                "title": "Wireless Access Point",
+                "description": "View clients connected to WiFi",
+                "icon": "",
+                "iconType": "img",
+                "url": "http://192.168.1.109/info.php"
             },
             {
                 "id":"003",
-                "title": "Error Tracking",
-                "description": "Monitor errors and warnings in production apps",
-                "provider": "Rollbar",
-                "icon": "007-bug-3",
-                "url": "https://rollbar.com/lissy93"
+                "title": "Fing",
+                "description": "Monitor connectivity issues, ISP quality, health checks and troubleshooting",
+                "provider": "Fing",
+                "icon": "",
+                "iconType": "img",
+                "url": "https://app.fing.com/"
             },
             {
                 "id":"004",
-                "title": "Licensing",
-                "description": "",
-                "provider": "Crypto Lens",
-                "icon": "087-price-tag-1",
-                "url": "https://cryptolens.io/"
-            },
-            {
-                "id":"005",
-                "title": "Status Page",
-                "description": "",
-                "provider": "Cachet",
-                "icon": "048-computer",
-                "url": ""
-            },
-            {
-                "id":"006",
-                "title": "CI Pipelines",
-                "description": "",
-                "provider": "CircleCI",
-                "icon": "142-file-5",
-                "url": "https://circleci.com/dashboard"
+                "title": "Switch",
+                "description": "Manage VLANs on Ubiquity Ethernet switch",
+                "icon": "",
+                "iconType": "img",
+                "url": "/"
             }
         ]
     },
     {
         "id": "007",
-        "name": "Business",
+        "name": "External Services",
         "collapsed": true,
         "cols": 1,
         "items": [
             {
                 "id":"001",
-                "title": "Invoices",
-                "provider": "Wave",
-                "icon": "",
-                "url": "https://accounting.waveapps.com/dashboard/business/8060245"
+                "title": "DuckDNS",
+                "description": "Dynamic DNS for fixed public IP",
+                "icon": "networking/duckdns",
+                "iconType": "img",
+                "url": "https://www.duckdns.org/"
             },
             {
                 "id":"002",
-                "title": "Receipts",
-                "provider": "1Tap",
-                "icon": "",
-                "url": "https://my.1tap.io"
+                "title": "BorgBase",
+                "description": "Off-site system Borg backups",
+                "icon": "networking/borgbase",
+                "iconType": "img",
+                "url": "https://www.borgbase.com/repositories"
             },
             {
                 "id":"003",
-                "title": "Email",
-                "provider": "Tutonata",
-                "icon": "",
-                "url": "https://mail.tutanota.com/mail"
+                "title": "Mullvad",
+                "description": "Hosted VPN provider",
+                "icon": "networking/mullvad",
+                "iconType": "img",
+                "url": "https://mullvad.net/en/account/"
             },
             {
                 "id":"004",
-                "title": "Accountancy",
-                "provider": "SJD",
-                "icon": "",
-                "url": "https://online.sjdaccountancy.com/dashboard"
+                "title": "ZeroTier",
+                "description": "Secure networks between devices",
+                "icon": "networking/zeroteir",
+                "iconType": "img",
+                "url": "https://my.zerotier.com/"
+            },
+            {
+                "id":"005",
+                "title": "HealthChecks",
+                "description": "Cron Job Monitoring",
+                "icon": "networking/healthchecks",
+                "iconType": "img",
+                "url": "https://healthchecks.io/checks/"
+            },
+            {
+                "id":"006",
+                "title": "ISP - Vodafone",
+                "description": "Broadband internet provider",
+                "icon": "networking/vodafone",
+                "iconType": "img",
+                "url": "https://myaccount.vodafone.co.uk/"
             }
         ]
     },
     {
         "id": "005",
-        "name": "Utilities",
+        "name": "External Utilities",
         "collapsed": false,
         "cols": 1,
         "items": [
             {
                 "id":"001",
-                "title": "URL Shortener",
-                "provider": "AS93 Short URLs",
-                "icon": "014-globe",
-                "url": "#"
+                "title": "Public IP",
+                "description": "Check public IP and associated data",
+                "icon": "",
+                "iconType": "img",
+                "url": "https://www.whatismyip.com/"
             },
             {
                 "id":"002",
-                "title": "Paste Bin",
-                "provider": "AS93 Paste Bin",
-                "icon": "045-post",
-                "url": "#"
+                "title": "Who Is Lookup",
+                "description": "Check ICAN info for a given IP address or domain",
+                "icon": "",
+                "iconType": "img",
+                "url": "https://whois.domaintools.com/"
             },
             {
                 "id":"003",
-                "title": "File Drop",
-                "provider": "AS93 File Drop",
-                "icon": "012-delivery",
-                "url": "#"
+                "title": "Speed Test",
+                "description": "Upload + download speeds and latency",
+                "icon": "",
+                "iconType": "img",
+                "url": "https://speed.cloudflare.com/"
             },
             {
                 "id":"004",
-                "title": "Notes",
-                "provider": "AS93 TXT Notes",
-                "icon": "043-pencil",
-                "url": "#"
-            }
-        ]
-    },
-    {
-        "id": "006",
-        "name": "Productivity",
-        "collapsed": false,
-        "cols": 2,
-        "items": [
-            {
-                "id":"001",
-                "title": "Files",
-                "provider": "NextCloud",
+                "title": "Mullvad Check",
+                "description": "Confirms a secure connection to Mullvad's WireGuard servers",
                 "icon": "",
-                "url": "#"
-            },
-            {
-                "id":"002",
-                "title": "Notes",
-                "provider": "Standard Notes",
-                "icon": "",
-                "url": "#"
-            },
-            {
-                "id":"003",
-                "title": "Calendar",
-                "provider": "AS93 File Drop",
-                "icon": "",
-                "url": "#"
-            },
-            {
-                "id":"004",
-                "title": "Email",
-                "provider": "AS93 TXT Notes",
-                "icon": "",
-                "url": "#"
-            },
-            {
-                "id":"005",
-                "title": "Home",
-                "provider": "DuckDuckGo",
-                "icon": "",
-                "url": "#"
-            },
-            {
-                "id":"006",
-                "title": "Kanban",
-                "provider": "Trello",
-                "icon": "",
-                "url": "#"
-            },
-            {
-                "id":"007",
-                "title": "Message Drop",
-                "provider": "Hawk Post",
-                "icon": "",
-                "url": "#"
-            }
-        ]
-    },
-    {
-        "id": "008",
-        "name": "Social Profiles",
-        "collapsed": true,
-        "cols": 1,
-        "items": [
-            {
-                "id":"001",
-                "title": "Twitter",
-                "svg": "004-twitter",
-                "url": "https://twitter.com/Lissy_Sykes"
-            },
-            {
-                "id":"002",
-                "title": "Instagram",
-                "svg": "014-instagram",
-                "url": "https://www.instagram.com/lissy_sykes93/"
-            },
-            {
-                "id":"003",
-                "title": "Facebook",
-                "svg": "013-facebook",
-                "url": "https://fb.com/liss.sykes"
-            },
-            {
-                "id":"004",
-                "title": "LinkedIn",
-                "svg": "015-linkedin",
-                "url": "https://www.linkedin.com/in/aliciasykes/"
-            },
-            {
-                "id":"005",
-                "title": "VK",
-                "icon": "",
-                "url": "https://vk.com/id554636914"
+                "iconType": "img",
+                "url": "https://mullvad.net/check"
             }
         ]
     }
