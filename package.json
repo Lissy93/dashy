@@ -1,7 +1,6 @@
 {
   "name": "panel",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "start": "node server",
     "dev": "vue-cli-service serve",
@@ -9,15 +8,9 @@
     "lint": "vue-cli-service lint --fix"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free-brands": "^5.0.13",
-    "@fortawesome/fontawesome-free-regular": "^5.0.13",
-    "@fortawesome/fontawesome-free-solid": "^5.0.13",
-    "@fortawesome/fontawesome-svg-core": "^1.2.34",
-    "@fortawesome/free-solid-svg-icons": "^5.15.2",
-    "@fortawesome/vue-fontawesome": "^2.0.2",
     "connect": "^3.7.0",
-    "core-js": "^2.6.5",
-    "element-ui": "^2.11.0",
+    "element-ui": "^2.15.1",
+    "js-yaml": "^3.13.1",
     "register-service-worker": "^1.6.2",
     "serve-static": "^1.14.1",
     "vue": "^2.6.10",
