@@ -6,13 +6,21 @@
 </template>
 <script>
 
+// const jsyaml = require("js-yaml");
 import Footer from '@/components/Footer.vue';
+// import defaultConfig from '../src/data/conf.yml';
 
 export default {
   name: 'app',
   components: {
     Footer,
   },
+  // methods: {
+  //   getConfig: async function () {
+  //     // const defaults = jsyaml.load(defaultConfig);
+
+  //   },
+  // }
 };
 </script>
 

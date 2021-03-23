@@ -718,56 +718,6 @@
     "lodash" "^4.17.13"
     "to-fast-properties" "^2.0.0"
 
-"@fortawesome/fontawesome-common-types@^0.1.7":
-  "integrity" "sha512-ego8jRVSHfq/iq4KRZJKQeUAdi3ZjGNrqw4oPN3fNdvTBnLCSntwVCnc37bsAJP9UB8MhrTfPnZYxkv2vpS4pg=="
-  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.1.7.tgz"
-  "version" "0.1.7"
-
-"@fortawesome/fontawesome-common-types@^0.2.34":
-  "integrity" "sha512-XcIn3iYbTEzGIxD0/dY5+4f019jIcEIWBiHc3KrmK/ROahwxmZ/s+tdj97p/5K0klz4zZUiMfUlYP0ajhSJjmA=="
-  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.34.tgz"
-  "version" "0.2.34"
-
-"@fortawesome/fontawesome-free-brands@^5.0.13":
-  "integrity" "sha512-xC/sEPpfcJPvUbud2GyscLCLQlE2DVBYaTHVwuyVGliYBdYejSEYMINU8FN5A0xhO68yCbpCfMlBv6Gqby+jww=="
-  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-free-brands/-/fontawesome-free-brands-5.0.13.tgz"
-  "version" "5.0.13"
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.1.7"
-
-"@fortawesome/fontawesome-free-regular@^5.0.13":
-  "integrity" "sha512-36lz9Idww1L4QaaTcv7GZiOeIP9emJFDUsedvRovI10kmwyd6rN0PKkIjnq0FB4foLhX4Rou8vnbCCmjtqiLug=="
-  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-free-regular/-/fontawesome-free-regular-5.0.13.tgz"
-  "version" "5.0.13"
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.1.7"
-
-"@fortawesome/fontawesome-free-solid@^5.0.13":
-  "integrity" "sha512-b+krVnqkdDt52Yfev0x0ZZgtxBQsLw00Zfa3uaVWIDzpNZVtrEXuxldUSUaN/ihgGhSNi8VpvDAdNPVgCKOSxw=="
-  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-free-solid/-/fontawesome-free-solid-5.0.13.tgz"
-  "version" "5.0.13"
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.1.7"
-
-"@fortawesome/fontawesome-svg-core@^1.2.34", "@fortawesome/fontawesome-svg-core@>= 1.2.0 < 1.3":
-  "integrity" "sha512-0KNN0nc5eIzaJxlv43QcDmTkDY1CqeN6J7OCGSs+fwGPdtv0yOQqRjieopBCmw+yd7uD3N2HeNL3Zm5isDleLg=="
-  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.34.tgz"
-  "version" "1.2.34"
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.34"
-
-"@fortawesome/free-solid-svg-icons@^5.15.2":
-  "integrity" "sha512-ZfCU+QjaFsdNZmOGmfqEWhzI3JOe37x5dF4kz9GeXvKn/sTxhqMtZ7mh3lBf76SvcYY5/GKFuyG7p1r4iWMQqw=="
-  "resolved" "https://registry.npmjs.org/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.15.2.tgz"
-  "version" "5.15.2"
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.34"
-
-"@fortawesome/vue-fontawesome@^2.0.2":
-  "integrity" "sha512-ecpKSBUWXsxRJVi/dbOds4tkKwEcBQ1JSDZFzE2jTFpF8xIh3OgTX8POIor6bOltjibr3cdEyvnDjecMwUmxhQ=="
-  "resolved" "https://registry.npmjs.org/@fortawesome/vue-fontawesome/-/vue-fontawesome-2.0.2.tgz"
-  "version" "2.0.2"
-
 "@hapi/address@2.x.x":
   "integrity" "sha512-mV6T0IYqb0xL1UALPFplXYQmR0twnXG0M6jUswpquqT2sD12BOiCiLy3EvMp/Fy7s3DZElC4/aPjEjo2jeZpvw=="
   "resolved" "https://registry.npmjs.org/@hapi/address/-/address-2.0.0.tgz"
@@ -3239,10 +3189,10 @@
   "resolved" "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.200.tgz"
   "version" "1.3.200"
 
-"element-ui@^2.11.0":
-  "integrity" "sha512-zW0yM5jRERZ3gx+Drr7AjDpVBYF1DbwwGZxFcyPX5358FJiv04i3s8MNAAMWErHLysoydxAJrFeqkYjw3+zppg=="
-  "resolved" "https://registry.npmjs.org/element-ui/-/element-ui-2.11.0.tgz"
-  "version" "2.11.0"
+"element-ui@^2.15.1":
+  "integrity" "sha512-TqlScAKGH97XndSScUDeEHIzL1x7yg7DvQdKPEOUdiDcyIz3y3FJJBlpHYaJT96FOn1xpIcUZb+I2FJeU9EcrQ=="
+  "resolved" "https://registry.npmjs.org/element-ui/-/element-ui-2.15.1.tgz"
+  "version" "2.15.1"
   dependencies:
     "async-validator" "~1.8.1"
     "babel-helper-vue-jsx-merge-props" "^2.0.0"
@@ -8761,7 +8711,7 @@
   "resolved" "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   "version" "1.9.1"
 
-"vue@^2.6.10", "vue@~2":
+"vue@^2.5.17", "vue@^2.6.10":
   "integrity" "sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-2.6.10.tgz"
   "version" "2.6.10"

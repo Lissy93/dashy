@@ -145,7 +145,7 @@ export default {
 
 .tile-icon {
     width: 60px;
-    filter: drop-shadow(2px 4px 6px $transparent-black);
+    filter: drop-shadow(2px 4px 6px $transparent-black) saturate(0.65);
 }
 
 .item:hover {
