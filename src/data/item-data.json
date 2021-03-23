@@ -84,7 +84,7 @@
                 "provider": "Cockpit",
                 "iconType": "img",
                 "icon": "networking/pihole",
-                "url": ""
+                "url": "http://192.168.130.2/admin"
             },
             {
                 "id":"002",
@@ -93,7 +93,7 @@
                 "provider": "GoAccess",
                 "iconType": "img",
                 "icon": "networking/pialert",
-                "url": ""
+                "url": "http://192.168.130.2/pialert/"
             },
             {
                 "id":"003",
@@ -101,7 +101,7 @@
                 "description": "Network latency monitoring",
                 "iconType": "img",
                 "icon": "networking/smokeping",
-                "url": ""
+                "url": "http://192.168.130.2:8086/"
             },
             {
                 "id":"004",
@@ -109,7 +109,7 @@
                 "description": "Up-time monitoring for local service",
                 "iconType": "img",
                 "icon": "networking/statping",
-                "url": ""
+                "url": "http://192.168.130.2:8083/"
             },
             {
                 "id":"005",
@@ -117,7 +117,7 @@
                 "description": "Local network speed and latency test",
                 "iconType": "img",
                 "icon": "networking/librespeed",
-                "url": ""
+                "url": "http://192.168.130.2:49154/"
             },
             {
                 "id":"006",
@@ -125,7 +125,7 @@
                 "description": "Real-time system resource usage",
                 "iconType": "img",
                 "icon": "networking/netdata",
-                "url": ""
+                "url": "http://192.168.130.2:19999"
             },
             {
                 "id":"007",
@@ -133,7 +133,7 @@
                 "description": "Docker container management",
                 "iconType": "img",
                 "icon": "networking/portainer",
-                "url": ""
+                "url": "http://192.168.130.2:9000/"
             },
             {
                 "id":"008",
@@ -141,7 +141,7 @@
                 "description": "Container monitoring",
                 "iconType": "img",
                 "icon": "networking/cadvisor",
-                "url": ""
+                "url": "http://192.168.130.2:8084/"
             },
             {
                 "id":"009",
@@ -149,7 +149,23 @@
                 "description": "Simple resource usage",
                 "iconType": "img",
                 "icon": "networking/glances",
-                "url": ""
+                "url": "http://192.168.130.2:61208"
+            },
+            {
+                "id":"010",
+                "title": "Prometheus",
+                "description": "System Statistics Aggregation with PromQL",
+                "iconType": "img",
+                "icon": "networking/prometheus",
+                "url": "http://192.168.130.2:8090/"
+            },
+            {
+                "id":"011",
+                "title": "Grafana",
+                "description": "Data visualised on dashboards",
+                "iconType": "img",
+                "icon": "networking/grafana",
+                "url": "http://192.168.130.2:8091/"
             }
         ]
     },

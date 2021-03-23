@@ -1,0 +1,231 @@
+---
+site-settings:
+  title: Server Dashboard
+  description: List of all running services
+items:
+- id: '0'
+  name: Firewall
+  collapsed: false
+  cols: 3
+  items:
+  - id: '001'
+    title: OPNsense
+    description: Firewall Central Management
+    icon: networking/opnsense
+    iconType: img
+    url: https://192.168.1.1
+  - id: '002'
+    title: NetData
+    description: System resource usage on firewall
+    icon: networking/netdata
+    iconType: img
+    url: http://192.168.1.1:19999/
+  - id: '003'
+    title: MalTrail
+    description: Malicious traffic detection system
+    icon: networking/maltrail
+    iconType: img
+    url: 192.168.1.1:8338
+  - id: '004'
+    title: Ntopng
+    description: Network traffic probe and network use monitor
+    icon: networking/ntop
+    iconType: img
+    url: 192.168.1.1:3001
+  - id: '005'
+    title: Sensei
+    description: Additional data features
+    icon: networking/sensei
+    iconType: img
+    url: https://192.168.1.1/ui/sensei/
+  - id: '006'
+    title: Monit
+    description: Status of firewall system alerts
+    icon: networking/monit
+    iconType: img
+    url: https://192.168.1.1/ui/monit/status
+  - id: '007'
+    title: Firewall Logs
+    description: Real-time view of firewall data and logs
+    icon: networking/logs
+    iconType: img
+    url: https://192.168.1.1/ui/diagnostics/firewall/log
+  - id: '008'
+    title: WireGuard
+    description: Manage WireGuard client and server on firewall
+    icon: networking/wireguard
+    iconType: img
+    url: https://192.168.1.1/ui/wireguard/general
+- id: '1'
+  name: DNS Device
+  collapsed: false
+  cols: 2
+  items:
+  - id: '001'
+    title: Pi-Hole
+    description: DNS settings for ad & tracker blocking
+    provider: Cockpit
+    iconType: img
+    icon: networking/pihole
+    url: http://192.168.130.2/admin
+  - id: '002'
+    title: PiAlert
+    description: Presence monitoring and ARP scanning
+    provider: GoAccess
+    iconType: img
+    icon: networking/pialert
+    url: http://192.168.130.2/pialert/
+  - id: '003'
+    title: SmokePing
+    description: Network latency monitoring
+    iconType: img
+    icon: networking/smokeping
+    url: http://192.168.130.2:8086/
+  - id: '004'
+    title: StatPing
+    description: Up-time monitoring for local service
+    iconType: img
+    icon: networking/statping
+    url: http://192.168.130.2:8083/
+  - id: '005'
+    title: LibreSpeed
+    description: Local network speed and latency test
+    iconType: img
+    icon: networking/librespeed
+    url: http://192.168.130.2:49154/
+  - id: '006'
+    title: NetData
+    description: Real-time system resource usage
+    iconType: img
+    icon: networking/netdata
+    url: http://192.168.130.2:19999
+  - id: '007'
+    title: Portainer
+    description: Docker container management
+    iconType: img
+    icon: networking/portainer
+    url: http://192.168.130.2:9000/
+  - id: '008'
+    title: cAdvisor
+    description: Container monitoring
+    iconType: img
+    icon: networking/cadvisor
+    url: http://192.168.130.2:8084/
+  - id: '009'
+    title: Glances
+    description: Simple resource usage
+    iconType: img
+    icon: networking/glances
+    url: http://192.168.130.2:61208
+  - id: '010'
+    title: Prometheus
+    description: System Statistics Aggregation with PromQL
+    iconType: img
+    icon: networking/prometheus
+    url: http://192.168.130.2:8090/
+  - id: '011'
+    title: Grafana
+    description: Data visualised on dashboards
+    iconType: img
+    icon: networking/grafana
+    url: http://192.168.130.2:8091/
+- id: '2'
+  name: Other Devices
+  collapsed: false
+  cols: 3
+  items:
+  - id: '001'
+    title: Modem
+    description: ISP Router Modem Combo
+    iconType: img
+    icon: ''
+    url: http://192.168.1.5
+  - id: '002'
+    title: Wireless Access Point
+    description: View clients connected to WiFi
+    icon: ''
+    iconType: img
+    url: http://192.168.1.109/info.php
+  - id: '003'
+    title: Fing
+    description: Monitor connectivity issues, ISP quality, health checks and troubleshooting
+    provider: Fing
+    icon: ''
+    iconType: img
+    url: https://app.fing.com/
+  - id: '004'
+    title: Switch
+    description: Manage VLANs on Ubiquity Ethernet switch
+    icon: ''
+    iconType: img
+    url: "/"
+- id: '007'
+  name: External Services
+  collapsed: true
+  cols: 1
+  items:
+  - id: '001'
+    title: DuckDNS
+    description: Dynamic DNS for fixed public IP
+    icon: networking/duckdns
+    iconType: img
+    url: https://www.duckdns.org/
+  - id: '002'
+    title: BorgBase
+    description: Off-site system Borg backups
+    icon: networking/borgbase
+    iconType: img
+    url: https://www.borgbase.com/repositories
+  - id: '003'
+    title: Mullvad
+    description: Hosted VPN provider
+    icon: networking/mullvad
+    iconType: img
+    url: https://mullvad.net/en/account/
+  - id: '004'
+    title: ZeroTier
+    description: Secure networks between devices
+    icon: networking/zeroteir
+    iconType: img
+    url: https://my.zerotier.com/
+  - id: '005'
+    title: HealthChecks
+    description: Cron Job Monitoring
+    icon: networking/healthchecks
+    iconType: img
+    url: https://healthchecks.io/checks/
+  - id: '006'
+    title: ISP - Vodafone
+    description: Broadband internet provider
+    icon: networking/vodafone
+    iconType: img
+    url: https://myaccount.vodafone.co.uk/
+- id: '005'
+  name: External Utilities
+  collapsed: false
+  cols: 1
+  items:
+  - id: '001'
+    title: Public IP
+    description: Check public IP and associated data
+    icon: ''
+    iconType: img
+    url: https://www.whatismyip.com/
+  - id: '002'
+    title: Who Is Lookup
+    description: Check ICAN info for a given IP address or domain
+    icon: ''
+    iconType: img
+    url: https://whois.domaintools.com/
+  - id: '003'
+    title: Speed Test
+    description: Upload + download speeds and latency
+    icon: ''
+    iconType: img
+    url: https://speed.cloudflare.com/
+  - id: '004'
+    title: Mullvad Check
+    description: Confirms a secure connection to Mullvad's WireGuard servers
+    icon: ''
+    iconType: img
+    url: https://mullvad.net/check
