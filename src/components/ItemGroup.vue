@@ -5,9 +5,9 @@
     </div>
     <div v-else class="there-are-items">
       <Item
-        v-for="item in items"
-        :key="`${groupId}-${item.id}`"
-        :id="`${groupId}-${item.id}`"
+        v-for="(item, index) in items"
+        :id="`${index}_${makeId(item.title)}`"
+        :key="`${index}_${makeId(item.title)}`"
         :url="item.url"
         :title="item.title"
         :description="item.description"
@@ -35,6 +35,11 @@ export default {
   components: {
     Collapsable,
     Item,
+  },
+  methods: {
+    makeId(str) {
+      return str.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
+    },
   },
 };
 </script>

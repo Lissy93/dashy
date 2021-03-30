@@ -8,8 +8,8 @@
         :gutter="30"
         >
         <ItemGroup
-          v-for="item in items"
-          :key="item.id"
+          v-for="(item, index) in items"
+          :key="index"
           :groupId="item.id"
           :title="item.name"
           :collapsed="item.collapsed"
@@ -26,7 +26,7 @@
 import Header from '@/components/Header.vue';
 import FilterTile from '@/components/FilterTile.vue';
 import ItemGroup from '@/components/ItemGroup.vue';
-import * as linkData from '../data/item-data.json';
+import conf from '../data/conf.yml';
 
 export default {
   name: 'home',
@@ -40,7 +40,7 @@ export default {
     ItemGroup,
   },
   data: () => ({
-    items: linkData.default,
+    items: conf.sections,
     searchTile: '',
   }),
   methods: {
