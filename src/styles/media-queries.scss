@@ -38,3 +38,19 @@ $extra-large: 2800px;
   }
 }
 
+
+@mixin tablet-up {
+  @media (min-width: #{$small}) {
+    @content;
+  }
+}
+@mixin laptop-up {
+  @media (min-width: #{$medium}) {
+    @content;
+  }
+}
+@mixin monitor-up {
+  @media (min-width: #{$large}) {
+    @content;
+  }
+}

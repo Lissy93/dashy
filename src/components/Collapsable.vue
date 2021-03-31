@@ -1,5 +1,5 @@
 <template>
-  <div :class="`collapsable col-${cols}`">
+  <div :class="`collapsable ${checkSpanNum(cols, 'col')} ${checkSpanNum(rows, 'row')}`">
         <input
             :id="`collapsible-${uniqueKey}`"
             class="toggle"
@@ -27,6 +27,7 @@ export default {
     title: String,
     collapsed: Boolean,
     cols: Number,
+    rows: Number,
   },
   data() {
     return {
@@ -34,6 +35,13 @@ export default {
     };
   },
   methods: {
+    /* Check that row & column span is valid, and not over the max */
+    checkSpanNum(span, classPrefix) {
+      const maxSpan = 4;
+      let numSpan = /^\d*$/.test(span) ? parseInt(span, 10) : 1;
+      numSpan = (numSpan > maxSpan) ? maxSpan : numSpan;
+      return `${classPrefix}-${numSpan}`;
+    },
     initialiseStorage() {
       const initStorage = () => localStorage.setItem('collapseState', JSON.stringify({}));
       if (!localStorage.collapseState) initStorage(); // If not yet set, then init localstorage
@@ -72,6 +80,7 @@ export default {
 
 @import '../../src/styles/color-pallet.scss';
 @import '../../src/styles/constants.scss';
+@import '../../src/styles/media-queries.scss';
 
 .collapsable {
     padding: 5px;
@@ -84,11 +93,28 @@ export default {
     height: fit-content;
     width: 100%;
     width: stretch;
-    // &.col-1 { width: 155px; }
-    // &.col-2 { width: 310px; }
-    // &.col-3 { width: 465px; }
-    // &.col-4 { width: 620px; }
-    // &.col-5 { width: 775px; }
+
+    grid-row-start: span 1;
+    &.row-2 { grid-row-start: span 2; }
+    &.row-3 { grid-row-start: span 3; }
+    &.row-4 { grid-row-start: span 4; }
+
+    grid-column-start: span 1;
+    @include tablet-up {
+      &.col-2 { grid-column-start: span 2; }
+      &.col-3 { grid-column-start: span 2; }
+      &.col-4 { grid-column-start: span 2; }
+    }
+    @include laptop-up {
+      &.col-2 { grid-column-start: span 2; }
+      &.col-3 { grid-column-start: span 3; }
+      &.col-4 { grid-column-start: span 3; }
+    }
+    @include monitor-up {
+      &.col-2 { grid-column-start: span 2; }
+      &.col-3 { grid-column-start: span 3; }
+      &.col-4 { grid-column-start: span 4; }
+    }
 
     .wrap-collabsible {
         margin-bottom: 1.2rem 0;

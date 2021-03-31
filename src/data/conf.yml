@@ -3,10 +3,8 @@ pageInfo:
   title: Hello World
   description: ''
 sections:
-- id: '0'
-  name: Firewall
+- name: Firewall
   collapsed: false
-  cols: 3
   items:
   - title: OPNsense
     description: Firewall Central Management
@@ -48,10 +46,12 @@ sections:
     icon: networking/wireguard
     iconType: img
     url: https://192.168.1.1/ui/wireguard/general
-- id: '1'
-  name: DNS Device
+- name: DNS Device
+  displayData:
+    collapsed: false
+    rows: 2
+    cols: 2
   collapsed: false
-  cols: 2
   items:
   - title: Pi-Hole
     description: DNS settings for ad & tracker blocking
@@ -115,10 +115,8 @@ sections:
     iconType: img
     icon: networking/grafana
     url: http://192.168.130.2:8091/
-- id: '2'
-  name: Other Devices
+- name: Other Devices
   collapsed: false
-  cols: 3
   items:
   - title: Modem
     description: ISP Router Modem Combo
@@ -175,8 +173,7 @@ sections:
     icon: networking/vodafone
     iconType: img
     url: https://myaccount.vodafone.co.uk/
-- id: '005'
-  name: External Utilities
+- name: External Utilities
   collapsed: false
   cols: 1
   items:

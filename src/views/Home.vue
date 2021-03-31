@@ -4,13 +4,12 @@
     <FilterTile @user-is-searchin="searching" class="filter-container" />
     <div class="item-group-container">
       <ItemGroup
-        v-for="(item, index) in items"
+        v-for="(section, index) in sections"
         :key="index"
-        :groupId="item.id"
-        :title="item.name"
-        :collapsed="item.collapsed"
-        :cols="item.cols"
-        :items="filterTiles(item.items)"
+        :title="section.name"
+        :displayData="getDisplayData(section)"
+        :groupId="`section-${index}`"
+        :items="filterTiles(section.items)"
       />
     </div>
   </div>
@@ -35,7 +34,7 @@ export default {
     ItemGroup,
   },
   data: () => ({
-    items: conf.sections,
+    sections: conf.sections,
     searchTile: '',
   }),
   methods: {
@@ -59,6 +58,10 @@ export default {
           || this.getDomainFromUrl(url).includes(searchTerm);
       });
     },
+    getDisplayData(section) {
+      const defaultDisplayData = { collapsed: null, rows: null, cols: null };
+      return !section.displayData ? defaultDisplayData : section.displayData;
+    },
   },
 };
 </script>
@@ -76,7 +79,6 @@ export default {
 .item-group-container {
   display: grid;
   gap: 10px;
-  // grid-template-rows: masonry;
 
   @include phone {
     grid-template-columns: repeat(1, 1fr);
