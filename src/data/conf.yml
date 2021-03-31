@@ -47,10 +47,6 @@ sections:
     iconType: img
     url: https://192.168.1.1/ui/wireguard/general
 - name: DNS Device
-  displayData:
-    collapsed: false
-    rows: 2
-    cols: 2
   collapsed: false
   items:
   - title: Pi-Hole

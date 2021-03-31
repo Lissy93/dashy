@@ -5,6 +5,8 @@
     :collapsed="displayData.collapsed"
     :cols="displayData.cols"
     :rows="displayData.rows"
+    :color="displayData.color"
+    :customStyles="displayData.customStyles"
   >
     <div v-if="!items || items.length < 1" class="no-items">
       No Items to Show Yet

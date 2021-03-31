@@ -1,5 +1,7 @@
 <template>
-  <div :class="`collapsable ${checkSpanNum(cols, 'col')} ${checkSpanNum(rows, 'row')}`">
+  <div :class="`collapsable ${checkSpanNum(cols, 'col')} ${checkSpanNum(rows, 'row')}`"
+    :style="`${color ? 'background: '+color : ''}; ${customStyles}`"
+  >
         <input
             :id="`collapsible-${uniqueKey}`"
             class="toggle"
@@ -28,6 +30,8 @@ export default {
     collapsed: Boolean,
     cols: Number,
     rows: Number,
+    color: String,
+    customStyles: String,
   },
   data() {
     return {

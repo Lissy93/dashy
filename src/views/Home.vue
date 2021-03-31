@@ -59,8 +59,7 @@ export default {
       });
     },
     getDisplayData(section) {
-      const defaultDisplayData = { collapsed: null, rows: null, cols: null };
-      return !section.displayData ? defaultDisplayData : section.displayData;
+      return !section.displayData ? {} : section.displayData;
     },
   },
 };
