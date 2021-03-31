@@ -3,20 +3,15 @@
     <Header />
     <FilterTile @user-is-searchin="searching" class="filter-container" />
     <div class="item-group-container">
-      <masonry
-        :cols="{600: 1, 780: 2, 1150: 2, 1780: 3, 9999: 4}"
-        :gutter="30"
-        >
-        <ItemGroup
-          v-for="(item, index) in items"
-          :key="index"
-          :groupId="item.id"
-          :title="item.name"
-          :collapsed="item.collapsed"
-          :cols="item.cols"
-          :items="filterTiles(item.items)"
-        />
-      </masonry>
+      <ItemGroup
+        v-for="(item, index) in items"
+        :key="index"
+        :groupId="item.id"
+        :title="item.name"
+        :collapsed="item.collapsed"
+        :cols="item.cols"
+        :items="filterTiles(item.items)"
+      />
     </div>
   </div>
 </template>
@@ -69,22 +64,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 @import '../../src/styles/color-pallet.scss';
+@import '../../src/styles/media-queries.scss';
 
 .home {
   background: $background;
   padding-bottom: 1px;
 }
 
+/* Outside container wrapping the item groups*/
 .item-group-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 2rem;
-  align-items:flex-start;
-  align-content:flex-start;
-  .item-group-outer {
-    margin: 10px;
+  display: grid;
+  gap: 10px;
+  // grid-template-rows: masonry;
+
+  @include phone {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include laptop {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include monitor {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include big-screen {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 </style>

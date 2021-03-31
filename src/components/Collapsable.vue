@@ -74,7 +74,6 @@ export default {
 @import '../../src/styles/constants.scss';
 
 .collapsable {
-    // width: 310px;
     padding: 5px;
     margin: 10px;
     border-radius: $curve-factor;
@@ -82,7 +81,9 @@ export default {
     // background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     // background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     box-shadow: 1px 1px 2px #130f23;
-    width: auto;
+    height: fit-content;
+    width: 100%;
+    width: stretch;
     // &.col-1 { width: 155px; }
     // &.col-2 { width: 310px; }
     // &.col-3 { width: 465px; }
