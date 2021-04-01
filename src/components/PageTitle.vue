@@ -1,13 +1,17 @@
 <template>
   <div class="page-titles">
-    <h1>Networking Services</h1>
-    <span class="subtitle">Local network management and moniroting</span>
+    <h1>{{ title }}</h1>
+    <span class="subtitle">{{ description }}</span>
   </div>
 </template>
 
 <script>
 export default {
   name: 'PageTitle',
+  props: {
+    title: String,
+    description: String,
+  },
 };
 </script>
 

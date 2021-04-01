@@ -1,10 +1,9 @@
 ---
 pageInfo:
   title: Hello World
-  description: ''
+  description: 'This is a demo'
 sections:
 - name: Firewall
-  collapsed: false
   items:
   - title: OPNsense
     description: Firewall Central Management
@@ -47,7 +46,6 @@ sections:
     iconType: img
     url: https://192.168.1.1/ui/wireguard/general
 - name: DNS Device
-  collapsed: false
   items:
   - title: Pi-Hole
     description: DNS settings for ad & tracker blocking
@@ -112,7 +110,6 @@ sections:
     icon: networking/grafana
     url: http://192.168.130.2:8091/
 - name: Other Devices
-  collapsed: false
   items:
   - title: Modem
     description: ISP Router Modem Combo
@@ -136,8 +133,6 @@ sections:
     iconType: img
     url: "/"
 - name: External Services
-  collapsed: true
-  cols: 1
   items:
   - title: DuckDNS
     description: Dynamic DNS for fixed public IP
@@ -170,8 +165,8 @@ sections:
     iconType: img
     url: https://myaccount.vodafone.co.uk/
 - name: External Utilities
-  collapsed: false
-  cols: 1
+  displayData:
+    collapsed: true
   items:
   - title: Public IP
     description: Check public IP and associated data

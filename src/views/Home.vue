@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Header />
+    <Header :pageInfo="getPageInfo(pageInfo)" />
     <FilterTile @user-is-searchin="searching" class="filter-container" />
     <div class="item-group-container">
       <ItemGroup
@@ -24,28 +24,28 @@ import conf from '../data/conf.yml';
 
 export default {
   name: 'home',
-  props: {
-    title: { default: 'Panel', type: String },
-    subtitle: { default: 'All your server management tools in one place', type: String },
-  },
   components: {
     Header,
     FilterTile,
     ItemGroup,
   },
   data: () => ({
+    pageInfo: conf.pageInfo,
     sections: conf.sections,
     searchTile: '',
   }),
   methods: {
+    /* Returns true if the user is currently searching */
     searching(searchTile) {
       this.searchTile = searchTile;
     },
+    /* Extracts the website name from domain, used for the searching functionality */
     getDomainFromUrl(url) {
       const urlPattern = /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d.-]+)\.(?:[a-z.]{2,10})(?:[/\w.-]*)*/;
       const domainPattern = url.match(urlPattern);
       return domainPattern ? domainPattern[1] : '';
     },
+    /* Returns only the tiles that match the users search query */
     filterTiles(allTiles) {
       return allTiles.filter((tile) => {
         const {
@@ -58,8 +58,20 @@ export default {
           || this.getDomainFromUrl(url).includes(searchTerm);
       });
     },
+    /* Returns optional section display preferences if available */
     getDisplayData(section) {
       return !section.displayData ? {} : section.displayData;
+    },
+    /* Returns either page info from the config, or default values */
+    getPageInfo(pageInfo) {
+      const defaults = { title: 'Demo', description: '' };
+      if (pageInfo) {
+        return {
+          title: pageInfo.title || defaults.title,
+          description: pageInfo.description || defaults.description,
+        };
+      }
+      return defaults;
     },
   },
 };
@@ -77,8 +89,9 @@ export default {
 /* Outside container wrapping the item groups*/
 .item-group-container {
   display: grid;
-  gap: 10px;
+  gap: 0.5rem;
 
+  /* Specify number of columns, based on screen size */
   @include phone {
     grid-template-columns: repeat(1, 1fr);
   }

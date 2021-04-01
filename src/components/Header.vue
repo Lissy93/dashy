@@ -1,6 +1,6 @@
 <template>
     <header>
-      <PageTitle />
+      <PageTitle :title="pageInfo.title" :description="pageInfo.description" />
       <Nav class="nav"/>
     </header>
 </template>
@@ -14,6 +14,9 @@ export default {
   components: {
     PageTitle,
     Nav,
+  },
+  props: {
+    pageInfo: Object,
   },
 };
 </script>

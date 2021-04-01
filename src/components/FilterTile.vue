@@ -14,7 +14,10 @@
           title="Clear search"
           @click="clearFilterInput"></i>
       </form>
-      <div class="space-filler"></div>
+      <div class="space-filler">
+        <span>hello</span>
+        <span>world</span>
+      </div>
       <KeyboardShortcutInfo />
   </section>
 </template>
