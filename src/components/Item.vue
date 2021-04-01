@@ -7,15 +7,15 @@
                 <div class="overflow-dots">...</div>
             </div>
             <img
-                v-if="iconType === 'img' && icon"
-                :src="`/img/item-icons/tile-icons/${icon}.png`"
+                v-if="icon"
+                :src="getAppropriateImgPath(icon)"
                 class="tile-icon"
             />
-            <img
+            <!-- <img
                 v-else-if="iconType === 'svg' && icon"
                 :src="`/img/item-icons/tile-svgs/${icon}.svg`"
                 class="tile-svg"
-            />
+            /> -->
             <!-- <img
                 v-else-if="fontAwesome"
                 :src="`/img/tile-svgs/${svg}.svg`"
@@ -35,7 +35,6 @@ export default {
     subtitle: String, // Optional sub-text
     description: String, // Optional tooltip hover text
     icon: String, // Optional path to icon, within public/img/tile-icons
-    iconType: String, // 'img' | 'svg' | 'fa' | undefined, // Type of icon
     svg: String, // Optional vector graphic, that is then dynamically filled
     color: String, // Optional background color, specified in hex code
     url: String, // URL to the resource, optional but recommended
@@ -50,6 +49,46 @@ export default {
       getId: this.id,
     };
   },
+  methods: {
+    isUrl(str) {
+      const pattern = new RegExp(/(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-/]))?/);
+      return pattern.test(str);
+    },
+    /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
+    getAppropriateImgPath(img) {
+      const imageType = this.determineImageType(img);
+      switch (imageType) {
+        case 'url':
+          return img;
+        case 'img':
+          return `/img/item-icons/tile-icons/${img}`;
+        case 'svg':
+          return img;
+        case 'fas':
+          return img;
+        default:
+          return '';
+      }
+    },
+    /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
+    determineImageType(img) {
+      const fileExtRegex = /(?:\.([^.]+))?$/;
+      const validImgExtensions = ['png', 'jpg'];
+      let imgType = '';
+      if (this.isUrl(img)) {
+        imgType = 'url';
+      } else if (validImgExtensions.includes(fileExtRegex.exec(img)[1])) {
+        imgType = 'img';
+      } else if (fileExtRegex.exec(img)[1] === 'svg') {
+        imgType = 'svg';
+      } else if (img.include('fas')) {
+        imgType = 'fas';
+      } else {
+        imgType = 'none';
+      }
+      return imgType;
+    },
+  },
   mounted() {
     // Detects overflowing text, and allows is to marguee on hover
     // The below code is horifically bad, it is embarassing that I wrote it...
@@ -60,7 +99,7 @@ export default {
       if (isOverflowing) {
         tileElem.className += ' is-overflowing';
       }
-    } // Not from present me to past me: WTF?!
+    } // Note from present me to past me: WTF?!
   },
 };
 </script>
