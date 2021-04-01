@@ -1,23 +1,23 @@
 <template>
   <div :class="`collapsable ${checkSpanNum(cols, 'col')} ${checkSpanNum(rows, 'row')}`"
-    :style="`${color ? 'background: '+color : ''}; ${customStyles}`"
+    :style="`${color ? 'background: '+color : ''}; ${sanitizeCustomStyles(customStyles)};`"
   >
-        <input
-            :id="`collapsible-${uniqueKey}`"
-            class="toggle"
-            type="checkbox"
-            :checked="getCollapseState()"
-            @change="collapseChanged"
-            tabIndex="-1"
-        >
-        <label :for="`collapsible-${uniqueKey}`" class="lbl-toggle" tabindex="-1">
-            <h3>{{ title }}</h3>
-        </label>
-        <div class="collapsible-content">
-          <div class="content-inner">
-            <slot></slot>
-            </div>
+    <input
+        :id="`collapsible-${uniqueKey}`"
+        class="toggle"
+        type="checkbox"
+        :checked="getCollapseState()"
+        @change="collapseChanged"
+        tabIndex="-1"
+    >
+    <label :for="`collapsible-${uniqueKey}`" class="lbl-toggle" tabindex="-1">
+      <h3>{{ title }}</h3>
+    </label>
+    <div class="collapsible-content">
+      <div class="content-inner">
+        <slot></slot>
         </div>
+    </div>
   </div>
 </template>
 
@@ -46,6 +46,11 @@ export default {
       numSpan = (numSpan > maxSpan) ? maxSpan : numSpan;
       return `${classPrefix}-${numSpan}`;
     },
+    /* Removes all special characters, except those allowed in valid CSS */
+    sanitizeCustomStyles(userCss) {
+      return userCss ? userCss.replace(/[^a-zA-Z0-9- :;.]/g, '') : '';
+    },
+    /* If not already done, then add object structure to local storage */
     initialiseStorage() {
       const initStorage = () => localStorage.setItem('collapseState', JSON.stringify({}));
       if (!localStorage.collapseState) initStorage(); // If not yet set, then init localstorage
