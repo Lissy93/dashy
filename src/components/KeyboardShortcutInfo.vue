@@ -30,12 +30,13 @@ export default {
       return !!localStorage.hideWelcomeHelpers;
     },
     /**
-     * Sets the session storage to 'true', so that it won't be shown again
-     * Then sets the state, also to true, so that it'll be hidden immediatley
+     * Update session storage, so that it won't be shown again
+     * Trigger the hide function, and remove the event listerner
      */
     hideWelcomeHelper() {
-      localStorage.setItem('hideWelcomeHelpers', true);
       this.shouldHide = true;
+      localStorage.setItem('hideWelcomeHelpers', true);
+      window.removeEventListener('keyup');
     },
   },
   /**

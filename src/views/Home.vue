@@ -1,7 +1,11 @@
 <template>
   <div class="home">
     <Header :pageInfo="getPageInfo(pageInfo)" />
-    <FilterTile @user-is-searchin="searching" class="filter-container" ref="filterComp" />
+    <FilterTile ref="filterComp"
+      @user-is-searchin="searching"
+      @change-display-layout="changeDisplayLayout"
+      class="filter-container"
+    />
     <div class="item-group-container">
       <ItemGroup
         v-for="(section, index) in sections"
@@ -36,12 +40,16 @@ export default {
     searchTile: '',
   }),
   methods: {
-    finishedSearching() {
-      this.$refs.filterComp.clearFilterInput();
+    changeDisplayLayout(layout) {
+      console.log('Display layout will update', layout);
     },
     /* Returns true if the user is currently searching */
     searching(searchTile) {
       this.searchTile = searchTile;
+    },
+    /* Clears input field, once a searched item is opened */
+    finishedSearching() {
+      this.$refs.filterComp.clearFilterInput();
     },
     /* Extracts the website name from domain, used for the searching functionality */
     getDomainFromUrl(url) {
@@ -77,11 +85,15 @@ export default {
       }
       return defaults;
     },
+    /* Injects font-awesome's script tag, used for item icons */
+    initiateFontAwesome() {
+      const fontAwesomeScript = document.createElement('script');
+      fontAwesomeScript.setAttribute('src', 'https://kit.fontawesome.com/def7c3ce4c.js');
+      document.head.appendChild(fontAwesomeScript);
+    },
   },
   mounted() {
-    const fontAwesomeScript = document.createElement('script');
-    fontAwesomeScript.setAttribute('src', 'https://kit.fontawesome.com/def7c3ce4c.js');
-    document.head.appendChild(fontAwesomeScript);
+    this.initiateFontAwesome();
   },
 };
 </script>

@@ -14,10 +14,13 @@
           title="Clear search"
           @click="clearFilterInput"></i>
       </form>
-      <div class="space-filler">
-        <span>hello</span>
-        <span>world</span>
-        <i class="fas fa-rocket" style="color: red;"></i>
+      <div class="options-container">
+        <span class="options-label">Layout</span>
+        <div class="display-options">
+          <i class="fas fa-th" @click="updateDisplayLayout('default')"></i>
+          <i class="fas fa-grip-vertical" @click="updateDisplayLayout('vertical')"></i>
+          <i class="fas fa-grip-horizontal" @click="updateDisplayLayout('horizontal')"></i>
+        </div>
       </div>
       <KeyboardShortcutInfo />
   </section>
@@ -44,6 +47,9 @@ export default {
       this.input = '';
       this.userIsTypingSomething();
       document.activeElement.blur();
+    },
+    updateDisplayLayout(layout) {
+      this.$emit('change-display-layout', layout);
     },
   },
   mounted() {
@@ -112,11 +118,41 @@ export default {
       }
     }
   }
-  .space-filler {
+  .options-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
     flex: 1;
+    padding: 0 1rem;
     border-radius: 20px 0 0;
     background: $background;
+
+    span.options-label {
+      font-size: 0.8rem;
+      color: #5cabca;
+      width: 6rem;
+      text-align: left;
+    }
+
+    i.fas {
+      min-width: 1.2rem;
+      font-size: 1rem;
+      margin: 0.2rem;
+      padding: 0.2rem;
+      text-align: center;
+      color: #5cabca;
+      background: #05070e;
+      border: 1px solid #5cabca;
+      border-radius: 4px;
+      opacity: 0.8;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
+
   @media screen and (max-width: 600px) {
     form {
       flex: 1;
@@ -124,7 +160,7 @@ export default {
       text-align: center;
       padding: 0.25rem 0;
     }
-    .space-filler {
+    .options-container {
       display: none;
     }
   }
