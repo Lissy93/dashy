@@ -50,9 +50,7 @@ export default {
     };
   },
   methods: {
-    itemOpened() {
-      this.$emit('itemClicked');
-    },
+    /* Returns true if a string is in URL format. Used to identify tile icon source */
     isUrl(str) {
       const pattern = new RegExp(/(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-/]))?/);
       return pattern.test(str);
@@ -91,18 +89,25 @@ export default {
       }
       return imgType;
     },
+    /* Called when an item is opened, so that search field can be reset */
+    itemOpened() {
+      this.$emit('itemClicked');
+    },
+    /**
+     * Detects overflowing text, shows ellipse, and allows is to marguee on hover
+     * The below code is horifically bad, it is embarassing that I wrote it...
+     */
+    manageTitleEllipse() {
+      const tileElem = document.getElementById(`tile-${this.getId}`);
+      if (tileElem) {
+        const isOverflowing = tileElem.scrollHeight > tileElem.clientHeight
+              || tileElem.scrollWidth > tileElem.clientWidth;
+        if (isOverflowing) tileElem.className += ' is-overflowing';
+      } // Note from present me to past me: WTF?!
+    },
   },
   mounted() {
-    // Detects overflowing text, and allows is to marguee on hover
-    // The below code is horifically bad, it is embarassing that I wrote it...
-    const tileElem = document.getElementById(`tile-${this.getId}`);
-    if (tileElem) {
-      const isOverflowing = tileElem.scrollHeight > tileElem.clientHeight
-            || tileElem.scrollWidth > tileElem.clientWidth;
-      if (isOverflowing) {
-        tileElem.className += ' is-overflowing';
-      }
-    } // Note from present me to past me: WTF?!
+    this.manageTitleEllipse();
   },
 };
 </script>

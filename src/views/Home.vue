@@ -1,11 +1,14 @@
 <template>
   <div class="home">
+    <!-- Page title and navigation buttons -->
     <Header :pageInfo="getPageInfo(pageInfo)" />
+    <!-- Search bar, layout options and settings -->
     <FilterTile ref="filterComp"
       @user-is-searchin="searching"
       @change-display-layout="changeDisplayLayout"
       class="filter-container"
     />
+    <!-- Main content, section for each group of items -->
     <div class="item-group-container">
       <ItemGroup
         v-for="(section, index) in sections"
@@ -25,7 +28,7 @@
 import Header from '@/components/Header.vue';
 import FilterTile from '@/components/FilterTile.vue';
 import ItemGroup from '@/components/ItemGroup.vue';
-import conf from '../data/conf.yml';
+import conf from '../data/conf.yml'; // Main site configuration
 
 export default {
   name: 'home',
@@ -35,23 +38,23 @@ export default {
     ItemGroup,
   },
   data: () => ({
-    pageInfo: conf.pageInfo,
-    sections: conf.sections,
-    searchTile: '',
+    pageInfo: conf.pageInfo, // Site meta data (title, description, etc)
+    sections: conf.sections, // List of sections, containing items
+    searchValue: '',
   }),
   methods: {
     changeDisplayLayout(layout) {
       console.log('Display layout will update', layout);
     },
-    /* Returns true if the user is currently searching */
-    searching(searchTile) {
-      this.searchTile = searchTile;
+    /* Updates local data with search value, triggered from filter comp */
+    searching(searchValue) {
+      this.searchValue = searchValue;
     },
     /* Clears input field, once a searched item is opened */
     finishedSearching() {
       this.$refs.filterComp.clearFilterInput();
     },
-    /* Extracts the website name from domain, used for the searching functionality */
+    /* Extracts the site name from domain, used for the searching functionality */
     getDomainFromUrl(url) {
       const urlPattern = /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d.-]+)\.(?:[a-z.]{2,10})(?:[/\w.-]*)*/;
       const domainPattern = url.match(urlPattern);
@@ -63,7 +66,7 @@ export default {
         const {
           title, description, provider, url,
         } = tile;
-        const searchTerm = this.searchTile.toLowerCase();
+        const searchTerm = this.searchValue.toLowerCase();
         return (title && title.toLowerCase().includes(searchTerm))
           || (provider && provider.toLowerCase().includes(searchTerm))
           || (description && description.toLowerCase().includes(searchTerm))
