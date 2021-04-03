@@ -22,13 +22,15 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
 footer {
   padding: 0.5rem;
   text-align: center;
   color: #5e6474;
+  opacity: 0.5;
+  background: #05070e;
+  margin-top: 1rem;
 }
 
 footer a{

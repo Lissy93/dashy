@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Header :pageInfo="getPageInfo(pageInfo)" />
-    <FilterTile @user-is-searchin="searching" class="filter-container" />
+    <FilterTile @user-is-searchin="searching" class="filter-container" ref="filterComp" />
     <div class="item-group-container">
       <ItemGroup
         v-for="(section, index) in sections"
@@ -10,6 +10,7 @@
         :displayData="getDisplayData(section)"
         :groupId="`section-${index}`"
         :items="filterTiles(section.items)"
+         @itemClicked="finishedSearching()"
       />
     </div>
   </div>
@@ -35,6 +36,9 @@ export default {
     searchTile: '',
   }),
   methods: {
+    finishedSearching() {
+      this.$refs.filterComp.clearFilterInput();
+    },
     /* Returns true if the user is currently searching */
     searching(searchTile) {
       this.searchTile = searchTile;
@@ -73,6 +77,11 @@ export default {
       }
       return defaults;
     },
+  },
+  mounted() {
+    const fontAwesomeScript = document.createElement('script');
+    fontAwesomeScript.setAttribute('src', 'https://kit.fontawesome.com/def7c3ce4c.js');
+    document.head.appendChild(fontAwesomeScript);
   },
 };
 </script>

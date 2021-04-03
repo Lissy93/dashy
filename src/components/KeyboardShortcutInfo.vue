@@ -48,6 +48,7 @@ export default {
     if (!shouldHide) {
       window.setTimeout(() => { this.shouldHide = shouldHide; }, 3000);
       window.addEventListener('keyup', (ev) => {
+        // User pressed the escape key. Trigger permanent dismissal of dialog
         if (ev.keyCode === 27) this.hideWelcomeHelper();
       });
     } else { // Meh, component not needed.

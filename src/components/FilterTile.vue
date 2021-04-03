@@ -17,6 +17,7 @@
       <div class="space-filler">
         <span>hello</span>
         <span>world</span>
+        <i class="fas fa-rocket" style="color: red;"></i>
       </div>
       <KeyboardShortcutInfo />
   </section>
@@ -47,7 +48,7 @@ export default {
   },
   mounted() {
     window.addEventListener('keyup', (event) => {
-      const { key } = event;
+      const { key, keyCode } = event;
       if (/^[a-zA-Z]$/.test(key) && !document.activeElement.id) {
         try {
           this.input += key;
@@ -56,6 +57,8 @@ export default {
         } catch (e) {
           // Do nothing
         }
+      } else if (keyCode === 27) {
+        this.clearFilterInput();
       }
     });
   },

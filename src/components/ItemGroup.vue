@@ -22,6 +22,7 @@
         :icon="item.icon"
         :iconType="item.iconType"
         :svg="item.svg"
+        @itemClicked="$emit('itemClicked')"
       />
     </div>
   </Collapsable>

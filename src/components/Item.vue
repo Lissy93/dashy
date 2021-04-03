@@ -1,6 +1,6 @@
 <template>
     <el-tooltip placement="bottom" effect="dark" :content="description" :disabled="!description">
-        <a :href="url"  :class="`item ${!icon && !svg? 'short': ''}`"
+        <a :href="url"  :class="`item ${!icon? 'short': ''}`" v-on:click="$emit('itemClicked')"
             tabindex="0" target="_blank" rel="noopener noreferrer">
             <div class="tile-title" :id="`tile-${id}`">
                 <span class="text">{{ title }}</span>
@@ -50,6 +50,9 @@ export default {
     };
   },
   methods: {
+    itemOpened() {
+      this.$emit('itemClicked');
+    },
     isUrl(str) {
       const pattern = new RegExp(/(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-/]))?/);
       return pattern.test(str);

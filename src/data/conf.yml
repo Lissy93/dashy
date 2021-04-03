@@ -44,6 +44,9 @@ sections:
     icon: networking/wireguard.png
     url: https://192.168.1.1/ui/wireguard/general
 - name: DNS Device
+  displayData:
+    collapsed: false
+    rows: 2
   items:
   - title: Pi-Hole
     description: DNS settings for ad & tracker blocking
@@ -93,25 +96,6 @@ sections:
     description: Data visualised on dashboards
     icon: networking/grafana.png
     url: http://192.168.130.2:8091/
-- name: Other Devices
-  items:
-  - title: Modem
-    description: ISP Router Modem Combo
-    icon: ''
-    url: http://192.168.1.5
-  - title: Wireless Access Point
-    description: View clients connected to WiFi
-    icon: ''
-    url: http://192.168.1.109/info.php
-  - title: Fing
-    description: Monitor connectivity issues, ISP quality, health checks and troubleshooting
-    provider: Fing
-    icon: ''
-    url: https://app.fing.com/
-  - title: Switch
-    description: Manage VLANs on Ubiquity Ethernet switch
-    icon: ''
-    url: "/"
 - name: External Services
   items:
   - title: DuckDNS
@@ -138,6 +122,25 @@ sections:
     description: Broadband internet provider
     icon: networking/vodafone.png
     url: https://myaccount.vodafone.co.uk/
+- name: Other Devices
+  items:
+  - title: Modem
+    description: ISP Router Modem Combo
+    icon: ''
+    url: http://192.168.1.5
+  - title: Wireless Access Point
+    description: View clients connected to WiFi
+    icon: ''
+    url: http://192.168.1.109/info.php
+  - title: Fing
+    description: Monitor connectivity issues, ISP quality, health checks and troubleshooting
+    provider: Fing
+    icon: ''
+    url: https://app.fing.com/
+  - title: Switch
+    description: Manage VLANs on Ubiquity Ethernet switch
+    icon: ''
+    url: "/"
 - name: External Utilities
   displayData:
     collapsed: true

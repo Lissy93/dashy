@@ -4,20 +4,35 @@ import Home from './views/Home.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
       name: 'home',
       component: Home,
+      meta: {
+        title: 'Home Page',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'A simple static homepage for you\'re server',
+          },
+        ],
+      },
     },
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
     },
   ],
 });
+
+const defaultTitle = 'Speed Dial';
+router.afterEach((to) => {
+  Vue.nextTick(() => {
+    document.title = to.meta.title || defaultTitle;
+  });
+});
+
+export default router;
