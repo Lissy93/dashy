@@ -5,11 +5,11 @@
     <!-- Search bar, layout options and settings -->
     <FilterTile ref="filterComp"
       @user-is-searchin="searching"
-      @change-display-layout="changeDisplayLayout"
+      @change-display-layout="setLayoutOrientation"
       class="filter-container"
     />
     <!-- Main content, section for each group of items -->
-    <div class="item-group-container">
+    <div :class="`item-group-container orientation-${layout}`">
       <ItemGroup
         v-for="(section, index) in sections"
         :key="index"
@@ -41,10 +41,23 @@ export default {
     pageInfo: conf.pageInfo, // Site meta data (title, description, etc)
     sections: conf.sections, // List of sections, containing items
     searchValue: '',
+    layout: '',
   }),
+  computed: {
+    layoutOrientation: {
+      get: () => localStorage.layoutOrientation || 'default',
+      set: function setLayout(layout) {
+        localStorage.setItem('layoutOrientation', layout);
+        this.layout = layout;
+      },
+    },
+  },
   methods: {
-    changeDisplayLayout(layout) {
-      console.log('Display layout will update', layout);
+    setLayoutOrientation(layout) {
+      this.layoutOrientation = layout;
+    },
+    getLayoutOrientation() {
+      return localStorage.layoutOrientation || 'default';
     },
     /* Updates local data with search value, triggered from filter comp */
     searching(searchValue) {
@@ -97,6 +110,7 @@ export default {
   },
   mounted() {
     this.initiateFontAwesome();
+    this.layout = this.getLayoutOrientation();
   },
 };
 </script>
@@ -114,6 +128,16 @@ export default {
 .item-group-container {
   display: grid;
   gap: 0.5rem;
+
+  /* Options for alternate layouts, triggered by buttons */
+  &.orientation-horizontal {
+    display: flex;
+    flex-direction: column;
+  }
+  &.orientation-vertical {
+    display: flex;
+    flex-direction: row;
+  }
 
   /* Specify number of columns, based on screen size */
   @include phone {
