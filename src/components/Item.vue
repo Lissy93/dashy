@@ -6,11 +6,12 @@
                 <span class="text">{{ title }}</span>
                 <div class="overflow-dots">...</div>
             </div>
-            <img
+            <icon :icon="icon" :url="url" />
+            <!-- <img
                 v-if="icon"
-                :src="getAppropriateImgPath(icon)"
+                :src="getAppropriateImgPath(icon, url)"
                 class="tile-icon"
-            />
+            /> -->
             <!-- <img
                 v-else-if="iconType === 'svg' && icon"
                 :src="`/img/item-icons/tile-svgs/${icon}.svg`"
@@ -26,6 +27,8 @@
 </template>
 
 <script>
+
+import Icon from '@/components/ItemIcon.vue';
 
 export default {
   name: 'Item',
@@ -49,46 +52,10 @@ export default {
       getId: this.id,
     };
   },
+  components: {
+    Icon,
+  },
   methods: {
-    /* Returns true if a string is in URL format. Used to identify tile icon source */
-    isUrl(str) {
-      const pattern = new RegExp(/(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-/]))?/);
-      return pattern.test(str);
-    },
-    /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
-    getAppropriateImgPath(img) {
-      const imageType = this.determineImageType(img);
-      switch (imageType) {
-        case 'url':
-          return img;
-        case 'img':
-          return `/img/item-icons/tile-icons/${img}`;
-        case 'svg':
-          return img;
-        case 'fas':
-          return img;
-        default:
-          return '';
-      }
-    },
-    /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
-    determineImageType(img) {
-      const fileExtRegex = /(?:\.([^.]+))?$/;
-      const validImgExtensions = ['png', 'jpg'];
-      let imgType = '';
-      if (this.isUrl(img)) {
-        imgType = 'url';
-      } else if (validImgExtensions.includes(fileExtRegex.exec(img)[1])) {
-        imgType = 'img';
-      } else if (fileExtRegex.exec(img)[1] === 'svg') {
-        imgType = 'svg';
-      } else if (img.include('fas')) {
-        imgType = 'fas';
-      } else {
-        imgType = 'none';
-      }
-      return imgType;
-    },
     /* Called when an item is opened, so that search field can be reset */
     itemOpened() {
       this.$emit('itemClicked');
