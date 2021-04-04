@@ -17,9 +17,12 @@
       <div class="options-container">
         <span class="options-label">Layout</span>
         <div class="display-options">
-          <i class="fas fa-th" @click="updateDisplayLayout('default')"></i>
-          <i class="fas fa-grip-vertical" @click="updateDisplayLayout('vertical')"></i>
-          <i class="fas fa-grip-horizontal" @click="updateDisplayLayout('horizontal')"></i>
+          <IconDeafault @click="updateDisplayLayout('default')"
+            :class="`layout-icon ${displayLayout === 'default' ? 'selected' : ''}`" />
+          <IconHorizontal class="layout-icon" @click="updateDisplayLayout('horizontal')"
+            :class="`layout-icon ${displayLayout === 'horizontal' ? 'selected' : ''}`" />
+          <IconVertical class="layout-icon" @click="updateDisplayLayout('vertical')"
+            :class="`layout-icon ${displayLayout === 'vertical' ? 'selected' : ''}`" />
         </div>
       </div>
       <KeyboardShortcutInfo />
@@ -29,6 +32,10 @@
 <script>
 import KeyboardShortcutInfo from '@/components/KeyboardShortcutInfo';
 
+import IconDeafault from '@/assets/icons/layout-default.svg';
+import IconHorizontal from '@/assets/icons/layout-horizontal.svg';
+import IconVertical from '@/assets/icons/layout-vertical.svg';
+
 export default {
   name: 'FilterTile',
   data() {
@@ -36,8 +43,14 @@ export default {
       input: '',
     };
   },
+  props: {
+    displayLayout: String,
+  },
   components: {
     KeyboardShortcutInfo,
+    IconDeafault,
+    IconHorizontal,
+    IconVertical,
   },
   methods: {
     userIsTypingSomething() {
@@ -131,24 +144,30 @@ export default {
     span.options-label {
       font-size: 0.8rem;
       color: #5cabca;
-      width: 6rem;
+      width: 5.5rem;
       text-align: left;
     }
 
-    i.fas {
-      min-width: 1.2rem;
-      font-size: 1rem;
-      margin: 0.2rem;
-      padding: 0.2rem;
-      text-align: center;
-      color: #5cabca;
-      background: #05070e;
-      border: 1px solid #5cabca;
-      border-radius: 4px;
-      opacity: 0.8;
-      cursor: pointer;
-      &:hover {
-        opacity: 1;
+    .display-options {
+      color: $ascent;
+      svg {
+        path {
+          fill: $ascent;
+        }
+        width: 1rem;
+        height: 1rem;
+        margin: 0.2rem;
+        padding: 0.2rem;
+        text-align: center;
+        background: $background;
+        border: 1px solid currentColor;
+        border-radius: 4px;
+        opacity: 0.8;
+        cursor: pointer;
+        &:hover, &.selected {
+          background: $ascent;
+          path { fill: $background; }
+        }
       }
     }
   }

@@ -6,6 +6,7 @@
     <FilterTile ref="filterComp"
       @user-is-searchin="searching"
       @change-display-layout="setLayoutOrientation"
+      :displayLayout="layout"
       class="filter-container"
     />
     <!-- Main content, section for each group of items -->
