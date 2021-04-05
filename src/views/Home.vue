@@ -94,11 +94,23 @@ export default {
     getLayoutOrientation() {
       return localStorage.layoutOrientation || 'default';
     },
-    /* Injects font-awesome's script tag, used for item icons */
+    /* Checks if any of the icons are Font Awesome glyphs */
+    checkIfFontAwesomeNeeded() {
+      let isFound = false;
+      this.sections.forEach((section) => {
+        section.items.forEach((item) => {
+          if (item.icon && item.icon.includes('fas')) isFound = true;
+        });
+      });
+      return isFound;
+    },
+    /* Injects font-awesome's script tag, only if needed */
     initiateFontAwesome() {
-      const fontAwesomeScript = document.createElement('script');
-      fontAwesomeScript.setAttribute('src', 'https://kit.fontawesome.com/def7c3ce4c.js');
-      document.head.appendChild(fontAwesomeScript);
+      if (this.checkIfFontAwesomeNeeded()) {
+        const fontAwesomeScript = document.createElement('script');
+        fontAwesomeScript.setAttribute('src', 'https://kit.fontawesome.com/def7c3ce4c.js');
+        document.head.appendChild(fontAwesomeScript);
+      }
     },
   },
   mounted() {
