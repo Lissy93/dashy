@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <!-- Page title and navigation buttons -->
-    <Header :pageInfo="getPageInfo(pageInfo)" />
     <!-- Search bar, layout options and settings -->
     <FilterTile ref="filterComp"
       @user-is-searchin="searching"
@@ -10,7 +8,7 @@
       class="filter-container"
     />
     <!-- Main content, section for each group of items -->
-    <div :class="`item-group-container orientation-${layout}`">
+    <div :class="`item-group-container orientation-${layout}`" v-if="checkTheresData(sections)">
       <ItemGroup
         v-for="(section, index) in sections"
         :key="index"
@@ -21,26 +19,25 @@
          @itemClicked="finishedSearching()"
       />
     </div>
+    <div v-else class="no-data">No Data Found Yet</div>
   </div>
 </template>
 
 <script>
 
-import Header from '@/components/Header.vue';
 import FilterTile from '@/components/FilterTile.vue';
 import ItemGroup from '@/components/ItemGroup.vue';
-import conf from '../data/conf.yml'; // Main site configuration
 
 export default {
   name: 'home',
+  props: {
+    sections: Array, // Main site configuration
+  },
   components: {
-    Header,
     FilterTile,
     ItemGroup,
   },
   data: () => ({
-    pageInfo: conf.pageInfo, // Site meta data (title, description, etc)
-    sections: conf.sections, // List of sections, containing items
     searchValue: '',
     layout: '',
   }),
@@ -54,11 +51,9 @@ export default {
     },
   },
   methods: {
-    setLayoutOrientation(layout) {
-      this.layoutOrientation = layout;
-    },
-    getLayoutOrientation() {
-      return localStorage.layoutOrientation || 'default';
+    /* Returns true if there is one or more sections in the config */
+    checkTheresData(sections) {
+      return sections && sections.length >= 1;
     },
     /* Updates local data with search value, triggered from filter comp */
     searching(searchValue) {
@@ -91,16 +86,13 @@ export default {
     getDisplayData(section) {
       return !section.displayData ? {} : section.displayData;
     },
-    /* Returns either page info from the config, or default values */
-    getPageInfo(pageInfo) {
-      const defaults = { title: 'Demo', description: '' };
-      if (pageInfo) {
-        return {
-          title: pageInfo.title || defaults.title,
-          description: pageInfo.description || defaults.description,
-        };
-      }
-      return defaults;
+    /* Sets layout attribute, which is used by ItemGroup */
+    setLayoutOrientation(layout) {
+      this.layoutOrientation = layout;
+    },
+    /* Either gets user's preferred layout from session, or returns default */
+    getLayoutOrientation() {
+      return localStorage.layoutOrientation || 'default';
     },
     /* Injects font-awesome's script tag, used for item icons */
     initiateFontAwesome() {
@@ -123,6 +115,7 @@ export default {
 .home {
   background: $background;
   padding-bottom: 1px;
+  min-height: 90%;
 }
 
 /* Outside container wrapping the item groups*/
@@ -157,4 +150,15 @@ export default {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+.no-data {
+    font-size: 2rem;
+    color: $background;
+    background: #ffffffeb;
+    width: fit-content;
+    margin: 2rem auto;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
 </style>

@@ -1,26 +1,38 @@
 <template>
   <div id="app">
-    <router-view/>
+    <Header :pageInfo="getPageInfo(pageInfo)" />
+    <router-view />
     <Footer />
   </div>
 </template>
 <script>
 
-// const jsyaml = require("js-yaml");
+import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
-// import defaultConfig from '../src/data/conf.yml';
+import conf from '@/data/conf.yml';
 
 export default {
   name: 'app',
   components: {
+    Header,
     Footer,
   },
-  // methods: {
-  //   getConfig: async function () {
-  //     // const defaults = jsyaml.load(defaultConfig);
-
-  //   },
-  // }
+  data: () => ({
+    pageInfo: conf.pageInfo,
+  }),
+  methods: {
+    /* Returns either page info from the config, or default values */
+    getPageInfo(pageInfo) {
+      const defaults = { title: 'Demo', description: '' };
+      if (pageInfo) {
+        return {
+          title: pageInfo.title || defaults.title,
+          description: pageInfo.description || defaults.description,
+        };
+      }
+      return defaults;
+    },
+  },
 };
 </script>
 

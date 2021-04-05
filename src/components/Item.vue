@@ -1,29 +1,16 @@
 <template>
-    <el-tooltip placement="bottom" effect="dark" :content="description" :disabled="!description">
-        <a :href="url"  :class="`item ${!icon? 'short': ''}`" v-on:click="$emit('itemClicked')"
-            tabindex="0" target="_blank" rel="noopener noreferrer">
-            <div class="tile-title" :id="`tile-${id}`">
-                <span class="text">{{ title }}</span>
-                <div class="overflow-dots">...</div>
-            </div>
-            <icon :icon="icon" :url="url" />
-            <!-- <img
-                v-if="icon"
-                :src="getAppropriateImgPath(icon, url)"
-                class="tile-icon"
-            /> -->
-            <!-- <img
-                v-else-if="iconType === 'svg' && icon"
-                :src="`/img/item-icons/tile-svgs/${icon}.svg`"
-                class="tile-svg"
-            /> -->
-            <!-- <img
-                v-else-if="fontAwesome"
-                :src="`/img/tile-svgs/${svg}.svg`"
-                class="tile-svg"
-            /> -->
-        </a>
-    </el-tooltip>
+  <el-tooltip placement="bottom" effect="dark" :content="description" :disabled="!description">
+    <a :href="url"  :class="`item ${!icon? 'short': ''}`" v-on:click="$emit('itemClicked')"
+    tabindex="0" target="_blank" rel="noopener noreferrer">
+      <!-- Item Text -->
+      <div class="tile-title" :id="`tile-${id}`">
+        <span class="text">{{ title }}</span>
+        <div class="overflow-dots">...</div>
+      </div>
+      <!-- Item Icon -->
+      <Icon :icon="icon" :url="url" />
+    </a>
+  </el-tooltip>
 </template>
 
 <script>

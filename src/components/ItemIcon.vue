@@ -88,5 +88,4 @@ export default {
     width: 60px;
     filter: drop-shadow(2px 4px 6px $transparent-black) saturate(0.65);
 }
-
 </style>
