@@ -1,20 +1,17 @@
 <template>
-  <el-tooltip placement="bottom" effect="dark" :content="description" :disabled="!description">
-    <a :href="url"  :class="`item ${!icon? 'short': ''}`" v-on:click="$emit('itemClicked')"
-    tabindex="0" target="_blank" rel="noopener noreferrer">
-      <!-- Item Text -->
-      <div class="tile-title" :id="`tile-${id}`">
-        <span class="text">{{ title }}</span>
-        <div class="overflow-dots">...</div>
-      </div>
-      <!-- Item Icon -->
-      <Icon :icon="icon" :url="url" />
-    </a>
-  </el-tooltip>
+  <a :href="url"  :class="`item ${!icon? 'short': ''}`" v-on:click="$emit('itemClicked')"
+  tabindex="0" target="_blank" rel="noopener noreferrer" v-tooltip="getTooltipOptions()">
+    <!-- Item Text -->
+    <div class="tile-title" :id="`tile-${id}`">
+      <span class="text">{{ title }}</span>
+      <div class="overflow-dots">...</div>
+    </div>
+    <!-- Item Icon -->
+    <Icon :icon="icon" :url="url" />
+  </a>
 </template>
 
 <script>
-
 import Icon from '@/components/ItemIcon.vue';
 
 export default {
@@ -58,6 +55,17 @@ export default {
               || tileElem.scrollWidth > tileElem.clientWidth;
         if (isOverflowing) tileElem.className += ' is-overflowing';
       } // Note from present me to past me: WTF?!
+    },
+    /* Returns configuration object for the tooltip */
+    getTooltipOptions() {
+      return {
+        disabled: !this.description,
+        content: this.description,
+        trigger: 'hover focus',
+        hideOnTargetClick: true,
+        html: false,
+        delay: { show: 350, hide: 200 },
+      };
     },
   },
   mounted() {
@@ -170,4 +178,36 @@ export default {
         brightness(96%)
         contrast(102%);
 }
+
+
+</style>
+
+<!-- An un-scoped style tag, since tooltip is outside this DOM tree -->
+<style lang="scss">
+.tooltip {
+  padding: 0.2rem 0.5rem;
+  background: #0b1021cc;
+  border: 1px solid #0b1021;
+  border-radius: 3px;
+  color: #fff;
+  max-width: 250px;
+}
+.tooltip-arrow {
+  border-width: 5px 5px 0 5px;
+  border-left-color: transparent!important;
+  border-right-color: transparent!important;
+  border-bottom-color: transparent!important;
+  bottom: -11px;
+  left: calc(50% - 5px);
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  margin: 5px;
+  border-color: #0b1021cc;
+  z-index: 3;
+}
+
 </style>

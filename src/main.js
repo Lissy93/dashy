@@ -1,14 +1,14 @@
 import Vue from 'vue';
-import Element from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import VTooltip from 'v-tooltip'; // A Vue directive for Popper.js
+
 import App from './App.vue';
 import router from './router';
 import './registerServiceWorker';
 
-Vue.use(Element);
+Vue.use(VTooltip);
 Vue.config.productionTip = false;
 
 new Vue({
   router,
-  render: (h) => h(App),
+  render: (awesome) => awesome(App),
 }).$mount('#app');

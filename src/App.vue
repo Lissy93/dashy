@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="dashy">
     <Header :pageInfo="getPageInfo(pageInfo)" />
     <router-view />
     <Footer />
