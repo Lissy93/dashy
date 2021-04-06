@@ -1,6 +1,13 @@
 <template>
-  <a :href="url"  :class="`item ${!icon? 'short': ''}`" v-on:click="$emit('itemClicked')"
-  tabindex="0" target="_blank" rel="noopener noreferrer" v-tooltip="getTooltipOptions()">
+  <a
+    :href="target !== 'iframe' ? url : '#'"
+    v-on:click="itemOpened()"
+    :class="`item ${!icon? 'short': ''}`"
+    v-tooltip="getTooltipOptions()"
+    :target="target === 'newtab' ? '_blank' : ''"
+    rel="noopener noreferrer"
+    tabindex="0"
+  >
     <!-- Item Text -->
     <div class="tile-title" :id="`tile-${id}`">
       <span class="text">{{ title }}</span>
@@ -8,11 +15,22 @@
     </div>
     <!-- Item Icon -->
     <Icon :icon="icon" :url="url" />
+    <div :class="`opening-method-icon  ${!icon? 'short': ''}`">
+      <NewTabOpenIcon v-if="target === 'newtab'" />
+      <SameTabOpenIcon v-else-if="target === 'sametab'" />
+      <IframeOpenIcon v-else-if="target === 'iframe'" />
+    </div>
+    <IframeModal v-if="target === 'iframe'" :url="url" ref="iframeModal"/>
   </a>
 </template>
 
 <script>
 import Icon from '@/components/ItemIcon.vue';
+import IframeModal from '@/components/IframeModal.vue';
+
+import NewTabOpenIcon from '@/assets/icons/open-new-tab.svg';
+import SameTabOpenIcon from '@/assets/icons/open-current-tab.svg';
+import IframeOpenIcon from '@/assets/icons/open-iframe.svg';
 
 export default {
   name: 'Item',
@@ -25,7 +43,7 @@ export default {
     svg: String, // Optional vector graphic, that is then dynamically filled
     color: String, // Optional background color, specified in hex code
     url: String, // URL to the resource, optional but recommended
-    openingMethod: { // Where resource will open, either 'newtab', 'sametab' or 'iframe'
+    target: { // Where resource will open, either 'newtab', 'sametab' or 'iframe'
       type: String,
       default: 'newtab',
       validator: (value) => ['newtab', 'sametab', 'iframe'].indexOf(value) !== -1,
@@ -38,11 +56,18 @@ export default {
   },
   components: {
     Icon,
+    NewTabOpenIcon,
+    SameTabOpenIcon,
+    IframeOpenIcon,
+    IframeModal,
   },
   methods: {
     /* Called when an item is opened, so that search field can be reset */
     itemOpened() {
       this.$emit('itemClicked');
+      if (this.target === 'iframe') {
+        this.$refs.iframeModal.show();
+      }
     },
     /**
      * Detects overflowing text, shows ellipse, and allows is to marguee on hover
@@ -78,107 +103,128 @@ export default {
 @import '../../src/styles/color-pallet.scss';
 @import '../../src/styles/constants.scss';
 
+/* Item wrapper */
 .item {
-    flex-grow: 1;
-    height: 100px;
-    color: $ascent;
-    vertical-align: middle;
-    margin: 0.5rem;
-    background: #607d8b33;
-    text-align: center;
-    padding: 2px;
-    border: 2px solid transparent;
-    border-radius: $curve-factor;
-    box-shadow: 1px 1px 2px #373737;
-    cursor: pointer;
-    &:hover {
-        box-shadow: 1px 2px 4px #373737;
-        background: #607d8b4d;
-    }
-    &:focus {
-        border: 2px solid $ascent;
-        outline: none;
-    }
-    &.short {
-        height: 18px;
-    }
+  flex-grow: 1;
+  height: 100px;
+  position: relative;
+  color: $ascent;
+  vertical-align: middle;
+  margin: 0.5rem;
+  background: #607d8b33;
+  text-align: center;
+  padding: 2px;
+  border: 2px solid transparent;
+  border-radius: $curve-factor;
+  box-shadow: 1px 1px 2px #373737;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 1px 2px 4px #373737;
+    background: #607d8b4d;
+  }
+  &:focus {
+    border: 2px solid $ascent;
+    outline: none;
+  }
+  &.short {
+    height: 18px;
+  }
 }
+
+/* Text in tile */
 .tile-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 120px;
+  height: 30px;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  span.text {
+    position: absolute;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 120px;
-    height: 30px;
-    overflow: hidden;
-    position: relative;
-    padding: 0;
-
+    transition: 1s;
+    float: left;
+    left: 0;
+  }
+  &:not(.is-overflowing) span.text{
+    width: 100%;
+  }
+  .overflow-dots {
+    opacity: 0;
+  }
+  &.is-overflowing {
     span.text {
-        position: absolute;
-        white-space: nowrap;
-        transition: 1s;
-        float: left;
-        left: 0;
-    }
-    &:not(.is-overflowing) span.text{
-        width: 100%;
+      overflow: hidden;
     }
     .overflow-dots {
-        opacity: 0;
+      display: block;
+      opacity: 1;
+      background: $overflow-ellipse;
+      position: absolute;
+      z-index: 5;
+      right: 0;
+      transition: opacity 0.1s ease-in;
     }
+  }
 }
 
-.tile-title.is-overflowing {
-    span.text {
-        overflow: hidden;
-    }
-    .overflow-dots {
-        display: block;
-        opacity: 1;
-        background: $overflow-ellipse;
-        position: absolute;
-        z-index: 5;
-        right: 0;
-        transition: opacity 0.1s ease-in;
-    }
-}
+/* Manage hover and focus actions */
+.item:hover, .item:focus {
+  /* Show opening-method icon */
+  .opening-method-icon svg {
+    display: block;
+  }
 
-.item:hover .tile-title.is-overflowing{
+  /* Trigger text-marquee for text that doesn't fit */
+  .tile-title.is-overflowing{
     .overflow-dots {
-        opacity: 0;
+      opacity: 0;
     }
     span.text {
-        transform: translateX(calc(120px - 100%));
+      transform: translateX(calc(120px - 100%));
     }
+  }
+
+  /* Colourize icons on hover */
+  .tile-svg {
+    filter: drop-shadow(4px 8px 3px $transparent-black);
+  }
+  .tile-icon {
+    filter:
+      drop-shadow(4px 8px 3px $transparent-black)
+      saturate(2);
+  }
 }
 
 .tile-icon {
-    width: 60px;
-    filter: drop-shadow(2px 4px 6px $transparent-black) saturate(0.65);
-}
-
-.item:hover {
-    .tile-svg {
-        filter: drop-shadow(4px 8px 3px $transparent-black);
-    }
-    .tile-icon {
-        filter:
-            drop-shadow(4px 8px 3px $transparent-black)
-            saturate(2);
-    }
+  width: 60px;
+  filter: drop-shadow(2px 4px 6px $transparent-black) saturate(0.65);
 }
 
 .tile-svg {
-    width: 56px;
-     filter:
-        invert(69%)
-        sepia(40%)
-        saturate(4686%)
-        hue-rotate(142deg)
-        brightness(96%)
-        contrast(102%);
+  width: 56px;
 }
 
+/* Opening-method icon */
+.opening-method-icon {
+  svg {
+    position: absolute;
+    display: none;
+    width: 1rem;
+    margin: 2px;
+    right: 0;
+    top: 0;
+    path {
+      fill: $ascent-with-opacity;
+    }
+  }
+  &.short svg {
+    width: 0.5rem;
+    margin: 0;
+  }
+}
 
 </style>
 

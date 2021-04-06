@@ -20,7 +20,7 @@
         :title="item.title"
         :description="item.description"
         :icon="item.icon"
-        :iconType="item.iconType"
+        :target="item.target"
         :svg="item.svg"
         @itemClicked="$emit('itemClicked')"
       />

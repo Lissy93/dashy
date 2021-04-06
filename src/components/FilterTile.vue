@@ -143,16 +143,16 @@ export default {
 
     span.options-label {
       font-size: 0.8rem;
-      color: #5cabca;
+      color: $ascent-with-opacity;
       width: 5.5rem;
       text-align: left;
     }
 
     .display-options {
-      color: $ascent;
+      color: $ascent-with-opacity;
       svg {
         path {
-          fill: $ascent;
+          fill: $ascent-with-opacity;
         }
         width: 1rem;
         height: 1rem;
@@ -165,7 +165,7 @@ export default {
         opacity: 0.8;
         cursor: pointer;
         &:hover, &.selected {
-          background: $ascent;
+          background: $ascent-with-opacity;
           path { fill: $background; }
         }
       }

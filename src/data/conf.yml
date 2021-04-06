@@ -9,6 +9,7 @@ sections:
     description: Firewall Central Management
     icon: networking/opnsense.png
     iconType: img
+    target: iframe
     url: https://192.168.1.1
   - title: NetData
     description: System resource usage on firewall
