@@ -15,14 +15,19 @@
           @click="clearFilterInput"></i>
       </form>
       <div class="options-container">
+        <div class="theme-selector">
+          <ThemeSelector :themes="availableThemes" />
+        </div>
+        <div>
         <span class="options-label">Layout</span>
-        <div class="display-options">
-          <IconDeafault @click="updateDisplayLayout('default')"
-            :class="`layout-icon ${displayLayout === 'default' ? 'selected' : ''}`" />
-          <IconHorizontal class="layout-icon" @click="updateDisplayLayout('horizontal')"
-            :class="`layout-icon ${displayLayout === 'horizontal' ? 'selected' : ''}`" />
-          <IconVertical class="layout-icon" @click="updateDisplayLayout('vertical')"
-            :class="`layout-icon ${displayLayout === 'vertical' ? 'selected' : ''}`" />
+          <div class="display-options">
+            <IconDeafault @click="updateDisplayLayout('default')"
+              :class="`layout-icon ${displayLayout === 'default' ? 'selected' : ''}`" />
+            <IconHorizontal class="layout-icon" @click="updateDisplayLayout('horizontal')"
+              :class="`layout-icon ${displayLayout === 'horizontal' ? 'selected' : ''}`" />
+            <IconVertical class="layout-icon" @click="updateDisplayLayout('vertical')"
+              :class="`layout-icon ${displayLayout === 'vertical' ? 'selected' : ''}`" />
+          </div>
         </div>
       </div>
       <KeyboardShortcutInfo />
@@ -31,6 +36,7 @@
 
 <script>
 import KeyboardShortcutInfo from '@/components/KeyboardShortcutInfo';
+import ThemeSelector from '@/components/ThemeSelector';
 
 import IconDeafault from '@/assets/icons/layout-default.svg';
 import IconHorizontal from '@/assets/icons/layout-horizontal.svg';
@@ -45,9 +51,11 @@ export default {
   },
   props: {
     displayLayout: String,
+    availableThemes: Object,
   },
   components: {
     KeyboardShortcutInfo,
+    ThemeSelector,
     IconDeafault,
     IconHorizontal,
     IconVertical,
@@ -92,7 +100,7 @@ export default {
     display: flex;
     align-items: center;
     align-items: stretch;
-    background: linear-gradient(0deg, $background 0%, $header-color 100%);
+    background: linear-gradient(0deg, var(--background) 0%, $header-color 100%);
   }
   form {
     border-radius: 0 0 20px 0;
@@ -100,7 +108,7 @@ export default {
     background: $header-color;
     label {
         display: inline;
-        color: $ascent;
+        color: var(--primary);
         margin: 0.5rem;
         display: inline;
     }
@@ -112,8 +120,8 @@ export default {
       outline: none;
       border: none;
       border-radius: 12px;
-      background: $background;
-      color: $ascent;
+      background: var(--background);
+      color: var(--primary);
       &:focus {
         background: $bg-with-opacity;
       }
@@ -121,7 +129,7 @@ export default {
     .clear-search {
       position: absolute;
       margin: 1em 0 0 -2em;
-      color: $ascent;
+      color: var(--primary);
       opacity: 0.5;
       border-radius: 50px;
       cursor: pointer;
@@ -133,19 +141,26 @@ export default {
   }
   .options-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-end;
     justify-content: flex-end;
     flex: 1;
     padding: 0 1rem;
     border-radius: 20px 0 0;
-    background: $background;
+    background: var(--background);
 
     span.options-label {
       font-size: 0.8rem;
       color: $ascent-with-opacity;
       width: 5.5rem;
       text-align: left;
+    }
+
+    .theme-selector {
+      align-items: center;
+      display: flex;
+      height: 100%;
+      padding: 0 1rem;
     }
 
     .display-options {
@@ -159,14 +174,14 @@ export default {
         margin: 0.2rem;
         padding: 0.2rem;
         text-align: center;
-        background: $background;
+        background: var(--background);
         border: 1px solid currentColor;
         border-radius: 4px;
         opacity: 0.8;
         cursor: pointer;
         &:hover, &.selected {
           background: $ascent-with-opacity;
-          path { fill: $background; }
+          path { fill: var(--background); }
         }
       }
     }

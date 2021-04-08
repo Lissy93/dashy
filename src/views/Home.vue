@@ -5,6 +5,7 @@
       @user-is-searchin="searching"
       @change-display-layout="setLayoutOrientation"
       :displayLayout="layout"
+      :availableThemes="getAvailibleThemes()"
       class="filter-container"
     />
     <!-- Main content, section for each group of items -->
@@ -31,7 +32,8 @@ import ItemGroup from '@/components/ItemGroup.vue';
 export default {
   name: 'home',
   props: {
-    sections: Array, // Main site configuration
+    sections: Array, // Main site content
+    appConfig: Object, // Main site configuation (optional)
   },
   components: {
     FilterTile,
@@ -94,6 +96,24 @@ export default {
     getLayoutOrientation() {
       return localStorage.layoutOrientation || 'default';
     },
+    getAvailibleThemes() {
+      const availibleThemes = {};
+      if (this.appConfig) {
+        if (this.appConfig.externalStyleSheet) {
+          const externals = this.appConfig.externalStyleSheet;
+          console.log(externals);
+          if (Array.isArray(externals)) {
+            externals.forEach((ext, i) => {
+              availibleThemes[`External Stylesheet ${i + 1}`] = ext;
+            });
+          } else {
+            availibleThemes['External Stylesheet'] = this.appConfig.externalStyleSheet;
+          }
+        }
+      }
+      availibleThemes.Deafault = '#';
+      return availibleThemes;
+    },
     /* Checks if any of the icons are Font Awesome glyphs */
     checkIfFontAwesomeNeeded() {
       let isFound = false;
@@ -125,7 +145,7 @@ export default {
 @import '../../src/styles/media-queries.scss';
 
 .home {
-  background: $background;
+  background: var(--background);
   padding-bottom: 1px;
   min-height: 90%;
 }
