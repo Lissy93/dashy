@@ -82,10 +82,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../src/styles/color-pallet.scss';
 
 .tile-icon {
     width: 60px;
-    filter: drop-shadow(2px 4px 6px $transparent-black) saturate(0.65);
+    filter: drop-shadow(2px 4px 6px var(--transparent-50)) saturate(0.65);
 }
 </style>

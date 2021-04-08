@@ -1,7 +1,12 @@
 <template>
   <div class="theme-selector-section" v-if="themes" >
     <span class="theme-label">Themes</span>
-    <v-select :options="themeNames" v-model="selectedTheme" label="Theme" class="theme-dropdown" />
+    <v-select
+      :options="themeNames"
+      v-model="selectedTheme"
+      class="theme-dropdown"
+      :tabindex="100"
+    />
   </div>
 </template>
 
@@ -33,8 +38,7 @@ export default {
     const added = Object.keys(this.themes).map(
       name => this.themeHelper.add(name, this.themes[name]),
     );
-    Promise.all(added).then(sheets => {
-      console.log(`${sheets.length} themes loaded`);
+    Promise.all(added).then(() => {
       this.loading = false;
       this.themeHelper.theme = 'Deafault';
     });
@@ -44,7 +48,6 @@ export default {
 
 <style lang="scss">
 
-@import '../../src/styles/color-pallet.scss';
 @import 'vue-select/src/scss/vue-select.scss';
 
 .theme-dropdown {
@@ -56,7 +59,7 @@ export default {
   span.vs__selected, li.vs__dropdown-option {
     color: var(--primary);
   }
-  button.vs__clear, svg.vs__open-indicator {
+  svg.vs__open-indicator {
     fill: var(--primary);
   }
   ul.vs__dropdown-menu {
@@ -66,6 +69,9 @@ export default {
   li.vs__dropdown-option--highlight {
     background: var(--primary);
     color: var(--background);
+  }
+  button.vs__clear {
+    display: none;
   }
 }
 

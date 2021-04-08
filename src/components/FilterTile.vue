@@ -94,18 +94,16 @@ export default {
 
 <style scoped lang="scss">
 
-@import '../../src/styles/color-pallet.scss';
-
   section {
     display: flex;
     align-items: center;
     align-items: stretch;
-    background: linear-gradient(0deg, var(--background) 0%, $header-color 100%);
+    background: linear-gradient(0deg, var(--background) 0%, var(--background-darker) 100%);
   }
   form {
     border-radius: 0 0 20px 0;
     padding: 0 0.2rem 0.2rem 0;
-    background: $header-color;
+    background: var(--background-darker);
     label {
         display: inline;
         color: var(--primary);
@@ -123,7 +121,7 @@ export default {
       background: var(--background);
       color: var(--primary);
       &:focus {
-        background: $bg-with-opacity;
+        background: var(--background-transparent);
       }
     }
     .clear-search {
@@ -135,7 +133,7 @@ export default {
       cursor: pointer;
       &:hover {
         opacity: 1;
-        background: $header-color;
+        background: var(--background-darker);
       }
     }
   }
@@ -151,7 +149,7 @@ export default {
 
     span.options-label {
       font-size: 0.8rem;
-      color: $ascent-with-opacity;
+      color: var(--primary-transparent);
       width: 5.5rem;
       text-align: left;
     }
@@ -164,10 +162,10 @@ export default {
     }
 
     .display-options {
-      color: $ascent-with-opacity;
+      color: var(--primary-transparent);
       svg {
         path {
-          fill: $ascent-with-opacity;
+          fill: var(--primary-transparent);
         }
         width: 1rem;
         height: 1rem;
@@ -180,7 +178,7 @@ export default {
         opacity: 0.8;
         cursor: pointer;
         &:hover, &.selected {
-          background: $ascent-with-opacity;
+          background: var(--primary-transparent);
           path { fill: var(--background); }
         }
       }

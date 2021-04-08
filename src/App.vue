@@ -1,5 +1,5 @@
 <template>
-  <div id="dashy">
+  <div id="dashy" data-theme="dark">
     <Header :pageInfo="getPageInfo(pageInfo)" />
     <router-view />
     <Footer />
@@ -38,10 +38,10 @@ export default {
 
 <style lang="scss">
 @import '../src/styles/global-styles.scss';
-@import '../src/styles/color-pallet.scss';
+@import '../src/styles/color-palette.scss';
 
 body {
-  background: $background;
+  background: var(--background);
   margin: 0;
   padding: 0;
 }

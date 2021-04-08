@@ -13,6 +13,7 @@ const router = new Router({
       component: Home,
       props: {
         sections: conf.sections || [],
+        appConfig: conf.appConfig || {},
       },
       meta: {
         title: 'Home Page',

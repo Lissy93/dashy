@@ -1,5 +1,4 @@
 
-
 @font-face {
     font-family: 'Inconsolata';
     src: url('./assets/Inconsolata-Light.ttf');
@@ -8,16 +7,17 @@
 html {
     margin: 0;
     padding: 0;
+    transition: all 1s;
 }
 
-body {
+/* Default app font face */
+body, div, p, a, span, label, input {
     font-family: 'Inconsolata', sans-serif;
 }
 
+/* Headings font face */
 h1, h2, h3, h4, h5 {
     font-family: 'Inconsolata', sans-serif;
 }
 
-p, a, span, div, input {
-    font-family: 'Inconsolata', sans-serif;
-}
+

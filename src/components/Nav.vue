@@ -14,8 +14,6 @@ export default {
 
 <style scoped lang="scss">
 
-@import '../../src/styles/color-pallet.scss';
-
 nav {
     display: flex;
     align-items: center;
@@ -29,7 +27,7 @@ nav {
         background: #607d8b33;
         -webkit-box-shadow: 1px 1px 2px #232323;
         box-shadow: 1px 1px 2px #232323;
-        color: $ascent;
+        color: var(--primary);
         text-decoration: none;
         &:hover {
             background: #607d8b1c;
@@ -37,7 +35,7 @@ nav {
         }
     }
     .router-link-active {
-        border: 1px solid $ascent;
+        border: 1px solid var(--primary);
     }
 }
 </style>

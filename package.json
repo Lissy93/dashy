@@ -16,7 +16,8 @@
     "vue": "^2.6.10",
     "vue-cli-plugin-yaml": "^1.0.2",
     "vue-js-modal": "^2.0.0-rc.6",
-    "vue-router": "^3.0.3"
+    "vue-router": "^3.0.3",
+    "vue-select": "^3.11.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.10.0",
@@ -44,7 +45,8 @@
       "airbnb-base"
     ],
     "rules": {
-      "import/no-unresolved": "off"
+      "import/no-unresolved": "off",
+      "arrow-parens": 0
     },
     "parserOptions": {
       "parser": "babel-eslint"

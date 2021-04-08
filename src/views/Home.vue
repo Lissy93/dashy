@@ -101,7 +101,6 @@ export default {
       if (this.appConfig) {
         if (this.appConfig.externalStyleSheet) {
           const externals = this.appConfig.externalStyleSheet;
-          console.log(externals);
           if (Array.isArray(externals)) {
             externals.forEach((ext, i) => {
               availibleThemes[`External Stylesheet ${i + 1}`] = ext;
@@ -141,7 +140,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../src/styles/color-pallet.scss';
 @import '../../src/styles/media-queries.scss';
 
 .home {
@@ -185,7 +183,7 @@ export default {
 
 .no-data {
     font-size: 2rem;
-    color: $background;
+    color: var(--background);
     background: #ffffffeb;
     width: fit-content;
     margin: 2rem auto;

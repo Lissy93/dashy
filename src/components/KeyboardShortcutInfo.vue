@@ -62,8 +62,6 @@ export default {
 
 <style scoped lang="scss">
 
-@import '../../src/styles/color-pallet.scss';
-
 .kb-sc-info {
   position: fixed;
   width: 30em;
@@ -73,12 +71,12 @@ export default {
   padding: 0.1em 0.3em;
   z-index: 10;
   border-radius: 12px;
-  border: 1px solid $header-color;
+  border: 1px solid var(--background-darker);
   -webkit-box-shadow: 2px 1px 5px #130f23;
   box-shadow: 2px 1px 5px #130f23;
-  border: 1px solid $ascent;
-  color: $ascent;
-  background: $header-color;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  background: var(--background-darker);
   cursor: default;
   opacity: 0.94;
   @media screen and (max-width: 600px) {
@@ -88,9 +86,9 @@ export default {
     position: absolute;
     top: -35px;
     left: 20px;
-    border: 1px solid $ascent;
-    color: $ascent;
-    background: $header-color;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    background: var(--background-darker);
     padding: 4px;
     border-radius: 5px;
   }
@@ -100,12 +98,12 @@ export default {
     width: 1em;
     padding: 0 0 6px 6px;
     height: 1em;
-    background: $transparent-black;
+    background: var(--transparent-50);
     margin-top: 3px;
     border: 1px solid transparent;
     cursor: pointer;
     &:hover {
-      border: 1px solid $ascent;
+      border: 1px solid var(--primary);
       opacity: 0.6;
     }
   }

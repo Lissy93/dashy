@@ -2,6 +2,8 @@
 pageInfo:
   title: Hello World
   description: 'This is a demo'
+appConfig:
+  externalStyleSheet: 'https://bootswatch.com/4/solar/bootstrap.min.css'
 sections:
 - name: Firewall
   items:

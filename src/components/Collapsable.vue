@@ -87,7 +87,6 @@ export default {
 
 <style scoped lang="scss">
 
-@import '../../src/styles/color-pallet.scss';
 @import '../../src/styles/constants.scss';
 @import '../../src/styles/media-queries.scss';
 
@@ -95,7 +94,7 @@ export default {
     padding: 5px;
     margin: 10px;
     border-radius: $curve-factor;
-    background: $ascent;
+    background: var(--primary);
     // background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     // background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     box-shadow: 1px 1px 2px #130f23;
@@ -144,7 +143,7 @@ export default {
         border-radius: $curve-factor;
         transition: all 0.25s ease-out;
         text-align: left;
-        color:$bg-with-opacity;
+        color: var(--background-transparent);
 
         h3 {
             margin: 0;
@@ -154,7 +153,7 @@ export default {
     }
 
     .lbl-toggle:hover {
-        color: $background;
+        color: var(--background);
     }
 
     .lbl-toggle::before {
@@ -178,7 +177,7 @@ export default {
         max-height: 0px;
         overflow: hidden;
         transition: max-height .25s ease-in-out;
-        background: $bg-with-opacity;
+        background: var(--background-transparent);
         border-radius: 0 0 $inner-radius $inner-radius;
     }
 

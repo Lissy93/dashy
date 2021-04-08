@@ -53,7 +53,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../src/styles/color-pallet.scss';
 @import '../../src/styles/constants.scss';
 
 .no-items {
@@ -64,7 +63,7 @@ export default {
     cursor: default;
     border-radius: $curve-factor;
     background: #607d8b33;
-    color: $ascent;
+    color: var(--primary);
     box-shadow: 1px 1px 2px #373737;
 }
 

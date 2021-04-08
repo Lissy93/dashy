@@ -100,7 +100,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../src/styles/color-pallet.scss';
 @import '../../src/styles/constants.scss';
 
 /* Item wrapper */
@@ -108,7 +107,7 @@ export default {
   flex-grow: 1;
   height: 100px;
   position: relative;
-  color: $ascent;
+  color: var(--primary);
   vertical-align: middle;
   margin: 0.5rem;
   background: #607d8b33;
@@ -123,7 +122,7 @@ export default {
     background: #607d8b4d;
   }
   &:focus {
-    border: 2px solid $ascent;
+    border: 2px solid var(--primary);
     outline: none;
   }
   &.short {
@@ -161,7 +160,8 @@ export default {
     .overflow-dots {
       display: block;
       opacity: 1;
-      background: $overflow-ellipse;
+      background: black;
+      // background: $overflow-ellipse;
       position: absolute;
       z-index: 5;
       right: 0;
@@ -189,18 +189,18 @@ export default {
 
   /* Colourize icons on hover */
   .tile-svg {
-    filter: drop-shadow(4px 8px 3px $transparent-black);
+    filter: drop-shadow(4px 8px 3px var(--transparent-50));
   }
   .tile-icon {
     filter:
-      drop-shadow(4px 8px 3px $transparent-black)
+      drop-shadow(4px 8px 3px var(--transparent-50))
       saturate(2);
   }
 }
 
 .tile-icon {
   width: 60px;
-  filter: drop-shadow(2px 4px 6px $transparent-black) saturate(0.65);
+  filter: drop-shadow(2px 4px 6px var(--transparent-50)) saturate(0.65);
 }
 
 .tile-svg {
@@ -217,7 +217,7 @@ export default {
     right: 0;
     top: 0;
     path {
-      fill: $ascent-with-opacity;
+      fill: var(--primary-transparent);
     }
   }
   &.short svg {

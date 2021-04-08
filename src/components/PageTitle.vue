@@ -16,13 +16,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../src/styles/color-pallet.scss';
 
 .page-titles {
   display: flex;
   flex-direction: column;
   h1 {
-    color: $ascent;
+    color: var(--primary);
     // background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     // background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     // -webkit-background-clip: text;
@@ -31,7 +30,7 @@ export default {
     margin: 0;
   }
   span.subtitle {
-    color: $ascent-with-opacity;
+    color: var(--primary-transparent);
     font-style: italic;
     text-shadow: 1px 1px 2px #130f23;
   }
