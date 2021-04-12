@@ -1,7 +1,8 @@
 <template>
-  <modal name="iframe-modal" :resizable="true"
-    :adaptive="true" width="80%" height="80%">
-    <iframe :src="url" class="frame" />
+  <modal :name="name" :resizable="true" width="80%" height="80%" @closed="$emit('closed')">
+    <div slot="top-right" @click="hide()">Close</div>
+    <a @click="hide()" class="close-button" title="Close">x</a>
+    <iframe :src="url" @keydown.esc="close" class="frame"/>
   </modal>
 </template>
 
@@ -9,22 +10,48 @@
 export default {
   name: 'IframeModal',
   props: {
-    url: String,
+    name: String,
   },
+  data: () => ({
+    url: '#',
+  }),
   methods: {
-    show: function show() {
-      this.$modal.show('iframe-modal');
+    show: function show(url) {
+      this.url = url;
+      this.$modal.show(this.name);
+    },
+    hide: function hide() {
+      this.$modal.hide(this.name);
     },
   },
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 
 .frame {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+.close-button {
+  position: absolute;
+  right: 0;
+  padding: 0.5rem;
+  border: 0;
+  border-radius: 0 0 0 10px;
+  background: var(--primary);
+  color: var(--background);
+  border-left: 1px solid var(--primary);
+  border-bottom: 1px solid var(--primary);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--background);
+    color: var(--primary);
+  }
+
 }
 
 </style>

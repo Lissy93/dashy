@@ -1,32 +1,30 @@
-<template>
-  <a
-    :href="target !== 'iframe' ? url : '#'"
-    v-on:click="itemOpened()"
-    :class="`item ${!icon? 'short': ''}`"
-    v-tooltip="getTooltipOptions()"
-    :target="target === 'newtab' ? '_blank' : ''"
-    rel="noopener noreferrer"
-    tabindex="0"
-  >
-    <!-- Item Text -->
-    <div class="tile-title" :id="`tile-${id}`">
-      <span class="text">{{ title }}</span>
-      <div class="overflow-dots">...</div>
-    </div>
-    <!-- Item Icon -->
-    <Icon :icon="icon" :url="url" />
-    <div :class="`opening-method-icon  ${!icon? 'short': ''}`">
-      <NewTabOpenIcon v-if="target === 'newtab'" />
-      <SameTabOpenIcon v-else-if="target === 'sametab'" />
-      <IframeOpenIcon v-else-if="target === 'iframe'" />
-    </div>
-    <IframeModal v-if="target === 'iframe'" :url="url" ref="iframeModal"/>
-  </a>
+<template ref="container">
+    <a @click="itemOpened"
+      :href="target !== 'iframe' ? url : '#'"
+      :target="target === 'newtab' ? '_blank' : ''"
+      :class="`item ${!icon? 'short': ''}`"
+      :id="`link-${id}`"
+      v-tooltip="getTooltipOptions()"
+      rel="noopener noreferrer"
+      tabindex="0"
+    >
+      <!-- Item Text -->
+      <div class="tile-title" :id="`tile-${id}`">
+        <span class="text">{{ title }}</span>
+        <div class="overflow-dots">...</div>
+      </div>
+      <!-- Item Icon -->
+      <Icon :icon="icon" :url="url" />
+      <div :class="`opening-method-icon  ${!icon? 'short': ''}`">
+        <NewTabOpenIcon v-if="target === 'newtab'" />
+        <SameTabOpenIcon v-else-if="target === 'sametab'" />
+        <IframeOpenIcon v-else-if="target === 'iframe'" />
+      </div>
+    </a>
 </template>
 
 <script>
 import Icon from '@/components/ItemIcon.vue';
-import IframeModal from '@/components/IframeModal.vue';
 
 import NewTabOpenIcon from '@/assets/icons/open-new-tab.svg';
 import SameTabOpenIcon from '@/assets/icons/open-current-tab.svg';
@@ -59,14 +57,15 @@ export default {
     NewTabOpenIcon,
     SameTabOpenIcon,
     IframeOpenIcon,
-    IframeModal,
   },
   methods: {
-    /* Called when an item is opened, so that search field can be reset */
-    itemOpened() {
-      this.$emit('itemClicked');
-      if (this.target === 'iframe') {
-        this.$refs.iframeModal.show();
+    /* Called when an item is clicked, manages the opening of iframe & resets the search field */
+    itemOpened(e) {
+      if (e.altKey || this.target === 'iframe') {
+        e.preventDefault();
+        this.$emit('triggerModal', this.url);
+      } else {
+        this.$emit('itemClicked');
       }
     },
     /**
@@ -103,6 +102,10 @@ export default {
 @import '../../src/styles/constants.scss';
 
 /* Item wrapper */
+.item-wrapper {
+
+}
+
 .item {
   flex-grow: 1;
   height: 100px;
@@ -127,6 +130,9 @@ export default {
   }
   &.short {
     height: 18px;
+  }
+  .item {
+    color: var(--primary);
   }
 }
 
@@ -160,8 +166,8 @@ export default {
     .overflow-dots {
       display: block;
       opacity: 1;
-      background: black;
-      // background: $overflow-ellipse;
+      // background: var(--background-transparent);
+      background: #283e51;
       position: absolute;
       z-index: 5;
       right: 0;
@@ -254,6 +260,10 @@ export default {
   margin: 5px;
   border-color: #0b1021cc;
   z-index: 3;
+}
+
+.disabled-link {
+  pointer-events: none;
 }
 
 </style>

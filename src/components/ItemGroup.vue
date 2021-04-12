@@ -23,14 +23,22 @@
         :target="item.target"
         :svg="item.svg"
         @itemClicked="$emit('itemClicked')"
+        @triggerModal="triggerModal"
       />
+      <div ref="modalContainer"></div>
     </div>
+    <IframeModal
+      :ref="`iframeModal-${groupId}`"
+      :name="`iframeModal-${groupId}`"
+      @closed="$emit('itemClicked')"
+    />
   </Collapsable>
 </template>
 
 <script>
 import Item from '@/components/Item.vue';
 import Collapsable from '@/components/Collapsable.vue';
+import IframeModal from '@/components/IframeModal.vue';
 
 export default {
   name: 'ItemGroup',
@@ -43,10 +51,16 @@ export default {
   components: {
     Collapsable,
     Item,
+    IframeModal,
   },
   methods: {
+    /* Returns a unique lowercase string, based on name, for section ID */
     makeId(str) {
       return str.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
+    },
+    /* Opens the iframe modal */
+    triggerModal(url) {
+      this.$refs[`iframeModal-${this.groupId}`].show(url);
     },
   },
 };

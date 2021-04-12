@@ -21,12 +21,12 @@ sections:
     description: Malicious traffic detection system
     icon: networking/maltrail.png
     iconType: img
-    url: 192.168.1.1:8338
+    url: http://192.168.1.1:8338
   - title: Ntopng
     description: Network traffic probe and network use monitor
     icon: networking/ntop.png
     iconType: img
-    url: 192.168.1.1:3001
+    url: http://192.168.1.1:3001
   - title: Sensei
     description: Additional data features
     icon: networking/sensei.png
@@ -143,7 +143,7 @@ sections:
   - title: Switch
     description: Manage VLANs on Ubiquity Ethernet switch
     icon: ''
-    url: "/"
+    url: "#"
 - name: External Utilities
   displayData:
     collapsed: true
