@@ -15,20 +15,14 @@
       </div>
       <!-- Item Icon -->
       <Icon :icon="icon" :url="url" />
-      <div :class="`opening-method-icon  ${!icon? 'short': ''}`">
-        <NewTabOpenIcon v-if="target === 'newtab'" />
-        <SameTabOpenIcon v-else-if="target === 'sametab'" />
-        <IframeOpenIcon v-else-if="target === 'iframe'" />
-      </div>
+      <!-- Small icon, showing opening method on hover -->
+      <ItemOpenMethodIcon class="opening-method-icon" :openingMethod="target" :isSmall="!icon" />
     </a>
 </template>
 
 <script>
 import Icon from '@/components/ItemIcon.vue';
-
-import NewTabOpenIcon from '@/assets/icons/open-new-tab.svg';
-import SameTabOpenIcon from '@/assets/icons/open-current-tab.svg';
-import IframeOpenIcon from '@/assets/icons/open-iframe.svg';
+import ItemOpenMethodIcon from '@/components/ItemOpenMethodIcon';
 
 export default {
   name: 'Item',
@@ -54,9 +48,7 @@ export default {
   },
   components: {
     Icon,
-    NewTabOpenIcon,
-    SameTabOpenIcon,
-    IframeOpenIcon,
+    ItemOpenMethodIcon,
   },
   methods: {
     /* Called when an item is clicked, manages the opening of iframe & resets the search field */
@@ -176,10 +168,14 @@ export default {
   }
 }
 
+.opening-method-icon {
+  display: none; // Hidden by default, visible on hover
+}
+
 /* Manage hover and focus actions */
 .item:hover, .item:focus {
   /* Show opening-method icon */
-  .opening-method-icon svg {
+  .opening-method-icon {
     display: block;
   }
 
@@ -211,25 +207,6 @@ export default {
 
 .tile-svg {
   width: 56px;
-}
-
-/* Opening-method icon */
-.opening-method-icon {
-  svg {
-    position: absolute;
-    display: none;
-    width: 1rem;
-    margin: 2px;
-    right: 0;
-    top: 0;
-    path {
-      fill: var(--primary-transparent);
-    }
-  }
-  &.short svg {
-    width: 0.5rem;
-    margin: 0;
-  }
 }
 
 </style>
