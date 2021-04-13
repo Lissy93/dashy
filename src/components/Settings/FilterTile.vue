@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import KeyboardShortcutInfo from '@/components/KeyboardShortcutInfo';
-import ThemeSelector from '@/components/ThemeSelector';
+import KeyboardShortcutInfo from '@/components/Settings/KeyboardShortcutInfo';
+import ThemeSelector from '@/components/Settings/ThemeSelector';
 
 import IconDeafault from '@/assets/icons/layout-default.svg';
 import IconHorizontal from '@/assets/icons/layout-horizontal.svg';

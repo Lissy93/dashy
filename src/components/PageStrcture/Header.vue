@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import PageTitle from '@/components/PageTitle.vue';
-import Nav from '@/components/Nav.vue';
+import PageTitle from '@/components/PageStrcture/PageTitle.vue';
+import Nav from '@/components/PageStrcture/Nav.vue';
 
 export default {
   name: 'Header',

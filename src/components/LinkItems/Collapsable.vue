@@ -87,8 +87,8 @@ export default {
 
 <style scoped lang="scss">
 
-@import '../../src/styles/constants.scss';
-@import '../../src/styles/media-queries.scss';
+@import '@/styles/constants.scss';
+@import '@/styles/media-queries.scss';
 
 .collapsable {
     padding: 5px;

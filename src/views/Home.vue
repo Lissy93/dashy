@@ -26,8 +26,8 @@
 
 <script>
 
-import FilterTile from '@/components/FilterTile.vue';
-import ItemGroup from '@/components/ItemGroup.vue';
+import FilterTile from '@/components/Settings/FilterTile.vue';
+import ItemGroup from '@/components/LinkItems/ItemGroup.vue';
 
 export default {
   name: 'home',

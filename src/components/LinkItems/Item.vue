@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import Icon from '@/components/ItemIcon.vue';
-import ItemOpenMethodIcon from '@/components/ItemOpenMethodIcon';
+import Icon from '@/components/LinkItems/ItemIcon.vue';
+import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 
 export default {
   name: 'Item',
@@ -91,7 +91,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../src/styles/constants.scss';
+@import '../../../src/styles/constants.scss';
 
 /* Item wrapper */
 .item-wrapper {

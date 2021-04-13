@@ -36,9 +36,9 @@
 </template>
 
 <script>
-import Item from '@/components/Item.vue';
-import Collapsable from '@/components/Collapsable.vue';
-import IframeModal from '@/components/IframeModal.vue';
+import Item from '@/components/LinkItems/Item.vue';
+import Collapsable from '@/components/LinkItems/Collapsable.vue';
+import IframeModal from '@/components/LinkItems/IframeModal.vue';
 
 export default {
   name: 'ItemGroup',
@@ -67,7 +67,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../src/styles/constants.scss';
+@import '../../../src/styles/constants.scss';
 
 .no-items {
     width: 100px;
