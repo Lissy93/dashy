@@ -54,7 +54,8 @@ export default {
   div.vs__dropdown-toggle {
     border-color: var(--primary);
     min-width: 10rem;
-    height: 2rem;
+    height: 1.8rem;
+    font-size: 0.85rem;
   }
   span.vs__selected, li.vs__dropdown-option {
     color: var(--primary);
@@ -78,14 +79,13 @@ export default {
 .theme-selector-section {
   display: flex;
   flex-direction: column;
-  opacity: 0.8;
+  align-items: flex-start;
+  height: 100%;
+  padding: 0 1rem;
   span.theme-label {
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: var(--primary);
     margin: 1px 0 2px 0;
-  }
-  &:hover {
-    opacity: 1;
   }
 }
 

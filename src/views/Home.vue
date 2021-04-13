@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- Search bar, layout options and settings -->
-    <FilterTile ref="filterComp"
+    <SettingsContainer ref="filterComp"
       @user-is-searchin="searching"
       @change-display-layout="setLayoutOrientation"
       :displayLayout="layout"
@@ -26,7 +26,7 @@
 
 <script>
 
-import FilterTile from '@/components/Settings/FilterTile.vue';
+import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import ItemGroup from '@/components/LinkItems/ItemGroup.vue';
 
 export default {
@@ -36,7 +36,7 @@ export default {
     appConfig: Object, // Main site configuation (optional)
   },
   components: {
-    FilterTile,
+    SettingsContainer,
     ItemGroup,
   },
   data: () => ({
@@ -59,7 +59,7 @@ export default {
     },
     /* Updates local data with search value, triggered from filter comp */
     searching(searchValue) {
-      this.searchValue = searchValue;
+      this.searchValue = searchValue || '';
     },
     /* Clears input field, once a searched item is opened */
     finishedSearching() {
