@@ -66,6 +66,7 @@ export default {
     border-radius: 20px 0 0;
     background: var(--background);
     div {
+      margin-left: 0.5rem;
       opacity: 0.85;
       &:hover { opacity: 1; }
     }

@@ -2,11 +2,11 @@
   <div>
     <span class="options-label">Layout</span>
     <div class="display-options">
-      <IconDeafault @click="updateDisplayLayout('default')"
+      <IconDeafault @click="updateDisplayLayout('default')" v-tooltip="tooltip('Auto')"
         :class="`layout-icon ${displayLayout === 'default' ? 'selected' : ''}`" />
-      <IconHorizontal class="layout-icon" @click="updateDisplayLayout('horizontal')"
+      <IconHorizontal @click="updateDisplayLayout('horizontal')" v-tooltip="tooltip('Horizontal')"
         :class="`layout-icon ${displayLayout === 'horizontal' ? 'selected' : ''}`" />
-      <IconVertical class="layout-icon" @click="updateDisplayLayout('vertical')"
+      <IconVertical @click="updateDisplayLayout('vertical')" v-tooltip="tooltip('Vertical')"
         :class="`layout-icon ${displayLayout === 'vertical' ? 'selected' : ''}`" />
     </div>
   </div>
@@ -35,6 +35,9 @@ export default {
   methods: {
     updateDisplayLayout(layout) {
       this.$emit('layoutUpdated', layout);
+    },
+    tooltip(content) {
+      return { content, trigger: 'hover focus', delay: 250 };
     },
   },
 };

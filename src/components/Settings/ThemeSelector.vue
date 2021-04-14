@@ -81,7 +81,6 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   height: 100%;
-  padding: 0 1rem;
   span.theme-label {
     font-size: 1rem;
     color: var(--primary);

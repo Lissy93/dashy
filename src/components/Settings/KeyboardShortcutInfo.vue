@@ -5,8 +5,8 @@
       <div class="close" title="Hide forever [Esc]" @click="hideWelcomeHelper()">x</div>
       <p title="Press [Esc] to hide this tip forever. See there's even a shortcut for that! 🚀">
         Just start typing to filter. Then use the tab key to cycle through results,
-        and press enter to launch the selected item. You can hit Esc at anytime to
-        clear the search. Easy 🥳
+        and press enter to launch the selected item, or alt + enter to open in a modal.
+        You can hit Esc at anytime to clear the search. Easy 🥳
       </p>
     </div>
   </transition>

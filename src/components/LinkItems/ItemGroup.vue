@@ -21,7 +21,7 @@
         :description="item.description"
         :icon="item.icon"
         :target="item.target"
-        :svg="item.svg"
+        :itemSize="itemSize"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
       />
@@ -47,6 +47,7 @@ export default {
     title: String,
     displayData: Object,
     items: Array,
+    itemSize: String,
   },
   components: {
     Collapsable,

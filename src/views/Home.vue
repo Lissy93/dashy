@@ -4,12 +4,15 @@
     <SettingsContainer ref="filterComp"
       @user-is-searchin="searching"
       @change-display-layout="setLayoutOrientation"
+      @change-icon-size="setItemSize"
       :displayLayout="layout"
+      :iconSize="itemSizeBound"
       :availableThemes="getAvailibleThemes()"
       class="filter-container"
     />
     <!-- Main content, section for each group of items -->
-    <div :class="`item-group-container orientation-${layout}`" v-if="checkTheresData(sections)">
+    <div v-if="checkTheresData(sections)"
+      :class="`item-group-container orientation-${layout} item-size-${itemSizeBound}`">
       <ItemGroup
         v-for="(section, index) in sections"
         :key="index"
@@ -18,6 +21,7 @@
         :groupId="`section-${index}`"
         :items="filterTiles(section.items)"
          @itemClicked="finishedSearching()"
+         :itemSize="itemSizeBound"
       />
     </div>
     <div v-else class="no-data">No Data Found Yet</div>
@@ -42,6 +46,7 @@ export default {
   data: () => ({
     searchValue: '',
     layout: '',
+    itemSizeBound: '',
   }),
   computed: {
     layoutOrientation: {
@@ -49,6 +54,13 @@ export default {
       set: function setLayout(layout) {
         localStorage.setItem('layoutOrientation', layout);
         this.layout = layout;
+      },
+    },
+    iconSize: {
+      get: () => localStorage.iconSize || 'medium',
+      set: function setIconSize(iconSize) {
+        localStorage.setItem('iconSize', iconSize);
+        this.itemSizeBound = iconSize;
       },
     },
   },
@@ -92,9 +104,9 @@ export default {
     setLayoutOrientation(layout) {
       this.layoutOrientation = layout;
     },
-    /* Either gets user's preferred layout from session, or returns default */
-    getLayoutOrientation() {
-      return localStorage.layoutOrientation || 'default';
+    /* Sets item size attribute, which is used by ItemGroup */
+    setItemSize(itemSize) {
+      this.iconSize = itemSize;
     },
     getAvailibleThemes() {
       const availibleThemes = {};
@@ -134,7 +146,8 @@ export default {
   },
   mounted() {
     this.initiateFontAwesome();
-    this.layout = this.getLayoutOrientation();
+    this.layoutOrientation = this.layoutOrientation;
+    this.itemSizeBound = this.iconSize;
   },
 };
 </script>

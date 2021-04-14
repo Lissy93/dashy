@@ -2,7 +2,7 @@
     <a @click="itemOpened"
       :href="target !== 'iframe' ? url : '#'"
       :target="target === 'newtab' ? '_blank' : ''"
-      :class="`item ${!icon? 'short': ''}`"
+      :class="`item ${!icon? 'short': ''} size-${itemSize}`"
       :id="`link-${id}`"
       v-tooltip="getTooltipOptions()"
       rel="noopener noreferrer"
@@ -16,7 +16,8 @@
       <!-- Item Icon -->
       <Icon :icon="icon" :url="url" />
       <!-- Small icon, showing opening method on hover -->
-      <ItemOpenMethodIcon class="opening-method-icon" :openingMethod="target" :isSmall="!icon" />
+      <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon" :openingMethod="target"
+        :position="itemSize === 'medium'? 'bottom right' : 'top right'"/>
     </a>
 </template>
 
@@ -40,6 +41,7 @@ export default {
       default: 'newtab',
       validator: (value) => ['newtab', 'sametab', 'iframe'].indexOf(value) !== -1,
     },
+    itemSize: String,
   },
   data() {
     return {
@@ -93,14 +95,8 @@ export default {
 <style scoped lang="scss">
 @import '../../../src/styles/constants.scss';
 
-/* Item wrapper */
-.item-wrapper {
-
-}
-
 .item {
   flex-grow: 1;
-  height: 100px;
   position: relative;
   color: var(--primary);
   vertical-align: middle;
@@ -122,9 +118,6 @@ export default {
   }
   &.short {
     height: 18px;
-  }
-  .item {
-    color: var(--primary);
   }
 }
 
@@ -200,13 +193,42 @@ export default {
   }
 }
 
-.tile-icon {
-  width: 60px;
-  filter: drop-shadow(2px 4px 6px var(--transparent-50)) saturate(0.65);
-}
-
-.tile-svg {
-  width: 56px;
+/* Specify layout for alternate sized icons */
+.item {
+  &.size-small {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    height: 2rem;
+    img {
+      width: 2rem;
+    }
+    .tile-title {
+      height: fit-content;
+      min-height: 1rem;
+      span.text {
+        text-align: left;
+        padding-left: 10%;
+      }
+    }
+  }
+  &.size-medium {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    img {
+      width: 2rem;
+      margin-bottom: 0.25rem;
+    }
+    .tile-title {
+      min-width: 100px;
+    }
+  }
+  &.size-large {
+    height: 100px;
+  }
 }
 
 </style>

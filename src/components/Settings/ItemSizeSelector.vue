@@ -2,11 +2,11 @@
   <div>
     <span class="options-label">Icon Size</span>
     <div class="display-options">
-      <IconSmall @click="updateIconSize('default')"
+      <IconSmall @click="updateIconSize('small')" v-tooltip="tooltip('Small')"
         :class="`layout-icon ${iconSize === 'small' ? 'selected' : ''}`" />
-      <IconMedium class="layout-icon" @click="updateIconSize('horizontal')"
+      <IconMedium @click="updateIconSize('medium')" v-tooltip="tooltip('Medium')"
         :class="`layout-icon ${iconSize === 'medium' ? 'selected' : ''}`" />
-      <IconLarge class="layout-icon" @click="updateIconSize('vertical')"
+      <IconLarge @click="updateIconSize('large')" v-tooltip="tooltip('Large')"
         :class="`layout-icon ${iconSize === 'large' ? 'selected' : ''}`" />
     </div>
   </div>
@@ -35,6 +35,9 @@ export default {
   methods: {
     updateIconSize(iconSize) {
       this.$emit('iconSizeUpdated', iconSize);
+    },
+    tooltip(content) {
+      return { content, trigger: 'hover focus', delay: 250 };
     },
   },
 };
