@@ -30,9 +30,10 @@ export default {
     margin: 0;
   }
   span.subtitle {
-    color: var(--primary-transparent);
+    color: var(--primary);
     font-style: italic;
     text-shadow: 1px 1px 2px #130f23;
+    opacity: var(--dimming-factor);
   }
   @media screen and (max-width: 600px) {
     text-align: center;

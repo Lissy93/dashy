@@ -90,7 +90,7 @@ export default {
     color: var(--primary);
     background: var(--background-darker);
     padding: 4px;
-    border-radius: 5px;
+    border-radius: var(--curve-factor);
   }
   .close { /* The little exit icon, in top-right */
     float: right;
@@ -104,7 +104,7 @@ export default {
     cursor: pointer;
     &:hover {
       border: 1px solid var(--primary);
-      opacity: 0.6;
+      opacity: var(--dimming-factor);
     }
   }
 }

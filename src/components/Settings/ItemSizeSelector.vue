@@ -3,11 +3,11 @@
     <span class="options-label">Icon Size</span>
     <div class="display-options">
       <IconSmall @click="updateIconSize('small')" v-tooltip="tooltip('Small')"
-        :class="`layout-icon ${iconSize === 'small' ? 'selected' : ''}`" />
+        :class="`layout-icon ${iconSize === 'small' ? 'selected' : ''}`" tabindex="2" />
       <IconMedium @click="updateIconSize('medium')" v-tooltip="tooltip('Medium')"
-        :class="`layout-icon ${iconSize === 'medium' ? 'selected' : ''}`" />
+        :class="`layout-icon ${iconSize === 'medium' ? 'selected' : ''}`" tabindex="2" />
       <IconLarge @click="updateIconSize('large')" v-tooltip="tooltip('Large')"
-        :class="`layout-icon ${iconSize === 'large' ? 'selected' : ''}`" />
+        :class="`layout-icon ${iconSize === 'large' ? 'selected' : ''}`" tabindex="2" />
     </div>
   </div>
 </template>
@@ -50,10 +50,10 @@ span.options-label {
 }
 
 .display-options {
-  color: var(--primary-transparent);
+  color: var(--primary);
   svg {
     path {
-      fill: var(--primary-transparent);
+      fill: var(--primary);
     }
     width: 1rem;
     height: 1rem;
@@ -62,11 +62,11 @@ span.options-label {
     text-align: center;
     background: var(--background);
     border: 1px solid currentColor;
-    border-radius: 4px;
-    opacity: 0.8;
+    border-radius: var(--curve-factor);
+    opacity: var(--dimming-factor);
     cursor: pointer;
     &:hover, &.selected {
-      background: var(--primary-transparent);
+      background: var(--primary);
       path { fill: var(--background); }
     }
   }

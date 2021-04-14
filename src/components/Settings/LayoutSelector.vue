@@ -3,11 +3,11 @@
     <span class="options-label">Layout</span>
     <div class="display-options">
       <IconDeafault @click="updateDisplayLayout('default')" v-tooltip="tooltip('Auto')"
-        :class="`layout-icon ${displayLayout === 'default' ? 'selected' : ''}`" />
+        :class="`layout-icon ${displayLayout === 'default' ? 'selected' : ''}`" tabindex="2" />
       <IconHorizontal @click="updateDisplayLayout('horizontal')" v-tooltip="tooltip('Horizontal')"
-        :class="`layout-icon ${displayLayout === 'horizontal' ? 'selected' : ''}`" />
+        :class="`layout-icon ${displayLayout === 'horizontal' ? 'selected' : ''}`" tabindex="2" />
       <IconVertical @click="updateDisplayLayout('vertical')" v-tooltip="tooltip('Vertical')"
-        :class="`layout-icon ${displayLayout === 'vertical' ? 'selected' : ''}`" />
+        :class="`layout-icon ${displayLayout === 'vertical' ? 'selected' : ''}`" tabindex="2" />
     </div>
   </div>
 </template>
@@ -50,10 +50,10 @@ span.options-label {
 }
 
 .display-options {
-  color: var(--primary-transparent);
+  color: var(--primary);
   svg {
     path {
-      fill: var(--primary-transparent);
+      fill: var(--primary);
     }
     width: 1rem;
     height: 1rem;
@@ -62,10 +62,10 @@ span.options-label {
     text-align: center;
     background: var(--background);
     border: 1px solid currentColor;
-    border-radius: 4px;
+    border-radius: var(--curve-factor);
     cursor: pointer;
     &:hover, &.selected {
-      background: var(--primary-transparent);
+      background: var(--primary);
       path { fill: var(--background); }
     }
   }

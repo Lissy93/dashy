@@ -62,12 +62,12 @@ export default {
     align-items: flex-end;
     justify-content: flex-end;
     flex: 1;
-    padding: 0 1rem;
-    border-radius: 20px 0 0;
+    padding: 0.5rem 1rem;
+    border-radius: var(--curve-factor-navbar) 0 0;
     background: var(--background);
     div {
       margin-left: 0.5rem;
-      opacity: 0.85;
+      opacity: var(--dimming-factor);
       &:hover { opacity: 1; }
     }
   }

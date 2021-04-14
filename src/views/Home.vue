@@ -201,7 +201,11 @@ export default {
     width: fit-content;
     margin: 2rem auto;
     padding: 0.5rem 1rem;
-    border-radius: 4px;
+    border-radius: var(--curve-factor);
+}
+
+.filter-container {
+  border-bottom: 1px solid var(--outline-color);
 }
 
 </style>

@@ -104,8 +104,9 @@ export default {
   background: #607d8b33;
   text-align: center;
   padding: 2px;
-  border: 2px solid transparent;
-  border-radius: $curve-factor;
+  outline: 2px solid transparent;
+  border: 1px solid var(--outline-color);
+  border-radius: var(--curve-factor);
   box-shadow: 1px 1px 2px #373737;
   cursor: pointer;
   &:hover {
@@ -113,8 +114,7 @@ export default {
     background: #607d8b4d;
   }
   &:focus {
-    border: 2px solid var(--primary);
-    outline: none;
+    outline: 2px solid var(--primary);
   }
   &.short {
     height: 18px;

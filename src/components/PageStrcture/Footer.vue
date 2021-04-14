@@ -27,16 +27,17 @@ export default {
 footer {
   padding: 0.5rem;
   text-align: center;
-  color: #5e6474;
-  opacity: 0.5;
-  background: #05070e;
+  color: var(--medium-grey);
+  opacity: var(--dimming-factor);
+  background: var(--background-darker);
   margin-top: 1rem;
+  border-top: 1px solid var(--outline-color);
 }
 
 footer a{
-  color: #5e6474;
+  color: var(--medium-grey);
   &:hover {
-    color: #9F86FF;
+    color: var(--primary);
   }
 }
 

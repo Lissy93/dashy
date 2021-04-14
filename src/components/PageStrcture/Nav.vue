@@ -23,7 +23,7 @@ nav {
         margin: 0.5rem;
         outline: none;
         border: none;
-        border-radius: 5px;
+        border-radius: var(--curve-factor);
         background: #607d8b33;
         -webkit-box-shadow: 1px 1px 2px #232323;
         box-shadow: 1px 1px 2px #232323;

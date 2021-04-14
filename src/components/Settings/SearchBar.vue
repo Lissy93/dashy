@@ -62,7 +62,9 @@ export default {
     background: linear-gradient(0deg, var(--background) 0%, var(--background-darker) 100%);
   }
   form {
-    border-radius: 0 0 20px 0;
+    display: flex;
+    align-items: center;
+    border-radius: 0 0 var(--curve-factor-navbar) 0;
     padding: 0 0.2rem 0.2rem 0;
     background: var(--background-darker);
     label {
@@ -74,15 +76,18 @@ export default {
     input {
       display: inline-block;
       width: 200px;
+      height: 1rem;
       padding: 0.5rem;
       margin: 0.5rem;
       outline: none;
       border: none;
-      border-radius: 12px;
+      border-radius: var(--curve-factor);
       background: var(--background);
       color: var(--primary);
+      border: 1px solid var(--outline-color);
       &:focus {
-        background: var(--background-transparent);
+        border-color: var(--primary);
+        opacity: var(--dimming-factor);
       }
     }
     .clear-search {
@@ -92,7 +97,7 @@ export default {
       padding: 0 0.4rem;
       font-style: normal;
       font-size: 1.5rem;
-      opacity: 0.5;
+      opacity: var(--dimming-factor);
       border-radius: 50px;
       cursor: pointer;
       &:hover {

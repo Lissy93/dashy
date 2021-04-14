@@ -5,7 +5,7 @@
       :options="themeNames"
       v-model="selectedTheme"
       class="theme-dropdown"
-      :tabindex="100"
+      :tabindex="2"
     />
   </div>
 </template>
@@ -43,6 +43,13 @@ export default {
       this.themeHelper.theme = 'Deafault';
     });
   },
+  methods: {
+    toggleLocalTheme(newTheme) {
+      const htmlTag = document.getElementsByTagName('html')[0];
+      if (htmlTag.hasAttribute('data-theme')) htmlTag.removeAttribute('data-theme');
+      htmlTag.setAttribute('data-theme', newTheme);
+    },
+  },
 };
 </script>
 
@@ -53,6 +60,7 @@ export default {
 .theme-dropdown {
   div.vs__dropdown-toggle {
     border-color: var(--primary);
+    border-radius: var(--curve-factor);
     min-width: 10rem;
     height: 1.8rem;
     font-size: 0.85rem;

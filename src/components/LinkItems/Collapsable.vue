@@ -93,7 +93,7 @@ export default {
 .collapsable {
     padding: 5px;
     margin: 10px;
-    border-radius: $curve-factor;
+    border-radius: var(--curve-factor);
     background: var(--primary);
     // background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     // background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
@@ -140,7 +140,7 @@ export default {
         display: block;
         padding: 0.25rem;
         cursor: pointer;
-        border-radius: $curve-factor;
+        border-radius: var(--curve-factor);
         transition: all 0.25s ease-out;
         text-align: left;
         color: var(--background-transparent);
