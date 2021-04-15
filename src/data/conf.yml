@@ -3,6 +3,7 @@ pageInfo:
   title: Hello World
   description: 'This is a demo'
 appConfig:
+  theme: 'Default'
   externalStyleSheet: 'https://bootswatch.com/4/solar/bootstrap.min.css'
 sections:
 - name: Firewall

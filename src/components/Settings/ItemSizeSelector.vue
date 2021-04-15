@@ -63,7 +63,6 @@ span.options-label {
     background: var(--background);
     border: 1px solid currentColor;
     border-radius: var(--curve-factor);
-    opacity: var(--dimming-factor);
     cursor: pointer;
     &:hover, &.selected {
       background: var(--primary);

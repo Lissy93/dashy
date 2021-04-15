@@ -13,41 +13,73 @@
 <script>
 
 import ThemeHelper from '@/utils/ThemeHelper';
+import Defaults from '@/utils/defaults';
 
 export default {
   name: 'ThemeSelector',
   props: {
     themes: Object,
+    confTheme: String,
   },
   watch: {
-    selectedTheme(newTheme) {
-      this.themeHelper.theme = newTheme;
-    },
+    selectedTheme(newTheme) { this.updateTheme(newTheme); },
   },
   data() {
     return {
-      selectedTheme: 'Default',
+      selectedTheme: this.getInitialTheme(),
       themeHelper: new ThemeHelper(),
       loading: true,
+      builtInThemes: Defaults.builtInThemes,
     };
   },
   computed: {
-    themeNames: function themeNames() { return Object.keys(this.themes); },
+    themeNames: function themeNames() {
+      const externalThemeNames = Object.keys(this.themes);
+      return externalThemeNames.concat(this.builtInThemes);
+    },
   },
   created() {
     const added = Object.keys(this.themes).map(
       name => this.themeHelper.add(name, this.themes[name]),
     );
-    Promise.all(added).then(() => {
-      this.loading = false;
-      this.themeHelper.theme = 'Deafault';
-    });
+    // Quicker loading, if the theme is local we can apply it immidiatley
+    if (this.isThemeLocal(this.selectedTheme)) {
+      this.updateTheme(this.selectedTheme);
+    // If it's an external stylesheet, then wait for promise to resolve
+    } else if (this.selectedTheme !== 'Default') {
+      Promise.all(added).then(() => {
+        this.updateTheme(this.selectedTheme);
+      });
+    }
   },
   methods: {
-    toggleLocalTheme(newTheme) {
+    setLocalTheme(newTheme) {
       const htmlTag = document.getElementsByTagName('html')[0];
       if (htmlTag.hasAttribute('data-theme')) htmlTag.removeAttribute('data-theme');
       htmlTag.setAttribute('data-theme', newTheme);
+    },
+    /* Get default theme */
+    getInitialTheme() {
+      return localStorage.theme || this.confTheme || Defaults.defaultTheme;
+    },
+    isThemeLocal(themeToCheck) {
+      return this.builtInThemes.includes(themeToCheck);
+    },
+    /* Updates theme. Checks if the new theme is local or external,
+    and calls appropirate updating function. Updates local storage */
+    updateTheme(newTheme) {
+      if (newTheme === 'Deafault') {
+        this.resetToDefault();
+        this.themeHelper.theme = 'Deafault';
+      } else if (this.isThemeLocal(newTheme)) {
+        this.setLocalTheme(newTheme);
+      } else {
+        this.themeHelper.theme = newTheme;
+      }
+      localStorage.setItem('theme', newTheme);
+    },
+    resetToDefault() {
+      document.getElementsByTagName('html')[0].removeAttribute('data-theme');
     },
   },
 };

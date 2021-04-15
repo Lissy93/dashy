@@ -87,7 +87,6 @@ export default {
 
 <style scoped lang="scss">
 
-@import '@/styles/constants.scss';
 @import '@/styles/media-queries.scss';
 
 .collapsable {
@@ -143,7 +142,7 @@ export default {
         border-radius: var(--curve-factor);
         transition: all 0.25s ease-out;
         text-align: left;
-        color: var(--background-transparent);
+        color: var(--item-group-background);
 
         h3 {
             margin: 0;
@@ -177,8 +176,8 @@ export default {
         max-height: 0px;
         overflow: hidden;
         transition: max-height .25s ease-in-out;
-        background: var(--background-transparent);
-        border-radius: 0 0 $inner-radius $inner-radius;
+        background: var(--item-group-background);
+        border-radius: 0 0 var(--curve-factor) var(--curve-factor);
     }
 
     .toggle:checked + .lbl-toggle + .collapsible-content {

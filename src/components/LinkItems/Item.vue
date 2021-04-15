@@ -93,7 +93,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../../src/styles/constants.scss';
 
 .item {
   flex-grow: 1;

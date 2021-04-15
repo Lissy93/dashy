@@ -6,20 +6,19 @@
   --primary: #5cabca;
 
   /* Modified Colors */
-  --background-transparent: #0b1021cc;
+  --item-group-background: #0b1021cc;
   --medium-grey: #5e6474;
-
-  --outline-color: none;
-  --curve-factor: 5px;
-  --curve-factor-navbar: 16px;
-
-  --dimming-factor: 0.8;
 
   /* Semi-Transparent Black*/
   --transparent-70: #000000b3;
   --transparent-50: #00000080;
   --transparent-30: #0000004d;
 
+  /* Other Variables */
+  --outline-color: none;
+  --curve-factor: 5px;
+  --curve-factor-navbar: 16px;
+  --dimming-factor: 0.8;
 }
 
 html[data-theme='hacker-red'] {
@@ -30,9 +29,26 @@ html[data-theme='hacker-red'] {
   --curve-factor: 0px;
 }
 
+html[data-theme='hacker-green'] {
+  --background: #000;
+  --background-darker: #000;
+  --primary: #2bca2b;
+  --outline-color: #2bca2b;
+  --curve-factor: 0px;
+}
+
+html[data-theme='hacker-pink'] {
+  --background: #000;
+  --background-darker: #000;
+  --primary: #e435f1;
+  --outline-color: #e435f1;
+  --curve-factor: 0px;
+}
+
 html[data-theme='high-contrast-light'] {
   --background: #fff;
   --background-darker: #fff;
+  --item-group-background: #fff;
   --primary: #000;
   --outline-color: #000;
   --curve-factor: 0px;
@@ -41,6 +57,7 @@ html[data-theme='high-contrast-light'] {
 html[data-theme='high-contrast-dark'] {
   --background: #000;
   --background-darker: #000;
+  --item-group-background: #000;
   --primary: #fff;
   --outline-color: #fff;
   --curve-factor: 0px;

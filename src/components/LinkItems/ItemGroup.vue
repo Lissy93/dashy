@@ -68,7 +68,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../../src/styles/constants.scss';
 
 .no-items {
     width: 100px;
@@ -76,7 +75,7 @@ export default {
     padding: 0.8rem;
     text-align: center;
     cursor: default;
-    border-radius: $curve-factor;
+    border-radius: var(--curve-factor);
     background: #607d8b33;
     color: var(--primary);
     box-shadow: 1px 1px 2px #373737;

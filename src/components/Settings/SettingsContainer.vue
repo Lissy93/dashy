@@ -2,7 +2,7 @@
   <section>
     <SearchBar @user-is-searchin="userIsTypingSomething" ref="SearchBar" />
     <div class="options-container">
-      <ThemeSelector class="theme-selector" :themes="availableThemes" />
+      <ThemeSelector :themes="availableThemes" :confTheme="getInitialTheme()"/>
       <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
       <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
     </div>
@@ -23,6 +23,7 @@ export default {
     displayLayout: String,
     iconSize: String,
     availableThemes: Object,
+    appConfig: Object,
   },
   components: {
     SearchBar,
@@ -43,6 +44,9 @@ export default {
     },
     updateIconSize(iconSize) {
       this.$emit('change-icon-size', iconSize);
+    },
+    getInitialTheme() {
+      return this.appConfig.theme || '';
     },
   },
 };

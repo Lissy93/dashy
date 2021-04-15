@@ -1,8 +1,8 @@
 /**
  * A function for pre-loading, and easy switching of external stylesheets
+ * External CSS is preloaded to avoid FOUC
  */
 const ThemeHelper = function th() {
-  /* Preload content, to avoid FOUC */
   const preloadTheme = (href) => {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -19,11 +19,9 @@ const ThemeHelper = function th() {
   };
 
   const selectTheme = (themes, name) => {
-    const themeResults = themes;
-    if (name && !themes[name]) {
-      throw new Error(`'${name}' has not been defined as a theme.`);
-    }
-    Object.keys(themeResults).forEach(n => { themeResults[n].disabled = (n !== name); });
+    const t = themes; // To avoid ESLint complaining about mutating a param
+    if (name && !themes[name]) throw new Error(`Theme: '${name}' does not exist.`);
+    Object.keys(themes).forEach(n => { t[n].disabled = (n !== name); });
   };
 
   const themes = {};

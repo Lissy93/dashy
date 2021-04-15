@@ -7,7 +7,8 @@
       @change-icon-size="setItemSize"
       :displayLayout="layout"
       :iconSize="itemSizeBound"
-      :availableThemes="getAvailibleThemes()"
+      :availableThemes="getExternalCSSLinks()"
+      :appConfig="appConfig"
       class="filter-container"
     />
     <!-- Main content, section for each group of items -->
@@ -108,7 +109,8 @@ export default {
     setItemSize(itemSize) {
       this.iconSize = itemSize;
     },
-    getAvailibleThemes() {
+    /* Returns an array of links to external CSS from the Config */
+    getExternalCSSLinks() {
       const availibleThemes = {};
       if (this.appConfig) {
         if (this.appConfig.externalStyleSheet) {
