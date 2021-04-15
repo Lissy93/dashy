@@ -46,14 +46,14 @@ export default {
 <style scoped lang="scss">
 
 span.options-label {
-  color: var(--primary);
+  color: var(--settings-text-color);
 }
 
 .display-options {
-  color: var(--primary);
+  color: var(--settings-text-color);
   svg {
     path {
-      fill: var(--primary);
+      fill: var(--settings-text-color);
     }
     width: 1rem;
     height: 1rem;
@@ -65,7 +65,7 @@ span.options-label {
     border-radius: var(--curve-factor);
     cursor: pointer;
     &:hover, &.selected {
-      background: var(--primary);
+      background: var(--settings-text-color);
       path { fill: var(--background); }
     }
   }

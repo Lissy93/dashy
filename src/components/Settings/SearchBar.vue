@@ -66,10 +66,10 @@ export default {
     align-items: center;
     border-radius: 0 0 var(--curve-factor-navbar) 0;
     padding: 0 0.2rem 0.2rem 0;
-    background: var(--background-darker);
+    background: var(--search-container-background);
     label {
         display: inline;
-        color: var(--primary);
+        color: var(--settings-text-color);
         margin: 0.5rem;
         display: inline;
     }
@@ -83,16 +83,16 @@ export default {
       border: none;
       border-radius: var(--curve-factor);
       background: var(--background);
-      color: var(--primary);
+      color: var(--settings-text-color);
       border: 1px solid var(--outline-color);
       &:focus {
-        border-color: var(--primary);
+        border-color: var(--settings-text-color);
         opacity: var(--dimming-factor);
       }
     }
     .clear-search {
       position: absolute;
-      color: var(--primary);
+      color: var(--settings-text-color);
       margin: 0.55rem 0 0 -2.2rem;
       padding: 0 0.4rem;
       font-style: normal;

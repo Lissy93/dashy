@@ -37,8 +37,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../src/styles/global-styles.scss';
-@import '../src/styles/color-palette.scss';
+@import '@/styles/global-styles.scss';
+@import '@/styles/color-palette.scss';
+@import '@/styles/color-themes.scss';
 
 body {
   background: var(--background);

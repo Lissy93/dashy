@@ -82,7 +82,7 @@ export default {
         trigger: 'hover focus',
         hideOnTargetClick: true,
         html: false,
-        delay: { show: 350, hide: 200 },
+        delay: { show: 600, hide: 200 },
       };
     },
   },
@@ -100,17 +100,17 @@ export default {
   color: var(--primary);
   vertical-align: middle;
   margin: 0.5rem;
-  background: #607d8b33;
+  background: var(--item-background);
   text-align: center;
   padding: 2px;
   outline: 2px solid transparent;
   border: 1px solid var(--outline-color);
   border-radius: var(--curve-factor);
-  box-shadow: 1px 1px 2px #373737;
+  box-shadow: var(--item-shadow);
   cursor: pointer;
   &:hover {
-    box-shadow: 1px 2px 4px #373737;
-    background: #607d8b4d;
+    box-shadow: var(--item-hover-shadow);
+    background: var(--item-background-hover);
   }
   &:focus {
     outline: 2px solid var(--primary);
@@ -130,6 +130,7 @@ export default {
   overflow: hidden;
   position: relative;
   padding: 0;
+  z-index: 2;
   span.text {
     position: absolute;
     white-space: nowrap;
@@ -150,8 +151,7 @@ export default {
     .overflow-dots {
       display: block;
       opacity: 1;
-      // background: var(--background-transparent);
-      background: #283e51;
+      background: var(--item-background);
       position: absolute;
       z-index: 5;
       right: 0;
@@ -181,14 +181,9 @@ export default {
     }
   }
 
-  /* Colourize icons on hover */
-  .tile-svg {
-    filter: drop-shadow(4px 8px 3px var(--transparent-50));
-  }
-  .tile-icon {
-    filter:
-      drop-shadow(4px 8px 3px var(--transparent-50))
-      saturate(2);
+  /* Apply transofmation of icons on hover */
+  .tile-icon, .tile-svg  {
+    filter: var(--item-icon-transform-hover);
   }
 }
 

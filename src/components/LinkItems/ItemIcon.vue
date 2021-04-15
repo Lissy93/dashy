@@ -85,6 +85,6 @@ export default {
 
 .tile-icon {
     width: 60px;
-    filter: drop-shadow(2px 4px 6px var(--transparent-50)) saturate(0.65);
+    filter: var(--item-icon-transform);
 }
 </style>

@@ -90,13 +90,11 @@ export default {
 @import '@/styles/media-queries.scss';
 
 .collapsable {
-    padding: 5px;
+    padding: var(--item-group-padding);
     margin: 10px;
     border-radius: var(--curve-factor);
     background: var(--primary);
-    // background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
-    // background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
-    box-shadow: 1px 1px 2px #130f23;
+    box-shadow: var(--item-group-shadow);
     height: fit-content;
     width: 100%;
     width: stretch;

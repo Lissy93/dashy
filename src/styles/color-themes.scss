@@ -1,0 +1,138 @@
+html[data-theme='nord'] {
+  --primary: #D8DEE9;
+  --background: #3B4252;
+  --background-darker: #2E3440;
+  --item-background: #434C5E;
+  --item-background-hover: #4C566A;
+  .collapsable:nth-child(1n) { background: #BF616A; }
+  .collapsable:nth-child(2n) { background: #D08770; }
+  .collapsable:nth-child(3n) { background: #EBCB8B; }
+  .collapsable:nth-child(4n) { background: #A3BE8C; }
+}
+
+html[data-theme='nord-frost'] {
+  --primary: #D8DEE9;
+  --background: #3B4252;
+  --background-darker: #2E3440;
+  --item-background: #434C5E;
+  --item-background-hover: #4C566A;
+  .collapsable:nth-child(1n) { background: #8FBCBB; }
+  .collapsable:nth-child(2n) { background: #88C0D0; }
+  .collapsable:nth-child(3n) { background: #81A1C1; }
+  .collapsable:nth-child(4n) { background: #5E81AC; }
+}
+
+html[data-theme='callisto'] {
+  --background: #141b33;
+  --background-darker: #060913;
+  --item-group-background: #0b1021;
+  --item-background: #141b33;
+  --item-background-hover: #060913;
+  --item-hover-shadow: 0 1px 3px #00ccb4b3, 0 1px 2px #00ccb4bf;
+  --primary: #00CCB4;
+}
+
+html[data-theme='thebe'] {
+  --background: #141b33;
+  --background-darker: #060913;
+  --item-group-background: #0b1021;
+  --item-background: #141b33;
+  --item-background-hover: #060913;
+  --item-hover-shadow: 0 1px 3px #9660ecb3, 0 1px 2px #9660ecbf;
+  --primary: #9660ec;
+}
+
+html[data-theme='dracula'] {
+  --background: #44475a;
+  --background-darker: #282a36;
+  --item-group-background: #282a36;
+  --item-background: none;
+  --item-background-hover: #191b22;
+  --item-shadow: none;
+  --item-hover-shadow: none;
+  --settings-text-color: #98ace9;
+  --primary: #6272a4;
+  .collapsable:nth-child(1n) { background: #8be9fd; .item { border: 1px solid #8be9fd; span {color: #8be9fd; }}}
+  .collapsable:nth-child(2n) { background: #50fa7b; .item { border: 1px solid #50fa7b; span {color: #50fa7b; }}}
+  .collapsable:nth-child(3n) { background: #ffb86c; .item { border: 1px solid #ffb86c; span {color: #ffb86c; }}}
+  .collapsable:nth-child(4n) { background: #ff79c6; .item { border: 1px solid #ff79c6; span {color: #ff79c6; }}}
+  .collapsable:nth-child(4n) { background: #bd93f9; .item { border: 1px solid #bd93f9; span {color: #bd93f9; }}}
+}
+
+html[data-theme='bee'] {
+  --primary: #c3eb5c;
+  --item-group-background: #0b1021;
+}
+
+html[data-theme='raspberry-jam'] {
+  --primary: #eb2d6c;
+  --item-group-background: #0b1021;
+}
+
+html[data-theme='tiger'] {
+  --primary: #f58233;
+  --item-group-background: #0b1021;
+}
+
+html[data-theme='matrix-red'] {
+  --background: #000;
+  --background-darker: #000;
+  --primary: red;
+  --outline-color: red;
+  --curve-factor: 0px;
+}
+
+html[data-theme='matrix'] {
+  --background: #000;
+  --background-darker: #000;
+  --primary: #2bca2b;
+  --outline-color: #2bca2b;
+  --curve-factor: 0px;
+}
+
+html[data-theme='hacker-girl'] {
+  --background: #000;
+  --background-darker: #000;
+  --primary: #e435f1;
+  --outline-color: #e435f1;
+  --curve-factor: 0px;
+}
+
+html[data-theme='high-contrast-light'] {
+  --background: #fff;
+  --background-darker: #fff;
+  --item-group-background: #fff;
+  --item-background: #fff;
+  --primary: #000;
+  --outline-color: #000;
+  --curve-factor: 0px;
+}
+
+html[data-theme='high-contrast-dark'] {
+  --background: #000;
+  --background-darker: #000;
+  --item-group-background: #000;
+  --primary: #fff;
+  --outline-color: #fff;
+  --curve-factor: 0px;
+}
+
+html[data-theme='material'] {
+  --primary: #29B6F6;
+  --settings-text-color: #01579b;
+  --background: #e2e1e0;
+  --background-darker: #01579B;
+  --settings-background: #01579B;
+  --item-group-background: #f8f8f8;
+  --item-background: #fff;
+  --item-background-hover: #fff;
+  --settings-background: #29B6F6;
+  --search-container-background: #29B6F6;
+  --curve-factor: 2px;
+  --curve-factor-navbar: 0;
+  --item-group-padding: 5px 0 0;
+  --item-shadow: 0 1px 3px #0000001f, 0 1px 2px #0000003d;
+  --item-hover-shadow: 0 1px 4px #00000029, 0 2px 4px #0000002a;
+  --item-icon-transform: drop-shadow(1px 2px 1px var(--transparent-30)) saturate(0.65);
+  --item-icon-transform-hover: drop-shadow(1px 3px 2px var(--transparent-30)) saturate(2);
+}

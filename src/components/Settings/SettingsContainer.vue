@@ -68,7 +68,7 @@ export default {
     flex: 1;
     padding: 0.5rem 1rem;
     border-radius: var(--curve-factor-navbar) 0 0;
-    background: var(--background);
+    background: var(--settings-background);
     div {
       margin-left: 0.5rem;
       opacity: var(--dimming-factor);

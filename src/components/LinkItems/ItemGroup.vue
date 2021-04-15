@@ -78,7 +78,7 @@ export default {
     border-radius: var(--curve-factor);
     background: #607d8b33;
     color: var(--primary);
-    box-shadow: 1px 1px 2px #373737;
+    box-shadow: var(--item-shadow);
 }
 
 .there-are-items {

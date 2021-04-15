@@ -91,24 +91,27 @@ export default {
 
 .theme-dropdown {
   div.vs__dropdown-toggle {
-    border-color: var(--primary);
+    border-color: var(--settings-text-color);
     border-radius: var(--curve-factor);
     min-width: 10rem;
     height: 1.8rem;
     font-size: 0.85rem;
+    cursor: pointer;
   }
   span.vs__selected, li.vs__dropdown-option {
-    color: var(--primary);
+    color: var(--settings-text-color);
+    text-transform: capitalize;
   }
   svg.vs__open-indicator {
-    fill: var(--primary);
+    fill: var(--settings-text-color);
   }
   ul.vs__dropdown-menu {
     width: auto;
     background: var(--background);
+    z-index: 5;
   }
   li.vs__dropdown-option--highlight {
-    background: var(--primary);
+    background: var(--settings-text-color);
     color: var(--background);
   }
   button.vs__clear {
@@ -123,7 +126,7 @@ export default {
   height: 100%;
   span.theme-label {
     font-size: 1rem;
-    color: var(--primary);
+    color: var(--settings-text-color);
     margin: 1px 0 2px 0;
   }
 }

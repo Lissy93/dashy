@@ -155,12 +155,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../src/styles/media-queries.scss';
+@import '@/styles/media-queries.scss';
 
 .home {
-  background: var(--background);
   padding-bottom: 1px;
-  min-height: 90%;
+  background: var(--background);
+  min-height: calc(100vh - 126px);
 }
 
 /* Outside container wrapping the item groups*/

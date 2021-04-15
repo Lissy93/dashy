@@ -26,7 +26,7 @@ export default {
     // background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
     // -webkit-background-clip: text;
     // -webkit-text-fill-color: transparent;
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin: 0;
   }
   span.subtitle {
