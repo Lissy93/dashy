@@ -1,15 +1,12 @@
 <template>
-  <img
-      v-if="icon"
-      :src="getAppropriateImgPath(icon, url)"
-      class="tile-icon"
-  />
+  <i v-if="determineImageType(icon) === 'font-awesome'" :class="icon"></i>
+  <img v-else-if="icon" :src="getIconPath(icon, url)" class="tile-icon" />
 </template>
 
 <script>
 
 export default {
-  name: 'Item',
+  name: 'Icon',
   props: {
     icon: String,
     url: String,
@@ -41,40 +38,28 @@ export default {
       }
       return '';
     },
+    getLocalImagePath(img) {
+      return `/img/item-icons/tile-icons/${img}`;
+    },
     /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
-    getAppropriateImgPath(img, url) {
-      const imageType = this.determineImageType(img);
-      switch (imageType) {
-        case 'url':
-          return img;
-        case 'img':
-          return `/img/item-icons/tile-icons/${img}`;
-        case 'favicon':
-          return this.getFavicon(url);
-        case 'svg':
-          return img;
-        case 'fas':
-          return img;
-        default:
-          return '';
+    getIconPath(img, url) {
+      switch (this.determineImageType(img)) {
+        case 'url': return img;
+        case 'img': return this.getLocalImagePath(img);
+        case 'favicon': return this.getFavicon(url);
+        case 'svg': return img;
+        default: return '';
       }
     },
     /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
     determineImageType(img) {
       let imgType = '';
-      if (this.isUrl(img)) {
-        imgType = 'url';
-      } else if (this.isImage(img)) {
-        imgType = 'img';
-      // } else if (fileExtRegex.exec(img)[1] === 'svg') {
-      //   imgType = 'svg';
-      } else if (img.includes('fas')) {
-        imgType = 'fas';
-      } else if (img === 'favicon') {
-        imgType = 'favicon';
-      } else {
-        imgType = 'none';
-      }
+      if (this.isUrl(img)) imgType = 'url';
+      else if (this.isImage(img)) imgType = 'img';
+      else if (img.substr(4) === ('.svg' || '.SVG')) imgType = 'svg';
+      else if (img.includes('fa-')) imgType = 'font-awesome';
+      else if (img === 'favicon') imgType = 'favicon';
+      else imgType = 'none';
       return imgType;
     },
   },
@@ -82,9 +67,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-.tile-icon {
-    width: 60px;
-    filter: var(--item-icon-transform);
-}
+  .tile-icon {
+      width: 60px;
+      filter: var(--item-icon-transform);
+  }
+  i.fas, i.fab {
+    font-size: 1.5rem;
+    color: currentColor;
+  }
 </style>

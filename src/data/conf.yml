@@ -2,23 +2,12 @@
 pageInfo:
   title: Hello World
   description: 'This is a demo'
-appConfig:
-  theme: 'default'
-  externalStyleSheet: 'https://bootswatch.com/4/solar/bootstrap.min.css'
-  cssThemes: ['hello', 'world']
-  enableFontAwesome: true
-  fontAwesomeKey: ''
-  hiddenComponents:
-  - footer: true
-    navigation: false
-    pageTitle: false
 sections:
 - name: Firewall
   items:
   - title: OPNsense
     description: Firewall Central Management
     icon: networking/opnsense.png
-    iconType: img
     target: iframe
     url: https://192.168.1.1
   - title: NetData
@@ -28,27 +17,22 @@ sections:
   - title: MalTrail
     description: Malicious traffic detection system
     icon: networking/maltrail.png
-    iconType: img
     url: http://192.168.1.1:8338
   - title: Ntopng
     description: Network traffic probe and network use monitor
     icon: networking/ntop.png
-    iconType: img
     url: http://192.168.1.1:3001
   - title: Sensei
     description: Additional data features
     icon: networking/sensei.png
-    iconType: img
     url: https://192.168.1.1/ui/sensei/
   - title: Monit
     description: Status of firewall system alerts
     icon: networking/monit.png
-    iconType: img
     url: https://192.168.1.1/ui/monit/status
   - title: Firewall Logs
     description: Real-time view of firewall data and logs
     icon: networking/logs.png
-    iconType: img
     url: https://192.168.1.1/ui/diagnostics/firewall/log
   - title: WireGuard
     description: Manage WireGuard client and server on firewall
