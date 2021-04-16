@@ -1,7 +1,13 @@
 module.exports = {
+  pageInfo: {
+    title: 'Dashy',
+    description: '',
+  },
+  appConfig: {},
   iconSize: 'medium',
   layout: 'auto',
-  defaultTheme: 'default',
+  theme: 'default',
+  fontAwesomeKey: 'def7c3ce4c',
   builtInThemes: [
     'nord',
     'nord-frost',
@@ -25,5 +31,12 @@ module.exports = {
     searchBar: true,
     settings: true,
     footer: true,
+  },
+  localStorageKeys: {
+    HIDE_WELCOME_BANNER: 'hideWelcomeHelpers',
+    LAYOUT_ORIENTATION: 'layoutOrientation',
+    COLLAPSE_STATE: 'collapseState',
+    ICON_SIZE: 'iconSize',
+    THEME: 'theme',
   },
 };

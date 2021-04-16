@@ -22,6 +22,9 @@
 </template>
 
 <script>
+
+import { localStorageKeys } from '@/utils/defaults';
+
 export default {
   name: 'CollapsableContainer',
   props: {
@@ -52,14 +55,17 @@ export default {
     },
     /* If not already done, then add object structure to local storage */
     initialiseStorage() {
-      const initStorage = () => localStorage.setItem('collapseState', JSON.stringify({}));
-      if (!localStorage.collapseState) initStorage(); // If not yet set, then init localstorage
+      /* Initialize function will create and set a blank object to storage */
+      const initStorage = () => localStorage.setItem(
+        localStorageKeys.COLLAPSE_STATE, JSON.stringify({}),
+      );
+      if (!localStorage[localStorageKeys.COLLAPSE_STATE]) initStorage(); // Initialise if not set
       try { // Check storage is valid JSON, and has not been corrupted
-        JSON.parse(localStorage.collapseState);
+        JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
       } catch {
         initStorage();
       }
-      return JSON.parse(localStorage.collapseState);
+      return JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
     },
     getCollapseState() {
       const collapseStateObject = this.initialiseStorage();
@@ -71,11 +77,11 @@ export default {
     },
     setCollapseState(id, newState) {
       // Get the current localstorage collapse state object
-      const collapseState = JSON.parse(localStorage.collapseState);
+      const collapseState = JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
       // Add the new state to it
       collapseState[id] = newState;
       // Stringify, and set the new object into local storage
-      localStorage.setItem('collapseState', JSON.stringify(collapseState));
+      localStorage.setItem(localStorageKeys.COLLAPSE_STATE, JSON.stringify(collapseState));
     },
     collapseChanged(whatChanged) {
       this.initialiseStorage();

@@ -19,13 +19,14 @@ export default {
     Footer,
   },
   data: () => ({
-    pageInfo: conf.pageInfo,
+    pageInfo: conf.pageInfo || Defaults.pageInfo,
+    appConfig: conf.appConfig || Defaults.appConfig,
     showFooter: Defaults.visibleComponents.footer,
   }),
   methods: {
     /* Returns either page info from the config, or default values */
     getPageInfo(pageInfo) {
-      const defaults = { title: 'Demo', description: '' };
+      const defaults = Defaults.pageInfo;
       if (pageInfo) {
         return {
           title: pageInfo.title || defaults.title,

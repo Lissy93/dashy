@@ -8,7 +8,7 @@
 <script>
 import PageTitle from '@/components/PageStrcture/PageTitle.vue';
 import Nav from '@/components/PageStrcture/Nav.vue';
-import Defaults from '@/utils/defaults';
+import { visibleComponents } from '@/utils/defaults';
 
 export default {
   name: 'Header',
@@ -21,8 +21,9 @@ export default {
   },
   data() {
     return {
-      titleVisible: Defaults.visibleComponents.pageTitle,
-      navVisible: Defaults.visibleComponents.navigation,
+      hiddenComponents: this.pageInfo.hiddenComponents || {},
+      titleVisible: visibleComponents.pageTitle,
+      navVisible: visibleComponents.navigation,
     };
   },
 };

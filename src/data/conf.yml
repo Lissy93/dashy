@@ -2,6 +2,16 @@
 pageInfo:
   title: Hello World
   description: 'This is a demo'
+appConfig:
+  theme: 'default'
+  externalStyleSheet: 'https://bootswatch.com/4/solar/bootstrap.min.css'
+  cssThemes: ['hello', 'world']
+  enableFontAwesome: true
+  fontAwesomeKey: ''
+  hiddenComponents:
+  - footer: true
+    navigation: false
+    pageTitle: false
 sections:
 - name: Firewall
   items:

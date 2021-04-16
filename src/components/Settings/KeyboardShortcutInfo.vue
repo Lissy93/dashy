@@ -13,6 +13,9 @@
 </template>
 
 <script>
+
+import { localStorageKeys } from '@/utils/defaults';
+
 export default {
   name: 'KeyboardShortcutInfo',
   data() {
@@ -27,7 +30,7 @@ export default {
      * Note the !! just converts 'false' to false, as strings resolve to true
      */
     shouldHideWelcomeMessage() {
-      return !!localStorage.hideWelcomeHelpers;
+      return !!localStorage[localStorageKeys.HIDE_WELCOME_BANNER];
     },
     /**
      * Update session storage, so that it won't be shown again
@@ -35,7 +38,7 @@ export default {
      */
     hideWelcomeHelper() {
       this.shouldHide = true;
-      localStorage.setItem('hideWelcomeHelpers', true);
+      localStorage.setItem(localStorageKeys.HIDE_WELCOME_BANNER, true);
       window.removeEventListener('keyup');
     },
   },
