@@ -33,6 +33,7 @@
 
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import ItemGroup from '@/components/LinkItems/ItemGroup.vue';
+import Defaults from '@/utils/defaults';
 
 export default {
   name: 'home',
@@ -51,14 +52,14 @@ export default {
   }),
   computed: {
     layoutOrientation: {
-      get: () => localStorage.layoutOrientation || 'default',
+      get: () => localStorage.layoutOrientation || Defaults.layout,
       set: function setLayout(layout) {
         localStorage.setItem('layoutOrientation', layout);
         this.layout = layout;
       },
     },
     iconSize: {
-      get: () => localStorage.iconSize || 'medium',
+      get: () => localStorage.iconSize || Defaults.iconSize,
       set: function setIconSize(iconSize) {
         localStorage.setItem('iconSize', iconSize);
         this.itemSizeBound = iconSize;

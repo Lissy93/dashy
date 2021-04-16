@@ -2,13 +2,14 @@
   <div id="dashy" data-theme="dark">
     <Header :pageInfo="getPageInfo(pageInfo)" />
     <router-view />
-    <Footer />
+    <Footer v-if="showFooter" />
   </div>
 </template>
 <script>
 
 import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
+import Defaults from '@/utils/defaults';
 import conf from '@/data/conf.yml';
 
 export default {
@@ -19,6 +20,7 @@ export default {
   },
   data: () => ({
     pageInfo: conf.pageInfo,
+    showFooter: Defaults.visibleComponents.footer,
   }),
   methods: {
     /* Returns either page info from the config, or default values */

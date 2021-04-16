@@ -20,6 +20,7 @@ export default {
   props: {
     themes: Object,
     confTheme: String,
+    userThemes: Array,
   },
   watch: {
     selectedTheme(newTheme) { this.updateTheme(newTheme); },
@@ -29,7 +30,7 @@ export default {
       selectedTheme: this.getInitialTheme(),
       themeHelper: new ThemeHelper(),
       loading: true,
-      builtInThemes: Defaults.builtInThemes,
+      builtInThemes: Defaults.builtInThemes.concat(this.userThemes),
     };
   },
   computed: {

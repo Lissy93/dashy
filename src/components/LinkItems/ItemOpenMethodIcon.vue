@@ -43,7 +43,8 @@ export default {
     width: 1rem;
     margin: 2px;
     path {
-      fill: var(--primary);
+      // fill: var(--primary);
+      fill: currentColor;
     }
   }
   &.top svg { top: 0; }

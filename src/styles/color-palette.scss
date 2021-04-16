@@ -1,13 +1,15 @@
 
 :root {
   /* Basic*/
-  --background: #0b1021;
-  --background-darker: #05070e;
-  --primary: #5cabca;
+  --primary: #5cabca; // Main accent color
+  --background: #0b1021; // Page background
+  --background-darker: #05070e; // Used for navigation bar, footer and fills
 
   /* Modified Colors */
   --item-group-background: #0b1021cc;
   --medium-grey: #5e6474;
+  --item-background: #607d8b33;
+  --item-background-hover: #607d8b4d;
 
   /* Semi-Transparent Black*/
   --transparent-70: #000000b3;
@@ -16,21 +18,24 @@
 
   /* Other Variables */
   --outline-color: none;
-  --curve-factor: 5px;
-  --curve-factor-navbar: 16px;
-  --dimming-factor: 0.8;
+  --curve-factor: 5px; // Border radius for most components
+  --curve-factor-navbar: 16px; // Border radius for header
+  --dimming-factor: 0.8; // Opacity for semi-transparent components
 
   /* Settings for specific components */
-  --item-group-padding: 5px;
+  --item-group-padding: 5px; // Determines width of item-group outline
   --item-shadow: 1px 1px 2px #130f23;
-  --item-group-shadow: var(--item-shadow);
   --item-hover-shadow: 1px 2px 4px #373737;
   --item-icon-transform: drop-shadow(2px 4px 6px var(--transparent-50)) saturate(0.65);
   --item-icon-transform-hover: drop-shadow(4px 8px 3px var(--transparent-50)) saturate(2);
+  --item-group-shadow: var(--item-shadow);
 
-  --item-background: #607d8b33;
-  --item-background-hover: #607d8b4d;
-  --settings-text-color: var(--primary);
+  /* Specific components, using variables allows them to be overridden individually */
+  --item-text-color: var(--primary);
+  --item-group-outer-background: var(--primary);
+  --item-group-heading-text-color: var(--item-group-background);
+  --item-group-heading-text-color-hover: var(--background);
   --settings-background: var(--background);
+  --settings-text-color: var(--primary);
   --search-container-background: var(--background-darker);
 }

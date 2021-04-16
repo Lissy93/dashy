@@ -1,5 +1,7 @@
 module.exports = {
-  defaultTheme: 'Default',
+  iconSize: 'medium',
+  layout: 'auto',
+  defaultTheme: 'default',
   builtInThemes: [
     'nord',
     'nord-frost',
@@ -13,7 +15,15 @@ module.exports = {
     'bee',
     'raspberry-jam',
     'tiger',
+    'colorful',
     'high-contrast-light',
     'high-contrast-dark',
   ],
+  visibleComponents: {
+    pageTitle: true,
+    navigation: true,
+    searchBar: true,
+    settings: true,
+    footer: true,
+  },
 };

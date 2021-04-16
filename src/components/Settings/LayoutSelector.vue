@@ -2,8 +2,8 @@
   <div>
     <span class="options-label">Layout</span>
     <div class="display-options">
-      <IconDeafault @click="updateDisplayLayout('default')" v-tooltip="tooltip('Auto')"
-        :class="`layout-icon ${displayLayout === 'default' ? 'selected' : ''}`" tabindex="2" />
+      <IconDeafault @click="updateDisplayLayout('auto')" v-tooltip="tooltip('Auto')"
+        :class="`layout-icon ${displayLayout === 'auto' ? 'selected' : ''}`" tabindex="2" />
       <IconHorizontal @click="updateDisplayLayout('horizontal')" v-tooltip="tooltip('Horizontal')"
         :class="`layout-icon ${displayLayout === 'horizontal' ? 'selected' : ''}`" tabindex="2" />
       <IconVertical @click="updateDisplayLayout('vertical')" v-tooltip="tooltip('Vertical')"

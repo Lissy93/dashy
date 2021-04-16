@@ -97,7 +97,7 @@ export default {
 .item {
   flex-grow: 1;
   position: relative;
-  color: var(--primary);
+  color: var(--item-text-color);
   vertical-align: middle;
   margin: 0.5rem;
   background: var(--item-background);

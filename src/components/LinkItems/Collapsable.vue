@@ -93,7 +93,7 @@ export default {
     padding: var(--item-group-padding);
     margin: 10px;
     border-radius: var(--curve-factor);
-    background: var(--primary);
+    background: var(--item-group-outer-background);
     box-shadow: var(--item-group-shadow);
     height: fit-content;
     width: 100%;
@@ -140,7 +140,7 @@ export default {
         border-radius: var(--curve-factor);
         transition: all 0.25s ease-out;
         text-align: left;
-        color: var(--item-group-background);
+        color: var(--item-group-heading-text-color); //var(--item-group-background);
 
         h3 {
             margin: 0;
@@ -150,7 +150,7 @@ export default {
     }
 
     .lbl-toggle:hover {
-        color: var(--background);
+        color: var(--item-group-heading-text-color-hover);
     }
 
     .lbl-toggle::before {

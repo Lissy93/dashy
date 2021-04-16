@@ -1,13 +1,14 @@
 <template>
     <header>
-      <PageTitle :title="pageInfo.title" :description="pageInfo.description" />
-      <Nav class="nav"/>
+      <PageTitle :title="pageInfo.title" :description="pageInfo.description" v-if="titleVisible" />
+      <Nav class="nav" v-if="navVisible" />
     </header>
 </template>
 
 <script>
 import PageTitle from '@/components/PageStrcture/PageTitle.vue';
 import Nav from '@/components/PageStrcture/Nav.vue';
+import Defaults from '@/utils/defaults';
 
 export default {
   name: 'Header',
@@ -17,6 +18,12 @@ export default {
   },
   props: {
     pageInfo: Object,
+  },
+  data() {
+    return {
+      titleVisible: Defaults.visibleComponents.pageTitle,
+      navVisible: Defaults.visibleComponents.navigation,
+    };
   },
 };
 </script>

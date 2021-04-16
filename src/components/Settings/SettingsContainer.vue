@@ -1,8 +1,9 @@
 <template>
   <section>
-    <SearchBar @user-is-searchin="userIsTypingSomething" ref="SearchBar" />
-    <div class="options-container">
-      <ThemeSelector :themes="availableThemes" :confTheme="getInitialTheme()"/>
+    <SearchBar @user-is-searchin="userIsTypingSomething" ref="SearchBar" v-if="searchVisible" />
+    <div class="options-container" v-if="settingsVisible">
+      <ThemeSelector :themes="availableThemes"
+        :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
       <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
       <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
     </div>
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+import Defaults from '@/utils/defaults';
 import SearchBar from '@/components/Settings/SearchBar';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import LayoutSelector from '@/components/Settings/LayoutSelector';
@@ -48,6 +50,15 @@ export default {
     getInitialTheme() {
       return this.appConfig.theme || '';
     },
+    getUserThemes() {
+      return this.appConfig.cssThemes || [];
+    },
+  },
+  data() {
+    return {
+      searchVisible: Defaults.visibleComponents.searchBar,
+      settingsVisible: Defaults.visibleComponents.settings,
+    };
   },
 };
 </script>
