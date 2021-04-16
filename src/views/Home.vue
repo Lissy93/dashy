@@ -150,7 +150,7 @@ export default {
   },
   mounted() {
     this.initiateFontAwesome();
-    this.layoutOrientation = this.layoutOrientation;
+    this.layout = this.layoutOrientation;
     this.itemSizeBound = this.iconSize;
   },
 };
