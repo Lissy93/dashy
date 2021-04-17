@@ -4,23 +4,43 @@
 
 ---
 
-## Developing 🧱
+## Running the App
 
-Project structure is fairly standard, to run it locally, just `git clone`, `cd` into it, `yarn install` the dependencies, and then run one of the following:
+### Deploying 🚀
+- Get Code: `git clone git@github.com:Lissy93/dashy.git` and `cd dashy`
+- Configuration: Fill in you're settings in `./public/conf.yml`
+- Install dependencies: `yarn`
+- Build: `yarn build`
+- Run: `yarn start`
 
-- `yarn run dev` - Starts dev server, with hot-reload, and diff-linting
-- `yarn run build` - Compiles and minifies for production
-- `yarn run start` - Will serve up the **built**  production app from the `dist` dir
-- `yarn run lint` - Lints and fixes files
-- `yarn run test` - Runs all tests
+### Deploying with Docker 🐳
+- Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
+- Configuration: Fill in you're settings in `./public/conf.yml`
+- Build: `docker build -t lissy93/dashy .`
+- Start: `docker run -it -p 8080:80 --rm --name my-dashboard lissy93/dashy`
+
+### Developing 🧱
+- Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
+- Install dependencies: `yarn`
+- Start dev server: `yarn dev`
 
 ---
 
-## Configuring
+## Configuring 🔧
 
-- Data for the tiles is specified in [`src/data/item-data.json`](https://github.com/Lissy93/server-start-page/blob/master/src/data/item-data.json).
-- Image assets are stored in [`public/img/item-icons/`](https://github.com/Lissy93/server-start-page/tree/master/public/img/item-icons), you can either use font-awesome, the pre-configured gradient icons, or add your own.
-- The color scheme is defined as SCSS variables in [`src/styles/color-pallet.scss`](https://github.com/Lissy93/server-start-page/blob/master/src/styles/color-pallet.scss).
+### Config Locations
+
+Configuration files are located in `./public/`.
+- `./public/conf.yml` - This is the main site configuration file, and is required for the app to work
+- `./public/item-icons` - If you're using custom icons for your items, then store these here. You can use sub-folders to keep things organised
+- `./public/logo.png` - Optionally add a logo image for you're website, which will show in the top left
+
+Also within `./public` you'll find normal website assets, including `favicon.ico`, `manifest.json`, `robots.txt` and `web-icons/*`. There's no need to modify these, but you can do so if you wish.
+
+### The conf.yml File
+
+This is where all site configuration is stored
+
 
 ---
 
