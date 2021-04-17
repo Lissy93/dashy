@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import IconDeafault from '@/assets/icons/layout-default.svg';
-import IconHorizontal from '@/assets/icons/layout-horizontal.svg';
-import IconVertical from '@/assets/icons/layout-vertical.svg';
+import IconDeafault from '@/assets/interface-icons/layout-default.svg';
+import IconHorizontal from '@/assets/interface-icons/layout-horizontal.svg';
+import IconVertical from '@/assets/interface-icons/layout-vertical.svg';
 
 export default {
   name: 'LayoutSelector',

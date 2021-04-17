@@ -1,14 +1,14 @@
 {
-  "name": "Alicia App",
-  "short_name": "panel",
+  "name": "Dashie",
+  "short_name": "Dashie",
   "icons": [
     {
-      "src": "./img/app-icons/android-chrome-192x192.png",
+      "src": "./web-icons/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./img/app-icons/android-chrome-512x512.png",
+      "src": "./web-icons/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

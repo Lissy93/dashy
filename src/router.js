@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import conf from './data/conf.yml'; // Main site configuration
+import conf from '../public/conf.yml'; // Main site configuration
 
 Vue.use(Router);
 

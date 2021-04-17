@@ -10,7 +10,7 @@
 import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
 import Defaults from '@/utils/defaults';
-import conf from '@/data/conf.yml';
+import conf from '../public/conf.yml';
 
 export default {
   name: 'app',

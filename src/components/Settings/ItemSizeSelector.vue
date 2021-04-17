@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import IconSmall from '@/assets/icons/icon-size-small.svg';
-import IconMedium from '@/assets/icons/icon-size-medium.svg';
-import IconLarge from '@/assets/icons/icon-size-large.svg';
+import IconSmall from '@/assets/interface-icons/icon-size-small.svg';
+import IconMedium from '@/assets/interface-icons/icon-size-medium.svg';
+import IconLarge from '@/assets/interface-icons/icon-size-large.svg';
 
 export default {
   name: 'IconSizeSelector',

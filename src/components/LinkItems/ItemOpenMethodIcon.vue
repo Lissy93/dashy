@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import NewTabOpenIcon from '@/assets/icons/open-new-tab.svg';
-import SameTabOpenIcon from '@/assets/icons/open-current-tab.svg';
-import IframeOpenIcon from '@/assets/icons/open-iframe.svg';
+import NewTabOpenIcon from '@/assets/interface-icons/open-new-tab.svg';
+import SameTabOpenIcon from '@/assets/interface-icons/open-current-tab.svg';
+import IframeOpenIcon from '@/assets/interface-icons/open-iframe.svg';
 
 export default {
   name: 'ItemOpenMethodIcon',

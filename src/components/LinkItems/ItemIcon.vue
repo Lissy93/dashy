@@ -39,7 +39,7 @@ export default {
       return '';
     },
     getLocalImagePath(img) {
-      return `/img/item-icons/tile-icons/${img}`;
+      return `/item-icons/${img}`;
     },
     /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
     getIconPath(img, url) {
