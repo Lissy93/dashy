@@ -133,7 +133,7 @@ export default {
       let isFound = false;
       this.sections.forEach((section) => {
         section.items.forEach((item) => {
-          if (item.icon && item.icon.includes('fas')) isFound = true;
+          if (item.icon && item.icon.includes('fa-')) isFound = true;
         });
       });
       return isFound;
