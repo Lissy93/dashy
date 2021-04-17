@@ -39,8 +39,36 @@ Also within `./public` you'll find normal website assets, including `favicon.ico
 
 ### The conf.yml File
 
-This is where all site configuration is stored
+This is where all site configuration is stored in [YAML Format](https://yaml.org/), and is located in `./public/conf.yml`
 
+**`pageInfo`**
+- `title` - String: The page title and heading
+- `description` - String: Short description visible under the heading
+
+**`appConfig`**
+- `theme`- String: The default theme for first load
+- `cssThemes` - String[]: An array of theme names which can be used in the theme switcher dropdown
+- `externalStyleSheet` - String or String[] - Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
+
+**`sections`** - Section[]: (required) An array of sections - *See **`section`** below*
+
+**`section`**
+- `name` - String: (required) The title of that section
+- `items` - Item[]: (required) An array of items - *See **`item`** below*
+- `displayData`: An object with the following fields (all optional)
+  - `collapsed` - Boolean: If true, the section will  be collapsed (defaults to `false`) 
+  - `rows` - Int: Number of rows the section should span vertically, e.g. 2 (defaults to `1`)
+  - `cols` - Int: Number of columns the section should span horizontally, e.g. 2 (defaults to `1`)
+  - `color` - String: A custom background color for the section, as a hex code or HTML color
+  - `customStyles` - String: Custom CSS properties that should be applied to that section, separated by semicolon
+
+**`item`**
+- `title` - String: The text to display on the item
+- `description` - String: Additional info which is shown in the tooltip on hover
+- `icon` - String: The icon for the tile, *see below for more info*
+- `url` - String: The full path to be opened on click (e.g. https://example.com)
+- `target` - String: The method in which the item will be opened, either `newtab`, `sametab` or `iframe`
+- `color` - String: A custom background color the the item, as a hex code or HTML color
 
 ---
 
