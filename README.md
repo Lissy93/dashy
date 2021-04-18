@@ -1,6 +1,10 @@
-# Server Landing Page
 
-> A static site linking to all running services for networking, management and monitoring
+<h1 align="center">Dashy</h1>
+<p align="center"><i>A static site linking to all running services for networking, management and monitoring</i></p>
+
+<p align="center">
+  <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
+</p>
 
 ## Features 🌈
 
