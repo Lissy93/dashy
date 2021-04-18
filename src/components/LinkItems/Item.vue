@@ -68,8 +68,8 @@ export default {
     manageTitleEllipse() {
       const tileElem = document.getElementById(`tile-${this.getId}`);
       if (tileElem) {
-        const isOverflowing = tileElem.scrollHeight > tileElem.clientHeight
-              || tileElem.scrollWidth > tileElem.clientWidth;
+        const isOverflowing = (tileElem.scrollHeight > tileElem.clientHeight
+              || tileElem.scrollWidth > tileElem.clientWidth) && this.title.length > 12;
         if (isOverflowing) tileElem.className += ' is-overflowing';
       } // Note from present me to past me: WTF?!
     },
@@ -107,6 +107,7 @@ export default {
   border-radius: var(--curve-factor);
   box-shadow: var(--item-shadow);
   cursor: pointer;
+  text-decoration: none;
   &:hover {
     box-shadow: var(--item-hover-shadow);
     background: var(--item-background-hover);
@@ -176,7 +177,7 @@ export default {
       opacity: 0;
     }
     span.text {
-      transform: translateX(calc(120px - 100%));
+      transform: translateX(calc(100px - 100%));
     }
   }
 

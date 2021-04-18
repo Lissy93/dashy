@@ -65,6 +65,8 @@ export default {
 
 <style scoped lang="scss">
 
+@import '@/styles/media-queries.scss';
+
   section {
     display: flex;
     align-items: center;
@@ -87,9 +89,21 @@ export default {
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @include tablet {
+    section {
+      display: block;
+      margin: 0 auto;
+      background: none;
+      .options-container {
+          justify-content: center;
+      }
+    }
+  }
+
+  @include phone {
     .options-container {
       display: none;
     }
   }
+
 </style>

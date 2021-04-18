@@ -54,7 +54,8 @@ export default {
     /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
     determineImageType(img) {
       let imgType = '';
-      if (this.isUrl(img)) imgType = 'url';
+      if (!img) imgType = 'none';
+      else if (this.isUrl(img)) imgType = 'url';
       else if (this.isImage(img)) imgType = 'img';
       else if (img.substr(4) === ('.svg' || '.SVG')) imgType = 'svg';
       else if (img.includes('fa-')) imgType = 'font-awesome';

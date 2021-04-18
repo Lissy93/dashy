@@ -29,11 +29,11 @@ html[data-theme='dracula'] {
   --item-hover-shadow: none;
   --settings-text-color: #98ace9;
   --primary: #6272a4;
-  .collapsable:nth-child(1n) { background: #8be9fd; .item { border: 1px solid #8be9fd; span {color: #8be9fd; }}}
-  .collapsable:nth-child(2n) { background: #50fa7b; .item { border: 1px solid #50fa7b; span {color: #50fa7b; }}}
-  .collapsable:nth-child(3n) { background: #ffb86c; .item { border: 1px solid #ffb86c; span {color: #ffb86c; }}}
-  .collapsable:nth-child(4n) { background: #ff79c6; .item { border: 1px solid #ff79c6; span {color: #ff79c6; }}}
-  .collapsable:nth-child(4n) { background: #bd93f9; .item { border: 1px solid #bd93f9; span {color: #bd93f9; }}}
+  .collapsable:nth-child(1n) { background: #8be9fd; .item { border: 1px solid #8be9fd; color: #8be9fd; }}
+  .collapsable:nth-child(2n) { background: #50fa7b; .item { border: 1px solid #50fa7b; color: #50fa7b; }}
+  .collapsable:nth-child(3n) { background: #ffb86c; .item { border: 1px solid #ffb86c; color: #ffb86c; }}
+  .collapsable:nth-child(4n) { background: #ff79c6; .item { border: 1px solid #ff79c6; color: #ff79c6; }}
+  .collapsable:nth-child(4n) { background: #bd93f9; .item { border: 1px solid #bd93f9; color: #bd93f9; }}
 }
 
 html[data-theme='bee'] {

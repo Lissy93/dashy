@@ -38,7 +38,6 @@ $extra-large: 2800px;
   }
 }
 
-
 @mixin tablet-up {
   @media (min-width: #{$small}) {
     @content;
