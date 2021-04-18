@@ -33,7 +33,6 @@ export default {
     subtitle: String, // Optional sub-text
     description: String, // Optional tooltip hover text
     icon: String, // Optional path to icon, within public/img/tile-icons
-    svg: String, // Optional vector graphic, that is then dynamically filled
     color: String, // Optional background color, specified in hex code
     url: String, // URL to the resource, optional but recommended
     target: { // Where resource will open, either 'newtab', 'sametab' or 'iframe'

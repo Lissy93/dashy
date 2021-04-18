@@ -21,7 +21,7 @@
         :description="item.description"
         :icon="item.icon"
         :target="item.target"
-        :itemSize="itemSize"
+        :itemSize="newItemSize"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
       />
@@ -53,6 +53,11 @@ export default {
     Collapsable,
     Item,
     IframeModal,
+  },
+  computed: {
+    newItemSize: function size() {
+      return this.displayData.itemSize || this.itemSize;
+    },
   },
   methods: {
     /* Returns a unique lowercase string, based on name, for section ID */

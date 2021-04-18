@@ -75,6 +75,7 @@ All fields are optional, unless otherwise stated.
   - `cols` - Int: Number of columns the section should span horizontally, e.g. 2 (defaults to `1`)
   - `color` - String: A custom background color for the section, as a hex code or HTML color (e.g. `#fff`)
   - `customStyles` - String: Custom CSS properties that should be applied to that section, e.g. `border: 2px dashed #ff0000;`
+  - `itemSize` - String: Specify the size for items within this group, either `small`, `medium` or `large`
 
 **`item`**
 - `title` - String: The text to display on the item
@@ -87,8 +88,9 @@ All fields are optional, unless otherwise stated.
 **`icon`** Examples:
 - To use use a remote image, just use it's full URL, e.g. `https://i.ibb.co/710B3Yc/space-invader-x256.png`
 - To use a local image, save it in `./public/item-icons/` or  `./public/my-category/item-icons` and specify the image as `image.png` or `my-category/image.png`. For best results, use either png or svg formats.
-- To automatically fetch the icons from the website's URL, just set icon to `favicon`
+- To automatically fetch an icon from items URL, just set icon field to `favicon`
 - To use a Font-Awesome icon, specify the category (`fas`, `fab`, `far`, `fal` or`fad`), followed by a space then `fa-` and the icon name. For example: `fas fa-rocket`, `fab fa-monero`, `fal fa-duck` or `fad fa-glass-whiskey-rocks`. Note that light (`fal`) and duotone (`fad`) icons are only available with Font Awesome Pro, to use this, you need to set you're kit ID under `appConfig.fontAwesomeKey`.
+
 
 ---
 
