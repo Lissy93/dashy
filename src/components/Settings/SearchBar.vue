@@ -22,6 +22,7 @@ export default {
   data() {
     return {
       input: '',
+      index: undefined,
     };
   },
   methods: {
@@ -32,20 +33,48 @@ export default {
       this.input = '';
       this.userIsTypingSomething();
       document.activeElement.blur();
+      this.index = undefined;
+    },
+    /* Focus a search result, based on it's index */
+    focusEelement(index) {
+      document.getElementsByClassName('item')[index].focus();
+    },
+    /* Figures out which element is next, based on the key pressed *
+     * current index and total number of items. Then calls focus function */
+    arrowNavigation(key, numResults) {
+      if (this.index === undefined) this.index = 0; // Start at beginning
+      else if (key === 37) { // Left --> Previous
+        this.index -= 1;
+      } else if (key === 38) { // Up --> Previous
+        this.index -= 1;
+      } else if (key === 39) { // Right --> Next
+        this.index += 1;
+      } else if (key === 40) { // Down --> Next
+        this.index += 1;
+      }
+      /* If at the end, move to start, and vica verca */
+      if (this.index < 0) this.index = numResults - 1;
+      else if (this.index >= numResults) this.index = 0;
+      /* Call to focus function, to select given element*/
+      this.focusEelement(this.index);
     },
   },
   mounted() {
-    window.addEventListener('keyup', (event) => {
+    window.addEventListener('keydown', (event) => {
+      const currentElem = document.activeElement.id;
       const { key, keyCode } = event;
-      if (/^[a-zA-Z]$/.test(key) && !document.activeElement.id) {
+      if (/^[a-zA-Z]$/.test(key) && currentElem !== 'filter-tiles') {
+      /* Letter key pressed - start searching */
         try {
-          this.input += key;
           this.$refs.filter.focus();
           this.userIsTypingSomething();
-        } catch (e) {
-          // Do nothing
-        }
+        } catch (e) { /* Do nothing */ }
+      } else if (keyCode >= 37 && keyCode <= 40) {
+      /* Arrow key pressed - start navigation */
+        const numResults = document.getElementsByClassName('item').length;
+        this.arrowNavigation(keyCode, numResults);
       } else if (keyCode === 27) {
+      /* Esc key pressed - reset form */
         this.clearFilterInput();
       }
     });

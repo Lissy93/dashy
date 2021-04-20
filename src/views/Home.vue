@@ -181,8 +181,10 @@ export default {
     flex-direction: column;
   }
   &.orientation-vertical {
-    display: flex;
-    flex-direction: row;
+    @include tablet-up {
+      display: flex;
+      flex-direction: row;
+    }
   }
 
   /* Specify number of columns, based on screen size */
