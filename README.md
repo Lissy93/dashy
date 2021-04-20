@@ -9,9 +9,9 @@
 ## Features 🌈
 
 - Instant search and full keyboard shortcuts
-- Multiple color themes, layout options and item sizes all configurable and saved directly through the browser
-- Quickly check a website, by holding down the Alt key while clicking, to open it in a resizable pop-up modal
-- Instant search- just start typing to filter items, tab to cycle through, enter or Alt + enter to open, and Esc to clear
+- Multiple color themes, layout options and item sizes all configurable through the browser
+- Preferences stored in local storage and applied on load
+- Quickly preview a website, by holding down the Alt key while clicking, to open it in a resizable pop-up modal
 - Additional info for each item visible on hover (including opening method icon, description as a tooltip and domain info)
 - Small bundle size and a fully responsive UI makes the app easy to use on any device
 - Many options for icons, including full Font-Awesome support and the ability to auto-fetch icon from URLs favicon
@@ -47,8 +47,7 @@
 
 Configuration files are located in [`./public/`](https://github.com/Lissy93/dashy/tree/master/public).
 - `./public/conf.yml` - This is the main site configuration file, and is required for the app to work
-- `./public/item-icons` - If you're using custom icons for your items, then store these here. You can use sub-folders to keep things organised
-- `./public/logo.png` - Optionally add a logo image for you're website, which will show in the top left
+- `./public/item-icons` - If you're using your own icons, you can choose to store them locally for better load time. You can also use sub-folders to keep things organized
 
 Also within `./public` you'll find normal website assets, including `favicon.ico`, `manifest.json`, `robots.txt` and `web-icons/*`. There's no need to modify these, but you can do so if you wish.
 
@@ -95,30 +94,31 @@ All fields are optional, unless otherwise stated.
 
 **`icon`** Examples:
 - To use use a remote image, just use it's full URL, e.g. `https://i.ibb.co/710B3Yc/space-invader-x256.png`
-- To use a local image, save it in `./public/item-icons/` or  `./public/my-category/item-icons` and specify the image as `image.png` or `my-category/image.png`. For best results, use either png or svg formats.
+- To use a local image, save it in `./public/item-icons/image.png` or  `./public/my-category/item-icons/image.png` and specify the image as `image.png` or `my-category/image.png`. For best results, use either png or svg formats.
 - To automatically fetch an icon from items URL, just set icon field to `favicon`
 - To use a Font-Awesome icon, specify the category (`fas`, `fab`, `far`, `fal` or`fad`), followed by a space then `fa-` and the icon name. For example: `fas fa-rocket`, `fab fa-monero`, `fal fa-duck` or `fad fa-glass-whiskey-rocks`. Note that light (`fal`) and duotone (`fad`) icons are only available with Font Awesome Pro, to use this, you need to set you're kit ID under `appConfig.fontAwesomeKey`.
 
 
-### Theming
+### Theming 🎨
 
-By default, there are 15 themes built-in, but you can add you're own themes with CSS. The easiest way to write a theme is by setting CSS variables, but you can also directly override elements by their selector. As an example, see the [built-in CSS themes](https://github.com/Lissy93/dashy/blob/master/src/styles/color-themes.scss).
+The app comes with a number of built-in themes, but it's also easy to write you're own. Once you've done so you can select you're theme fro the dropdown menu, and like other visual settings, you're chosen theme is saved in local storage, so will load automatically when you next visit the page.
 
-For example, specify a theme 
-```css
-html[data-theme='tiger'] {
-  --primary: #f58233;
-  --item-group-background: #0b1021;
-}
-```
-In order for the theme to show up in the theme switcher, it needs to be added to the config file, under `appConfig.cssThemes`, either as a string, or an array of strings for multiple themes. For example:
+The theme switching is done by simply changing the `data-theme` attribute on the root DOM element, which can then be targeted by CSS. First off, in order for the theme to show up in the theme switcher, it needs to be added to the config file, under `appConfig.cssThemes`, either as a string, or an array of strings for multiple themes. For example:
 
 ```yaml
 appConfig:
   cssThemes: ['tiger', 'another-theme']
 ```
 
-You can also load an external stylesheet. Pass either a URL to a .css file, or an array or URLs to `appConfig.externalStyleSheet`. The stylesheet will then be pre-loaded, and can then be enabled from the UI using the theme switcher.
+You can now create a block to target you're theme with `html[data-theme='my-theme']{}` and set some styles. The easiest method is by setting CSS variables, but you can also directly override elements by their selector. As an example, see the [built-in CSS themes](https://github.com/Lissy93/dashy/blob/master/src/styles/color-themes.scss).
+
+```css
+html[data-theme='tiger'] {
+  --primary: #f58233;
+  --item-group-background: #0b1021;
+}
+```
+Alternatively, you can load an external stylesheet. Pass either a URL to a .css file, or an array or URLs to `appConfig.externalStyleSheet`. The stylesheet will then be pre-loaded, and can then be enabled from the UI using the theme switcher.
 
 ```yaml
 appConfig:
@@ -126,7 +126,16 @@ appConfig:
 ```
 ---
 
-## License 📜
+## Notes
+
+### Credits 🏆
+
+The app makes use of the following components, kudos to their respective authors
+- [`vue-select`](https://github.com/sagalbot/vue-select) - Dropdown component by @sagalbot
+- [`vue-js-modal`](https://github.com/euvl/vue-js-modal) - Modal component by @euvl
+- [`v-tooltip`](https://github.com/Akryum/v-tooltip) - Tooltip component by @Akryum
+
+### License 📜
 
 ```
 Copyright © 2021 Alicia Sykes <https://aliciasykes.com>
