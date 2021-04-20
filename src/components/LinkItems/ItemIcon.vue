@@ -1,6 +1,6 @@
 <template>
-  <i v-if="determineImageType(icon) === 'font-awesome'" :class="icon"></i>
-  <img v-else-if="icon" :src="getIconPath(icon, url)" class="tile-icon" />
+  <i v-if="determineImageType(icon) === 'font-awesome'" :class="`${icon} ${size}`"></i>
+  <img v-else-if="icon" :src="getIconPath(icon, url)" :class="`tile-icon ${size}`" />
 </template>
 
 <script>
@@ -8,8 +8,9 @@
 export default {
   name: 'Icon',
   props: {
-    icon: String,
-    url: String,
+    icon: String, // Path to icon asset
+    url: String, // Used for fetching the favicon
+    size: String, // Either small, medium or large
   },
   methods: {
     /* Check if a string is in a URL format. Used to identify tile icon source */
@@ -72,8 +73,15 @@ export default {
       width: 60px;
       filter: var(--item-icon-transform);
   }
-  i.fas, i.fab {
-    font-size: 1.5rem;
+  i.fas, i.fab, i.far, i.fal, i.fad {
+    font-size: 2rem;
     color: currentColor;
+    margin: 1px auto 4px;
+    &.small {
+      font-size: 1.5rem;
+    }
+    &.large {
+      font-size: 3rem;
+    }
   }
 </style>

@@ -14,7 +14,7 @@
         <div class="overflow-dots">...</div>
       </div>
       <!-- Item Icon -->
-      <Icon :icon="icon" :url="url" />
+      <Icon :icon="icon" :url="url" :size="itemSize" />
       <!-- Small icon, showing opening method on hover -->
       <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon" :openingMethod="target"
         :position="itemSize === 'medium'? 'bottom right' : 'top right'"/>

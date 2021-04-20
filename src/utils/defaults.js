@@ -7,7 +7,7 @@ module.exports = {
   iconSize: 'medium',
   layout: 'auto',
   theme: 'default',
-  fontAwesomeKey: 'def7c3ce4c',
+  fontAwesomeKey: '0821c65656',
   builtInThemes: [
     'nord',
     'nord-frost',
