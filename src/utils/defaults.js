@@ -18,6 +18,7 @@ module.exports = {
     'callisto',
     'thebe',
     'material',
+    'material-dark',
     'dracula',
     'matrix',
     'matrix-red',

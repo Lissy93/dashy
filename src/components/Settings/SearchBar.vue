@@ -84,7 +84,7 @@ export default {
       outline: none;
       border: none;
       border-radius: var(--curve-factor);
-      background: var(--background);
+      background: var(--search-field-background);
       color: var(--settings-text-color);
       border: 1px solid var(--outline-color);
       &:focus {

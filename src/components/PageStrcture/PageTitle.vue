@@ -22,12 +22,12 @@ export default {
   display: flex;
   flex-direction: column;
   h1 {
-    color: var(--primary);
+    color: var(--heading-text-color);
     font-size: 2.5rem;
     margin: 0;
   }
   span.subtitle {
-    color: var(--primary);
+    color: var(--heading-text-color);
     font-style: italic;
     text-shadow: 1px 1px 2px #130f23;
     opacity: var(--dimming-factor);

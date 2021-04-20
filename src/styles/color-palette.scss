@@ -31,6 +31,13 @@
   --item-group-shadow: var(--item-shadow);
 
   /* Specific components, using variables allows them to be overridden individually */
+  --heading-text-color: var(--primary);
+  --nav-link-text-color: var(--primary);
+  --nav-link-background-color: #607d8b33;
+  --nav-link-text-color-hover: var(--primary);
+  --nav-link-background-color-hover: #607d8b33;
+  --nav-link-border-color: transparent;
+  --nav-link-border-color-hover: var(--primary);
   --item-text-color: var(--primary);
   --item-group-outer-background: var(--primary);
   --item-group-heading-text-color: var(--item-group-background);
@@ -38,4 +45,7 @@
   --settings-background: var(--background);
   --settings-text-color: var(--primary);
   --search-container-background: var(--background-darker);
+  --search-field-background: var(--background);
+  --footer-text-color: var(--medium-grey);
+  --footer-text-color-link:  var(--primary);
 }

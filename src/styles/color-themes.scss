@@ -17,6 +17,8 @@ html[data-theme='thebe'] {
   --item-background-hover: #060913;
   --item-hover-shadow: 0 1px 3px #9660ecb3, 0 1px 2px #9660ecbf;
   --primary: #9660ec;
+  --item-group-outer-background: #9660EC
+    linear-gradient(45deg,  #9660ec 2%,#5f60ea 51%,#9660ec 100%);
 }
 
 html[data-theme='dracula'] {
@@ -38,17 +40,23 @@ html[data-theme='dracula'] {
 
 html[data-theme='bee'] {
   --primary: #c3eb5c;
+  --item-background: #1c2636;
   --item-group-background: #0b1021;
+  --nav-link-background-color: #0b1021;
 }
 
 html[data-theme='raspberry-jam'] {
   --primary: #eb2d6c;
+  --item-background: #1c2636;
   --item-group-background: #0b1021;
+  --nav-link-background-color: #0b1021;
 }
 
 html[data-theme='tiger'] {
   --primary: #f58233;
+  --item-background: #1c2636;
   --item-group-background: #0b1021;
+  --nav-link-background-color: #0b1021;
 }
 
 html[data-theme='matrix-red'] {
@@ -138,6 +146,33 @@ html[data-theme='material'] {
   --item-icon-transform-hover: drop-shadow(1px 3px 2px var(--transparent-30)) saturate(2);
 }
 
+html[data-theme='material-dark'] {
+  --primary: #08B0BB;
+  --settings-text-color: #08B0BB;
+  --background: #39434C;
+  --background-darker: #08B0BB;
+  --settings-background: #092b3a;
+  --item-group-background: #333C43;
+  --item-background: #414B55;
+  --item-background-hover: #414B55;
+  --settings-background: #131a1f;
+  --search-container-background: #131a1f;
+  --search-field-background: #39434c;
+  --heading-text-color: #131a1f;
+  --nav-link-text-color: #08B0BB;
+  --nav-link-background-color: #131a1f;
+  --nav-link-text-color-hover: #08B0BB;
+  --nav-link-background-color-hover: #131a1fc7;
+  --nav-link-border-color-hover: transparent;
+  --curve-factor: 2px;
+  --curve-factor-navbar: 0;
+  --item-group-padding: 5px 0 0;
+  --item-shadow: 2px 2px 3px #00000082, 0 1px 10px #00000040;
+  --item-hover-shadow: 4px 4px 3px #00000082, 0 1px 10px #00000040;
+  --item-icon-transform: drop-shadow(1px 2px 1px var(--transparent-30)) saturate(0.65);
+  --item-icon-transform-hover: drop-shadow(1px 3px 2px var(--transparent-30)) saturate(2);
+}
+
 html[data-theme='colorful'] {
   --primary: #e8eae1;
   --background: #0b1021;
@@ -161,5 +196,6 @@ html[data-theme='colorful'] {
     background: currentColor;
     span { color: #05070e; }
     svg path { fill: #05070e; }
+    i.fas, i.fab, i.far, i.fal, i.fad { color: #05070e; }
   }
 }

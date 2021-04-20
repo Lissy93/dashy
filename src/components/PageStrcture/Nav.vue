@@ -36,18 +36,17 @@ nav {
         outline: none;
         border: none;
         border-radius: var(--curve-factor);
-        background: #607d8b33;
         -webkit-box-shadow: 1px 1px 2px #232323;
         box-shadow: 1px 1px 2px #232323;
-        color: var(--primary);
+        color: var(--nav-link-text-color);
+        background: var(--nav-link-background-color);
+        border: 1px solid var(--nav-link-border-color);
         text-decoration: none;
-        &:hover {
-            background: #607d8b1c;
-            box-shadow: 1px 4px 3px #232323;
+        &.router-link-active, &:hover {
+            color: var(--nav-link-text-color-hover);
+            background: var(--nav-link-background-color-hover);
+            border: 1px solid var(--nav-link-border-color-hover);
         }
-    }
-    .router-link-active {
-        border: 1px solid var(--primary);
     }
 }
 </style>

@@ -35,9 +35,9 @@ footer {
 }
 
 footer a{
-  color: var(--medium-grey);
+  color: var(--footer-text-color);
   &:hover {
-    color: var(--primary);
+    color: var(--footer-text-color-link);
   }
 }
 

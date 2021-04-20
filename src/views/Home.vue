@@ -169,6 +169,11 @@ export default {
 .item-group-container {
   display: grid;
   gap: 0.5rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  @include monitor-up {
+    max-width: 1400px;
+  }
 
   /* Options for alternate layouts, triggered by buttons */
   &.orientation-horizontal {

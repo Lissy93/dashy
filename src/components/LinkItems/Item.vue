@@ -137,6 +137,7 @@ export default {
   padding: 0;
   z-index: 2;
   span.text {
+    position: absolute;
     white-space: nowrap;
     transition: 1s;
     float: left;
