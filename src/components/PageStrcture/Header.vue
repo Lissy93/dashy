@@ -31,6 +31,8 @@ export default {
 
 <style scoped lang="scss">
 
+@import '@/styles/media-queries.scss';
+
   header {
     margin: 0;
     padding: 0.5rem;
@@ -39,7 +41,7 @@ export default {
     background: var(--background-darker);
     align-items: center;
     align-content: flex-start;
-    @media screen and (max-width: 600px) {
+    @include phone {
       flex-direction: column-reverse;
     }
   }

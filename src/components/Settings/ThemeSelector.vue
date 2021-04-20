@@ -30,7 +30,7 @@ export default {
       selectedTheme: this.getInitialTheme(),
       themeHelper: new ThemeHelper(),
       loading: true,
-      builtInThemes: Defaults.builtInThemes.concat(this.userThemes),
+      builtInThemes: this.userThemes.concat(Defaults.builtInThemes),
     };
   },
   computed: {

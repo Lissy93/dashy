@@ -3,18 +3,18 @@
       :href="target !== 'iframe' ? url : '#'"
       :target="target === 'newtab' ? '_blank' : ''"
       :class="`item ${!icon? 'short': ''} size-${itemSize}`"
-      :id="`link-${id}`"
       v-tooltip="getTooltipOptions()"
-      rel="noopener noreferrer"
-      tabindex="0"
+      v-bind:style="customStyles"
+      rel="noopener noreferrer" tabindex="0"
+      :id="`link-${id}`"
     >
       <!-- Item Text -->
-      <div class="tile-title" :id="`tile-${id}`">
+      <div class="tile-title" :id="`tile-${id}`" >
         <span class="text">{{ title }}</span>
         <div class="overflow-dots">...</div>
       </div>
       <!-- Item Icon -->
-      <Icon :icon="icon" :url="url" :size="itemSize" />
+      <Icon :icon="icon" :url="url" :size="itemSize" :color="color" v-bind:style="customStyles" />
       <!-- Small icon, showing opening method on hover -->
       <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon" :openingMethod="target"
         :position="itemSize === 'medium'? 'bottom right' : 'top right'"/>
@@ -33,7 +33,8 @@ export default {
     subtitle: String, // Optional sub-text
     description: String, // Optional tooltip hover text
     icon: String, // Optional path to icon, within public/img/tile-icons
-    color: String, // Optional background color, specified in hex code
+    color: String, // Optional text and icon color, specified in hex code
+    backgroundColor: String, // Optional item background color
     url: String, // URL to the resource, optional but recommended
     target: { // Where resource will open, either 'newtab', 'sametab' or 'iframe'
       type: String,
@@ -45,6 +46,10 @@ export default {
   data() {
     return {
       getId: this.id,
+      customStyles: {
+        color: this.color,
+        background: this.backgroundColor,
+      },
     };
   },
   components: {
@@ -132,7 +137,6 @@ export default {
   padding: 0;
   z-index: 2;
   span.text {
-    position: absolute;
     white-space: nowrap;
     transition: 1s;
     float: left;

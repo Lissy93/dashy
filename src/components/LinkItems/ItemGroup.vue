@@ -21,6 +21,8 @@
         :description="item.description"
         :icon="item.icon"
         :target="item.target"
+        :color="item.color"
+        :backgroundColor="item.backgroundColor"
         :itemSize="newItemSize"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"

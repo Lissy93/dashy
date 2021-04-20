@@ -16,16 +16,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/media-queries.scss';
 
 .page-titles {
   display: flex;
   flex-direction: column;
   h1 {
     color: var(--primary);
-    // background: -webkit-linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
-    // background: linear-gradient(to left top, #9F86FF, #1CA8DD, #007AE1);
-    // -webkit-background-clip: text;
-    // -webkit-text-fill-color: transparent;
     font-size: 2.5rem;
     margin: 0;
   }
@@ -35,7 +32,7 @@ export default {
     text-shadow: 1px 1px 2px #130f23;
     opacity: var(--dimming-factor);
   }
-  @media screen and (max-width: 600px) {
+  @include phone {
     text-align: center;
     padding: 0.25rem 0;
   }

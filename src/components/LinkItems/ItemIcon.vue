@@ -1,5 +1,5 @@
 <template>
-  <i v-if="determineImageType(icon) === 'font-awesome'" :class="`${icon} ${size}`"></i>
+  <i v-if="determineImageType(icon) === 'font-awesome'" :class="`${icon} ${size}`" ></i>
   <img v-else-if="icon" :src="getIconPath(icon, url)" :class="`tile-icon ${size}`" />
 </template>
 

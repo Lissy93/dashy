@@ -50,8 +50,11 @@ export default {
     getInitialTheme() {
       return this.appConfig.theme || '';
     },
+    /* Gets user themes if available */
     getUserThemes() {
-      return this.appConfig.cssThemes || [];
+      const userThemes = this.appConfig.cssThemes || [];
+      if (typeof userThemes === 'string') return [userThemes];
+      return userThemes;
     },
   },
   data() {

@@ -65,6 +65,8 @@ export default {
 
 <style scoped lang="scss">
 
+@import '@/styles/media-queries.scss';
+
 .kb-sc-info {
   position: fixed;
   width: 30em;
@@ -82,7 +84,7 @@ export default {
   background: var(--background-darker);
   cursor: default;
   opacity: 0.94;
-  @media screen and (max-width: 600px) {
+  @include phone {
     display: none;
   }
   h5 { /* The dialog title */
