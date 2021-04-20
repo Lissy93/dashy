@@ -60,24 +60,27 @@ All fields are optional, unless otherwise stated.
 **`pageInfo`**
 - `title` - String: The page title and heading
 - `description` - String: Short description visible under the heading
+- `navLinks` - Array: Links to display in the nav bar, an array or objects containing a title and link:
+  - `title` - String: Text to display
+  - `path` - String: URL or relative link
 
 **`appConfig`** _(optional)_
 - `enableFontAwesome` - Boolean: Where `true` is enabled, if left blank font-awesome will be enabled only if required by 1 or more icons
 - `fontAwesomeKey` - String: If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
 - `theme`- String: The default theme for first load
-- `cssThemes` - String[]: An array of theme names which can be used in the theme switcher dropdown
+- `cssThemes` - String[]: An array of custom theme names which can be used in the theme switcher dropdown - _See **theming** below_
 - `externalStyleSheet` - String or String[] - Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
 
-**`sections`** - Section[]: (required) An array of sections - *See **`section`** below*
+**`sections`** - Section[]: (required) An array of sections - _See **`section`** below_
 
 **`section`**
 - `name` - String: (required) The title of that section
-- `items` - Item[]: (required) An array of items - *See **`item`** below*
+- `items` - Item[]: (required) An array of items - _See **`item`** below_
 - `displayData`: An object with the following fields (all optional)
-  - `collapsed` - Boolean: If true, the section will  be collapsed (defaults to `false`) 
+  - `collapsed` - Boolean: If true, the section will  be collapsed initially (defaults to `false`) 
   - `rows` - Int: Number of rows the section should span vertically, e.g. 2 (defaults to `1`)
   - `cols` - Int: Number of columns the section should span horizontally, e.g. 2 (defaults to `1`)
-  - `color` - String: A custom background color for the section, as a hex code or HTML color (e.g. `#fff`)
+  - `color` - String: A custom accent color for the section, as a hex code or HTML color (e.g. `#fff`)
   - `customStyles` - String: Custom CSS properties that should be applied to that section, e.g. `border: 2px dashed #ff0000;`
   - `itemSize` - String: Specify the size for items within this group, either `small`, `medium` or `large`
 
@@ -87,7 +90,8 @@ All fields are optional, unless otherwise stated.
 - `icon` - String: Icons can be either a local image, remote image, or a Font Awesome icon,  *see below for more info*
 - `url` - String: The full path to be opened on click (e.g. `https://example.com`)
 - `target` - String: The method in which the item will be opened, either `newtab`, `sametab` or `iframe`
-- `color` - String: A custom background color the the item, as a hex code or HTML color (e.g. `#fff`)
+- `color` - String: A custom color the the item, as a hex code or HTML color (e.g. `#fff`)
+- `backgroundColor` - String: A custom fill color for the the item's background, also as a hex code
 
 **`icon`** Examples:
 - To use use a remote image, just use it's full URL, e.g. `https://i.ibb.co/710B3Yc/space-invader-x256.png`
@@ -96,6 +100,30 @@ All fields are optional, unless otherwise stated.
 - To use a Font-Awesome icon, specify the category (`fas`, `fab`, `far`, `fal` or`fad`), followed by a space then `fa-` and the icon name. For example: `fas fa-rocket`, `fab fa-monero`, `fal fa-duck` or `fad fa-glass-whiskey-rocks`. Note that light (`fal`) and duotone (`fad`) icons are only available with Font Awesome Pro, to use this, you need to set you're kit ID under `appConfig.fontAwesomeKey`.
 
 
+### Theming
+
+By default, there are 15 themes built-in, but you can add you're own themes with CSS. The easiest way to write a theme is by setting CSS variables, but you can also directly override elements by their selector. As an example, see the [built-in CSS themes](https://github.com/Lissy93/dashy/blob/master/src/styles/color-themes.scss).
+
+For example, specify a theme 
+```css
+html[data-theme='tiger'] {
+  --primary: #f58233;
+  --item-group-background: #0b1021;
+}
+```
+In order for the theme to show up in the theme switcher, it needs to be added to the config file, under `appConfig.cssThemes`, either as a string, or an array of strings for multiple themes. For example:
+
+```yaml
+appConfig:
+  cssThemes: ['tiger', 'another-theme']
+```
+
+You can also load an external stylesheet. Pass either a URL to a .css file, or an array or URLs to `appConfig.externalStyleSheet`. The stylesheet will then be pre-loaded, and can then be enabled from the UI using the theme switcher.
+
+```yaml
+appConfig:
+  externalStyleSheet: 'https://example.com/my-stylesheet.css'
+```
 ---
 
 ## License 📜
