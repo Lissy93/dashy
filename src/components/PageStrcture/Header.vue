@@ -1,7 +1,7 @@
 <template>
     <header>
-      <PageTitle :title="pageInfo.title" :description="pageInfo.description" v-if="titleVisible" />
-      <Nav class="nav" v-if="navVisible" />
+      <PageTitle v-if="titleVisible"  :title="pageInfo.title" :description="pageInfo.description" />
+      <Nav v-if="navVisible" :links="pageInfo.navLinks" class="nav" />
     </header>
 </template>
 

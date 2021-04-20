@@ -31,6 +31,7 @@ export default {
         return {
           title: pageInfo.title || defaults.title,
           description: pageInfo.description || defaults.description,
+          navLinks: pageInfo.navLinks || defaults.navLinks,
         };
       }
       return defaults;

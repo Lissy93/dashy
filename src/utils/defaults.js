@@ -2,6 +2,10 @@ module.exports = {
   pageInfo: {
     title: 'Dashy',
     description: '',
+    navLinks: [
+      { title: 'Home', path: '/' },
+      { title: 'Source', path: 'https://github.com/Lissy93/dashy' },
+    ],
   },
   appConfig: {},
   iconSize: 'medium',

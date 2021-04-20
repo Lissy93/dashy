@@ -1,14 +1,26 @@
 <template>
     <nav id="nav">
-        <router-link to="/" class="nav-item">Home</router-link>
-        <router-link to="/about" class="nav-item">About</router-link>
+        <router-link
+            v-for="(link, index) in links"
+            :key="index"
+            :to="link.path"
+            :href="link.path"
+            :target="isUrl(link.path) ? '_blank' : ''"
+            rel="noopener noreferrer"
+            class="nav-item"
+        >{{link.title}}</router-link>
     </nav>
-
 </template>
 
 <script>
 export default {
   name: 'Nav',
+  props: {
+    links: Array,
+  },
+  methods: {
+    isUrl: (str) => new RegExp(/(http|https):\/\/(\S+)(:[0-9]+)?/).test(str),
+  },
 };
 </script>
 
