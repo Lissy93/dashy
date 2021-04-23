@@ -17,97 +17,45 @@
 
 <script>
 
+import ArrowKeyNavigation from '@/utils/ArrowKeyNavigation';
+
 export default {
   name: 'FilterTile',
   data() {
     return {
-      input: '',
-      index: undefined,
+      input: '', // Users current search term
+      akn: new ArrowKeyNavigation(), // Class that manages arrow key naviagtion
     };
-  },
-  methods: {
-    userIsTypingSomething() {
-      this.$emit('user-is-searchin', this.input);
-    },
-    clearFilterInput() {
-      this.input = '';
-      this.userIsTypingSomething();
-      document.activeElement.blur();
-      this.index = undefined;
-    },
-    /* Returns the number of visible items / results */
-    getNumResults() {
-      return document.getElementsByClassName('item').length;
-    },
-    /* Returns the index for an element, ensuring that it's within bounds */
-    getSafeElementIndex(index) {
-      const numResults = this.getNumResults();
-      if (index < 0) return numResults - 1;
-      else if (index >= numResults) return 0;
-      return index;
-    },
-    /* Selects a given element, by it's ID. If out of bounds, returns element 0 */
-    selectElementByIndex(index) {
-      return (index >= 0 && index <= this.getNumResults())
-        ? document.getElementsByClassName('item')[index] : [document.getElementsByClassName('item')];
-    },
-    findNextRow(index) {
-      const isSameRow = (indx, pos) => this.selectElementByIndex(indx).offsetTop === pos;
-      const checkNextIndex = (currentIndex, yPos) => {
-        if (currentIndex >= this.getNumResults()) return checkNextIndex(0, yPos);
-        else if (isSameRow(currentIndex, yPos)) return checkNextIndex(currentIndex + 1, yPos);
-        return currentIndex;
-      };
-      const position = this.selectElementByIndex(index).offsetTop;
-      return checkNextIndex(index, position);
-    },
-    findPrevious(index) {
-      const isSameRow = (indx, pos) => this.selectElementByIndex(indx).offsetTop === pos;
-      const checkNextIndex = (currentIndex, yPos) => {
-        if (currentIndex >= this.getNumResults()) return checkNextIndex(0, yPos);
-        else if (isSameRow(currentIndex, yPos)) return checkNextIndex(currentIndex - 1, yPos);
-        return currentIndex;
-      };
-      const position = this.selectElementByIndex(index).offsetTop;
-      return checkNextIndex(index, position);
-    },
-    /* Figures out which element is next, based on the key pressed *
-     * current index and total number of items. Then calls focus function */
-    arrowNavigation(key, numResults) {
-      if (this.index === undefined) this.index = 0; // Start at beginning
-      else if (key === 37) { // Left --> Previous
-        this.index -= 1;
-      } else if (key === 38) { // Up --> Previous
-        this.index = this.findPrevious(this.index, numResults);
-      } else if (key === 39) { // Right --> Next
-        this.index += 1;
-      } else if (key === 40) { // Down --> Next
-        this.index = this.findNextRow(this.index, numResults);
-      }
-      /* Ensure the index is within bounds, then focus element */
-      this.index = this.getSafeElementIndex(this.index);
-      this.selectElementByIndex(this.index).focus();
-    },
   },
   mounted() {
     window.addEventListener('keydown', (event) => {
       const currentElem = document.activeElement.id;
       const { key, keyCode } = event;
       if (/^[a-zA-Z]$/.test(key) && currentElem !== 'filter-tiles') {
-      /* Letter key pressed - start searching */
-        try {
-          this.$refs.filter.focus();
-          this.userIsTypingSomething();
-        } catch (e) { /* Do nothing */ }
+        /* Letter key pressed - start searching */
+        this.$refs.filter.focus();
+        this.userIsTypingSomething();
       } else if (keyCode >= 37 && keyCode <= 40) {
       /* Arrow key pressed - start navigation */
-        const numResults = this.getNumResults();
-        this.arrowNavigation(keyCode, numResults);
+        this.akn.arrowNavigation(keyCode);
       } else if (keyCode === 27) {
       /* Esc key pressed - reset form */
         this.clearFilterInput();
       }
     });
+  },
+  methods: {
+    /* Emmits users's search term up to parent */
+    userIsTypingSomething() {
+      this.$emit('user-is-searchin', this.input);
+    },
+    /* Resets everything to initial state, when user is finished */
+    clearFilterInput() {
+      this.input = ''; // Clear input model
+      this.userIsTypingSomething(); // Emmit new empty value
+      document.activeElement.blur(); // Remove focus
+      this.akn.resetIndex(); // Reset current element index
+    },
   },
 };
 </script>
