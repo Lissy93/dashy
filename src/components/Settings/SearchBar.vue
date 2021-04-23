@@ -35,9 +35,41 @@ export default {
       document.activeElement.blur();
       this.index = undefined;
     },
-    /* Focus a search result, based on it's index */
-    focusEelement(index) {
-      document.getElementsByClassName('item')[index].focus();
+    /* Returns the number of visible items / results */
+    getNumResults() {
+      return document.getElementsByClassName('item').length;
+    },
+    /* Returns the index for an element, ensuring that it's within bounds */
+    getSafeElementIndex(index) {
+      const numResults = this.getNumResults();
+      if (index < 0) return numResults - 1;
+      else if (index >= numResults) return 0;
+      return index;
+    },
+    /* Selects a given element, by it's ID. If out of bounds, returns element 0 */
+    selectElementByIndex(index) {
+      return (index >= 0 && index <= this.getNumResults())
+        ? document.getElementsByClassName('item')[index] : [document.getElementsByClassName('item')];
+    },
+    findNextRow(index) {
+      const isSameRow = (indx, pos) => this.selectElementByIndex(indx).offsetTop === pos;
+      const checkNextIndex = (currentIndex, yPos) => {
+        if (currentIndex >= this.getNumResults()) return checkNextIndex(0, yPos);
+        else if (isSameRow(currentIndex, yPos)) return checkNextIndex(currentIndex + 1, yPos);
+        return currentIndex;
+      };
+      const position = this.selectElementByIndex(index).offsetTop;
+      return checkNextIndex(index, position);
+    },
+    findPrevious(index) {
+      const isSameRow = (indx, pos) => this.selectElementByIndex(indx).offsetTop === pos;
+      const checkNextIndex = (currentIndex, yPos) => {
+        if (currentIndex >= this.getNumResults()) return checkNextIndex(0, yPos);
+        else if (isSameRow(currentIndex, yPos)) return checkNextIndex(currentIndex - 1, yPos);
+        return currentIndex;
+      };
+      const position = this.selectElementByIndex(index).offsetTop;
+      return checkNextIndex(index, position);
     },
     /* Figures out which element is next, based on the key pressed *
      * current index and total number of items. Then calls focus function */
@@ -46,17 +78,15 @@ export default {
       else if (key === 37) { // Left --> Previous
         this.index -= 1;
       } else if (key === 38) { // Up --> Previous
-        this.index -= 1;
+        this.index = this.findPrevious(this.index, numResults);
       } else if (key === 39) { // Right --> Next
         this.index += 1;
       } else if (key === 40) { // Down --> Next
-        this.index += 1;
+        this.index = this.findNextRow(this.index, numResults);
       }
-      /* If at the end, move to start, and vica verca */
-      if (this.index < 0) this.index = numResults - 1;
-      else if (this.index >= numResults) this.index = 0;
-      /* Call to focus function, to select given element*/
-      this.focusEelement(this.index);
+      /* Ensure the index is within bounds, then focus element */
+      this.index = this.getSafeElementIndex(this.index);
+      this.selectElementByIndex(this.index).focus();
     },
   },
   mounted() {
@@ -71,7 +101,7 @@ export default {
         } catch (e) { /* Do nothing */ }
       } else if (keyCode >= 37 && keyCode <= 40) {
       /* Arrow key pressed - start navigation */
-        const numResults = document.getElementsByClassName('item').length;
+        const numResults = this.getNumResults();
         this.arrowNavigation(keyCode, numResults);
       } else if (keyCode === 27) {
       /* Esc key pressed - reset form */
