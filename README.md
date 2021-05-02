@@ -1,6 +1,6 @@
 
 <h1 align="center">Dashy</h1>
-<p align="center"><i>A static site linking to all running services for networking, management and monitoring</i></p>
+<p align="center"><i>Dashy helps you organise your self-hosted services, by making them all accessible from a single place</i></p>
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74)](https://www.codacy.com/gh/Lissy93/dashy/dashboard)
 

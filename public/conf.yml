@@ -1,6 +1,6 @@
 ---
 pageInfo:
-  title: Getting Started
+  title: Dashy
   navLinks:
   - title: Home
     path: /
@@ -9,10 +9,10 @@ pageInfo:
   - title: Source Code
     path: https://github.com/Lissy93/dashy
 appConfig:
-  theme: material-dark
+  theme: colorful
   fontAwesomeKey: 0821c65656
 sections:
-- name: Dashy
+- name: Getting Started
   items:
   - title: Source
     description: Source code and documentation on GitHub
@@ -22,5 +22,12 @@ sections:
     description: View currently open issues, or raise a new one
     icon: fas fa-bug
     url: https://github.com/Lissy93/dashy/issues
-
+  - title: Demo 1
+    description: 'Live Demo #1'
+    icon: far fa-rocket
+    url: https://dashy-demo-1.netlify.app 
+  - title: Demo 2
+    description: 'Live Demo #2'
+    icon: fad fa-planet-ringed
+    url: https://dashy-demo-2.netlify.app 
   
