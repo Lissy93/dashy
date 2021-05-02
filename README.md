@@ -2,12 +2,9 @@
 <h1 align="center">Dashy</h1>
 <p align="center"><i>Dashy helps you organise your self-hosted services, by making them all accessible from a single place</i></p>
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74)](https://www.codacy.com/gh/Lissy93/dashy/dashboard)
-
-![GitHub issues](https://img.shields.io/github/issues/lissy93/dashy?style=flat-square)
-
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square)
-![Lines of code](https://img.shields.io/tokei/lines/github/lissy93/dashy?style=flat-square)
+<p align="center">
+  <img src="https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74" /> <img src="https://img.shields.io/github/issues/lissy93/dashy?style=flat-square" /> <img src="https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square" /> <img src="https://img.shields.io/tokei/lines/github/lissy93/dashy?style=flat-square" /> 
+</p>
 
 <p align="center">
   <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
