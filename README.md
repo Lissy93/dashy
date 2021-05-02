@@ -2,6 +2,13 @@
 <h1 align="center">Dashy</h1>
 <p align="center"><i>A static site linking to all running services for networking, management and monitoring</i></p>
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74)](https://www.codacy.com/gh/Lissy93/dashy/dashboard)
+
+![GitHub issues](https://img.shields.io/github/issues/lissy93/dashy?style=flat-square)
+
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square)
+![Lines of code](https://img.shields.io/tokei/lines/github/lissy93/dashy?style=flat-square)
+
 <p align="center">
   <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
 </p>
@@ -55,6 +62,8 @@ Also within `./public` you'll find normal website assets, including `favicon.ico
 
 All app config is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) (in [YAML Format](https://yaml.org/)).
 All fields are optional, unless otherwise stated.
+
+**Examples**: [Example Config 1](https://listed.to/p/HA5Hq5PHFO) ┆ [Example Config 2](https://listed.to/p/a1gvTPGTEz) ┆ [Example Config 2](https://listed.to/p/a1gvTPGTEz)
 
 **`pageInfo`**
 - `title` - String: The page title and heading
@@ -127,6 +136,12 @@ appConfig:
 ---
 
 ## Notes
+### Roadmap 🛣
+
+- [ ] Allow users to import / export configuration through the UI
+- [ ] Improve deployment process (with a one-liner Docker run command)
+- [ ] Add support for custom widgets
+- [ ] Convert JavaScript to TypeScript
 
 ### Credits 🏆
 
@@ -134,6 +149,8 @@ The app makes use of the following components, kudos to their respective authors
 - [`vue-select`](https://github.com/sagalbot/vue-select) - Dropdown component by @sagalbot
 - [`vue-js-modal`](https://github.com/euvl/vue-js-modal) - Modal component by @euvl
 - [`v-tooltip`](https://github.com/Akryum/v-tooltip) - Tooltip component by @Akryum
+
+And the app itself is built with [Vue.js](https://github.com/vuejs/vue) ![vue-logo](https://i.ibb.co/xqKW6h5/vue-logo.png)
 
 ### License 📜
 

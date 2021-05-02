@@ -1,6 +1,6 @@
 <template>
-  <i v-if="determineImageType(icon) === 'font-awesome'" :class="`${icon} ${size}`" ></i>
-  <img v-else-if="icon" :src="getIconPath(icon, url)" :class="`tile-icon ${size}`" />
+  <i v-if="iconType === 'font-awesome'" :class="`${icon} ${size}`" ></i>
+  <img v-else-if="icon" :src="iconPath" :class="`tile-icon ${size}`" />
 </template>
 
 <script>
@@ -11,6 +11,14 @@ export default {
     icon: String, // Path to icon asset
     url: String, // Used for fetching the favicon
     size: String, // Either small, medium or large
+  },
+  computed: {
+    iconType: function iconType() {
+      return this.determineImageType(this.icon);
+    },
+    iconPath: function iconPath() {
+      return this.getIconPath(this.icon, this.url);
+    },
   },
   methods: {
     /* Check if a string is in a URL format. Used to identify tile icon source */
@@ -56,9 +64,9 @@ export default {
     determineImageType(img) {
       let imgType = '';
       if (!img) imgType = 'none';
+      else if (img.endsWith('.svg')) imgType = 'svg';
       else if (this.isUrl(img)) imgType = 'url';
       else if (this.isImage(img)) imgType = 'img';
-      else if (img.substr(4) === ('.svg' || '.SVG')) imgType = 'svg';
       else if (img.includes('fa-')) imgType = 'font-awesome';
       else if (img === 'favicon') imgType = 'favicon';
       else imgType = 'none';
@@ -68,7 +76,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .tile-icon {
       width: 60px;
       filter: var(--item-icon-transform);
@@ -82,6 +90,13 @@ export default {
     }
     &.large {
       font-size: 3rem;
+    }
+  }
+  object.tile-icon {
+    width: 55px;
+    height: 55px;
+    svg, svg g, svg g path {
+      fill: currentColor;
     }
   }
 </style>

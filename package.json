@@ -45,7 +45,8 @@
     ],
     "rules": {
       "import/no-unresolved": "off",
-      "arrow-parens": 0
+      "arrow-parens": 0,
+      "no-else-return": 0
     },
     "parserOptions": {
       "parser": "babel-eslint"

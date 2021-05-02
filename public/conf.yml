@@ -1,4 +1,26 @@
 ---
 pageInfo:
-  title: Dashy
+  title: Getting Started
+  navLinks:
+  - title: Home
+    path: /
+  - title: About
+    path: /about
+  - title: Source Code
+    path: https://github.com/Lissy93/dashy
+appConfig:
+  theme: material-dark
+  fontAwesomeKey: 0821c65656
 sections:
+- name: Dashy
+  items:
+  - title: Source
+    description: Source code and documentation on GitHub
+    icon: fab fa-github
+    url: https://github.com/Lissy93/dashy
+  - title: Issues
+    description: View currently open issues, or raise a new one
+    icon: fas fa-bug
+    url: https://github.com/Lissy93/dashy/issues
+
+  
