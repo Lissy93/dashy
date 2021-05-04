@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
+  <img src="https://i.ibb.co/LrcpNg9/dashy.png" />
 </p>
 
 ## Features 🌈
@@ -27,6 +27,11 @@
 
 **Screenshots**
 ![Screenshots](https://i.ibb.co/r5T3MwM/dashy-screenshots.png)
+
+**Recording**
+<p align="center">
+  <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
+</p>
 
 ---
 
