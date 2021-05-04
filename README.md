@@ -10,8 +10,6 @@
   <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
 </p>
 
-![Screenshots](https://i.ibb.co/r5T3MwM/dashy-screenshots.png)
-
 ## Features 🌈
 
 - Instant search and full keyboard shortcuts
@@ -26,6 +24,9 @@
 - Plus lots more...
 
 **Live Demos**: [Demo 1](https://dashy-demo-1.as93.net) ┆ [Demo 2](https://dashy-demo-2.as93.net) ┆ [Demo 3](https://dashy-demo-3.as93.net)
+
+**Screenshots**
+![Screenshots](https://i.ibb.co/r5T3MwM/dashy-screenshots.png)
 
 ---
 
