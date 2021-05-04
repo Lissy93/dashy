@@ -2,7 +2,7 @@
   <div id="dashy" data-theme="dark">
     <Header :pageInfo="getPageInfo(pageInfo)" />
     <router-view />
-    <Footer v-if="showFooter" />
+    <Footer v-if="showFooter" :text="getFooterText()" />
   </div>
 </template>
 <script>
@@ -35,6 +35,12 @@ export default {
         };
       }
       return defaults;
+    },
+    getFooterText() {
+      if (this.pageInfo && this.pageInfo.footerText) {
+        return this.pageInfo.footerText;
+      }
+      return '';
     },
   },
 };

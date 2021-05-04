@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" :style="getBackgroundImage()">
     <!-- Search bar, layout options and settings -->
     <SettingsContainer ref="filterComp"
       @user-is-searchin="searching"
@@ -163,6 +163,12 @@ export default {
         });
         return itemsFound;
       }
+    },
+    getBackgroundImage() {
+      if (this.appConfig && this.appConfig.backgroundImg) {
+        return `background: url('${this.appConfig.backgroundImg}');background-size:cover;`;
+      }
+      return '';
     },
   },
   mounted() {

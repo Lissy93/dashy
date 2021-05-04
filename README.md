@@ -14,12 +14,13 @@
 
 - Instant search by name, domain and tags - just start typing
 - Full keyboard shortcuts for navigation, searching and launching
-- Multiple color themes, with easy method for adding more themes
-- Customizable layout options and item sizes
-- Preferences stored in local storage and applied on load
+- Multiple color themes, with easy method for adding more
+- Customizable layout options, and item sizes
 - Quickly preview a website, by holding down the Alt key while clicking, to open it in a resizable pop-up modal
 - Many options for icons, including full Font-Awesome support and the ability to auto-fetch icon from URLs favicon
 - Additional info for each item visible on hover (including opening method icon and description as a tooltip)
+- Option for full-screen background image, custom nav-bar links, and custom footer
+- Preferences stored in local storage and applied on load
 - Easy YAML-based configuration
 - Small bundle size and a fully responsive UI makes the app easy to use on any device
 - Plus lots more...
@@ -81,11 +82,13 @@ All fields are optional, unless otherwise stated.
 - `navLinks` - Array: Links to display in the nav bar, an array or objects containing a title and link:
   - `title` - String: Text to display
   - `path` - String: URL or relative link
+- `footerText` - String: Text to display in the footer
 
 **`appConfig`** _(optional)_
+- `backgroundImg` - String: Path to an optional full-screen app background image. This can be either remote (http) or local (/). Note that this will slow down initial load
 - `enableFontAwesome` - Boolean: Where `true` is enabled, if left blank font-awesome will be enabled only if required by 1 or more icons
 - `fontAwesomeKey` - String: If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
-- `theme`- String: The default theme for first load
+- `theme`- String: The default theme for first load (you can change this later from the UI)
 - `cssThemes` - String[]: An array of custom theme names which can be used in the theme switcher dropdown - _See **theming** below_
 - `externalStyleSheet` - String or String[] - Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
 

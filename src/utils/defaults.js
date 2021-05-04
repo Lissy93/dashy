@@ -6,6 +6,7 @@ module.exports = {
       { title: 'Home', path: '/' },
       { title: 'Source', path: 'https://github.com/Lissy93/dashy' },
     ],
+    footerText: '',
   },
   appConfig: {},
   iconSize: 'medium',
