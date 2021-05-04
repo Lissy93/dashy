@@ -10,22 +10,22 @@
   <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
 </p>
 
+![Screenshots](https://i.ibb.co/r5T3MwM/dashy-screenshots.png)
+
 ## Features 🌈
 
 - Instant search and full keyboard shortcuts
-- Multiple color themes, layout options and item sizes all configurable through the browser
+- Multiple color themes, with easy method for adding more themes
+- Customizable layout options and item sizes
 - Preferences stored in local storage and applied on load
 - Quickly preview a website, by holding down the Alt key while clicking, to open it in a resizable pop-up modal
-- Additional info for each item visible on hover (including opening method icon, description as a tooltip and domain info)
-- Small bundle size and a fully responsive UI makes the app easy to use on any device
 - Many options for icons, including full Font-Awesome support and the ability to auto-fetch icon from URLs favicon
+- Additional info for each item visible on hover (including opening method icon and description as a tooltip)
+- Easy YAML-based configuration
+- Small bundle size and a fully responsive UI makes the app easy to use on any device
 - Plus lots more...
 
-## Live Demo
-
-- [Demo 1](https://dashy-demo-1.as93.net)
-- [Demo 2](https://dashy-demo-2.as93.net)
-- [Demo 3](https://dashy-demo-3.as93.net)
+**Live Demos**: [Demo 1](https://dashy-demo-1.as93.net) ┆ [Demo 2](https://dashy-demo-2.as93.net) ┆ [Demo 3](https://dashy-demo-3.as93.net)
 
 ---
 
@@ -66,7 +66,7 @@ Also within `./public` you'll find normal website assets, including `favicon.ico
 All app config is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) (in [YAML Format](https://yaml.org/)).
 All fields are optional, unless otherwise stated.
 
-**Examples**: [Example Config 1](https://listed.to/p/HA5Hq5PHFO) ┆ [Example Config 2](https://listed.to/p/a1gvTPGTEz) ┆ [Example Config 2](https://listed.to/p/a1gvTPGTEz)
+**Example Configs**: https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10
 
 **`pageInfo`**
 - `title` - String: The page title and heading
