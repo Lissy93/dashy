@@ -12,7 +12,8 @@
 
 ## Features 🌈
 
-- Instant search and full keyboard shortcuts
+- Instant search by name, domain and tags - just start typing
+- Full keyboard shortcuts for navigation, searching and launching
 - Multiple color themes, with easy method for adding more themes
 - Customizable layout options and item sizes
 - Preferences stored in local storage and applied on load

@@ -26,7 +26,10 @@
          :class="(filterTiles(section.items).length === 0 && searchValue) ? 'no-results' : ''"
       />
     </div>
-    <div v-else class="no-data">No Data Found Yet</div>
+    <!-- Show message when there's no data to show -->
+    <div v-if="checkIfResults()" class="no-data">
+      {{searchValue ? 'No Search Results' : 'No Data Configured'}}
+    </div>
   </div>
 </template>
 
@@ -148,6 +151,17 @@ export default {
         const faKey = this.appConfig.fontAwesomeKey || Defaults.fontAwesomeKey;
         fontAwesomeScript.setAttribute('src', `https://kit.fontawesome.com/${faKey}.js`);
         document.head.appendChild(fontAwesomeScript);
+      }
+    },
+    /* Returns true if there is more than 1 sub-result visible during searching */
+    checkIfResults() {
+      if (!this.sections) return false;
+      else {
+        let itemsFound = true;
+        this.sections.forEach((section) => {
+          if (this.filterTiles(section.items).length > 0) itemsFound = false;
+        });
+        return itemsFound;
       }
     },
   },
