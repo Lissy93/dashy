@@ -75,6 +75,7 @@ export default {
     align-items: center;
     align-items: stretch;
     background: linear-gradient(0deg, var(--background) 0%, var(--background-darker) 100%);
+    box-shadow: var(--settings-container-shadow);
   }
   .options-container {
     display: flex;

@@ -1,9 +1,16 @@
 <template>
-  <i v-if="iconType === 'font-awesome'" :class="`${icon} ${size}`" ></i>
-  <img v-else-if="icon" :src="iconPath" :class="`tile-icon ${size}`" />
+  <div>
+    <i v-if="iconType === 'font-awesome'" :class="`${icon} ${size}`" ></i>
+    <img v-else-if="icon" :src="iconPath" @error="imageNotFound"
+      :class="`tile-icon ${size} ${broken ? 'broken' : ''}`"
+    />
+    <BrokenImage v-if="broken" class="missing-image" />
+  </div>
 </template>
 
 <script>
+import BrokenImage from '@/assets/interface-icons/broken-icon.svg';
+import ErrorHandler from '@/utils/ErrorHandler';
 
 export default {
   name: 'Icon',
@@ -12,6 +19,9 @@ export default {
     url: String, // Used for fetching the favicon
     size: String, // Either small, medium or large
   },
+  components: {
+    BrokenImage,
+  },
   computed: {
     iconType: function iconType() {
       return this.determineImageType(this.icon);
@@ -19,6 +29,11 @@ export default {
     iconPath: function iconPath() {
       return this.getIconPath(this.icon, this.url);
     },
+  },
+  data() {
+    return {
+      broken: false,
+    };
   },
   methods: {
     /* Check if a string is in a URL format. Used to identify tile icon source */
@@ -72,6 +87,11 @@ export default {
       else imgType = 'none';
       return imgType;
     },
+    /* Called when the path to the image cannot be resolved */
+    imageNotFound() {
+      this.broken = true;
+      ErrorHandler(`The path to '${this.icon}' could not be resolved`);
+    },
   },
 };
 </script>
@@ -80,6 +100,7 @@ export default {
   .tile-icon {
       width: 60px;
       filter: var(--item-icon-transform);
+      &.broken { display: none; }
   }
   i.fas, i.fab, i.far, i.fal, i.fad {
     font-size: 2rem;
@@ -96,6 +117,13 @@ export default {
     width: 55px;
     height: 55px;
     svg, svg g, svg g path {
+      fill: currentColor;
+    }
+  }
+
+  .missing-image {
+    width: 3.5rem;
+    path {
       fill: currentColor;
     }
   }

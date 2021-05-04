@@ -53,3 +53,8 @@ $extra-large: 2800px;
     @content;
   }
 }
+@mixin big-screen-up {
+  @media (min-width: #{$extra-large}) {
+    @content;
+  }
+}

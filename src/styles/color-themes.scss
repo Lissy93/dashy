@@ -144,6 +144,9 @@ html[data-theme='material'] {
   --item-hover-shadow: 0 1px 4px #00000029, 0 2px 4px #0000002a;
   --item-icon-transform: drop-shadow(1px 2px 1px var(--transparent-30)) saturate(0.65);
   --item-icon-transform-hover: drop-shadow(1px 3px 2px var(--transparent-30)) saturate(2);
+  --settings-container-shadow: 0 1px 3px #0000005e, 0 1px 2px #00000085;
+  --welcome-popup-background: #01579b;
+  --welcome-popup-text-color: #ffffff;
 }
 
 html[data-theme='material-dark'] {
@@ -171,6 +174,8 @@ html[data-theme='material-dark'] {
   --item-hover-shadow: 4px 4px 3px #00000082, 0 1px 10px #00000040;
   --item-icon-transform: drop-shadow(1px 2px 1px var(--transparent-30)) saturate(0.65);
   --item-icon-transform-hover: drop-shadow(1px 3px 2px var(--transparent-30)) saturate(2);
+  --welcome-popup-background: #131a1f;
+  --welcome-popup-text-color: var(--primary);
 }
 
 html[data-theme='colorful'] {

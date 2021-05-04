@@ -23,6 +23,7 @@
         :items="filterTiles(section.items)"
          @itemClicked="finishedSearching()"
          :itemSize="itemSizeBound"
+         :class="(filterTiles(section.items).length === 0 && searchValue) ? 'no-results' : ''"
       />
     </div>
     <div v-else class="no-data">No Data Found Yet</div>
@@ -81,12 +82,14 @@ export default {
     },
     /* Extracts the site name from domain, used for the searching functionality */
     getDomainFromUrl(url) {
+      if (!url) return '';
       const urlPattern = /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d.-]+)\.(?:[a-z.]{2,10})(?:[/\w.-]*)*/;
       const domainPattern = url.match(urlPattern);
       return domainPattern ? domainPattern[1] : '';
     },
     /* Returns only the tiles that match the users search query */
     filterTiles(allTiles) {
+      if (!allTiles) return [];
       return allTiles.filter((tile) => {
         const {
           title, description, provider, url,
@@ -181,6 +184,7 @@ export default {
     flex-direction: column;
   }
   &.orientation-vertical {
+    max-width: 100%;
     @include tablet-up {
       display: flex;
       flex-direction: row;
@@ -203,6 +207,12 @@ export default {
   @include big-screen {
     grid-template-columns: repeat(4, 1fr);
   }
+  @include big-screen-up {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  /* Hide when search term returns nothing */
+  .no-results { display: none; }
 }
 
 .no-data {

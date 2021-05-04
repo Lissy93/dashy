@@ -21,6 +21,12 @@
 - Many options for icons, including full Font-Awesome support and the ability to auto-fetch icon from URLs favicon
 - Plus lots more...
 
+## Live Demo
+
+- [Demo 1](https://dashy-demo-1.as93.net)
+- [Demo 2](https://dashy-demo-2.as93.net)
+- [Demo 3](https://dashy-demo-3.as93.net)
+
 ---
 
 ## Running the App 🏃‍♂️
@@ -139,6 +145,10 @@ appConfig:
 - [ ] Improve deployment process (with a one-liner Docker run command)
 - [ ] Add support for custom widgets
 - [ ] Convert JavaScript to TypeScript
+
+### Alternatives 🙌
+
+There are a few self-hosted web apps, that serve a similar purpose to Dashy. Including, but not limited to: [HomeDash2](https://lamarios.github.io/Homedash2), [Homer](https://github.com/bastienwirtz/homer), [Organizr](https://organizr.app/) and  [Heimdall](https://github.com/linuxserver/Heimdall).
 
 ### Credits 🏆
 

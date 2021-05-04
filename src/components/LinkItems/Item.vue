@@ -96,7 +96,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 
 .item {
   flex-grow: 1;
@@ -200,7 +200,7 @@ export default {
     justify-content: flex-end;
     align-items: center;
     height: 2rem;
-    img {
+    div img, div svg.missing-image {
       width: 2rem;
     }
     .tile-title {
@@ -217,8 +217,8 @@ export default {
     flex-direction: column;
     align-items: center;
     height: auto;
-    img {
-      width: 2rem;
+    div img, div svg.missing-image {
+      width: 2.5rem;
       margin-bottom: 0.25rem;
     }
     .tile-title {

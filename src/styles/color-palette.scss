@@ -29,6 +29,7 @@
   --item-icon-transform: drop-shadow(2px 4px 6px var(--transparent-50)) saturate(0.65);
   --item-icon-transform-hover: drop-shadow(4px 8px 3px var(--transparent-50)) saturate(2);
   --item-group-shadow: var(--item-shadow);
+  --settings-container-shadow: none;
 
   /* Specific components, using variables allows them to be overridden individually */
   --heading-text-color: var(--primary);
@@ -48,4 +49,6 @@
   --search-field-background: var(--background);
   --footer-text-color: var(--medium-grey);
   --footer-text-color-link:  var(--primary);
+  --welcome-popup-background: var(--background-darker);
+  --welcome-popup-text-color: var(--primary);
 }

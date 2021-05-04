@@ -2,7 +2,8 @@
   <modal :name="name" :resizable="true" width="80%" height="80%" @closed="$emit('closed')">
     <div slot="top-right" @click="hide()">Close</div>
     <a @click="hide()" class="close-button" title="Close">x</a>
-    <iframe :src="url" @keydown.esc="close" class="frame"/>
+    <iframe v-if="url" :src="url" @keydown.esc="close" class="frame"/>
+    <div v-else class="no-url">No URL Specified</div>
   </modal>
 </template>
 
@@ -35,6 +36,16 @@ export default {
   border: none;
 }
 
+.no-url {
+  margin: 4rem auto;
+  width: fit-content;
+  font-size: 2rem;
+  padding: 0.5rem;
+  border: 1px dashed #ff0000;
+  border-radius: 3px;
+  background: #f4f2f2;
+}
+
 .close-button {
   position: absolute;
   right: 0;
@@ -46,7 +57,6 @@ export default {
   border-left: 1px solid var(--primary);
   border-bottom: 1px solid var(--primary);
   cursor: pointer;
-
   &:hover {
     background: var(--background);
     color: var(--primary);

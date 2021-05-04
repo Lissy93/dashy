@@ -76,12 +76,12 @@ export default {
   padding: 0.1em 0.3em;
   z-index: 10;
   border-radius: 12px;
-  border: 1px solid var(--background-darker);
+  border: 1px solid var(--welcome-popup-background);
   -webkit-box-shadow: 2px 1px 5px #130f23;
   box-shadow: 2px 1px 5px #130f23;
-  border: 1px solid var(--primary);
-  color: var(--primary);
-  background: var(--background-darker);
+  border: 1px solid var(--welcome-popup-text-color);
+  color: var(--welcome-popup-text-color);
+  background: var(--welcome-popup-background);
   cursor: default;
   opacity: 0.94;
   @include phone {
@@ -91,9 +91,9 @@ export default {
     position: absolute;
     top: -35px;
     left: 20px;
-    border: 1px solid var(--primary);
-    color: var(--primary);
-    background: var(--background-darker);
+    border: 1px solid var(--welcome-popup-text-color);
+    color: var(--welcome-popup-text-color);
+    background: var(--welcome-popup-background);
     padding: 4px;
     border-radius: var(--curve-factor);
   }
@@ -108,7 +108,7 @@ export default {
     border: 1px solid transparent;
     cursor: pointer;
     &:hover {
-      border: 1px solid var(--primary);
+      border: 1px solid var(--welcome-popup-text-color);
       opacity: var(--dimming-factor);
     }
   }
