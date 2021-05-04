@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="https://i.ibb.co/LrcpNg9/dashy.png" />
+  <img width="220" src="https://i.ibb.co/LrcpNg9/dashy.png" />
 </p>
 
 ## Features 🌈
