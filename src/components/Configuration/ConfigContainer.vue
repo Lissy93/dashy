@@ -1,12 +1,9 @@
 <template>
   <Tabs>
-    <TabItem name="Edit">
-      <div class="first-tab">Todo</div>
+    <TabItem name="Config Editor">
+         <JsonEditor :sections="sections" />
     </TabItem>
-    <TabItem name="Raw Editor">
-         <RawEditor :sections="sections" />
-    </TabItem>
-    <TabItem name="Download">
+    <TabItem name="View/ Save YAML">
         <pre>{{this.jsonParser(this.sections)}}</pre>
     </TabItem>
     <TabItem name="Add Item">
@@ -19,7 +16,7 @@
 
 import JsonToYaml from '@/utils/JsonToYaml';
 import AddItem from '@/components/Configuration/AddItem';
-import RawEditor from '@/components/Configuration/RawEditor';
+import JsonEditor from '@/components/Configuration/JsonEditor';
 
 export default {
   name: 'ConfigContainer',
@@ -33,7 +30,7 @@ export default {
   },
   components: {
     AddItem,
-    RawEditor,
+    JsonEditor,
   },
 };
 </script>

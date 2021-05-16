@@ -1,0 +1,77 @@
+<template>
+  <div class="json-editor-outer">
+    <v-jsoneditor
+      v-model="jsonData"
+      :options="options"
+      height="650px"
+    />
+    <button class="save-button" @click="save()">Save Changes</button>
+
+  </div>
+</template>
+
+<script>
+
+import VJsoneditor from 'v-jsoneditor';
+import { localStorageKeys } from '@/utils/defaults';
+
+export default {
+  name: 'JsonEditor',
+  props: {
+    sections: Array,
+  },
+  components: {
+    VJsoneditor,
+  },
+  data() {
+    return {
+      jsonData: this.sections,
+      options: {
+        mode: 'tree',
+        modes: ['tree', 'code', 'preview'],
+        name: 'sections',
+      },
+    };
+  },
+  methods: {
+    save() {
+      localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(this.jsonData));
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+
+.json-editor-outer {
+  text-align: center;
+}
+
+button.save-button {
+  padding:  0.5rem 1rem;
+  margin: 0.25rem auto;
+  font-size: 1.2rem;
+  background: var(--config-settings-background);
+  color: var(--config-settings-color);
+  border: 1px solid var(--config-settings-color);
+  border-radius: var(--curve-factor);
+  cursor: pointer;
+  &:hover {
+    background: var(--config-settings-color);
+    color: var(--config-settings-background);
+  }
+}
+
+.jsoneditor-menu {
+  background: var(--config-settings-background);
+  color: var(--config-settings-color);
+}
+
+.jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected,
+.jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected:focus,
+.jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected:hover {
+  background: var(--config-settings-background);
+  color: var(--config-settings-color);
+}
+
+</style>

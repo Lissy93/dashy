@@ -31,7 +31,9 @@
   --item-group-shadow: var(--item-shadow);
   --settings-container-shadow: none;
 
-  /* Specific components, using variables allows them to be overridden individually */
+  /* Color variables for specific components
+  * all variables are optional, since they inherit initial values from above*
+  * Using specific variables makes overriding for custom themes really easy */
   --heading-text-color: var(--primary);
   --nav-link-text-color: var(--primary);
   --nav-link-background-color: #607d8b33;
@@ -53,4 +55,6 @@
   --welcome-popup-text-color: var(--primary);
   --config-code-background: #fff;
   --config-code-color: var(--background);
+  --config-settings-color: var(--background);
+  --config-settings-background: var(--primary);
 }

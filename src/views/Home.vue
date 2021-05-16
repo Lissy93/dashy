@@ -84,7 +84,10 @@ export default {
     getSections(sections) {
       // If the user has stored sections in local storage, return those
       const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
-      if (localSections && localSections.length >= 1) return localSections;
+      if (localSections) {
+        const json = JSON.parse(localSections);
+        if (json.length >= 1) return json;
+      }
       // Otherwise, return the usuall data from conf.yml
       return sections;
     },
