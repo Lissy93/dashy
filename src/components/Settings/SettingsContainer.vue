@@ -6,6 +6,7 @@
         :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
       <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
       <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
+      <ConfigEditor />
     </div>
     <KeyboardShortcutInfo />
   </section>
@@ -14,6 +15,7 @@
 <script>
 import Defaults from '@/utils/defaults';
 import SearchBar from '@/components/Settings/SearchBar';
+import ConfigEditor from '@/components/Settings/ConfigEditor';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import LayoutSelector from '@/components/Settings/LayoutSelector';
 import ItemSizeSelector from '@/components/Settings/ItemSizeSelector';
@@ -29,6 +31,7 @@ export default {
   },
   components: {
     SearchBar,
+    ConfigEditor,
     ThemeSelector,
     LayoutSelector,
     ItemSizeSelector,
