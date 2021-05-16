@@ -5,11 +5,13 @@
       @user-is-searchin="searching"
       @change-display-layout="setLayoutOrientation"
       @change-icon-size="setItemSize"
+      @change-modal-visibility="updateModalVisibility"
       :displayLayout="layout"
       :iconSize="itemSizeBound"
       :availableThemes="getExternalCSSLinks()"
       :appConfig="appConfig"
       :sections="getSections(sections)"
+      :modalOpen="modalOpen"
       class="filter-container"
     />
     <!-- Main content, section for each group of items -->
@@ -54,6 +56,7 @@ export default {
     searchValue: '',
     layout: '',
     itemSizeBound: '',
+    modalOpen: false, // When true, keybindings are disabled
   }),
   computed: {
     layoutOrientation: {
@@ -125,6 +128,10 @@ export default {
     /* Sets item size attribute, which is used by ItemGroup */
     setItemSize(itemSize) {
       this.iconSize = itemSize;
+    },
+    /* Update data when modal is open (so that key bindings can be disabled) */
+    updateModalVisibility(modalState) {
+      this.modalOpen = modalState;
     },
     /* Returns an array of links to external CSS from the Config */
     getExternalCSSLinks() {

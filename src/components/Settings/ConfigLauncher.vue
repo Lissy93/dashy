@@ -1,20 +1,15 @@
 <template>
   <div class="config-options">
+    <!-- Button and label -->
     <span>Config</span>
     <div class="config-buttons">
       <IconSpanner v-tooltip="tooltip('Update configuration locally')" @click="showEditor()" />
     </div>
-    <modal :name="modalName" :resizable="true" width="80%" height="80%">
-      <Tabs>
-        <TabItem name="Edit">
-          <div class="first-tab">Todo</div>
-        </TabItem>
-        <TabItem name="Download">
-          <div class="second-tab">
-            <pre>{{this.jsonParser(this.sections)}}</pre>
-          </div>
-        </TabItem>
-      </Tabs>
+
+    <!-- Modal containing all the configuration options -->
+    <modal :name="modalName" :resizable="true" width="80%" height="80%"
+      @closed="$emit('modalChanged', false)">
+      <ConfigContainer :sections="sections" />
     </modal>
   </div>
 </template>
@@ -22,19 +17,18 @@
 <script>
 
 import IconSpanner from '@/assets/interface-icons/config-editor.svg';
-import JsonToYaml from '@/utils/JsonToYaml';
+import ConfigContainer from '@/components/Configuration/ConfigContainer';
 
 export default {
-  name: 'ConfigEditor',
+  name: 'ConfigLauncher',
   data() {
     return {
       modalName: 'CONF-EDITOR',
-      input: '',
-      jsonParser: JsonToYaml,
     };
   },
   components: {
     IconSpanner,
+    ConfigContainer,
   },
   props: {
     sections: Array,
@@ -42,6 +36,7 @@ export default {
   methods: {
     showEditor: function show() {
       this.$modal.show(this.modalName);
+      this.$emit('modalChanged', true);
     },
     updateConfig() {
       // this.$emit('iconSizeUpdated', iconSize);
@@ -54,7 +49,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .config-options {
   display: flex;
   flex-direction: column;
