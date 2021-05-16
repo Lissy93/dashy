@@ -169,6 +169,7 @@ It makes use of the following components, kudos to their respective authors
 - [`vue-js-modal`](https://github.com/euvl/vue-js-modal) - Modal component by @euvl
 - [`v-tooltip`](https://github.com/Akryum/v-tooltip) - Tooltip component by @Akryum
 - [`vue-material-tabs`](https://github.com/jairoblatt/vue-material-tabs) - Tab view component by @jairoblatt
+- [`VJsoneditor`](https://github.com/yansenlei/VJsoneditor) - Interactive JSON editor component by @yansenlei
 
 ### License 📜
 

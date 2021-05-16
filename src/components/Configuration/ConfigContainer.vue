@@ -3,15 +3,14 @@
     <TabItem name="Edit">
       <div class="first-tab">Todo</div>
     </TabItem>
+    <TabItem name="Raw Editor">
+         <RawEditor :sections="sections" />
+    </TabItem>
     <TabItem name="Download">
-      <div class="second-tab">
         <pre>{{this.jsonParser(this.sections)}}</pre>
-      </div>
     </TabItem>
     <TabItem name="Add Item">
-      <div class="third-tab">
         <AddItem :sections="sections" />
-      </div>
     </TabItem>
   </Tabs>
 </template>
@@ -20,6 +19,7 @@
 
 import JsonToYaml from '@/utils/JsonToYaml';
 import AddItem from '@/components/Configuration/AddItem';
+import RawEditor from '@/components/Configuration/RawEditor';
 
 export default {
   name: 'ConfigContainer',
@@ -33,6 +33,7 @@ export default {
   },
   components: {
     AddItem,
+    RawEditor,
   },
 };
 </script>
