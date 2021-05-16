@@ -6,7 +6,7 @@
         :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
       <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
       <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
-      <ConfigEditor />
+      <ConfigEditor :sections="sections" />
     </div>
     <KeyboardShortcutInfo />
   </section>
@@ -28,6 +28,7 @@ export default {
     iconSize: String,
     availableThemes: Object,
     appConfig: Object,
+    sections: Array,
   },
   components: {
     SearchBar,

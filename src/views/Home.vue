@@ -9,13 +9,14 @@
       :iconSize="itemSizeBound"
       :availableThemes="getExternalCSSLinks()"
       :appConfig="appConfig"
+      :sections="getSections(sections)"
       class="filter-container"
     />
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections)"
       :class="`item-group-container orientation-${layout} item-size-${itemSizeBound}`">
       <ItemGroup
-        v-for="(section, index) in sections"
+        v-for="(section, index) in getSections(sections)"
         :key="index"
         :title="section.name"
         :displayData="getDisplayData(section)"
@@ -73,7 +74,16 @@ export default {
   methods: {
     /* Returns true if there is one or more sections in the config */
     checkTheresData(sections) {
-      return sections && sections.length >= 1;
+      const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
+      return (sections && sections.length >= 1) || (localSections && localSections.length >= 1);
+    },
+    /* Returns sections from local storage if available, otherwise uses the conf.yml */
+    getSections(sections) {
+      // If the user has stored sections in local storage, return those
+      const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
+      if (localSections && localSections.length >= 1) return localSections;
+      // Otherwise, return the usuall data from conf.yml
+      return sections;
     },
     /* Updates local data with search value, triggered from filter comp */
     searching(searchValue) {

@@ -7314,6 +7314,11 @@ relateurl@0.2.x:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
 
+remedial@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/remedial/-/remedial-1.0.8.tgz#a5e4fd52a0e4956adbaf62da63a5a46a78c578a0"
+  integrity sha512-/62tYiOe6DzS5BqVsNpH/nkGlX45C/Sp6V+NtiN6JQNS1Viay7cWkazmRkrQrdFj2eshDe96SIQNIoMxqhzBOg==
+
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.1.0.tgz#c24bce2a283adad5bc3f58e0d48249b92379d8ef"
@@ -8755,6 +8760,11 @@ vue-loader@^15.9.2:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-material-tabs@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/vue-material-tabs/-/vue-material-tabs-0.0.7.tgz#5f3fa04ad35384af68582f7c89ad4cecac89207b"
+  integrity sha512-02X5paTksYKrGvSRpMdkctRO9qhvJFD5VEGxd0xjOX4sYz6mZSAez0Z/+aYf7Z5ziY+eJ9dMQmxaLn9DVKQRJw==
 
 vue-resize@^1.0.1:
   version "1.0.1"

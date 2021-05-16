@@ -99,7 +99,7 @@ export default {
 <style lang="scss">
   .tile-icon {
       width: 60px;
-      filter: var(--item-icon-transform);
+      // filter: var(--item-icon-transform);
       &.broken { display: none; }
   }
   i.fas, i.fab, i.far, i.fal, i.fad {

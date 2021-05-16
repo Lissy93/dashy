@@ -44,5 +44,6 @@ module.exports = {
     COLLAPSE_STATE: 'collapseState',
     ICON_SIZE: 'iconSize',
     THEME: 'theme',
+    CONF_SECTIONS: 'confSections',
   },
 };

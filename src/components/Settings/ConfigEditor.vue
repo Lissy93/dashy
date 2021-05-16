@@ -5,7 +5,16 @@
       <IconSpanner v-tooltip="tooltip('Update configuration locally')" @click="showEditor()" />
     </div>
     <modal :name="modalName" :resizable="true" width="80%" height="80%">
-      <p>Hello</p>
+      <Tabs>
+        <TabItem name="Edit">
+          <div class="first-tab">Todo</div>
+        </TabItem>
+        <TabItem name="Download">
+          <div class="second-tab">
+            <pre>{{this.jsonParser(this.sections)}}</pre>
+          </div>
+        </TabItem>
+      </Tabs>
     </modal>
   </div>
 </template>
@@ -13,6 +22,7 @@
 <script>
 
 import IconSpanner from '@/assets/interface-icons/config-editor.svg';
+import JsonToYaml from '@/utils/JsonToYaml';
 
 export default {
   name: 'ConfigEditor',
@@ -20,13 +30,14 @@ export default {
     return {
       modalName: 'CONF-EDITOR',
       input: '',
+      jsonParser: JsonToYaml,
     };
   },
   components: {
     IconSpanner,
   },
   props: {
-    initialConfig: Object,
+    sections: Array,
   },
   methods: {
     showEditor: function show() {
