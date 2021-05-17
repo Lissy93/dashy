@@ -27,7 +27,7 @@
       <a class="download-button" href="/conf.yml" download>Download Config</a>
     </TabItem>
     <TabItem name="Add Item">
-      <AddItem :sections="sections" />
+      <EditSiteMeta :sections="sections" />
     </TabItem>
   </Tabs>
 </template>
@@ -35,7 +35,7 @@
 <script>
 
 import JsonToYaml from '@/utils/JsonToYaml';
-import AddItem from '@/components/Configuration/AddItem';
+import EditSiteMeta from '@/components/Configuration/EditSiteMeta';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
@@ -53,24 +53,32 @@ export default {
     config: Object,
   },
   components: {
-    AddItem,
+    EditSiteMeta,
     JsonEditor,
     DownloadIcon,
     DeleteIcon,
     EditIcon,
   },
   methods: {
+    /* Seletcs the edit tab of the tab view */
     goToEdit() {
       const itemToSelect = this.$refs.tabView.navItems[1];
       this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
     },
+    /* Checks that the user is sure, then resets site-wide local storage, and reloads page */
     resetLocalSettings() {
-      /* eslint-disable no-alert, no-restricted-globals */
-      const isTheUserSure = confirm('Are you sure?');
+      const msg = 'This will remove all user settings from local storage, '
+          + 'but won\'t effect your \'conf.yml\' file. '
+          + 'It is recommend to make a backup of your modified YAML settings first.\n\n'
+          + 'Are you sure you want to proceed?';
+      const isTheUserSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
       if (isTheUserSure) {
         localStorage.clear();
+        this.$toasted.show('Data cleared succesfully');
+        setTimeout(() => {
+          location.reload(); // eslint-disable-line no-restricted-globals
+        }, 1900);
       }
-      /* eslint-enable no-alert, no-restricted-globals */
     },
   },
 };
@@ -145,6 +153,7 @@ a.hyperlink-wrapper {
   height: calc(100% - 2rem);
   h2 {
     margin: 1rem auto;
+    color: var(--config-settings-color);
   }
 }
 

@@ -20,4 +20,13 @@ h1, h2, h3, h4, h5 {
     font-family: 'Inconsolata', sans-serif;
 }
 
+/* Overiding styles for the global toast component */
+.toast-message {
+    background: var(--toast-background) !important;
+    color: var(--toast-color) !important;
+    border: 1px solid var(--toast-color) !important;
+    border-radius: var(--curve-factor) !important;
+    font-size: 1.25rem !important;
+}
+
 

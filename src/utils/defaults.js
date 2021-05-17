@@ -51,4 +51,11 @@ module.exports = {
     APP_CONFIG: 'appConfig',
     SECTIONS: 'sections',
   },
+  toastedOptions: {
+    position: 'bottom-center',
+    duration: 2000,
+    keepOnHover: true,
+    className: 'toast-message',
+    iconPack: 'fontawesome',
+  },
 };

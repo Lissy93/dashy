@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: 'AddItem',
+  name: 'EditSiteMeta',
   props: {
     sections: Array,
   },

@@ -38,6 +38,7 @@ export default {
   methods: {
     save() {
       localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(this.jsonData));
+      this.$toasted.show('Changes seved succesfully');
     },
   },
 };
@@ -69,14 +70,14 @@ button.save-button {
 }
 
 .jsoneditor-menu {
-  background: var(--config-settings-color);
-  color: var(--config-settings-background);
+  background: var(--config-settings-background);
+  color: var(--config-settings-color);
 }
 .jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected,
 .jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected:focus,
 .jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected:hover {
-  background: var(--config-settings-background);
-  color: var(--config-settings-color);
+  background: var(--config-settings-color);
+  color: var(--config-settings-background);
 }
 .jsoneditor-poweredBy {
   display: none;

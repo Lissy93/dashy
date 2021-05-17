@@ -19,7 +19,8 @@
     "vue-js-modal": "^2.0.0-rc.6",
     "vue-material-tabs": "^0.0.7",
     "vue-router": "^3.0.3",
-    "vue-select": "^3.11.2"
+    "vue-select": "^3.11.2",
+    "vue-toasted": "^1.1.28"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.12",
