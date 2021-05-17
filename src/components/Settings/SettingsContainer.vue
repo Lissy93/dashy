@@ -10,7 +10,8 @@
         :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
       <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
       <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
-      <ConfigLauncher :sections="sections" @modalChanged="modalChanged" />
+      <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
+        @modalChanged="modalChanged" />
     </div>
     <KeyboardShortcutInfo />
   </section>
@@ -32,6 +33,7 @@ export default {
     iconSize: String,
     availableThemes: Object,
     appConfig: Object,
+    pageInfo: Object,
     sections: Array,
     modalOpen: Boolean,
   },
@@ -101,6 +103,7 @@ export default {
     div {
       margin-left: 0.5rem;
       opacity: var(--dimming-factor);
+      opacity: 1;
       &:hover { opacity: 1; }
     }
   }

@@ -46,4 +46,9 @@ module.exports = {
     THEME: 'theme',
     CONF_SECTIONS: 'confSections',
   },
+  topLevelConfKeys: {
+    PAGE_INFO: 'pageInfo',
+    APP_CONFIG: 'appConfig',
+    SECTIONS: 'sections',
+  },
 };

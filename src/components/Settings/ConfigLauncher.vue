@@ -9,7 +9,7 @@
     <!-- Modal containing all the configuration options -->
     <modal :name="modalName" :resizable="true" width="80%" height="80%"
       @closed="$emit('modalChanged', false)">
-      <ConfigContainer :sections="sections" />
+      <ConfigContainer :sections="sections" :config="combineConfig()" />
     </modal>
   </div>
 </template>
@@ -18,6 +18,7 @@
 
 import IconSpanner from '@/assets/interface-icons/config-editor.svg';
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
+import { topLevelConfKeys } from '@/utils/defaults';
 
 export default {
   name: 'ConfigLauncher',
@@ -32,11 +33,20 @@ export default {
   },
   props: {
     sections: Array,
+    pageInfo: Object,
+    appConfig: Object,
   },
   methods: {
     showEditor: function show() {
       this.$modal.show(this.modalName);
       this.$emit('modalChanged', true);
+    },
+    combineConfig() {
+      const conf = {};
+      conf[topLevelConfKeys.APP_CONFIG] = this.appConfig;
+      conf[topLevelConfKeys.PAGE_INFO] = this.pageInfo;
+      conf[topLevelConfKeys.SECTIONS] = this.sections;
+      return conf;
     },
     updateConfig() {
       // this.$emit('iconSizeUpdated', iconSize);

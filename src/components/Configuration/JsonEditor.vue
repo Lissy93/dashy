@@ -6,7 +6,9 @@
       height="650px"
     />
     <button class="save-button" @click="save()">Save Changes</button>
-
+    <p class="note">
+      It is recommend to backup your existing confiruration before making any changes.
+    </p>
   </div>
 </template>
 
@@ -46,32 +48,37 @@ export default {
 .json-editor-outer {
   text-align: center;
 }
-
+p.note {
+  font-size: 0.8rem;
+  color: var(--medium-grey);
+  margin: 0.2rem;
+}
 button.save-button {
   padding:  0.5rem 1rem;
   margin: 0.25rem auto;
   font-size: 1.2rem;
-  background: var(--config-settings-background);
-  color: var(--config-settings-color);
-  border: 1px solid var(--config-settings-color);
+  background: var(--config-settings-color);
+  color: var(--config-settings-background);
+  border: 1px solid var(--config-settings-background);
   border-radius: var(--curve-factor);
   cursor: pointer;
   &:hover {
-    background: var(--config-settings-color);
-    color: var(--config-settings-background);
+    background: var(--config-settings-background);
+    color: var(--config-settings-color);
   }
 }
 
 .jsoneditor-menu {
-  background: var(--config-settings-background);
-  color: var(--config-settings-color);
+  background: var(--config-settings-color);
+  color: var(--config-settings-background);
 }
-
 .jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected,
 .jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected:focus,
 .jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected:hover {
   background: var(--config-settings-background);
   color: var(--config-settings-color);
 }
-
+.jsoneditor-poweredBy {
+  display: none;
+}
 </style>

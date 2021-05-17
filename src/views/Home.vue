@@ -9,8 +9,9 @@
       :displayLayout="layout"
       :iconSize="itemSizeBound"
       :availableThemes="getExternalCSSLinks()"
-      :appConfig="appConfig"
       :sections="getSections(sections)"
+      :appConfig="appConfig"
+      :pageInfo="pageInfo"
       :modalOpen="modalOpen"
       class="filter-container"
     />
@@ -47,6 +48,7 @@ export default {
   props: {
     sections: Array, // Main site content
     appConfig: Object, // Main site configuation (optional)
+    pageInfo: Object, // Page metadata (optional)
   },
   components: {
     SettingsContainer,
