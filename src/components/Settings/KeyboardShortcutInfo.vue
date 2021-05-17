@@ -21,13 +21,13 @@ export default {
   data() {
     return {
       shouldHide: true, // False = show/ true = hide. Intuitive, eh?
+      timeDelay: 3000, // Short delay in ms before popup appears
     };
   },
   methods: {
     /**
-     * If the session storage item exists, true will be returned
-     * Otherwise, if not then false is returned.
-     * Note the !! just converts 'false' to false, as strings resolve to true
+     * Returns true if the key exists in session storage, otherwise false
+     * And the !! just converts 'false' to false, as strings resolve to true
      */
     shouldHideWelcomeMessage() {
       return !!localStorage[localStorageKeys.HIDE_WELCOME_BANNER];
@@ -39,7 +39,11 @@ export default {
     hideWelcomeHelper() {
       this.shouldHide = true;
       localStorage.setItem(localStorageKeys.HIDE_WELCOME_BANNER, true);
-      window.removeEventListener('keyup');
+      window.removeEventListener('keyup', this.keyPressEvent);
+    },
+    /* Passed to window function, to add/ remove event listener */
+    keyPressEvent(event) {
+      if (event.keyCode === 27) this.hideWelcomeHelper();
     },
   },
   /**
@@ -50,11 +54,8 @@ export default {
   mounted() {
     const shouldHide = this.shouldHideWelcomeMessage();
     if (!shouldHide) {
-      window.setTimeout(() => { this.shouldHide = shouldHide; }, 3000);
-      window.addEventListener('keyup', (ev) => {
-        // User pressed the escape key. Trigger permanent dismissal of dialog
-        if (ev.keyCode === 27) this.hideWelcomeHelper();
-      });
+      window.setTimeout(() => { this.shouldHide = shouldHide; }, this.timeDelay);
+      window.addEventListener('keyup', this.keyPressEvent);
     } else { // Meh, component not needed.
       // No point wasting valuable bytes of your 32GB Ram, lets kill it
       this.$destroy();

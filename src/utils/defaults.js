@@ -44,5 +44,20 @@ module.exports = {
     COLLAPSE_STATE: 'collapseState',
     ICON_SIZE: 'iconSize',
     THEME: 'theme',
+    CONF_SECTIONS: 'confSections',
+    PAGE_INFO: 'pageInfo',
+    APP_CONFIG: 'appConfig',
+  },
+  topLevelConfKeys: {
+    PAGE_INFO: 'pageInfo',
+    APP_CONFIG: 'appConfig',
+    SECTIONS: 'sections',
+  },
+  toastedOptions: {
+    position: 'bottom-center',
+    duration: 2000,
+    keepOnHover: true,
+    className: 'toast-message',
+    iconPack: 'fontawesome',
   },
 };

@@ -1,11 +1,17 @@
 <template>
   <section>
-    <SearchBar @user-is-searchin="userIsTypingSomething" ref="SearchBar" v-if="searchVisible" />
+    <SearchBar ref="SearchBar"
+      @user-is-searchin="userIsTypingSomething"
+      v-if="searchVisible"
+      :active="!modalOpen"
+    />
     <div class="options-container" v-if="settingsVisible">
       <ThemeSelector :themes="availableThemes"
         :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
       <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
       <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
+      <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
+        @modalChanged="modalChanged" />
     </div>
     <KeyboardShortcutInfo />
   </section>
@@ -14,6 +20,7 @@
 <script>
 import Defaults from '@/utils/defaults';
 import SearchBar from '@/components/Settings/SearchBar';
+import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import LayoutSelector from '@/components/Settings/LayoutSelector';
 import ItemSizeSelector from '@/components/Settings/ItemSizeSelector';
@@ -26,9 +33,13 @@ export default {
     iconSize: String,
     availableThemes: Object,
     appConfig: Object,
+    pageInfo: Object,
+    sections: Array,
+    modalOpen: Boolean,
   },
   components: {
     SearchBar,
+    ConfigLauncher,
     ThemeSelector,
     LayoutSelector,
     ItemSizeSelector,
@@ -47,6 +58,9 @@ export default {
     updateIconSize(iconSize) {
       this.$emit('change-icon-size', iconSize);
     },
+    modalChanged(changedTo) {
+      this.$emit('change-modal-visibility', changedTo);
+    },
     getInitialTheme() {
       return this.appConfig.theme || '';
     },
@@ -59,7 +73,7 @@ export default {
   },
   data() {
     return {
-      searchVisible: Defaults.visibleComponents.searchBar,
+      searchVisible: Defaults.visibleComponents.searchBar && !this.modalOpen,
       settingsVisible: Defaults.visibleComponents.settings,
     };
   },
@@ -89,6 +103,7 @@ export default {
     div {
       margin-left: 0.5rem;
       opacity: var(--dimming-factor);
+      opacity: 1;
       &:hover { opacity: 1; }
     }
   }

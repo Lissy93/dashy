@@ -162,12 +162,16 @@ There are a few self-hosted web apps, that serve a similar purpose to Dashy. Inc
 
 ### Credits 🏆
 
-The app makes use of the following components, kudos to their respective authors
+And the app itself is built with [Vue.js](https://github.com/vuejs/vue) ![vue-logo](https://i.ibb.co/xqKW6h5/vue-logo.png)
+
+And wouldn't have been quite possible, without the following components, kudos to their respective authors
 - [`vue-select`](https://github.com/sagalbot/vue-select) - Dropdown component by @sagalbot
 - [`vue-js-modal`](https://github.com/euvl/vue-js-modal) - Modal component by @euvl
 - [`v-tooltip`](https://github.com/Akryum/v-tooltip) - Tooltip component by @Akryum
-
-And the app itself is built with [Vue.js](https://github.com/vuejs/vue) ![vue-logo](https://i.ibb.co/xqKW6h5/vue-logo.png)
+- [`vue-material-tabs`](https://github.com/jairoblatt/vue-material-tabs) - Tab view component by @jairoblatt
+- [`VJsoneditor`](https://github.com/yansenlei/VJsoneditor) - Interactive JSON editor component by @yansenlei
+  - Forked from [JsonEditor](https://github.com/josdejong/jsoneditor) by @josdejong
+- [`vue-toasted`](https://github.com/shakee93/vue-toasted) - Toast notification component by @shakee93
 
 ### License 📜
 

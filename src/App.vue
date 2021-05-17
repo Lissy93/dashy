@@ -9,7 +9,7 @@
 
 import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
-import Defaults from '@/utils/defaults';
+import Defaults, { localStorageKeys } from '@/utils/defaults';
 import conf from '../public/conf.yml';
 
 export default {
@@ -27,10 +27,17 @@ export default {
     /* Returns either page info from the config, or default values */
     getPageInfo(pageInfo) {
       const defaults = Defaults.pageInfo;
+
+      let localPageInfo;
+      try {
+        localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]);
+      } catch (e) {
+        localPageInfo = {};
+      }
       if (pageInfo) {
         return {
-          title: pageInfo.title || defaults.title,
-          description: pageInfo.description || defaults.description,
+          title: localPageInfo.title || pageInfo.title || defaults.title,
+          description: localPageInfo.description || pageInfo.description || defaults.description,
           navLinks: pageInfo.navLinks || defaults.navLinks,
         };
       }

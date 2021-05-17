@@ -100,7 +100,6 @@ export default {
 
 .item {
   flex-grow: 1;
-  position: relative;
   color: var(--item-text-color);
   vertical-align: middle;
   margin: 0.5rem;
@@ -116,6 +115,7 @@ export default {
   &:hover {
     box-shadow: var(--item-hover-shadow);
     background: var(--item-background-hover);
+    position: relative;
   }
   &:focus {
     outline: 2px solid var(--primary);

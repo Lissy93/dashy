@@ -21,6 +21,9 @@ import ArrowKeyNavigation from '@/utils/ArrowKeyNavigation';
 
 export default {
   name: 'FilterTile',
+  props: {
+    active: Boolean,
+  },
   data() {
     return {
       input: '', // Users current search term
@@ -31,6 +34,8 @@ export default {
     window.addEventListener('keydown', (event) => {
       const currentElem = document.activeElement.id;
       const { key, keyCode } = event;
+      /* If a modal is open, then do nothing */
+      if (!this.active) return;
       if (/^[a-zA-Z]$/.test(key) && currentElem !== 'filter-tiles') {
         /* Letter key pressed - start searching */
         this.$refs.filter.focus();

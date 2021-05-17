@@ -2,8 +2,17 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import conf from '../public/conf.yml'; // Main site configuration
+import { pageInfo as defaultPageInfo, localStorageKeys } from './utils/defaults';
 
 Vue.use(Router);
+
+const { sections, pageInfo, appConfig } = conf;
+let localPageInfo;
+try {
+  localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]);
+} catch (e) {
+  localPageInfo = undefined;
+}
 
 const router = new Router({
   routes: [
@@ -12,8 +21,9 @@ const router = new Router({
       name: 'home',
       component: Home,
       props: {
-        sections: conf.sections || [],
-        appConfig: conf.appConfig || {},
+        sections: sections || [],
+        pageInfo: localPageInfo || pageInfo || defaultPageInfo,
+        appConfig: appConfig || {},
       },
       meta: {
         title: 'Home Page',

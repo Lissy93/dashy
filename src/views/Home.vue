@@ -5,17 +5,21 @@
       @user-is-searchin="searching"
       @change-display-layout="setLayoutOrientation"
       @change-icon-size="setItemSize"
+      @change-modal-visibility="updateModalVisibility"
       :displayLayout="layout"
       :iconSize="itemSizeBound"
       :availableThemes="getExternalCSSLinks()"
+      :sections="getSections(sections)"
       :appConfig="appConfig"
+      :pageInfo="pageInfo"
+      :modalOpen="modalOpen"
       class="filter-container"
     />
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections)"
       :class="`item-group-container orientation-${layout} item-size-${itemSizeBound}`">
       <ItemGroup
-        v-for="(section, index) in sections"
+        v-for="(section, index) in getSections(sections)"
         :key="index"
         :title="section.name"
         :displayData="getDisplayData(section)"
@@ -44,6 +48,7 @@ export default {
   props: {
     sections: Array, // Main site content
     appConfig: Object, // Main site configuation (optional)
+    pageInfo: Object, // Page metadata (optional)
   },
   components: {
     SettingsContainer,
@@ -53,6 +58,7 @@ export default {
     searchValue: '',
     layout: '',
     itemSizeBound: '',
+    modalOpen: false, // When true, keybindings are disabled
   }),
   computed: {
     layoutOrientation: {
@@ -73,7 +79,19 @@ export default {
   methods: {
     /* Returns true if there is one or more sections in the config */
     checkTheresData(sections) {
-      return sections && sections.length >= 1;
+      const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
+      return (sections && sections.length >= 1) || (localSections && localSections.length >= 1);
+    },
+    /* Returns sections from local storage if available, otherwise uses the conf.yml */
+    getSections(sections) {
+      // If the user has stored sections in local storage, return those
+      const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
+      if (localSections) {
+        const json = JSON.parse(localSections);
+        if (json.length >= 1) return json;
+      }
+      // Otherwise, return the usuall data from conf.yml
+      return sections;
     },
     /* Updates local data with search value, triggered from filter comp */
     searching(searchValue) {
@@ -115,6 +133,10 @@ export default {
     /* Sets item size attribute, which is used by ItemGroup */
     setItemSize(itemSize) {
       this.iconSize = itemSize;
+    },
+    /* Update data when modal is open (so that key bindings can be disabled) */
+    updateModalVisibility(modalState) {
+      this.modalOpen = modalState;
     },
     /* Returns an array of links to external CSS from the Config */
     getExternalCSSLinks() {
