@@ -7,9 +7,9 @@
     </div>
 
     <!-- Modal containing all the configuration options -->
-    <modal :name="modalName" :resizable="true" width="80%" height="80%"
+    <modal :name="modalName" :resizable="true" width="60%" height="80%"
       @closed="$emit('modalChanged', false)">
-      <ConfigContainer :sections="sections" :config="combineConfig()" />
+      <ConfigContainer :config="combineConfig()" />
     </modal>
   </div>
 </template>
@@ -82,5 +82,10 @@ export default {
     }
   }
 }
+</style>
 
+<style lang="scss">
+  .vm--modal {
+    box-shadow: 0 40px 70px -2px hsl(0deg 0% 0% / 60%), 1px 1px 6px var(--primary);
+  }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <form>
-    <label for="filter-tiles">Search {{active}}</label>
+    <label for="filter-tiles">Search</label>
     <input
       id="filter-tiles"
       v-model="input"

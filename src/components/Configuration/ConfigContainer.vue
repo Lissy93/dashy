@@ -13,6 +13,10 @@
           <EditIcon class="button-icon"/>
           Edit Sections
         </button>
+        <button class="config-button center" @click="goToMetaEdit()">
+          <MetaDataIcon class="button-icon"/>
+          Edit Meta Data
+        </button>
         <button class="config-button center" @click="resetLocalSettings()">
           <DeleteIcon class="button-icon"/>
           Reset Local Settings
@@ -26,8 +30,8 @@
       <pre>{{this.jsonParser(this.config)}}</pre>
       <a class="download-button" href="/conf.yml" download>Download Config</a>
     </TabItem>
-    <TabItem name="Add Item">
-      <EditSiteMeta :sections="sections" />
+    <TabItem name="Edit Site Meta">
+      <EditSiteMeta :config="config" />
     </TabItem>
   </Tabs>
 </template>
@@ -40,6 +44,7 @@ import JsonEditor from '@/components/Configuration/JsonEditor';
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
+import MetaDataIcon from '@/assets/interface-icons/config-meta-data.svg';
 
 export default {
   name: 'ConfigContainer',
@@ -49,8 +54,12 @@ export default {
     };
   },
   props: {
-    sections: Array,
     config: Object,
+  },
+  computed: {
+    sections: function getSections() {
+      return this.config.sections;
+    },
   },
   components: {
     EditSiteMeta,
@@ -58,11 +67,16 @@ export default {
     DownloadIcon,
     DeleteIcon,
     EditIcon,
+    MetaDataIcon,
   },
   methods: {
     /* Seletcs the edit tab of the tab view */
     goToEdit() {
       const itemToSelect = this.$refs.tabView.navItems[1];
+      this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
+    },
+    goToMetaEdit() {
+      const itemToSelect = this.$refs.tabView.navItems[3];
       this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
     },
     /* Checks that the user is sure, then resets site-wide local storage, and reloads page */
@@ -112,6 +126,7 @@ a.config-button, button.config-button {
     width: 1rem;
     height: 1rem;
     padding: 0.2rem;
+    margin-right: 0.5rem;
   }
   &:hover {
     background: var(--config-settings-color);
@@ -156,5 +171,34 @@ a.hyperlink-wrapper {
     color: var(--config-settings-color);
   }
 }
+</style>
 
+<style lang="scss">
+.tab__pagination {
+  background: var(--config-settings-background);
+  color: var(--config-settings-color);
+  .tab__nav__items .tab__nav__item {
+    span {
+      color: var(--config-settings-color);
+    }
+    &:hover {
+      background: var(--config-settings-color) !important;
+      span {
+        color: var(--config-settings-background);
+      }
+    }
+    &.active {
+      span {
+        font-weight: bold;
+        color: var(--config-settings-color) !important;
+      }
+    }
+  }
+  .tab__nav__items .tab__nav__item.active {
+    border-bottom: 2px solid var(--config-settings-color);
+  }
+  hr.tab__slider {
+    background: var(--config-settings-color);
+  }
+}
 </style>

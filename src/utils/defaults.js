@@ -45,6 +45,8 @@ module.exports = {
     ICON_SIZE: 'iconSize',
     THEME: 'theme',
     CONF_SECTIONS: 'confSections',
+    PAGE_INFO: 'pageInfo',
+    APP_CONFIG: 'appConfig',
   },
   topLevelConfKeys: {
     PAGE_INFO: 'pageInfo',
