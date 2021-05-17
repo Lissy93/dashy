@@ -36,6 +36,7 @@ export default {
       pageInfo.footerText = this.formElements.footerText;
       localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(pageInfo));
       this.$toasted.show('Changes seved succesfully');
+      setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
     },
   },
   data() {

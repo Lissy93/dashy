@@ -27,7 +27,13 @@ export default {
     /* Returns either page info from the config, or default values */
     getPageInfo(pageInfo) {
       const defaults = Defaults.pageInfo;
-      const localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]);
+
+      let localPageInfo;
+      try {
+        localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]);
+      } catch (e) {
+        localPageInfo = {};
+      }
       if (pageInfo) {
         return {
           title: localPageInfo.title || pageInfo.title || defaults.title,
