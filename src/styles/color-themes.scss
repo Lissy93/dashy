@@ -50,6 +50,8 @@ html[data-theme='raspberry-jam'] {
   --item-background: #1c2636;
   --item-group-background: #0b1021;
   --nav-link-background-color: #0b1021;
+  --config-code-background: #0b1021;
+  --config-code-color: #eb2d6c;
 }
 
 html[data-theme='tiger'] {
@@ -91,6 +93,7 @@ html[data-theme='high-contrast-light'] {
   --primary: #000;
   --outline-color: #000;
   --curve-factor: 0px;
+  --config-code-color: #000;
 }
 
 html[data-theme='high-contrast-dark'] {
@@ -147,6 +150,7 @@ html[data-theme='material'] {
   --settings-container-shadow: 0 1px 3px #0000005e, 0 1px 2px #00000085;
   --welcome-popup-background: #01579b;
   --welcome-popup-text-color: #ffffff;
+  --config-code-color: #000;
 }
 
 html[data-theme='material-dark'] {

@@ -1,6 +1,6 @@
 <template>
   <div id="dashy" data-theme="dark">
-    <Header :pageInfo="getPageInfo(pageInfo)" />
+    <Header :pageInfo="pageInfo" />
     <router-view />
     <Footer v-if="showFooter" :text="getFooterText()" />
   </div>
@@ -19,10 +19,13 @@ export default {
     Footer,
   },
   data: () => ({
-    pageInfo: conf.pageInfo || Defaults.pageInfo,
+    // pageInfo: this.getPageInfo(conf.pageInfo),
     appConfig: conf.appConfig || Defaults.appConfig,
     showFooter: Defaults.visibleComponents.footer,
   }),
+  computed: {
+    pageInfo: function pi() { return this.getPageInfo(conf.pageInfo); },
+  },
   methods: {
     /* Returns either page info from the config, or default values */
     getPageInfo(pageInfo) {
@@ -38,7 +41,8 @@ export default {
         return {
           title: localPageInfo.title || pageInfo.title || defaults.title,
           description: localPageInfo.description || pageInfo.description || defaults.description,
-          navLinks: pageInfo.navLinks || defaults.navLinks,
+          navLinks: localPageInfo.navLinks || pageInfo.navLinks || defaults.navLinks,
+          footerText: localPageInfo.footerText || pageInfo.footerText || defaults.footerText,
         };
       }
       return defaults;
