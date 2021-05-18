@@ -15,18 +15,44 @@
         <input v-model="formElements.footerText" />
       </div>
     </div>
-    <button class="save-button" @click="save()">Save Changes</button>
+    <div class="form">
+      <h2>Nav Bar Links</h2>
+      <div class="add-nav-bar-link" v-for="(link, index) in formElements.navLinks" :key="index">
+        <div class="row">
+          <span>Link Text</span>
+          <input v-model="link.title" />
+        </div>
+        <div class="row">
+          <span>Link URL</span>
+          <input v-model="link.path" />
+        </div>
+      </div>
+      <button class="add-new-link" @click="addNavLinkRow()" >
+        <AddNewIcon />
+        Add New Link
+      </button>
+    </div>
+    <button class="save-button" @click="save()">
+      <SaveConfigIcon />
+      Save Changes
+    </button>
   </div>
 </template>
 
 <script>
 
 import { localStorageKeys } from '@/utils/defaults';
+import AddNewIcon from '@/assets/interface-icons/add-new.svg';
+import SaveConfigIcon from '@/assets/interface-icons/save-config.svg';
 
 export default {
   name: 'EditSiteMeta',
   props: {
     config: Object,
+  },
+  components: {
+    AddNewIcon,
+    SaveConfigIcon,
   },
   methods: {
     save() {
@@ -34,9 +60,13 @@ export default {
       pageInfo.title = this.formElements.title;
       pageInfo.description = this.formElements.description;
       pageInfo.footerText = this.formElements.footerText;
+      pageInfo.navLinks = this.formElements.navLinks;
       localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(pageInfo));
-      this.$toasted.show('Changes seved succesfully');
+      this.$toasted.show('Changes saved succesfully');
       setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
+    },
+    addNavLinkRow() {
+      this.formElements.navLinks.push({ title: '', path: '' });
     },
   },
   data() {
@@ -45,6 +75,7 @@ export default {
         title: this.config.pageInfo.title,
         description: this.config.pageInfo.description,
         footerText: this.config.pageInfo.footerText,
+        navLinks: this.config.pageInfo.navLinks,
       },
     };
   },
@@ -55,7 +86,7 @@ export default {
 .site-meta-container {
   display: flex;
   flex-direction: column;
-  padding-top: 1rem;
+  padding: 1rem 0;
   background: var(--background-darker);
   height: calc(100% - 1rem);
   h2 {
@@ -67,6 +98,15 @@ export default {
 div.form {
   display: flex;
   flex-direction: column;
+  width: fit-content;
+  margin: 0 auto 1rem auto;
+  padding-bottom: 1rem;
+  &:not(:last-child) {
+    border-bottom: 1px dashed var(--config-settings-color);
+  }
+  div.add-nav-bar-link {
+    margin: 0 auto;
+  }
   div.row {
     margin: 0.25rem auto;
     display: flex;
@@ -86,16 +126,26 @@ div.form {
       min-width: 8rem;
       font-size: 1.2rem;
       &:focus {
-        box-shadow: 1px 1px 6px #00ccb4;
+        box-shadow: 1px 1px 6px var(--config-settings-color);
         outline: none;
       }
     }
   }
 }
 
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem auto;
+  svg {
+    width: 1.2rem;
+    margin: 0 0.2rem;
+  }
+}
+
 button.save-button {
   padding:  0.5rem 1rem;
-  margin: 0.5rem auto;
   font-size: 1.2rem;
   width: 24rem;
   background: var(--config-settings-background);
@@ -106,6 +156,26 @@ button.save-button {
   &:hover {
     background: var(--config-settings-color);
     color: var(--config-settings-background);
+  }
+}
+
+button.add-new-link {
+  background: none;
+  text-decoration: underline;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  color: var(--config-settings-color);
+  cursor: pointer;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  &:hover {
+    border-color: var(--config-settings-color);
+    text-decoration: none;
+  }
+  &:active {
+    background: var(--config-settings-color);
+    color: var(--config-settings-background);
+    border-color: var(--config-settings-color);
   }
 }
 </style>

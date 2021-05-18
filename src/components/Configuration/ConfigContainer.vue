@@ -26,7 +26,7 @@
     <TabItem name="Edit Sections">
       <JsonEditor :sections="sections" />
     </TabItem>
-    <TabItem name="View Raw YAML">
+    <TabItem name="View Raw YAML" class="code-container">
       <pre>{{this.jsonParser(this.config)}}</pre>
       <a class="download-button" href="/conf.yml" download>Download Config</a>
     </TabItem>
@@ -102,7 +102,7 @@ export default {
 
 pre {
   color: var(--config-code-color);
-  background: var(--config-code-background);
+  padding: 0.5rem 1rem;
 }
 
 a.config-button, button.config-button {
@@ -137,22 +137,27 @@ a.config-button, button.config-button {
   }
 }
 
-a.download-button {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  padding:  0.25rem 0.5rem;
-  font-size: 1rem;
-  color: var(--config-settings-background);
-  border-radius: var(--curve-factor);
-  cursor: pointer;
-  &:hover {
-    background: var(--config-settings-color);
+div.code-container {
+  background: var(--config-code-background);
+  a.download-button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    padding:  0.25rem 0.5rem;
+    font-size: 1rem;
+    color: var(--config-code-color);
+    border-radius: var(--curve-factor);
+    cursor: pointer;
+    &:hover {
+      color: var(--config-code-background);
+      background: var(--config-settings-color);
+    }
   }
 }
 
 .tab-item {
   overflow-y: auto;
+  background: var(--config-settings-background);
 }
 
 a.hyperlink-wrapper {

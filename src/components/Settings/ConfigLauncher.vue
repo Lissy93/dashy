@@ -18,7 +18,7 @@
 
 import IconSpanner from '@/assets/interface-icons/config-editor.svg';
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
-import { topLevelConfKeys } from '@/utils/defaults';
+import { topLevelConfKeys, localStorageKeys } from '@/utils/defaults';
 
 export default {
   name: 'ConfigLauncher',
@@ -46,10 +46,9 @@ export default {
       conf[topLevelConfKeys.APP_CONFIG] = this.appConfig;
       conf[topLevelConfKeys.PAGE_INFO] = this.pageInfo;
       conf[topLevelConfKeys.SECTIONS] = this.sections;
+      conf[topLevelConfKeys.APP_CONFIG].theme = localStorage[localStorageKeys.THEME]
+        || conf[topLevelConfKeys.APP_CONFIG].theme;
       return conf;
-    },
-    updateConfig() {
-      // this.$emit('iconSizeUpdated', iconSize);
     },
     tooltip(content) {
       return { content, trigger: 'hover focus', delay: 250 };
@@ -87,5 +86,8 @@ export default {
 <style lang="scss">
   .vm--modal {
     box-shadow: 0 40px 70px -2px hsl(0deg 0% 0% / 60%), 1px 1px 6px var(--primary);
+  }
+  .vm--overlay {
+    background: #00000080;
   }
 </style>

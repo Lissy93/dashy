@@ -66,6 +66,7 @@ button.save-button {
   &:hover {
     background: var(--config-settings-background);
     color: var(--config-settings-color);
+    border-color: var(--config-settings-color);
   }
 }
 
@@ -81,5 +82,9 @@ button.save-button {
 }
 .jsoneditor-poweredBy {
   display: none;
+}
+.jsoneditor-tree, pre.jsoneditor-preview {
+  background: #fff;
+  text-align: left;
 }
 </style>
