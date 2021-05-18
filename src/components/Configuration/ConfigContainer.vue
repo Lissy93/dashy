@@ -23,12 +23,17 @@
         </button>
       </div>
     </TabItem>
+    <TabItem name="Backup Config" class="code-container">
+      <pre id="conf-yaml">{{this.jsonParser(this.config)}}</pre>
+      <div class="yaml-action-buttons">
+        <h2>Actions</h2>
+        <a class="yaml-button download" href="/conf.yml" download>Download Config</a>
+        <a class="yaml-button copy" @click="copyConfigToClipboard()">Copy Config</a>
+        <a class="yaml-button reset" @click="resetLocalSettings()">Reset Config</a>
+      </div>
+    </TabItem>
     <TabItem name="Edit Sections">
       <JsonEditor :sections="sections" />
-    </TabItem>
-    <TabItem name="View Raw YAML" class="code-container">
-      <pre>{{this.jsonParser(this.config)}}</pre>
-      <a class="download-button" href="/conf.yml" download>Download Config</a>
     </TabItem>
     <TabItem name="Edit Site Meta">
       <EditSiteMeta :config="config" />
@@ -72,12 +77,16 @@ export default {
   methods: {
     /* Seletcs the edit tab of the tab view */
     goToEdit() {
-      const itemToSelect = this.$refs.tabView.navItems[1];
+      const itemToSelect = this.$refs.tabView.navItems[2];
       this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
     },
     goToMetaEdit() {
       const itemToSelect = this.$refs.tabView.navItems[3];
       this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
+    },
+    copyConfigToClipboard() {
+      navigator.clipboard.writeText(this.jsonParser(this.config));
+      // event.target.textContent = 'Copied to clipboard';
     },
     /* Checks that the user is sure, then resets site-wide local storage, and reloads page */
     resetLocalSettings() {
@@ -139,18 +148,38 @@ a.config-button, button.config-button {
 
 div.code-container {
   background: var(--config-code-background);
-  a.download-button {
+  .yaml-action-buttons {
     position: absolute;
-    top: 2px;
-    right: 2px;
-    padding:  0.25rem 0.5rem;
-    font-size: 1rem;
-    color: var(--config-code-color);
-    border-radius: var(--curve-factor);
-    cursor: pointer;
-    &:hover {
-      color: var(--config-code-background);
-      background: var(--config-settings-color);
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px dashed;
+    padding: 0.5rem;
+    border-radius: 4px;
+    h2 {
+      margin: 0;
+      text-align: center;
+      color: var(--config-code-color);
+    }
+    a.yaml-button {
+      padding:  0.25rem 0.5rem;
+      font-size: 1rem;
+      color: var(--config-code-color);
+      border-radius: var(--curve-factor);
+      cursor: pointer;
+      text-decoration: underline;
+      border: 1px solid var(--config-code-background);
+      &:hover {
+        color: var(--config-code-color);
+        border-color: var(--config-code-color);
+        text-decoration: none;
+      }
+      &:active {
+        color: var(--config-code-background);
+        background-color: var(--config-settings-color);
+        text-decoration: none;
+      }
     }
   }
 }

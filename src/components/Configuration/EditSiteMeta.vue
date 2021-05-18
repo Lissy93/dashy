@@ -60,7 +60,7 @@ export default {
       pageInfo.title = this.formElements.title;
       pageInfo.description = this.formElements.description;
       pageInfo.footerText = this.formElements.footerText;
-      pageInfo.navLinks = this.formElements.navLinks;
+      pageInfo.navLinks = this.formElements.navLinks.filter(link => (link.title !== ''));
       localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(pageInfo));
       this.$toasted.show('Changes saved succesfully');
       setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
