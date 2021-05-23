@@ -4,12 +4,19 @@
     <span>Config</span>
     <div class="config-buttons">
       <IconSpanner v-tooltip="tooltip('Update configuration locally')" @click="showEditor()" />
+      <IconCloud v-tooltip="tooltip('Backup / restore cloud config')" @click="showCloudModal()" />
     </div>
 
     <!-- Modal containing all the configuration options -->
-    <modal :name="modalName" :resizable="true" width="60%" height="80%"
+    <modal :name="modalNames.CONF_EDITOR" :resizable="true" width="60%" height="80%"
       @closed="$emit('modalChanged', false)">
       <ConfigContainer :config="combineConfig()" />
+    </modal>
+
+    <!-- Modal for cloud backup and restore options -->
+    <modal :name="modalNames.CLOUD_BACKUP" :resizable="true" width="60%" height="60%"
+      @closed="$emit('modalChanged', false)">
+      <CloudBackupRestore :config="combineConfig()" />
     </modal>
   </div>
 </template>
@@ -17,19 +24,26 @@
 <script>
 
 import IconSpanner from '@/assets/interface-icons/config-editor.svg';
+import IconCloud from '@/assets/interface-icons/cloud-backup-restore.svg';
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
+import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
 import { topLevelConfKeys, localStorageKeys } from '@/utils/defaults';
 
 export default {
   name: 'ConfigLauncher',
   data() {
     return {
-      modalName: 'CONF-EDITOR',
+      modalNames: {
+        CONF_EDITOR: 'CONF_EDITOR',
+        CLOUD_BACKUP: 'CLOUD_BACKUP',
+      },
     };
   },
   components: {
     IconSpanner,
+    IconCloud,
     ConfigContainer,
+    CloudBackupRestore,
   },
   props: {
     sections: Array,
@@ -38,7 +52,11 @@ export default {
   },
   methods: {
     showEditor: function show() {
-      this.$modal.show(this.modalName);
+      this.$modal.show(this.modalNames.CONF_EDITOR);
+      this.$emit('modalChanged', true);
+    },
+    showCloudModal: function show() {
+      this.$modal.show(this.modalNames.CLOUD_BACKUP);
       this.$emit('modalChanged', true);
     },
     combineConfig() {
