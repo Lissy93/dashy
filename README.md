@@ -19,10 +19,11 @@
 - Quickly preview a website, by holding down the Alt key while clicking, to open it in a resizable pop-up modal
 - Many options for icons, including full Font-Awesome support and the ability to auto-fetch icon from URLs favicon
 - Additional info for each item visible on hover (including opening method icon and description as a tooltip)
-- Option for full-screen background image, custom nav-bar links, and custom footer
-- Preferences stored in local storage and applied on load
-- Easy YAML-based configuration
-- Small bundle size and a fully responsive UI makes the app easy to use on any device
+- Option for full-screen background image, custom nav-bar links, and custom footer text
+- User settings stored in local storage and applied on load
+- Encrypted cloud backup and restore feature available
+- Easy single-file YAML-based configuration
+- Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
 - Plus lots more...
 
 **Live Demos**: [Demo 1](https://dashy-demo-1.as93.net) ┆ [Demo 2](https://dashy-demo-2.as93.net) ┆ [Demo 3](https://dashy-demo-3.as93.net)
@@ -38,7 +39,6 @@
 ---
 
 ## Running the App 🏃‍♂️
-
 ### Deploying 🚀
 - Get Code: `git clone git@github.com:Lissy93/dashy.git` and `cd dashy`
 - Configuration: Fill in you're settings in `./public/conf.yml`
@@ -46,16 +46,21 @@
 - Build: `yarn build`
 - Run: `yarn start`
 
-### Deploying with Docker 🐳
+### Deploying with Docker from Source 🛳️
 - Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
 - Configuration: Fill in you're settings in `./public/conf.yml`
 - Build: `docker build -t lissy93/dashy .`
-- Start: `docker run -it -p 8080:80 --rm --name my-dashboard lissy93/dashy`
+- Start: `docker run -p 8080:80 --name my-dashboard lissy93/dashy`
 
+### Deploying from Docker Hub 🐳
+- Get the Image: `docker pull lissy93/dashy`
+- Start the Container: `docker run -d -p 8080:80 --name my-dashboard lissy93/dashy`
 ### Developing 🧱
 - Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
 - Install dependencies: `yarn`
 - Start dev server: `yarn dev`
+
+Note that although recommended, it is not required to use the conf.yml file- all settings can be specified through the UI, and backed up on the cloud.
 
 ---
 
@@ -162,16 +167,23 @@ There are a few self-hosted web apps, that serve a similar purpose to Dashy. Inc
 
 ### Credits 🏆
 
-And the app itself is built with [Vue.js](https://github.com/vuejs/vue) ![vue-logo](https://i.ibb.co/xqKW6h5/vue-logo.png)
-
-And wouldn't have been quite possible, without the following components, kudos to their respective authors
+This wouldn't have been quite so possible without the following components, kudos to their respective authors
 - [`vue-select`](https://github.com/sagalbot/vue-select) - Dropdown component by @sagalbot `MIT`
 - [`vue-js-modal`](https://github.com/euvl/vue-js-modal) - Modal component by @euvl `MIT`
 - [`v-tooltip`](https://github.com/Akryum/v-tooltip) - Tooltip component by @Akryum `MIT`
 - [`vue-material-tabs`](https://github.com/jairoblatt/vue-material-tabs) - Tab view component by @jairoblatt `MIT`
 - [`VJsoneditor`](https://github.com/yansenlei/VJsoneditor) - Interactive JSON editor component by @yansenlei `MIT`
-  - Forked from [JsonEditor](https://github.com/josdejong/jsoneditor) by @josdejong `Apache-2.0 License`
+  - Forked from [`JsonEditor`](https://github.com/josdejong/jsoneditor) by @josdejong `Apache-2.0 License`
+  - And using [`ajv`](https://github.com/ajv-validator/ajv) `MIT` JSON schema Validator [`ace`](https://github.com/ajaxorg/ace) `BSD` code editor
 - [`vue-toasted`](https://github.com/shakee93/vue-toasted) - Toast notification component by @shakee93 `MIT`
+
+Utils:
+- [`crypto-js`](https://github.com/brix/crypto-js) - Encryption implementations by @evanvosberg and community `MIT`
+- [`axios`](https://github.com/axios/axios) - Promise based HTTP client by @mzabriskie and community `MIT`
+
+And the app itself is built with [Vue.js](https://github.com/vuejs/vue) ![vue-logo](https://i.ibb.co/xqKW6h5/vue-logo.png)
+
+Although the app is purely frontend, there is an optional cloud backup and restore feature. This is built as a serverless function on [Cloudflare workers](https://workers.cloudflare.com/) using [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
 
 ### License 📜
 
@@ -194,3 +206,7 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRA
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWAREOR THE USE
 OR OTHER DEALINGS IN THE SOFTWARE.
 ```
+
+---
+
+<a href="https://www.producthunt.com/posts/dashy" target="_blank" align="center"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=294872&theme=dark" alt="Dashy - A feature-rich dashboard for your homelab 🚀 | Product Hunt" width="250" height="54" /></a>

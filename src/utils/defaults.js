@@ -47,6 +47,8 @@ module.exports = {
     CONF_SECTIONS: 'confSections',
     PAGE_INFO: 'pageInfo',
     APP_CONFIG: 'appConfig',
+    BACKUP_ID: 'backupId',
+    BACKUP_HASH: 'backupHash',
   },
   topLevelConfKeys: {
     PAGE_INFO: 'pageInfo',
@@ -55,9 +57,10 @@ module.exports = {
   },
   toastedOptions: {
     position: 'bottom-center',
-    duration: 2000,
+    duration: 2500,
     keepOnHover: true,
     className: 'toast-message',
     iconPack: 'fontawesome',
   },
+  backupEndpoint: 'https://dashy-sync-service.as93.net',
 };

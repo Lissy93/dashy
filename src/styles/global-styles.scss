@@ -20,12 +20,31 @@ h1, h2, h3, h4, h5 {
     font-family: 'Inconsolata', sans-serif;
 }
 
+.bold { font-weight: bold; }
+.light { font-weight: lighter; }
+.text-left { text-align: left;}
+.text-right { text-align: right;}
+.text-center { text-align: center;}
+.horizontal-center { margin: 0 auto; }
+.border-box { box-sizing: border-box; }
+
 /* Overiding styles for the global toast component */
 .toast-message {
     background: var(--toast-background) !important;
     color: var(--toast-color) !important;
     border: 1px solid var(--toast-color) !important;
     border-radius: var(--curve-factor) !important;
+    font-size: 1.25rem !important;
+}
+
+.toast-error {
+    background: var(--danger) !important;
+    color: var(--white) !important;
+    font-size: 1.25rem !important;
+}
+.toast-success {
+    background: var(--success) !important;
+    color: var(--white) !important;
     font-size: 1.25rem !important;
 }
 
