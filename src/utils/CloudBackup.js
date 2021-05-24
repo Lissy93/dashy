@@ -2,8 +2,9 @@ import sha256 from 'crypto-js/sha256';
 import aes from 'crypto-js/aes';
 import Utf8 from 'crypto-js/enc-utf8';
 import axios from 'axios';
+import { backupEndpoint } from '@/utils/defaults';
 
-const ENDPOINT = 'https://dashy-sync-service.as93.net';
+const ENDPOINT = backupEndpoint; // 'https://dashy-sync-service.as93.net';
 
 /* Stringify, encrypt and encode data for transmission */
 const encryptData = (data, password) => {
@@ -36,6 +37,7 @@ const encodeGetParams = p => Object.entries(p).map(kv => kv.map(encodeURICompone
 /* Restores the backup */
 export const restore = (backupId, password) => {
   const params = encodeGetParams({ backupId, subHash: makeSubHash(password) });
+  console.log(makeSubHash(password));
   const url = `${ENDPOINT}/?${params}`;
   return new Promise((resolve, reject) => {
     axios.get(url).then((response) => {

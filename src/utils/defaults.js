@@ -62,4 +62,5 @@ module.exports = {
     className: 'toast-message',
     iconPack: 'fontawesome',
   },
+  backupEndpoint: 'https://dashy-sync-service.as93.net',
 };

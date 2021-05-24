@@ -3,14 +3,10 @@
     <div class="section intro">
       <h2>Cloud Backup & Restore</h2>
       <p class="intro">
-        The cloud backup and restore feature, allows you to upload your config to the internet,
-        and then restore it on any other device or instance of Dashy. This provides an alternative
-        method of configuring, without the need to write YAML, and also means you don't necessarily
-        need to host your own instance of the application.
+        Cloud backup and restore is an optional feature, that enabled you to upload your
+        config to the internet, and then restore it on any other device or instance of Dashy.
         <br><br>
         All data is fully end-to-end encrypted with AES, using your password as the key.
-        Both encryption and decryption happens on your device so your data cannot be
-        accessed by anyone other than you.
       </p>
     </div>
     <div class="section backup-section">
@@ -102,7 +98,7 @@ export default {
       } else if (savedHash === this.makeHash(this.backupPassword)) {
         this.makeUpdate();
       } else {
-        this.showErrorMsg('Incorrect password. Please enter the password you used last time.');
+        this.showErrorMsg('Incorrect password. Please enter your current password.');
       }
     },
     makeBackup() {
