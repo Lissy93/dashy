@@ -64,7 +64,7 @@ import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
 import IconBackup from '@/assets/interface-icons/config-backup.svg';
 import IconRestore from '@/assets/interface-icons/config-restore.svg';
-import { backup } from '@/utils/CloudBackup';
+import { backup, update } from '@/utils/CloudBackup';
 import { localStorageKeys } from '@/utils/defaults';
 
 export default {
@@ -89,8 +89,10 @@ export default {
   methods: {
     checkPass() {
       const savedHash = localStorage[localStorageKeys.BACKUP_HASH] || undefined;
-      if (!savedHash || savedHash === this.makeHash(this.backupPassword)) {
+      if (!savedHash) {
         this.makeBackup();
+      } else if (savedHash === this.makeHash(this.backupPassword)) {
+        this.makeUpdate();
       } else {
         this.showErrorMsg('Incorrect password. Please enter the password you used last time.');
       }
@@ -101,17 +103,29 @@ export default {
           if (!response.data || response.data.errorMsg || !response.data.backupId) {
             this.showErrorMsg(response.data.errorMsg || 'Error');
           } else { // All clear, no error
-            this.updateAfterBackup(response.data.backupId);
+            this.updateUiAfterBackup(response.data.backupId, false);
           }
         }).catch(() => {
           this.showErrorMsg('Unable to process request');
         });
     },
-    updateAfterBackup(backupId) {
+    makeUpdate() {
+      update(this.config, this.backupPassword, this.backupId)
+        .then((response) => {
+          if (!response.data || response.data.errorMsg || !response.data.backupId) {
+            this.showErrorMsg(response.data.errorMsg || 'Error');
+          } else { // All clear, no error
+            this.updateUiAfterBackup(response.data.backupId, true);
+          }
+        }).catch(() => {
+          this.showErrorMsg('Unable to process request');
+        });
+    },
+    updateUiAfterBackup(backupId, isUpdate = false) {
       const hash = this.makeHash(this.backupPassword);
       localStorage.setItem(localStorageKeys.BACKUP_ID, backupId);
       localStorage.setItem(localStorageKeys.BACKUP_HASH, hash);
-      this.showSuccessMsg('Backup Completed Succesfully');
+      this.showSuccessMsg(`${isUpdate ? 'Update' : 'Backup'} Completed Succesfully`);
       this.backupPassword = '';
     },
     showErrorMsg(errorMsg) {
@@ -141,9 +155,8 @@ export default {
       display: flex;
       flex-direction: column;
       width: fit-content;
-      min-width: 400px;
       margin: 0 auto 1rem auto;
-      padding-bottom: 1rem;
+      padding: 0 0.5rem 1rem 0.5rem;
       &:first-child {
         border-bottom: 1px dashed var(--config-settings-color);
       }

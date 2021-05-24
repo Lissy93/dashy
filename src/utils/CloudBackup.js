@@ -29,6 +29,15 @@ export const backup = (data, password) => {
   });
 };
 
+/* Updates and existing backup */
+export const update = (data, password, backupId) => {
+  return axios.put(ENDPOINT, {
+    backupId,
+    userData: encryptData(data, password),
+    subHash: makeSubHash(password),
+  });
+};
+
 /* Restores the backup */
 export const restore = (backupId, password) => {
   // return axios.get(ENDPOINT, {
