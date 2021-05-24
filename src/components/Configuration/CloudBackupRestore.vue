@@ -49,7 +49,7 @@
         label="Password"
         type="password"
       />
-      <Button>
+      <Button :click="restoreBackup">
         <template v-slot:text>Restore</template>
         <template v-slot:icon><IconRestore /></template>
       </Button>
@@ -64,7 +64,7 @@ import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
 import IconBackup from '@/assets/interface-icons/config-backup.svg';
 import IconRestore from '@/assets/interface-icons/config-restore.svg';
-import { backup, update } from '@/utils/CloudBackup';
+import { backup, update, restore } from '@/utils/CloudBackup';
 import { localStorageKeys } from '@/utils/defaults';
 
 export default {
@@ -87,6 +87,14 @@ export default {
     IconRestore,
   },
   methods: {
+    restoreBackup() {
+      restore(this.restoreCode, this.restorePassword)
+        .then((response) => {
+          this.restoreFromBackup(response, this.restoreCode);
+        }).catch((msg) => {
+          this.showErrorMsg(msg);
+        });
+    },
     checkPass() {
       const savedHash = localStorage[localStorageKeys.BACKUP_HASH] || undefined;
       if (!savedHash) {
@@ -121,10 +129,19 @@ export default {
           this.showErrorMsg('Unable to process request');
         });
     },
+    restoreFromBackup(config, backupId) {
+      localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(config.sections));
+      localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(config.appConfig));
+      localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(config.pageInfo));
+      if (config.appConfig.theme) {
+        localStorage.setItem(localStorageKeys.THEME, config.appConfig.theme);
+      }
+      this.setBackupIdLocally(backupId, this.restorePassword);
+      this.showSuccessMsg('Config Restored Succesfully');
+      setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
+    },
     updateUiAfterBackup(backupId, isUpdate = false) {
-      const hash = this.makeHash(this.backupPassword);
-      localStorage.setItem(localStorageKeys.BACKUP_ID, backupId);
-      localStorage.setItem(localStorageKeys.BACKUP_HASH, hash);
+      this.setBackupIdLocally(backupId, this.backupPassword);
       this.showSuccessMsg(`${isUpdate ? 'Update' : 'Backup'} Completed Succesfully`);
       this.backupPassword = '';
     },
@@ -136,6 +153,12 @@ export default {
     },
     makeHash(pass) {
       return sha256(pass).toString();
+    },
+    setBackupIdLocally(backupId, pass) {
+      this.backupId = backupId;
+      const hash = this.makeHash(pass);
+      localStorage.setItem(localStorageKeys.BACKUP_ID, backupId);
+      localStorage.setItem(localStorageKeys.BACKUP_HASH, hash);
     },
   },
 };
