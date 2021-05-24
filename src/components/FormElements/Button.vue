@@ -1,5 +1,5 @@
 <template>
-  <button>
+  <button @click="click()">
     <slot name="text"></slot>
     <slot name="icon"></slot>
   </button>
@@ -11,6 +11,7 @@ export default {
   name: 'Button',
   props: {
     text: String,
+    click: Function,
   },
 };
 </script>

@@ -5,6 +5,16 @@
   --background: #0b1021; // Page background
   --background-darker: #05070e; // Used for navigation bar, footer and fills
 
+  /* Action Colors */
+  --info: #04e4f4;
+  --success: #20e253;
+  --warning: #f6f000;
+  --danger: #f80363;
+  --neutral: #272f4d;
+
+  --white: #fff;
+  --black: #000;
+
   /* Modified Colors */
   --item-group-background: #0b1021cc;
   --medium-grey: #5e6474;
@@ -15,6 +25,11 @@
   --transparent-70: #000000b3;
   --transparent-50: #00000080;
   --transparent-30: #0000004d;
+
+  /* Semi-Transparent White*/
+  --transparent-white-70: #ffffffb3;
+  --transparent-white-50: #ffffff80;
+  --transparent-white-30: #ffffff4d;
 
   /* Other Variables */
   --outline-color: none;

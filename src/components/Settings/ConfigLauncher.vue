@@ -14,7 +14,7 @@
     </modal>
 
     <!-- Modal for cloud backup and restore options -->
-    <modal :name="modalNames.CLOUD_BACKUP" :resizable="true" width="60%" height="60%"
+    <modal :name="modalNames.CLOUD_BACKUP" :resizable="true" width="65%" height="60%"
       @closed="$emit('modalChanged', false)">
       <CloudBackupRestore :config="combineConfig()" />
     </modal>
