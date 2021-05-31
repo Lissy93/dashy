@@ -11,7 +11,10 @@
     <div v-if="!items || items.length < 1" class="no-items">
       No Items to Show Yet
     </div>
-    <div v-else class="there-are-items">
+    <div v-else
+      :class="`there-are-items ${isGridLayout? 'item-group-grid': ''}`"
+      :style="gridStyle"
+    >
       <Item
         v-for="(item, index) in items"
         :id="`${index}_${makeId(item.title)}`"
@@ -59,8 +62,20 @@ export default {
     IframeModal,
   },
   computed: {
-    newItemSize: function size() {
+    newItemSize() {
       return this.displayData.itemSize || this.itemSize;
+    },
+    isGridLayout() {
+      return this.displayData.layout === 'grid'
+        || !!(this.displayData.itemCountX || this.displayData.itemCountY);
+    },
+    gridStyle() {
+      let styles = '';
+      styles += this.displayData.itemCountX
+        ? `grid-template-columns: repeat(${this.displayData.itemCountX}, 1fr);` : '';
+      styles += this.displayData.itemCountY
+        ? `grid-template-rows: repeat(${this.displayData.itemCountY}, 1fr);` : '';
+      return styles;
     },
   },
   methods: {
@@ -80,6 +95,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/media-queries.scss';
 
 .no-items {
     width: 100px;
@@ -97,6 +113,27 @@ export default {
   height: 100%;
   display: flex;
   flex-wrap: wrap;
+  &.item-group-grid {
+    display: grid;
+    @include phone {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include laptop {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include monitor {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @include big-screen {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @include big-screen-up {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
 }
 
 </style>

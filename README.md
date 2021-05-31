@@ -36,6 +36,8 @@
   <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
 </p>
 
+![More themes and screens](https://i.ibb.co/M6nyvqW/dashy-options-screen.png)
+
 ---
 
 ## Running the App 🏃‍♂️
@@ -104,11 +106,16 @@ All fields are optional, unless otherwise stated.
 - `items` - Item[]: (required) An array of items - _See **`item`** below_
 - `displayData`: An object with the following fields (all optional)
   - `collapsed` - Boolean: If true, the section will  be collapsed initially (defaults to `false`) 
-  - `rows` - Int: Number of rows the section should span vertically, e.g. 2 (defaults to `1`)
-  - `cols` - Int: Number of columns the section should span horizontally, e.g. 2 (defaults to `1`)
   - `color` - String: A custom accent color for the section, as a hex code or HTML color (e.g. `#fff`)
   - `customStyles` - String: Custom CSS properties that should be applied to that section, e.g. `border: 2px dashed #ff0000;`
   - `itemSize` - String: Specify the size for items within this group, either `small`, `medium` or `large`
+  - `rows` - Int: Number of rows the section should span vertically, e.g. 2 (defaults to `1`)
+  - `cols` - Int: Number of columns the section should span horizontally, e.g. 2 (defaults to `1`)
+  - `layout` - Enum: `auto` or `grid`. If `grid` is selected, then the number of items per row can be set
+  - `itemCountX` - Int: Number of items horizontally (for `layout: grid`)
+  - `itemCountY` - Int: Number of items vertically (for `layout: grid`)
+
+Note about `rows` and `cols`: These are defined as a proportion of the screen (rather than by number of child items), and is built using [`grid-layout`](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout). For more info, see [this example](https://i.ibb.co/HXRWVRK/how-rows-and-cols-work-in-dashy.png). In order to set the number of items that will display horizontally or vertically within a section, first set `display: grid`, and then specify values for `itemCountX`, and optionally `itemCountY`.
 
 **`item`**
 - `title` - String: The text to display on the item
@@ -174,7 +181,7 @@ This wouldn't have been quite so possible without the following components, kudo
 - [`vue-material-tabs`](https://github.com/jairoblatt/vue-material-tabs) - Tab view component by @jairoblatt `MIT`
 - [`VJsoneditor`](https://github.com/yansenlei/VJsoneditor) - Interactive JSON editor component by @yansenlei `MIT`
   - Forked from [`JsonEditor`](https://github.com/josdejong/jsoneditor) by @josdejong `Apache-2.0 License`
-  - And using [`ajv`](https://github.com/ajv-validator/ajv) `MIT` JSON schema Validator [`ace`](https://github.com/ajaxorg/ace) `BSD` code editor
+  - Using [`ajv`](https://github.com/ajv-validator/ajv) `MIT` JSON schema Validator and [`ace`](https://github.com/ajaxorg/ace) `BSD` code editor
 - [`vue-toasted`](https://github.com/shakee93/vue-toasted) - Toast notification component by @shakee93 `MIT`
 
 Utils:
