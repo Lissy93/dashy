@@ -37,7 +37,6 @@ const encodeGetParams = p => Object.entries(p).map(kv => kv.map(encodeURICompone
 /* Restores the backup */
 export const restore = (backupId, password) => {
   const params = encodeGetParams({ backupId, subHash: makeSubHash(password) });
-  console.log(makeSubHash(password));
   const url = `${ENDPOINT}/?${params}`;
   return new Promise((resolve, reject) => {
     axios.get(url).then((response) => {

@@ -95,10 +95,10 @@ All fields are optional, unless otherwise stated.
 - `backgroundImg` - String: Path to an optional full-screen app background image. This can be either remote (http) or local (/). Note that this will slow down initial load
 - `enableFontAwesome` - Boolean: Where `true` is enabled, if left blank font-awesome will be enabled only if required by 1 or more icons
 - `fontAwesomeKey` - String: If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
-- `customCss` - String: Raw CSS that will be applied to the page. Please minify it first.
 - `theme`- String: The default theme for first load (you can change this later from the UI)
 - `cssThemes` - String[]: An array of custom theme names which can be used in the theme switcher dropdown - _See **theming** below_
 - `externalStyleSheet` - String or String[] - Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
+- `customCss` - String: Raw CSS that will be applied to the page. Please minify it first.
 
 **`sections`** - Section[]: (required) An array of sections - _See **`section`** below_
 
@@ -182,8 +182,9 @@ This wouldn't have been quite so possible without the following components, kudo
 - [`vue-material-tabs`](https://github.com/jairoblatt/vue-material-tabs) - Tab view component by @jairoblatt `MIT`
 - [`VJsoneditor`](https://github.com/yansenlei/VJsoneditor) - Interactive JSON editor component by @yansenlei `MIT`
   - Forked from [`JsonEditor`](https://github.com/josdejong/jsoneditor) by @josdejong `Apache-2.0 License`
-  - Using [`ajv`](https://github.com/ajv-validator/ajv) `MIT` JSON schema Validator and [`ace`](https://github.com/ajaxorg/ace) `BSD` code editor
 - [`vue-toasted`](https://github.com/shakee93/vue-toasted) - Toast notification component by @shakee93 `MIT`
+- [`vue-prism-editor`](https://github.com/koca/vue-prism-editor) - Lightweight code editor by @koca `MIT`
+  - Forked from [`prism.js`](https://github.com/PrismJS/prism) `MIT`
 
 Utils:
 - [`crypto-js`](https://github.com/brix/crypto-js) - Encryption implementations by @evanvosberg and community `MIT`

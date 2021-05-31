@@ -17,6 +17,10 @@
           <MetaDataIcon class="button-icon"/>
           Edit Meta Data
         </button>
+        <button class="config-button center" @click="goToCustomCss()">
+          <CustomCssIcon class="button-icon"/>
+          Edit Custom CSS
+        </button>
         <button class="config-button center" @click="openCloudSync()">
           <CloudIcon class="button-icon"/>
           {{backupId ? 'Edit Cloud Sync' : 'Enable Cloud Sync'}}
@@ -70,6 +74,7 @@ import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
 import MetaDataIcon from '@/assets/interface-icons/config-meta-data.svg';
+import CustomCssIcon from '@/assets/interface-icons/config-custom-css.svg';
 import CloudIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
 
 export default {
@@ -97,6 +102,7 @@ export default {
     EditIcon,
     CloudIcon,
     MetaDataIcon,
+    CustomCssIcon,
   },
   methods: {
     /* Seletcs the edit tab of the tab view */
@@ -106,6 +112,10 @@ export default {
     },
     goToMetaEdit() {
       const itemToSelect = this.$refs.tabView.navItems[3];
+      this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
+    },
+    goToCustomCss() {
+      const itemToSelect = this.$refs.tabView.navItems[4];
       this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
     },
     openCloudSync() {
