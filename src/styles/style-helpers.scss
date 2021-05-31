@@ -1,0 +1,44 @@
+
+/* Fancy scrollbar */
+.scroll-bar {
+  &::-webkit-scrollbar {
+      width: var(--scroll-bar-width);
+      height: var(--scroll-bar-width);
+  }
+  &::-webkit-scrollbar-track {
+      border-radius: var(--curve-factor);
+      background-color: var(--scroll-bar-background);
+  }
+  &::-webkit-scrollbar-thumb {
+      background: var(--scroll-bar-color);
+      border-radius: var(--curve-factor);
+  }
+}
+
+/* Single-style helpers */
+.bold { font-weight: bold; }
+.light { font-weight: lighter; }
+.text-left { text-align: left;}
+.text-right { text-align: right;}
+.text-center { text-align: center;}
+.horizontal-center { margin: 0 auto; }
+.border-box { box-sizing: border-box; }
+
+/* Overiding styles for the global toast component */
+.toast-message {
+    background: var(--toast-background) !important;
+    color: var(--toast-color) !important;
+    border: 1px solid var(--toast-color) !important;
+    border-radius: var(--curve-factor) !important;
+    font-size: 1.25rem !important;
+}
+.toast-error {
+    background: var(--danger) !important;
+    color: var(--white) !important;
+    font-size: 1.25rem !important;
+}
+.toast-success {
+    background: var(--success) !important;
+    color: var(--white) !important;
+    font-size: 1.25rem !important;
+}

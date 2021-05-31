@@ -96,6 +96,7 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/media-queries.scss';
+@import '@/styles/style-helpers.scss';
 
 .no-items {
     width: 100px;
@@ -115,24 +116,14 @@ export default {
   flex-wrap: wrap;
   &.item-group-grid {
     display: grid;
-    @include phone {
-      grid-template-columns: repeat(1, 1fr);
-    }
-    @include tablet {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    @include laptop {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    @include monitor {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    @include big-screen {
-      grid-template-columns: repeat(4, 1fr);
-    }
-    @include big-screen-up {
-      grid-template-columns: repeat(5, 1fr);
-    }
+    overflow: auto;
+    @extend .scroll-bar;
+    @include phone { grid-template-columns: repeat(1, 1fr); }
+    @include tablet { grid-template-columns: repeat(2, 1fr); }
+    @include laptop { grid-template-columns: repeat(2, 1fr); }
+    @include monitor { grid-template-columns: repeat(3, 1fr); }
+    @include big-screen { grid-template-columns: repeat(4, 1fr); }
+    @include big-screen-up { grid-template-columns: repeat(5, 1fr); }
   }
 }
 

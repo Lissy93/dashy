@@ -3,7 +3,7 @@
     <div class="section intro">
       <h2>Cloud Backup & Restore</h2>
       <p class="intro">
-        Cloud backup and restore is an optional feature, that enabled you to upload your
+        Cloud backup and restore is an optional feature, that enables you to upload your
         config to the internet, and then restore it on any other device or instance of Dashy.
         <br><br>
         All data is fully end-to-end encrypted with AES, using your password as the key.

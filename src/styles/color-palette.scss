@@ -38,6 +38,7 @@
   --dimming-factor: 0.7; // Opacity for semi-transparent components
 
   /* Settings for specific components */
+  --scroll-bar-width: 8px;
   --item-group-padding: 5px; // Determines width of item-group outline
   --item-shadow: 1px 1px 2px #130f23;
   --item-hover-shadow: 1px 2px 4px #373737;
@@ -74,4 +75,6 @@
   --config-settings-background: var(--background-darker);
   --toast-background: var(--primary);
   --toast-color: var(--background);
+  --scroll-bar-color: var(--primary);
+  --scroll-bar-background: var(--background-darker);
 }

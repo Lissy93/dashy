@@ -126,6 +126,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/style-helpers.scss';
 
 pre {
   color: var(--config-code-color);
@@ -204,6 +205,7 @@ div.code-container {
 
 .tab-item {
   overflow-y: auto;
+  @extend .scroll-bar;
   background: var(--config-settings-background);
   &.main-tab {
     min-height: 500px;
