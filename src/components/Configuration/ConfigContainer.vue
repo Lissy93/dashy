@@ -57,6 +57,10 @@
 
 <script>
 
+import hljs from 'highlight.js/lib/core';
+import yaml from 'highlight.js/lib/languages/yaml';
+import 'highlight.js/styles/mono-blue.css';
+
 import JsonToYaml from '@/utils/JsonToYaml';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
 import EditSiteMeta from '@/components/Configuration/EditSiteMeta';
@@ -127,6 +131,11 @@ export default {
       }
     },
   },
+  mounted() {
+    hljs.registerLanguage('yaml', yaml);
+    const highlighted = hljs.highlight(this.jsonParser(this.config), { language: 'yaml' }).value;
+    document.getElementById('conf-yaml').innerHTML = highlighted;
+  },
 };
 </script>
 
@@ -135,6 +144,7 @@ export default {
 
 pre {
   color: var(--config-code-color);
+  font-weight: bold !important;
   padding: 0.5rem 1rem;
 }
 
@@ -172,6 +182,12 @@ a.config-button, button.config-button {
 
 div.code-container {
   background: var(--config-code-background);
+  #conf-yaml {
+    font-family: 'Inconsolata', sans-serif;
+    .hljs-attr {
+      font-weight: bold !important;
+    }
+  }
   .yaml-action-buttons {
     position: absolute;
     top: 0.5rem;
@@ -281,5 +297,9 @@ a.hyperlink-wrapper {
   hr.tab__slider {
     background: var(--config-settings-color);
   }
+}
+
+#conf-yaml .hljs-attr {
+  color: #9c03f5;
 }
 </style>
