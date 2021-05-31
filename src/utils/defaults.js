@@ -50,6 +50,10 @@ module.exports = {
     BACKUP_ID: 'backupId',
     BACKUP_HASH: 'backupHash',
   },
+  modalNames: {
+    CONF_EDITOR: 'CONF_EDITOR',
+    CLOUD_BACKUP: 'CLOUD_BACKUP',
+  },
   topLevelConfKeys: {
     PAGE_INFO: 'pageInfo',
     APP_CONFIG: 'appConfig',

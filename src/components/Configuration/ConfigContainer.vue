@@ -1,6 +1,6 @@
 <template>
   <Tabs :navAuto="true" name="Add Item" ref="tabView">
-    <TabItem name="Config">
+    <TabItem name="Config" class="main-tab">
       <div class="main-options-container">
         <h2>Configuration Options</h2>
         <a href="/conf.yml" download class="hyperlink-wrapper">
@@ -17,10 +17,25 @@
           <MetaDataIcon class="button-icon"/>
           Edit Meta Data
         </button>
+        <button class="config-button center" @click="goToCustomCss()">
+          <CustomCssIcon class="button-icon"/>
+          Edit Custom CSS
+        </button>
+        <button class="config-button center" @click="openCloudSync()">
+          <CloudIcon class="button-icon"/>
+          {{backupId ? 'Edit Cloud Sync' : 'Enable Cloud Sync'}}
+        </button>
         <button class="config-button center" @click="resetLocalSettings()">
           <DeleteIcon class="button-icon"/>
           Reset Local Settings
         </button>
+        <div class="config-note">
+          <p class="sub-title">Note:</p>
+          <span>
+            All changes made here are stored locally. To apply globally, either export your config
+            into your conf.yml file, or use the cloud backup/ restore feature.
+          </span>
+        </div>
       </div>
     </TabItem>
     <TabItem name="Backup Config" class="code-container">
@@ -38,24 +53,36 @@
     <TabItem name="Edit Site Meta">
       <EditSiteMeta :config="config" />
     </TabItem>
+    <TabItem name="Custom Styles">
+      <CustomCssEditor :config="config" initialCss="hello" />
+    </TabItem>
   </Tabs>
 </template>
 
 <script>
 
+import hljs from 'highlight.js/lib/core';
+import yaml from 'highlight.js/lib/languages/yaml';
+import 'highlight.js/styles/mono-blue.css';
+
 import JsonToYaml from '@/utils/JsonToYaml';
+import { localStorageKeys, modalNames } from '@/utils/defaults';
 import EditSiteMeta from '@/components/Configuration/EditSiteMeta';
 import JsonEditor from '@/components/Configuration/JsonEditor';
+import CustomCssEditor from '@/components/Configuration/CustomCss';
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
 import MetaDataIcon from '@/assets/interface-icons/config-meta-data.svg';
+import CustomCssIcon from '@/assets/interface-icons/config-custom-css.svg';
+import CloudIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
 
 export default {
   name: 'ConfigContainer',
   data() {
     return {
       jsonParser: JsonToYaml,
+      backupId: localStorage[localStorageKeys.BACKUP_ID] || '',
     };
   },
   props: {
@@ -69,10 +96,13 @@ export default {
   components: {
     EditSiteMeta,
     JsonEditor,
+    CustomCssEditor,
     DownloadIcon,
     DeleteIcon,
     EditIcon,
+    CloudIcon,
     MetaDataIcon,
+    CustomCssIcon,
   },
   methods: {
     /* Seletcs the edit tab of the tab view */
@@ -83,6 +113,13 @@ export default {
     goToMetaEdit() {
       const itemToSelect = this.$refs.tabView.navItems[3];
       this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
+    },
+    goToCustomCss() {
+      const itemToSelect = this.$refs.tabView.navItems[4];
+      this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
+    },
+    openCloudSync() {
+      this.$modal.show(modalNames.CLOUD_BACKUP);
     },
     copyConfigToClipboard() {
       navigator.clipboard.writeText(this.jsonParser(this.config));
@@ -104,13 +141,20 @@ export default {
       }
     },
   },
+  mounted() {
+    hljs.registerLanguage('yaml', yaml);
+    const highlighted = hljs.highlight(this.jsonParser(this.config), { language: 'yaml' }).value;
+    document.getElementById('conf-yaml').innerHTML = highlighted;
+  },
 };
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/style-helpers.scss';
 
 pre {
   color: var(--config-code-color);
+  font-weight: bold !important;
   padding: 0.5rem 1rem;
 }
 
@@ -148,6 +192,12 @@ a.config-button, button.config-button {
 
 div.code-container {
   background: var(--config-code-background);
+  #conf-yaml {
+    font-family: 'Inconsolata', sans-serif;
+    .hljs-attr {
+      font-weight: bold !important;
+    }
+  }
   .yaml-action-buttons {
     position: absolute;
     top: 0.5rem;
@@ -186,7 +236,11 @@ div.code-container {
 
 .tab-item {
   overflow-y: auto;
+  @extend .scroll-bar;
   background: var(--config-settings-background);
+  &.main-tab {
+    min-height: 500px;
+  }
 }
 
 a.hyperlink-wrapper {
@@ -203,6 +257,25 @@ a.hyperlink-wrapper {
   h2 {
     margin: 1rem auto;
     color: var(--config-settings-color);
+  }
+}
+
+.config-note {
+  width: 80%;
+  position: absolute;
+  bottom: 1rem;
+  left: 10%;
+  margin: 0.5rem auto;
+  padding: 0.5rem 0.75rem;
+  border: 1px dashed var(--config-settings-color);
+  border-radius: var(--curve-factor);
+  text-align: left;
+  opacity: var(--dimming-factor);
+  background: var(--config-settings-background);
+  p.sub-title {
+    font-weight: bold;
+    margin: 0;
+    display: inline;
   }
 }
 </style>
@@ -234,5 +307,9 @@ a.hyperlink-wrapper {
   hr.tab__slider {
     background: var(--config-settings-color);
   }
+}
+
+#conf-yaml .hljs-attr {
+  color: #9c03f5;
 }
 </style>

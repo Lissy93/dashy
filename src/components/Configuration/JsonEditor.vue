@@ -38,7 +38,7 @@ export default {
   methods: {
     save() {
       localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(this.jsonData));
-      this.$toasted.show('Changes seved succesfully');
+      this.$toasted.show('Changes saved succesfully');
     },
   },
 };

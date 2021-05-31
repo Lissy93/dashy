@@ -25,8 +25,9 @@
         :displayData="getDisplayData(section)"
         :groupId="`section-${index}`"
         :items="filterTiles(section.items)"
+        :itemSize="itemSizeBound"
          @itemClicked="finishedSearching()"
-         :itemSize="itemSizeBound"
+         @change-modal-visibility="updateModalVisibility"
          :class="(filterTiles(section.items).length === 0 && searchValue) ? 'no-results' : ''"
       />
     </div>

@@ -77,7 +77,7 @@ export default {
         title: this.config.pageInfo.title,
         description: this.config.pageInfo.description,
         footerText: this.config.pageInfo.footerText,
-        navLinks: this.config.pageInfo.navLinks,
+        navLinks: this.config.pageInfo.navLinks || [],
       },
     };
   },

@@ -27,16 +27,13 @@ import IconSpanner from '@/assets/interface-icons/config-editor.svg';
 import IconCloud from '@/assets/interface-icons/cloud-backup-restore.svg';
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
 import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
-import { topLevelConfKeys, localStorageKeys } from '@/utils/defaults';
+import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/defaults';
 
 export default {
   name: 'ConfigLauncher',
   data() {
     return {
-      modalNames: {
-        CONF_EDITOR: 'CONF_EDITOR',
-        CLOUD_BACKUP: 'CLOUD_BACKUP',
-      },
+      modalNames,
     };
   },
   components: {
@@ -52,11 +49,11 @@ export default {
   },
   methods: {
     showEditor: function show() {
-      this.$modal.show(this.modalNames.CONF_EDITOR);
+      this.$modal.show(modalNames.CONF_EDITOR);
       this.$emit('modalChanged', true);
     },
     showCloudModal: function show() {
-      this.$modal.show(this.modalNames.CLOUD_BACKUP);
+      this.$modal.show(modalNames.CLOUD_BACKUP);
       this.$emit('modalChanged', true);
     },
     combineConfig() {

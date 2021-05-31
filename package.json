@@ -11,6 +11,8 @@
     "axios": "^0.21.1",
     "connect": "^3.7.0",
     "crypto-js": "^4.0.0",
+    "highlight.js": "^11.0.0",
+    "prismjs": "^1.23.0",
     "register-service-worker": "^1.6.2",
     "remedial": "^1.0.8",
     "serve-static": "^1.14.1",
@@ -20,6 +22,7 @@
     "vue-cli-plugin-yaml": "^1.0.2",
     "vue-js-modal": "^2.0.0-rc.6",
     "vue-material-tabs": "^0.0.7",
+    "vue-prism-editor": "^1.2.2",
     "vue-router": "^3.0.3",
     "vue-select": "^3.11.2",
     "vue-toasted": "^1.1.28"
