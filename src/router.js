@@ -14,6 +14,13 @@ try {
   localPageInfo = undefined;
 }
 
+let localAppConfig;
+try {
+  localAppConfig = JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
+} catch (e) {
+  localAppConfig = undefined;
+}
+
 const router = new Router({
   routes: [
     {
@@ -23,7 +30,7 @@ const router = new Router({
       props: {
         sections: sections || [],
         pageInfo: localPageInfo || pageInfo || defaultPageInfo,
-        appConfig: appConfig || {},
+        appConfig: localAppConfig || appConfig || {},
       },
       meta: {
         title: 'Home Page',

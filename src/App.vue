@@ -20,11 +20,21 @@ export default {
   },
   data: () => ({
     // pageInfo: this.getPageInfo(conf.pageInfo),
-    appConfig: conf.appConfig || Defaults.appConfig,
     showFooter: Defaults.visibleComponents.footer,
   }),
   computed: {
-    pageInfo: function pi() { return this.getPageInfo(conf.pageInfo); },
+    pageInfo() {
+      return this.getPageInfo(conf.pageInfo);
+    },
+    appConfig() {
+      if (localStorage[localStorageKeys.APP_CONFIG]) {
+        return JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
+      } else if (conf.appConfig) {
+        return conf.appConfig;
+      } else {
+        return Defaults.appConfig;
+      }
+    },
   },
   methods: {
     /* Returns either page info from the config, or default values */
@@ -53,6 +63,17 @@ export default {
       }
       return '';
     },
+    injectCustomStyles(usersCss) {
+      const style = document.createElement('style');
+      style.textContent = usersCss;
+      document.head.append(style);
+    },
+  },
+  mounted() {
+    if (this.appConfig.customCss) {
+      const cleanedCss = this.appConfig.customCss.replace(/<\/?[^>]+(>|$)/g, '');
+      this.injectCustomStyles(cleanedCss);
+    }
   },
 };
 </script>

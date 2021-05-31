@@ -49,6 +49,9 @@
     <TabItem name="Edit Site Meta">
       <EditSiteMeta :config="config" />
     </TabItem>
+    <TabItem name="Custom Styles">
+      <CustomCssEditor :config="config" initialCss="hello" />
+    </TabItem>
   </Tabs>
 </template>
 
@@ -58,6 +61,7 @@ import JsonToYaml from '@/utils/JsonToYaml';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
 import EditSiteMeta from '@/components/Configuration/EditSiteMeta';
 import JsonEditor from '@/components/Configuration/JsonEditor';
+import CustomCssEditor from '@/components/Configuration/CustomCss';
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
@@ -83,6 +87,7 @@ export default {
   components: {
     EditSiteMeta,
     JsonEditor,
+    CustomCssEditor,
     DownloadIcon,
     DeleteIcon,
     EditIcon,
