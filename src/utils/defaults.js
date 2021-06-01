@@ -28,8 +28,10 @@ module.exports = {
     'raspberry-jam',
     'tiger',
     'colorful',
-    'high-contrast-light',
+    'minimal-dark',
+    'minimal-light',
     'high-contrast-dark',
+    'high-contrast-light',
   ],
   visibleComponents: {
     pageTitle: true,

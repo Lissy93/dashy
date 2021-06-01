@@ -271,6 +271,7 @@ a.hyperlink-wrapper {
   border-radius: var(--curve-factor);
   text-align: left;
   opacity: var(--dimming-factor);
+  color: var(--config-settings-color);
   background: var(--config-settings-background);
   p.sub-title {
     font-weight: bold;
