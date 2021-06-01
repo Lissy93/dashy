@@ -5,7 +5,7 @@
       id="filter-tiles"
       v-model="input"
       ref="filter"
-      placeholder="Start typing to filter tiles..."
+      placeholder="Start typing to filter..."
       v-on:input="userIsTypingSomething"
       @keydown.esc="clearFilterInput" />
       <i v-if="input.length > 0"

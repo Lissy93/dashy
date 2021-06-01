@@ -12,6 +12,7 @@
       <div class="tile-title" :id="`tile-${id}`" >
         <span class="text">{{ title }}</span>
         <div class="overflow-dots">...</div>
+        <p class="description">{{ description }}</p>
       </div>
       <!-- Item Icon -->
       <Icon :icon="icon" :url="url" :size="itemSize" :color="color" v-bind:style="customStyles" />
@@ -205,7 +206,7 @@ export default {
     }
     .tile-title {
       height: fit-content;
-      min-height: 1rem;
+      min-height: 1.2rem;
       span.text {
         text-align: left;
         padding-left: 10%;
@@ -227,6 +228,10 @@ export default {
   }
   &.size-large {
     height: 100px;
+  }
+
+  p.description {
+    display: none;
   }
 }
 

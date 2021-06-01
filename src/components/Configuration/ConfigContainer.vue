@@ -192,9 +192,9 @@ a.config-button, button.config-button {
 
 div.code-container {
   background: var(--config-code-background);
-  #conf-yaml {
-    font-family: 'Inconsolata', sans-serif;
-    .hljs-attr {
+  #conf-yaml span {
+    font-family: var(--font-monospace), monospace !important;
+    &.hljs-attr {
       font-weight: bold !important;
     }
   }
@@ -252,7 +252,7 @@ a.hyperlink-wrapper {
   display: flex;
   flex-direction: column;
   padding-top: 2rem;
-  background: var(--background-darker);
+  background: var(--config-settings-background);
   height: calc(100% - 2rem);
   h2 {
     margin: 1rem auto;

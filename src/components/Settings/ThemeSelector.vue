@@ -1,11 +1,11 @@
 <template>
   <div class="theme-selector-section" v-if="themes" >
-    <span class="theme-label">Themes</span>
+    <span class="theme-label">Theme</span>
     <v-select
       :options="themeNames"
       v-model="selectedTheme"
       class="theme-dropdown"
-      :tabindex="2"
+      :tabindex="-2"
     />
   </div>
 </template>

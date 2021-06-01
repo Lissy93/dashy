@@ -82,6 +82,7 @@ export default {
 @import '@/styles/global-styles.scss';
 @import '@/styles/color-palette.scss';
 @import '@/styles/color-themes.scss';
+@import '@/styles/typography.scss';
 
 body {
   background: var(--background);

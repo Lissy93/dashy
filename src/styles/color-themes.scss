@@ -7,6 +7,8 @@ html[data-theme='callisto'] {
   --item-background-hover: #060913;
   --item-hover-shadow: 0 1px 3px #00ccb4b3, 0 1px 2px #00ccb4bf;
   --primary: #00CCB4;
+  --font-body: 'Inconsolata', 'Georgia', sans-serif;
+  --font-headings: 'PTMono', 'Courier New', monospace;
 }
 
 html[data-theme='thebe'] {
@@ -19,9 +21,11 @@ html[data-theme='thebe'] {
   --primary: #9660ec;
   --item-group-outer-background: #9660EC
     linear-gradient(45deg,  #9660ec 2%,#5f60ea 51%,#9660ec 100%);
+  --font-headings: 'PTMono', 'Courier New', monospace;
 }
 
 html[data-theme='dracula'] {
+  --font-headings: 'Allerta Stencil', sans-serif;
   --background: #44475a;
   --background-darker: #282a36;
   --item-group-background: #282a36;
@@ -43,6 +47,7 @@ html[data-theme='bee'] {
   --item-background: #1c2636;
   --item-group-background: #0b1021;
   --nav-link-background-color: #0b1021;
+  --font-headings: 'Sniglet', cursive;
 }
 
 html[data-theme='raspberry-jam'] {
@@ -52,6 +57,7 @@ html[data-theme='raspberry-jam'] {
   --nav-link-background-color: #0b1021;
   --config-code-background: #0b1021;
   --config-code-color: #eb2d6c;
+  --font-headings: 'Sniglet', cursive;
 }
 
 html[data-theme='tiger'] {
@@ -59,6 +65,7 @@ html[data-theme='tiger'] {
   --item-background: #1c2636;
   --item-group-background: #0b1021;
   --nav-link-background-color: #0b1021;
+  --font-headings: 'Sniglet', cursive;
 }
 
 html[data-theme='matrix-red'] {
@@ -67,6 +74,8 @@ html[data-theme='matrix-red'] {
   --primary: red;
   --outline-color: red;
   --curve-factor: 0px;
+  --font-body: 'Cutive Mono', monospace;
+  --font-headings: 'VT323', monospace;
 }
 
 html[data-theme='matrix'] {
@@ -75,6 +84,8 @@ html[data-theme='matrix'] {
   --primary: #2bca2b;
   --outline-color: #2bca2b;
   --curve-factor: 0px;
+  --font-body: 'Cutive Mono', monospace;
+  --font-headings: 'VT323', monospace;
 }
 
 html[data-theme='hacker-girl'] {
@@ -83,6 +94,8 @@ html[data-theme='hacker-girl'] {
   --primary: #e435f1;
   --outline-color: #e435f1;
   --curve-factor: 0px;
+  --font-body: 'Cutive Mono', monospace;
+  --font-headings: 'VT323', monospace;
 }
 
 html[data-theme='high-contrast-light'] {
@@ -94,6 +107,7 @@ html[data-theme='high-contrast-light'] {
   --outline-color: #000;
   --curve-factor: 0px;
   --config-code-color: #000;
+  --font-headings: 'PTMono', 'Courier New', monospace;
 }
 
 html[data-theme='high-contrast-dark'] {
@@ -103,6 +117,7 @@ html[data-theme='high-contrast-dark'] {
   --primary: #fff;
   --outline-color: #fff;
   --curve-factor: 0px;
+  --font-headings: 'PTMono', 'Courier New', monospace;
 }
 
 html[data-theme='nord'] {
@@ -135,7 +150,9 @@ html[data-theme='material'] {
   --background: #e2e1e0;
   --background-darker: #01579B;
   --settings-background: #01579B;
-  --item-group-background: #f8f8f8;
+  --item-group-shadow: none;
+  --item-group-outer-background: none;
+  --item-group-background: none;
   --item-background: #fff;
   --item-background-hover: #fff;
   --settings-background: #29B6F6;
@@ -151,6 +168,10 @@ html[data-theme='material'] {
   --welcome-popup-background: #01579b;
   --welcome-popup-text-color: #ffffff;
   --config-code-color: #000;
+  --item-group-heading-text-color-hover: #01579b;
+  --config-settings-background: #01579b;
+  --config-settings-color: #fff;
+  --heading-text-color: #fff;
 }
 
 html[data-theme='material-dark'] {
@@ -189,7 +210,108 @@ html[data-theme='material-dark'] {
   }
 }
 
+html[data-theme='material-2'] {
+  --font-body: 'Roboto', serif;
+  --font-headings: 'Francois One', serif;
+
+  --primary: #363636;
+  --background: #e2e1e0;
+  --background-darker: #4285f4;
+  --item-group-outer-background: none;
+  --item-group-shadow: none;
+  --item-group-background: none;
+  --item-background: #fff;
+  --item-background-hover: #fff;
+  --item-shadow: 0 1px 3px #0000001f, 0 1px 2px #0000003d;
+  --item-hover-shadow: 0 1px 4px #00000029, 0 2px 4px #0000002a;
+  --item-text-color: #363636;
+  --item-group-heading-text-color-hover: #363636;
+  --item-icon-transform-hover: none;
+  --nav-link-border-color-hover: #1341a6;
+  --settings-text-color: #363636;
+  --config-code-color: #363636;
+  --heading-text-color: #fff;
+  --curve-factor: 4px;
+  --curve-factor-navbar: 8px;
+  --search-container-background: linear-gradient(to bottom, #3367d6 0%,#4285f4 5%);
+  header {
+    background: #3367d6;
+    color: #fff;
+    .page-titles span.subtitle {
+      text-shadow: none;
+    }
+  }
+  footer {
+    opacity: 1;
+    color: #fff;
+  }
+  section.filter-container form label {
+    color: var(--primary);
+  }
+  .item:not(.size-small) {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    text-align: left;
+    overflow: hidden;
+    align-items: end;
+    width: 15rem;
+    min-width: 15rem;
+    max-height: 4rem;
+    margin: 0.2rem;
+    .overflow-dots {
+      display: none;
+    }
+    img {
+      padding: 0.1rem 0.25rem;
+    }
+    .tile-title {
+      height: auto;
+      padding: 0.1rem 0.25rem;
+      span.text {
+        position: relative;
+        font-weight: bold;
+        font-size: 1.1rem;
+        width: 100%;
+      }
+      p.description {
+        display: block;
+        margin: 0;
+        white-space: pre-wrap;
+      }	
+    }
+  }
+  .item.size-large {
+    width: 18rem;
+    min-width: 18rem;
+    max-height: 5rem;
+    margin: 0.4rem;
+    img {
+      padding: 0.2rem 0.5rem;
+    }
+  }
+  .tooltip {
+    display: none !important;
+  }
+  .orientation-horizontal {
+    display: flex;
+    flex-direction: column;
+    .there-are-items {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      @include phone { grid-template-columns: repeat(1, 1fr); }
+      @include tablet { grid-template-columns: repeat(2, 1fr); }
+      @include laptop { grid-template-columns: repeat(3, 1fr); }
+      @include monitor { grid-template-columns: repeat(4, 1fr); }
+      @include big-screen { grid-template-columns: repeat(5, 1fr); }
+      @include big-screen-up { grid-template-columns: repeat(6, 1fr); }
+    }
+  }
+
+}
+
 html[data-theme='colorful'] {
+  --font-headings: 'Podkova', monospace;
   --primary: #e8eae1;
   --background: #0b1021;
   --item-background: #05070e;
@@ -215,33 +337,19 @@ html[data-theme='colorful'] {
     svg path { fill: #05070e; }
     i.fas, i.fab, i.far, i.fal, i.fad { color: #05070e; }
   }
+  h1, h2, h3, h4 {
+    font-weight: normal;
+  }
 }
 
 html[data-theme='minimal-light'], html[data-theme='minimal-dark'] {
-  .item-group-container:not(.item-size-small):not(.orientation-vertical) {
-    display: flex;
-    flex-direction: column;
-    .there-are-items {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      @include phone { grid-template-columns: repeat(2, 1fr); }
-      @include tablet { grid-template-columns: repeat(4, 1fr); }
-      @include laptop { grid-template-columns: repeat(6, 1fr); }
-      @include monitor { grid-template-columns: repeat(8, 1fr); }
-      @include big-screen { grid-template-columns: repeat(10, 1fr); }
-      @include big-screen-up { grid-template-columns: repeat(12, 1fr); }
-    }
-    .collapsable {
-      border-bottom: 1px dashed #ffffff38;
-      border-radius: 0;
-    }
-  }
-
+  --font-body: 'PTMono-Regular', 'Courier New', monospace;
+  --font-headings: 'PTMono-Regular', 'Courier New', monospace;
   label.lbl-toggle h3 {
     font-size: 1.8rem;
   }
   .tile-title span.text {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
   }
 
@@ -261,7 +369,10 @@ html[data-theme='minimal-light'], html[data-theme='minimal-dark'] {
       box-shadow: none;
     }
   }
-
+  .item-group-container.orientation-horizontal .collapsable {
+    border-bottom: 1px dashed #ffffff38;
+    border-radius: 0;
+  }
 }
 
 html[data-theme='minimal-light'] {
@@ -296,12 +407,12 @@ html[data-theme='minimal-light'] {
 html[data-theme='minimal-dark'] {
   --primary: #a5a5a5;
   --background: #14171e;
-  --background-darker: #000;
+  --background-darker: #090b0e;
   --item-group-outer-background: none;
   --item-group-shadow: none;
   --item-group-background: none;
   --item-background: none;
-  --item-background-hover: #14171e;
+  --item-background-hover: #090b0e;
   --item-shadow: none;
   --item-hover-shadow: none;
   --item-text-color: #fff;
