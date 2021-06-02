@@ -22,6 +22,7 @@
         v-for="(section, index) in getSections(sections)"
         :key="index"
         :title="section.name"
+        :icon="section.icon || undefined"
         :displayData="getDisplayData(section)"
         :groupId="`section-${index}`"
         :items="filterTiles(section.items)"

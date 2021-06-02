@@ -13,6 +13,7 @@ appConfig:
   fontAwesomeKey: 0821c65656
 sections:
 - name: Getting Started
+  icon: fab fa-github
   items:
   - title: Source
     description: Source code and documentation on GitHub

@@ -1,6 +1,7 @@
 <template>
    <Collapsable
     :title="title"
+    :icon="icon"
     :uniqueKey="groupId"
     :collapsed="displayData.collapsed"
     :cols="displayData.cols"
@@ -51,6 +52,7 @@ export default {
   props: {
     groupId: String,
     title: String,
+    icon: String,
     displayData: Object,
     items: Array,
     itemSize: String,

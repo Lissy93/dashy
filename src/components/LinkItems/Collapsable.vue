@@ -11,6 +11,7 @@
         tabIndex="-1"
     >
     <label :for="`collapsible-${uniqueKey}`" class="lbl-toggle" tabindex="-1">
+      <Icon v-if="icon" :icon="icon" size="small" class="section-icon" />
       <h3>{{ title }}</h3>
     </label>
     <div class="collapsible-content">
@@ -24,17 +25,22 @@
 <script>
 
 import { localStorageKeys } from '@/utils/defaults';
+import Icon from '@/components/LinkItems/ItemIcon.vue';
 
 export default {
   name: 'CollapsableContainer',
   props: {
     uniqueKey: String,
     title: String,
+    icon: String,
     collapsed: Boolean,
     cols: Number,
     rows: Number,
     color: String,
     customStyles: String,
+  },
+  components: {
+    Icon,
   },
   data() {
     return {
@@ -96,105 +102,104 @@ export default {
 @import '@/styles/media-queries.scss';
 
 .collapsable {
-    padding: var(--item-group-padding);
-    margin: 10px;
+  padding: var(--item-group-padding);
+  margin: 10px;
+  border-radius: var(--curve-factor);
+  background: var(--item-group-outer-background);
+  box-shadow: var(--item-group-shadow);
+  height: fit-content;
+  width: 100%;
+  width: stretch;
+
+  grid-row-start: span 1;
+  &.row-2 { grid-row-start: span 2; }
+  &.row-3 { grid-row-start: span 3; }
+  &.row-4 { grid-row-start: span 4; }
+
+  grid-column-start: span 1;
+  @include tablet-up {
+    &.col-2 { grid-column-start: span 2; }
+    &.col-3 { grid-column-start: span 2; }
+    &.col-4 { grid-column-start: span 2; }
+  }
+  @include laptop-up {
+    &.col-2 { grid-column-start: span 2; }
+    &.col-3 { grid-column-start: span 3; }
+    &.col-4 { grid-column-start: span 3; }
+  }
+  @include monitor-up {
+    &.col-2 { grid-column-start: span 2; }
+    &.col-3 { grid-column-start: span 3; }
+    &.col-4 { grid-column-start: span 4; }
+  }
+
+  .wrap-collabsible {
+    margin-bottom: 1.2rem 0;
+  }
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  label.lbl-toggle {
+    outline: none;
+    display: block;
+    padding: 0.25rem;
+    cursor: pointer;
     border-radius: var(--curve-factor);
-    background: var(--item-group-outer-background);
-    box-shadow: var(--item-group-shadow);
-    height: fit-content;
-    width: 100%;
-    width: stretch;
-
-    grid-row-start: span 1;
-    &.row-2 { grid-row-start: span 2; }
-    &.row-3 { grid-row-start: span 3; }
-    &.row-4 { grid-row-start: span 4; }
-
-    grid-column-start: span 1;
-    @include tablet-up {
-      &.col-2 { grid-column-start: span 2; }
-      &.col-3 { grid-column-start: span 2; }
-      &.col-4 { grid-column-start: span 2; }
+    transition: all 0.25s ease-out;
+    text-align: left;
+    color: var(--item-group-heading-text-color); //var(--item-group-background);
+    h3 {
+      margin: 0;
+      padding: 0;
+      display: inline;
     }
-    @include laptop-up {
-      &.col-2 { grid-column-start: span 2; }
-      &.col-3 { grid-column-start: span 3; }
-      &.col-4 { grid-column-start: span 3; }
+    .section-icon {
+      display: inline;
+      margin-right: 0.5rem;
     }
-    @include monitor-up {
-      &.col-2 { grid-column-start: span 2; }
-      &.col-3 { grid-column-start: span 3; }
-      &.col-4 { grid-column-start: span 4; }
-    }
+  }
 
-    .wrap-collabsible {
-        margin-bottom: 1.2rem 0;
-    }
+  .lbl-toggle:hover {
+    color: var(--item-group-heading-text-color-hover);
+  }
 
-    input[type='checkbox'] {
-        display: none;
-    }
+  .lbl-toggle::before {
+    content: ' ';
+    display: inline-block;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid currentColor;
+    vertical-align: middle;
+    margin-right: .7rem;
+    transform: translateY(-2px);
+    transition: transform .2s ease-out;
+  }
 
-    label {
-        outline: none;
-    }
+  .toggle:checked + .lbl-toggle::before {
+    transform: rotate(90deg) translateX(-3px);
+  }
 
-    .lbl-toggle {
-        display: block;
-        padding: 0.25rem;
-        cursor: pointer;
-        border-radius: var(--curve-factor);
-        transition: all 0.25s ease-out;
-        text-align: left;
-        color: var(--item-group-heading-text-color); //var(--item-group-background);
+  .collapsible-content {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height .25s ease-in-out;
+    background: var(--item-group-background);
+    border-radius: 0 0 var(--curve-factor) var(--curve-factor);
+  }
 
-        h3 {
-            margin: 0;
-            padding: 0;
-            display: inline;
-        }
-    }
+  .toggle:checked + .lbl-toggle + .collapsible-content {
+    max-height: 3000px;
+  }
 
-    .lbl-toggle:hover {
-        color: var(--item-group-heading-text-color-hover);
-    }
+  .toggle:checked + .lbl-toggle {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 
-    .lbl-toggle::before {
-        content: ' ';
-        display: inline-block;
-        border-top: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        border-left: 5px solid currentColor;
-        vertical-align: middle;
-        margin-right: .7rem;
-        transform: translateY(-2px);
-
-        transition: transform .2s ease-out;
-    }
-
-    .toggle:checked + .lbl-toggle::before {
-        transform: rotate(90deg) translateX(-3px);
-    }
-
-    .collapsible-content {
-        max-height: 0px;
-        overflow: hidden;
-        transition: max-height .25s ease-in-out;
-        background: var(--item-group-background);
-        border-radius: 0 0 var(--curve-factor) var(--curve-factor);
-    }
-
-    .toggle:checked + .lbl-toggle + .collapsible-content {
-        max-height: 3000px;
-    }
-
-    .toggle:checked + .lbl-toggle {
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-
-    .collapsible-content .content-inner {
-        padding: 0.5rem;
-    }
+  .collapsible-content .content-inner {
+    padding: 0.5rem;
+  }
 }
 </style>

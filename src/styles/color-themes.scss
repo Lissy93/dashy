@@ -551,10 +551,11 @@ html[data-theme='minimal-dark'] {
   --search-container-background: #14171e;
   --curve-factor: 4px;
   --curve-factor-navbar: 8px;
+  --item-group-heading-text-color: #fff;
+  --item-group-heading-text-color-hover: #ffffffbf;
 
   label.lbl-toggle h3 {
     font-size: 1.8rem;
-    color: #fff;
   }
 
   section.filter-container {
