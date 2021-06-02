@@ -9,14 +9,14 @@
       :style="`--open-icon: ${getUnicodeOpeningIcon()}; ${customStyles}`"
     >
       <!-- Item Text -->
-      <div class="tile-title" :id="`tile-${id}`" >
+      <div :class="`tile-title  ${!icon? 'bounce': ''}`" :id="`tile-${id}`" >
         <span class="text">{{ title }}</span>
         <div class="overflow-dots">...</div>
         <p class="description">{{ description }}</p>
       </div>
       <!-- Item Icon -->
       <Icon :icon="icon" :url="url" :size="itemSize" :color="color"
-        v-bind:style="customStyles" class="icon-container" />
+        v-bind:style="customStyles" class="bounce" />
       <!-- Small icon, showing opening method on hover -->
       <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon" :openingMethod="target"
         :position="itemSize === 'medium'? 'bottom right' : 'top right'"/>
