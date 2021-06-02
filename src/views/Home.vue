@@ -204,6 +204,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/media-queries.scss';
+@import '@/styles/style-helpers.scss';
 
 .home {
   padding-bottom: 1px;
@@ -216,7 +217,9 @@ export default {
   display: grid;
   gap: 0.5rem;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 90%;
+  overflow: auto;
+  @extend .scroll-bar;
   @include monitor-up {
     max-width: 1400px;
   }

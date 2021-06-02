@@ -185,7 +185,7 @@ export default {
     }
 
     .toggle:checked + .lbl-toggle + .collapsible-content {
-        max-height: 1000px;
+        max-height: 3000px;
     }
 
     .toggle:checked + .lbl-toggle {

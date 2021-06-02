@@ -4,9 +4,9 @@
       :target="target === 'newtab' ? '_blank' : ''"
       :class="`item ${!icon? 'short': ''} size-${itemSize}`"
       v-tooltip="getTooltipOptions()"
-      v-bind:style="customStyles"
       rel="noopener noreferrer" tabindex="0"
       :id="`link-${id}`"
+      :style="`--open-icon: ${getUnicodeOpeningIcon()}; ${customStyles}`"
     >
       <!-- Item Text -->
       <div class="tile-title" :id="`tile-${id}`" >
@@ -15,7 +15,8 @@
         <p class="description">{{ description }}</p>
       </div>
       <!-- Item Icon -->
-      <Icon :icon="icon" :url="url" :size="itemSize" :color="color" v-bind:style="customStyles" />
+      <Icon :icon="icon" :url="url" :size="itemSize" :color="color"
+        v-bind:style="customStyles" class="icon-container" />
       <!-- Small icon, showing opening method on hover -->
       <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon" :openingMethod="target"
         :position="itemSize === 'medium'? 'bottom right' : 'top right'"/>
@@ -89,6 +90,14 @@ export default {
         html: false,
         delay: { show: 600, hide: 200 },
       };
+    },
+    getUnicodeOpeningIcon() {
+      switch (this.target) {
+        case 'newtab': return '"\\f360"';
+        case 'sametab': return '"\\f24d"';
+        case 'iframe': return '"\\f2d0"';
+        default: return '"\\f054"';
+      }
     },
   },
   mounted() {
@@ -232,6 +241,11 @@ export default {
 
   p.description {
     display: none;
+  }
+  &:before {
+    display: none;
+    font-family: FontAwesome;
+    content: var(--open-icon, "\f054") !important;
   }
 }
 
