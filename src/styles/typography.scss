@@ -1,0 +1,60 @@
+
+
+@font-face {
+  font-family: 'Inconsolata';
+  src: url('./assets/fonts/Inconsolata-Light.ttf');
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('./assets/fonts/Raleway-Variable.ttf');
+}
+
+@font-face {
+  font-family: 'PTMono';
+  src: url('./assets/fonts/PTMono-Regular.ttf');
+}
+
+html {
+  --font-body: 'Raleway', 'Trebuchet MS', sans-serif;
+  --font-headings: 'Inconsolata', 'Georgia', sans-serif;
+  --font-monospace: 'PTMono', 'Courier New', monospace;
+
+  font-size: 1rem;
+  font-weight: normal;
+  text-decoration: none;
+	background: transparent;
+  vertical-align: baseline;
+
+  /* Default app font face */
+  body, div, p, a, span, label, input, button {
+    font-family: var(--font-body);
+  }
+
+  /* Headings font face */
+  h1, h2, h3, h4, h5 {
+    font-family:  var(--font-headings);
+  }
+
+  /* Monospace, for code and raw data output */
+  code, pre, pre *, .jsoneditor *, .mono * {
+    font-family: var(--font-monospace);
+    font-weight: normal;
+  }
+}
+
+/* Fonts used for external themes */
+/* Material Design Themes */
+@import url('https://fonts.googleapis.com/css2?family=Francois+One&family=Roboto:wght@300&display=swap');
+
+/* Matrix, Hacker, Nerd Themes */
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=VT323&display=swap');
+
+/* Colourful */
+@import url('https://fonts.googleapis.com/css2?family=Podkova:wght@500&display=swap');
+
+/* Dracula */
+@import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap');
+
+/* Jam */
+@import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');

@@ -1,6 +1,7 @@
 <template>
    <Collapsable
     :title="title"
+    :icon="icon"
     :uniqueKey="groupId"
     :collapsed="displayData.collapsed"
     :cols="displayData.cols"
@@ -51,6 +52,7 @@ export default {
   props: {
     groupId: String,
     title: String,
+    icon: String,
     displayData: Object,
     items: Array,
     itemSize: String,
@@ -124,6 +126,20 @@ export default {
     @include monitor { grid-template-columns: repeat(3, 1fr); }
     @include big-screen { grid-template-columns: repeat(4, 1fr); }
     @include big-screen-up { grid-template-columns: repeat(5, 1fr); }
+  }
+}
+.orientation-horizontal {
+  display: flex;
+  flex-direction: column;
+  .there-are-items {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    @include phone { grid-template-columns: repeat(2, 1fr); }
+    @include tablet { grid-template-columns: repeat(4, 1fr); }
+    @include laptop { grid-template-columns: repeat(6, 1fr); }
+    @include monitor { grid-template-columns: repeat(8, 1fr); }
+    @include big-screen { grid-template-columns: repeat(10, 1fr); }
+    @include big-screen-up { grid-template-columns: repeat(12, 1fr); }
   }
 }
 

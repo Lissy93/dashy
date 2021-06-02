@@ -3,6 +3,7 @@
     <prism-editor class="my-editor" v-model="customCss" :highlight="highlighter" line-numbers />
     <button class="save-button" @click="save()">Save Changes</button>
     <p>Note, you will need to refresh the page for your changes to take effect</p>
+    <p>To remove all custom styles, delete the contents and hit Save Changes</p>
   </div>
 </template>
 
@@ -30,7 +31,7 @@ export default {
   },
   methods: {
     validate(css) {
-      return css.match(/((?:^\s*)([\w#.@*,:\-.:>,*\s]+)\s*{(?:[\s]*)((?:[A-Za-z\- \s]+[:]\s*['"0-9\w .,/()\-!%]+;?)*)*\s*}(?:\s*))/gmi);
+      return css === '' || css.match(/((?:^\s*)([\w#.@*,:\-.:>,*\s]+)\s*{(?:[\s]*)((?:[A-Za-z\- \s]+[:]\s*['"0-9\w .,/()\-!%]+;?)*)*\s*}(?:\s*))/gmi);
     },
     save() {
       let msg = '';
@@ -40,6 +41,7 @@ export default {
         localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(appConfig));
         msg = 'Changes saved succesfully';
         this.inject(this.customCss);
+        if (this.customCss === '') setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
       } else {
         msg = 'Error - Invalid CSS';
       }

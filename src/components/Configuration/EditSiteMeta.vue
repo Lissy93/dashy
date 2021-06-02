@@ -89,7 +89,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 1rem 0;
-  background: var(--background-darker);
+  background: var(--config-settings-background);
   height: calc(100% - 1rem);
   h2 {
     margin: 1rem auto;
@@ -117,6 +117,7 @@ div.form {
     min-width: 24rem;
     span {
       font-size: 1.2rem;
+      color: var(--config-settings-color);
     }
     input {
       color: var(--config-settings-color);

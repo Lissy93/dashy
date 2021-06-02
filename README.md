@@ -105,6 +105,7 @@ All fields are optional, unless otherwise stated.
 **`section`**
 - `name` - String: (required) The title of that section
 - `items` - Item[]: (required) An array of items - _See **`item`** below_
+- `icon` - String: (optional) An single icon to be displayed next to the title _See **`icon`** below_
 - `displayData`: An object with the following fields (all optional)
   - `collapsed` - Boolean: If true, the section will  be collapsed initially (defaults to `false`) 
   - `color` - String: A custom accent color for the section, as a hex code or HTML color (e.g. `#fff`)

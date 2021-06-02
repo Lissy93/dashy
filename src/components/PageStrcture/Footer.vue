@@ -29,12 +29,12 @@ export default {
 <style scoped lang="scss">
 
 footer {
-  padding: 0.5rem;
+  padding: 0.25rem;
   text-align: center;
   color: var(--medium-grey);
   opacity: var(--dimming-factor);
   background: var(--background-darker);
-  margin-top: 1rem;
+  margin-top: 7px;
   border-top: 1px solid var(--outline-color);
 }
 
