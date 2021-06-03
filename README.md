@@ -76,6 +76,8 @@ Configuration files are located in [`./public/`](https://github.com/Lissy93/dash
 
 Also within `./public` you'll find normal website assets, including `favicon.ico`, `manifest.json`, `robots.txt` and `web-icons/*`. There's no need to modify these, but you can do so if you wish.
 
+Note that the conf.yml file is where all config is read from. If you make any modifications through the web interface, you will need to export them into this file in order for your changes to persist.
+
 ### The Conf File 📄
 
 All app config is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) (in [YAML Format](https://yaml.org/)).

@@ -5,11 +5,12 @@ Dashy has a built-in feature for securely backing up your config to a hosted clo
 This is useful not only for backing up your configuration off-site, but it also enables Dashy to be used without having write a YAML config file, and makes it possible to use a public hosted instance, without the need to self-host.
 
 <p align="center">
-  <img src="https://i.ibb.co/p4pxSqX/dashy-backup-restore.png" />
+  <img src="https://i.ibb.co/p4pxSqX/dashy-backup-restore.png" width="600" />
 </p>
 
 ### How it Works
-Your local config compressed, and then encrypted using AES encryption, using a password of your choice as the key. The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works) (a platform for running serverless functions), and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
+
+All data is encrypted before being sent to the backend. In Dashy, this is done in [`CloudBackup.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/CloudBackup.js), using [crypto.js](https://github.com/brix/crypto-js)'s AES method, using the users chosen password as the key. The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works) (a platform for running serverless functions), and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
 
 
 ### Creating a Backup
@@ -29,7 +30,9 @@ Having said that, although the code uses robust security libraries and is open s
 
 ### Fair Use Policy
 
-Maximum of 24mb of storage per user. Please do not repeatedly hit the endpoint, as if the quota is exceeded the service may become less available to other users. Abuse will result in your IP being banned.
+Maximum of 24mb of storage per user. Please do not repeatedly hit the endpoint, as if the quota is exceeded the service may become less available to other users. Abuse may result in your IP being temporarily banned by Cloudflare.
+
+---
 
 ### Self-Hosting the Backup Server
 
