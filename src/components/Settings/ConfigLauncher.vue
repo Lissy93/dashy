@@ -51,6 +51,7 @@ export default {
   },
   methods: {
     showEditor: function show() {
+      // TODO: If users first time, then show note explaining that config is only stored locally
       this.$modal.show(modalNames.CONF_EDITOR);
       this.$emit('modalChanged', true);
     },

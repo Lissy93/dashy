@@ -86,6 +86,9 @@ html[data-theme='matrix'] {
   --curve-factor: 0px;
   --font-body: 'Cutive Mono', monospace;
   --font-headings: 'VT323', monospace;
+  .prism-editor-wrapper.my-editor {
+    border: 1px solid var(--primary);
+  }
 }
 
 html[data-theme='hacker-girl'] {

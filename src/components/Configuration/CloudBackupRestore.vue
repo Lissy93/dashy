@@ -7,6 +7,9 @@
         config to the internet, and then restore it on any other device or instance of Dashy.
         <br><br>
         All data is fully end-to-end encrypted with AES, using your password as the key.
+        <br>
+        For more info, please see the
+        <a href="https://github.com/Lissy93/dashy/blob/master/docs/backup-restore.md">docs</a>
       </p>
     </div>
     <div class="section backup-section">
@@ -182,6 +185,9 @@ export default {
       &.intro {
         width: 100%;
         height: fit-content;
+        a {
+          color: var(--config-settings-color);
+        }
       }
     }
 

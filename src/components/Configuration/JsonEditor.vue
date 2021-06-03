@@ -8,6 +8,9 @@
     <button class="save-button" @click="save()">Save Changes</button>
     <p class="note">
       It is recommend to backup your existing confiruration before making any changes.
+      <br>
+      Remember that these changes are only applied locally,
+      and will need to be exported to your conf.yml
     </p>
   </div>
 </template>

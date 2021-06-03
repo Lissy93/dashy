@@ -2,8 +2,11 @@
   <div class="json-editor-outer">
     <prism-editor class="my-editor" v-model="customCss" :highlight="highlighter" line-numbers />
     <button class="save-button" @click="save()">Save Changes</button>
-    <p>Note, you will need to refresh the page for your changes to take effect</p>
-    <p>To remove all custom styles, delete the contents and hit Save Changes</p>
+    <p class="quick-note">
+    <b>Note</b>: You will need to refresh the page for your changes to take effect.
+      Styles overides are only stored locally, so it is reccomended to make a copy of your CSS.
+      To remove all custom styles, delete the contents and hit Save Changes
+    </p>
   </div>
 </template>
 
@@ -85,6 +88,14 @@ button.save-button {
   width: 90%;
   margin: 0.5rem auto;
   background: var(--transparent-50);
+}
+
+p.quick-note {
+  text-align: left;
+  width: 80%;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  border-radius: var(--curve-factor);
 }
 
 </style>
