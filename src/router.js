@@ -33,7 +33,7 @@ const router = new Router({
         appConfig: localAppConfig || appConfig || {},
       },
       meta: {
-        title: 'Home Page',
+        title: pageInfo.title || 'Home Page',
         metaTags: [
           {
             name: 'description',

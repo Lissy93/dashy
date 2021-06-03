@@ -1,6 +1,6 @@
 ---
 pageInfo:
-  title: Dashy
+  title: Bookmarks
   navLinks:
   - title: Home
     path: /
@@ -9,26 +9,170 @@ pageInfo:
   - title: Source Code
     path: https://github.com/Lissy93/dashy
 appConfig:
-  theme: colorful
-  fontAwesomeKey: 0821c65656
+  theme: dracula
+  fontAwesomeKey: 13014ae648
 sections:
-- name: Getting Started
-  icon: far fa-star
+- name: Productivity
+  icon: fas fa-calendar-check
   items:
-  - title: Source
-    description: Source code and documentation on GitHub
+  - title: ProtonMail
+    description: Secure Encrypted Email
+    icon: favicon
+    url: https://mail.protonmail.com/
+  - title: AnonAddy
+    description: Mail aliasing and forwarding service
+    icon: favicon
+    url: https://app.anonaddy.com/
+  - title: LessPass
+    description: Deterministic password generator
+    icon: favicon
+    url: https://lesspass.com/
+  - title: EteSync
+    description: Calendar, contacts and tasks
+    icon: favicon
+    url: https://client.etesync.com/
+  - title: Live Coin Watch
+    description: Real-time crypto prices and read-only portfolio
+    icon: favicon
+    url: https://www.livecoinwatch.com/
+  - title: Standard Notes
+    description: Encrypted productivity suit
+    icon: favicon
+    url: https://app.standardnotes.org/
+- name: Social
+  icon: fas fa-thumbs-up
+  items:
+  - title: Discord
+    icon: fab fa-discord
+    url: https://discord.com/channels/
+  - title: Mastodon
+    icon: fab fa-mastodon
+    url: https://mastodon.social/
+  - title: Reddit
+    icon: fab fa-reddit
+    url: https://www.reddit.com/
+  - title: Twitter
+    icon: fab fa-twitter
+    url: https://twitter.com/
+  - title: YouTube
+    icon: fab fa-youtube
+    url: https://youtube.com/
+  - title: Instagram
+    icon: fab fa-instagram
+    url: https://www.instagram.com/
+- name: Coding
+  icon: fas fa-code
+  displayData:
+    rows: 2
+  items:
+  - title: StackOverflow
+    icon: fab fa-stack-overflow
+    url: https://stackoverflow.com/
+  - title: GitHub
     icon: fab fa-github
-    url: https://github.com/Lissy93/dashy
-  - title: Issues
-    description: View currently open issues, or raise a new one
-    icon: fas fa-bug
-    url: https://github.com/Lissy93/dashy/issues
-  - title: Demo 1
-    description: 'Live Demo #1'
-    icon: far fa-rocket
-    url: https://dashy-demo-1.netlify.app 
-  - title: Demo 2
-    description: 'Live Demo #2'
-    icon: fad fa-planet-ringed
-    url: https://dashy-demo-2.netlify.app 
-  
+    url: https://github.com/
+  - title: Grep App
+    icon: fas fa-slash
+    description: Allows you to search the contents of files within GitHub repos, with a RegEx option too
+    url: https://grep.app/
+  - title: Hoppscotch
+    icon: fas fa-dice-d6
+    description: API development tool
+    url: https://hoppscotch.io/
+  - title: Regexr
+    icon: fas fa-code
+    description: App for creating, testing and understanding regular expressions
+    url: https://regexr.com/
+  - title: Tmate
+    icon: fas fa-terminal
+    description: Instant TMUX-based terminal sharing
+    url: https://tmate.io/
+  - title: Debian Handbook
+    icon: fab fa-linux
+    url: https://debian-handbook.info/browse/stable/
+  - title: Crontab Guru
+    description: Editor for cron schedule expressions
+    icon: fas fa-pen-square
+    url: https://crontab.guru/
+  - title: CyberChef
+    description: All in one encryption, encoding, hashes etc
+    icon: fas fa-user-astronaut
+    url: https://gchq.github.io/CyberChef/
+  - title: SSL Labs Tester
+    description: Check SSL Certificates
+    icon: fab fa-expeditedssl
+    url: https://www.ssllabs.com/ssltest/
+  - title: JSON Formatter
+    description: JSON validator, beautifier and convertor
+    url: https://jsonformatter.org/
+    icon: fas fa-brackets-curly
+  - title: JSFiddle
+    url: https://jsfiddle.net/
+    icon: fab fa-jsfiddle
+  - title: Digital Ocean
+    description: Affordable, preformant cloud services
+    url: https://cloud.digitalocean.com/
+    icon: fab fa-digital-ocean
+  - title: HealthChecks.io
+    description: Off-site cron job and service monitoring
+    icon: fal fa-monitor-heart-rate
+    url: https://healthchecks.io/
+- name: Utilities
+  icon: fas fa-briefcase
+  displayData:
+    itemSize: small
+    cols: 2
+  items:
+  - title: Chroniker Timer
+    description: A productivity timer
+    url: https://chroniker.co/
+  - title: CopyChar
+    description: easily search and copy any symbol
+    url: https://copychar.cc/
+  - title: DeepL
+    description: Fast, accurate, secure online multi-language translator
+    url: https://www.deepl.com/translator
+  - title: Font Generator
+    description: Use ASCII characters for different plaintext fonts
+    url: https://www.fontgeneratoronline.com/
+  - title: JSON Formatter
+    description: CSV, JSON, YAML, XML and more formatting tools
+    url: https://jsonformatter.org/
+  - title: Time.Is
+    description: Time.Is
+    url: https://time.is/
+  - title: Torrent Parts
+    description: Inspect and edit what's in your Torrent file or Magnet link
+    url: https://torrent.parts/
+  - title: Photo College
+    url: https://www.befunky.com/create/collage/
+  - title: MD5 Hash
+    url: http://www.miraclesalad.com/webtools/md5.php
+  - title: GitHub Stars Over Time
+    url: https://seladb.github.io/StarTrack-js/
+  - title: Text & List Tools
+    url: https://pinetools.com/c-text-lists/
+  - title: Online Text Tools
+    description: More text tools, allowing for RegEx actions
+    url: https://onlinetexttools.com/
+  - title: Conversao
+    description: Instantly convert a unit to all others
+    url: https://conversao.net/eng/
+  - title: Omni Calculators
+    description: A collection of thousands of calculators
+    url: https://www.omnicalculator.com/
+  - title: Dr Meme
+    description: Meme Generator
+    url: https://www.drmemes.com/
+  - title: ASCII Tree Generator
+    description: For displaying directory structure
+    url: https://ascii-tree-generator.com/
+  - title: ASCII Diagram Drawer
+    description: For using box characters to draw boxes
+    url: For using box characters to draw boxes
+  - title: Bullet Converter
+    description: Small script I use
+    url: https://listed.to/p/LxO8yHsB9E#bc
+  - title: Lenny Face Maker
+    description: Easily generate ASCII Lenny emojis
+    url: https://www.fontspace.com/lenny-face

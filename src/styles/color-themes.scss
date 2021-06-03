@@ -298,9 +298,6 @@ html[data-theme='material'], html[data-theme='material-dark'] {
     max-height: 6rem;
     margin: 0.2rem;
     padding: 0.5rem;
-    .overflow-dots {
-      display: none;
-    }
     img {
       padding: 0.1rem 0.25rem;
     }
@@ -354,6 +351,9 @@ html[data-theme='material'], html[data-theme='material-dark'] {
     transition: all 0.2s linear 0s;
     div {
       transition: all 0.2s linear 0s;
+    }
+    .overflow-dots {
+      display: none;
     }
     &:before {
       content: "\f054";
