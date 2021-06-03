@@ -53,6 +53,7 @@ module.exports = {
     APP_CONFIG: 'appConfig',
     BACKUP_ID: 'backupId',
     BACKUP_HASH: 'backupHash',
+    HIDE_SETTINGS: 'hideSettings',
   },
   modalNames: {
     CONF_EDITOR: 'CONF_EDITOR',

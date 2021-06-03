@@ -13,7 +13,6 @@ appConfig:
   fontAwesomeKey: 0821c65656
 sections:
 - name: Getting Started
-  icon: far fa-star
   items:
   - title: Source
     description: Source code and documentation on GitHub

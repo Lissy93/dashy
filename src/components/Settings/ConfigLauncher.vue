@@ -3,8 +3,10 @@
     <!-- Button and label -->
     <span>Config</span>
     <div class="config-buttons">
-      <IconSpanner v-tooltip="tooltip('Update configuration locally')" @click="showEditor()" />
-      <IconCloud v-tooltip="tooltip('Backup / restore cloud config')" @click="showCloudModal()" />
+      <IconSpanner @click="showEditor()" tabindex="-2"
+        v-tooltip="tooltip('Update configuration locally')" />
+      <IconCloud @click="showCloudModal()" tabindex="-2"
+        v-tooltip="tooltip('Backup / restore cloud config')" />
     </div>
 
     <!-- Modal containing all the configuration options -->

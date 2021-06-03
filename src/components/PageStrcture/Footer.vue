@@ -34,7 +34,7 @@ footer {
   color: var(--medium-grey);
   opacity: var(--dimming-factor);
   background: var(--background-darker);
-  margin-top: 7px;
+  margin-top: 1.5rem;
   border-top: 1px solid var(--outline-color);
 }
 

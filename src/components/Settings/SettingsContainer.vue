@@ -5,29 +5,40 @@
       v-if="searchVisible"
       :active="!modalOpen"
     />
-    <div class="options-container" v-if="settingsVisible">
-      <ThemeSelector :themes="availableThemes"
-        :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
-      <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
-      <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
-      <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
-        @modalChanged="modalChanged" />
+    <div class="options-outer">
+      <div class="options-container" v-if="settingsVisible">
+        <ThemeSelector :themes="availableThemes"
+          :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
+        <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
+        <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
+        <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
+          @modalChanged="modalChanged" />
+      </div>
+      <div :class="`show-hide-container ${settingsVisible? 'hide-btn' : 'show-btn'}`">
+        <button @click="toggleSettingsVisibility()"
+          v-tooltip="`${settingsVisible? 'Hide' : 'Open'} Settings Menu`" tabindex="-2">
+          <IconClose v-if="settingsVisible" />
+          <IconOpen v-else />
+        </button>
+      </div>
     </div>
     <KeyboardShortcutInfo />
   </section>
 </template>
 
 <script>
-import Defaults from '@/utils/defaults';
+import Defaults, { localStorageKeys } from '@/utils/defaults';
 import SearchBar from '@/components/Settings/SearchBar';
 import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import LayoutSelector from '@/components/Settings/LayoutSelector';
 import ItemSizeSelector from '@/components/Settings/ItemSizeSelector';
 import KeyboardShortcutInfo from '@/components/Settings/KeyboardShortcutInfo';
+import IconOpen from '@/assets/interface-icons/config-open-settings.svg';
+import IconClose from '@/assets/interface-icons/config-close.svg';
 
 export default {
-  name: 'FilterTile',
+  name: 'SettingsContainer',
   props: {
     displayLayout: String,
     iconSize: String,
@@ -44,6 +55,8 @@ export default {
     LayoutSelector,
     ItemSizeSelector,
     KeyboardShortcutInfo,
+    IconOpen,
+    IconClose,
   },
   methods: {
     userIsTypingSomething(something) {
@@ -70,11 +83,19 @@ export default {
       if (typeof userThemes === 'string') return [userThemes];
       return userThemes;
     },
+    toggleSettingsVisibility() {
+      this.settingsVisible = !this.settingsVisible;
+      localStorage.setItem(localStorageKeys.HIDE_SETTINGS, this.settingsVisible);
+    },
+    getSettingsVisibility() {
+      return JSON.parse(localStorage[localStorageKeys.HIDE_SETTINGS]
+        || Defaults.visibleComponents.settings);
+    },
   },
   data() {
     return {
-      searchVisible: Defaults.visibleComponents.searchBar && !this.modalOpen,
-      settingsVisible: Defaults.visibleComponents.settings,
+      searchVisible: Defaults.visibleComponents.searchBar,
+      settingsVisible: this.getSettingsVisibility(),
     };
   },
 };
@@ -91,13 +112,19 @@ export default {
     background: linear-gradient(0deg, var(--background) 0%, var(--background-darker) 100%);
     box-shadow: var(--settings-container-shadow);
   }
+  .options-outer {
+    display: flex;
+    position: relative;
+    flex: 1;
+    background: var(--settings-background);
+  }
   .options-container {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     justify-content: flex-end;
     flex: 1;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.5rem 0.5rem 1rem;
     border-radius: var(--curve-factor-navbar) 0 0;
     background: var(--settings-background);
     div {
@@ -105,6 +132,38 @@ export default {
       opacity: var(--dimming-factor);
       opacity: 1;
       &:hover { opacity: 1; }
+    }
+  }
+
+  .show-hide-container {
+    display: flex;
+    // align-items: center;
+    background: var(--settings-background);
+    color: var(--settings-text-color);
+    width: 1.5rem;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    &.show-btn {
+      width: 2rem;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+    button {
+      width: 100%;
+      padding: 2px 2px 0 2px;
+      margin: 2px;
+      border-radius: var(--curve-factor);
+      height: fit-content;
+      background: none;
+      border: none;
+      color: var(--settings-text-color);
+      cursor: pointer;
+      opacity: var(--dimming-factor);
+    }
+    &:hover button {
+      background: var(--settings-text-color);
+      color: var(--settings-background);
     }
   }
 
@@ -120,7 +179,7 @@ export default {
   }
 
   @include phone {
-    .options-container {
+    .options-container, .show-hide-button {
       display: none;
     }
   }
