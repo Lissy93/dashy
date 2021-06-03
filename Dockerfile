@@ -1,26 +1,30 @@
-
-# Build Stage
+# build stage
 FROM node:lts-alpine as build-stage
-LABEL Maintainer Alicia Sykes <alicia@omg.lol>
-
-RUN apk update
 
 WORKDIR /app
 
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn install
+COPY package*.json ./
+RUN yarn install --frozen-lockfile
 
 COPY . .
 RUN yarn build
 
-# Production Stage
-ENV PORT 80
+# production stage
+FROM alpine:3.11
 
-FROM nginx:1.15.7-alpine as production-stage
+ENV USER darkhttpd
+ENV GROUP darkhttpd
+ENV GID 911
+ENV UID 911
+ENV PORT 8080
 
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+RUN addgroup -S ${GROUP} -g ${GID} && adduser -D -S -u ${UID} ${USER} ${GROUP} && \
+  apk add -U --no-cache su-exec darkhttpd
+
+COPY --from=build-stage --chown=${USER}:${GROUP} /app/dist /www/
+COPY --from=build-stage --chown=${USER}:${GROUP} /app/dist/assets /www/default-assets
+COPY entrypoint.sh /entrypoint.sh
 
 EXPOSE ${PORT}
-VOLUME /usr/share/nginx/html/item-icons
-CMD ["nginx", "-g", "daemon off;"]
+VOLUME /www/assets
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
