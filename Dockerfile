@@ -1,26 +1,27 @@
+FROM node:lts-alpine
 
-# Build Stage
-FROM node:lts-alpine as build-stage
-LABEL Maintainer Alicia Sykes <alicia@omg.lol>
+# Define some ENV Vars
+ENV PORT 80
+ENV DIRECTORY /app
+ENV IS_DOCKER true
 
-RUN apk update
+# Create and set the working directory
+WORKDIR ${DIRECTORY}
 
-WORKDIR /app
+# Copy over both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json ./
 
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn install
+# Install project dependencies
+RUN yarn
 
+# Copy over all project files and folders to the working directory
 COPY . .
+
+# Build initial app for production
 RUN yarn build
 
-# Production Stage
-ENV PORT 80
-
-FROM nginx:1.15.7-alpine as production-stage
-
-COPY --from=build-stage /app/dist /usr/share/nginx/html
-
+# Expose given port
 EXPOSE ${PORT}
-VOLUME /usr/share/nginx/html/item-icons
-CMD ["nginx", "-g", "daemon off;"]
+
+# Finally, run start command to serve up the built application
+CMD [ "yarn", "build-and-start"]

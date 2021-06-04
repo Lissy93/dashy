@@ -50,13 +50,14 @@
 
 ### Deploying with Docker from Source 🛳️
 - Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
-- Configuration: Fill in you're settings in `./public/conf.yml`
-- Build: `docker build -t lissy93/dashy .`
-- Start: `docker run -p 8080:80 --name my-dashboard lissy93/dashy`
+- Configuration: Create a YAML file with your configuration
+- Build: `docker build -t dashy .`
+- Start: `docker run -p [port]:80 -v [/path/to/local/conf.yml]:/app/public/conf.yml --name [my-dashboard] dashy`
 
 ### Deploying from Docker Hub 🐳
 - Get the Image: `docker pull lissy93/dashy`
-- Start the Container: `docker run -d -p 8080:80 --name my-dashboard lissy93/dashy`
+- Start the Container: `docker run -d -p 8080:80 /path/to/local/conf.yml:/app/public/conf.yml --name my-dashboard lissy93/dashy`
+
 ### Developing 🧱
 - Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
 - Install dependencies: `yarn`
