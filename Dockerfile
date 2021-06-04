@@ -1,30 +1,27 @@
-# build stage
-FROM node:lts-alpine as build-stage
+FROM node:lts-alpine
 
-WORKDIR /app
+# Define some ENV Vars
+ENV PORT 80
+ENV DIRECTORY /app
+ENV IS_DOCKER true
 
+# Create and set the working directory
+WORKDIR ${DIRECTORY}
+
+# Copy over both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
-RUN yarn install --frozen-lockfile
 
+# Install project dependencies
+RUN yarn
+
+# Copy over all project files and folders to the working directory
 COPY . .
+
+# Build initial app for production
 RUN yarn build
 
-# production stage
-FROM alpine:3.11
-
-ENV USER darkhttpd
-ENV GROUP darkhttpd
-ENV GID 911
-ENV UID 911
-ENV PORT 8080
-
-RUN addgroup -S ${GROUP} -g ${GID} && adduser -D -S -u ${UID} ${USER} ${GROUP} && \
-  apk add -U --no-cache su-exec darkhttpd
-
-COPY --from=build-stage --chown=${USER}:${GROUP} /app/dist /www/
-COPY --from=build-stage --chown=${USER}:${GROUP} /app/dist/assets /www/default-assets
-COPY entrypoint.sh /entrypoint.sh
-
+# Expose given port
 EXPOSE ${PORT}
-VOLUME /www/assets
-ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
+
+# Finally, run start command to serve up the built application
+CMD [ "yarn", "build-and-start"]
