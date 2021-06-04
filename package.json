@@ -1,6 +1,7 @@
 {
   "name": "panel",
   "version": "0.1.0",
+  "license": "MIT",
   "scripts": {
     "start": "node server",
     "dev": "vue-cli-service serve",
