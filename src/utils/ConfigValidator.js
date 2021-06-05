@@ -14,7 +14,7 @@ const ajv = new Ajv(validatorOptions);
 
 /* Message printed when validation was successful */
 const successMsg = () => {
-  return '\x1b[1m\x1b[32m\033[1mNo issues found, config is valid :)\x1b[0m\n';
+  return '\x1b[1m\x1b[32m\033[1mNo issues found, your configuration is valid :)\x1b[0m\n';
 }
 
 /* Formats error message. ready for printing to the console */
