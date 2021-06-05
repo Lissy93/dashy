@@ -40,8 +40,8 @@ const overComplicatedMessage = (ip, port) => {
       + `${chars.CYAN}${chars.BOLD}Welcome to Dashy! 🚀${chars.RESET}${chars.BR}`
       + `${chars.GREEN}Your new dashboard is now up and running `
       + `${containerId ? `in container ID ${containerId}` : 'with Docker'}${chars.BR}`
-      + `After updating your config file, run '${chars.UNDERLINE}docker exec -it `
-      + `${containerId || '[container-id]'} yarn build`
+      + `${chars.GREEN}After updating your config file, run  `
+      + `'${chars.UNDERLINE}docker exec -it ${containerId || '[container-id]'} yarn build`
       + `${chars.RESET}${chars.GREEN}' to rebuild${chars.BR}`
       + `${chars.BLUE}${stars(91)}${chars.BR}${chars.RESET}`;
   } else {

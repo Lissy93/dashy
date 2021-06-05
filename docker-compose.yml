@@ -1,0 +1,14 @@
+---
+version: "3"
+services:
+  dashy:
+    image: lissy93/dashy
+    container_name: dashy
+    volumes:
+      - /root/my-config.yml:/app/public/conf.yml
+    ports:
+      - 8080:80
+    environment:
+     - UID=1000
+     - GID=1000
+    restart: unless-stopped

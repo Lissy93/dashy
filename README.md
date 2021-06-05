@@ -36,34 +36,37 @@
   <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
 </p>
 
-![More themes and screens](https://i.ibb.co/M6nyvqW/dashy-options-screen.png)
-
 ---
 
 ## Running the App 🏃‍♂️
-### Deploying 🚀
+
+### Deploying from Docker Hub 🐳
+
+```docker
+docker run -d \
+  -p 8080:80 \
+  -v /root/my-local-conf.yml:/app/public/conf.yml \
+  --name my-dashboard \
+  --restart=always \
+  lissy93/dashy:latest
+```
+After making changes to your configuration file, you will need to run: `docker exec -it [container-id] yarn build` to rebuild. Container ID can be found by running `docker ps`
+
+### Deploying from Source 🚀
 - Get Code: `git clone git@github.com:Lissy93/dashy.git` and `cd dashy`
 - Configuration: Fill in you're settings in `./public/conf.yml`
 - Install dependencies: `yarn`
 - Build: `yarn build`
 - Run: `yarn start`
 
-### Deploying with Docker from Source 🛳️
-- Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
-- Configuration: Create a YAML file with your configuration
-- Build: `docker build -t dashy .`
-- Start: `docker run -p [port]:80 -v [/path/to/local/conf.yml]:/app/public/conf.yml --name [my-dashboard] dashy`
-
-### Deploying from Docker Hub 🐳
-- Get the Image: `docker pull lissy93/dashy`
-- Start the Container: `docker run -d -p 8080:80 /path/to/local/conf.yml:/app/public/conf.yml --name my-dashboard lissy93/dashy`
+After making changes to your configuration file, you will need to run: `yarn build` to rebuild
 
 ### Developing 🧱
 - Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
 - Install dependencies: `yarn`
 - Start dev server: `yarn dev`
 
-Note that although recommended, it is not required to use the conf.yml file- all settings can be specified through the UI, and backed up on the cloud.
+Hot reload is enabled, so changes will be detected automatically, triggering the app to be rebuilt and refreshed
 
 ---
 
@@ -77,7 +80,7 @@ Configuration files are located in [`./public/`](https://github.com/Lissy93/dash
 
 Also within `./public` you'll find normal website assets, including `favicon.ico`, `manifest.json`, `robots.txt` and `web-icons/*`. There's no need to modify these, but you can do so if you wish.
 
-Note that the conf.yml file is where all config is read from. If you make any modifications through the web interface, you will need to export them into this file in order for your changes to persist.
+Note that the conf.yml file is where all config is read from. If you make any modifications through the web interface, you will need to export them into this file in order for your changes to persist. Since the app is compiled for faster loading, you will need to rebuild it with `yarn build` (or `docker exec -it [container-id] yarn build` of you're using Docker)
 
 ### The Conf File 📄
 
