@@ -5,6 +5,8 @@ const util = require('util');
 const dns = require('dns');
 const os = require('os');
 
+require('./src/utils/ConfigValidator');
+
 const port = process.env.PORT || 80;
 
 /* eslint no-console: 0 */

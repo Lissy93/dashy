@@ -42,6 +42,8 @@
 
 ### Deploying from Docker Hub 🐳
 
+You will need [Docker](https://docs.docker.com/get-docker/) installed on your system
+
 ```docker
 docker run -d \
   -p 8080:80 \
@@ -50,16 +52,19 @@ docker run -d \
   --restart=always \
   lissy93/dashy:latest
 ```
-After making changes to your configuration file, you will need to run: `docker exec -it [container-id] yarn build` to rebuild. Container ID can be found by running `docker ps`
-
+After making changes to your configuration file, you will need to run: `docker exec -it [container-id] yarn build` to rebuild. You can also run other commands, such as `yarn validate-config` this way too. Container ID can be found by running `docker ps`. 
 ### Deploying from Source 🚀
+
+You will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed on your system
+
 - Get Code: `git clone git@github.com:Lissy93/dashy.git` and `cd dashy`
 - Configuration: Fill in you're settings in `./public/conf.yml`
 - Install dependencies: `yarn`
 - Build: `yarn build`
 - Run: `yarn start`
 
-After making changes to your configuration file, you will need to run: `yarn build` to rebuild
+After making changes to your configuration file, you will need to run: `yarn build` to rebuild. 
+You can check that your config is valid, and matches the schema by running `yarn validate-config`
 
 ### Developing 🧱
 - Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
