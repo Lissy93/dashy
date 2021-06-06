@@ -42,6 +42,8 @@
 
 ### Deploying from Docker Hub 🐳
 
+You will need [Docker](https://docs.docker.com/get-docker/) installed on your system
+
 ```docker
 docker run -d \
   -p 8080:80 \
@@ -50,16 +52,20 @@ docker run -d \
   --restart=always \
   lissy93/dashy:latest
 ```
-After making changes to your configuration file, you will need to run: `docker exec -it [container-id] yarn build` to rebuild. Container ID can be found by running `docker ps`
+After making changes to your configuration file, you will need to run: `docker exec -it [container-id] yarn build` to rebuild. You can also run other commands, such as `yarn validate-config` this way too. Container ID can be found by running `docker ps`. 
 
 ### Deploying from Source 🚀
+
+You will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed on your system
+
 - Get Code: `git clone git@github.com:Lissy93/dashy.git` and `cd dashy`
 - Configuration: Fill in you're settings in `./public/conf.yml`
 - Install dependencies: `yarn`
 - Build: `yarn build`
 - Run: `yarn start`
 
-After making changes to your configuration file, you will need to run: `yarn build` to rebuild
+After making changes to your configuration file, you will need to run: `yarn build` to rebuild. 
+You can check that your config is valid, and matches the schema by running `yarn validate-config`
 
 ### Developing 🧱
 - Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
@@ -80,7 +86,11 @@ Configuration files are located in [`./public/`](https://github.com/Lissy93/dash
 
 Also within `./public` you'll find normal website assets, including `favicon.ico`, `manifest.json`, `robots.txt` and `web-icons/*`. There's no need to modify these, but you can do so if you wish.
 
+If you are using Docker, than these directories are located in `/app/public/*`. You can mount a file or directory from your host system into the container using the `--volume` flag. For example, to pass a single YAML config file in, use: `-v /root/my-local-conf.yml:/app/public/conf.yml`
+
 Note that the conf.yml file is where all config is read from. If you make any modifications through the web interface, you will need to export them into this file in order for your changes to persist. Since the app is compiled for faster loading, you will need to rebuild it with `yarn build` (or `docker exec -it [container-id] yarn build` of you're using Docker)
+
+You can validate your configuration by running `yarn validate-config`. This will ensure that it is valid YAML, and that the data inside it matches Dashy's schema. You can view the JSON schema [here](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js). Dashy may still run with an invalid config, but it could result in unexpected behavior.
 
 ### The Conf File 📄
 
@@ -140,6 +150,7 @@ Note about `rows` and `cols`: These are defined as a proportion of the screen (r
 - To automatically fetch an icon from items URL, just set icon field to `favicon`
 - To use a Font-Awesome icon, specify the category (`fas`, `fab`, `far`, `fal` or`fad`), followed by a space then `fa-` and the icon name. For example: `fas fa-rocket`, `fab fa-monero`, `fal fa-duck` or `fad fa-glass-whiskey-rocks`. Note that light (`fal`) and duotone (`fad`) icons are only available with Font Awesome Pro, to use this, you need to set you're kit ID under `appConfig.fontAwesomeKey`.
 
+You can run `yarn validate-config` to check that your config file is valid and matches the schema.
 
 ### Theming 🎨
 
@@ -196,6 +207,7 @@ This wouldn't have been quite so possible without the following components, kudo
 Utils:
 - [`crypto-js`](https://github.com/brix/crypto-js) - Encryption implementations by @evanvosberg and community `MIT`
 - [`axios`](https://github.com/axios/axios) - Promise based HTTP client by @mzabriskie and community `MIT`
+- [`ajv`](https://github.com/ajv-validator/ajv) - JSON schema Validator by @epoberezkin and community `MIT`
 
 And the app itself is built with [Vue.js](https://github.com/vuejs/vue) ![vue-logo](https://i.ibb.co/xqKW6h5/vue-logo.png)
 

@@ -5,6 +5,8 @@ const util = require('util');
 const dns = require('dns');
 const os = require('os');
 
+require('./src/utils/ConfigValidator');
+
 const port = process.env.PORT || 80;
 
 /* eslint no-console: 0 */
@@ -56,9 +58,16 @@ const overComplicatedMessage = (ip, port) => {
   return msg;
 }
 
+function send404(req, res) {
+  // send your 404 here
+  res.statusCode = 404
+  res.end('nothing here!')
+}
+
 try {
   connect()
     .use(serveStatic(`${__dirname}/dist`))
+    .use(serveStatic(`${__dirname}/public`, { index: 'default.html' }))
     .listen(port, () => {
       try { printWelcomeMessage(port); }
       catch (e) { console.log('Dashy is Starting...'); }
