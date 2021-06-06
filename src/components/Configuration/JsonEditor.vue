@@ -3,7 +3,7 @@
     <v-jsoneditor
       v-model="jsonData"
       :options="options"
-      height="650px"
+      height="580px"
     />
     <button :class="`save-button ${!isValid ? 'err' : ''}`" @click="save()">Save Changes</button>
     <p class="errors">
@@ -170,15 +170,20 @@ button.save-button {
   }
 }
 
-.jsoneditor-menu {
+.jsoneditor-menu, .pico-modal-header {
+  background: var(--config-settings-background) !important;
+  color: var(--config-settings-color) !important;
+}
+.jsoneditor-contextmenu .jsoneditor-menu li button {
   background: var(--config-settings-background);
   color: var(--config-settings-color);
+  &.jsoneditor-selected, &.jsoneditor-selected:focus, &.jsoneditor-selected:hover {
+    background: var(--config-settings-color);
+    color: var(--config-settings-background);
+  }
 }
-.jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected,
-.jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected:focus,
-.jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected:hover {
-  background: var(--config-settings-color);
-  color: var(--config-settings-background);
+div.jsoneditor-search div.jsoneditor-frame {
+  border-radius: var(--curve-factor);
 }
 .jsoneditor-poweredBy {
   display: none;
@@ -186,5 +191,24 @@ button.save-button {
 .jsoneditor-tree, pre.jsoneditor-preview {
   background: #fff;
   text-align: left;
+}
+
+.jsoneditor-jmespath-label {
+  color: var(--config-settings-color) !important;
+}
+.jsoneditor-jmespath-block.jsoneditor-modal-actions input {
+  background: var(--config-settings-color);
+  color: var(--config-settings-background);
+  border: 1px solid var(--config-settings-background);
+  border-radius: var(--curve-factor);
+  &:hover {
+    background: var(--config-settings-background);
+    color: var(--config-settings-color);
+    border-color: var(--config-settings-color);
+  }
+}
+textarea.jsoneditor-transform-preview, div.jsoneditor-jmespath-block textarea#query {
+  border: 1px solid var(--config-settings-color);
+  border-radius: var(--curve-factor);
 }
 </style>
