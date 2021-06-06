@@ -1,5 +1,9 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
+    "revision": "d41d8cd98f00b204e9800998ecf8427e",
+    "url": "/.nojekyll"
+  },
+  {
     "revision": "b296729a82bea8fd1feac49fde8b204e",
     "url": "/conf.yml"
   },
