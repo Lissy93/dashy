@@ -18,6 +18,9 @@ export default {
     Header,
     Footer,
   },
+  provide: {
+    config: conf,
+  },
   data: () => ({
     // pageInfo: this.getPageInfo(conf.pageInfo),
     showFooter: Defaults.visibleComponents.footer,

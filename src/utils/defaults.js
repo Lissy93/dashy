@@ -13,6 +13,10 @@ module.exports = {
   layout: 'auto',
   theme: 'default',
   fontAwesomeKey: '0821c65656',
+  iconOptions: {
+    forceRootFavicon: false,
+    itemFaviconLocation: '/favicon.ico',
+  },
   builtInThemes: [
     'callisto',
     'thebe',

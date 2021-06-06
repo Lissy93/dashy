@@ -11,6 +11,7 @@
 <script>
 import BrokenImage from '@/assets/interface-icons/broken-icon.svg';
 import ErrorHandler from '@/utils/ErrorHandler';
+import { iconOptions } from '@/utils/defaults';
 
 export default {
   name: 'Icon',
@@ -30,6 +31,7 @@ export default {
       return this.getIconPath(this.icon, this.url);
     },
   },
+  inject: ['config'],
   data() {
     return {
       broken: false,
@@ -51,11 +53,15 @@ export default {
     },
     /* Get favicon URL, for items which use the favicon as their icon */
     getFavicon(fullUrl) {
+      const userHatesGoogle = this.config.appConfig // User specified don't use Google favicon API
+        ? !!this.config.appConfig.forceRootFavicon : iconOptions.forceRootFavicon;
       const isLocalIP = /(127\.)|(192\.168\.)|(10\.)|(172\.1[6-9]\.)|(172\.2[0-9]\.)|(172\.3[0-1]\.)|(::1$)|([fF][cCdD])|(localhost)/;
-      if (isLocalIP.test(fullUrl)) { // Check if using a local IP format or localhost
+      if (isLocalIP.test(fullUrl) || userHatesGoogle) { // If using local service, or hates google
+        const favicon = this.config.appConfig // Favicon name (usually /favicon.ico)
+          ? this.config.appConfig.itemFaviconLocation : iconOptions.itemFaviconLocation;
         const urlParts = fullUrl.split('/');
         // For locally running services, use the default path for favicon
-        if (urlParts.length >= 2) return `${urlParts[0]}/${urlParts[1]}/${urlParts[2]}/favicon.ico`;
+        if (urlParts.length >= 2) return `${urlParts[0]}/${urlParts[1]}/${urlParts[2]}/${favicon}`;
       } else if (fullUrl.includes('http')) {
         // For publicly accessible sites, a more reliable method is using Google's API
         return `https://s2.googleusercontent.com/s2/favicons?domain=${fullUrl}`;

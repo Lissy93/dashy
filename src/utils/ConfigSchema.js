@@ -89,6 +89,16 @@ module.exports = {
           type: 'string',
           description: 'Any custom CSS overides, must be minified',
         },
+        forceRootFavicon: {
+          type: 'boolean',
+          default: false,
+          description: 'When fetching favicon, always use websites icon and not Google API',
+        },
+        itemFaviconLocation: {
+          type: 'string',
+          default: '/favicon.ico',
+          description: 'The path to look for website favicons',
+        },
       },
       additionalProperties: false,
     },
