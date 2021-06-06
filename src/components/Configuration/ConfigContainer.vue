@@ -48,7 +48,7 @@
       </div>
     </TabItem>
     <TabItem name="Edit Sections">
-      <JsonEditor :sections="sections" />
+      <JsonEditor :config="config" />
     </TabItem>
     <TabItem name="Edit Site Meta">
       <EditSiteMeta :config="config" />

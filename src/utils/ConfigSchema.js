@@ -74,16 +74,16 @@ module.exports = {
           description: 'Theme names to be added to the dropdown',
           items: {
             type: 'string',
-          }
+          },
         },
         externalStyleSheet: {
           description: 'URL or URLs of external stylesheets to add to dropdown/ load',
           type: [
-            'string', 'array'
+            'string', 'array',
           ],
           items: {
             type: 'string',
-          }
+          },
         },
         customCss: {
           type: 'string',
@@ -211,7 +211,7 @@ module.exports = {
             },
           },
         },
-      }
+      },
     },
   },
 };
