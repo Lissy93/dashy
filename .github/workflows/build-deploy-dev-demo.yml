@@ -1,0 +1,24 @@
+# This action builds and deploys the master branch
+name: Deploy demo of current version
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+      - name: Install and Build 🔧
+        run: |
+          npm install
+          npm run build
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: dev-demo
+          folder: dist
+    
