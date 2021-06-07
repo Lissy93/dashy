@@ -6,6 +6,8 @@ By default Dashy comes with 20 built in themes, which can be applied from the dr
 
 You can also add your own themes, apply custom CSS, and modify colors.
 
+You can customize Dashy by writing your own CSS, which can be loaded either as an external stylesheet, set directly through the UI, or specified in the config file. Most styling options can be set through CSS variables, which are outlined below.
+
 The following content requires that you have a basic understanding of CSS. If you're just beginning, you may find [this article](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps) helpful.
 
 
@@ -31,7 +33,7 @@ Finally, from the UI use the theme dropdown menu to select your new theme, and y
 
 You can also set `appConfig.theme` to pre-select a default theme, which will be applied immediately after deployment.
 
-### Setting Custom CSS from the UI or Config file
+### Setting Custom CSS
 
 Custom CSS can be developed, tested and applied directly through the UI. Although you will need to make note of your changes to apply them across instances.
 
