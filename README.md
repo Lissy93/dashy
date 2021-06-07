@@ -120,9 +120,11 @@ If you are new to Vue.js or web development and want to learn more, [here are so
 ---
 ## Notes ✏
 
-### Alternatives 🙌
+### Contributors 👥
 
-There are a few self-hosted web apps, that serve a similar purpose to Dashy. If you're looking for a dashboard, and Dashy doesn't meet your needs, I highly recommend you check these projects out! Including, but not limited to: [HomeDash2](https://lamarios.github.io/Homedash2), [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`), [Organizr](https://organizr.app/) (`GPL-3.0 License`) and  [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
+![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/03fbaf35ff4653d16a622cfce00a1347c13d0192/docs/assets/CONTRIBUTORS.svg)
+
+_(^^ The above is auto-generated, submit a PR to become listed as a contributor!)_
 
 ### Credits 🏆
 
@@ -149,6 +151,10 @@ At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as we
 
 #### Backup & Sync Server
 Although the app is purely frontend, there is an optional cloud backup and restore feature. This is built as a serverless function on [Cloudflare workers](https://workers.cloudflare.com/) using [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
+
+### Alternatives 🙌
+
+There are a few self-hosted web apps, that serve a similar purpose to Dashy. If you're looking for a dashboard, and Dashy doesn't meet your needs, I highly recommend you check these projects out! Including, but not limited to: [HomeDash2](https://lamarios.github.io/Homedash2), [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`), [Organizr](https://organizr.app/) (`GPL-3.0 License`) and  [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
 
 ---
 ## License 📜
