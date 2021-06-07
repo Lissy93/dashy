@@ -2,7 +2,7 @@ const Ajv = require('ajv');
 const yaml = require('js-yaml');
 const fs = require('fs');
 
-const schema = require('./ConfigSchema');
+const schema = require('./ConfigSchema.json');
 
 const validatorOptions = {
   strict: true,

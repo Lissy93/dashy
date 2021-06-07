@@ -29,7 +29,7 @@
 
 import VJsoneditor from 'v-jsoneditor';
 import { localStorageKeys } from '@/utils/defaults';
-import configSchema from '@/utils/ConfigSchema';
+import configSchema from '@/utils/ConfigSchema.json';
 import Ajv from 'ajv7';
 
 export default {
