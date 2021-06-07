@@ -12,4 +12,4 @@ jobs:
       - uses: bubkoo/contributors-list@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          svgPath: CONTRIBUTORS.svg
+          svgPath: docs/assets/CONTRIBUTORS.svg
