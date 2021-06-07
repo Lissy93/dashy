@@ -1,13 +1,13 @@
 
 <h1 align="center">Dashy</h1>
-<p align="center"><i>Dashy helps you organise your self-hosted services, by making them all accessible from a single place</i></p>
+<p align="center"><i>Dashy helps you organize your self-hosted services, by making them all accessible from a single place</i></p>
 
 <p align="center">
   <img src="https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74" /> <img src="https://img.shields.io/github/issues/lissy93/dashy?style=flat-square" /> <img src="https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square" /> <img src="https://img.shields.io/tokei/lines/github/lissy93/dashy?style=flat-square" /> 
 </p>
 
 <p align="center">
-  <img width="220" src="https://i.ibb.co/LrcpNg9/dashy.png" />
+  <img width="220" src="https://i.ibb.co/yhbt6CY/dashy.png" />
 </p>
 
 ## Features 🌈
@@ -40,7 +40,8 @@
 
 ## Running the App 🏃‍♂️
 
-### Deploying from Docker Hub 🐳
+> For full setup instructions, see: [**Getting Started**](./docs/getting-started.md)
+#### Deploying from Docker Hub 🐳
 
 You will need [Docker](https://docs.docker.com/get-docker/) installed on your system
 
@@ -54,7 +55,7 @@ docker run -d \
 ```
 After making changes to your configuration file, you will need to run: `docker exec -it [container-id] yarn build` to rebuild. You can also run other commands, such as `yarn validate-config` this way too. Container ID can be found by running `docker ps`. 
 
-### Deploying from Source 🚀
+#### Deploying from Source 🚀
 
 You will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed on your system
 
@@ -65,135 +66,72 @@ You will need both [git](https://git-scm.com/downloads) and the latest or LTS ve
 - Run: `yarn start`
 
 After making changes to your configuration file, you will need to run: `yarn build` to rebuild. 
-You can check that your config is valid, and matches the schema by running `yarn validate-config`
-
-### Developing 🧱
-- Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
-- Install dependencies: `yarn`
-- Start dev server: `yarn dev`
-
-Hot reload is enabled, so changes will be detected automatically, triggering the app to be rebuilt and refreshed
 
 ---
 
 ## Configuring 🔧
 
-### Config Locations 📍
+> For full configuration documentation, see: [**Configuring**](./docs/configuring.md)
 
-Configuration files are located in [`./public/`](https://github.com/Lissy93/dashy/tree/master/public).
-- `./public/conf.yml` - This is the main site configuration file, and is required for the app to work
-- `./public/item-icons` - If you're using your own icons, you can choose to store them locally for better load time. You can also use sub-folders to keep things organized
+Dashy is configured with a single [YAML](https://yaml.org/) file, located at `./public/conf.yml` (or `./app/public/conf.yml` for Docker). Any other optional user-customizable assets are also located in the `./public/` directory, e.g. `favicon.ico`, `manifest.json`, `robots.txt` and `web-icons/*`. If you are using Docker, the easiest way to method is to mount a Docker volume (e.g. `-v /root/my-local-conf.yml:/app/public/conf.yml`)
 
-Also within `./public` you'll find normal website assets, including `favicon.ico`, `manifest.json`, `robots.txt` and `web-icons/*`. There's no need to modify these, but you can do so if you wish.
+In the production environment, the app needs to be rebuilt in order for changes to take effect. This can be done with `yarn build`, or `docker exec -it [container-id] yarn build` if you are using Docker (where container ID can be found by running `docker ps`). You can check that your config matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json) before deploying, by running `yarn validate-config.`
 
-If you are using Docker, than these directories are located in `/app/public/*`. You can mount a file or directory from your host system into the container using the `--volume` flag. For example, to pass a single YAML config file in, use: `-v /root/my-local-conf.yml:/app/public/conf.yml`
+You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10) helpful for getting you started
 
-Note that the conf.yml file is where all config is read from. If you make any modifications through the web interface, you will need to export them into this file in order for your changes to persist. Since the app is compiled for faster loading, you will need to rebuild it with `yarn build` (or `docker exec -it [container-id] yarn build` of you're using Docker)
-
-You can validate your configuration by running `yarn validate-config`. This will ensure that it is valid YAML, and that the data inside it matches Dashy's schema. You can view the JSON schema [here](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js). Dashy may still run with an invalid config, but it could result in unexpected behavior.
-
-### The Conf File 📄
-
-All app config is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) (in [YAML Format](https://yaml.org/)).
-All fields are optional, unless otherwise stated.
-
-**Example Configs**: https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10
-
-**`pageInfo`**
-- `title` - String: The page title and heading
-- `description` - String: Short description visible under the heading
-- `navLinks` - Array: Links to display in the nav bar, an array or objects containing a title and link:
-  - `title` - String: Text to display
-  - `path` - String: URL or relative link
-- `footerText` - String: Text to display in the footer
-
-**`appConfig`** _(optional)_
-- `backgroundImg` - String: Path to an optional full-screen app background image. This can be either remote (http) or local (/). Note that this will slow down initial load
-- `enableFontAwesome` - Boolean: Where `true` is enabled, if left blank font-awesome will be enabled only if required by 1 or more icons
-- `fontAwesomeKey` - String: If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
-- `theme`- String: The default theme for first load (you can change this later from the UI)
-- `cssThemes` - String[]: An array of custom theme names which can be used in the theme switcher dropdown - _See **theming** below_
-- `externalStyleSheet` - String or String[] - Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
-- `customCss` - String: Raw CSS that will be applied to the page. Please minify it first.
-
-**`sections`** - Section[]: (required) An array of sections - _See **`section`** below_
-
-**`section`**
-- `name` - String: (required) The title of that section
-- `items` - Item[]: (required) An array of items - _See **`item`** below_
-- `icon` - String: (optional) An single icon to be displayed next to the title _See **`icon`** below_
-- `displayData`: An object with the following fields (all optional)
-  - `collapsed` - Boolean: If true, the section will  be collapsed initially (defaults to `false`) 
-  - `color` - String: A custom accent color for the section, as a hex code or HTML color (e.g. `#fff`)
-  - `customStyles` - String: Custom CSS properties that should be applied to that section, e.g. `border: 2px dashed #ff0000;`
-  - `itemSize` - String: Specify the size for items within this group, either `small`, `medium` or `large`
-  - `rows` - Int: Number of rows the section should span vertically, e.g. 2 (defaults to `1`)
-  - `cols` - Int: Number of columns the section should span horizontally, e.g. 2 (defaults to `1`)
-  - `layout` - Enum: `auto` or `grid`. If `grid` is selected, then the number of items per row can be set
-  - `itemCountX` - Int: Number of items horizontally (for `layout: grid`)
-  - `itemCountY` - Int: Number of items vertically (for `layout: grid`)
-
-Note about `rows` and `cols`: These are defined as a proportion of the screen (rather than by number of child items), and is built using [`grid-layout`](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout). For more info, see [this example](https://i.ibb.co/HXRWVRK/how-rows-and-cols-work-in-dashy.png). In order to set the number of items that will display horizontally or vertically within a section, first set `display: grid`, and then specify values for `itemCountX`, and optionally `itemCountY`.
-
-**`item`**
-- `title` - String: The text to display on the item
-- `description` - String: Additional info which is shown in the tooltip on hover
-- `icon` - String: Icons can be either a local image, remote image, or a Font Awesome icon,  *see below for more info*
-- `url` - String: The full path to be opened on click (e.g. `https://example.com`)
-- `target` - String: The method in which the item will be opened, either `newtab`, `sametab` or `iframe`
-- `color` - String: A custom color the the item, as a hex code or HTML color (e.g. `#fff`)
-- `backgroundColor` - String: A custom fill color for the the item's background, also as a hex code
-
-**`icon`** Examples:
-- To use use a remote image, just use it's full URL, e.g. `https://i.ibb.co/710B3Yc/space-invader-x256.png`
-- To use a local image, save it in `./public/item-icons/image.png` or  `./public/my-category/item-icons/image.png` and specify the image as `image.png` or `my-category/image.png`. For best results, use either png or svg formats.
-- To automatically fetch an icon from items URL, just set icon field to `favicon`
-- To use a Font-Awesome icon, specify the category (`fas`, `fab`, `far`, `fal` or`fad`), followed by a space then `fa-` and the icon name. For example: `fas fa-rocket`, `fab fa-monero`, `fal fa-duck` or `fad fa-glass-whiskey-rocks`. Note that light (`fal`) and duotone (`fad`) icons are only available with Font Awesome Pro, to use this, you need to set you're kit ID under `appConfig.fontAwesomeKey`.
-
-You can run `yarn validate-config` to check that your config file is valid and matches the schema.
-
-### Theming 🎨
-
-The app comes with a number of built-in themes, but it's also easy to write you're own. Once you've done so you can select you're theme fro the dropdown menu, and like other visual settings, you're chosen theme is saved in local storage, so will load automatically when you next visit the page.
-
-The theme switching is done by simply changing the `data-theme` attribute on the root DOM element, which can then be targeted by CSS. First off, in order for the theme to show up in the theme switcher, it needs to be added to the config file, under `appConfig.cssThemes`, either as a string, or an array of strings for multiple themes. For example:
-
-```yaml
-appConfig:
-  cssThemes: ['tiger', 'another-theme']
-```
-
-You can now create a block to target you're theme with `html[data-theme='my-theme']{}` and set some styles. The easiest method is by setting CSS variables, but you can also directly override elements by their selector. As an example, see the [built-in CSS themes](https://github.com/Lissy93/dashy/blob/master/src/styles/color-themes.scss).
-
-```css
-html[data-theme='tiger'] {
-  --primary: #f58233;
-  --item-group-background: #0b1021;
-}
-```
-Alternatively, you can load an external stylesheet. Pass either a URL to a .css file, or an array or URLs to `appConfig.externalStyleSheet`. The stylesheet will then be pre-loaded, and can then be enabled from the UI using the theme switcher.
-
-```yaml
-appConfig:
-  externalStyleSheet: 'https://example.com/my-stylesheet.css'
-```
 ---
 
-## Notes
-### Roadmap 🛣
+## Theming 🎨
 
-- [ ] Allow users to import / export configuration through the UI
-- [ ] Improve deployment process (with a one-liner Docker run command)
-- [ ] Add support for custom widgets
-- [ ] Convert JavaScript to TypeScript
+> For full configuration documentation, see: [**Theming**](./docs/theming.md)
+
+<p align="right"><img src="https://i.ibb.co/BVSHV1v/dashy-themes-slideshow.gif" width="400"></p>
+
+The app comes with a number of built-in themes, but it's also easy to write you're own. All colors, and most other CSS properties make use of CSS variables, which makes customizing the look and feel of Dashy very easy.
+
+You can also apply custom CSS overrides directly through the UI (Under Config menu --> Custom CSS), or specify it in your config file under `appConfig.customCss`. If you have a lot of custom styles, you can pass in the path to a stylesheet, in `appConfig.externalStyleSheet`.
+
+---
+
+## Cloud Backup & Sync ☁
+
+> For full documentation, see: [**Cloud Backup & Sync**](./docs/backup-restore.md)
+
+Dashy has an **optional** built-in feature for securely backing up your config to a hosted cloud service, and then restoring it on another instance. This feature is totally optional, and if you do not enable it, then Dashy will not make any external network requests.
+
+This is useful not only for backing up your configuration off-site, but it also enables Dashy to be used without having write a YAML config file, and makes it possible to use a public hosted instance, without the need to self-host.
+
+All data is encrypted before being sent to the backend. In Dashy, this is done in [`CloudBackup.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/CloudBackup.js), using [crypto.js](https://github.com/brix/crypto-js)'s AES method, using the users chosen password as the key. The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works) (a platform for running serverless functions), and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
+
+---
+
+## Developing 🧱
+
+> For full development documentation, see: [**Developing**](./docs/developing.md)
+
+1. Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
+2. Install dependencies: `yarn`
+3. Start dev server: `yarn dev`
+
+Hot reload is enabled, so changes will be detected automatically, triggering the app to be rebuilt and refreshed. Ensure that all lint checks and tests are passing before pushing an code or deploying the app.
+
+If you are new to Vue.js or web development and want to learn more, [here are some resources](docs/developing.md#resources-for-beginners) to help get you started. Dashy is a pretty straight-forward application, so would make an ideal candidate for your first PR!
+
+---
+## Notes ✏
 
 ### Alternatives 🙌
 
-There are a few self-hosted web apps, that serve a similar purpose to Dashy. Including, but not limited to: [HomeDash2](https://lamarios.github.io/Homedash2), [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`), [Organizr](https://organizr.app/) (`GPL-3.0 License`) and  [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`).
+There are a few self-hosted web apps, that serve a similar purpose to Dashy. If you're looking for a dashboard, and Dashy doesn't meet your needs, I highly recommend you check these projects out! Including, but not limited to: [HomeDash2](https://lamarios.github.io/Homedash2), [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`), [Organizr](https://organizr.app/) (`GPL-3.0 License`) and  [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
 
 ### Credits 🏆
 
-This wouldn't have been quite so possible without the following components, kudos to their respective authors
+This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them.
+
+#### Core
+At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as well as it's services. Styling is done with [SCSS](https://github.com/sass/sass), JavaScript is currently [Babel](https://github.com/babel/babel), (but I am in the process of converting to [TypeScript](https://github.com/Microsoft/TypeScript)), linting is done with [ESLint](https://github.com/eslint/eslint), the config is defined in [YAML](https://github.com/yaml/yaml), and there is a simple [Node.js](https://github.com/nodejs/node) server to serve up the static app.
+
+#### Frontend Components
 - [`vue-select`](https://github.com/sagalbot/vue-select) - Dropdown component by @sagalbot `MIT`
 - [`vue-js-modal`](https://github.com/euvl/vue-js-modal) - Modal component by @euvl `MIT`
 - [`v-tooltip`](https://github.com/Akryum/v-tooltip) - Tooltip component by @Akryum `MIT`
@@ -204,16 +142,16 @@ This wouldn't have been quite so possible without the following components, kudo
 - [`vue-prism-editor`](https://github.com/koca/vue-prism-editor) - Lightweight code editor by @koca `MIT`
   - Forked from [`prism.js`](https://github.com/PrismJS/prism) `MIT`
 
-Utils:
+#### Utilities
 - [`crypto-js`](https://github.com/brix/crypto-js) - Encryption implementations by @evanvosberg and community `MIT`
 - [`axios`](https://github.com/axios/axios) - Promise based HTTP client by @mzabriskie and community `MIT`
 - [`ajv`](https://github.com/ajv-validator/ajv) - JSON schema Validator by @epoberezkin and community `MIT`
 
-And the app itself is built with [Vue.js](https://github.com/vuejs/vue) ![vue-logo](https://i.ibb.co/xqKW6h5/vue-logo.png)
-
+#### Backup & Sync Server
 Although the app is purely frontend, there is an optional cloud backup and restore feature. This is built as a serverless function on [Cloudflare workers](https://workers.cloudflare.com/) using [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
 
-### License 📜
+---
+## License 📜
 
 ```
 Copyright © 2021 Alicia Sykes <https://aliciasykes.com>

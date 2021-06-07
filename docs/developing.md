@@ -3,11 +3,13 @@
 
 This article outlines how to get Dashy running in a development environment, and outlines the basics of the architecture. 
 
-- [Setting up the Development Environment]()
-- [Resources for Beginners]()
-- [Style Guide]()
-- [Frontend Components]()
-- [Project Structure]()
+- [Setting up the Development Environment](#setting-up-the-dev-environment)
+- [Resources for Beginners](#resources-for-beginners)
+- [Style Guide](#style-guide)
+- [Frontend Components](#frontend-components)
+- [Common Tasks](#common-tasks)
+- [Project Structure](#directory-structure)
+- [Dependencies and Packages](#dependencies-and-packages)
 
 ### Setting up the Dev Environment
 
@@ -88,7 +90,7 @@ All frontend code is located in the `./src` directory, which is split into 5 sub
 
 The structure of the components directory is similar to that of the frontend application layout
 
-<p align="center"><img src="https://i.ibb.co/wJCt0Lq/dashy-page-structure.png" width="500"/></p>
+<p align="center"><img src="https://i.ibb.co/wJCt0Lq/dashy-page-structure.png" width="600"/></p>
 
 ### Common Tasks
 
@@ -179,3 +181,37 @@ Checklist:
 ╰── views                         # Directory of available pages, corresponding to available routes
    ╰── Home.vue                   # The home page container
 ```
+---
+
+### Dependencies and Packages
+
+During development I made the conscious decision to not reinvent the wheel if not necessary. It is often really tempting to try an build everything yourself, but sometimes it's just not practical. Often there's packages out there, developed by amazing individuals which are probably built better than I could have done. That being said, I have looked through the code of most these dependencies, to verify that they are both legitimate and efficient.
+
+The following packages are used. Full credit, and massive kudos to each of their authors.
+
+#### Core
+
+At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as well as it's services. Styling is done with [SCSS](https://github.com/sass/sass), JavaScript is currently [Babel](https://github.com/babel/babel), (but I am in the process of converting to [TypeScript](https://github.com/Microsoft/TypeScript)), linting is done with [ESLint](https://github.com/eslint/eslint), the config is defined in [YAML](https://github.com/yaml/yaml), and there is a simple [Node.js](https://github.com/nodejs/node) server to serve up the static app.
+
+#### Frontend Components
+
+- [`vue-select`](https://github.com/sagalbot/vue-select) - Dropdown component by @sagalbot `MIT`
+- [`vue-js-modal`](https://github.com/euvl/vue-js-modal) - Modal component by @euvl `MIT`
+- [`v-tooltip`](https://github.com/Akryum/v-tooltip) - Tooltip component by @Akryum `MIT`
+- [`vue-material-tabs`](https://github.com/jairoblatt/vue-material-tabs) - Tab view component by @jairoblatt `MIT`
+- [`VJsoneditor`](https://github.com/yansenlei/VJsoneditor) - Interactive JSON editor component by @yansenlei `MIT`
+  - Forked from [`JsonEditor`](https://github.com/josdejong/jsoneditor) by @josdejong `Apache-2.0 License`
+- [`vue-toasted`](https://github.com/shakee93/vue-toasted) - Toast notification component by @shakee93 `MIT`
+- [`vue-prism-editor`](https://github.com/koca/vue-prism-editor) - Lightweight code editor by @koca `MIT`
+  - Forked from [`prism.js`](https://github.com/PrismJS/prism) `MIT`
+
+#### Utilities
+
+- [`crypto-js`](https://github.com/brix/crypto-js) - Encryption implementations by @evanvosberg and community `MIT`
+- [`axios`](https://github.com/axios/axios) - Promise based HTTP client by @mzabriskie and community `MIT`
+- [`ajv`](https://github.com/ajv-validator/ajv) - JSON schema Validator by @epoberezkin and community `MIT`
+
+#### Server
+
+- [`connect`](https://github.com/senchalabs/connect) - Minimilistic middleware layer for chaining together Node.js requests handled by the server file `MIT`
+- [`serve-static`](https://github.com/expressjs/serve-static) - Lightweight static Node file server `MIT`
