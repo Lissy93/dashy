@@ -30,7 +30,6 @@
 import VJsoneditor from 'v-jsoneditor';
 import { localStorageKeys } from '@/utils/defaults';
 import configSchema from '@/utils/ConfigSchema.json';
-import Ajv from 'ajv7';
 
 export default {
   name: 'JsonEditor',
@@ -49,12 +48,6 @@ export default {
         mode: 'tree',
         modes: ['tree', 'code', 'preview'],
         name: 'config',
-        ajv: new Ajv({
-          allErrors: true,
-          verbose: true,
-          jsPropertySyntax: false,
-          $data: true,
-        }),
         onValidationError: this.validationErrors,
       },
     };
