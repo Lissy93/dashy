@@ -104,6 +104,8 @@ export default {
 <style lang="scss">
   .vm--modal {
     box-shadow: 0 40px 70px -2px hsl(0deg 0% 0% / 60%), 1px 1px 6px var(--primary);
+    min-width: 350px;
+    min-height: 600px;
   }
   .vm--overlay {
     background: #00000080;
