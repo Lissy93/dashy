@@ -6,7 +6,7 @@
       :active="!modalOpen"
     />
     <div class="options-outer">
-      <div class="options-container" v-if="settingsVisible">
+      <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
         <ThemeSelector :themes="availableThemes"
           :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
         <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
@@ -132,6 +132,9 @@ export default {
       opacity: var(--dimming-factor);
       opacity: 1;
       &:hover { opacity: 1; }
+    }
+    &.hide {
+      display: none;
     }
   }
 
