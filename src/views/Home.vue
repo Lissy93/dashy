@@ -272,8 +272,11 @@ export default {
     border-radius: var(--curve-factor);
 }
 
-.filter-container {
+section.filter-container {
   border-bottom: 1px solid var(--outline-color);
+  @include phone {
+    flex-direction: column;
+  }
 }
 
 </style>
