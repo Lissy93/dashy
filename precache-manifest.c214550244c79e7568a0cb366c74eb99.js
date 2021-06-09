@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/conf.yml"
   },
   {
-    "revision": "35c9f2c231eaad1c6707",
+    "revision": "3dd29351b401c4992f36",
     "url": "/css/app.a8a14bbb.css"
   },
   {
@@ -32,7 +32,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/Raleway-Variable.3b5635ac.ttf"
   },
   {
-    "revision": "f5d5f5eb75cbdf51047ca017c03bcf9c",
+    "revision": "450e79213702b119fabc7c321dd47bf7",
     "url": "/index.html"
   },
   {
@@ -256,12 +256,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/item-icons/smart-home/node-red.png"
   },
   {
-    "revision": "f5989d6599ac8d884d23",
-    "url": "/js/about.06214a09.js"
+    "revision": "0983c2e48672af7c7b17",
+    "url": "/js/about.4d615496.js"
   },
   {
-    "revision": "35c9f2c231eaad1c6707",
-    "url": "/js/app.2ee0ed11.js"
+    "revision": "3dd29351b401c4992f36",
+    "url": "/js/app.5b029f07.js"
   },
   {
     "revision": "17716c450a2499f15aa2",
