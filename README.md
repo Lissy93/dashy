@@ -10,6 +10,7 @@
   <img width="220" src="https://i.ibb.co/yhbt6CY/dashy.png" />
 </p>
 
+
 ## Features 🌈
 
 - Instant search by name, domain and tags - just start typing
@@ -38,7 +39,7 @@
 
 ---
 
-## Running the App 🏃‍♂️
+## Getting Started 🛫
 
 > For full setup instructions, see: [**Getting Started**](./docs/getting-started.md)
 #### Deploying from Docker Hub 🐳
@@ -118,22 +119,70 @@ Hot reload is enabled, so changes will be detected automatically, triggering the
 If you are new to Vue.js or web development and want to learn more, [here are some resources](docs/developing.md#resources-for-beginners) to help get you started. Dashy is a pretty straight-forward application, so would make an ideal candidate for your first PR!
 
 ---
-## Notes ✏
+
+## Contributing 😇
+
+> For full contributing guide, see: [**Contributing**](/docs/contributing.md)
+
+Pull requests are welcome, and would by much appreciated!
+
+Some ideas for PRs include: bug fixes, improve the docs, add new themes, implement a new widget, add or improve the display options, improve or refactor the code, or implement a new feature.
+
+Before you submit your pull request, please ensure the following:
+- Must be backwards compatible
+- All lint checks and tests must pass
+- If a new option in the the config file is added, it needs to be added into the schema, and documented in the configuring guide
+- If a new dependency is required, it must be essential, and it must be thoroughly checked out for security or efficiency issues
+- Your pull request will need to be up-to-date with master, and the PR template must be filled in
+
+---
+
+## Support 🙋‍♀️
+
+If you've found a bug, or something that isn't working as you'd expect, please raise an issue, so that it can be resolved. Similarly, if you're having trouble getting things up and running, feel free to ask a question. Feature requests and feedback are also welcome, as it helps Dashy improve.
+
+- [Raise a Bug 🐛](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%90%9B+Bug&template=bug-report---.md&title=%5BBUG%5D)
+- [Submit a Feature Request 🦄](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A6%84+Feature+Request&template=feature-request---.md&title=%5BFEATURE_REQUEST%5D)
+- [Ask a Question 🤷‍♀️](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A4%B7%E2%80%8D%E2%99%82%EF%B8%8F+Question&template=question------.md&title=%5BQUESTION%5D)
+- [Share Feedback 🌈](https://github.com/Lissy93/dashy/issues/new?assignees=&labels=%F0%9F%8C%88+Feedback&template=share-feedback---.md&title=%5BFEEDBACK%5D)
+
+For general questions about any of the technologies used, you should search the [web](https://duckduckgo.com), or open a question on [StackOverflow](https://stackoverflow.com/questions/)
+
+ If you need to get in touch securely with the author me, you can send any messages to me at:
+- **Email**: `alicia at omg dot lol`
+- **Public Key** [`0688 F8D3 4587 D954 E9E5  1FB8 FEDB 68F5 5C02 83A7`](https://keybase.io/aliciasykes/pgp_keys.asc?fingerprint=0688f8d34587d954e9e51fb8fedb68f55c0283a7)
+
+---
+
+## Documentation 📘
+
+- [Getting Started](/docs/getting-started.md)
+- [Configuring](/docs/configuring.md)
+- [Developing](/docs/developing.md)
+- [Contributing](/docs/contributing.md)
+- [User Guide](/docs/user-guide.md)
+- [Troubleshooting](/docs/troubleshooting.md)
+- [Backup & Restore](/docs/backup-restore.md)
+- [Theming](/docs/theming.md)
+
+---
+
+## Credits 🏆
 
 ### Contributors 👥
 
 ![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/03fbaf35ff4653d16a622cfce00a1347c13d0192/docs/assets/CONTRIBUTORS.svg)
 
-_(^^ The above is auto-generated, submit a PR to become listed as a contributor!)_
+_(^^ It's lonely here all by myself - submit a PR to become listed as a contributor!)_
 
-### Credits 🏆
+### Dependencies 🔗
 
 This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them.
 
-#### Core
+##### Core
 At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as well as it's services. Styling is done with [SCSS](https://github.com/sass/sass), JavaScript is currently [Babel](https://github.com/babel/babel), (but I am in the process of converting to [TypeScript](https://github.com/Microsoft/TypeScript)), linting is done with [ESLint](https://github.com/eslint/eslint), the config is defined in [YAML](https://github.com/yaml/yaml), and there is a simple [Node.js](https://github.com/nodejs/node) server to serve up the static app.
 
-#### Frontend Components
+##### Frontend Components
 - [`vue-select`](https://github.com/sagalbot/vue-select) - Dropdown component by @sagalbot `MIT`
 - [`vue-js-modal`](https://github.com/euvl/vue-js-modal) - Modal component by @euvl `MIT`
 - [`v-tooltip`](https://github.com/Akryum/v-tooltip) - Tooltip component by @Akryum `MIT`
@@ -144,12 +193,12 @@ At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as we
 - [`vue-prism-editor`](https://github.com/koca/vue-prism-editor) - Lightweight code editor by @koca `MIT`
   - Forked from [`prism.js`](https://github.com/PrismJS/prism) `MIT`
 
-#### Utilities
+##### Utilities
 - [`crypto-js`](https://github.com/brix/crypto-js) - Encryption implementations by @evanvosberg and community `MIT`
 - [`axios`](https://github.com/axios/axios) - Promise based HTTP client by @mzabriskie and community `MIT`
 - [`ajv`](https://github.com/ajv-validator/ajv) - JSON schema Validator by @epoberezkin and community `MIT`
 
-#### Backup & Sync Server
+##### Backup & Sync Server
 Although the app is purely frontend, there is an optional cloud backup and restore feature. This is built as a serverless function on [Cloudflare workers](https://workers.cloudflare.com/) using [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
 
 ### Alternatives 🙌

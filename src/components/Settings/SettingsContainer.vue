@@ -6,7 +6,7 @@
       :active="!modalOpen"
     />
     <div class="options-outer">
-      <div class="options-container" v-if="settingsVisible">
+      <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
         <ThemeSelector :themes="availableThemes"
           :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
         <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
@@ -133,6 +133,13 @@ export default {
       opacity: 1;
       &:hover { opacity: 1; }
     }
+    &.hide {
+      display: none;
+    }
+    @include very-tiny-phone {
+      flex-direction: column;
+      align-items: baseline;
+    }
   }
 
   .show-hide-container {
@@ -148,6 +155,9 @@ export default {
       width: 2rem;
       top: 0.5rem;
       right: 0.5rem;
+      @include phone {
+        top: -3rem !important;
+      }
     }
     button {
       width: 100%;
@@ -180,7 +190,7 @@ export default {
 
   @include phone {
     .options-container, .show-hide-button {
-      display: none;
+      // display: none;
     }
   }
 

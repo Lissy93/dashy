@@ -1,5 +1,6 @@
 
 /* Widths in px */
+$very-very-tiny: 400px;
 $tiny: 600px;
 $small: 780px;
 $medium: 1150px;
@@ -7,6 +8,12 @@ $large: 1780px;
 $extra-large: 2800px;
 
 /* Usage @include tablet { ... } */
+
+@mixin very-tiny-phone {
+  @media (max-width: #{$very-very-tiny - 1px}) {
+    @content;
+  }
+}
 
 @mixin phone {
   @media (max-width: #{$tiny - 1px}) {

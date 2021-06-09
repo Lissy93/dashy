@@ -29,6 +29,9 @@
           <DeleteIcon class="button-icon"/>
           Reset Local Settings
         </button>
+        <p class="small-screen-note" style="display: none;">
+            You are using a very small screen, and some screens in this menu may not be optimal
+        </p>
         <div class="config-note">
           <p class="sub-title">Note:</p>
           <span>
@@ -151,6 +154,7 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/style-helpers.scss';
+@import '@/styles/media-queries.scss';
 
 pre {
   color: var(--config-code-color);
@@ -270,7 +274,7 @@ a.hyperlink-wrapper {
   border: 1px dashed var(--config-settings-color);
   border-radius: var(--curve-factor);
   text-align: left;
-  opacity: var(--dimming-factor);
+  opacity: 0.95;
   color: var(--config-settings-color);
   background: var(--config-settings-background);
   p.sub-title {
@@ -278,7 +282,20 @@ a.hyperlink-wrapper {
     margin: 0;
     display: inline;
   }
+  display: none;
+  @include tablet-up { display: block; }
 }
+p.small-screen-note {
+    @include phone {
+      display: block !important;
+    }
+    margin: 0.5rem auto;
+    padding: 0 0.5rem;
+    text-align: center;
+    opacity: 0.8;
+    font-size: 0.9rem;
+    color: var(--warning);
+  }
 </style>
 
 <style lang="scss">
