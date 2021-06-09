@@ -1,6 +1,6 @@
 ---
 name: "Question \U0001F937‍♀️"
-about: Describe this issue template's purpose here.
+about: Got a question about Dashy, deployment, development or usage?
 title: "[QUESTION]"
 labels: "\U0001F937‍♂️ Question"
 assignees: Lissy93
