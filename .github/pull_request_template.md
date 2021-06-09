@@ -9,7 +9,7 @@
 
 **Issue Number** (if applicable):
 
-**Briefley outline your changes**:
+**Briefly outline your changes**:
 
 **Before submitting, please ensure that**:
 - [ ] Must be backwards compatible
