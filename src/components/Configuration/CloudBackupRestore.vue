@@ -164,14 +164,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  @import '@/styles/style-helpers.scss';
   div.cloud-backup-restore-wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     text-align: center;
+    overflow: auto;
     height: 100%;
     background: var(--config-settings-background);
     color: var(--config-settings-color);
+    @extend .scroll-bar;
 
     .section {
       display: flex;
