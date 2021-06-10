@@ -9,7 +9,8 @@
     "lint": "vue-cli-service lint --fix",
     "build-watch": "vue-cli-service build --watch",
     "build-and-start": "npm-run-all --parallel build start",
-    "validate-config": "node src/utils/ConfigValidator"
+    "validate-config": "node src/utils/ConfigValidator",
+    "health-check": "node bin/healthcheck"
   },
   "dependencies": {
     "ajv": "^8.5.0",

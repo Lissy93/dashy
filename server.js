@@ -7,7 +7,10 @@ const os = require('os');
 
 require('./src/utils/ConfigValidator');
 
-const port = process.env.PORT || 80;
+const isDocker = !!process.env.IS_DOCKER;
+
+/* Checks env var for port. If undefined, will use Port 80 for Docker, or 4000 for metal */
+const port = process.env.PORT || isDocker ? 80 : 4000;
 
 /* eslint no-console: 0 */
 const printWelcomeMessage = () => {
@@ -36,7 +39,7 @@ const overComplicatedMessage = (ip, port) => {
   const stars = (count) => new Array(count).fill('*').join('');
   const line = (count) => new Array(count).fill('━').join('');
   const blanks = (count) => new Array(count).fill(' ').join('');
-  if (process.env.IS_DOCKER) {
+  if (isDocker) {
     const containerId = process.env.HOSTNAME || undefined;
     msg = `${chars.BLUE}${stars(91)}${chars.BR}${chars.RESET}`
       + `${chars.CYAN}${chars.BOLD}Welcome to Dashy! 🚀${chars.RESET}${chars.BR}`
@@ -50,18 +53,12 @@ const overComplicatedMessage = (ip, port) => {
     msg = `${chars.GREEN}┏${line(75)}┓${chars.BR}`
       + `┃ ${chars.CYAN}${chars.BOLD}Welcome to Dashy! 🚀${blanks(55)}${chars.GREEN}┃${chars.BR}`
       + `┃ ${chars.CYAN}Your new dashboard is now up and running at ${chars.UNDERLINE}`
-      + `http://${ip}:${port}${chars.RESET}${blanks(20 - ip.length)}${chars.GREEN}┃${chars.BR}`
+      + `http://${ip}:${port}${chars.RESET}${blanks(18 - ip.length)}${chars.GREEN}┃${chars.BR}`
       + `┃ ${chars.CYAN}After updating your config file, run '${chars.UNDERLINE}yarn build`
       + `${chars.RESET}${chars.CYAN}' to rebuild the app${blanks(6)}${chars.GREEN}┃${chars.BR}`
       + `┗${line(75)}┛${chars.BR}${chars.BR}`;
   }
   return msg;
-}
-
-function send404(req, res) {
-  // send your 404 here
-  res.statusCode = 404
-  res.end('nothing here!')
 }
 
 try {

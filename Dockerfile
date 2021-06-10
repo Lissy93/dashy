@@ -25,3 +25,6 @@ EXPOSE ${PORT}
 
 # Finally, run start command to serve up the built application
 CMD [ "yarn", "build-and-start"]
+
+# Run simple healthchecks every 5 mins, to check the Dashy's everythings great
+HEALTHCHECK --interval=5m --timeout=2s --start-period=30s CMD yarn health-check

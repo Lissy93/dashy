@@ -48,13 +48,13 @@ You will need [Docker](https://docs.docker.com/get-docker/) installed on your sy
 
 ```docker
 docker run -d \
-  -p 8080:80 \
+  -p 4000:80 \
   -v /root/my-local-conf.yml:/app/public/conf.yml \
   --name my-dashboard \
   --restart=always \
   lissy93/dashy:latest
 ```
-After making changes to your configuration file, you will need to run: `docker exec -it [container-id] yarn build` to rebuild. You can also run other commands, such as `yarn validate-config` this way too. Container ID can be found by running `docker ps`. 
+After making changes to your configuration file, you will need to run: `docker exec -it [container-id] yarn build` to rebuild. You can also run other commands, such as `yarn validate-config` this way too. Container ID can be found by running `docker ps`. Healthchecks are pre-configured to monitor the uptime and response times of Dashy, and the status of which can be seen in the container logs, e.g. `docker inspect --format "{{json .State.Health }}" [container-id]`.
 
 #### Deploying from Source 🚀
 
@@ -76,7 +76,9 @@ After making changes to your configuration file, you will need to run: `yarn bui
 
 Dashy is configured with a single [YAML](https://yaml.org/) file, located at `./public/conf.yml` (or `./app/public/conf.yml` for Docker). Any other optional user-customizable assets are also located in the `./public/` directory, e.g. `favicon.ico`, `manifest.json`, `robots.txt` and `web-icons/*`. If you are using Docker, the easiest way to method is to mount a Docker volume (e.g. `-v /root/my-local-conf.yml:/app/public/conf.yml`)
 
-In the production environment, the app needs to be rebuilt in order for changes to take effect. This can be done with `yarn build`, or `docker exec -it [container-id] yarn build` if you are using Docker (where container ID can be found by running `docker ps`). You can check that your config matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json) before deploying, by running `yarn validate-config.`
+In the production environment, the app needs to be rebuilt in order for changes to take effect. This can be done with `yarn build`, or `docker exec -it [container-id] yarn build` if you are using Docker (where container ID can be found by running `docker ps`).
+
+You can check that your config matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json) before deploying, by running `yarn validate-config.`
 
 You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10) helpful for getting you started
 
@@ -86,7 +88,11 @@ You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce9
 
 > For full configuration documentation, see: [**Theming**](./docs/theming.md)
 
-<p align="right"><img src="https://i.ibb.co/BVSHV1v/dashy-themes-slideshow.gif" width="400"></p>
+<p align="center">
+  <a href="https://i.ibb.co/BVSHV1v/dashy-themes-slideshow.gif">
+    <img alt="Example Themes" src="/docs/assets/theme-slideshow.gif" width="400">
+  </a>
+</p>
 
 The app comes with a number of built-in themes, but it's also easy to write you're own. All colors, and most other CSS properties make use of CSS variables, which makes customizing the look and feel of Dashy very easy.
 
@@ -131,7 +137,7 @@ Some ideas for PRs include: bug fixes, improve the docs, add new themes, impleme
 Before you submit your pull request, please ensure the following:
 - Must be backwards compatible
 - All lint checks and tests must pass
-- If a new option in the the config file is added, it needs to be added into the schema, and documented in the configuring guide
+- If a new option in the the config file is added, it needs to be added into the [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json), and documented in the [configuring](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md) guide
 - If a new dependency is required, it must be essential, and it must be thoroughly checked out for security or efficiency issues
 - Your pull request will need to be up-to-date with master, and the PR template must be filled in
 
