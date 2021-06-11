@@ -38,6 +38,11 @@ There is also:
 - `yarn build-and-start` will run `yarn build` and `yarn start`
 - `yarn build-watch` will output contents to `./dist` and recompile when anything in `./src` is modified, you can then use either `yarn start` or your own server, to have a production environment that watches for changes.
 
+Using the Vue CLI:
+- The app is build with Vue, and uses the [Vue-CLI Service](https://cli.vuejs.org/guide/cli-service.html) for basic commands.
+- If you have [NPX](https://github.com/npm/npx) installed, then you can invoke the Vue CLI binary using `npx vue-cli-service [command]`
+- Vue also has a GUI environment that can be used for basic project management, and may be useful for beginners, this can be started by running `vue ui`, and opening up `http://localhost:8000`
+
 Note:
 - If you are using NPM, replace `yarn` with `npm run`
 - If you are using Docker, precede each command with `docker exec -it [container-id]`. Container ID can be found by running `docker ps`
@@ -59,7 +64,7 @@ As well as Node, Git and Docker- you'll also need an IDE (e.g. [VS Code](https:/
 
 ### Style Guide
 
-Linting is done using [ESLint](https://eslint.org/), and using the [Vue.js Styleguide](https://github.com/vuejs/eslint-config-standard), which is very similar to the [AirBnB Stylguide](https://github.com/airbnb/javascript). You can run `yarn lint` to report and fix issues. While the dev server is running, issues will be reported to the console automatically. Any lint errors will trigger the build to fail. Note that all lint checks must pass before any PR can be merged.
+Linting is done using [ESLint](https://eslint.org/), and using the [Vue.js Styleguide](https://github.com/vuejs/eslint-config-standard), which is very similar to the [AirBnB Stylguide](https://github.com/airbnb/javascript). You can run `yarn lint` to report and fix issues. While the dev server is running, issues will be reported to the console automatically. Any lint errors will trigger the build to fail. Note that all lint checks must pass before any PR can be merged. Linting is also run as a git pre-commit hook
 
 The most significant things to note are:
 - Indentation should be done with two spaces
@@ -107,6 +112,15 @@ Checklist:
 - Set a default value (if required) within [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js)
 - Document the new value in [`configuring.md`](./configuring.md)
 - Test that the reading of the new attribute is properly handled, and will not cause any errors when it is missing or populated with an unexpected value
+
+#### Updating Dependencies
+
+Running `yarn upgrade` will updated all dependencies based on the ranges specified in the `package.json`. The `yarn.lock` file will be updated, as will the contents of `./node_modules`, for more info, see the [yarn upgrade documentation](https://classic.yarnpkg.com/en/docs/cli/upgrade/). It is important to thoroughly test after any big dependency updates.
+
+### Development Tools
+
+#### Performance - Lighthouse
+The easiest method of checking performance is to use Chromium's build in auditing tool, Lighthouse. To run the test, open Developer Tools (usually F12) --> Lighthouse and click on the 'Generate Report' button at the bottom.
 
 ### Directory Structure
 
@@ -215,3 +229,16 @@ At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as we
 
 - [`connect`](https://github.com/senchalabs/connect) - Minimilistic middleware layer for chaining together Node.js requests handled by the server file `MIT`
 - [`serve-static`](https://github.com/expressjs/serve-static) - Lightweight static Node file server `MIT`
+
+##### External Services
+The 1-Click deploy demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker image is hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
+
+### Notes
+
+#### Known Warnings
+
+When running the build command, several warnings appear. These are not errors, and do not affect the security or performance of the application. They will be addressed in a future update
+
+`WARN  A new version of sass-loader is available. Please upgrade for best experience.` - Currently we're using an older version of SASS loader, since the more recent releases do not seem to be compatible with the Vue CLI's webpack configuration.
+
+`WARN asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).` - For the PWA to support Windows 10, a splash screen asset is required, and is quite large. This throws a warning, however PWA assets are not loaded until needed, so shouldn't have any impact on application performance. A similar warning is thrown for the Raleway font, and that is looking to be addressed.
