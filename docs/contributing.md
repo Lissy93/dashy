@@ -64,7 +64,12 @@ on how to create a pull request..
 
 4. Make sure to update, or add to the tests when appropriate. Patches and
    features will not be accepted without tests. Run `yarn test` to check that
-   all tests pass after you've made changes.
+   all tests pass after you've made changes, and `yarn lint` for linting.
+
+   ```bash
+   git add ./path/to/modified/files
+   git commit -m "Fixed #xx by doing xyz"
+   ```
 
 5. If you added or changed a feature, make sure to document it accordingly in
    the docs and if applicable, in the `README.md` file.
@@ -96,6 +101,8 @@ Please also ensure that running the following scripts return no errors:
 - `yarn validate-config`
 
 A good resource for testing the Docker image on a totally fresh system, is by using [Play with Docker](https://labs.play-with-docker.com/). This will let you clone or pull your image, and spin up a container. This is useful for checking that everything behaves as it should on an independent system, and should get around the _'works on my computer'_ issue.
+
+All required checks will be run as a git-hook after doing a git commit. If you have any issues wit this, it can be disabled with the `--no-verify` flag
 
 #### Merging a PR
 

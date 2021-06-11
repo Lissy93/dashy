@@ -1,5 +1,6 @@
 <template>
-  <div id="dashy" data-theme="dark">
+  <div id="dashy">
+    <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash()" />
     <Header :pageInfo="pageInfo" />
     <router-view />
     <Footer v-if="showFooter" :text="getFooterText()" />
@@ -9,7 +10,8 @@
 
 import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
-import Defaults, { localStorageKeys } from '@/utils/defaults';
+import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
+import Defaults, { localStorageKeys, splashScreenTime } from '@/utils/defaults';
 import conf from '../public/conf.yml';
 
 export default {
@@ -17,11 +19,15 @@ export default {
   components: {
     Header,
     Footer,
+    LoadingScreen,
   },
-  data: () => ({
-    // pageInfo: this.getPageInfo(conf.pageInfo),
-    showFooter: Defaults.visibleComponents.footer,
-  }),
+  data() {
+    return {
+      // pageInfo: this.getPageInfo(conf.pageInfo),
+      showFooter: Defaults.visibleComponents.footer,
+      isLoading: true,
+    };
+  },
   computed: {
     pageInfo() {
       return this.getPageInfo(conf.pageInfo);
@@ -68,8 +74,19 @@ export default {
       style.textContent = usersCss;
       document.head.append(style);
     },
+    shouldShowSplash() {
+      return this.appConfig.showSplashScreen || !localStorage[localStorageKeys.HIDE_WELCOME_BANNER];
+    },
+    hideSplash() {
+      if (this.shouldShowSplash()) {
+        setTimeout(() => { this.isLoading = false; }, splashScreenTime || 2000);
+      } else {
+        this.isLoading = false;
+      }
+    },
   },
   mounted() {
+    this.hideSplash();
     if (this.appConfig.customCss) {
       const cleanedCss = this.appConfig.customCss.replace(/<\/?[^>]+(>|$)/g, '');
       this.injectCustomStyles(cleanedCss);

@@ -9,7 +9,8 @@
     "lint": "vue-cli-service lint --fix",
     "build-watch": "vue-cli-service build --watch",
     "build-and-start": "npm-run-all --parallel build start",
-    "validate-config": "node src/utils/ConfigValidator"
+    "validate-config": "node src/utils/ConfigValidator",
+    "health-check": "node bin/healthcheck"
   },
   "dependencies": {
     "ajv": "^8.5.0",
@@ -17,6 +18,7 @@
     "connect": "^3.7.0",
     "crypto-js": "^4.0.0",
     "highlight.js": "^11.0.0",
+    "js-yaml": "^4.1.0",
     "npm-run-all": "^4.1.5",
     "prismjs": "^1.23.0",
     "register-service-worker": "^1.6.2",
@@ -47,6 +49,9 @@
     "sass-loader": "^7.1.0",
     "vue-svg-loader": "^0.16.0",
     "vue-template-compiler": "^2.6.10"
+  },
+  "gitHooks": {
+    "pre-commit": "yarn lint"
   },
   "eslintConfig": {
     "root": true,

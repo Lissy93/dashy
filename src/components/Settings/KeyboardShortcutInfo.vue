@@ -75,7 +75,7 @@ export default {
   right: 10px;
   margin: 0.5em;
   padding: 0.1em 0.3em;
-  z-index: 10;
+  z-index: 6;
   border-radius: 12px;
   border: 1px solid var(--welcome-popup-background);
   -webkit-box-shadow: 2px 1px 5px #130f23;

@@ -29,6 +29,8 @@
 
 **Live Demos**: [Demo 1](https://dashy-demo-1.as93.net) ┆ [Demo 2](https://dashy-demo-2.as93.net) ┆ [Demo 3](https://dashy-demo-3.as93.net)
 
+**Spin up your own demo**: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+
 **Screenshots**
 ![Screenshots](https://i.ibb.co/r5T3MwM/dashy-screenshots.png)
 
@@ -42,19 +44,20 @@
 ## Getting Started 🛫
 
 > For full setup instructions, see: [**Getting Started**](./docs/getting-started.md)
+
 #### Deploying from Docker Hub 🐳
 
 You will need [Docker](https://docs.docker.com/get-docker/) installed on your system
 
 ```docker
 docker run -d \
-  -p 8080:80 \
+  -p 4000:80 \
   -v /root/my-local-conf.yml:/app/public/conf.yml \
   --name my-dashboard \
   --restart=always \
   lissy93/dashy:latest
 ```
-After making changes to your configuration file, you will need to run: `docker exec -it [container-id] yarn build` to rebuild. You can also run other commands, such as `yarn validate-config` this way too. Container ID can be found by running `docker ps`. 
+After making changes to your configuration file, you will need to run: `docker exec -it [container-id] yarn build` to rebuild. You can also run other commands, such as `yarn validate-config` this way too. Container ID can be found by running `docker ps`. Healthchecks are pre-configured to monitor the uptime and response times of Dashy, and the status of which can be seen in the container logs, e.g. `docker inspect --format "{{json .State.Health }}" [container-id]`.
 
 #### Deploying from Source 🚀
 
@@ -76,7 +79,9 @@ After making changes to your configuration file, you will need to run: `yarn bui
 
 Dashy is configured with a single [YAML](https://yaml.org/) file, located at `./public/conf.yml` (or `./app/public/conf.yml` for Docker). Any other optional user-customizable assets are also located in the `./public/` directory, e.g. `favicon.ico`, `manifest.json`, `robots.txt` and `web-icons/*`. If you are using Docker, the easiest way to method is to mount a Docker volume (e.g. `-v /root/my-local-conf.yml:/app/public/conf.yml`)
 
-In the production environment, the app needs to be rebuilt in order for changes to take effect. This can be done with `yarn build`, or `docker exec -it [container-id] yarn build` if you are using Docker (where container ID can be found by running `docker ps`). You can check that your config matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json) before deploying, by running `yarn validate-config.`
+In the production environment, the app needs to be rebuilt in order for changes to take effect. This can be done with `yarn build`, or `docker exec -it [container-id] yarn build` if you are using Docker (where container ID can be found by running `docker ps`).
+
+You can check that your config matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json) before deploying, by running `yarn validate-config.`
 
 You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10) helpful for getting you started
 
@@ -86,7 +91,11 @@ You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce9
 
 > For full configuration documentation, see: [**Theming**](./docs/theming.md)
 
-<p align="right"><img src="https://i.ibb.co/BVSHV1v/dashy-themes-slideshow.gif" width="400"></p>
+<p align="center">
+  <a href="https://i.ibb.co/BVSHV1v/dashy-themes-slideshow.gif">
+    <img alt="Example Themes" src="/docs/assets/theme-slideshow.gif" width="400">
+  </a>
+</p>
 
 The app comes with a number of built-in themes, but it's also easy to write you're own. All colors, and most other CSS properties make use of CSS variables, which makes customizing the look and feel of Dashy very easy.
 
@@ -131,7 +140,7 @@ Some ideas for PRs include: bug fixes, improve the docs, add new themes, impleme
 Before you submit your pull request, please ensure the following:
 - Must be backwards compatible
 - All lint checks and tests must pass
-- If a new option in the the config file is added, it needs to be added into the schema, and documented in the configuring guide
+- If a new option in the the config file is added, it needs to be added into the [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json), and documented in the [configuring](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md) guide
 - If a new dependency is required, it must be essential, and it must be thoroughly checked out for security or efficiency issues
 - Your pull request will need to be up-to-date with master, and the PR template must be filled in
 
@@ -139,16 +148,18 @@ Before you submit your pull request, please ensure the following:
 
 ## Support 🙋‍♀️
 
-If you've found a bug, or something that isn't working as you'd expect, please raise an issue, so that it can be resolved. Similarly, if you're having trouble getting things up and running, feel free to ask a question. Feature requests and feedback are also welcome, as it helps Dashy improve.
+> For general discussions, the [Discussions Board](https://github.com/Lissy93/dashy/discussions) is now active!
+
+If you've found a bug, or something that isn't working as you'd expect, please raise an issue, so that it can be resolved. Similarly, if you're having trouble getting things up and running, feel free to ask a question. Feature requests and feedback are also welcome, as it helps Dashy improve. 
 
 - [Raise a Bug 🐛](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%90%9B+Bug&template=bug-report---.md&title=%5BBUG%5D)
 - [Submit a Feature Request 🦄](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A6%84+Feature+Request&template=feature-request---.md&title=%5BFEATURE_REQUEST%5D)
 - [Ask a Question 🤷‍♀️](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A4%B7%E2%80%8D%E2%99%82%EF%B8%8F+Question&template=question------.md&title=%5BQUESTION%5D)
 - [Share Feedback 🌈](https://github.com/Lissy93/dashy/issues/new?assignees=&labels=%F0%9F%8C%88+Feedback&template=share-feedback---.md&title=%5BFEEDBACK%5D)
 
-For general questions about any of the technologies used, you should search the [web](https://duckduckgo.com), or open a question on [StackOverflow](https://stackoverflow.com/questions/)
+For more general questions about any of the technologies used, [StackOverflow](https://stackoverflow.com/questions/) may be more helpful first port of info
 
- If you need to get in touch securely with the author me, you can send any messages to me at:
+ If you need to get in touch securely with the author (me, Alicia Sykes), drop me a message at:
 - **Email**: `alicia at omg dot lol`
 - **Public Key** [`0688 F8D3 4587 D954 E9E5  1FB8 FEDB 68F5 5C02 83A7`](https://keybase.io/aliciasykes/pgp_keys.asc?fingerprint=0688f8d34587d954e9e51fb8fedb68f55c0283a7)
 
@@ -200,6 +211,9 @@ At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as we
 
 ##### Backup & Sync Server
 Although the app is purely frontend, there is an optional cloud backup and restore feature. This is built as a serverless function on [Cloudflare workers](https://workers.cloudflare.com/) using [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
+
+##### External Services
+The 1-Click deploy demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker image is hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
 
 ### Alternatives 🙌
 
