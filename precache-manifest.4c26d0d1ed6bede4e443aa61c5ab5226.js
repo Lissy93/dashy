@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/conf.yml"
   },
   {
-    "revision": "ea1da0009d173308b216",
-    "url": "/css/app.1f3a1c98.css"
+    "revision": "53392ef88a4afa32812d",
+    "url": "/css/app.029c2640.css"
   },
   {
     "revision": "17716c450a2499f15aa2",
@@ -32,236 +32,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/Raleway-Variable.3b5635ac.ttf"
   },
   {
-    "revision": "e78880d963e02c9b1cffc9358e146884",
+    "revision": "4a84431cad72c5c5e1c79c5e8fadad1e",
     "url": "/index.html"
   },
   {
-    "revision": "829d87c6c82280d92066ee66fadd0659",
-    "url": "/item-icons/media/couch-potato.png"
+    "revision": "5a8d250cf776a741afb8b4ccd2afc6b0",
+    "url": "/item-icons/.gitignore"
   },
   {
-    "revision": "f42e2f580802f8b5e3b5461f6f6ae56b",
-    "url": "/item-icons/media/jellyfin.png"
+    "revision": "52f38a1e05f0d7f4846a",
+    "url": "/js/about.2e5502f4.js"
   },
   {
-    "revision": "ea4e6f80ccc4f1048361e12d28ebd4ac",
-    "url": "/item-icons/media/plex.png"
-  },
-  {
-    "revision": "99e00cbd664f07c2891e133cce4758df",
-    "url": "/item-icons/media/sonarr.png"
-  },
-  {
-    "revision": "899b9d583dbfcc346a1985f9b958bfc4",
-    "url": "/item-icons/media/tautulli.png"
-  },
-  {
-    "revision": "4e8dc12bf7dc759b3deaa80c7762ddb6",
-    "url": "/item-icons/media/transmission.png"
-  },
-  {
-    "revision": "a42fc438883a597d04a8e25de2438749",
-    "url": "/item-icons/networking/borgbase.png"
-  },
-  {
-    "revision": "9e14664480f0cff7ca0e315ea9d2df68",
-    "url": "/item-icons/networking/cadvisor.png"
-  },
-  {
-    "revision": "4e3d52233fca0ebf5ad60aa01ff082e2",
-    "url": "/item-icons/networking/cloudflare.png"
-  },
-  {
-    "revision": "502b123949025108590bf5d92fa0ac02",
-    "url": "/item-icons/networking/compliance.png"
-  },
-  {
-    "revision": "b656e87710b5787b8a4a0e63cc79588a",
-    "url": "/item-icons/networking/digital-ocean.png"
-  },
-  {
-    "revision": "e2e896aa8ff9a1cc7e175a3201f64f25",
-    "url": "/item-icons/networking/dozzle.png"
-  },
-  {
-    "revision": "085aa7ceb27cca766e494736ed2f7b65",
-    "url": "/item-icons/networking/duckdns.png"
-  },
-  {
-    "revision": "e131337b459f6b5c5a0ca7f90d2e8d47",
-    "url": "/item-icons/networking/glances.png"
-  },
-  {
-    "revision": "5415fc5e3718eb5e3b14ebc0c158c496",
-    "url": "/item-icons/networking/grafana.png"
-  },
-  {
-    "revision": "964702d41e244b0c6204ecfe88a80387",
-    "url": "/item-icons/networking/healthchecks.png"
-  },
-  {
-    "revision": "e3ca690363313dcda4900acd30edc908",
-    "url": "/item-icons/networking/librespeed.png"
-  },
-  {
-    "revision": "547339c99a371e7578d97646296a5bb9",
-    "url": "/item-icons/networking/logs.png"
-  },
-  {
-    "revision": "9c491cd9b5c69687a7e41fdffbe96e7f",
-    "url": "/item-icons/networking/maltrail.png"
-  },
-  {
-    "revision": "f98188db15f0e4c727d186da78d3a4f6",
-    "url": "/item-icons/networking/monit.png"
-  },
-  {
-    "revision": "3cffd761f064d6294ac2001cd56457f5",
-    "url": "/item-icons/networking/mullvad.png"
-  },
-  {
-    "revision": "2c68c8e35e6c68b000d88e5299c1b6d1",
-    "url": "/item-icons/networking/netdata.png"
-  },
-  {
-    "revision": "c017d1764f36bd5c98e64099c14b5721",
-    "url": "/item-icons/networking/ntop.png"
-  },
-  {
-    "revision": "8cabc8703f8fee17f7315373b7873e30",
-    "url": "/item-icons/networking/opnsense.png"
-  },
-  {
-    "revision": "dace78a0ab7fbf830a34a6de07d4423a",
-    "url": "/item-icons/networking/pialert.png"
-  },
-  {
-    "revision": "e6c427f70fd377277599f58e6214b006",
-    "url": "/item-icons/networking/pihole.png"
-  },
-  {
-    "revision": "80027578bf816e79303ccc652e1b0a9f",
-    "url": "/item-icons/networking/portainer.png"
-  },
-  {
-    "revision": "5ab6d344e9d91c98a08f9b88f22d4f64",
-    "url": "/item-icons/networking/pritunl.png"
-  },
-  {
-    "revision": "dea7e508f6ce6886449c9b46786fe9d6",
-    "url": "/item-icons/networking/prometheus.png"
-  },
-  {
-    "revision": "3136043b36a5689dae59e5aa3d170da7",
-    "url": "/item-icons/networking/sensei.png"
-  },
-  {
-    "revision": "808ecfbdbc0a6bd3236b764e40248099",
-    "url": "/item-icons/networking/smokeping.png"
-  },
-  {
-    "revision": "4da8cfea52d2d069a46615c72a359b66",
-    "url": "/item-icons/networking/statping.png"
-  },
-  {
-    "revision": "bea77ea6882010b3097640811013b966",
-    "url": "/item-icons/networking/vodafone.png"
-  },
-  {
-    "revision": "9c110a7e84ddb8643277e3ad96a47ec2",
-    "url": "/item-icons/networking/wireguard.png"
-  },
-  {
-    "revision": "3ebf50de9b03e229be80c919b543f812",
-    "url": "/item-icons/networking/zeroteir.png"
-  },
-  {
-    "revision": "204c1188616a87de91ffe32e94575755",
-    "url": "/item-icons/productivity/archive-box.png"
-  },
-  {
-    "revision": "f227cb90e22a7f3a34b68c20b8a1e2ce",
-    "url": "/item-icons/productivity/baserow.png"
-  },
-  {
-    "revision": "4802b9ce2f1014f4a1ddffcb7f2ecc92",
-    "url": "/item-icons/productivity/bookstack.png"
-  },
-  {
-    "revision": "d1b1de7da70f649358a573f9c776df95",
-    "url": "/item-icons/productivity/domain-mod.png"
-  },
-  {
-    "revision": "112a599761db87ac1af117f9597dbdad",
-    "url": "/item-icons/productivity/firefly.png"
-  },
-  {
-    "revision": "13664636d42de028d30b84f8332fe505",
-    "url": "/item-icons/productivity/fresh-rss.png"
-  },
-  {
-    "revision": "23b4304db87e2cbccfddb54c52efe93d",
-    "url": "/item-icons/productivity/gifwit.png"
-  },
-  {
-    "revision": "bd3047221b3f655c000eb95a90d5abda",
-    "url": "/item-icons/productivity/git-tea.png"
-  },
-  {
-    "revision": "d3605f42d12d33c5bf0692a1f6919b50",
-    "url": "/item-icons/productivity/kodi.png"
-  },
-  {
-    "revision": "561a477e6adb042923dd0f1e8e31c8d0",
-    "url": "/item-icons/productivity/lesspass.png"
-  },
-  {
-    "revision": "cc61aa5d62679bff38cf6d11844f7905",
-    "url": "/item-icons/productivity/nextcloud.png"
-  },
-  {
-    "revision": "6e710df86782938e778af670d7d52a1e",
-    "url": "/item-icons/productivity/paperless.png"
-  },
-  {
-    "revision": "9a5d1374093cb45f6aac7d2549f831ee",
-    "url": "/item-icons/productivity/photo-prism.png"
-  },
-  {
-    "revision": "c219afa2439cb5cdf3b1a3932b1e2c7a",
-    "url": "/item-icons/productivity/standard-notes.png"
-  },
-  {
-    "revision": "026948aa594897229cf7067284bbf461",
-    "url": "/item-icons/productivity/syncthing.png"
-  },
-  {
-    "revision": "6dfffd3ebb0f173f5cd13b432fcdb2db",
-    "url": "/item-icons/productivity/vs-code.png"
-  },
-  {
-    "revision": "9747c129ea23b5fd93ff9ff020b349cf",
-    "url": "/item-icons/productivity/wallabag.png"
-  },
-  {
-    "revision": "cd8851b11b114e8dd9818ba0c9cfd8af",
-    "url": "/item-icons/productivity/x-browser-sync.png"
-  },
-  {
-    "revision": "63ec1079815fa590506c5811b320e3bc",
-    "url": "/item-icons/smart-home/home-assistant.png"
-  },
-  {
-    "revision": "de2426afe9a41f1ca35aeb8847b2c64e",
-    "url": "/item-icons/smart-home/node-red.png"
-  },
-  {
-    "revision": "25b124c35a67ba701427",
-    "url": "/js/about.758b1971.js"
-  },
-  {
-    "revision": "ea1da0009d173308b216",
-    "url": "/js/app.7816ff05.js"
+    "revision": "53392ef88a4afa32812d",
+    "url": "/js/app.128bb9e8.js"
   },
   {
     "revision": "17716c450a2499f15aa2",
