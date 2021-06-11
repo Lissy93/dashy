@@ -1,7 +1,8 @@
 {
-  "name": "panel",
+  "name": "Dashy",
   "version": "0.1.0",
   "license": "MIT",
+  "main": "server",
   "scripts": {
     "start": "node server",
     "dev": "vue-cli-service serve",
@@ -52,6 +53,9 @@
   },
   "gitHooks": {
     "pre-commit": "yarn lint"
+  },
+  "engines": {
+    "node": "15.x"
   },
   "eslintConfig": {
     "root": true,

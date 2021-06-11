@@ -12,7 +12,7 @@ require('./src/utils/ConfigValidator');
 const isDocker = !!process.env.IS_DOCKER;
 
 /* Checks env var for port. If undefined, will use Port 80 for Docker, or 4000 for metal */
-const port = process.env.PORT || isDocker ? 80 : 4000;
+const port = process.env.PORT || (isDocker ? 80 : 4000);
 
 const getLocalIp = () => {
   const dnsLookup = util.promisify(dns.lookup);
