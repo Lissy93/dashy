@@ -1,16 +1,16 @@
 # Getting Started
 
 - [Deployment](#deployment)
-  - [1-Click Deploy](#1-click-deploy)
   - [Deploy with Docker](#deploy-with-docker)
   - [Deploy from Source](#deploy-from-source)
+  - [Deploy to Cloud Service](#deploy-to-cloud-service)
 - [Usage](#usage) 
   - [Providing Assets](#providing-assets)
   - [Basic Commands](#basic-commands)
 - [Updating](#updating)
   - [Updating Docker Container](#updating-docker-container)
-  - [Automating Docker Updates](#automating-docker-updates)
-  - [Updating from Source](#updating-from-source)
+  - [Automating Docker Updates](#automatic-docker-updates)
+  - [Updating from Source](#updating-dashy-from-source)
 
 ## Deployment
 
@@ -54,14 +54,14 @@ If you do not want to use Docker, you can run Dashy directly on your host system
 4. Build: `yarn build`
 5. Run: `yarn start`
 
-### Cloud Deployments
+### Deploy to Cloud Service
 
 Dashy supports 1-Click deployments on several popular cloud platforms.
 
 #### Netlify
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
 
-Netlify offers Git-based serverless cloud hosting for web applications. Their services are free to use for personal use, and they support deployment from both public and private repos, as well as direct file upload. 
+[Netlify](https://www.netlify.com/) offers Git-based serverless cloud hosting for web applications. Their services are free to use for personal use, and they support deployment from both public and private repos, as well as direct file upload. 
 
 To deploy Dashy to Netlify, use the following link
 ```
