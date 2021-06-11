@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.639abbb984f9cdeb8fa708dc35b40b04.js"
+  "/precache-manifest.832e929c271bd532353f9a8092ad50bc.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "panel"});
+workbox.core.setCacheNameDetails({prefix: "Dashy"});
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
