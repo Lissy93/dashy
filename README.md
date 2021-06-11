@@ -29,6 +29,10 @@
 
 **Live Demos**: [Demo 1](https://dashy-demo-1.as93.net) ┆ [Demo 2](https://dashy-demo-2.as93.net) ┆ [Demo 3](https://dashy-demo-3.as93.net)
 
+**Spin up your own demo**: 
+
+You can try Dashy out for yourself, with a single click-  thanks to the amazing folks at [Play-with-Docker](https://play-with-docker.com/). [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=for-the-badge&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+
 **Screenshots**
 ![Screenshots](https://i.ibb.co/r5T3MwM/dashy-screenshots.png)
 
@@ -42,6 +46,7 @@
 ## Getting Started 🛫
 
 > For full setup instructions, see: [**Getting Started**](./docs/getting-started.md)
+
 #### Deploying from Docker Hub 🐳
 
 You will need [Docker](https://docs.docker.com/get-docker/) installed on your system
@@ -206,6 +211,9 @@ At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as we
 
 ##### Backup & Sync Server
 Although the app is purely frontend, there is an optional cloud backup and restore feature. This is built as a serverless function on [Cloudflare workers](https://workers.cloudflare.com/) using [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
+
+##### External Services
+The 1-Click deploy demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker image is hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
 
 ### Alternatives 🙌
 
