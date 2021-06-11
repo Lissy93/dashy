@@ -71,6 +71,13 @@ You will need both [git](https://git-scm.com/downloads) and the latest or LTS ve
 
 After making changes to your configuration file, you will need to run: `yarn build` to rebuild. 
 
+#### Deploy to the Cloud
+
+Dashy supports 1-Click deployments on several popular cloud platforms (with more on the way!). To get started, just click a link below:
+- [Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
+- [Deploy to Heroku](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
+- [Deploy with PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+
 ---
 
 ## Configuring 🔧

@@ -14,13 +14,6 @@
 
 ## Deployment
 
-### 1-Click Deploy
-
-If you just want to test Dashy out, then you have several options:
-- You can spin up a container with PWD by [clicking here](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
-- Or on your own system, by running: `docker run -p 8080:80 lissy93/dashy`, then open your browser and visit `http://localhost:8080`
-- Or you can check out the live demo, [here](http://dashy-demo-1.as93.net/)
-
 ### Deploy with Docker
 
 The quickest way to get started on any system is with Docker, and Dashy is available though [Docker Hub](https://hub.docker.com/r/lissy93/dashy). You will need [Docker](https://docs.docker.com/get-docker/) installed on your system.
@@ -60,6 +53,41 @@ If you do not want to use Docker, you can run Dashy directly on your host system
 3. Install dependencies: `yarn`
 4. Build: `yarn build`
 5. Run: `yarn start`
+
+### Cloud Deployments
+
+Dashy supports 1-Click deployments on several popular cloud platforms.
+
+#### Netlify
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
+
+Netlify offers Git-based serverless cloud hosting for web applications. Their services are free to use for personal use, and they support deployment from both public and private repos, as well as direct file upload. 
+
+To deploy Dashy to Netlify, use the following link
+```
+https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy
+```
+
+#### Heroku
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
+
+[Heroku](https://www.heroku.com/) is a fully managed cloud platform as a service. You define app settings in a Procfile and app.json, which specifying how the app should be build and how the server should be started. Heroku is free to use for unlimited, non-commercial, single dyno apps. 
+
+To deploy Dashy to Heroku, use the following link
+```
+https://heroku.com/deploy?template=https://github.com/Lissy93/dashy
+```
+
+#### Play-with-Docker
+[![Try in PWD](https://raw.githubusercontent.com/play-with-docker/stacks/cff22438/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+
+[Play with Docker](https://labs.play-with-docker.com/) is a community project by Marcos Liljedhal and Jonathan Leibiusky and sponsored by Docker, intended to provide a hands-on learning environment. Their labs let you quickly spin up a Docker container or stack, and test out the image in a temporary, sandboxed environment. There's no need to sign up, and it's completely free.
+
+To run Dashy in PWD, use the following URL:
+```
+https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml
+```
+
 
 ---
 

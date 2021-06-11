@@ -1,8 +1,8 @@
 {
-  "name": "panel",
+  "name": "Dashy",
   "version": "0.1.0",
   "license": "MIT",
-  "heroku-run-build-script": true,
+  "main": "server",
   "scripts": {
     "start": "node server",
     "dev": "vue-cli-service serve",
