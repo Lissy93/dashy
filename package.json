@@ -2,6 +2,7 @@
   "name": "panel",
   "version": "0.1.0",
   "license": "MIT",
+  "heroku-run-build-script": true,
   "scripts": {
     "start": "node server",
     "dev": "vue-cli-service serve",
@@ -52,6 +53,9 @@
   },
   "gitHooks": {
     "pre-commit": "yarn lint"
+  },
+  "engines": {
+    "node": "15.x"
   },
   "eslintConfig": {
     "root": true,
