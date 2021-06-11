@@ -72,4 +72,5 @@ module.exports = {
     iconPack: 'fontawesome',
   },
   backupEndpoint: 'https://dashy-sync-service.as93.net',
+  splashScreenTime: 1900,
 };

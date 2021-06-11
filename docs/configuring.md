@@ -49,6 +49,7 @@ All fields are optional, unless otherwise stated.
 **`cssThemes`** | `string[]` | _Optional_ | An array of custom theme names which can be used in the theme switcher dropdown
 **`externalStyleSheet`** | `string`  or `string[]` | _Optional_ | Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
 **`customCss`** | `string` | _Optional_ | Raw CSS that will be applied to the page. This can also be set from the UI. Please minify it first.
+**`showSplashScreen`** | `boolean` | _Optional_ | Should display a splash screen while the app is loading. Defaults to false, except on first load
 
 #### `section`
 

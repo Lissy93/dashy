@@ -1,33 +1,33 @@
 {
   "type": "object",
-    "required": [
-      "sections"
-    ],
-      "additionalProperties": false,
-        "properties": {
+  "required": [
+    "sections"
+  ],
+  "additionalProperties": false,
+  "properties": {
     "pageInfo": {
       "type": "object",
-        "properties": {
+      "properties": {
         "title": {
           "type": "string",
-            "description": "Title and heading for the app"
+          "description": "Title and heading for the app"
         },
         "description": {
           "type": "string",
-            "description": "Sub-title, displayed in header"
+          "description": "Sub-title, displayed in header"
         },
         "navLinks": {
           "type": "array",
-            "maxItems": 6,
-              "description": "Quick access links, displayed in header",
-                "items": {
+          "maxItems": 6,
+          "description": "Quick access links, displayed in header",
+          "items": {
             "type": "object",
-              "additionalProperties": false,
-                "required": [
-                  "title",
-                  "path"
-                ],
-                  "properties": {
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "path"
+            ],
+            "properties": {
               "title": {
                 "type": "string"
               },
@@ -44,91 +44,96 @@
       "required": [
         "title"
       ],
-        "additionalProperties": false
+      "additionalProperties": false
     },
     "appConfig": {
       "type": "object",
-        "description": "Application configuration",
-          "properties": {
+      "description": "Application configuration",
+      "properties": {
         "backgroundImg": {
           "type": "string",
-            "description": "A URL to an image asset to be displayed as background"
+          "description": "A URL to an image asset to be displayed as background"
         },
         "theme": {
           "type": "string",
-            "default": "Callisto",
-              "description": "A theme to be applied by default on first load"
+          "default": "Callisto",
+          "description": "A theme to be applied by default on first load"
         },
         "enableFontAwesome": {
           "type": "boolean",
-            "default": true,
-              "description": "Should load font-awesome assets"
+          "default": true,
+          "description": "Should load font-awesome assets"
         },
         "fontAwesomeKey": {
           "type": "string",
-            "pattern": "^[a-z0-9]{10}$",
-              "description": "API key for font-awesome"
+          "pattern": "^[a-z0-9]{10}$",
+          "description": "API key for font-awesome"
         },
         "cssThemes": {
           "type": "array",
-            "description": "Theme names to be added to the dropdown",
-              "items": {
+          "description": "Theme names to be added to the dropdown",
+          "items": {
             "type": "string"
           }
         },
         "externalStyleSheet": {
           "description": "URL or URLs of external stylesheets to add to dropdown/ load",
-            "type": [
-              "string",
-              "array"
-            ],
-              "items": {
+          "type": [
+            "string",
+            "array"
+          ],
+          "items": {
             "type": "string"
           }
         },
         "customCss": {
           "type": "string",
-            "description": "Any custom CSS overides, must be minified"
+          "description": "Any custom CSS overides, must be minified"
+        },
+        "showSplashScreen": {
+          "type": "boolean",
+          "default": false,
+          "description": "Display a loading screen when the app is launched"
         }
       },
       "additionalProperties": false
     },
     "sections": {
       "type": "array",
-        "description": "Array of sections, containing items",
-          "items": {
+      "description": "Array of sections, containing items",
+      "items": {
         "type": "object",
-          "required": [
-            "name",
-            "items"
-          ],
-            "additionalProperties": false,
-              "properties": {
+        "required": [
+          "name",
+          "items"
+        ],
+        "additionalProperties": false,
+        "properties": {
           "name": {
             "type": "string",
-              "description": "Title/ heading for a section"
+            "description": "Title/ heading for a section"
           },
           "icon": {
             "type": "string",
-              "description": "Icon will be displayed next to title"
+            "description": "Icon will be displayed next to title"
           },
           "displayData": {
             "type": "object",
-              "additionalProperties": false,
-                "description": "Optional meta data for customizing a section",
-                  "properties": {
+            "additionalProperties": false,
+            "description": "Optional meta data for customizing a section",
+            "properties": {
               "collapsed": {
                 "type": "boolean",
-                  "default": false,
-                    "description": "If true, section needs to be clicked to open"
+                "default": false,
+                "description": "If true, section needs to be clicked to open"
               },
               "color": {
                 "type": "string",
-                  "description": "Hex code, or HTML color for section fill"
+                "description": "Hex code, or HTML color for section fill"
               },
               "customStyles": {
                 "type": "string",
-                  "description": "CSS overides for section container"
+                "description": "CSS overides for section container"
               },
               "itemSize": {
                 "enum": [
@@ -136,72 +141,72 @@
                   "medium",
                   "large"
                 ],
-                  "default": "medium",
-                    "description": "Size of items within the section"
+                "default": "medium",
+                "description": "Size of items within the section"
               },
               "rows": {
                 "type": "number",
-                  "minimum": 1,
-                    "maximum": 5,
-                      "default": 1,
-                        "description": "The amount of space that the section spans vertically"
+                "minimum": 1,
+                "maximum": 5,
+                "default": 1,
+                "description": "The amount of space that the section spans vertically"
               },
               "cols": {
                 "type": "number",
-                  "minimum": 1,
-                    "maximum": 5,
-                      "default": 1,
-                        "description": "The amount of space that the section spans horizontally"
+                "minimum": 1,
+                "maximum": 5,
+                "default": 1,
+                "description": "The amount of space that the section spans horizontally"
               },
               "layout": {
                 "enum": [
                   "grid",
                   "auto"
                 ],
-                  "default": "auto",
-                    "description": "If set to grid, items have uniform width, and itemCount can be set"
+                "default": "auto",
+                "description": "If set to grid, items have uniform width, and itemCount can be set"
               },
               "itemCountX": {
                 "type": "number",
-                  "minimum": 1,
-                    "maximum": 12,
-                      "description": "Number of items per column"
+                "minimum": 1,
+                "maximum": 12,
+                "description": "Number of items per column"
               },
               "itemCountY": {
                 "type": "number",
-                  "minimum": 1,
-                    "maximum": 12,
-                      "description": "Number of items per row"
+                "minimum": 1,
+                "maximum": 12,
+                "description": "Number of items per row"
               }
             }
           },
           "items": {
             "type": "array",
-              "description": "Array of items to display with a section",
-                "items": {
+            "description": "Array of items to display with a section",
+            "items": {
               "type": "object",
-                "additionalProperties": false,
-                  "required": [
-                    "title"
-                  ],
-                    "properties": {
+              "additionalProperties": false,
+              "required": [
+                "title"
+              ],
+              "properties": {
                 "title": {
                   "type": "string",
-                    "description": "Text shown on the item"
+                  "description": "Text shown on the item"
                 },
                 "description": {
                   "type": "string",
-                    "nullable": true,
-                      "description": "Short description, shown on hover or in a tooltip"
+                  "nullable": true,
+                  "description": "Short description, shown on hover or in a tooltip"
                 },
                 "icon": {
                   "type": "string",
-                    "nullable": true,
-                      "description": "An icon, either as a font-awesome identifier, local or remote URL, or auto-fetched favicon"
+                  "nullable": true,
+                  "description": "An icon, either as a font-awesome identifier, local or remote URL, or auto-fetched favicon"
                 },
                 "url": {
                   "type": "string",
-                    "description": "The destination to navigate to when item is clicked"
+                  "description": "The destination to navigate to when item is clicked"
                 },
                 "target": {
                   "enum": [
@@ -209,16 +214,16 @@
                     "sametab",
                     "iframe"
                   ],
-                    "default": "newtab",
-                      "description": "Opening method, when item is clicked"
+                  "default": "newtab",
+                  "description": "Opening method, when item is clicked"
                 },
                 "color": {
                   "type": "string",
-                    "description": "A custom fill color of the item"
+                  "description": "A custom fill color of the item"
                 },
                 "provider": {
                   "type": "string",
-                    "description": "Provider name, e.g. Microsoft"
+                  "description": "Provider name, e.g. Microsoft"
                 }
               }
             }
