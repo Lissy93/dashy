@@ -1,6 +1,7 @@
 # Getting Started
 
 - [Deployment](#deployment)
+  - [1-Click Deploy](#1-click-deploy)
   - [Deploy with Docker](#deploy-with-docker)
   - [Deploy from Source](#deploy-from-source)
 - [Usage](#usage) 
@@ -12,11 +13,17 @@
   - [Updating from Source](#updating-from-source)
 
 ## Deployment
+
+### 1-Click Deploy
+
+If you just want to test Dashy out, then you have several options:
+- You can spin up a container with PWD by [clicking here](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+- Or on your own system, by running: `docker run -p 8080:80 lissy93/dashy`, then open your browser and visit `http://localhost:8080`
+- Or you can check out the live demo, [here](http://dashy-demo-1.as93.net/)
+
 ### Deploy with Docker
 
 The quickest way to get started on any system is with Docker, and Dashy is available though [Docker Hub](https://hub.docker.com/r/lissy93/dashy). You will need [Docker](https://docs.docker.com/get-docker/) installed on your system.
-
-To test it out, just run: `docker run -p 8080:80 lissy93/dashy`, then open your browser and visit `http://localhost:8080`. Or to try it out in the cloud, you can deploy to PWD by [clicking here](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml).
 
 To configure Dashy with your own services, and customize it to your liking, you will need to write a config file, and pass it to the Docker container as a volume. 
 
@@ -39,6 +46,12 @@ Explanation of the above options:
 
 For all available options, and to learn more, see the [Docker Run Docs](https://docs.docker.com/engine/reference/commandline/run/)
 
+You can also build and deploy the Docker container from source.
+- Get the code: `git clone git@github.com:Lissy93/dashy.git && cd dashy`
+- Edit the `./public/conf.yml` file and take a look at the `docker-compose.yml`
+- Start the container: `docker compose up`
+
+
 ### Deploy from Source
 If you do not want to use Docker, you can run Dashy directly on your host system. For this, you will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed.
 
@@ -47,6 +60,8 @@ If you do not want to use Docker, you can run Dashy directly on your host system
 3. Install dependencies: `yarn`
 4. Build: `yarn build`
 5. Run: `yarn start`
+
+---
 
 ## Usage
 ### Providing Assets
@@ -72,6 +87,7 @@ The following commands are defined in the [`package.json`](https://github.com/Li
 - **`yarn build-watch`** - If you find yourself making frequent changes to your configuration, and do not want to have to keep manually rebuilding, then this option is for you. It will watch for changes to any files within the projects root, and then trigger a rebuild. Note that if you are developing new features, then `yarn dev` would be more appropriate, as it's significantly faster at recompiling (under 1 second), and has hot reloading, linting and testing integrated
 - **`yarn build-and-start`** - Builds the app, runs checks and starts the production server. Commands are run in parallel, and so is faster than running them in independently
 
+---
 ## Updating
 
 Dashy is under active development, so to take advantage of the latest features, you may need to update your instance every now and again.
