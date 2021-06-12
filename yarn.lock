@@ -6705,6 +6705,11 @@ pkg-up@^2.0.0:
   dependencies:
     find-up "^2.1.0"
 
+platformsh-config@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/platformsh-config/-/platformsh-config-2.4.1.tgz#c81396b4030f2ba34f42823b30ebbc26ec62506a"
+  integrity sha512-7uiWcjhP0Q7/MDBpdcaZG5X4lCMXcU1va9h4yJZyAAtMpHZoogd/C/+5ucc94z3W40FJwf07MO5p15ZrGzDfQA==
+
 pnp-webpack-plugin@^1.6.4:
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/pnp-webpack-plugin/-/pnp-webpack-plugin-1.6.4.tgz#c9711ac4dc48a685dabafc86f8b6dd9f8df84149"

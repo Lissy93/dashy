@@ -1,0 +1,19 @@
+# Config file for 1-Click Deploy to Platform.sh
+name: 'dashy'
+type: nodejs:14
+disk: 512
+
+build:
+  flavor: none
+
+dependencies:
+  nodejs:
+    yarn: "1.22.5"
+
+hooks:
+  build: yarn && yarn build
+  deploy: yarn start
+
+web:
+  commands:
+    start: "yarn start"

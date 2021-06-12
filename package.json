@@ -21,6 +21,7 @@
     "highlight.js": "^11.0.0",
     "js-yaml": "^4.1.0",
     "npm-run-all": "^4.1.5",
+    "platformsh-config": "^2.4.1",
     "prismjs": "^1.23.0",
     "register-service-worker": "^1.6.2",
     "remedial": "^1.0.8",
