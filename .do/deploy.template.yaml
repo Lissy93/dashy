@@ -1,5 +1,5 @@
 spec:
-  name: Dashy
+  name: dashy
   static_sites:
   - environment_slug: html
     name: dashy-web
