@@ -1,0 +1,8 @@
+spec:
+  name: Dashy
+  static_sites:
+  - environment_slug: html
+    name: dashy-web
+    git:
+      branch: main
+      repo_clone_url: https://github.com/lissy93/dashy.git
