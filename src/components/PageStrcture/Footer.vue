@@ -1,6 +1,6 @@
 <template>
   <!-- User Footer -->
-  <footer v-if="text && text !== ''">{{text}}</footer>
+  <footer v-if="text && text !== ''" v-html="text"></footer>
   <!-- Default Footer -->
   <footer v-else>
       Developed by <a :href="authorUrl">{{authorName}}</a>.
@@ -14,6 +14,7 @@
 export default {
   name: 'Footer',
   props: {
+    text: String,
     authorName: { type: String, default: 'Alicia Sykes' },
     authorUrl: { type: String, default: 'https://aliciasykes.com' },
     license: { type: String, default: 'MIT' },
@@ -21,7 +22,6 @@ export default {
     date: { type: String, default: `${new Date().getFullYear()}` },
     showCopyright: { type: Boolean, default: true },
     repoUrl: { type: String, default: 'https://github.com/lissy93/dashy' },
-    text: String,
   },
 };
 </script>

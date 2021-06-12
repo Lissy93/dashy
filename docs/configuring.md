@@ -29,7 +29,7 @@ All fields are optional, unless otherwise stated.
 **`title`** | `string` |  Required | Your dashboard title, displayed in the header and browser tab
 **`description`** | `string` | _Optional_ | Description of your dashboard, also displayed as a subtitle
 **`navLinks`** | `array` | _Optional_ | Optional list of a maximum of 6 links, which will be displayed in the navigation bar. See [`navLinks`](#pageinfonavlinks-optional)
-**`footerText`** | `string` | _Optional_ | Text to display in the footer (note that this will override the default footer content)
+**`footerText`** | `string` | _Optional_ | Text to display in the footer (note that this will override the default footer content). This can also include HTML and inline CSS
 
 #### `pageInfo.navLinks` _(optional)_
 
