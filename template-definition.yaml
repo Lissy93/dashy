@@ -1,0 +1,25 @@
+
+version: 1
+info:
+    id: aliciasykes/dashy
+    name: Dashy 🚀
+    description: A dashboard for your homelab
+    tags: ['vue', 'node.js', 'self-hosted', 'dashboard']
+    image: 'https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/logo.png'
+    # Additional notes displayed in the template's detail view.
+    # Each note object is displayed as a small section heading with content below. Supports limited HTML.
+    # The most important is a section that lists the "Apps and Services" (container images) that the project uses.
+    # These are the name/version of the Platform.sh containers, not including the Nginx router.
+    notes:
+        - heading: "Apps & Services"
+          content: "Node.js, Vue.js"
+        - heading: 'Author'
+          content: 'Licensed under MIT - © <a href="https://aliciasykes.com">Alicia Sykes</a> 2021'
+        - heading: 'Source'
+          content: 'Source code is available on GitHub, https://github.com/lissy93/dashy'
+
+initialize:
+    repository: git://github.com/lissy93/dashy.git@deploy_platform-sh
+    config: null
+    files: []
+    profile: Nodejs
