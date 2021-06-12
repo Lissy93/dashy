@@ -13,6 +13,9 @@
   - [Updating Docker Container](#updating-docker-container)
   - [Automating Docker Updates](#automatic-docker-updates)
   - [Updating from Source](#updating-dashy-from-source)
+- [Web Server Configuration](#web-server-configuration)
+  - [NGINX](#nginx)
+  - [Apache](#apache)
 
 ## Deployment
 
@@ -63,7 +66,7 @@ Dashy supports 1-Click deployments on several popular cloud platforms.
 #### Netlify
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
 
-[Netlify](https://www.netlify.com/) offers Git-based serverless cloud hosting for web applications. Their services are free to use for personal use, and they support deployment from both public and private repos, as well as direct file upload. 
+[Netlify](https://www.netlify.com/) offers Git-based serverless cloud hosting for web applications. Their services are free to use for personal use, and they support deployment from both public and private repos, as well as direct file upload. The free plan also allows you to use your own custom domain or sub-domain, and is easy to setup.
 
 To deploy Dashy to Netlify, use the following link
 ```
@@ -73,11 +76,60 @@ https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy
 #### Heroku
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
 
-[Heroku](https://www.heroku.com/) is a fully managed cloud platform as a service. You define app settings in a Procfile and app.json, which specifying how the app should be build and how the server should be started. Heroku is free to use for unlimited, non-commercial, single dyno apps. 
+[Heroku](https://www.heroku.com/) is a fully managed cloud platform as a service. You define app settings in a Procfile and app.json, which specifying how the app should be build and how the server should be started. Heroku is free to use for unlimited, non-commercial, single dyno apps, and supports custom domains. Heroku's single-dyno service is not as quite performant as some other providers, and the app will have a short wake-up time when not visited for a while
 
 To deploy Dashy to Heroku, use the following link
 ```
 https://heroku.com/deploy?template=https://github.com/Lissy93/dashy
+```
+
+#### Cloudflare Workers
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/lissy93/dashy/tree/deploy_cloudflare)
+
+[Cloudflare Workers](https://workers.cloudflare.com/) is a simple yet powerful service for running cloud functions and hosting web content. It requires a Cloudflare account, but is completely free for smaller projects, and very reasonably priced ($0.15/million requests per month) for large applications. You can use your own domain, and applications are protected with Cloudflare's state of the art DDoS protection. For more info, see the docs on [Worker Sites](https://developers.cloudflare.com/workers/platform/sites)
+
+To deploy Dashy to Cloudflare, use the following link
+```
+https://deploy.workers.cloudflare.com/?url=https://github.com/lissy93/dashy/tree/deploy_cloudflare
+```
+
+#### Deploy to Vercel
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/project?template=https://github.com/lissy93/dashy)
+
+[Vercel](https://vercel.com/) is a performance-focused platform for hosting static frontend apps. It comes bundled with some useful tools for monitoring and anaylzing application performance and other metrics. Vercel is free for personal use, allows for custom domains and has very reasonable limits.
+
+To deploy Dashy to Vercel, use the following link
+```
+https://vercel.com/new/project?template=https://github.com/lissy93/dashy
+```
+
+#### Deploy to DigitalOcean
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean&refcode=3838338e7f79)
+
+[DigitalOcan](https://www.digitalocean.com/) is a cloud service providing affordable developer-friendly virtual machines from $5/month. But they also have an app platform, where you can run web apps, static sites, APIs and background workers. CDN-backed static sites are free for personal use.
+
+```
+https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean
+```
+
+#### Platform.sh
+[![Deploy to Platform.sh](https://platform.sh/images/deploy/deploy-button-lg-blue.svg)](https://console.platform.sh/projects/create-project/?template=https://github.com/lissy93/dashy&utm_campaign=deploy_on_platform?utm_medium=button&utm_source=affiliate_links&utm_content=https://github.com/lissy93/dashy)
+
+[Platform.sh](https://platform.sh) is an end-to-end solution for developing and deploying applications. It is geared towards enterprise users with large teams, and focuses on allowing applications to scale up and down. Unlike the above providers, Platform.sh is not free, although you can deploy a test app to it without needing a payment method
+
+To deploy Dashy to Platform.sh, use the following link
+```
+https://console.platform.sh/projects/create-project/?template=https://github.com/lissy93/dashy
+```
+
+#### Deploy to Scalingo
+[![Deploy on Scalingo](https://cdn.scalingo.com/deploy/button.svg)](https://my.scalingo.com/deploy?source=https://github.com/lissy93/dashy#master)
+
+[Scalingo](https://scalingo.com/) is a scalable container-based cloud platform as a service. It's focus is on compliance and uptime, and is geared towards enterprise users. Scalingo is also not free, although they do have a 3-day free trial that does not require a payment method 
+
+To deploy Dashy to Scalingo, use the following link
+```
+https://my.scalingo.com/deploy?source=https://github.com/lissy93/dashy#master
 ```
 
 #### Play-with-Docker
@@ -89,6 +141,19 @@ To run Dashy in PWD, use the following URL:
 ```
 https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml
 ```
+
+#### Surge.sh
+[Surge.sh](http://surge.sh/) is quick and easy static web publishing platform for frontend-apps.
+
+Surge supports [password-protected projects](https://surge.sh/help/adding-password-protection-to-a-project). You can also [add a custom domain](https://surge.sh/help/adding-a-custom-domain) and then [force HTTPS by default](https://surge.sh/help/using-https-by-default) and optionally [set a custom SSL certificate](https://surge.sh/help/securing-your-custom-domain-with-ssl)
+
+To deploy Dashy to Surge.sh, first clone and cd into Dashy, install dependencies, and then use the following commands
+```
+yarn add -g surge
+yarn build
+surge ./dist
+```
+
 **[⬆️ Back to Top](#getting-started)**
 
 ---
@@ -121,9 +186,9 @@ To restart unhealthy containers automatically, check out [Autoheal](https://hub.
 
 ### Logs and Performance
 
-You can view logs for a given Docker container with `docker logs [container-id]`, add the `--follow` flag to stream the logs. For more info, see the [Logging Documentation](https://docs.docker.com/config/containers/logging/). [Dozzle](https://dozzle.dev/) is a useful tool, that provides a web interface where you can stream and query logs from all your running containers from a single web app.
+You can view logs for a given Docker container with `docker logs [container-id]`, add the `--follow` flag to stream the logs. For more info, see the [Logging Documentation](https://docs.docker.com/config/containers/logging/). There's also [Dozzle](https://dozzle.dev/), a useful tool, that provides a web interface where you can stream and query logs from all your running containers from a single web app.
 
-You can check the resource usage for your running Docker containers with `docker stats` or `docker stats [container-id]`. For more info, see the [Stats Documentation](https://docs.docker.com/engine/reference/commandline/stats/). [cAdvisor](https://github.com/google/cadvisor) is a useful web app for viewing and analyzing resource usage and performance of your running containers.
+You can check the resource usage for your running Docker containers with `docker stats` or `docker stats [container-id]`. For more info, see the [Stats Documentation](https://docs.docker.com/engine/reference/commandline/stats/). There's also [cAdvisor](https://github.com/google/cadvisor), a useful web app for viewing and analyzing resource usage and performance of all your running containers.
 
 You can also view logs, resource usage and other info as well as manage your Docker workflow in third-party Docker management apps. For example [Portainer](https://github.com/portainer/portainer) an all-in-one management web UI  for Docker and Kubernetes, or [LazyDocker](https://github.com/jesseduffield/lazydocker) a terminal UI for Docker container management and monitoring.
 
@@ -165,5 +230,75 @@ For more information, see the [Watchtower Docs](https://containrrr.dev/watchtowe
 4. Re-build: `yarn build`
 5. Start: `yarn start`
 
+
+**[⬆️ Back to Top](#getting-started)**
+
+---
+
+## Web Server Configuration
+
+_The following section only applies if you are not using Docker, and would like to use your own web server_
+
+Dashy ships with a pre-configured Node.js server, in [`server.js`](https://github.com/Lissy93/dashy/blob/master/server.js) which serves up the contents of the `./dist` directory on a given port. You can start the server by running `node server`. Note that the app must have been build (run `yarn build`), and you need [Node.js](https://nodejs.org) installed.
+
+However, since Dashy is just a static web application, it can be served with whatever server you like. The following section outlines how you can configure a web server.
+
+### NGINX
+
+Create a new file in `/etc/nginx/sites-enabled/dashy`
+
+```
+server {
+	listen 80;
+	listen [::]:80;
+
+	root /var/www/dashy/html;
+	index index.html;
+
+	server_name your-domain.com www.your-domain.com;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}
+```
+Then upload the build contents of Dashy's dist directory to that location.
+For example: `scp -r ./dist/* [username]@[server_ip]:/var/www/dashy/html`
+
+### Apache
+
+Copy Dashy's dist folder to your apache server, `sudo cp -r ./dashy/dist /var/www/html/dashy`.
+
+In your Apache config, `/etc/apche2/apache2.conf` add:
+```
+<Directory /var/www/html>
+	Options Indexes FollowSymLinks
+	AllowOverride All
+	Require all granted
+</Directory>
+```
+
+Add a `.htaccess` file within `/var/www/html/dashy/.htaccess`, and add:
+```
+Options -MultiViews
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]
+```
+
+Then restart Apache, with `sudo systemctl restart apache2`
+
+### cPanel
+1. Login to your WHM
+2. Open 'Feature Manager' on the left sidebar
+3. Under 'Manage feature list', click 'Edit'
+4. Find 'Application manager' in the list, enable it and hit 'Save'
+5. Log into your users cPanel account, and under 'Software' find 'Application Manager'
+6. Click 'Register Application', fill in the form using the path that Dashy is located, and choose a domain, and hit 'Save'
+7. The application should now show up in the list, click 'Ensure dependencies', and move the toggle switch to 'Enabled'
+8. If you need to change the port, click 'Add environmental variable', give it the name 'PORT', choose a port number and press 'Save'.
+9. Dashy should now be running at your selected path an on a given port
+
+---
 
 **[⬆️ Back to Top](#getting-started)**

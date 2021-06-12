@@ -13,7 +13,6 @@ There's a couple of things to remember, before getting started:
 
 All fields are optional, unless otherwise stated.
 
-
 #### Top-Level Fields
 
 **Field** | **Type** | **Required**| **Description**
@@ -21,6 +20,8 @@ All fields are optional, unless otherwise stated.
 **`pageInfo`** | `object` | Required | Basic meta data like title, description, nav bar links, footer text. See [`pageInfo`](#pageinfo)
 **`appConfig`** | `object` | _Optional_ | Settings related to how the app functions, including API keys and global styles. See [`appConfig`](#appconfig-optional)
 **`sections`** | `array` | Required | An array of sections, each containing an array of items, which will be displayed as links. See [`section`](#section)
+
+**[⬆️ Back to Top](#configuring)**
 
 #### `PageInfo`
 
@@ -31,12 +32,16 @@ All fields are optional, unless otherwise stated.
 **`navLinks`** | `array` | _Optional_ | Optional list of a maximum of 6 links, which will be displayed in the navigation bar. See [`navLinks`](#pageinfonavlinks-optional)
 **`footerText`** | `string` | _Optional_ | Text to display in the footer (note that this will override the default footer content). This can also include HTML and inline CSS
 
+**[⬆️ Back to Top](#configuring)**
+
 #### `pageInfo.navLinks` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`title`** | `string` |  Required | The text to display on the link button
 **`path`** | `string` | Required | The URL to navigate to when clicked. Can be relative (e.g. `/about`) or absolute (e.g. `https://example.com` or `http://192.168.1.1`)
+
+**[⬆️ Back to Top](#configuring)**
 
 #### `appConfig` _(optional)_
 
@@ -51,6 +56,8 @@ All fields are optional, unless otherwise stated.
 **`customCss`** | `string` | _Optional_ | Raw CSS that will be applied to the page. This can also be set from the UI. Please minify it first.
 **`showSplashScreen`** | `boolean` | _Optional_ | Should display a splash screen while the app is loading. Defaults to false, except on first load
 
+**[⬆️ Back to Top](#configuring)**
+
 #### `section`
 
 **Field** | **Type** | **Required**| **Description**
@@ -59,6 +66,8 @@ All fields are optional, unless otherwise stated.
 **`icon`** | `string` | _Optional_ | An single icon to be displayed next to the title. See [`section.icon`](#sectionicon-and-sectionitemicon)
 **`items`** | `array` | Required | An array of items to be displayed within the section. See [`item`](#sectionitem)
 **`displayData`** | `object` | _Optional_ | Meta-data to optionally overide display settings for a given section. See [`displayData`](#sectiondisplaydata-optional)
+
+**[⬆️ Back to Top](#configuring)**
 
 #### `section.item`
 
@@ -71,6 +80,8 @@ All fields are optional, unless otherwise stated.
 **`target`** | `string` | _Optional_ | The opening method for when the item is clicked, either `newtab`, `sametab` or `iframe`. Where `newtab` will open the link in a new tab, `sametab` will open it in the current tab, and `iframe` will open a pop-up modal with the content displayed within that iframe. Note that for the iframe to load, you must have set the CORS headers to either allow `*` ot allow the domain that you are hosting Dashy on, for some websites and self-hosted services, this is already set.
 **`color`** | `string` | _Optional_ | An optional color for the text and font-awesome icon to be displayed in. Note that this will override the current theme and so may not display well
 **`backgroundColor`** | `string` | _Optional_ | An optional background fill color for the that given item. Again, this will override the current theme and so might not display well against the background
+
+**[⬆️ Back to Top](#configuring)**
 
 #### `section.displayData` _(optional)_
 
@@ -86,12 +97,15 @@ All fields are optional, unless otherwise stated.
 **`itemCountX`** | `number` | _Optional_ | The number of items to display per row / horizontally. If not set, it will be calculated automatically based on available space. Can only be set if `layout` is set to `grid`. Must be a whole number between `1` and `12`
 **`itemCountY`** | `number` | _Optional_ | The number of items to display per column / vertically. If not set, it will be calculated automatically based on available space. If `itemCountX` is set, then `itemCountY` can be calculated automatically. Can only be set if `layout` is set to `grid`. Must be a whole number between `1` and `12`
 
+**[⬆️ Back to Top](#configuring)**
+
 #### `section.icon` and `section.item.icon`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`icon`** | `string` | _Optional_ | The icon for a given item or section. Can be a font-awesome icon, favicon, remote URL or local URL. If set to `favicon`, the icon will be automatically fetched from the items website URL. To use font-awesome, specify the category, followed by the icon name, e.g. `fas fa-rocket`, `fab fa-monero` or `fal fa-duck` - note that to use pro icons, you mut specify `appConfig.fontAwesomeKey`. You can also use hosted any by specifying it's URL, e.g. `https://i.ibb.co/710B3Yc/space-invader-x256.png`. To use a local image, first store it in `./public/item-icons/` (or `-v /app/public/item-icons/` in Docker) , and reference it by name and extension - e.g. set `image.png` to use `./public/item-icon/image.png`, you can also use sub-folders if you have a lot of icons, to keep them organised.
 
+**[⬆️ Back to Top](#configuring)**
 
 #### Example
 
@@ -125,3 +139,6 @@ sections: # An array of sections
 ```
 
 For more example config files, see: [this gist](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
+
+**[⬆️ Back to Top](#configuring)**
+

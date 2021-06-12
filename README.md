@@ -39,6 +39,8 @@
   <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
 </p>
 
+**[⬆️ Back to Top](#dashy)**
+
 ---
 
 ## Getting Started 🛫
@@ -76,7 +78,10 @@ After making changes to your configuration file, you will need to run: `yarn bui
 Dashy supports 1-Click deployments on several popular cloud platforms (with more on the way!). To get started, just click a link below:
 - [Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
 - [Deploy to Heroku](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
+- [Deploy with Vercel](https://vercel.com/new/project?template=https://github.com/lissy93/dashy)
 - [Deploy with PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+
+**[⬆️ Back to Top](#dashy)**
 
 ---
 
@@ -91,6 +96,8 @@ In the production environment, the app needs to be rebuilt in order for changes 
 You can check that your config matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json) before deploying, by running `yarn validate-config.`
 
 You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10) helpful for getting you started
+
+**[⬆️ Back to Top](#dashy)**
 
 ---
 
@@ -108,6 +115,8 @@ The app comes with a number of built-in themes, but it's also easy to write you'
 
 You can also apply custom CSS overrides directly through the UI (Under Config menu --> Custom CSS), or specify it in your config file under `appConfig.customCss`. If you have a lot of custom styles, you can pass in the path to a stylesheet, in `appConfig.externalStyleSheet`.
 
+**[⬆️ Back to Top](#dashy)**
+
 ---
 
 ## Cloud Backup & Sync ☁
@@ -119,6 +128,8 @@ Dashy has an **optional** built-in feature for securely backing up your config t
 This is useful not only for backing up your configuration off-site, but it also enables Dashy to be used without having write a YAML config file, and makes it possible to use a public hosted instance, without the need to self-host.
 
 All data is encrypted before being sent to the backend. In Dashy, this is done in [`CloudBackup.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/CloudBackup.js), using [crypto.js](https://github.com/brix/crypto-js)'s AES method, using the users chosen password as the key. The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works) (a platform for running serverless functions), and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
+
+**[⬆️ Back to Top](#dashy)**
 
 ---
 
@@ -133,6 +144,8 @@ All data is encrypted before being sent to the backend. In Dashy, this is done i
 Hot reload is enabled, so changes will be detected automatically, triggering the app to be rebuilt and refreshed. Ensure that all lint checks and tests are passing before pushing an code or deploying the app.
 
 If you are new to Vue.js or web development and want to learn more, [here are some resources](docs/developing.md#resources-for-beginners) to help get you started. Dashy is a pretty straight-forward application, so would make an ideal candidate for your first PR!
+
+**[⬆️ Back to Top](#dashy)**
 
 ---
 
@@ -150,6 +163,8 @@ Before you submit your pull request, please ensure the following:
 - If a new option in the the config file is added, it needs to be added into the [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json), and documented in the [configuring](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md) guide
 - If a new dependency is required, it must be essential, and it must be thoroughly checked out for security or efficiency issues
 - Your pull request will need to be up-to-date with master, and the PR template must be filled in
+
+**[⬆️ Back to Top](#dashy)**
 
 ---
 
@@ -170,6 +185,8 @@ For more general questions about any of the technologies used, [StackOverflow](h
 - **Email**: `alicia at omg dot lol`
 - **Public Key** [`0688 F8D3 4587 D954 E9E5  1FB8 FEDB 68F5 5C02 83A7`](https://keybase.io/aliciasykes/pgp_keys.asc?fingerprint=0688f8d34587d954e9e51fb8fedb68f55c0283a7)
 
+**[⬆️ Back to Top](#dashy)**
+
 ---
 
 ## Documentation 📘
@@ -183,15 +200,15 @@ For more general questions about any of the technologies used, [StackOverflow](h
 - [Backup & Restore](/docs/backup-restore.md)
 - [Theming](/docs/theming.md)
 
+**[⬆️ Back to Top](#dashy)**
+
 ---
 
 ## Credits 🏆
 
 ### Contributors 👥
 
-![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/03fbaf35ff4653d16a622cfce00a1347c13d0192/docs/assets/CONTRIBUTORS.svg)
-
-_(^^ It's lonely here all by myself - submit a PR to become listed as a contributor!)_
+![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)
 
 ### Dependencies 🔗
 
@@ -226,6 +243,8 @@ The 1-Click deploy demo uses [Play-with-Docker Labs](https://play-with-docker.co
 
 There are a few self-hosted web apps, that serve a similar purpose to Dashy. If you're looking for a dashboard, and Dashy doesn't meet your needs, I highly recommend you check these projects out! Including, but not limited to: [HomeDash2](https://lamarios.github.io/Homedash2), [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`), [Organizr](https://organizr.app/) (`GPL-3.0 License`) and  [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
 
+**[⬆️ Back to Top](#dashy)**
+
 ---
 ## License 📜
 
@@ -248,6 +267,8 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRA
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWAREOR THE USE
 OR OTHER DEALINGS IN THE SOFTWARE.
 ```
+
+**[⬆️ Back to Top](#dashy)**
 
 ---
 

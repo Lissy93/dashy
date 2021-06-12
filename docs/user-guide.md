@@ -1,5 +1,18 @@
-
 ## User Guide
+
+This article outlines how to use the application. If you are instead looking for deployment instructions, see [Getting Started](/docs/getting-started.md) and [Configuring](/docs/configuring.md)
+
+### Contents
+- [Searching](#searching)
+- [Keyboard Shortcuts](#keyboard-shortcuts)
+- [Theme Switching](#theme-switching)
+- [Visual Options](#visual-options)
+- [Opening Items](#opening-items)
+- [Sections and Items](#sections-and-items)
+- [Icons](#icons)
+- [Metadata](#metadata)
+- [Editing Config](#editing-config)
+- [Managing Config Data](#managing-config-data)
 
 ### Searching
 
@@ -13,15 +26,21 @@ The following properties are used to filter items by:
 - URL - Only the base URL is searched, the protocol and parameters are omitted
 - Description
 
+**[⬆️ Back to Top](#user-guide)**
+
 ### Keyboard Shortcuts
 
 Many people find using the keyboard significantly more efficient than having to reach for the mouse. And so Dashy has a series of keybindings and shortcuts to enable you to navigate through items quickly.
 
 Once you've searched for a given item, you can then tab through the list (or Shift + Tab to go backwards) until you've found the item you're looking for. You can also use the arrow keys to navigate up, down, left and right through the grid. To launch an item, just hit enter. You can also open an item in a new tab with Ctrl + Enter, or open the item in a pop-up modal with Alt + Enter. To close an open popup item, or any open menus, just hit Esc.
 
+**[⬆️ Back to Top](#user-guide)**
+
 ### Theme Switching
 
 You can change the current theme using the dropdown menu in the upper-right-hand quadrant. Your selected theme will be stored in local storage, and applied next time you load the page. For more information on customizing the look and feel of Dashy, see [Themeing Docs](/docs/theming.md)
+
+**[⬆️ Back to Top](#user-guide)**
 
 ### Visual Options
 
@@ -33,6 +52,8 @@ Next there's icon size. This changes the size of the item and it's icon. It can 
 
 ![layout-options](https://i.ibb.co/NnzF82t/available-layout-options.png)
 
+**[⬆️ Back to Top](#user-guide)**
+
 ### Opening Items
 
 There are three methods of opening items. Clicking (or hitting Enter on a selected item) will use the default method, specified in the config file, under `item.target`. You can use Ctrl + Click or Ctrl + Enter to open and item in a new tab. 
@@ -40,6 +61,8 @@ There are three methods of opening items. Clicking (or hitting Enter on a select
 You can also use Alt + Click or Alt + Enter, to open an item in a popup window. You can use drag the tab in the bottom-right corner of the pop-up to resize it. To close an item opened in a pop-up, click the close button, use the Esc key, or click anywhere outside the popup.
 
 ![Example of a pop-up opened item](https://i.ibb.co/zSnznFF/dashy-popup.png)
+
+**[⬆️ Back to Top](#user-guide)**
 
 ### Sections and Items
 
@@ -73,13 +96,19 @@ Sections also have several optional properties, which are specified under `secti
  └─────────────────────────────────────────────────────┘
 ```
 
+**[⬆️ Back to Top](#user-guide)**
+
 ### Icons
 
 Both sections and items can have an icon associated with them. There are several options for specifying icons. You can let the icon be automatically resolved and fetched from the items associated URL, by just setting the icon to `favicon`. You can use a font-awesome icon, by specifying it's name and category. Or you can pass in a URL, either to a locally hosted or remote image. For local images, you can put them in `./public/item-icons/` and then reference them just by the file name.
 
+**[⬆️ Back to Top](#user-guide)**
+
 ### Metadata
 
 Basic site information, displayed in the header and footer can be set from the UI. This includes: title, sub-title, footer text, and nav-bar links. Click the wrench icon in the upper-right corner, then go to the Site Metadata tab. Fill in your new data, and hit save. The page will be refreshed, and your changes will appear. These settings are stored under `pageInfo` in the config, and if set through the UI, will only be applied locally.
+
+**[⬆️ Back to Top](#user-guide)**
 
 ### Editing Config
 
@@ -87,8 +116,10 @@ The config file can be edited from the UI, but take note that changes are only a
 
 To make changes to the config file, click the wrench icon in the upper-left hand corner. Then go to the Config tab. Here you'll find a JSON editor. You can switch from tree mode to plain-text mode if you find that easier. And parsing or validation issues will be displayed at the bottom of the screen. 
 
+**[⬆️ Back to Top](#user-guide)**
+
 ### Managing Config Data
 
 You can download, backup or reset local config data directly from the UI. To apply config to Dashy on other devices, you will need to either download the config file, or use the cloud backup and sync feature. To download config, click the Wrench icon, in the upper-right hand corner, and then go to Download. Similarly, for cloud backup, click the Cloud icon in the upper right corner, and fill in the required fields. For detailed instructions, and technical information about backup and sync, please see the [Cloud Backup Documentation](/docs/backup-restore.md). You can also Reset all local settings from the config menu. This will not effect any data saved in your systems `conf.yml` file.
 
-
+**[⬆️ Back to Top](#user-guide)**
