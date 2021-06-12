@@ -54,9 +54,6 @@
   "gitHooks": {
     "pre-commit": "yarn lint"
   },
-  "engines": {
-    "node": "15.x"
-  },
   "eslintConfig": {
     "root": true,
     "env": {

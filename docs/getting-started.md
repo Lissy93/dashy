@@ -7,6 +7,8 @@
 - [Usage](#usage) 
   - [Providing Assets](#providing-assets)
   - [Basic Commands](#basic-commands)
+  - [Healthchecks](#healthchecks)
+  - [Monitoring](#logs-and-performance)
 - [Updating](#updating)
   - [Updating Docker Container](#updating-docker-container)
   - [Automating Docker Updates](#automatic-docker-updates)
@@ -87,7 +89,7 @@ To run Dashy in PWD, use the following URL:
 ```
 https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml
 ```
-
+**[⬆️ Back to Top](#getting-started)**
 
 ---
 
@@ -98,10 +100,6 @@ Although not essential, you will most likely want to provide several assets to D
 - `./public/conf.yml` - As mentioned, this is your main application config file
 - `./public/item-icons` - If you're using your own icons, you can choose to store them locally for better load time, and this is the directory to put them in. You can also use sub-folders here to keep things organized. You then reference these assets relative this the direcroties path, for example: to use `./public/item-icons/networking/netdata.png` as an icon for one of your links, you would set `icon: networking/netdata.png`
 - Also within `./public` you'll find standard website assets, including `favicon.ico`, `manifest.json`, `robots.txt`, etc. There's no need to modify these, but you can do so if you wish.
-
-### Healthchecks
-
-Healthchecks are configured to periodically check that Dashy is up and running correctly on the specified port. By default, the health script is called every 5 minutes, but this can be modified with the `--health-interval` option. You can check the current container health with: `docker inspect --format "{{json .State.Health }}" [container-id]`. You can also manually request the applications status by running `docker exec -it [container-id] yarn health-check`. You can disable healthchecks altogether by adding the `--no-healthcheck` flag to your Docker run command.
 
 ### Basic Commands
 
@@ -114,6 +112,22 @@ The following commands are defined in the [`package.json`](https://github.com/Li
 - **`yarn health-check`** - Checks that the application is up and running on it's specified port, and outputs current status and response times. Useful for integrating into your monitoring service, if you need to maintain high system availability
 - **`yarn build-watch`** - If you find yourself making frequent changes to your configuration, and do not want to have to keep manually rebuilding, then this option is for you. It will watch for changes to any files within the projects root, and then trigger a rebuild. Note that if you are developing new features, then `yarn dev` would be more appropriate, as it's significantly faster at recompiling (under 1 second), and has hot reloading, linting and testing integrated
 - **`yarn build-and-start`** - Builds the app, runs checks and starts the production server. Commands are run in parallel, and so is faster than running them in independently
+
+### Healthchecks
+
+Healthchecks are configured to periodically check that Dashy is up and running correctly on the specified port. By default, the health script is called every 5 minutes, but this can be modified with the `--health-interval` option. You can check the current container health with: `docker inspect --format "{{json .State.Health }}" [container-id]`, and a summary of health status will show up under `docker ps`. You can also manually request the current application status by running `docker exec -it [container-id] yarn health-check`. You can disable healthchecks altogether by adding the `--no-healthcheck` flag to your Docker run command.
+
+To restart unhealthy containers automatically, check out [Autoheal](https://hub.docker.com/r/willfarrell/autoheal/). This image watches for unhealthy containers, and automatically triggers a restart. This is a stand in for Docker's `--exit-on-unhealthy` that was proposed, but [not merged](https://github.com/moby/moby/pull/22719).
+
+### Logs and Performance
+
+You can view logs for a given Docker container with `docker logs [container-id]`, add the `--follow` flag to stream the logs. For more info, see the [Logging Documentation](https://docs.docker.com/config/containers/logging/). [Dozzle](https://dozzle.dev/) is a useful tool, that provides a web interface where you can stream and query logs from all your running containers from a single web app.
+
+You can check the resource usage for your running Docker containers with `docker stats` or `docker stats [container-id]`. For more info, see the [Stats Documentation](https://docs.docker.com/engine/reference/commandline/stats/). [cAdvisor](https://github.com/google/cadvisor) is a useful web app for viewing and analyzing resource usage and performance of your running containers.
+
+You can also view logs, resource usage and other info as well as manage your Docker workflow in third-party Docker management apps. For example [Portainer](https://github.com/portainer/portainer) an all-in-one management web UI  for Docker and Kubernetes, or [LazyDocker](https://github.com/jesseduffield/lazydocker) a terminal UI for Docker container management and monitoring.
+
+**[⬆️ Back to Top](#getting-started)**
 
 ---
 ## Updating
@@ -150,3 +164,6 @@ For more information, see the [Watchtower Docs](https://containrrr.dev/watchtowe
 3. Pull latest code: `git pull origin master`
 4. Re-build: `yarn build`
 5. Start: `yarn start`
+
+
+**[⬆️ Back to Top](#getting-started)**
