@@ -13,6 +13,12 @@
         <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
         <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
           @modalChanged="modalChanged" />
+        <IconLogout
+          v-if="isUserLoggedIn()"
+          @click="logout()"
+          v-tooltip="'Logout'"
+          class="logout-icon"
+        />
       </div>
       <div :class="`show-hide-container ${settingsVisible? 'hide-btn' : 'show-btn'}`">
         <button @click="toggleSettingsVisibility()"
@@ -34,6 +40,8 @@ import ThemeSelector from '@/components/Settings/ThemeSelector';
 import LayoutSelector from '@/components/Settings/LayoutSelector';
 import ItemSizeSelector from '@/components/Settings/ItemSizeSelector';
 import KeyboardShortcutInfo from '@/components/Settings/KeyboardShortcutInfo';
+import { logout as registerLogout } from '@/utils/Auth';
+import IconLogout from '@/assets/interface-icons/user-logout.svg';
 import IconOpen from '@/assets/interface-icons/config-open-settings.svg';
 import IconClose from '@/assets/interface-icons/config-close.svg';
 
@@ -55,6 +63,7 @@ export default {
     LayoutSelector,
     ItemSizeSelector,
     KeyboardShortcutInfo,
+    IconLogout,
     IconOpen,
     IconClose,
   },
@@ -76,6 +85,16 @@ export default {
     },
     getInitialTheme() {
       return this.appConfig.theme || '';
+    },
+    logout() {
+      registerLogout();
+      this.$toasted.show('Logged Out');
+      setTimeout(() => {
+        location.reload(); // eslint-disable-line no-restricted-globals
+      }, 100);
+    },
+    isUserLoggedIn() {
+      return !!localStorage[localStorageKeys.USERNAME];
     },
     /* Gets user themes if available */
     getUserThemes() {
@@ -176,6 +195,25 @@ export default {
       color: var(--settings-background);
     }
   }
+
+    svg.logout-icon {
+      path {
+        fill: var(--settings-text-color);
+      }
+      width: 1rem;
+      height: 1rem;
+      margin: 0.35rem 0.2rem;
+      padding: 0.2rem;
+      text-align: center;
+      background: var(--background);
+      border: 1px solid var(--settings-text-color);;
+      border-radius: var(--curve-factor);
+      cursor: pointer;
+      &:hover, &.selected {
+        background: var(--settings-text-color);
+        path { fill: var(--background); }
+      }
+    }
 
   @include tablet {
     section {

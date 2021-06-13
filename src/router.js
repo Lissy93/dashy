@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import Login from './views/Login.vue';
 import conf from '../public/conf.yml'; // Main site configuration
 import { pageInfo as defaultPageInfo, localStorageKeys } from './utils/defaults';
+import { isLoggedIn } from './utils/Auth';
 
 Vue.use(Router);
 
@@ -21,17 +23,24 @@ try {
   localAppConfig = undefined;
 }
 
+const config = {
+  sections: sections || [],
+  pageInfo: localPageInfo || pageInfo || defaultPageInfo,
+  appConfig: localAppConfig || appConfig || {},
+};
+
+const isAuthenticated = () => {
+  const users = config.appConfig.auth;
+  return (!users || isLoggedIn(users));
+};
+
 const router = new Router({
   routes: [
     {
       path: '/',
       name: 'home',
       component: Home,
-      props: {
-        sections: sections || [],
-        pageInfo: localPageInfo || pageInfo || defaultPageInfo,
-        appConfig: localAppConfig || appConfig || {},
-      },
+      props: config,
       meta: {
         title: pageInfo.title || 'Home Page',
         metaTags: [
@@ -43,6 +52,18 @@ const router = new Router({
       },
     },
     {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      props: {
+        appConfig: config.appConfig,
+      },
+      beforeEnter: (to, from, next) => {
+        if (isAuthenticated()) router.push({ path: '/' });
+        next();
+      },
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
@@ -50,7 +71,12 @@ const router = new Router({
   ],
 });
 
-const defaultTitle = 'Speed Dial';
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'login' && !isAuthenticated()) next({ name: 'login' });
+  else next();
+});
+
+const defaultTitle = 'Dashy';
 router.afterEach((to) => {
   Vue.nextTick(() => {
     document.title = to.meta.title || defaultTitle;

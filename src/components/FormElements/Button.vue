@@ -1,5 +1,6 @@
 <template>
   <button @click="click()">
+    <slot></slot>
     <slot name="text"></slot>
     <slot name="icon"></slot>
   </button>
