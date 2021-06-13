@@ -55,6 +55,17 @@ All fields are optional, unless otherwise stated.
 **`externalStyleSheet`** | `string`  or `string[]` | _Optional_ | Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
 **`customCss`** | `string` | _Optional_ | Raw CSS that will be applied to the page. This can also be set from the UI. Please minify it first.
 **`showSplashScreen`** | `boolean` | _Optional_ | Should display a splash screen while the app is loading. Defaults to false, except on first load
+**`auth`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. Note authentication is done on the client side, and so if your instance of Dashy is exposed to the internet, it is recommend to configure your web server to handle this. See [`auth`](#appconfigauth-optional)
+
+**[⬆️ Back to Top](#configuring)**
+
+#### `appConfig.auth` _(optional)_
+
+**Field** | **Type** | **Required**| **Description**
+--- | --- | --- | ---
+**`user`** | `string` | Required | Username to log in with
+**`hash`** | `string` | Required | A SHA-256 hashed password
+**`type`** | `string` | _Optional_ | The user type, either admin or normal
 
 **[⬆️ Back to Top](#configuring)**
 

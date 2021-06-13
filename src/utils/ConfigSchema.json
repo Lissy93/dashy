@@ -94,6 +94,38 @@
           "type": "boolean",
           "default": false,
           "description": "Display a loading screen when the app is launched"
+        },
+        "auth": {
+          "type": "array",
+          "description": "Usernames and hashed credentials for frontend authentication",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "user",
+              "hash"
+            ],
+            "properties": {
+              "user": {
+                "type": "string",
+                "description": "The username for a user"
+              },
+              "hash": {
+                "type": "string",
+                "description": "A SHA-256 hashed password for that user",
+                "minLength": 64,
+                "maxLength": 64
+              },
+              "type": {
+                "enum": [
+                  "admin",
+                  "normal"
+                ],
+                "description": "User type, denoting privilege level, either admin or normal",
+                "default": "normal"
+              }
+            }
+          }
         }
       },
       "additionalProperties": false
