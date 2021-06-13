@@ -1,0 +1,52 @@
+import sha256 from 'crypto-js/sha256';
+import { cookieKeys, localStorageKeys } from './defaults';
+
+const generateUserToken = (user) => sha256(user.toString()).toString().toLowerCase();
+
+export const isLoggedIn = (users) => {
+  const validTokens = users.map((user) => generateUserToken(user));
+  let userAuthenticated = false;
+  document.cookie.split(';').forEach((cookie) => {
+    if (cookie && cookie.split('=').length > 1) {
+      const cookieKey = cookie.split('=')[0].trim();
+      const cookieValue = cookie.split('=')[1].trim();
+      if (cookieKey === cookieKeys.AUTH_TOKEN) {
+        if (validTokens.includes(cookieValue)) {
+          userAuthenticated = true;
+        }
+      }
+    }
+  });
+  return userAuthenticated;
+};
+
+export const checkCredentials = (username, pass, users) => {
+  let response;
+  if (!username) {
+    response = { correct: false, msg: 'Missing Username' };
+  } else if (!pass) {
+    response = { correct: false, msg: 'Missing Password' };
+  } else {
+    users.forEach((user) => {
+      if (user.user === username) {
+        if (user.hash.toLowerCase() === sha256(pass).toString().toLowerCase()) {
+          response = { correct: true, msg: 'Logging in...' };
+        } else {
+          response = { correct: false, msg: 'Incorrect Password' };
+        }
+      }
+    });
+  }
+  return response || { correct: false, msg: 'User not found' };
+};
+
+export const login = (username, pass) => {
+  const userObject = { user: username, hash: sha256(pass).toString().toLowerCase() };
+  document.cookie = `authenticationToken=${generateUserToken(userObject)}; max-age=600`;
+  localStorage.setItem(localStorageKeys.USERNAME, username);
+};
+
+export const logout = () => {
+  document.cookie = 'authenticationToken=null';
+  localStorage.removeItem(localStorageKeys.USERNAME);
+};

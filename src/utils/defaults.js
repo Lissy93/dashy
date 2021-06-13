@@ -54,6 +54,10 @@ module.exports = {
     BACKUP_ID: 'backupId',
     BACKUP_HASH: 'backupHash',
     HIDE_SETTINGS: 'hideSettings',
+    USERNAME: 'username',
+  },
+  cookieKeys: {
+    AUTH_TOKEN: 'authenticationToken',
   },
   modalNames: {
     CONF_EDITOR: 'CONF_EDITOR',
