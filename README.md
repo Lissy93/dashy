@@ -134,6 +134,24 @@ All data is encrypted before being sent to the backend. In Dashy, this is done i
 
 ---
 
+## Authentication 💂
+
+> For full development documentation, see: [**Authentication**](./docs/authentication.md)
+
+Dashy has a built-in login feature, which can be used for basic access control. To enable this feature, add an `auth` attribute under `appConfig`, containing an array of users, each with a username, SHA-256 hashed password and optional user type.
+
+```yaml
+appConfig:
+  auth:
+    - user: alicia
+      hash: 4D1E58C90B3B94BCAD9848ECCACD6D2A8C9FBC5CA913304BBA5CDEAB36FEEFA3
+```
+At present, access control is handles on the frontend, and therefore in security-critical applications, it is recommended to use VPN access for authentication.
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
 ## Developing 🧱
 
 > For full development documentation, see: [**Developing**](./docs/developing.md)

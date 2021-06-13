@@ -1,6 +1,6 @@
 # Authentication
 
-- [Build-In Login Feature](#authentication)
+- [Built-In Login Feature](#authentication)
 	- [Setting Up Authentication](#setting-up-authentication)
 	- [Hash Password](#hash-password)
 	- [Logging In and Out](#logging-in-and-out)
@@ -11,7 +11,6 @@
 	- [Web Server Authentication](#web-server-authentication)
 	- [OAuth Services](#oauth-services)
 	- [Auth on Cloud Hosting Services](#static-site-hosting-providers)
-
 
 Dashy has a basic login page included, and frontend authentication. You can enable this by adding users to the `auth` section under `appConfig` in your `conf.yml`. If this section is not specified, then no authentication will be required to access the app, and it the homepage will resolve to your dashboard.
 
@@ -56,14 +55,13 @@ If you are hosting Dashy locally, and require remote access, it is recommend to 
 - OAuth Services
 - Password Protection (for cloud providers)
 
-
 ### VPN
-The most secure method for accessing Dashy and other self-hosted services remotely is through a VPN connection, using something like [OpenVPN]() or [WireGuard]()
+The most secure method for accessing Dashy and other self-hosted services remotely is through a VPN connection, using something like [OpenVPN](https://openvpn.net/) or [WireGuard](https://www.wireguard.com/)
 
 ### IP-Based Access
 If you have a static IP or use a VPN to access your running services, then you can use conditional access to block access to Dashy from everyone except users of your pre-defined IP address. This feature is offered by most cloud providers, and supported by most web servers.
 
-#### Apache
+##### Apache
 In Apache, this is configured in your `.htaccess` file in Dashy's root folder, and should look something like:
 ```
 Order Deny,Allow
@@ -71,7 +69,7 @@ Deny from all
 Allow from [your-ip]
 ```
 
-#### NGINX
+##### NGINX
 In NGINX you can specify [control access](https://docs.nginx.com/nginx/admin-guide/security-controls/controlling-access-proxied-http/) rules for a given site in your `nginx.conf` or hosts file. For example:
 ```
 server {
@@ -86,7 +84,7 @@ server {
   }
 ```
 
-#### Caddy
+##### Caddy
 In Caddy, [Request Matchers](https://caddyserver.com/docs/caddyfile/matchers) can be used to filter requests 
 ```
 dashy.site {
@@ -98,7 +96,7 @@ dashy.site {
 ### Web Server Authentication
 Most web servers make password protecting certain apps very easy. Note that you should also set up HTTPS and have a valid certificate in order for this to be secure.
 
-#### Apache
+##### Apache
 First crate a `.htaccess` file in Dashy's route directory. Specify the auth type and path to where you want to store the password file (usually the same folder). For example:
 ```
 AuthType Basic  
@@ -112,7 +110,7 @@ Then create a `.htpasswd` file in the same directory. List users and their hashe
 alicia:$apr1$jv0spemw$RzOX5/GgY69JMkgV6u16l0
 ```
 
-#### NGINX
+##### NGINX
 NGINX has an [authentication module](https://nginx.org/en/docs/http/ngx_http_auth_basic_module.html) which can be used to add passwords to given sites, and is fairly simple to set up. Similar to above, you will need to create a `.htpasswd` file. Then just enable auth and specify the path to that file, for example:
 ```
 location / {
@@ -120,7 +118,7 @@ location / {
   auth_basic_user_file conf/htpasswd;
 }
 ```
-#### Caddy
+##### Caddy
 Caddy has a [basic-auth](https://caddyserver.com/docs/caddyfile/directives/basicauth) directive, where you specify a username and hash. The password hash needs to be base-64 encoded, the [`caddy hash-password`](https://caddyserver.com/docs/command-line#caddy-hash-password) command can help with this. For example:
 ```
 basicauth /secret/* {
@@ -128,7 +126,7 @@ basicauth /secret/* {
 }
 ```
 
-#### Lighttpd
+##### Lighttpd
 You can use the [mod_auth](https://doc.lighttpd.net/lighttpd2/mod_auth.html) module to secure your site with Lighttpd. Like with Apache, you need to first create a password file listing your usersnames and hashed passwords, but in Lighttpd, it's usually called `.lighttpdpassword`.
 
 Then in your `lighttpd.conf` file (usually in the `/etc/lighttpd/` directory), load in the mod_auth module, and configure it's directives. For example:
