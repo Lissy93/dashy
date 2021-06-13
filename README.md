@@ -21,8 +21,9 @@
 - Many options for icons, including full Font-Awesome support and the ability to auto-fetch icon from URLs favicon
 - Additional info for each item visible on hover (including opening method icon and description as a tooltip)
 - Option for full-screen background image, custom nav-bar links, and custom footer text
-- User settings stored in local storage and applied on load
+- User preferences stored in local storage and applied on load
 - Encrypted cloud backup and restore feature available
+- Optional authentication, requiring user to log in
 - Easy single-file YAML-based configuration
 - Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
 - Plus lots more...
@@ -199,6 +200,7 @@ For more general questions about any of the technologies used, [StackOverflow](h
 - [Troubleshooting](/docs/troubleshooting.md)
 - [Backup & Restore](/docs/backup-restore.md)
 - [Theming](/docs/theming.md)
+- [Authentication](/docs/authentication.md)
 
 **[⬆️ Back to Top](#dashy)**
 

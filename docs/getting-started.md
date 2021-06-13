@@ -299,6 +299,11 @@ Then restart Apache, with `sudo systemctl restart apache2`
 8. If you need to change the port, click 'Add environmental variable', give it the name 'PORT', choose a port number and press 'Save'.
 9. Dashy should now be running at your selected path an on a given port
 
+**[⬆️ Back to Top](#getting-started)**
+
 ---
+
+## Authentication
+
 
 **[⬆️ Back to Top](#getting-started)**
