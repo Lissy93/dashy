@@ -12,7 +12,7 @@ import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
 import Defaults, { localStorageKeys, splashScreenTime } from '@/utils/defaults';
-import conf from '../public/conf.yml';
+import { config, appConfig, pageInfo } from '@/utils/ConfigAccumalator';
 
 export default {
   name: 'app',
@@ -21,48 +21,18 @@ export default {
     Footer,
     LoadingScreen,
   },
+  provide: {
+    config,
+  },
   data() {
     return {
-      // pageInfo: this.getPageInfo(conf.pageInfo),
       showFooter: Defaults.visibleComponents.footer,
       isLoading: true,
+      appConfig,
+      pageInfo,
     };
   },
-  computed: {
-    pageInfo() {
-      return this.getPageInfo(conf.pageInfo);
-    },
-    appConfig() {
-      if (localStorage[localStorageKeys.APP_CONFIG]) {
-        return JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
-      } else if (conf.appConfig) {
-        return conf.appConfig;
-      } else {
-        return Defaults.appConfig;
-      }
-    },
-  },
   methods: {
-    /* Returns either page info from the config, or default values */
-    getPageInfo(pageInfo) {
-      const defaults = Defaults.pageInfo;
-
-      let localPageInfo;
-      try {
-        localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]);
-      } catch (e) {
-        localPageInfo = {};
-      }
-      if (pageInfo) {
-        return {
-          title: localPageInfo.title || pageInfo.title || defaults.title,
-          description: localPageInfo.description || pageInfo.description || defaults.description,
-          navLinks: localPageInfo.navLinks || pageInfo.navLinks || defaults.navLinks,
-          footerText: localPageInfo.footerText || pageInfo.footerText || defaults.footerText,
-        };
-      }
-      return defaults;
-    },
     getFooterText() {
       if (this.pageInfo && this.pageInfo.footerText) {
         return this.pageInfo.footerText;
