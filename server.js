@@ -9,6 +9,8 @@ const os = require('os');
 
 require('./src/utils/ConfigValidator');
 
+const pingUrl = require('./services/ping');
+
 const isDocker = !!process.env.IS_DOCKER;
 
 /* Checks env var for port. If undefined, will use Port 80 for Docker, or 4000 for metal */
@@ -64,8 +66,16 @@ const printWelcomeMessage = () => {
 
 try {
   connect()
-    .use(serveStatic(`${__dirname}/dist`))
-    .use(serveStatic(`${__dirname}/public`, { index: 'default.html' }))
+    .use(serveStatic(`${__dirname}/dist`)) /* Serves up the main built application to the root */
+    .use(serveStatic(`${__dirname}/public`, { index: 'default.html' })) /* During build, a custom page will be served */
+    .use('/ping', (req, res) => { /* This root returns the status of a given service - used for uptime monitoring */
+      try {
+        pingUrl(req.url, async (results) => {
+          await res.end(results);
+        });
+        // next();
+      } catch (e) { console.warn(`Error running ping check for ${req.url}\n`, e); }
+    })
     .listen(port, () => {
       try { printWelcomeMessage(); } catch (e) { console.log('Dashy is Starting...'); }
     });
