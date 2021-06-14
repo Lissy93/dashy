@@ -1,6 +1,6 @@
 ## User Guide
 
-This article outlines how to use the application. If you are instead looking for deployment instructions, see [Getting Started](/docs/getting-started.md) and [Configuring](/docs/configuring.md)
+This article outlines how to use the application. If you are instead looking for deployment instructions, see [Deployment](/docs/deployment.md) and [Configuring](/docs/configuring.md)
 
 ### Contents
 - [Searching](#searching)
@@ -66,7 +66,7 @@ You can also use Alt + Click or Alt + Enter, to open an item in a popup window. 
 
 ### Sections and Items
 
-The main content in Dashy is split into sections, which contain icons. You can have as many sections as you need, and each section can have an unlimited amount of icons. Visually, the grid layout works better when sections have a similar number of icons.
+The main content in Dashy is defined as an array of sections, each of which contains an array of items. You can have as many sections as you need, and each section can have an unlimited amount of items. If you are using the grid layout, then it works better, visually if each of your sections have similar number of items.
 
 Sections are collapsible, which is useful for those sections which contain less used applications, or are particularly long. The collapse state of a given section is remembered (stored in local storage), and applied on load.
 
@@ -100,7 +100,7 @@ Sections also have several optional properties, which are specified under `secti
 
 ### Icons
 
-Both sections and items can have an icon associated with them. There are several options for specifying icons. You can let the icon be automatically resolved and fetched from the items associated URL, by just setting the icon to `favicon`. You can use a font-awesome icon, by specifying it's name and category. Or you can pass in a URL, either to a locally hosted or remote image. For local images, you can put them in `./public/item-icons/` and then reference them just by the file name.
+Both sections and items can have an icon associated with them. There are several options for specifying icons. You can let the icon be automatically resolved and fetched from the items associated URL, by setting it's value to `favicon`. You can use a font-awesome icon, by specifying it's name and category, e.g. `fas fa-rocket`. Or you can pass in a URL, either to a locally hosted or remote image. For local images, you can put them in `./public/item-icons/` and then reference them just by the file name.
 
 **[⬆️ Back to Top](#user-guide)**
 

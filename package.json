@@ -8,10 +8,11 @@
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint --fix",
+    "pm2-start": "npx pm2 start server.js",
     "build-watch": "vue-cli-service build --watch",
     "build-and-start": "npm-run-all --parallel build start",
     "validate-config": "node src/utils/ConfigValidator",
-    "health-check": "node bin/healthcheck"
+    "health-check": "node services/healthcheck"
   },
   "dependencies": {
     "ajv": "^8.5.0",

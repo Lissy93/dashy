@@ -28,6 +28,7 @@
         :color="item.color"
         :backgroundColor="item.backgroundColor"
         :itemSize="newItemSize"
+        :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
       />
@@ -49,6 +50,7 @@ import IframeModal from '@/components/LinkItems/IframeModal.vue';
 
 export default {
   name: 'ItemGroup',
+  inject: ['config'],
   props: {
     groupId: String,
     title: String,
@@ -91,6 +93,10 @@ export default {
     },
     modalChanged(changedTo) {
       this.$emit('change-modal-visibility', changedTo);
+    },
+    shouldEnableStatusCheck(itemPreference) {
+      const globalPreference = this.config.appConfig.statusCheck || false;
+      return itemPreference !== undefined ? itemPreference : globalPreference;
     },
   },
 };

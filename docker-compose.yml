@@ -18,7 +18,7 @@ services:
     #  - GID=1000
     restart: unless-stopped
     healthcheck:
-      test: ['CMD', 'node', '/app/bin/healthcheck']
+      test: ['CMD', 'node', '/app/services/healthcheck']
       interval: 1m30s
       timeout: 10s
       retries: 3

@@ -1,36 +1,15 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
-import Login from './views/Login.vue';
-import conf from '../public/conf.yml'; // Main site configuration
-import { pageInfo as defaultPageInfo, localStorageKeys } from './utils/defaults';
-import { isLoggedIn } from './utils/Auth';
+
+import Home from '@/views/Home.vue';
+import Login from '@/views/Login.vue';
+import { isLoggedIn } from '@/utils/Auth';
+import { appConfig, pageInfo, sections } from '@/utils/ConfigAccumalator';
 
 Vue.use(Router);
 
-const { sections, pageInfo, appConfig } = conf;
-let localPageInfo;
-try {
-  localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]);
-} catch (e) {
-  localPageInfo = undefined;
-}
-
-let localAppConfig;
-try {
-  localAppConfig = JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
-} catch (e) {
-  localAppConfig = undefined;
-}
-
-const config = {
-  sections: sections || [],
-  pageInfo: localPageInfo || pageInfo || defaultPageInfo,
-  appConfig: localAppConfig || appConfig || {},
-};
-
 const isAuthenticated = () => {
-  const users = config.appConfig.auth;
+  const users = appConfig.auth;
   return (!users || isLoggedIn(users));
 };
 
@@ -40,7 +19,11 @@ const router = new Router({
       path: '/',
       name: 'home',
       component: Home,
-      props: config,
+      props: {
+        appConfig,
+        pageInfo,
+        sections,
+      },
       meta: {
         title: pageInfo.title || 'Home Page',
         metaTags: [
@@ -56,7 +39,7 @@ const router = new Router({
       name: 'login',
       component: Login,
       props: {
-        appConfig: config.appConfig,
+        appConfig,
       },
       beforeEnter: (to, from, next) => {
         if (isAuthenticated()) router.push({ path: '/' });

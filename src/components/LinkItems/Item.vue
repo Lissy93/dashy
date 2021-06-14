@@ -20,12 +20,20 @@
       <!-- Small icon, showing opening method on hover -->
       <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon" :openingMethod="target"
         :position="itemSize === 'medium'? 'bottom right' : 'top right'"/>
+      <StatusIndicator
+        class="status-indicator"
+        v-if="enableStatusCheck"
+        :statusSuccess="statusResponse ? statusResponse.successStatus : undefined"
+        :statusText="statusResponse ? statusResponse.message : undefined"
+      />
     </a>
 </template>
 
 <script>
+import axios from 'axios';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
+import StatusIndicator from '@/components/LinkItems/StatusIndicator';
 
 export default {
   name: 'Item',
@@ -44,6 +52,7 @@ export default {
       validator: (value) => ['newtab', 'sametab', 'iframe'].indexOf(value) !== -1,
     },
     itemSize: String,
+    enableStatusCheck: Boolean,
   },
   data() {
     return {
@@ -52,11 +61,13 @@ export default {
         color: this.color,
         background: this.backgroundColor,
       },
+      statusResponse: undefined,
     };
   },
   components: {
     Icon,
     ItemOpenMethodIcon,
+    StatusIndicator,
   },
   methods: {
     /* Called when an item is clicked, manages the opening of iframe & resets the search field */
@@ -88,9 +99,11 @@ export default {
         trigger: 'hover focus',
         hideOnTargetClick: true,
         html: false,
+        placement: this.statusResponse ? 'left' : 'auto',
         delay: { show: 600, hide: 200 },
       };
     },
+    /* Used by certain themes, which display an icon with animated CSS */
     getUnicodeOpeningIcon() {
       switch (this.target) {
         case 'newtab': return '"\\f360"';
@@ -99,9 +112,24 @@ export default {
         default: return '"\\f054"';
       }
     },
+    checkWebsiteStatus() {
+      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const endpoint = `${baseUrl}/ping?url=${this.url}`;
+      axios.get(endpoint)
+        .then((response) => {
+          if (response.data) this.statusResponse = response.data;
+        })
+        .catch(() => {
+          this.statusResponse = {
+            statusText: 'Failed to make request',
+            statusSuccess: false,
+          };
+        });
+    },
   },
   mounted() {
     this.manageTitleEllipse();
+    if (this.enableStatusCheck) this.checkWebsiteStatus();
   },
 };
 </script>
@@ -122,6 +150,7 @@ export default {
   box-shadow: var(--item-shadow);
   cursor: pointer;
   text-decoration: none;
+  position: relative;
   &:hover {
     box-shadow: var(--item-hover-shadow);
     background: var(--item-background-hover);
@@ -173,6 +202,13 @@ export default {
       transition: opacity 0.1s ease-in;
     }
   }
+}
+
+/* Colored dot showing service status */
+.status-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .opening-method-icon {

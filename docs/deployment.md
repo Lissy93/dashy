@@ -1,6 +1,6 @@
-# Getting Started
+# Deployment
 
-- [Deployment](#deployment)
+- [Running the App](#running-the-app)
   - [Deploy with Docker](#deploy-with-docker)
   - [Deploy from Source](#deploy-from-source)
   - [Deploy to Cloud Service](#deploy-to-cloud-service)
@@ -17,7 +17,7 @@
   - [NGINX](#nginx)
   - [Apache](#apache)
 
-## Deployment
+## Running the App
 
 ### Deploy with Docker
 
@@ -154,7 +154,7 @@ yarn build
 surge ./dist
 ```
 
-**[⬆️ Back to Top](#getting-started)**
+**[⬆️ Back to Top](#deployment)**
 
 ---
 
@@ -177,6 +177,7 @@ The following commands are defined in the [`package.json`](https://github.com/Li
 - **`yarn health-check`** - Checks that the application is up and running on it's specified port, and outputs current status and response times. Useful for integrating into your monitoring service, if you need to maintain high system availability
 - **`yarn build-watch`** - If you find yourself making frequent changes to your configuration, and do not want to have to keep manually rebuilding, then this option is for you. It will watch for changes to any files within the projects root, and then trigger a rebuild. Note that if you are developing new features, then `yarn dev` would be more appropriate, as it's significantly faster at recompiling (under 1 second), and has hot reloading, linting and testing integrated
 - **`yarn build-and-start`** - Builds the app, runs checks and starts the production server. Commands are run in parallel, and so is faster than running them in independently
+- **`yarn pm2-start`** - Starts the Node server using [PM2](https://pm2.keymetrics.io/), a process manager for Node.js applications, that helps them stay alive. PM2 has some built-in basic monitoring features, and an optional [management solution](https://pm2.io/). If you are running the app on bare metal, it is recommended to use this start command
 
 ### Healthchecks
 
@@ -192,7 +193,7 @@ You can check the resource usage for your running Docker containers with `docker
 
 You can also view logs, resource usage and other info as well as manage your Docker workflow in third-party Docker management apps. For example [Portainer](https://github.com/portainer/portainer) an all-in-one management web UI  for Docker and Kubernetes, or [LazyDocker](https://github.com/jesseduffield/lazydocker) a terminal UI for Docker container management and monitoring.
 
-**[⬆️ Back to Top](#getting-started)**
+**[⬆️ Back to Top](#deployment)**
 
 ---
 ## Updating
@@ -230,8 +231,7 @@ For more information, see the [Watchtower Docs](https://containrrr.dev/watchtowe
 4. Re-build: `yarn build`
 5. Start: `yarn start`
 
-
-**[⬆️ Back to Top](#getting-started)**
+**[⬆️ Back to Top](#deployment)**
 
 ---
 
@@ -241,8 +241,9 @@ _The following section only applies if you are not using Docker, and would like 
 
 Dashy ships with a pre-configured Node.js server, in [`server.js`](https://github.com/Lissy93/dashy/blob/master/server.js) which serves up the contents of the `./dist` directory on a given port. You can start the server by running `node server`. Note that the app must have been build (run `yarn build`), and you need [Node.js](https://nodejs.org) installed.
 
-However, since Dashy is just a static web application, it can be served with whatever server you like. The following section outlines how you can configure a web server.
+If you wish to run Dashy from a sub page (e.g. `example.com/dashy`), then just set the `BASE_URL` environmental variable to that page name (in this example, `/dashy`), before building the app, and the path to all assets will then resolve to the new path, instead of `./`.
 
+However, since Dashy is just a static web application, it can be served with whatever server you like. The following section outlines how you can configure a web server.
 ### NGINX
 
 Create a new file in `/etc/nginx/sites-enabled/dashy`
@@ -299,13 +300,13 @@ Then restart Apache, with `sudo systemctl restart apache2`
 8. If you need to change the port, click 'Add environmental variable', give it the name 'PORT', choose a port number and press 'Save'.
 9. Dashy should now be running at your selected path an on a given port
 
-**[⬆️ Back to Top](#getting-started)**
+**[⬆️ Back to Top](#deployment)**
 
 ---
 
 ## Authentication
 
-Dashy has built-in client-side authentication, but for security-critical situations, it is recommend to either use a VPN for access, or implement your own authentication using your cloud provider, web server or firewall rules. For more info, see **[Authentication Docs](/docs/authentication.md)**.
+Dashy has built-in authentication and login functionality. However, since this is handled on the client-side, if you are using Dashy in security-critical situations, it is recommended to use an alternate method for authentication, such as [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules. For more info, see **[Authentication Docs](/docs/authentication.md)**.
 
 
-**[⬆️ Back to Top](#getting-started)**
+**[⬆️ Back to Top](#deployment)**
