@@ -42,6 +42,7 @@ Since all authentication is happening entirely on the client-side, it is vulnera
 Addressing this is on the todo list, and there are two potential solutions:
 1. Encrypt all site data against the users password, so that an attacker can not physically access any data without the correct decryption key
 2. Use a backend service to handle authentication, and do not return user data from the server until the correct credentials are provided. However, this would require either Dashy to be run using it's Node.js server, or the use of an external service
+3. Implement authentication using a self-hosted identity management solution, such as [Keycloak for Vue](https://www.keycloak.org/securing-apps/vue)
 
 **[⬆️ Back to Top](#authentication)**
 
@@ -50,13 +51,27 @@ Addressing this is on the todo list, and there are two potential solutions:
 ## Alternative Authentication Methods
 
 If you are hosting Dashy locally, and require remote access, it is recommend to configure a VPN connection into your local network. For instances running on the cloud, you have several other options:
+- Authentication Server
+- VPN
 - IP-Based Access
 - Web Server Authentication
 - OAuth Services
 - Password Protection (for cloud providers)
 
+### Authentication Server
+##### Authelia 
+[Authelia](https://www.authelia.com/) is an open-source full-featured authentication server, which can be self-hosted and either on bare metal, in a Docker container or in a Kubernetes cluster. It allows for fine-grained access control rules based on IP, path, users etc, and supports 2FA, simple password access or bypass policies for your domains. 
+
+- `git clone https://github.com/authelia/authelia.git`
+- `cd authelia/examples/compose/lite`
+- Modify the `users_database.yml` the default username and password is authelia
+- Modify the `configuration.yml` and `docker-compose.yml` with your respective domains and secrets
+- `docker-compose up -d`
+
+For more information, see the [Authelia docs](https://www.authelia.com/docs/)
+
 ### VPN
-The most secure method for accessing Dashy and other self-hosted services remotely is through a VPN connection, using something like [OpenVPN](https://openvpn.net/) or [WireGuard](https://www.wireguard.com/)
+A catch-all solution to accessing services running from your home network remotely is to use a VPN. It means you do not need to worry about implementing complex authentication rules, or trusting the login implementation of individual applications. However it can be inconvenient to use on a day-to-day basis, and some public and corporate WiFi block VPN connections. Two popular VPN protocols are [OpenVPN](https://openvpn.net/) and [WireGuard](https://www.wireguard.com/)
 
 ### IP-Based Access
 If you have a static IP or use a VPN to access your running services, then you can use conditional access to block access to Dashy from everyone except users of your pre-defined IP address. This feature is offered by most cloud providers, and supported by most web servers.
@@ -154,7 +169,7 @@ Restart your web server for changes to take effect.
 ### OAuth Services
 There are also authentication services, such as [Ory.sh](https://www.ory.sh/), [Okta](https://developer.okta.com/), [Auth0](https://auth0.com/), [Firebase](https://firebase.google.com/docs/auth/). Implementing one of these solutions would involve some changes to the [`Auth.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/Auth.js) file, but should be fairly straight forward.
 
-## Static Site Hosting Providers
+### Static Site Hosting Providers
 If you are hosting Dashy on a cloud platform, you will probably find that it has built-in support for password protected access to web apps. For more info, see the relevant docs for your provider, for example: [Netlify Password Protection](https://docs.netlify.com/visitor-access/password-protection/), [Cloudflare Access](https://www.cloudflare.com/teams/access/), [AWS Cognito](https://aws.amazon.com/cognito/), [Azure Authentication](https://docs.microsoft.com/en-us/azure/app-service/scenario-secure-app-authentication-app-service) and [Vercel Password Protection](https://vercel.com/docs/platform/projects#password-protection).
 
 **[⬆️ Back to Top](#authentication)**
