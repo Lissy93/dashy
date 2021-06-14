@@ -19,6 +19,7 @@
 - Customizable layout options, and item sizes
 - Quickly preview a website, by holding down the Alt key while clicking, to open it in a resizable pop-up modal
 - Many options for icons, including full Font-Awesome support and the ability to auto-fetch icon from URLs favicon
+- Option to show service status for each of your apps / links, for basic availability and uptime monitoring
 - Additional info for each item visible on hover (including opening method icon and description as a tooltip)
 - Option for full-screen background image, custom nav-bar links, and custom footer text
 - User preferences stored in local storage and applied on load
@@ -46,7 +47,7 @@
 
 ## Getting Started 🛫
 
-> For full setup instructions, see: [**Getting Started**](./docs/getting-started.md)
+> For full setup instructions, see: [**Deployment**](./docs/deployment.md)
 
 #### Deploying from Docker Hub 🐳
 
@@ -104,7 +105,7 @@ You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce9
 
 ## Theming 🎨
 
-> For full configuration documentation, see: [**Theming**](./docs/theming.md)
+> For full theming documentation, see: [**Theming**](./docs/theming.md)
 
 <p align="center">
   <a href="https://i.ibb.co/BVSHV1v/dashy-themes-slideshow.gif">
@@ -122,7 +123,7 @@ You can also apply custom CSS overrides directly through the UI (Under Config me
 
 ## Cloud Backup & Sync ☁
 
-> For full documentation, see: [**Cloud Backup & Sync**](./docs/backup-restore.md)
+> For full backup documentation, see: [**Cloud Backup & Sync**](./docs/backup-restore.md)
 
 Dashy has an **optional** built-in feature for securely backing up your config to a hosted cloud service, and then restoring it on another instance. This feature is totally optional, and if you do not enable it, then Dashy will not make any external network requests.
 
@@ -136,7 +137,7 @@ All data is encrypted before being sent to the backend. In Dashy, this is done i
 
 ## Authentication 💂
 
-> For full development documentation, see: [**Authentication**](./docs/authentication.md)
+> For full authentication documentation, see: [**Authentication**](./docs/authentication.md)
 
 Dashy has a built-in login feature, which can be used for basic access control. To enable this feature, add an `auth` attribute under `appConfig`, containing an array of users, each with a username, SHA-256 hashed password and optional user type.
 
@@ -146,7 +147,17 @@ appConfig:
     - user: alicia
       hash: 4D1E58C90B3B94BCAD9848ECCACD6D2A8C9FBC5CA913304BBA5CDEAB36FEEFA3
 ```
-At present, access control is handles on the frontend, and therefore in security-critical applications, it is recommended to use VPN access for authentication.
+At present, access control is handled on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication, such as [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules.
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
+## Status Indicators 🚦
+
+> For full monitoring documentation, see: [**Status Indicators**](./docs/status-indicators.md)
+
+Dashy has an optional feature that can display a small icon ([like this](./docs/assets/status-check-demo.gif)) next to each of your running services, indicating it's current status. This is useful if you are using Dashy as your homelab's start page, as it gives you an overview of the health of each of your running services. By default, this feature is off, but you can enable it globally by setting `appConfig.statusCheck: true`, or enable/ disable it for an individual item, with `item[n].statusCheck`.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -210,7 +221,7 @@ For more general questions about any of the technologies used, [StackOverflow](h
 
 ## Documentation 📘
 
-- [Getting Started](/docs/getting-started.md)
+- [Getting Started](/docs/deployment.md)
 - [Configuring](/docs/configuring.md)
 - [Developing](/docs/developing.md)
 - [Contributing](/docs/contributing.md)

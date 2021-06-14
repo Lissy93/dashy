@@ -1,6 +1,6 @@
 ## Contents
 
-- [Getting Started](/docs/getting-started.md)
+- [Deployment](/docs/deployment.md)
 - [Configuring](/docs/configuring.md)
 - [Developing](/docs/developing.md)
 - [Contributing](/docs/contributing.md)
