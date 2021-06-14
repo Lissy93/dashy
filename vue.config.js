@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: process.env.BASE_URL, // || './',
   chainWebpack: config => {
     config.module.rules.delete('svg');
   },
