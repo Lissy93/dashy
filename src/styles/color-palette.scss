@@ -77,10 +77,14 @@
   --toast-color: var(--background);
   --scroll-bar-color: var(--primary);
   --scroll-bar-background: var(--background-darker);
+  --highlight-color: var(--background);
+  --highlight-background: var(--primary);
   --loading-screen-color: var(--primary);
   --loading-screen-background: var(--background);
   --login-form-color: var(--primary);
   --login-form-background: var(--background);
   --login-form-background-secondary: var(--background-darker);
-
+  --about-page-color: var(--white);
+  --about-page-background: #0b1021;
+  --about-page-accent: var(--primary);
 }
