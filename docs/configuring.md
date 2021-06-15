@@ -50,6 +50,8 @@ All fields are optional, unless otherwise stated.
 **`backgroundImg`** | `string` | _Optional_ | Path to an optional full-screen app background image. This can be either remote (http) or local (/). Note that this will slow down initial load
 **`enableFontAwesome`** | `boolean` | _Optional_ | Where `true` is enabled, if left blank font-awesome will be enabled only if required by 1 or more icons
 **`fontAwesomeKey`** | `string` | _Optional_ | If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
+**`layout`** | `string` | _Optional_ | App layout, either `horizontal`, `vertical`, `auto` or `sidebar`. Defaults to `auto`. This specifies the layout and direction of how sections are positioned on the home screen. This can also be modified from the UI.
+**`iconSize`** | `string` | _Optional_ | The size of link items / icons. Can be either `small`, `medium,` or `large`. Defaults to `medium`. This can also be set directly from the UI.
 **`theme`** | `string` | _Optional_ | The default theme for first load (you can change this later from the UI)
 **`cssThemes`** | `string[]` | _Optional_ | An array of custom theme names which can be used in the theme switcher dropdown
 **`externalStyleSheet`** | `string`  or `string[]` | _Optional_ | Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
@@ -104,9 +106,9 @@ All fields are optional, unless otherwise stated.
 **`itemSize`** | `string` | _Optional_ | Specify the size for items within this group, either `small`, `medium` or `large`. Note that this will overide any settings specified through the UI
 **`rows`** | `number` | _Optional_ | Height of the section, specified as the number of rows it should span vertically, e.g. `2`. Defaults to `1`. Max is `5`.
 **`cols`** | `number` | _Optional_ | Width of the section, specified as the number of columns the section should span horizontally, e.g. `2`. Defaults to `1`. Max is `5`.
-**`layout`** | `string` | _Optional_ | Specify which CSS layout will be used to responsivley place items. Can be either `auto` (which uses flex layout), or `grid`. If `grid` is selected, then `itemCountX` and `itemCountY` may also be set. Defaults to `auto`
-**`itemCountX`** | `number` | _Optional_ | The number of items to display per row / horizontally. If not set, it will be calculated automatically based on available space. Can only be set if `layout` is set to `grid`. Must be a whole number between `1` and `12`
-**`itemCountY`** | `number` | _Optional_ | The number of items to display per column / vertically. If not set, it will be calculated automatically based on available space. If `itemCountX` is set, then `itemCountY` can be calculated automatically. Can only be set if `layout` is set to `grid`. Must be a whole number between `1` and `12`
+**`sectionLayout`** | `string` | _Optional_ | Specify which CSS layout will be used to responsivley place items. Can be either `auto` (which uses flex layout), or `grid`. If `grid` is selected, then `itemCountX` and `itemCountY` may also be set. Defaults to `auto`
+**`itemCountX`** | `number` | _Optional_ | The number of items to display per row / horizontally. If not set, it will be calculated automatically based on available space. Can only be set if `sectionLayout` is set to `grid`. Must be a whole number between `1` and `12`
+**`itemCountY`** | `number` | _Optional_ | The number of items to display per column / vertically. If not set, it will be calculated automatically based on available space. If `itemCountX` is set, then `itemCountY` can be calculated automatically. Can only be set if `sectionLayout` is set to `grid`. Must be a whole number between `1` and `12`
 
 **[⬆️ Back to Top](#configuring)**
 

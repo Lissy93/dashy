@@ -114,6 +114,8 @@ You can target specific elements on the UI with these variables. All are optiona
 - `--toast-color` - Text, icon and border color in the toast info popup. Defaults to `--background`
 - `--welcome-popup-background` - Background for the info pop-up shown on first load. Defaults to `--background-darker`
 - `--welcome-popup-text-color` - Text color for the welcome pop-up. Defaults to `--primary`
+- `--side-bar-background` - Background color of the sidebar used in the workspace view. Defaults to `--background-darker`
+- `--side-bar-color` - Color of icons and text within the sidebar. Defaults to `--primary`
 
 #### Non-Color Variables
 - `--outline-color` - Used to outline focused or selected elements
