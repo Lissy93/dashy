@@ -70,7 +70,7 @@ export default {
       return this.displayData.itemSize || this.itemSize;
     },
     isGridLayout() {
-      return this.displayData.layout === 'grid'
+      return this.displayData.sectionLayout === 'grid'
         || !!(this.displayData.itemCountX || this.displayData.itemCountY);
     },
     gridStyle() {

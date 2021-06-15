@@ -77,4 +77,7 @@ module.exports = {
   },
   backupEndpoint: 'https://dashy-sync-service.as93.net',
   splashScreenTime: 1900,
+  metaTagData: [
+    { name: 'description', content: 'A simple static homepage for you\'re server' },
+  ],
 };

@@ -8,13 +8,17 @@ import Defaults, { localStorageKeys } from '@/utils/defaults';
 import conf from '../../public/conf.yml';
 
 export const appConfig = (() => {
+  let usersAppConfig = Defaults.appConfig;
   if (localStorage[localStorageKeys.APP_CONFIG]) {
-    return JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
+    usersAppConfig = JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
   } else if (conf.appConfig) {
-    return conf.appConfig;
-  } else {
-    return Defaults.appConfig;
+    usersAppConfig = conf.appConfig;
   }
+  usersAppConfig.layout = localStorage[localStorageKeys.LAYOUT_ORIENTATION]
+    || conf.appConfig.layout || Defaults.layout;
+  usersAppConfig.iconSize = localStorage[localStorageKeys.ICON_SIZE]
+    || conf.appConfig.iconSize || Defaults.iconSize;
+  return usersAppConfig;
 })();
 
 export const pageInfo = (() => {

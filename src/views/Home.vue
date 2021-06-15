@@ -64,14 +64,14 @@ export default {
   }),
   computed: {
     layoutOrientation: {
-      get: () => localStorage[localStorageKeys.LAYOUT_ORIENTATION] || Defaults.layout,
+      get() { return this.appConfig.layout || Defaults.layout; },
       set: function setLayout(layout) {
         localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
         this.layout = layout;
       },
     },
     iconSize: {
-      get: () => localStorage[localStorageKeys.ICON_SIZE] || Defaults.iconSize,
+      get() { return this.appConfig.iconSize || Defaults.iconSize; },
       set: function setIconSize(iconSize) {
         localStorage.setItem(localStorageKeys.ICON_SIZE, iconSize);
         this.itemSizeBound = iconSize;
