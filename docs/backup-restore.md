@@ -49,20 +49,6 @@ Maximum of 24mb of storage per user. Please do not repeatedly hit the endpoint, 
 - Add your `zone_id` (found in the Overview tab of your desired domain on Cloudflare)
 - Add your `route`, which should be a domain or host, supporting a wildcard
 
-```toml
-name = "dashy-worker"
-type = "javascript"
-
-workers_dev = true
-route = "example.com/*"
-zone_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-account_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-
-kv_namespaces = [
-  { binding = "DASHY_CLOUD_BACKUP", id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" }
-]
-```
-
 #### Complete `index.js`
 - Write code to handle your requests, and interact with any other data sources in this file
 - Generally, this is done within an event listener for 'fetch', and returns a promise
@@ -80,7 +66,7 @@ async function handleRequest(request) {
 }
 ```
 
-- For the code used for Dashy's cloud service, see [here](https://gist.github.com/Lissy93/d19b43d50f30e02fa25f349cf5cb5ed8#file-index-js)
+- For the code used for Dashy's cloud service, see [here](https://notes.aliciasykes.com/p/j2F1deljv1)
 
 
 #### Commands

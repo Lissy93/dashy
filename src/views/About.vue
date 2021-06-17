@@ -9,6 +9,15 @@
         highly customizable and functianl dashboard, in order to improvde productivity
         and enable easy organisation of running services or web links.
       </p>
+      <p>
+        Dashy is a web-based project with PWA mobile support. It's written in TypeScript,
+        and using the Vue.js framework, with a simple Node.js backend.
+        It can be run in a light-weight Alpine Docker container, with support for
+        healthcheck monitoring, self-updating and automatic restarting. Configuration
+        is done with a single YAML file, that is merged with the application when it
+        is built / compiled. The configuration can me modified using the UI, and then
+        exported back into the main config file.
+      </p>
     </section>
 
     <section>
@@ -42,7 +51,7 @@
         <img class="aht-pic" src="https://i.ibb.co/FnxqTfx/aht-bot-round.png" alt="Alicia Sykes">
       </a>
       Dashy is developed an maintained by <a href="https://aliciasykes.com">Alicia Sykes</a>
-      (<a href="https://github.com/lissy93">@Lissy93</a>), with support from the community.
+      (<a href="https://github.com/lissy93">@Lissy93</a>).
       <ul>
         <li><b>PGP Key</b> - <a href="https://keybase.io/aliciasykes/pgp_keys.asc?fingerprint=0688f8d34587d954e9e51fb8fedb68f55c0283a7"><code>0688 F8D3 4587 D954 E9E5  1FB8 FEDB 68F5 5C02 83A7</code></a></li>
         <li><b>BTC Address</b> - <code>3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC</code></li>
@@ -92,8 +101,8 @@ article.about {
   background: var(--about-page-background);
   color: var(--about-page-color);
   width: 80%;
-  max-width: 1000px;
-  margin: 1rem auto 2.5rem auto;
+  max-width: 800px;
+  margin: 1rem auto;
   padding: 1rem;
   border: 1px solid var(--about-page-accent);
   border-radius: var(--curve-factor);

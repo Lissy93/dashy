@@ -1,13 +1,7 @@
 <template>
   <nav class="side-bar">
     <div v-for="(section, index) in sections" :key="index">
-      <SideBarItem
-        class="item"
-        :icon="section.icon"
-        :title="section.name"
-        :click="launchItem"
-      />
-      <SideBarSection v-if="isOpen" :items="section.items" />
+      <SideBarItem class="item" :icon="section.icon" :title="section.title" />
     </div>
   </nav>
 </template>
@@ -15,7 +9,6 @@
 <script>
 
 import SideBarItem from '@/components/Workspace/SideBarItem.vue';
-import SideBarSection from '@/components/Workspace/SideBarSection.vue';
 
 export default {
   name: 'SideBar',
@@ -23,19 +16,8 @@ export default {
   props: {
     sections: Array,
   },
-  data: () => ({
-    isOpen: false,
-  }),
   components: {
     SideBarItem,
-    SideBarSection,
-  },
-  methods: {
-    launchItem() {
-      this.isOpen = !this.isOpen;
-      // Open SideBarSection, passing in items[]
-      // this.$emit('launch', url);
-    },
   },
 };
 </script>
