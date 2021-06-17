@@ -20,9 +20,9 @@ export default {
 
 iframe {
   position: absolute;
-  left: 3rem;
-  height: calc(100% - 6.3rem);
-  width: calc(100% - 3rem);
+  left: var(--side-bar-width);
+  height: calc(100% - var(--header-height));
+  width: calc(100% - var(--side-bar-width));
   border: none;
   background: white;
 }

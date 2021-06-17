@@ -1,14 +1,14 @@
 <template>
-  <div class="side-bar-item">
-    <Icon v-if="icon" :icon="icon" size="small" />
-    <p v-else>{{ title }}</p>
+  <div @click="itemClicked()"
+    :class="`side-bar-item ${icon ? 'w-icon' : 'text-only'}`" v-tooltip="tooltip">
+    <Icon v-if="icon" :icon="icon" size="small" :url="url" />
+    <p class="small-title" v-else>{{ title }}</p>
   </div>
 </template>
 
 <script>
 
 import Icon from '@/components/LinkItems/ItemIcon.vue';
-import Defaults from '@/utils/defaults';
 
 export default {
   name: 'SideBarItem',
@@ -16,20 +16,29 @@ export default {
   props: {
     icon: String,
     title: String,
-  },
-  mounted() {
-    this.initiateFontAwesome();
+    url: String,
+    click: Function,
   },
   components: {
     Icon,
   },
   methods: {
-    initiateFontAwesome() {
-      const fontAwesomeScript = document.createElement('script');
-      const faKey = this.config.appConfig.fontAwesomeKey || Defaults.fontAwesomeKey;
-      fontAwesomeScript.setAttribute('src', `https://kit.fontawesome.com/${faKey}.js`);
-      document.head.appendChild(fontAwesomeScript);
+    itemClicked() {
+      if (this.url) this.$emit('launch-app', this.url);
     },
+  },
+  data() {
+    return {
+      tooltip: {
+        disabled: !this.title,
+        content: this.title,
+        trigger: 'hover focus',
+        hideOnTargetClick: true,
+        html: false,
+        placement: 'right-start',
+        delay: { show: 800, hide: 1000 },
+      },
+    };
   },
 };
 </script>
@@ -42,6 +51,14 @@ div.side-bar-item {
   color: var(--side-bar-color);
   background: var(--side-bar-background);
   text-align: center;
+  &.text-only {
+    background: none;
+    border: none;
+    box-shadow: none;
+    p.small-title {
+      margin: 0.1rem auto;
+      font-size: 0.6rem;
+    }
+  }
 }
-
 </style>

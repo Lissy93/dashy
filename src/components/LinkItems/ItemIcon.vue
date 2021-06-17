@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="item-icon">
     <i v-if="iconType === 'font-awesome'" :class="`${icon} ${size}`" ></i>
     <img v-else-if="icon" :src="iconPath" @error="imageNotFound"
       :class="`tile-icon ${size} ${broken ? 'broken' : ''}`"
@@ -98,9 +98,16 @@ export default {
 
 <style lang="scss">
   .tile-icon {
-      width: 60px;
+      width: 2rem;
       // filter: var(--item-icon-transform);
+      border-radius: var(--curve-factor);
       &.broken { display: none; }
+      &.small {
+        width: 1.5rem;
+      }
+      &.large {
+        width: 3rem;
+      }
   }
   i.fas, i.fab, i.far, i.fal, i.fad {
     font-size: 2rem;
