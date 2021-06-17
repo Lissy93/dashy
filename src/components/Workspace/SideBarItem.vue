@@ -1,6 +1,6 @@
 <template>
-  <div class="side-bar-item">
-    <Icon v-if="icon" :icon="icon" size="small" />
+  <div class="side-bar-item" @click="click()">
+    <Icon v-if="icon" :icon="icon" size="small" :url="url" />
     <p v-else>{{ title }}</p>
   </div>
 </template>
@@ -8,7 +8,6 @@
 <script>
 
 import Icon from '@/components/LinkItems/ItemIcon.vue';
-import Defaults from '@/utils/defaults';
 
 export default {
   name: 'SideBarItem',
@@ -16,20 +15,11 @@ export default {
   props: {
     icon: String,
     title: String,
-  },
-  mounted() {
-    this.initiateFontAwesome();
+    url: String,
+    click: Function,
   },
   components: {
     Icon,
-  },
-  methods: {
-    initiateFontAwesome() {
-      const fontAwesomeScript = document.createElement('script');
-      const faKey = this.config.appConfig.fontAwesomeKey || Defaults.fontAwesomeKey;
-      fontAwesomeScript.setAttribute('src', `https://kit.fontawesome.com/${faKey}.js`);
-      document.head.appendChild(fontAwesomeScript);
-    },
   },
 };
 </script>

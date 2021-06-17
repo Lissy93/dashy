@@ -1,40 +1,33 @@
 <template>
-  <nav class="side-bar">
-    <div v-for="(section, index) in sections" :key="index">
+  <div class="sub-side-bar">
+    <div v-for="(item, index) in items" :key="index">
       <SideBarItem
         class="item"
-        :icon="section.icon"
-        :title="section.name"
+        :icon="item.icon"
+        :title="item.title"
+        :url="item.url"
         :click="launchItem"
       />
-      <SideBarSection v-if="isOpen" :items="section.items" />
     </div>
-  </nav>
+  </div>
 </template>
 
 <script>
 
 import SideBarItem from '@/components/Workspace/SideBarItem.vue';
-import SideBarSection from '@/components/Workspace/SideBarSection.vue';
 
 export default {
-  name: 'SideBar',
+  name: 'SideBarSection',
   inject: ['config'],
   props: {
-    sections: Array,
+    items: Array,
   },
-  data: () => ({
-    isOpen: false,
-  }),
   components: {
     SideBarItem,
-    SideBarSection,
   },
   methods: {
-    launchItem() {
-      this.isOpen = !this.isOpen;
-      // Open SideBarSection, passing in items[]
-      // this.$emit('launch', url);
+    launchItem(url) {
+      this.$emit('launch', url);
     },
   },
 };
@@ -44,14 +37,12 @@ export default {
 @import '@/styles/media-queries.scss';
 @import '@/styles/style-helpers.scss';
 
-nav.side-bar {
-  position: fixed;
+div.sub-side-bar {
   display: flex;
   flex-direction: column;
   background: var(--side-bar-background);
   color: var(--side-bar-color);
-  height: 100%;
-  width: 3rem;
+  border: 1px dashed red;
   text-align: center;
   .item:not(:last-child) {
     border-bottom: 1px dashed var(--side-bar-color);
