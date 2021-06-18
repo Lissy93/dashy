@@ -3,8 +3,10 @@ import Router from 'vue-router';
 
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
+import Workspace from '@/views/Workspace.vue';
 import { isLoggedIn } from '@/utils/Auth';
 import { appConfig, pageInfo, sections } from '@/utils/ConfigAccumalator';
+import { metaTagData } from '@/utils/defaults';
 
 Vue.use(Router);
 
@@ -26,12 +28,17 @@ const router = new Router({
       },
       meta: {
         title: pageInfo.title || 'Home Page',
-        metaTags: [
-          {
-            name: 'description',
-            content: 'A simple static homepage for you\'re server',
-          },
-        ],
+        metaTags: metaTagData,
+      },
+    },
+    {
+      path: '/workspace',
+      name: 'workspace',
+      component: Workspace,
+      props: { appConfig, pageInfo, sections },
+      meta: {
+        title: pageInfo.title || 'Dashy Workspace',
+        metaTags: metaTagData,
       },
     },
     {

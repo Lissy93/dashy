@@ -108,10 +108,14 @@ You can target specific elements on the UI with these variables. All are optiona
 - `--config-settings-background` - The text color for text within the settings container. Defaults to `--background-darker`
 - `--scroll-bar-color` - Color of the scroll bar thumb. Defaults to `--primary`
 - `--scroll-bar-background` Color of the scroll bar blank space. Defaults to `--background-darker`
+- `--highlight-background` Fill color for text highlighting. Defaults to `--primary`
+- `--highlight-color` Text color for selected/ highlighted text. Defaults to `--background`
 - `--toast-background` - Background color for the toast info popup. Defaults to `--primary`
 - `--toast-color` - Text, icon and border color in the toast info popup. Defaults to `--background`
 - `--welcome-popup-background` - Background for the info pop-up shown on first load. Defaults to `--background-darker`
 - `--welcome-popup-text-color` - Text color for the welcome pop-up. Defaults to `--primary`
+- `--side-bar-background` - Background color of the sidebar used in the workspace view. Defaults to `--background-darker`
+- `--side-bar-color` - Color of icons and text within the sidebar. Defaults to `--primary`
 
 #### Non-Color Variables
 - `--outline-color` - Used to outline focused or selected elements

@@ -128,7 +128,8 @@ Click one of the links below, to open an issue:
 
 ### Contributors
 
-![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/03fbaf35ff4653d16a622cfce00a1347c13d0192/docs/assets/CONTRIBUTORS.svg)
+![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)
+
 
 ### Star-Gazers Over Time
 

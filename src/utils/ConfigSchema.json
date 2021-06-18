@@ -69,6 +69,25 @@
           "pattern": "^[a-z0-9]{10}$",
           "description": "API key for font-awesome"
         },
+        "layout": {
+          "enum": [
+            "horizontal",
+            "vertical",
+            "auto",
+            "sidebar"
+          ],
+          "default": "auto",
+          "description": "Specifies sections layout orientation on the home screen"
+        },
+        "iconSize": {
+          "enum": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "default": "medium",
+          "description": "The size of each link item / icon"
+        },
         "cssThemes": {
           "type": "array",
           "description": "Theme names to be added to the dropdown",
@@ -195,7 +214,7 @@
                 "default": 1,
                 "description": "The amount of space that the section spans horizontally"
               },
-              "layout": {
+              "sectionLayout": {
                 "enum": [
                   "grid",
                   "auto"

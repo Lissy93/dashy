@@ -54,6 +54,7 @@ export default {
     }
   },
   methods: {
+    /* Sets the theme, by updating data-theme attribute on the html tag */
     setLocalTheme(newTheme) {
       const htmlTag = document.getElementsByTagName('html')[0];
       if (htmlTag.hasAttribute('data-theme')) htmlTag.removeAttribute('data-theme');
