@@ -299,13 +299,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWAREOR THE
 OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 
-#### Author 🦄
-<p align="right"><img width="200" src="https://i.ibb.co/FnxqTfx/aht-bot-round.png" alt="Alicia Sykes"></p>
-Developed by [Alicia Sykes](https://aliciasykes.com) ([@Lissy93](https://github.com/lissy93)) in 2021.
-
-- **PGP Key**: [`0688 F8D3 4587 D954 E9E5  1FB8 FEDB 68F5 5C02 83A7`](https://keybase.io/aliciasykes/pgp_keys.asc?fingerprint=0688f8d34587d954e9e51fb8fedb68f55c0283a7)
-- **BTC Address**: `3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC`
-
 **[⬆️ Back to Top](#dashy)**
 
 ---
