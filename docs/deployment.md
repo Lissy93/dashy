@@ -9,6 +9,7 @@
   - [Basic Commands](#basic-commands)
   - [Healthchecks](#healthchecks)
   - [Monitoring](#logs-and-performance)
+  - [Auto Starting](#auto-starting-at-system-boot)
 - [Updating](#updating)
   - [Updating Docker Container](#updating-docker-container)
   - [Automating Docker Updates](#automatic-docker-updates)
@@ -48,6 +49,16 @@ You can also build and deploy the Docker container from source.
 - Get the code: `git clone git@github.com:Lissy93/dashy.git && cd dashy`
 - Edit the `./public/conf.yml` file and take a look at the `docker-compose.yml`
 - Start the container: `docker compose up`
+
+### Other Container Engines
+
+Docker isn't the only host application capable of running standard Linux containers - [Podman](http://podman.io) is another popular option. Unlike Docker, Podman does not rely on a daemon to be running on your host system. This means there is no single point of failure and it can also support rootless containers, which is perfect for Dashy as it does not require any sudo privileges. Podman was developed by RedHat, and it's source code is written in Go, and published on [GitHub](https://github.com/containers/podman).
+
+Installation of the podman is really easy, as it's repository is available for most package managers (for example; Arch: `sudo pacman -S podman`, Debian/ Ubuntu: `sudo apt-get install podman`, Gentoo: `sudo emerge app-emulation/podman`, and MacOS: `brew install podman`). For more info, check out the [podman installation docs](https://podman.io/getting-started/installation). If you are using Windows, then take a look at Brent Baude's article on [Running Podman on WSL](https://www.redhat.com/sysadmin/podman-windows-wsl2). Since it's CLI is pretty much identical to that of Dockers, Podman's learning curve is very shallow.
+
+To run Dashy with Podman, just replace `docker` with `podman` in the above instructions. E.g. `podman run -p 8080:80 lissy93/dashy`
+
+It's worth noting that Podman isn't the only container running alternative, there's also [`rkt`](https://www.openshift.com/learn/topics/rkt), [`runc`](https://github.com/opencontainers/runc), [`containerd`](https://containerd.io/) and [`cri-o`](https://cri-o.io/). Dashy has not been tested with any of these engines, but it should work just fine.
 
 
 ### Deploy from Source
@@ -187,11 +198,25 @@ To restart unhealthy containers automatically, check out [Autoheal](https://hub.
 
 ### Logs and Performance
 
+##### Container Logs
 You can view logs for a given Docker container with `docker logs [container-id]`, add the `--follow` flag to stream the logs. For more info, see the [Logging Documentation](https://docs.docker.com/config/containers/logging/). There's also [Dozzle](https://dozzle.dev/), a useful tool, that provides a web interface where you can stream and query logs from all your running containers from a single web app.
 
+##### Container Performance
 You can check the resource usage for your running Docker containers with `docker stats` or `docker stats [container-id]`. For more info, see the [Stats Documentation](https://docs.docker.com/engine/reference/commandline/stats/). There's also [cAdvisor](https://github.com/google/cadvisor), a useful web app for viewing and analyzing resource usage and performance of all your running containers.
 
-You can also view logs, resource usage and other info as well as manage your Docker workflow in third-party Docker management apps. For example [Portainer](https://github.com/portainer/portainer) an all-in-one management web UI  for Docker and Kubernetes, or [LazyDocker](https://github.com/jesseduffield/lazydocker) a terminal UI for Docker container management and monitoring.
+##### Management Apps
+You can also view logs, resource usage and other info as well as manage your entire Docker workflow in third-party Docker management apps. For example [Portainer](https://github.com/portainer/portainer) an all-in-one open source management web UI  for Docker and Kubernetes, or [LazyDocker](https://github.com/jesseduffield/lazydocker) a terminal UI for Docker container management and monitoring.
+
+##### Advanced Logging and Monitoring
+Docker supports using [Prometheus](https://prometheus.io/) to collect logs, which can then be visualized using a platform like [Grafana](https://grafana.com/). For more info, see [this guide](https://docs.docker.com/config/daemon/prometheus/). If you need to route your logs to a remote syslog, then consider using [logspout](https://github.com/gliderlabs/logspout). For enterprise-grade instances, there are managed services, that make monitoring container logs and metrics very easy, such as [Sematext](https://sematext.com/blog/docker-container-monitoring-with-sematext/) with [Logagent](https://github.com/sematext/logagent-js).
+
+### Auto-Starting at System Boot
+
+You can use Docker's [restart policies](https://docs.docker.com/engine/reference/run/#restart-policies---restart) to instruct the container to start after a system reboot, or restart after a crash. Just add the `--restart=always` flag to your Docker compose script or Docker run command. For more information, see the docs on [Starting Containers Automatically](https://docs.docker.com/config/containers/start-containers-automatically/).
+
+For Podman, you can use `systemd` to create a service that launches your container, [the docs](https://podman.io/blogs/2018/09/13/systemd.html) explains things further. A similar approach can be used with Docker, if you need to start containers after a reboot, but before any user interaction.
+
+To restart the container after something within it has crashed, consider using [`docker-autoheal`](https://github.com/willfarrell/docker-autoheal) by @willfarrell, a service that monitors and restarts unhealthy containers. For more info, see the [Healthchecks](#healthchecks) section above.
 
 **[⬆️ Back to Top](#deployment)**
 
