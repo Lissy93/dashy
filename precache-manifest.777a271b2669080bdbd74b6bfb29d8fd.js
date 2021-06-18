@@ -8,11 +8,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/conf.yml"
   },
   {
-    "revision": "e378b67e1fe4c46f5395",
+    "revision": "5761e8590c6f47854d98",
     "url": "/css/about.a64c098d.css"
   },
   {
-    "revision": "1f60f0446a12aa6e0d7d",
+    "revision": "b41cf31b1d7852c34f98",
     "url": "/css/app.1111049c.css"
   },
   {
@@ -36,7 +36,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/Raleway-Variable.3b5635ac.ttf"
   },
   {
-    "revision": "da6a0638f086c70788a001bab46b3db0",
+    "revision": "8c9f2616ddbbe3415c253964fe32788d",
     "url": "/index.html"
   },
   {
@@ -44,12 +44,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/item-icons/.gitignore"
   },
   {
-    "revision": "e378b67e1fe4c46f5395",
-    "url": "/js/about.2a170f86.js"
+    "revision": "5761e8590c6f47854d98",
+    "url": "/js/about.b7952868.js"
   },
   {
-    "revision": "1f60f0446a12aa6e0d7d",
-    "url": "/js/app.b3356f8a.js"
+    "revision": "b41cf31b1d7852c34f98",
+    "url": "/js/app.7d000d01.js"
   },
   {
     "revision": "17716c450a2499f15aa2",
