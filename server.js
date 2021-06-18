@@ -1,84 +1,66 @@
-/* eslint-disable no-console */
-/* This is a simple Node.js http server, that is used to serve up the contents of ./dist */
-const connect = require('connect');
-const serveStatic = require('serve-static');
+/**
+ *  Note: The app must first be built (yarn build) before this script is run
+ * This is the main entry point for the application, a simple server that
+ * runs some checks, and then serves up the app from the ./dist directory
+ * Also includes some routes for status checks/ ping and config saving
+ * */
 
+/* Include required node dependencies */
+const serveStatic = require('serve-static');
+const connect = require('connect');
 const util = require('util');
 const dns = require('dns');
 const os = require('os');
 
-require('./src/utils/ConfigValidator');
+/* Include helper functions */
+const pingUrl = require('./services/ping'); // Used by the status check feature, to ping services
+const printMessage = require('./services/print-message'); // Function to print welcome msg on start
+require('./src/utils/ConfigValidator'); // Include and kicks off the config file validation script
 
-const pingUrl = require('./services/ping');
-
+/* Checks if app is running within a container, from env var */
 const isDocker = !!process.env.IS_DOCKER;
 
 /* Checks env var for port. If undefined, will use Port 80 for Docker, or 4000 for metal */
 const port = process.env.PORT || (isDocker ? 80 : 4000);
 
+/* Attempts to get the users local IP, used as part of welcome message */
 const getLocalIp = () => {
   const dnsLookup = util.promisify(dns.lookup);
   return dnsLookup(os.hostname());
 };
 
-const overComplicatedMessage = (ip) => {
-  let msg = '';
-  const chars = {
-    RESET: '\x1b[0m',
-    CYAN: '\x1b[36m',
-    GREEN: '\x1b[32m',
-    BLUE: '\x1b[34m',
-    BRIGHT: '\x1b[1m',
-    BR: '\n',
-  };
-  const stars = (count) => new Array(count).fill('*').join('');
-  const line = (count) => new Array(count).fill('━').join('');
-  const blanks = (count) => new Array(count).fill(' ').join('');
-  if (isDocker) {
-    const containerId = process.env.HOSTNAME || undefined;
-    msg = `${chars.BLUE}${stars(91)}${chars.BR}${chars.RESET}`
-      + `${chars.CYAN}Welcome to Dashy! 🚀${chars.RESET}${chars.BR}`
-      + `${chars.GREEN}Your new dashboard is now up and running `
-      + `${containerId ? `in container ID ${containerId}` : 'with Docker'}${chars.BR}`
-      + `${chars.GREEN}After updating your config file, run  `
-      + `'${chars.BRIGHT}docker exec -it ${containerId || '[container-id]'} yarn build`
-      + `${chars.RESET}${chars.GREEN}' to rebuild${chars.BR}`
-      + `${chars.BLUE}${stars(91)}${chars.BR}${chars.RESET}`;
-  } else {
-    msg = `${chars.GREEN}┏${line(75)}┓${chars.BR}`
-      + `┃ ${chars.CYAN}Welcome to Dashy! 🚀${blanks(55)}${chars.GREEN}┃${chars.BR}`
-      + `┃ ${chars.CYAN}Your new dashboard is now up and running at ${chars.BRIGHT}`
-      + `http://${ip}:${port}${chars.RESET}${blanks(18 - ip.length)}${chars.GREEN}┃${chars.BR}`
-      + `┃ ${chars.CYAN}After updating your config file, run '${chars.BRIGHT}yarn build`
-      + `${chars.RESET}${chars.CYAN}' to rebuild the app${blanks(6)}${chars.GREEN}┃${chars.BR}`
-      + `┗${line(75)}┛${chars.BR}${chars.BR}`;
-  }
-  return msg;
-};
-
-/* eslint no-console: 0 */
+/* Gets the users local IP and port, then calls to print welcome message */
 const printWelcomeMessage = () => {
   getLocalIp().then(({ address }) => {
     const ip = address || 'localhost';
-    console.log(overComplicatedMessage(ip));
+    console.log(printMessage(ip, port, isDocker)); // eslint-disable-line no-console
   });
+};
+
+const printWarning = (msg, error) => {
+  console.warn(`\x1b[103m\x1b[34m${msg}\x1b[0m\n`, error || ''); // eslint-disable-line no-console
 };
 
 try {
   connect()
-    .use(serveStatic(`${__dirname}/dist`)) /* Serves up the main built application to the root */
-    .use(serveStatic(`${__dirname}/public`, { index: 'default.html' })) /* During build, a custom page will be served */
-    .use('/ping', (req, res) => { /* This root returns the status of a given service - used for uptime monitoring */
+    // Serves up the main built application to the root
+    .use(serveStatic(`${__dirname}/dist`))
+    // During build, a custom page will be served before the app is available
+    .use(serveStatic(`${__dirname}/public`, { index: 'default.html' }))
+    // This root returns the status of a given service - used for uptime monitoring
+    .use('/ping', (req, res) => {
       try {
         pingUrl(req.url, async (results) => {
           await res.end(results);
         });
-        // next();
-      } catch (e) { console.warn(`Error running ping check for ${req.url}\n`, e); }
+      } catch (e) {
+        printWarning(`Error running ping check for ${req.url}\n`, e);
+      }
     })
+    // Finally, initialize the server then print welcome message
     .listen(port, () => {
-      try { printWelcomeMessage(); } catch (e) { console.log('Dashy is Starting...'); }
+      try { printWelcomeMessage(); } catch (e) { printWarning('Dashy is Starting...'); }
     });
 } catch (error) {
-  console.log('Sorry, an error occurred ', error);
+  printWarning('Sorry, an error occurred ', error);
 }
