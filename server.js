@@ -11,9 +11,11 @@ const connect = require('connect');
 const util = require('util');
 const dns = require('dns');
 const os = require('os');
+const bodyParser = require('body-parser');
 
 /* Include helper functions */
 const pingUrl = require('./services/ping'); // Used by the status check feature, to ping services
+const saveConfig = require('./services/save-config'); // Saves users new conf.yml to file-system
 const printMessage = require('./services/print-message'); // Function to print welcome msg on start
 require('./src/utils/ConfigValidator'); // Include and kicks off the config file validation script
 
@@ -41,8 +43,12 @@ const printWarning = (msg, error) => {
   console.warn(`\x1b[103m\x1b[34m${msg}\x1b[0m\n`, error || ''); // eslint-disable-line no-console
 };
 
+/* A middleware function for Connect, that filters requests based on method type */
+const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, next) : next());
+
 try {
   connect()
+    .use(bodyParser.json())
     // Serves up the main built application to the root
     .use(serveStatic(`${__dirname}/dist`))
     // During build, a custom page will be served before the app is available
@@ -57,6 +63,14 @@ try {
         printWarning(`Error running ping check for ${req.url}\n`, e);
       }
     })
+    .use('/api', method('GET', (req, res) => res.end('hi!')))
+    // POST Endpoint used to save config, by writing conf.yml to disk
+    .use('/api/save', method('POST', (req, res) => {
+      saveConfig(req.body, async (results) => {
+        await res.end(results);
+      });
+      // res.end('Will Save');
+    }))
     // Finally, initialize the server then print welcome message
     .listen(port, () => {
       try { printWelcomeMessage(); } catch (e) { printWarning('Dashy is Starting...'); }
