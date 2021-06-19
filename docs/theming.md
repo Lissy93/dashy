@@ -116,6 +116,8 @@ You can target specific elements on the UI with these variables. All are optiona
 - `--welcome-popup-text-color` - Text color for the welcome pop-up. Defaults to `--primary`
 - `--side-bar-background` - Background color of the sidebar used in the workspace view. Defaults to `--background-darker`
 - `--side-bar-color` - Color of icons and text within the sidebar. Defaults to `--primary`
+- `--status-check-tooltip-background` - Background color for status check tooltips. Defaults to `--background-darker`
+- `--status-check-tooltip-color` - Text color for the status check tooltips. Defaults to `--primary`
 
 #### Non-Color Variables
 - `--outline-color` - Used to outline focused or selected elements

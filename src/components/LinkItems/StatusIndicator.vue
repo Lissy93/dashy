@@ -112,7 +112,8 @@ export default {
 
 <style lang="scss">
 .status-tooltip {
-  background: var(--background-darker) !important;
+  background: var(--status-check-tooltip-background) !important;
+  color: var(--status-check-tooltip-color) !important;
   font-size: 1rem;
   z-index: 10;
   &.tip-green { border: 1px solid var(--success); }
