@@ -150,6 +150,11 @@
               }
             }
           }
+        },
+        "allowConfigEdit": {
+          "type": "boolean",
+          "default": true,
+          "description": "Can user write changes to conf.yml file from the UI. If set to false, preferences are only stored locally"
         }
       },
       "additionalProperties": false
