@@ -101,6 +101,7 @@ export default {
         html: false,
         placement: this.statusResponse ? 'left' : 'auto',
         delay: { show: 600, hide: 200 },
+        classes: 'item-description-tooltip',
       };
     },
     /* Used by certain themes, which display an icon with animated CSS */

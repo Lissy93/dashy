@@ -175,6 +175,8 @@ html[data-theme='material-original'] {
   --config-settings-background: #01579b;
   --config-settings-color: #fff;
   --heading-text-color: #fff;
+  --status-check-tooltip-background: #f2f2f2;
+  --status-check-tooltip-color: #01579b;
 }
 
 html[data-theme='material-dark-original'] {
@@ -208,6 +210,8 @@ html[data-theme='material-dark-original'] {
   --config-settings-color: #41e2ed;
   --scroll-bar-color: #08B0BB;
   --scroll-bar-background: #131a1f;
+  --status-check-tooltip-background: #131a1f;
+  --status-check-tooltip-color: #08B0BB;
   &::-webkit-scrollbar-thumb {
     border-left: 1px solid #131a1f;
   }
@@ -331,7 +335,7 @@ html[data-theme='material'], html[data-theme='material-dark'] {
       }
     }
   }
-  .tooltip {
+  .tooltip.item-description-tooltip {
     display: none !important;
   }
   .orientation-horizontal {
@@ -498,6 +502,8 @@ html[data-theme='material-dark'] {
   --config-settings-color: #41e2ed;
   --scroll-bar-color: #08B0BB;
   --scroll-bar-background: #131a1f;
+  --status-check-tooltip-color: #131a1f;
+
   &::-webkit-scrollbar-thumb {
     border-left: 1px solid #131a1f;
   }
@@ -527,6 +533,8 @@ html[data-theme='minimal-light'] {
   --search-container-background: #fff;
   --curve-factor: 4px;
   --curve-factor-navbar: 8px;
+  --status-check-tooltip-background: #f2f2f2;
+  --status-check-tooltip-color: #000;
 
   section.filter-container {
     background: #fff;
