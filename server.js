@@ -13,10 +13,11 @@ const dns = require('dns');
 const os = require('os');
 const bodyParser = require('body-parser');
 
-/* Include helper functions */
+/* Include helper functions and route handlers */
 const pingUrl = require('./services/ping'); // Used by the status check feature, to ping services
 const saveConfig = require('./services/save-config'); // Saves users new conf.yml to file-system
 const printMessage = require('./services/print-message'); // Function to print welcome msg on start
+const rebuild = require('./services/rebuild-app'); // A script to programmatically trigger a build
 require('./src/utils/ConfigValidator'); // Include and kicks off the config file validation script
 
 /* Checks if app is running within a container, from env var */
@@ -39,6 +40,7 @@ const printWelcomeMessage = () => {
   });
 };
 
+/* Just console.warns an error */
 const printWarning = (msg, error) => {
   console.warn(`\x1b[103m\x1b[34m${msg}\x1b[0m\n`, error || ''); // eslint-disable-line no-console
 };
@@ -64,7 +66,7 @@ try {
       }
     })
     // POST Endpoint used to save config, by writing conf.yml to disk
-    .use('/api/save', method('POST', (req, res) => {
+    .use('/config-manager/save', method('POST', (req, res) => {
       try {
         saveConfig(req.body, (results) => {
           res.end(results);
@@ -73,10 +75,18 @@ try {
         res.end(JSON.stringify({ success: false, message: e }));
       }
     }))
+    // GET endpoint to trigger a build, and respond with success status and output
+    .use('/config-manager/rebuild', (req, res) => {
+      rebuild().then((response) => {
+        res.end(JSON.stringify(response));
+      }).catch((response) => {
+        res.end(JSON.stringify(response));
+      });
+    })
     // Finally, initialize the server then print welcome message
     .listen(port, () => {
       try { printWelcomeMessage(); } catch (e) { printWarning('Dashy is Starting...'); }
     });
 } catch (error) {
-  printWarning('Sorry, an error occurred ', error);
+  printWarning('Sorry, a critical error occurred ', error);
 }
