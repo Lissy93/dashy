@@ -1,7 +1,7 @@
 /**
  * This file contains the Node.js code, used for the optional status check feature
  * It accepts a single url parameter, and will make an empty GET request to that
- * endpoint, and then resolve the response status code, time taken, and short message 
+ * endpoint, and then resolve the response status code, time taken, and short message
  */
 const axios = require('axios').default;
 
@@ -22,7 +22,7 @@ const makeMessageText = (data) => `${data.successStatus ? '✅' : '⚠️'} `
 const makeErrorMessage = (data) => `❌ Service Unavailable: ${data.hostname || 'Server'} `
   + `resulted in ${data.code || 'a fatal error'} ${data.errno ? `(${data.errno})` : ''}`;
 
-const makeErrorMessage2 = (data) => `❌ Service Error - `
+const makeErrorMessage2 = (data) => '❌ Service Error - '
   + `${data.status} - ${data.statusText}`;
 
 /* Kicks of a HTTP request, then formats and renders results */
