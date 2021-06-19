@@ -63,13 +63,15 @@ try {
         printWarning(`Error running ping check for ${req.url}\n`, e);
       }
     })
-    .use('/api', method('GET', (req, res) => res.end('hi!')))
     // POST Endpoint used to save config, by writing conf.yml to disk
     .use('/api/save', method('POST', (req, res) => {
-      saveConfig(req.body, async (results) => {
-        await res.end(results);
-      });
-      // res.end('Will Save');
+      try {
+        saveConfig(req.body, (results) => {
+          res.end(results);
+        });
+      } catch (e) {
+        res.end(JSON.stringify({ success: false, message: e }));
+      }
     }))
     // Finally, initialize the server then print welcome message
     .listen(port, () => {
