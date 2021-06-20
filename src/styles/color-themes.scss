@@ -26,6 +26,7 @@ html[data-theme='thebe'] {
 
 html[data-theme='dracula'] {
   --font-headings: 'Allerta Stencil', sans-serif;
+  --primary: #6272a4;
   --background: #44475a;
   --background-darker: #282a36;
   --item-group-background: #282a36;
@@ -34,7 +35,7 @@ html[data-theme='dracula'] {
   --item-shadow: none;
   --item-hover-shadow: none;
   --settings-text-color: #98ace9;
-  --primary: #6272a4;
+  --config-settings-color: #98ace9;
   .collapsable:nth-child(1n) { background: #8be9fd; .item { border: 1px solid #8be9fd; color: #8be9fd; }}
   .collapsable:nth-child(2n) { background: #50fa7b; .item { border: 1px solid #50fa7b; color: #50fa7b; }}
   .collapsable:nth-child(3n) { background: #ffb86c; .item { border: 1px solid #ffb86c; color: #ffb86c; }}
