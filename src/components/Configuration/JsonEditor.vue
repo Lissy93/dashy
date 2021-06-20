@@ -1,11 +1,25 @@
 <template>
   <div class="json-editor-outer">
+    <!-- Main JSON editor -->
     <v-jsoneditor
       v-model="jsonData"
       :options="options"
-      height="530px"
+      height="500px"
     />
+    <!-- Options raido, and save button -->
+    <div class="save-options">
+      <span class="save-option-title">Save Location:</span>
+      <div class="option">
+        <input type="radio" id="local" value="local" v-model="saveMode" class="radio-option" />
+        <label for="local" class="save-option-label">Apply Locally</label>
+      </div>
+      <div class="option">
+        <input type="radio" id="file" value="file" v-model="saveMode" class="radio-option" />
+        <label for="file" class="save-option-label">Write Changes to Config File</label>
+      </div>
+    </div>
     <button :class="`save-button ${!isValid ? 'err' : ''}`" @click="save()">Save Changes</button>
+    <!-- List validation warnings -->
     <p class="errors">
       <ul>
         <li v-for="(error, index) in errorMessages" :key="index" :class="`type-${error.type}`">
@@ -16,11 +30,18 @@
         </li>
       </ul>
     </p>
+    <!-- Information notes -->
+    <p v-if="saveSuccess !== undefined"
+      :class="`response-output status-${saveSuccess ? 'success' : 'fail'}`">
+      {{saveSuccess ? 'Task Complete' : 'Task Failed'}}
+    </p>
+    <p class="response-output">{{ responseText }}</p>
+    <p v-if="saveSuccess" class="response-output">
+      The app should rebuild automatically.
+      You will need to refresh the page for changes to take effect.
+    </p>
     <p class="note">
       It is recommend to backup your existing confiruration before making any changes.
-      <br>
-      Remember that these changes are only applied locally,
-      and will need to be exported to your conf.yml
     </p>
   </div>
 </template>
@@ -30,6 +51,8 @@
 import VJsoneditor from 'v-jsoneditor';
 import { localStorageKeys } from '@/utils/defaults';
 import configSchema from '@/utils/ConfigSchema.json';
+import JsonToYaml from '@/utils/JsonToYaml';
+import axios from 'axios';
 
 export default {
   name: 'JsonEditor',
@@ -43,6 +66,7 @@ export default {
     return {
       jsonData: this.config,
       errorMessages: [],
+      saveMode: 'file',
       options: {
         schema: configSchema,
         mode: 'tree',
@@ -50,6 +74,9 @@ export default {
         name: 'config',
         onValidationError: this.validationErrors,
       },
+      jsonParser: JsonToYaml,
+      responseText: '',
+      saveSuccess: undefined,
     };
   },
   computed: {
@@ -59,6 +86,35 @@ export default {
   },
   methods: {
     save() {
+      if (this.saveMode === 'local') {
+        this.saveConfigLocally();
+      } else if (this.saveMode === 'file') {
+        this.writeConfigToDisk();
+      } else {
+        this.$toasted.show('Please select a Save Mode: Local or File');
+      }
+    },
+    writeConfigToDisk() {
+      // 1. Convert JSON into YAML
+      const yaml = this.jsonParser(this.jsonData);
+      // 2. Prepare the request
+      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const endpoint = `${baseUrl}/config-manager/save`;
+      const headers = { 'Content-Type': 'text/plain' };
+      const body = { config: yaml, timestamp: new Date() };
+      const request = axios.post(endpoint, body, headers);
+      // 3. Make the request, and handle response
+      request.then((response) => {
+        this.saveSuccess = response.data.success || false;
+        this.responseText = response.data.message;
+        if (this.saveSuccess) this.carefullyClearLocalStorage();
+      })
+        .catch((error) => {
+          this.saveSuccess = false;
+          this.responseText = error;
+        });
+    },
+    saveConfigLocally() {
       const data = this.jsonData;
       if (data.sections) {
         localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(data.sections));
@@ -73,6 +129,11 @@ export default {
         localStorage.setItem(localStorageKeys.THEME, data.appConfig.theme);
       }
       this.$toasted.show('Changes saved succesfully');
+    },
+    carefullyClearLocalStorage() {
+      localStorage.removeItem(localStorageKeys.PAGE_INFO);
+      localStorage.removeItem(localStorageKeys.APP_CONFIG);
+      localStorage.removeItem(localStorageKeys.CONF_SECTIONS);
     },
     validationErrors(errors) {
       const errorMessages = [];
@@ -105,6 +166,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/styles/media-queries.scss';
 
 .json-editor-outer {
   text-align: center;
@@ -138,6 +200,16 @@ p.errors {
     }
   }
 }
+p.response-output {
+  font-size: 0.8rem;
+  text-align: left;
+  margin: 0.5rem auto;
+  width: 95%;
+  color: var(--config-settings-color);
+  &.status-success { color: var(--success); }
+  &.status-fail { color: var(--danger); }
+}
+
 button.save-button {
   padding:  0.5rem 1rem;
   margin: 0.25rem auto;
@@ -163,6 +235,37 @@ button.save-button {
   }
 }
 
+div.save-options {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  background: var(--code-editor-background);
+  color: var(--code-editor-color);
+  border-top: 2px solid var(--config-settings-background);
+  @include tablet-down { flex-direction: column; }
+  .option {
+    @include tablet-up { margin-left: 2rem; }
+  }
+  span.save-option-title {
+    cursor: default;
+  }
+  input.radio-option {
+    cursor: pointer;
+  }
+  label.save-option-label {
+    cursor: pointer;
+  }
+}
+
+.jsoneditor, .jsoneditor-menu {
+  border-color: var(--primary);
+}
+.jsoneditor {
+  border-bottom: none;
+}
+
 .jsoneditor-menu, .pico-modal-header {
   background: var(--config-settings-background) !important;
   color: var(--config-settings-color) !important;
@@ -182,7 +285,7 @@ div.jsoneditor-search div.jsoneditor-frame {
   display: none;
 }
 .jsoneditor-tree, pre.jsoneditor-preview {
-  background: #fff;
+  background: var(--code-editor-background);
   text-align: left;
 }
 
