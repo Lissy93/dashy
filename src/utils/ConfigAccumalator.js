@@ -2,11 +2,14 @@
  * Reads the users config from `conf.yml`, and combines it with any local preferences
  * Also ensures that any missing attributes are populated with defaults, and the
  * object is structurally sound, to avoid any error if the user is missing something
- * The main config object is make up of three parts: appConfig, pageInfo and sections
+ * The main config object is made up of three parts: appConfig, pageInfo and sections
  */
 import Defaults, { localStorageKeys } from '@/utils/defaults';
 import conf from '../../public/conf.yml';
 
+/**
+ * Returns the appConfig section, as JSON
+ */
 export const appConfig = (() => {
   let usersAppConfig = Defaults.appConfig;
   if (localStorage[localStorageKeys.APP_CONFIG]) {
@@ -21,6 +24,9 @@ export const appConfig = (() => {
   return usersAppConfig;
 })();
 
+/**
+ * Returns the pageInfo section, as JSON
+ */
 export const pageInfo = (() => {
   const defaults = Defaults.pageInfo;
   let localPageInfo;
@@ -37,6 +43,9 @@ export const pageInfo = (() => {
   return pi;
 })();
 
+/**
+ * Returns the sections section, as an array of JSON objects
+ */
 export const sections = (() => {
   // If the user has stored sections in local storage, return those
   const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
@@ -52,6 +61,9 @@ export const sections = (() => {
   return conf.sections;
 })();
 
+/**
+ * Returns the complete configuration, as JSON
+ */
 export const config = (() => {
   const result = {
     appConfig,
