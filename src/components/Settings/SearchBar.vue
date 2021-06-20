@@ -105,15 +105,19 @@ export default {
       }
     }
     .clear-search {
-      position: absolute;
+      //position: absolute;
       color: var(--settings-text-color);
-      margin: 0.55rem 0 0 -2.2rem;
       padding: 0 0.4rem;
       font-style: normal;
-      font-size: 1.5rem;
+      font-size: 1rem;
       opacity: var(--dimming-factor);
       border-radius: 50px;
       cursor: pointer;
+      right: 0.5rem;
+      top: 1rem;
+      border: 1px solid var(--settings-text-color);
+      font-size: 1rem;
+      margin: 0.5rem;
       &:hover {
         opacity: 1;
         background: var(--background-darker);

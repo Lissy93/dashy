@@ -3,7 +3,7 @@
     <v-jsoneditor
       v-model="jsonData"
       :options="options"
-      height="580px"
+      height="530px"
     />
     <button :class="`save-button ${!isValid ? 'err' : ''}`" @click="save()">Save Changes</button>
     <p class="errors">
