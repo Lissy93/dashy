@@ -36,7 +36,7 @@ module.exports = (ip, port, isDocker) => {
       + `http://${ip}:${port}${chars.RESET}${blanks(18 - ip.length)}${chars.GREEN}┃${chars.BR}`
       + `┃ ${chars.CYAN}After updating your config file, run '${chars.BRIGHT}yarn build`
       + `${chars.RESET}${chars.CYAN}' to rebuild the app${blanks(6)}${chars.GREEN}┃${chars.BR}`
-      + `┗${line(75)}┛${chars.BR}${chars.BR}`;
+      + `┗${line(75)}┛${chars.BR}${chars.BR}${chars.RESET}`;
   }
   return msg;
 };

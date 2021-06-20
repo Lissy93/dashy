@@ -10,7 +10,7 @@
     </div>
 
     <!-- Modal containing all the configuration options -->
-    <modal :name="modalNames.CONF_EDITOR" :resizable="true" width="60%" height="80%"
+    <modal :name="modalNames.CONF_EDITOR" :resizable="true" width="60%" height="85%"
       @closed="$emit('modalChanged', false)" classes="dashy-modal">
       <ConfigContainer :config="combineConfig()" />
     </modal>
