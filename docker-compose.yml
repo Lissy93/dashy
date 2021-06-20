@@ -3,6 +3,9 @@
 version: "3.8"
 services:
   dashy:
+    # Set any environmental variables
+    environment:
+      NODE_ENV: production
     # To build from source, replace 'image: lissy93/dashy' with 'build: .'
     # build: .
     image: lissy93/dashy
@@ -16,7 +19,9 @@ services:
     # environment:
     #  - UID=1000
     #  - GID=1000
+    # Specify restart policy
     restart: unless-stopped
+    # Configure healthchecks
     healthcheck:
       test: ['CMD', 'node', '/app/services/healthcheck']
       interval: 1m30s
