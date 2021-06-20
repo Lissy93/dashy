@@ -11,7 +11,7 @@
         </a>
         <button class="config-button center" @click="goToEdit()">
           <EditIcon class="button-icon"/>
-          Edit Sections
+          Edit Config
         </button>
         <button class="config-button center" @click="goToMetaEdit()">
           <MetaDataIcon class="button-icon"/>
@@ -24,6 +24,10 @@
         <button class="config-button center" @click="openCloudSync()">
           <CloudIcon class="button-icon"/>
           {{backupId ? 'Edit Cloud Sync' : 'Enable Cloud Sync'}}
+        </button>
+        <button class="config-button center" @click="openRebuildAppModal()">
+          <RebuildIcon class="button-icon"/>
+          Rebuild Application
         </button>
         <button class="config-button center" @click="resetLocalSettings()">
           <DeleteIcon class="button-icon"/>
@@ -40,8 +44,10 @@
           </span>
         </div>
       </div>
+      <!-- Rebuild App Modal -->
+      <RebuildApp />
     </TabItem>
-    <TabItem name="Backup Config" class="code-container">
+    <TabItem name="View Config" class="code-container">
       <pre id="conf-yaml">{{this.jsonParser(this.config)}}</pre>
       <div class="yaml-action-buttons">
         <h2>Actions</h2>
@@ -50,7 +56,7 @@
         <a class="yaml-button reset" @click="resetLocalSettings()">Reset Config</a>
       </div>
     </TabItem>
-    <TabItem name="Edit Sections">
+    <TabItem name="Edit Config">
       <JsonEditor :config="config" />
     </TabItem>
     <TabItem name="Edit Site Meta">
@@ -73,12 +79,15 @@ import { localStorageKeys, modalNames } from '@/utils/defaults';
 import EditSiteMeta from '@/components/Configuration/EditSiteMeta';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
+import RebuildApp from '@/components/Configuration/RebuildApp';
+
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
 import MetaDataIcon from '@/assets/interface-icons/config-meta-data.svg';
 import CustomCssIcon from '@/assets/interface-icons/config-custom-css.svg';
 import CloudIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
+import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
 
 export default {
   name: 'ConfigContainer',
@@ -100,12 +109,14 @@ export default {
     EditSiteMeta,
     JsonEditor,
     CustomCssEditor,
+    RebuildApp,
     DownloadIcon,
     DeleteIcon,
     EditIcon,
     CloudIcon,
     MetaDataIcon,
     CustomCssIcon,
+    RebuildIcon,
   },
   methods: {
     /* Seletcs the edit tab of the tab view */
@@ -120,6 +131,9 @@ export default {
     goToCustomCss() {
       const itemToSelect = this.$refs.tabView.navItems[4];
       this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
+    },
+    openRebuildAppModal() {
+      this.$modal.show(modalNames.REBUILD_APP);
     },
     openCloudSync() {
       this.$modal.show(modalNames.CLOUD_BACKUP);

@@ -62,6 +62,7 @@ module.exports = {
   modalNames: {
     CONF_EDITOR: 'CONF_EDITOR',
     CLOUD_BACKUP: 'CLOUD_BACKUP',
+    REBUILD_APP: 'REBUILD_APP',
   },
   topLevelConfKeys: {
     PAGE_INFO: 'pageInfo',
