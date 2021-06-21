@@ -3,7 +3,7 @@
     <TabItem name="Config" class="main-tab">
       <div class="main-options-container">
         <h2>Configuration Options</h2>
-        <a href="/conf.yml" download class="hyperlink-wrapper">
+        <a class="hyperlink-wrapper"  @click="downloadConfigFile('conf.yml', yaml)">
           <button class="config-button center">
           <DownloadIcon class="button-icon"/>
           Download Config
@@ -12,10 +12,6 @@
         <button class="config-button center" @click="goToEdit()">
           <EditIcon class="button-icon"/>
           Edit Config
-        </button>
-        <button class="config-button center" @click="goToMetaEdit()">
-          <MetaDataIcon class="button-icon"/>
-          Edit Meta Data
         </button>
         <button class="config-button center" @click="goToCustomCss()">
           <CustomCssIcon class="button-icon"/>
@@ -59,9 +55,6 @@
     <TabItem name="Edit Config">
       <JsonEditor :config="config" />
     </TabItem>
-    <TabItem name="Edit Site Meta">
-      <EditSiteMeta :config="config" />
-    </TabItem>
     <TabItem name="Custom Styles">
       <CustomCssEditor :config="config" initialCss="hello" />
     </TabItem>
@@ -76,7 +69,6 @@ import 'highlight.js/styles/mono-blue.css';
 
 import JsonToYaml from '@/utils/JsonToYaml';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
-import EditSiteMeta from '@/components/Configuration/EditSiteMeta';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
 import RebuildApp from '@/components/Configuration/RebuildApp';
@@ -84,7 +76,6 @@ import RebuildApp from '@/components/Configuration/RebuildApp';
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
-import MetaDataIcon from '@/assets/interface-icons/config-meta-data.svg';
 import CustomCssIcon from '@/assets/interface-icons/config-custom-css.svg';
 import CloudIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
@@ -109,7 +100,6 @@ export default {
     },
   },
   components: {
-    EditSiteMeta,
     JsonEditor,
     CustomCssEditor,
     RebuildApp,
@@ -117,7 +107,6 @@ export default {
     DeleteIcon,
     EditIcon,
     CloudIcon,
-    MetaDataIcon,
     CustomCssIcon,
     RebuildIcon,
   },
@@ -156,7 +145,7 @@ export default {
         localStorage.clear();
         this.$toasted.show('Data cleared succesfully');
         setTimeout(() => {
-          location.reload(); // eslint-disable-line no-restricted-globals
+          location.reload(true); // eslint-disable-line no-restricted-globals
         }, 1900);
       }
     },
