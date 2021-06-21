@@ -4,7 +4,6 @@ FROM node:lts-alpine
 ENV PORT 80
 ENV DIRECTORY /app
 ENV IS_DOCKER true
-ENV NODE_ENV production
 
 # Create and set the working directory
 WORKDIR ${DIRECTORY}
