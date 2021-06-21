@@ -37,10 +37,8 @@
             You are using a very small screen, and some screens in this menu may not be optimal
         </p>
         <div class="config-note">
-          <p class="sub-title">Note:</p>
           <span>
-            All changes made here are stored locally. To apply globally, either export your config
-            into your conf.yml file, or use the cloud backup/ restore feature.
+            It is recommend to make a backup of your conf.yml file, before making any  changes.
           </span>
         </div>
       </div>
@@ -48,10 +46,12 @@
       <RebuildApp />
     </TabItem>
     <TabItem name="View Config" class="code-container">
-      <pre id="conf-yaml">{{this.jsonParser(this.config)}}</pre>
+      <pre id="conf-yaml">{{yaml}}</pre>
       <div class="yaml-action-buttons">
         <h2>Actions</h2>
-        <a class="yaml-button download" href="/conf.yml" download>Download Config</a>
+        <a class="yaml-button download" @click="downloadConfigFile('conf.yml', yaml)">
+          Download Config
+        </a>
         <a class="yaml-button copy" @click="copyConfigToClipboard()">Copy Config</a>
         <a class="yaml-button reset" @click="resetLocalSettings()">Reset Config</a>
       </div>
@@ -103,6 +103,9 @@ export default {
   computed: {
     sections: function getSections() {
       return this.config.sections;
+    },
+    yaml() {
+      return this.jsonParser(this.config);
     },
   },
   components: {
@@ -156,6 +159,16 @@ export default {
           location.reload(); // eslint-disable-line no-restricted-globals
         }, 1900);
       }
+    },
+    /* Generates a new file, with the YAML contents, and triggers a download */
+    downloadConfigFile(filename, filecontents) {
+      const element = document.createElement('a');
+      element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(filecontents)}`);
+      element.setAttribute('download', filename);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
     },
   },
   mounted() {
@@ -288,14 +301,16 @@ a.hyperlink-wrapper {
   border: 1px dashed var(--config-settings-color);
   border-radius: var(--curve-factor);
   text-align: left;
-  opacity: 0.95;
+  opacity: var(--dimming-factor);
   color: var(--config-settings-color);
   background: var(--config-settings-background);
+  cursor: default;
   p.sub-title {
     font-weight: bold;
     margin: 0;
     display: inline;
   }
+  &:hover { opacity: 1; }
   display: none;
   @include tablet-up { display: block; }
 }
