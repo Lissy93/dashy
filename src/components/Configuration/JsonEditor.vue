@@ -10,11 +10,13 @@
     <div class="save-options">
       <span class="save-option-title">Save Location:</span>
       <div class="option">
-        <input type="radio" id="local" value="local" v-model="saveMode" class="radio-option" />
+        <input type="radio" id="local" value="local"
+          v-model="saveMode" class="radio-option" :disabled="!isAdmin" />
         <label for="local" class="save-option-label">Apply Locally</label>
       </div>
       <div class="option">
-        <input type="radio" id="file" value="file" v-model="saveMode" class="radio-option" />
+        <input type="radio" id="file" value="file" v-model="saveMode" class="radio-option"
+          :disabled="!isAdmin" />
         <label for="file" class="save-option-label">Write Changes to Config File</label>
       </div>
     </div>
@@ -52,6 +54,7 @@ import VJsoneditor from 'v-jsoneditor';
 import { localStorageKeys } from '@/utils/defaults';
 import configSchema from '@/utils/ConfigSchema.json';
 import JsonToYaml from '@/utils/JsonToYaml';
+import { isUserAdmin } from '@/utils/Auth';
 import axios from 'axios';
 
 export default {
@@ -77,6 +80,7 @@ export default {
       jsonParser: JsonToYaml,
       responseText: '',
       saveSuccess: undefined,
+      isAdmin: isUserAdmin(this.config.appConfig.auth),
     };
   },
   computed: {
@@ -84,9 +88,12 @@ export default {
       return this.errorMessages.length < 1;
     },
   },
+  mounted() {
+    if (!this.isAdmin) this.saveMode = 'local';
+  },
   methods: {
     save() {
-      if (this.saveMode === 'local') {
+      if (this.saveMode === 'local' || !this.isAdmin) {
         this.saveConfigLocally();
       } else if (this.saveMode === 'file') {
         this.writeConfigToDisk();
