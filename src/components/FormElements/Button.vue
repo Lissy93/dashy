@@ -1,5 +1,5 @@
 <template>
-  <button @click="click()">
+  <button @click="click()" :disabled="disabled">
     <slot></slot>
     <slot name="text"></slot>
     <slot name="icon"></slot>
@@ -13,6 +13,7 @@ export default {
   props: {
     text: String,
     click: Function,
+    disabled: Boolean,
   },
 };
 </script>
@@ -45,10 +46,14 @@ button {
   background: var(--background);
   border: 1px solid var(--primary);
   border-radius: var(--curve-factor);
-  &:hover {
+  &:hover:not(:disabled) {
     color: var(--background);
     background: var(--primary);
     border-color: var(--background);
+  }
+  &:disabled {
+    cursor: progress;
+    opacity: var(--dimming-factor);
   }
 }
 </style>

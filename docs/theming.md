@@ -118,6 +118,10 @@ You can target specific elements on the UI with these variables. All are optiona
 - `--side-bar-color` - Color of icons and text within the sidebar. Defaults to `--primary`
 - `--status-check-tooltip-background` - Background color for status check tooltips. Defaults to `--background-darker`
 - `--status-check-tooltip-color` - Text color for the status check tooltips. Defaults to `--primary`
+- `--code-editor-color` - Text color used within raw code editors. Defaults to `--black`
+- `--code-editor-background` - Background color for raw code editors. Defaults to `--white`
+
+
 
 #### Non-Color Variables
 - `--outline-color` - Used to outline focused or selected elements

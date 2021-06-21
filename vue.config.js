@@ -18,4 +18,11 @@ module.exports = {
     msTileColor: '#0b1021',
     manifestCrossorigin: 'use-credentials',
   },
+
+  pages: {
+    dashy: {
+      entry: 'src/main.js',
+      filename: 'index.html',
+    },
+  },
 };

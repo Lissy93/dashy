@@ -1,5 +1,6 @@
 <template>
-  <modal :name="name" :resizable="true" width="80%" height="80%" @closed="modalClosed()">
+  <modal :name="name" :resizable="true" width="80%" height="80%" @closed="modalClosed()"
+    classes="dashy-modal">
     <div slot="top-right" @click="hide()">Close</div>
     <a @click="hide()" class="close-button" title="Close">x</a>
     <iframe v-if="url" :src="url" @keydown.esc="close" class="frame"/>
@@ -17,12 +18,12 @@ export default {
     url: '#',
   }),
   methods: {
-    show: function show(url) {
+    show(url) {
       this.url = url;
       this.$modal.show(this.name);
       this.$emit('modalChanged', true);
     },
-    hide: function hide() {
+    hide() {
       this.$modal.hide(this.name);
     },
     modalClosed() {

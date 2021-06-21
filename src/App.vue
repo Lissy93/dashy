@@ -1,9 +1,9 @@
 <template>
   <div id="dashy">
     <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash()" />
-    <Header :pageInfo="pageInfo" />
+    <Header :pageInfo="pageInfo" v-if="!shouldHidePageComponents()" />
     <router-view />
-    <Footer v-if="showFooter" :text="getFooterText()" />
+    <Footer v-if="showFooter && !shouldHidePageComponents()" :text="getFooterText()" />
   </div>
 </template>
 <script>
@@ -48,11 +48,19 @@ export default {
       return this.appConfig.showSplashScreen || !localStorage[localStorageKeys.HIDE_WELCOME_BANNER];
     },
     hideSplash() {
-      if (this.shouldShowSplash()) {
+      if (this.shouldShowSplash() && !this.shouldHidePageComponents()) {
         setTimeout(() => { this.isLoading = false; }, splashScreenTime || 2000);
       } else {
         this.isLoading = false;
       }
+    },
+    shouldHidePageComponents() {
+      return (['download'].includes(this.$route.name));
+    },
+  },
+  computed: {
+    currentRouteName() {
+      return this.$route.name;
     },
   },
   mounted() {

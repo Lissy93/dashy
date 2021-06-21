@@ -50,3 +50,25 @@ export const logout = () => {
   document.cookie = 'authenticationToken=null';
   localStorage.removeItem(localStorageKeys.USERNAME);
 };
+
+/**
+ * Checks if the current user has admin privileges.
+ * If no users are setup, then function will always return true
+ * But if auth is configured, then will verify user is correctly
+ * logged in and then check weather they are of type admin, and
+ * return false if any conditions fail
+ * @param users[] : Array of users
+ * @returns Boolean : True if admin privileges
+ */
+export const isUserAdmin = (users) => {
+  if (!users || users.length === 0) return true; // Authentication not setup
+  if (!isLoggedIn(users)) return false; // Auth setup, but not signed in as a valid user
+  const currentUser = localStorage[localStorageKeys.USERNAME];
+  let isAdmin = false;
+  users.forEach((user) => {
+    if (user.user === currentUser) {
+      if (user.type === 'admin') isAdmin = true;
+    }
+  });
+  return isAdmin;
+};

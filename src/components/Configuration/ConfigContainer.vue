@@ -11,7 +11,7 @@
         </a>
         <button class="config-button center" @click="goToEdit()">
           <EditIcon class="button-icon"/>
-          Edit Sections
+          Edit Config
         </button>
         <button class="config-button center" @click="goToMetaEdit()">
           <MetaDataIcon class="button-icon"/>
@@ -25,6 +25,10 @@
           <CloudIcon class="button-icon"/>
           {{backupId ? 'Edit Cloud Sync' : 'Enable Cloud Sync'}}
         </button>
+        <button class="config-button center" @click="openRebuildAppModal()">
+          <RebuildIcon class="button-icon"/>
+          Rebuild Application
+        </button>
         <button class="config-button center" @click="resetLocalSettings()">
           <DeleteIcon class="button-icon"/>
           Reset Local Settings
@@ -33,24 +37,26 @@
             You are using a very small screen, and some screens in this menu may not be optimal
         </p>
         <div class="config-note">
-          <p class="sub-title">Note:</p>
           <span>
-            All changes made here are stored locally. To apply globally, either export your config
-            into your conf.yml file, or use the cloud backup/ restore feature.
+            It is recommend to make a backup of your conf.yml file, before making any  changes.
           </span>
         </div>
       </div>
+      <!-- Rebuild App Modal -->
+      <RebuildApp />
     </TabItem>
-    <TabItem name="Backup Config" class="code-container">
-      <pre id="conf-yaml">{{this.jsonParser(this.config)}}</pre>
+    <TabItem name="View Config" class="code-container">
+      <pre id="conf-yaml">{{yaml}}</pre>
       <div class="yaml-action-buttons">
         <h2>Actions</h2>
-        <a class="yaml-button download" href="/conf.yml" download>Download Config</a>
+        <a class="yaml-button download" @click="downloadConfigFile('conf.yml', yaml)">
+          Download Config
+        </a>
         <a class="yaml-button copy" @click="copyConfigToClipboard()">Copy Config</a>
         <a class="yaml-button reset" @click="resetLocalSettings()">Reset Config</a>
       </div>
     </TabItem>
-    <TabItem name="Edit Sections">
+    <TabItem name="Edit Config">
       <JsonEditor :config="config" />
     </TabItem>
     <TabItem name="Edit Site Meta">
@@ -73,12 +79,15 @@ import { localStorageKeys, modalNames } from '@/utils/defaults';
 import EditSiteMeta from '@/components/Configuration/EditSiteMeta';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
+import RebuildApp from '@/components/Configuration/RebuildApp';
+
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
 import MetaDataIcon from '@/assets/interface-icons/config-meta-data.svg';
 import CustomCssIcon from '@/assets/interface-icons/config-custom-css.svg';
 import CloudIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
+import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
 
 export default {
   name: 'ConfigContainer',
@@ -95,17 +104,22 @@ export default {
     sections: function getSections() {
       return this.config.sections;
     },
+    yaml() {
+      return this.jsonParser(this.config);
+    },
   },
   components: {
     EditSiteMeta,
     JsonEditor,
     CustomCssEditor,
+    RebuildApp,
     DownloadIcon,
     DeleteIcon,
     EditIcon,
     CloudIcon,
     MetaDataIcon,
     CustomCssIcon,
+    RebuildIcon,
   },
   methods: {
     /* Seletcs the edit tab of the tab view */
@@ -120,6 +134,9 @@ export default {
     goToCustomCss() {
       const itemToSelect = this.$refs.tabView.navItems[4];
       this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
+    },
+    openRebuildAppModal() {
+      this.$modal.show(modalNames.REBUILD_APP);
     },
     openCloudSync() {
       this.$modal.show(modalNames.CLOUD_BACKUP);
@@ -142,6 +159,16 @@ export default {
           location.reload(); // eslint-disable-line no-restricted-globals
         }, 1900);
       }
+    },
+    /* Generates a new file, with the YAML contents, and triggers a download */
+    downloadConfigFile(filename, filecontents) {
+      const element = document.createElement('a');
+      element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(filecontents)}`);
+      element.setAttribute('download', filename);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
     },
   },
   mounted() {
@@ -274,14 +301,16 @@ a.hyperlink-wrapper {
   border: 1px dashed var(--config-settings-color);
   border-radius: var(--curve-factor);
   text-align: left;
-  opacity: 0.95;
+  opacity: var(--dimming-factor);
   color: var(--config-settings-color);
   background: var(--config-settings-background);
+  cursor: default;
   p.sub-title {
     font-weight: bold;
     margin: 0;
     display: inline;
   }
+  &:hover { opacity: 1; }
   display: none;
   @include tablet-up { display: block; }
 }
