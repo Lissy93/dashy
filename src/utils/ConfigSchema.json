@@ -69,6 +69,18 @@
           "pattern": "^[a-z0-9]{10}$",
           "description": "API key for font-awesome"
         },
+        "faviconApi": {
+          "enum": [
+            "local",
+            "faviconkit",
+            "google",
+            "clearbit",
+            "webmasterapi",
+            "allesedv"
+          ],
+          "default": "faviconkit",
+          "description": "Which service to use to resolve favicons. Set to local to do this locally instead"
+        },
         "layout": {
           "enum": [
             "horizontal",
@@ -263,7 +275,7 @@
                 "icon": {
                   "type": "string",
                   "nullable": true,
-                  "description": "An icon, either as a font-awesome identifier, local or remote URL, or auto-fetched favicon"
+                  "description": "An icon, either as a font-awesome identifier, local or remote URL, or the word favicon or generative"
                 },
                 "url": {
                   "type": "string",
