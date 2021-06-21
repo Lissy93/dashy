@@ -11,12 +11,12 @@
       <span class="save-option-title">Save Location:</span>
       <div class="option">
         <input type="radio" id="local" value="local"
-          v-model="saveMode" class="radio-option" :disabled="!isAdmin" />
+          v-model="saveMode" class="radio-option" :disabled="!allowWriteToDisk" />
         <label for="local" class="save-option-label">Apply Locally</label>
       </div>
       <div class="option">
         <input type="radio" id="file" value="file" v-model="saveMode" class="radio-option"
-          :disabled="!isAdmin" />
+          :disabled="!allowWriteToDisk" />
         <label for="file" class="save-option-label">Write Changes to Config File</label>
       </div>
     </div>
@@ -80,7 +80,7 @@ export default {
       jsonParser: JsonToYaml,
       responseText: '',
       saveSuccess: undefined,
-      isAdmin: isUserAdmin(this.config.appConfig.auth),
+      allowWriteToDisk: this.shouldAllowWriteToDisk(),
     };
   },
   computed: {
@@ -89,11 +89,15 @@ export default {
     },
   },
   mounted() {
-    if (!this.isAdmin) this.saveMode = 'local';
+    if (!this.allowWriteToDisk) this.saveMode = 'local';
   },
   methods: {
+    shouldAllowWriteToDisk() {
+      const { appConfig } = this.config;
+      return appConfig.allowConfigEdit !== false && isUserAdmin(appConfig.auth);
+    },
     save() {
-      if (this.saveMode === 'local' || !this.isAdmin) {
+      if (this.saveMode === 'local' || !this.allowWriteToDisk) {
         this.saveConfigLocally();
       } else if (this.saveMode === 'file') {
         this.writeConfigToDisk();
@@ -114,11 +118,17 @@ export default {
       request.then((response) => {
         this.saveSuccess = response.data.success || false;
         this.responseText = response.data.message;
-        if (this.saveSuccess) this.carefullyClearLocalStorage();
+        if (this.saveSuccess) {
+          this.carefullyClearLocalStorage();
+          this.showToast('Config file written to disk succesfully', true);
+        } else {
+          this.showToast('An error occurred saving config', false);
+        }
       })
         .catch((error) => {
           this.saveSuccess = false;
           this.responseText = error;
+          this.showToast(error, false);
         });
     },
     saveConfigLocally() {
@@ -135,7 +145,7 @@ export default {
       if (data.appConfig.theme) {
         localStorage.setItem(localStorageKeys.THEME, data.appConfig.theme);
       }
-      this.$toasted.show('Changes saved succesfully');
+      this.showToast('Changes saved succesfully', true);
     },
     carefullyClearLocalStorage() {
       localStorage.removeItem(localStorageKeys.PAGE_INFO);
@@ -167,6 +177,9 @@ export default {
         }
       });
       this.errorMessages = errorMessages;
+    },
+    showToast(message, success) {
+      this.$toasted.show(message, { className: `toast-${success ? 'success' : 'error'}` });
     },
   },
 };
