@@ -139,7 +139,11 @@ Both sections and items can have an icon associated with them, and defined under
   <img width="400" src="https://i.ibb.co/GTVmZnc/dashy-example-icons.png" />
 </p>
 
-If icon is set to `favicon`, then it will be automatically fetched from the URL of the corresponding application. To use any font-awesome icon, specify the category, followed by the icon name, e.g. `fas fa-rocket`, `fab fa-monero` or `fas fa-unicorn`, you can also use Pro icons, by setting your API key under `appConfig.fontAwesomeKey`. If the icon is set to `generative`, then a unique icon is generated from the apps URL or IP. You can also host an icon either locally or using any CDN service, and pass it's URL into the `icon` attribute, e.g. `https://i.ibb.co/710B3Yc/space-invader-x256.png`. To use a local image, store it in `./public/item-icons/` (or `-v /app/public/item-icons/` in Docker) , and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`, you can also use sub-folders here if you have a lot of icons, to keep them organised.
+- Set `icon: favicon` to fetch a services icon automatically from the URL of the corresponding application
+- To use any font-awesome icon, specify the category, followed by the icon name, e.g. `fas fa-rocket`, `fab fa-monero` or `fas fa-unicorn`. You can also use Pro icons by setting your API key under `appConfig.fontAwesomeKey`
+- If you set `icon: generative`, then a unique icon is generated from the apps URL or IP
+- You can also host an icon either locally or using any CDN service, then just pass it's URL into the icon attribute, e.g. `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`.
+- To use a local image, store it in `./public/item-icons/` (or `-v /app/public/item-icons/` in Docker) , and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`, you can also use sub-folders here if you have a lot of icons, to keep them organised.
 
 ---
 
