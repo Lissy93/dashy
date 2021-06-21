@@ -7,9 +7,17 @@ If you're new to YAML, it's pretty straight-forward. The format is exactly the s
 You may find it helpful to look at some sample config files to get you started, a collection of which can be found [here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10).
 
 There's a couple of things to remember, before getting started:
-- After modifying your config, you will need to run `yarn build` to recompile the application
+- After modifying your config, the app needs to be recompiled, run `yarn build` (this happens automatically in newer versions)
 - You can check that your config file fits the schema, by running `yarn validate-config`
-- Any changes made locally through the UI need to be exported into this file, in order for them to persist across devices
+- Any which are only saved locally through the UI need to be exported into this file, in order for them to persist across devices
+
+#### Config Saving Methods
+When updating the config through the JSON editor in the UI, you have two save options: **Local** or **Write to Disk**. Changes saved locally will only be applied to the current user through the browser, and to apply to other instances, you either need to use the cloud sync feature, or manually update the conf.yml file. On the other-hand, if you choose to write changes to disk, then your main `conf.yml` file will be updated, and changes will be applied to all users, and visible across all devices. 
+
+#### Preventing Changes being Written to Disk
+To disallow any changes from being written to disk, then set `appConfig.allowConfigEdit: false`. If you are using users, and have setup `auth` within Dashy, then only users with `type: admin` will be able to write config changes to disk.
+
+It is recommended to make a backup of your config file.
 
 All fields are optional, unless otherwise stated.
 

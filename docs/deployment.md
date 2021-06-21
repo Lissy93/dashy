@@ -269,6 +269,12 @@ Dashy ships with a pre-configured Node.js server, in [`server.js`](https://githu
 If you wish to run Dashy from a sub page (e.g. `example.com/dashy`), then just set the `BASE_URL` environmental variable to that page name (in this example, `/dashy`), before building the app, and the path to all assets will then resolve to the new path, instead of `./`.
 
 However, since Dashy is just a static web application, it can be served with whatever server you like. The following section outlines how you can configure a web server.
+
+Note, that if you choose not to use `server.js` to serve up the app, you will loose access to the following features:
+- Loading page, while the app is building
+- Writing config file to disk from the UI
+- Website status indicators, and ping checks
+
 ### NGINX
 
 Create a new file in `/etc/nginx/sites-enabled/dashy`

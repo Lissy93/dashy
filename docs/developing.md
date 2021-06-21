@@ -48,8 +48,8 @@ Note:
 - If you are using Docker, precede each command with `docker exec -it [container-id]`. Container ID can be found by running `docker ps`
 
 ### Environmental Variables
-
 - `PORT` - The port in which the application will run (defaults to `4000` for the Node.js server, and `80` within the Docker container)
+- `NODE_ENV` - Which environment to use, either `production`, `development` or `test`
 - `VUE_APP_DOMAIN` - The URL where Dashy is going to be accessible from. This should include the protocol, hostname and (if not 80 or 443), then the port too, e.g. `https://localhost:3000`, `http://192.168.1.2:4002` or `https://dashy.mydomain.com`
 
 All environmental variables are optional. Currently there are not many environmental variables used, as most of the user preferences are stored under `appConfig` in the `conf.yml` file.
@@ -58,6 +58,15 @@ If you do add new variables, ensure that there is always a fallback (define it i
 
 Any environmental variables used by the frontend are preceded with `VUE_APP_`. Vue will merge the contents of your `.env` file into the app in a similar way to the ['dotenv'](https://github.com/motdotla/dotenv) package, where any variables that you set on your system will always take preference over the contents of any `.env` file.
 
+### Environment Modes
+Both the Node app and Vue app supports several environments: `production`, `development` and `test`. You can set the environment using the `NODE_ENV` variable (either with your OS, in the Docker script or in an `.env` file - see [Environmental Variables](#environmental-variables) above).
+
+The production environment will build the app in full, minifying and streamlining all assets. This means that building takes longer, but the app will then run faster. Whereas the dev environment creates a webpack configuration which enables HMR, doesn't hash assets or create vendor bundles in order to allow for fast re-builds when running a dev server. It supports sourcemaps and other debugging tools, re-compiles and reloads quickly but is not optimized, and so the app will not be as snappy as it could be. The test environment is intended for test running servers, it ignores assets that aren't needed for testing, and focuses on running all the E2E, regression and unit tests. For more information, see [Vue CLI Environment Modes](https://cli.vuejs.org/guide/mode-and-env.html#modes).
+
+By default:
+- `production` is used by `yarn build` (or `vue-cli-service build`) and `yarn build-and-start` and `yarn pm2-start`
+- `development` is used by `yarn dev` (or `vue-cli-service serve`)
+- `test` is used by `yarn test` (or `vue-cli-service test:unit`)
 ### Resources for Beginners
 New to Web Development? Glad you're here! Dashy is a pretty simple app, so it should make a good candidate for your first PR. Presuming that you already have a basic knowledge of JavaScript, the following articles should point you in the right direction for getting up to speed with the technologies used in this project:
 - [Introduction to Vue.js](https://v3.vuejs.org/guide/introduction.html)
