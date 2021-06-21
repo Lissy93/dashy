@@ -11,7 +11,7 @@
         tabIndex="-1"
     >
     <label :for="`collapsible-${uniqueKey}`" class="lbl-toggle" tabindex="-1">
-      <Icon v-if="icon" :icon="icon" size="small" class="section-icon" />
+      <Icon v-if="icon" :icon="icon" size="small" :url="title" class="section-icon" />
       <h3>{{ title }}</h3>
     </label>
     <div class="collapsible-content">

@@ -9,4 +9,5 @@
 - [Backup & Restore](/docs/backup-restore.md)
 - [Status Indicators](/docs/status-indicators.md)
 - [Theming](/docs/theming.md)
+- [Icons](/docs/icons.md)
 - [Authentication](/docs/authentication.md)

@@ -13,6 +13,7 @@ module.exports = {
   layout: 'auto',
   theme: 'default',
   fontAwesomeKey: '0821c65656',
+  faviconApi: 'faviconkit',
   builtInThemes: [
     'callisto',
     'thebe',
@@ -81,4 +82,13 @@ module.exports = {
   metaTagData: [
     { name: 'description', content: 'A simple static homepage for you\'re server' },
   ],
+  faviconApiEndpoints: {
+    mcapi: 'https://eu.mc-api.net/v3/server/favicon/$URL',
+    clearbit: 'https://logo.clearbit.com/$URL',
+    faviconkit: 'https://api.faviconkit.com/$URL/64',
+    // favicongrabber: 'https://favicongrabber.com//api/grab/$URL',
+    google: 'https://www.google.com/s2/favicons?sz=128&domain_url=$URL',
+    allesedv: 'https://f1.allesedv.com/128/$URL',
+    webmasterapi: 'https://api.webmasterapi.com/v1/favicon/yEwx0ZFs0CSPshHq/$URL',
+  },
 };

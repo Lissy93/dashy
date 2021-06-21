@@ -90,7 +90,7 @@ export default {
       registerLogout();
       this.$toasted.show('Logged Out');
       setTimeout(() => {
-        location.reload(); // eslint-disable-line no-restricted-globals
+        location.reload(true); // eslint-disable-line no-restricted-globals
       }, 100);
     },
     isUserLoggedIn() {
