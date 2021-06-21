@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Workspace from '@/views/Workspace.vue';
+import DownloadConfig from '@/views/DownloadConfig.vue';
 import { isLoggedIn } from '@/utils/Auth';
 import { appConfig, pageInfo, sections } from '@/utils/ConfigAccumalator';
 import { metaTagData } from '@/utils/defaults';
@@ -57,6 +58,16 @@ const router = new Router({
       path: '/about',
       name: 'about',
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+    },
+    {
+      path: '/download',
+      name: 'download',
+      component: DownloadConfig,
+      props: { appConfig, pageInfo, sections },
+      meta: {
+        title: pageInfo.title || 'Download Dashy Config',
+        metaTags: metaTagData,
+      },
     },
   ],
 });
