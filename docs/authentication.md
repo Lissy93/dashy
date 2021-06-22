@@ -39,9 +39,9 @@ Once authentication is enabled, so long as there is no valid token in cookie sto
 ## Security
 Since all authentication is happening entirely on the client-side, it is vulnerable to manipulation by an adversary. An attacker could look at the source code, find the function used generate the auth token, then decode the minified JavaScript to find the hash, and manually generate a token using it, then just insert that value as a cookie using the console, and become a logged in user. Therefore, if you need secure authentication for your app, it is strongly recommended to implement this using your web server, or use a VPN to control access to Dashy. The purpose of the login page is merely to prevent immediate unauthorized access to your homepage.
 
-Addressing this is on the todo list, and there are two potential solutions:
+Addressing this is on the todo list, and there are several potential solutions:
 1. Encrypt all site data against the users password, so that an attacker can not physically access any data without the correct decryption key
-2. Use a backend service to handle authentication, and do not return user data from the server until the correct credentials are provided. However, this would require either Dashy to be run using it's Node.js server, or the use of an external service
+2. Use a backend service to handle authentication and configuration, with no user data returned from the server until the correct credentials are provided. However, this would require either Dashy to be run using it's Node.js server, or the use of an external service
 3. Implement authentication using a self-hosted identity management solution, such as [Keycloak for Vue](https://www.keycloak.org/securing-apps/vue)
 
 **[⬆️ Back to Top](#authentication)**
@@ -50,13 +50,13 @@ Addressing this is on the todo list, and there are two potential solutions:
 
 ## Alternative Authentication Methods
 
-If you are hosting Dashy locally, and require remote access, it is recommend to configure a VPN connection into your local network. For instances running on the cloud, you have several other options:
-- Authentication Server
-- VPN
-- IP-Based Access
-- Web Server Authentication
-- OAuth Services
-- Password Protection (for cloud providers)
+If you are self-hosting Dashy, and require secure authentication to prevent unauthorized access, you have several options:
+- [Authentication Server](#authentication-server) - Put Dashy behind a self-hosted auth server
+- [VPN](#vpn) - Use a VPN to tunnel into the network where Dashy is running
+- [IP-Based Access](#ip-based-access) - Disallow access from all IP addresses, except your own
+- [Web Server Authentication](#web-server-authentication) - Enable user control within your web server or proxy
+- [OAuth Services](#oauth-services) - Implement a user management system using a cloud provider
+- [Password Protection (for cloud providers)](#static-site-hosting-providers) - Enable password-protection on your site
 
 ### Authentication Server
 ##### Authelia 
@@ -140,6 +140,8 @@ basicauth /secret/* {
 	alicia JDJhJDEwJEVCNmdaNEg2Ti5iejRMYkF3MFZhZ3VtV3E1SzBWZEZ5Q3VWc0tzOEJwZE9TaFlZdEVkZDhX
 }
 ```
+
+For more info about implementing a single sign on for all your apps with Caddy, see [this tutorial](https://joshstrange.com/securing-your-self-hosted-apps-with-single-signon/)
 
 ##### Lighttpd
 You can use the [mod_auth](https://doc.lighttpd.net/lighttpd2/mod_auth.html) module to secure your site with Lighttpd. Like with Apache, you need to first create a password file listing your usersnames and hashed passwords, but in Lighttpd, it's usually called `.lighttpdpassword`.
