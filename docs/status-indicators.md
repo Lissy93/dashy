@@ -37,6 +37,17 @@ sections:
 		statusCheck: true
 ```
 
+## Continuous Checking
+By default, with status indicators enabled Dashy will check an applications status on page load, and will not keep indicators updated. This is usually desirable behavior. However, if you do want the status indicators to continue to poll your running services, this can be enabled by setting the `statusCheckInterval` attribute. Here you define an interval in seconds, and Dashy will poll your apps every x seconds. Note that if this number is very low (below 5 seconds), you may notice the app running slightly slower.
+
+The following example, will instruct Dashy to continuously check the status of your services every 20 seconds
+
+```
+appConfig:
+  statusCheck: true
+  statusCheckInterval: 20
+```
+
 ## How it Works
 
 When Dashy is loaded, items with `statusCheck` enabled will make a request, to `https://[your-host-name]/ping?url=[address-or-servce]`, which in turn will ping that running service, and respond with a status code. Response time is calculated from the difference between start and end time of the request. 

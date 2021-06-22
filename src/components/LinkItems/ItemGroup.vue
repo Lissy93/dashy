@@ -29,6 +29,7 @@
         :backgroundColor="item.backgroundColor"
         :itemSize="newItemSize"
         :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
+        :statusCheckInterval="getStatusCheckInterval()"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
       />
@@ -97,6 +98,13 @@ export default {
     shouldEnableStatusCheck(itemPreference) {
       const globalPreference = this.config.appConfig.statusCheck || false;
       return itemPreference !== undefined ? itemPreference : globalPreference;
+    },
+    getStatusCheckInterval() {
+      let interval = this.config.appConfig.statusCheckInterval;
+      if (!interval) return 0;
+      if (interval > 60) interval = 60;
+      if (interval < 1) interval = 0;
+      return interval;
     },
   },
 };
