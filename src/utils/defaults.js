@@ -33,6 +33,7 @@ module.exports = {
     'tiger',
     'material-original',
     'material-dark-original',
+    'vaporware',
     'high-contrast-dark',
     'high-contrast-light',
   ],

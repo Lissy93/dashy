@@ -53,6 +53,7 @@ export default {
     },
     itemSize: String,
     enableStatusCheck: Boolean,
+    statusCheckInterval: Number,
   },
   data() {
     return {
@@ -114,6 +115,7 @@ export default {
       }
     },
     checkWebsiteStatus() {
+      this.statusResponse = undefined;
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
       const endpoint = `${baseUrl}/ping?url=${this.url}`;
       axios.get(endpoint)
@@ -131,6 +133,9 @@ export default {
   mounted() {
     this.manageTitleEllipse();
     if (this.enableStatusCheck) this.checkWebsiteStatus();
+    if (this.statusCheckInterval > 0) {
+      setInterval(this.checkWebsiteStatus, this.statusCheckInterval * 1000);
+    }
   },
 };
 </script>
