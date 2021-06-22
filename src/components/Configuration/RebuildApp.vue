@@ -8,10 +8,13 @@
         This should happen automatically, but if it hasn't, you can manually trigger it here.<br>
         This is not required for modifications stored locally.
       </p>
-      <Button :click="startBuild" :disabled="loading">
+      <Button :click="startBuild" :disabled="loading || !allowRebuild" :disallow="!allowRebuild">
         <template v-slot:text>{{ loading ? 'Building...' : 'Start Build' }}</template>
         <template v-slot:icon><RebuildIcon /></template>
       </Button>
+      <div v-if="!allowRebuild">
+        <p class="disallow-rebuild-msg">You do no have permission to trigger this action</p>
+      </div>
       <!-- Loading animation and text (shown while build is happening) -->
       <div v-if="loading" class="loader-info">
         <LoadingAnimation class="loader" />
@@ -45,6 +48,7 @@ import LoadingAnimation from '@/assets/interface-icons/loader.svg';
 
 export default {
   name: 'RebuildApp',
+  inject: ['config'],
   components: {
     Button,
     RebuildIcon,
@@ -58,6 +62,7 @@ export default {
     error: '',
     output: '',
     message: '',
+    allowRebuild: true,
   }),
   methods: {
     startBuild() {
@@ -92,6 +97,15 @@ export default {
       location.reload(); // eslint-disable-line no-restricted-globals
     },
   },
+  mounted() {
+    if (this.config) {
+      if (this.config.appConfig) {
+        if (this.config.appConfig.allowConfigEdit === false) {
+          this.allowRebuild = false;
+        }
+      }
+    }
+  },
 };
 </script>
 
@@ -108,6 +122,13 @@ export default {
   button {
     background: var(--config-settings-background);
     color: var(--config-settings-color);
+  }
+
+  p.disallow-rebuild-msg {
+    color: var(--danger);
+    font-size: 1.2rem;
+    margin: 0.2rem auto;
+    text-align: center;
   }
 
   h3.rebuild-app-title {

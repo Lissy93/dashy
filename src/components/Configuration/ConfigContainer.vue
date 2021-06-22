@@ -39,7 +39,7 @@
         <p class="app-version">Dashy version {{ appVersion }}</p>
         <div class="config-note">
           <span>
-            It is recommend to make a backup of your conf.yml file, before making any  changes.
+            It is recommend to make a backup of your conf.yml file before making changes.
           </span>
         </div>
       </div>
@@ -129,7 +129,7 @@ export default {
       this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
     },
     goToCustomCss() {
-      const itemToSelect = this.$refs.tabView.navItems[4];
+      const itemToSelect = this.$refs.tabView.navItems[3];
       this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
     },
     openRebuildAppModal() {

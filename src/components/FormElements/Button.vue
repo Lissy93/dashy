@@ -1,5 +1,5 @@
 <template>
-  <button @click="click()" :disabled="disabled">
+  <button @click="click()" :disabled="disabled" :class="disallow ? 'disallowed': ''">
     <slot></slot>
     <slot name="text"></slot>
     <slot name="icon"></slot>
@@ -14,6 +14,7 @@ export default {
     text: String,
     click: Function,
     disabled: Boolean,
+    disallow: Boolean,
   },
 };
 </script>
@@ -37,6 +38,9 @@ button {
     path, g {
       fill: currentColor;
     }
+  }
+  &.disallowed {
+    cursor: not-allowed !important;
   }
 }
 
