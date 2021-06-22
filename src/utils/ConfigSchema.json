@@ -131,6 +131,11 @@
           "default": false,
           "description": "Displays an online/ offline status for each of your services"
         },
+        "statusCheckInterval": {
+          "type": "number",
+          "default": 0,
+          "description": "How often to recheck statuses. If set to 0, status will only be checked on page load"
+        },
         "auth": {
           "type": "array",
           "description": "Usernames and hashed credentials for frontend authentication",
