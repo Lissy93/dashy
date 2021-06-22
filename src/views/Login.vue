@@ -93,19 +93,20 @@ export default {
 
     .login-field input {
       color: var(--login-form-color);
-      border-color: var(--login-form-background-secondary);
-      background: var(--login-form-background-secondary);
+      border-color: var(--login-form-color);
+      background: var(--login-form-background);
       &:focus {
 
       }
     }
     Button.login-button {
-      background: var(--login-form-background-secondary);
-      border-color: var(--login-form-background-secondary);
+      background: var(--login-form-color);
+      border-color: var(--login-form-background);
+      color: var(--login-form-background);
       &:hover {
+        color: var(--login-form-color);
         border-color: var(--login-form-color);
-        color: var(--login-form-background-secondary);
-        background: var(--login-form-color);
+        background: var(--login-form-background);
       }
       &:active, &:focus {
         box-shadow: 1px 1px 6px var(--login-form-color);

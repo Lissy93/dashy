@@ -178,6 +178,7 @@ html[data-theme='material-original'] {
   --heading-text-color: #fff;
   --status-check-tooltip-background: #f2f2f2;
   --status-check-tooltip-color: #01579b;
+  --login-form-background: #fff;
 }
 
 html[data-theme='material-dark-original'] {
@@ -250,7 +251,7 @@ html[data-theme='colorful'] {
   }
 }
 
-html[data-theme='minimal-light'], html[data-theme='minimal-dark'] {
+html[data-theme='minimal-light'], html[data-theme='minimal-dark'], html[data-theme='vaporware'] {
   --font-body: 'PTMono-Regular', 'Courier New', monospace;
   --font-headings: 'PTMono-Regular', 'Courier New', monospace;
   label.lbl-toggle h3 {
@@ -443,6 +444,7 @@ html[data-theme='material'] {
   --search-container-background: #4285f4;
   --welcome-popup-text-color: #f5f5f5;
   --footer-text-color: #f5f5f5cc;
+  // --login-form-background-secondary: #f5f5f5cc;
 
   header {
     background: #4285f4;
@@ -504,6 +506,8 @@ html[data-theme='material-dark'] {
   --scroll-bar-color: #08B0BB;
   --scroll-bar-background: #131a1f;
   --status-check-tooltip-color: #131a1f;
+  // --login-form-color: #131a1f;
+  --login-form-background-secondary: #131a1f;
 
   &::-webkit-scrollbar-thumb {
     border-left: 1px solid #131a1f;
@@ -536,6 +540,7 @@ html[data-theme='minimal-light'] {
   --curve-factor-navbar: 8px;
   --status-check-tooltip-background: #f2f2f2;
   --status-check-tooltip-color: #000;
+  --login-form-color: #101931;
 
   section.filter-container {
     background: #fff;
