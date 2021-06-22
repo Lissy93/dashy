@@ -10,7 +10,7 @@ import Toasted from 'vue-toasted'; // Toast component, used to show confirmation
 import { toastedOptions } from './utils/defaults';
 import Dashy from './App.vue';
 import router from './router';
-import './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 Vue.use(VTooltip);
 Vue.use(VModal);
@@ -19,6 +19,9 @@ Vue.use(Toasted, toastedOptions);
 Vue.component('v-select', VSelect);
 
 Vue.config.productionTip = false;
+
+// Register Service Worker
+registerServiceWorker();
 
 new Vue({
   router,

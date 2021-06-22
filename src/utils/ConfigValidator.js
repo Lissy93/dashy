@@ -38,13 +38,19 @@ const bigError = () => {
   return `\n${line}${msg}${line}\n`;
 };
 
+const setIsValidVariable = (isValid) => {
+  process.env.VUE_APP_CONFIG_VALID = isValid;
+};
+
 /* Start the validation */
 const validate = (config) => {
   console.log('\nChecking config file against schema...');
   const valid = ajv.validate(schema, config);
   if (valid) {
+    setIsValidVariable(true);
     console.log(successMsg());
   } else {
+    setIsValidVariable(false);
     console.log(errorMsg(ajv.errors));
   }
 };
@@ -53,6 +59,7 @@ try {
   const config = yaml.load(fs.readFileSync('./public/conf.yml', 'utf8'));
   validate(config);
 } catch (e) {
+  setIsValidVariable(false);
   console.log(bigError());
   console.log('Please ensure that your config file is present, '
     + 'has the correct access rights and is parsable. '
