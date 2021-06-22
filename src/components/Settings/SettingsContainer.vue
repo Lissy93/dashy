@@ -136,6 +136,7 @@ export default {
     position: relative;
     flex: 1;
     background: var(--settings-background);
+    border-radius: var(--curve-factor-navbar);
   }
   .options-container {
     display: flex;
