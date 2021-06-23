@@ -13,7 +13,6 @@
 ![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
 ![App Size](https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square)
 ![Code Quality](https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74)
-![Dependencies](https://img.shields.io/david/lissy93/dashy?style=flat-square)
 
 ## Features 🌈
 
