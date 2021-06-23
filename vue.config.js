@@ -17,11 +17,17 @@ module.exports = {
 
   pwa: {
     name: 'Dashy',
-    themeColor: '#00CCB4',
+    manifestPath: './public/manifest.json',
+    themeColor: '#00af87',
     msTileColor: '#0b1021',
-    manifestCrossorigin: 'use-credentials',
+    iconPaths: {
+      manifestCrossorigin: 'use-credentials',
+      favicon64: './public/web-icons/favicon-64x64.png',
+      favicon32: './public/web-icons/favicon-32x32.png',
+      maskIcon: './public/web-icons/dashy-logo.png',
+      msTileImage: './public/web-icons/dashy-logo.png',
+    },
   },
-
   pages: {
     dashy: {
       entry: 'src/main.js',
