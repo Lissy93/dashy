@@ -1,6 +1,14 @@
 {
-  "name": "Dashy",
+  "name": "Dashy Web",
   "short_name": "Dashy",
+  "description": "A Dashboard for your Homelab",
+  "scope": "/",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1021",
+  "theme_color": "#4DBA87",
+  "lang": "en-GB",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "./web-icons/windows10/SmallTile.scale-100.png",
@@ -507,8 +515,42 @@
       "sizes": "16x16"
     }
   ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#0b1021",
-  "theme_color": "#4DBA87"
+  "screenshots": [
+    {
+      "src": "./web-icons/screenshots/dashy-scrsht-1.png",
+      "sizes": "1523x1347",
+      "type": "image/png",
+      "label": "Dashy example homelab with Callisto theme"
+    },
+    {
+      "src": "./web-icons/screenshots/dashy-scrsht-2.png",
+      "sizes": "1264x861",
+      "type": "image/png",
+      "label": "Example, Networking services with Minimal Dark theme and a Horizontal layout"
+    },
+    {
+      "src": "./web-icons/screenshots/dashy-scrsht-3.png",
+      "sizes": "1303x864",
+      "type": "image/png",
+      "label": "Dashy example homelab with Material theme and auto-fetched favicons"
+    },
+    {
+      "src": "./web-icons/screenshots/dashy-scrsht-4.png",
+      "sizes": "1273x865",
+      "type": "image/png",
+      "label": "Dashy CFT Toolbox using Matrix theme"
+    },
+    {
+      "src": "./web-icons/screenshots/dashy-scrsht-5.png",
+      "sizes": "1146x851",
+      "type": "image/png",
+      "label": "Dashy as a Bookmark Manager, with Dracula theme and Font-Awesome icons"
+    },
+    {
+      "src": "./web-icons/screenshots/dashy-scrsht-6.png",
+      "sizes": "1147x872",
+      "type": "image/png",
+      "label": "Dashy example homelab with Nord theme"
+    }
+  ]
 }

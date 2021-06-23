@@ -11,16 +11,17 @@ import conf from '../../public/conf.yml';
  * Returns the appConfig section, as JSON
  */
 export const appConfig = (() => {
+  const appConfigFile = conf.appConfig || {};
   let usersAppConfig = Defaults.appConfig;
   if (localStorage[localStorageKeys.APP_CONFIG]) {
     usersAppConfig = JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
-  } else if (conf.appConfig) {
-    usersAppConfig = conf.appConfig;
+  } else if (appConfigFile !== {}) {
+    usersAppConfig = appConfigFile;
   }
   usersAppConfig.layout = localStorage[localStorageKeys.LAYOUT_ORIENTATION]
-    || conf.appConfig.layout || Defaults.layout;
+    || appConfigFile.layout || Defaults.layout;
   usersAppConfig.iconSize = localStorage[localStorageKeys.ICON_SIZE]
-    || conf.appConfig.iconSize || Defaults.iconSize;
+    || appConfigFile.iconSize || Defaults.iconSize;
   return usersAppConfig;
 })();
 

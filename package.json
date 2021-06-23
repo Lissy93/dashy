@@ -1,6 +1,6 @@
 {
   "name": "Dashy",
-  "version": "0.1.0",
+  "version": "1.2.5",
   "license": "MIT",
   "main": "server",
   "scripts": {
@@ -48,10 +48,12 @@
     "eslint": "^7.24.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-vue": "^7.9.0",
+    "progress-bar-webpack-plugin": "^2.1.0",
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
     "vue-svg-loader": "^0.16.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "webpack-build-notifier": "^2.3.0"
   },
   "gitHooks": {
     "pre-commit": "yarn lint"

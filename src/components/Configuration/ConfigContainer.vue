@@ -29,12 +29,17 @@
           <DeleteIcon class="button-icon"/>
           Reset Local Settings
         </button>
+        <button class="config-button center" @click="openAboutModal()">
+          <IconAbout class="button-icon" />
+          App Info
+        </button>
         <p class="small-screen-note" style="display: none;">
             You are using a very small screen, and some screens in this menu may not be optimal
         </p>
+        <p class="app-version">Dashy version {{ appVersion }}</p>
         <div class="config-note">
           <span>
-            It is recommend to make a backup of your conf.yml file, before making any  changes.
+            It is recommend to make a backup of your conf.yml file before making changes.
           </span>
         </div>
       </div>
@@ -79,6 +84,7 @@ import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
 import CustomCssIcon from '@/assets/interface-icons/config-custom-css.svg';
 import CloudIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
+import IconAbout from '@/assets/interface-icons/application-about.svg';
 
 export default {
   name: 'ConfigContainer',
@@ -86,6 +92,7 @@ export default {
     return {
       jsonParser: JsonToYaml,
       backupId: localStorage[localStorageKeys.BACKUP_ID] || '',
+      appVersion: process.env.VUE_APP_VERSION,
     };
   },
   props: {
@@ -109,6 +116,7 @@ export default {
     CloudIcon,
     CustomCssIcon,
     RebuildIcon,
+    IconAbout,
   },
   methods: {
     /* Seletcs the edit tab of the tab view */
@@ -121,11 +129,14 @@ export default {
       this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
     },
     goToCustomCss() {
-      const itemToSelect = this.$refs.tabView.navItems[4];
+      const itemToSelect = this.$refs.tabView.navItems[3];
       this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
     },
     openRebuildAppModal() {
       this.$modal.show(modalNames.REBUILD_APP);
+    },
+    openAboutModal() {
+      this.$modal.show(modalNames.ABOUT_APP);
     },
     openCloudSync() {
       this.$modal.show(modalNames.CLOUD_BACKUP);
@@ -210,6 +221,12 @@ a.config-button, button.config-button {
   }
 }
 
+p.app-version {
+  margin: 0.5rem auto;
+  font-size: 1rem;
+  color: var(--transparent-white-50);
+}
+
 div.code-container {
   background: var(--config-code-background);
   #conf-yaml span {
@@ -275,7 +292,7 @@ a.hyperlink-wrapper {
   background: var(--config-settings-background);
   height: calc(100% - 2rem);
   h2 {
-    margin: 1rem auto;
+    margin: 0 auto 1rem auto;
     color: var(--config-settings-color);
   }
 }

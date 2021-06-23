@@ -18,7 +18,7 @@ export default {
     appConfig: Object,
   },
   data: () => ({
-    url: '',
+    url: '', // this.$route.query.url || '',
   }),
   components: {
     SideBar,
@@ -40,15 +40,23 @@ export default {
       fontAwesomeScript.setAttribute('src', `https://kit.fontawesome.com/${faKey}.js`);
       document.head.appendChild(fontAwesomeScript);
     },
+    repositionFooter() {
+      document.getElementsByTagName('footer')[0].style.position = 'fixed';
+    },
   },
   mounted() {
+    const route = this.$route;
+    if (route.query && route.query.url) this.url = decodeURI(route.query.url);
     this.setTheme();
     this.initiateFontAwesome();
+    // this.repositionFooter();
   },
 };
 
 </script>
 
 <style scoped lang="scss">
-
+.work-space {
+  min-height: calc(100vh - var(--footer-height));
+}
 </style>

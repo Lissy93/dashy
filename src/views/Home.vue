@@ -210,7 +210,8 @@ export default {
 .home {
   padding-bottom: 1px;
   background: var(--background);
-  min-height: calc(100vh - 126px);
+  // min-height: calc(100vh - 126px);
+  min-height: calc(100vh - var(--footer-height));
 }
 
 /* Outside container wrapping the item groups*/

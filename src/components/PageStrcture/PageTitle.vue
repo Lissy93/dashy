@@ -1,8 +1,8 @@
 <template>
-  <div class="page-titles">
+  <router-link to="/" class="page-titles">
     <h1>{{ title }}</h1>
     <span class="subtitle">{{ description }}</span>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -21,6 +21,7 @@ export default {
 .page-titles {
   display: flex;
   flex-direction: column;
+  text-decoration: none;
   h1 {
     color: var(--heading-text-color);
     font-size: 2.5rem;

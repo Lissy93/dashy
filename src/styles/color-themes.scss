@@ -87,6 +87,7 @@ html[data-theme='matrix'] {
   --curve-factor: 0px;
   --font-body: 'Cutive Mono', monospace;
   --font-headings: 'VT323', monospace;
+  --about-page-background: var(--background);
   .prism-editor-wrapper.my-editor {
     border: 1px solid var(--primary);
   }
@@ -179,6 +180,9 @@ html[data-theme='material-original'] {
   --status-check-tooltip-background: #f2f2f2;
   --status-check-tooltip-color: #01579b;
   --login-form-background: #fff;
+  --about-page-accent: #000;
+  --about-page-color: var(--background-darker);
+  --about-page-background: var(--background);
 }
 
 html[data-theme='material-dark-original'] {
@@ -237,7 +241,6 @@ html[data-theme='colorful'] {
   .item:nth-child(6n) { color: #afeb5c; border: 1px solid #afeb5c; }
   .item:nth-child(7n) { color: #ebb75c; border: 1px solid #ebb75c; }
   .item:nth-child(8n) { color: #eb615c; border: 1px solid #eb615c; }
-  .tile-title span.text { transition: none; }
   .item:hover, .item:focus {
     opacity: 0.85;
     outline: none;
@@ -254,6 +257,7 @@ html[data-theme='colorful'] {
 html[data-theme='minimal-light'], html[data-theme='minimal-dark'], html[data-theme='vaporware'] {
   --font-body: 'PTMono-Regular', 'Courier New', monospace;
   --font-headings: 'PTMono-Regular', 'Courier New', monospace;
+  
   label.lbl-toggle h3 {
     font-size: 1.8rem;
   }
@@ -289,6 +293,8 @@ html[data-theme='material'], html[data-theme='material-dark'] {
   --font-headings: 'Francois One', serif;
   --curve-factor: 4px;
   --curve-factor-navbar: 8px;
+  --about-page-background: var(--background);
+  --about-page-color: var(--primary);
 
   .collapsable {
     margin: 0;
@@ -396,9 +402,6 @@ html[data-theme='material'], html[data-theme='material-dark'] {
     }
     &:active {
       background: #c7c7c754;
-    }
-    span.text {
-      transition: none;
     }
     &.size-small {
       padding-left: 0.5rem;
@@ -541,6 +544,8 @@ html[data-theme='minimal-light'] {
   --status-check-tooltip-background: #f2f2f2;
   --status-check-tooltip-color: #000;
   --login-form-color: #101931;
+  --about-page-background: var(--background);
+  --about-page-color: var(--background-darker);
 
   section.filter-container {
     background: #fff;
@@ -572,6 +577,8 @@ html[data-theme='minimal-dark'] {
   --curve-factor-navbar: 8px;
   --item-group-heading-text-color: #fff;
   --item-group-heading-text-color-hover: #ffffffbf;
+  --about-page-background: var(--background);
+  --about-page-color: var(--primary);
 
   label.lbl-toggle h3 {
     font-size: 1.8rem;
@@ -655,7 +662,6 @@ html[data-theme='vaporware'] {
       background: #844ceb;
       color: #09bfe6;
     }
-    .tile-title span.text { transition: none; }
   }
 
   div.login-page {

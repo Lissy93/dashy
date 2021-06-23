@@ -13,12 +13,7 @@
         <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
         <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
           @modalChanged="modalChanged" />
-        <IconLogout
-          v-if="isUserLoggedIn()"
-          @click="logout()"
-          v-tooltip="'Logout'"
-          class="logout-icon"
-        />
+        <AppButtons  v-if="isUserLoggedIn()" />
       </div>
       <div :class="`show-hide-container ${settingsVisible? 'hide-btn' : 'show-btn'}`">
         <button @click="toggleSettingsVisibility()"
@@ -29,6 +24,7 @@
       </div>
     </div>
     <KeyboardShortcutInfo />
+    <AppInfoModal />
   </section>
 </template>
 
@@ -39,9 +35,10 @@ import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import LayoutSelector from '@/components/Settings/LayoutSelector';
 import ItemSizeSelector from '@/components/Settings/ItemSizeSelector';
+import AppButtons from '@/components/Settings/AppButtons';
 import KeyboardShortcutInfo from '@/components/Settings/KeyboardShortcutInfo';
+import AppInfoModal from '@/components/Configuration/AppInfoModal';
 import { logout as registerLogout } from '@/utils/Auth';
-import IconLogout from '@/assets/interface-icons/user-logout.svg';
 import IconOpen from '@/assets/interface-icons/config-open-settings.svg';
 import IconClose from '@/assets/interface-icons/config-close.svg';
 
@@ -62,8 +59,9 @@ export default {
     ThemeSelector,
     LayoutSelector,
     ItemSizeSelector,
+    AppButtons,
     KeyboardShortcutInfo,
-    IconLogout,
+    AppInfoModal,
     IconOpen,
     IconClose,
   },

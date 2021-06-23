@@ -61,10 +61,14 @@ module.exports = {
   cookieKeys: {
     AUTH_TOKEN: 'authenticationToken',
   },
+  sessionStorageKeys: {
+    SW_STATUS: 'serviceWorkerStatus',
+  },
   modalNames: {
     CONF_EDITOR: 'CONF_EDITOR',
     CLOUD_BACKUP: 'CLOUD_BACKUP',
     REBUILD_APP: 'REBUILD_APP',
+    ABOUT_APP: 'ABOUT_APP',
   },
   topLevelConfKeys: {
     PAGE_INFO: 'pageInfo',

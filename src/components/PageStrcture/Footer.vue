@@ -1,8 +1,8 @@
 <template>
   <!-- User Footer -->
-  <footer v-if="text && text !== ''" v-html="text" :class="!scrollVisible ? 'fixed' : ''"></footer>
+  <footer v-if="text && text !== ''" v-html="text"></footer>
   <!-- Default Footer -->
-  <footer v-else :class="!scrollVisible ? 'fixed' : ''">
+  <footer v-else>
       Developed by <a :href="authorUrl">{{authorName}}</a>.
       Licensed under <a :href="licenseUrl">{{license}}</a>
       {{ showCopyright? '©': '' }} {{date}}.
@@ -23,16 +23,11 @@ export default {
     showCopyright: { type: Boolean, default: true },
     repoUrl: { type: String, default: 'https://github.com/lissy93/dashy' },
   },
-  data: () => ({
-    scrollVisible: false,
-  }),
-  mounted() {
-    this.scrollVisible = document.body.clientHeight > window.innerHeight;
-  },
 };
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/media-queries.scss';
 
 footer {
   width: calc(100% - 0.5rem);
@@ -44,7 +39,9 @@ footer {
   background: var(--background-darker);
   margin-top: 1.5rem;
   border-top: 1px solid var(--outline-color);
-  &.fixed { position: fixed; }
+  @include tablet-down {
+    display: none;
+  }
 }
 
 footer a{

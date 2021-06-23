@@ -3,13 +3,17 @@
 <p align="center"><i>Dashy helps you organize your self-hosted services, by making them all accessible from a single place</i></p>
 
 <p align="center">
-  <img src="https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74" /> <img src="https://img.shields.io/github/issues/lissy93/dashy?style=flat-square" /> <img src="https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square" /> <img src="https://img.shields.io/tokei/lines/github/lissy93/dashy?style=flat-square" /> 
-</p>
-
-<p align="center">
   <img width="220" src="https://i.ibb.co/yhbt6CY/dashy.png" />
 </p>
 
+[![Awesome Self-Hosted](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/awesome-selfhosted/awesome-selfhosted#personal-dashboards)
+![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
+![Stars](https://flat.badgen.net/github/stars/lissy93/dashy?icon=github)
+![Current Version](https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&logo=azurepipelines&color=00af87)
+![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
+![App Size](https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square)
+![Code Quality](https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74)
+![Dependencies](https://img.shields.io/david/lissy93/dashy?style=flat-square)
 
 ## Features 🌈
 
@@ -22,7 +26,6 @@
 - Option to show service status for each of your apps / links, for basic availability and uptime monitoring
 - Additional info for each item visible on hover (including opening method icon and description as a tooltip)
 - Option for full-screen background image, custom nav-bar links, and custom footer text
-- User preferences stored in local storage and applied on load
 - Encrypted cloud backup and restore feature available
 - Optional authentication, requiring user to log in
 - Easy single-file YAML-based configuration
@@ -67,7 +70,7 @@ docker run -d \
   --restart=always \
   lissy93/dashy:latest
 ```
-After making changes to your configuration file, you will need to run: `docker exec -it [container-id] yarn build` to rebuild. You can also run other commands, such as `yarn validate-config` this way too. Container ID can be found by running `docker ps`. Healthchecks are pre-configured to monitor the uptime and response times of Dashy, and the status of which can be seen in the container logs, e.g. `docker inspect --format "{{json .State.Health }}" [container-id]`.
+Healthchecks are pre-configured to monitor the uptime and response times of Dashy, and the status of which can be seen in the container logs, e.g. `docker inspect --format "{{json .State.Health }}" [container-id]`.
 
 #### Deploying from Source 🚀
 
@@ -79,8 +82,6 @@ You will need both [git](https://git-scm.com/downloads) and the latest or LTS ve
 - Build: `yarn build`
 - Run: `yarn start`
 
-After making changes to your configuration file, you will need to run: `yarn build` to rebuild. 
-
 #### Deploy to the Cloud
 
 Dashy supports 1-Click deployments on several popular cloud platforms (with more on the way!). To get started, just click a link below:
@@ -90,6 +91,21 @@ Dashy supports 1-Click deployments on several popular cloud platforms (with more
 - [Deploy with PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
 
 **[⬆️ Back to Top](#dashy)**
+
+#### Basic Commands
+
+The following commands can be run on Dashy. If you are using Docker, than precede each command with `docker exec -it [container-id]`, where container id can be found by running `docker ps`, e.g. `docker exec -it 92490c12baff yarn build`.
+If you prefer [`NPM`](https://docs.npmjs.com), then just replace `yarn` with `npm run` in the following commands.
+
+- `yarn build` - Builds the project for production, and outputs it into `./dist`
+- `yarn start` - Starts a web server, and serves up the production site from `./dist`
+- `yarn validate-config` - Parses and validates your `conf.yml` against Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json)
+- `yarn health-check` - Checks the health and status of Dashy's Node server
+- `yarn pm2-start` - Starts the app using the [PM2](https://pm2.keymetrics.io/) process manager
+- `yarn dev` - Starts the development server with hot reloading, linting, testing and verbose messaging
+- `yarn lint` - Lints code to ensure it follows a consistent neat style
+- `yarn test` - Runs tests, and outputs results
+- `yarn install` - Install all dependencies
 
 ---
 
@@ -133,17 +149,19 @@ You can also apply custom CSS overrides directly through the UI (Under Config me
 
 > For full iconography documentation, see: [**Icons**](./docs/icons.md)
 
-Both sections and items can have an icon associated with them, and defined under the `icon` attribute. There are many options for icons, including Font Awesome support, automatic fetching from favicon, programmatically generated icons and of course URLs. 
+Both sections and items can have an icon associated with them, and defined under the `icon` attribute. There are many options for icons, including Font Awesome support, automatic fetching from favicon, programmatically generated icons and direct local or remote URLs.
 
 <p align="center">
   <img width="400" src="https://i.ibb.co/GTVmZnc/dashy-example-icons.png" />
 </p>
 
-- Set `icon: favicon` to fetch a services icon automatically from the URL of the corresponding application
-- To use any font-awesome icon, specify the category, followed by the icon name, e.g. `fas fa-rocket`, `fab fa-monero` or `fas fa-unicorn`. You can also use Pro icons by setting your API key under `appConfig.fontAwesomeKey`
-- If you set `icon: generative`, then a unique icon is generated from the apps URL or IP
-- You can also host an icon either locally or using any CDN service, then just pass it's URL into the icon attribute, e.g. `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`.
-- To use a local image, store it in `./public/item-icons/` (or `-v /app/public/item-icons/` in Docker) , and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`, you can also use sub-folders here if you have a lot of icons, to keep them organised.
+- **Favicon**: Set `icon: favicon` to fetch a services icon automatically from the URL of the corresponding application
+- **Font-Awesome**: To use any font-awesome icon, specify the category, followed by the icon name, e.g. `fas fa-rocket` or `fab fa-monero`. You can also use Pro icons if you have a license key, just set it under `appConfig.fontAwesomeKey`
+- **Generative**: Setting `icon: generative`, will generate a unique for a given service, based on it's URL or IP
+- **URL**: You can also pass in a URL to an icon asset, hosted either locally or using any CDN service. E.g. `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`.
+- **Local Image**: To use a local image, store it in `./public/item-icons/` (or create a volume in Docker: `-v /local/image/directory:/app/public/item-icons/`) , and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`. You can also use sub-folders here if you have a lot of icons, to keep them organized.
+
+**[⬆️ Back to Top](#dashy)**
 
 ---
 
@@ -183,7 +201,9 @@ At present, access control is handled on the frontend, and therefore in security
 
 > For full monitoring documentation, see: [**Status Indicators**](./docs/status-indicators.md)
 
-Dashy has an optional feature that can display a small icon ([like this](./docs/assets/status-check-demo.gif)) next to each of your running services, indicating it's current status. This is useful if you are using Dashy as your homelab's start page, as it gives you an overview of the health of each of your running services. By default, this feature is off, but you can enable it globally by setting `appConfig.statusCheck: true`, or enable/ disable it for an individual item, with `item[n].statusCheck`.
+Dashy has an optional feature that can display a small icon ([like this](./docs/assets/status-check-demo.gif)) next to each of your running services, indicating it's current status. This is useful if you are using Dashy as your homelab's start page, as it gives you an overview of the health of each of your running services. Hovering over the indicator will show additional information, including average response time and an error message for services which are down.
+
+By default, this feature is off, but you can enable it globally by setting `appConfig.statusCheck: true`, or enable/ disable it for an individual item, with `item[n].statusCheck`. You can also specify an time interval in seconds under `appConfig.statusCheckInterval`, which will determine how often to recheck services, if this value is `0`, then status is only checked on initial page load, this is default behavior.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -219,6 +239,20 @@ Before you submit your pull request, please ensure the following:
 - If a new option in the the config file is added, it needs to be added into the [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json), and documented in the [configuring](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md) guide
 - If a new dependency is required, it must be essential, and it must be thoroughly checked out for security or efficiency issues
 - Your pull request will need to be up-to-date with master, and the PR template must be filled in
+
+### Repo Status
+![Open Issues](https://flat.badgen.net/github/open-issues/lissy93/dashy?icon=github)
+![Closed Issues](https://flat.badgen.net/github/closed-issues/lissy93/dashy?icon=github)
+![Open PRs](https://flat.badgen.net/github/open-prs/lissy93/dashy?icon=github)
+![Total PRs](https://flat.badgen.net/github/prs/lissy93/dashy?icon=github)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/lissy93/dashy?style=flat-square)
+![Last Commit](https://flat.badgen.net/github/last-commit/lissy93/dashy?icon=github)
+![Contributors](https://flat.badgen.net/github/contributors/lissy93/dashy?icon=github)
+![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
+![Stars](https://flat.badgen.net/github/stars/lissy93/dashy?icon=github)
+![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
+![Total Lines](https://img.shields.io/tokei/lines/github/lissy93/dashy?style=flat-square)
+![Maintenance](https://img.shields.io/maintenance/yes/2021?style=flat-square)
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -325,6 +359,14 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRA
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWAREOR THE USE
 OR OTHER DEALINGS IN THE SOFTWARE.
 ```
+
+**TDLR;** _You can do whatever you like with Dashy: use it in private or commercial settings,_
+_redistribute and modify it. But you must display this license and credit the author._
+_There is no warranty that this app will work as expected, and the author cannot be held_
+_liable for anything that goes wrong._ For more info, see
+[TLDR Legal's MIT Explanation of the MIT License](https://tldrlegal.com/license/mit-license)
+
+![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png?v8)
 
 **[⬆️ Back to Top](#dashy)**
 
