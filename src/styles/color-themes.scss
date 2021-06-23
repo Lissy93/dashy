@@ -241,7 +241,6 @@ html[data-theme='colorful'] {
   .item:nth-child(6n) { color: #afeb5c; border: 1px solid #afeb5c; }
   .item:nth-child(7n) { color: #ebb75c; border: 1px solid #ebb75c; }
   .item:nth-child(8n) { color: #eb615c; border: 1px solid #eb615c; }
-  .tile-title span.text { transition: none; }
   .item:hover, .item:focus {
     opacity: 0.85;
     outline: none;
@@ -403,9 +402,6 @@ html[data-theme='material'], html[data-theme='material-dark'] {
     }
     &:active {
       background: #c7c7c754;
-    }
-    span.text {
-      transition: none;
     }
     &.size-small {
       padding-left: 0.5rem;
@@ -666,7 +662,6 @@ html[data-theme='vaporware'] {
       background: #844ceb;
       color: #09bfe6;
     }
-    .tile-title span.text { transition: none; }
   }
 
   div.login-page {

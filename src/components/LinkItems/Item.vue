@@ -11,7 +11,6 @@
       <!-- Item Text -->
       <div :class="`tile-title  ${!icon? 'bounce': ''}`" :id="`tile-${id}`" >
         <span class="text">{{ title }}</span>
-        <div class="overflow-dots">...</div>
         <p class="description">{{ description }}</p>
       </div>
       <!-- Item Icon -->
@@ -80,18 +79,6 @@ export default {
         this.$emit('itemClicked');
       }
     },
-    /**
-     * Detects overflowing text, shows ellipse, and allows is to marguee on hover
-     * The below code is horifically bad, it is embarassing that I wrote it...
-     */
-    manageTitleEllipse() {
-      const tileElem = document.getElementById(`tile-${this.getId}`);
-      if (tileElem) {
-        const isOverflowing = (tileElem.scrollHeight > tileElem.clientHeight
-              || tileElem.scrollWidth > tileElem.clientWidth) && this.title.length > 12;
-        if (isOverflowing) tileElem.className += ' is-overflowing';
-      } // Note from present me to past me: WTF?!
-    },
     /* Returns configuration object for the tooltip */
     getTooltipOptions() {
       return {
@@ -131,7 +118,6 @@ export default {
     },
   },
   mounted() {
-    this.manageTitleEllipse();
     if (this.enableStatusCheck) this.checkWebsiteStatus();
     if (this.statusCheckInterval > 0) {
       setInterval(this.checkWebsiteStatus, this.statusCheckInterval * 1000);
@@ -157,10 +143,14 @@ export default {
   cursor: pointer;
   text-decoration: none;
   position: relative;
+  transition: all 0.2s ease-in-out 0s;
   &:hover {
     box-shadow: var(--item-hover-shadow);
     background: var(--item-background-hover);
     position: relative;
+    .tile-title span.text {
+      white-space: pre-wrap;
+    }
   }
   &:focus {
     outline: 2px solid var(--primary);
@@ -177,36 +167,11 @@ export default {
   text-overflow: ellipsis;
   min-width: 120px;
   height: 30px;
-  overflow: hidden;
   position: relative;
   padding: 0;
   z-index: 2;
   span.text {
-    position: absolute;
     white-space: nowrap;
-    transition: 1s;
-    float: left;
-    left: 0;
-  }
-  &:not(.is-overflowing) span.text{
-    width: 100%;
-  }
-  .overflow-dots {
-    opacity: 0;
-  }
-  &.is-overflowing {
-    span.text {
-      overflow: hidden;
-    }
-    .overflow-dots {
-      display: block;
-      opacity: 1;
-      background: var(--item-background);
-      position: absolute;
-      z-index: 5;
-      right: 0;
-      transition: opacity 0.1s ease-in;
-    }
   }
 }
 
@@ -275,6 +240,7 @@ export default {
     }
     .tile-title {
       min-width: 100px;
+      max-width: 160px;
     }
   }
   &.size-large {
