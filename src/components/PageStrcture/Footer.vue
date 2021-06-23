@@ -2,7 +2,7 @@
   <!-- User Footer -->
   <footer v-if="text && text !== ''" v-html="text"></footer>
   <!-- Default Footer -->
-  <footer v-else :class="!scrollVisible ? 'fixed' : ''">
+  <footer v-else>
       Developed by <a :href="authorUrl">{{authorName}}</a>.
       Licensed under <a :href="licenseUrl">{{license}}</a>
       {{ showCopyright? '©': '' }} {{date}}.
