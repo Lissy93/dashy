@@ -3,13 +3,17 @@
 <p align="center"><i>Dashy helps you organize your self-hosted services, by making them all accessible from a single place</i></p>
 
 <p align="center">
-  <img src="https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74" /> <img src="https://img.shields.io/github/issues/lissy93/dashy?style=flat-square" /> <img src="https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square" /> <img src="https://img.shields.io/tokei/lines/github/lissy93/dashy?style=flat-square" /> 
-</p>
-
-<p align="center">
   <img width="220" src="https://i.ibb.co/yhbt6CY/dashy.png" />
 </p>
 
+[![Awesome Self-Hosted](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/awesome-selfhosted/awesome-selfhosted#personal-dashboards)
+![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
+![Stars](https://flat.badgen.net/github/stars/lissy93/dashy?icon=github)
+![Current Version](https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&logo=azurepipelines&color=00af87)
+![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
+![App Size](https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square)
+![Code Quality](https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74)
+![Dependencies](https://img.shields.io/david/lissy93/dashy?style=flat-square)
 
 ## Features 🌈
 
@@ -236,6 +240,20 @@ Before you submit your pull request, please ensure the following:
 - If a new dependency is required, it must be essential, and it must be thoroughly checked out for security or efficiency issues
 - Your pull request will need to be up-to-date with master, and the PR template must be filled in
 
+### Repo Status
+![Open Issues](https://flat.badgen.net/github/open-issues/lissy93/dashy?icon=github)
+![Closed Issues](https://flat.badgen.net/github/closed-issues/lissy93/dashy?icon=github)
+![Open PRs](https://flat.badgen.net/github/open-prs/lissy93/dashy?icon=github)
+![Total PRs](https://flat.badgen.net/github/prs/lissy93/dashy?icon=github)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/lissy93/dashy?style=flat-square)
+![Last Commit](https://flat.badgen.net/github/last-commit/lissy93/dashy?icon=github)
+![Contributors](https://flat.badgen.net/github/contributors/lissy93/dashy?icon=github)
+![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
+![Stars](https://flat.badgen.net/github/stars/lissy93/dashy?icon=github)
+![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
+![Total Lines](https://img.shields.io/tokei/lines/github/lissy93/dashy?style=flat-square)
+![Maintenance](https://img.shields.io/maintenance/yes/2021?style=flat-square)
+
 **[⬆️ Back to Top](#dashy)**
 
 ---
@@ -343,10 +361,12 @@ OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 
 **TDLR;** _You can do whatever you like with Dashy: use it in private or commercial settings,_
-_redistribute and modify it. But you must display keep this license and credit the author._
+_redistribute and modify it. But you must display this license and credit the author._
 _There is no warranty that this app will work as expected, and the author cannot be held_
 _liable for anything that goes wrong._ For more info, see
 [TLDR Legal's MIT Explanation of the MIT License](https://tldrlegal.com/license/mit-license)
+
+![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png?v8)
 
 **[⬆️ Back to Top](#dashy)**
 
