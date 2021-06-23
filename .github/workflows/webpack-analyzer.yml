@@ -1,0 +1,12 @@
+on: push
+name: packtracker.io
+jobs:
+  report:
+    name: Report webpack stats
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: report webpack stats
+      uses: packtracker/report@2.2.7
+      env:
+        PT_PROJECT_TOKEN: ${{ secrets.PT_PROJECT_TOKEN }}
