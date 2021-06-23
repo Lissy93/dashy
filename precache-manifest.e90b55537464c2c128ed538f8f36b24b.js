@@ -1,5 +1,9 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
+    "revision": "bf34287921a30191e95e75c4c1148d85",
+    "url": "/./manifest.json"
+  },
+  {
     "revision": "d41d8cd98f00b204e9800998ecf8427e",
     "url": "/.nojekyll"
   },
@@ -8,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/conf.yml"
   },
   {
-    "revision": "c3bf51c8284f92a57df6",
+    "revision": "1a0aecb9bbd902250a79",
     "url": "/css/about.a64c098d.css"
   },
   {
@@ -16,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/css/chunk-vendors.64811416.css"
   },
   {
-    "revision": "dfe26364e4fab7ac5943",
-    "url": "/css/dashy.85b892c9.css"
+    "revision": "8db42aa987c0b1469b14",
+    "url": "/css/dashy.65904dde.css"
   },
   {
     "revision": "e24265f6c4bd4450fdafdf37cd825bfc",
@@ -36,7 +40,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/Raleway-Variable.3b5635ac.ttf"
   },
   {
-    "revision": "7c24f2b7deca65047bd26198b8e9fb18",
+    "revision": "4c38a7a0c743b4e85e58388d53e70b31",
     "url": "/index.html"
   },
   {
@@ -44,19 +48,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/item-icons/.gitignore"
   },
   {
-    "revision": "c3bf51c8284f92a57df6",
-    "url": "/js/about.c5136cd2.js"
+    "revision": "1a0aecb9bbd902250a79",
+    "url": "/js/about.86662eed.js"
   },
   {
     "revision": "d557f42226725d82854d",
     "url": "/js/chunk-vendors.e93bd977.js"
   },
   {
-    "revision": "dfe26364e4fab7ac5943",
-    "url": "/js/dashy.ec01c6d8.js"
+    "revision": "8db42aa987c0b1469b14",
+    "url": "/js/dashy.df0bf72a.js"
   },
   {
-    "revision": "e9b444abe90ba9d34ae73550a5239b65",
+    "revision": "e3bf86400a2b80531902e65f51d52be0",
     "url": "/manifest.json"
   },
   {
@@ -98,6 +102,18 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "7a3ae90dac82a7aee73e87779359a986",
     "url": "/web-icons/chrome/chrome-installprocess-128-128.png"
+  },
+  {
+    "revision": "6707fa2ad59a893ae070eadaef112fc2",
+    "url": "/web-icons/dashy-logo.png"
+  },
+  {
+    "revision": "65c204c61000a7c86fd45c4906465f73",
+    "url": "/web-icons/favicon-32x32.png"
+  },
+  {
+    "revision": "a9dff530c95315d3e9f33d5b9073056a",
+    "url": "/web-icons/favicon-64x64.png"
   },
   {
     "revision": "7a3ae90dac82a7aee73e87779359a986",
@@ -142,6 +158,30 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "1ad5ab74d031b187fcdbeac7c9b64461",
     "url": "/web-icons/msteams/msteams-silhouette-32-32.png"
+  },
+  {
+    "revision": "a716e9dd7bca9a41b6f7a287f9611692",
+    "url": "/web-icons/screenshots/dashy-scrsht-1.png"
+  },
+  {
+    "revision": "c6af8ec57d2cad1daf528e9386bf2886",
+    "url": "/web-icons/screenshots/dashy-scrsht-2.png"
+  },
+  {
+    "revision": "c23cece778936d81549be91cf6e12c54",
+    "url": "/web-icons/screenshots/dashy-scrsht-3.png"
+  },
+  {
+    "revision": "1aeaa5e700912be23ea57f6a068a2780",
+    "url": "/web-icons/screenshots/dashy-scrsht-4.png"
+  },
+  {
+    "revision": "9a9f4fea0729857446ba31ce07a44715",
+    "url": "/web-icons/screenshots/dashy-scrsht-5.png"
+  },
+  {
+    "revision": "6e18bcbe89598c4451ef63d47b675e9f",
+    "url": "/web-icons/screenshots/dashy-scrsht-6.png"
   },
   {
     "revision": "36527e5e98523ae88f3c180847ea8430",
