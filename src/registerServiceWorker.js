@@ -2,6 +2,7 @@
 
 import { register } from 'register-service-worker';
 import { sessionStorageKeys } from './utils/defaults';
+import conf from '../public/conf.yml';
 
 /* Sets a local storage item with the state from the SW lifecycle */
 const setSwStatus = (swStateToSet) => {
@@ -14,6 +15,7 @@ const setSwStatus = (swStateToSet) => {
     offline: false,
     error: false,
     devMode: false,
+    disabledByUser: false,
   };
   const sessionData = sessionStorage[sessionStorageKeys.SW_STATUS];
   const currentSwState = sessionData ? JSON.parse(sessionData) : initialSwState;
@@ -25,8 +27,28 @@ const setSwStatus = (swStateToSet) => {
   }
 };
 
+/**
+ * Checks if service workers should be enabled
+ * Disable if not running in production
+ * Or disable if user specified to disable
+ */
+const shouldEnableServiceWorker = () => {
+  let shouldEnable = true;
+  if (conf && conf.appConfig) { // Check if app Config available
+    if (conf.appConfig.disableServiceWorker) { // Disable if user requested
+      shouldEnable = false;
+      setSwStatus({ disabledByUser: true });
+    }
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    shouldEnable = false; // Disable if not in production
+    setSwStatus({ devMode: true });
+  }
+  return shouldEnable;
+};
+
 const registerServiceWorker = () => {
-  if (process.env.NODE_ENV === 'production') {
+  if (shouldEnableServiceWorker()) {
     register(`${process.env.BASE_URL}service-worker.js`, {
       ready() {
         setSwStatus({ ready: true });
@@ -60,8 +82,6 @@ const registerServiceWorker = () => {
         console.error('Error during service worker registration:', error);
       },
     });
-  } else { // Not in production, don't use SW
-    setSwStatus({ devMode: true });
   }
 };
 
