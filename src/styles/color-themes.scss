@@ -150,6 +150,7 @@ html[data-theme='nord-frost'] {
 }
 
 html[data-theme='material-original'] {
+  --font-body: 'Roboto', serif;
   --primary: #29B6F6;
   --settings-text-color: #01579b;
   --background: #e2e1e0;
@@ -255,8 +256,8 @@ html[data-theme='colorful'] {
 }
 
 html[data-theme='minimal-light'], html[data-theme='minimal-dark'], html[data-theme='vaporware'] {
-  --font-body: 'PTMono-Regular', 'Courier New', monospace;
-  --font-headings: 'PTMono-Regular', 'Courier New', monospace;
+  --font-body: 'Courier New', monospace;
+  --font-headings: 'Courier New', monospace;
   
   label.lbl-toggle h3 {
     font-size: 1.8rem;
