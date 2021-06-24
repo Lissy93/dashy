@@ -20,12 +20,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/css/chunk-vendors.64811416.css"
   },
   {
-    "revision": "abea1cf8f9667c93bcad",
-    "url": "/css/dashy.a007dae4.css"
+    "revision": "873353a93fac223c7185",
+    "url": "/css/dashy.a3f39291.css"
   },
   {
     "revision": "e24265f6c4bd4450fdafdf37cd825bfc",
     "url": "/default.html"
+  },
+  {
+    "revision": "11798c513db55464df5a6603790a63a2",
+    "url": "/fonts/AllertaStencil-Regular.ttf"
+  },
+  {
+    "revision": "f33327cdc7c1c759c638ac5860736cbd",
+    "url": "/fonts/CutiveMono-Regular.ttf"
+  },
+  {
+    "revision": "0ee6659afb21ed3bc6f02a75d93aa6cd",
+    "url": "/fonts/FrancoisOne-Regular.ttf"
   },
   {
     "revision": "c8b568b1f3bf08c879495fe8fc1dea30",
@@ -36,11 +48,27 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/PTMono-Regular.0c6b8e07.ttf"
   },
   {
+    "revision": "fa12dfb21e9af5a2decb8701af95def6",
+    "url": "/fonts/Podkova-Medium.ttf"
+  },
+  {
     "revision": "3b5635ac5d39c28200bf3993d90d09c7",
     "url": "/fonts/Raleway-Variable.3b5635ac.ttf"
   },
   {
-    "revision": "9b4e8b660d29d01656233bbd8a1ed3ae",
+    "revision": "6090d256d88dcd7f0244eaa4a3eafbba",
+    "url": "/fonts/Roboto-Light.ttf"
+  },
+  {
+    "revision": "caaba8d8f9d2ca82350ecf8984905286",
+    "url": "/fonts/Sniglet-Regular.ttf"
+  },
+  {
+    "revision": "692c37377cd1e0f4850f47c7c0148426",
+    "url": "/fonts/VT323-Regular.ttf"
+  },
+  {
+    "revision": "267da65cd63ae07399aca5ba1de29f7f",
     "url": "/index.html"
   },
   {
@@ -56,8 +84,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/js/chunk-vendors.e93bd977.js"
   },
   {
-    "revision": "abea1cf8f9667c93bcad",
-    "url": "/js/dashy.a78606a3.js"
+    "revision": "873353a93fac223c7185",
+    "url": "/js/dashy.8d8aeed5.js"
   },
   {
     "revision": "e3bf86400a2b80531902e65f51d52be0",
