@@ -1,5 +1,8 @@
 <template ref="container">
+  <div class="item-wrapper">
     <a @click="itemOpened"
+      @mouseup.right="openContextMenu"
+      @contextmenu.prevent
       :href="target !== 'iframe' ? url : '#'"
       :target="target === 'newtab' ? '_blank' : ''"
       :class="`item ${!icon? 'short': ''} size-${itemSize}`"
@@ -19,6 +22,7 @@
       <!-- Small icon, showing opening method on hover -->
       <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon" :openingMethod="target"
         :position="itemSize === 'medium'? 'bottom right' : 'top right'"/>
+      <!-- Status indicator dot (if enabled) showing weather srevice is availible -->
       <StatusIndicator
         class="status-indicator"
         v-if="enableStatusCheck"
@@ -26,6 +30,14 @@
         :statusText="statusResponse ? statusResponse.message : undefined"
       />
     </a>
+    <ContextMenu
+      :show="contextMenuOpen"
+      v-click-outside="closeContextMenu"
+      :posX="contextPos.posX"
+      :posY="contextPos.posY"
+      :id="`context-menu-${id}`"
+    />
+  </div>
 </template>
 
 <script>
@@ -33,6 +45,7 @@ import axios from 'axios';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
+import ContextMenu from '@/components/LinkItems/ContextMenu';
 
 export default {
   name: 'Item',
@@ -56,18 +69,24 @@ export default {
   },
   data() {
     return {
+      contextMenuOpen: false,
       getId: this.id,
       customStyles: {
         color: this.color,
         background: this.backgroundColor,
       },
       statusResponse: undefined,
+      contextPos: {
+        posX: undefined,
+        posY: undefined,
+      },
     };
   },
   components: {
     Icon,
     ItemOpenMethodIcon,
     StatusIndicator,
+    ContextMenu,
   },
   methods: {
     /* Called when an item is clicked, manages the opening of iframe & resets the search field */
@@ -78,6 +97,15 @@ export default {
       } else {
         this.$emit('itemClicked');
       }
+    },
+    /* Open custom context menu, and set position */
+    openContextMenu(e) {
+      this.contextMenuOpen = !this.contextMenuOpen;
+      if (e) this.contextPos = { posX: e.clientX, posY: e.clientY };
+    },
+    /* Closes the context menu, called when user clicks literally anywhere */
+    closeContextMenu() {
+      this.contextMenuOpen = false;
     },
     /* Returns configuration object for the tooltip */
     getTooltipOptions() {
@@ -101,6 +129,7 @@ export default {
         default: return '"\\f054"';
       }
     },
+    /* Checks if a given service is currently online */
     checkWebsiteStatus() {
       this.statusResponse = undefined;
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
@@ -118,7 +147,9 @@ export default {
     },
   },
   mounted() {
+    // If ststus checking is enabled, then check service status
     if (this.enableStatusCheck) this.checkWebsiteStatus();
+    // If continious status checking is enabled, then start ever-lasting loop
     if (this.statusCheckInterval > 0) {
       setInterval(this.checkWebsiteStatus, this.statusCheckInterval * 1000);
     }
@@ -127,6 +158,10 @@ export default {
 </script>
 
 <style lang="scss">
+
+.item-wrapper {
+  flex-grow: 1;
+}
 
 .item {
   flex-grow: 1;
