@@ -223,6 +223,8 @@ export default {
     .tile-title {
       height: fit-content;
       min-height: 1.2rem;
+      text-align: left;
+      max-width:140px;
       span.text {
         text-align: left;
         padding-left: 10%;
