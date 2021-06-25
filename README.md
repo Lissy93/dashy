@@ -9,10 +9,9 @@
 [![Awesome Self-Hosted](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/awesome-selfhosted/awesome-selfhosted#personal-dashboards)
 ![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
 ![Stars](https://flat.badgen.net/github/stars/lissy93/dashy?icon=github)
-![Current Version](https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&logo=azurepipelines&color=00af87)
 ![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
-![App Size](https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square)
-![Code Quality](https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74)
+![License MIT](https://img.shields.io/badge/License-MIT-09be48?style=flat-square&logo=opensourceinitiative)
+![Current Version](https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&logo=azurepipelines&color=00af87)
 
 ## Features 🌈
 
@@ -89,8 +88,6 @@ Dashy supports 1-Click deployments on several popular cloud platforms (with more
 - [Deploy with Vercel](https://vercel.com/new/project?template=https://github.com/lissy93/dashy)
 - [Deploy with PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
 
-**[⬆️ Back to Top](#dashy)**
-
 #### Basic Commands
 
 The following commands can be run on Dashy. If you are using Docker, than precede each command with `docker exec -it [container-id]`, where container id can be found by running `docker ps`, e.g. `docker exec -it 92490c12baff yarn build`.
@@ -105,6 +102,8 @@ If you prefer [`NPM`](https://docs.npmjs.com), then just replace `yarn` with `np
 - `yarn lint` - Lints code to ensure it follows a consistent neat style
 - `yarn test` - Runs tests, and outputs results
 - `yarn install` - Install all dependencies
+
+**[⬆️ Back to Top](#dashy)**
 
 ---
 
@@ -200,9 +199,38 @@ At present, access control is handled on the frontend, and therefore in security
 
 > For full monitoring documentation, see: [**Status Indicators**](./docs/status-indicators.md)
 
-Dashy has an optional feature that can display a small icon ([like this](./docs/assets/status-check-demo.gif)) next to each of your running services, indicating it's current status. This is useful if you are using Dashy as your homelab's start page, as it gives you an overview of the health of each of your running services. Hovering over the indicator will show additional information, including average response time and an error message for services which are down.
+Dashy has an optional feature that can display a small icon next to each of your running services, indicating it's current status. This is useful if you are using Dashy as your homelab's start page, as it gives you an overview of the health of each of your running services. Hovering over the indicator will show additional information, including average response time and an error message for services which are down.
 
 By default, this feature is off, but you can enable it globally by setting `appConfig.statusCheck: true`, or enable/ disable it for an individual item, with `item[n].statusCheck`. You can also specify an time interval in seconds under `appConfig.statusCheckInterval`, which will determine how often to recheck services, if this value is `0`, then status is only checked on initial page load, this is default behavior.
+
+<p align="center">
+  <img alt="Status Checks demo" src="/docs/assets/status-check-demo.gif" width="600">
+</p>
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
+## Opening Methods 🖱️
+
+One of the primary purposes of Dashy is to make launching commonly used apps and services as quick as possible. To aid in this, there are several different options on how items can be opened. You can configure your preference by setting the `target` property of any item, to one of the following values:
+- `sametab` - The app will be launched in the current tab
+- `newtab` - The app will be launched in a new tab
+- `modal` - Launch app in a resizable/ movable popup modal on the current page
+- `workspace` - Changes to Workspace view, and launches app
+
+Even if the target is not set (or is set to `sametab`), you can still launch any given app in an alternative method: Alt + Click will open the modal, and Ctrl + Click will open in a new tab. You can also right-click on any item to see all options (as seen in the screenshot below). This custom context menu can be disabled by setting `appConfig.disableContextMenu: true`.
+
+<p align="center">
+  <img width="500" src="https://i.ibb.co/vmZdSRt/dashy-context-menu-2.png" />
+</p>
+
+The modal and workspace views work by rendering the target application in an iframe. For this to work, the HTTP response header [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) for a given application needs to be set to `ALLOW`. If you are getting a `Refused to Connect` error then this header is set to `DENY` (or `SAMEORIGIN` and it's on a different host).
+
+Here's a quick demo of the workspace view:
+<p align="center">
+  <img alt="Workspace view demo" src="/docs/assets/workspace-demo.gif" width="600">
+</p>
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -240,18 +268,12 @@ Before you submit your pull request, please ensure the following:
 - Your pull request will need to be up-to-date with master, and the PR template must be filled in
 
 ### Repo Status
-![Open Issues](https://flat.badgen.net/github/open-issues/lissy93/dashy?icon=github)
-![Closed Issues](https://flat.badgen.net/github/closed-issues/lissy93/dashy?icon=github)
+
 ![Open PRs](https://flat.badgen.net/github/open-prs/lissy93/dashy?icon=github)
 ![Total PRs](https://flat.badgen.net/github/prs/lissy93/dashy?icon=github)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/lissy93/dashy?style=flat-square)
 ![Last Commit](https://flat.badgen.net/github/last-commit/lissy93/dashy?icon=github)
 ![Contributors](https://flat.badgen.net/github/contributors/lissy93/dashy?icon=github)
-![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
-![Stars](https://flat.badgen.net/github/stars/lissy93/dashy?icon=github)
-![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
-![Total Lines](https://img.shields.io/tokei/lines/github/lissy93/dashy?style=flat-square)
-![Maintenance](https://img.shields.io/maintenance/yes/2021?style=flat-square)
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -267,6 +289,9 @@ If you've found a bug, or something that isn't working as you'd expect, please r
 - [Submit a Feature Request 🦄](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A6%84+Feature+Request&template=feature-request---.md&title=%5BFEATURE_REQUEST%5D)
 - [Ask a Question 🤷‍♀️](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A4%B7%E2%80%8D%E2%99%82%EF%B8%8F+Question&template=question------.md&title=%5BQUESTION%5D)
 - [Share Feedback 🌈](https://github.com/Lissy93/dashy/issues/new?assignees=&labels=%F0%9F%8C%88+Feedback&template=share-feedback---.md&title=%5BFEEDBACK%5D)
+
+[**Issue Status**](https://isitmaintained.com/project/lissy93/dashy) ![Resolution Time](http://isitmaintained.com/badge/resolution/lissy93/dashy.svg)  ![Open Issues](http://isitmaintained.com/badge/open/lissy93/dashy.svg) ![Closed Issues](https://badgen.net/github/closed-issues/lissy93/dashy)
+
 
 For more general questions about any of the technologies used, [StackOverflow](https://stackoverflow.com/questions/) may be more helpful first port of info
 

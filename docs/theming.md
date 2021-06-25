@@ -120,8 +120,9 @@ You can target specific elements on the UI with these variables. All are optiona
 - `--status-check-tooltip-color` - Text color for the status check tooltips. Defaults to `--primary`
 - `--code-editor-color` - Text color used within raw code editors. Defaults to `--black`
 - `--code-editor-background` - Background color for raw code editors. Defaults to `--white`
-
-
+- `--context-menu-color` - Text color for right-click context menu over items. Defaults to `--primary`
+- `--context-menu-background` - Background color of right-click context menu. Defaults to `--background`
+- `--context-menu-secondary-color` - Border and outline color for context menu. Defaults to `--background-darker`
 
 #### Non-Color Variables
 - `--outline-color` - Used to outline focused or selected elements

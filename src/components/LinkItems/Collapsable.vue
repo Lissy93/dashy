@@ -42,11 +42,6 @@ export default {
   components: {
     Icon,
   },
-  data() {
-    return {
-      isOpen: !this.collapsed,
-    };
-  },
   methods: {
     /* Check that row & column span is valid, and not over the max */
     checkSpanNum(span, classPrefix) {

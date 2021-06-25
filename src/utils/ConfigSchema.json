@@ -176,7 +176,12 @@
         "disableServiceWorker": {
           "type": "boolean",
           "default": false,
-          "description": "If set to true, then service worker will not be used"
+          "description": "If set to true, then service workers will not be used to cache page contents"
+        },
+        "disableContextMenu": {
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, custom right-click context menu will be disabled"
         }
       },
       "additionalProperties": false
@@ -295,7 +300,8 @@
                   "enum": [
                     "newtab",
                     "sametab",
-                    "iframe"
+                    "modal",
+                    "workspace"
                   ],
                   "default": "newtab",
                   "description": "Opening method, when item is clicked"
