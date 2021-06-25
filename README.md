@@ -10,7 +10,6 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
 ![Stars](https://flat.badgen.net/github/stars/lissy93/dashy?icon=github)
 ![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
-[![Resolution Time](http://isitmaintained.com/badge/resolution/lissy93/dashy.svg)![Open Issues](http://isitmaintained.com/badge/open/lissy93/dashy.svg)](https://isitmaintained.com/project/lissy93/dashy)
 ![License MIT](https://img.shields.io/badge/License-MIT-09be48?style=flat-square&logo=opensourceinitiative)
 ![Current Version](https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&logo=azurepipelines&color=00af87)
 
@@ -200,9 +199,13 @@ At present, access control is handled on the frontend, and therefore in security
 
 > For full monitoring documentation, see: [**Status Indicators**](./docs/status-indicators.md)
 
-Dashy has an optional feature that can display a small icon ([like this](./docs/assets/status-check-demo.gif)) next to each of your running services, indicating it's current status. This is useful if you are using Dashy as your homelab's start page, as it gives you an overview of the health of each of your running services. Hovering over the indicator will show additional information, including average response time and an error message for services which are down.
+Dashy has an optional feature that can display a small icon next to each of your running services, indicating it's current status. This is useful if you are using Dashy as your homelab's start page, as it gives you an overview of the health of each of your running services. Hovering over the indicator will show additional information, including average response time and an error message for services which are down.
 
 By default, this feature is off, but you can enable it globally by setting `appConfig.statusCheck: true`, or enable/ disable it for an individual item, with `item[n].statusCheck`. You can also specify an time interval in seconds under `appConfig.statusCheckInterval`, which will determine how often to recheck services, if this value is `0`, then status is only checked on initial page load, this is default behavior.
+
+<p align="center">
+  <img alt="Status Checks demo" src="/docs/assets/status-check-demo.gif" width="600">
+</p>
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -216,19 +219,17 @@ One of the primary purposes of Dashy is to make launching commonly used apps and
 - `modal` - Launch app in a resizable/ movable popup modal on the current page
 - `workspace` - Changes to Workspace view, and launches app
 
-Even if the target is not set (or set to `sametab`), you can still launch any given app in an alternative method: Alt + Click will open the modal, and Ctrl + Click will open in a new tab. You can also right-click on any item to see all options (as seen in the screenshot below). This custom context menu can be disabled by setting `appConfig.disableContextMenu: true`.
+Even if the target is not set (or is set to `sametab`), you can still launch any given app in an alternative method: Alt + Click will open the modal, and Ctrl + Click will open in a new tab. You can also right-click on any item to see all options (as seen in the screenshot below). This custom context menu can be disabled by setting `appConfig.disableContextMenu: true`.
 
 <p align="center">
-  <img width="400" src="https://i.ibb.co/vmZdSRt/dashy-context-menu-2.png" />
+  <img width="500" src="https://i.ibb.co/vmZdSRt/dashy-context-menu-2.png" />
 </p>
 
-Note that the modal and workspace views work by rendering applications in an iframe. For this to work, the HTTP response header [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) for a given application needs to be set to `ALLOW`. If you are getting a `Refused to Connect` error then this header is set to `DENY` (or `SAMEORIGIN` and it's on a different host).
-
-Setting `ALLOW-FROM [dashy]` where `[dashy]` is the URL or IP where your instance of Dashy is accessible from. If Dashy is hosted on the same domain as the service you are accessing, then you can just set `SAMEORIGIN`.
+The modal and workspace views work by rendering the target application in an iframe. For this to work, the HTTP response header [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) for a given application needs to be set to `ALLOW`. If you are getting a `Refused to Connect` error then this header is set to `DENY` (or `SAMEORIGIN` and it's on a different host).
 
 Here's a quick demo of the workspace view:
 <p align="center">
-  <img alt="Example Themes" src="/docs/assets/workspace-demo.gif" width="400">
+  <img alt="Workspace view demo" src="/docs/assets/workspace-demo.gif" width="600">
 </p>
 
 **[⬆️ Back to Top](#dashy)**
@@ -267,21 +268,12 @@ Before you submit your pull request, please ensure the following:
 - Your pull request will need to be up-to-date with master, and the PR template must be filled in
 
 ### Repo Status
-![Open Issues](https://flat.badgen.net/github/open-issues/lissy93/dashy?icon=github)
-![Closed Issues](https://flat.badgen.net/github/closed-issues/lissy93/dashy?icon=github)
+
 ![Open PRs](https://flat.badgen.net/github/open-prs/lissy93/dashy?icon=github)
 ![Total PRs](https://flat.badgen.net/github/prs/lissy93/dashy?icon=github)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/lissy93/dashy?style=flat-square)
 ![Last Commit](https://flat.badgen.net/github/last-commit/lissy93/dashy?icon=github)
 ![Contributors](https://flat.badgen.net/github/contributors/lissy93/dashy?icon=github)
-![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
-![Stars](https://flat.badgen.net/github/stars/lissy93/dashy?icon=github)
-![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
-![Total Lines](https://img.shields.io/tokei/lines/github/lissy93/dashy?style=flat-square)
-![Maintenance](https://img.shields.io/maintenance/yes/2021?style=flat-square)
-
-![App Size](https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square)
-![Code Quality](https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74)
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -297,6 +289,9 @@ If you've found a bug, or something that isn't working as you'd expect, please r
 - [Submit a Feature Request 🦄](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A6%84+Feature+Request&template=feature-request---.md&title=%5BFEATURE_REQUEST%5D)
 - [Ask a Question 🤷‍♀️](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A4%B7%E2%80%8D%E2%99%82%EF%B8%8F+Question&template=question------.md&title=%5BQUESTION%5D)
 - [Share Feedback 🌈](https://github.com/Lissy93/dashy/issues/new?assignees=&labels=%F0%9F%8C%88+Feedback&template=share-feedback---.md&title=%5BFEEDBACK%5D)
+
+[**Issue Status**](https://isitmaintained.com/project/lissy93/dashy) ![Resolution Time](http://isitmaintained.com/badge/resolution/lissy93/dashy.svg)  ![Open Issues](http://isitmaintained.com/badge/open/lissy93/dashy.svg) ![Closed Issues](https://badgen.net/github/closed-issues/lissy93/dashy)
+
 
 For more general questions about any of the technologies used, [StackOverflow](https://stackoverflow.com/questions/) may be more helpful first port of info
 
