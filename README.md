@@ -9,10 +9,10 @@
 [![Awesome Self-Hosted](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/awesome-selfhosted/awesome-selfhosted#personal-dashboards)
 ![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
 ![Stars](https://flat.badgen.net/github/stars/lissy93/dashy?icon=github)
-![Current Version](https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&logo=azurepipelines&color=00af87)
 ![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
-![App Size](https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square)
-![Code Quality](https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74)
+[![Resolution Time](http://isitmaintained.com/badge/resolution/lissy93/dashy.svg)![Open Issues](http://isitmaintained.com/badge/open/lissy93/dashy.svg)](https://isitmaintained.com/project/lissy93/dashy)
+![License MIT](https://img.shields.io/badge/License-MIT-09be48?style=flat-square&logo=opensourceinitiative)
+![Current Version](https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&logo=azurepipelines&color=00af87)
 
 ## Features 🌈
 
@@ -89,8 +89,6 @@ Dashy supports 1-Click deployments on several popular cloud platforms (with more
 - [Deploy with Vercel](https://vercel.com/new/project?template=https://github.com/lissy93/dashy)
 - [Deploy with PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
 
-**[⬆️ Back to Top](#dashy)**
-
 #### Basic Commands
 
 The following commands can be run on Dashy. If you are using Docker, than precede each command with `docker exec -it [container-id]`, where container id can be found by running `docker ps`, e.g. `docker exec -it 92490c12baff yarn build`.
@@ -105,6 +103,8 @@ If you prefer [`NPM`](https://docs.npmjs.com), then just replace `yarn` with `np
 - `yarn lint` - Lints code to ensure it follows a consistent neat style
 - `yarn test` - Runs tests, and outputs results
 - `yarn install` - Install all dependencies
+
+**[⬆️ Back to Top](#dashy)**
 
 ---
 
@@ -208,6 +208,33 @@ By default, this feature is off, but you can enable it globally by setting `appC
 
 ---
 
+## Opening Methods 🖱️
+
+One of the primary purposes of Dashy is to make launching commonly used apps and services as quick as possible. To aid in this, there are several different options on how items can be opened. You can configure your preference by setting the `target` property of any item, to one of the following values:
+- `sametab` - The app will be launched in the current tab
+- `newtab` - The app will be launched in a new tab
+- `modal` - Launch app in a resizable/ movable popup modal on the current page
+- `workspace` - Changes to Workspace view, and launches app
+
+Even if the target is not set (or set to `sametab`), you can still launch any given app in an alternative method: Alt + Click will open the modal, and Ctrl + Click will open in a new tab. You can also right-click on any item to see all options (as seen in the screenshot below). This custom context menu can be disabled by setting `appConfig.disableContextMenu: true`.
+
+<p align="center">
+  <img width="400" src="https://i.ibb.co/vmZdSRt/dashy-context-menu-2.png" />
+</p>
+
+Note that the modal and workspace views work by rendering applications in an iframe. For this to work, the HTTP response header [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) for a given application needs to be set to `ALLOW`. If you are getting a `Refused to Connect` error then this header is set to `DENY` (or `SAMEORIGIN` and it's on a different host).
+
+Setting `ALLOW-FROM [dashy]` where `[dashy]` is the URL or IP where your instance of Dashy is accessible from. If Dashy is hosted on the same domain as the service you are accessing, then you can just set `SAMEORIGIN`.
+
+Here's a quick demo of the workspace view:
+<p align="center">
+  <img alt="Example Themes" src="/docs/assets/workspace-demo.gif" width="400">
+</p>
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
 ## Developing 🧱
 
 > For full development documentation, see: [**Developing**](./docs/developing.md)
@@ -252,6 +279,9 @@ Before you submit your pull request, please ensure the following:
 ![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
 ![Total Lines](https://img.shields.io/tokei/lines/github/lissy93/dashy?style=flat-square)
 ![Maintenance](https://img.shields.io/maintenance/yes/2021?style=flat-square)
+
+![App Size](https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square)
+![Code Quality](https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74)
 
 **[⬆️ Back to Top](#dashy)**
 
