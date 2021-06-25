@@ -88,8 +88,12 @@ html[data-theme='matrix'] {
   --font-body: 'Cutive Mono', monospace;
   --font-headings: 'VT323', monospace;
   --about-page-background: var(--background);
+  --context-menu-secondary-color: var(--primary);
   .prism-editor-wrapper.my-editor {
     border: 1px solid var(--primary);
+  }
+  div.context-menu ul li:hover {
+    color: var(--background);
   }
 }
 
@@ -183,6 +187,12 @@ html[data-theme='material-original'] {
   --about-page-accent: #000;
   --about-page-color: var(--background-darker);
   --about-page-background: var(--background);
+  --context-menu-background: var(--white);
+  --context-menu-secondary-color: var(--white);
+  div.context-menu ul li:hover {
+    background: var(--primary);
+    color: var(--white);
+  }
 }
 
 html[data-theme='material-dark-original'] {
@@ -221,6 +231,13 @@ html[data-theme='material-dark-original'] {
   &::-webkit-scrollbar-thumb {
     border-left: 1px solid #131a1f;
   }
+  div.context-menu {
+    border: none;
+    background: #131a1f;
+    ul li:hover {
+      background: #333c43;
+    }
+  }
 }
 
 html[data-theme='colorful'] {
@@ -233,14 +250,14 @@ html[data-theme='colorful'] {
   --item-group-outer-background: #05070e;
   --item-group-heading-text-color: #e8eae1;
   --item-group-heading-text-color-hover: #fff;
-  .item:nth-child(1n) { color: #eb5cad; border: 1px solid #eb5cad; }
-  .item:nth-child(2n) { color: #985ceb; border: 1px solid #985ceb; }
-  .item:nth-child(3n) { color: #5c90eb; border: 1px solid #5c90eb; }
-  .item:nth-child(4n) { color: #5cdfeb; border: 1px solid #5cdfeb; }
-  .item:nth-child(5n) { color: #5ceb8d; border: 1px solid #5ceb8d; }
-  .item:nth-child(6n) { color: #afeb5c; border: 1px solid #afeb5c; }
-  .item:nth-child(7n) { color: #ebb75c; border: 1px solid #ebb75c; }
-  .item:nth-child(8n) { color: #eb615c; border: 1px solid #eb615c; }
+  .item-wrapper:nth-child(1n) { .item { color: #eb5cad; border: 1px solid #eb5cad; } }
+  .item-wrapper:nth-child(2n) { .item { color: #985ceb; border: 1px solid #985ceb; } }
+  .item-wrapper:nth-child(3n) { .item { color: #5c90eb; border: 1px solid #5c90eb; } }
+  .item-wrapper:nth-child(4n) { .item { color: #5cdfeb; border: 1px solid #5cdfeb; } }
+  .item-wrapper:nth-child(5n) { .item { color: #5ceb8d; border: 1px solid #5ceb8d; } }
+  .item-wrapper:nth-child(6n) { .item { color: #afeb5c; border: 1px solid #afeb5c; } }
+  .item-wrapper:nth-child(7n) { .item { color: #ebb75c; border: 1px solid #ebb75c; } }
+  .item-wrapper:nth-child(8n) { .item { color: #eb615c; border: 1px solid #eb615c; } }
   .item:hover, .item:focus {
     opacity: 0.85;
     outline: none;
@@ -252,12 +269,20 @@ html[data-theme='colorful'] {
   h1, h2, h3, h4 {
     font-weight: normal;
   }
+  div.context-menu {
+    border-color: var(--primary);
+  }
 }
 
 html[data-theme='minimal-light'], html[data-theme='minimal-dark'], html[data-theme='vaporware'] {
   --font-body: 'PTMono-Regular', 'Courier New', monospace;
   --font-headings: 'PTMono-Regular', 'Courier New', monospace;
+  --footer-height: 94px;
   
+  .item.size-medium .tile-title {
+    max-width: 100px;
+  }
+
   label.lbl-toggle h3 {
     font-size: 1.8rem;
   }
@@ -448,6 +473,7 @@ html[data-theme='material'] {
   --welcome-popup-text-color: #f5f5f5;
   --footer-text-color: #f5f5f5cc;
   // --login-form-background-secondary: #f5f5f5cc;
+  --context-menu-secondary-color: #f5f5f5;
 
   header {
     background: #4285f4;
@@ -465,6 +491,14 @@ html[data-theme='material'] {
   }
   .prism-editor-wrapper {
     background: #f5f5f5;
+  }
+  .item:focus {
+    outline-color: #4285f4cc;
+  }
+  div.context-menu {
+    border: none;
+    background: var(--white);
+    ul li:hover { svg path { fill: var(--background-darker); }}
   }
 }
 
@@ -520,6 +554,13 @@ html[data-theme='material-dark'] {
       background: #131a1f !important;
     }
   }
+  div.context-menu {
+    border: none;
+    background: var(--background);
+    ul li:hover {
+      background: #131a1f;
+    }
+  }
 }
 
 html[data-theme='minimal-light'] {
@@ -546,7 +587,8 @@ html[data-theme='minimal-light'] {
   --login-form-color: #101931;
   --about-page-background: var(--background);
   --about-page-color: var(--background-darker);
-
+  --context-menu-color: var(--background-darker);
+  --context-menu-secondary-color: var(--primary);
   section.filter-container {
     background: #fff;
     border-bottom: 1px dashed #00000038;
@@ -590,6 +632,10 @@ html[data-theme='minimal-dark'] {
     input#filter-tiles {
       border: 1px solid #fff;
     }
+  }
+
+  div.context-menu {
+    border-color: var(--primary);
   }
 }
 
