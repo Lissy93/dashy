@@ -3,7 +3,7 @@
     <a @click="itemOpened"
       @mouseup.right="openContextMenu"
       @contextmenu.prevent
-      :href="target !== 'iframe' ? url : '#'"
+      :href="target !== 'modal' ? url : '#'"
       :target="target === 'newtab' ? '_blank' : ''"
       :class="`item ${!icon? 'short': ''} size-${itemSize}`"
       v-tooltip="getTooltipOptions()"
@@ -36,12 +36,14 @@
       :posX="contextPos.posX"
       :posY="contextPos.posY"
       :id="`context-menu-${id}`"
+      @contextItemClick="contextItemClick"
     />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import router from '@/router';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
@@ -58,10 +60,10 @@ export default {
     color: String, // Optional text and icon color, specified in hex code
     backgroundColor: String, // Optional item background color
     url: String, // URL to the resource, optional but recommended
-    target: { // Where resource will open, either 'newtab', 'sametab' or 'iframe'
+    target: { // Where resource will open, either 'newtab', 'sametab' or 'modal'
       type: String,
       default: 'newtab',
-      validator: (value) => ['newtab', 'sametab', 'iframe'].indexOf(value) !== -1,
+      validator: (value) => ['newtab', 'sametab', 'modal', 'workspace'].indexOf(value) !== -1,
     },
     itemSize: String,
     enableStatusCheck: Boolean,
@@ -89,9 +91,9 @@ export default {
     ContextMenu,
   },
   methods: {
-    /* Called when an item is clicked, manages the opening of iframe & resets the search field */
+    /* Called when an item is clicked, manages the opening of modal & resets the search field */
     itemOpened(e) {
-      if (e.altKey || this.target === 'iframe') {
+      if (e.altKey || this.target === 'modal') {
         e.preventDefault();
         this.$emit('triggerModal', this.url);
       } else {
@@ -101,7 +103,13 @@ export default {
     /* Open custom context menu, and set position */
     openContextMenu(e) {
       this.contextMenuOpen = !this.contextMenuOpen;
-      if (e) this.contextPos = { posX: e.clientX, posY: e.clientY };
+      if (e && window) {
+        // Calculate placement based on cursor and scroll position
+        this.contextPos = {
+          posX: e.clientX + window.pageXOffset,
+          posY: e.clientY + window.pageYOffset,
+        };
+      }
     },
     /* Closes the context menu, called when user clicks literally anywhere */
     closeContextMenu() {
@@ -125,7 +133,7 @@ export default {
       switch (this.target) {
         case 'newtab': return '"\\f360"';
         case 'sametab': return '"\\f24d"';
-        case 'iframe': return '"\\f2d0"';
+        case 'modal': return '"\\f2d0"';
         default: return '"\\f054"';
       }
     },
@@ -144,6 +152,26 @@ export default {
             statusSuccess: false,
           };
         });
+    },
+    /* Handle navigation options from the context menu */
+    contextItemClick(method) {
+      const { url } = this;
+      this.contextMenuOpen = false;
+      switch (method) {
+        case 'newtab':
+          window.open(url, '_blank');
+          break;
+        case 'sametab':
+          window.open(url, '_self');
+          break;
+        case 'modal':
+          this.$emit('triggerModal', url);
+          break;
+        case 'workspace':
+          router.push({ name: 'workspace', query: { url } });
+          break;
+        default: window.open(url, '_blank');
+      }
     },
   },
   mounted() {

@@ -1,12 +1,24 @@
 <template>
   <transition name="slide">
-    <div class="context-menu" v-if="show"
+    <div class="context-menu" v-if="show && menuEnabled"
       :style="posX && posY ? `top:${posY}px;left:${posX}px;` : ''">
       <ul>
-        <li><SameTabOpenIcon /> Open in Current Tab</li>
-        <li><NewTabOpenIcon /> Open in New Tab</li>
-        <li><IframeOpenIcon /> Open in Pop-Up Modal</li>
-        <li><WorkspaceOpenIcon /> Open in Workspace View </li>
+        <li @click="launch('sametab')">
+          <SameTabOpenIcon />
+          <span>Open in Current Tab</span>
+        </li>
+        <li @click="launch('newtab')">
+          <NewTabOpenIcon />
+          <span>Open in New Tab</span>
+        </li>
+        <li @click="launch('modal')">
+          <IframeOpenIcon />
+          <span>Open in Pop-Up Modal</span>
+        </li>
+        <li @click="launch('workspace')">
+          <WorkspaceOpenIcon />
+          <span>Open in Workspace View</span>
+        </li>
       </ul>
     </div>
   </transition>
@@ -29,9 +41,28 @@ export default {
     WorkspaceOpenIcon,
   },
   props: {
-    posX: Number,
-    posY: Number,
-    show: Boolean,
+    posX: Number, // The X coordinate for positioning
+    posY: Number, // The Y coordinate for positioning
+    show: Boolean, // Should show or hide the menu
+  },
+  data() {
+    return {
+      menuEnabled: !this.isMenuDisabled(), // Specifies if the context menu should be used
+    };
+  },
+  methods: {
+    /* Called on item click, emits an event up to Item */
+    /* in order to launch the current app to a given target */
+    launch(target) {
+      this.$emit('contextItemClick', target);
+    },
+    /* Checks if the user as disabled context menu in config */
+    isMenuDisabled() {
+      if (this.config && this.config.appConfig) {
+        return !!this.config.appConfig.disableContextMenu;
+      }
+      return false;
+    },
   },
 };
 </script>
