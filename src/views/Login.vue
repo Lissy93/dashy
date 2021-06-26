@@ -4,6 +4,14 @@
       <h2 class="login-title">Dashy</h2>
       <Input v-model="username" label="Username" class="login-field username" type="text" />
       <Input v-model="password" label="Password" class="login-field password" type="password" />
+      <label>Remember me for</label>
+      <v-select
+        v-model="timeout"
+        :options="dropDownMenu"
+        label="label"
+        :selectOnTab="true"
+        class="login-time-dropdown"
+      />
       <Button class="login-button" :click="submitLogin">Login</Button>
       <transition name="bounce">
       <p :class="`login-error-message ${status}`" v-show="message">{{ message }}</p>
@@ -30,6 +38,13 @@ export default {
       password: '',
       message: '',
       status: 'waiting', // wating, error, success
+      timeout: { label: 'Never', time: 0 },
+      dropDownMenu: [ // Data for timeout dropdown menu, label + value
+        { label: 'Never', time: 0 }, // Time is specified in ms
+        { label: '4 Hours', time: 14400 * 1000 },
+        { label: '1 Day', time: 86400 * 1000 },
+        { label: '1 Week', time: 604800 * 1000 },
+      ],
     };
   },
   components: {
@@ -38,11 +53,12 @@ export default {
   },
   methods: {
     submitLogin() {
+      const timeout = this.timeout.time || 0;
       const response = checkCredentials(this.username, this.password, this.appConfig.auth || []);
       this.message = response.msg; // Show error or success message to the user
       this.status = response.correct ? 'success' : 'error';
       if (response.correct) { // Yay, credentials were correct :)
-        login(this.username, this.password); // Login, to set the cookie
+        login(this.username, this.password, timeout); // Login, to set the cookie
         setTimeout(() => { // Wait a short while, then redirect back home
           router.push({ path: '/' });
         }, 250);
@@ -130,4 +146,30 @@ export default {
   100% { transform: scale(1); }
 }
 
+.v-select.login-time-dropdown {
+  margin: 0.5rem 0;
+  .vs__dropdown-toggle {
+    border-color: var(--login-form-color);
+    background: var(--login-form-background);
+    span.vs__selected {
+      color: var(--login-form-color);
+    }
+    .vs__actions svg path { fill: var(--login-form-color); }
+  }
+  ul.vs__dropdown-menu {
+    background: var(--login-form-background);
+    border-color: var(--login-form-color);
+    li {
+      color: var(--login-form-color);
+      &:hover {
+        color: var(--login-form-background);
+        background: var(--login-form-color);
+      }
+      &.vs__dropdown-option--highlight {
+        color: var(--login-form-background) !important;
+        background: var(--login-form-color);
+      }
+    }
+  }
+}
 </style>
