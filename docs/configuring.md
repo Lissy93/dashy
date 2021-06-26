@@ -1,4 +1,4 @@
-## Configuring
+# Configuring
 
 All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format.
 
@@ -11,17 +11,17 @@ There's a couple of things to remember, before getting started:
 - You can check that your config file fits the schema, by running `yarn validate-config`
 - Any which are only saved locally through the UI need to be exported into this file, in order for them to persist across devices
 
-#### Config Saving Methods
+### Config Saving Methods
 When updating the config through the JSON editor in the UI, you have two save options: **Local** or **Write to Disk**. Changes saved locally will only be applied to the current user through the browser, and to apply to other instances, you either need to use the cloud sync feature, or manually update the conf.yml file. On the other-hand, if you choose to write changes to disk, then your main `conf.yml` file will be updated, and changes will be applied to all users, and visible across all devices. 
 
-#### Preventing Changes being Written to Disk
+### Preventing Changes being Written to Disk
 To disallow any changes from being written to disk, then set `appConfig.allowConfigEdit: false`. If you are using users, and have setup `auth` within Dashy, then only users with `type: admin` will be able to write config changes to disk.
 
 It is recommended to make a backup of your config file.
 
 All fields are optional, unless otherwise stated.
 
-#### Top-Level Fields
+### Top-Level Fields
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -31,7 +31,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `PageInfo`
+### `PageInfo`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -42,7 +42,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `pageInfo.navLinks` _(optional)_
+### `pageInfo.navLinks` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -51,7 +51,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `appConfig` _(optional)_
+### `appConfig` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -75,7 +75,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `appConfig.auth` _(optional)_
+### `appConfig.auth` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -85,7 +85,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `section`
+### `section`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -96,7 +96,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `section.item`
+### `section.item`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -111,7 +111,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `section.displayData` _(optional)_
+### `section.displayData` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -127,7 +127,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `section.icon` and `section.item.icon`
+### `section.icon` and `section.item.icon`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -135,7 +135,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### Example
+### Example
 
 ```yaml
 ---
