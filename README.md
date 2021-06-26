@@ -30,17 +30,26 @@
 - Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
 - Plus lots more...
 
-**Live Demos**: [Demo 1](https://dashy-demo-1.as93.net) ┆ [Demo 2](https://dashy-demo-2.as93.net) ┆ [Demo 3](https://dashy-demo-3.as93.net)
+## Demo ⚡
 
-**Spin up your own demo**: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+> For more examples of Dashy in action, see: [**The Showcase**](./docs/showcase.md)
 
-**Screenshots**
-![Screenshots](https://i.ibb.co/r5T3MwM/dashy-screenshots.png)
+#### Live Demos
+[Demo 1](https://dashy-demo-1.as93.net) ┆ [Demo 2](https://dashy-demo-2.as93.net) ┆ [Demo 3](https://dashy-demo-3.as93.net)
 
-**Recording**
+#### Spin up your own Demo
+- 1-Click Deploy: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+- Or on your own machine: `docker run -p 8080:80 lissy93/dashy`
+
+#### Recording
 <p align="center">
   <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
 </p>
+
+#### User Showcase
+Are using Dashy? Want to share your dashboard here too - [Submit your Screenshots to the Showcase](./docs/showcase.md#submitting-your-dashboard)!
+
+![Screenshots](https://i.ibb.co/r5T3MwM/dashy-screenshots.png)
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -131,7 +140,7 @@ You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce9
 
 <p align="center">
   <a href="https://i.ibb.co/BVSHV1v/dashy-themes-slideshow.gif">
-    <img alt="Example Themes" src="/docs/assets/theme-slideshow.gif" width="400">
+    <img alt="Example Themes" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/theme-slideshow.gif" width="400">
   </a>
 </p>
 
@@ -204,7 +213,7 @@ Dashy has an optional feature that can display a small icon next to each of your
 By default, this feature is off, but you can enable it globally by setting `appConfig.statusCheck: true`, or enable/ disable it for an individual item, with `item[n].statusCheck`. You can also specify an time interval in seconds under `appConfig.statusCheckInterval`, which will determine how often to recheck services, if this value is `0`, then status is only checked on initial page load, this is default behavior.
 
 <p align="center">
-  <img alt="Status Checks demo" src="/docs/assets/status-check-demo.gif" width="600">
+  <img alt="Status Checks demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/status-check-demo.gif" width="600">
 </p>
 
 **[⬆️ Back to Top](#dashy)**
@@ -229,7 +238,19 @@ The modal and workspace views work by rendering the target application in an ifr
 
 Here's a quick demo of the workspace view:
 <p align="center">
-  <img alt="Workspace view demo" src="/docs/assets/workspace-demo.gif" width="600">
+  <img alt="Workspace view demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/workspace-demo.gif" width="600">
+</p>
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
+## Config Editor ⚙️
+
+From the Settings Menu in Dashy, you can download, backup, edit and rest your config. An interactive editor makes editing the config file easy, it will tell you if you've got any errors. After making your changes, you can either apply them locally, or export into your main config file. After saving to the config file to the disk, the app will need to be rebuilt. This will happen automatically, but may take a few minutes. You can also manually trigger a rebuild from the Settings Menu. A full list of available config options can be found [here](./docs/configuring.md). It's recommend to make a backup of your configuration, as you can then restore it into a new instance of Dashy, without having to set it up again.
+
+<p align="center">
+  <img alt="Workspace view demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/config-editor-demo.gif" width="600">
 </p>
 
 **[⬆️ Back to Top](#dashy)**
@@ -357,7 +378,8 @@ The 1-Click deploy demo uses [Play-with-Docker Labs](https://play-with-docker.co
 
 ### Alternatives 🙌
 
-There are a few self-hosted web apps, that serve a similar purpose to Dashy. If you're looking for a dashboard, and Dashy doesn't meet your needs, I highly recommend you check these projects out! Including, but not limited to: [HomeDash2](https://lamarios.github.io/Homedash2), [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`), [Organizr](https://organizr.app/) (`GPL-3.0 License`) and  [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
+There are a few self-hosted web apps, that serve a similar purpose to Dashy. If you're looking for a dashboard, and Dashy doesn't meet your needs, I highly recommend you check these projects out! 
+[HomeDash2](https://lamarios.github.io/Homedash2), [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`), [Organizr](https://organizr.app/) (`GPL-3.0 License`) and  [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -387,8 +409,8 @@ OR OTHER DEALINGS IN THE SOFTWARE.
 **TDLR;** _You can do whatever you like with Dashy: use it in private or commercial settings,_
 _redistribute and modify it. But you must display this license and credit the author._
 _There is no warranty that this app will work as expected, and the author cannot be held_
-_liable for anything that goes wrong._ For more info, see
-[TLDR Legal's MIT Explanation of the MIT License](https://tldrlegal.com/license/mit-license)
+_liable for anything that goes wrong._
+For more info, see TLDR Legal's [Explanation of MIT](https://tldrlegal.com/license/mit-license)
 
 ![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png?v8)
 
