@@ -1,4 +1,4 @@
-## User Guide
+# User Guide
 
 This article outlines how to use the application. If you are instead looking for deployment instructions, see [Deployment](/docs/deployment.md) and [Configuring](/docs/configuring.md)
 

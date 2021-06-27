@@ -1,4 +1,4 @@
-# Dashy Showcase
+# Showcase
 
 > Do you use Dashy? Got a sweet dashboard? Submit it to the showcase! [See How](#submitting-your-dashboard)
 

@@ -1,4 +1,4 @@
-## Contents
+# Contents
 
 - [Deployment](/docs/deployment.md)
 - [Configuring](/docs/configuring.md)

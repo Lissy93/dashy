@@ -1,4 +1,4 @@
-### Cloud Backup and Restore
+# Cloud Backup and Restore
 
 Dashy has a built-in feature for securely backing up your config to a hosted cloud service, and then restoring it on another instance. This feature is totally optional, and if you do not enable it, then Dashy will not make any external network requests.
 

@@ -1,5 +1,4 @@
-
-## Developing
+# Developing
 
 This article outlines how to get Dashy running in a development environment, and outlines the basics of the architecture. 
 

@@ -1,4 +1,4 @@
-
+# Contributing
 
 First off, thank you for considering contributing to Dashy! There are two main ways you can help out: [Submitting a Pull Request](#submitting-a-pr) or [Raising an Issue](#raising-an-issue).
 

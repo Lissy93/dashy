@@ -1,4 +1,4 @@
-## Theming
+# Theming
 
 By default Dashy comes with 20 built in themes, which can be applied from the dropwodwn menu in the UI
 
