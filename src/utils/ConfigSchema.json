@@ -341,6 +341,14 @@
                   "type": "boolean",
                   "default": false,
                   "description": "Whether or not to display online/ offline status for this service. Will override appConfig.statusCheck"
+                },
+                "statusCheckUrl": {
+                  "type": "string",
+                  "description": "If you've enabled statusCheck, and want to use a different URL to what is defined under the item, then specify it here"
+                },
+                "statusCheckHeaders": {
+                  "type": "object",
+                  "description": " If you're endpoint requires any specific headers for the status checking, then define them here"
                 }
               }
             }
