@@ -27,6 +27,8 @@
         :target="item.target"
         :color="item.color"
         :backgroundColor="item.backgroundColor"
+        :statusCheckUrl="item.statusCheckUrl"
+        :statusCheckHeaders="item.statusCheckHeaders"
         :itemSize="newItemSize"
         :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
         :statusCheckInterval="getStatusCheckInterval()"
