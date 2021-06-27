@@ -69,7 +69,8 @@ export const login = (username, pass, timeout) => {
   const now = new Date();
   const expiry = new Date(now.setTime(now.getTime() + timeout)).toGMTString();
   const userObject = { user: username, hash: sha256(pass).toString().toLowerCase() };
-  document.cookie = `authenticationToken=${generateUserToken(userObject)}; expires=${expiry}`;
+  document.cookie = `authenticationToken=${generateUserToken(userObject)};`
+    + `${timeout > 0 ? `expires=${expiry}` : ''}`;
   localStorage.setItem(localStorageKeys.USERNAME, username);
 };
 
