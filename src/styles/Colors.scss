@@ -1,0 +1,33 @@
+/* Global Color Palette */
+:root {
+  /* Greyscale */
+  --bright-white: #ffffff;
+  --white: #d8d8d8;
+  --pale-grey: #e9e9e8;
+  --mid-grey: #a9a9a9;
+  --dark-grey: #3a3939;
+  --black: #121212;
+  --pitch-black: #000000;
+
+  /* Action Colors */
+  --info: #35c9fa;
+  --success: #88ff88;
+  --warning: #ece715;
+  --danger: #f80363;
+}
+
+/* Themed Color Palette */
+
+html { /* Light Theme */
+  --primary: #54bff7;
+  --background: var(--white);
+  --text-color: var(--black);
+  --hero-background: var(--pale-grey);
+}
+
+html[data-theme='dark'] { /* Dark Theme */
+  --primary: #a324fb;
+  --background: var(--black);
+  --text-color: var(--white);
+  --hero-background: var(--black);
+}
