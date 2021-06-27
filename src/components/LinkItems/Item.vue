@@ -67,6 +67,8 @@ export default {
     },
     itemSize: String,
     enableStatusCheck: Boolean,
+    statusCheckHeaders: Object,
+    statusCheckUrl: String,
     statusCheckInterval: Number,
   },
   data() {
@@ -141,8 +143,10 @@ export default {
     checkWebsiteStatus() {
       this.statusResponse = undefined;
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      const endpoint = `${baseUrl}/ping?url=${this.url}`;
-      axios.get(endpoint)
+      const urlToCheck = this.statusCheckUrl || this.url;
+      const headers = this.statusCheckHeaders || {};
+      const endpoint = `${baseUrl}/ping?url=${urlToCheck}`;
+      axios.get(endpoint, { headers })
         .then((response) => {
           if (response.data) this.statusResponse = response.data;
         })
