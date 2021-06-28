@@ -42,6 +42,7 @@
   --nav-link-border-color: transparent;
   --nav-link-border-color-hover: var(--primary);
   --item-text-color: var(--primary);
+  --item-text-color-hover: var(--item-text-color);
   --item-group-outer-background: var(--primary);
   --item-group-heading-text-color: var(--item-group-background);
   --item-group-heading-text-color-hover: var(--background);
@@ -49,8 +50,10 @@
   --settings-text-color: var(--primary);
   --search-container-background: var(--background-darker);
   --search-field-background: var(--background);
+  --search-label-color: var(--settings-text-color);
   --footer-text-color: var(--medium-grey);
   --footer-text-color-link:  var(--primary);
+  --footer-background: var(--background-darker);
   --welcome-popup-background: var(--background-darker);
   --welcome-popup-text-color: var(--primary);
   --config-code-background: #fff;
