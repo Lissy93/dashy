@@ -5,7 +5,7 @@ import './../styles/Button.scss';
 
 export default function Button({ children, to, color }) {
   return (
-    <Link to={to}>
+    <Link to={to} className="button-link-wrapper">
       <button className={clsx('button', color && 'color-btn', `btn-${color}`)}>
         {children}
       </button>

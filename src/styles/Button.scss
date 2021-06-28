@@ -1,4 +1,8 @@
 
+.button-link-wrapper:hover {
+  text-decoration: none;
+}
+
 .button {
   border-radius: 4px;
   cursor: pointer;
@@ -13,6 +17,12 @@
   padding: 0.75rem 1rem;
   margin: 0.5rem;
   color: var(--black);
+  display: flex;
+
+  svg {
+    width: 1.8rem;
+    margin-right: 0.5rem;
+  }
 
   &.color-btn:hover {
     color: #000000b3;
