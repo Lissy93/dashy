@@ -97,6 +97,39 @@ html[data-theme='matrix'] {
   }
 }
 
+html[data-theme='blue-purple'] {
+  --primary: #54dbf8;
+  --background: #e5e8f5;
+  --background-darker: #5346f3;
+  --font-headings: 'Sniglet', cursive;
+
+  --dimming-factor: 0.8;
+  --curve-factor: 6px;
+
+  --settings-text-color: var(--background-darker);
+  --item-text-color: var(--background-darker);
+  --item-background: var(--white);
+  --item-background-hover: var(--primary);
+
+  --item-group-heading-text-color: var(--background-darker);
+  --item-group-background: var(--background);
+  --footer-text-color: var(--white);
+  --context-menu-background: var(--white);
+  --context-menu-color: var(--background-darker);
+  --context-menu-secondary-color: var(--primary);
+
+  .item {
+    box-shadow: none;
+    border: 1px solid var(--background-darker);
+  }
+  section.filter-container form label {
+    color: var(--primary);
+  }
+  footer {
+    color: var(--white);
+  }
+}
+
 html[data-theme='hacker-girl'] {
   --background: #000;
   --background-darker: #000;
@@ -658,7 +691,8 @@ html[data-theme='vaporware'] {
   --curve-factor: 2px;
   --curve-factor-navbar: 6px;
   --login-form-color: #09bfe6;
-
+  --config-settings-background: #100e2c;
+  
   .home {
     background: linear-gradient(180deg, rgba(16,14,44,1) 10%, rgba(27,24,79,1) 40%, rgba(16,14,44,1) 100%);
   }
@@ -719,4 +753,30 @@ html[data-theme='vaporware'] {
   //   background-size: cover;
   //   div.home { background: none; }
   // }
+}
+
+html[data-theme='cyberpunk'] {
+--pink: #ff2a6d;
+--pale:	#d1f7ff;
+--aqua:	#05d9e8;
+--teal:	#005678;
+--blue:	#01012b;
+--gold:	#ebeb0f;
+
+--primary: var(--gold);
+--background: var(--blue);
+--background-darker: var(--pink);
+--heading-text-color: var(--blue);
+--nav-link-background-color-hover: var(--blue);
+--nav-link-text-color-hover: var(--pink);
+--nav-link-border-color-hover: var(--blue);
+--config-settings-background: var(--blue);
+--config-settings-color: var(--pink);
+--search-label-color: var(--blue);
+--item-group-background: var(--blue);
+--item-text-color: var(--pale);
+--scroll-bar-color: var(--aqua);
+--scroll-bar-background: var(--teal);
+--footer-background: var(--aqua);
+--font-headings: 'Audiowide', cursive;
 }
