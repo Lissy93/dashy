@@ -210,6 +210,7 @@ export default {
   &:hover {
     box-shadow: var(--item-hover-shadow);
     background: var(--item-background-hover);
+    color: var(--item-text-color-hover);
     position: relative;
     .tile-title span.text {
       white-space: pre-wrap;
@@ -274,12 +275,14 @@ export default {
 
 /* Specify layout for alternate sized icons */
 .item {
+  /* Small Tile Specific Themes */
   &.size-small {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
     align-items: center;
     height: 2rem;
+    padding-top: 4px;
     div img, div svg.missing-image {
       width: 2rem;
     }
@@ -294,6 +297,7 @@ export default {
       }
     }
   }
+  /* Medium Tile Specific Themes */
   &.size-medium {
     display: flex;
     flex-direction: column;
@@ -308,14 +312,42 @@ export default {
       max-width: 160px;
     }
   }
+  /* Large Tile Specific Themes */
   &.size-large {
-    height: 100px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    text-align: left;
+    overflow: hidden;
+    align-items: center;
+    max-height: 6rem;
+    margin: 0.2rem;
+    padding: 0.5rem;
+    img {
+      padding: 0.1rem 0.25rem;
+    }
+    .tile-title {
+      height: auto;
+      padding: 0.1rem 0.25rem;
+      span.text {
+        position: relative;
+        font-weight: bold;
+        font-size: 1.1rem;
+        width: 100%;
+      }
+      p.description {
+        display: block;
+        margin: 0;
+        white-space: pre-wrap;
+        font-size: .9em;
+        text-overflow: ellipsis;
+      }
+    }
   }
-
   p.description {
-    display: none;
+    display: none; // By default, we don't show the description
   }
-  &:before {
+  &:before { // Certain themes (e.g. material) show css animated fas icon on hover
     display: none;
     font-family: FontAwesome;
     content: var(--open-icon, "\f054") !important;
