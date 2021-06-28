@@ -36,7 +36,7 @@ footer {
   text-align: center;
   color: var(--medium-grey);
   opacity: var(--dimming-factor);
-  background: var(--background-darker);
+  background: var(--footer-background);
   margin-top: 1.5rem;
   border-top: 1px solid var(--outline-color);
   @include tablet-down {
