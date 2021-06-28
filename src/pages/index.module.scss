@@ -27,14 +27,6 @@ header.heroBanner {
   }
 }
 
-
-
-@media screen and (max-width: 966px) {
-  .heroBanner {
-    padding: 2rem;
-  }
-}
-
 .buttons {
   display: flex;
   align-items: center;
@@ -43,3 +35,12 @@ header.heroBanner {
     flex-direction: column;
   }
 }
+
+
+
+@media screen and (max-width: 966px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
