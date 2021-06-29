@@ -1,19 +1,19 @@
 import React from 'react';
-import clsx from 'clsx';
-import styles from './HomepageFeatures.module.css';
+import './../styles/HomepageFeatures.scss';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
+    title: 'Search & Shortcuts',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Quisque ut dolor gravida, placerat libero vel, euismod. Ambitioni dedisse
+        scripsisse iudicaretur.Donec sed odio operae, eu vulputate felis rhoncus.
+        Nihilne te nocturnum praesidium Palati, nihil urbis vigiliae.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Theming',
     description: (
       <>
         Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
@@ -22,7 +22,7 @@ const FeatureList = [
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Customizable Layouts',
     description: (
       <>
         Extend or customize your website layout by reusing React. Docusaurus can
@@ -32,14 +32,16 @@ const FeatureList = [
   },
 ];
 
-function Feature({ title, description }) {
+function Feature({ title, description, index }) {
+  const side = index % 2 == 0 ? 'left' : 'right';
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-      </div>
-      <div className="text--center padding-horiz--md">
+    <div className={`feature align-${side}`}>
+      <div className="feature-half">
         <h3>{title}</h3>
         <p>{description}</p>
+      </div>
+      <div className="feature-half">
+        <p>Static Asset will go here</p>
       </div>
     </div>
   );
@@ -47,14 +49,10 @@ function Feature({ title, description }) {
 
 export default function HomepageFeatures() {
   return (
-    <section className={styles.features}>
-      <div className="container">
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
-          ))}
-        </div>
-      </div>
+    <section className="home-page-features-wrapper">
+      {FeatureList.map((props, index) => (
+        <Feature key={index} index={index} {...props} />
+      ))}
     </section>
   );
 }

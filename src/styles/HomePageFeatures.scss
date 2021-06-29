@@ -1,0 +1,18 @@
+
+.home-page-features-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1200px;
+  .feature {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    &.align-left { flex-direction: row; }
+    &.align-right { flex-direction: row-reverse; }
+    .feature-half {
+      width: 50%;
+    }
+  }
+}
