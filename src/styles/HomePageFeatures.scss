@@ -11,8 +11,30 @@
     margin: 0;
     &.align-left { flex-direction: row; }
     &.align-right { flex-direction: row-reverse; }
+    &.color-pink { --feature-color: #db78fc; }
+    &.color-blue { --feature-color: #5c85f7; }
+    &.color-green { --feature-color: #41ef90; }
+    &.color-yellow { --feature-color: #dcff5a; }
+    &.color-white { --feature-color: white; }
     .feature-half {
       width: 50%;
+    }
+    border-bottom: 5px solid var(--feature-color);
+    .feature-title {
+      display: flex;
+      align-items: flex-end;
+      margin: 1rem 0;
+      svg {
+        margin-right: 0.5rem;
+        width: 2rem;        
+      }
+      h3 {
+        margin: 0;
+      }
+    }
+    a.button-link-wrapper {
+      float: right;
+      margin: 0 1rem 1rem;
     }
   }
 }
