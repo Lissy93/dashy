@@ -18,8 +18,15 @@
     &.color-white { --feature-color: white; }
     .feature-half {
       width: 50%;
+      &.assets {
+        background: var(--feature-color);
+        .screenshot {
+          background: black;
+          width: 80%;
+          height: 80%;
+        }
+      }
     }
-    border-bottom: 5px solid var(--feature-color);
     .feature-title {
       display: flex;
       align-items: flex-end;

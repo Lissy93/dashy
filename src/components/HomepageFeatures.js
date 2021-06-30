@@ -69,13 +69,13 @@ function Feature({ title, description, icon, index }) {
   const color = getColor(index)
   return (
     <div className={`feature align-${side} color-${color}`}>
-      <div className="feature-half">
+      <div className="feature-half text">
         <div className="feature-title">{icon}<h3>{title}</h3></div>
         <p>{description}</p>
         <Button to="/docs" color={color}>{icon} Docs</Button>
       </div>
-      <div className="feature-half">
-        <p>Static Asset will go here</p>
+      <div className="feature-half assets">
+        <div class="screenshot"></div>
       </div>
     </div>
   );
