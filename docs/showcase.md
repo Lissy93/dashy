@@ -44,8 +44,8 @@
 ## Submitting your Dashboard
 
 #### How to Submit
-- Open an Issue
-- Open a PR
+- [Open an Issue](https://git.io/Jceik)
+- [Open a PR](https://github.com/Lissy93/dashy/compare)
 
 #### What to Include
 Please include the following information:

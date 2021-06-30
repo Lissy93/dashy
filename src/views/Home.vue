@@ -160,13 +160,17 @@ export default {
     },
     /* Checks if any of the icons are Font Awesome glyphs */
     checkIfFontAwesomeNeeded() {
-      let isFound = false;
+      let isNeeded = false;
+      if (!this.sections) return false;
       this.sections.forEach((section) => {
+        if (section.icon && section.icon.includes('fa-')) isNeeded = true;
         section.items.forEach((item) => {
-          if (item.icon && item.icon.includes('fa-')) isFound = true;
+          if (item.icon && item.icon.includes('fa-')) isNeeded = true;
         });
       });
-      return isFound;
+      const currentTheme = localStorage[localStorageKeys.THEME]; // Some themes require FA
+      if (['material', 'material-dark'].includes(currentTheme)) isNeeded = true;
+      return isNeeded;
     },
     /* Injects font-awesome's script tag, only if needed */
     initiateFontAwesome() {

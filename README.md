@@ -18,12 +18,11 @@
 - Instant search by name, domain and tags - just start typing
 - Full keyboard shortcuts for navigation, searching and launching
 - Multiple color themes, with easy method for adding more
-- Customizable layout options, and item sizes
-- Quickly preview a website, by holding down the Alt key while clicking, to open it in a resizable pop-up modal
+- Easy to customize every part of your dashboard, layout, icon sizes and colors etc
 - Many options for icons, including full Font-Awesome support and the ability to auto-fetch icon from URLs favicon
 - Option to show service status for each of your apps / links, for basic availability and uptime monitoring
-- Additional info for each item visible on hover (including opening method icon and description as a tooltip)
-- Option for full-screen background image, custom nav-bar links, and custom footer text
+- Multiple ways of opening apps, either in your browser, a pop-up modal or workspace view
+- Option for full-screen background image, custom nav-bar links, html footer, title, and more
 - Encrypted cloud backup and restore feature available
 - Optional authentication, requiring user to log in
 - Easy single-file YAML-based configuration
@@ -77,8 +76,8 @@ docker run -d \
   --restart=always \
   lissy93/dashy:latest
 ```
-Healthchecks are pre-configured to monitor the uptime and response times of Dashy, and the status of which can be seen in the container logs, e.g. `docker inspect --format "{{json .State.Health }}" [container-id]`.
 
+You can also build the Docker container from source, by cloning the repo, cd'ing into it and running `docker build .` and `docker compose up`.
 #### Deploying from Source 🚀
 
 You will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed on your system
@@ -91,7 +90,7 @@ You will need both [git](https://git-scm.com/downloads) and the latest or LTS ve
 
 #### Deploy to the Cloud
 
-Dashy supports 1-Click deployments on several popular cloud platforms (with more on the way!). To get started, just click a link below:
+Dashy supports 1-Click deployments on several popular cloud platforms. To get started, just click a link below:
 - [Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
 - [Deploy to Heroku](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
 - [Deploy with Vercel](https://vercel.com/new/project?template=https://github.com/lissy93/dashy)
@@ -99,8 +98,7 @@ Dashy supports 1-Click deployments on several popular cloud platforms (with more
 
 #### Basic Commands
 
-The following commands can be run on Dashy. If you are using Docker, than precede each command with `docker exec -it [container-id]`, where container id can be found by running `docker ps`, e.g. `docker exec -it 92490c12baff yarn build`.
-If you prefer [`NPM`](https://docs.npmjs.com), then just replace `yarn` with `npm run` in the following commands.
+The following commands can be run on Dashy.
 
 - `yarn build` - Builds the project for production, and outputs it into `./dist`
 - `yarn start` - Starts a web server, and serves up the production site from `./dist`
@@ -111,6 +109,11 @@ If you prefer [`NPM`](https://docs.npmjs.com), then just replace `yarn` with `np
 - `yarn lint` - Lints code to ensure it follows a consistent neat style
 - `yarn test` - Runs tests, and outputs results
 - `yarn install` - Install all dependencies
+
+If you are using Docker, than precede each command with `docker exec -it [container-id]`, where container id can be found by running `docker ps`, e.g. `docker exec -it 92490c12baff yarn build`.
+If you prefer [`NPM`](https://docs.npmjs.com), then just replace `yarn` with `npm run` in the following commands.
+
+In Docker, [healthchecks](https://docs.docker.com/engine/reference/builder/#healthcheck) are pre-configured to monitor the uptime and response times of Dashy, and the status of which will show in your Docker monitoring app, or the `docker ps` command, or the container logs, using: `docker inspect --format "{{json .State.Health }}" [container-id]`.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -126,7 +129,7 @@ In the production environment, the app needs to be rebuilt in order for changes 
 
 You can check that your config matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json) before deploying, by running `yarn validate-config.`
 
-It is now possible to update Dashy's config directly through the UI, and have changes written to disk. You can disable this feature by setting: `appConfig.allowConfigEdit: false`. If you are using users within Dashy, then you need to be logged in to a user of `type: admin` in order to modify the configuration globally. You can also trigger a rebuild of the app through the UI (Settings --> Rebuild). The current theme, and other visual preferences are only stored locally, unless otherwise specified in the config file. The option to only apply config changes locally is still available, and can be used in conjunction with the cloud backup feature to sync data between instances. 
+It is now possible also possible to update Dashy's config directly through the UI, and have changes written to disk. You can disable this feature by setting: `appConfig.allowConfigEdit: false`. If you are using users within Dashy, then you need to be logged in to a user of `type: admin` in order to modify the configuration globally. You can also trigger a rebuild of the app through the UI (Settings --> Rebuild).
 
 You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10) helpful for getting you started
 
@@ -247,7 +250,7 @@ Here's a quick demo of the workspace view:
 
 ## Config Editor ⚙️
 
-From the Settings Menu in Dashy, you can download, backup, edit and rest your config. An interactive editor makes editing the config file easy, it will tell you if you've got any errors. After making your changes, you can either apply them locally, or export into your main config file. After saving to the config file to the disk, the app will need to be rebuilt. This will happen automatically, but may take a few minutes. You can also manually trigger a rebuild from the Settings Menu. A full list of available config options can be found [here](./docs/configuring.md). It's recommend to make a backup of your configuration, as you can then restore it into a new instance of Dashy, without having to set it up again.
+From the Settings Menu in Dashy, you can download, backup, edit and rest your config. An interactive editor makes editing the config file easy, it will tell you if you've got any errors. After making your changes, you can either apply them locally, or export into your main config file. After saving to the config file to the disk, the app will need to be rebuilt. This will happen automatically, but may take a few minutes. You can also manually trigger a rebuild from the Settings Menu. A full list of available config options can be found [here](./docs/configuring.md). It's recommend to make a backup of your configuration, as you can then restore it into a new instance of Dashy, without having to set it up again. [json2yaml](https://www.json2yaml.com/) is very useful for converting between YAML to JSON and visa versa.
 
 <p align="center">
   <img alt="Workspace view demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/config-editor-demo.gif" width="600">
@@ -279,7 +282,7 @@ If you are new to Vue.js or web development and want to learn more, [here are so
 
 Pull requests are welcome, and would by much appreciated!
 
-Some ideas for PRs include: bug fixes, improve the docs, add new themes, implement a new widget, add or improve the display options, improve or refactor the code, or implement a new feature.
+Some ideas for PRs include: bug fixes, improve the docs, submit a screenshot of your dashboard to the showcase, add new themes, implement a new widget, add or improve the display options, improve or refactor the code, or implement a new feature.
 
 Before you submit your pull request, please ensure the following:
 - Must be backwards compatible
@@ -326,16 +329,18 @@ For more general questions about any of the technologies used, [StackOverflow](h
 
 ## Documentation 📘
 
-- [Getting Started](/docs/deployment.md)
+- [Deployment](/docs/deployment.md)
 - [Configuring](/docs/configuring.md)
 - [Developing](/docs/developing.md)
 - [Contributing](/docs/contributing.md)
 - [User Guide](/docs/user-guide.md)
 - [Troubleshooting](/docs/troubleshooting.md)
 - [Backup & Restore](/docs/backup-restore.md)
+- [Status Indicators](/docs/status-indicators.md)
 - [Theming](/docs/theming.md)
 - [Icons](/docs/icons.md)
 - [Authentication](/docs/authentication.md)
+- [Showcase](/docs/showcase.md)
 
 **[⬆️ Back to Top](#dashy)**
 
