@@ -2,28 +2,43 @@
 .home-page-features-wrapper {
   display: flex;
   flex-direction: column;
-  width: 90%;
-  margin: 0 auto;
-  max-width: 1200px;
   .feature {
     display: flex;
-    padding: 0;
+    justify-content: center;
+    padding: 0.5rem;
     margin: 0;
-    &.align-left { flex-direction: row; }
-    &.align-right { flex-direction: row-reverse; }
+    &.align-left {
+      flex-direction: row;
+      background: var(--background);
+      box-shadow: 0 1px 4px #000000;
+    }
+    &.align-right {
+      flex-direction: row-reverse;
+      background: var(--hero-background);
+      box-shadow: 0 -1px 4px #000000b3;
+    }
     &.color-pink { --feature-color: #db78fc; }
     &.color-blue { --feature-color: #5c85f7; }
     &.color-green { --feature-color: #41ef90; }
     &.color-yellow { --feature-color: #dcff5a; }
     &.color-white { --feature-color: white; }
     .feature-half {
-      width: 50%;
+      width: 40%;
+      padding: 1rem;
       &.assets {
         background: var(--feature-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0.5rem;
+        border-radius: 8px;
+        box-shadow: 4px 4px 6px #00000080, -2px -2px 4px rgb(0 0 0 / 40%);
         .screenshot {
-          background: black;
-          width: 80%;
-          height: 80%;
+          background: #000000d9;
+          width: 100%;
+          height: 100%;
+          border-radius: 8px;
+          box-shadow: 4px 4px 6px #00000080, -2px -2px 4px rgb(0 0 0 / 40%);
         }
       }
     }
