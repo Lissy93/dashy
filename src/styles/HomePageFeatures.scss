@@ -26,6 +26,7 @@
       width: 40%;
       padding: 1rem;
       &.assets {
+        visibility: hidden; //temp
         background: var(--feature-color);
         display: flex;
         align-items: center;
@@ -46,6 +47,7 @@
       display: flex;
       align-items: flex-end;
       margin: 1rem 0;
+      color: var(--feature-color);
       svg {
         margin-right: 0.5rem;
         width: 2rem;        
@@ -54,9 +56,15 @@
         margin: 0;
       }
     }
-    a.button-link-wrapper {
+    div.read-the-docs {
       float: right;
-      margin: 0 1rem 1rem;
+      a.button-link-wrapper {
+        margin: 0 1rem 1rem;
+      }
+      small {
+        opacity: 0.75;
+        margin: 0 0.5rem;
+      }
     }
   }
 }

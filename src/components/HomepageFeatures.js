@@ -190,7 +190,10 @@ function Feature({ title, description, icon, index }) {
       <div className="feature-half text">
         <div className="feature-title">{icon}<h3>{title}</h3></div>
         <p>{description}</p>
-        <Button to="/docs" color={color}>{icon} Docs</Button>
+        <div className="read-the-docs">
+          <small>Learn more in the Docs</small>
+          <Button to="/docs" color={color}>{icon} Docs</Button>
+        </div>
       </div>
       <div className="feature-half assets">
         <div className="screenshot"></div>
