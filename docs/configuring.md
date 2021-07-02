@@ -1,4 +1,4 @@
-## Configuring
+# Configuring
 
 All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format.
 
@@ -11,17 +11,17 @@ There's a couple of things to remember, before getting started:
 - You can check that your config file fits the schema, by running `yarn validate-config`
 - Any which are only saved locally through the UI need to be exported into this file, in order for them to persist across devices
 
-#### Config Saving Methods
+### Config Saving Methods
 When updating the config through the JSON editor in the UI, you have two save options: **Local** or **Write to Disk**. Changes saved locally will only be applied to the current user through the browser, and to apply to other instances, you either need to use the cloud sync feature, or manually update the conf.yml file. On the other-hand, if you choose to write changes to disk, then your main `conf.yml` file will be updated, and changes will be applied to all users, and visible across all devices. 
 
-#### Preventing Changes being Written to Disk
+### Preventing Changes being Written to Disk
 To disallow any changes from being written to disk, then set `appConfig.allowConfigEdit: false`. If you are using users, and have setup `auth` within Dashy, then only users with `type: admin` will be able to write config changes to disk.
 
 It is recommended to make a backup of your config file.
 
 All fields are optional, unless otherwise stated.
 
-#### Top-Level Fields
+### Top-Level Fields
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -31,7 +31,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `PageInfo`
+### `PageInfo`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -42,7 +42,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `pageInfo.navLinks` _(optional)_
+### `pageInfo.navLinks` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -51,7 +51,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `appConfig` _(optional)_
+### `appConfig` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -61,6 +61,7 @@ All fields are optional, unless otherwise stated.
 **`enableFontAwesome`** | `boolean` | _Optional_ | Where `true` is enabled, if left blank font-awesome will be enabled only if required by 1 or more icons
 **`fontAwesomeKey`** | `string` | _Optional_ | If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
 **`faviconApi`** | `string` | _Optional_ | Which service to use to resolve favicons. Set to `local` to do this locally, without using an API. Available options are: `local`, `faviconkit`, `google`, `clearbit`, `webmasterapi` and `allesedv`. Defaults to `faviconkit`. See [Icons](/docs/icons.md#favicons) for more info
+**`auth`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. Note authentication is done on the client side, and so if your instance of Dashy is exposed to the internet, it is recommend to configure your web server to handle this. See [`auth`](#appconfigauth-optional)
 **`layout`** | `string` | _Optional_ | App layout, either `horizontal`, `vertical`, `auto` or `sidebar`. Defaults to `auto`. This specifies the layout and direction of how sections are positioned on the home screen. This can also be modified from the UI.
 **`iconSize`** | `string` | _Optional_ | The size of link items / icons. Can be either `small`, `medium,` or `large`. Defaults to `medium`. This can also be set directly from the UI.
 **`theme`** | `string` | _Optional_ | The default theme for first load (you can change this later from the UI)
@@ -68,13 +69,13 @@ All fields are optional, unless otherwise stated.
 **`externalStyleSheet`** | `string`  or `string[]` | _Optional_ | Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
 **`customCss`** | `string` | _Optional_ | Raw CSS that will be applied to the page. This can also be set from the UI. Please minify it first.
 **`showSplashScreen`** | `boolean` | _Optional_ | Should display a splash screen while the app is loading. Defaults to false, except on first load
-**`auth`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. Note authentication is done on the client side, and so if your instance of Dashy is exposed to the internet, it is recommend to configure your web server to handle this. See [`auth`](#appconfigauth-optional)
 **`allowConfigEdit`** | `boolean` | _Optional_ | Should prevent / allow the user to write configuration changes to the conf.yml from the UI. When set to `false`, the user can only apply changes locally using the config editor within the app, whereas if set to `true` then changes can be written to disk directly through the UI. Defaults to `true`. Note that if authentication is enabled, the user must be of type `admin` in order to apply changes globally.
 **`disableServiceWorker`** | `boolean` | _Optional_ | Service workers cache web applications to improve load times and offer basic offline functionality, and are enabled by default in Dashy. The service worker can sometimes cause older content to be cached, requiring the app to be hard-refreshed. If you do not want SW functionality, or are having issues with caching, set this property to `true` to disable all service workers.
+**`disableContextMenu`** | `boolean` | _Optional_ | If set to `true`, the custom right-click context menu will be disabled. Defaults to `false`.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `appConfig.auth` _(optional)_
+### `appConfig.auth` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -84,7 +85,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `section`
+### `section`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -95,7 +96,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `section.item`
+### `section.item`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -103,14 +104,16 @@ All fields are optional, unless otherwise stated.
 **`description`** | `string` | _Optional_ | Additional info about an item, which is shown in the tooltip on hover, or visible on large tiles
 **`url`** | `string` | Required | The URL / location of web address for when the item is clicked
 **`icon`** | `string` | _Optional_ | The icon for a given item. Can be a font-awesome icon, favicon, remote URL or local URL. See [`item.icon`](#sectionicon-and-sectionitemicon)
-**`target`** | `string` | _Optional_ | The opening method for when the item is clicked, either `newtab`, `sametab` or `iframe`. Where `newtab` will open the link in a new tab, `sametab` will open it in the current tab, and `iframe` will open a pop-up modal with the content displayed within that iframe. Note that for the iframe to load, you must have set the CORS headers to either allow `*` ot allow the domain that you are hosting Dashy on, for some websites and self-hosted services, this is already set.
+**`target`** | `string` | _Optional_ | The opening method for when the item is clicked, either `newtab`, `sametab`, `modal` or `workspace`. Where `newtab` will open the link in a new tab, `sametab` will open it in the current tab, and `modal` will open a pop-up modal with the content displayed within that iframe. Note that for the iframe to load, you must have set the CORS headers to either allow `*` ot allow the domain that you are hosting Dashy on, for some websites and self-hosted services, this is already set.
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping the URL associated with the current service, and display its status as a dot next to the item. The value here will override `appConfig.statusCheck` so you can turn off or on checks for a given service. Defaults to `appConfig.statusCheck`, falls back to `false`
+**`statusCheckUrl`** | `string` | _Optional_ | If you've enabled `statusCheck`, and want to use a different URL to what is defined under the item, then specify it here
+**`statusCheckHeaders`** | `object` | _Optional_ | If you're endpoint requires any specific headers for the status checking, then define them here 
 **`color`** | `string` | _Optional_ | An optional color for the text and font-awesome icon to be displayed in. Note that this will override the current theme and so may not display well
 **`backgroundColor`** | `string` | _Optional_ | An optional background fill color for the that given item. Again, this will override the current theme and so might not display well against the background
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `section.displayData` _(optional)_
+### `section.displayData` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -126,7 +129,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### `section.icon` and `section.item.icon`
+### `section.icon` and `section.item.icon`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -134,7 +137,7 @@ All fields are optional, unless otherwise stated.
 
 **[⬆️ Back to Top](#configuring)**
 
-#### Example
+### Example
 
 ```yaml
 ---

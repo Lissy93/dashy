@@ -3,14 +3,15 @@
 Both sections and items can have an icon, which is specified using the `icon` attribute. Using icons improves the aesthetics of your UI and makes the app more intuitive to use. There are several options when it comes to setting icons, and this article outlines each of them
 
 - [Font Awesome Icons](#font-awesome)
-- [Favicons](#favicons)
+- [Auto-Fetched Favicons](#favicons)
 - [Generative Icons](#generative-icons)
+- [Emoji Icons](#emoji-icons)
 - [Icons by URL](#icons-by-url)
 - [Local Icons](#local-icons)
 - [No Icon](#no-icon)
 
 <p align="center">
-  <img width="400" src="https://i.ibb.co/GTVmZnc/dashy-example-icons.png" />
+  <img width="500" src="https://i.ibb.co/GTVmZnc/dashy-example-icons.png" />
 </p>
 
 ### Font Awesome
@@ -18,9 +19,16 @@ You can use any [Font Awesome Icon](https://fontawesome.com/icons) simply by spe
 
 Font-Awesome has a wide variety of free icons, but you can also use their pro icons if you have a membership. To do so, you need to specify your license key under: `appConfig.fontAwesomeKey`. This is usually a 10-digit string, for example `13014ae648`.
 
+<p align="center">
+  <img width="580" src="https://i.ibb.co/pdrw8J4/fontawesome-icons2.png" />
+</p>
 
 ### Favicons
 Dashy can auto-fetch the favicon for a given service using it's URL. Just set `icon: favicon` to use this feature. If the services URL is a local IP, then Dashy will attempt to find the favicon from `http://[ip]/favicon.ico`. This has two issues, favicons are not always hosted at the same location for every service, and often the default favicon is a low resolution. Therefore to fix this, for remote services an API is used to return a high-quality icon for any online service.
+
+<p align="center">
+  <img width="580" src="https://i.ibb.co/k6wyhnB/favicon-icons.png" />
+</p>
 
 The default favicon API is [Favicon Kit](https://faviconkit.com/), a free and reliable service for returning images from any given URL. However several other API's are supported. To change the API used, under `appConfig`, set `faviconApi` to one of the following values:
 
@@ -34,6 +42,29 @@ You can also force Dashy to always get favicons from the root of the domain, and
 
 ### Generative Icons
 Uses a unique and programmatically generated icon for a given service. This is particularly useful when you have a lot of similar services with a different IP or port, and no specific icon. These icons are generated with [ipsicon.io](https://ipsicon.io/). To use this option, just set an item's to: `icon: generative`.
+
+<p align="center">
+  <img width="400" src="https://i.ibb.co/qrNNNcm/generative-icons.png" />
+</p>
+
+### Emoji Icons
+You can use almost any emoji as an icon for items or sections. You can specify the emoji either by pasting it directly, using it's unicode ( e.g. `'U+1F680'`) or shortcode (e.g. `':rocket:'`). You can find these codes for any emoji using [Emojipedia](https://emojipedia.org/) (near the bottom of emoji each page), or for a quick reference to emoji shortcodes, check out [emojis.ninja](https://emojis.ninja/) by @nomanoff.
+
+<p align="center">
+  <img width="580" src="https://i.ibb.co/YLwgTf9/emoji-icons-1.png" />
+</p>
+
+The following example shows the unicode options available, all three will render the 🚀 emoji.
+
+```yaml
+items:
+- title: Shortcode
+  icon: ':rocket:'
+- title: Unicode
+  icon: 'U+1F680'
+- title: Emoji
+  icon: 🚀
+```
 
 ### Icons by URL
 You can also set an icon by passing in a valid URL pointing to the icons location. For example `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`, this can be in .png, .jpg or .svg format, and hosted anywhere- so long as it's accessible from where you are hosting Dashy. The icon will be automatically scaled to fit, however loading in a lot of large icons may have a negative impact on performance, especially if you visit Dashy from new devices often.

@@ -9,39 +9,46 @@
 [![Awesome Self-Hosted](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/awesome-selfhosted/awesome-selfhosted#personal-dashboards)
 ![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
 ![Stars](https://flat.badgen.net/github/stars/lissy93/dashy?icon=github)
-![Current Version](https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&logo=azurepipelines&color=00af87)
 ![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
-![App Size](https://img.shields.io/github/languages/code-size/lissy93/dashy?style=flat-square)
-![Code Quality](https://app.codacy.com/project/badge/Grade/3be23a4a3a8a4689bd47745b201ecb74)
+![License MIT](https://img.shields.io/badge/License-MIT-09be48?style=flat-square&logo=opensourceinitiative)
+![Current Version](https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&logo=azurepipelines&color=00af87)
 
 ## Features 🌈
 
 - Instant search by name, domain and tags - just start typing
 - Full keyboard shortcuts for navigation, searching and launching
 - Multiple color themes, with easy method for adding more
-- Customizable layout options, and item sizes
-- Quickly preview a website, by holding down the Alt key while clicking, to open it in a resizable pop-up modal
+- Easy to customize every part of your dashboard, layout, icon sizes and colors etc
 - Many options for icons, including full Font-Awesome support and the ability to auto-fetch icon from URLs favicon
 - Option to show service status for each of your apps / links, for basic availability and uptime monitoring
-- Additional info for each item visible on hover (including opening method icon and description as a tooltip)
-- Option for full-screen background image, custom nav-bar links, and custom footer text
+- Multiple ways of opening apps, either in your browser, a pop-up modal or workspace view
+- Option for full-screen background image, custom nav-bar links, html footer, title, and more
 - Encrypted cloud backup and restore feature available
 - Optional authentication, requiring user to log in
 - Easy single-file YAML-based configuration
 - Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
 - Plus lots more...
 
-**Live Demos**: [Demo 1](https://dashy-demo-1.as93.net) ┆ [Demo 2](https://dashy-demo-2.as93.net) ┆ [Demo 3](https://dashy-demo-3.as93.net)
+## Demo ⚡
 
-**Spin up your own demo**: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+> For more examples of Dashy in action, see: [**The Showcase**](./docs/showcase.md)
 
-**Screenshots**
-![Screenshots](https://i.ibb.co/r5T3MwM/dashy-screenshots.png)
+#### Live Demos
+[Demo 1](https://dashy-demo-1.as93.net) ┆ [Demo 2](https://dashy-demo-2.as93.net) ┆ [Demo 3](https://dashy-demo-3.as93.net)
 
-**Recording**
+#### Spin up your own Demo
+- 1-Click Deploy: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+- Or on your own machine: `docker run -p 8080:80 lissy93/dashy`
+
+#### Recording
 <p align="center">
   <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
 </p>
+
+#### User Showcase
+Are using Dashy? Want to share your dashboard here too - [Submit your Screenshots to the Showcase](./docs/showcase.md#submitting-your-dashboard)!
+
+![Screenshots](https://i.ibb.co/r5T3MwM/dashy-screenshots.png)
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -69,8 +76,8 @@ docker run -d \
   --restart=always \
   lissy93/dashy:latest
 ```
-Healthchecks are pre-configured to monitor the uptime and response times of Dashy, and the status of which can be seen in the container logs, e.g. `docker inspect --format "{{json .State.Health }}" [container-id]`.
 
+You can also build the Docker container from source, by cloning the repo, cd'ing into it and running `docker build .` and `docker compose up`.
 #### Deploying from Source 🚀
 
 You will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed on your system
@@ -83,18 +90,15 @@ You will need both [git](https://git-scm.com/downloads) and the latest or LTS ve
 
 #### Deploy to the Cloud
 
-Dashy supports 1-Click deployments on several popular cloud platforms (with more on the way!). To get started, just click a link below:
+Dashy supports 1-Click deployments on several popular cloud platforms. To get started, just click a link below:
 - [Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
 - [Deploy to Heroku](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
 - [Deploy with Vercel](https://vercel.com/new/project?template=https://github.com/lissy93/dashy)
 - [Deploy with PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
 
-**[⬆️ Back to Top](#dashy)**
-
 #### Basic Commands
 
-The following commands can be run on Dashy. If you are using Docker, than precede each command with `docker exec -it [container-id]`, where container id can be found by running `docker ps`, e.g. `docker exec -it 92490c12baff yarn build`.
-If you prefer [`NPM`](https://docs.npmjs.com), then just replace `yarn` with `npm run` in the following commands.
+The following commands can be run on Dashy.
 
 - `yarn build` - Builds the project for production, and outputs it into `./dist`
 - `yarn start` - Starts a web server, and serves up the production site from `./dist`
@@ -105,6 +109,13 @@ If you prefer [`NPM`](https://docs.npmjs.com), then just replace `yarn` with `np
 - `yarn lint` - Lints code to ensure it follows a consistent neat style
 - `yarn test` - Runs tests, and outputs results
 - `yarn install` - Install all dependencies
+
+If you are using Docker, than precede each command with `docker exec -it [container-id]`, where container id can be found by running `docker ps`, e.g. `docker exec -it 92490c12baff yarn build`.
+If you prefer [`NPM`](https://docs.npmjs.com), then just replace `yarn` with `npm run` in the following commands.
+
+In Docker, [healthchecks](https://docs.docker.com/engine/reference/builder/#healthcheck) are pre-configured to monitor the uptime and response times of Dashy, and the status of which will show in your Docker monitoring app, or the `docker ps` command, or the container logs, using: `docker inspect --format "{{json .State.Health }}" [container-id]`.
+
+**[⬆️ Back to Top](#dashy)**
 
 ---
 
@@ -118,7 +129,7 @@ In the production environment, the app needs to be rebuilt in order for changes 
 
 You can check that your config matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json) before deploying, by running `yarn validate-config.`
 
-It is now possible to update Dashy's config directly through the UI, and have changes written to disk. You can disable this feature by setting: `appConfig.allowConfigEdit: false`. If you are using users within Dashy, then you need to be logged in to a user of `type: admin` in order to modify the configuration globally. You can also trigger a rebuild of the app through the UI (Settings --> Rebuild). The current theme, and other visual preferences are only stored locally, unless otherwise specified in the config file. The option to only apply config changes locally is still available, and can be used in conjunction with the cloud backup feature to sync data between instances. 
+It is now possible also possible to update Dashy's config directly through the UI, and have changes written to disk. You can disable this feature by setting: `appConfig.allowConfigEdit: false`. If you are using users within Dashy, then you need to be logged in to a user of `type: admin` in order to modify the configuration globally. You can also trigger a rebuild of the app through the UI (Settings --> Rebuild).
 
 You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10) helpful for getting you started
 
@@ -132,7 +143,7 @@ You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce9
 
 <p align="center">
   <a href="https://i.ibb.co/BVSHV1v/dashy-themes-slideshow.gif">
-    <img alt="Example Themes" src="/docs/assets/theme-slideshow.gif" width="400">
+    <img alt="Example Themes" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/theme-slideshow.gif" width="400">
   </a>
 </p>
 
@@ -157,6 +168,7 @@ Both sections and items can have an icon associated with them, and defined under
 - **Favicon**: Set `icon: favicon` to fetch a services icon automatically from the URL of the corresponding application
 - **Font-Awesome**: To use any font-awesome icon, specify the category, followed by the icon name, e.g. `fas fa-rocket` or `fab fa-monero`. You can also use Pro icons if you have a license key, just set it under `appConfig.fontAwesomeKey`
 - **Generative**: Setting `icon: generative`, will generate a unique for a given service, based on it's URL or IP
+- **Emoji**: Use an emoji as a tile icon, by putting the emoji's code as the icon attribute. Emojis can be specified either as emojis (`🚀`), unicode (`'U+1F680'`) or shortcode (`':rocket:'`).
 - **URL**: You can also pass in a URL to an icon asset, hosted either locally or using any CDN service. E.g. `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`.
 - **Local Image**: To use a local image, store it in `./public/item-icons/` (or create a volume in Docker: `-v /local/image/directory:/app/public/item-icons/`) , and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`. You can also use sub-folders here if you have a lot of icons, to keep them organized.
 
@@ -200,9 +212,50 @@ At present, access control is handled on the frontend, and therefore in security
 
 > For full monitoring documentation, see: [**Status Indicators**](./docs/status-indicators.md)
 
-Dashy has an optional feature that can display a small icon ([like this](./docs/assets/status-check-demo.gif)) next to each of your running services, indicating it's current status. This is useful if you are using Dashy as your homelab's start page, as it gives you an overview of the health of each of your running services. Hovering over the indicator will show additional information, including average response time and an error message for services which are down.
+Dashy has an optional feature that can display a small icon next to each of your running services, indicating it's current status. This is useful if you are using Dashy as your homelab's start page, as it gives you an overview of the health of each of your running services. Hovering over the indicator will show additional information, including average response time and an error message for services which are down.
 
 By default, this feature is off, but you can enable it globally by setting `appConfig.statusCheck: true`, or enable/ disable it for an individual item, with `item[n].statusCheck`. You can also specify an time interval in seconds under `appConfig.statusCheckInterval`, which will determine how often to recheck services, if this value is `0`, then status is only checked on initial page load, this is default behavior.
+
+<p align="center">
+  <img alt="Status Checks demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/status-check-demo.gif" width="600">
+</p>
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
+## Opening Methods 🖱️
+
+One of the primary purposes of Dashy is to make launching commonly used apps and services as quick as possible. To aid in this, there are several different options on how items can be opened. You can configure your preference by setting the `target` property of any item, to one of the following values:
+- `sametab` - The app will be launched in the current tab
+- `newtab` - The app will be launched in a new tab
+- `modal` - Launch app in a resizable/ movable popup modal on the current page
+- `workspace` - Changes to Workspace view, and launches app
+
+Even if the target is not set (or is set to `sametab`), you can still launch any given app in an alternative method: Alt + Click will open the modal, and Ctrl + Click will open in a new tab. You can also right-click on any item to see all options (as seen in the screenshot below). This custom context menu can be disabled by setting `appConfig.disableContextMenu: true`.
+
+<p align="center">
+  <img width="500" src="https://i.ibb.co/vmZdSRt/dashy-context-menu-2.png" />
+</p>
+
+The modal and workspace views work by rendering the target application in an iframe. For this to work, the HTTP response header [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) for a given application needs to be set to `ALLOW`. If you are getting a `Refused to Connect` error then this header is set to `DENY` (or `SAMEORIGIN` and it's on a different host).
+
+Here's a quick demo of the workspace view:
+<p align="center">
+  <img alt="Workspace view demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/workspace-demo.gif" width="600">
+</p>
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
+## Config Editor ⚙️
+
+From the Settings Menu in Dashy, you can download, backup, edit and rest your config. An interactive editor makes editing the config file easy, it will tell you if you've got any errors. After making your changes, you can either apply them locally, or export into your main config file. After saving to the config file to the disk, the app will need to be rebuilt. This will happen automatically, but may take a few minutes. You can also manually trigger a rebuild from the Settings Menu. A full list of available config options can be found [here](./docs/configuring.md). It's recommend to make a backup of your configuration, as you can then restore it into a new instance of Dashy, without having to set it up again. [json2yaml](https://www.json2yaml.com/) is very useful for converting between YAML to JSON and visa versa.
+
+<p align="center">
+  <img alt="Workspace view demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/config-editor-demo.gif" width="600">
+</p>
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -230,7 +283,7 @@ If you are new to Vue.js or web development and want to learn more, [here are so
 
 Pull requests are welcome, and would by much appreciated!
 
-Some ideas for PRs include: bug fixes, improve the docs, add new themes, implement a new widget, add or improve the display options, improve or refactor the code, or implement a new feature.
+Some ideas for PRs include: bug fixes, improve the docs, submit a screenshot of your dashboard to the showcase, add new themes, implement a new widget, add or improve the display options, improve or refactor the code, or implement a new feature.
 
 Before you submit your pull request, please ensure the following:
 - Must be backwards compatible
@@ -240,18 +293,12 @@ Before you submit your pull request, please ensure the following:
 - Your pull request will need to be up-to-date with master, and the PR template must be filled in
 
 ### Repo Status
-![Open Issues](https://flat.badgen.net/github/open-issues/lissy93/dashy?icon=github)
-![Closed Issues](https://flat.badgen.net/github/closed-issues/lissy93/dashy?icon=github)
+
 ![Open PRs](https://flat.badgen.net/github/open-prs/lissy93/dashy?icon=github)
 ![Total PRs](https://flat.badgen.net/github/prs/lissy93/dashy?icon=github)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/lissy93/dashy?style=flat-square)
 ![Last Commit](https://flat.badgen.net/github/last-commit/lissy93/dashy?icon=github)
 ![Contributors](https://flat.badgen.net/github/contributors/lissy93/dashy?icon=github)
-![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
-![Stars](https://flat.badgen.net/github/stars/lissy93/dashy?icon=github)
-![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
-![Total Lines](https://img.shields.io/tokei/lines/github/lissy93/dashy?style=flat-square)
-![Maintenance](https://img.shields.io/maintenance/yes/2021?style=flat-square)
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -268,6 +315,9 @@ If you've found a bug, or something that isn't working as you'd expect, please r
 - [Ask a Question 🤷‍♀️](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A4%B7%E2%80%8D%E2%99%82%EF%B8%8F+Question&template=question------.md&title=%5BQUESTION%5D)
 - [Share Feedback 🌈](https://github.com/Lissy93/dashy/issues/new?assignees=&labels=%F0%9F%8C%88+Feedback&template=share-feedback---.md&title=%5BFEEDBACK%5D)
 
+[**Issue Status**](https://isitmaintained.com/project/lissy93/dashy) ![Resolution Time](http://isitmaintained.com/badge/resolution/lissy93/dashy.svg)  ![Open Issues](http://isitmaintained.com/badge/open/lissy93/dashy.svg) ![Closed Issues](https://badgen.net/github/closed-issues/lissy93/dashy)
+
+
 For more general questions about any of the technologies used, [StackOverflow](https://stackoverflow.com/questions/) may be more helpful first port of info
 
  If you need to get in touch securely with the author (me, Alicia Sykes), drop me a message at:
@@ -280,16 +330,18 @@ For more general questions about any of the technologies used, [StackOverflow](h
 
 ## Documentation 📘
 
-- [Getting Started](/docs/deployment.md)
+- [Deployment](/docs/deployment.md)
 - [Configuring](/docs/configuring.md)
 - [Developing](/docs/developing.md)
 - [Contributing](/docs/contributing.md)
 - [User Guide](/docs/user-guide.md)
 - [Troubleshooting](/docs/troubleshooting.md)
 - [Backup & Restore](/docs/backup-restore.md)
+- [Status Indicators](/docs/status-indicators.md)
 - [Theming](/docs/theming.md)
 - [Icons](/docs/icons.md)
 - [Authentication](/docs/authentication.md)
+- [Showcase](/docs/showcase.md)
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -332,7 +384,8 @@ The 1-Click deploy demo uses [Play-with-Docker Labs](https://play-with-docker.co
 
 ### Alternatives 🙌
 
-There are a few self-hosted web apps, that serve a similar purpose to Dashy. If you're looking for a dashboard, and Dashy doesn't meet your needs, I highly recommend you check these projects out! Including, but not limited to: [HomeDash2](https://lamarios.github.io/Homedash2), [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`), [Organizr](https://organizr.app/) (`GPL-3.0 License`) and  [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
+There are a few self-hosted web apps, that serve a similar purpose to Dashy. If you're looking for a dashboard, and Dashy doesn't meet your needs, I highly recommend you check these projects out! 
+[HomeDash2](https://lamarios.github.io/Homedash2), [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`), [Organizr](https://organizr.app/) (`GPL-3.0 License`) and  [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -362,8 +415,8 @@ OR OTHER DEALINGS IN THE SOFTWARE.
 **TDLR;** _You can do whatever you like with Dashy: use it in private or commercial settings,_
 _redistribute and modify it. But you must display this license and credit the author._
 _There is no warranty that this app will work as expected, and the author cannot be held_
-_liable for anything that goes wrong._ For more info, see
-[TLDR Legal's MIT Explanation of the MIT License](https://tldrlegal.com/license/mit-license)
+_liable for anything that goes wrong._
+For more info, see TLDR Legal's [Explanation of MIT](https://tldrlegal.com/license/mit-license)
 
 ![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png?v8)
 

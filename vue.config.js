@@ -9,8 +9,8 @@ module.exports = {
   chainWebpack: config => {
     config.module.rules.delete('svg');
   },
-
   configureWebpack: {
+    performance: { hints: false },
     module: {
       rules: [
         { test: /.svg$/, loader: 'vue-svg-loader' },
@@ -26,12 +26,12 @@ module.exports = {
       }),
     ],
   },
-
   pwa: {
     name: 'Dashy',
     manifestPath: './manifest.json',
     themeColor: '#00af87',
     msTileColor: '#0b1021',
+    mode: 'production',
     iconPaths: {
       manifestCrossorigin: 'use-credentials',
       favicon64: './web-icons/favicon-64x64.png',

@@ -1,6 +1,9 @@
 <template ref="container">
+  <div class="item-wrapper">
     <a @click="itemOpened"
-      :href="target !== 'iframe' ? url : '#'"
+      @mouseup.right="openContextMenu"
+      @contextmenu.prevent
+      :href="target !== 'modal' ? url : '#'"
       :target="target === 'newtab' ? '_blank' : ''"
       :class="`item ${!icon? 'short': ''} size-${itemSize}`"
       v-tooltip="getTooltipOptions()"
@@ -19,6 +22,7 @@
       <!-- Small icon, showing opening method on hover -->
       <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon" :openingMethod="target"
         :position="itemSize === 'medium'? 'bottom right' : 'top right'"/>
+      <!-- Status indicator dot (if enabled) showing weather srevice is availible -->
       <StatusIndicator
         class="status-indicator"
         v-if="enableStatusCheck"
@@ -26,13 +30,24 @@
         :statusText="statusResponse ? statusResponse.message : undefined"
       />
     </a>
+    <ContextMenu
+      :show="contextMenuOpen"
+      v-click-outside="closeContextMenu"
+      :posX="contextPos.posX"
+      :posY="contextPos.posY"
+      :id="`context-menu-${id}`"
+      @contextItemClick="contextItemClick"
+    />
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
+import router from '@/router';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
+import ContextMenu from '@/components/LinkItems/ContextMenu';
 
 export default {
   name: 'Item',
@@ -45,39 +60,62 @@ export default {
     color: String, // Optional text and icon color, specified in hex code
     backgroundColor: String, // Optional item background color
     url: String, // URL to the resource, optional but recommended
-    target: { // Where resource will open, either 'newtab', 'sametab' or 'iframe'
+    target: { // Where resource will open, either 'newtab', 'sametab' or 'modal'
       type: String,
       default: 'newtab',
-      validator: (value) => ['newtab', 'sametab', 'iframe'].indexOf(value) !== -1,
+      validator: (value) => ['newtab', 'sametab', 'modal', 'workspace'].indexOf(value) !== -1,
     },
     itemSize: String,
     enableStatusCheck: Boolean,
+    statusCheckHeaders: Object,
+    statusCheckUrl: String,
     statusCheckInterval: Number,
   },
   data() {
     return {
+      contextMenuOpen: false,
       getId: this.id,
       customStyles: {
         color: this.color,
         background: this.backgroundColor,
       },
       statusResponse: undefined,
+      contextPos: {
+        posX: undefined,
+        posY: undefined,
+      },
     };
   },
   components: {
     Icon,
     ItemOpenMethodIcon,
     StatusIndicator,
+    ContextMenu,
   },
   methods: {
-    /* Called when an item is clicked, manages the opening of iframe & resets the search field */
+    /* Called when an item is clicked, manages the opening of modal & resets the search field */
     itemOpened(e) {
-      if (e.altKey || this.target === 'iframe') {
+      if (e.altKey || this.target === 'modal') {
         e.preventDefault();
         this.$emit('triggerModal', this.url);
       } else {
         this.$emit('itemClicked');
       }
+    },
+    /* Open custom context menu, and set position */
+    openContextMenu(e) {
+      this.contextMenuOpen = !this.contextMenuOpen;
+      if (e && window) {
+        // Calculate placement based on cursor and scroll position
+        this.contextPos = {
+          posX: e.clientX + window.pageXOffset,
+          posY: e.clientY + window.pageYOffset,
+        };
+      }
+    },
+    /* Closes the context menu, called when user clicks literally anywhere */
+    closeContextMenu() {
+      this.contextMenuOpen = false;
     },
     /* Returns configuration object for the tooltip */
     getTooltipOptions() {
@@ -97,15 +135,18 @@ export default {
       switch (this.target) {
         case 'newtab': return '"\\f360"';
         case 'sametab': return '"\\f24d"';
-        case 'iframe': return '"\\f2d0"';
+        case 'modal': return '"\\f2d0"';
         default: return '"\\f054"';
       }
     },
+    /* Checks if a given service is currently online */
     checkWebsiteStatus() {
       this.statusResponse = undefined;
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      const endpoint = `${baseUrl}/ping?url=${this.url}`;
-      axios.get(endpoint)
+      const urlToCheck = this.statusCheckUrl || this.url;
+      const headers = this.statusCheckHeaders || {};
+      const endpoint = `${baseUrl}/ping?url=${urlToCheck}`;
+      axios.get(endpoint, { headers })
         .then((response) => {
           if (response.data) this.statusResponse = response.data;
         })
@@ -116,9 +157,31 @@ export default {
           };
         });
     },
+    /* Handle navigation options from the context menu */
+    contextItemClick(method) {
+      const { url } = this;
+      this.contextMenuOpen = false;
+      switch (method) {
+        case 'newtab':
+          window.open(url, '_blank');
+          break;
+        case 'sametab':
+          window.open(url, '_self');
+          break;
+        case 'modal':
+          this.$emit('triggerModal', url);
+          break;
+        case 'workspace':
+          router.push({ name: 'workspace', query: { url } });
+          break;
+        default: window.open(url, '_blank');
+      }
+    },
   },
   mounted() {
+    // If ststus checking is enabled, then check service status
     if (this.enableStatusCheck) this.checkWebsiteStatus();
+    // If continious status checking is enabled, then start ever-lasting loop
     if (this.statusCheckInterval > 0) {
       setInterval(this.checkWebsiteStatus, this.statusCheckInterval * 1000);
     }
@@ -127,6 +190,10 @@ export default {
 </script>
 
 <style lang="scss">
+
+.item-wrapper {
+  flex-grow: 1;
+}
 
 .item {
   flex-grow: 1;
@@ -147,6 +214,7 @@ export default {
   &:hover {
     box-shadow: var(--item-hover-shadow);
     background: var(--item-background-hover);
+    color: var(--item-text-color-hover);
     position: relative;
     .tile-title span.text {
       white-space: pre-wrap;
@@ -211,24 +279,29 @@ export default {
 
 /* Specify layout for alternate sized icons */
 .item {
+  /* Small Tile Specific Themes */
   &.size-small {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
     align-items: center;
     height: 2rem;
+    padding-top: 4px;
     div img, div svg.missing-image {
       width: 2rem;
     }
     .tile-title {
       height: fit-content;
       min-height: 1.2rem;
+      text-align: left;
+      max-width:140px;
       span.text {
         text-align: left;
         padding-left: 10%;
       }
     }
   }
+  /* Medium Tile Specific Themes */
   &.size-medium {
     display: flex;
     flex-direction: column;
@@ -243,14 +316,42 @@ export default {
       max-width: 160px;
     }
   }
+  /* Large Tile Specific Themes */
   &.size-large {
-    height: 100px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    text-align: left;
+    overflow: hidden;
+    align-items: center;
+    max-height: 6rem;
+    margin: 0.2rem;
+    padding: 0.5rem;
+    img {
+      padding: 0.1rem 0.25rem;
+    }
+    .tile-title {
+      height: auto;
+      padding: 0.1rem 0.25rem;
+      span.text {
+        position: relative;
+        font-weight: bold;
+        font-size: 1.1rem;
+        width: 100%;
+      }
+      p.description {
+        display: block;
+        margin: 0;
+        white-space: pre-wrap;
+        font-size: .9em;
+        text-overflow: ellipsis;
+      }
+    }
   }
-
   p.description {
-    display: none;
+    display: none; // By default, we don't show the description
   }
-  &:before {
+  &:before { // Certain themes (e.g. material) show css animated fas icon on hover
     display: none;
     font-family: FontAwesome;
     content: var(--open-icon, "\f054") !important;

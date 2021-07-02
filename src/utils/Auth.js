@@ -1,8 +1,18 @@
 import sha256 from 'crypto-js/sha256';
 import { cookieKeys, localStorageKeys } from './defaults';
 
+/**
+ * Generates a 1-way hash, in order to be stored in local storage for authentication
+ * @param {String} user The username of user
+ * @returns {String} The hashed token
+ */
 const generateUserToken = (user) => sha256(user.toString()).toString().toLowerCase();
 
+/**
+ * Checks if the user is currently authenticated
+ * @param {Array[Object]} users An array of user objects pulled from the config
+ * @returns {Boolean} Will return true if the user is logged in, else false
+ */
 export const isLoggedIn = (users) => {
   const validTokens = users.map((user) => generateUserToken(user));
   let userAuthenticated = false;
@@ -20,6 +30,15 @@ export const isLoggedIn = (users) => {
   return userAuthenticated;
 };
 
+/**
+ * Checks credentials entered by the user against those in the config
+ * Returns an object containing a boolean indicating success/ failure
+ * along with a message outlining what's not right
+ * @param {String} username The username entered by the user
+ * @param {String} pass The password entered by the user
+ * @param {String[]} users An array of valid user objects
+ * @returns {Object} An object containing a boolean result and a message
+ */
 export const checkCredentials = (username, pass, users) => {
   let response;
   if (!username) {
@@ -40,12 +59,24 @@ export const checkCredentials = (username, pass, users) => {
   return response || { correct: false, msg: 'User not found' };
 };
 
-export const login = (username, pass) => {
+/**
+ * Sets the cookie value in order to login the user locally
+ * @param {String} username - The users username
+ * @param {String} pass - Password, not yet hashed
+ * @param {Number} timeout - A desired timeout for the session, in ms
+ */
+export const login = (username, pass, timeout) => {
+  const now = new Date();
+  const expiry = new Date(now.setTime(now.getTime() + timeout)).toGMTString();
   const userObject = { user: username, hash: sha256(pass).toString().toLowerCase() };
-  document.cookie = `authenticationToken=${generateUserToken(userObject)}; max-age=600`;
+  document.cookie = `authenticationToken=${generateUserToken(userObject)};`
+    + `${timeout > 0 ? `expires=${expiry}` : ''}`;
   localStorage.setItem(localStorageKeys.USERNAME, username);
 };
 
+/**
+ * Removed the browsers cookie, causing user to be logged out
+ */
 export const logout = () => {
   document.cookie = 'authenticationToken=null';
   localStorage.removeItem(localStorageKeys.USERNAME);
@@ -57,8 +88,8 @@ export const logout = () => {
  * But if auth is configured, then will verify user is correctly
  * logged in and then check weather they are of type admin, and
  * return false if any conditions fail
- * @param users[] : Array of users
- * @returns Boolean : True if admin privileges
+ * @param {String[]} - Array of users
+ * @returns {Boolean} - True if admin privileges
  */
 export const isUserAdmin = (users) => {
   if (!users || users.length === 0) return true; // Authentication not setup

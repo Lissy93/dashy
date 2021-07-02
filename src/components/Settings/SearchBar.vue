@@ -83,7 +83,7 @@ export default {
     background: var(--search-container-background);
     label {
         display: inline;
-        color: var(--settings-text-color);
+        color: var(--search-label-color);
         margin: 0.5rem;
         display: inline;
     }

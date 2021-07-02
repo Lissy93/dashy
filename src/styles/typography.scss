@@ -42,7 +42,6 @@ html {
     font-weight: normal;
   }
 }
-
 /* Optional fonts for specific themes */
 /* These fonts are loaded from ./public and therefore not bundled within the apps source */
 @font-face { // Used by Dracula. Credit to Matt McInerney
@@ -73,3 +72,9 @@ html {
   font-family: 'VT323';
   src: url('/fonts/VT323-Regular.ttf');
 }
+
+@font-face { // Used by cyberpunk theme. Credit to Astigmatic
+  font-family: 'Audiowide';
+  src: url('/fonts/Audiowide-Regular.ttf');
+}
+
