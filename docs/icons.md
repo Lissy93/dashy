@@ -19,6 +19,10 @@ You can use any [Font Awesome Icon](https://fontawesome.com/icons) simply by spe
 
 Font-Awesome has a wide variety of free icons, but you can also use their pro icons if you have a membership. To do so, you need to specify your license key under: `appConfig.fontAwesomeKey`. This is usually a 10-digit string, for example `13014ae648`.
 
+<p align="center">
+  <img width="400" src="https://i.ibb.co/pdrw8J4/fontawesome-icons2.png" />
+</p>
+
 ### Favicons
 Dashy can auto-fetch the favicon for a given service using it's URL. Just set `icon: favicon` to use this feature. If the services URL is a local IP, then Dashy will attempt to find the favicon from `http://[ip]/favicon.ico`. This has two issues, favicons are not always hosted at the same location for every service, and often the default favicon is a low resolution. Therefore to fix this, for remote services an API is used to return a high-quality icon for any online service.
 
