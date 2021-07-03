@@ -11,7 +11,7 @@ Both sections and items can have an icon, which is specified using the `icon` at
 - [No Icon](#no-icon)
 
 <p align="center">
-  <img width="400" src="https://i.ibb.co/GTVmZnc/dashy-example-icons.png" />
+  <img width="500" src="https://i.ibb.co/GTVmZnc/dashy-example-icons.png" />
 </p>
 
 ### Font Awesome
@@ -20,14 +20,14 @@ You can use any [Font Awesome Icon](https://fontawesome.com/icons) simply by spe
 Font-Awesome has a wide variety of free icons, but you can also use their pro icons if you have a membership. To do so, you need to specify your license key under: `appConfig.fontAwesomeKey`. This is usually a 10-digit string, for example `13014ae648`.
 
 <p align="center">
-  <img width="400" src="https://i.ibb.co/pdrw8J4/fontawesome-icons2.png" />
+  <img width="580" src="https://i.ibb.co/pdrw8J4/fontawesome-icons2.png" />
 </p>
 
 ### Favicons
 Dashy can auto-fetch the favicon for a given service using it's URL. Just set `icon: favicon` to use this feature. If the services URL is a local IP, then Dashy will attempt to find the favicon from `http://[ip]/favicon.ico`. This has two issues, favicons are not always hosted at the same location for every service, and often the default favicon is a low resolution. Therefore to fix this, for remote services an API is used to return a high-quality icon for any online service.
 
 <p align="center">
-  <img width="400" src="https://i.ibb.co/k6wyhnB/favicon-icons.png" />
+  <img width="580" src="https://i.ibb.co/k6wyhnB/favicon-icons.png" />
 </p>
 
 The default favicon API is [Favicon Kit](https://faviconkit.com/), a free and reliable service for returning images from any given URL. However several other API's are supported. To change the API used, under `appConfig`, set `faviconApi` to one of the following values:
@@ -51,7 +51,7 @@ Uses a unique and programmatically generated icon for a given service. This is p
 You can use almost any emoji as an icon for items or sections. You can specify the emoji either by pasting it directly, using it's unicode ( e.g. `'U+1F680'`) or shortcode (e.g. `':rocket:'`). You can find these codes for any emoji using [Emojipedia](https://emojipedia.org/) (near the bottom of emoji each page), or for a quick reference to emoji shortcodes, check out [emojis.ninja](https://emojis.ninja/) by @nomanoff.
 
 <p align="center">
-  <img width="400" src="https://i.ibb.co/YLwgTf9/emoji-icons-1.png" />
+  <img width="580" src="https://i.ibb.co/YLwgTf9/emoji-icons-1.png" />
 </p>
 
 The following example shows the unicode options available, all three will render the 🚀 emoji.
