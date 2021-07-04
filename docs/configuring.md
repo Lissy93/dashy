@@ -68,7 +68,7 @@ All fields are optional, unless otherwise stated.
 **`cssThemes`** | `string[]` | _Optional_ | An array of custom theme names which can be used in the theme switcher dropdown
 **`externalStyleSheet`** | `string`  or `string[]` | _Optional_ | Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
 **`customCss`** | `string` | _Optional_ | Raw CSS that will be applied to the page. This can also be set from the UI. Please minify it first.
-**`showSplashScreen`** | `boolean` | _Optional_ | Should display a splash screen while the app is loading. Defaults to false, except on first load
+**`hideComponents`** | `object` | _Optional_ | A list of key page components (header, footer, search, settings, etc) that are present by default, but can be removed using this option. See [`appConfig.hideComponents`](#appconfighideComponents-optional)
 **`allowConfigEdit`** | `boolean` | _Optional_ | Should prevent / allow the user to write configuration changes to the conf.yml from the UI. When set to `false`, the user can only apply changes locally using the config editor within the app, whereas if set to `true` then changes can be written to disk directly through the UI. Defaults to `true`. Note that if authentication is enabled, the user must be of type `admin` in order to apply changes globally.
 **`disableServiceWorker`** | `boolean` | _Optional_ | Service workers cache web applications to improve load times and offer basic offline functionality, and are enabled by default in Dashy. The service worker can sometimes cause older content to be cached, requiring the app to be hard-refreshed. If you do not want SW functionality, or are having issues with caching, set this property to `true` to disable all service workers.
 **`disableContextMenu`** | `boolean` | _Optional_ | If set to `true`, the custom right-click context menu will be disabled. Defaults to `false`.
@@ -82,6 +82,19 @@ All fields are optional, unless otherwise stated.
 **`user`** | `string` | Required | Username to log in with
 **`hash`** | `string` | Required | A SHA-256 hashed password
 **`type`** | `string` | _Optional_ | The user type, either admin or normal
+
+**[⬆️ Back to Top](#configuring)**
+
+### `appConfig.hideComponents` _(optional)_
+
+**Field** | **Type** | **Required**| **Description**
+--- | --- | --- | ---
+**`hideHeading`** | `boolean` | _Optional_ | If set to `true`, the page title & sub-title will not be visible. Defaults to `false`
+**`hideNav`** | `boolean` | _Optional_ | If set to `true`, the navigation menu will not be visible. Defaults to `false`
+**`hideSearch`** | `boolean` | _Optional_ | If set to `true`, the search bar will not be visible. Defaults to `false`
+**`hideSettings`** | `boolean` | _Optional_ | If set to `true`, the settings menu will not be visible. Defaults to `false`
+**`hideFooter`** | `boolean` | _Optional_ | If set to `true`, the footer will not be visible. Defaults to `false`
+**`hideSplashScreen`** | `boolean` | _Optional_ | If set to `true`, splash screen will not be visible while the app loads. Defaults to `true` (except on first load, when the loading screen is always shown)
 
 **[⬆️ Back to Top](#configuring)**
 
