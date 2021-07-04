@@ -11,8 +11,10 @@
 import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
-import Defaults, { localStorageKeys, splashScreenTime } from '@/utils/defaults';
-import { config, appConfig, pageInfo } from '@/utils/ConfigAccumalator';
+import { localStorageKeys, splashScreenTime, visibleComponents } from '@/utils/defaults';
+import ConfigAccumulator from '@/utils/ConfigAccumalator';
+
+const Accumulator = new ConfigAccumulator();
 
 export default {
   name: 'app',
@@ -22,14 +24,14 @@ export default {
     LoadingScreen,
   },
   provide: {
-    config,
+    config: Accumulator.config(),
   },
   data() {
     return {
-      showFooter: Defaults.visibleComponents.footer,
+      showFooter: visibleComponents.footer,
       isLoading: true,
-      appConfig,
-      pageInfo,
+      appConfig: Accumulator.appConfig(),
+      pageInfo: Accumulator.pageInfo(),
     };
   },
   methods: {
