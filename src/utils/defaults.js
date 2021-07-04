@@ -1,3 +1,15 @@
+/**
+ * If the user has multiple dashboards within Dashy,
+ * then the Local storage keys need to be appended with an ID for each page
+ * This function just checks if we're not on the default homepage,
+ * and then appends the ID from the URL to the key
+ */
+const appendRouteId = (key) => {
+  const UrlParts = document.URL.split('/');
+  const currentRoute = UrlParts[UrlParts.length - 1];
+  return currentRoute !== '' ? `${currentRoute}_${key}` : key;
+};
+
 module.exports = {
   pageInfo: {
     title: 'Dashy',
@@ -48,17 +60,17 @@ module.exports = {
   },
   localStorageKeys: {
     HIDE_WELCOME_BANNER: 'hideWelcomeHelpers',
-    LAYOUT_ORIENTATION: 'layoutOrientation',
-    COLLAPSE_STATE: 'collapseState',
-    ICON_SIZE: 'iconSize',
-    THEME: 'theme',
-    CONF_SECTIONS: 'confSections',
-    PAGE_INFO: 'pageInfo',
-    APP_CONFIG: 'appConfig',
-    BACKUP_ID: 'backupId',
-    BACKUP_HASH: 'backupHash',
-    HIDE_SETTINGS: 'hideSettings',
-    USERNAME: 'username',
+    LAYOUT_ORIENTATION: appendRouteId('layoutOrientation'),
+    COLLAPSE_STATE: appendRouteId('collapseState'),
+    ICON_SIZE: appendRouteId('iconSize'),
+    THEME: appendRouteId('theme'),
+    CONF_SECTIONS: appendRouteId('confSections'),
+    PAGE_INFO: appendRouteId('pageInfo'),
+    APP_CONFIG: appendRouteId('appConfig'),
+    BACKUP_ID: appendRouteId('backupId'),
+    BACKUP_HASH: appendRouteId('backupHash'),
+    HIDE_SETTINGS: appendRouteId('hideSettings'),
+    USERNAME: appendRouteId('username'),
   },
   cookieKeys: {
     AUTH_TOKEN: 'authenticationToken',
