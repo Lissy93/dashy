@@ -1,7 +1,7 @@
 <template>
     <header>
       <PageTitle v-if="titleVisible"  :title="pageInfo.title" :description="pageInfo.description" />
-      <Nav v-if="navVisible" :links="pageInfo.navLinks" class="nav" />
+      <Nav v-if="navVisible" :links="getNavLinks()" class="nav" />
     </header>
 </template>
 
@@ -12,6 +12,7 @@ import { visibleComponents } from '@/utils/defaults';
 
 export default {
   name: 'Header',
+  inject: ['config'],
   components: {
     PageTitle,
     Nav,
@@ -25,6 +26,19 @@ export default {
       titleVisible: visibleComponents.pageTitle,
       navVisible: visibleComponents.navigation,
     };
+  },
+  methods: {
+    getNavLinks() {
+      const { appConfig } = this.config;
+      const pageLinks = [];
+      if (appConfig.additionalConfigFiles) {
+        appConfig.additionalConfigFiles.forEach((pageLink) => {
+          const name = pageLink.split('.')[0];
+          pageLinks.push({ title: name, path: `/home/${name}` });
+        });
+      }
+      return pageLinks.concat(this.pageInfo.navLinks);
+    },
   },
 };
 </script>
