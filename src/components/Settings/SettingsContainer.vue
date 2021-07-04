@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import Defaults, { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys, visibleComponents } from '@/utils/defaults';
 import SearchBar from '@/components/Settings/SearchBar';
 import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
@@ -106,12 +106,12 @@ export default {
     },
     getSettingsVisibility() {
       return JSON.parse(localStorage[localStorageKeys.HIDE_SETTINGS]
-        || Defaults.visibleComponents.settings);
+        || visibleComponents.settings);
     },
   },
   data() {
     return {
-      searchVisible: Defaults.visibleComponents.searchBar,
+      searchVisible: visibleComponents.searchBar,
       settingsVisible: this.getSettingsVisibility(),
     };
   },

@@ -24,7 +24,7 @@
 import router from '@/router';
 import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
-import Defaults, { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys, theme as defaultTheme } from '@/utils/defaults';
 import { checkCredentials, login } from '@/utils/Auth';
 
 export default {
@@ -65,7 +65,7 @@ export default {
       }
     },
     setTheme() {
-      const theme = localStorage[localStorageKeys.THEME] || Defaults.theme;
+      const theme = localStorage[localStorageKeys.THEME] || defaultTheme;
       document.getElementsByTagName('html')[0].setAttribute('data-theme', theme);
     },
   },

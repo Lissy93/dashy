@@ -43,7 +43,12 @@
 
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import ItemGroup from '@/components/LinkItems/ItemGroup.vue';
-import Defaults, { localStorageKeys } from '@/utils/defaults';
+import {
+  localStorageKeys,
+  layout as defaultLayout,
+  iconSize as defaultIconSize,
+  fontAwesomeKey as defaultFontAwesomeKey,
+} from '@/utils/defaults';
 
 export default {
   name: 'home',
@@ -64,14 +69,14 @@ export default {
   }),
   computed: {
     layoutOrientation: {
-      get() { return this.appConfig.layout || Defaults.layout; },
+      get() { return this.appConfig.layout || defaultLayout; },
       set: function setLayout(layout) {
         localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
         this.layout = layout;
       },
     },
     iconSize: {
-      get() { return this.appConfig.iconSize || Defaults.iconSize; },
+      get() { return this.appConfig.iconSize || defaultIconSize; },
       set: function setIconSize(iconSize) {
         localStorage.setItem(localStorageKeys.ICON_SIZE, iconSize);
         this.itemSizeBound = iconSize;
@@ -176,7 +181,7 @@ export default {
     initiateFontAwesome() {
       if (this.appConfig.enableFontAwesome || this.checkIfFontAwesomeNeeded()) {
         const fontAwesomeScript = document.createElement('script');
-        const faKey = this.appConfig.fontAwesomeKey || Defaults.fontAwesomeKey;
+        const faKey = this.appConfig.fontAwesomeKey || defaultFontAwesomeKey;
         fontAwesomeScript.setAttribute('src', `https://kit.fontawesome.com/${faKey}.js`);
         document.head.appendChild(fontAwesomeScript);
       }

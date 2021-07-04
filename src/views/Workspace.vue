@@ -9,7 +9,11 @@
 
 import SideBar from '@/components/Workspace/SideBar';
 import WebContent from '@/components/Workspace/WebContent';
-import Defaults, { localStorageKeys } from '@/utils/defaults';
+import {
+  localStorageKeys,
+  theme as defaultTheme,
+  fontAwesomeKey as defaultFontAwesomeKey,
+} from '@/utils/defaults';
 
 export default {
   name: 'Workspace',
@@ -29,14 +33,14 @@ export default {
       this.url = url;
     },
     setTheme() {
-      const theme = localStorage[localStorageKeys.THEME] || this.confTheme || Defaults.theme;
+      const theme = localStorage[localStorageKeys.THEME] || this.confTheme || defaultTheme;
       const htmlTag = document.getElementsByTagName('html')[0];
       if (htmlTag.hasAttribute('data-theme')) htmlTag.removeAttribute('data-theme');
       htmlTag.setAttribute('data-theme', theme);
     },
     initiateFontAwesome() {
       const fontAwesomeScript = document.createElement('script');
-      const faKey = this.appConfig.fontAwesomeKey || Defaults.fontAwesomeKey;
+      const faKey = this.appConfig.fontAwesomeKey || defaultFontAwesomeKey;
       fontAwesomeScript.setAttribute('src', `https://kit.fontawesome.com/${faKey}.js`);
       document.head.appendChild(fontAwesomeScript);
     },

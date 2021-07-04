@@ -42,6 +42,7 @@ nav {
         background: var(--nav-link-background-color);
         border: 1px solid var(--nav-link-border-color);
         text-decoration: none;
+        text-transform: capitalize;
         &.router-link-active, &:hover {
             color: var(--nav-link-text-color-hover);
             background: var(--nav-link-background-color-hover);

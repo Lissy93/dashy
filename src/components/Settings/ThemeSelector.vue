@@ -13,7 +13,7 @@
 <script>
 
 import ThemeHelper from '@/utils/ThemeHelper';
-import Defaults, { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys, builtInThemes, theme as defaultTheme } from '@/utils/defaults';
 
 export default {
   name: 'ThemeSelector',
@@ -30,7 +30,7 @@ export default {
       selectedTheme: this.getInitialTheme(),
       themeHelper: new ThemeHelper(),
       loading: true,
-      builtInThemes: this.userThemes.concat(Defaults.builtInThemes),
+      builtInThemes: this.userThemes.concat(builtInThemes),
     };
   },
   computed: {
@@ -47,7 +47,7 @@ export default {
     if (this.isThemeLocal(this.selectedTheme)) {
       this.updateTheme(this.selectedTheme);
     // If it's an external stylesheet, then wait for promise to resolve
-    } else if (this.selectedTheme !== Defaults.theme) {
+    } else if (this.selectedTheme !== defaultTheme) {
       Promise.all(added).then(() => {
         this.updateTheme(this.selectedTheme);
       });
@@ -62,7 +62,7 @@ export default {
     },
     /* Get default theme */
     getInitialTheme() {
-      return localStorage[localStorageKeys.THEME] || this.confTheme || Defaults.theme;
+      return localStorage[localStorageKeys.THEME] || this.confTheme || defaultTheme;
     },
     isThemeLocal(themeToCheck) {
       return this.builtInThemes.includes(themeToCheck);
