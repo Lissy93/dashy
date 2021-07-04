@@ -191,6 +191,14 @@
             }
           }
         },
+        "additionalConfigFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Can be used in order to have multiple pages. Store config files in /public/configs/*.conf.yml and reference full file names (without path) here."
+        },
         "allowConfigEdit": {
           "type": "boolean",
           "default": true,
