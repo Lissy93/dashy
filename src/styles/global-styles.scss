@@ -1,14 +1,21 @@
 
 @import '@/styles/style-helpers.scss';
 
+/* Essential global page layout styles */
 html {
-  margin: 0;
   padding: 0;
+  margin: -3px 0 0 0;
   transition: all 1s;
-  margin-top: -3px;
   @extend .scroll-bar;
   @extend .highlight;
   box-sizing: border-box;
+  /* Essential body styles */
+  body {
+    background: var(--background);
+    margin: 0;
+    padding: 0;
+  }
+  /* Make links have pointy cursor */
   input[type=button], button, a {
     cursor: pointer;
   }

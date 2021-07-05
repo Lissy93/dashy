@@ -151,6 +151,7 @@ export default {
   .vs__dropdown-toggle {
     border-color: var(--login-form-color);
     background: var(--login-form-background);
+    cursor: pointer;
     span.vs__selected {
       color: var(--login-form-color);
     }
