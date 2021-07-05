@@ -12,7 +12,7 @@
 ![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
 ![License MIT](https://img.shields.io/badge/License-MIT-09be48?style=flat-square&logo=opensourceinitiative)
 ![Current Version](https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&logo=azurepipelines&color=00af87)
-[![Known Vulnerabilities](https://snyk.io/test/github/lissy93/dashy/badge.svg)]
+[![Known Vulnerabilities](https://snyk.io/test/github/lissy93/dashy/badge.svg)](https://snyk.io/test/github/lissy93/dashy)
 
 ## Features 🌈
 
