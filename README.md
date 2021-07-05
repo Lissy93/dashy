@@ -12,6 +12,7 @@
 ![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
 ![License MIT](https://img.shields.io/badge/License-MIT-09be48?style=flat-square&logo=opensourceinitiative)
 ![Current Version](https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&logo=azurepipelines&color=00af87)
+[![Known Vulnerabilities](https://snyk.io/test/github/lissy93/dashy/badge.svg)]
 
 ## Features 🌈
 
@@ -42,7 +43,7 @@
 
 #### Recording
 <p align="center">
-  <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo">
+  <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo" />
 </p>
 
 #### User Showcase
@@ -143,7 +144,7 @@ You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce9
 
 <p align="center">
   <a href="https://i.ibb.co/BVSHV1v/dashy-themes-slideshow.gif">
-    <img alt="Example Themes" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/theme-slideshow.gif" width="400">
+    <img alt="Example Themes" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/theme-slideshow.gif" width="400" />
   </a>
 </p>
 
@@ -204,6 +205,16 @@ appConfig:
 ```
 At present, access control is handled on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication, such as [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules.
 
+<p align="center">
+  <img
+    title="Example login screen, using Vapourwave theme"
+    alt="Example login screen, using Vapourwave theme"
+    src="https://i.ibb.co/K52YL1g/dashy-login-form.png"
+    width="400"
+  />
+</p>
+
+
 **[⬆️ Back to Top](#dashy)**
 
 ---
@@ -217,7 +228,7 @@ Dashy has an optional feature that can display a small icon next to each of your
 By default, this feature is off, but you can enable it globally by setting `appConfig.statusCheck: true`, or enable/ disable it for an individual item, with `item[n].statusCheck`. You can also specify an time interval in seconds under `appConfig.statusCheckInterval`, which will determine how often to recheck services, if this value is `0`, then status is only checked on initial page load, this is default behavior.
 
 <p align="center">
-  <img alt="Status Checks demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/status-check-demo.gif" width="600">
+  <img alt="Status Checks demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/status-check-demo.gif" width="600" />
 </p>
 
 **[⬆️ Back to Top](#dashy)**
@@ -242,7 +253,7 @@ The modal and workspace views work by rendering the target application in an ifr
 
 Here's a quick demo of the workspace view:
 <p align="center">
-  <img alt="Workspace view demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/workspace-demo.gif" width="600">
+  <img alt="Workspace view demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/workspace-demo.gif" width="600" />
 </p>
 
 **[⬆️ Back to Top](#dashy)**
@@ -254,8 +265,55 @@ Here's a quick demo of the workspace view:
 From the Settings Menu in Dashy, you can download, backup, edit and rest your config. An interactive editor makes editing the config file easy, it will tell you if you've got any errors. After making your changes, you can either apply them locally, or export into your main config file. After saving to the config file to the disk, the app will need to be rebuilt. This will happen automatically, but may take a few minutes. You can also manually trigger a rebuild from the Settings Menu. A full list of available config options can be found [here](./docs/configuring.md). It's recommend to make a backup of your configuration, as you can then restore it into a new instance of Dashy, without having to set it up again. [json2yaml](https://www.json2yaml.com/) is very useful for converting between YAML to JSON and visa versa.
 
 <p align="center">
-  <img alt="Workspace view demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/config-editor-demo.gif" width="600">
+  <img alt="Workspace view demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/config-editor-demo.gif" width="600" />
 </p>
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
+## Sections & Items 🗃️
+
+Dashy is made up of a series of sections, each containing a series of items.
+
+A section an be collapsed by clicking on it's name. This will cause only the title button to be visible until clicked, which is useful for particularly long sections, or those containing less-used apps. The collapse state for each section will be remembered for the next time you visit.
+
+From the UI, you can also choose a layout, either `grid`, `horizontal` or `vertical`, as well as set the size for items, either `small`, `medium` or `large`, and of course set a theme using the dropdown. All settings specified here will be stored in your browsers local storage, and so won't persist across devices, if you require this then you must set these in the config file instead.
+
+Within each section, you can set custom layout properties with under `displayData`. For example, you can make a given section double the width by making is span 2 columns with `cols: 2`, or specify how many rows it should span with `rows`. You can also set the layout for items within a given section here, for example, use `itemCountX` to define how many items will be on each row within the section. Sections can also have a custom color, specified as a hex code and defined using the `color` attribute. For full options for items, see the [`section.displayData` docs](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#sectiondisplaydata-optional)
+
+Items also have some optional config attributes. As well as `title`, `description`, `URL` and `icon`, you can also specify a specific opening method (`target`), and configure status checks (`statusCheck: true/false`, `statusCheckUrl` and `statusCheckHeaders`), and modify appearance with `color` and `backgroundColor`. For full options for items, see the [`section.item` docs](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#sectionitem)
+
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
+## Setting Dashboard Info 🌳
+
+Page settings are defined under [`pageInfo`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#pageinfo). Here you can set things like title, sub-title, navigation links, footer text, etc
+
+Custom links for the navigation menu are defined under [`pageInfo.navLinks`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#pageinfonavlinks-optional).
+
+You can display either custom text or HTML in the footer, using the `pageInfo.footerText` attribute.
+
+It's also possible to hide parts of the page that you do not need (e.g. navbar, footer, search, heading, etc). This is done using the [`appConfig.hideComponents`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#appconfighidecomponents-optional) attribute.
+
+For example, a `pageInfo` section might look something like this:
+
+```yaml
+pageInfo:
+  title: Home Lab
+  description: Dashy
+  navLinks:
+  - title: Home
+    path: /
+  - title: Server Monitoring
+    path: https://server-start.local
+  - title: Start Page
+    path: https://start-page.local
+  footerText: 'Built with Dashy, by <a href="https://aliciasykes.com">Alicia Sykes</a>, 2021'
+```
 
 **[⬆️ Back to Top](#dashy)**
 

@@ -2,24 +2,23 @@
 
 All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format.
 
-If you're new to YAML, it's pretty straight-forward. The format is exactly the same as that of JSON, but instead of using curley braces, structure is denoted using whitespace. This [quick guide](https://linuxhandbook.com/yaml-basics/) should get you up to speed in a few minutes, for more advanced topics take a look at this [Wikipedia article](https://en.wikipedia.org/wiki/YAML) and for some practicle examples, the  [Azure pipelines schema](https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema%2Cparameter-schema) may be useful.
-
-You may find it helpful to look at some sample config files to get you started, a collection of which can be found [here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10).
-
-There's a couple of things to remember, before getting started:
-- After modifying your config, the app needs to be recompiled, run `yarn build` (this happens automatically in newer versions)
+Tips:
+- You may find it helpful to look at some sample config files to get you started, a collection of which can be found [here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
 - You can check that your config file fits the schema, by running `yarn validate-config`
-- Any which are only saved locally through the UI need to be exported into this file, in order for them to persist across devices
+- After modifying your config, the app needs to be recompiled, by running `yarn build`  - this happens automatically whilst the app is running
+- It is recommended to make and keep a backup of your config file. You can download your current config through the UI either from the Config menu, or using the `/download` endpoint.
+- All fields are optional, unless otherwise stated.
+
+### About YAML
+If you're new to YAML, it's pretty straight-forward. The format is exactly the same as that of JSON, but instead of using curly braces, structure is denoted using whitespace. This [quick guide](https://linuxhandbook.com/yaml-basics/) should get you up to speed in a few minutes, for more advanced topics take a look at this [Wikipedia article](https://en.wikipedia.org/wiki/YAML) and for some practicle examples, the  [Azure pipelines schema](https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema%2Cparameter-schema) may be useful.
 
 ### Config Saving Methods
-When updating the config through the JSON editor in the UI, you have two save options: **Local** or **Write to Disk**. Changes saved locally will only be applied to the current user through the browser, and to apply to other instances, you either need to use the cloud sync feature, or manually update the conf.yml file. On the other-hand, if you choose to write changes to disk, then your main `conf.yml` file will be updated, and changes will be applied to all users, and visible across all devices. 
+When updating the config through the JSON editor in the UI, you have two save options: **Local** or **Write to Disk**.
+- Changes saved locally will only be applied to the current user through the browser, and will not apply to other instances - you either need to use the cloud sync feature, or manually update the conf.yml file.
+- On the other-hand, if you choose to write changes to disk, then your main `conf.yml` file will be updated, and changes will be applied to all users, and visible across all devices. For this functionality to work, you must be running Dashy with using the Docker container, or the Node server.  A backup of your current configuration will also be saved in the same directory. 
 
 ### Preventing Changes being Written to Disk
-To disallow any changes from being written to disk, then set `appConfig.allowConfigEdit: false`. If you are using users, and have setup `auth` within Dashy, then only users with `type: admin` will be able to write config changes to disk.
-
-It is recommended to make a backup of your config file.
-
-All fields are optional, unless otherwise stated.
+To disallow any changes from being written to disk via the UI config editor, set `appConfig.allowConfigEdit: false`. If you are using users, and have setup `auth` within Dashy, then only users with `type: admin` will be able to write config changes to disk.
 
 ### Top-Level Fields
 
@@ -60,7 +59,7 @@ All fields are optional, unless otherwise stated.
 **`backgroundImg`** | `string` | _Optional_ | Path to an optional full-screen app background image. This can be either remote (http) or local (/). Note that this will slow down initial load
 **`enableFontAwesome`** | `boolean` | _Optional_ | Where `true` is enabled, if left blank font-awesome will be enabled only if required by 1 or more icons
 **`fontAwesomeKey`** | `string` | _Optional_ | If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
-**`faviconApi`** | `string` | _Optional_ | Which service to use to resolve favicons. Set to `local` to do this locally, without using an API. Available options are: `local`, `faviconkit`, `google`, `clearbit`, `webmasterapi` and `allesedv`. Defaults to `faviconkit`. See [Icons](/docs/icons.md#favicons) for more info
+**`faviconApi`** | `string` | _Optional_ | Only applicable if you are using favicons for item icons. Specifies which service to use to resolve favicons. Set to `local` to do this locally, without using an API. Services running locally will use this option always. Available options are: `local`, `faviconkit`, `google`, `clearbit`, `webmasterapi` and `allesedv`. Defaults to `faviconkit`. See [Icons](/docs/icons.md#favicons) for more info
 **`auth`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. Note authentication is done on the client side, and so if your instance of Dashy is exposed to the internet, it is recommend to configure your web server to handle this. See [`auth`](#appconfigauth-optional)
 **`layout`** | `string` | _Optional_ | App layout, either `horizontal`, `vertical`, `auto` or `sidebar`. Defaults to `auto`. This specifies the layout and direction of how sections are positioned on the home screen. This can also be modified from the UI.
 **`iconSize`** | `string` | _Optional_ | The size of link items / icons. Can be either `small`, `medium,` or `large`. Defaults to `medium`. This can also be set directly from the UI.
@@ -182,6 +181,10 @@ sections: # An array of sections
 ```
 
 For more example config files, see: [this gist](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
+
+If you need any help, feel free to [Raise an Issue](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A4%B7%E2%80%8D%E2%99%82%EF%B8%8F+Question&template=question.md&title=%5BQUESTION%5D) or [Start a Discussion](https://github.com/Lissy93/dashy/discussions)
+
+Happy Configuring 🤓🔧
 
 **[⬆️ Back to Top](#configuring)**
 
