@@ -6,13 +6,13 @@ import Login from '@/views/Login.vue';
 import Workspace from '@/views/Workspace.vue';
 import DownloadConfig from '@/views/DownloadConfig.vue';
 import { isLoggedIn } from '@/utils/Auth';
-import { appConfig, pageInfo, sections } from '@/utils/ConfigAccumalator';
+import { config } from '@/utils/ConfigHelpers';
 import { metaTagData } from '@/utils/defaults';
 
 Vue.use(Router);
 
 const isAuthenticated = () => {
-  const users = appConfig.auth;
+  const users = config.appConfig.auth;
   return (!users || isLoggedIn(users));
 };
 
@@ -22,13 +22,9 @@ const router = new Router({
       path: '/',
       name: 'home',
       component: Home,
-      props: {
-        appConfig,
-        pageInfo,
-        sections,
-      },
+      props: config,
       meta: {
-        title: pageInfo.title || 'Home Page',
+        title: config.pageInfo.title || 'Home Page',
         metaTags: metaTagData,
       },
     },
@@ -36,9 +32,9 @@ const router = new Router({
       path: '/workspace',
       name: 'workspace',
       component: Workspace,
-      props: { appConfig, pageInfo, sections },
+      props: config,
       meta: {
-        title: pageInfo.title || 'Dashy Workspace',
+        title: config.pageInfo.title || 'Dashy Workspace',
         metaTags: metaTagData,
       },
     },
@@ -47,7 +43,7 @@ const router = new Router({
       name: 'login',
       component: Login,
       props: {
-        appConfig,
+        appConfig: config.appConfig,
       },
       beforeEnter: (to, from, next) => {
         if (isAuthenticated()) router.push({ path: '/' });
@@ -63,9 +59,9 @@ const router = new Router({
       path: '/download',
       name: 'download',
       component: DownloadConfig,
-      props: { appConfig, pageInfo, sections },
+      props: config,
       meta: {
-        title: pageInfo.title || 'Download Dashy Config',
+        title: config.pageInfo.title || 'Download Dashy Config',
         metaTags: metaTagData,
       },
     },

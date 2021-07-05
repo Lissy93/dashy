@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import Defaults, { localStorageKeys } from '@/utils/defaults';
 import SearchBar from '@/components/Settings/SearchBar';
 import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
@@ -41,6 +40,10 @@ import AppInfoModal from '@/components/Configuration/AppInfoModal';
 import { logout as registerLogout } from '@/utils/Auth';
 import IconOpen from '@/assets/interface-icons/config-open-settings.svg';
 import IconClose from '@/assets/interface-icons/config-close.svg';
+import {
+  localStorageKeys,
+  visibleComponents as defaultVisibleComponents,
+} from '@/utils/defaults';
 
 export default {
   name: 'SettingsContainer',
@@ -65,6 +68,7 @@ export default {
     IconOpen,
     IconClose,
   },
+  inject: ['visibleComponents'],
   methods: {
     userIsTypingSomething(something) {
       this.$emit('user-is-searchin', something);
@@ -106,13 +110,13 @@ export default {
     },
     getSettingsVisibility() {
       return JSON.parse(localStorage[localStorageKeys.HIDE_SETTINGS]
-        || Defaults.visibleComponents.settings);
+        || (this.visibleComponents || defaultVisibleComponents).settings);
     },
   },
   data() {
     return {
-      searchVisible: Defaults.visibleComponents.searchBar,
       settingsVisible: this.getSettingsVisibility(),
+      searchVisible: (this.visibleComponents || defaultVisibleComponents).searchBar,
     };
   },
 };

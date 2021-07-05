@@ -11,8 +11,17 @@
 import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
-import Defaults, { localStorageKeys, splashScreenTime } from '@/utils/defaults';
-import { config, appConfig, pageInfo } from '@/utils/ConfigAccumalator';
+import { componentVisibility } from '@/utils/ConfigHelpers';
+import ConfigAccumulator from '@/utils/ConfigAccumalator';
+import {
+  localStorageKeys,
+  splashScreenTime,
+  visibleComponents as defaultVisibleComponents,
+} from '@/utils/defaults';
+
+const Accumulator = new ConfigAccumulator();
+const config = Accumulator.config();
+const visibleComponents = componentVisibility(config.appConfig) || defaultVisibleComponents;
 
 export default {
   name: 'app',
@@ -23,13 +32,15 @@ export default {
   },
   provide: {
     config,
+    visibleComponents,
   },
   data() {
     return {
-      showFooter: Defaults.visibleComponents.footer,
+      showFooter: visibleComponents.footer,
       isLoading: true,
-      appConfig,
-      pageInfo,
+      appConfig: Accumulator.appConfig(),
+      pageInfo: Accumulator.pageInfo(),
+      visibleComponents,
     };
   },
   methods: {
@@ -45,7 +56,8 @@ export default {
       document.head.append(style);
     },
     shouldShowSplash() {
-      return this.appConfig.showSplashScreen || !localStorage[localStorageKeys.HIDE_WELCOME_BANNER];
+      return (this.visibleComponents || defaultVisibleComponents).splashScreen
+      || !localStorage[localStorageKeys.HIDE_WELCOME_BANNER];
     },
     hideSplash() {
       if (this.shouldShowSplash() && !this.shouldHidePageComponents()) {
