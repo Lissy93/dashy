@@ -1,9 +1,9 @@
 <template>
   <div id="dashy">
     <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash()" />
-    <Header :pageInfo="pageInfo" v-if="!shouldHidePageComponents()" />
+    <Header :pageInfo="pageInfo" />
     <router-view />
-    <Footer v-if="showFooter && !shouldHidePageComponents()" :text="getFooterText()" />
+    <Footer :text="getFooterText()" v-if="visibleComponents.footer" />
   </div>
 </template>
 <script>
@@ -36,29 +36,33 @@ export default {
   },
   data() {
     return {
+      isLoading: true, // Set to false after mount complete
       showFooter: visibleComponents.footer,
-      isLoading: true,
       appConfig: Accumulator.appConfig(),
       pageInfo: Accumulator.pageInfo(),
       visibleComponents,
     };
   },
   methods: {
+    /* If the user has specified custom text for footer - get it */
     getFooterText() {
       if (this.pageInfo && this.pageInfo.footerText) {
         return this.pageInfo.footerText;
       }
       return '';
     },
+    /* Injects the users custom CSS as a style tag */
     injectCustomStyles(usersCss) {
       const style = document.createElement('style');
       style.textContent = usersCss;
       document.head.append(style);
     },
+    /* Determine if splash screen should be shown */
     shouldShowSplash() {
       return (this.visibleComponents || defaultVisibleComponents).splashScreen
       || !localStorage[localStorageKeys.HIDE_WELCOME_BANNER];
     },
+    /* Hide splash screen, either after 2 seconds, or immediately based on user preference */
     hideSplash() {
       if (this.shouldShowSplash() && !this.shouldHidePageComponents()) {
         setTimeout(() => { this.isLoading = false; }, splashScreenTime || 2000);
@@ -66,15 +70,8 @@ export default {
         this.isLoading = false;
       }
     },
-    shouldHidePageComponents() {
-      return (['download'].includes(this.$route.name));
-    },
   },
-  computed: {
-    currentRouteName() {
-      return this.$route.name;
-    },
-  },
+  /* When component mounted, hide splash and initiate the injection of custom styles */
   mounted() {
     this.hideSplash();
     if (this.appConfig.customCss) {
@@ -86,22 +83,11 @@ export default {
 </script>
 
 <style lang="scss">
+/* Import styles used globally throughout the app */
 @import '@/styles/global-styles.scss';
 @import '@/styles/color-palette.scss';
 @import '@/styles/dimensions.scss';
 @import '@/styles/color-themes.scss';
 @import '@/styles/typography.scss';
-
-body {
-  background: var(--background);
-  margin: 0;
-  padding: 0;
-}
-
-#app {
-  .footer {
-    text-align: center;
-  }
-}
 
 </style>
