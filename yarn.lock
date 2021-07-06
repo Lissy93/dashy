@@ -8899,10 +8899,10 @@ vue-loader@^15.9.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-material-tabs@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/vue-material-tabs/-/vue-material-tabs-0.0.7.tgz#5f3fa04ad35384af68582f7c89ad4cecac89207b"
-  integrity sha512-02X5paTksYKrGvSRpMdkctRO9qhvJFD5VEGxd0xjOX4sYz6mZSAez0Z/+aYf7Z5ziY+eJ9dMQmxaLn9DVKQRJw==
+vue-material-tabs@^0.1.2:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/vue-material-tabs/-/vue-material-tabs-0.1.5.tgz#255fc0beb27c005eaae61c1534d782a94c30c525"
+  integrity sha512-ZLFRCxaCS3TM8IwnxQA4S2CVj+tBaILb8fQZDg+Ix+9Zu+k16udrdhLU2GWvJEVPLspuCzKhCEXW4cIg59YkVw==
 
 vue-prism-editor@^1.2.2:
   version "1.2.2"
