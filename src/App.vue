@@ -64,8 +64,8 @@ export default {
     },
     /* Hide splash screen, either after 2 seconds, or immediately based on user preference */
     hideSplash() {
-      if (this.shouldShowSplash() && !this.shouldHidePageComponents()) {
-        setTimeout(() => { this.isLoading = false; }, splashScreenTime || 2000);
+      if (this.shouldShowSplash()) {
+        setTimeout(() => { this.isLoading = false; }, splashScreenTime || 1500);
       } else {
         this.isLoading = false;
       }
