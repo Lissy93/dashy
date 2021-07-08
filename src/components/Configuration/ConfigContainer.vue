@@ -9,11 +9,11 @@
           Download Config
           </button>
         </a>
-        <button class="config-button center" @click="goToEdit()">
+        <button class="config-button center" @click="() => navigateToTab(2)">
           <EditIcon class="button-icon"/>
           Edit Config
         </button>
-        <button class="config-button center" @click="goToCustomCss()">
+        <button class="config-button center" @click="() => navigateToTab(3)">
           <CustomCssIcon class="button-icon"/>
           Edit Custom CSS
         </button>
@@ -119,18 +119,10 @@ export default {
     IconAbout,
   },
   methods: {
-    /* Seletcs the edit tab of the tab view */
-    goToEdit() {
-      const itemToSelect = this.$refs.tabView.navItems[2];
-      this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
-    },
-    goToMetaEdit() {
-      const itemToSelect = this.$refs.tabView.navItems[3];
-      this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
-    },
-    goToCustomCss() {
-      const itemToSelect = this.$refs.tabView.navItems[3];
-      this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
+    /* Progamatically navigates to a given tab by index */
+    navigateToTab(tabInxex) {
+      const itemToSelect = this.$refs.tabView.navItems[tabInxex];
+      this.$refs.tabView.activeTabItem(itemToSelect);
     },
     openRebuildAppModal() {
       this.$modal.show(modalNames.REBUILD_APP);
@@ -237,7 +229,7 @@ div.code-container {
   }
   .yaml-action-buttons {
     position: absolute;
-    top: 0.5rem;
+    top: 1.5rem;
     right: 0.5rem;
     display: flex;
     flex-direction: column;
@@ -334,35 +326,50 @@ p.small-screen-note {
 </style>
 
 <style lang="scss">
+
+.tabs__content {
+  height: -webkit-fill-available;
+  height: -moz-available;
+  height: stretch;
+}
+
+.tab-item {
+  background: var(--config-settings-background) !important;
+}
+
 .tab__pagination {
-  background: var(--config-settings-background);
-  color: var(--config-settings-color);
+  background: var(--config-settings-background) !important;
+  color: var(--config-settings-color) !important;
   .tab__nav__items .tab__nav__item {
     span {
-      color: var(--config-settings-color);
+      color: var(--config-settings-color) !important;
     }
     &:hover {
       background: var(--config-settings-color) !important;
       span {
-        color: var(--config-settings-background);
+        color: var(--config-settings-background) !important;
       }
     }
     &.active {
       span {
-        font-weight: bold;
+        font-weight: bold !important;
         color: var(--config-settings-color) !important;
       }
     }
   }
   .tab__nav__items .tab__nav__item.active {
-    border-bottom: 2px solid var(--config-settings-color);
+    border-bottom: 2px solid var(--config-settings-color) !important;
   }
   hr.tab__slider {
-    background: var(--config-settings-color);
+    background: var(--config-settings-color) !important;
   }
 }
 
-#conf-yaml .hljs-attr {
-  color: #9c03f5;
+#conf-yaml {
+  background: var(--white);
+  .hljs-attr {
+    color: #9c03f5;
+  }
 }
+
 </style>
