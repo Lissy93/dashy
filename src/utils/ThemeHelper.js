@@ -1,8 +1,25 @@
+import ErrorHandler from '@/utils/ErrorHandler';
+import { getTheme } from '@/utils/ConfigHelpers';
+
+/* Returns users current theme */
+export const GetTheme = () => getTheme();
+
+/* Sets the theme, by updating data-theme attribute on the html tag */
+export const ApplyLocalTheme = (newTheme) => {
+  const htmlTag = document.getElementsByTagName('html')[0];
+  if (htmlTag.hasAttribute('data-theme')) htmlTag.removeAttribute('data-theme');
+  htmlTag.setAttribute('data-theme', newTheme);
+};
+
+/* Sets specific CSS variables, for the users custom theme */
+export const ApplyCustomTheme = () => { };
+
 /**
  * A function for pre-loading, and easy switching of external stylesheets
  * External CSS is preloaded to avoid FOUC
  */
-const ThemeHelper = function th() {
+export const LoadExternalTheme = function th() {
+  /* Preload selected external theme */
   const preloadTheme = (href) => {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -18,10 +35,21 @@ const ThemeHelper = function th() {
     });
   };
 
+  /* Check theme is selected, and it exists */
+  const checkTheme = (themes, name) => {
+    if ((!name) || (name !== 'custom' && !themes[name])) {
+      ErrorHandler(`Theme: '${name || '[not selected]'}' does not exist.`);
+      return false;
+    }
+    return true;
+  };
+
+  /* Disable all but selected theme */
   const selectTheme = (themes, name) => {
-    const t = themes; // To avoid ESLint complaining about mutating a param
-    if (name && !themes[name]) throw new Error(`Theme: '${name}' does not exist.`);
-    Object.keys(themes).forEach(n => { t[n].disabled = (n !== name); });
+    if (checkTheme(themes, name)) {
+      const t = themes; // To avoid ESLint complaining about mutating a param
+      Object.keys(themes).forEach(n => { t[n].disabled = (n !== name); });
+    }
   };
 
   const themes = {};
@@ -32,5 +60,3 @@ const ThemeHelper = function th() {
     get theme() { return Object.keys(themes).find(n => !themes[n].disabled); },
   };
 };
-
-export default ThemeHelper;

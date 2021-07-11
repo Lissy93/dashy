@@ -1,6 +1,6 @@
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 
-import { visibleComponents } from '@/utils/defaults';
+import { visibleComponents, localStorageKeys, theme as defaultTheme } from '@/utils/defaults';
 
 /**
  * Initiates the Accumulator class and generates a complete config object
@@ -39,4 +39,15 @@ export const componentVisibility = (appConfig) => {
     splashScreen: isThere(usersChoice.hideSplashScreen)
       ? !usersChoice.hideSplashScreen : visibleComponents.splashScreen,
   };
+};
+
+/**
+ * Gets the users saved theme, first looks for local storage theme,
+ * then looks at user's appConfig, and finally checks the defaults
+ * @returns {string} Name of theme to apply
+ */
+export const getTheme = () => {
+  const localTheme = localStorage[localStorageKeys.THEME];
+  const appConfigTheme = config.appConfig.theme;
+  return localTheme || appConfigTheme || defaultTheme;
 };

@@ -70,6 +70,7 @@ module.exports = {
     CONF_EDITOR: 'CONF_EDITOR',
     CLOUD_BACKUP: 'CLOUD_BACKUP',
     REBUILD_APP: 'REBUILD_APP',
+    THEME_MAKER: 'THEME_MAKER',
     ABOUT_APP: 'ABOUT_APP',
   },
   topLevelConfKeys: {

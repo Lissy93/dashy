@@ -41,6 +41,13 @@
 
 ---
 
+### Ground Control
+> By [@dtctek](https://github.com/dtctek)
+
+![screenshot-ground-control](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/7-ground-control-dtctek.png)
+
+---
+
 ## Submitting your Dashboard
 
 #### How to Submit

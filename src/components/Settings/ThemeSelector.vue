@@ -1,5 +1,6 @@
 <template>
-  <div class="theme-selector-section" v-if="themes" >
+  <div class="theme-selector-section" v-if="themes" v-click-outside="closeThemeConfigurator">
+    <div>
     <span class="theme-label">Theme</span>
     <v-select
       :options="themeNames"
@@ -7,13 +8,26 @@
       class="theme-dropdown"
       :tabindex="-2"
     />
+    </div>
+    <IconPalette
+      class="color-button"
+      v-if="selectedTheme === 'custom'"
+      @click="openThemeConfigurator"
+    />
+    <div
+      v-if="themeConfiguratorOpen"
+      class="theme-configurator-wrapper"
+    >
+      <p>Custom Theme Configurator</p>
+    </div>
   </div>
 </template>
 
 <script>
 
-import ThemeHelper from '@/utils/ThemeHelper';
+import { LoadExternalTheme, ApplyLocalTheme, ApplyCustomTheme } from '@/utils/ThemeHelper';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
+import IconPalette from '@/assets/interface-icons/config-color-palette.svg';
 
 export default {
   name: 'ThemeSelector',
@@ -22,21 +36,28 @@ export default {
     confTheme: String,
     userThemes: Array,
   },
+  components: {
+    IconPalette,
+  },
   watch: {
     selectedTheme(newTheme) { this.updateTheme(newTheme); },
   },
   data() {
     return {
       selectedTheme: this.getInitialTheme(),
-      themeHelper: new ThemeHelper(),
-      loading: true,
-      builtInThemes: this.userThemes.concat(Defaults.builtInThemes),
+      builtInThemes: [...Defaults.builtInThemes, ...this.userThemes],
+      themeHelper: new LoadExternalTheme(),
+      // modalName: modalNames.THEME_MAKER,
+      themeConfiguratorOpen: false,
+      ApplyLocalTheme,
+      ApplyCustomTheme,
     };
   },
   computed: {
     themeNames: function themeNames() {
       const externalThemeNames = Object.keys(this.themes);
-      return externalThemeNames.concat(this.builtInThemes);
+      const specialThemes = ['custom'];
+      return [...specialThemes, ...externalThemeNames, ...this.builtInThemes];
     },
   },
   created() {
@@ -54,12 +75,6 @@ export default {
     }
   },
   methods: {
-    /* Sets the theme, by updating data-theme attribute on the html tag */
-    setLocalTheme(newTheme) {
-      const htmlTag = document.getElementsByTagName('html')[0];
-      if (htmlTag.hasAttribute('data-theme')) htmlTag.removeAttribute('data-theme');
-      htmlTag.setAttribute('data-theme', newTheme);
-    },
     /* Get default theme */
     getInitialTheme() {
       return localStorage[localStorageKeys.THEME] || this.confTheme || Defaults.theme;
@@ -67,14 +82,22 @@ export default {
     isThemeLocal(themeToCheck) {
       return this.builtInThemes.includes(themeToCheck);
     },
+    openThemeConfigurator() {
+      this.themeConfiguratorOpen = true;
+    },
+    closeThemeConfigurator() {
+      this.themeConfiguratorOpen = false;
+    },
     /* Updates theme. Checks if the new theme is local or external,
     and calls appropirate updating function. Updates local storage */
     updateTheme(newTheme) {
-      if (newTheme === 'Deafault') {
+      if (newTheme === 'custom') {
+        this.ApplyCustomTheme();
+      } else if (newTheme === 'Deafault') {
         this.resetToDefault();
         this.themeHelper.theme = 'Deafault';
       } else if (this.isThemeLocal(newTheme)) {
-        this.setLocalTheme(newTheme);
+        this.ApplyLocalTheme(newTheme);
       } else {
         this.themeHelper.theme = newTheme;
       }
@@ -95,7 +118,7 @@ export default {
   div.vs__dropdown-toggle {
     border-color: var(--settings-text-color);
     border-radius: var(--curve-factor);
-    min-width: 10rem;
+    width: 8rem;
     height: 1.8rem;
     font-size: 0.85rem;
     cursor: pointer;
@@ -111,6 +134,8 @@ export default {
     width: auto;
     background: var(--background);
     z-index: 5;
+    max-width: 13rem;
+    overflow-x: hidden;
   }
   li.vs__dropdown-option--highlight {
     background: var(--settings-text-color);
@@ -123,7 +148,7 @@ export default {
 
 .theme-selector-section {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   height: 100%;
   span.theme-label {
@@ -131,6 +156,39 @@ export default {
     color: var(--settings-text-color);
     margin: 1px 0 2px 0;
   }
+}
+
+svg.color-button {
+  path {
+    fill: var(--settings-text-color);
+  }
+  width: 1rem;
+  height: 1rem;
+  padding: 0.2rem;
+  margin: 0.5rem;
+  align-self: flex-end;
+  text-align: center;
+  background: var(--background);
+  border: 1px solid var(--settings-text-color);;
+  border-radius: var(--curve-factor);
+  cursor: pointer;
+  &:hover, &.selected {
+    background: var(--settings-text-color);
+    path { fill: var(--background); }
+  }
+}
+
+div.theme-configurator-wrapper {
+  position: absolute;
+  right: 2rem;
+  top: 3rem;
+  width: 30%;
+  height: 50%;
+  padding: 0.5rem;
+  background: var(--config-settings-background);
+  color: var(--config-settings-color);
+  border-radius: var(--curve-factor);
+  box-shadow: 0 8px 10px -2px rgba(0, 0, 0, 0.6), 1px 1px 6px var(--primary);
 }
 
 </style>
