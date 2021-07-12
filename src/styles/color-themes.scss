@@ -680,13 +680,13 @@ html[data-theme='vaporware'] {
   --background-darker: linear-gradient(0deg, rgba(108,39,234,1) 0%, rgba(132,76,235,1) 80%);
   --settings-text-color: #6c27ea;
   --item-group-outer-background: #096de6;
-  --item-group-outer-background: linear-gradient(45deg, rgba(9,109,230,1) 0%, rgba(9,147,230,1) 50%, rgba(9,109,230,1) 100%);
+  --item-group-outer-background: var(--primary);
   --item-group-background: #190e2c;
-  --item-group-heading-text-color: var(--white);
+  --item-group-heading-text-color: #190e2c;
   --item-group-heading-text-color-hover: #5118b9;
-  --item-text-color: #5118b9;
-  --item-background: #09bfe6;
-  --item-background-hover: #9967f6;
+  --item-text-color: var(--primary);
+  --item-background: #1a174d;
+  --item-background-hover: #2b2670;
   --footer-text-color: var(--white);
   --item-shadow: none;
   --curve-factor: 2px;
@@ -707,7 +707,7 @@ html[data-theme='vaporware'] {
     padding: 0.2rem;
   }
   div.content-inner {
-    padding: 0 !important;
+    padding: 0.15rem !important;
   }
   a.item {
     margin: 0.1rem;
@@ -737,14 +737,6 @@ html[data-theme='vaporware'] {
   footer {
     color: var(--white);
   }
-  a.item {
-    background: linear-gradient(45deg, rgba(9,191,230,1) 0%, rgba(9,191,230,1) 80%, rgba(9,203,230,1) 100%);
-    &:hover {
-      background: #844ceb;
-      color: #09bfe6;
-    }
-  }
-
   div.login-page {
     background: url('https://i.ibb.co/JqcJcGK/vaporwave-sunset-wallpaper.jpg');
     background-size: cover;
@@ -779,5 +771,7 @@ html[data-theme='cyberpunk'] {
 --scroll-bar-color: var(--aqua);
 --scroll-bar-background: var(--teal);
 --footer-background: var(--aqua);
+--welcome-popup-background: var(--pink);
+--welcome-popup-text-color: var(--blue);
 --font-headings: 'Audiowide', cursive;
 }
