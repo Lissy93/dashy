@@ -40,6 +40,7 @@
     <p class="response-output">{{ responseText }}</p>
     <p v-if="saveSuccess" class="response-output">
       The app should rebuild automatically.
+      This may take up to a minute.
       You will need to refresh the page for changes to take effect.
     </p>
     <p class="note">
@@ -226,8 +227,14 @@ p.response-output {
   margin: 0.5rem auto;
   width: 95%;
   color: var(--config-settings-color);
-  &.status-success { color: var(--success); }
-  &.status-fail { color: var(--danger); }
+  &.status-success {
+    font-weight: bold;
+    color: var(--success);
+  }
+  &.status-fail {
+    font-weight: bold;
+    color: var(--danger);
+  }
 }
 
 button.save-button {
