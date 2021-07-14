@@ -25,6 +25,7 @@ module.exports = {
     'nord-frost',
     'minimal-dark',
     'minimal-light',
+    'oblivion',
     'matrix',
     'matrix-red',
     'hacker-girl',
