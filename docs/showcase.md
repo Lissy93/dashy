@@ -16,6 +16,13 @@
 
 ---
 
+### Homelab & VPS dashboard
+> By [@shadowking001](https://github.com/shadowking001)
+
+![screenshot-shadowking001-dashy](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/8-shadowking001s-dashy.png)
+
+---
+
 ### NAS Home Dashboard
 > By [@cerealconyogurt](https://github.com/cerealconyogurt)
 
