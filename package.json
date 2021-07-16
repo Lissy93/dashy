@@ -36,6 +36,7 @@
     "vue-prism-editor": "^1.2.2",
     "vue-router": "^3.0.3",
     "vue-select": "^3.11.2",
+    "vue-swatches": "^2.1.1",
     "vue-toasted": "^1.1.28"
   },
   "devDependencies": {
