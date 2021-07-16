@@ -55,6 +55,12 @@
 
 ---
 
+### Yet Another Homelab
+
+![screenshot-yet-another-homelab](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/9-home-lab-oblivion.png)
+
+---
+
 ## Submitting your Dashboard
 
 #### How to Submit

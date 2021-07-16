@@ -4,7 +4,7 @@ By default Dashy comes with 20 built in themes, which can be applied from the dr
 
 ![Built-in Themes](https://i.ibb.co/GV3wRss/Dashy-Themes.png)
 
-You can also add your own themes, apply custom CSS, and modify colors.
+You can also add your own themes, apply custom styles, and modify colors.
 
 You can customize Dashy by writing your own CSS, which can be loaded either as an external stylesheet, set directly through the UI, or specified in the config file. Most styling options can be set through CSS variables, which are outlined below.
 
@@ -25,7 +25,7 @@ You can now create a block to target you're theme with `html[data-theme='my-them
 ```css
 html[data-theme='tiger'] {
   --primary: #f58233;
-  --item-group-background: #0b1021;
+  --background: #0b1021;
 }
 ```
 
@@ -33,13 +33,15 @@ Finally, from the UI use the theme dropdown menu to select your new theme, and y
 
 You can also set `appConfig.theme` to pre-select a default theme, which will be applied immediately after deployment.
 
-### Setting Custom CSS
+### Adding your own Theme
+
+User-defined styles and custom themes should be defined in `./src/styles/user-defined-themes.scss`. If you're using Docker, you can pass your own stylesheet in using the `--volume` flag. E.g. `v ./my-themes.scss:/app/src/styles/user-defined-themes.scss`. Don't forget to pass your theme name into `appConfig.cssThemes` so that it shows up on the theme-switcher dropdown.
+
+### Setting Custom CSS in the UI
 
 Custom CSS can be developed, tested and applied directly through the UI. Although you will need to make note of your changes to apply them across instances.
 
-This can be done from the Config menu (spanner icon in the top-right), under the Custom Styles tab. This is then associated with `appConfig.customCss` in local storage. Any styles set this way can be synced across instances using the cloud backup and sync feature.
-
-It's also possible to set CSS in the config file under `appConfig.customCss`. However this approach is not very neat, and if you do do it, first minify / compress your CSS and wrap in quotes, to ensure it does not cause any validation errors.
+This can be done from the Config menu (spanner icon in the top-right), under the Custom Styles tab. This is then associated with `appConfig.customCss` in local storage. Styles can also be directly applied to this attribute in the config file, but this may get messy very quickly if you have a lot of CSS.
 
 ### Loading External Stylesheets
 
