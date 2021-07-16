@@ -14,17 +14,13 @@
       v-if="selectedTheme === 'custom'"
       @click="openThemeConfigurator"
     />
-    <div
-      v-if="themeConfiguratorOpen"
-      class="theme-configurator-wrapper"
-    >
-      <p>Custom Theme Configurator</p>
-    </div>
+    <CustomThemeMaker v-if="themeConfiguratorOpen" />
   </div>
 </template>
 
 <script>
 
+import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
 import { LoadExternalTheme, ApplyLocalTheme, ApplyCustomTheme } from '@/utils/ThemeHelper';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
 import IconPalette from '@/assets/interface-icons/config-color-palette.svg';
@@ -37,6 +33,7 @@ export default {
     userThemes: Array,
   },
   components: {
+    CustomThemeMaker,
     IconPalette,
   },
   watch: {
@@ -176,19 +173,6 @@ svg.color-button {
     background: var(--settings-text-color);
     path { fill: var(--background); }
   }
-}
-
-div.theme-configurator-wrapper {
-  position: absolute;
-  right: 2rem;
-  top: 3rem;
-  width: 30%;
-  height: 50%;
-  padding: 0.5rem;
-  background: var(--config-settings-background);
-  color: var(--config-settings-color);
-  border-radius: var(--curve-factor);
-  box-shadow: 0 8px 10px -2px rgba(0, 0, 0, 0.6), 1px 1px 6px var(--primary);
 }
 
 </style>
