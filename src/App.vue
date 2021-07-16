@@ -89,5 +89,6 @@ export default {
 @import '@/styles/dimensions.scss';
 @import '@/styles/color-themes.scss';
 @import '@/styles/typography.scss';
+@import '@/styles/user-defined-themes.scss';
 
 </style>
