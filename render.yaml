@@ -1,7 +1,8 @@
 services:
-	- name: Dashy
-		type: web
-  	env: docker
-  	repo: https://github.com/lissy93/dashy.git
-  	branch: deploy_render
-  	healthCheckPath: /app/services/healthcheck
+- name: Dashy
+	type: web
+	env: docker
+	repo: https://github.com/lissy93/dashy.git
+	branch: deploy_render
+	healthCheckPath: /app/services/healthcheck
+	
