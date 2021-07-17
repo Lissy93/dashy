@@ -88,10 +88,12 @@ export default {
     },
     /* Opens the theme color configurator popup */
     openThemeConfigurator() {
+      this.$emit('modalChanged', true);
       this.themeConfiguratorOpen = true;
     },
     /* Closes the theme color configurator popup */
     closeThemeConfigurator() {
+      this.$emit('modalChanged', false);
       this.themeConfiguratorOpen = false;
     },
     /* Updates theme. Checks if the new theme is local or external,

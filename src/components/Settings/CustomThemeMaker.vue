@@ -1,11 +1,13 @@
 <template>
   <div class="theme-configurator-wrapper">
     <h3 class="configurator-title">Custom Configurator</h3>
+    <div class="color-row-container">
     <div class="color-row" v-for="colorName in Object.keys(customColors)" :key="colorName">
       <label :for="`color-input-${colorName}`" class="color-name">
-        {{colorName.replace('-', ' ')}}
+        {{colorName.replaceAll('-', ' ')}}
       </label>
       <v-swatches
+        v-if="isColor(colorName, customColors[colorName])"
         v-model="customColors[colorName]"
         show-fallback
         fallback-input-type="color"
@@ -21,8 +23,17 @@
         :style="makeSwatchStyles(colorName)"
       />
       </v-swatches>
+      <input v-else
+        :id="`color-input-${colorName}`"
+        :value="customColors[colorName]"
+        class="misc-input"
+        @input="setVariable(colorName, customColors[colorName])"
+      />
     </div> <!-- End of color list -->
-    <p class="show-more-variables" @click="findAllVariableNames">Show All Variables</p>
+    </div>
+    <p @click="findAllVariableNames" :class="`show-more-variables ${showingAllVars ? 'hide' : ''}`">
+      Show All Variables
+    </p>
     <div class="action-buttons">
       <Button><SaveIcon />Save</Button>
       <Button :click="resetUnsavedColors"><CancelIcon />Cancel</Button>
@@ -51,6 +62,7 @@ export default {
   data() {
     return {
       customColors: this.makeInitialData(mainVariables),
+      showingAllVars: false,
     };
   },
   methods: {
@@ -73,11 +85,25 @@ export default {
     /* Returns a JSON object, with the variable name as key, and color as value */
     makeInitialData(variableArray) {
       const data = {};
-      const addDash = (colorVar) => (/^--/.exec(colorVar) ? colorVar : `--${colorVar}`);
+      const hasDash = (colorVar) => (/^--/.exec(colorVar));
+      const addDash = (colorVar) => (hasDash(colorVar) ? colorVar : `--${colorVar}`);
+      const removeDash = (colorVar) => (hasDash(colorVar) ? colorVar.replace('--', '') : colorVar);
       variableArray.forEach((colorName) => {
-        data[colorName.replace('--', '')] = this.getCssVariableValue(addDash(colorName));
+        data[removeDash(colorName)] = this.getCssVariableValue(addDash(colorName));
       });
       return data;
+    },
+    isColor(variableName, variableValue) {
+      const nonColorVariables = [
+        '--curve-factor', '--curve-factor-navbar', '--curve-factor-small',
+        '--dimming-factor', '--scroll-bar-width', '--header-height', '--footer-height',
+        '--item-group-padding', '--item-shadow', '--item-hover-shadow:', '--item-icon-transform',
+        '--item-icon-transform-hover', '--item-group-shadow', '--context-menu-shadow',
+        '--settings-container-shadow', '--side-bar-width',
+      ];
+      if ((/rem|px/.exec(variableValue))) return false;
+      if (nonColorVariables.includes(`--${variableName}`)) return false;
+      return true;
     },
     /* If a builtin theme is applied, grab it's colors */
     findAllVariableNames() {
@@ -95,6 +121,7 @@ export default {
           [],
         );
       this.customColors = this.makeInitialData(availableVariables);
+      this.showingAllVars = true;
     },
     /* Returns a complmenting text color for the palete foreground */
     /* White if the color is dark, otherwise black */
@@ -126,7 +153,7 @@ div.theme-configurator-wrapper {
   right: 1rem;
   width: 16rem;
   min-height: 12rem;
-  max-height: 20rem;
+  max-height: 25rem;
   padding: 0.5rem;
   z-index: 5;
   overflow-y: auto;
@@ -141,18 +168,22 @@ div.theme-configurator-wrapper {
     margin: 0.4rem;
   }
 
-  div.color-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.25rem 0;
-    &:not(:last-child) { border-bottom: 1px dashed var(--primary); }
-    label.color-name {
-      text-transform: capitalize;
+  div.color-row-container {
+    overflow: auto;
+    max-height: 16rem;
+    div.color-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.25rem 0;
+      &:not(:last-child) { border-bottom: 1px dashed var(--primary); }
+      label.color-name {
+        text-transform: capitalize;
+      }
     }
   }
 
-  input.swatch-input {
+  input.swatch-input, input.misc-input {
     border: none;
     margin: 0.2rem;
     padding: 0.5rem;
@@ -189,6 +220,9 @@ p.show-more-variables {
   &:active {
     background: var(--primary);
     color: var(--background);
+  }
+  &.hide {
+    display: none;
   }
 }
 

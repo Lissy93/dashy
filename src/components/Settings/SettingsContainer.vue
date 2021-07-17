@@ -7,7 +7,7 @@
     />
     <div class="options-outer">
       <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
-        <ThemeSelector :externalThemes="externalThemes"
+        <ThemeSelector :externalThemes="externalThemes" @modalChanged="modalChanged"
           :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
         <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
         <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
