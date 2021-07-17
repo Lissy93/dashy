@@ -15,6 +15,19 @@
   }
 }
 
+/* Custom highlight color */
+.highlight {
+    ::selection {
+        background-color: var(--highlight-background);
+        color: var(--highlight-color);
+    }
+    ::-moz-selection, ::-o-selection, ::-ms-selection, ::-webkit-selection {
+        background-color: var(--highlight-background);
+        color: var(--highlight-color);
+  }
+}
+
+
 /* Single-style helpers */
 .bold { font-weight: bold; }
 .light { font-weight: lighter; }
@@ -24,21 +37,3 @@
 .horizontal-center { margin: 0 auto; }
 .border-box { box-sizing: border-box; }
 
-/* Overiding styles for the global toast component */
-.toast-message {
-    background: var(--toast-background) !important;
-    color: var(--toast-color) !important;
-    border: 1px solid var(--toast-color) !important;
-    border-radius: var(--curve-factor) !important;
-    font-size: 1.25rem !important;
-}
-.toast-error {
-    background: var(--danger) !important;
-    color: var(--white) !important;
-    font-size: 1.25rem !important;
-}
-.toast-success {
-    background: var(--success) !important;
-    color: var(--white) !important;
-    font-size: 1.25rem !important;
-}

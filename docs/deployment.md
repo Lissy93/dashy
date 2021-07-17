@@ -1,6 +1,6 @@
-# Getting Started
+# Deployment
 
-- [Deployment](#deployment)
+- [Running the App](#running-the-app)
   - [Deploy with Docker](#deploy-with-docker)
   - [Deploy from Source](#deploy-from-source)
   - [Deploy to Cloud Service](#deploy-to-cloud-service)
@@ -9,6 +9,7 @@
   - [Basic Commands](#basic-commands)
   - [Healthchecks](#healthchecks)
   - [Monitoring](#logs-and-performance)
+  - [Auto Starting](#auto-starting-at-system-boot)
 - [Updating](#updating)
   - [Updating Docker Container](#updating-docker-container)
   - [Automating Docker Updates](#automatic-docker-updates)
@@ -17,7 +18,7 @@
   - [NGINX](#nginx)
   - [Apache](#apache)
 
-## Deployment
+## Running the App
 
 ### Deploy with Docker
 
@@ -49,6 +50,16 @@ You can also build and deploy the Docker container from source.
 - Edit the `./public/conf.yml` file and take a look at the `docker-compose.yml`
 - Start the container: `docker compose up`
 
+### Other Container Engines
+
+Docker isn't the only host application capable of running standard Linux containers - [Podman](http://podman.io) is another popular option. Unlike Docker, Podman does not rely on a daemon to be running on your host system. This means there is no single point of failure and it can also support rootless containers, which is perfect for Dashy as it does not require any sudo privileges. Podman was developed by RedHat, and it's source code is written in Go, and published on [GitHub](https://github.com/containers/podman).
+
+Installation of the podman is really easy, as it's repository is available for most package managers (for example; Arch: `sudo pacman -S podman`, Debian/ Ubuntu: `sudo apt-get install podman`, Gentoo: `sudo emerge app-emulation/podman`, and MacOS: `brew install podman`). For more info, check out the [podman installation docs](https://podman.io/getting-started/installation). If you are using Windows, then take a look at Brent Baude's article on [Running Podman on WSL](https://www.redhat.com/sysadmin/podman-windows-wsl2). Since it's CLI is pretty much identical to that of Dockers, Podman's learning curve is very shallow.
+
+To run Dashy with Podman, just replace `docker` with `podman` in the above instructions. E.g. `podman run -p 8080:80 lissy93/dashy`
+
+It's worth noting that Podman isn't the only container running alternative, there's also [`rkt`](https://www.openshift.com/learn/topics/rkt), [`runc`](https://github.com/opencontainers/runc), [`containerd`](https://containerd.io/) and [`cri-o`](https://cri-o.io/). Dashy has not been tested with any of these engines, but it should work just fine.
+
 
 ### Deploy from Source
 If you do not want to use Docker, you can run Dashy directly on your host system. For this, you will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed.
@@ -63,7 +74,7 @@ If you do not want to use Docker, you can run Dashy directly on your host system
 
 Dashy supports 1-Click deployments on several popular cloud platforms.
 
-#### Netlify
+#### Netlify <img src="https://i.ibb.co/ZxtzrP3/netlify.png" width="24"/>
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
 
 [Netlify](https://www.netlify.com/) offers Git-based serverless cloud hosting for web applications. Their services are free to use for personal use, and they support deployment from both public and private repos, as well as direct file upload. The free plan also allows you to use your own custom domain or sub-domain, and is easy to setup.
@@ -73,7 +84,7 @@ To deploy Dashy to Netlify, use the following link
 https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy
 ```
 
-#### Heroku
+#### Heroku <img src="https://i.ibb.co/d2P1WZ7/heroku.png" width="24"/>
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
 
 [Heroku](https://www.heroku.com/) is a fully managed cloud platform as a service. You define app settings in a Procfile and app.json, which specifying how the app should be build and how the server should be started. Heroku is free to use for unlimited, non-commercial, single dyno apps, and supports custom domains. Heroku's single-dyno service is not as quite performant as some other providers, and the app will have a short wake-up time when not visited for a while
@@ -83,7 +94,7 @@ To deploy Dashy to Heroku, use the following link
 https://heroku.com/deploy?template=https://github.com/Lissy93/dashy
 ```
 
-#### Cloudflare Workers
+#### Cloudflare Workers <img src="https://i.ibb.co/CvpFM1S/cloudflare.png" width="24"/>
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/lissy93/dashy/tree/deploy_cloudflare)
 
 [Cloudflare Workers](https://workers.cloudflare.com/) is a simple yet powerful service for running cloud functions and hosting web content. It requires a Cloudflare account, but is completely free for smaller projects, and very reasonably priced ($0.15/million requests per month) for large applications. You can use your own domain, and applications are protected with Cloudflare's state of the art DDoS protection. For more info, see the docs on [Worker Sites](https://developers.cloudflare.com/workers/platform/sites)
@@ -93,7 +104,7 @@ To deploy Dashy to Cloudflare, use the following link
 https://deploy.workers.cloudflare.com/?url=https://github.com/lissy93/dashy/tree/deploy_cloudflare
 ```
 
-#### Deploy to Vercel
+#### Vercel <img src="https://i.ibb.co/Ld2FZzb/vercel.png" width="24"/>
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/project?template=https://github.com/lissy93/dashy)
 
 [Vercel](https://vercel.com/) is a performance-focused platform for hosting static frontend apps. It comes bundled with some useful tools for monitoring and anaylzing application performance and other metrics. Vercel is free for personal use, allows for custom domains and has very reasonable limits.
@@ -103,7 +114,7 @@ To deploy Dashy to Vercel, use the following link
 https://vercel.com/new/project?template=https://github.com/lissy93/dashy
 ```
 
-#### Deploy to DigitalOcean
+#### DigitalOcean <img src="https://i.ibb.co/V2MxtGC/digitalocean.png" width="24"/>
 [![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean&refcode=3838338e7f79)
 
 [DigitalOcan](https://www.digitalocean.com/) is a cloud service providing affordable developer-friendly virtual machines from $5/month. But they also have an app platform, where you can run web apps, static sites, APIs and background workers. CDN-backed static sites are free for personal use.
@@ -112,7 +123,7 @@ https://vercel.com/new/project?template=https://github.com/lissy93/dashy
 https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean
 ```
 
-#### Platform.sh
+#### Platform.sh <img src="https://i.ibb.co/GdfvH3Z/platformsh.png" width="24"/>
 [![Deploy to Platform.sh](https://platform.sh/images/deploy/deploy-button-lg-blue.svg)](https://console.platform.sh/projects/create-project/?template=https://github.com/lissy93/dashy&utm_campaign=deploy_on_platform?utm_medium=button&utm_source=affiliate_links&utm_content=https://github.com/lissy93/dashy)
 
 [Platform.sh](https://platform.sh) is an end-to-end solution for developing and deploying applications. It is geared towards enterprise users with large teams, and focuses on allowing applications to scale up and down. Unlike the above providers, Platform.sh is not free, although you can deploy a test app to it without needing a payment method
@@ -122,7 +133,17 @@ To deploy Dashy to Platform.sh, use the following link
 https://console.platform.sh/projects/create-project/?template=https://github.com/lissy93/dashy
 ```
 
-#### Deploy to Scalingo
+#### Render <img src="https://i.ibb.co/xCHtzgh/render.png" width="24"/>
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render)
+
+[Render](https://render.com) is cloud provider that provides easy deployments for static sites, Docker apps, web services, databases and background workers. Render is great for developing applications, and very easy to use. Static sites are free, and services start at $7/month. Currently there are only 2 server locations - Oregon, USA and Frankfurt, Germany. For more info, see the [Render Docs](https://render.com/docs)
+
+To deploy Dashy to Render, use the following link
+```
+https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render
+```
+
+#### Scalingo <img src="https://i.ibb.co/Rvf5c4y/scalingo.png" width="24"/>
 [![Deploy on Scalingo](https://cdn.scalingo.com/deploy/button.svg)](https://my.scalingo.com/deploy?source=https://github.com/lissy93/dashy#master)
 
 [Scalingo](https://scalingo.com/) is a scalable container-based cloud platform as a service. It's focus is on compliance and uptime, and is geared towards enterprise users. Scalingo is also not free, although they do have a 3-day free trial that does not require a payment method 
@@ -132,7 +153,7 @@ To deploy Dashy to Scalingo, use the following link
 https://my.scalingo.com/deploy?source=https://github.com/lissy93/dashy#master
 ```
 
-#### Play-with-Docker
+#### Play-with-Docker <img src="https://i.ibb.co/HVWVYF7/docker.png" width="24"/>
 [![Try in PWD](https://raw.githubusercontent.com/play-with-docker/stacks/cff22438/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
 
 [Play with Docker](https://labs.play-with-docker.com/) is a community project by Marcos Liljedhal and Jonathan Leibiusky and sponsored by Docker, intended to provide a hands-on learning environment. Their labs let you quickly spin up a Docker container or stack, and test out the image in a temporary, sandboxed environment. There's no need to sign up, and it's completely free.
@@ -142,7 +163,7 @@ To run Dashy in PWD, use the following URL:
 https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml
 ```
 
-#### Surge.sh
+#### Surge.sh <img src="https://i.ibb.co/WgVC4mB/surge.png" width="24"/>
 [Surge.sh](http://surge.sh/) is quick and easy static web publishing platform for frontend-apps.
 
 Surge supports [password-protected projects](https://surge.sh/help/adding-password-protection-to-a-project). You can also [add a custom domain](https://surge.sh/help/adding-a-custom-domain) and then [force HTTPS by default](https://surge.sh/help/using-https-by-default) and optionally [set a custom SSL certificate](https://surge.sh/help/securing-your-custom-domain-with-ssl)
@@ -154,7 +175,7 @@ yarn build
 surge ./dist
 ```
 
-**[⬆️ Back to Top](#getting-started)**
+**[⬆️ Back to Top](#deployment)**
 
 ---
 
@@ -177,6 +198,7 @@ The following commands are defined in the [`package.json`](https://github.com/Li
 - **`yarn health-check`** - Checks that the application is up and running on it's specified port, and outputs current status and response times. Useful for integrating into your monitoring service, if you need to maintain high system availability
 - **`yarn build-watch`** - If you find yourself making frequent changes to your configuration, and do not want to have to keep manually rebuilding, then this option is for you. It will watch for changes to any files within the projects root, and then trigger a rebuild. Note that if you are developing new features, then `yarn dev` would be more appropriate, as it's significantly faster at recompiling (under 1 second), and has hot reloading, linting and testing integrated
 - **`yarn build-and-start`** - Builds the app, runs checks and starts the production server. Commands are run in parallel, and so is faster than running them in independently
+- **`yarn pm2-start`** - Starts the Node server using [PM2](https://pm2.keymetrics.io/), a process manager for Node.js applications, that helps them stay alive. PM2 has some built-in basic monitoring features, and an optional [management solution](https://pm2.io/). If you are running the app on bare metal, it is recommended to use this start command
 
 ### Healthchecks
 
@@ -186,13 +208,46 @@ To restart unhealthy containers automatically, check out [Autoheal](https://hub.
 
 ### Logs and Performance
 
+##### Container Logs
 You can view logs for a given Docker container with `docker logs [container-id]`, add the `--follow` flag to stream the logs. For more info, see the [Logging Documentation](https://docs.docker.com/config/containers/logging/). There's also [Dozzle](https://dozzle.dev/), a useful tool, that provides a web interface where you can stream and query logs from all your running containers from a single web app.
 
+##### Container Performance
 You can check the resource usage for your running Docker containers with `docker stats` or `docker stats [container-id]`. For more info, see the [Stats Documentation](https://docs.docker.com/engine/reference/commandline/stats/). There's also [cAdvisor](https://github.com/google/cadvisor), a useful web app for viewing and analyzing resource usage and performance of all your running containers.
 
-You can also view logs, resource usage and other info as well as manage your Docker workflow in third-party Docker management apps. For example [Portainer](https://github.com/portainer/portainer) an all-in-one management web UI  for Docker and Kubernetes, or [LazyDocker](https://github.com/jesseduffield/lazydocker) a terminal UI for Docker container management and monitoring.
+##### Management Apps
+You can also view logs, resource usage and other info as well as manage your entire Docker workflow in third-party Docker management apps. For example [Portainer](https://github.com/portainer/portainer) an all-in-one open source management web UI  for Docker and Kubernetes, or [LazyDocker](https://github.com/jesseduffield/lazydocker) a terminal UI for Docker container management and monitoring.
 
-**[⬆️ Back to Top](#getting-started)**
+##### Advanced Logging and Monitoring
+Docker supports using [Prometheus](https://prometheus.io/) to collect logs, which can then be visualized using a platform like [Grafana](https://grafana.com/). For more info, see [this guide](https://docs.docker.com/config/daemon/prometheus/). If you need to route your logs to a remote syslog, then consider using [logspout](https://github.com/gliderlabs/logspout). For enterprise-grade instances, there are managed services, that make monitoring container logs and metrics very easy, such as [Sematext](https://sematext.com/blog/docker-container-monitoring-with-sematext/) with [Logagent](https://github.com/sematext/logagent-js).
+
+### Auto-Starting at System Boot
+
+You can use Docker's [restart policies](https://docs.docker.com/engine/reference/run/#restart-policies---restart) to instruct the container to start after a system reboot, or restart after a crash. Just add the `--restart=always` flag to your Docker compose script or Docker run command. For more information, see the docs on [Starting Containers Automatically](https://docs.docker.com/config/containers/start-containers-automatically/).
+
+For Podman, you can use `systemd` to create a service that launches your container, [the docs](https://podman.io/blogs/2018/09/13/systemd.html) explains things further. A similar approach can be used with Docker, if you need to start containers after a reboot, but before any user interaction.
+
+To restart the container after something within it has crashed, consider using [`docker-autoheal`](https://github.com/willfarrell/docker-autoheal) by @willfarrell, a service that monitors and restarts unhealthy containers. For more info, see the [Healthchecks](#healthchecks) section above.
+
+### Securing
+
+##### SSL
+
+Enabling HTTPS with an SSL certificate is recommended if you hare hosting Dashy anywhere other than your home. This will ensure that all traffic is encrypted in transit.
+
+[Let's Encrypt](https://letsencrypt.org/docs/) is a global Certificate Authority, providing free SSL/TLS Domain Validation certificates in order to enable secure HTTPS access to your website. They have good browser/ OS [compatibility](https://letsencrypt.org/docs/certificate-compatibility/) with their ISRG X1 and DST CA X3 root certificates, support [Wildcard issuance](https://community.letsencrypt.org/t/acme-v2-production-environment-wildcards/55578) done via ACMEv2 using the DNS-01 and have [Multi-Perspective Validation](https://letsencrypt.org/2020/02/19/multi-perspective-validation.html). Let's Encrypt provide [CertBot](https://certbot.eff.org/) an easy app for generating and setting up an SSL certificate
+
+[ZeroSSL](https://zerossl.com/) is another popular certificate issuer, they are free for personal use, and also provide easy-to-use tools for getting things setup.
+
+
+If you're hosting Dashy behind Cloudflare, then they offer [free and easy SSL](https://www.cloudflare.com/en-gb/learning/ssl/what-is-an-ssl-certificate/).
+
+If you're not so comfortable on the command line, then you can use a tool like [SSL For Free](https://www.sslforfree.com/) to generate your Let's Encrypt or ZeroSSL certificate, and support shared hosting servers. They also provide step-by-step tutorials on setting up your certificate on most common platforms. If you are using shared hosting, you may find [this tutorial](https://www.sitepoint.com/a-guide-to-setting-up-lets-encrypt-ssl-on-shared-hosting/) helpful.
+
+##### Authentication
+Dashy has [basic authentication](/docs/authentication.md) built in, however at present this is handled on the front-end, and so where security is critical, it is recommended to use an alternative method. See [here](/docs/authentication.md#alternative-authentication-methods) for options regarding securing Dashy.
+
+
+**[⬆️ Back to Top](#deployment)**
 
 ---
 ## Updating
@@ -230,8 +285,7 @@ For more information, see the [Watchtower Docs](https://containrrr.dev/watchtowe
 4. Re-build: `yarn build`
 5. Start: `yarn start`
 
-
-**[⬆️ Back to Top](#getting-started)**
+**[⬆️ Back to Top](#deployment)**
 
 ---
 
@@ -241,7 +295,14 @@ _The following section only applies if you are not using Docker, and would like 
 
 Dashy ships with a pre-configured Node.js server, in [`server.js`](https://github.com/Lissy93/dashy/blob/master/server.js) which serves up the contents of the `./dist` directory on a given port. You can start the server by running `node server`. Note that the app must have been build (run `yarn build`), and you need [Node.js](https://nodejs.org) installed.
 
+If you wish to run Dashy from a sub page (e.g. `example.com/dashy`), then just set the `BASE_URL` environmental variable to that page name (in this example, `/dashy`), before building the app, and the path to all assets will then resolve to the new path, instead of `./`.
+
 However, since Dashy is just a static web application, it can be served with whatever server you like. The following section outlines how you can configure a web server.
+
+Note, that if you choose not to use `server.js` to serve up the app, you will loose access to the following features:
+- Loading page, while the app is building
+- Writing config file to disk from the UI
+- Website status indicators, and ping checks
 
 ### NGINX
 
@@ -299,6 +360,13 @@ Then restart Apache, with `sudo systemctl restart apache2`
 8. If you need to change the port, click 'Add environmental variable', give it the name 'PORT', choose a port number and press 'Save'.
 9. Dashy should now be running at your selected path an on a given port
 
+**[⬆️ Back to Top](#deployment)**
+
 ---
 
-**[⬆️ Back to Top](#getting-started)**
+## Authentication
+
+Dashy has built-in authentication and login functionality. However, since this is handled on the client-side, if you are using Dashy in security-critical situations, it is recommended to use an alternate method for authentication, such as [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules. For more info, see **[Authentication Docs](/docs/authentication.md)**.
+
+
+**[⬆️ Back to Top](#deployment)**

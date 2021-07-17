@@ -27,7 +27,11 @@
         :target="item.target"
         :color="item.color"
         :backgroundColor="item.backgroundColor"
+        :statusCheckUrl="item.statusCheckUrl"
+        :statusCheckHeaders="item.statusCheckHeaders"
         :itemSize="newItemSize"
+        :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
+        :statusCheckInterval="getStatusCheckInterval()"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
       />
@@ -49,6 +53,7 @@ import IframeModal from '@/components/LinkItems/IframeModal.vue';
 
 export default {
   name: 'ItemGroup',
+  inject: ['config'],
   props: {
     groupId: String,
     title: String,
@@ -68,7 +73,7 @@ export default {
       return this.displayData.itemSize || this.itemSize;
     },
     isGridLayout() {
-      return this.displayData.layout === 'grid'
+      return this.displayData.sectionLayout === 'grid'
         || !!(this.displayData.itemCountX || this.displayData.itemCountY);
     },
     gridStyle() {
@@ -91,6 +96,17 @@ export default {
     },
     modalChanged(changedTo) {
       this.$emit('change-modal-visibility', changedTo);
+    },
+    shouldEnableStatusCheck(itemPreference) {
+      const globalPreference = this.config.appConfig.statusCheck || false;
+      return itemPreference !== undefined ? itemPreference : globalPreference;
+    },
+    getStatusCheckInterval() {
+      let interval = this.config.appConfig.statusCheckInterval;
+      if (!interval) return 0;
+      if (interval > 60) interval = 60;
+      if (interval < 1) interval = 0;
+      return interval;
     },
   },
 };

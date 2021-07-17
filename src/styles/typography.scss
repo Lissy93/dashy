@@ -1,5 +1,5 @@
 
-
+/* Fonts used by the default theme, and bundled within the app */
 @font-face {
   font-family: 'Inconsolata';
   src: url('./assets/fonts/Inconsolata-Light.ttf');
@@ -27,12 +27,12 @@ html {
   vertical-align: baseline;
 
   /* Default app font face */
-  body, div, p, a, span, label, input, button {
+  body, div, p, a, span, label, input, button, .text {
     font-family: var(--font-body);
   }
 
   /* Headings font face */
-  h1, h2, h3, h4, h5 {
+  h1, h2, h3, h4, h5, .heading {
     font-family:  var(--font-headings);
   }
 
@@ -42,19 +42,39 @@ html {
     font-weight: normal;
   }
 }
+/* Optional fonts for specific themes */
+/* These fonts are loaded from ./public and therefore not bundled within the apps source */
+@font-face { // Used by Dracula. Credit to Matt McInerney
+  font-family: 'Allerta Stencil';
+  src: url('/fonts/AllertaStencil-Regular.ttf');
+}
+@font-face { // Used by body text in Matrix and Hacker themes. Credit to the late Vernon Adams, RIP
+  font-family: 'Cutive Mono';
+  src: url('/fonts/CutiveMono-Regular.ttf');
+}
+@font-face { // Heading text in Material and Material Dark. Credit to Vernon Adams
+  font-family: 'Francois One';
+  src: url('/fonts/FrancoisOne-Regular.ttf');
+}
+@font-face { // Heading text in Colorful theme. Credit to Cyreal
+  font-family: 'Podkova';
+  src: url('/fonts/Podkova-Medium.ttf');
+}
+@font-face { // Standard body text in material original. Credit to Christian Robertson
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Light.ttf');
+}
+@font-face { // Heading text in Jam, Bee and Tiger themes. Credit to Haley Fiege
+  font-family: 'Sniglet';
+  src: url('/fonts/Sniglet-Regular.ttf');
+}
+@font-face { // Used by heading text in Matrix and Hacker themes. Credit to Peter Hull
+  font-family: 'VT323';
+  src: url('/fonts/VT323-Regular.ttf');
+}
 
-/* Fonts used for external themes */
-/* Material Design Themes */
-@import url('https://fonts.googleapis.com/css2?family=Francois+One&family=Roboto:wght@300&display=swap');
+@font-face { // Used by cyberpunk theme. Credit to Astigmatic
+  font-family: 'Audiowide';
+  src: url('/fonts/Audiowide-Regular.ttf');
+}
 
-/* Matrix, Hacker, Nerd Themes */
-@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=VT323&display=swap');
-
-/* Colourful */
-@import url('https://fonts.googleapis.com/css2?family=Podkova:wght@500&display=swap');
-
-/* Dracula */
-@import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap');
-
-/* Jam */
-@import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');

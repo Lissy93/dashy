@@ -64,14 +64,14 @@ export default {
   }),
   computed: {
     layoutOrientation: {
-      get: () => localStorage[localStorageKeys.LAYOUT_ORIENTATION] || Defaults.layout,
+      get() { return this.appConfig.layout || Defaults.layout; },
       set: function setLayout(layout) {
         localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
         this.layout = layout;
       },
     },
     iconSize: {
-      get: () => localStorage[localStorageKeys.ICON_SIZE] || Defaults.iconSize,
+      get() { return this.appConfig.iconSize || Defaults.iconSize; },
       set: function setIconSize(iconSize) {
         localStorage.setItem(localStorageKeys.ICON_SIZE, iconSize);
         this.itemSizeBound = iconSize;
@@ -160,13 +160,17 @@ export default {
     },
     /* Checks if any of the icons are Font Awesome glyphs */
     checkIfFontAwesomeNeeded() {
-      let isFound = false;
+      let isNeeded = false;
+      if (!this.sections) return false;
       this.sections.forEach((section) => {
+        if (section.icon && section.icon.includes('fa-')) isNeeded = true;
         section.items.forEach((item) => {
-          if (item.icon && item.icon.includes('fa-')) isFound = true;
+          if (item.icon && item.icon.includes('fa-')) isNeeded = true;
         });
       });
-      return isFound;
+      const currentTheme = localStorage[localStorageKeys.THEME]; // Some themes require FA
+      if (['material', 'material-dark'].includes(currentTheme)) isNeeded = true;
+      return isNeeded;
     },
     /* Injects font-awesome's script tag, only if needed */
     initiateFontAwesome() {
@@ -210,7 +214,8 @@ export default {
 .home {
   padding-bottom: 1px;
   background: var(--background);
-  min-height: calc(100vh - 126px);
+  // min-height: calc(100vh - 126px);
+  min-height: calc(100vh - var(--footer-height));
 }
 
 /* Outside container wrapping the item groups*/

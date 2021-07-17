@@ -4,7 +4,7 @@ By default Dashy comes with 20 built in themes, which can be applied from the dr
 
 ![Built-in Themes](https://i.ibb.co/GV3wRss/Dashy-Themes.png)
 
-You can also add your own themes, apply custom CSS, and modify colors.
+You can also add your own themes, apply custom styles, and modify colors.
 
 You can customize Dashy by writing your own CSS, which can be loaded either as an external stylesheet, set directly through the UI, or specified in the config file. Most styling options can be set through CSS variables, which are outlined below.
 
@@ -25,7 +25,7 @@ You can now create a block to target you're theme with `html[data-theme='my-them
 ```css
 html[data-theme='tiger'] {
   --primary: #f58233;
-  --item-group-background: #0b1021;
+  --background: #0b1021;
 }
 ```
 
@@ -33,17 +33,20 @@ Finally, from the UI use the theme dropdown menu to select your new theme, and y
 
 You can also set `appConfig.theme` to pre-select a default theme, which will be applied immediately after deployment.
 
-### Setting Custom CSS
+### Adding your own Theme
+
+User-defined styles and custom themes should be defined in `./src/styles/user-defined-themes.scss`. If you're using Docker, you can pass your own stylesheet in using the `--volume` flag. E.g. `v ./my-themes.scss:/app/src/styles/user-defined-themes.scss`. Don't forget to pass your theme name into `appConfig.cssThemes` so that it shows up on the theme-switcher dropdown.
+
+### Setting Custom CSS in the UI
 
 Custom CSS can be developed, tested and applied directly through the UI. Although you will need to make note of your changes to apply them across instances.
 
-This can be done from the Config menu (spanner icon in the top-right), under the Custom Styles tab. This is then associated with `appConfig.customCss` in local storage. Any styles set this way can be synced across instances using the cloud backup and sync feature.
-
-It's also possible to set CSS in the config file under `appConfig.customCss`. However this approach is not very neat, and if you do do it, first minify / compress your CSS and wrap in quotes, to ensure it does not cause any validation errors.
+This can be done from the Config menu (spanner icon in the top-right), under the Custom Styles tab. This is then associated with `appConfig.customCss` in local storage. Styles can also be directly applied to this attribute in the config file, but this may get messy very quickly if you have a lot of CSS.
 
 ### Loading External Stylesheets
 
-The URI of a stylesheet, either local or hosted on a remote CDN can be passed into the config file. The attribute `appConfig.externalStyleSheet` accepts either a string, or an array of strings. This is handled in [`ThemeHelper.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/ThemeHelper.js).
+The URI of a stylesheet, either local or hosted on a remote CDN can be passed into the config file. The attribute `appConfig.externalStyleSheet` accepts either a string, or an array of strings. You can also pass custom font stylesheets here, they must be in a CSS format (for example, `https://fonts.googleapis.com/css2?family=Cutive+Mono`).
+This is handled in [`ThemeHelper.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/ThemeHelper.js).
 
 For example:
 
@@ -62,6 +65,14 @@ Some UI components have a color option, that can be set in the config file, to f
 - `section.color` - Custom color for a given section
 - `item.color` - Font and icon color for a given item
 - `item.backgroundColor` - Background color for a given icon
+
+### Typography
+
+Essential fonts bundled within the app are located within `./src/assets/fonts/`. All optional fonts that are used by themes are stored in `./public/fonts/`, if you want to add your own font, this is where you should put it. As with assets, if you're using Docker then using a volume to link a directory on your host system with this path within the container will make management much easier.
+
+Fonts which are not being used by the current theme are **not** fetched on page load. They are instead only loaded into the application if and when they are required. So having multiple themes with various typefaces shouldn't have any negative impact on performance.
+
+Full credit to the typographers behind each of the included fonts. Specifically: Matt McInerney, Christian Robertson, Haley Fiege, Peter Hull, Cyreal and the legendary Vernon Adams
 
 ### CSS Variables
 
@@ -108,10 +119,21 @@ You can target specific elements on the UI with these variables. All are optiona
 - `--config-settings-background` - The text color for text within the settings container. Defaults to `--background-darker`
 - `--scroll-bar-color` - Color of the scroll bar thumb. Defaults to `--primary`
 - `--scroll-bar-background` Color of the scroll bar blank space. Defaults to `--background-darker`
+- `--highlight-background` Fill color for text highlighting. Defaults to `--primary`
+- `--highlight-color` Text color for selected/ highlighted text. Defaults to `--background`
 - `--toast-background` - Background color for the toast info popup. Defaults to `--primary`
 - `--toast-color` - Text, icon and border color in the toast info popup. Defaults to `--background`
 - `--welcome-popup-background` - Background for the info pop-up shown on first load. Defaults to `--background-darker`
 - `--welcome-popup-text-color` - Text color for the welcome pop-up. Defaults to `--primary`
+- `--side-bar-background` - Background color of the sidebar used in the workspace view. Defaults to `--background-darker`
+- `--side-bar-color` - Color of icons and text within the sidebar. Defaults to `--primary`
+- `--status-check-tooltip-background` - Background color for status check tooltips. Defaults to `--background-darker`
+- `--status-check-tooltip-color` - Text color for the status check tooltips. Defaults to `--primary`
+- `--code-editor-color` - Text color used within raw code editors. Defaults to `--black`
+- `--code-editor-background` - Background color for raw code editors. Defaults to `--white`
+- `--context-menu-color` - Text color for right-click context menu over items. Defaults to `--primary`
+- `--context-menu-background` - Background color of right-click context menu. Defaults to `--background`
+- `--context-menu-secondary-color` - Border and outline color for context menu. Defaults to `--background-darker`
 
 #### Non-Color Variables
 - `--outline-color` - Used to outline focused or selected elements

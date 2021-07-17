@@ -31,22 +31,6 @@
   --transparent-white-50: #ffffff80;
   --transparent-white-30: #ffffff4d;
 
-  /* Other Variables */
-  --outline-color: none;
-  --curve-factor: 5px; // Border radius for most components
-  --curve-factor-navbar: 16px; // Border radius for header
-  --dimming-factor: 0.7; // Opacity for semi-transparent components
-
-  /* Settings for specific components */
-  --scroll-bar-width: 8px;
-  --item-group-padding: 5px; // Determines width of item-group outline
-  --item-shadow: 1px 1px 2px #130f23;
-  --item-hover-shadow: 1px 2px 4px #373737;
-  --item-icon-transform: drop-shadow(2px 4px 6px var(--transparent-50)) saturate(0.65);
-  --item-icon-transform-hover: drop-shadow(4px 8px 3px var(--transparent-50)) saturate(2);
-  --item-group-shadow: var(--item-shadow);
-  --settings-container-shadow: none;
-
   /* Color variables for specific components
   * all variables are optional, since they inherit initial values from above*
   * Using specific variables makes overriding for custom themes really easy */
@@ -58,6 +42,7 @@
   --nav-link-border-color: transparent;
   --nav-link-border-color-hover: var(--primary);
   --item-text-color: var(--primary);
+  --item-text-color-hover: var(--item-text-color);
   --item-group-outer-background: var(--primary);
   --item-group-heading-text-color: var(--item-group-background);
   --item-group-heading-text-color-hover: var(--background);
@@ -65,8 +50,10 @@
   --settings-text-color: var(--primary);
   --search-container-background: var(--background-darker);
   --search-field-background: var(--background);
+  --search-label-color: var(--settings-text-color);
   --footer-text-color: var(--medium-grey);
   --footer-text-color-link:  var(--primary);
+  --footer-background: var(--background-darker);
   --welcome-popup-background: var(--background-darker);
   --welcome-popup-text-color: var(--primary);
   --config-code-background: #fff;
@@ -77,7 +64,25 @@
   --toast-color: var(--background);
   --scroll-bar-color: var(--primary);
   --scroll-bar-background: var(--background-darker);
+  --highlight-color: var(--background);
+  --highlight-background: var(--primary);
   --loading-screen-color: var(--primary);
   --loading-screen-background: var(--background);
+  --login-form-color: var(--primary);
+  --login-form-background: var(--background);
+  --login-form-background-secondary: var(--background-darker);
+  --about-page-color: var(--white);
+  --about-page-background: var(--background);
+  --about-page-accent: var(--primary);
+  --side-bar-background: var(--background-darker);
+  --side-bar-background-lighter: var(--background);
+  --side-bar-color: var(--primary);
+  --status-check-tooltip-background: var(--background-darker);
+  --status-check-tooltip-color: var(--primary);
+  --code-editor-color: var(--black);
+  --code-editor-background: var(--white);
 
+  --context-menu-background: var(--background);
+  --context-menu-color: var(--primary);
+  --context-menu-secondary-color: var(--background-darker);
 }

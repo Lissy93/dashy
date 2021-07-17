@@ -13,6 +13,7 @@
         <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
         <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
           @modalChanged="modalChanged" />
+        <AppButtons  v-if="isUserLoggedIn()" />
       </div>
       <div :class="`show-hide-container ${settingsVisible? 'hide-btn' : 'show-btn'}`">
         <button @click="toggleSettingsVisibility()"
@@ -23,19 +24,26 @@
       </div>
     </div>
     <KeyboardShortcutInfo />
+    <AppInfoModal />
   </section>
 </template>
 
 <script>
-import Defaults, { localStorageKeys } from '@/utils/defaults';
 import SearchBar from '@/components/Settings/SearchBar';
 import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import LayoutSelector from '@/components/Settings/LayoutSelector';
 import ItemSizeSelector from '@/components/Settings/ItemSizeSelector';
+import AppButtons from '@/components/Settings/AppButtons';
 import KeyboardShortcutInfo from '@/components/Settings/KeyboardShortcutInfo';
+import AppInfoModal from '@/components/Configuration/AppInfoModal';
+import { logout as registerLogout } from '@/utils/Auth';
 import IconOpen from '@/assets/interface-icons/config-open-settings.svg';
 import IconClose from '@/assets/interface-icons/config-close.svg';
+import {
+  localStorageKeys,
+  visibleComponents as defaultVisibleComponents,
+} from '@/utils/defaults';
 
 export default {
   name: 'SettingsContainer',
@@ -54,10 +62,13 @@ export default {
     ThemeSelector,
     LayoutSelector,
     ItemSizeSelector,
+    AppButtons,
     KeyboardShortcutInfo,
+    AppInfoModal,
     IconOpen,
     IconClose,
   },
+  inject: ['visibleComponents'],
   methods: {
     userIsTypingSomething(something) {
       this.$emit('user-is-searchin', something);
@@ -77,6 +88,16 @@ export default {
     getInitialTheme() {
       return this.appConfig.theme || '';
     },
+    logout() {
+      registerLogout();
+      this.$toasted.show('Logged Out');
+      setTimeout(() => {
+        location.reload(true); // eslint-disable-line no-restricted-globals
+      }, 100);
+    },
+    isUserLoggedIn() {
+      return !!localStorage[localStorageKeys.USERNAME];
+    },
     /* Gets user themes if available */
     getUserThemes() {
       const userThemes = this.appConfig.cssThemes || [];
@@ -89,13 +110,13 @@ export default {
     },
     getSettingsVisibility() {
       return JSON.parse(localStorage[localStorageKeys.HIDE_SETTINGS]
-        || Defaults.visibleComponents.settings);
+        || (this.visibleComponents || defaultVisibleComponents).settings);
     },
   },
   data() {
     return {
-      searchVisible: Defaults.visibleComponents.searchBar,
       settingsVisible: this.getSettingsVisibility(),
+      searchVisible: (this.visibleComponents || defaultVisibleComponents).searchBar,
     };
   },
 };
@@ -117,6 +138,7 @@ export default {
     position: relative;
     flex: 1;
     background: var(--settings-background);
+    border-radius: var(--curve-factor-navbar);
   }
   .options-container {
     display: flex;
@@ -176,6 +198,25 @@ export default {
       color: var(--settings-background);
     }
   }
+
+    svg.logout-icon {
+      path {
+        fill: var(--settings-text-color);
+      }
+      width: 1rem;
+      height: 1rem;
+      margin: 0.35rem 0.2rem;
+      padding: 0.2rem;
+      text-align: center;
+      background: var(--background);
+      border: 1px solid var(--settings-text-color);;
+      border-radius: var(--curve-factor);
+      cursor: pointer;
+      &:hover, &.selected {
+        background: var(--settings-text-color);
+        path { fill: var(--background); }
+      }
+    }
 
   @include tablet {
     section {
