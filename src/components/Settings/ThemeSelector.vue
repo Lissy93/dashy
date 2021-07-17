@@ -13,7 +13,10 @@
       class="color-button"
       @click="openThemeConfigurator"
     />
-    <CustomThemeMaker v-if="themeConfiguratorOpen" />
+    <CustomThemeMaker
+      v-if="themeConfiguratorOpen"
+      @closeThemeConfigurator="closeThemeConfigurator()"
+    />
   </div>
 </template>
 

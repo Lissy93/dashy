@@ -10,6 +10,7 @@
         show-fallback
         fallback-input-type="color"
         popover-x="left"
+        @input="setVariable(colorName, customColors[colorName])"
       >
       <input
         :id="`color-input-${colorName}`"
@@ -21,9 +22,10 @@
       />
       </v-swatches>
     </div> <!-- End of color list -->
+    <p class="show-more-variables" @click="findAllVariableNames">Show All Variables</p>
     <div class="action-buttons">
       <Button><SaveIcon />Save</Button>
-      <Button><CancelIcon />Cancel</Button>
+      <Button :click="resetUnsavedColors"><CancelIcon />Cancel</Button>
     </div>
   </div>
 </template>
@@ -52,21 +54,34 @@ export default {
     };
   },
   methods: {
+    /* Sets the value to a given variable in the DOM */
+    setVariable(variable, value) {
+      document.documentElement.style.setProperty(`--${variable}`, value);
+    },
+    /* Itterates over available variables, removing them from the DOM */
+    resetUnsavedColors() {
+      const variables = Object.keys(this.customColors);
+      variables.forEach((variable) => {
+        document.documentElement.style.removeProperty(`--${variable}`);
+      });
+      this.$emit('closeThemeConfigurator');
+    },
     /* Finds the current dominent value for a given CSS variable */
     getCssVariableValue(cssVar) {
-      return getComputedStyle(document.documentElement).getPropertyValue(cssVar) || 'inherit';
+      return getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim() || 'inherit';
     },
     /* Returns a JSON object, with the variable name as key, and color as value */
     makeInitialData(variableArray) {
       const data = {};
+      const addDash = (colorVar) => (/^--/.exec(colorVar) ? colorVar : `--${colorVar}`);
       variableArray.forEach((colorName) => {
-        data[colorName] = this.getCssVariableValue(`--${colorName}`);
+        data[colorName.replace('--', '')] = this.getCssVariableValue(addDash(colorName));
       });
       return data;
     },
     /* If a builtin theme is applied, grab it's colors */
     findAllVariableNames() {
-      Array.from(document.styleSheets) // Get all stylesheets, filter out irrelevant ones
+      const availableVariables = Array.from(document.styleSheets)
         .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
         .reduce(
           ((acc, sheet) => ([
@@ -79,6 +94,7 @@ export default {
           ])),
           [],
         );
+      this.customColors = this.makeInitialData(availableVariables);
     },
     /* Returns a complmenting text color for the palete foreground */
     /* White if the color is dark, otherwise black */
@@ -113,6 +129,7 @@ div.theme-configurator-wrapper {
   max-height: 20rem;
   padding: 0.5rem;
   z-index: 5;
+  overflow-y: auto;
   background: var(--config-settings-background);
   color: var(--config-settings-color);
   border-radius: var(--curve-factor);
@@ -152,6 +169,26 @@ div.theme-configurator-wrapper {
       box-shadow: inset 0 0 4px 4px #00000080;
       outline: none;
     }
+  }
+}
+
+p.show-more-variables {
+  cursor: pointer;
+  margin: 0.5rem auto 0;
+  padding: 0.2rem 0.4rem;
+  width: fit-content;
+  text-align: center;
+  text-decoration: underline;
+  border-radius: var(--curve-factor);
+  border: 1px solid var(--background-darker);
+  &:hover {
+    background: var(--background);
+    border-color: var(--primary);
+    text-decoration: none;
+  }
+  &:active {
+    background: var(--primary);
+    color: var(--background);
   }
 }
 
