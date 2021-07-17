@@ -16,6 +16,13 @@
 
 ---
 
+### Homelab & VPS dashboard
+> By [@shadowking001](https://github.com/shadowking001)
+
+![screenshot-shadowking001-dashy](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/8-shadowking001s-dashy.png)
+
+---
+
 ### NAS Home Dashboard
 > By [@cerealconyogurt](https://github.com/cerealconyogurt)
 
@@ -45,6 +52,12 @@
 > By [@dtctek](https://github.com/dtctek)
 
 ![screenshot-ground-control](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/7-ground-control-dtctek.png)
+
+---
+
+### Yet Another Homelab
+
+![screenshot-yet-another-homelab](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/9-home-lab-oblivion.png)
 
 ---
 
