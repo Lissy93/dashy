@@ -8,7 +8,7 @@
       @change-modal-visibility="updateModalVisibility"
       :displayLayout="layout"
       :iconSize="itemSizeBound"
-      :availableThemes="getExternalCSSLinks()"
+      :externalThemes="getExternalCSSLinks()"
       :sections="getSections(sections)"
       :appConfig="appConfig"
       :pageInfo="pageInfo"

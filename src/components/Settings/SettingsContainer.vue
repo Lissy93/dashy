@@ -7,7 +7,7 @@
     />
     <div class="options-outer">
       <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
-        <ThemeSelector :themes="availableThemes"
+        <ThemeSelector :externalThemes="externalThemes"
           :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
         <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
         <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
@@ -50,7 +50,7 @@ export default {
   props: {
     displayLayout: String,
     iconSize: String,
-    availableThemes: Object,
+    externalThemes: Object,
     appConfig: Object,
     pageInfo: Object,
     sections: Array,
