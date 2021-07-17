@@ -56,8 +56,31 @@
         },
         "theme": {
           "type": "string",
-          "default": "Callisto",
-          "description": "A theme to be applied by default on first load"
+          "default": "callisto",
+          "description": "A theme to be applied by default on first load",
+          "examples": [
+            "callisto",
+            "thebe",
+            "dracula",
+            "material",
+            "material-dark",
+            "colorful",
+            "nord",
+            "nord-frost",
+            "minimal-dark",
+            "minimal-light",
+            "matrix",
+            "matrix-red",
+            "hacker-girl",
+            "raspberry-jam",
+            "bee",
+            "tiger",
+            "material-original",
+            "material-dark-original",
+            "vaporware",
+            "high-contrast-dark",
+            "high-contrast-light"
+          ]
         },
         "enableFontAwesome": {
           "type": "boolean",
@@ -68,6 +91,73 @@
           "type": "string",
           "pattern": "^[a-z0-9]{10}$",
           "description": "API key for font-awesome"
+        },
+        "faviconApi": {
+          "enum": [
+            "local",
+            "faviconkit",
+            "google",
+            "clearbit",
+            "webmasterapi",
+            "allesedv"
+          ],
+          "default": "faviconkit",
+          "description": "Which service to use to resolve favicons. Set to local to do this locally instead"
+        },
+        "layout": {
+          "enum": [
+            "horizontal",
+            "vertical",
+            "auto",
+            "sidebar"
+          ],
+          "default": "auto",
+          "description": "Specifies sections layout orientation on the home screen"
+        },
+        "iconSize": {
+          "enum": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "default": "medium",
+          "description": "The size of each link item / icon"
+        },
+        "hideComponents": {
+          "type": "object",
+          "description": "Hide individual parts of the page. If not set, all components are visible by default",
+          "properties": {
+            "hideHeading": {
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the page heading & subtitle will be hidden"
+            },
+            "hideNav": {
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the navigation menu will be hidden"
+            },
+            "hideSearch": {
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the search bar will be hidden"
+            },
+            "hideSettings": {
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the settings buttons will be hidden"
+            },
+            "hideFooter": {
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the page footer will be hidden"
+            },
+            "hideSplashScreen": {
+              "type": "boolean",
+              "default": "true",
+              "description": "If set to true, the loading / splash screen will not be shown"
+            }
+          }
         },
         "cssThemes": {
           "type": "array",
@@ -90,10 +180,62 @@
           "type": "string",
           "description": "Any custom CSS overides, must be minified"
         },
-        "showSplashScreen": {
+        "statusCheck": {
           "type": "boolean",
           "default": false,
-          "description": "Display a loading screen when the app is launched"
+          "description": "Displays an online/ offline status for each of your services"
+        },
+        "statusCheckInterval": {
+          "type": "number",
+          "default": 0,
+          "description": "How often to recheck statuses. If set to 0, status will only be checked on page load"
+        },
+        "auth": {
+          "type": "array",
+          "description": "Usernames and hashed credentials for frontend authentication",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "user",
+              "hash"
+            ],
+            "properties": {
+              "user": {
+                "type": "string",
+                "description": "The username for a user"
+              },
+              "hash": {
+                "type": "string",
+                "description": "A SHA-256 hashed password for that user",
+                "minLength": 64,
+                "maxLength": 64
+              },
+              "type": {
+                "enum": [
+                  "admin",
+                  "normal"
+                ],
+                "description": "User type, denoting privilege level, either admin or normal",
+                "default": "normal"
+              }
+            }
+          }
+        },
+        "allowConfigEdit": {
+          "type": "boolean",
+          "default": true,
+          "description": "Can user write changes to conf.yml file from the UI. If set to false, preferences are only stored locally"
+        },
+        "disableServiceWorker": {
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, then service workers will not be used to cache page contents"
+        },
+        "disableContextMenu": {
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, custom right-click context menu will be disabled"
         }
       },
       "additionalProperties": false
@@ -158,7 +300,7 @@
                 "default": 1,
                 "description": "The amount of space that the section spans horizontally"
               },
-              "layout": {
+              "sectionLayout": {
                 "enum": [
                   "grid",
                   "auto"
@@ -202,7 +344,7 @@
                 "icon": {
                   "type": "string",
                   "nullable": true,
-                  "description": "An icon, either as a font-awesome identifier, local or remote URL, or auto-fetched favicon"
+                  "description": "An icon, either as a font-awesome identifier, local or remote URL, or the word favicon or generative"
                 },
                 "url": {
                   "type": "string",
@@ -212,7 +354,8 @@
                   "enum": [
                     "newtab",
                     "sametab",
-                    "iframe"
+                    "modal",
+                    "workspace"
                   ],
                   "default": "newtab",
                   "description": "Opening method, when item is clicked"
@@ -224,6 +367,19 @@
                 "provider": {
                   "type": "string",
                   "description": "Provider name, e.g. Microsoft"
+                },
+                "statusCheck": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Whether or not to display online/ offline status for this service. Will override appConfig.statusCheck"
+                },
+                "statusCheckUrl": {
+                  "type": "string",
+                  "description": "If you've enabled statusCheck, and want to use a different URL to what is defined under the item, then specify it here"
+                },
+                "statusCheckHeaders": {
+                  "type": "object",
+                  "description": " If you're endpoint requires any specific headers for the status checking, then define them here"
                 }
               }
             }

@@ -65,3 +65,9 @@ $extra-large: 2800px;
     @content;
   }
 }
+
+@mixin tablet-down {
+  @media (max-width: #{$small - 1px}) {
+    @content;
+  }
+}

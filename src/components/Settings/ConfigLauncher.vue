@@ -10,14 +10,14 @@
     </div>
 
     <!-- Modal containing all the configuration options -->
-    <modal :name="modalNames.CONF_EDITOR" :resizable="true" width="60%" height="80%"
-      @closed="$emit('modalChanged', false)">
+    <modal :name="modalNames.CONF_EDITOR" :resizable="true" width="60%" height="85%"
+      @closed="$emit('modalChanged', false)" classes="dashy-modal">
       <ConfigContainer :config="combineConfig()" />
     </modal>
 
     <!-- Modal for cloud backup and restore options -->
     <modal :name="modalNames.CLOUD_BACKUP" :resizable="true" width="65%" height="60%"
-      @closed="$emit('modalChanged', false)">
+      @closed="$emit('modalChanged', false)" classes="dashy-modal">
       <CloudBackupRestore :config="combineConfig()" />
     </modal>
   </div>
@@ -99,15 +99,4 @@ export default {
     }
   }
 }
-</style>
-
-<style lang="scss">
-  .vm--modal {
-    box-shadow: 0 40px 70px -2px hsl(0deg 0% 0% / 60%), 1px 1px 6px var(--primary);
-    min-width: 350px;
-    min-height: 600px;
-  }
-  .vm--overlay {
-    background: #00000080;
-  }
 </style>

@@ -1,14 +1,51 @@
 
 @import '@/styles/style-helpers.scss';
 
+/* Essential global page layout styles */
 html {
-  margin: 0;
   padding: 0;
+  margin: -3px 0 0 0;
   transition: all 1s;
-  margin-top: -3px;
   @extend .scroll-bar;
+  @extend .highlight;
   box-sizing: border-box;
+  /* Essential body styles */
+  body {
+    background: var(--background);
+    margin: 0;
+    padding: 0;
+  }
+  /* Make links have pointy cursor */
   input[type=button], button, a {
     cursor: pointer;
   }
+}
+
+/* Overriding styles for the modal component */
+.vm--modal, .dashy-modal {
+  box-shadow: 0 40px 70px -2px hsl(0deg 0% 0% / 60%), 1px 1px 6px var(--primary) !important;
+  min-width: 300px;
+  min-height: 500px;
+}
+.vm--overlay {
+  background: #00000080;
+}
+
+/* Overiding styles for the global toast component */
+.toast-message {
+  background: var(--toast-background) !important;
+  color: var(--toast-color) !important;
+  border: 1px solid var(--toast-color) !important;
+  border-radius: var(--curve-factor) !important;
+  font-size: 1.25rem !important;
+}
+.toast-error {
+  background: var(--danger) !important;
+  color: var(--white) !important;
+  font-size: 1.25rem !important;
+}
+.toast-success {
+  background: var(--success) !important;
+  color: var(--white) !important;
+  font-size: 1.25rem !important;
 }
