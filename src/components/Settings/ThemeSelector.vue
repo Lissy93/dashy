@@ -1,5 +1,5 @@
 <template>
-  <div class="theme-selector-section" v-if="themes" v-click-outside="closeThemeConfigurator">
+  <div class="theme-selector-section" v-click-outside="closeThemeConfigurator">
     <div>
     <span class="theme-label">Theme</span>
     <v-select
@@ -11,7 +11,6 @@
     </div>
     <IconPalette
       class="color-button"
-      v-if="selectedTheme === 'custom'"
       @click="openThemeConfigurator"
     />
     <CustomThemeMaker v-if="themeConfiguratorOpen" />
@@ -28,7 +27,7 @@ import IconPalette from '@/assets/interface-icons/config-color-palette.svg';
 export default {
   name: 'ThemeSelector',
   props: {
-    themes: Object,
+    externalThemes: Object,
     confTheme: String,
     userThemes: Array,
   },
@@ -37,29 +36,33 @@ export default {
     IconPalette,
   },
   watch: {
-    selectedTheme(newTheme) { this.updateTheme(newTheme); },
+    /* When the theme changes, then call the update method */
+    selectedTheme(newTheme) {
+      this.updateTheme(newTheme);
+    },
   },
   data() {
     return {
       selectedTheme: this.getInitialTheme(),
       builtInThemes: [...Defaults.builtInThemes, ...this.userThemes],
       themeHelper: new LoadExternalTheme(),
-      // modalName: modalNames.THEME_MAKER,
-      themeConfiguratorOpen: false,
+      themeConfiguratorOpen: false, // Control the opening of theme config popup
       ApplyLocalTheme,
       ApplyCustomTheme,
     };
   },
   computed: {
+    /* Combines all theme names (builtin and user defined) together */
     themeNames: function themeNames() {
-      const externalThemeNames = Object.keys(this.themes);
+      const externalThemeNames = Object.keys(this.externalThemes);
       const specialThemes = ['custom'];
-      return [...specialThemes, ...externalThemeNames, ...this.builtInThemes];
+      return [...externalThemeNames, ...this.builtInThemes, ...specialThemes];
     },
   },
   created() {
-    const added = Object.keys(this.themes).map(
-      name => this.themeHelper.add(name, this.themes[name]),
+    // Pass all user custom stylesheets to the themehelper
+    const added = Object.keys(this.externalThemes).map(
+      name => this.themeHelper.add(name, this.externalThemes[name]),
     );
     // Quicker loading, if the theme is local we can apply it immidiatley
     if (this.isThemeLocal(this.selectedTheme)) {
@@ -76,12 +79,15 @@ export default {
     getInitialTheme() {
       return localStorage[localStorageKeys.THEME] || this.confTheme || Defaults.theme;
     },
+    /* Determines if a given theme is local / not a custom user stylesheet */
     isThemeLocal(themeToCheck) {
       return this.builtInThemes.includes(themeToCheck);
     },
+    /* Opens the theme color configurator popup */
     openThemeConfigurator() {
       this.themeConfiguratorOpen = true;
     },
+    /* Closes the theme color configurator popup */
     closeThemeConfigurator() {
       this.themeConfiguratorOpen = false;
     },
@@ -100,6 +106,7 @@ export default {
       }
       localStorage.setItem(localStorageKeys.THEME, newTheme);
     },
+    /* Removes any applied themes */
     resetToDefault() {
       document.getElementsByTagName('html')[0].removeAttribute('data-theme');
     },

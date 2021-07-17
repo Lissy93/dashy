@@ -12,7 +12,9 @@ export const ApplyLocalTheme = (newTheme) => {
 };
 
 /* Sets specific CSS variables, for the users custom theme */
-export const ApplyCustomTheme = () => { };
+export const ApplyCustomTheme = () => {
+  ApplyLocalTheme('custom');
+};
 
 /**
  * A function for pre-loading, and easy switching of external stylesheets

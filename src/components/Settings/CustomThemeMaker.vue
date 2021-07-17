@@ -1,23 +1,29 @@
 <template>
   <div class="theme-configurator-wrapper">
     <h3 class="configurator-title">Custom Configurator</h3>
-    <div class="color-row">
-      <label for="col">Primary</label>
+    <div class="color-row" v-for="colorName in Object.keys(customColors)" :key="colorName">
+      <label :for="`color-input-${colorName}`" class="color-name">
+        {{colorName.replace('-', ' ')}}
+      </label>
       <v-swatches
-        v-model="color"
+        v-model="customColors[colorName]"
         show-fallback
         fallback-input-type="color"
         popover-x="left"
       >
       <input
-        id="col"
+        :id="`color-input-${colorName}`"
         slot="trigger"
-        :value="color"
+        :value="customColors[colorName]"
         class="swatch-input form__input__element"
         readonly
-        :style="`background:${color}; color: ${getForegroundColor(color)};`"
+        :style="makeSwatchStyles(colorName)"
       />
       </v-swatches>
+    </div> <!-- End of color list -->
+    <div class="action-buttons">
+      <Button><SaveIcon />Save</Button>
+      <Button><CancelIcon />Cancel</Button>
     </div>
   </div>
 </template>
@@ -26,28 +32,40 @@
 import VSwatches from 'vue-swatches';
 import 'vue-swatches/dist/vue-swatches.css';
 
+import Button from '@/components/FormElements/Button';
+import SaveIcon from '@/assets/interface-icons/save-config.svg';
+import CancelIcon from '@/assets/interface-icons/config-cancel.svg';
+
+const mainVariables = ['primary', 'background', 'background-darker'];
+
 export default {
   name: 'ThemeMaker',
   components: {
     VSwatches,
+    Button,
+    SaveIcon,
+    CancelIcon,
   },
-  data: () => ({
-    color: '#A463BF',
-  }),
+  data() {
+    return {
+      customColors: this.makeInitialData(mainVariables),
+    };
+  },
   methods: {
-    /* Returns a complmenting text color for the palete foreground */
-    /* White if the color is dark, otherwise black */
-    getForegroundColor(colorHex) {
-      const hexToRgb = (hex) => {
-        const colorParts = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        const parse = (index) => parseInt(colorParts[index], 16);
-        return colorParts ? { r: parse(1), g: parse(2), b: parse(3) } : null;
-      };
-      const getLightness = (rgb) => (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
-      return getLightness(hexToRgb(colorHex)) < 100 ? 'white' : 'black';
+    /* Finds the current dominent value for a given CSS variable */
+    getCssVariableValue(cssVar) {
+      return getComputedStyle(document.documentElement).getPropertyValue(cssVar) || 'inherit';
+    },
+    /* Returns a JSON object, with the variable name as key, and color as value */
+    makeInitialData(variableArray) {
+      const data = {};
+      variableArray.forEach((colorName) => {
+        data[colorName] = this.getCssVariableValue(`--${colorName}`);
+      });
+      return data;
     },
     /* If a builtin theme is applied, grab it's colors */
-    getAllThemeNames() {
+    findAllVariableNames() {
       Array.from(document.styleSheets) // Get all stylesheets, filter out irrelevant ones
         .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
         .reduce(
@@ -62,6 +80,24 @@ export default {
           [],
         );
     },
+    /* Returns a complmenting text color for the palete foreground */
+    /* White if the color is dark, otherwise black */
+    getForegroundColor(colorHex) {
+      const hexToRgb = (hex) => {
+        const colorParts = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        if (!colorParts || colorParts.length < 3) return 'pink';
+        const parse = (index) => parseInt(colorParts[index], 16);
+        return colorParts ? { r: parse(1), g: parse(2), b: parse(3) } : null;
+      };
+      const getLightness = (rgb) => (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+      return getLightness(hexToRgb(colorHex.trim())) < 100 ? 'white' : 'black';
+    },
+    /* The contents of the style attribute, to set background and text color of swatch */
+    makeSwatchStyles(colorName) {
+      const contrastingColor = this.getForegroundColor(this.customColors[colorName]);
+      return `background:${this.customColors[colorName]};`
+      + `color:${contrastingColor}; border: 1px solid ${contrastingColor}`;
+    },
   },
 };
 </script>
@@ -70,10 +106,11 @@ export default {
 
 div.theme-configurator-wrapper {
   position: absolute;
-  right: 6rem;
-  top: 3rem;
-  width: 12rem;
+  top: 4rem;
+  right: 1rem;
+  width: 16rem;
   min-height: 12rem;
+  max-height: 20rem;
   padding: 0.5rem;
   z-index: 5;
   background: var(--config-settings-background);
@@ -83,6 +120,7 @@ div.theme-configurator-wrapper {
 
   h3.configurator-title {
     text-align: center;
+    font-weight: normal;
     margin: 0.4rem;
   }
 
@@ -90,8 +128,11 @@ div.theme-configurator-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.2rem 0;
+    padding: 0.25rem 0;
     &:not(:last-child) { border-bottom: 1px dashed var(--primary); }
+    label.color-name {
+      text-transform: capitalize;
+    }
   }
 
   input.swatch-input {
@@ -111,6 +152,15 @@ div.theme-configurator-wrapper {
       box-shadow: inset 0 0 4px 4px #00000080;
       outline: none;
     }
+  }
+}
+
+div.action-buttons {
+  display: flex;
+  button {
+    min-width: 6rem;
+    padding: 0.25rem 0.5rem;
+    margin: 1rem 0.5rem 0.5rem;
   }
 }
 
