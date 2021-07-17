@@ -3,21 +3,17 @@
     <TabItem name="Config" class="main-tab">
       <div class="main-options-container">
         <h2>Configuration Options</h2>
-        <a href="/conf.yml" download class="hyperlink-wrapper">
+        <a class="hyperlink-wrapper"  @click="downloadConfigFile('conf.yml', yaml)">
           <button class="config-button center">
           <DownloadIcon class="button-icon"/>
           Download Config
           </button>
         </a>
-        <button class="config-button center" @click="goToEdit()">
+        <button class="config-button center" @click="() => navigateToTab(2)">
           <EditIcon class="button-icon"/>
-          Edit Sections
+          Edit Config
         </button>
-        <button class="config-button center" @click="goToMetaEdit()">
-          <MetaDataIcon class="button-icon"/>
-          Edit Meta Data
-        </button>
-        <button class="config-button center" @click="goToCustomCss()">
+        <button class="config-button center" @click="() => navigateToTab(3)">
           <CustomCssIcon class="button-icon"/>
           Edit Custom CSS
         </button>
@@ -25,36 +21,44 @@
           <CloudIcon class="button-icon"/>
           {{backupId ? 'Edit Cloud Sync' : 'Enable Cloud Sync'}}
         </button>
+        <button class="config-button center" @click="openRebuildAppModal()">
+          <RebuildIcon class="button-icon"/>
+          Rebuild Application
+        </button>
         <button class="config-button center" @click="resetLocalSettings()">
           <DeleteIcon class="button-icon"/>
           Reset Local Settings
         </button>
+        <button class="config-button center" @click="openAboutModal()">
+          <IconAbout class="button-icon" />
+          App Info
+        </button>
         <p class="small-screen-note" style="display: none;">
             You are using a very small screen, and some screens in this menu may not be optimal
         </p>
+        <p class="app-version">Dashy version {{ appVersion }}</p>
         <div class="config-note">
-          <p class="sub-title">Note:</p>
           <span>
-            All changes made here are stored locally. To apply globally, either export your config
-            into your conf.yml file, or use the cloud backup/ restore feature.
+            It is recommend to make a backup of your conf.yml file before making changes.
           </span>
         </div>
       </div>
+      <!-- Rebuild App Modal -->
+      <RebuildApp />
     </TabItem>
-    <TabItem name="Backup Config" class="code-container">
-      <pre id="conf-yaml">{{this.jsonParser(this.config)}}</pre>
+    <TabItem name="View Config" class="code-container">
+      <pre id="conf-yaml">{{yaml}}</pre>
       <div class="yaml-action-buttons">
         <h2>Actions</h2>
-        <a class="yaml-button download" href="/conf.yml" download>Download Config</a>
+        <a class="yaml-button download" @click="downloadConfigFile('conf.yml', yaml)">
+          Download Config
+        </a>
         <a class="yaml-button copy" @click="copyConfigToClipboard()">Copy Config</a>
         <a class="yaml-button reset" @click="resetLocalSettings()">Reset Config</a>
       </div>
     </TabItem>
-    <TabItem name="Edit Sections">
+    <TabItem name="Edit Config">
       <JsonEditor :config="config" />
-    </TabItem>
-    <TabItem name="Edit Site Meta">
-      <EditSiteMeta :config="config" />
     </TabItem>
     <TabItem name="Custom Styles">
       <CustomCssEditor :config="config" initialCss="hello" />
@@ -70,15 +74,17 @@ import 'highlight.js/styles/mono-blue.css';
 
 import JsonToYaml from '@/utils/JsonToYaml';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
-import EditSiteMeta from '@/components/Configuration/EditSiteMeta';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
+import RebuildApp from '@/components/Configuration/RebuildApp';
+
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
-import MetaDataIcon from '@/assets/interface-icons/config-meta-data.svg';
 import CustomCssIcon from '@/assets/interface-icons/config-custom-css.svg';
 import CloudIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
+import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
+import IconAbout from '@/assets/interface-icons/application-about.svg';
 
 export default {
   name: 'ConfigContainer',
@@ -86,6 +92,7 @@ export default {
     return {
       jsonParser: JsonToYaml,
       backupId: localStorage[localStorageKeys.BACKUP_ID] || '',
+      appVersion: process.env.VUE_APP_VERSION,
     };
   },
   props: {
@@ -95,31 +102,33 @@ export default {
     sections: function getSections() {
       return this.config.sections;
     },
+    yaml() {
+      return this.jsonParser(this.config);
+    },
   },
   components: {
-    EditSiteMeta,
     JsonEditor,
     CustomCssEditor,
+    RebuildApp,
     DownloadIcon,
     DeleteIcon,
     EditIcon,
     CloudIcon,
-    MetaDataIcon,
     CustomCssIcon,
+    RebuildIcon,
+    IconAbout,
   },
   methods: {
-    /* Seletcs the edit tab of the tab view */
-    goToEdit() {
-      const itemToSelect = this.$refs.tabView.navItems[2];
-      this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
+    /* Progamatically navigates to a given tab by index */
+    navigateToTab(tabInxex) {
+      const itemToSelect = this.$refs.tabView.navItems[tabInxex];
+      this.$refs.tabView.activeTabItem(itemToSelect);
     },
-    goToMetaEdit() {
-      const itemToSelect = this.$refs.tabView.navItems[3];
-      this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
+    openRebuildAppModal() {
+      this.$modal.show(modalNames.REBUILD_APP);
     },
-    goToCustomCss() {
-      const itemToSelect = this.$refs.tabView.navItems[4];
-      this.$refs.tabView.activeTabItem({ tabItem: itemToSelect, byUser: true });
+    openAboutModal() {
+      this.$modal.show(modalNames.ABOUT_APP);
     },
     openCloudSync() {
       this.$modal.show(modalNames.CLOUD_BACKUP);
@@ -139,9 +148,19 @@ export default {
         localStorage.clear();
         this.$toasted.show('Data cleared succesfully');
         setTimeout(() => {
-          location.reload(); // eslint-disable-line no-restricted-globals
+          location.reload(true); // eslint-disable-line no-restricted-globals
         }, 1900);
       }
+    },
+    /* Generates a new file, with the YAML contents, and triggers a download */
+    downloadConfigFile(filename, filecontents) {
+      const element = document.createElement('a');
+      element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(filecontents)}`);
+      element.setAttribute('download', filename);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
     },
   },
   mounted() {
@@ -194,6 +213,12 @@ a.config-button, button.config-button {
   }
 }
 
+p.app-version {
+  margin: 0.5rem auto;
+  font-size: 1rem;
+  color: var(--transparent-white-50);
+}
+
 div.code-container {
   background: var(--config-code-background);
   #conf-yaml span {
@@ -204,7 +229,7 @@ div.code-container {
   }
   .yaml-action-buttons {
     position: absolute;
-    top: 0.5rem;
+    top: 1.5rem;
     right: 0.5rem;
     display: flex;
     flex-direction: column;
@@ -259,7 +284,7 @@ a.hyperlink-wrapper {
   background: var(--config-settings-background);
   height: calc(100% - 2rem);
   h2 {
-    margin: 1rem auto;
+    margin: 0 auto 1rem auto;
     color: var(--config-settings-color);
   }
 }
@@ -274,14 +299,16 @@ a.hyperlink-wrapper {
   border: 1px dashed var(--config-settings-color);
   border-radius: var(--curve-factor);
   text-align: left;
-  opacity: 0.95;
+  opacity: var(--dimming-factor);
   color: var(--config-settings-color);
   background: var(--config-settings-background);
+  cursor: default;
   p.sub-title {
     font-weight: bold;
     margin: 0;
     display: inline;
   }
+  &:hover { opacity: 1; }
   display: none;
   @include tablet-up { display: block; }
 }
@@ -299,35 +326,50 @@ p.small-screen-note {
 </style>
 
 <style lang="scss">
+
+.tabs__content {
+  height: -webkit-fill-available;
+  height: -moz-available;
+  height: stretch;
+}
+
+.tab-item {
+  background: var(--config-settings-background) !important;
+}
+
 .tab__pagination {
-  background: var(--config-settings-background);
-  color: var(--config-settings-color);
+  background: var(--config-settings-background) !important;
+  color: var(--config-settings-color) !important;
   .tab__nav__items .tab__nav__item {
     span {
-      color: var(--config-settings-color);
+      color: var(--config-settings-color) !important;
     }
     &:hover {
       background: var(--config-settings-color) !important;
       span {
-        color: var(--config-settings-background);
+        color: var(--config-settings-background) !important;
       }
     }
     &.active {
       span {
-        font-weight: bold;
+        font-weight: bold !important;
         color: var(--config-settings-color) !important;
       }
     }
   }
   .tab__nav__items .tab__nav__item.active {
-    border-bottom: 2px solid var(--config-settings-color);
+    border-bottom: 2px solid var(--config-settings-color) !important;
   }
   hr.tab__slider {
-    background: var(--config-settings-color);
+    background: var(--config-settings-color) !important;
   }
 }
 
-#conf-yaml .hljs-attr {
-  color: #9c03f5;
+#conf-yaml {
+  background: var(--white);
+  .hljs-attr {
+    color: #9c03f5;
+  }
 }
+
 </style>

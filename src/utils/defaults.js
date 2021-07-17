@@ -13,6 +13,7 @@ module.exports = {
   layout: 'auto',
   theme: 'default',
   fontAwesomeKey: '0821c65656',
+  faviconApi: 'faviconkit',
   builtInThemes: [
     'callisto',
     'thebe',
@@ -30,8 +31,11 @@ module.exports = {
     'raspberry-jam',
     'bee',
     'tiger',
+    'blue-purple',
     'material-original',
     'material-dark-original',
+    'cyberpunk',
+    'vaporware',
     'high-contrast-dark',
     'high-contrast-light',
   ],
@@ -54,10 +58,19 @@ module.exports = {
     BACKUP_ID: 'backupId',
     BACKUP_HASH: 'backupHash',
     HIDE_SETTINGS: 'hideSettings',
+    USERNAME: 'username',
+  },
+  cookieKeys: {
+    AUTH_TOKEN: 'authenticationToken',
+  },
+  sessionStorageKeys: {
+    SW_STATUS: 'serviceWorkerStatus',
   },
   modalNames: {
     CONF_EDITOR: 'CONF_EDITOR',
     CLOUD_BACKUP: 'CLOUD_BACKUP',
+    REBUILD_APP: 'REBUILD_APP',
+    ABOUT_APP: 'ABOUT_APP',
   },
   topLevelConfKeys: {
     PAGE_INFO: 'pageInfo',
@@ -73,4 +86,16 @@ module.exports = {
   },
   backupEndpoint: 'https://dashy-sync-service.as93.net',
   splashScreenTime: 1900,
+  metaTagData: [
+    { name: 'description', content: 'A simple static homepage for you\'re server' },
+  ],
+  faviconApiEndpoints: {
+    mcapi: 'https://eu.mc-api.net/v3/server/favicon/$URL',
+    clearbit: 'https://logo.clearbit.com/$URL',
+    faviconkit: 'https://api.faviconkit.com/$URL/64',
+    // favicongrabber: 'https://favicongrabber.com//api/grab/$URL',
+    google: 'https://www.google.com/s2/favicons?sz=128&domain_url=$URL',
+    allesedv: 'https://f1.allesedv.com/128/$URL',
+    webmasterapi: 'https://api.webmasterapi.com/v1/favicon/yEwx0ZFs0CSPshHq/$URL',
+  },
 };

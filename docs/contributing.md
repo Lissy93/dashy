@@ -83,6 +83,9 @@ on how to create a pull request..
 8. [Open a Pull Request](https://help.github.com/articles/using-pull-requests/)
     with a clear title and description.
 
+You can use emojis in your commit message, to indicate the category of the task.
+For a reference of what each emoji means in the context of commits, see [gitmoji.dev](https://gitmoji.dev/).
+
 #### Testing the Production App
 
 For larger pull requests, please also check that it works as expected in a production environment.
@@ -128,7 +131,8 @@ Click one of the links below, to open an issue:
 
 ### Contributors
 
-![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/03fbaf35ff4653d16a622cfce00a1347c13d0192/docs/assets/CONTRIBUTORS.svg)
+![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)
+
 
 ### Star-Gazers Over Time
 
