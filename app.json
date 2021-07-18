@@ -12,6 +12,5 @@
     "home-lab",
     "lissy93"
   ],
-  "image": "heroku/nodejs",
   "stack": "heroku-20"
 }
