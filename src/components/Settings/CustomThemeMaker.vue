@@ -31,6 +31,9 @@
       />
     </div> <!-- End of color list -->
     </div>
+    <p @click="exportToClipboard" class="action-text-btn">
+      Export Custom Variables
+    </p>
     <p @click="resetAndSave" class="action-text-btn show-all-vars-btn">
       Reset Styles for '{{ themeToEdit }}'
     </p>
@@ -101,6 +104,15 @@ export default {
       this.customColors = this.makeInitialData(mainCssVars);
       this.saveChanges();
     },
+    exportToClipboard() {
+      const themeName = this.themeToEdit.replace(/^\w/, c => c.toUpperCase());
+      let clipboardText = `// Custom Colors for ${themeName}\n`;
+      Object.keys(this.customColors).forEach((customVar) => {
+        clipboardText += (`--${customVar}: ${this.customColors[customVar]};\n`);
+      });
+      navigator.clipboard.writeText(clipboardText);
+      this.$toasted.show(`Theme data for ${themeName} copied to clipboard`);
+    },
     /* Returns a JSON object, with the variable name as key, and color as value */
     makeInitialData(variableArray) {
       const data = {};
@@ -168,6 +180,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/styles/style-helpers.scss';
 
 div.theme-configurator-wrapper {
   position: absolute;
@@ -175,7 +188,7 @@ div.theme-configurator-wrapper {
   right: 1rem;
   width: 16rem;
   min-height: 12rem;
-  max-height: 25rem;
+  max-height: 28rem;
   padding: 0.5rem;
   z-index: 5;
   overflow-y: visible;
@@ -193,12 +206,13 @@ div.theme-configurator-wrapper {
   div.color-row-container {
     max-height: 16rem;
     overflow-y: visible;
+    @extend .scroll-bar;
     div.color-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0.25rem 0;
-      &:not(:last-child) { border-bottom: 1px dashed var(--primary); }
+      border-bottom: 1px dashed var(--primary);
       label.color-name {
         text-transform: capitalize;
       }
