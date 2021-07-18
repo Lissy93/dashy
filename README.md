@@ -96,6 +96,7 @@ Dashy supports 1-Click deployments on several popular cloud platforms. To spin u
 - [<img src="https://i.ibb.co/d2P1WZ7/heroku.png" width="18"/> Deploy to Heroku](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
 - [<img src="https://i.ibb.co/Ld2FZzb/vercel.png" width="18"/> Deploy to Vercel](https://vercel.com/new/project?template=https://github.com/lissy93/dashy)
 - [<img src="https://i.ibb.co/xCHtzgh/render.png" width="18"/> Deploy to Render](https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render)
+- [<img src="https://i.ibb.co/J7MGymY/googlecloud.png" width="18"/> Deploy to GCP](https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git)
 - [<img src="https://i.ibb.co/HVWVYF7/docker.png" width="18"/> Deploy to PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
 
 #### Basic Commands
@@ -149,9 +150,15 @@ You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce9
   </a>
 </p>
 
-The app comes with a number of built-in themes, but it's also easy to write you're own. All colors, and most other CSS properties make use of CSS variables, which makes customizing the look and feel of Dashy very easy.
+Dashy comes with a number of built-in themes, but it's also easy to make you're own. All colors, and most other CSS properties are specified using CSS variables, which are [documented here](./docs/theming.md#css-variables). This make modifying styles and customizing the look and feel of Dashy very easy.
 
-You can also apply custom CSS overrides directly through the UI (Under Config menu --> Custom CSS), or specify it in your config file under `appConfig.customCss`. If you have a lot of custom styles, you can pass in the path to a stylesheet, in `appConfig.externalStyleSheet`.
+You can select a theme, and customize it's colors directly through the UI. But it's also possible tp pass in external stylesheets and styles either in the config file (under `appConfig.externalStyleSheet`), or by mounting it to `/app/src/styles/user-defined-themes.scss` with Docker.
+
+<p align="center">
+  <a href="https://i.ibb.co/cLDXj1R/dashy-theme-configurator.gif">
+    <img alt="Example Themes" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/theme-config-demo.gif" width="400" />
+  </a>
+</p>
 
 **[⬆️ Back to Top](#dashy)**
 
