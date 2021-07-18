@@ -24,7 +24,11 @@
 <script>
 
 import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
-import { LoadExternalTheme, ApplyLocalTheme, ApplyCustomTheme } from '@/utils/ThemeHelper';
+import {
+  LoadExternalTheme,
+  ApplyLocalTheme,
+  ApplyCustomVariables,
+} from '@/utils/ThemeHelper';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
 import IconPalette from '@/assets/interface-icons/config-color-palette.svg';
 
@@ -52,7 +56,7 @@ export default {
       themeHelper: new LoadExternalTheme(),
       themeConfiguratorOpen: false, // Control the opening of theme config popup
       ApplyLocalTheme,
-      ApplyCustomTheme,
+      ApplyCustomVariables,
     };
   },
   computed: {
@@ -100,9 +104,7 @@ export default {
     /* Updates theme. Checks if the new theme is local or external,
     and calls appropirate updating function. Updates local storage */
     updateTheme(newTheme) {
-      if (newTheme === 'custom') {
-        this.ApplyCustomTheme();
-      } else if (newTheme === 'Deafault') {
+      if (newTheme === 'Deafault') {
         this.resetToDefault();
         this.themeHelper.theme = 'Deafault';
       } else if (this.isThemeLocal(newTheme)) {
@@ -110,6 +112,7 @@ export default {
       } else {
         this.themeHelper.theme = newTheme;
       }
+      this.ApplyCustomVariables(newTheme);
       localStorage.setItem(localStorageKeys.THEME, newTheme);
     },
     /* Removes any applied themes */

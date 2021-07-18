@@ -80,6 +80,11 @@ module.exports = {
     APP_CONFIG: 'appConfig',
     SECTIONS: 'sections',
   },
+  mainCssVars: ['primary', 'background', 'background-darker'],
+  splashScreenTime: 1900,
+  metaTagData: [
+    { name: 'description', content: 'A simple static homepage for you\'re server' },
+  ],
   toastedOptions: {
     position: 'bottom-center',
     duration: 2500,
@@ -88,10 +93,6 @@ module.exports = {
     iconPack: 'fontawesome',
   },
   backupEndpoint: 'https://dashy-sync-service.as93.net',
-  splashScreenTime: 1900,
-  metaTagData: [
-    { name: 'description', content: 'A simple static homepage for you\'re server' },
-  ],
   faviconApiEndpoints: {
     mcapi: 'https://eu.mc-api.net/v3/server/favicon/$URL',
     clearbit: 'https://logo.clearbit.com/$URL',

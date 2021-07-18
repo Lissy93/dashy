@@ -1,19 +1,27 @@
 import ErrorHandler from '@/utils/ErrorHandler';
 import { getTheme } from '@/utils/ConfigHelpers';
+import { localStorageKeys, mainCssVars } from '@/utils/defaults';
 
 /* Returns users current theme */
 export const GetTheme = () => getTheme();
+
+/* Gets user custom color preferences for current theme, and applies to DOM */
+export const ApplyCustomVariables = (theme) => {
+  mainCssVars.forEach((vName) => { document.documentElement.style.removeProperty(`--${vName}`); });
+  const customColors = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
+  const themeColors = customColors[theme];
+  if (themeColors) {
+    Object.keys(themeColors).forEach((customVar) => {
+      document.documentElement.style.setProperty(`--${customVar}`, themeColors[customVar]);
+    });
+  }
+};
 
 /* Sets the theme, by updating data-theme attribute on the html tag */
 export const ApplyLocalTheme = (newTheme) => {
   const htmlTag = document.getElementsByTagName('html')[0];
   if (htmlTag.hasAttribute('data-theme')) htmlTag.removeAttribute('data-theme');
   htmlTag.setAttribute('data-theme', newTheme);
-};
-
-/* Sets specific CSS variables, for the users custom theme */
-export const ApplyCustomTheme = () => {
-  ApplyLocalTheme('custom');
 };
 
 /**

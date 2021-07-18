@@ -1,6 +1,6 @@
 <template>
   <div :class="`theme-configurator-wrapper ${showingAllVars ? 'showing-all' : ''}`">
-    <h3 class="configurator-title">Custom Configurator</h3>
+    <h3 class="configurator-title">Theme Configurator</h3>
     <div class="color-row-container">
     <div class="color-row" v-for="colorName in Object.keys(customColors)" :key="colorName">
       <label :for="`color-input-${colorName}`" class="color-name">
@@ -31,7 +31,10 @@
       />
     </div> <!-- End of color list -->
     </div>
-    <p @click="findAllVariableNames" class="show-more-variables">
+    <p @click="resetAndSave" class="action-text-btn show-all-vars-btn">
+      Reset Styles for '{{ themeToEdit }}'
+    </p>
+    <p @click="findAllVariableNames" class="action-text-btn">
       Show All Variables
     </p>
     <div class="action-buttons">
@@ -44,13 +47,11 @@
 <script>
 import VSwatches from 'vue-swatches';
 import 'vue-swatches/dist/vue-swatches.css';
-import { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys, mainCssVars } from '@/utils/defaults';
 
 import Button from '@/components/FormElements/Button';
 import SaveIcon from '@/assets/interface-icons/save-config.svg';
 import CancelIcon from '@/assets/interface-icons/config-cancel.svg';
-
-const mainVariables = ['primary', 'background', 'background-darker'];
 
 export default {
   name: 'ThemeMaker',
@@ -62,7 +63,7 @@ export default {
   },
   data() {
     return {
-      customColors: this.makeInitialData(mainVariables),
+      customColors: this.makeInitialData(mainCssVars),
       showingAllVars: false,
     };
   },
@@ -92,7 +93,13 @@ export default {
       variables.forEach((variable) => {
         document.documentElement.style.removeProperty(`--${variable}`);
       });
+      this.customColors = this.makeInitialData(mainCssVars);
       this.$emit('closeThemeConfigurator');
+    },
+    resetAndSave() {
+      this.resetUnsavedColors();
+      this.customColors = this.makeInitialData(mainCssVars);
+      this.saveChanges();
     },
     /* Returns a JSON object, with the variable name as key, and color as value */
     makeInitialData(variableArray) {
@@ -218,7 +225,7 @@ div.theme-configurator-wrapper {
   }
 }
 
-p.show-more-variables {
+p.action-text-btn {
   cursor: pointer;
   margin: 0.5rem auto 0;
   padding: 0.2rem 0.4rem;
@@ -243,6 +250,7 @@ p.show-more-variables {
 
 div.action-buttons {
   display: flex;
+  justify-content: center;
   button {
     min-width: 6rem;
     padding: 0.25rem 0.5rem;
@@ -255,7 +263,7 @@ div.theme-configurator-wrapper.showing-all {
   div.color-row-container {
     overflow: auto;
   }
-  p.show-more-variables {
+  p.show-all-vars-btn {
     display: none;
   }
 }
