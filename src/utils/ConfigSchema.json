@@ -166,6 +166,10 @@
             "type": "string"
           }
         },
+        "customColors": {
+          "type": "object",
+          "description": "Set a custom color palette for any theme"
+        },
         "externalStyleSheet": {
           "description": "URL or URLs of external stylesheets to add to dropdown/ load",
           "type": [
