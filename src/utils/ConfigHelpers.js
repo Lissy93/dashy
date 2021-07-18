@@ -1,5 +1,4 @@
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
-
 import { visibleComponents, localStorageKeys, theme as defaultTheme } from '@/utils/defaults';
 
 /**
@@ -50,4 +49,14 @@ export const getTheme = () => {
   const localTheme = localStorage[localStorageKeys.THEME];
   const appConfigTheme = config.appConfig.theme;
   return localTheme || appConfigTheme || defaultTheme;
+};
+
+/**
+ * Gets any custom styles the user has applied, wither from local storage, or from the config
+ * @returns {object} An array of objects, one for each theme, containing kvps for variables
+ */
+export const getCustomColors = () => {
+  const localColors = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
+  const configColors = config.appConfig.customColors || {};
+  return Object.assign(configColors, localColors);
 };

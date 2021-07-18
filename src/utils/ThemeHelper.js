@@ -1,6 +1,6 @@
 import ErrorHandler from '@/utils/ErrorHandler';
-import { getTheme } from '@/utils/ConfigHelpers';
-import { localStorageKeys, mainCssVars } from '@/utils/defaults';
+import { getTheme, getCustomColors } from '@/utils/ConfigHelpers';
+import { mainCssVars } from '@/utils/defaults';
 
 /* Returns users current theme */
 export const GetTheme = () => getTheme();
@@ -8,8 +8,7 @@ export const GetTheme = () => getTheme();
 /* Gets user custom color preferences for current theme, and applies to DOM */
 export const ApplyCustomVariables = (theme) => {
   mainCssVars.forEach((vName) => { document.documentElement.style.removeProperty(`--${vName}`); });
-  const customColors = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
-  const themeColors = customColors[theme];
+  const themeColors = getCustomColors()[theme];
   if (themeColors) {
     Object.keys(themeColors).forEach((customVar) => {
       document.documentElement.style.setProperty(`--${customVar}`, themeColors[customVar]);
