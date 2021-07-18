@@ -115,7 +115,7 @@ p.quick-note {
   position: relative;
   width: 80%;
   max-width: 24rem;
-  margin: 2rem auto;
+  margin: 1rem auto;
   box-shadow: none;
   right: 0;
   top: 0;

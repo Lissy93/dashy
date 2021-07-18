@@ -99,11 +99,15 @@ export default {
       this.customColors = this.makeInitialData(mainCssVars);
       this.$emit('closeThemeConfigurator');
     },
+    /* Resets styles, and removes data for current theme from local storage */
     resetAndSave() {
+      const priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
+      delete priorSettings[this.themeToEdit];
+      localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
       this.resetUnsavedColors();
-      this.customColors = this.makeInitialData(mainCssVars);
-      this.saveChanges();
+      this.$toasted.show(`Custom Colors for ${this.themeToEdit} Removed`);
     },
+    /* Generates CSS for the currently applied variables, and copys to users clipboard */
     exportToClipboard() {
       const themeName = this.themeToEdit.replace(/^\w/, c => c.toUpperCase());
       let clipboardText = `// Custom Colors for ${themeName}\n`;

@@ -10,7 +10,7 @@
 import SideBar from '@/components/Workspace/SideBar';
 import WebContent from '@/components/Workspace/WebContent';
 import Defaults from '@/utils/defaults';
-import { ApplyLocalTheme, GetTheme } from '@/utils/ThemeHelper';
+import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
 
 export default {
   name: 'Workspace',
@@ -22,6 +22,7 @@ export default {
     url: '', // this.$route.query.url || '',
     GetTheme,
     ApplyLocalTheme,
+    ApplyCustomVariables,
   }),
   components: {
     SideBar,
@@ -32,7 +33,9 @@ export default {
       this.url = url;
     },
     setTheme() {
-      this.ApplyLocalTheme(this.GetTheme());
+      const theme = this.GetTheme();
+      this.ApplyLocalTheme(theme);
+      this.ApplyCustomVariables(theme);
     },
     initiateFontAwesome() {
       const fontAwesomeScript = document.createElement('script');
