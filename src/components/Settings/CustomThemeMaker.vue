@@ -12,6 +12,7 @@
         show-fallback
         fallback-input-type="color"
         popover-x="left"
+        :swatches="swatches"
         @input="setVariable(colorName, customColors[colorName])"
       >
       <input
@@ -50,7 +51,7 @@
 <script>
 import VSwatches from 'vue-swatches';
 import 'vue-swatches/dist/vue-swatches.css';
-import { localStorageKeys, mainCssVars } from '@/utils/defaults';
+import { localStorageKeys, mainCssVars, swatches } from '@/utils/defaults';
 
 import Button from '@/components/FormElements/Button';
 import SaveIcon from '@/assets/interface-icons/save-config.svg';
@@ -68,6 +69,7 @@ export default {
     return {
       customColors: this.makeInitialData(mainCssVars),
       showingAllVars: false,
+      swatches,
     };
   },
   props: {

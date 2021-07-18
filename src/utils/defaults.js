@@ -1,4 +1,5 @@
 module.exports = {
+  /* Default pageInfo object, used if user does not specify their own */
   pageInfo: {
     title: 'Dashy',
     description: '',
@@ -8,12 +9,19 @@ module.exports = {
     ],
     footerText: '',
   },
+  /* Default appConfig to be used, if user does not specify their own */
   appConfig: {},
+  /* Default icon size to be applied on initial load */
   iconSize: 'medium',
+  /* Default layout to be applied on initial load */
   layout: 'auto',
+  /* Default theme to be applied on initial load */
   theme: 'default',
+  /* Default Font-Awesome API key, for FA icons (if used) */
   fontAwesomeKey: '0821c65656',
+  /* Default API to use for fetching of user service favicon icons (if enabled) */
   faviconApi: 'faviconkit',
+  /* List of built-in themes, to be displayed within the theme-switcher dropdown */
   builtInThemes: [
     'callisto',
     'thebe',
@@ -40,6 +48,7 @@ module.exports = {
     'high-contrast-dark',
     'high-contrast-light',
   ],
+  /* Which structural components should be visible by default */
   visibleComponents: {
     pageTitle: true,
     navigation: true,
@@ -47,6 +56,7 @@ module.exports = {
     settings: true,
     footer: true,
   },
+  /* Key names for local storage identifiers */
   localStorageKeys: {
     HIDE_WELCOME_BANNER: 'hideWelcomeHelpers',
     LAYOUT_ORIENTATION: 'layoutOrientation',
@@ -62,12 +72,15 @@ module.exports = {
     HIDE_SETTINGS: 'hideSettings',
     USERNAME: 'username',
   },
+  /* Key names for cookie identifiers */
   cookieKeys: {
     AUTH_TOKEN: 'authenticationToken',
   },
+  /* Key names for session storage identifiers */
   sessionStorageKeys: {
     SW_STATUS: 'serviceWorkerStatus',
   },
+  /* Unique IDs of modals within the app */
   modalNames: {
     CONF_EDITOR: 'CONF_EDITOR',
     CLOUD_BACKUP: 'CLOUD_BACKUP',
@@ -75,16 +88,21 @@ module.exports = {
     THEME_MAKER: 'THEME_MAKER',
     ABOUT_APP: 'ABOUT_APP',
   },
+  /* Key names for the top-level objects in conf.yml */
   topLevelConfKeys: {
     PAGE_INFO: 'pageInfo',
     APP_CONFIG: 'appConfig',
     SECTIONS: 'sections',
   },
+  /* Which CSS variables to show in the first view of theme configurator */
   mainCssVars: ['primary', 'background', 'background-darker'],
+  /* Amount of time to show splash screen, when enabled, in milliseconds */
   splashScreenTime: 1900,
+  /* Page meta-data, rendered in the header of each view */
   metaTagData: [
     { name: 'description', content: 'A simple static homepage for you\'re server' },
   ],
+  /* Default option for Toast messages */
   toastedOptions: {
     position: 'bottom-center',
     duration: 2500,
@@ -92,7 +110,9 @@ module.exports = {
     className: 'toast-message',
     iconPack: 'fontawesome',
   },
+  /* Server location of the Backup & Sync cloud function */
   backupEndpoint: 'https://dashy-sync-service.as93.net',
+  /* Available services for fetching favicon icon for user apps */
   faviconApiEndpoints: {
     mcapi: 'https://eu.mc-api.net/v3/server/favicon/$URL',
     clearbit: 'https://logo.clearbit.com/$URL',
@@ -102,4 +122,14 @@ module.exports = {
     allesedv: 'https://f1.allesedv.com/128/$URL',
     webmasterapi: 'https://api.webmasterapi.com/v1/favicon/yEwx0ZFs0CSPshHq/$URL',
   },
+  /* Available built-in colors for the theme builder */
+  swatches: [
+    ['#eb5cad', '#985ceb', '#5346f3', '#5c90eb'],
+    ['#5cdfeb', '#00CCB4', '#5ceb8d', '#afeb5c'],
+    ['#eff961', '#ebb75c', '#eb615c', '#eb2d6c'],
+    ['#060913', '#141b33', '#1c2645', '#263256'],
+    ['#2b2d42', '#1a535c', '#372424', '#312437'],
+    ['#f5f5f5', '#d9d9d9', '#bfbfbf', '#9a9a9a'],
+    ['#636363', '#363636', '#313941', '#0d0d0d'],
+  ],
 };
