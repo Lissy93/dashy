@@ -53,6 +53,7 @@ module.exports = {
     COLLAPSE_STATE: 'collapseState',
     ICON_SIZE: 'iconSize',
     THEME: 'theme',
+    CUSTOM_COLORS: 'customColors',
     CONF_SECTIONS: 'confSections',
     PAGE_INFO: 'pageInfo',
     APP_CONFIG: 'appConfig',

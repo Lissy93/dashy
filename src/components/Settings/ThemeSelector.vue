@@ -15,6 +15,7 @@
     />
     <CustomThemeMaker
       v-if="themeConfiguratorOpen"
+      :themeToEdit="selectedTheme"
       @closeThemeConfigurator="closeThemeConfigurator()"
     />
   </div>

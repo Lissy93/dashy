@@ -1,5 +1,5 @@
 <template>
-  <div class="theme-configurator-wrapper">
+  <div :class="`theme-configurator-wrapper ${showingAllVars ? 'showing-all' : ''}`">
     <h3 class="configurator-title">Custom Configurator</h3>
     <div class="color-row-container">
     <div class="color-row" v-for="colorName in Object.keys(customColors)" :key="colorName">
@@ -31,11 +31,11 @@
       />
     </div> <!-- End of color list -->
     </div>
-    <p @click="findAllVariableNames" :class="`show-more-variables ${showingAllVars ? 'hide' : ''}`">
+    <p @click="findAllVariableNames" class="show-more-variables">
       Show All Variables
     </p>
     <div class="action-buttons">
-      <Button><SaveIcon />Save</Button>
+      <Button :click="saveChanges"><SaveIcon />Save</Button>
       <Button :click="resetUnsavedColors"><CancelIcon />Cancel</Button>
     </div>
   </div>
@@ -44,6 +44,7 @@
 <script>
 import VSwatches from 'vue-swatches';
 import 'vue-swatches/dist/vue-swatches.css';
+import { localStorageKeys } from '@/utils/defaults';
 
 import Button from '@/components/FormElements/Button';
 import SaveIcon from '@/assets/interface-icons/save-config.svg';
@@ -65,10 +66,25 @@ export default {
       showingAllVars: false,
     };
   },
+  props: {
+    themeToEdit: String,
+  },
   methods: {
+    /* Finds the current dominent value for a given CSS variable */
+    getCssVariableValue(cssVar) {
+      return getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim() || 'inherit';
+    },
     /* Sets the value to a given variable in the DOM */
     setVariable(variable, value) {
       document.documentElement.style.setProperty(`--${variable}`, value);
+    },
+    /* Saves the users omdified variables in local storage */
+    saveChanges() {
+      const priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
+      priorSettings[this.themeToEdit] = this.customColors;
+      localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
+      this.$toasted.show('Theme Updates Succesfully');
+      this.$emit('closeThemeConfigurator');
     },
     /* Itterates over available variables, removing them from the DOM */
     resetUnsavedColors() {
@@ -77,10 +93,6 @@ export default {
         document.documentElement.style.removeProperty(`--${variable}`);
       });
       this.$emit('closeThemeConfigurator');
-    },
-    /* Finds the current dominent value for a given CSS variable */
-    getCssVariableValue(cssVar) {
-      return getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim() || 'inherit';
     },
     /* Returns a JSON object, with the variable name as key, and color as value */
     makeInitialData(variableArray) {
@@ -93,19 +105,7 @@ export default {
       });
       return data;
     },
-    isColor(variableName, variableValue) {
-      const nonColorVariables = [
-        '--curve-factor', '--curve-factor-navbar', '--curve-factor-small',
-        '--dimming-factor', '--scroll-bar-width', '--header-height', '--footer-height',
-        '--item-group-padding', '--item-shadow', '--item-hover-shadow:', '--item-icon-transform',
-        '--item-icon-transform-hover', '--item-group-shadow', '--context-menu-shadow',
-        '--settings-container-shadow', '--side-bar-width',
-      ];
-      if ((/rem|px/.exec(variableValue))) return false;
-      if (nonColorVariables.includes(`--${variableName}`)) return false;
-      return true;
-    },
-    /* If a builtin theme is applied, grab it's colors */
+    /* Find all available CSS variables for the current applied theme */
     findAllVariableNames() {
       const availableVariables = Array.from(document.styleSheets)
         .filter(sheet => sheet.href === null || sheet.href.startsWith(window.location.origin))
@@ -123,12 +123,12 @@ export default {
       this.customColors = this.makeInitialData(availableVariables);
       this.showingAllVars = true;
     },
-    /* Returns a complmenting text color for the palete foreground */
+    /* Returns a complmenting text color for the palete input foreground */
     /* White if the color is dark, otherwise black */
     getForegroundColor(colorHex) {
       const hexToRgb = (hex) => {
         const colorParts = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        if (!colorParts || colorParts.length < 3) return 'pink';
+        if (!colorParts || colorParts.length < 3) return 'black';
         const parse = (index) => parseInt(colorParts[index], 16);
         return colorParts ? { r: parse(1), g: parse(2), b: parse(3) } : null;
       };
@@ -140,6 +140,21 @@ export default {
       const contrastingColor = this.getForegroundColor(this.customColors[colorName]);
       return `background:${this.customColors[colorName]};`
       + `color:${contrastingColor}; border: 1px solid ${contrastingColor}`;
+    },
+    /* Determines if a given variable should NOT use the color picker component */
+    isColor(variableName, variableValue) {
+      // If value is a dimension, then it aint a color
+      if ((/rem|px|%/.exec(variableValue))) return false;
+      const nonColorVariables = [ // Known non-color variables
+        '--curve-factor', '--curve-factor-navbar', '--curve-factor-small',
+        '--dimming-factor', '--scroll-bar-width', '--header-height', '--footer-height',
+        '--item-group-padding', '--item-shadow', '--item-hover-shadow:', '--item-icon-transform',
+        '--item-icon-transform-hover', '--item-group-shadow', '--context-menu-shadow',
+        '--settings-container-shadow', '--side-bar-width',
+      ];
+      // If the variable name is known to not be a color (in above list)
+      if (nonColorVariables.includes(`--${variableName}`)) return false;
+      return true; // It must be a color, we'll use the color picker
     },
   },
 };
@@ -156,7 +171,7 @@ div.theme-configurator-wrapper {
   max-height: 25rem;
   padding: 0.5rem;
   z-index: 5;
-  overflow-y: auto;
+  overflow-y: visible;
   background: var(--config-settings-background);
   color: var(--config-settings-color);
   border-radius: var(--curve-factor);
@@ -169,8 +184,8 @@ div.theme-configurator-wrapper {
   }
 
   div.color-row-container {
-    overflow: auto;
     max-height: 16rem;
+    overflow-y: visible;
     div.color-row {
       display: flex;
       align-items: center;
@@ -232,6 +247,16 @@ div.action-buttons {
     min-width: 6rem;
     padding: 0.25rem 0.5rem;
     margin: 1rem 0.5rem 0.5rem;
+  }
+}
+
+div.theme-configurator-wrapper.showing-all {
+  overflow: auto;
+  div.color-row-container {
+    overflow: auto;
+  }
+  p.show-more-variables {
+    display: none;
   }
 }
 
