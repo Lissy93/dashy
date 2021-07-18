@@ -482,7 +482,7 @@ html[data-theme='material'], html[data-theme='material-dark'] {
 html[data-theme='material'] {
   --primary: #363636;
   --background: #f5f5f5;
-  --background-darker: #4285f4;
+  --background-darker: #5c90eb;
   --item-group-outer-background: none;
   --item-group-shadow: none;
   --item-group-background: none;
@@ -744,7 +744,9 @@ html[data-theme='vaporware'] {
   // body {
   //   background: url('https://i.ibb.co/JqcJcGK/vaporwave-sunset-wallpaper.jpg');
   //   background-size: cover;
-  //   div.home { background: none; }
+  //   div.home, div.options-outer, div.options-container, section.filter-container {
+  //     background: none;
+  //   }
   // }
 }
 
@@ -774,4 +776,48 @@ html[data-theme='cyberpunk'] {
 --welcome-popup-background: var(--pink);
 --welcome-popup-text-color: var(--blue);
 --font-headings: 'Audiowide', cursive;
+}
+
+html[data-theme="oblivion"],
+html[data-theme="oblivion-blue"],
+html[data-theme="oblivion-mint"],
+html[data-theme="oblivion-lemon"],
+html[data-theme="oblivion-scotch"] {
+  --primary: #f35151;
+  --background: #1b2431;
+  --background-darker: #121a25;
+  --item-group-outer-background: none;
+  --item-group-shadow: none;
+  --item-group-background: none;
+  --item-background: var(--background-darker);
+  --item-background-hover: var(--background-darker);
+  --item-shadow: 0 1px 5px #18191a;
+  --item-hover-shadow: 2px 2px 3px #040505;
+  --item-group-heading-text-color-hover: var(--primary);
+  --nav-link-background-color: var(--background);
+  --curve-factor: 3px;
+  --curve-factor-navbar: 6px;
+  --item-group-heading-text-color: var(--primary);
+  --about-page-background: var(--background);
+  --about-page-color: var(--primary);
+  div.item-wrapper a.item {
+    border: 1px solid #313d4f;
+  }
+  section.filter-container form input#filter-tiles {
+    border: 1px solid #313d4f;
+    box-shadow: 0 1px 5px #0c0d0e;
+  }
+}
+
+html[data-theme="oblivion-blue"] {
+  --primary: #82a5f3;
+}
+html[data-theme="oblivion-mint"] {
+  --primary: #4acfd4;
+}
+html[data-theme="oblivion-lemon"] {
+  --primary: #d0ed87;
+}
+html[data-theme="oblivion-scotch"] {
+  --primary: #d69e3a;
 }

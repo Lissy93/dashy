@@ -331,6 +331,7 @@ p.small-screen-note {
   height: -webkit-fill-available;
   height: -moz-available;
   height: stretch;
+  height: 100%; // Firefox
 }
 
 .tab-item {

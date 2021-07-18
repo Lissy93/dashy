@@ -33,6 +33,32 @@ Finally, from the UI use the theme dropdown menu to select your new theme, and y
 
 You can also set `appConfig.theme` to pre-select a default theme, which will be applied immediately after deployment.
 
+### Modifying Theme Colors
+
+Themes can be modified either through the UI, using the color picker menu (to the right of the theme dropdown), or directly in the config file, under `appConfig.customColors`. Here you can specify the value for any of the [available CSS variables](#css-variables).
+
+<p align="center">
+  <a href="https://i.ibb.co/cLDXj1R/dashy-theme-configurator.gif">
+    <img alt="Example Themes" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/theme-config-demo.gif" width="400" />
+  </a>
+</p>
+
+By default, any color modifications made to the current theme through the UI will only be applied locally. If you need these settings to be set globally, then click the 'Export' button, to get the color codes and variable names, which can then be backed up, or saved in your config file.
+
+Custom colors are saved relative the the base theme selected. So if you switch themes after setting custom colors, then you're settings will no longer be applied. You're changes are not lost though, and switching back to the original theme will see your styles reapplied.
+
+If these values are specified in your `conf.yml` file, then it will look something like the below example. Note that in YAML, values or keys which contain special characters, must be wrapped in quotes.
+
+```yaml
+appConfig:
+  customColors:
+    oblivion:
+      primary: '#75efff'
+      background: '#2a3647'
+    dracula:
+      primary: '#8be9fd'
+```
+
 ### Adding your own Theme
 
 User-defined styles and custom themes should be defined in `./src/styles/user-defined-themes.scss`. If you're using Docker, you can pass your own stylesheet in using the `--volume` flag. E.g. `v ./my-themes.scss:/app/src/styles/user-defined-themes.scss`. Don't forget to pass your theme name into `appConfig.cssThemes` so that it shows up on the theme-switcher dropdown.
@@ -83,7 +109,7 @@ CSS variables are simple to use. You define them like: `--background: #fff;` and
 You can determine the variable used by any given element, and visualize changes using the browser developer tools (Usually opened with `F12`, or Options --> More --> Developer Tools). Under the elements tab, click the Element Selector icon (usually top-left corner), you will then be able to select any DOM element on the page by hovering and clicking it. In the CSS panel you will see all styles assigned to that given element, including CSS variables. Click a variable to see it's parent value, and for color attributes, click the color square to modify the color. For more information, see this [getting started guide](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools), and these articles on [selecting elements](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Select_an_element) and [inspecting and modifying colors](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Inspect_and_select_colors).
 
 #### Top-Level Variables
-These are all that are required to create a theme. All other variables inherit their values from these variables.
+These are all that are required to create a theme. All other variables inherit their values from these variables, and can optionally be overridden.
 
 - `--primary` - Application primary color. Used for title, text, accents, and other features
 - `--background` - Application background color

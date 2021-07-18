@@ -123,6 +123,16 @@ https://vercel.com/new/project?template=https://github.com/lissy93/dashy
 https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean
 ```
 
+#### Google Cloud Platform <img src="https://i.ibb.co/J7MGymY/googlecloud.png" width="24"/>
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git)
+
+[Cloud Run](https://cloud.google.com/run/) is a service offered by [Google Cloud](https://cloud.google.com/). It's a fully managed serverless platform, for developing and deploying highly scalable containerized applications. Similar to AWS and Azure, GCP offers a wide range of cloud services, which are billed on a pay‐per‐use basis, but Cloud Run has a [free tier](https://cloud.google.com/run/pricing) offering 180,000 vCPU-seconds, 360,000 GiB-seconds, and 2 million requests per month.
+
+To deploy Dashy to GCP, use the following link
+```
+https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git
+```
+
 #### Platform.sh <img src="https://i.ibb.co/GdfvH3Z/platformsh.png" width="24"/>
 [![Deploy to Platform.sh](https://platform.sh/images/deploy/deploy-button-lg-blue.svg)](https://console.platform.sh/projects/create-project/?template=https://github.com/lissy93/dashy&utm_campaign=deploy_on_platform?utm_medium=button&utm_source=affiliate_links&utm_content=https://github.com/lissy93/dashy)
 

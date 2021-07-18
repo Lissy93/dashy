@@ -155,12 +155,12 @@ export default {
   i.fas, i.fab, i.far, i.fal, i.fad {
     font-size: 2rem;
     color: currentColor;
-    margin: 1px auto 4px;
+    margin: 1px 4px;
     &.small {
       font-size: 1.5rem;
     }
     &.large {
-      font-size: 3rem;
+      font-size: 2.5rem;
     }
   }
   object.tile-icon {

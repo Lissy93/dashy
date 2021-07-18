@@ -9,7 +9,8 @@
 
 import SideBar from '@/components/Workspace/SideBar';
 import WebContent from '@/components/Workspace/WebContent';
-import Defaults, { localStorageKeys } from '@/utils/defaults';
+import Defaults from '@/utils/defaults';
+import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
 
 export default {
   name: 'Workspace',
@@ -19,6 +20,9 @@ export default {
   },
   data: () => ({
     url: '', // this.$route.query.url || '',
+    GetTheme,
+    ApplyLocalTheme,
+    ApplyCustomVariables,
   }),
   components: {
     SideBar,
@@ -29,10 +33,9 @@ export default {
       this.url = url;
     },
     setTheme() {
-      const theme = localStorage[localStorageKeys.THEME] || this.confTheme || Defaults.theme;
-      const htmlTag = document.getElementsByTagName('html')[0];
-      if (htmlTag.hasAttribute('data-theme')) htmlTag.removeAttribute('data-theme');
-      htmlTag.setAttribute('data-theme', theme);
+      const theme = this.GetTheme();
+      this.ApplyLocalTheme(theme);
+      this.ApplyCustomVariables(theme);
     },
     initiateFontAwesome() {
       const fontAwesomeScript = document.createElement('script');

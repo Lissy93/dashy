@@ -1,5 +1,6 @@
 <template>
-  <div class="theme-selector-section" v-if="themes" >
+  <div class="theme-selector-section" v-click-outside="closeThemeConfigurator">
+    <div>
     <span class="theme-label">Theme</span>
     <v-select
       :options="themeNames"
@@ -7,41 +8,69 @@
       class="theme-dropdown"
       :tabindex="-2"
     />
+    </div>
+    <IconPalette
+      class="color-button"
+      @click="openThemeConfigurator"
+    />
+    <CustomThemeMaker
+      v-if="themeConfiguratorOpen"
+      :themeToEdit="selectedTheme"
+      @closeThemeConfigurator="closeThemeConfigurator()"
+    />
   </div>
 </template>
 
 <script>
 
-import ThemeHelper from '@/utils/ThemeHelper';
+import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
+import {
+  LoadExternalTheme,
+  ApplyLocalTheme,
+  ApplyCustomVariables,
+} from '@/utils/ThemeHelper';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
+import IconPalette from '@/assets/interface-icons/config-color-palette.svg';
 
 export default {
   name: 'ThemeSelector',
   props: {
-    themes: Object,
+    externalThemes: Object,
     confTheme: String,
     userThemes: Array,
   },
+  components: {
+    CustomThemeMaker,
+    IconPalette,
+  },
   watch: {
-    selectedTheme(newTheme) { this.updateTheme(newTheme); },
+    /* When the theme changes, then call the update method */
+    selectedTheme(newTheme) {
+      this.updateTheme(newTheme);
+    },
   },
   data() {
     return {
       selectedTheme: this.getInitialTheme(),
-      themeHelper: new ThemeHelper(),
-      loading: true,
-      builtInThemes: this.userThemes.concat(Defaults.builtInThemes),
+      builtInThemes: [...Defaults.builtInThemes, ...this.userThemes],
+      themeHelper: new LoadExternalTheme(),
+      themeConfiguratorOpen: false, // Control the opening of theme config popup
+      ApplyLocalTheme,
+      ApplyCustomVariables,
     };
   },
   computed: {
+    /* Combines all theme names (builtin and user defined) together */
     themeNames: function themeNames() {
-      const externalThemeNames = Object.keys(this.themes);
-      return externalThemeNames.concat(this.builtInThemes);
+      const externalThemeNames = Object.keys(this.externalThemes);
+      const specialThemes = ['custom'];
+      return [...externalThemeNames, ...this.builtInThemes, ...specialThemes];
     },
   },
   created() {
-    const added = Object.keys(this.themes).map(
-      name => this.themeHelper.add(name, this.themes[name]),
+    // Pass all user custom stylesheets to the themehelper
+    const added = Object.keys(this.externalThemes).map(
+      name => this.themeHelper.add(name, this.externalThemes[name]),
     );
     // Quicker loading, if the theme is local we can apply it immidiatley
     if (this.isThemeLocal(this.selectedTheme)) {
@@ -54,18 +83,23 @@ export default {
     }
   },
   methods: {
-    /* Sets the theme, by updating data-theme attribute on the html tag */
-    setLocalTheme(newTheme) {
-      const htmlTag = document.getElementsByTagName('html')[0];
-      if (htmlTag.hasAttribute('data-theme')) htmlTag.removeAttribute('data-theme');
-      htmlTag.setAttribute('data-theme', newTheme);
-    },
     /* Get default theme */
     getInitialTheme() {
       return localStorage[localStorageKeys.THEME] || this.confTheme || Defaults.theme;
     },
+    /* Determines if a given theme is local / not a custom user stylesheet */
     isThemeLocal(themeToCheck) {
       return this.builtInThemes.includes(themeToCheck);
+    },
+    /* Opens the theme color configurator popup */
+    openThemeConfigurator() {
+      this.$emit('modalChanged', true);
+      this.themeConfiguratorOpen = true;
+    },
+    /* Closes the theme color configurator popup */
+    closeThemeConfigurator() {
+      this.$emit('modalChanged', false);
+      this.themeConfiguratorOpen = false;
     },
     /* Updates theme. Checks if the new theme is local or external,
     and calls appropirate updating function. Updates local storage */
@@ -74,12 +108,14 @@ export default {
         this.resetToDefault();
         this.themeHelper.theme = 'Deafault';
       } else if (this.isThemeLocal(newTheme)) {
-        this.setLocalTheme(newTheme);
+        this.ApplyLocalTheme(newTheme);
       } else {
         this.themeHelper.theme = newTheme;
       }
+      this.ApplyCustomVariables(newTheme);
       localStorage.setItem(localStorageKeys.THEME, newTheme);
     },
+    /* Removes any applied themes */
     resetToDefault() {
       document.getElementsByTagName('html')[0].removeAttribute('data-theme');
     },
@@ -95,7 +131,7 @@ export default {
   div.vs__dropdown-toggle {
     border-color: var(--settings-text-color);
     border-radius: var(--curve-factor);
-    min-width: 10rem;
+    width: 8rem;
     height: 1.8rem;
     font-size: 0.85rem;
     cursor: pointer;
@@ -111,6 +147,8 @@ export default {
     width: auto;
     background: var(--background);
     z-index: 5;
+    max-width: 13rem;
+    overflow-x: hidden;
   }
   li.vs__dropdown-option--highlight {
     background: var(--settings-text-color);
@@ -123,13 +161,33 @@ export default {
 
 .theme-selector-section {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   height: 100%;
   span.theme-label {
     font-size: 1rem;
     color: var(--settings-text-color);
     margin: 1px 0 2px 0;
+  }
+}
+
+svg.color-button {
+  path {
+    fill: var(--settings-text-color);
+  }
+  width: 1rem;
+  height: 1rem;
+  padding: 0.2rem;
+  margin: 0.5rem;
+  align-self: flex-end;
+  text-align: center;
+  background: var(--background);
+  border: 1px solid var(--settings-text-color);;
+  border-radius: var(--curve-factor);
+  cursor: pointer;
+  &:hover, &.selected {
+    background: var(--settings-text-color);
+    path { fill: var(--background); }
   }
 }
 

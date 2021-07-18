@@ -1,5 +1,5 @@
 <template>
-  <div class="json-editor-outer">
+  <div class="css-editor-outer">
     <prism-editor class="my-editor" v-model="customCss" :highlight="highlighter" line-numbers />
     <button class="save-button" @click="save()">Save Changes</button>
     <p class="quick-note">
@@ -7,10 +7,13 @@
       Styles overides are only stored locally, so it is reccomended to make a copy of your CSS.
       To remove all custom styles, delete the contents and hit Save Changes
     </p>
+    <CustomThemeMaker :themeToEdit="currentTheme" class="color-config" />
   </div>
 </template>
 
 <script>
+import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
+import { getTheme } from '@/utils/ConfigHelpers';
 import { PrismEditor } from 'vue-prism-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-css';
@@ -25,11 +28,13 @@ export default {
     config: Object,
   },
   components: {
+    CustomThemeMaker,
     PrismEditor,
   },
   data() {
     return {
       customCss: this.config.appConfig.customCss || '\n\n\n\n\n',
+      currentTheme: getTheme(),
     };
   },
   methods: {
@@ -65,6 +70,11 @@ export default {
 
 <style lang="scss">
 
+div.css-editor-outer {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
 button.save-button {
   padding:  0.5rem 1rem;
   margin: 0.25rem auto;
@@ -96,6 +106,24 @@ p.quick-note {
   margin: 1rem auto;
   padding: 0.5rem;
   border-radius: var(--curve-factor);
+}
+
+.color-config.theme-configurator-wrapper {
+  border: 1px solid var(--config-settings-color);
+  background: var(--config-settings-background);
+  color: var(--config-settings-color);
+  position: relative;
+  width: 80%;
+  max-width: 24rem;
+  margin: 1rem auto;
+  box-shadow: none;
+  right: 0;
+  top: 0;
+  max-height: unset;
+  .color-row-container {
+    text-align: left;
+    max-height: unset;
+  }
 }
 
 </style>
