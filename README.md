@@ -17,17 +17,18 @@
 ## Features 🌈
 
 - Instant search by name, domain and tags - just start typing
-- Full keyboard shortcuts for navigation, searching and launching
-- Multiple color themes, with easy method for adding more
-- Easy to customize every part of your dashboard, layout, icon sizes and colors etc
-- Many options for icons, including full Font-Awesome support and the ability to auto-fetch icon from URLs favicon
+- Full customizable keyboard shortcuts for navigation, filtering and launching apps
+- Multiple built-in color themes, with UI color configurator and support for custom CSS
+- Easy to customize every part of your dashboard, layout, icon sizes, behavior and colors etc
+- Many options for icons, including Font-Awesome support, auto-fetching service favicon, images and emojis
 - Option to show service status for each of your apps / links, for basic availability and uptime monitoring
 - Multiple ways of opening apps, either in your browser, a pop-up modal or workspace view
 - Option for full-screen background image, custom nav-bar links, html footer, title, and more
 - Encrypted cloud backup and restore feature available
-- Optional authentication, requiring user to log in
-- Easy single-file YAML-based configuration
+- Optional authentication, requiring admins and non-privileged users to log in
+- Easy single-file YAML-based configuration, which can also be configured directly through the UI
 - Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
+- Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
 - Plus lots more...
 
 ## Demo ⚡
@@ -263,6 +264,29 @@ Here's a quick demo of the workspace view:
 <p align="center">
   <img alt="Workspace view demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/workspace-demo.gif" width="600" />
 </p>
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
+## Searching and Shortcuts 🔎
+
+Quickly finding and launching applications is the primary aim of Dashy. To that end instant search and customizable keyboard shortcuts are built-in.
+
+To start filtering, just start typing. No need to select the search bar or use any special key. You can then use either the tab key or arrow keys to select and move between results, and hit enter to launch the currently selected application. You can also use `Alt + Enter` on a selected app to launch it in a popup modal, `Ctrl + Enter` to open in new tab, or right-click on it to see all opening methods.
+
+For apps that you use regularly, you can set a custom keybinding. Use the `hotkey` parameter on a certain item to specify a numeric key, between `0 - 9`. You can then launch that app, by just pressing that key, which is very useful for services you use frequently.
+
+Example:
+
+```yaml
+- title: Bookstack
+  icon: far fa-books
+  url: https://bookstack.local/
+  hotkey: 8
+```
+
+Hit `Esc` at anytime to close any open apps, clear the search field, or hide any modals.
 
 **[⬆️ Back to Top](#dashy)**
 

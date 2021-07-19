@@ -20,8 +20,9 @@
       <Icon :icon="icon" :url="url" :size="itemSize" :color="color"
         v-bind:style="customStyles" class="bounce" />
       <!-- Small icon, showing opening method on hover -->
-      <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon" :openingMethod="target"
-        :position="itemSize === 'medium'? 'bottom right' : 'top right'"/>
+      <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon || itemSize === 'small'"
+        :openingMethod="target"  :position="itemSize === 'medium'? 'bottom right' : 'top right'"
+        :hotkey="hotkey" />
       <!-- Status indicator dot (if enabled) showing weather srevice is availible -->
       <StatusIndicator
         class="status-indicator"
@@ -60,6 +61,7 @@ export default {
     color: String, // Optional text and icon color, specified in hex code
     backgroundColor: String, // Optional item background color
     url: String, // URL to the resource, optional but recommended
+    hotkey: Number, // Shortcut for quickly launching app
     target: { // Where resource will open, either 'newtab', 'sametab' or 'modal'
       type: String,
       default: 'newtab',
@@ -119,9 +121,10 @@ export default {
     },
     /* Returns configuration object for the tooltip */
     getTooltipOptions() {
+      const hotkeyText = this.hotkey ? `\nPress '${this.hotkey}' to launch` : '';
       return {
         disabled: !this.description,
-        content: this.description,
+        content: this.description + hotkeyText,
         trigger: 'hover focus',
         hideOnTargetClick: true,
         html: false,

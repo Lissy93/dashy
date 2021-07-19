@@ -30,6 +30,7 @@
         :statusCheckUrl="item.statusCheckUrl"
         :statusCheckHeaders="item.statusCheckHeaders"
         :itemSize="newItemSize"
+        :hotkey="item.hotkey"
         :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
         :statusCheckInterval="getStatusCheckInterval()"
         @itemClicked="$emit('itemClicked')"
