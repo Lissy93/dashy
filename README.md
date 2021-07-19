@@ -277,6 +277,15 @@ To start filtering, just start typing. No need to select the search bar or use a
 
 For apps that you use regularly, you can set a custom keybinding. Use the `hotkey` parameter on a certain item to specify a numeric key, between `0 - 9`. You can then launch that app, by just pressing that key, which is very useful for services you use frequently.
 
+Example:
+
+```yaml
+- title: Bookstack
+  icon: far fa-books
+  url: https://bookstack.local/
+  hotkey: 8
+```
+
 Hit `Esc` at anytime to close any open apps, clear the search field, or hide any modals.
 
 **[⬆️ Back to Top](#dashy)**
