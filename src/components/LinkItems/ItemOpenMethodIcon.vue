@@ -1,9 +1,14 @@
 <template>
-  <div :class="makeClass(position, isSmall, isTransparent)">
-    <NewTabOpenIcon v-if="openingMethod === 'newtab'" />
-    <SameTabOpenIcon v-else-if="openingMethod === 'sametab'" />
-    <IframeOpenIcon v-else-if="openingMethod === 'modal'" />
-    <WorkspaceOpenIcon v-else-if="openingMethod === 'workspace'" />
+  <div>
+    <div :class="makeClass(position, isSmall, isTransparent)">
+      <NewTabOpenIcon v-if="openingMethod === 'newtab'" />
+      <SameTabOpenIcon v-else-if="openingMethod === 'sametab'" />
+      <IframeOpenIcon v-else-if="openingMethod === 'modal'" />
+      <WorkspaceOpenIcon v-else-if="openingMethod === 'workspace'" />
+    </div>
+    <div v-if="hotkey" :class="`hotkey-denominator ${makeClass(position, isSmall, isTransparent)}`">
+      {{ hotkey }}
+    </div>
   </div>
 </template>
 
@@ -23,6 +28,7 @@ export default {
     isSmall: Boolean, // If true, will apply small class
     position: String, // Position classes: top, bottom, left, right
     isTransparent: Boolean, // If true, will apply opacity
+    hotkey: Number, // Optional hotkey to also display
   },
   methods: {
     /* Returns custom class string, from optional props */
@@ -49,7 +55,6 @@ export default {
     width: 1rem;
     margin: 2px;
     path {
-      // fill: var(--primary);
       fill: currentColor;
     }
   }
@@ -66,6 +71,19 @@ export default {
   &.transparent svg {
     opacity: 0.5;
   }
+}
+
+div.hotkey-denominator {
+  position: absolute;
+  font-size: 0.8rem;
+  margin: 2px;
+  bottom: 2px;
+  color: currentColor;
+  border-radius: 18px;
+  border: 1px solid currentColor;
+  padding: 0.1rem 0.4rem 0.2rem 0.4rem;
+  &.top { right: 0; } // Position opposite of opening method icon
+  &.bottom { left: 0; }
 }
 
 </style>
