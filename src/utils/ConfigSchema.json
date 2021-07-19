@@ -364,6 +364,10 @@
                   "default": "newtab",
                   "description": "Opening method, when item is clicked"
                 },
+                "hotkey": {
+                  "type": "number",
+                  "description": "A numeric shortcut key, between 0 and 9. Useful for quickly launching frequently used applications"
+                },
                 "color": {
                   "type": "string",
                   "description": "A custom fill color of the item"
