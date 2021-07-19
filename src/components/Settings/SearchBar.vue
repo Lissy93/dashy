@@ -18,6 +18,7 @@
 <script>
 
 import ArrowKeyNavigation from '@/utils/ArrowKeyNavigation';
+import { getCustomKeyShortcuts } from '@/utils/ConfigHelpers';
 
 export default {
   name: 'FilterTile',
@@ -28,6 +29,7 @@ export default {
     return {
       input: '', // Users current search term
       akn: new ArrowKeyNavigation(), // Class that manages arrow key naviagtion
+      getCustomKeyShortcuts,
     };
   },
   mounted() {
@@ -38,8 +40,11 @@ export default {
       if (!this.active) return;
       if (/^[a-zA-Z]$/.test(key) && currentElem !== 'filter-tiles') {
         /* Letter key pressed - start searching */
-        this.$refs.filter.focus();
+        if (this.$refs.filter) this.$refs.filter.focus();
         this.userIsTypingSomething();
+      } else if (/^[0-9]$/.test(key)) {
+        /* Number key pressed, check if user has a custom binding */
+        this.handleHotKey(key);
       } else if (keyCode >= 37 && keyCode <= 40) {
       /* Arrow key pressed - start navigation */
         this.akn.arrowNavigation(keyCode);
@@ -60,6 +65,14 @@ export default {
       this.userIsTypingSomething(); // Emmit new empty value
       document.activeElement.blur(); // Remove focus
       this.akn.resetIndex(); // Reset current element index
+    },
+    handleHotKey(key) {
+      const usersHotKeys = this.getCustomKeyShortcuts();
+      usersHotKeys.forEach((hotkey) => {
+        if (hotkey.hotkey === parseInt(key, 10)) {
+          if (hotkey.url) window.open(hotkey.url, '_blank');
+        }
+      });
     },
   },
 };
