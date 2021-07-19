@@ -60,3 +60,17 @@ export const getCustomColors = () => {
   const configColors = config.appConfig.customColors || {};
   return Object.assign(configColors, localColors);
 };
+
+/**
+ * Returns a list of items which the user has assigned a hotkey to
+ * So that when the hotkey is pressed, the app/ service can be launched
+ */
+export const getCustomKeyShortcuts = () => {
+  const results = [];
+  const sections = config.sections || [];
+  sections.forEach((section) => {
+    const itemsWithHotKeys = section.items.filter(item => item.hotkey);
+    results.push(itemsWithHotKeys.map(item => ({ hotkey: item.hotkey, url: item.url })));
+  });
+  return results.flat();
+};
