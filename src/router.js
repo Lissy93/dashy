@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Workspace from '@/views/Workspace.vue';
+import Minimal from '@/views/Minimal.vue';
 import DownloadConfig from '@/views/DownloadConfig.vue';
 import { isLoggedIn } from '@/utils/Auth';
 import { config } from '@/utils/ConfigHelpers';
@@ -35,6 +36,16 @@ const router = new Router({
       props: config,
       meta: {
         title: config.pageInfo.title || 'Dashy Workspace',
+        metaTags: metaTagData,
+      },
+    },
+    {
+      path: '/minimal',
+      name: 'minimal',
+      component: Minimal,
+      props: config,
+      meta: {
+        title: config.pageInfo.title || 'Dashy Start Page',
         metaTags: metaTagData,
       },
     },
