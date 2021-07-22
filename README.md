@@ -308,13 +308,22 @@ From the Settings Menu in Dashy, you can download, backup, edit and rest your co
 
 Dashy is made up of a series of sections, each containing a series of items.
 
-A section an be collapsed by clicking on it's name. This will cause only the title button to be visible until clicked, which is useful for particularly long sections, or those containing less-used apps. The collapse state for each section will be remembered for the next time you visit.
+Section Features
+- **Basics**: Each section must have a `name` and an array of `items`. Sections can also have an icon e.g. `icon: :rocket:`. This works the same way as item icons, so you can use Font Awesome, static images, emojis, etc.
+- **Collapsing**: A section an be collapsed by clicking on it's name, useful for particularly long or less frequently used sections. Collapse state is remembered for next time you load the page, and you can also set `displayData.collapsed: true` on a given section.
+- **Size**: You can change the size of a given section, by for example setting `displayData.cols: 2` to make a given section span 2 columns/ be double the width. Similarly `displayData.rows` can be used to set the height of a section by making is span more than rows. By default each of these properties are set to `1`
+- **Grid Settings**: Within a given section, you can change how many items are displayed on each row or column, with `displayData.itemCountX` for horizontal count, and `displayData.itemCountY` for vertical count.
+- **Colors**: You can give a custom color to a certain section with `displayData.color`, or pass other styles with `displayData.customStyles`
+- **Layout**: From the UI, you can also choose a layout, either `grid`, `horizontal` or `vertical`, as well as set the size for items, either `small`, `medium` or `large`, and of course set a theme using the dropdown.
+- For full list of section display options, see [`section.displayData` docs](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#sectiondisplaydata-optional).
 
-From the UI, you can also choose a layout, either `grid`, `horizontal` or `vertical`, as well as set the size for items, either `small`, `medium` or `large`, and of course set a theme using the dropdown. All settings specified here will be stored in your browsers local storage, and so won't persist across devices, if you require this then you must set these in the config file instead.
-
-Within each section, you can set custom layout properties with under `displayData`. For example, you can make a given section double the width by making is span 2 columns with `cols: 2`, or specify how many rows it should span with `rows`. You can also set the layout for items within a given section here, for example, use `itemCountX` to define how many items will be on each row within the section. Sections can also have a custom color, specified as a hex code and defined using the `color` attribute. For full options for items, see the [`section.displayData` docs](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#sectiondisplaydata-optional)
-
-Items also have some optional config attributes. As well as `title`, `description`, `URL` and `icon`, you can also specify a specific opening method (`target`), and configure status checks (`statusCheck: true/false`, `statusCheckUrl` and `statusCheckHeaders`), and modify appearance with `color` and `backgroundColor`. For full options for items, see the [`section.item` docs](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#sectionitem)
+Item Features
+- **Basics**:  Items can have a `title`, `description`, `URL` and `icon`.
+- **Key Binding**: You can assign frequently used items a hotkey/ shortcut as a number, to quickly launch that app. E.g. if `hotkey: 6`, then pressing the number 6 will launch that application.
+- **Opening Method**: Setting the `target` attribute will define how an item should be opened by default (either `newtab`, `sametab`, `modal` or `workspace`), or you can right-click on any item to see all options.
+- **Status Checking**: Setting `statusCheck: true` will show a small traffic light next to that item, indicating weather the service is currently up/ online. You can also use a custom URL for status checks, with `statusCheckUrl` or pass some custom headers with `statusCheckHeaders`.
+- **Color**: To change the text color of an item, use `color`, and `backgroundColor` for background.
+- For full list of all item options, see [`section.item` docs](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#sectionitem)
 
 
 **[⬆️ Back to Top](#dashy)**
@@ -344,7 +353,7 @@ pageInfo:
     path: https://server-start.local
   - title: Start Page
     path: https://start-page.local
-  footerText: 'Built with Dashy, by <a href="https://aliciasykes.com">Alicia Sykes</a>, 2021'
+  footerText: 'My <b>Awesome</b> Dashboard. Built with <a href="https://dashy.to">Dashy</a>'
 ```
 
 **[⬆️ Back to Top](#dashy)**
