@@ -1,5 +1,5 @@
 # Caches artifacts, including NPM dependencies, to speed up build times
-name: Caching Primes
+name: Caching Atrifacts
 on: push
 jobs:
   build:
