@@ -34,7 +34,7 @@
     </div>
     <!-- Show message when there's no data to show -->
     <div v-if="checkIfResults()" class="no-data">
-      {{searchValue ? 'No Search Results' : 'No Data Configured'}}
+      {{searchValue ? $t('home.no-results') : $t('home.no-data')}}
     </div>
   </div>
 </template>
