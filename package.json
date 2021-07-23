@@ -40,6 +40,7 @@
     "vue-toasted": "^1.1.28"
   },
   "devDependencies": {
+    "@architect/sandbox": "^3.7.4",
     "@vue/cli-plugin-babel": "^4.5.12",
     "@vue/cli-plugin-eslint": "^4.5.12",
     "@vue/cli-plugin-pwa": "^4.5.12",
