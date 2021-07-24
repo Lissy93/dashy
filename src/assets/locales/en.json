@@ -62,6 +62,12 @@
     "item-size-large": "Large",
     "config-launcher-label": "Config"
   },
+  "language-switcher": {
+    "title": "Change Application Language",
+    "dropdown-label": "Select a Language",
+    "save-button": "Save",
+    "success-msg": "Language Updated to"
+  },
   "theme-maker": {
     "title": "Theme Configurator",
     "export-button": "Export Custom Variables",

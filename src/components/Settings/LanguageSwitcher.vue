@@ -1,7 +1,7 @@
 <template>
   <div class="language-switcher">
-    <h3 class="title">Change Application Language</h3>
-    <p class="intro">Select a Language:</p>
+    <h3 class="title">{{ $t('language-switcher.title') }}</h3>
+    <p class="intro">{{ $t('language-switcher.dropdown-label') }}:</p>
     <v-select
       v-model="language"
       :selectOnTab="true"
@@ -11,7 +11,7 @@
       :input="setLangLocally()"
     />
     <Button class="save-button" :click="saveLanguage" :disallow="!language">
-      Save
+      {{ $t('language-switcher.save-button') }}
       <SaveConfigIcon />
     </Button>
     <p v-if="language">{{ language.flag }} {{ language.name }}</p>
@@ -42,20 +42,24 @@ export default {
     };
   },
   methods: {
+    /* Save language to local storage */
     saveLanguage() {
       const selectedLanguage = this.language;
       if (this.checkLocale(selectedLanguage)) {
         localStorage.setItem(localStorageKeys.LANGUAGE, selectedLanguage.code);
         this.setLangLocally();
-        const successMsg = `${selectedLanguage.flag} Language Updated to ${selectedLanguage.name}`;
+        const successMsg = `${selectedLanguage.flag} `
+          + `${this.$t('language-switcher.success-msg')} ${selectedLanguage.name}`;
         this.$toasted.show(successMsg, { className: 'toast-success' });
       }
     },
+    /* Check language is supported, before saving */
     checkLocale(selectedLanguage) {
       if (!selectedLanguage || !selectedLanguage.code) return false;
       const i18nLocales = this.$i18n.availableLocales;
       return i18nLocales.includes(selectedLanguage.code);
     },
+    /* Apply language locally */
     setLangLocally() {
       if (this.language && this.language.code) {
         this.$i18n.locale = this.language.code;
