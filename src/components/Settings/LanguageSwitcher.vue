@@ -15,6 +15,10 @@
       <SaveConfigIcon />
     </Button>
     <p v-if="language">{{ language.flag }} {{ language.name }}</p>
+    <p v-if="$i18n.availableLocales.length <= 1" class="sad-times">
+      There are not currently any additional languages supported,
+      but stay tuned as more are on their way!
+    </p>
   </div>
 </template>
 
@@ -80,6 +84,11 @@ export default {
   button.save-button {
     margin: 0 auto;
     width: 100%;
+  }
+
+  p.sad-times {
+    color: var(--warning);
+    text-align: center;
   }
 
   .language-dropdown {
