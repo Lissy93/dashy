@@ -18,5 +18,27 @@
     "remember-me-hour": "4 Hours",
     "remember-me-day": "1 Day",
     "remember-me-week": "1 Week"
+  },
+  "cloud-sync": {
+    "title": "Cloud Backup & Restore",
+    "intro-l1": "Cloud backup and restore is an optional feature, that enables you to upload your config to the internet, and then restore it on any other device or instance of Dashy.",
+    "intro-l2": "All data is fully end-to-end encrypted with AES, using your password as the key.",
+    "intro-l3": "For more info, please see the",
+    "backup-title-setup": "Make a Backup",
+    "backup-title-update": "Update Backup",
+    "password-label-setup": "Choose a Password",
+    "password-label-update": "Enter your Password",
+    "backup-button-setup": "Backup",
+    "backup-button-update": "Update Backup",
+    "backup-id-label": "Your Backup ID",
+    "backup-id-note": "This is used to restore from backups later. So keep it, along with your password somewhere safe.",
+    "restore-title": "Restore a Backup",
+    "restore-id-label": "Restore ID",
+    "restore-password-label": "Password",
+    "restore-button": "Restore",
+    "backup-error-unknown": "Unable to process request",
+    "backup-error-password": "Incorrect password. Please enter your current password.",
+    "backup-success-msg": "Completed Successfully",
+    "restore-success-msg": "Config Restored Successfully"
   }
 }
