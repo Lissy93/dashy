@@ -20,6 +20,13 @@
       @closed="$emit('modalChanged', false)" classes="dashy-modal">
       <CloudBackupRestore :config="combineConfig()" />
     </modal>
+
+    <!-- Modal for manually changing locale -->
+    <modal :name="modalNames.LANG_SWITCHER" :resizable="true" width="30%" height="25%"
+      @closed="$emit('modalChanged', false)" classes="dashy-modal">
+      <LanguageSwitcher />
+    </modal>
+
   </div>
 </template>
 
@@ -29,6 +36,7 @@ import IconSpanner from '@/assets/interface-icons/config-editor.svg';
 import IconCloud from '@/assets/interface-icons/cloud-backup-restore.svg';
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
 import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
+import LanguageSwitcher from '@/components/Settings/LanguageSwitcher';
 import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/defaults';
 
 export default {
@@ -43,6 +51,7 @@ export default {
     IconCloud,
     ConfigContainer,
     CloudBackupRestore,
+    LanguageSwitcher,
   },
   props: {
     sections: Array,

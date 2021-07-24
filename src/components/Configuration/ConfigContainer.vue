@@ -21,6 +21,10 @@
           <CloudIcon class="button-icon"/>
           {{backupId ? $t('config.edit-cloud-sync-button') : $t('config.cloud-sync-button') }}
         </button>
+        <button class="config-button center" @click="openLanguageSwitchModal()">
+          <LanguageIcon class="button-icon"/>
+          {{ $t('config.change-language-button') }}
+        </button>
         <button class="config-button center" @click="openRebuildAppModal()">
           <RebuildIcon class="button-icon"/>
           {{ $t('config.rebuild-app-button') }}
@@ -37,6 +41,7 @@
             You are using a very small screen, and some screens in this menu may not be optimal
         </p>
         <p class="app-version">{{ $t('config.app-version-note') }} {{ appVersion }}</p>
+        <p class="language">{{ getLanguage() }}</p>
         <div class="config-note">
           <span>{{ $t('config.backup-note') }}</span>
         </div>
@@ -76,6 +81,7 @@ import 'highlight.js/styles/mono-blue.css';
 
 import JsonToYaml from '@/utils/JsonToYaml';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
+import { getUsersLanguage } from '@/utils/ConfigHelpers';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
 import RebuildApp from '@/components/Configuration/RebuildApp';
@@ -86,6 +92,7 @@ import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
 import CustomCssIcon from '@/assets/interface-icons/config-custom-css.svg';
 import CloudIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
+import LanguageIcon from '@/assets/interface-icons/config-language.svg';
 import IconAbout from '@/assets/interface-icons/application-about.svg';
 
 export default {
@@ -117,6 +124,7 @@ export default {
     EditIcon,
     CloudIcon,
     CustomCssIcon,
+    LanguageIcon,
     RebuildIcon,
     IconAbout,
   },
@@ -134,6 +142,9 @@ export default {
     },
     openCloudSync() {
       this.$modal.show(modalNames.CLOUD_BACKUP);
+    },
+    openLanguageSwitchModal() {
+      this.$modal.show(modalNames.LANG_SWITCHER);
     },
     copyConfigToClipboard() {
       navigator.clipboard.writeText(this.jsonParser(this.config));
@@ -167,6 +178,10 @@ export default {
       hljs.registerLanguage('yaml', yaml);
       const highlighted = hljs.highlight(this.jsonParser(this.config), { language: 'yaml' }).value;
       document.getElementById('conf-yaml').innerHTML = highlighted;
+    },
+    getLanguage() {
+      const lang = getUsersLanguage();
+      return lang ? `${lang.flag} ${lang.name}` : '';
     },
   },
   mounted() {
@@ -217,10 +232,11 @@ a.config-button, button.config-button {
   }
 }
 
-p.app-version {
+p.app-version, p.language {
   margin: 0.5rem auto;
   font-size: 1rem;
   color: var(--transparent-white-50);
+  cursor: default;
 }
 
 div.code-container {
