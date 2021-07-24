@@ -7,5 +7,16 @@
     "search-label": "Search",
     "search-placeholder": "Start typing to filter",
     "clear-search-tooltip": "Clear Search"
+  },
+  "login": {
+    "title": "Dashy",
+    "username-label": "Username",
+    "password-label": "Password",
+    "login-button": "Login",
+    "remember-me-label": "Remember me for",
+    "remember-me-never": "Never",
+    "remember-me-hour": "4 Hours",
+    "remember-me-day": "1 Day",
+    "remember-me-week": "1 Week"
   }
 }
