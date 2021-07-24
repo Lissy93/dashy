@@ -31,6 +31,7 @@
     "cloud-sync-button": "Enable Cloud Sync",
     "edit-cloud-sync-button": "Edit Cloud Sync",
     "rebuild-app-button": "Rebuild Application",
+    "change-language-button": "Change App Language",
     "reset-settings-button": "Reset Local Settings",
     "app-info-button": "App Info",
     "app-version-note": "Dashy version",
