@@ -13,7 +13,7 @@
       :appConfig="appConfig"
       :pageInfo="pageInfo"
       :modalOpen="modalOpen"
-      class="filter-container"
+      class="settings-outer"
     />
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections)"
@@ -27,9 +27,9 @@
         :groupId="`section-${index}`"
         :items="filterTiles(section.items)"
         :itemSize="itemSizeBound"
-         @itemClicked="finishedSearching()"
-         @change-modal-visibility="updateModalVisibility"
-         :class="(filterTiles(section.items).length === 0 && searchValue) ? 'no-results' : ''"
+        @itemClicked="finishedSearching()"
+        @change-modal-visibility="updateModalVisibility"
+        :class="(filterTiles(section.items).length === 0 && searchValue) ? 'no-results' : ''"
       />
     </div>
     <!-- Show message when there's no data to show -->
@@ -63,6 +63,7 @@ export default {
     modalOpen: false, // When true, keybindings are disabled
   }),
   computed: {
+    /* Updates layout (when button clicked), and saves in local storage */
     layoutOrientation: {
       get() { return this.appConfig.layout || Defaults.layout; },
       set: function setLayout(layout) {
@@ -70,6 +71,7 @@ export default {
         this.layout = layout;
       },
     },
+    /* Updates icon size (when button clicked), and saves in local storage */
     iconSize: {
       get() { return this.appConfig.iconSize || Defaults.iconSize; },
       set: function setIconSize(iconSize) {
@@ -192,6 +194,7 @@ export default {
         return itemsFound;
       }
     },
+    /* If user has a background image, then generate CSS attributes */
     getBackgroundImage() {
       if (this.appConfig && this.appConfig.backgroundImg) {
         return `background: url('${this.appConfig.backgroundImg}');background-size:cover;`;
@@ -267,6 +270,7 @@ export default {
   .no-results { display: none; }
 }
 
+/* Custom styles only applied when there is no sections in config */
 .no-data {
     font-size: 2rem;
     color: var(--background);
@@ -277,7 +281,8 @@ export default {
     border-radius: var(--curve-factor);
 }
 
-section.filter-container {
+/* Settings section, includes search, config and user settings */
+section.settings-outer {
   border-bottom: 1px solid var(--outline-color);
   @include phone {
     flex-direction: column;
