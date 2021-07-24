@@ -1,13 +1,20 @@
 // Locales - Import translation files here!
-import enGB from '@/assets/locales/en-GB.json';
+import en from '@/assets/locales/en.json';
+import de from '@/assets/locales/de.json';
 
 // Language data - Add your country name, locale code and imported file here
 export const languages = [
   {
     name: 'English',
-    code: 'en-GB',
-    locale: enGB,
+    code: 'en',
+    locale: en,
     flag: '🇬🇧',
+  },
+  {
+    name: 'German',
+    code: 'de',
+    locale: de,
+    flag: '🇩🇪',
   },
   // Including:
   // name - Human readable name for your language
