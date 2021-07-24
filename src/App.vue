@@ -70,9 +70,30 @@ export default {
         this.isLoading = false;
       }
     },
+    /* Checks local storage, then appConfig, and if a custom language is specified, its applied */
+    applyLanguage() {
+      // If user has specified a language, then check and apply it
+      const lang = localStorage[localStorageKeys.LANGUAGE] || this.appConfig.language;
+      if (lang && this.$i18n.availableLocales.includes(lang)) {
+        this.$i18n.locale = lang;
+      } else {
+        // Attempt to apply language automatically, based on their system language
+        let locale;
+        const usersBorwserLang1 = window.navigator.language || ''; // e.g. en-GB or or ''
+        const usersBorwserLang2 = usersBorwserLang1.split('-')[0]; // e.g. en or undefined
+        const availibleLocales = this.$i18n.availableLocales;
+        if (availibleLocales.includes(usersBorwserLang1)) {
+          locale = usersBorwserLang1;
+        } else if (availibleLocales.includes(usersBorwserLang2)) {
+          locale = usersBorwserLang2;
+        }
+        if (locale) this.$i18n.locale = locale; // If lanuage was found, apply it
+      }
+    },
   },
   /* When component mounted, hide splash and initiate the injection of custom styles */
   mounted() {
+    this.applyLanguage();
     this.hideSplash();
     if (this.appConfig.customCss) {
       const cleanedCss = this.appConfig.customCss.replace(/<\/?[^>]+(>|$)/g, '');

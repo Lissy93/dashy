@@ -14,7 +14,7 @@ import Dashy from '@/App.vue';
 import router from '@/router';
 import registerServiceWorker from '@/registerServiceWorker';
 import clickOutside from '@/utils/ClickOutside';
-import { toastedOptions } from '@/utils/defaults';
+import { toastedOptions, language as defaultLanguage } from '@/utils/defaults';
 import { messages } from '@/utils/languages';
 
 Vue.use(VueI18n);
@@ -29,8 +29,8 @@ Vue.config.productionTip = false;
 
 // Setup i18n translations
 const i18n = new VueI18n({
-  locale: 'en-GB',
-  fallbackLocale: 'en-GB',
+  locale: defaultLanguage,
+  fallbackLocale: defaultLanguage,
   messages,
 });
 
