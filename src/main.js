@@ -15,9 +15,7 @@ import router from '@/router';
 import registerServiceWorker from '@/registerServiceWorker';
 import clickOutside from '@/utils/ClickOutside';
 import { toastedOptions } from '@/utils/defaults';
-
-// Locales - Import translation files here!
-import en from '@/assets/locales/en-GB.json';
+import { messages } from '@/utils/languages';
 
 Vue.use(VueI18n);
 Vue.use(VTooltip);
@@ -29,12 +27,10 @@ Vue.directive('clickOutside', clickOutside);
 
 Vue.config.productionTip = false;
 
-// Setup translations
-const messages = { en }; // <-- Add new language files here!
-
+// Setup i18n translations
 const i18n = new VueI18n({
-  locale: 'en',
-  fallbackLocale: 'en',
+  locale: 'en-GB',
+  fallbackLocale: 'en-GB',
   messages,
 });
 
