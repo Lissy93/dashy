@@ -1,5 +1,11 @@
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
-import { visibleComponents, localStorageKeys, theme as defaultTheme } from '@/utils/defaults';
+import { languages } from '@/utils/languages';
+import {
+  visibleComponents,
+  localStorageKeys,
+  theme as defaultTheme,
+  language as defaultLanguage,
+} from '@/utils/defaults';
 
 /**
  * Initiates the Accumulator class and generates a complete config object
@@ -73,4 +79,16 @@ export const getCustomKeyShortcuts = () => {
     results.push(itemsWithHotKeys.map(item => ({ hotkey: item.hotkey, url: item.url })));
   });
   return results.flat();
+};
+
+/**
+ * Gets the users chosen language. Defaults to English.
+ * @returns {object} Language, including code, name and flag
+ */
+export const getUsersLanguage = () => {
+  const langCode = localStorage[localStorageKeys.LANGUAGE]
+    || config.appConfig.language
+    || defaultLanguage;
+  const langObj = languages.find(lang => lang.code === langCode);
+  return langObj;
 };
