@@ -1,10 +1,10 @@
 <template>
   <div class="config-options">
     <!-- Button and label -->
-    <span>Config</span>
+    <span>{{ $t('settings.config-launcher-label') }}</span>
     <div class="config-buttons">
       <IconSpanner @click="showEditor()" tabindex="-2"
-        v-tooltip="tooltip('Update configuration locally')" />
+        v-tooltip="tooltip('Update configuration')" />
       <IconCloud @click="showCloudModal()" tabindex="-2"
         v-tooltip="tooltip('Backup / restore cloud config')" />
     </div>

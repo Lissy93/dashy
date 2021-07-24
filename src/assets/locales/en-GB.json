@@ -49,6 +49,29 @@
     "css-note-l2": "Styles overrides are only stored locally, so it is recommended to make a copy of your CSS.",
     "css-note-l3": "To remove all custom styles, delete the contents and hit Save Changes"
   },
+  "settings": {
+    "theme-label": "Theme",
+    "layout-label": "Layout",
+    "layout-auto": "Auto",
+    "layout-horizontal": "Horizontal",
+    "layout-vertical": "Vertical",
+    "item-size-label": "Item Size",
+    "item-size-small": "Small",
+    "item-size-medium": "Medium",
+    "item-size-large": "Large",
+    "config-launcher-label": "Config"
+  },
+  "theme-maker": {
+    "title": "Theme Configurator",
+    "export-button": "Export Custom Variables",
+    "reset-button": "Reset Styles for",
+    "show-all-button": "Show All Variables",
+    "save-button": "Save",
+    "cancel-button": "Cancel",
+    "saved-toast": "{theme} Updated Successfully",
+    "copied-toast": "Theme data for {theme} copied to clipboard",
+    "reset-toast": "Custom Colors for {theme} Removed"
+  },
   "config-editor": {
     "save-location-label": "Save Location",
     "location-local-label": "Apply Locally",
