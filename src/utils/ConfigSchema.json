@@ -244,6 +244,11 @@
           "type": "boolean",
           "default": false,
           "description": "If set to true, custom right-click context menu will be disabled"
+        },
+        "disableUpdateChecks": {
+          "type": "boolean",
+          "default": false,
+          "description": "Prevents Dashy from checking for updates"
         }
       },
       "additionalProperties": false
