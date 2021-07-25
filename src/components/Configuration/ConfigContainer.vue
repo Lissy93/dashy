@@ -40,8 +40,8 @@
         <p class="small-screen-note" style="display: none;">
             You are using a very small screen, and some screens in this menu may not be optimal
         </p>
-        <p class="app-version">{{ $t('config.app-version-note') }} {{ appVersion }}</p>
         <p class="language">{{ getLanguage() }}</p>
+        <AppVersion />
         <div class="config-note">
           <span>{{ $t('config.backup-note') }}</span>
         </div>
@@ -74,7 +74,6 @@
 </template>
 
 <script>
-
 import hljs from 'highlight.js/lib/core';
 import yaml from 'highlight.js/lib/languages/yaml';
 import 'highlight.js/styles/mono-blue.css';
@@ -85,6 +84,7 @@ import { getUsersLanguage } from '@/utils/ConfigHelpers';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
 import RebuildApp from '@/components/Configuration/RebuildApp';
+import AppVersion from '@/components/Configuration/AppVersion';
 
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
@@ -102,6 +102,7 @@ export default {
       jsonParser: JsonToYaml,
       backupId: localStorage[localStorageKeys.BACKUP_ID] || '',
       appVersion: process.env.VUE_APP_VERSION,
+      latestVersion: '',
     };
   },
   props: {
@@ -119,6 +120,7 @@ export default {
     JsonEditor,
     CustomCssEditor,
     RebuildApp,
+    AppVersion,
     DownloadIcon,
     DeleteIcon,
     EditIcon,
