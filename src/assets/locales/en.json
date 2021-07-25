@@ -34,7 +34,6 @@
     "change-language-button": "Change App Language",
     "reset-settings-button": "Reset Local Settings",
     "app-info-button": "App Info",
-    "app-version-note": "Dashy version",
     "backup-note": "It is recommend to make a backup of your configuration before making changes.",
     "reset-config-msg-l1": "This will remove all user settings from local storage, but won't effect your 'conf.yml' file.",
     "reset-config-msg-l2": "You should first backup any changes you've made locally, if you want to use them in the future.",
@@ -61,6 +60,13 @@
     "item-size-medium": "Medium",
     "item-size-large": "Large",
     "config-launcher-label": "Config"
+  },
+  "updates": {
+    "app-version-note": "Dashy version",
+    "up-to-date": "Up-to-Date",
+    "out-of-date": "Update Available",
+    "unsupported-version-l1": "You are using an unsupported version of Dashy",
+    "unsupported-version-l2": "For the best experience, and recent security patches, please update to"
   },
   "language-switcher": {
     "title": "Change Application Language",

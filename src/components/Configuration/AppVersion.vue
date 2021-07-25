@@ -2,7 +2,7 @@
   <div class="app-version">
     <!-- Current Version -->
     <p>
-      {{ $t('config.app-version-note') }} {{ appVersion }}
+      {{ $t('updates.app-version-note') }} {{ appVersion }}
     </p>
     <div v-if="checksEnabled">
       <!-- Results haven't come in yet, either still checking, or error -->
@@ -11,18 +11,18 @@
       </p>
       <!-- App is up-to-date -->
       <p v-if="finished && isUpToDate" class="up-to-date">
-        ✅ Up-to-Date
+        ✅ {{ $t('updates.up-to-date') }}
       </p>
       <!-- An update is available, but not too out-of-date -->
       <p  v-else-if="finished && !veryOutOfDate" class="update-availible">
-        ⚠️Update Availible: <b>{{ latestVersion }}</b>
+        ⚠️{{ $t('updates.out-of-date') }}: <b>{{ latestVersion }}</b>
       </p>
       <!-- Update available, app is VERY out of date, show some additional info -->
       <p  v-else-if="finished && veryOutOfDate" class="big-update-availible">
-        ❗ Update Availible: <b>{{ latestVersion }}</b>
+        ❗ {{ $t('updates.out-of-date') }}: <b>{{ latestVersion }}</b>
         <span class="please-update">
-          You are using an unsupported version of Dashy.<br>
-          For the best experience, and recent security patches, please update to {{ latestVersion }}
+          {{ $t('updates.unsupported-version-l1') }}.<br>
+          {{ $t('updates.unsupported-version-2') }} {{ latestVersion }}
         </span>
       </p>
     </div>
