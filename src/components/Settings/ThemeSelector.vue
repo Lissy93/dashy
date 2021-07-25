@@ -1,7 +1,7 @@
 <template>
   <div class="theme-selector-section" v-click-outside="closeThemeConfigurator">
     <div>
-    <span class="theme-label">Theme</span>
+    <span class="theme-label">{{ $t('settings.theme-label') }}</span>
     <v-select
       :options="themeNames"
       v-model="selectedTheme"

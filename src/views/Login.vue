@@ -1,20 +1,31 @@
 <template>
   <div class="login-page">
     <form class="login-form">
-      <h2 class="login-title">Dashy</h2>
-      <Input v-model="username" label="Username" class="login-field username" type="text" />
-      <Input v-model="password" label="Password" class="login-field password" type="password" />
-      <label>Remember me for</label>
+      <h2 class="login-title">{{ $t('login.title') }}</h2>
+      <Input
+        v-model="username"
+        type="text"
+        :label="$t('login.username-label')"
+        class="login-field username"
+      />
+      <Input
+        v-model="password"
+        type="password"
+        :label="$t('login.password-label')"
+        class="login-field password"
+      />
+      <label>{{ $t('login.remember-me-label') }}</label>
       <v-select
         v-model="timeout"
-        :options="dropDownMenu"
-        label="label"
         :selectOnTab="true"
+        :options="dropDownMenu"
         class="login-time-dropdown"
       />
-      <Button class="login-button" :click="submitLogin">Login</Button>
+      <Button class="login-button" :click="submitLogin">
+        {{ $t('login.login-button') }}
+      </Button>
       <transition name="bounce">
-      <p :class="`login-error-message ${status}`" v-show="message">{{ message }}</p>
+        <p :class="`login-error-message ${status}`" v-show="message">{{ message }}</p>
       </transition>
     </form>
   </div>
@@ -38,12 +49,12 @@ export default {
       password: '',
       message: '',
       status: 'waiting', // wating, error, success
-      timeout: { label: 'Never', time: 0 },
-      dropDownMenu: [ // Data for timeout dropdown menu, label + value
-        { label: 'Never', time: 0 }, // Time is specified in ms
-        { label: '4 Hours', time: 14400 * 1000 },
-        { label: '1 Day', time: 86400 * 1000 },
-        { label: '1 Week', time: 604800 * 1000 },
+      timeout: { label: this.$t('login.remember-me-never'), time: 0 },
+      dropDownMenu: [ // Data for timeout dropdown menu, translated label + value in ms
+        { label: this.$t('login.remember-me-never'), time: 0 },
+        { label: this.$t('login.remember-me-hour'), time: 14400 * 1000 },
+        { label: this.$t('login.remember-me-day'), time: 86400 * 1000 },
+        { label: this.$t('login.remember-me-week'), time: 604800 * 1000 },
       ],
     };
   },
@@ -52,8 +63,9 @@ export default {
     Input,
   },
   methods: {
+    /* Checks form is filled in, then initiates the login, and redirects to /home */
     submitLogin() {
-      const timeout = this.timeout.time || 0;
+      const timeout = this.timeout ? this.timeout.time : 0;
       const response = checkCredentials(this.username, this.password, this.appConfig.auth || []);
       this.message = response.msg; // Show error or success message to the user
       this.status = response.correct ? 'success' : 'error';
@@ -64,6 +76,7 @@ export default {
         }, 250);
       }
     },
+    /* Since we don't have the Theme setter at this point, we must manually set users theme */
     setTheme() {
       const theme = localStorage[localStorageKeys.THEME] || Defaults.theme;
       document.getElementsByTagName('html')[0].setAttribute('data-theme', theme);
@@ -78,43 +91,48 @@ export default {
 
 <style lang="scss">
 
+/* Login page base styles */
 .login-page {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 800px;
+  min-height: calc(100vh - var(--footer-height));
 
-  .login-form {
+  /* Login form container */
+  form.login-form {
     background: var(--login-form-background);
     color: var(--login-form-color);
     border: 1px solid var(--login-form-color);
     border-radius: var(--curve-factor);
+    font-size: 1.4rem;
     padding: 2rem;
     margin: 2rem auto;
     display: flex;
     flex-direction: column;
 
+    /* Login form title */
     h2.login-title {
       font-size: 3rem;
       margin: 0 0 1rem 0;
       text-align: center;
+      cursor: default;
     }
 
+    /* Set sizings for input fields and login button */
     .login-field input, Button.login-button {
-      width: 18rem;
+      width: 20rem;
       margin: 0.5rem auto;
       font-size: 1.4rem;
       padding: 0.5rem 1rem;
     }
 
+    /* Custom colors for username/ password input fields */
     .login-field input {
       color: var(--login-form-color);
       border-color: var(--login-form-color);
       background: var(--login-form-background);
-      &:focus {
-
-      }
     }
+    /* Custom colors for Login Button */
     Button.login-button {
       background: var(--login-form-color);
       border-color: var(--login-form-background);
@@ -128,6 +146,7 @@ export default {
         box-shadow: 1px 1px 6px var(--login-form-color);
       }
     }
+    /* Apply color to status message, depending on status */
     p.login-error-message {
       font-size: 1rem;
       text-align: center;
@@ -138,6 +157,7 @@ export default {
   }
 }
 
+/* Enter animations for error/ success message */
 .bounce-enter-active { animation: bounce-in 0.25s; }
 .bounce-leave-active { animation: bounce-in 0.25s reverse; }
 @keyframes bounce-in {
@@ -146,6 +166,7 @@ export default {
   100% { transform: scale(1); }
 }
 
+/* Custom styles for dropdown component */
 .v-select.login-time-dropdown {
   margin: 0.5rem 0;
   .vs__dropdown-toggle {

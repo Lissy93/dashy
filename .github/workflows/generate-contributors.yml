@@ -1,3 +1,5 @@
+# Generates an image showing profile picture of everyone who'se contributed to Dashy
+# Which is embeded in the Readme Credits section, as they deserve some recognition
 name: Contributors
 on:
   schedule:

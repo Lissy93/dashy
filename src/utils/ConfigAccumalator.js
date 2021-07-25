@@ -11,6 +11,7 @@ import {
   pageInfo as defaultPageInfo,
   iconSize as defaultIconSize,
   layout as defaultLayout,
+  language as defaultLanguage,
 } from '@/utils/defaults';
 
 import conf from '../../public/conf.yml';
@@ -33,6 +34,8 @@ export default class ConfigAccumulator {
       || appConfigFile.layout || defaultLayout;
     usersAppConfig.iconSize = localStorage[localStorageKeys.ICON_SIZE]
       || appConfigFile.iconSize || defaultIconSize;
+    usersAppConfig.language = localStorage[localStorageKeys.LANGUAGE]
+      || appConfigFile.language || defaultLanguage;
     return usersAppConfig;
   }
 

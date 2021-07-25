@@ -1,16 +1,16 @@
 <template>
   <form>
-    <label for="filter-tiles">Search</label>
+    <label for="filter-tiles">{{ $t('search.search-label') }}</label>
     <input
       id="filter-tiles"
       v-model="input"
       ref="filter"
-      placeholder="Start typing to filter..."
+      :placeholder="$t('search.search-placeholder')"
       v-on:input="userIsTypingSomething"
       @keydown.esc="clearFilterInput" />
       <i v-if="input.length > 0"
         class="clear-search"
-        title="Clear search"
+        :title="$t('search.clear-search-tooltip')"
         @click="clearFilterInput">x</i>
   </form>
 </template>
