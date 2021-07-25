@@ -154,33 +154,42 @@ The easiest method of checking performance is to use Chromium's build in auditin
 ├── App.vue                       # Vue.js starting file
 ├── assets                        # Static non-compiled assets
 │  ├── fonts                      # .ttf font files
+│  ├── locales                    # All app text, each language in a separate JSON file
 │  ╰── interface-icons            # SVG icons used in the app 
 ├── components                    # All front-end Vue web components
 │  ├── Configuration              # Components relating to the user config pop-up
+│  │  ├── AppInfoModal.vue        # A modal showing core app info, like version, language, etc
 │  │  ├── CloudBackupRestore.vue  # Form where the user manages cloud sync options
 │  │  ├── ConfigContainer.vue     # Main container, wrapping all other config components
 │  │  ├── CustomCss.vue           # Form where the user can input custom CSS
 │  │  ├── EditSiteMeta.vue        # Form where the user can edit site meta data
-│  │  ╰── JsonEditor.vue          # JSON editor, where the user can modify the main config file
+│  │  ├── JsonEditor.vue          # JSON editor, where the user can modify the main config file
+│  │  ╰── RebuildApp.vue          # A component allowing user to trigger a rebuild through the UI
 │  ├── FormElements               # Basic form elements used throughout the app
 │  │  ├── Button.vue              # Standard button component
-│  │  └── Input.vue               # Standard text field input component
+│  │  ╰── Input.vue               # Standard text field input component
 │  ├── LinkItems                  # Components for Sections and Link Items
 │  │  ├── Collapsable.vue         # The collapsible functionality of sections
+│  │  ├── ContextMenu.vue         # The right-click menu, for showing Item opening methods and info
 │  │  ├── IframeModal.vue         # Pop-up iframe modal, for viewing websites within the app
 │  │  ├── Item.vue                # Main link item, which is displayed within an item group
 │  │  ├── ItemGroup.vue           # Item group is a section containing icons
 │  │  ├── ItemIcon.vue            # The icon used by both items and sections
-│  │  ╰── ItemOpenMethodIcon.vue  # A small icon, visible on hover, indicating opening method 
+│  │  ├── ItemOpenMethodIcon.vue  # A small icon, visible on hover, indicating opening method 
+│  │  ╰── StatusIndicator.vue     # Traffic light dot, showing if app is online or down
 │  ├── PageStrcture               # Components relating the main structure of the page
 │  │  ├── Footer.vue              # Footer, visible at the bottom of all pages
 │  │  ├── Header.vue              # Header, visible at the top of pages, and includes title and nav
+│  │  ├── LoadingScreen.vue       # Splash screen shown on first load
 │  │  ├── Nav.vue                 # Navigation bar, includes a list of links
 │  │  ╰── PageTitle.vue           # Page title and sub-title, visible within the Header
 │  ╰── Settings                   # Components relating to the quick-settings, in the top-right
+│     ├── AppButtons.vue          # Logout button and other app info
 │     ├── ConfigLauncher.vue      # Icon that when clicked will launch the Configuration component
+│     ├── CustomThemeMaker.vue    # Color pickers for letting user build their own theme
 │     ├── ItemSizeSelector.vue    # Set of buttons used to set and save item size
 │     ├── KeyboardShortcutInfo.vue# Small pop-up displaying the available keyboard shortcuts
+│     ├── LanguageSwitcher.vue    # Dropdown in a modal for changing app language
 │     ├── LayoutSelector.vue      # Set of buttons, letting the user select their desired layout
 │     ├── SearchBar.vue           # The input field in the header, used for searching the app
 │     ├── SettingsContainer.vue   # Container that wraps all the quick-settings components
@@ -191,53 +200,26 @@ The easiest method of checking performance is to use Chromium's build in auditin
 ├── styles                        # Directory of all globally used common SCSS styles
 ├── utils                         # Directory of re-used helper functions
 │  ├── ArrowKeyNavigation.js      # Functionality for arrow-key navigation
+│  ├── Auth.js                    # Handles all authentication related actions
+│  ├── ClickOutside.js            # A directive for detecting click, used to hide dropdown, modal or context menu
+│  ├── ConfigAccumulator.js       # Central place for managing and combining config
+│  ├── ConfigHelpers.js           # Helper functions for managing configuration
 │  ├── CloudBackup.js             # Functionality for encrypting, processing and network calls
 │  ├── ConfigSchema.json          # The schema, used to validate the users conf.yml file
 │  ├── ConfigValidator.js         # A helper script that validates the config file against schema
 │  ├── defaults.js                # Global constants and their default values
 │  ├── ErrorHandler.js            # Helper function called when an error is returned
 │  ├── JsonToYaml.js              # Function that parses and converts raw JSON into valid YAML
+│  ├── languages.js               # Handles fetching, switching and validating languages
 │  ╰── ThemeHelper.js             # Function that handles the fetching and setting of user themes
 ╰── views                         # Directory of available pages, corresponding to available routes
-   ╰── Home.vue                   # The home page container
+   ├── Home.vue                   # The home page container
+   ├── About.vue                  # About page
+   ├── Login.vue                  # TAuthentication page
+   ├── Minimal.vue                # The minimal view
+   ╰── Workspace.vue              # The workspace view with apps in sidebar
 ```
 ---
-
-## Dependencies and Packages
-
-During development I made the conscious decision to not reinvent the wheel if not necessary. It is often really tempting to try an build everything yourself, but sometimes it's just not practical. Often there's packages out there, developed by amazing individuals which are probably built better than I could have done. That being said, I have looked through the code of most these dependencies, to verify that they are both legitimate and efficient.
-
-The following packages are used. Full credit, and massive kudos to each of their authors.
-
-### Core
-
-At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as well as it's services. Styling is done with [SCSS](https://github.com/sass/sass), JavaScript is currently [Babel](https://github.com/babel/babel), (but I am in the process of converting to [TypeScript](https://github.com/Microsoft/TypeScript)), linting is done with [ESLint](https://github.com/eslint/eslint), the config is defined in [YAML](https://github.com/yaml/yaml), and there is a simple [Node.js](https://github.com/nodejs/node) server to serve up the static app.
-
-### Frontend Components
-
-- [`vue-select`](https://github.com/sagalbot/vue-select) - Dropdown component by @sagalbot `MIT`
-- [`vue-js-modal`](https://github.com/euvl/vue-js-modal) - Modal component by @euvl `MIT`
-- [`v-tooltip`](https://github.com/Akryum/v-tooltip) - Tooltip component by @Akryum `MIT`
-- [`vue-material-tabs`](https://github.com/jairoblatt/vue-material-tabs) - Tab view component by @jairoblatt `MIT`
-- [`VJsoneditor`](https://github.com/yansenlei/VJsoneditor) - Interactive JSON editor component by @yansenlei `MIT`
-  - Forked from [`JsonEditor`](https://github.com/josdejong/jsoneditor) by @josdejong `Apache-2.0 License`
-- [`vue-toasted`](https://github.com/shakee93/vue-toasted) - Toast notification component by @shakee93 `MIT`
-- [`vue-prism-editor`](https://github.com/koca/vue-prism-editor) - Lightweight code editor by @koca `MIT`
-  - Forked from [`prism.js`](https://github.com/PrismJS/prism) `MIT`
-
-### Utilities
-
-- [`crypto-js`](https://github.com/brix/crypto-js) - Encryption implementations by @evanvosberg and community `MIT`
-- [`axios`](https://github.com/axios/axios) - Promise based HTTP client by @mzabriskie and community `MIT`
-- [`ajv`](https://github.com/ajv-validator/ajv) - JSON schema Validator by @epoberezkin and community `MIT`
-
-### Server
-
-- [`connect`](https://github.com/senchalabs/connect) - Minimilistic middleware layer for chaining together Node.js requests handled by the server file `MIT`
-- [`serve-static`](https://github.com/expressjs/serve-static) - Lightweight static Node file server `MIT`
-
-#### External Services
-The 1-Click deploy demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker image is hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
 
 ## Notes
 
@@ -248,3 +230,5 @@ When running the build command, several warnings appear. These are not errors, a
 `WARN  A new version of sass-loader is available. Please upgrade for best experience.` - Currently we're using an older version of SASS loader, since the more recent releases do not seem to be compatible with the Vue CLI's webpack configuration.
 
 `WARN asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).` - For the PWA to support Windows 10, a splash screen asset is required, and is quite large. This throws a warning, however PWA assets are not loaded until needed, so shouldn't have any impact on application performance. A similar warning is thrown for the Raleway font, and that is looking to be addressed.
+
+`glob-parent Security Alert` - This will be fixed soon. The version of glob-parent that is used by the latest version of Vue-CLI has a security issue associated with it. I am waiting on Vue to update their dependencies.
