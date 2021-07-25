@@ -4,14 +4,16 @@ const Ajv = require('ajv');
 const yaml = require('js-yaml');
 const fs = require('fs');
 
-const schema = require('./ConfigSchema.json');
+const schema = require('../src/utils/ConfigSchema.json');
 
+/* Tell AJV to use strict mode, and report all errors */
 const validatorOptions = {
   strict: true,
   allowUnionTypes: true,
   allErrors: true,
 };
 
+/* Initiate AJV validator */
 const ajv = new Ajv(validatorOptions);
 
 /* Message printed when validation was successful */
@@ -58,13 +60,13 @@ const validate = (config) => {
 try {
   const config = yaml.load(fs.readFileSync('./public/conf.yml', 'utf8'));
   validate(config);
-} catch (e) {
+} catch (e) { // Something went very wrong...
   setIsValidVariable(false);
   console.log(bigError());
   console.log('Please ensure that your config file is present, '
     + 'has the correct access rights and is parsable. '
     + 'If this warning persists, it may be an issue with the '
     + 'validator function. Please raise an issue, and include the following stack trace:\n');
-  console.warn('\x1b[33mStack Trace for ConfigValidators.js:\x1b[0m\n', e);
+  console.warn('\x1b[33mStack Trace for config-validator.js:\x1b[0m\n', e);
   console.log('\n\n');
 }
