@@ -1,67 +1,74 @@
 <template>
   <Tabs :navAuto="true" name="Add Item" ref="tabView">
-    <TabItem name="Config" class="main-tab">
+    <TabItem :name="$t('config.main-tab')" class="main-tab">
       <div class="main-options-container">
         <h2>Configuration Options</h2>
         <a class="hyperlink-wrapper"  @click="downloadConfigFile('conf.yml', yaml)">
           <button class="config-button center">
-          <DownloadIcon class="button-icon"/>
-          Download Config
+            <DownloadIcon class="button-icon"/>
+            {{ $t('config.download-config-button') }}
           </button>
         </a>
         <button class="config-button center" @click="() => navigateToTab(2)">
           <EditIcon class="button-icon"/>
-          Edit Config
+          {{ $t('config.edit-config-button') }}
         </button>
         <button class="config-button center" @click="() => navigateToTab(3)">
           <CustomCssIcon class="button-icon"/>
-          Edit Custom CSS
+          {{ $t('config.edit-css-button') }}
         </button>
         <button class="config-button center" @click="openCloudSync()">
           <CloudIcon class="button-icon"/>
-          {{backupId ? 'Edit Cloud Sync' : 'Enable Cloud Sync'}}
+          {{backupId ? $t('config.edit-cloud-sync-button') : $t('config.cloud-sync-button') }}
+        </button>
+        <button class="config-button center" @click="openLanguageSwitchModal()">
+          <LanguageIcon class="button-icon"/>
+          {{ $t('config.change-language-button') }}
         </button>
         <button class="config-button center" @click="openRebuildAppModal()">
           <RebuildIcon class="button-icon"/>
-          Rebuild Application
+          {{ $t('config.rebuild-app-button') }}
         </button>
         <button class="config-button center" @click="resetLocalSettings()">
           <DeleteIcon class="button-icon"/>
-          Reset Local Settings
+          {{ $t('config.reset-settings-button') }}
         </button>
         <button class="config-button center" @click="openAboutModal()">
           <IconAbout class="button-icon" />
-          App Info
+          {{ $t('config.app-info-button') }}
         </button>
         <p class="small-screen-note" style="display: none;">
             You are using a very small screen, and some screens in this menu may not be optimal
         </p>
-        <p class="app-version">Dashy version {{ appVersion }}</p>
+        <p class="app-version">{{ $t('config.app-version-note') }} {{ appVersion }}</p>
+        <p class="language">{{ getLanguage() }}</p>
         <div class="config-note">
-          <span>
-            It is recommend to make a backup of your conf.yml file before making changes.
-          </span>
+          <span>{{ $t('config.backup-note') }}</span>
         </div>
       </div>
       <!-- Rebuild App Modal -->
       <RebuildApp />
     </TabItem>
-    <TabItem name="View Config" class="code-container">
+    <TabItem :name="$t('config.view-config-tab')" class="code-container">
       <pre id="conf-yaml">{{yaml}}</pre>
       <div class="yaml-action-buttons">
-        <h2>Actions</h2>
+        <h2>{{ $t('config.actions-label') }}</h2>
         <a class="yaml-button download" @click="downloadConfigFile('conf.yml', yaml)">
-          Download Config
+           {{ $t('config.download-config-button') }}
         </a>
-        <a class="yaml-button copy" @click="copyConfigToClipboard()">Copy Config</a>
-        <a class="yaml-button reset" @click="resetLocalSettings()">Reset Config</a>
+        <a class="yaml-button copy" @click="copyConfigToClipboard()">
+          {{ $t('config.copy-config-label') }}
+        </a>
+        <a class="yaml-button reset" @click="resetLocalSettings()">
+          {{ $t('config.reset-config-label') }}
+        </a>
       </div>
     </TabItem>
-    <TabItem name="Edit Config">
+    <TabItem :name="$t('config.edit-config-tab')">
       <JsonEditor :config="config" />
     </TabItem>
-    <TabItem name="Custom Styles">
-      <CustomCssEditor :config="config" initialCss="hello" />
+    <TabItem :name="$t('config.custom-css-tab')">
+      <CustomCssEditor :config="config" />
     </TabItem>
   </Tabs>
 </template>
@@ -74,6 +81,7 @@ import 'highlight.js/styles/mono-blue.css';
 
 import JsonToYaml from '@/utils/JsonToYaml';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
+import { getUsersLanguage } from '@/utils/ConfigHelpers';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
 import RebuildApp from '@/components/Configuration/RebuildApp';
@@ -84,6 +92,7 @@ import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
 import CustomCssIcon from '@/assets/interface-icons/config-custom-css.svg';
 import CloudIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
+import LanguageIcon from '@/assets/interface-icons/config-language.svg';
 import IconAbout from '@/assets/interface-icons/application-about.svg';
 
 export default {
@@ -115,6 +124,7 @@ export default {
     EditIcon,
     CloudIcon,
     CustomCssIcon,
+    LanguageIcon,
     RebuildIcon,
     IconAbout,
   },
@@ -133,20 +143,21 @@ export default {
     openCloudSync() {
       this.$modal.show(modalNames.CLOUD_BACKUP);
     },
+    openLanguageSwitchModal() {
+      this.$modal.show(modalNames.LANG_SWITCHER);
+    },
     copyConfigToClipboard() {
       navigator.clipboard.writeText(this.jsonParser(this.config));
-      // event.target.textContent = 'Copied to clipboard';
+      this.$toasted.show(this.$t('config.data-copied-msg'));
     },
     /* Checks that the user is sure, then resets site-wide local storage, and reloads page */
     resetLocalSettings() {
-      const msg = 'This will remove all user settings from local storage, '
-          + 'but won\'t effect your \'conf.yml\' file. '
-          + 'It is recommend to make a backup of your modified YAML settings first.\n\n'
-          + 'Are you sure you want to proceed?';
+      const msg = `${this.$t('config.reset-config-msg-l1')
+      }${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
       const isTheUserSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
       if (isTheUserSure) {
         localStorage.clear();
-        this.$toasted.show('Data cleared succesfully');
+        this.$toasted.show(this.$t('config.data-cleared-msg'));
         setTimeout(() => {
           location.reload(true); // eslint-disable-line no-restricted-globals
         }, 1900);
@@ -162,11 +173,19 @@ export default {
       element.click();
       document.body.removeChild(element);
     },
+    /* Highlights the YAML config in View config tab */
+    initiateStntaxHighlighter() {
+      hljs.registerLanguage('yaml', yaml);
+      const highlighted = hljs.highlight(this.jsonParser(this.config), { language: 'yaml' }).value;
+      document.getElementById('conf-yaml').innerHTML = highlighted;
+    },
+    getLanguage() {
+      const lang = getUsersLanguage();
+      return lang ? `${lang.flag} ${lang.name}` : '';
+    },
   },
   mounted() {
-    hljs.registerLanguage('yaml', yaml);
-    const highlighted = hljs.highlight(this.jsonParser(this.config), { language: 'yaml' }).value;
-    document.getElementById('conf-yaml').innerHTML = highlighted;
+    this.initiateStntaxHighlighter();
   },
 };
 </script>
@@ -213,10 +232,11 @@ a.config-button, button.config-button {
   }
 }
 
-p.app-version {
+p.app-version, p.language {
   margin: 0.5rem auto;
   font-size: 1rem;
   color: var(--transparent-white-50);
+  cursor: default;
 }
 
 div.code-container {

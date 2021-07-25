@@ -29,6 +29,7 @@
 - Easy single-file YAML-based configuration, which can also be configured directly through the UI
 - Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
 - Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
+- Multi-language support, with additional languages coming soon
 - Plus lots more...
 
 ## Demo ⚡
@@ -301,6 +302,21 @@ From the Settings Menu in Dashy, you can download, backup, edit and rest your co
 </p>
 
 **[⬆️ Back to Top](#dashy)**
+
+---
+
+## Language Switching 🌎
+
+Dashy has the ability to support multiple languages and locales. When available, you're language should be automatically detected and applied on load, based on your browser or systems settings. But you can also select a language through the UI, under Config --> Switch Language.
+
+Alternatively, set you're language in the config file, under `appConfig.language`. The language must be specified as either a 2-digit [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (such as `en`), or where available, the 2-digit code followed by a region or dialect (e.g. `en-GB`).
+
+#### Supported Languages
+- 🇬🇧 **English**: `en`
+
+#### Add your Language
+I would love for Dashy to be available and comfortable to use for all, including non-native English speakers. If you speak another language, and have a few minutes to sapir, you're help with translating it would be very much appreciated.
+There's not too much text to translate, and it's all located in [a single JSON file](https://github.com/Lissy93/dashy/tree/master/src/assets/locales), and you don't have to translate it all, as any missing items will just fallback to English. For more info, see the [Development Guides Docs](https://github.com/Lissy93/dashy/blob/master/docs/development-guides.md#adding-translations), and feel free to reach out if you need any support.
 
 ---
 

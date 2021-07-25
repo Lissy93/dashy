@@ -17,6 +17,7 @@ import {
   localStorageKeys,
   splashScreenTime,
   visibleComponents as defaultVisibleComponents,
+  language as defaultLanguage,
 } from '@/utils/defaults';
 
 const Accumulator = new ConfigAccumulator();
@@ -70,9 +71,33 @@ export default {
         this.isLoading = false;
       }
     },
+    /* Checks local storage, then appConfig, and if a custom language is specified, its applied */
+    applyLanguage() {
+      let language = defaultLanguage; // Language to apply
+      const availibleLocales = this.$i18n.availableLocales; // All available locales
+
+      // If user has specified a language, locally or in config, then check and apply it
+      const usersLang = localStorage[localStorageKeys.LANGUAGE] || this.appConfig.language;
+      if (usersLang && availibleLocales.includes(usersLang)) {
+        language = usersLang;
+      } else {
+        // Otherwise, attempt to apply language automatically, based on their system language
+        const usersBorwserLang1 = window.navigator.language || ''; // e.g. en-GB or or ''
+        const usersBorwserLang2 = usersBorwserLang1.split('-')[0]; // e.g. en or undefined
+        if (availibleLocales.includes(usersBorwserLang1)) {
+          language = usersBorwserLang1;
+        } else if (availibleLocales.includes(usersBorwserLang2)) {
+          language = usersBorwserLang2;
+        }
+      }
+      // Apply Language
+      this.$i18n.locale = language;
+      document.getElementsByTagName('html')[0].setAttribute('lang', language);
+    },
   },
   /* When component mounted, hide splash and initiate the injection of custom styles */
   mounted() {
+    this.applyLanguage();
     this.hideSplash();
     if (this.appConfig.customCss) {
       const cleanedCss = this.appConfig.customCss.replace(/<\/?[^>]+(>|$)/g, '');
