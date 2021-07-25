@@ -8,19 +8,25 @@
     />
     <!-- Options raido, and save button -->
     <div class="save-options">
-      <span class="save-option-title">Save Location:</span>
+      <span class="save-option-title">{{ $t('config-editor.save-location-label') }}:</span>
       <div class="option">
         <input type="radio" id="local" value="local"
           v-model="saveMode" class="radio-option" :disabled="!allowWriteToDisk" />
-        <label for="local" class="save-option-label">Apply Locally</label>
+        <label for="local" class="save-option-label">
+          {{ $t('config-editor.location-local-label') }}
+        </label>
       </div>
       <div class="option">
         <input type="radio" id="file" value="file" v-model="saveMode" class="radio-option"
           :disabled="!allowWriteToDisk" />
-        <label for="file" class="save-option-label">Write Changes to Config File</label>
+        <label for="file" class="save-option-label">
+          {{ $t('config-editor.location-disk-label') }}
+        </label>
       </div>
     </div>
-    <button :class="`save-button ${!isValid ? 'err' : ''}`" @click="save()">Save Changes</button>
+    <button :class="`save-button ${!isValid ? 'err' : ''}`" @click="save()">
+      {{ $t('config-editor.save-button') }}
+    </button>
     <!-- List validation warnings -->
     <p class="errors">
       <ul>
@@ -28,24 +34,23 @@
           {{error.msg}}
         </li>
         <li v-if="errorMessages.length < 1" class="type-valid">
-          Config is Valid
+          {{ $t('config-editor.valid-label') }}
         </li>
       </ul>
     </p>
     <!-- Information notes -->
     <p v-if="saveSuccess !== undefined"
       :class="`response-output status-${saveSuccess ? 'success' : 'fail'}`">
-      {{saveSuccess ? 'Task Complete' : 'Task Failed'}}
+      {{saveSuccess
+        ? $t('config-editor.status-success-msg') : $t('config-editor.status-fail-msg') }}
     </p>
     <p class="response-output">{{ responseText }}</p>
     <p v-if="saveSuccess" class="response-output">
-      The app should rebuild automatically.
-      This may take up to a minute.
-      You will need to refresh the page for changes to take effect.
+      {{ $t('config-editor.success-note-l1') }}
+      {{ $t('config-editor.success-note-l2') }}
+      {{ $t('config-editor.success-note-l3') }}
     </p>
-    <p class="note">
-      It is recommend to backup your existing confiruration before making any changes.
-    </p>
+    <p class="note">{{ $t('config.backup-note') }}</p>
   </div>
 </template>
 
@@ -103,7 +108,7 @@ export default {
       } else if (this.saveMode === 'file') {
         this.writeConfigToDisk();
       } else {
-        this.$toasted.show('Please select a Save Mode: Local or File');
+        this.$toasted.show(this.$t('config-editor.error-msg-save-mode'));
       }
     },
     writeConfigToDisk() {
@@ -121,9 +126,9 @@ export default {
         this.responseText = response.data.message;
         if (this.saveSuccess) {
           this.carefullyClearLocalStorage();
-          this.showToast('Config file written to disk succesfully', true);
+          this.showToast(this.$t('config-editor.success-msg-disk'), true);
         } else {
-          this.showToast('An error occurred saving config', false);
+          this.showToast(this.$t('config-editor.error-msg-cannot-save'), false);
         }
       })
         .catch((error) => {
@@ -146,7 +151,7 @@ export default {
       if (data.appConfig.theme) {
         localStorage.setItem(localStorageKeys.THEME, data.appConfig.theme);
       }
-      this.showToast('Changes saved succesfully', true);
+      this.showToast(this.$t('config-editor.success-msg-local'), true);
     },
     carefullyClearLocalStorage() {
       localStorage.removeItem(localStorageKeys.PAGE_INFO);
@@ -160,7 +165,8 @@ export default {
           case 'validation':
             errorMessages.push({
               type: 'validation',
-              msg: `Validatation Warning: ${error.error.keyword} ${error.error.message}`,
+              msg: `${this.$t('config-editor.warning-msg-validation')}: `
+                + `${error.error.keyword} ${error.error.message}`,
             });
             break;
           case 'error':
@@ -172,7 +178,7 @@ export default {
           default:
             errorMessages.push({
               type: 'editor',
-              msg: 'Error in JSON',
+              msg: this.$t('config-editor.error-msg-bad-json'),
             });
             break;
         }

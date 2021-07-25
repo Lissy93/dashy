@@ -11,6 +11,8 @@ module.exports = {
   },
   /* Default appConfig to be used, if user does not specify their own */
   appConfig: {},
+  /* Default language code */
+  language: 'en',
   /* Default icon size to be applied on initial load */
   iconSize: 'medium',
   /* Default layout to be applied on initial load */
@@ -58,6 +60,7 @@ module.exports = {
   },
   /* Key names for local storage identifiers */
   localStorageKeys: {
+    LANGUAGE: 'language',
     HIDE_WELCOME_BANNER: 'hideWelcomeHelpers',
     LAYOUT_ORIENTATION: 'layoutOrientation',
     COLLAPSE_STATE: 'collapseState',
@@ -87,6 +90,7 @@ module.exports = {
     REBUILD_APP: 'REBUILD_APP',
     THEME_MAKER: 'THEME_MAKER',
     ABOUT_APP: 'ABOUT_APP',
+    LANG_SWITCHER: 'LANG_SWITCHER',
   },
   /* Key names for the top-level objects in conf.yml */
   topLevelConfKeys: {

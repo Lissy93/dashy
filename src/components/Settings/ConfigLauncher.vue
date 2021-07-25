@@ -1,10 +1,10 @@
 <template>
   <div class="config-options">
     <!-- Button and label -->
-    <span>Config</span>
+    <span>{{ $t('settings.config-launcher-label') }}</span>
     <div class="config-buttons">
       <IconSpanner @click="showEditor()" tabindex="-2"
-        v-tooltip="tooltip('Update configuration locally')" />
+        v-tooltip="tooltip('Update configuration')" />
       <IconCloud @click="showCloudModal()" tabindex="-2"
         v-tooltip="tooltip('Backup / restore cloud config')" />
     </div>
@@ -20,6 +20,13 @@
       @closed="$emit('modalChanged', false)" classes="dashy-modal">
       <CloudBackupRestore :config="combineConfig()" />
     </modal>
+
+    <!-- Modal for manually changing locale -->
+    <modal :name="modalNames.LANG_SWITCHER" classes="dashy-modal"
+      :resizable="true" width="30%" height="25%">
+      <LanguageSwitcher />
+    </modal>
+
   </div>
 </template>
 
@@ -29,6 +36,7 @@ import IconSpanner from '@/assets/interface-icons/config-editor.svg';
 import IconCloud from '@/assets/interface-icons/cloud-backup-restore.svg';
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
 import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
+import LanguageSwitcher from '@/components/Settings/LanguageSwitcher';
 import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/defaults';
 
 export default {
@@ -43,6 +51,7 @@ export default {
     IconCloud,
     ConfigContainer,
     CloudBackupRestore,
+    LanguageSwitcher,
   },
   props: {
     sections: Array,

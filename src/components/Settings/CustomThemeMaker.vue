@@ -1,6 +1,6 @@
 <template>
   <div :class="`theme-configurator-wrapper ${showingAllVars ? 'showing-all' : ''}`">
-    <h3 class="configurator-title">Theme Configurator</h3>
+    <h3 class="configurator-title">{{ $t('theme-maker.title') }}</h3>
     <div class="color-row-container">
     <div class="color-row" v-for="colorName in Object.keys(customColors)" :key="colorName">
       <label :for="`color-input-${colorName}`" class="color-name">
@@ -33,17 +33,21 @@
     </div> <!-- End of color list -->
     </div>
     <p @click="exportToClipboard" class="action-text-btn">
-      Export Custom Variables
+      {{ $t('theme-maker.export-button') }}
     </p>
     <p @click="resetAndSave" class="action-text-btn show-all-vars-btn">
-      Reset Styles for '{{ themeToEdit }}'
+       {{ $t('theme-maker.reset-button') }} '{{ themeToEdit }}'
     </p>
     <p @click="findAllVariableNames" class="action-text-btn">
-      Show All Variables
+       {{ $t('theme-maker.show-all-button') }}
     </p>
     <div class="action-buttons">
-      <Button :click="saveChanges"><SaveIcon />Save</Button>
-      <Button :click="resetUnsavedColors"><CancelIcon />Cancel</Button>
+      <Button :click="saveChanges">
+        <SaveIcon /> {{ $t('theme-maker.save-button') }}
+      </Button>
+      <Button :click="resetUnsavedColors">
+        <CancelIcon /> {{ $t('theme-maker.cancel-button') }}
+      </Button>
     </div>
   </div>
 </template>
@@ -89,7 +93,7 @@ export default {
       const priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
       priorSettings[this.themeToEdit] = this.customColors;
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
-      this.$toasted.show('Theme Updates Succesfully');
+      this.$toasted.show(this.$t('theme-maker.saved-toast', { theme: this.themeToEdit }));
       this.$emit('closeThemeConfigurator');
     },
     /* Itterates over available variables, removing them from the DOM */
@@ -107,7 +111,7 @@ export default {
       delete priorSettings[this.themeToEdit];
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
       this.resetUnsavedColors();
-      this.$toasted.show(`Custom Colors for ${this.themeToEdit} Removed`);
+      this.$toasted.show(this.$t('theme-maker.reset-toast', { theme: this.themeToEdit }));
     },
     /* Generates CSS for the currently applied variables, and copys to users clipboard */
     exportToClipboard() {
@@ -117,7 +121,7 @@ export default {
         clipboardText += (`--${customVar}: ${this.customColors[customVar]};\n`);
       });
       navigator.clipboard.writeText(clipboardText);
-      this.$toasted.show(`Theme data for ${themeName} copied to clipboard`);
+      this.$toasted.show(this.$t('theme-maker.copied-toast', { theme: themeName }));
     },
     /* Returns a JSON object, with the variable name as key, and color as value */
     makeInitialData(variableArray) {

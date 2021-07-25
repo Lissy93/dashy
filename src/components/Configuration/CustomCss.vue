@@ -1,11 +1,10 @@
 <template>
   <div class="css-editor-outer">
     <prism-editor class="my-editor" v-model="customCss" :highlight="highlighter" line-numbers />
-    <button class="save-button" @click="save()">Save Changes</button>
+    <button class="save-button" @click="save()">{{ $t('config.css-save-btn') }}</button>
     <p class="quick-note">
-    <b>Note</b>: You will need to refresh the page for your changes to take effect.
-      Styles overides are only stored locally, so it is reccomended to make a copy of your CSS.
-      To remove all custom styles, delete the contents and hit Save Changes
+      <b>{{ $t('config.css-note-label') }}:</b>
+      {{ $t('config.css-note-l1') }} {{ $t('config.css-note-l2') }} {{ $t('config.css-note-l3') }}
     </p>
     <CustomThemeMaker :themeToEdit="currentTheme" class="color-config" />
   </div>

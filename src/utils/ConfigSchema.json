@@ -54,6 +54,10 @@
           "type": "string",
           "description": "A URL to an image asset to be displayed as background"
         },
+        "language": {
+          "type": "string",
+          "description": "The ISO code of your desired language, must have translations present, check docs for more info"
+        },
         "theme": {
           "type": "string",
           "default": "callisto",

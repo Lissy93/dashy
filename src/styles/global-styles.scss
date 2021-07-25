@@ -24,8 +24,8 @@ html {
 /* Overriding styles for the modal component */
 .vm--modal, .dashy-modal {
   box-shadow: 0 40px 70px -2px hsl(0deg 0% 0% / 60%), 1px 1px 6px var(--primary) !important;
-  min-width: 300px;
-  min-height: 500px;
+  min-width: 350px;
+  min-height: 200px;
 }
 .vm--overlay {
   background: #00000080;
@@ -48,4 +48,32 @@ html {
   background: var(--success) !important;
   color: var(--white) !important;
   font-size: 1.25rem !important;
+}
+
+/* v-select, dropdown styles */
+.v-select {
+  .vs__dropdown-toggle {
+    border-color: var(--primary);
+    background: var(--background);
+    cursor: pointer;
+    span.vs__selected {
+      color: var(--primary);
+    }
+    .vs__actions svg path { fill: var(--primary); }
+  }
+  ul.vs__dropdown-menu {
+    background: var(--background);
+    border-color: var(--primary);
+    li {
+      color: var(--primary);
+      &:hover {
+        color: var(--background);
+        background: var(--primary);
+      }
+      &.vs__dropdown-option--highlight {
+        color: var(--background);
+        background: var(--primary);
+      }
+    }
+  }
 }

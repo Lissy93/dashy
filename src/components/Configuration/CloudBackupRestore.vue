@@ -1,55 +1,55 @@
 <template>
   <div class="cloud-backup-restore-wrapper">
     <div class="section intro">
-      <h2>Cloud Backup & Restore</h2>
+      <h2>{{ $t('cloud-sync.title') }}</h2>
       <p class="intro">
-        Cloud backup and restore is an optional feature, that enables you to upload your
-        config to the internet, and then restore it on any other device or instance of Dashy.
+        {{ $t('cloud-sync.intro-l1') }}
         <br><br>
-        All data is fully end-to-end encrypted with AES, using your password as the key.
+        {{ $t('cloud-sync.intro-l2') }}
         <br>
-        For more info, please see the
+        {{ $t('cloud-sync.intro-l3') }}
         <a href="https://github.com/Lissy93/dashy/blob/master/docs/backup-restore.md">docs</a>
       </p>
     </div>
     <div class="section backup-section">
-      <h3 v-if="backupId">Update Backup</h3>
-      <h3 v-else>Make a Backup</h3>
+      <h3 v-if="backupId">{{ $t('cloud-sync.backup-title-setup') }}</h3>
+      <h3 v-else>{{ $t('cloud-sync.backup-title-setup') }}</h3>
       <Input
         v-model="backupPassword"
         name="backup-password"
-        :label="backupId ? 'Enter your Password' : 'Choose a Password'"
+        :label="backupId
+          ? $t('cloud-sync.password-label-update') : $t('cloud-sync.password-label-setup')"
         layout="vertical"
         type="password"
       />
       <Button :click="checkPass">
-        <template v-slot:text>{{backupId ? 'Update Backup' : 'Backup'}}</template>
+        <template v-slot:text>
+          {{backupId
+            ? $t('cloud-sync.backup-button-update') : $t('cloud-sync.backup-button-setup')}}
+        </template>
         <template v-slot:icon><IconBackup /></template>
       </Button>
       <div class="results-view" v-if="backupId">
-        <span class="backup-id-label">Your Backup ID: </span>
+        <span class="backup-id-label">{{ $t('cloud-sync.backup-id-label') }}: </span>
         <pre class="backup-id-value">{{ backupId }}</pre>
-        <span class="backup-id-note">
-          This is used to restore from backups later.
-          So keep it, along with your password somewhere safe.
-        </span>
+        <span class="backup-id-note">{{ $t('cloud-sync.backup-id-note') }}</span>
       </div>
     </div>
     <div class="section restore-section">
-      <h3>Restore a Backup</h3>
+      <h3>{{ $t('cloud-sync.restore-title') }}</h3>
       <Input
         v-model="restoreCode"
         name="restore-code"
-        label="Restore ID"
+        :label="$t('cloud-sync.restore-id-label')"
       />
       <Input
         v-model="restorePassword"
         name="restore-password"
-        label="Password"
+        :label="$t('cloud-sync.restore-password-label')"
         type="password"
       />
       <Button :click="restoreBackup">
-        <template v-slot:text>Restore</template>
+        <template v-slot:text>{{ $t('cloud-sync.restore-button') }}</template>
         <template v-slot:icon><IconRestore /></template>
       </Button>
     </div>
@@ -101,7 +101,7 @@ export default {
       } else if (savedHash === this.makeHash(this.backupPassword)) {
         this.makeUpdate();
       } else {
-        this.showErrorMsg('Incorrect password. Please enter your current password.');
+        this.showErrorMsg(this.$t('cloud-sync.backup-error-password'));
       }
     },
     makeBackup() {
@@ -113,7 +113,7 @@ export default {
             this.updateUiAfterBackup(response.data.backupId, false);
           }
         }).catch(() => {
-          this.showErrorMsg('Unable to process request');
+          this.showErrorMsg(this.$t('cloud-sync.backup-error-unknown'));
         });
     },
     makeUpdate() {
@@ -125,7 +125,7 @@ export default {
             this.updateUiAfterBackup(response.data.backupId, true);
           }
         }).catch(() => {
-          this.showErrorMsg('Unable to process request');
+          this.showErrorMsg(this.$t('cloud-sync.backup-error-unknown'));
         });
     },
     restoreFromBackup(config, backupId) {
@@ -136,12 +136,14 @@ export default {
         localStorage.setItem(localStorageKeys.THEME, config.appConfig.theme);
       }
       this.setBackupIdLocally(backupId, this.restorePassword);
-      this.showSuccessMsg('Config Restored Succesfully');
+      this.showSuccessMsg(this.$t('cloud-sync.restore-success-msg'));
       setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
     },
     updateUiAfterBackup(backupId, isUpdate = false) {
       this.setBackupIdLocally(backupId, this.backupPassword);
-      this.showSuccessMsg(`${isUpdate ? 'Update' : 'Backup'} Completed Succesfully`);
+      this.showSuccessMsg(
+        `${isUpdate ? 'Update' : 'Backup'} ${this.$t('cloud-sync.backup-success-msg')}`,
+      );
       this.backupPassword = '';
     },
     showErrorMsg(errorMsg) {
