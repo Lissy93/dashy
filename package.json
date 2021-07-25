@@ -1,6 +1,6 @@
 {
   "name": "Dashy",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "license": "MIT",
   "main": "server",
   "scripts": {
@@ -11,7 +11,7 @@
     "pm2-start": "npx pm2 start server.js",
     "build-watch": "vue-cli-service build --watch --mode production",
     "build-and-start": "npm-run-all --parallel build-watch start",
-    "validate-config": "node src/utils/ConfigValidator",
+    "validate-config": "node services/config-validator",
     "health-check": "node services/healthcheck"
   },
   "dependencies": {
