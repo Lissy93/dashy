@@ -2,8 +2,9 @@
   <modal :name="modalName" :resizable="true" width="40%" height="60%" classes="dashy-modal">
     <div class="about-modal">
       <router-link to="/about">
-      <h2>Dashy V{{ appVersion }}</h2>
+      <h2>Dashy</h2>
       </router-link>
+      <AppVersion />
       <h3>Service Worker Status</h3>
       <code v-html="serviceWorkerInfo">{{ serviceWorkerInfo }}</code>
       <br>
@@ -39,10 +40,14 @@
 </template>
 
 <script>
+import AppVersion from '@/components/Configuration/AppVersion';
 import { modalNames, sessionStorageKeys } from '@/utils/defaults';
 
 export default {
   name: 'AppInfoModal',
+  components: {
+    AppVersion,
+  },
   data() {
     return {
       modalName: modalNames.ABOUT_APP,
