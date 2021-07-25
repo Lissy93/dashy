@@ -22,8 +22,8 @@
     </modal>
 
     <!-- Modal for manually changing locale -->
-    <modal :name="modalNames.LANG_SWITCHER" :resizable="true" width="30%" height="25%"
-      @closed="$emit('modalChanged', false)" classes="dashy-modal">
+    <modal :name="modalNames.LANG_SWITCHER" classes="dashy-modal"
+      :resizable="true" width="30%" height="25%">
       <LanguageSwitcher />
     </modal>
 
