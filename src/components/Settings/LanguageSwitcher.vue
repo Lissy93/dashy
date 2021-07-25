@@ -26,7 +26,7 @@
 import Button from '@/components/FormElements/Button';
 import { languages } from '@/utils/languages';
 import SaveConfigIcon from '@/assets/interface-icons/save-config.svg';
-import { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys, modalNames } from '@/utils/defaults';
 
 export default {
   name: 'LanguageSwitcher',
@@ -39,10 +39,11 @@ export default {
     return {
       availibleLanguages: languages,
       language: '',
+      modalName: modalNames.LANG_SWITCHER,
     };
   },
   methods: {
-    /* Save language to local storage */
+    /* Save language to local storage, show success msg and close modal */
     saveLanguage() {
       const selectedLanguage = this.language;
       if (this.checkLocale(selectedLanguage)) {
@@ -51,6 +52,9 @@ export default {
         const successMsg = `${selectedLanguage.flag} `
           + `${this.$t('language-switcher.success-msg')} ${selectedLanguage.name}`;
         this.$toasted.show(successMsg, { className: 'toast-success' });
+        this.$modal.hide(this.modalName);
+      } else {
+        this.$toasted.show('Unable to update language', { className: 'toast-error' });
       }
     },
     /* Check language is supported, before saving */
