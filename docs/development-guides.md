@@ -4,14 +4,35 @@ A series of short tutorials, to guide you through the most common development ta
 
 Sections:
 - [Creating a new theme](#creating-a-new-theme)
-- [Adding Translations](#adding-translations)
+- [Writing Translations](#adding-translations)
 - [Adding a new option in the config file](#adding-a-new-option-in-the-config-file)
+- [Updating Dependencies](#updating-dependencies)
 
 ## Creating a new theme
 
-See [Theming](./theming.md)
+Adding a new theme is really easy.  There's two things you need to do: Pass the theme name to Dashy, so that it can be added to the theme selector dropdown menu, and then write some styles!
 
-## Adding Translations
+##### 1. Add Theme Name
+Choose a snappy name for you're theme, and add it to the `builtInThemes` array inside [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L27). 
+
+##### 2. Write some Styles!
+Put your theme's styles inside [`color-themes.scss`](https://github.com/Lissy93/dashy/blob/master/src/styles/color-themes.scss). 
+Create a new block, and make sure that `data-theme` matches the theme name you chose above. For example:
+
+```css
+html[data-theme='tiger'] {
+  --primary: #f58233;
+  --background: #0b1021;
+}
+```
+
+Then you can go ahead and write you're own custom CSS. Although all CSS is supported here, the best way to define you're theme is by setting the CSS variables. You can find a [list of all CSS variables, here](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#css-variables).
+
+For a full guide on styling, see [Theming Docs](./theming.md).
+
+Note that if you're theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#adding-your-own-theme).
+
+## Writing Translations
 
 Dashy is using [vue-i18n](https://vue-i18n.intlify.dev/guide/) to manage multi-language support.
 
@@ -111,3 +132,9 @@ Checklist:
 - [] Set a default value (if required) within [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js)
 - [] Document the new value in [`configuring.md`](./configuring.md)
 - [] Test that the reading of the new attribute is properly handled, and will not cause any errors when it is missing or populated with an unexpected value
+
+---
+
+## Updating Dependencies
+
+Running `yarn upgrade` will updated all dependencies based on the ranges specified in the `package.json`. The `yarn.lock` file will be updated, as will the contents of `./node_modules`, for more info, see the [yarn upgrade documentation](https://classic.yarnpkg.com/en/docs/cli/upgrade/). It is important to thoroughly test after any big dependency updates.
