@@ -5,7 +5,7 @@ There are several ways that you can help out (but don't feel you have to).
 Any contributions, every contribution, however small will always be very much appreciated, and you will be appropriately credited in the readme - huge thank you to everyone who has helped so far.
 
 ## Submit a PR
-Contributing to the code or documentation is super helpful. You can fix a bug, add a new feature or improve an existing one. I've written [several guides](https://github.com/Lissy93/dashy/blob/master/docs/development-guides.md) with step-by-step tutorials of common tasks within Dashy. And I've tried to keep the code neat and documentation thorough, so understanding what everything does should be fairly straight forward, but feel free to ask if you have any questions.
+Contributing to the code or documentation is super helpful. You can fix a bug, add a new feature or improve an existing one. I've written [several guides](https://github.com/Lissy93/dashy/blob/master/docs/development-guides.md) with step-by-step tutorials of common tasks within Dashy. For setting up the development envionment, outline of the standards, and understanding the PR flow, see the [Deployment Docs](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md). And I've tried to keep the code neat and documentation thorough, so understanding what everything does should be fairly straight forward, but feel free to ask if you have any questions.
 
 ## Add Translations
 If you speak another language, then adding translations would be really helpful, and you will be credited in the readme for your work. Multi-language support makes Dashy accessible for non-English speakers, which I feel is important. This is a very quick and easy task, , as all application text is located in [`locales/en.json`](https://github.com/Lissy93/dashy/blob/master/src/assets/locales/en.json), so adding a new language is as simple as copying this file and translating the values. You don't have to translate it all, as any missing attributes will just fallback to English. For a full tutorial, see the [Translating Docs](https://github.com/Lissy93/dashy/blob/master/docs/development-guides.md#adding-translations).
@@ -33,7 +33,7 @@ Dashy is on the following platforms, and if you could spare a few seconds to giv
 
 Please only do this is you can definitely afford to. Don't feel any pressure to donate anything, as Dashy and my other projects will always be 100% free, for everyone, for ever.
 
-[![Sponsor Lissy93 on GitHub]()](https://github.com/sponsors/Lissy93)
+[![Sponsor Lissy93 on GitHub](./assets/sponsor-button.svg)](https://github.com/sponsors/Lissy93)
 
 Sponsoring will give you several perks, from $1 / £0.70 per month, as well as a sponsor badge on your profile, you can also be credited on the readme, with a link to your website/ profile/ socials, get priority support,  have your feature ideas implemented, plus lots more. For more info, see [@Lissy93's Sponsor Page](https://github.com/sponsors/Lissy93).
 

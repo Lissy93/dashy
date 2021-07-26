@@ -4,7 +4,7 @@ A series of short tutorials, to guide you through the most common development ta
 
 Sections:
 - [Creating a new theme](#creating-a-new-theme)
-- [Writing Translations](#adding-translations)
+- [Writing Translations](#writing-translations)
 - [Adding a new option in the config file](#adding-a-new-option-in-the-config-file)
 - [Updating Dependencies](#updating-dependencies)
 
@@ -127,11 +127,11 @@ If your property needs additional logic for fetching, setting or processing, the
 Finally, add your new property to the [`configuring.md`](./configuring.md) API docs. Put it under the relevant section, and be sure to include field name, data type, a description and mention that it is optional.  If your new feature needs more explaining, then you can also document it under the relevant section elsewhere in the documentation.
 
 Checklist:
-- [] Ensure the new attribute is actually necessary, and nothing similar already exists 
-- [] Update the [Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js) with the parameters for your new option
-- [] Set a default value (if required) within [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js)
-- [] Document the new value in [`configuring.md`](./configuring.md)
-- [] Test that the reading of the new attribute is properly handled, and will not cause any errors when it is missing or populated with an unexpected value
+- [ ] Ensure the new attribute is actually necessary, and nothing similar already exists 
+- [ ] Update the [Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js) with the parameters for your new option
+- [ ] Set a default value (if required) within [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js)
+- [ ] Document the new value in [`configuring.md`](./configuring.md)
+- [ ] Test that the reading of the new attribute is properly handled, and will not cause any errors when it is missing or populated with an unexpected value
 
 ---
 
