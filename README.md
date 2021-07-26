@@ -345,6 +345,8 @@ Custom links for the navigation menu are defined under [`pageInfo.navLinks`](htt
 
 You can display either custom text or HTML in the footer, using the `pageInfo.footerText` attribute.
 
+To display a logo or image asset next to the title, set `pageInfo.logo` to the path to your picture (either local or remote).
+
 It's also possible to hide parts of the page that you do not need (e.g. navbar, footer, search, heading, etc). This is done using the [`appConfig.hideComponents`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#appconfighidecomponents-optional) attribute.
 
 For example, a `pageInfo` section might look something like this:

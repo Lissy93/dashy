@@ -48,11 +48,13 @@ export default class ConfigAccumulator {
     } catch (e) {
       localPageInfo = {};
     }
+    const filePageInfo = this.conf.pageInfo || {};
     const pi = this.conf.pageInfo || defaults; // The page info object to return
-    pi.title = localPageInfo.title || conf.pageInfo.title || defaults.title;
-    pi.description = localPageInfo.description || conf.pageInfo.description || defaults.description;
-    pi.navLinks = localPageInfo.navLinks || conf.pageInfo.navLinks || defaults.navLinks;
-    pi.footerText = localPageInfo.footerText || conf.pageInfo.footerText || defaults.footerText;
+    pi.title = localPageInfo.title || filePageInfo.title || defaults.title;
+    pi.logo = localPageInfo.logo || filePageInfo.logo || defaults.logo;
+    pi.description = localPageInfo.description || filePageInfo.description || defaults.description;
+    pi.navLinks = localPageInfo.navLinks || filePageInfo.navLinks || defaults.navLinks;
+    pi.footerText = localPageInfo.footerText || filePageInfo.footerText || defaults.footerText;
     return pi;
   }
 
