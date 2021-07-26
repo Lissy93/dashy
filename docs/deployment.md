@@ -15,6 +15,7 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
 ## Deployment Methods
 
 - [Deploy with Docker](#deploy-with-docker)
+- [Using Docker Compose](#using-docker-compose)
 - [Build from Source](#build-from-source)
 - [Hosting with CDN](#hosting-with-cdn)
 - [Run as executable](#run-as-executable)
@@ -46,6 +47,44 @@ Explanation of the above options:
 
 For all available options, and to learn more, see the [Docker Run Docs](https://docs.docker.com/engine/reference/commandline/run/)
 
+### Using Docker Compose
+
+Using Docker Compose can be useful for saving your specific config in files, without having to type out a long run command each time. Save compose config as a YAML file, and then run `docker compose up` (optionally use the `-f` flag to specify file location, if it isn't located at `./docker-compose.yml`).
+
+Compose is also useful if you are using clusters, as the format is very similar to stack files, used with Docker Swarm.
+
+The following is a complete example of a `docker-compose.yml` for Dashy. Run it as is, or uncomment the additional options you need.
+
+```yaml
+---
+version: "3.8"
+services:
+  dashy:
+    # To build from source, replace 'image: lissy93/dashy' with 'build: .'
+    # build: .
+    image: lissy93/dashy
+    container_name: Dashy
+    # Pass in your config file below, by specifying the path on your host machine
+    # volumes:
+      # - /root/my-config.yml:/app/public/conf.yml
+    ports:
+      - 4000:80
+    # Set any environmental variables
+    environment:
+      - NODE_ENV=production
+    # Specify your user ID and group ID. You can find this by running `id -u` and `id -g`
+    #  - UID=1000
+    #  - GID=1000
+    # Specify restart policy
+    restart: unless-stopped
+    # Configure healthchecks
+    healthcheck:
+      test: ['CMD', 'node', '/app/services/healthcheck']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+```
 
 ### Build from Source
 
