@@ -80,7 +80,11 @@ docker run -d \
   lissy93/dashy:latest
 ```
 
+If you prefer to use Docker Compose, [here is an example](./docs/management.md#using-docker-compose).
 You can also build the Docker container from source, by cloning the repo, cd'ing into it and running `docker build .` and `docker compose up`.
+
+> Once you've got Dashy running, you can take a look at [App Management Docs](./docs/management.md), for info on using health checks, provisioning assets, configuring web servers, securing your app, logs, performance and more.
+
 #### Deploying from Source 🚀
 
 You will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed on your system
@@ -91,7 +95,9 @@ You will need both [git](https://git-scm.com/downloads) and the latest or LTS ve
 - Build: `yarn build`
 - Run: `yarn start`
 
-#### Deploy to the Cloud
+> See the Management docs for [all Dashy's commands](./docs/management.md#basic-commands)
+
+#### Deploy to the Cloud ☁️
 
 Dashy supports 1-Click deployments on several popular cloud platforms. To spin up a new instance, just click a link below:
 - [<img src="https://i.ibb.co/ZxtzrP3/netlify.png" width="18"/> Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
@@ -101,24 +107,6 @@ Dashy supports 1-Click deployments on several popular cloud platforms. To spin u
 - [<img src="https://i.ibb.co/J7MGymY/googlecloud.png" width="18"/> Deploy to GCP](https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git)
 - [<img src="https://i.ibb.co/HVWVYF7/docker.png" width="18"/> Deploy to PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
 
-#### Basic Commands
-
-The following commands can be run on Dashy.
-
-- `yarn build` - Builds the project for production, and outputs it into `./dist`
-- `yarn start` - Starts a web server, and serves up the production site from `./dist`
-- `yarn validate-config` - Parses and validates your `conf.yml` against Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json)
-- `yarn health-check` - Checks the health and status of Dashy's Node server
-- `yarn pm2-start` - Starts the app using the [PM2](https://pm2.keymetrics.io/) process manager
-- `yarn dev` - Starts the development server with hot reloading, linting, testing and verbose messaging
-- `yarn lint` - Lints code to ensure it follows a consistent neat style
-- `yarn test` - Runs tests, and outputs results
-- `yarn install` - Install all dependencies
-
-If you are using Docker, than precede each command with `docker exec -it [container-id]`, where container id can be found by running `docker ps`, e.g. `docker exec -it 92490c12baff yarn build`.
-If you prefer [`NPM`](https://docs.npmjs.com), then just replace `yarn` with `npm run` in the following commands.
-
-In Docker, [healthchecks](https://docs.docker.com/engine/reference/builder/#healthcheck) are pre-configured to monitor the uptime and response times of Dashy, and the status of which will show in your Docker monitoring app, or the `docker ps` command, or the container logs, using: `docker inspect --format "{{json .State.Health }}" [container-id]`.
 
 **[⬆️ Back to Top](#dashy)**
 
