@@ -51,6 +51,7 @@ export default class ConfigAccumulator {
     const filePageInfo = this.conf.pageInfo || {};
     const pi = this.conf.pageInfo || defaults; // The page info object to return
     pi.title = localPageInfo.title || filePageInfo.title || defaults.title;
+    pi.logo = localPageInfo.logo || filePageInfo.logo || defaults.logo;
     pi.description = localPageInfo.description || filePageInfo.description || defaults.description;
     pi.navLinks = localPageInfo.navLinks || filePageInfo.navLinks || defaults.navLinks;
     pi.footerText = localPageInfo.footerText || filePageInfo.footerText || defaults.footerText;
