@@ -10,13 +10,14 @@ html {
 }
 
 header.heroBanner {
-  padding: 4rem 0;
+  padding: 4rem 1rem;
   text-align: center;
   position: relative;
   overflow: hidden;
   background: var(--hero-background);
+  min-height: calc(100vh - 4rem);
   h1.heroTitle {
-    font-size: 6rem;
+    font-size: 8rem;
     font-family: 'Racing Sans One', cursive;
     text-shadow: var(--heading-shadow);
   }
@@ -24,12 +25,25 @@ header.heroBanner {
     text-shadow: var(--sub-heading-shadow);
   }
 }
-
 .buttons {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 1.5rem;
   @media screen and (max-width: 966px) {
     flex-direction: column;
   }
+}
+.dashyDescription {
+  max-width: 800px;
+  margin: 1rem auto;
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.keepReading {
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  text-decoration: underline;
 }

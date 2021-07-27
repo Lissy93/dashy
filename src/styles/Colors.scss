@@ -23,6 +23,8 @@ html { /* Light Theme */
   --background: var(--white);
   --text-color: var(--black);
   --hero-background: var(--pale-grey);
+  --kinda-transparent: #ffffffd9;
+  --feature-img-shadow: 4px 4px 6px #a9a9a980, -2px -2px 4px rgb(0 0 0 / 40%);
 }
 
 html[data-theme='dark'] { /* Dark Theme */
@@ -30,4 +32,6 @@ html[data-theme='dark'] { /* Dark Theme */
   --background: var(--dark-grey);
   --text-color: var(--white);
   --hero-background: var(--black);
+  --kinda-transparent: #000000d9;
+  --feature-img-shadow: 4px 4px 6px #00000080, -2px -2px 4px rgb(0 0 0 / 40%);
 }
