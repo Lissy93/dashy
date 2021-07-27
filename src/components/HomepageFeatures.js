@@ -27,6 +27,7 @@ const FeatureList = [
       </>
     ),
     icon: (<IconShortcuts />),
+    demo: '../../static/img/homepage-assets/searching-demo.gif',
   },
   {
     title: 'Theming',
@@ -40,6 +41,7 @@ const FeatureList = [
       </>
     ),
     icon: (<IconThemes />),
+    demo: '../../static/img/homepage-assets/theme-slideshow.gif',
   },
   {
     title: 'Icons',
@@ -104,6 +106,7 @@ const FeatureList = [
       </>
     ),
     icon: (<IconStatusIndicators />),
+    demo: '../../static/img/homepage-assets/status-check-demo.gif',
   },
   {
     title: 'Launching Methods',
@@ -121,6 +124,7 @@ const FeatureList = [
       </>
     ),
     icon: (<IconOpeningMethods />),
+    demo: '../../static/img/homepage-assets/workspace-demo.gif',
   },
   {
     title: 'Authentication',
@@ -158,6 +162,7 @@ const FeatureList = [
       </>
     ),
     icon: (<IconUiConfig />),
+    demo: '../../static/img/homepage-assets/config-editor-demo.gif',
   },
   {
     title: 'Easy Deployment',
@@ -182,21 +187,21 @@ const getColor = (index) => {
   }
 };
 
-function Feature({ title, description, icon, index }) {
+function Feature({ title, description, icon, demo, index }) {
   const side = index % 2 == 0 ? 'left' : 'right';
   const color = getColor(index)
   return (
     <div className={`feature align-${side} color-${color}`}>
       <div className="feature-half text">
         <div className="feature-title">{icon}<h3>{title}</h3></div>
-        <p>{description}</p>
+        {description}
         <div className="read-the-docs">
           <small>Learn more in the Docs</small>
           <Button to="/docs" color={color}>{icon} Docs</Button>
         </div>
       </div>
       <div className="feature-half assets">
-        <div className="screenshot"></div>
+        <img className="demo" src={demo} />
       </div>
     </div>
   );
