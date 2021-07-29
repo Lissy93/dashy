@@ -111,8 +111,8 @@
     "rebuild-button": "Start Build",
     "rebuilding-status-1": "Building...",
     "rebuilding-status-2": "This may take a few minutes",
-    "error-permission": "You do no have permission to trigger this action",
-    "success-msg": "Build completed succesfully",
+    "error-permission": "You don't have permission to trigger this action",
+    "success-msg": "Build completed successfully",
     "fail-msg": "Build operation failed",
     "reload-note": "A page reload is now required for changes to take effect",
     "reload-button": "Reload Page"
