@@ -1,5 +1,6 @@
 // Locales - Import translation files here!
 import en from '@/assets/locales/en.json';
+import de from '@/assets/locales/de.json';
 
 // Language data - Add your country name, locale code and imported file here
 export const languages = [
