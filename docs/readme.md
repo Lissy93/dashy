@@ -11,10 +11,12 @@
 - [Development Guides](/docs/development-guides.md) - Common development tasks, to help new contributors
 - [Contributing](/docs/contributing.md) - How to contribute to Dashy
 - [Showcase](/docs/showcase.md) - See how others are using Dashy, and share your dashboard
+- [Credits]()
 
 ### Feature Docs
+- [Authentication](/docs/authentication.md) - Guide to setting up authentication to protect your dashboard
 - [Backup & Restore](/docs/backup-restore.md) - Guide to Dashy's cloud sync feature
 - [Status Indicators](/docs/status-indicators.md) - Using Dashy to monitor uptime and status of your apps
-- [Theming](/docs/theming.md) - Complete guide to applying, writing and modifying themes and styles
 - [Icons](/docs/icons.md) - Outline of all available icon types for sections and items
-- [Authentication](/docs/authentication.md) - Guide to setting up authentication to protect your dashboard
+- [Language Switching](/docs/multi-language-support.md)
+- [Theming](/docs/theming.md) - Complete guide to applying, writing and modifying themes and styles
