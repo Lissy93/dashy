@@ -63,14 +63,14 @@ If you do add new variables, ensure that there is always a fallback (define it i
 
 
 ### Environment Modes
-Both the Node app and Vue app supports several environments: `production`, `development` and `test`. You can set the environment using the `NODE_ENV` variable (either with your OS, in the Docker script or in an `.env` file - see [Environmental Variables](#environmental-variables) above).
+You can set the environment using the `NODE_ENV` variable.
+The correct environment will be selected based on the script you run by default
+The following environments are supported.
+- `production`
+- `development`
+- `test`
 
-The production environment will build the app in full, minifying and streamlining all assets. This means that building takes longer, but the app will then run faster. Whereas the dev environment creates a webpack configuration which enables HMR, doesn't hash assets or create vendor bundles in order to allow for fast re-builds when running a dev server. It supports sourcemaps and other debugging tools, re-compiles and reloads quickly but is not optimized, and so the app will not be as snappy as it could be. The test environment is intended for test running servers, it ignores assets that aren't needed for testing, and focuses on running all the E2E, regression and unit tests. For more information, see [Vue CLI Environment Modes](https://cli.vuejs.org/guide/mode-and-env.html#modes).
-
-By default:
-- `production` is used by `yarn build` (or `vue-cli-service build`) and `yarn build-and-start` and `yarn pm2-start`
-- `development` is used by `yarn dev` (or `vue-cli-service serve`)
-- `test` is used by `yarn test` (or `vue-cli-service test:unit`)
+For more info, see [Vue CLI Environment Modes](https://cli.vuejs.org/guide/mode-and-env.html#modes).
 
 ---
 
