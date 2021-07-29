@@ -95,7 +95,7 @@ You will need both [git](https://git-scm.com/downloads) and the latest or LTS ve
 - Build: `yarn build`
 - Run: `yarn start`
 
-> See the Management docs for [all Dashy's commands](./docs/management.md#basic-commands)
+> See docs [Full list of Dashy's commands](./docs/management.md#basic-commands)
 
 #### Deploy to the Cloud ☁️
 
@@ -116,15 +116,13 @@ Dashy supports 1-Click deployments on several popular cloud platforms. To spin u
 
 > For full configuration documentation, see: [**Configuring**](./docs/configuring.md)
 
-Dashy is configured with a single [YAML](https://yaml.org/) file, located at `./public/conf.yml` (or `./app/public/conf.yml` for Docker). Any other optional user-customizable assets are also located in the `./public/` directory, e.g. `favicon.ico`, `manifest.json`, `robots.txt` and `web-icons/*`. If you are using Docker, the easiest way to method is to mount a Docker volume (e.g. `-v /root/my-local-conf.yml:/app/public/conf.yml`)
+All of Dashy's configuration is specified in a single [YAML](https://yaml.org/) file, located at `./public/conf.yml` (or `./app/public/conf.yml` for Docker). You can find a complete list of available options in th [Configuring Docs](/docs/configuring.md). If you're using Docker, you'll probably want to pass this file in as a Docker volume (e.g. `-v /root/my-local-conf.yml:/app/public/conf.yml`).
 
-In the production environment, the app needs to be rebuilt in order for changes to take effect. This should happen automatically, but can also be triggered by running `yarn build`, or `docker exec -it [container-id] yarn build` if you are using Docker (where container ID can be found by running `docker ps`).
+The config can also be edited directly through the UI, with changes written to your conf.yml file. After making any modifications the app does need to be rebuilt, this should happen automatically but you can also trigger a build with  `yarn build`,  `docker exec -it [container-id] yarn build`, or directly through the UI.
 
-You can check that your config matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json) before deploying, by running `yarn validate-config.`
+You can check that your config is correct and valid, by running: `yarn validate-config`. This will validate that your configuration matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json).
 
-It is now possible also possible to update Dashy's config directly through the UI, and have changes written to disk. You can disable this feature by setting: `appConfig.allowConfigEdit: false`. If you are using users within Dashy, then you need to be logged in to a user of `type: admin` in order to modify the configuration globally. You can also trigger a rebuild of the app through the UI (Settings --> Rebuild).
-
-You may find these [example config](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10) helpful for getting you started
+Finally, you may find these [example config](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10) helpful for getting you started.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -366,39 +364,85 @@ pageInfo:
 
 ---
 
+
+## Support 👨‍👩‍👦
+
+### Getting Help 🙋‍♀️
+
+> For general discussions, check out the [Discussions Board](https://github.com/Lissy93/dashy/discussions)
+
+If you're having trouble getting things up and running, feel free to ask a question. The best way to do so is in the [discussion](https://github.com/Lissy93/dashy/discussions), or if you think you think the issue is on Dashy's side, you can [raise a ticket](https://github.com/Lissy93/dashy/issues/new/choose). It's best to check the [docs](./docs) and [previous questions](https://github.com/Lissy93/dashy/issues?q=label%3A%22%F0%9F%A4%B7%E2%80%8D%E2%99%82%EF%B8%8F+Question%22+) first, as you'll likley find the solution there.
+
+### Raising Issues 🐛
+
+Found a bug, or something that isn't working as you'd expect? Please raise it as an issue so that it can be resolved. Feature requests are also welcome. Similarlty, feedback is very useful, as it helps me know what areas of Dashy need some improvement. 
+
+- [Raise a Bug 🐛](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%90%9B+Bug&template=bug-report---.md&title=%5BBUG%5D)
+- [Submit a Feature Request 🦄](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A6%84+Feature+Request&template=feature-request---.md&title=%5BFEATURE_REQUEST%5D)
+- [Share Feedback 🌈](https://github.com/Lissy93/dashy/issues/new?assignees=&labels=%F0%9F%8C%88+Feedback&template=share-feedback---.md&title=%5BFEEDBACK%5D)
+
+### Supporting Dashy 💖
+
+> For full details, and other ways you can help out, see: [**Contributing**](./docs/contributing.md)
+
+If you're using Dashy, and would like to help support it's development, then that would be awesome! Contributions of any type, however small are always very much appreciated, and you will be appropriatley credited for your effort.
+
+Several areas that we need a bit of help with at the moment are:
+- Adding translations - If you speak a second language, help make Dashy availible to non-native English speakers by adding text for you're language
+- Donate a small amount, by [Sponsoring @Lissy93 on GitHub](https://github.com/sponsors/Lissy93) (only if you can afford to), and you'll also recieve some extra perks!
+- Community Engagement: Join the discussion, and help answer other users questions, or spread the word by sharing Dashy online or leaving a review / upvote.
+- Share your dashboard in the [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-), to help provide inspiration for others
+- Submit a PR, to add a new feature, fix a bug, update the docs, add a theme or something else
+
+[![Sponsor Lissy93 on GitHub](./docs/assets/sponsor-button.svg)](https://github.com/sponsors/Lissy93)
+
+### Credits 🏆
+
+> For a full list of credits, and attributions to packages used within Dashy, see: [**Credits**](./docs/credits.md)
+
+Thank you so much to everyone who has helped with Dashy so far, every single contributuib is very much appreciated.
+
+**Sponsors**
+
+**Contributors**
+**![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)**
+
+**Packages**
+- Utils: [`crypto-js`](https://github.com/brix/crypto-js), [`axios`](https://github.com/axios/axios), [`ajv`](https://github.com/ajv-validator/ajv)
+- Components: [`vue-select`](https://github.com/sagalbot/vue-select) by @sagalbot, [`vue-js-modal`](https://github.com/euvl/vue-js-modal) by @euvl, [`v-tooltip`](https://github.com/Akryum/v-tooltip) by @Akryum, [`vue-material-tabs`](https://github.com/jairoblatt/vue-material-tabs) by @jairoblatt, [`JsonEditor`](https://github.com/josdejong/jsoneditor) by @josdejong, [`vue-toasted`](https://github.com/shakee93/vue-toasted) by @shakee93
+[`prism.js`](https://github.com/PrismJS/prism) `MIT`
+- Core: Vue.js, TypeScript, SCSS, Node.js, ESLint
+- The backup & sync server uses [Cloudflare workers](https://workers.cloudflare.com/) plus [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
+- Services: The 1-Click demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker image is hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
+
 ## Developing 🧱
 
 > For full development documentation, see: [**Developing**](./docs/developing.md)
 
+To set up the development environment:
 1. Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
 2. Install dependencies: `yarn`
 3. Start dev server: `yarn dev`
 
-Hot reload is enabled, so changes will be detected automatically, triggering the app to be rebuilt and refreshed. Ensure that all lint checks and tests are passing before pushing an code or deploying the app.
+Hot reload is enabled, so changes will be automatically detected, compiled and refreshed.
 
-If you are new to Vue.js or web development and want to learn more, [here are some resources](docs/developing.md#resources-for-beginners) to help get you started. Dashy is a pretty straight-forward application, so would make an ideal candidate for your first PR!
+Like most Git repos, we are following the [Github Flow](https://guides.github.com/introduction/flow) standard.
+1. Create a branch (or fork if you're not a collaborator)
+2. Code some awesome stuff, then add and commit your changes
+3. Create a Pull Request, complete the checklist and ensure the build succeeds
+4. Follow up with any reviews on your code
+5. Merge 🎉
 
-**[⬆️ Back to Top](#dashy)**
+Branch names are specified in the following format: `[TYPE]/[TICKET]_[TITLE]`. E.g. `FEATURE/420_Awesome-feature` or `FIX/690_login-server-error`.
 
----
+Most commits have been using git commit emojis, see [gitmoji.dev](https://gitmoji.dev/) for what each emoji indicates.
 
-## Contributing 😇
-
-> For full contributing guide, see: [**Contributing**](/docs/contributing.md)
-
-Pull requests are welcome, and would by much appreciated!
-
-Some ideas for PRs include: bug fixes, improve the docs, submit a screenshot of your dashboard to the showcase, add new themes, implement a new widget, add or improve the display options, improve or refactor the code, or implement a new feature.
-
-Before you submit your pull request, please ensure the following:
+Before you submit your pull request, please ensure you've checked off all the boxes in the template. For your PR to be merged, it must:
 - Must be backwards compatible
-- All lint checks and tests must pass
-- If a new option in the the config file is added, it needs to be added into the [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json), and documented in the [configuring](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md) guide
-- If a new dependency is required, it must be essential, and it must be thoroughly checked out for security or efficiency issues
-- Your pull request will need to be up-to-date with master, and the PR template must be filled in
+- The build, lint and tests (run by GH actions) must pass
+- There must not be any merge conflicts
 
-### Repo Status
-
+**Repo Status**:
 ![Open PRs](https://flat.badgen.net/github/open-prs/lissy93/dashy?icon=github)
 ![Total PRs](https://flat.badgen.net/github/prs/lissy93/dashy?icon=github)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/lissy93/dashy?style=flat-square)
@@ -434,19 +478,26 @@ For more general questions about any of the technologies used, [StackOverflow](h
 ---
 
 ## Documentation 📘
+#### Running Dashy
+- [Deployment](/docs/deployment.md) - Getting Dashy up and running
+- [Configuring](/docs/configuring.md) - Complete list of all available options in the config file
+- [Management](/docs/management.md) - Managing your app, updating, security, web server configuration, etc
+- [Troubleshooting](/docs/troubleshooting.md) - Common errors and problems, and how to fix them
 
-- [Deployment](/docs/deployment.md)
-- [Configuring](/docs/configuring.md)
-- [Developing](/docs/developing.md)
-- [Contributing](/docs/contributing.md)
-- [User Guide](/docs/user-guide.md)
-- [Troubleshooting](/docs/troubleshooting.md)
-- [Backup & Restore](/docs/backup-restore.md)
-- [Status Indicators](/docs/status-indicators.md)
-- [Theming](/docs/theming.md)
-- [Icons](/docs/icons.md)
-- [Authentication](/docs/authentication.md)
-- [Showcase](/docs/showcase.md)
+#### Development and Contributing 
+- [Developing](/docs/developing.md) - Running Dashy development server locally, and general workflow
+- [Development Guides](/docs/development-guides.md) - Common development tasks, to help new contributors
+- [Contributing](/docs/contributing.md) - How to contribute to Dashy
+- [Showcase](/docs/showcase.md) - See how others are using Dashy, and share your dashboard
+- [Credits]()
+
+#### Feature Docs
+- [Authentication](/docs/authentication.md) - Guide to setting up authentication to protect your dashboard
+- [Backup & Restore](/docs/backup-restore.md) - Guide to Dashy's cloud sync feature
+- [Status Indicators](/docs/status-indicators.md) - Using Dashy to monitor uptime and status of your apps
+- [Icons](/docs/icons.md) - Outline of all available icon types for sections and items
+- [Language Switching](/docs/multi-language-support.md)
+- [Theming](/docs/theming.md) - Complete guide to applying, writing and modifying themes and styles
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -493,6 +544,21 @@ There are a few self-hosted web apps, that serve a similar purpose to Dashy. If 
 [HomeDash2](https://lamarios.github.io/Homedash2), [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`), [Organizr](https://organizr.app/) (`GPL-3.0 License`) and  [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
 
 **[⬆️ Back to Top](#dashy)**
+
+---
+
+## 🛣️ Roadmap
+
+> For past and future app updates, see: [**Changelog**](./docs/changelog.md)
+
+
+The following features and tasks are planned for the near future.
+- Widget support- cards showing live stats and interactive content from your self-hosted services
+- UI Drag & Drop editor and visual configurator
+- Conversion to TypeScript
+- Improved test coverage
+ 
+ **[⬆️ Back to Top](#dashy)**
 
 ---
 ## License 📜
