@@ -313,6 +313,7 @@ Alternatively, set you're language in the config file, under `appConfig.language
 
 #### Supported Languages
 - 🇬🇧 **English**: `en`
+- 🇩🇪 **German**: `de`
 
 #### Add your Language
 I would love for Dashy to be available and comfortable to use for all, including non-native English speakers. If you speak another language, and have a few minutes to sapir, you're help with translating it would be very much appreciated.
