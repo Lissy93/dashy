@@ -9,6 +9,12 @@ export const languages = [
     locale: en,
     flag: '🇬🇧',
   },
+  {
+    name: 'German',
+    code: 'de',
+    locale: de,
+    flag: '🇩🇪',
+  },
   // Including:
   // name - Human readable name for your language (e.g German)
   // code - ISO language code (e.g. de)
