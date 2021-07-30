@@ -1,108 +1,33 @@
 ---
 pageInfo:
-  title: Home Lab
-  description: Dashy
-  logo: https://i.ibb.co/yhbt6CY/dashy.png
-  #logo: /web-icons/dashy-logo.png
+  title: Dashy
+  navLinks:
+  - title: Home
+    path: /
+  - title: About
+    path: /about
+  - title: Source Code
+    path: https://github.com/Lissy93/dashy
 appConfig:
-  theme: nord-frost
-  language: en
-  disableUpdateChecks: false
+  theme: colorful
+  fontAwesomeKey: 0821c65656
 sections:
-- name: Productivity
-  displayData:
-    collapsed: false
-    cols: 2
+- name: Getting Started
   items:
-  - title: Archive Box
-    description: Web site archiving
-    icon: far fa-archive
-  - title: Baserow
-    description: Feature-rich dynamic tables (similar to Airtable)
-    icon: fal fa-table
-  - title: Bookstack
-    description: Self-hosted Wiki
-    icon: far fa-books
-  - title: Domain Mod
-    description: Manage domains and other internet assets
-    icon: fal fa-globe
-  - title: Firefly
-    description: Financial manager, for keeping track of expenses, income, budgets, etc
-    icon: far fa-piggy-bank
-  - title: Fresh RSS
-    description: RSS feed reader and news aggregator
-    icon: far fa-rss-square
-  - title: Git Tea
-    description: Git service, hosting mirrors of my public repos
-    icon: fab fa-git-alt
-  - title: LessPass
-    description: Deterministic stateless password manager
-    icon: far fa-key
-  - title: NextCloud
-    description: Cloud office suit and collaboration platform
-    icon: far fa-cloud
-  - title: Paperless
-    description: Scan, index, and archive physical paper documents
-    icon: far fa-paper-plane
-  - title: Photo Prism
-    description: Browsing, organizing, and sharing photos and albums
-    icon: far fa-images
-  - title: Standard Notes
-    description: Encrypted notes app, with extensions and desktop + mobile apps
-    icon: far fa-sticky-note
-  - title: Syncthing
-    description: Peer-to-peer file synchronization
-    icon: far fa-recycle
-  - title: VS Code Web
-    description: Cloud based VS Code development environment
-    icon: far fa-code
-  - title: XBrowserSync
-    description: Bookmarks, history and browser sync
-    icon: far fa-bookmark
-- name: Firewall
-  items:
-  - title: OPNsense
-    description: Firewall Central Management
-    icon: far fa-sensor-fire
-    target: modal
-  - title: NetData
-    description: System resource usage on firewall
-    icon: far fa-digital-tachograph
-  - title: MalTrail
-    description: Malicious traffic detection system
-    icon: far fa-viruses
-  - title: Ntopng
-    description: Network traffic probe and network use monitor
-    icon: far fa-tachometer-alt-fastest
-  - title: Sensei
-    description: Additional data features
-    icon: far fa-chart-line
-  - title: Monit
-    description: Status of firewall system alerts
-    icon: far fa-monitor-heart-rate
-  - title: Firewall Logs
-    description: Real-time view of firewall data and logs
-    icon: far fa-file-spreadsheet
-  - title: WireGuard
-    description: Manage WireGuard client and server on firewall
-    icon: far fa-project-diagram
-- name: Networks
-  items:
-  - title: Pi-Hole
-    description: DNS settings for ad & tracker blocking
-    icon: fab fa-raspberry-pi
-  - title: PiAlert
-    description: Presence monitoring and ARP scanning
-    icon: far fa-engine-warning
-  - title: SmokePing
-    description: Network latency monitoring
-    icon: far fa-smoke
-  - title: StatPing
-    description: Up-time monitoring for local service
-    icon: far fa-chart-network
-  - title: LibreSpeed
-    description: Local network speed and latency test
-    icon: far fa-rabbit-fast
-  - title: Grafana
-    description: Data visualised on dashboards
-    icon: far fa-analytics
+  - title: Source
+    description: Source code and documentation on GitHub
+    icon: fab fa-github
+    url: https://github.com/Lissy93/dashy
+  - title: Issues
+    description: View currently open issues, or raise a new one
+    icon: fas fa-bug
+    url: https://github.com/Lissy93/dashy/issues
+  - title: Demo 1
+    description: 'Live Demo #1'
+    icon: far fa-rocket
+    url: https://dashy-demo-1.netlify.app 
+  - title: Demo 2
+    description: 'Live Demo #2'
+    icon: fad fa-planet-ringed
+    url: https://dashy-demo-2.netlify.app 
+  
