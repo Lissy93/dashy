@@ -1,6 +1,7 @@
 import React from 'react';
 import './../styles/HomepageFeatures.scss';
 import Button from '../components/Button';
+import getColor from '../utils/ui-helpers';
 
 import IconAuth from '../../static/icons/features_authentication.svg';
 import IconCloudSync from '../../static/icons/features_cloud-sync.svg';
@@ -175,17 +176,6 @@ const FeatureList = [
     icon: (<IconDeploy />),
   },
 ];
-
-const getColor = (index) => {
-  const remainder = index % 4;
-  switch (remainder) {
-    case 0: return 'pink';
-    case 1: return 'blue';
-    case 2: return 'green';
-    case 3: return 'yellow';
-    default: return 'white';
-  }
-};
 
 function Feature({ title, description, icon, demo, index }) {
   const side = index % 2 == 0 ? 'left' : 'right';
