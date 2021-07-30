@@ -45,7 +45,7 @@ BountySource is a platform for sponsoring the development of certain features on
 
 For more info, see [Dashy on Bounty Source](https://www.bountysource.com/teams/dashy)
 
-### Enable Anonymous Error Reporting
+## Enable Anonymous Error Reporting
 Enabling error tracking helps me to discover bugs I was unaware of, and then fix them, in order to make Dashy more stable and reliable long term. Error reporting is disabled by default, and no data will ever be sent to an external endpoint without your explicit consent.
 
 Sentry is used to identify, report and categorize errors. All statistics collected are anonymized and stored securely, for more about privacy and security, see the [Sentry Docs](https://sentry.io/security/).
