@@ -2,7 +2,7 @@
 :root {
   /* Greyscale */
   --bright-white: #ffffff;
-  --white: #d8d8d8;
+  --white: #e5e5e5;
   --pale-grey: #e9e9e8;
   --mid-grey: #a9a9a9;
   --dark-grey: ##18191a;
@@ -22,13 +22,13 @@ html { /* Light Theme */
   --primary: #54bff7;
   --background: var(--white);
   --text-color: var(--black);
-  --hero-background: var(--pale-grey);
+  --hero-background: var(--white);
   --kinda-transparent: #ffffffd9;
   --feature-img-shadow: 4px 4px 6px #a9a9a980, -2px -2px 4px rgb(0 0 0 / 40%);
 }
 
 html[data-theme='dark'] { /* Dark Theme */
-  --primary: #a324fb;
+  --primary: #202020;
   --background: var(--dark-grey);
   --text-color: var(--white);
   --hero-background: var(--black);

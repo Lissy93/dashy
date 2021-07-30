@@ -1,0 +1,26 @@
+
+main.docs {
+  max-width: 1000px;
+  margin: 1rem auto;
+  padding: 1rem;
+
+  div.docs-contents {
+    color: var(--text-color);
+    a {
+      max-width: 5rem;
+      padding: 0.25rem 0.5rem;
+      p {
+        margin: 0;
+      }
+    }
+    a.docs-link {
+      max-width: 5rem;
+      p {
+        color: var(--text-color);
+      }
+      .docs-icon svg {
+        width: 2rem;
+      }
+    }
+  }
+}
