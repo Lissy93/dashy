@@ -27,20 +27,17 @@
     <li><a href="#cloud-backup--sync-">☁ Cloud Backup &amp; Sync</a></li>
     <li><a href="#authentication-">💂 Authentication</a></li>
     <li><a href="#status-indicators-">🚦 Status Indicators</a></li>
-    <li><a href="#opening-methods-">🖱️ Opening Methods</a></li>
+    <li><a href="#opening-methods-%EF%B8%8F">🖱️ Opening Methods</a></li>
     <li><a href="#searching-and-shortcuts-">🔎 Searching and Shortcuts</a></li>
-    <li><a href="#config-editor-">⚙️ Config Editor</a></li>
+    <li><a href="#config-editor-%EF%B8%8F">⚙️ Config Editor</a></li>
     <li><a href="#language-switching-">🌎 Language Switching</a></li>
     <li><a href="#setting-dashboard-info-">🌳 Dashboard Info</a></li>
-    <li><a href="#support-">👨‍👩‍👦 Support</a><ul>
     <li><a href="#getting-help-">🙋‍♀️ Getting Help</a></li>
-    <li><a href="#raising-issues#">🐛 Raising Issues</a></li>
+    <li><a href="#raising-issues-">🐛 Raising Issues</a></li>
     <li><a href="#supporting-dashy-">💖 Supporting Dashy</a></li>
     <li><a href="#credits-">🏆 Credits</a></li>
-    </ul>
-    </li>
     <li><a href="#developing-">🧱 Developing</a></li>
-    <li><a href="#ddocumentation-">📘 Documentation</a></li>
+    <li><a href="#documentation-">📘 Documentation</a></li>
     <li><a href="#roadmap-">🛣️ Roadmap</a></li>
     <li><a href="#alternatives-">🙌 Alternatives</a></li>
     <li><a href="#license-">📜 License</a></li>
@@ -376,15 +373,15 @@ pageInfo:
 
 ---
 
-## Support 👨‍👩‍👦
-
-### Getting Help 🙋‍♀️
+## Getting Help 🙋‍♀️
 
 > For general discussions, check out the **[Discussions Board](https://github.com/Lissy93/dashy/discussions)**
 
 If you're having trouble getting things up and running, feel free to ask a question. The best way to do so is in the [discussion](https://github.com/Lissy93/dashy/discussions), or if you think you think the issue is on Dashy's side, you can [raise a ticket](https://github.com/Lissy93/dashy/issues/new/choose). It's best to check the [docs](./docs) and [previous questions](https://github.com/Lissy93/dashy/issues?q=label%3A%22%F0%9F%A4%B7%E2%80%8D%E2%99%82%EF%B8%8F+Question%22+) first, as you'll likley find the solution there.
 
-### Raising Issues 🐛
+**[⬆️ Back to Top](#dashy)**
+
+## Raising Issues 🐛
 
 Found a bug, or something that isn't working as you'd expect? Please raise it as an issue so that it can be resolved. Feature requests are also welcome. Similarlty, feedback is very useful, as it helps me know what areas of Dashy need some improvement. 
 
@@ -394,7 +391,9 @@ Found a bug, or something that isn't working as you'd expect? Please raise it as
 
 **Issue Status** [![Resolution Time](http://isitmaintained.com/badge/resolution/lissy93/dashy.svg)  ![Open Issues](http://isitmaintained.com/badge/open/lissy93/dashy.svg) ![Closed Issues](https://badgen.net/github/closed-issues/lissy93/dashy)](https://isitmaintained.com/project/lissy93/dashy)
 
-### Supporting Dashy 💖
+**[⬆️ Back to Top](#dashy)**
+
+## Supporting Dashy 💖
 
 > For full details, and other ways you can help out, see: [**Contributing**](./docs/contributing.md)
 
@@ -409,7 +408,9 @@ Several areas that we need a bit of help with at the moment are:
 
 [![Sponsor Lissy93 on GitHub](./docs/assets/sponsor-button.svg)](https://github.com/sponsors/Lissy93)
 
-### Credits 🏆
+**[⬆️ Back to Top](#dashy)**
+
+## Credits 🏆
 
 > For a full list of credits, and attributions to packages used within Dashy, see: [**Credits**](./docs/credits.md)
 
@@ -424,7 +425,7 @@ Thank you so much to everyone who has helped with Dashy so far, every single con
 Dashy was made possible thanks to the following packages and components. Full credit to their respective authors.
 - Utils: [`crypto-js`](https://github.com/brix/crypto-js), [`axios`](https://github.com/axios/axios), [`ajv`](https://github.com/ajv-validator/ajv)
 - Components: [`vue-select`](https://github.com/sagalbot/vue-select) by @sagalbot, [`vue-js-modal`](https://github.com/euvl/vue-js-modal) by @euvl, [`v-tooltip`](https://github.com/Akryum/v-tooltip) by @Akryum, [`vue-material-tabs`](https://github.com/jairoblatt/vue-material-tabs) by @jairoblatt, [`JsonEditor`](https://github.com/josdejong/jsoneditor) by @josdejong, [`vue-toasted`](https://github.com/shakee93/vue-toasted) by @shakee93
-[`prism.js`](https://github.com/PrismJS/prism) `MIT`
+[`prism.js`](https://github.com/PrismJS/prism)
 - Core: Vue.js, TypeScript, SCSS, Node.js, ESLint
 - The backup & sync server uses [Cloudflare workers](https://workers.cloudflare.com/) plus [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
 - Services: The 1-Click demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker image is hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
