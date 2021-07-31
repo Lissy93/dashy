@@ -22,11 +22,20 @@ Dashy now has a [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/sho
 ## Spread the word
 Dashy is still a relatively young project, and as such not many people know of it. It would be great to see more users, and so it would be awesome if you could consider sharing on social platforms.
 
+[![Share Dashy on Mastodon](https://img.shields.io/badge/Share-Mastodon-%232b90d9?style=flat-square&logo=mastodon)](https://mastodon.social/?text=Check%20out%20Dashy%2C%20the%20privacy-friendly%2C%20self-hosted%20startpage%20for%20organizing%20your%20life%3A%20https%3A%2F%2Fgithub.com%2FLissy93%2Fdashy%20-%20By%20%40lissy93%40mastodon.social)
+[![Share Dashy on Reddit](https://img.shields.io/badge/Share-Reddit-%23FF5700?style=flat-square&logo=reddit)](http://www.reddit.com/submit?url=https://github.com/Lissy93/dashy&title=Dashy%20-%20The%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80)
+[![Share Dashy on Twitter](https://img.shields.io/badge/Share-Twitter-%231DA1F2?style=flat-square&logo=twitter)](https://twitter.com/intent/tweet?url=https://github.com/lissy93/dashy&text=Check%20out%20Dashy%20by%20@Lissy_Sykes,%20the%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80)
+[![Share Dashy on Facebook](https://img.shields.io/badge/Share-Facebook-%234267B2?style=flat-square&logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/lissy93/dashy)
+[![Share Dashy on LinkedIn](https://img.shields.io/badge/Share-LinkedIn-%230077b5?style=flat-square&logo=linkedin)](https://www.linkedin.com/shareArticle?mini=true&url=https://github.com/lissy93/dashy)
+[![Share Dashy on Pinterest](https://img.shields.io/badge/Share-Pinterest-%23E60023?style=flat-square&logo=pinterest)](https://pinterest.com/pin/create/button/?url=https://github.com/lissy93/dashy&media=https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/1-home-lab-material.png&description=Check%20out%20Dashy,%20the%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80)
+[![Share Dashy via Email](https://img.shields.io/badge/Share-Email-%238A90C7?style=flat-square&logo=protonmail)](mailto:info@example.com?&subject=Check%20out%20Dashy%20-%20The%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80&cc=&bcc=&body=https://github.com/lissy93/dashy)
+
 ## Leave a review
 Dashy is on the following platforms, and if you could spare a few seconds to give it an upvote or review, this will also help new users find it.
-- [ProductHunt](https://www.producthunt.com/posts/dashy)
-- DockerHub
-- GitHub
+
+[![ProductHunt](https://img.shields.io/badge/Review-ProductHunt-%23b74424?style=flat-square&logo=producthunt)](https://www.producthunt.com/posts/dashy)
+[![AlternativeTo](https://img.shields.io/badge/Review-AlternativeTo-%235581a6?style=flat-square&logo=abletonlive)](https://alternativeto.net/software/dashy/about/)
+
 
 ## Make a small donation
 Please only do this is you can definitely afford to. Don't feel any pressure to donate anything, as Dashy and my other projects will always be 100% free, for everyone, for ever.
@@ -44,13 +53,6 @@ You can also send one-off small contriutions using crypto:
 BountySource is a platform for sponsoring the development of certain features on open source projects. If there is a feature you'd like implemented into Dashy, but either isn't high enough priority or is deemed to be more work than it's worth, then you can instead contribute a bounty towards it's development. You won't pay a penny until your proposal is fully built, and you are satisfied with the result. This helps support the developers, and makes Dashy better for everyone.
 
 For more info, see [Dashy on Bounty Source](https://www.bountysource.com/teams/dashy)
-
-## Enable Anonymous Error Reporting
-Enabling error tracking helps me to discover bugs I was unaware of, and then fix them, in order to make Dashy more stable and reliable long term. Error reporting is disabled by default, and no data will ever be sent to an external endpoint without your explicit consent.
-
-Sentry is used to identify, report and categorize errors. All statistics collected are anonymized and stored securely, for more about privacy and security, see the [Sentry Docs](https://sentry.io/security/).
-
-To enable error reporting, just set: `appConfig.errorReporting: true`.
 
 ---
 
