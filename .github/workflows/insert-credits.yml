@@ -1,4 +1,6 @@
-# Generates and inserts a dynamic table of contributors into ./docs/credits.md
+# Generates and inserts a dynamic table of contributors,
+# sponsors, bots and helpful community members into ./docs/credits.md
+name: Insert Credits
 on: [push, pull_request]
 jobs:
     contrib-readme-job:
@@ -8,7 +10,7 @@ jobs:
             - name: Contribute List
               uses: akhilmhdh/contributors-readme-action@v2.2
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
               with:
                 image_size: 80
                 readme_path: docs/credits.md
