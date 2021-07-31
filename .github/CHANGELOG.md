@@ -1,5 +1,12 @@
 # Changelog
 
+## 📝 - Documentation Updates
+- Breaks many of the longer files into several more digestible articles
+- Writes repo pages including, Security, Code of Conduct, Legal, Updates license
+- Makes an automatically generated Credits page
+- Adds a contributing page, with several ways that users can help out
+- Implements this changelog, as requested in #87
+
 ## 🌐 1.4.5 - Adds German Translations [PR #107](https://github.com/Lissy93/dashy/pull/107)
 - German language support, contributed by @Niklashere
 
