@@ -1,6 +1,9 @@
 # Credits
 
 ## Sponsors
+<!-- readme: sponsors -start -->
+<!-- readme: sponsors -end -->
+
 <!-- sponsors --><!-- sponsors -->
 ## Contributors
 <!-- readme: contributors -start -->
@@ -38,25 +41,8 @@
 <!-- readme: contributors -end -->
 
 ## Helpful Users
-<!-- readme: collaborators -start -->
-<table>
-<tr>
-    <td align="center">
-        <a href="https://github.com/Lissy93">
-            <img src="https://avatars.githubusercontent.com/u/1862727?v=4" width="80;" alt="Lissy93"/>
-            <br />
-            <sub><b>Alicia Sykes</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/liss-bot">
-            <img src="https://avatars.githubusercontent.com/u/87835202?v=4" width="80;" alt="liss-bot"/>
-            <br />
-            <sub><b>Alicia Bot</b></sub>
-        </a>
-    </td></tr>
-</table>
-<!-- readme: collaborators -end -->
+<!-- readme: EVOTk,shadowking001,turnrye,Robert-Ernst,MilesTEG1,Niklashere -start -->
+<!-- readme: EVOTk,shadowking001,turnrye,Robert-Ernst,MilesTEG1,Niklashere -end -->
 
 ## Bots
 <!-- readme: liss-bot,bots -start -->
@@ -81,7 +67,7 @@
 
 ## Dependencies 🔗
 
-This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them.
+This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them. For a full breakdown of dependency licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md)
 
 ##### Core
 At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as well as it's services. Styling is done with [SCSS](https://github.com/sass/sass), JavaScript is currently [Babel](https://github.com/babel/babel), (but I am in the process of converting to [TypeScript](https://github.com/Microsoft/TypeScript)), linting is done with [ESLint](https://github.com/eslint/eslint), the config is defined in [YAML](https://github.com/yaml/yaml), and there is a simple [Node.js](https://github.com/nodejs/node) server to serve up the static app.
