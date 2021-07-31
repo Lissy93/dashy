@@ -13,7 +13,7 @@ jobs:
       with:
         username: example
         access_token: ${{ secrets.GITHUB_TOKEN }}
-        wiki_folder: docs
+        wiki_folder: ./docs
         commit_username: 'liss-bot'
         commit_email: 'liss-bot@d0h.co'
         commit_message: '📕 Chore: Sync Wiki'
