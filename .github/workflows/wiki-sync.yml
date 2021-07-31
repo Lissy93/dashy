@@ -1,0 +1,19 @@
+name: Wiki Sync
+on:
+  workflow_dispatch: # Manual dispatch
+  schedule:
+    - cron: '0 1 * * 0' # At 01:00 on Sunday.
+jobs:
+  update-wiki:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Sync Wiki
+      uses: joeizzard/action-wiki-sync@master
+      with:
+        username: example
+        access_token: ${{ secrets.GITHUB_TOKEN }}
+        wiki_folder: docs
+        commit_username: 'liss-bot'
+        commit_email: 'liss-bot@d0h.co'
+        commit_message: '📕 Chore: Sync Wiki'
