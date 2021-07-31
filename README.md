@@ -419,6 +419,9 @@ Thank you so much to everyone who has helped with Dashy so far, every single con
 
 #### Sponsors
 
+Huge thanks to the sponsors helping to support Dashy's development!
+<!-- sponsors --><!-- sponsors -->
+
 #### Contributors
 ![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)
 
@@ -522,6 +525,8 @@ There are a few self-hosted web apps, that serve a similar purpose to Dashy. If 
 ---
 ## License 📜
 
+Dashy is License under [MIT X11](https://en.wikipedia.org/wiki/MIT_License)
+
 ```
 Copyright © 2021 Alicia Sykes <https://aliciasykes.com>
 
@@ -540,6 +545,10 @@ PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS 
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWAREOR THE USE
 OR OTHER DEALINGS IN THE SOFTWARE.
+
+Except as contained in this notice, Dashy shall not be used in advertising or otherwise
+to promote the sale, use or other dealings in this Software without prior written
+authorization from the repo owner.
 ```
 
 **TDLR;** _You can do whatever you like with Dashy: use it in private or commercial settings,_
@@ -547,6 +556,8 @@ _redistribute and modify it. But you must display this license and credit the au
 _There is no warranty that this app will work as expected, and the author cannot be held_
 _liable for anything that goes wrong._
 For more info, see TLDR Legal's [Explanation of MIT](https://tldrlegal.com/license/mit-license)
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FLissy93%2Fdashy.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FLissy93%2Fdashy?ref=badge_large)
 
 **[⬆️ Back to Top](#dashy)**
 
