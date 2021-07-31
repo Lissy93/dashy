@@ -3,8 +3,16 @@
 ## Sponsors
 <!-- sponsors --><!-- sponsors -->
 ## Contributors
+<!-- readme: contributors -start -->
+<!-- readme: contributors -end -->
 
 ## Helpful Users
+<!-- readme: collaborators -start -->
+<!-- readme: collaborators -end -->
+
+## Bots
+<!-- readme: liss-bot,bots -start -->
+<!-- readme: liss-bot,bots -end -->
 
 ## Dependencies 🔗
 
