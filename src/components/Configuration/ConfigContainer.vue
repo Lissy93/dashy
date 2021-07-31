@@ -13,11 +13,11 @@
           <EditIcon class="button-icon"/>
           {{ $t('config.edit-config-button') }}
         </button>
-        <button class="config-button center" @click="() => navigateToTab(3)">
+        <button class="config-button center" @click="() => navigateToTab(4)">
           <CustomCssIcon class="button-icon"/>
           {{ $t('config.edit-css-button') }}
         </button>
-        <button class="config-button center" @click="openCloudSync()">
+        <button class="config-button center" @click="() => navigateToTab(3)">
           <CloudIcon class="button-icon"/>
           {{backupId ? $t('config.edit-cloud-sync-button') : $t('config.cloud-sync-button') }}
         </button>
@@ -67,6 +67,9 @@
     <TabItem :name="$t('config.edit-config-tab')">
       <JsonEditor :config="config" />
     </TabItem>
+    <TabItem :name="$t('cloud-sync.title')">
+      <CloudBackupRestore :config="config" />
+    </TabItem>
     <TabItem :name="$t('config.custom-css-tab')">
       <CustomCssEditor :config="config" />
     </TabItem>
@@ -83,6 +86,7 @@ import { localStorageKeys, modalNames } from '@/utils/defaults';
 import { getUsersLanguage } from '@/utils/ConfigHelpers';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
+import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
 import RebuildApp from '@/components/Configuration/RebuildApp';
 import AppVersion from '@/components/Configuration/AppVersion';
 
@@ -119,6 +123,7 @@ export default {
   components: {
     JsonEditor,
     CustomCssEditor,
+    CloudBackupRestore,
     RebuildApp,
     AppVersion,
     DownloadIcon,
@@ -141,9 +146,6 @@ export default {
     },
     openAboutModal() {
       this.$modal.show(modalNames.ABOUT_APP);
-    },
-    openCloudSync() {
-      this.$modal.show(modalNames.CLOUD_BACKUP);
     },
     openLanguageSwitchModal() {
       this.$modal.show(modalNames.LANG_SWITCHER);

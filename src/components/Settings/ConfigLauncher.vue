@@ -5,20 +5,12 @@
     <div class="config-buttons">
       <IconSpanner @click="showEditor()" tabindex="-2"
         v-tooltip="tooltip('Update configuration')" />
-      <IconCloud @click="showCloudModal()" tabindex="-2"
-        v-tooltip="tooltip('Backup / restore cloud config')" />
     </div>
 
     <!-- Modal containing all the configuration options -->
     <modal :name="modalNames.CONF_EDITOR" :resizable="true" width="60%" height="85%"
       @closed="$emit('modalChanged', false)" classes="dashy-modal">
       <ConfigContainer :config="combineConfig()" />
-    </modal>
-
-    <!-- Modal for cloud backup and restore options -->
-    <modal :name="modalNames.CLOUD_BACKUP" :resizable="true" width="65%" height="60%"
-      @closed="$emit('modalChanged', false)" classes="dashy-modal">
-      <CloudBackupRestore :config="combineConfig()" />
     </modal>
 
     <!-- Modal for manually changing locale -->
@@ -33,9 +25,7 @@
 <script>
 
 import IconSpanner from '@/assets/interface-icons/config-editor.svg';
-import IconCloud from '@/assets/interface-icons/cloud-backup-restore.svg';
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
-import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
 import LanguageSwitcher from '@/components/Settings/LanguageSwitcher';
 import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/defaults';
 
@@ -48,9 +38,7 @@ export default {
   },
   components: {
     IconSpanner,
-    IconCloud,
     ConfigContainer,
-    CloudBackupRestore,
     LanguageSwitcher,
   },
   props: {
@@ -62,10 +50,6 @@ export default {
     showEditor: function show() {
       // TODO: If users first time, then show note explaining that config is only stored locally
       this.$modal.show(modalNames.CONF_EDITOR);
-      this.$emit('modalChanged', true);
-    },
-    showCloudModal: function show() {
-      this.$modal.show(modalNames.CLOUD_BACKUP);
       this.$emit('modalChanged', true);
     },
     combineConfig() {
