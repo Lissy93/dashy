@@ -110,19 +110,117 @@ Some hosting providers required a bit of extra configuration, which was why I've
 
 **Note** If you use a static hosting provider, then status checks, writing new config changes to disk from the UI, and triggering a rebuild through the UI will not be availible. This is because these features need endpoints provided by Dashy's local Node server. Everything else should work just the same though.
 
-**Service** | **1-Click Button** | **Info**
---- | --- | ---
-**[Netlify ![Netlify Icon](https://i.ibb.co/ZxtzrP3/netlify.png)](https://www.netlify.com/)** | Deploy | Netlify offers Git-based serverless static hosting for web applications. Their services are free to use for personal use, and they support deployment from both public and private repos, as well as direct file upload. The free plan also allows you to use your own custom domain or sub-domain, SSL certificate and is very easy to setup.<br>**Deploy Link**: `https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy`
-**[Heroku ![Heroku Icon](https://i.ibb.co/d2P1WZ7/heroku.png)](https://www.heroku.com/)** | Deploy | Heroku is a fully managed cloud platform as a service. You define app settings in a Procfile and app.json, which specifying how the app should be build and how the server should be started. Heroku is free to use for unlimited, non-commercial, single dyno apps, and supports custom domains. Heroku's single-dyno service is not as quite performant as some other providers, and the app will have a short wake-up time when not visited for a while.<br>**Deploy Link**: `https://heroku.com/deploy?template=https://github.com/Lissy93/dashy`
-**[Cloudflare Workers ![cloudflare-icon](https://i.ibb.co/CvpFM1S/cloudflare.png)](https://workers.cloudflare.com/)** | Deploy | Cloudflare now support web workers, which is a simple yet powerful service for running cloud functions and hosting web content. It requires a Cloudflare account, but is completely free for smaller projects, and very reasonably priced ($0.15/million requests per month) for large applications. You can use your own domain, and applications are protected with Cloudflare's state of the art DDoS protection. For more info, see the docs on [Worker Sites](https://developers.cloudflare.com/workers/platform/sites).<br>**Deploy Link**: `https://deploy.workers.cloudflare.com/?url=https://github.com/lissy93/dashy/tree/deploy_cloudflare`
-**[Vercel ![vercel-icon](https://i.ibb.co/Ld2FZzb/vercel.png)](https://vercel.com/)** | Deploy | Vercel is a performance-focused platform for hosting static frontend apps. It comes bundled with some useful tools for monitoring and anaylzing application performance and other metrics. Vercel is free for personal use, allows for custom domains and has very reasonable limits.<br>**Deploy Link**: `https://vercel.com/new/project?template=https://github.com/lissy93/dashy`
-**[Digital Ocean ![digital-ocean-icon](https://i.ibb.co/V2MxtGC/digitalocean.png)](https://www.digitalocean.com/)** | Deploy | is a cloud service providing affordable developer-friendly virtual machines from $5/month. But they also have an app platform, where you can run web apps, static sites, APIs and background workers. CDN-backed static sites are free for personal use.<br>**Deploy Link**: `https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean`
-**[Google Cloud Run ![google-cloud-icon](https://i.ibb.co/J7MGymY/googlecloud.png)](https://cloud.google.com/run/)** | Deploy | Cloud Run is a service offered by [Google Cloud](https://cloud.google.com/). It's a fully managed serverless platform, for developing and deploying highly scalable containerized applications. Similar to AWS and Azure, GCP offers a wide range of cloud services, which are billed on a pay‐per‐use basis, but Cloud Run has a [free tier](https://cloud.google.com/run/pricing) offering 180,000 vCPU-seconds, 360,000 GiB-seconds, and 2 million requests per month.<br>**Deploy Link**: `https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git`
-**[Platform.sh ![platform-icon](https://i.ibb.co/GdfvH3Z/platformsh.png)](https://platform.sh)** | Deploy | Platform.sh is an end-to-end solution for developing and deploying applications. It is geared towards enterprise users with large teams, and focuses on allowing applications to scale up and down. Unlike the above providers, Platform.sh is not free, although you can deploy a test app to it without needing a payment method.<br>**Deploy Link**: `https://console.platform.sh/projects/create-project/?template=https://github.com/Lissy93/dashy/tree/deploy_platform-sh`
-**[Render ![render-icon](https://i.ibb.co/xCHtzgh/render.png)](https://render.com)** | Deploy | Render is cloud provider that provides easy deployments for static sites, Docker apps, web services, databases and background workers. Render is great for developing applications, and very easy to use. Static sites are free, and services start at $7/month. Currently there are only 2 server locations - Oregon, USA and Frankfurt, Germany. For more info, see the [Render Docs](https://render.com/docs)<br>**Deploy Link**: `https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render`
-**[Scalingo ![scalingo-icon](https://i.ibb.co/Rvf5c4y/scalingo.png)](https://scalingo.com/)** | Deploy | Scalingo is a scalable container-based cloud platform as a service. It's focus is on compliance and uptime, and is geared towards enterprise users. Scalingo is also not free, although they do have a 3-day free trial that does not require a payment method <br>**Deploy Link**: `https://my.scalingo.com/deploy?source=https://github.com/lissy93/dashy#master`
-**[Play-with-Docker ![pwd-icon](https://i.ibb.co/HVWVYF7/docker.png)](https://labs.play-with-docker.com/)** | Deploy | PWD is a community project by Marcos Liljedhal and Jonathan Leibiusky and sponsored by Docker, intended to provide a hands-on learning environment. Their labs let you quickly spin up a Docker container or stack, and test out the image in a temporary, sandboxed environment. There's no need to sign up, and it's completely free.<br>**Deploy Link**: `https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml`
-**[Surge.sh ![surge-icon](https://i.ibb.co/WgVC4mB/surge.png)](http://surge.sh/)** | Deploy | Surge.sh is quick and easy static web publishing platform for frontend-apps. Surge supports [password-protected projects](https://surge.sh/help/adding-password-protection-to-a-project). You can also [add a custom domain](https://surge.sh/help/adding-a-custom-domain) and then [force HTTPS by default](https://surge.sh/help/using-https-by-default) and optionally [set a custom SSL certificate](https://surge.sh/help/securing-your-custom-domain-with-ssl)<br>**To Deploy**, you need to clone Dashy, cd into it,  build it, then run `surge ./dist`
+#### Netlify <img src="https://i.ibb.co/ZxtzrP3/netlify.png" width="24"/>
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
+
+[Netlify](https://www.netlify.com/) offers Git-based serverless cloud hosting for web applications. Their services are free to use for personal use, and they support deployment from both public and private repos, as well as direct file upload. The free plan also allows you to use your own custom domain or sub-domain, and is easy to setup.
+
+To deploy Dashy to Netlify, use the following link
+```
+https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy
+```
+
+#### Heroku <img src="https://i.ibb.co/d2P1WZ7/heroku.png" width="24"/>
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
+
+[Heroku](https://www.heroku.com/) is a fully managed cloud platform as a service. You define app settings in a Procfile and app.json, which specifying how the app should be build and how the server should be started. Heroku is free to use for unlimited, non-commercial, single dyno apps, and supports custom domains. Heroku's single-dyno service is not as quite performant as some other providers, and the app will have a short wake-up time when not visited for a while
+
+To deploy Dashy to Heroku, use the following link
+```
+https://heroku.com/deploy?template=https://github.com/Lissy93/dashy
+```
+
+#### Cloudflare Workers <img src="https://i.ibb.co/CvpFM1S/cloudflare.png" width="24"/>
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/lissy93/dashy/tree/deploy_cloudflare)
+
+[Cloudflare Workers](https://workers.cloudflare.com/) is a simple yet powerful service for running cloud functions and hosting web content. It requires a Cloudflare account, but is completely free for smaller projects, and very reasonably priced ($0.15/million requests per month) for large applications. You can use your own domain, and applications are protected with Cloudflare's state of the art DDoS protection. For more info, see the docs on [Worker Sites](https://developers.cloudflare.com/workers/platform/sites)
+
+To deploy Dashy to Cloudflare, use the following link
+```
+https://deploy.workers.cloudflare.com/?url=https://github.com/lissy93/dashy/tree/deploy_cloudflare
+```
+
+#### Vercel <img src="https://i.ibb.co/Ld2FZzb/vercel.png" width="24"/>
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/project?template=https://github.com/lissy93/dashy)
+
+[Vercel](https://vercel.com/) is a performance-focused platform for hosting static frontend apps. It comes bundled with some useful tools for monitoring and anaylzing application performance and other metrics. Vercel is free for personal use, allows for custom domains and has very reasonable limits.
+
+To deploy Dashy to Vercel, use the following link
+```
+https://vercel.com/new/project?template=https://github.com/lissy93/dashy
+```
+
+#### DigitalOcean <img src="https://i.ibb.co/V2MxtGC/digitalocean.png" width="24"/>
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean&refcode=3838338e7f79)
+
+[DigitalOcan](https://www.digitalocean.com/) is a cloud service providing affordable developer-friendly virtual machines from $5/month. But they also have an app platform, where you can run web apps, static sites, APIs and background workers. CDN-backed static sites are free for personal use.
+
+```
+https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean
+```
+
+#### Google Cloud Platform <img src="https://i.ibb.co/J7MGymY/googlecloud.png" width="24"/>
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git)
+
+[Cloud Run](https://cloud.google.com/run/) is a service offered by [Google Cloud](https://cloud.google.com/). It's a fully managed serverless platform, for developing and deploying highly scalable containerized applications. Similar to AWS and Azure, GCP offers a wide range of cloud services, which are billed on a pay‐per‐use basis, but Cloud Run has a [free tier](https://cloud.google.com/run/pricing) offering 180,000 vCPU-seconds, 360,000 GiB-seconds, and 2 million requests per month.
+
+To deploy Dashy to GCP, use the following link
+```
+https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git
+```
+
+#### Platform.sh <img src="https://i.ibb.co/GdfvH3Z/platformsh.png" width="24"/>
+[![Deploy to Platform.sh](https://platform.sh/images/deploy/deploy-button-lg-blue.svg)](https://console.platform.sh/projects/create-project/?template=https://github.com/lissy93/dashy&utm_campaign=deploy_on_platform?utm_medium=button&utm_source=affiliate_links&utm_content=https://github.com/lissy93/dashy)
+
+[Platform.sh](https://platform.sh) is an end-to-end solution for developing and deploying applications. It is geared towards enterprise users with large teams, and focuses on allowing applications to scale up and down. Unlike the above providers, Platform.sh is not free, although you can deploy a test app to it without needing a payment method
+
+To deploy Dashy to Platform.sh, use the following link
+```
+https://console.platform.sh/projects/create-project/?template=https://github.com/lissy93/dashy
+```
+
+#### Render <img src="https://i.ibb.co/xCHtzgh/render.png" width="24"/>
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render)
+
+[Render](https://render.com) is cloud provider that provides easy deployments for static sites, Docker apps, web services, databases and background workers. Render is great for developing applications, and very easy to use. Static sites are free, and services start at $7/month. Currently there are only 2 server locations - Oregon, USA and Frankfurt, Germany. For more info, see the [Render Docs](https://render.com/docs)
+
+To deploy Dashy to Render, use the following link
+```
+https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render
+```
+
+#### Scalingo <img src="https://i.ibb.co/Rvf5c4y/scalingo.png" width="24"/>
+[![Deploy on Scalingo](https://cdn.scalingo.com/deploy/button.svg)](https://my.scalingo.com/deploy?source=https://github.com/lissy93/dashy#master)
+
+[Scalingo](https://scalingo.com/) is a scalable container-based cloud platform as a service. It's focus is on compliance and uptime, and is geared towards enterprise users. Scalingo is also not free, although they do have a 3-day free trial that does not require a payment method 
+
+To deploy Dashy to Scalingo, use the following link
+```
+https://my.scalingo.com/deploy?source=https://github.com/lissy93/dashy#master
+```
+
+#### Play-with-Docker <img src="https://i.ibb.co/HVWVYF7/docker.png" width="24"/>
+[![Try in PWD](https://raw.githubusercontent.com/play-with-docker/stacks/cff22438/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+
+[Play with Docker](https://labs.play-with-docker.com/) is a community project by Marcos Liljedhal and Jonathan Leibiusky and sponsored by Docker, intended to provide a hands-on learning environment. Their labs let you quickly spin up a Docker container or stack, and test out the image in a temporary, sandboxed environment. There's no need to sign up, and it's completely free.
+
+To run Dashy in PWD, use the following URL:
+```
+https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml
+```
+
+#### Surge.sh <img src="https://i.ibb.co/WgVC4mB/surge.png" width="24"/>
+[Surge.sh](http://surge.sh/) is quick and easy static web publishing platform for frontend-apps.
+
+Surge supports [password-protected projects](https://surge.sh/help/adding-password-protection-to-a-project). You can also [add a custom domain](https://surge.sh/help/adding-a-custom-domain) and then [force HTTPS by default](https://surge.sh/help/using-https-by-default) and optionally [set a custom SSL certificate](https://surge.sh/help/securing-your-custom-domain-with-ssl)
+
+To deploy Dashy to Surge.sh, first clone and cd into Dashy, install dependencies, and then use the following commands
+```
+yarn add -g surge
+yarn build
+surge ./dist
+```
+
 
 ### Hosting with CDN
 
