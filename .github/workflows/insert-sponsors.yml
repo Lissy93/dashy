@@ -1,6 +1,6 @@
 # Generates a list of sponsors, and inserts it into specified files
 # where the `<!-- sponsors --><!-- sponsors -->` tag is
-name: Inserts Current Sponsors in Readme
+name: Inserts Sponsors
 on:
   workflow_dispatch:
   release:
@@ -14,10 +14,10 @@ jobs:
       - name: Generate Sponsors in Readme 💖
         uses: JamesIves/github-sponsors-readme-action@1.0.5
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           file: 'README.md'
       - name: Generate Sponsors in Credits 💖
         uses: JamesIves/github-sponsors-readme-action@1.0.5
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           file: 'docs/credits.md'
