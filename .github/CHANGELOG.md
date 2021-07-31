@@ -1,6 +1,12 @@
 # Changelog
 
-## 📝 - Documentation Updates
+## ♻️ - Refactor [PR #110](https://github.com/Lissy93/dashy/pull/110)
+- Moves cloud sync dialog into the config menu, and removes icon on homepage
+- Fixes typo in Default theme name, Re #106
+- Spell checks readme
+- Updates the contributor CI action, that generates list of contributors + sponsors
+
+## 📝 - Documentation Updates [PR #108](https://github.com/Lissy93/dashy/pull/108)
 - Breaks many of the longer files into several more digestible articles
 - Writes repo pages including, Security, Code of Conduct, Legal, Updates license
 - Makes an automatically generated Credits page
