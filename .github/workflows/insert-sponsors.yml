@@ -2,7 +2,7 @@
 # where the `<!-- sponsors --><!-- sponsors -->` tag is
 name: Inserts Current Sponsors in Readme
 on:
-  workflow_dispatch
+  workflow_dispatch:
   release:
     types: [published]
 jobs:
