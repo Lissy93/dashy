@@ -6,7 +6,7 @@
 <tr>
     <td align="center">
         <a href="https://github.com/Robert-Ernst">
-            <img src="https://avatars.githubusercontent.com/u/9050259?v=4" width="80;" alt="Robert-Ernst"/>
+            <img src="https://avatars.githubusercontent.com/u/9050259?u=7253b4063f1ffe3b5a894263c8b2056151802508&v=4" width="80;" alt="Robert-Ernst"/>
             <br />
             <sub><b>Robert Ernst</b></sub>
         </a>
@@ -58,7 +58,7 @@
         <a href="https://github.com/evotk">
             <img src="https://avatars.githubusercontent.com/u/45015615?v=4" width="80;" alt="evotk"/>
             <br />
-            <sub><b>evotk</b></sub>
+            <sub><b>Evotk</b></sub>
         </a>
     </td>
     <td align="center">
@@ -86,7 +86,7 @@
         <a href="https://github.com/milesteg1">
             <img src="https://avatars.githubusercontent.com/u/29298312?v=4" width="80;" alt="milesteg1"/>
             <br />
-            <sub><b>milesteg1</b></sub>
+            <sub><b>Milesteg1</b></sub>
         </a>
     </td>
     <td align="center">
