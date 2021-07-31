@@ -14,7 +14,6 @@
 </table>
 <!-- readme: sponsors -end -->
 
-<!-- sponsors --><!-- sponsors -->
 ## Contributors
 <!-- readme: contributors -start -->
 <table>
@@ -100,7 +99,7 @@
 <!-- readme: EVOTk,shadowking001,turnrye,Robert-Ernst,MilesTEG1,Niklashere -end -->
 
 ## Bots
-<!-- readme: liss-bot,bots -start -->
+<!-- readme: liss-bot,snyk-bot,bots -start -->
 <table>
 <tr>
     <td align="center">
@@ -118,7 +117,7 @@
         </a>
     </td></tr>
 </table>
-<!-- readme: liss-bot,bots -end -->
+<!-- readme: liss-bot,snyk-bot,bots -end -->
 
 ## Dependencies 🔗
 
