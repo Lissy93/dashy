@@ -4,14 +4,79 @@
 <!-- sponsors --><!-- sponsors -->
 ## Contributors
 <!-- readme: contributors -start -->
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/Lissy93">
+            <img src="https://avatars.githubusercontent.com/u/1862727?v=4" width="80;" alt="Lissy93"/>
+            <br />
+            <sub><b>Alicia Sykes</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/BeginCI">
+            <img src="https://avatars.githubusercontent.com/u/57495754?v=4" width="80;" alt="BeginCI"/>
+            <br />
+            <sub><b>Begin</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/turnrye">
+            <img src="https://avatars.githubusercontent.com/u/701035?v=4" width="80;" alt="turnrye"/>
+            <br />
+            <sub><b>Ryan Turner</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/snyk-bot">
+            <img src="https://avatars.githubusercontent.com/u/19733683?v=4" width="80;" alt="snyk-bot"/>
+            <br />
+            <sub><b>Snyk Bot</b></sub>
+        </a>
+    </td></tr>
+</table>
 <!-- readme: contributors -end -->
 
 ## Helpful Users
 <!-- readme: collaborators -start -->
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/Lissy93">
+            <img src="https://avatars.githubusercontent.com/u/1862727?v=4" width="80;" alt="Lissy93"/>
+            <br />
+            <sub><b>Alicia Sykes</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/liss-bot">
+            <img src="https://avatars.githubusercontent.com/u/87835202?v=4" width="80;" alt="liss-bot"/>
+            <br />
+            <sub><b>Alicia Bot</b></sub>
+        </a>
+    </td></tr>
+</table>
 <!-- readme: collaborators -end -->
 
 ## Bots
 <!-- readme: liss-bot,bots -start -->
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/liss-bot">
+            <img src="https://avatars.githubusercontent.com/u/87835202?v=4" width="80;" alt="liss-bot"/>
+            <br />
+            <sub><b>Alicia Bot</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/github-actions[bot]">
+            <img src="https://avatars.githubusercontent.com/in/15368?v=4" width="80;" alt="github-actions[bot]"/>
+            <br />
+            <sub><b>github-actions[bot]</b></sub>
+        </a>
+    </td></tr>
+</table>
 <!-- readme: liss-bot,bots -end -->
 
 ## Dependencies 🔗
