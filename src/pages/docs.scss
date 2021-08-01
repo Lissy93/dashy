@@ -1,25 +1,53 @@
 
 main.docs {
-  max-width: 1000px;
+  max-width: 950px;
   margin: 1rem auto;
   padding: 1rem;
+  background: var(--hero-background);
+  box-shadow: var(--feature-img-shadow);
+
+  h1.docs-title {
+    margin: 0;
+    font-size: 5rem;
+  }
+
+  div.row1 {
+    display: flex;
+    flex-direction: row;
+  }
+
+  div.docs-links-section {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
   div.docs-contents {
     color: var(--text-color);
-    a {
-      max-width: 5rem;
-      padding: 0.25rem 0.5rem;
-      p {
-        margin: 0;
-      }
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    h3.section-title {
+      margin: 1rem 0.5rem 0.5rem 0.5rem;
     }
-    a.docs-link {
-      max-width: 5rem;
-      p {
-        color: var(--text-color);
+    a {
+      display: flex;
+      flex-direction: column;
+      width: calc(33% - 1.5rem);
+      min-height: 5rem;
+      padding: 0.25rem 0.5rem;
+      margin: 0.5rem 0.75rem;
+      p.name {
+        margin: 0;
+        text-align: left;
+        font-size: 1.4rem;
       }
-      .docs-icon svg {
-        width: 2rem;
+      span.description {
+        text-align: left;
+        font-size: 1rem;
+        white-space: pre-wrap;
+      }
+      @media (max-width: 500px) {
+        width: 100%;
       }
     }
   }
