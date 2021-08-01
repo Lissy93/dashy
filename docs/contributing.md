@@ -22,19 +22,22 @@ Dashy now has a [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/sho
 ## Spread the word
 Dashy is still a relatively young project, and as such not many people know of it. It would be great to see more users, and so it would be awesome if you could consider sharing on social platforms.
 
-[![Share Dashy on Mastodon](https://img.shields.io/badge/Share-Mastodon-%232b90d9?style=flat-square&logo=mastodon)](https://mastodon.social/?text=Check%20out%20Dashy%2C%20the%20privacy-friendly%2C%20self-hosted%20startpage%20for%20organizing%20your%20life%3A%20https%3A%2F%2Fgithub.com%2FLissy93%2Fdashy%20-%20By%20%40lissy93%40mastodon.social)
-[![Share Dashy on Reddit](https://img.shields.io/badge/Share-Reddit-%23FF5700?style=flat-square&logo=reddit)](http://www.reddit.com/submit?url=https://github.com/Lissy93/dashy&title=Dashy%20-%20The%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80)
-[![Share Dashy on Twitter](https://img.shields.io/badge/Share-Twitter-%231DA1F2?style=flat-square&logo=twitter)](https://twitter.com/intent/tweet?url=https://github.com/lissy93/dashy&text=Check%20out%20Dashy%20by%20@Lissy_Sykes,%20the%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80)
-[![Share Dashy on Facebook](https://img.shields.io/badge/Share-Facebook-%234267B2?style=flat-square&logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/lissy93/dashy)
-[![Share Dashy on LinkedIn](https://img.shields.io/badge/Share-LinkedIn-%230077b5?style=flat-square&logo=linkedin)](https://www.linkedin.com/shareArticle?mini=true&url=https://github.com/lissy93/dashy)
-[![Share Dashy on Pinterest](https://img.shields.io/badge/Share-Pinterest-%23E60023?style=flat-square&logo=pinterest)](https://pinterest.com/pin/create/button/?url=https://github.com/lissy93/dashy&media=https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/1-home-lab-material.png&description=Check%20out%20Dashy,%20the%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80)
-[![Share Dashy via Email](https://img.shields.io/badge/Share-Email-%238A90C7?style=flat-square&logo=protonmail)](mailto:info@example.com?&subject=Check%20out%20Dashy%20-%20The%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80&cc=&bcc=&body=https://github.com/lissy93/dashy)
+[![Share Dashy on Mastodon](https://img.shields.io/badge/Share-Mastodon-%232b90d9?style=for-the-badge&logo=mastodon)](https://mastodon.social/?text=Check%20out%20Dashy%2C%20the%20privacy-friendly%2C%20self-hosted%20startpage%20for%20organizing%20your%20life%3A%20https%3A%2F%2Fgithub.com%2FLissy93%2Fdashy%20-%20By%20%40lissy93%40mastodon.social)
+[![Share Dashy on Reddit](https://img.shields.io/badge/Share-Reddit-%23FF5700?style=for-the-badge&logo=reddit)](http://www.reddit.com/submit?url=https://github.com/Lissy93/dashy&title=Dashy%20-%20The%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80)
+[![Share Dashy on Twitter](https://img.shields.io/badge/Share-Twitter-%231DA1F2?style=for-the-badge&logo=twitter)](https://twitter.com/intent/tweet?url=https://github.com/lissy93/dashy&text=Check%20out%20Dashy%20by%20@Lissy_Sykes,%20the%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80)
+[![Share Dashy on Facebook](https://img.shields.io/badge/Share-Facebook-%234267B2?style=for-the-badge&logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/lissy93/dashy)
+[![Share Dashy on LinkedIn](https://img.shields.io/badge/Share-LinkedIn-%230077b5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/shareArticle?mini=true&url=https://github.com/lissy93/dashy)
+[![Share Dashy on Pinterest](https://img.shields.io/badge/Share-Pinterest-%23E60023?style=for-the-badge&logo=pinterest)](https://pinterest.com/pin/create/button/?url=https://github.com/lissy93/dashy&media=https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/1-home-lab-material.png&description=Check%20out%20Dashy,%20the%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80)
+[![Share Dashy on VK](https://img.shields.io/badge/Share-VK-%234C75A3?style=for-the-badge&logo=vk)](https://vk.com/share.php?url=https%3A%2F%2Fgithub.com%2Flissy93%2Fdashy%2F&title=Check%20out%20Dashy%20-%20The%20Self-Hosted%20Dashboard%20for%20your%20Homelab%20%F0%9F%9A%80)
+[![Share Dashy via Viber](https://img.shields.io/badge/Share-Viber-%238176d6?style=for-the-badge&logo=viber)](viber://forward?text=https%3A%2F%2Fgithub.com%2Flissy93%2Fdashy%0ACheck%20out%20Dashy%2C%20the%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80)
+[![Share Dashy via Telegram](https://img.shields.io/badge/Share-Telegram-%230088cc?style=for-the-badge&logo=telegram)](https://t.me/share/url?url=https%3A%2F%2Fgithub.com%2Flissy93%2Fdashy&text=Check%20out%20Dashy%2C%20the%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80)
+[![Share Dashy via Email](https://img.shields.io/badge/Share-Email-%238A90C7?style=for-the-badge&logo=protonmail)](mailto:info@example.com?&subject=Check%20out%20Dashy%20-%20The%20self-hosted%20dashboard%20for%20your%20homelab%20%F0%9F%9A%80&cc=&bcc=&body=https://github.com/lissy93/dashy)
 
 ## Leave a review
 Dashy is on the following platforms, and if you could spare a few seconds to give it an upvote or review, this will also help new users find it.
 
-[![ProductHunt](https://img.shields.io/badge/Review-ProductHunt-%23b74424?style=flat-square&logo=producthunt)](https://www.producthunt.com/posts/dashy)
-[![AlternativeTo](https://img.shields.io/badge/Review-AlternativeTo-%235581a6?style=flat-square&logo=abletonlive)](https://alternativeto.net/software/dashy/about/)
+[![ProductHunt](https://img.shields.io/badge/Review-ProductHunt-%23b74424?style=for-the-badge&logo=producthunt)](https://www.producthunt.com/posts/dashy)
+[![AlternativeTo](https://img.shields.io/badge/Review-AlternativeTo-%235581a6?style=for-the-badge&logo=abletonlive)](https://alternativeto.net/software/dashy/about/)
 
 
 ## Make a small donation
@@ -47,12 +50,23 @@ Sponsoring will give you several perks, from $1 / £0.70 per month, as well as a
 You can also send one-off small contriutions using crypto:
 - **BTC**: `3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC`
 - **ETH**: `0x0fc98cBf8bea932B4470C46C0FbE1ed1f6765017` / `aliciasykes.eth`
-- **XMR**: `471KZdxb6N63aABR4WYwMRjTVkc1p1x7wGsUTEF7AMYzL8L94A5pCuYWkosgJQ5Ze8Y2PscVCGZFJa3hDPg6MaDq47GUm8r`
+- **XMR**: `471KZdxb6N63aABR4WYwMRjTVkc1p1x7wGsUTEF7AMYzL8L94A5pCuYWkosgJQ5Ze8Y2PscVCGZFJa3hDPg6MaDq47GUm8r`#
 
 ## Request a feature via BountySource
 BountySource is a platform for sponsoring the development of certain features on open source projects. If there is a feature you'd like implemented into Dashy, but either isn't high enough priority or is deemed to be more work than it's worth, then you can instead contribute a bounty towards it's development. You won't pay a penny until your proposal is fully built, and you are satisfied with the result. This helps support the developers, and makes Dashy better for everyone.
 
 For more info, see [Dashy on Bounty Source](https://www.bountysource.com/teams/dashy)
+
+## Enable Anonymous Bug Reports
+[Sentry](https://github.com/getsentry/sentry) is an open source error tracking and performance monitoring tool, which enables the identification any errors which occur in the production app (only if you enable it). It helps me to discover bugs I was unaware of, and then fix them, in order to make Dashy more reliable long term. This is a simple, yet really helpful step you can take to help improve Dashy.
+
+To enable error reporting:
+```yaml
+appConfig:
+  enableErrorReporting: true
+```
+
+All reporting is **disabled** by default, and no data will ever be sent to any external endpoint without your explicit consent. In fact, the error tracking package will not even be imported unless you have actively enabled it. All statistics are anonomized and stored securely. For more about privacy and security, see the [Sentry Docs](https://sentry.io/security/).
 
 ---
 
