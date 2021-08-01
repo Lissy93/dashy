@@ -23,7 +23,10 @@ export default class ConfigAccumulator {
 
   /* App Config */
   appConfig() {
-    const appConfigFile = this.conf.appConfig || {};
+    let appConfigFile = {};
+    if (this.conf) {
+      appConfigFile = this.conf.appConfig || {};
+    }
     let usersAppConfig = defaultAppConfig;
     if (localStorage[localStorageKeys.APP_CONFIG]) {
       usersAppConfig = JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
@@ -48,8 +51,11 @@ export default class ConfigAccumulator {
     } catch (e) {
       localPageInfo = {};
     }
-    const filePageInfo = this.conf.pageInfo || {};
-    const pi = this.conf.pageInfo || defaults; // The page info object to return
+    let filePageInfo = {};
+    if (this.conf) {
+      filePageInfo = this.conf.pageInfo || {};
+    }
+    const pi = filePageInfo || defaults; // The page info object to return
     pi.title = localPageInfo.title || filePageInfo.title || defaults.title;
     pi.logo = localPageInfo.logo || filePageInfo.logo || defaults.logo;
     pi.description = localPageInfo.description || filePageInfo.description || defaults.description;
@@ -71,7 +77,9 @@ export default class ConfigAccumulator {
       }
     }
     // If the function hasn't yet returned, then return the config file sections
-    return this.conf.sections;
+    let sectionsFile = [];
+    if (this.conf) sectionsFile = this.conf.sections || [];
+    return sectionsFile;
   }
 
   /* Complete config */
