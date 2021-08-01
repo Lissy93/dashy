@@ -1,12 +1,19 @@
 # Changelog
 
-## ♻️ - Refactor [PR #110](https://github.com/Lissy93/dashy/pull/110)
+## ✨ 1.4.8 - Optional Crash Reports [PR #120](https://github.com/Lissy93/dashy/pull/112)
+- Adds an optional, off by default method of getting crash reports
+- This can be enabled in `appConfig.enableErrorReporting`, and will not be used at all unless explicitly activated by user
+- This is needed for when a user raises a bug which is hard to fix
+- Also improves robustness of config accumulator, don't throw error when config is missing
+- Adds Privacy & Security docs
+
+## ♻️ 1.4.7 - Refactor [PR #110](https://github.com/Lissy93/dashy/pull/110)
 - Moves cloud sync dialog into the config menu, and removes icon on homepage
 - Fixes typo in Default theme name, Re #106
 - Spell checks readme
 - Updates the contributor CI action, that generates list of contributors + sponsors
 
-## 📝 - Documentation Updates [PR #108](https://github.com/Lissy93/dashy/pull/108)
+## 📝 1.4.6 - Documentation Updates [PR #108](https://github.com/Lissy93/dashy/pull/108)
 - Breaks many of the longer files into several more digestible articles
 - Writes repo pages including, Security, Code of Conduct, Legal, Updates license
 - Makes an automatically generated Credits page
