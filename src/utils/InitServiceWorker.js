@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
 import { register } from 'register-service-worker';
-import { sessionStorageKeys } from './utils/defaults';
-import conf from '../public/conf.yml';
+import { sessionStorageKeys } from '@/utils/defaults';
+import conf from '../../public/conf.yml';
 
 /* Sets a local storage item with the state from the SW lifecycle */
 const setSwStatus = (swStateToSet) => {
