@@ -20,3 +20,10 @@
 - [Language Switching](/docs/multi-language-support.md)
 - [Status Indicators](/docs/status-indicators.md) - Using Dashy to monitor uptime and status of your apps
 - [Theming](/docs/theming.md) - Complete guide to applying, writing and modifying themes and styles
+
+#### Misc
+- [Privacy & Security](/docs/privacy.md) - List of requests, potential issues, and security resources
+- [License](/LICENSE) - Copy of the MIT License
+- [Legal](/.github/LEGAL.md) - Licenses of direct dependencies
+- [Code of Conduct](/.github/CODE_OF_CONDUCT.md) - Contributor Covenant Code of Conduct
+- [Changelog](/.github/CHANGELOG.md) - Details of recent changes, and historical versions

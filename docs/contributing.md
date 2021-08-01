@@ -50,7 +50,7 @@ Sponsoring will give you several perks, from $1 / £0.70 per month, as well as a
 You can also send one-off small contriutions using crypto:
 - **BTC**: `3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC`
 - **ETH**: `0x0fc98cBf8bea932B4470C46C0FbE1ed1f6765017` / `aliciasykes.eth`
-- **XMR**: `471KZdxb6N63aABR4WYwMRjTVkc1p1x7wGsUTEF7AMYzL8L94A5pCuYWkosgJQ5Ze8Y2PscVCGZFJa3hDPg6MaDq47GUm8r`
+- **XMR**: `471KZdxb6N63aABR4WYwMRjTVkc1p1x7wGsUTEF7AMYzL8L94A5pCuYWkosgJQ5Ze8Y2PscVCGZFJa3hDPg6MaDq47GUm8r`#
 
 ## Request a feature via BountySource
 BountySource is a platform for sponsoring the development of certain features on open source projects. If there is a feature you'd like implemented into Dashy, but either isn't high enough priority or is deemed to be more work than it's worth, then you can instead contribute a bounty towards it's development. You won't pay a penny until your proposal is fully built, and you are satisfied with the result. This helps support the developers, and makes Dashy better for everyone.
