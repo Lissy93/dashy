@@ -1,6 +1,11 @@
 # Changelog
 
-## ✨ 1.4.8 - Optional Crash Reports [PR #120](https://github.com/Lissy93/dashy/pull/112)
+## 🔒 1.5.0 - Improve Robustness of Auth [PR #113](https://github.com/Lissy93/dashy/pull/113)
+- Use both username + password for generating token, so that a change in either will log the user out
+- Prevent privilege escalation by disallowing a user from modifying their user type through the UI
+- Improve the isAuthenticated check, by taking account of empty users array 
+
+## ✨ 1.4.8 - Optional Crash Reports [PR #112](https://github.com/Lissy93/dashy/pull/112)
 - Adds an optional, off by default method of getting crash reports
 - This can be enabled in `appConfig.enableErrorReporting`, and will not be used at all unless explicitly activated by user
 - This is needed for when a user raises a bug which is hard to fix
