@@ -1,3 +1,5 @@
+# Index
+
 ![Dashy Docs](https://i.ibb.co/4mdNf7M/heading-docs.png)
 
 ### Running Dashy
@@ -21,7 +23,7 @@
 - [Status Indicators](/docs/status-indicators) - Using Dashy to monitor uptime and status of your apps
 - [Theming](/docs/theming) - Complete guide to applying, writing and modifying themes and styles
 
-#### Misc
+### Misc
 - [Privacy & Security](/docs/privacy) - List of requests, potential issues, and security resources
 - [License](/LICENSE) - Copy of the MIT License
 - [Legal](/.github/LEGAL) - Licenses of direct dependencies
