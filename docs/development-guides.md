@@ -28,7 +28,7 @@ html[data-theme='tiger'] {
 
 Then you can go ahead and write you're own custom CSS. Although all CSS is supported here, the best way to define you're theme is by setting the CSS variables. You can find a [list of all CSS variables, here](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#css-variables).
 
-For a full guide on styling, see [Theming Docs](./theming.md).
+For a full guide on styling, see [Theming Docs](./theming).
 
 Note that if you're theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#adding-your-own-theme).
 
@@ -92,7 +92,7 @@ If you are not comfortable with making pull requests, or do not want to modify t
 
 This section is for, if you're adding a new component or setting, that requires an additional item to be added to the users config file.
 
-All of the users config is specified in `./public/conf.yml` - see [Configuring Docs](./configuring.md) for info.
+All of the users config is specified in `./public/conf.yml` - see [Configuring Docs](./configuring) for info.
 Before adding a new option in the config file, first ensure that there is nothing similar available, that is is definitely necessary, it will not conflict with any other options and most importantly that it will not cause any breaking changes. Ensure that you choose an appropriate and relevant section to place it under.
 
 Next decide the most appropriate place for your attribute:
@@ -124,13 +124,13 @@ Next, if you're property should have a default value, then add it to [`defaults.
 
 If your property needs additional logic for fetching, setting or processing, then you can add a helper function within [`ConfigHelpers.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigHelpers.js).
 
-Finally, add your new property to the [`configuring.md`](./configuring.md) API docs. Put it under the relevant section, and be sure to include field name, data type, a description and mention that it is optional.  If your new feature needs more explaining, then you can also document it under the relevant section elsewhere in the documentation.
+Finally, add your new property to the [`configuring.md`](./configuring) API docs. Put it under the relevant section, and be sure to include field name, data type, a description and mention that it is optional.  If your new feature needs more explaining, then you can also document it under the relevant section elsewhere in the documentation.
 
 Checklist:
 - [ ] Ensure the new attribute is actually necessary, and nothing similar already exists 
 - [ ] Update the [Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js) with the parameters for your new option
 - [ ] Set a default value (if required) within [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js)
-- [ ] Document the new value in [`configuring.md`](./configuring.md)
+- [ ] Document the new value in [`configuring.md`](./configuring)
 - [ ] Test that the reading of the new attribute is properly handled, and will not cause any errors when it is missing or populated with an unexpected value
 
 ---

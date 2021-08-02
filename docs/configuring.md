@@ -6,7 +6,7 @@ Tips:
 - You may find it helpful to look at some sample config files to get you started, a collection of which can be found [here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
 - You can check that your config file fits the schema, by running `yarn validate-config`
 - After modifying your config, the app needs to be recompiled, by running `yarn build`  - this happens automatically whilst the app is running if you're using Docker
-- It is recommended to make and keep a backup of your config file. You can download your current config through the UI either from the Config menu, or using the `/download` endpoint. Alternatively, you can use the [Cloud Backup](./docs/backup-restore.md) feature.
+- It is recommended to make and keep a backup of your config file. You can download your current config through the UI either from the Config menu, or using the `/download` endpoint. Alternatively, you can use the [Cloud Backup](/docs/backup-restore) feature.
 - The config can also be modified directly through the UI, validated and written to the conf.yml file.
 - All fields are optional, unless otherwise stated.
 
@@ -29,7 +29,7 @@ To disallow any changes from being written to disk via the UI config editor, set
 **`appConfig`** | `object` | _Optional_ | Settings related to how the app functions, including API keys and global styles. See [`appConfig`](#appconfig-optional)
 **`sections`** | `array` | Required | An array of sections, each containing an array of items, which will be displayed as links. See [`section`](#section)
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#)**
 
 ### `PageInfo`
 
@@ -41,7 +41,7 @@ To disallow any changes from being written to disk via the UI config editor, set
 **`footerText`** | `string` | _Optional_ | Text to display in the footer (note that this will override the default footer content). This can also include HTML and inline CSS
 **`logo`** | `string` | _Optional_ | The path to an image to display in the header (to the right of the title). This can be either local, where `/` is the root of `./public`, or any remote image, such as `https://i.ibb.co/yhbt6CY/dashy.png`. It's recommended to scale your image down, so that it doesn't impact load times
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#)**
 
 ### `pageInfo.navLinks` _(optional)_
 
@@ -50,7 +50,7 @@ To disallow any changes from being written to disk via the UI config editor, set
 **`title`** | `string` |  Required | The text to display on the link button
 **`path`** | `string` | Required | The URL to navigate to when clicked. Can be relative (e.g. `/about`) or absolute (e.g. `https://example.com` or `http://192.168.1.1`)
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#)**
 
 ### `appConfig` _(optional)_
 
@@ -78,7 +78,7 @@ To disallow any changes from being written to disk via the UI config editor, set
 **`disableServiceWorker`** | `boolean` | _Optional_ | Service workers cache web applications to improve load times and offer basic offline functionality, and are enabled by default in Dashy. The service worker can sometimes cause older content to be cached, requiring the app to be hard-refreshed. If you do not want SW functionality, or are having issues with caching, set this property to `true` to disable all service workers.
 **`disableContextMenu`** | `boolean` | _Optional_ | If set to `true`, the custom right-click context menu will be disabled. Defaults to `false`.
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#)**
 
 ### `appConfig.auth` _(optional)_
 
@@ -88,7 +88,7 @@ To disallow any changes from being written to disk via the UI config editor, set
 **`hash`** | `string` | Required | A SHA-256 hashed password
 **`type`** | `string` | _Optional_ | The user type, either admin or normal
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#)**
 
 ### `appConfig.hideComponents` _(optional)_
 
@@ -101,7 +101,7 @@ To disallow any changes from being written to disk via the UI config editor, set
 **`hideFooter`** | `boolean` | _Optional_ | If set to `true`, the footer will not be visible. Defaults to `false`
 **`hideSplashScreen`** | `boolean` | _Optional_ | If set to `true`, splash screen will not be visible while the app loads. Defaults to `true` (except on first load, when the loading screen is always shown)
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#)**
 
 ### `section`
 
@@ -112,7 +112,7 @@ To disallow any changes from being written to disk via the UI config editor, set
 **`items`** | `array` | Required | An array of items to be displayed within the section. See [`item`](#sectionitem)
 **`displayData`** | `object` | _Optional_ | Meta-data to optionally overide display settings for a given section. See [`displayData`](#sectiondisplaydata-optional)
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#)**
 
 ### `section.item`
 
@@ -130,7 +130,7 @@ To disallow any changes from being written to disk via the UI config editor, set
 **`color`** | `string` | _Optional_ | An optional color for the text and font-awesome icon to be displayed in. Note that this will override the current theme and so may not display well
 **`backgroundColor`** | `string` | _Optional_ | An optional background fill color for the that given item. Again, this will override the current theme and so might not display well against the background
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#)**
 
 ### `section.displayData` _(optional)_
 
@@ -146,7 +146,7 @@ To disallow any changes from being written to disk via the UI config editor, set
 **`itemCountX`** | `number` | _Optional_ | The number of items to display per row / horizontally. If not set, it will be calculated automatically based on available space. Can only be set if `sectionLayout` is set to `grid`. Must be a whole number between `1` and `12`
 **`itemCountY`** | `number` | _Optional_ | The number of items to display per column / vertically. If not set, it will be calculated automatically based on available space. If `itemCountX` is set, then `itemCountY` can be calculated automatically. Can only be set if `sectionLayout` is set to `grid`. Must be a whole number between `1` and `12`
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#)**
 
 ### `section.icon` and `section.item.icon`
 
@@ -154,7 +154,7 @@ To disallow any changes from being written to disk via the UI config editor, set
 --- | --- | --- | ---
 **`icon`** | `string` | _Optional_ | The icon for a given item or section. Can be a font-awesome icon, favicon, remote URL or local URL. If set to `favicon`, the icon will be automatically fetched from the items website URL. To use font-awesome, specify the category, followed by the icon name, e.g. `fas fa-rocket`, `fab fa-monero` or `fal fa-duck` - note that to use pro icons, you mut specify `appConfig.fontAwesomeKey`. If set to `generative`, then a unique icon is generated from the apps URL or IP. You can also use hosted any by specifying it's URL, e.g. `https://i.ibb.co/710B3Yc/space-invader-x256.png`. To use a local image, first store it in `./public/item-icons/` (or `-v /app/public/item-icons/` in Docker) , and reference it by name and extension - e.g. set `image.png` to use `./public/item-icon/image.png`, you can also use sub-folders if you have a lot of icons, to keep them organised.
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#)**
 
 ### Example
 
@@ -193,5 +193,5 @@ If you need any help, feel free to [Raise an Issue](https://github.com/Lissy93/d
 
 Happy Configuring 🤓🔧
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#)**
 

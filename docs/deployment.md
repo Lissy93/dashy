@@ -8,8 +8,8 @@ If you want to skip the fuss, and get straight down to it, then you can spin up 
 docker run -p 8080:80 lissy93/dashy
 ```
 
-See [Management Docs](/docs/management.md) for info about securing, monitoring, updating, health checks, auto starting, web server configuration, etc
-  
+See [Management Docs](/docs/management) for info about securing, monitoring, updating, health checks, auto starting, web server configuration, etc
+
 Once you've got Dashy up and running, you'll want to configure it with your own content. You can either reference the [configuring docs](/docs/configuring).
 
 ## Deployment Methods

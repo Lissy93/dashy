@@ -44,7 +44,7 @@ Addressing this is on the todo list, and there are several potential solutions:
 2. Use a backend service to handle authentication and configuration, with no user data returned from the server until the correct credentials are provided. However, this would require either Dashy to be run using it's Node.js server, or the use of an external service
 3. Implement authentication using a self-hosted identity management solution, such as [Keycloak for Vue](https://www.keycloak.org/securing-apps/vue)
 
-**[⬆️ Back to Top](#authentication)**
+**[⬆️ Back to Top](#)**
 
 ---
 
@@ -174,4 +174,4 @@ There are also authentication services, such as [Ory.sh](https://www.ory.sh/), [
 ### Static Site Hosting Providers
 If you are hosting Dashy on a cloud platform, you will probably find that it has built-in support for password protected access to web apps. For more info, see the relevant docs for your provider, for example: [Netlify Password Protection](https://docs.netlify.com/visitor-access/password-protection/), [Cloudflare Access](https://www.cloudflare.com/teams/access/), [AWS Cognito](https://aws.amazon.com/cognito/), [Azure Authentication](https://docs.microsoft.com/en-us/azure/app-service/scenario-secure-app-authentication-app-service) and [Vercel Password Protection](https://vercel.com/docs/platform/projects#password-protection).
 
-**[⬆️ Back to Top](#authentication)**
+**[⬆️ Back to Top](#)**

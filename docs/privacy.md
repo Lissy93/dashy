@@ -40,7 +40,7 @@ Enabling anonymous error reporting helps me to discover bugs I was unaware of, a
 ---
 
 ## Dependencies
-As with most web projects, Dashy relies on several [dependencies](https://github.com/Lissy93/dashy/blob/master/docs/credits.md#dependencies-). For links to each, and a breakdown of their licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md).
+As with most web projects, Dashy relies on several [dependencies](https://github.com/Lissy93/dashy/blob/master/docs/credits.md#dependencies-). For links to each, and a breakdown of their licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL).
 
 Dependencies can introduce security vulnerabilities, but since all these packages are open source any issues are usually very quickly spotted. Dashy is using Snyk for dependency security monitoring, and you can see [the latest report here](https://snyk.io/test/github/lissy93/dashy).
 
@@ -59,7 +59,7 @@ There is very little complexity involved with Dashy, and therefore the attack su
 - Implement security, malware and traffic scanning
 - Setup malicious traffic detection
 
-This is covered in more detail in [App Management](/docs/management.md).
+This is covered in more detail in [App Management](/docs/management).
 
 ---
 

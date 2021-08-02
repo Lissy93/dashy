@@ -64,10 +64,10 @@ If you're hosting Dashy behind Cloudflare, then they offer [free and easy SSL](h
 If you're not so comfortable on the command line, then you can use a tool like [SSL For Free](https://www.sslforfree.com/) to generate your Let's Encrypt or ZeroSSL certificate, and support shared hosting servers. They also provide step-by-step tutorials on setting up your certificate on most common platforms. If you are using shared hosting, you may find [this tutorial](https://www.sitepoint.com/a-guide-to-setting-up-lets-encrypt-ssl-on-shared-hosting/) helpful.
 
 #### Authentication
-Dashy has [basic authentication](/docs/authentication.md) built in, however at present this is handled on the front-end, and so where security is critical, it is recommended to use an alternative method. See [here](/docs/authentication.md#alternative-authentication-methods) for options regarding securing Dashy.
+Dashy has [basic authentication](/docs/authentication) built in, however at present this is handled on the front-end, and so where security is critical, it is recommended to use an alternative method. See [here](/docs/authentication.md#alternative-authentication-methods) for options regarding securing Dashy.
 
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#)**
 
 ---
 ## Updating
@@ -105,7 +105,7 @@ For more information, see the [Watchtower Docs](https://containrrr.dev/watchtowe
 4. Re-build: `yarn build`
 5. Start: `yarn start`
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#)**
 
 ---
 
@@ -180,13 +180,13 @@ Then restart Apache, with `sudo systemctl restart apache2`
 8. If you need to change the port, click 'Add environmental variable', give it the name 'PORT', choose a port number and press 'Save'.
 9. Dashy should now be running at your selected path an on a given port
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#)**
 
 ---
 
 ## Authentication
 
-Dashy has built-in authentication and login functionality. However, since this is handled on the client-side, if you are using Dashy in security-critical situations, it is recommended to use an alternate method for authentication, such as [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules. For more info, see **[Authentication Docs](/docs/authentication.md)**.
+Dashy has built-in authentication and login functionality. However, since this is handled on the client-side, if you are using Dashy in security-critical situations, it is recommended to use an alternate method for authentication, such as [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules. For more info, see **[Authentication Docs](/docs/authentication)**.
 
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#)**
