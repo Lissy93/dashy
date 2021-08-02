@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 
 
 import HomePageHeader from '../components/HomePageHeader';
-import HomePageFeatures from '../components/HomePageFeatures';
+import HomePageFeatures from '../components/HomepageFeatures';
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();

@@ -1,5 +1,5 @@
 import React from 'react';
-import './../styles/HomepageFeatures.scss';
+import './../styles/HomePageFeatures.scss';
 import Button from '../components/Button';
 import getColor from '../utils/ui-helpers';
 
