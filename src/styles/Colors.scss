@@ -24,6 +24,7 @@ html { /* Light Theme */
   --text-color: var(--black);
   --hero-background: var(--bright-white);
   --kinda-transparent: #ffffffd9;
+  --hyperlink: #ff62ce;
   --feature-img-shadow: 4px 4px 6px #a9a9a980, -2px -2px 4px rgb(0 0 0 / 40%);
 }
 
@@ -33,5 +34,6 @@ html[data-theme='dark'] { /* Dark Theme */
   --text-color: var(--white);
   --hero-background: var(--black);
   --kinda-transparent: #000000d9;
+  --hyperlink: #ff62ce;
   --feature-img-shadow: 4px 4px 6px #00000080, -2px -2px 4px rgb(0 0 0 / 40%);
 }

@@ -43,3 +43,47 @@ nav.navbar {
 body {
   background: var(--background);
 }
+
+p a, li a {
+  color: var(--hyperlink);
+  &:hover {
+    color: var(--hyperlink);
+    text-decoration: underline;
+  }
+}
+
+article div.markdown {
+  p, a, ol, ul, li, code span {
+    font-size: 1rem;
+  }
+  h2 {
+    font-size: 2.5rem;
+  }
+}
+
+/* Right-hand contents side-bar */
+ul.table-of-contents li {
+  a {
+    font-size: 1rem;
+    &:hover {
+      color: var(--hyperlink);
+    }
+    &.table-of-contents__link--active {
+      color: var(--hyperlink);
+      font-weight: bold;
+    }
+  }
+}
+
+/* Left-hand page list side-bar */
+ul.menu__list {
+  margin-bottom: 1rem;
+  li.menu__list-item {
+    a {
+      &.active {
+        color: var(--hyperlink);
+        font-weight: bold;
+      }
+    }
+  }
+}
