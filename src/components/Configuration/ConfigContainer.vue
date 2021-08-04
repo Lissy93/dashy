@@ -217,7 +217,8 @@ a.config-button, button.config-button {
   text-decoration: none;
   cursor: pointer;
   margin: 0.5rem auto;
-  width: 18rem;
+  min-width: 18rem;
+  width: 100%;
   svg.button-icon {
     path {
       fill: var(--config-settings-color);
@@ -234,6 +235,13 @@ a.config-button, button.config-button {
       fill: var(--config-settings-background);
     }
   }
+}
+
+a.hyperlink-wrapper {
+  margin: 0 auto;
+  text-decoration: none;
+  min-width: 18rem;
+  width: 100%;
 }
 
 p.app-version, p.language {
@@ -296,17 +304,14 @@ div.code-container {
   }
 }
 
-a.hyperlink-wrapper {
-  margin: 0 auto;
-  text-decoration: none;
-}
-
 .main-options-container {
   display: flex;
   flex-direction: column;
-  padding-top: 2rem;
   background: var(--config-settings-background);
-  height: calc(100% - 2rem);
+  height: calc(100% - 4rem);
+  width: fit-content;
+  margin: 0 auto;
+  padding: 2rem 1rem;
   h2 {
     margin: 0 auto 1rem auto;
     color: var(--config-settings-color);
