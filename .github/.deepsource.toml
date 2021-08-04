@@ -1,8 +1,0 @@
-version = 1
-
-[[analyzers]]
-name = "javascript"
-enabled = true
-
-  [analyzers.meta]
-  plugins = ["vue"]
