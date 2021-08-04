@@ -308,10 +308,10 @@ div.code-container {
   display: flex;
   flex-direction: column;
   background: var(--config-settings-background);
-  height: calc(100% - 2rem);
+  height: calc(100% - 4rem);
   width: fit-content;
   margin: 0 auto;
-  padding: 2rem 0.5rem;
+  padding: 2rem 1rem;
   h2 {
     margin: 0 auto 1rem auto;
     color: var(--config-settings-color);
