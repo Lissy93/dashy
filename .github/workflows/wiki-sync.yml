@@ -1,3 +1,4 @@
+# Uses the contents of the ./docs directory for Dashy's GH Wiki page
 name: Wiki Sync
 on:
   workflow_dispatch: # Manual dispatch
@@ -9,11 +10,11 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Sync Wiki
-      uses: joeizzard/action-wiki-sync@master
+      uses: cmbrose/github-docs-to-wiki@v0.24
       with:
-        username: example
-        access_token: ${{ secrets.GITHUB_TOKEN }}
-        wiki_folder: ./docs
-        commit_username: 'liss-bot'
-        commit_email: 'liss-bot@d0h.co'
-        commit_message: '📕 Chore: Sync Wiki'
+        githubToken: ${{ secrets.GITHUB_TOKEN }}
+        defaultBranch: master
+        rootDocsFolder: ./docs
+        convertRootReadmeToHomePage: true
+        useHeaderForWikiName: true
+        customCommitMessageFormat: ':gem: Chore: Sync Docs to GH Wiki'
