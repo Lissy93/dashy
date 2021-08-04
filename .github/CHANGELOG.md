@@ -1,5 +1,8 @@
 # Changelog
 
+## 🩹 1.5.1 - UI Quick Fix [PR #116](https://github.com/Lissy93/dashy/pull/116)
+- Fixes #115 - Some longer languages (e.g. French) cause text to break to the next line
+
 ## 🔒 1.5.0 - Improve Robustness of Auth [PR #113](https://github.com/Lissy93/dashy/pull/113)
 - Use both username + password for generating token, so that a change in either will log the user out
 - Prevent privilege escalation by disallowing a user from modifying their user type through the UI
