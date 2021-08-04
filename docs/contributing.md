@@ -68,6 +68,17 @@ appConfig:
 
 All reporting is **disabled** by default, and no data will ever be sent to any external endpoint without your explicit consent. In fact, the error tracking package will not even be imported unless you have actively enabled it. All statistics are anonomized and stored securely. For more about privacy and security, see the [Sentry Docs](https://sentry.io/security/).
 
+## Follow for More
+If you've enjoyed Dashy, you can follow the me to get updates about other projects that I am working on. Or [subscribe to my mailing list](https://notes.aliciasykes.com/subscribe) for very occasional blog post updates.
+
+[![Alicia Sykes on Twitter](https://img.shields.io/twitter/follow/Lissy_Sykes?style=social&logo=twitter)](https://twitter.com/Lissy_Sykes)
+[![Alicia Sykes on GitHub](https://img.shields.io/github/followers/lissy93?label=Lissy93&style=social)](https://github.com/Lissy93)
+[![Alicia Sykes on Mastodon](https://img.shields.io/mastodon/follow/1032965?domain=https%3A%2F%2Fmastodon.social)](https://mastodon.social/web/accounts/1032965)
+[![Alicia Sykes on Keybase](https://img.shields.io/badge/aliciasykes--lightgrey?style=social&logo=Keybase)](https://keybase.io/aliciasykes)
+[![Alicia Sykes's PGP](https://img.shields.io/badge/PGP--lightgrey?style=social&logo=Let%E2%80%99s%20Encrypt)](https://keybase.io/aliciasykes/pgp_keys.asc)
+[![Alicia Sykes's Website](https://img.shields.io/badge/aliciasykes.com--lightgrey?style=social&logo=Tencent%20QQ)](https://aliciasykes.com)
+[![Alicia Sykes's Blog](https://img.shields.io/badge/Blog--lightgrey?style=social&logo=micro.blog)](https://notes.aliciasykes.com/)
+
 ---
 
 ### Contributors
