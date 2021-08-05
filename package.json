@@ -1,6 +1,6 @@
 {
   "name": "Dashy",
-  "version": "1.5.1",
+  "version": "1.5.3",
   "license": "MIT",
   "main": "server",
   "scripts": {
@@ -35,7 +35,7 @@
     "vue-cli-plugin-yaml": "^1.0.2",
     "vue-i18n": "^8.25.0",
     "vue-js-modal": "^2.0.0-rc.6",
-    "vue-material-tabs": "^0.1.2",
+    "vue-material-tabs": "0.1.5",
     "vue-prism-editor": "^1.2.2",
     "vue-router": "^3.0.3",
     "vue-select": "^3.11.2",

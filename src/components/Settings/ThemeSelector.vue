@@ -131,7 +131,8 @@ export default {
   div.vs__dropdown-toggle {
     border-color: var(--settings-text-color);
     border-radius: var(--curve-factor);
-    width: 8rem;
+    min-width: 8rem;
+    max-width: 16rem;
     height: 1.8rem;
     font-size: 0.85rem;
     cursor: pointer;

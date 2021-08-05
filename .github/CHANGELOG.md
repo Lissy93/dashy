@@ -1,7 +1,15 @@
 # Changelog
 
+## 🩹 1.5.3 - UI Quick Fix [PR #121](https://github.com/Lissy93/dashy/pull/121)
+- Downgrades and pins vue-material-tabs to 0.1.5, to prevent breaking changes. Fixes #118 p1
+- Sets auto-width for theme selector, so text doesn't wrap for long theme names. Fixes #119
+- Uses flex layout for config menu, so note doesn't overlap menu on small screens. Fixes #118 p2
+
+## 🌐 1.5.2 - Adds Dutch Translations [PR #120](https://github.com/Lissy93/dashy/pull/120)
+- Dutch language support, contributed by @evroon
+
 ## 🩹 1.5.1 - UI Quick Fix [PR #116](https://github.com/Lissy93/dashy/pull/116)
-- Fixes #115 - Some longer languages (e.g. French) cause text to break to the next line
+- Uses min-max width parent layout, to prevent longer languages (e.g. French) text overflow. Fixes #115
 
 ## 🔒 1.5.0 - Improve Robustness of Auth [PR #113](https://github.com/Lissy93/dashy/pull/113)
 - Use both username + password for generating token, so that a change in either will log the user out
