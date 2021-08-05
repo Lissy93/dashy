@@ -1,6 +1,7 @@
 // Locales - Import translation files here!
 import en from '@/assets/locales/en.json';
 import de from '@/assets/locales/de.json';
+import nl from '@/assets/locales/nl.json';
 
 // Language data - Add your country name, locale code and imported file here
 export const languages = [
@@ -15,6 +16,12 @@ export const languages = [
     code: 'de',
     locale: de,
     flag: '🇩🇪',
+  },
+  {
+    name: 'Dutch',
+    code: 'nl',
+    locale: nl,
+    flag: '🇳🇱',
   },
   // Including:
   // name - Human readable name for your language (e.g German)
