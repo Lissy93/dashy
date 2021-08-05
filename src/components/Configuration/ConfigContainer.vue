@@ -2,46 +2,48 @@
   <Tabs :navAuto="true" name="Add Item" ref="tabView">
     <TabItem :name="$t('config.main-tab')" class="main-tab">
       <div class="main-options-container">
-        <h2>Configuration Options</h2>
-        <a class="hyperlink-wrapper"  @click="downloadConfigFile('conf.yml', yaml)">
-          <button class="config-button center">
-            <DownloadIcon class="button-icon"/>
-            {{ $t('config.download-config-button') }}
+        <div class="config-buttons">
+          <h2>Configuration Options</h2>
+          <a class="hyperlink-wrapper"  @click="downloadConfigFile('conf.yml', yaml)">
+            <button class="config-button center">
+              <DownloadIcon class="button-icon"/>
+              {{ $t('config.download-config-button') }}
+            </button>
+          </a>
+          <button class="config-button center" @click="() => navigateToTab(2)">
+            <EditIcon class="button-icon"/>
+            {{ $t('config.edit-config-button') }}
           </button>
-        </a>
-        <button class="config-button center" @click="() => navigateToTab(2)">
-          <EditIcon class="button-icon"/>
-          {{ $t('config.edit-config-button') }}
-        </button>
-        <button class="config-button center" @click="() => navigateToTab(4)">
-          <CustomCssIcon class="button-icon"/>
-          {{ $t('config.edit-css-button') }}
-        </button>
-        <button class="config-button center" @click="() => navigateToTab(3)">
-          <CloudIcon class="button-icon"/>
-          {{backupId ? $t('config.edit-cloud-sync-button') : $t('config.cloud-sync-button') }}
-        </button>
-        <button class="config-button center" @click="openLanguageSwitchModal()">
-          <LanguageIcon class="button-icon"/>
-          {{ $t('config.change-language-button') }}
-        </button>
-        <button class="config-button center" @click="openRebuildAppModal()">
-          <RebuildIcon class="button-icon"/>
-          {{ $t('config.rebuild-app-button') }}
-        </button>
-        <button class="config-button center" @click="resetLocalSettings()">
-          <DeleteIcon class="button-icon"/>
-          {{ $t('config.reset-settings-button') }}
-        </button>
-        <button class="config-button center" @click="openAboutModal()">
-          <IconAbout class="button-icon" />
-          {{ $t('config.app-info-button') }}
-        </button>
-        <p class="small-screen-note" style="display: none;">
-            You are using a very small screen, and some screens in this menu may not be optimal
-        </p>
-        <p class="language">{{ getLanguage() }}</p>
-        <AppVersion />
+          <button class="config-button center" @click="() => navigateToTab(4)">
+            <CustomCssIcon class="button-icon"/>
+            {{ $t('config.edit-css-button') }}
+          </button>
+          <button class="config-button center" @click="() => navigateToTab(3)">
+            <CloudIcon class="button-icon"/>
+            {{backupId ? $t('config.edit-cloud-sync-button') : $t('config.cloud-sync-button') }}
+          </button>
+          <button class="config-button center" @click="openLanguageSwitchModal()">
+            <LanguageIcon class="button-icon"/>
+            {{ $t('config.change-language-button') }}
+          </button>
+          <button class="config-button center" @click="openRebuildAppModal()">
+            <RebuildIcon class="button-icon"/>
+            {{ $t('config.rebuild-app-button') }}
+          </button>
+          <button class="config-button center" @click="resetLocalSettings()">
+            <DeleteIcon class="button-icon"/>
+            {{ $t('config.reset-settings-button') }}
+          </button>
+          <button class="config-button center" @click="openAboutModal()">
+            <IconAbout class="button-icon" />
+            {{ $t('config.app-info-button') }}
+          </button>
+          <p class="small-screen-note" style="display: none;">
+              You are using a very small screen, and some screens in this menu may not be optimal
+          </p>
+          <p class="language">{{ getLanguage() }}</p>
+          <AppVersion />
+        </div>
         <div class="config-note">
           <span>{{ $t('config.backup-note') }}</span>
         </div>
@@ -305,6 +307,13 @@ div.code-container {
 }
 
 .main-options-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.config-buttons {
   display: flex;
   flex-direction: column;
   background: var(--config-settings-background);
@@ -320,7 +329,6 @@ div.code-container {
 
 .config-note {
   width: 80%;
-  position: absolute;
   bottom: 1rem;
   left: 10%;
   margin: 0.5rem auto;
