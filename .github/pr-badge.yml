@@ -1,0 +1,45 @@
+# Config file for pull-request-badge. Enables badges to be assigned to certain PRs.
+
+# Checks if the required sections are missing
+- label: "Missing"
+  message: "Category"
+  color: "#f25265"
+  when: "$payload.pull_request.body.includes('Category') === false"
+- label: "Missing"
+  message: "Overview"
+  color: "#f25265"
+  when: "$payload.pull_request.body.includes('Overview') === false"
+- label: "Missing"
+  message: "Quality Checklist"
+  color: "#f25265"
+  when: "$payload.pull_request.body.includes('Code Quality Checklist') === false"
+- label: "Description"
+  when: "$payload.pull_request.body.length < 25"
+  message: "Incomplete"
+  color: "#f25265"
+
+# Add size label based on very large or tiny PRs
+- label: "PR Size"
+  message: "Large"
+  color: "#f79c47"
+  when: "$additions > 600"
+- label: "PR Size"
+  message: "Quick"
+  color: "#3eef8b"
+  when: "$additions < 5"
+
+# Show PR number, to destination and from destination
+- label: "#$prNumber"
+  message: "$payload.pull_request.user.login /$payload.pull_request.head.ref → $payload.repository.full_name"
+  color: "#ab5afc"
+
+# Show total code added minus deleted
+- label: "New Code"
+  message: "Commits: $payload.pull_request.commits | Files Changed: $payload.pull_request.changed_files | Additions: $payload.pull_request.additions-$payload.pull_request.deletions"
+  color: "#dddd00"
+  
+# Show submitting user's username
+- label: Submitted by
+  message: "$payload.pull_request.user.login"
+  color: "#fc7bf1"
+  when: "$payload.pull_request.author_association !== 'OWNER'"
