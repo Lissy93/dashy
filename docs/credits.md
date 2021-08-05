@@ -10,6 +10,13 @@
             <br />
             <sub><b>Robert Ernst</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/swcarlosrj">
+            <img src="https://avatars.githubusercontent.com/u/9881700?v=4" width="80;" alt="swcarlosrj"/>
+            <br />
+            <sub><b>Carlos Rufo</b></sub>
+        </a>
     </td></tr>
 </table>
 <!-- readme: sponsors -end -->
@@ -26,10 +33,24 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/evroon">
+            <img src="https://avatars.githubusercontent.com/u/11857441?v=4" width="80;" alt="evroon"/>
+            <br />
+            <sub><b>Erik Vroon</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/BeginCI">
             <img src="https://avatars.githubusercontent.com/u/57495754?v=4" width="80;" alt="BeginCI"/>
             <br />
             <sub><b>Begin</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/deepsourcebot">
+            <img src="https://avatars.githubusercontent.com/u/60907429?v=4" width="80;" alt="deepsourcebot"/>
+            <br />
+            <sub><b>DeepSource Bot</b></sub>
         </a>
     </td>
     <td align="center">
