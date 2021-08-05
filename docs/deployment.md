@@ -25,6 +25,8 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
 
 ### Deploy with Docker
 
+[![Dashy on Docker Hub](https://dockeri.co/image/lissy93/dashy)](https://hub.docker.com/r/lissy93/dashy)
+
 Dashy has a built container image hosted on [Docker Hub](https://hub.docker.com/r/lissy93/dashy). You will need [Docker](https://docs.docker.com/get-docker/) installed on your system.
 
 
@@ -43,9 +45,11 @@ Explanation of the above options:
 - `-v` Specify volumes, to pass data from your host system to the container, in the format of `[host-path]:[container-path]`, you can use this to pass your config file, directory of assets (like icons), custom CSS or web assets (like favicon.ico, manifest.json etc)
 - `--name` Give your container a human-readable name
 - `--restart=always` Spin up the container when the daemon starts, or after it has been stopped
-- `lissy93/dashy:latest` This last option is the image the container should be built from, you can also use a specific version, by replacing `:latest` with one of tthe [tags](https://hub.docker.com/r/lissy93/dashy/tags)
+- `lissy93/dashy:latest` This last option is the image the container should be built from, you can also use a specific version, by replacing `:latest` with one of the [tags](https://hub.docker.com/r/lissy93/dashy/tags)
 
 For all available options, and to learn more, see the [Docker Run Docs](https://docs.docker.com/engine/reference/commandline/run/)
+
+If you're deploying Dashy on a modern ARM-based board, such as a Raspberry Pi (2+), then you'll need to use one of Dashy's ARM images. Set the base image + tag to either `lissy93/dashy:arm64v8` or `lissy93/dashy:arm32v7`, depending on your system architecture.
 
 ### Using Docker Compose
 

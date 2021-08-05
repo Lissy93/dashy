@@ -1,5 +1,10 @@
 # Changelog
 
+## 🐳 1.5.4 - Docker ARM Support [PR #122](https://github.com/Lissy93/dashy/pull/122)
+- Adds Docker files for `arm64v8` and `arm32v7` in order to support Raspberry Pi and other modern ARM-based devices
+- Publishes these images on DockerHub and sets up a workflow to submit a new container every time a release is made
+- Adds documentation for running Dashy on RPi/ ARM-based devices, Re: #117
+
 ## 🩹 1.5.3 - UI Quick Fix [PR #121](https://github.com/Lissy93/dashy/pull/121)
 - Downgrades and pins vue-material-tabs to 0.1.5, to prevent breaking changes. Fixes #118 p1
 - Sets auto-width for theme selector, so text doesn't wrap for long theme names. Fixes #119
