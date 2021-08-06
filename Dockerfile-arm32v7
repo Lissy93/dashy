@@ -1,6 +1,6 @@
 FROM alpine:3.8
 
-RUN apk add --no-cache nodejs=14.17.4-r0 yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+RUN apk add --update --no-cache nodejs npm yarn
 
 # Define some ENV Vars
 ENV PORT 80
