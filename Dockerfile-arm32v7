@@ -1,4 +1,6 @@
-FROM arm32v7/node:latest
+FROM alpine:3.8
+
+RUN apk add --no-cache nodejs yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
 
 # Define some ENV Vars
 ENV PORT 80
@@ -12,20 +14,20 @@ WORKDIR ${DIRECTORY}
 COPY package.json ./
 COPY yarn.lock ./
 
-# Install dependencies
+# Install project dependencies
 RUN yarn
 
 # Copy over all project files and folders to the working directory
 COPY . .
 
-# Build Dashy for production
+# Build initial app for production
 RUN yarn build
 
-# Expose users port
+# Expose given port
 EXPOSE ${PORT}
 
 # Finally, run start command to serve up the built application
 CMD [ "yarn", "build-and-start"]
 
-# Enable Docker healthcecks, to ensure Dashy is running correctly
+# Run simple healthchecks every 5 mins, to check the Dashy's everythings great
 HEALTHCHECK --interval=5m --timeout=2s --start-period=30s CMD yarn health-check
