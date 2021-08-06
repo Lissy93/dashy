@@ -2,46 +2,48 @@
   <Tabs :navAuto="true" name="Add Item" ref="tabView">
     <TabItem :name="$t('config.main-tab')" class="main-tab">
       <div class="main-options-container">
-        <h2>Configuration Options</h2>
-        <a class="hyperlink-wrapper"  @click="downloadConfigFile('conf.yml', yaml)">
-          <button class="config-button center">
-            <DownloadIcon class="button-icon"/>
-            {{ $t('config.download-config-button') }}
+        <div class="config-buttons">
+          <h2>Configuration Options</h2>
+          <a class="hyperlink-wrapper"  @click="downloadConfigFile('conf.yml', yaml)">
+            <button class="config-button center">
+              <DownloadIcon class="button-icon"/>
+              {{ $t('config.download-config-button') }}
+            </button>
+          </a>
+          <button class="config-button center" @click="() => navigateToTab(2)">
+            <EditIcon class="button-icon"/>
+            {{ $t('config.edit-config-button') }}
           </button>
-        </a>
-        <button class="config-button center" @click="() => navigateToTab(2)">
-          <EditIcon class="button-icon"/>
-          {{ $t('config.edit-config-button') }}
-        </button>
-        <button class="config-button center" @click="() => navigateToTab(3)">
-          <CustomCssIcon class="button-icon"/>
-          {{ $t('config.edit-css-button') }}
-        </button>
-        <button class="config-button center" @click="openCloudSync()">
-          <CloudIcon class="button-icon"/>
-          {{backupId ? $t('config.edit-cloud-sync-button') : $t('config.cloud-sync-button') }}
-        </button>
-        <button class="config-button center" @click="openLanguageSwitchModal()">
-          <LanguageIcon class="button-icon"/>
-          {{ $t('config.change-language-button') }}
-        </button>
-        <button class="config-button center" @click="openRebuildAppModal()">
-          <RebuildIcon class="button-icon"/>
-          {{ $t('config.rebuild-app-button') }}
-        </button>
-        <button class="config-button center" @click="resetLocalSettings()">
-          <DeleteIcon class="button-icon"/>
-          {{ $t('config.reset-settings-button') }}
-        </button>
-        <button class="config-button center" @click="openAboutModal()">
-          <IconAbout class="button-icon" />
-          {{ $t('config.app-info-button') }}
-        </button>
-        <p class="small-screen-note" style="display: none;">
-            You are using a very small screen, and some screens in this menu may not be optimal
-        </p>
-        <p class="app-version">{{ $t('config.app-version-note') }} {{ appVersion }}</p>
-        <p class="language">{{ getLanguage() }}</p>
+          <button class="config-button center" @click="() => navigateToTab(4)">
+            <CustomCssIcon class="button-icon"/>
+            {{ $t('config.edit-css-button') }}
+          </button>
+          <button class="config-button center" @click="() => navigateToTab(3)">
+            <CloudIcon class="button-icon"/>
+            {{backupId ? $t('config.edit-cloud-sync-button') : $t('config.cloud-sync-button') }}
+          </button>
+          <button class="config-button center" @click="openLanguageSwitchModal()">
+            <LanguageIcon class="button-icon"/>
+            {{ $t('config.change-language-button') }}
+          </button>
+          <button class="config-button center" @click="openRebuildAppModal()">
+            <RebuildIcon class="button-icon"/>
+            {{ $t('config.rebuild-app-button') }}
+          </button>
+          <button class="config-button center" @click="resetLocalSettings()">
+            <DeleteIcon class="button-icon"/>
+            {{ $t('config.reset-settings-button') }}
+          </button>
+          <button class="config-button center" @click="openAboutModal()">
+            <IconAbout class="button-icon" />
+            {{ $t('config.app-info-button') }}
+          </button>
+          <p class="small-screen-note" style="display: none;">
+              You are using a very small screen, and some screens in this menu may not be optimal
+          </p>
+          <p class="language">{{ getLanguage() }}</p>
+          <AppVersion />
+        </div>
         <div class="config-note">
           <span>{{ $t('config.backup-note') }}</span>
         </div>
@@ -67,6 +69,9 @@
     <TabItem :name="$t('config.edit-config-tab')">
       <JsonEditor :config="config" />
     </TabItem>
+    <TabItem :name="$t('cloud-sync.title')">
+      <CloudBackupRestore :config="config" />
+    </TabItem>
     <TabItem :name="$t('config.custom-css-tab')">
       <CustomCssEditor :config="config" />
     </TabItem>
@@ -74,7 +79,6 @@
 </template>
 
 <script>
-
 import hljs from 'highlight.js/lib/core';
 import yaml from 'highlight.js/lib/languages/yaml';
 import 'highlight.js/styles/mono-blue.css';
@@ -84,7 +88,9 @@ import { localStorageKeys, modalNames } from '@/utils/defaults';
 import { getUsersLanguage } from '@/utils/ConfigHelpers';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
+import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
 import RebuildApp from '@/components/Configuration/RebuildApp';
+import AppVersion from '@/components/Configuration/AppVersion';
 
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
@@ -102,6 +108,7 @@ export default {
       jsonParser: JsonToYaml,
       backupId: localStorage[localStorageKeys.BACKUP_ID] || '',
       appVersion: process.env.VUE_APP_VERSION,
+      latestVersion: '',
     };
   },
   props: {
@@ -118,7 +125,9 @@ export default {
   components: {
     JsonEditor,
     CustomCssEditor,
+    CloudBackupRestore,
     RebuildApp,
+    AppVersion,
     DownloadIcon,
     DeleteIcon,
     EditIcon,
@@ -139,9 +148,6 @@ export default {
     },
     openAboutModal() {
       this.$modal.show(modalNames.ABOUT_APP);
-    },
-    openCloudSync() {
-      this.$modal.show(modalNames.CLOUD_BACKUP);
     },
     openLanguageSwitchModal() {
       this.$modal.show(modalNames.LANG_SWITCHER);
@@ -213,7 +219,8 @@ a.config-button, button.config-button {
   text-decoration: none;
   cursor: pointer;
   margin: 0.5rem auto;
-  width: 18rem;
+  min-width: 18rem;
+  width: 100%;
   svg.button-icon {
     path {
       fill: var(--config-settings-color);
@@ -230,6 +237,13 @@ a.config-button, button.config-button {
       fill: var(--config-settings-background);
     }
   }
+}
+
+a.hyperlink-wrapper {
+  margin: 0 auto;
+  text-decoration: none;
+  min-width: 18rem;
+  width: 100%;
 }
 
 p.app-version, p.language {
@@ -292,17 +306,21 @@ div.code-container {
   }
 }
 
-a.hyperlink-wrapper {
-  margin: 0 auto;
-  text-decoration: none;
-}
-
 .main-options-container {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  padding-top: 2rem;
+  justify-content: space-between;
+}
+
+.config-buttons {
+  display: flex;
+  flex-direction: column;
   background: var(--config-settings-background);
-  height: calc(100% - 2rem);
+  height: calc(100% - 4rem);
+  width: fit-content;
+  margin: 0 auto;
+  padding: 2rem 1rem;
   h2 {
     margin: 0 auto 1rem auto;
     color: var(--config-settings-color);
@@ -311,7 +329,6 @@ a.hyperlink-wrapper {
 
 .config-note {
   width: 80%;
-  position: absolute;
   bottom: 1rem;
   left: 10%;
   margin: 0.5rem auto;

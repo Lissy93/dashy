@@ -1,6 +1,6 @@
 {
   "name": "Dashy",
-  "version": "1.4.2",
+  "version": "1.5.4",
   "license": "MIT",
   "main": "server",
   "scripts": {
@@ -11,10 +11,12 @@
     "pm2-start": "npx pm2 start server.js",
     "build-watch": "vue-cli-service build --watch --mode production",
     "build-and-start": "npm-run-all --parallel build-watch start",
-    "validate-config": "node src/utils/ConfigValidator",
+    "validate-config": "node services/config-validator",
     "health-check": "node services/healthcheck"
   },
   "dependencies": {
+    "@sentry/tracing": "^6.10.0",
+    "@sentry/vue": "^6.10.0",
     "ajv": "^8.5.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
@@ -33,7 +35,7 @@
     "vue-cli-plugin-yaml": "^1.0.2",
     "vue-i18n": "^8.25.0",
     "vue-js-modal": "^2.0.0-rc.6",
-    "vue-material-tabs": "^0.1.2",
+    "vue-material-tabs": "0.1.5",
     "vue-prism-editor": "^1.2.2",
     "vue-router": "^3.0.3",
     "vue-select": "^3.11.2",

@@ -1,6 +1,11 @@
 <template>
     <header>
-      <PageTitle v-if="titleVisible"  :title="pageInfo.title" :description="pageInfo.description" />
+      <PageTitle
+        v-if="titleVisible"
+        :title="pageInfo.title"
+        :description="pageInfo.description"
+        :logo="pageInfo.logo"
+      />
       <Nav v-if="navVisible" :links="pageInfo.navLinks" class="nav" />
     </header>
 </template>

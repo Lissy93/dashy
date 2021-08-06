@@ -104,9 +104,9 @@ export default {
     /* Updates theme. Checks if the new theme is local or external,
     and calls appropirate updating function. Updates local storage */
     updateTheme(newTheme) {
-      if (newTheme === 'Deafault') {
+      if (newTheme === 'Default') {
         this.resetToDefault();
-        this.themeHelper.theme = 'Deafault';
+        this.themeHelper.theme = 'Default';
       } else if (this.isThemeLocal(newTheme)) {
         this.ApplyLocalTheme(newTheme);
       } else {
@@ -131,7 +131,8 @@ export default {
   div.vs__dropdown-toggle {
     border-color: var(--settings-text-color);
     border-radius: var(--curve-factor);
-    width: 8rem;
+    min-width: 8rem;
+    max-width: 16rem;
     height: 1.8rem;
     font-size: 0.85rem;
     cursor: pointer;

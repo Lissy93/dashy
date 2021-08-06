@@ -6,7 +6,11 @@ import { cookieKeys, localStorageKeys } from './defaults';
  * @param {String} user The username of user
  * @returns {String} The hashed token
  */
-const generateUserToken = (user) => sha256(user.toString()).toString().toLowerCase();
+const generateUserToken = (user) => {
+  const strAndUpper = (input) => input.toString().toUpperCase();
+  const sha = sha256(strAndUpper(user.user) + strAndUpper(user.hash));
+  return strAndUpper(sha);
+};
 
 /**
  * Checks if the user is currently authenticated
@@ -47,7 +51,7 @@ export const checkCredentials = (username, pass, users) => {
     response = { correct: false, msg: 'Missing Password' };
   } else {
     users.forEach((user) => {
-      if (user.user === username) {
+      if (user.user.toLowerCase() === username.toLowerCase()) {
         if (user.hash.toLowerCase() === sha256(pass).toString().toLowerCase()) {
           response = { correct: true, msg: 'Logging in...' };
         } else {

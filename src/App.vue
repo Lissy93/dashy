@@ -13,6 +13,7 @@ import Footer from '@/components/PageStrcture/Footer.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
 import { componentVisibility } from '@/utils/ConfigHelpers';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
+import { welcomeMsg } from '@/utils/CoolConsole';
 import {
   localStorageKeys,
   splashScreenTime,
@@ -103,6 +104,7 @@ export default {
       const cleanedCss = this.appConfig.customCss.replace(/<\/?[^>]+(>|$)/g, '');
       this.injectCustomStyles(cleanedCss);
     }
+    welcomeMsg();
   },
 };
 </script>

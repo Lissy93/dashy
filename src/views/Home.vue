@@ -157,7 +157,7 @@ export default {
           }
         }
       }
-      availibleThemes.Deafault = '#';
+      availibleThemes.Default = '#';
       return availibleThemes;
     },
     /* Checks if any of the icons are Font Awesome glyphs */

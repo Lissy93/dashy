@@ -13,12 +13,15 @@ const dns = require('dns');
 const os = require('os');
 const bodyParser = require('body-parser');
 
+/* Kick of some basic checks */
+require('./services/update-checker'); // Checks if there are any updates available, prints message
+require('./services/config-validator'); // Include and kicks off the config file validation script
+
 /* Include helper functions and route handlers */
 const pingUrl = require('./services/ping'); // Used by the status check feature, to ping services
 const saveConfig = require('./services/save-config'); // Saves users new conf.yml to file-system
 const printMessage = require('./services/print-message'); // Function to print welcome msg on start
 const rebuild = require('./services/rebuild-app'); // A script to programmatically trigger a build
-require('./src/utils/ConfigValidator'); // Include and kicks off the config file validation script
 
 /* Checks if app is running within a container, from env var */
 const isDocker = !!process.env.IS_DOCKER;

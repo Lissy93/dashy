@@ -12,9 +12,14 @@ import { metaTagData } from '@/utils/defaults';
 
 Vue.use(Router);
 
+/**
+ * Checks if the current user is either authenticated,
+ * or if authentication is not enabled
+ * @returns true if user logged in, or user management not enabled
+ */
 const isAuthenticated = () => {
   const users = config.appConfig.auth;
-  return (!users || isLoggedIn(users));
+  return (!users || users.length === 0 || isLoggedIn(users));
 };
 
 const router = new Router({

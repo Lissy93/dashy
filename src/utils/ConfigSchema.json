@@ -39,6 +39,15 @@
         },
         "footerText": {
           "type": "string"
+        },
+        "logo": {
+          "type": "string",
+          "description": "Path to an optional image asset, to be displayed in the header",
+          "pattern": "^(http|\/)",
+          "examples": [
+            "/web-icons/dashy-logo.png",
+            "https://i.ibb.co/yhbt6CY/dashy.png"
+          ]
         }
       },
       "required": [
@@ -244,6 +253,16 @@
           "type": "boolean",
           "default": false,
           "description": "If set to true, custom right-click context menu will be disabled"
+        },
+        "disableUpdateChecks": {
+          "type": "boolean",
+          "default": false,
+          "description": "Prevents Dashy from checking for updates"
+        },
+        "enableErrorReporting": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable anonymous crash reports. This helps bugs be found and fixed, in order to make Dashy more stable. Reporting is off by default, and no data will EVER be collected without your explicit and active concent."
         }
       },
       "additionalProperties": false

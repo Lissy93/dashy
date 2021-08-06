@@ -1,0 +1,40 @@
+# Inserts list of contributors and community members into ./docs/credits.md
+# Also generates an SVG showing all contributors, which is embedded into readme
+name: Contributors
+on:
+  workflow_dispatch: # Manual dispatch
+  schedule:
+    - cron: '0 1 * * 0' # At 01:00 on Sunday.
+jobs:
+  # Job #1 - Update the Credits page
+  insert-credits:
+    runs-on: ubuntu-latest
+    name: Inserts contributors into credits.md
+    steps:
+    - name: Contribute List
+      uses: akhilmhdh/contributors-readme-action@v2.2
+      env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+      with:
+        image_size: 80
+        readme_path: docs/credits.md
+        columns_per_row: 6
+        commit_message: ':yellow_heart: Updates contributors list'
+        committer_username: liss-bot
+        committer_email: liss-bot@d0h.co
+  # Job #2 - Generate an embedded SVG asset, showing all contributors
+  generate-contributors:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: bubkoo/contributors-list@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          svgPath: docs/assets/CONTRIBUTORS.svg
+          affiliation: all
+          includeBots: false
+          excludeUsers: BeginCI snyk-bot
+          avatarSize: 96
+          userNameHeight: 20
+          svgWidth: 830
+          commitMessage: ':blue_heart: Updates contributor SVG'
+
