@@ -2,15 +2,18 @@
   <div class="minimal-home" :style="getBackgroundImage()">
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections)"
-      :class="`item-group-container orientation-${layout} item-size-${itemSizeBound}`">
+      :class="`item-group-container item-size-small`">
       <MinimalSection
         v-for="(section, index) in getSections(sections)"
         :key="index"
+        :index="index"
         :title="section.name"
         :icon="section.icon || undefined"
         :groupId="`section-${index}`"
         :items="filterTiles(section.items)"
+        :selected="selectedSection === index"
         itemSize="small"
+        @sectionSelected="sectionSelected"
          @itemClicked="finishedSearching()"
          @change-modal-visibility="updateModalVisibility"
          :class="(filterTiles(section.items).length === 0 && searchValue) ? 'no-results' : ''"
@@ -36,10 +39,13 @@ export default {
   data: () => ({
     searchValue: '',
     layout: '',
-    itemSizeBound: '',
     modalOpen: false, // When true, keybindings are disabled
+    selectedSection: 0, // The index of currently selected section
   }),
   methods: {
+    sectionSelected(index) {
+      this.selectedSection = index;
+    },
     /* Returns true if there is one or more sections in the config */
     checkTheresData(sections) {
       const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
@@ -138,11 +144,13 @@ export default {
 @import '@/styles/media-queries.scss';
 @import '@/styles/style-helpers.scss';
 
-.home {
+.minimal-home {
   padding-bottom: 1px;
   background: var(--background);
-  // min-height: calc(100vh - 126px);
-  min-height: calc(100vh - var(--footer-height));
+  min-height: calc(99.9vh - var(--footer-height));
+  width: 90%;
+  max-width: 1000px;
+  margin: 1rem auto;
 }
 
 /* Outside container wrapping the item groups*/

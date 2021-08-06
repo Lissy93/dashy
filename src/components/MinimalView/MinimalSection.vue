@@ -1,26 +1,30 @@
 <template>
-   <div class="minimal-section-inner">
-      <Item
-        v-for="(item, index) in items"
-        :id="`${index}_${makeId(item.title)}`"
-        :key="`${index}_${makeId(item.title)}`"
-        :url="item.url"
-        :title="item.title"
-        :description="item.description"
-        :icon="item.icon"
-        :target="item.target"
-        :color="item.color"
-        :backgroundColor="item.backgroundColor"
-        :statusCheckUrl="item.statusCheckUrl"
-        :statusCheckHeaders="item.statusCheckHeaders"
-        :itemSize="itemSize"
-        :hotkey="item.hotkey"
-        :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
-        :statusCheckInterval="getStatusCheckInterval()"
-        @itemClicked="$emit('itemClicked')"
-        @triggerModal="triggerModal"
-      />
-      <div ref="modalContainer"></div>
+   <div :class="`minimal-section-inner ${selected ? 'selected' : ''}`">
+      <div class="section-title" @click="selectSection(index)">
+        <h3>{{ title }}</h3>
+      </div>
+      <div class="section-items" v-if="selected">
+        <Item
+          v-for="(item, index) in items"
+          :id="`${index}_${makeId(item.title)}`"
+          :key="`${index}_${makeId(item.title)}`"
+          :url="item.url"
+          :title="item.title"
+          :description="item.description"
+          :icon="item.icon"
+          :target="item.target"
+          :color="item.color"
+          :backgroundColor="item.backgroundColor"
+          :statusCheckUrl="item.statusCheckUrl"
+          :statusCheckHeaders="item.statusCheckHeaders"
+          :itemSize="itemSize"
+          :hotkey="item.hotkey"
+          :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
+          :statusCheckInterval="getStatusCheckInterval()"
+          @itemClicked="$emit('itemClicked')"
+          @triggerModal="triggerModal"
+        />
+      </div>
     <IframeModal
       :ref="`iframeModal-${groupId}`"
       :name="`iframeModal-${groupId}`"
@@ -45,12 +49,17 @@ export default {
     items: Array,
     itemSize: String,
     modalOpen: Boolean,
+    index: Number,
+    selected: Boolean,
   },
   components: {
     Item,
     IframeModal,
   },
   methods: {
+    selectSection(index) {
+      this.$emit('sectionSelected', index);
+    },
     /* Returns a unique lowercase string, based on name, for section ID */
     makeId(str) {
       return str.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
@@ -85,31 +94,28 @@ export default {
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  &.item-group-grid {
-    display: grid;
-    overflow: auto;
-    @extend .scroll-bar;
-    @include phone { grid-template-columns: repeat(1, 1fr); }
-    @include tablet { grid-template-columns: repeat(2, 1fr); }
-    @include laptop { grid-template-columns: repeat(2, 1fr); }
-    @include monitor { grid-template-columns: repeat(3, 1fr); }
-    @include big-screen { grid-template-columns: repeat(4, 1fr); }
-    @include big-screen-up { grid-template-columns: repeat(5, 1fr); }
-  }
-}
-.orientation-horizontal {
-  display: flex;
   flex-direction: column;
-  .there-are-items {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    @include phone { grid-template-columns: repeat(2, 1fr); }
-    @include tablet { grid-template-columns: repeat(4, 1fr); }
-    @include laptop { grid-template-columns: repeat(6, 1fr); }
-    @include monitor { grid-template-columns: repeat(8, 1fr); }
-    @include big-screen { grid-template-columns: repeat(10, 1fr); }
-    @include big-screen-up { grid-template-columns: repeat(12, 1fr); }
+  .section-items {
+    display: flex;
+    flex-direction: column;
   }
+  .section-title {
+    cursor: pointer;
+    padding: 0.5rem 0.25rem;
+    border-radius: var(--curve-factor);
+    h3 {
+      margin: 0;
+      color: var(--primary);
+    }
+  }
+  &.selected {
+    .section-title {
+      background: var(--primary);
+        h3 {
+          color: var(--background);
+        }
+      }
+    }
 }
 
 </style>
