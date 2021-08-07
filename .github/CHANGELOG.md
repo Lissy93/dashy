@@ -1,8 +1,15 @@
 # Changelog
 
+## 🌐 1.5.5 - Adds Missing Translations + Small UI Issues [PR #129](https://github.com/Lissy93/dashy/pull/129)
+- Adds missing translations to several UI elements, Re: #126
+- Fixes login translations not being picked up on page load, Re: #127
+- Fixes small text overflow glitch in config icon, Re: #123
+- Several small UI improvements: height of config editor, scrollbar on theme dropdown, page height, white-on-white on material theme, etc
+- Adds an action to auto-assign reviewer based on ./.github/CODEOWNERS file
+
 ## 🐳 1.5.4 - Docker ARM Support [PR #122](https://github.com/Lissy93/dashy/pull/122)
-- Adds Docker files for `arm64v8` and `arm32v7` in order to support Raspberry Pi and other modern ARM-based devices
-- Publishes these images on DockerHub and sets up a workflow to submit a new container every time a release is made
+- Adds a Dockerfile for `arm64v8` and `arm32v7`, to support Raspberry Pi and other modern ARM-based devices
+- Sets up automated workflow to publish ARM containers to DockerHub after every new release
 - Adds documentation for running Dashy on RPi/ ARM-based devices, Re: #117
 
 ## 🩹 1.5.3 - UI Quick Fix [PR #121](https://github.com/Lissy93/dashy/pull/121)

@@ -1,0 +1,12 @@
+# Uses the .github/OWNERS file to assign appropriate reviewers to PRs
+on: [pull_request]
+jobs:
+  autolabeler-codeowners:
+    runs-on: ubuntu-latest
+    name: Assign Reviewers
+    steps:
+    - uses: actions/checkout@v1
+    - name: Uses owners file to assign appropriate reviews to PR
+      uses: pratikmallya/autolabeler-codeowners@releases/v1
+      with:
+        githubToken: ${{ secrets.GITHUB_TOKEN }}

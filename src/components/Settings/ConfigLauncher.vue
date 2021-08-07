@@ -4,7 +4,7 @@
     <span>{{ $t('settings.config-launcher-label') }}</span>
     <div class="config-buttons">
       <IconSpanner @click="showEditor()" tabindex="-2"
-        v-tooltip="tooltip('Update configuration')" />
+        v-tooltip="tooltip($t('settings.config-launcher-tooltip'))" />
     </div>
 
     <!-- Modal containing all the configuration options -->
@@ -73,6 +73,7 @@ export default {
   display: flex;
   flex-direction: column;
   color: var(--settings-text-color);
+  min-width: 3.2rem;
   svg {
     path {
       fill: var(--settings-text-color);
