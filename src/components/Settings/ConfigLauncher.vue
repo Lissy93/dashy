@@ -73,6 +73,7 @@ export default {
   display: flex;
   flex-direction: column;
   color: var(--settings-text-color);
+  min-width: 3.2rem;
   svg {
     path {
       fill: var(--settings-text-color);
