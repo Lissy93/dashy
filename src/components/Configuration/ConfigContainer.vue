@@ -79,9 +79,6 @@
 </template>
 
 <script>
-import hljs from 'highlight.js/lib/core';
-import yaml from 'highlight.js/lib/languages/yaml';
-import 'highlight.js/styles/mono-blue.css';
 
 import JsonToYaml from '@/utils/JsonToYaml';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
@@ -179,19 +176,10 @@ export default {
       element.click();
       document.body.removeChild(element);
     },
-    /* Highlights the YAML config in View config tab */
-    initiateStntaxHighlighter() {
-      hljs.registerLanguage('yaml', yaml);
-      const highlighted = hljs.highlight(this.jsonParser(this.config), { language: 'yaml' }).value;
-      document.getElementById('conf-yaml').innerHTML = highlighted;
-    },
     getLanguage() {
       const lang = getUsersLanguage();
       return lang ? `${lang.flag} ${lang.name}` : '';
     },
-  },
-  mounted() {
-    this.initiateStntaxHighlighter();
   },
 };
 </script>
