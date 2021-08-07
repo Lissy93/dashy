@@ -71,7 +71,7 @@
 <!-- readme: contributors -end -->
 
 ## Helpful Users
-<!-- readme: EVOTk,shadowking001,turnrye,Robert-Ernst,MilesTEG1,Niklashere -start -->
+<!-- readme: EVOTk,shadowking001,turnrye,Robert-Ernst,Niklashere,evroon,MilesTEG1 -start -->
 <table>
 <tr>
     <td align="center">
@@ -152,7 +152,7 @@
 This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them. For a full breakdown of dependency licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md)
 
 ##### Core
-At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as well as it's services. Styling is done with [SCSS](https://github.com/sass/sass), JavaScript is currently [Babel](https://github.com/babel/babel), (but I am in the process of converting to [TypeScript](https://github.com/Microsoft/TypeScript)), linting is done with [ESLint](https://github.com/eslint/eslint), the config is defined in [YAML](https://github.com/yaml/yaml), and there is a simple [Node.js](https://github.com/nodejs/node) server to serve up the static app.
+At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as well as it's services. Styling is done with [SCSS](https://github.com/sass/sass), JavaScript is currently [Babel](https://github.com/babel/babel), (but I am in the process of converting to [TypeScript](https://github.com/Microsoft/TypeScript)). Linting is done with [ESLint](https://github.com/eslint/eslint) and [Prettier](https://prettier.io/), both following the [AirBnB Styleguide](https://github.com/airbnb/javascript). The config is defined in [YAML](https://github.com/yaml/yaml), and there is a simple [Node.js](https://github.com/nodejs/node) server to serve up the static app and the optional API endpoints.
 
 ##### Utilities
 - [`crypto-js`](https://github.com/brix/crypto-js) - Encryption implementations by @evanvosberg and community `MIT`
@@ -176,7 +176,7 @@ At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as we
 Although the app is purely frontend, there is an optional cloud backup and restore feature. This is built as a serverless function on [Cloudflare workers](https://workers.cloudflare.com/) using [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
 
 ##### External Services
-The 1-Click deploy demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker image is hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
+The 1-Click deploy demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker images are hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
 
 ---
 
