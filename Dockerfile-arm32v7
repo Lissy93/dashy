@@ -1,0 +1,43 @@
+FROM alpine:3.12 AS builder
+
+# Download QEMU, see https://github.com/docker/hub-feedback/issues/1261
+RUN QEMU_URL=https://github.com/balena-io/qemu/releases/download/v5.2.0%2Bbalena4/qemu-5.2.0.balena4-arm.tar.gz \
+    && apk add curl && curl -L $QEMU_URL | tar zxvf - -C . --strip-components 1
+
+# Start second (arm32v7) stage
+FROM arm32v7/alpine:3.12
+
+# Add QEMU from build stage
+COPY --from=builder qemu-arm-static /usr/bin
+
+# Install Node and Yarn
+RUN apk add --update --no-cache nodejs npm yarn
+
+# Define some ENV Vars
+ENV PORT=80 \
+    DIRECTORY=/app \
+    IS_DOCKER=true
+
+# Create and set the working directory
+WORKDIR ${DIRECTORY}
+
+# Copy over both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json ./
+
+# Install project dependencies
+RUN yarn
+
+# Copy over all project files and folders to the working directory
+COPY . .
+
+# Build initial app for production
+RUN yarn build
+
+# Expose given port
+EXPOSE ${PORT}
+
+# Finally, run start command to serve up the built application
+CMD [ "yarn", "build-and-start"]
+
+# Run simple healthchecks every 5 mins, to check the Dashy's everythings great
+HEALTHCHECK --interval=5m --timeout=2s --start-period=30s CMD yarn health-check
