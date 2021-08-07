@@ -1,0 +1,13 @@
+# Automatically assigns a reviewer to a PR, based on who owns the modified files
+# Uses the ./.github/CODEOWNERS file to determine ownership of file patterns
+on: [pull_request]
+jobs:
+  autolabeler-codeowners:
+    runs-on: ubuntu-latest
+    name: Assign Reviewer
+    steps:
+    - uses: actions/checkout@v1
+    - name: Find code owner, assign reviewer
+      uses: pratikmallya/autolabeler-codeowners@master
+      with:
+        githubToken: ${{ secrets.GITHUB_TOKEN }}
