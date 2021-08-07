@@ -17,7 +17,7 @@
     "remember-me-never": "Jamais",
     "remember-me-hour": "4 Heures",
     "remember-me-day": "1 Jour",
-    "remember-me-week": "1 Semaine"
+    "remember-me-week": "1 Semaine",
     "error-missing-username": "Nom d'utilisateur manquant",
     "error-missing-password": "Mot de passe manquant",
     "error-incorrect-username": "Utilisateur inexistant",
@@ -65,7 +65,7 @@
     "item-size-small": "Petite",
     "item-size-medium": "Moyenne",
     "item-size-large": "Grande",
-    "config-launcher-label": "Config."
+    "config-launcher-label": "Config.",
     "config-launcher-tooltip": "Modifier la configuration",
     "sign-out-tooltip": "Déconnexion"
   },
