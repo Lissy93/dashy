@@ -1,17 +1,5 @@
-FROM alpine:3.14 AS builder
-
-# Download QEMU, see https://github.com/docker/hub-feedback/issues/1261
-RUN QEMU_URL=https://github.com/balena-io/qemu/releases/download/v5.2.0%2Bbalena4/qemu-5.2.0.balena4-arm.tar.gz \
-    && apk add curl && curl -L $QEMU_URL | tar zxvf - -C . --strip-components 1
-
 # Start second (arm64v8) stage
-FROM arm64v8/alpine:3.14
-
-# Add QEMU from build stage
-COPY --from=builder qemu-arm-static /usr/bin
-
-# Install Node and Yarn
-RUN apk add --update --no-cache nodejs npm yarn
+FROM node:lts-alpine AS builder
 
 # Define some ENV Vars
 ENV PORT=80 \
@@ -32,6 +20,18 @@ COPY . .
 
 # Build initial app for production
 RUN yarn build
+
+# Multi arch build support
+FROM alpine as qemu
+
+ARG QEMU_VERSION="v4.2.0-7"
+
+RUN wget https://github.com/multiarch/qemu-user-static/releases/download/${QEMU_VERSION}/qemu-aarch64-static && chmod +x qemu-aarch64-static
+
+# production stage
+FROM arm64v8/alpine:3.11
+
+COPY --from=qemu qemu-aarch64-static /usr/bin/
 
 # Expose given port
 EXPOSE ${PORT}
