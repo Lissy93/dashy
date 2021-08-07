@@ -43,24 +43,24 @@ export const isLoggedIn = (users) => {
  * @param {String[]} users An array of valid user objects
  * @returns {Object} An object containing a boolean result and a message
  */
-export const checkCredentials = (username, pass, users) => {
-  let response;
+export const checkCredentials = (username, pass, users, messages) => {
+  let response; // Will store an object containing boolean and message
   if (!username) {
-    response = { correct: false, msg: 'Missing Username' };
+    response = { correct: false, msg: messages.missingUsername };
   } else if (!pass) {
-    response = { correct: false, msg: 'Missing Password' };
+    response = { correct: false, msg: messages.missingPassword };
   } else {
     users.forEach((user) => {
-      if (user.user.toLowerCase() === username.toLowerCase()) {
+      if (user.user.toLowerCase() === username.toLowerCase()) { // User found
         if (user.hash.toLowerCase() === sha256(pass).toString().toLowerCase()) {
-          response = { correct: true, msg: 'Logging in...' };
-        } else {
-          response = { correct: false, msg: 'Incorrect Password' };
+          response = { correct: true, msg: messages.successMsg }; // Password is correct
+        } else { // User found, but password is not a match
+          response = { correct: false, msg: messages.incorrectPassword };
         }
       }
     });
   }
-  return response || { correct: false, msg: 'User not found' };
+  return response || { correct: false, msg: messages.incorrectUsername };
 };
 
 /**
