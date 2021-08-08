@@ -1,8 +1,13 @@
 <template>
   <div class="minimal-home" :style="getBackgroundImage() + setColumnCount()">
-    <!-- Main content, section for each group of items -->
-    <div v-if="checkTheresData(sections)"
-      :class="`item-group-container item-size-small`">
+    <div class="title-and-search">
+      <router-link to="/">
+        <h1>{{ pageInfo.title }}</h1>
+      </router-link>
+      <MinimalSearch />
+    </div>
+    <div v-if="checkTheresData(sections)" class="item-group-container">
+      <!-- Section heading buttons -->
       <MinimalHeading
         v-for="(section, index) in getSections(sections)"
         :key="`heading-${index}`"
@@ -11,6 +16,7 @@
         :selected="selectedSection === index"
         @sectionSelected="sectionSelected"
       />
+      <!-- Section item groups -->
       <MinimalSection
         v-for="(section, index) in getSections(sections)"
         :key="`body-${index}`"
@@ -34,6 +40,7 @@
 
 import MinimalSection from '@/components/MinimalView/MinimalSection.vue';
 import MinimalHeading from '@/components/MinimalView/MinimalHeading.vue';
+import MinimalSearch from '@/components/MinimalView/MinimalSearch.vue';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
 
 export default {
@@ -41,10 +48,12 @@ export default {
   props: {
     sections: Array, // Main site content
     appConfig: Object, // Main site configuation (optional)
+    pageInfo: Object,
   },
   components: {
     MinimalSection,
     MinimalHeading,
+    MinimalSearch,
   },
   data: () => ({
     searchValue: '',
@@ -158,39 +167,37 @@ export default {
 @import '@/styles/style-helpers.scss';
 
 .minimal-home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1rem auto;
   padding-bottom: 1px;
-  background: var(--background);
   min-height: calc(99.9vh - var(--footer-height));
   width: 90%;
   max-width: 1000px;
-  margin: 1rem auto;
+  background: var(--background);
+}
+
+.title-and-search {
+  text-align: center;
+  h1 {
+    color: var(--heading-text-color);
+    margin: 0;
+    font-size: 3rem;
+  }
+  a {
+    text-decoration: none;
+  }
 }
 
 /* Outside container wrapping the item groups*/
 .item-group-container {
   display: grid;
-  gap: 0.5rem;
-  margin: 0 auto;
-  max-width: 90%;
-  overflow: auto;
+  gap: 0 0.5rem;
+  margin: 3rem auto;
+  width: 90%;
   grid-template-columns: repeat(var(--col-count), 1fr);
   @extend .scroll-bar;
-  @include monitor-up {
-    max-width: 1400px;
-  }
-
-  /* Options for alternate layouts, triggered by buttons */
-  &.orientation-horizontal {
-    display: flex;
-    flex-direction: column;
-  }
-  &.orientation-vertical {
-    max-width: 100%;
-    @include tablet-up {
-      display: flex;
-      flex-direction: row;
-    }
-  }
 
   /* Hide when search term returns nothing */
   .no-results { display: none; }
@@ -204,13 +211,6 @@ export default {
     margin: 2rem auto;
     padding: 0.5rem 1rem;
     border-radius: var(--curve-factor);
-}
-
-section.filter-container {
-  border-bottom: 1px solid var(--outline-color);
-  @include phone {
-    flex-direction: column;
-  }
 }
 
 </style>

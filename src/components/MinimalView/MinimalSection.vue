@@ -92,9 +92,16 @@ export default {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  background: var(--item-group-background);
+  border-radius: 0 0 var(--curve-factor) var(--curve-factor);
   .section-items {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    @include phone { grid-template-columns: repeat(1, 1fr); }
+    @include tablet { grid-template-columns: repeat(2, 1fr); }
+    @include laptop { grid-template-columns: repeat(3, 1fr); }
+    @include monitor { grid-template-columns: repeat(4, 1fr); }
+    @include big-screen { grid-template-columns: repeat(5, 1fr); }
+    @include big-screen-up { grid-template-columns: repeat(6, 1fr); }
   }
   &.selected {
     border: 1px solid var(--primary);

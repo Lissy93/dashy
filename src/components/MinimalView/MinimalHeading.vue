@@ -31,6 +31,10 @@ div.minimal-section-heading {
   cursor: pointer;
   padding: 0.5rem 0.25rem;
   border-radius: var(--curve-factor);
+  border: 1px solid var(--primary);
+  border-bottom: none;
+  border-radius: var(--curve-factor) var(--curve-factor) 0 0;
+  margin-bottom: 0;
   h3 {
     margin: 0;
     color: var(--primary);
@@ -38,7 +42,7 @@ div.minimal-section-heading {
   &.selected {
     background: var(--primary);
     h3 {
-      color: var(--background);
+      color: var(--item-group-heading-text-color);
     }
   }
 }
