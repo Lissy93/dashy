@@ -126,6 +126,15 @@ module.exports = {
     allesedv: 'https://f1.allesedv.com/128/$URL',
     webmasterapi: 'https://api.webmasterapi.com/v1/favicon/yEwx0ZFs0CSPshHq/$URL',
   },
+  /* The URL to CDNs used for external icons. These are only loaded when required */
+  iconCdns: {
+    fa: 'https://kit.fontawesome.com',
+    mdi: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css',
+    si: 'https://unpkg.com/simple-icons@v5/icons',
+    generative: 'https://ipsicon.io',
+    localPath: '/item-icons',
+    faviconName: 'favicon.ico',
+  },
   /* Available built-in colors for the theme builder */
   swatches: [
     ['#eb5cad', '#985ceb', '#5346f3', '#5c90eb'],
