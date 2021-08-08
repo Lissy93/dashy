@@ -43,7 +43,7 @@
 
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import ItemGroup from '@/components/LinkItems/ItemGroup.vue';
-import Defaults, { localStorageKeys } from '@/utils/defaults';
+import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 
 export default {
   name: 'home',
@@ -160,16 +160,21 @@ export default {
       availibleThemes.Default = '#';
       return availibleThemes;
     },
-    /* Checks if any of the icons are Font Awesome glyphs */
-    checkIfFontAwesomeNeeded() {
+    /* Checks if any sections or items use icons from a given CDN */
+    checkIfIconLibraryNeeded(prefix) {
       let isNeeded = false;
       if (!this.sections) return false;
       this.sections.forEach((section) => {
-        if (section.icon && section.icon.includes('fa-')) isNeeded = true;
+        if (section.icon && section.icon.includes(prefix)) isNeeded = true;
         section.items.forEach((item) => {
-          if (item.icon && item.icon.includes('fa-')) isNeeded = true;
+          if (item.icon && item.icon.includes(prefix)) isNeeded = true;
         });
       });
+      return isNeeded;
+    },
+    /* Checks if any of the icons are Font Awesome glyphs */
+    checkIfFontAwesomeNeeded() {
+      let isNeeded = this.checkIfIconLibraryNeeded('fa-');
       const currentTheme = localStorage[localStorageKeys.THEME]; // Some themes require FA
       if (['material', 'material-dark'].includes(currentTheme)) isNeeded = true;
       return isNeeded;
@@ -179,8 +184,21 @@ export default {
       if (this.appConfig.enableFontAwesome || this.checkIfFontAwesomeNeeded()) {
         const fontAwesomeScript = document.createElement('script');
         const faKey = this.appConfig.fontAwesomeKey || Defaults.fontAwesomeKey;
-        fontAwesomeScript.setAttribute('src', `https://kit.fontawesome.com/${faKey}.js`);
+        fontAwesomeScript.setAttribute('src', `${iconCdns.fa}/${faKey}.js`);
         document.head.appendChild(fontAwesomeScript);
+      }
+    },
+    /* Checks if any of the icons are Material Design Icons */
+    checkIfMdiNeeded() {
+      return this.checkIfIconLibraryNeeded('mdi-');
+    },
+    /* Injects Material Design Icons, only if needed */
+    initiateMaterialDesignIcons() {
+      if (this.checkIfMdiNeeded()) {
+        const mdiStylesheet = document.createElement('link');
+        mdiStylesheet.setAttribute('rel', 'stylesheet');
+        mdiStylesheet.setAttribute('href', iconCdns.mdi);
+        document.head.appendChild(mdiStylesheet);
       }
     },
     /* Returns true if there is more than 1 sub-result visible during searching */
@@ -204,6 +222,7 @@ export default {
   },
   mounted() {
     this.initiateFontAwesome();
+    this.initiateMaterialDesignIcons();
     this.layout = this.layoutOrientation;
     this.itemSizeBound = this.iconSize;
   },
