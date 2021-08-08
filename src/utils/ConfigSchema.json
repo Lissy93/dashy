@@ -263,6 +263,10 @@
           "type": "boolean",
           "default": false,
           "description": "Enable anonymous crash reports. This helps bugs be found and fixed, in order to make Dashy more stable. Reporting is off by default, and no data will EVER be collected without your explicit and active concent."
+        },
+        "sentryDsn": {
+          "type": "string",
+          "description": "The DSN to your self-hosted Sentry server, if you need to collect bug reports. Only used if enableErrorReporting is enabled"
         }
       },
       "additionalProperties": false
