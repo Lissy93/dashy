@@ -1,5 +1,5 @@
 <template>
-    <header>
+    <header v-if="visible">
       <PageTitle
         v-if="titleVisible"
         :title="pageInfo.title"
@@ -14,6 +14,7 @@
 import PageTitle from '@/components/PageStrcture/PageTitle.vue';
 import Nav from '@/components/PageStrcture/Nav.vue';
 import { visibleComponents as defaultVisibleComponents } from '@/utils/defaults';
+import { shouldBeVisible } from '@/utils/MiscHelpers';
 
 export default {
   name: 'Header',
@@ -30,6 +31,11 @@ export default {
       titleVisible: (this.visibleComponents || defaultVisibleComponents).pageTitle,
       navVisible: (this.visibleComponents || defaultVisibleComponents).navigation,
     };
+  },
+  computed: {
+    visible() {
+      return shouldBeVisible(this.$route.name);
+    },
   },
 };
 </script>
