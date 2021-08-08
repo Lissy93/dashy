@@ -17,7 +17,13 @@
     "remember-me-never": "Never",
     "remember-me-hour": "4 Hours",
     "remember-me-day": "1 Day",
-    "remember-me-week": "1 Week"
+    "remember-me-week": "1 Week",
+    "error-missing-username": "Missing Username",
+    "error-missing-password": "Missing Password",
+    "error-incorrect-username": "User not found",
+    "error-incorrect-password": "Incorrect Password",
+    "success-message": "Logging in...",
+    "logout-message": "Logged Out"
   },
   "config": {
     "main-tab": "Config",
@@ -59,7 +65,9 @@
     "item-size-small": "Small",
     "item-size-medium": "Medium",
     "item-size-large": "Large",
-    "config-launcher-label": "Config"
+    "config-launcher-label": "Config",
+    "config-launcher-tooltip": "Update Configuration",
+    "sign-out-tooltip": "Sign Out"
   },
   "updates": {
     "app-version-note": "Dashy version",

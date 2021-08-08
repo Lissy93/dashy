@@ -1,9 +1,9 @@
 FROM node:lts-alpine
 
 # Define some ENV Vars
-ENV PORT 80
-ENV DIRECTORY /app
-ENV IS_DOCKER true
+ENV PORT=80 \
+    DIRECTORY=/app \
+    IS_DOCKER=true
 
 # Create and set the working directory
 WORKDIR ${DIRECTORY}

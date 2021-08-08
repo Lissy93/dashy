@@ -4,7 +4,6 @@
     <v-jsoneditor
       v-model="jsonData"
       :options="options"
-      height="500px"
     />
     <!-- Options raido, and save button -->
     <div class="save-options">
@@ -291,6 +290,10 @@ div.save-options {
   label.save-option-label {
     cursor: pointer;
   }
+}
+
+.jsoneditor-container.min-box {
+  height: 58vh;
 }
 
 .jsoneditor, .jsoneditor-menu {

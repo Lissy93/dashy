@@ -37,7 +37,6 @@ import ItemSizeSelector from '@/components/Settings/ItemSizeSelector';
 import AppButtons from '@/components/Settings/AppButtons';
 import KeyboardShortcutInfo from '@/components/Settings/KeyboardShortcutInfo';
 import AppInfoModal from '@/components/Configuration/AppInfoModal';
-import { logout as registerLogout } from '@/utils/Auth';
 import IconOpen from '@/assets/interface-icons/config-open-settings.svg';
 import IconClose from '@/assets/interface-icons/config-close.svg';
 import {
@@ -87,13 +86,6 @@ export default {
     },
     getInitialTheme() {
       return this.appConfig.theme || '';
-    },
-    logout() {
-      registerLogout();
-      this.$toasted.show('Logged Out');
-      setTimeout(() => {
-        location.reload(true); // eslint-disable-line no-restricted-globals
-      }, 100);
     },
     isUserLoggedIn() {
       return !!localStorage[localStorageKeys.USERNAME];
@@ -198,25 +190,6 @@ export default {
       color: var(--settings-background);
     }
   }
-
-    svg.logout-icon {
-      path {
-        fill: var(--settings-text-color);
-      }
-      width: 1rem;
-      height: 1rem;
-      margin: 0.35rem 0.2rem;
-      padding: 0.2rem;
-      text-align: center;
-      background: var(--background);
-      border: 1px solid var(--settings-text-color);;
-      border-radius: var(--curve-factor);
-      cursor: pointer;
-      &:hover, &.selected {
-        background: var(--settings-text-color);
-        path { fill: var(--background); }
-      }
-    }
 
   @include tablet {
     section {

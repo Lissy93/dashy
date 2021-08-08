@@ -498,7 +498,7 @@ html[data-theme='material'] {
   --nav-link-border-color: #0c4eba;
   --settings-text-color: #363636;
   --config-code-color: #363636;
-  --config-settings-background: #fff;
+  --config-settings-background: #f5f5f5;
   --config-settings-color: #473f3f;
   --heading-text-color: #fff;
   --curve-factor: 4px;
@@ -508,6 +508,11 @@ html[data-theme='material'] {
   --footer-text-color: #f5f5f5cc;
   // --login-form-background-secondary: #f5f5f5cc;
   --context-menu-secondary-color: #f5f5f5;
+  --transparent-white-50: #00000080;
+
+  div.jsoneditor div.jsoneditor-menu {
+    background: #5c90eb !important;
+  }
 
   header {
     background: #4285f4;

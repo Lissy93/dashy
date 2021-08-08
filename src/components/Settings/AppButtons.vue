@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="display-options">
-      <IconLogout @click="logout()" v-tooltip="tooltip('Sign Out')"
+      <IconLogout @click="logout()" v-tooltip="tooltip($t('settings.sign-out-tooltip'))"
         class="layout-icon" tabindex="-2" />
     </div>
   </div>
@@ -19,7 +19,7 @@ export default {
   methods: {
     logout() {
       registerLogout();
-      this.$toasted.show('Logged Out');
+      this.$toasted.show(this.$t('login.logout-message'));
       setTimeout(() => {
         location.reload(true); // eslint-disable-line no-restricted-globals
       }, 500);

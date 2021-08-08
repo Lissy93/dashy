@@ -126,6 +126,7 @@ export default {
 <style lang="scss">
 
 @import 'vue-select/src/scss/vue-select.scss';
+@import '@/styles/style-helpers.scss';
 
 .theme-dropdown {
   div.vs__dropdown-toggle {
@@ -146,10 +147,13 @@ export default {
   }
   ul.vs__dropdown-menu {
     width: auto;
-    background: var(--background);
     z-index: 5;
     max-width: 13rem;
     overflow-x: hidden;
+    @extend .scroll-bar;
+    background: var(--background);
+    border-radius: var(--curve-factor);
+    border-top: 1px solid var(--settings-text-color);
   }
   li.vs__dropdown-option--highlight {
     background: var(--settings-text-color);
