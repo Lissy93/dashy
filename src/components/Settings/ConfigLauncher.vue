@@ -15,7 +15,7 @@
 
     <!-- Modal for manually changing locale -->
     <modal :name="modalNames.LANG_SWITCHER" classes="dashy-modal"
-      :resizable="true" width="30%" height="25%">
+      :resizable="true" width="35%" height="35%">
       <LanguageSwitcher />
     </modal>
 
