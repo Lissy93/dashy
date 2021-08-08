@@ -26,7 +26,7 @@
     "logout-message": "Logged Out"
   },
   "config": {
-    "main-tab": "Config",
+    "main-tab": "Main Menu",
     "view-config-tab": "View Config",
     "edit-config-tab": "Edit Config",
     "custom-css-tab": "Custom Styles",
@@ -142,6 +142,7 @@
     "restore-id-label": "Restore ID",
     "restore-password-label": "Password",
     "restore-button": "Restore",
+    "backup-missing-password": "Missing Password",
     "backup-error-unknown": "Unable to process request",
     "backup-error-password": "Incorrect password. Please enter your current password.",
     "backup-success-msg": "Completed Successfully",

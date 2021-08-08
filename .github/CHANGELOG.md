@@ -1,5 +1,13 @@
 # Changelog
 
+## ⚡️ 1.5.6 - Refactor + Couple of small things [PR #135](https://github.com/Lissy93/dashy/pull/135)
+- The main Dockerfile now uses yarn.lock instead of package-lock.json
+- Adds a check to verify password is not empty in cloud backup screen
+- Improves responsiveness of config modals for mobile devices
+- Enables the user to use their own self-hosted Sentry instance
+- Removes the View Config tab of the Config menu, as not needed
+- Updates and fixes some typos in the readme
+
 ## 🌐 1.5.5 - Adds Missing Translations + Small UI Issues [PR #129](https://github.com/Lissy93/dashy/pull/129)
 - Adds missing translations to several UI elements, Re: #126
 - Fixes login translations not being picked up on page load, Re: #127
