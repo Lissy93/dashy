@@ -1,11 +1,19 @@
 <template>
-  <div class="minimal-home" :style="getBackgroundImage()">
+  <div class="minimal-home" :style="getBackgroundImage() + setColumnCount()">
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections)"
       :class="`item-group-container item-size-small`">
+      <MinimalHeading
+        v-for="(section, index) in getSections(sections)"
+        :key="`heading-${index}`"
+        :index="index"
+        :title="section.name"
+        :selected="selectedSection === index"
+        @sectionSelected="sectionSelected"
+      />
       <MinimalSection
         v-for="(section, index) in getSections(sections)"
-        :key="index"
+        :key="`body-${index}`"
         :index="index"
         :title="section.name"
         :icon="section.icon || undefined"
@@ -25,6 +33,7 @@
 <script>
 
 import MinimalSection from '@/components/MinimalView/MinimalSection.vue';
+import MinimalHeading from '@/components/MinimalView/MinimalHeading.vue';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
 
 export default {
@@ -35,6 +44,7 @@ export default {
   },
   components: {
     MinimalSection,
+    MinimalHeading,
   },
   data: () => ({
     searchValue: '',
@@ -127,6 +137,9 @@ export default {
         return itemsFound;
       }
     },
+    setColumnCount() {
+      return `--col-count: ${this.sections.length};`;
+    },
     getBackgroundImage() {
       if (this.appConfig && this.appConfig.backgroundImg) {
         return `background: url('${this.appConfig.backgroundImg}');background-size:cover;`;
@@ -160,6 +173,7 @@ export default {
   margin: 0 auto;
   max-width: 90%;
   overflow: auto;
+  grid-template-columns: repeat(var(--col-count), 1fr);
   @extend .scroll-bar;
   @include monitor-up {
     max-width: 1400px;
@@ -176,26 +190,6 @@ export default {
       display: flex;
       flex-direction: row;
     }
-  }
-
-  /* Specify number of columns, based on screen size */
-  @include phone {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  @include tablet {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include laptop {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include monitor {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @include big-screen {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @include big-screen-up {
-    grid-template-columns: repeat(5, 1fr);
   }
 
   /* Hide when search term returns nothing */

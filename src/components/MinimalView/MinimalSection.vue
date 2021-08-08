@@ -1,30 +1,27 @@
 <template>
    <div :class="`minimal-section-inner ${selected ? 'selected' : ''}`">
-      <div class="section-title" @click="selectSection(index)">
-        <h3>{{ title }}</h3>
-      </div>
-      <div class="section-items" v-if="selected">
-        <Item
-          v-for="(item, index) in items"
-          :id="`${index}_${makeId(item.title)}`"
-          :key="`${index}_${makeId(item.title)}`"
-          :url="item.url"
-          :title="item.title"
-          :description="item.description"
-          :icon="item.icon"
-          :target="item.target"
-          :color="item.color"
-          :backgroundColor="item.backgroundColor"
-          :statusCheckUrl="item.statusCheckUrl"
-          :statusCheckHeaders="item.statusCheckHeaders"
-          :itemSize="itemSize"
-          :hotkey="item.hotkey"
-          :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
-          :statusCheckInterval="getStatusCheckInterval()"
-          @itemClicked="$emit('itemClicked')"
-          @triggerModal="triggerModal"
-        />
-      </div>
+    <div class="section-items" v-if="selected">
+      <Item
+        v-for="(item, index) in items"
+        :id="`${index}_${makeId(item.title)}`"
+        :key="`${index}_${makeId(item.title)}`"
+        :url="item.url"
+        :title="item.title"
+        :description="item.description"
+        :icon="item.icon"
+        :target="item.target"
+        :color="item.color"
+        :backgroundColor="item.backgroundColor"
+        :statusCheckUrl="item.statusCheckUrl"
+        :statusCheckHeaders="item.statusCheckHeaders"
+        :itemSize="itemSize"
+        :hotkey="item.hotkey"
+        :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
+        :statusCheckInterval="getStatusCheckInterval()"
+        @itemClicked="$emit('itemClicked')"
+        @triggerModal="triggerModal"
+      />
+    </div>
     <IframeModal
       :ref="`iframeModal-${groupId}`"
       :name="`iframeModal-${groupId}`"
@@ -99,23 +96,10 @@ export default {
     display: flex;
     flex-direction: column;
   }
-  .section-title {
-    cursor: pointer;
-    padding: 0.5rem 0.25rem;
-    border-radius: var(--curve-factor);
-    h3 {
-      margin: 0;
-      color: var(--primary);
-    }
-  }
   &.selected {
-    .section-title {
-      background: var(--primary);
-        h3 {
-          color: var(--background);
-        }
-      }
-    }
+    border: 1px solid var(--primary);
+    grid-column-start: span var(--col-count, 3);
+  }
 }
 
 </style>
