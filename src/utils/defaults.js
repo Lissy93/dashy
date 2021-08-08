@@ -58,6 +58,11 @@ module.exports = {
     settings: true,
     footer: true,
   },
+  /* A list of route names that page furniture (header, footer, etc) should be hidden on */
+  hideFurnitureOn: [
+    'minimal',
+    'login',
+  ],
   /* Key names for local storage identifiers */
   localStorageKeys: {
     LANGUAGE: 'language',
