@@ -11,14 +11,15 @@
 </template>
 
 <script>
-import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
-import { getTheme } from '@/utils/ConfigHelpers';
+
 import { PrismEditor } from 'vue-prism-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-css';
 import 'prismjs/themes/prism-funky.css';
 import 'vue-prism-editor/dist/prismeditor.min.css';
 
+import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
+import { getTheme } from '@/utils/ConfigHelpers';
 import { localStorageKeys } from '@/utils/defaults';
 
 export default {

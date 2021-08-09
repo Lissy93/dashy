@@ -26,7 +26,7 @@
     "logout-message": "Déconnexion"
   },
   "config": {
-    "main-tab": "Configuration",
+    "main-tab": "Menu principal",
     "view-config-tab": "Afficher la configuration",
     "edit-config-tab": "Modifier la configuration",
     "custom-css-tab": "Styles personnalisés",
@@ -142,6 +142,7 @@
     "restore-id-label": "Identifiant de sauvegarde",
     "restore-password-label": "Mot de passe",
     "restore-button": "Restaurer",
+    "backup-missing-password": "Mot de passe manquant",
     "backup-error-unknown": "Impossible de traiter la demande",
     "backup-error-password": "Mot de passe incorrect. Veuillez saisir votre mot de passe actuel.",
     "backup-success-msg": "Sauvegarde effectuée avec succès",

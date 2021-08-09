@@ -31,11 +31,13 @@ The status check util will ping your services directly, and does not rely on any
 When the application loads, it checks for updates. The results of which are displayed in the config menu of the UI. This was implemented because using a very outdated version of Dashy may have unfixed issues. Your version is fetched from the source (local request), but the latest version is fetched from GitHub, which is an external request. This can be disabled by setting `appConfig.disableUpdateChecks: true`
 
 ### Anonymous Error Reporting
-Error reporting is disabled by default, and no data will ever be sent without your explicit consent. In fact, the error tracking method will not even be imported unless you have actively enabled it. [Sentry](https://github.com/getsentry/sentry) is used for this, it's an open source error tracking and performance monitoring tool, which is used to identify any errors which occur in the production app (if you enable it). 
+Error reporting is disabled by default, and no data will ever be sent without your explicit consent. In fact, the error tracking method will not even be imported unless you have actively enabled it. [Sentry](https://github.com/getsentry/sentry) is used for this, it's an open source error tracking and performance monitoring tool, which is used to identify any issues which occur in the production app (if you enable it). 
 
 The crash report includes the file or line of code that triggered the error, and a 2-layer deep stack trace. Reoccurring errors will also include the following user information: OS type (Mac, Windows, Linux, Android or iOS) and browser type (Firefox, Chrome, IE, Safari). Data scrubbing is enabled. IP address will not be stored. If any potentially identifiable data ever finds its way into a crash report, it will be automatically and permanently erased. All statistics collected are anonomized and stored securely, and ae automatically deleted after 14 days. For more about privacy and security, see the [Sentry Docs](https://sentry.io/security/).
 
 Enabling anonymous error reporting helps me to discover bugs I was unaware of, and then fix them, in order to make Dashy more reliable long term. Error reporting is activated  by setting `appConfig.enableErrorReporting: true`.
+
+If you need to monitor bugs yourself, then you can [self-host your own Sentry Server](https://develop.sentry.dev/self-hosted/), and use it by setting `appConfig.sentryDsn` to your Sentry instances [Data Source Name](https://docs.sentry.io/product/sentry-basics/dsn-explainer/), then just enable error reporting in Dashy.
 
 ---
 
@@ -58,6 +60,7 @@ There is very little complexity involved with Dashy, and therefore the attack su
 - Enable and configure firewall rules
 - Implement security, malware and traffic scanning
 - Setup malicious traffic detection
+- Understand the [Docker attack fronts](https://docs.docker.com/engine/security/), and follow [Docker Security Best Practices](https://snyk.io/blog/10-docker-image-security-best-practices/)
 
 This is covered in more detail in [App Management](/docs/management.md).
 

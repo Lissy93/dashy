@@ -40,7 +40,7 @@
   </ul>
   <li><b>Community</b></li>
   <ul>
-    <li><a href="#getting-help-">🙋‍♀️ Getting Help</a></li>
+    <li><a href="#getting-help-%EF%B8%8F">🙋‍♀️ Getting Help</a></li>
     <li><a href="#raising-issues-">🐛 Raising Issues</a></li>
     <li><a href="#supporting-dashy-">💖 Supporting Dashy</a></li>
     <li><a href="#credits-">🏆 Credits</a></li>
@@ -58,18 +58,19 @@
 
 - Instant search by name, domain and tags - just start typing
 - Full customizable keyboard shortcuts for navigation, filtering and launching apps
-- Multiple built-in color themes, with UI color configurator and support for custom CSS
-- Easy to customize every part of your dashboard, layout, icon sizes, behavior and colors etc
-- Many options for icons, including Font-Awesome support, auto-fetching service favicon, images and emojis
+- Multiple built-in color themes, with UI color editor and support for custom CSS
+- Customizable layout, sizes, text, component visibility, behavior and colors etc
+- Many options for icons, including Font-Awesome support, auto-fetching favicon, images and emojis
 - Option to show service status for each of your apps / links, for basic availability and uptime monitoring
-- Multiple ways of opening apps, either in your browser, a pop-up modal or workspace view
+- Choose how to launch apps, either in your browser, a pop-up modal or workspace view
 - Option for full-screen background image, custom nav-bar links, html footer, title, and more
 - Encrypted cloud backup and restore feature available
 - Optional authentication, requiring admins and non-privileged users to log in
-- Easy single-file YAML-based configuration, which can also be configured directly through the UI
 - Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
 - Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
-- Multi-language support, with additional languages coming soon
+- Multi-language support, with more languages being added regularly
+- Easy single-file YAML-based configuration, or configure app directly through the UI
+- Strong focus on privacy
 - Plus lots more...
 
 ## Demo ⚡
@@ -348,9 +349,9 @@ Dashy has the ability to support multiple languages and locales. When available,
 
 #### Supported Languages
 - 🇬🇧 **English**: `en`
-- 🇩🇪 **German**: `de`
-- 🇳🇱 **Dutch**: `nl`
-- 🇲🇫 **French**: `fr`
+- 🇩🇪 **German**: `de` - Contributed by **[@Niklashere](https://github.com/Niklashere)**
+- 🇳🇱 **Dutch**: `nl` - Contributed by **[@evroon](https://github.com/evroon)**
+- 🇲🇫 **French**: `fr` - Contributed by **[@EVOTk](https://github.com/EVOTk)**
 
 #### Add your Language
 It would be awesome for open source projects to be available to everyone, without language being a barrier to entry for non-native English speakers. If you have a few minutes to sapir, you're help with translating it would be very much appreciated.
@@ -394,7 +395,7 @@ pageInfo:
 
 > For general discussions, check out the **[Discussions Board](https://github.com/Lissy93/dashy/discussions)**
 
-If you're having trouble getting things up and running, feel free to ask a question. The best way to do so is in the [discussion](https://github.com/Lissy93/dashy/discussions), or if you think you think the issue is on Dashy's side, you can [raise a ticket](https://github.com/Lissy93/dashy/issues/new/choose). It's best to check the [docs](./docs) and [previous questions](https://github.com/Lissy93/dashy/issues?q=label%3A%22%F0%9F%A4%B7%E2%80%8D%E2%99%82%EF%B8%8F+Question%22+) first, as you'll likley find the solution there.
+If you're having trouble getting things up and running, feel free to ask a question. The best way to do so is in the [discussion](https://github.com/Lissy93/dashy/discussions), or if you think you think the issue is on Dashy's side, you can [raise a ticket](https://github.com/Lissy93/dashy/issues/new/choose). It's best to check the [docs](./docs) and [previous questions](https://github.com/Lissy93/dashy/issues?q=label%3A%22%F0%9F%A4%B7%E2%80%8D%E2%99%82%EF%B8%8F+Question%22+) first, as you'll likely find the solution there.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -406,7 +407,8 @@ Found a bug, or something that isn't working as you'd expect? Please raise it as
 - [Submit a Feature Request 🦄](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A6%84+Feature+Request&template=feature-request---.md&title=%5BFEATURE_REQUEST%5D)
 - [Share Feedback 🌈](https://github.com/Lissy93/dashy/issues/new?assignees=&labels=%F0%9F%8C%88+Feedback&template=share-feedback---.md&title=%5BFEEDBACK%5D)
 
-**Issue Status** [![Resolution Time](http://isitmaintained.com/badge/resolution/lissy93/dashy.svg)  ![Open Issues](http://isitmaintained.com/badge/open/lissy93/dashy.svg) ![Closed Issues](https://badgen.net/github/closed-issues/lissy93/dashy)](https://isitmaintained.com/project/lissy93/dashy)
+**Issue Status** [![Resolution Time](http://isitmaintained.com/badge/resolution/lissy93/dashy.svg)  ![Open Issues](http://isitmaintained.com/badge/open/lissy93/dashy.svg) ![Closed Issues](https://badgen.net/github/closed-issues/lissy93/dashy)](https://isitmaintained.com/project/lissy93/dashy) [![GitHub Discussions](https://img.shields.io/github/discussions/lissy93/dashy)
+](https://github.com/Lissy93/dashy/discussions)
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -436,7 +438,8 @@ Thank you so much to everyone who has helped with Dashy so far, every contributi
 #### Sponsors
 
 Huge thanks to the sponsors helping to support Dashy's development!
-<!-- sponsors --><!-- sponsors -->
+<!-- readme: sponsors -start -->
+<!-- readme: sponsors -end -->
 
 #### Contributors
 ![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)
@@ -472,11 +475,12 @@ Like most Git repos, we are following the [Github Flow](https://guides.github.co
 
 Branch names are specified in the following format: `[TYPE]/[TICKET]_[TITLE]`. E.g. `FEATURE/420_Awesome-feature` or `FIX/690_login-server-error`.
 
-Most commits have been using git commit emojis, see [gitmoji.dev](https://gitmoji.dev/) for what each emoji indicates.
+Most commit messages use git [commit emojis](https://gist.github.com/parmentf/035de27d6ed1dce0b36a) - e.g. ✨ = New feature, 🐛 = Bug fix, 💄 = UI stuff, 🚧 = Work in progress, 🔖 = New release, and so on. Take a look at [gitmoji.dev](https://gitmoji.dev/) for a list of what each emoji indicates
 
 Before you submit your pull request, please ensure you've checked off all the boxes in the template. For your PR to be merged, it must:
 - Must be backwards compatible
-- The build, lint and tests (run by GH actions) must pass
+- Any new features should be documented
+- The build, lint and tests (run by GH actions) should all pass (there are some exceptions)
 - There must not be any merge conflicts
 
 If you're new to web development, I've put together a short [list of resources](https://github.com/Lissy93/dashy/blob/master/docs/developing.md#resources-for-beginners), to help beginners get started
@@ -525,9 +529,9 @@ If you're new to web development, I've put together a short [list of resources](
 
 ---
 
-## 🛣️ Roadmap
+## Roadmap 🛣️
 
-> For past and future app updates, see: [**Changelog**](./docs/changelog.md)
+> For past and future app updates, see: [**Changelog**](/.github/CHANGELOG.md)
 
 
 The following features and tasks are planned for the near future.
@@ -543,7 +547,10 @@ The following features and tasks are planned for the near future.
 ## Alternatives 🙌
 
 There are a few self-hosted web apps, that serve a similar purpose to Dashy. If you're looking for a dashboard, and Dashy doesn't meet your needs, I highly recommend you check these projects out! 
-[HomeDash2](https://lamarios.github.io/Homedash2), [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`), [Organizr](https://organizr.app/) (`GPL-3.0 License`) and  [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
+- [HomeDash2](https://lamarios.github.io/Homedash2)
+- [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`)
+- [Organizr](https://organizr.app/) (`GPL-3.0 License`)
+- [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -590,9 +597,15 @@ For more info, see TLDR Legal's [Explanation of MIT](https://tldrlegal.com/licen
 
 
 <p align="center">
-Thank you for Visiting<br>
-<a href="https://github.com/Lissy93/dashy">
-<img src="https://github.githubassets.com/images/icons/emoji/octocat.png" />
-</a>
+  <br>
+  <a href="https://dashboard.trackgit.com/token/ks0bx7bb14lsvbwoc3ik">
+    <img src="https://us-central1-trackgit-analytics.cloudfunctions.net/token/ping/ks0bx7bb14lsvbwoc3ik?style=flat-square" />
+  </a>
+  <br><br>
+  <a href="https://github.com/Lissy93/dashy">
+    <img src="https://github.githubassets.com/images/icons/emoji/octocat.png" />
+  </a>
+  <br><br>
+  <i>Thank you for Visiting</i>
 </p>
 

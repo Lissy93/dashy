@@ -96,7 +96,9 @@ export default {
     },
     checkPass() {
       const savedHash = localStorage[localStorageKeys.BACKUP_HASH] || undefined;
-      if (!savedHash) {
+      if (!this.backupPassword) {
+        this.showErrorMsg(this.$t('cloud-sync.backup-missing-password'));
+      } else if (!savedHash) {
         this.makeBackup();
       } else if (savedHash === this.makeHash(this.backupPassword)) {
         this.makeUpdate();
