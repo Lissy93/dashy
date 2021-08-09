@@ -102,7 +102,7 @@ Are using Dashy? Want to share your dashboard here too - [Submit your Screenshot
 
 > For full setup instructions, see: [**Deployment**](./docs/deployment.md)
 
-#### Deploying from Docker Hub 🐳
+### Deploying from Docker Hub 🐳
 
 You will need [Docker](https://docs.docker.com/get-docker/) installed on your system
 
@@ -122,13 +122,12 @@ docker run -d \
 ```
 
 If you prefer to use Docker Compose, [here is an example](./docs/deployment.md#using-docker-compose).
-You can also build the Docker container from source, by cloning the repo, cd'ing into it and running `docker build .` and `docker compose up`.
 
 > Once you've got Dashy running, you can take a look at [App Management Docs](./docs/management.md), for info on using health checks, provisioning assets, configuring web servers, securing your app, logs, performance and more.
 
-#### Deploying from Source 🚀
+### Deploying from Source 🚀
 
-You will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed on your system
+You will need [git](https://git-scm.com/downloads), the latest or LTS version of [Node.js](https://nodejs.org/) and (optionally) [Yarn](https://yarnpkg.com/) installed on your system.
 
 - Get Code: `git clone git@github.com:Lissy93/dashy.git` and `cd dashy`
 - Configuration: Fill in you're settings in `./public/conf.yml`
@@ -138,7 +137,7 @@ You will need both [git](https://git-scm.com/downloads) and the latest or LTS ve
 
 > See docs [Full list of Dashy's commands](./docs/management.md#basic-commands)
 
-#### Deploy to the Cloud ☁️
+### Deploy to the Cloud ☁️
 
 Dashy supports 1-Click deployments on several popular cloud platforms. To spin up a new instance, just click a link below:
 - [<img src="https://i.ibb.co/ZxtzrP3/netlify.png" width="18"/> Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
@@ -207,7 +206,8 @@ Both sections and items can have an icon associated with them, and defined under
 - **Generative**: Setting `icon: generative`, will generate a unique for a given service, based on it's URL or IP
 - **Emoji**: Use an emoji as a tile icon, by putting the emoji's code as the icon attribute. Emojis can be specified either as emojis (`🚀`), unicode (`'U+1F680'`) or shortcode (`':rocket:'`).
 - **URL**: You can also pass in a URL to an icon asset, hosted either locally or using any CDN service. E.g. `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`.
-- **Local Image**: To use a local image, store it in `./public/item-icons/` (or create a volume in Docker: `-v /local/image/directory:/app/public/item-icons/`) , and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`. You can also use sub-folders here if you have a lot of icons, to keep them organized.
+- **Local Image**: To use a local image, store it in `./public/item-icons/` (or create a volume in Docker: `-v /local/image/directory:/app/public/item-icons/`) , and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`. You can also use sub-folders here.
+- **Material Design Icons**: You can also use any icon from [materialdesignicons.com](https://dev.materialdesignicons.com/icons) by setting the icon to `mdi-[icon-name]`.
 
 **[⬆️ Back to Top](#dashy)**
 
