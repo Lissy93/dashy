@@ -10,7 +10,6 @@ WORKDIR ${DIRECTORY}
 
 # Copy over both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
-COPY yarn.lock ./
 
 # Install project dependencies
 RUN yarn
