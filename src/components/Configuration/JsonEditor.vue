@@ -55,12 +55,12 @@
 
 <script>
 
+import axios from 'axios';
 import VJsoneditor from 'v-jsoneditor';
 import { localStorageKeys } from '@/utils/defaults';
 import configSchema from '@/utils/ConfigSchema.json';
 import JsonToYaml from '@/utils/JsonToYaml';
 import { isUserAdmin } from '@/utils/Auth';
-import axios from 'axios';
 
 export default {
   name: 'JsonEditor',
