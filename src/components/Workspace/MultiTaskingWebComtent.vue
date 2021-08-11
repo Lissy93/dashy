@@ -1,7 +1,5 @@
 <template>
-  <div class="web-content" ref="container">
-    <button @click="launchApp">Click Me</button>
-  </div>
+  <div class="multi-taking-view" ref="container"></div>
 </template>
 
 <script>
@@ -11,14 +9,17 @@ import WebContent from '@/components/Workspace/WebContent';
 export default {
   name: 'WebContent',
   props: {
-    url: String,
-    currentApp: String,
+    url: String, // The URL of currently visible app
   },
   data: () => ({
-    openApps: [],
-    activeApp: '',
+    openApps: [], // List of all currently open apps
   }),
+  watch: {
+    /* Update the currently open app, when URL changes */
+    url() { this.launchApp(); },
+  },
   methods: {
+    /* Check if app already open or not, and call appropriate opener */
     launchApp() {
       if (this.openApps.includes(this.url)) {
         this.openExistingApp();
@@ -27,17 +28,21 @@ export default {
         this.appendNewApp();
       }
     },
+    /* Opens a new app */
     appendNewApp() {
       const ComponentClass = Vue.extend(WebContent);
       const instance = new ComponentClass({
-        propsData: { url: this.url },
+        propsData: { url: this.url, id: btoa(this.url) },
       });
       instance.$mount(); // pass nothing
       this.$refs.container.appendChild(instance.$el);
     },
+    /* Switches visibility to an already open app */
     openExistingApp() {
-      console.log('Already Exists', this.url);
-      // TODO: Find open frame, and set visibility
+      Array.from(document.getElementsByClassName('web-content')).forEach((frame) => {
+        frame.classList.add('hide');
+      });
+      document.getElementById(btoa(this.url)).classList.remove('hide');
     },
   },
 };
