@@ -1,0 +1,24 @@
+# Action to keep cloud-specific, deployment-ready branched in sync with master
+name: Sync Deployment Branches
+on:
+  workflow_dispatch: # Manual dispatch
+  schedule:
+  - cron: '0 1 * * 0' # At 01:00 on Sunday.
+jobs:
+  sync-deploy-cloudflare:
+    runs-on: ubuntu-latest
+    name: Sync latest commits from master
+    steps:
+    - name: Checkout master
+      uses: actions/checkout@v2
+      with:
+        ref:  master
+    - name: Pull master into deploy Cloudflare branch
+      id: sync
+      uses: aormsby/Fork-Sync-With-Upstream-action@v3.0
+      with:
+        target_sync_branch: deploy_cloudflare
+        target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+        upstream_sync_branch: master
+        upstream_sync_repo: lissy93/dashy
+        upstream_repo_access_token: ${{ secrets.GITHUB_TOKEN }}
