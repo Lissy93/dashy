@@ -3,7 +3,7 @@
     <a @click="itemOpened"
       @mouseup.right="openContextMenu"
       @contextmenu.prevent
-      :href="target !== 'modal' ? url : '#'"
+      :href="(target !== 'modal' && target !== 'workspace') ? url : '#'"
       :target="target === 'newtab' ? '_blank' : ''"
       :class="`item ${!icon? 'short': ''} size-${itemSize}`"
       v-tooltip="getTooltipOptions()"
@@ -100,6 +100,8 @@ export default {
       if (e.altKey || this.target === 'modal') {
         e.preventDefault();
         this.$emit('triggerModal', this.url);
+      } else if (this.target === 'workspace') {
+        router.push({ name: 'workspace', query: { url: this.url } });
       } else {
         this.$emit('itemClicked');
       }
