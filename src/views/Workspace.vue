@@ -1,7 +1,8 @@
 <template>
   <div class="work-space">
     <SideBar :sections="sections" @launch-app="launchApp" />
-    <WebContent :url="url" />
+    <WebContent :url="url" v-if="!isMultiTaskingEnabled" />
+    <MultiTaskingWebComtent :url="url" v-else />
   </div>
 </template>
 
@@ -9,6 +10,7 @@
 
 import SideBar from '@/components/Workspace/SideBar';
 import WebContent from '@/components/Workspace/WebContent';
+import MultiTaskingWebComtent from '@/components/Workspace/MultiTaskingWebComtent';
 import Defaults from '@/utils/defaults';
 import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
 
@@ -24,9 +26,15 @@ export default {
     ApplyLocalTheme,
     ApplyCustomVariables,
   }),
+  computed: {
+    isMultiTaskingEnabled() {
+      return this.appConfig.enableMultiTasking || false;
+    },
+  },
   components: {
     SideBar,
     WebContent,
+    MultiTaskingWebComtent,
   },
   methods: {
     launchApp(url) {
