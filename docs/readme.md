@@ -21,7 +21,7 @@
 - [Status Indicators](/docs/status-indicators.md) - Using Dashy to monitor uptime and status of your apps
 - [Theming](/docs/theming.md) - Complete guide to applying, writing and modifying themes and styles
 
-#### Misc
+### Misc
 - [Privacy & Security](/docs/privacy.md) - List of requests, potential issues, and security resources
 - [License](/LICENSE) - Copy of the MIT License
 - [Legal](/.github/LEGAL.md) - Licenses of direct dependencies

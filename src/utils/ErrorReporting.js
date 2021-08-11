@@ -10,6 +10,7 @@
 /* eslint-disable global-require */
 
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
+import { sentryDsn } from '@/utils/defaults';
 
 const ErrorTracking = (Vue, router) => {
   // Fetch users config
@@ -19,7 +20,8 @@ const ErrorTracking = (Vue, router) => {
     // Import Sentry
     const Sentry = require('@sentry/vue');
     const { Integrations } = require('@sentry/tracing');
-    const dsn = 'https://3138ea85f15a4fa883a5b27a4dc8ee28@o937511.ingest.sentry.io/5887934';
+    // Get the Data Source Name for your or Dashy's Sentry instance
+    const dsn = appConfig.sentryDsn || sentryDsn;
     // Initialize Sentry
     Sentry.init({
       Vue,

@@ -126,6 +126,15 @@ module.exports = {
     allesedv: 'https://f1.allesedv.com/128/$URL',
     webmasterapi: 'https://api.webmasterapi.com/v1/favicon/yEwx0ZFs0CSPshHq/$URL',
   },
+  /* The URL to CDNs used for external icons. These are only loaded when required */
+  iconCdns: {
+    fa: 'https://kit.fontawesome.com',
+    mdi: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css',
+    si: 'https://unpkg.com/simple-icons@v5/icons',
+    generative: 'https://ipsicon.io',
+    localPath: '/item-icons',
+    faviconName: 'favicon.ico',
+  },
   /* Available built-in colors for the theme builder */
   swatches: [
     ['#eb5cad', '#985ceb', '#5346f3', '#5c90eb'],
@@ -136,4 +145,6 @@ module.exports = {
     ['#f5f5f5', '#d9d9d9', '#bfbfbf', '#9a9a9a'],
     ['#636363', '#363636', '#313941', '#0d0d0d'],
   ],
+  /* Use your own self-hosted Sentry instance. Only used if error reporting is turned on */
+  sentryDsn: 'https://3138ea85f15a4fa883a5b27a4dc8ee28@o937511.ingest.sentry.io/5887934',
 };

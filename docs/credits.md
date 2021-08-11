@@ -13,7 +13,7 @@
     </td>
     <td align="center">
         <a href="https://github.com/swcarlosrj">
-            <img src="https://avatars.githubusercontent.com/u/9881700?v=4" width="80;" alt="swcarlosrj"/>
+            <img src="https://avatars.githubusercontent.com/u/9881700?u=c92e4a0ccc0bff241e50582bce914b179b6d89b6&v=4" width="80;" alt="swcarlosrj"/>
             <br />
             <sub><b>Carlos Rufo</b></sub>
         </a>
@@ -40,6 +40,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/EVOTk">
+            <img src="https://avatars.githubusercontent.com/u/45015615?v=4" width="80;" alt="EVOTk"/>
+            <br />
+            <sub><b>EVOTk</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/BeginCI">
             <img src="https://avatars.githubusercontent.com/u/57495754?v=4" width="80;" alt="BeginCI"/>
             <br />
@@ -59,7 +66,8 @@
             <br />
             <sub><b>Ryan Turner</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/snyk-bot">
             <img src="https://avatars.githubusercontent.com/u/19733683?v=4" width="80;" alt="snyk-bot"/>
@@ -71,7 +79,7 @@
 <!-- readme: contributors -end -->
 
 ## Helpful Users
-<!-- readme: EVOTk,shadowking001,turnrye,Robert-Ernst,MilesTEG1,Niklashere -start -->
+<!-- readme: EVOTk,shadowking001,turnrye,Robert-Ernst,Niklashere,evroon,MilesTEG1 -start -->
 <table>
 <tr>
     <td align="center">
@@ -152,7 +160,7 @@
 This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them. For a full breakdown of dependency licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md)
 
 ##### Core
-At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as well as it's services. Styling is done with [SCSS](https://github.com/sass/sass), JavaScript is currently [Babel](https://github.com/babel/babel), (but I am in the process of converting to [TypeScript](https://github.com/Microsoft/TypeScript)), linting is done with [ESLint](https://github.com/eslint/eslint), the config is defined in [YAML](https://github.com/yaml/yaml), and there is a simple [Node.js](https://github.com/nodejs/node) server to serve up the static app.
+At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as well as it's services. Styling is done with [SCSS](https://github.com/sass/sass), JavaScript is currently [Babel](https://github.com/babel/babel), (but I am in the process of converting to [TypeScript](https://github.com/Microsoft/TypeScript)). Linting is done with [ESLint](https://github.com/eslint/eslint) and [Prettier](https://prettier.io/), both following the [AirBnB Styleguide](https://github.com/airbnb/javascript). The config is defined in [YAML](https://github.com/yaml/yaml), and there is a simple [Node.js](https://github.com/nodejs/node) server to serve up the static app and the optional API endpoints.
 
 ##### Utilities
 - [`crypto-js`](https://github.com/brix/crypto-js) - Encryption implementations by @evanvosberg and community `MIT`
@@ -176,7 +184,7 @@ At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as we
 Although the app is purely frontend, there is an optional cloud backup and restore feature. This is built as a serverless function on [Cloudflare workers](https://workers.cloudflare.com/) using [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
 
 ##### External Services
-The 1-Click deploy demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker image is hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
+The 1-Click deploy demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker images are hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
 
 ---
 

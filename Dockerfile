@@ -1,15 +1,16 @@
-FROM node:lts-alpine
+FROM node:lts-alpine3.14
 
 # Define some ENV Vars
-ENV PORT 80
-ENV DIRECTORY /app
-ENV IS_DOCKER true
+ENV PORT=80 \
+    DIRECTORY=/app \
+    IS_DOCKER=true
 
 # Create and set the working directory
 WORKDIR ${DIRECTORY}
 
 # Copy over both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
+COPY yarn.lock ./
 
 # Install project dependencies
 RUN yarn

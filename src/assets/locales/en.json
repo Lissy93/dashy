@@ -17,10 +17,16 @@
     "remember-me-never": "Never",
     "remember-me-hour": "4 Hours",
     "remember-me-day": "1 Day",
-    "remember-me-week": "1 Week"
+    "remember-me-week": "1 Week",
+    "error-missing-username": "Missing Username",
+    "error-missing-password": "Missing Password",
+    "error-incorrect-username": "User not found",
+    "error-incorrect-password": "Incorrect Password",
+    "success-message": "Logging in...",
+    "logout-message": "Logged Out"
   },
   "config": {
-    "main-tab": "Config",
+    "main-tab": "Main Menu",
     "view-config-tab": "View Config",
     "edit-config-tab": "Edit Config",
     "custom-css-tab": "Custom Styles",
@@ -59,7 +65,9 @@
     "item-size-small": "Small",
     "item-size-medium": "Medium",
     "item-size-large": "Large",
-    "config-launcher-label": "Config"
+    "config-launcher-label": "Config",
+    "config-launcher-tooltip": "Update Configuration",
+    "sign-out-tooltip": "Sign Out"
   },
   "updates": {
     "app-version-note": "Dashy version",
@@ -134,6 +142,7 @@
     "restore-id-label": "Restore ID",
     "restore-password-label": "Password",
     "restore-button": "Restore",
+    "backup-missing-password": "Missing Password",
     "backup-error-unknown": "Unable to process request",
     "backup-error-password": "Incorrect password. Please enter your current password.",
     "backup-success-msg": "Completed Successfully",

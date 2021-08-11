@@ -4,7 +4,7 @@
     <span>{{ $t('settings.config-launcher-label') }}</span>
     <div class="config-buttons">
       <IconSpanner @click="showEditor()" tabindex="-2"
-        v-tooltip="tooltip('Update configuration')" />
+        v-tooltip="tooltip($t('settings.config-launcher-tooltip'))" />
     </div>
 
     <!-- Modal containing all the configuration options -->
@@ -15,7 +15,7 @@
 
     <!-- Modal for manually changing locale -->
     <modal :name="modalNames.LANG_SWITCHER" classes="dashy-modal"
-      :resizable="true" width="30%" height="25%">
+      :resizable="true" width="35%" height="35%">
       <LanguageSwitcher />
     </modal>
 
@@ -73,6 +73,7 @@ export default {
   display: flex;
   flex-direction: column;
   color: var(--settings-text-color);
+  min-width: 3.2rem;
   svg {
     path {
       fill: var(--settings-text-color);

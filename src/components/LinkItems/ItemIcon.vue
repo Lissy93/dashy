@@ -1,10 +1,19 @@
 <template>
   <div class="item-icon">
+    <!-- Font-Awesome Icon -->
     <i v-if="iconType === 'font-awesome'" :class="`${icon} ${size}`" ></i>
+    <!-- Emoji Icon -->
     <i v-else-if="iconType === 'emoji'" :class="`emoji-icon ${size}`" >{{getEmoji(iconPath)}}</i>
+    <!-- Material Design Icon -->
+    <span v-else-if="iconType === 'mdi'"  :class=" `mdi ${icon} ${size}`"></span>
+    <!-- Simple-Icons -->
+    <object v-else-if="iconType === 'si'" :class="`simple-icons ${size}`"
+      type="image/svg+xml" :data="getSimpleIcon(icon)"></object>
+    <!-- Standard image asset icon -->
     <img v-else-if="icon" :src="iconPath" @error="imageNotFound"
       :class="`tile-icon ${size} ${broken ? 'broken' : ''}`"
     />
+    <!-- Icon could not load/ broken url -->
     <BrokenImage v-if="broken" class="missing-image" />
   </div>
 </template>
@@ -12,7 +21,7 @@
 <script>
 import BrokenImage from '@/assets/interface-icons/broken-icon.svg';
 import ErrorHandler from '@/utils/ErrorHandler';
-import { faviconApi as defaultFaviconApi, faviconApiEndpoints } from '@/utils/defaults';
+import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/defaults';
 import EmojiUnicodeRegex from '@/utils/EmojiUnicodeRegex';
 import emojiLookup from '@/utils/emojis.json';
 
@@ -28,17 +37,18 @@ export default {
     BrokenImage,
   },
   computed: {
+    /* Determines the type of icon */
     iconType: function iconType() {
       return this.determineImageType(this.icon);
     },
+    /* Gets the icon path, dependent on icon type */
     iconPath: function iconPath() {
       return this.getIconPath(this.icon, this.url);
     },
   },
   data() {
     return {
-      broken: false,
-      // faviconApi: this.config.appConfig.faviconApi || defaultFaviconApi,
+      broken: false, // If true, was unable to resolve icon
     };
   },
   methods: {
@@ -80,7 +90,7 @@ export default {
     getFavicon(fullUrl) {
       if (this.shouldUseDefaultFavicon(fullUrl)) { // Check if we should use local icon
         const urlParts = fullUrl.split('/');
-        if (urlParts.length >= 2) return `${urlParts[0]}/${urlParts[1]}/${urlParts[2]}/favicon.ico`;
+        if (urlParts.length >= 2) return `${urlParts[0]}/${urlParts[1]}/${urlParts[2]}/${iconCdns.faviconName}`;
       } else if (fullUrl.includes('http')) { // Service is running publicly
         const host = this.getHostName(fullUrl);
         const faviconApi = this.config.appConfig.faviconApi || defaultFaviconApi;
@@ -95,11 +105,18 @@ export default {
       const isLocalIP = /(127\.)|(192\.168\.)|(10\.)|(172\.1[6-9]\.)|(172\.2[0-9]\.)|(172\.3[0-1]\.)|(::1$)|([fF][cCdD])|(localhost)/;
       return (isLocalIP.test(fullUrl) || this.config.appConfig.faviconApi === 'local');
     },
+    /* Fetches the path of local images, from Docker container */
     getLocalImagePath(img) {
-      return `/item-icons/${img}`;
+      return `${iconCdns.localPath}/${img}`;
     },
+    /* Formats the URL for fetching the generative icons */
     getGenerativeIcon(url) {
-      return `https://ipsicon.io/${this.getHostName(url)}.svg`;
+      return `${iconCdns.generative}/${this.getHostName(url)}.svg`;
+    },
+    /* Formats the URL for getting Simple-Icons SVG asset */
+    getSimpleIcon(img) {
+      const imageName = img.replace('si-', '');
+      return `${iconCdns.si}/${imageName}.svg`;
     },
     /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
     getIconPath(img, url) {
@@ -108,8 +125,10 @@ export default {
         case 'img': return this.getLocalImagePath(img);
         case 'favicon': return this.getFavicon(url);
         case 'generative': return this.getGenerativeIcon(url);
-        case 'svg': return img;
-        case 'emoji': return img;
+        case 'mdi': return img; // Material design icons
+        case 'simple-icons': return this.getSimpleIcon(img);
+        case 'svg': return img; // Local SVG icon
+        case 'emoji': return img; // Emoji/ unicode
         default: return '';
       }
     },
@@ -121,12 +140,15 @@ export default {
       else if (this.isUrl(img)) imgType = 'url';
       else if (this.isImage(img)) imgType = 'img';
       else if (img.includes('fa-')) imgType = 'font-awesome';
+      else if (img.includes('mdi-')) imgType = 'mdi';
+      else if (img.includes('si-')) imgType = 'si';
       else if (img === 'favicon') imgType = 'favicon';
       else if (img === 'generative') imgType = 'generative';
       else if (this.isEmoji(img).isEmoji) imgType = 'emoji';
       else imgType = 'none';
       return imgType;
     },
+    /* For a given URL, return the hostname only. Used for favicon and generative icons */
     getHostName(url) {
       try { return new URL(url).hostname; } catch (e) { return url; }
     },
@@ -140,6 +162,7 @@ export default {
 </script>
 
 <style lang="scss">
+  /* Default Image Icon */
   .tile-icon {
       width: 2rem;
       // filter: var(--item-icon-transform);
@@ -152,7 +175,8 @@ export default {
         width: 3rem;
       }
   }
-  i.fas, i.fab, i.far, i.fal, i.fad {
+  /* Font-Awesome and Material Design Icons */
+  i.fas, i.fab, i.far, i.fal, i.fad, span.mdi {
     font-size: 2rem;
     color: currentColor;
     margin: 1px 4px;
@@ -163,6 +187,9 @@ export default {
       font-size: 2.5rem;
     }
   }
+  span.mdi {
+    font-size: 2.5rem;
+  }
   object.tile-icon {
     width: 55px;
     height: 55px;
@@ -170,6 +197,13 @@ export default {
       fill: currentColor;
     }
   }
+  /* Simple Icons */
+  object.simple-icons {
+    width: 2rem;
+    &.small { width: 1.5rem; }
+    &.large { width: 2.5rem; }
+  }
+  /* Emoji Icons */
   i.emoji-icon {
     font-style: normal;
     font-size: 2rem;
@@ -181,6 +215,7 @@ export default {
       font-size: 2.5rem;
     }
   }
+  /* Icon Not Found */
   .missing-image {
     width: 3.5rem;
     path {

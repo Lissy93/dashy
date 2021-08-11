@@ -4,7 +4,6 @@
     <v-jsoneditor
       v-model="jsonData"
       :options="options"
-      height="500px"
     />
     <!-- Options raido, and save button -->
     <div class="save-options">
@@ -56,12 +55,12 @@
 
 <script>
 
+import axios from 'axios';
 import VJsoneditor from 'v-jsoneditor';
 import { localStorageKeys } from '@/utils/defaults';
 import configSchema from '@/utils/ConfigSchema.json';
 import JsonToYaml from '@/utils/JsonToYaml';
 import { isUserAdmin } from '@/utils/Auth';
-import axios from 'axios';
 
 export default {
   name: 'JsonEditor',
@@ -291,6 +290,10 @@ div.save-options {
   label.save-option-label {
     cursor: pointer;
   }
+}
+
+.jsoneditor-container.min-box {
+  height: 58vh;
 }
 
 .jsoneditor, .jsoneditor-menu {

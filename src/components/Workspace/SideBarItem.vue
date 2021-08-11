@@ -44,8 +44,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/media-queries.scss';
-@import '@/styles/style-helpers.scss';
 
 div.side-bar-item {
   color: var(--side-bar-color);
@@ -56,8 +54,10 @@ div.side-bar-item {
     border: none;
     box-shadow: none;
     p.small-title {
-      margin: 0.1rem auto;
+      margin: 0.1rem 0 0 -0.5rem;
       font-size: 0.6rem;
+      transform: rotate(-25deg);
+      padding: 0.5rem 0;
     }
   }
 }

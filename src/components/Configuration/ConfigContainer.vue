@@ -10,15 +10,15 @@
               {{ $t('config.download-config-button') }}
             </button>
           </a>
-          <button class="config-button center" @click="() => navigateToTab(2)">
+          <button class="config-button center" @click="() => navigateToTab(1)">
             <EditIcon class="button-icon"/>
             {{ $t('config.edit-config-button') }}
           </button>
-          <button class="config-button center" @click="() => navigateToTab(4)">
+          <button class="config-button center" @click="() => navigateToTab(3)">
             <CustomCssIcon class="button-icon"/>
             {{ $t('config.edit-css-button') }}
           </button>
-          <button class="config-button center" @click="() => navigateToTab(3)">
+          <button class="config-button center" @click="() => navigateToTab(2)">
             <CloudIcon class="button-icon"/>
             {{backupId ? $t('config.edit-cloud-sync-button') : $t('config.cloud-sync-button') }}
           </button>
@@ -51,21 +51,6 @@
       <!-- Rebuild App Modal -->
       <RebuildApp />
     </TabItem>
-    <TabItem :name="$t('config.view-config-tab')" class="code-container">
-      <pre id="conf-yaml">{{yaml}}</pre>
-      <div class="yaml-action-buttons">
-        <h2>{{ $t('config.actions-label') }}</h2>
-        <a class="yaml-button download" @click="downloadConfigFile('conf.yml', yaml)">
-           {{ $t('config.download-config-button') }}
-        </a>
-        <a class="yaml-button copy" @click="copyConfigToClipboard()">
-          {{ $t('config.copy-config-label') }}
-        </a>
-        <a class="yaml-button reset" @click="resetLocalSettings()">
-          {{ $t('config.reset-config-label') }}
-        </a>
-      </div>
-    </TabItem>
     <TabItem :name="$t('config.edit-config-tab')">
       <JsonEditor :config="config" />
     </TabItem>
@@ -79,9 +64,6 @@
 </template>
 
 <script>
-import hljs from 'highlight.js/lib/core';
-import yaml from 'highlight.js/lib/languages/yaml';
-import 'highlight.js/styles/mono-blue.css';
 
 import JsonToYaml from '@/utils/JsonToYaml';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
@@ -179,19 +161,10 @@ export default {
       element.click();
       document.body.removeChild(element);
     },
-    /* Highlights the YAML config in View config tab */
-    initiateStntaxHighlighter() {
-      hljs.registerLanguage('yaml', yaml);
-      const highlighted = hljs.highlight(this.jsonParser(this.config), { language: 'yaml' }).value;
-      document.getElementById('conf-yaml').innerHTML = highlighted;
-    },
     getLanguage() {
       const lang = getUsersLanguage();
       return lang ? `${lang.flag} ${lang.name}` : '';
     },
-  },
-  mounted() {
-    this.initiateStntaxHighlighter();
   },
 };
 </script>

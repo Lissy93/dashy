@@ -40,6 +40,10 @@ import { checkCredentials, login } from '@/utils/Auth';
 
 export default {
   name: 'login',
+  components: {
+    Button,
+    Input,
+  },
   props: {
     appConfig: Object,
   },
@@ -50,23 +54,41 @@ export default {
       message: '',
       status: 'waiting', // wating, error, success
       timeout: { label: this.$t('login.remember-me-never'), time: 0 },
-      dropDownMenu: [ // Data for timeout dropdown menu, translated label + value in ms
+    };
+  },
+  computed: {
+    /* Data for timeout dropdown menu, translated label + value in ms */
+    dropDownMenu() {
+      return [
         { label: this.$t('login.remember-me-never'), time: 0 },
         { label: this.$t('login.remember-me-hour'), time: 14400 * 1000 },
         { label: this.$t('login.remember-me-day'), time: 86400 * 1000 },
         { label: this.$t('login.remember-me-week'), time: 604800 * 1000 },
-      ],
-    };
-  },
-  components: {
-    Button,
-    Input,
+      ];
+    },
+    /* Translations for login response messages */
+    responseMessages() {
+      return {
+        missingUsername: this.$t('login.error-missing-username'),
+        missingPassword: this.$t('login.error-missing-password'),
+        incorrectUsername: this.$t('login.error-incorrect-username'),
+        incorrectPassword: this.$t('login.error-incorrect-password'),
+        successMsg: this.$t('login.success-message'),
+      };
+    },
   },
   methods: {
     /* Checks form is filled in, then initiates the login, and redirects to /home */
     submitLogin() {
+      // Use selected timeout, if available,else revedrt to zero
       const timeout = this.timeout ? this.timeout.time : 0;
-      const response = checkCredentials(this.username, this.password, this.appConfig.auth || []);
+      // Check users credentials
+      const response = checkCredentials(
+        this.username,
+        this.password,
+        this.appConfig.auth || [], // All users
+        this.responseMessages, // Translated response messages
+      );
       this.message = response.msg; // Show error or success message to the user
       this.status = response.correct ? 'success' : 'error';
       if (response.correct) { // Yay, credentials were correct :)
@@ -76,7 +98,7 @@ export default {
         }, 250);
       }
     },
-    /* Since we don't have the Theme setter at this point, we must manually set users theme */
+    /* Since Theme setter isn't loaded at this point, we must manually get and apply users theme */
     setTheme() {
       const theme = localStorage[localStorageKeys.THEME] || Defaults.theme;
       document.getElementsByTagName('html')[0].setAttribute('data-theme', theme);
