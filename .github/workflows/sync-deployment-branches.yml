@@ -41,7 +41,7 @@ jobs:
         upstream_sync_repo: lissy93/dashy
         upstream_repo_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-	sync-deploy-digital-ocean:
+  sync-deploy-digital-ocean:
     runs-on: ubuntu-latest
     name: Sync master with Digital Ocean branch
     steps:
@@ -59,7 +59,7 @@ jobs:
         upstream_sync_repo: lissy93/dashy
         upstream_repo_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-	sync-deploy-render:
+  sync-deploy-render:
     runs-on: ubuntu-latest
     name: Sync master with Render branch
     steps:
