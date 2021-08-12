@@ -147,5 +147,11 @@
     "backup-error-password": "Mot de passe incorrect. Veuillez saisir votre mot de passe actuel.",
     "backup-success-msg": "Sauvegarde effectuée avec succès",
     "restore-success-msg": "Configuration restaurée avec succès"
+  },
+  "menu": { 
+    "sametab": "Ouvrir dans l'onglet actuel",  
+    "newtab": "Ouvrir dans un nouvel onglet",
+    "modal": "Ouvrir en mode fenêtré",   
+    "workspace": "Ouvrir en mode plein écran"
   }
 }
