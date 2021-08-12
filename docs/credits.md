@@ -33,6 +33,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/EVOTk">
+            <img src="https://avatars.githubusercontent.com/u/45015615?v=4" width="80;" alt="EVOTk"/>
+            <br />
+            <sub><b>EVOTk</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/evroon">
             <img src="https://avatars.githubusercontent.com/u/11857441?v=4" width="80;" alt="evroon"/>
             <br />
@@ -40,10 +47,10 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/EVOTk">
-            <img src="https://avatars.githubusercontent.com/u/45015615?v=4" width="80;" alt="EVOTk"/>
+        <a href="https://github.com/snyk-bot">
+            <img src="https://avatars.githubusercontent.com/u/19733683?v=4" width="80;" alt="snyk-bot"/>
             <br />
-            <sub><b>EVOTk</b></sub>
+            <sub><b>Snyk Bot</b></sub>
         </a>
     </td>
     <td align="center">
@@ -59,20 +66,13 @@
             <br />
             <sub><b>DeepSource Bot</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/turnrye">
             <img src="https://avatars.githubusercontent.com/u/701035?v=4" width="80;" alt="turnrye"/>
             <br />
             <sub><b>Ryan Turner</b></sub>
-        </a>
-    </td></tr>
-<tr>
-    <td align="center">
-        <a href="https://github.com/snyk-bot">
-            <img src="https://avatars.githubusercontent.com/u/19733683?v=4" width="80;" alt="snyk-bot"/>
-            <br />
-            <sub><b>Snyk Bot</b></sub>
         </a>
     </td></tr>
 </table>
