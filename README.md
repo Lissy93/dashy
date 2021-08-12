@@ -83,6 +83,7 @@
 #### Spin up your own Demo
 - 1-Click Deploy: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
 - Or on your own machine: `docker run -p 8080:80 lissy93/dashy`
+  - See the [Quick Start Guide](./docs/quick-start.md) for getting Dashy up and running in under 5 minutes
 
 #### Recording
 <p align="center">
@@ -123,6 +124,8 @@ docker run -d \
 
 If you prefer to use Docker Compose, [here is an example](./docs/deployment.md#using-docker-compose).
 
+[![Dashy on Docker Hub](https://dockeri.co/image/lissy93/dashy)](https://hub.docker.com/r/lissy93/dashy)
+
 > Once you've got Dashy running, you can take a look at [App Management Docs](./docs/management.md), for info on using health checks, provisioning assets, configuring web servers, securing your app, logs, performance and more.
 
 ### Deploying from Source 🚀
@@ -157,11 +160,11 @@ Dashy supports 1-Click deployments on several popular cloud platforms. To spin u
 
 > For full configuration documentation, see: [**Configuring**](./docs/configuring.md)
 
-All of Dashy's configuration is specified in a single [YAML](https://yaml.org/) file, located at `./public/conf.yml` (or `./app/public/conf.yml` for Docker). You can find a complete list of available options in th [Configuring Docs](/docs/configuring.md). If you're using Docker, you'll probably want to pass this file in as a Docker volume (e.g. `-v /root/my-local-conf.yml:/app/public/conf.yml`).
+All of Dashy's configuration is specified in a single [YAML](https://yaml.org/) file, located at `./public/conf.yml`. You can find a complete list of available options in th [Configuring Docs](/docs/configuring.md). If you're using Docker, you'll probably want to pass this file in as a Docker volume (e.g. `-v /root/my-local-conf.yml:/app/public/conf.yml`).
 
-The config can also be edited directly through the UI, with changes written to your conf.yml file. After making any modifications the app does need to be rebuilt, this should happen automatically but you can also trigger a build with  `yarn build`,  `docker exec -it [container-id] yarn build`, or directly through the UI.
+The config can also be edited directly through the UI, with changes written to your conf.yml file. After making any modifications the app needs to be rebuilt, which will happen automatically or can be trigger with `yarn build` or directly through the UI.
 
-You can check that your config is correct and valid, by running: `yarn validate-config`. This will validate that your configuration matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json).
+You can check that your config is valid and matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json), by running: `yarn validate-config`.
 
 Finally, you may find these [example config](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10) helpful for getting you started.
 
@@ -459,6 +462,8 @@ Dashy was made possible thanks to the following packages and components. For mor
 
 > For full development documentation, see: [**Developing**](./docs/developing.md)
 
+[![Open Project in VS Code](https://img.shields.io/badge/Open_in-VS_Code-863cfc?style=for-the-badge&logo=visualstudiocode)](https://open.vscode.dev/Lissy93/Dashy)
+
 To set up the development environment:
 1. Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
 2. Install dependencies: `yarn`
@@ -550,7 +555,8 @@ There are a few self-hosted web apps, that serve a similar purpose to Dashy. If 
 - [HomeDash2](https://lamarios.github.io/Homedash2)
 - [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`)
 - [Organizr](https://organizr.app/) (`GPL-3.0 License`)
-- [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
+- [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT`)
+- [Smashing](https://github.com/Smashing/smashing) (`MIT`)
 
 **[⬆️ Back to Top](#dashy)**
 
