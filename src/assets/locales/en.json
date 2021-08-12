@@ -147,5 +147,11 @@
     "backup-error-password": "Incorrect password. Please enter your current password.",
     "backup-success-msg": "Completed Successfully",
     "restore-success-msg": "Config Restored Successfully"
+  },
+  "menu": {
+    "sametab": "Open in Current Tab",
+    "newtab": "Open in New Tab",
+    "modal": "Open in Pop-Up Modal",
+    "workspace": "Open in Workspace View"
   }
 }
