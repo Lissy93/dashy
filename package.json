@@ -17,7 +17,7 @@
   "dependencies": {
     "@sentry/tracing": "^6.10.0",
     "@sentry/vue": "^6.10.0",
-    "ajv": "^8.5.0",
+    "ajv": "^8.6.2",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "connect": "^3.7.0",
