@@ -442,6 +442,23 @@ Thank you so much to everyone who has helped with Dashy so far, every contributi
 
 Huge thanks to the sponsors helping to support Dashy's development!
 <!-- readme: sponsors -start -->
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/Robert-Ernst">
+            <img src="https://avatars.githubusercontent.com/u/9050259?v=4" width="80;" alt="Robert-Ernst"/>
+            <br />
+            <sub><b>Robert Ernst</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/swcarlosrj">
+            <img src="https://avatars.githubusercontent.com/u/9881700?v=4" width="80;" alt="swcarlosrj"/>
+            <br />
+            <sub><b>Carlos Rufo</b></sub>
+        </a>
+    </td></tr>
+</table>
 <!-- readme: sponsors -end -->
 
 #### Contributors
