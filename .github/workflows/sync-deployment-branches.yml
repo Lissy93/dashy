@@ -17,7 +17,7 @@ jobs:
       id: sync
       uses: aormsby/Fork-Sync-With-Upstream-action@v3.0
       with:
-        target_sync_branch: deploy_cloudflare
+        target_sync_branch: origin deploy_cloudflare
         target_repo_token: ${{ secrets.GITHUB_TOKEN }}
         upstream_sync_branch: master
         upstream_sync_repo: lissy93/dashy
@@ -35,7 +35,7 @@ jobs:
       id: sync-psh
       uses: aormsby/Fork-Sync-With-Upstream-action@v3.0
       with:
-        target_sync_branch: deploy_platform-sh
+        target_sync_branch: origin/deploy_platform-sh
         target_repo_token: ${{ secrets.GITHUB_TOKEN }}
         upstream_sync_branch: master
         upstream_sync_repo: lissy93/dashy
