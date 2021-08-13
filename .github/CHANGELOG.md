@@ -1,5 +1,16 @@
 # Changelog
 
+## ✨ 1.5.8 - Multi-Tasking Support in Workspace View [PR #146](https://github.com/Lissy93/dashy/pull/146)
+- Adds option to keep launched apps open in the background, to reduce friction when switching between websites, Re: #144
+- This can be enabled by setting `appConfig.enableMultiTasking: true`
+- Note that having many apps opened simultaneously, will have an impact on performance
+
+## ✨ 1.5.7 - Adds Support for Material Design Icons [PR #141](https://github.com/Lissy93/dashy/pull/141)
+- Enables user to use any icon from [materialdesignicons.com](https://dev.materialdesignicons.com/icons), Re: #139
+- Also adds support for [simpleicons.org](https://simpleicons.org/)
+- Assets only loaded when needed
+- Adds docs for using MDI icons
+
 ## ⚡️ 1.5.6 - Refactor + Couple of small things [PR #135](https://github.com/Lissy93/dashy/pull/135)
 - The main Dockerfile now uses yarn.lock instead of package-lock.json
 - Adds a check to verify password is not empty in cloud backup screen

@@ -1,6 +1,6 @@
 {
   "name": "Dashy",
-  "version": "1.5.6",
+  "version": "1.5.8",
   "license": "MIT",
   "main": "server",
   "scripts": {
@@ -17,11 +17,11 @@
   "dependencies": {
     "@sentry/tracing": "^6.10.0",
     "@sentry/vue": "^6.10.0",
-    "ajv": "^8.5.0",
+    "ajv": "^8.6.2",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "connect": "^3.7.0",
-    "crypto-js": "^4.0.0",
+    "crypto-js": "^4.1.1",
     "js-yaml": "^4.1.0",
     "npm-run-all": "^4.1.5",
     "prismjs": "^1.24.1",
@@ -37,7 +37,7 @@
     "vue-material-tabs": "0.1.5",
     "vue-prism-editor": "^1.2.2",
     "vue-router": "^3.0.3",
-    "vue-select": "^3.11.2",
+    "vue-select": "^3.12.1",
     "vue-swatches": "^2.1.1",
     "vue-toasted": "^1.1.28"
   },

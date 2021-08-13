@@ -5,19 +5,19 @@
       <ul>
         <li @click="launch('sametab')">
           <SameTabOpenIcon />
-          <span>Open in Current Tab</span>
+          <span>{{ $t('menu.sametab') }}</span>
         </li>
         <li @click="launch('newtab')">
           <NewTabOpenIcon />
-          <span>Open in New Tab</span>
+          <span>{{ $t('menu.newtab') }}</span>
         </li>
         <li @click="launch('modal')">
           <IframeOpenIcon />
-          <span>Open in Pop-Up Modal</span>
+          <span>{{ $t('menu.modal') }}</span>
         </li>
         <li @click="launch('workspace')">
           <WorkspaceOpenIcon />
-          <span>Open in Workspace View</span>
+          <span>{{ $t('menu.workspace') }}</span>
         </li>
       </ul>
     </div>

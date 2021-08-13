@@ -83,6 +83,7 @@
 #### Spin up your own Demo
 - 1-Click Deploy: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
 - Or on your own machine: `docker run -p 8080:80 lissy93/dashy`
+  - See the [Quick Start Guide](./docs/quick-start.md) for getting Dashy up and running in under 5 minutes
 
 #### Recording
 <p align="center">
@@ -102,7 +103,7 @@ Are using Dashy? Want to share your dashboard here too - [Submit your Screenshot
 
 > For full setup instructions, see: [**Deployment**](./docs/deployment.md)
 
-#### Deploying from Docker Hub 🐳
+### Deploying from Docker Hub 🐳
 
 You will need [Docker](https://docs.docker.com/get-docker/) installed on your system
 
@@ -122,13 +123,14 @@ docker run -d \
 ```
 
 If you prefer to use Docker Compose, [here is an example](./docs/deployment.md#using-docker-compose).
-You can also build the Docker container from source, by cloning the repo, cd'ing into it and running `docker build .` and `docker compose up`.
+
+[![Dashy on Docker Hub](https://dockeri.co/image/lissy93/dashy)](https://hub.docker.com/r/lissy93/dashy)
 
 > Once you've got Dashy running, you can take a look at [App Management Docs](./docs/management.md), for info on using health checks, provisioning assets, configuring web servers, securing your app, logs, performance and more.
 
-#### Deploying from Source 🚀
+### Deploying from Source 🚀
 
-You will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed on your system
+You will need [git](https://git-scm.com/downloads), the latest or LTS version of [Node.js](https://nodejs.org/) and (optionally) [Yarn](https://yarnpkg.com/) installed on your system.
 
 - Get Code: `git clone git@github.com:Lissy93/dashy.git` and `cd dashy`
 - Configuration: Fill in you're settings in `./public/conf.yml`
@@ -138,7 +140,7 @@ You will need both [git](https://git-scm.com/downloads) and the latest or LTS ve
 
 > See docs [Full list of Dashy's commands](./docs/management.md#basic-commands)
 
-#### Deploy to the Cloud ☁️
+### Deploy to the Cloud ☁️
 
 Dashy supports 1-Click deployments on several popular cloud platforms. To spin up a new instance, just click a link below:
 - [<img src="https://i.ibb.co/ZxtzrP3/netlify.png" width="18"/> Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
@@ -158,11 +160,11 @@ Dashy supports 1-Click deployments on several popular cloud platforms. To spin u
 
 > For full configuration documentation, see: [**Configuring**](./docs/configuring.md)
 
-All of Dashy's configuration is specified in a single [YAML](https://yaml.org/) file, located at `./public/conf.yml` (or `./app/public/conf.yml` for Docker). You can find a complete list of available options in th [Configuring Docs](/docs/configuring.md). If you're using Docker, you'll probably want to pass this file in as a Docker volume (e.g. `-v /root/my-local-conf.yml:/app/public/conf.yml`).
+All of Dashy's configuration is specified in a single [YAML](https://yaml.org/) file, located at `./public/conf.yml`. You can find a complete list of available options in th [Configuring Docs](/docs/configuring.md). If you're using Docker, you'll probably want to pass this file in as a Docker volume (e.g. `-v /root/my-local-conf.yml:/app/public/conf.yml`).
 
-The config can also be edited directly through the UI, with changes written to your conf.yml file. After making any modifications the app does need to be rebuilt, this should happen automatically but you can also trigger a build with  `yarn build`,  `docker exec -it [container-id] yarn build`, or directly through the UI.
+The config can also be edited directly through the UI, with changes written to your conf.yml file. After making any modifications the app needs to be rebuilt, which will happen automatically or can be trigger with `yarn build` or directly through the UI.
 
-You can check that your config is correct and valid, by running: `yarn validate-config`. This will validate that your configuration matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json).
+You can check that your config is valid and matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json), by running: `yarn validate-config`.
 
 Finally, you may find these [example config](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10) helpful for getting you started.
 
@@ -207,7 +209,8 @@ Both sections and items can have an icon associated with them, and defined under
 - **Generative**: Setting `icon: generative`, will generate a unique for a given service, based on it's URL or IP
 - **Emoji**: Use an emoji as a tile icon, by putting the emoji's code as the icon attribute. Emojis can be specified either as emojis (`🚀`), unicode (`'U+1F680'`) or shortcode (`':rocket:'`).
 - **URL**: You can also pass in a URL to an icon asset, hosted either locally or using any CDN service. E.g. `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`.
-- **Local Image**: To use a local image, store it in `./public/item-icons/` (or create a volume in Docker: `-v /local/image/directory:/app/public/item-icons/`) , and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`. You can also use sub-folders here if you have a lot of icons, to keep them organized.
+- **Local Image**: To use a local image, store it in `./public/item-icons/` (or create a volume in Docker: `-v /local/image/directory:/app/public/item-icons/`) , and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`. You can also use sub-folders here.
+- **Material Design Icons**: You can also use any icon from [materialdesignicons.com](https://dev.materialdesignicons.com/icons) by setting the icon to `mdi-[icon-name]`.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -352,6 +355,7 @@ Dashy has the ability to support multiple languages and locales. When available,
 - 🇩🇪 **German**: `de` - Contributed by **[@Niklashere](https://github.com/Niklashere)**
 - 🇳🇱 **Dutch**: `nl` - Contributed by **[@evroon](https://github.com/evroon)**
 - 🇲🇫 **French**: `fr` - Contributed by **[@EVOTk](https://github.com/EVOTk)**
+- 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
 
 #### Add your Language
 It would be awesome for open source projects to be available to everyone, without language being a barrier to entry for non-native English speakers. If you have a few minutes to sapir, you're help with translating it would be very much appreciated.
@@ -439,6 +443,23 @@ Thank you so much to everyone who has helped with Dashy so far, every contributi
 
 Huge thanks to the sponsors helping to support Dashy's development!
 <!-- readme: sponsors -start -->
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/Robert-Ernst">
+            <img src="https://avatars.githubusercontent.com/u/9050259?u=7253b4063f1ffe3b5a894263c8b2056151802508&v=4" width="80;" alt="Robert-Ernst"/>
+            <br />
+            <sub><b>Robert Ernst</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/swcarlosrj">
+            <img src="https://avatars.githubusercontent.com/u/9881700?u=c92e4a0ccc0bff241e50582bce914b179b6d89b6&v=4" width="80;" alt="swcarlosrj"/>
+            <br />
+            <sub><b>Carlos Rufo</b></sub>
+        </a>
+    </td></tr>
+</table>
 <!-- readme: sponsors -end -->
 
 #### Contributors
@@ -458,6 +479,8 @@ Dashy was made possible thanks to the following packages and components. For mor
 ## Developing 🧱
 
 > For full development documentation, see: [**Developing**](./docs/developing.md)
+
+[![Open Project in VS Code](https://img.shields.io/badge/Open_in-VS_Code-863cfc?style=for-the-badge&logo=visualstudiocode)](https://open.vscode.dev/Lissy93/Dashy)
 
 To set up the development environment:
 1. Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
@@ -550,7 +573,8 @@ There are a few self-hosted web apps, that serve a similar purpose to Dashy. If 
 - [HomeDash2](https://lamarios.github.io/Homedash2)
 - [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`)
 - [Organizr](https://organizr.app/) (`GPL-3.0 License`)
-- [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT License`)
+- [Heimdall](https://github.com/linuxserver/Heimdall) (`MIT`)
+- [Smashing](https://github.com/Smashing/smashing) (`MIT`)
 
 **[⬆️ Back to Top](#dashy)**
 
