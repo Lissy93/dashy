@@ -447,14 +447,14 @@ Huge thanks to the sponsors helping to support Dashy's development!
 <tr>
     <td align="center">
         <a href="https://github.com/Robert-Ernst">
-            <img src="https://avatars.githubusercontent.com/u/9050259?v=4" width="80;" alt="Robert-Ernst"/>
+            <img src="https://avatars.githubusercontent.com/u/9050259?u=7253b4063f1ffe3b5a894263c8b2056151802508&v=4" width="80;" alt="Robert-Ernst"/>
             <br />
             <sub><b>Robert Ernst</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/swcarlosrj">
-            <img src="https://avatars.githubusercontent.com/u/9881700?v=4" width="80;" alt="swcarlosrj"/>
+            <img src="https://avatars.githubusercontent.com/u/9881700?u=c92e4a0ccc0bff241e50582bce914b179b6d89b6&v=4" width="80;" alt="swcarlosrj"/>
             <br />
             <sub><b>Carlos Rufo</b></sub>
         </a>
