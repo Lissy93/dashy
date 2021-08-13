@@ -355,6 +355,7 @@ Dashy has the ability to support multiple languages and locales. When available,
 - 🇩🇪 **German**: `de` - Contributed by **[@Niklashere](https://github.com/Niklashere)**
 - 🇳🇱 **Dutch**: `nl` - Contributed by **[@evroon](https://github.com/evroon)**
 - 🇲🇫 **French**: `fr` - Contributed by **[@EVOTk](https://github.com/EVOTk)**
+- 🇸🇮 **Slovenian**: `si` - Contributed by **[@UrekD](https://github.com/UrekD)**
 
 #### Add your Language
 It would be awesome for open source projects to be available to everyone, without language being a barrier to entry for non-native English speakers. If you have a few minutes to sapir, you're help with translating it would be very much appreciated.
