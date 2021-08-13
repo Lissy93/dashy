@@ -1,6 +1,6 @@
 <template>
-   <div :class="`minimal-section-inner ${selected ? 'selected' : ''}`">
-    <div class="section-items" v-if="selected">
+   <div :class="`minimal-section-inner ${selected ? 'selected' : ''} ${showAll ? 'show-all': ''}`">
+    <div class="section-items" v-if="selected || showAll">
       <Item
         v-for="(item, index) in items"
         :id="`${index}_${makeId(item.title)}`"
@@ -48,6 +48,7 @@ export default {
     modalOpen: Boolean,
     index: Number,
     selected: Boolean,
+    showAll: Boolean,
   },
   components: {
     Item,
@@ -106,6 +107,9 @@ export default {
   &.selected {
     border: 1px solid var(--primary);
     grid-column-start: span var(--col-count, 3);
+  }
+  &.show-all {
+    border: none;
   }
 }
 

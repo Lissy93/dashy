@@ -4,9 +4,10 @@
       <router-link to="/">
         <h1>{{ pageInfo.title }}</h1>
       </router-link>
-      <MinimalSearch />
+      <MinimalSearch @user-is-searchin="(s) => { this.searchValue = s; }" />
     </div>
-    <div v-if="checkTheresData(sections)" class="item-group-container">
+    <div v-if="checkTheresData(sections)"
+      :class="`item-group-container ${!tabbedView ? 'showing-all' : ''}`">
       <!-- Section heading buttons -->
       <MinimalHeading
         v-for="(section, index) in getSections(sections)"
@@ -15,6 +16,7 @@
         :title="section.name"
         :selected="selectedSection === index"
         @sectionSelected="sectionSelected"
+        class="headings"
       />
       <!-- Section item groups -->
       <MinimalSection
@@ -26,11 +28,12 @@
         :groupId="`section-${index}`"
         :items="filterTiles(section.items)"
         :selected="selectedSection === index"
+        :showAll="!tabbedView"
         itemSize="small"
         @sectionSelected="sectionSelected"
-         @itemClicked="finishedSearching()"
-         @change-modal-visibility="updateModalVisibility"
-         :class="(filterTiles(section.items).length === 0 && searchValue) ? 'no-results' : ''"
+        @itemClicked="finishedSearching()"
+        @change-modal-visibility="updateModalVisibility"
+        :class="(filterTiles(section.items).length === 0 && searchValue) ? 'no-results' : ''"
       />
     </div>
   </div>
@@ -60,7 +63,14 @@ export default {
     layout: '',
     modalOpen: false, // When true, keybindings are disabled
     selectedSection: 0, // The index of currently selected section
+    tabbedView: true, // By default use tabs, when searching then show all instead
   }),
+  watch: {
+    /* When the theme changes, then call the update method */
+    searchValue() {
+      this.tabbedView = !this.searchValue.length > 0;
+    },
+  },
   methods: {
     sectionSelected(index) {
       this.selectedSection = index;
@@ -201,6 +211,14 @@ export default {
 
   /* Hide when search term returns nothing */
   .no-results { display: none; }
+
+  &.showing-all {
+    flex-direction: column;
+    display: flex;
+    .headings {
+      display: none;
+    }
+  }
 }
 
 .no-data {
