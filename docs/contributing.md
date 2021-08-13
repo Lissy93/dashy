@@ -10,20 +10,27 @@ Contributing to the code or documentation is super helpful. You can fix a bug, a
 ## Add Translations
 If you speak another language, then adding translations would be really helpful, and you will be credited in the readme for your work. Multi-language support makes Dashy accessible for non-English speakers, which I feel is important. This is a very quick and easy task, as all application text is located in [`locales/en.json`](https://github.com/Lissy93/dashy/blob/master/src/assets/locales/en.json), so adding a new language is as simple as copying this file and translating the values. You don't have to translate it all, as any missing attributes will just fallback to English. For a full tutorial, see the [Multi-Language Support Docs](https://github.com/Lissy93/dashy/blob/master/docs/multi-language-support.md).
 
+## Take a 2-minute survey
+Help improve Dashy by taking a very short, 6-question survey. This will give me a better understanding of what is important to you, so that I can make Dashy better in the future :)
+
+[![Take the Survey](https://img.shields.io/badge/Take_the-Survey-%231a86fd?style=for-the-badge&logo=buddy)](https://n9fy6xak9yd.typeform.com/to/gl0L68ou)
+
+## Share your dashboard
+Dashy now has a [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-) where you can show off a screenshot of your dashboard, and get inspiration from other users. I also really enjoy seeing how people are using Dashy. To [submit your dashboard](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#submitting-your-dashboard), please either open a PR or raise an issue.
+
 ## Improve the Docs
 Found a typo, or something that isn't as clear as it could be? Maybe I've missed something off altogether, or you hit a roadblock that took you a while to figure out. Submitting a pull request to add to or improve the documentation will help future users get Dashy up and running more easily.
 All content is located either in the [`./README.md`](/README.md) or [`/docs/`](/docs) directory, and synced to the Wiki and website using a GH [action](/actions/workflows/wiki-sync.yml).
 
 ## Raise a bug
-If you've found a bug, then please do raise it as an issue. This will help me know if there's something that needs fixing. Try and include as much detail as possible, such as your environment, steps to reproduce, any console output and maybe an example screenshot or recording if necessary. You can [Raise a Bug here](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%90%9B+Bug&template=bug-report---.md&title=%5BBUG%5D) 🐛.
+If you've found a bug, then please do raise it as an issue. This will help me know if there's something that needs fixing. Try and include as much detail as possible, such as your environment, steps to reproduce, any console output and maybe an example screenshot or recording if necessary.
+
+[![Raise a Bug](https://img.shields.io/badge/Raise_a-Bug-%23dc2d76?style=for-the-badge&logo=dependabot)](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%90%9B+Bug&template=bug-report---.md&title=%5BBUG%5D)
 
 ## Join the discussion
 I've enabled the discussion feature on GitHub, here you can share tips and tricks, useful information, or your dashboard. You can also ask questions, and offer basic support to other users.
 
 [![Join the Discussion on GitHub](https://img.shields.io/badge/Join_the-Discussion-%23ffd000?style=for-the-badge&logo=livechat)](https://github.com/Lissy93/dashy/discussions)
-
-## Share your dashboard
-Dashy now has a [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-) where you can show off a screenshot of your dashboard, and get inspiration from other users. I also really enjoy seeing how people are using Dashy. To [submit your dashboard](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#submitting-your-dashboard), please either open a PR or raise an issue.
 
 ## Spread the word
 Dashy is still a relatively young project, and as such not many people know of it. It would be great to see more users, and so it would be awesome if you could consider sharing on social platforms.
