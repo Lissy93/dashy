@@ -20,6 +20,8 @@ If you've found a bug, then please do raise it as an issue. This will help me kn
 ## Join the discussion
 I've enabled the discussion feature on GitHub, here you can share tips and tricks, useful information, or your dashboard. You can also ask questions, and offer basic support to other users.
 
+[![Join the Discussion on GitHub](https://img.shields.io/badge/Join_the-Discussion-%23ffd000?style=for-the-badge&logo=livechat)](https://github.com/Lissy93/dashy/discussions)
+
 ## Share your dashboard
 Dashy now has a [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-) where you can show off a screenshot of your dashboard, and get inspiration from other users. I also really enjoy seeing how people are using Dashy. To [submit your dashboard](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#submitting-your-dashboard), please either open a PR or raise an issue.
 
@@ -42,8 +44,9 @@ Dashy is on the following platforms, and if you could spare a few seconds to giv
 
 [![ProductHunt](https://img.shields.io/badge/Review-ProductHunt-%23b74424?style=for-the-badge&logo=producthunt)](https://www.producthunt.com/posts/dashy)
 [![AlternativeTo](https://img.shields.io/badge/Review-AlternativeTo-%235581a6?style=for-the-badge&logo=abletonlive)](https://alternativeto.net/software/dashy/about/)
+[![Slant](https://img.shields.io/badge/Review-Slant-%2346a1df?style=for-the-badge&logo=capacitor)](https://www.slant.co/improve/topics/27783/viewpoints/1/~self-hosted-homelab-startpage~dashy)
 [![Star on GitHub](https://img.shields.io/github/stars/Lissy93/Dashy?color=ba96d6&label=Star%20-%20GitHub&logo=github&style=for-the-badge)](https://github.com/Lissy93/dashy/stargazers)
-
+[![Star on DockerHub](https://img.shields.io/docker/stars/lissy93/dashy?color=4cb6e0&label=Star%20-%20Docker&logo=docker&style=for-the-badge)](https://hub.docker.com/r/lissy93/dashy)
 
 ## Make a small donation
 Please only do this is you can definitely afford to. Don't feel any pressure to donate anything, as Dashy and my other projects will always be 100% free, for everyone, for ever.
@@ -65,7 +68,7 @@ Sponsoring will give you several perks, from $1 / £0.70 per month, as well as a
 ## Request a feature via BountySource
 BountySource is a platform for sponsoring the development of certain features on open source projects. If there is a feature you'd like implemented into Dashy, but either isn't high enough priority or is deemed to be more work than it's worth, then you can instead contribute a bounty towards it's development. You won't pay a penny until your proposal is fully built, and you are satisfied with the result. This helps support the developers, and makes Dashy better for everyone.
 
-For more info, see [Dashy on Bounty Source](https://www.bountysource.com/teams/dashy)
+[![Request a Feature on BountySource](https://img.shields.io/badge/BountySource-Dashy-%23F67909?style=for-the-badge&logo=openbugbounty)](https://www.bountysource.com/teams/dashy)
 
 ## Enable Anonymous Bug Reports
 [Sentry](https://github.com/getsentry/sentry) is an open source error tracking and performance monitoring tool, which enables the identification any errors which occur in the production app (only if you enable it). It helps me to discover bugs I was unaware of, and then fix them, in order to make Dashy more reliable long term. This is a simple, yet really helpful step you can take to help improve Dashy.
