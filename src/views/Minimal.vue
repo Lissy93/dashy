@@ -81,7 +81,7 @@ export default {
   watch: {
     /* When the theme changes, then call the update method */
     searchValue() {
-      this.tabbedView = !this.searchValue.length > 0;
+      this.tabbedView = !(this.searchValue.length > 0);
     },
   },
   methods: {

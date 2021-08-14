@@ -54,6 +54,9 @@ export default {
       }
     });
   },
+  beforeDestroy() {
+    window.removeEventListener();
+  },
   methods: {
     /* Emmits users's search term up to parent */
     userIsTypingSomething() {
