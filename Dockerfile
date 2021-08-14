@@ -1,12 +1,7 @@
-FROM node:14.17-alpine AS BUILD_IMAGE
+FROM node:14.17.5-alpine AS BUILD_IMAGE
 
 ARG TARGETPLATFORM
 ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
-
-# Define some ENV Vars
-ENV PORT=80 \
-    DIRECTORY=/app \
-    IS_DOCKER=true
 
 # Install additional tools needed on arm64 and armv7
 RUN \
@@ -16,7 +11,7 @@ RUN \
   esac
 
 # Create and set the working directory
-WORKDIR ${DIRECTORY}
+WORKDIR /app
 
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --network-timeout 1000000
@@ -27,11 +22,11 @@ COPY . ./
 # Build initial app for production
 RUN yarn build
 
-# remove development dependencies
-RUN yarn install --production --ignore-scripts --prefer-offline
+# # remove development dependencies
+# RUN yarn install --production --ignore-scripts --prefer-offline
 
 # Build the final image
-FROM node:14.17-alpine
+FROM node:14.17.5-alpine
 
 # Define some ENV Vars
 ENV PORT=80 \
@@ -49,7 +44,7 @@ COPY --from=BUILD_IMAGE /app ./
 
 # Finally, run start command to serve up the built application
 ENTRYPOINT [ "/sbin/tini", "--" ]
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "build-and-start" ]
 
 # Expose given port
 EXPOSE ${PORT}
