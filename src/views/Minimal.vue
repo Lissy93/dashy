@@ -4,7 +4,7 @@
       <router-link to="/">
         <h1>{{ pageInfo.title }}</h1>
       </router-link>
-      <MinimalSearch @user-is-searchin="(s) => { this.searchValue = s; }" />
+      <MinimalSearch @user-is-searchin="(s) => { this.searchValue = s; }" :active="!modalOpen" />
     </div>
     <div v-if="checkTheresData(sections)"
       :class="`item-group-container ${!tabbedView ? 'showing-all' : ''}`">
@@ -33,8 +33,10 @@
         @sectionSelected="sectionSelected"
         @itemClicked="finishedSearching()"
         @change-modal-visibility="updateModalVisibility"
-        :class="(filterTiles(section.items).length === 0 && searchValue) ? 'no-results' : ''"
       />
+      <div v-if="checkIfResults()" class="no-data">
+        {{searchValue ? $t('home.no-results') : $t('home.no-data')}}
+      </div>
     </div>
   </div>
 </template>
@@ -44,6 +46,7 @@
 import MinimalSection from '@/components/MinimalView/MinimalSection.vue';
 import MinimalHeading from '@/components/MinimalView/MinimalHeading.vue';
 import MinimalSearch from '@/components/MinimalView/MinimalSearch.vue';
+import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
 
 export default {
@@ -64,6 +67,7 @@ export default {
     modalOpen: false, // When true, keybindings are disabled
     selectedSection: 0, // The index of currently selected section
     tabbedView: true, // By default use tabs, when searching then show all instead
+    theme: GetTheme(),
   }),
   watch: {
     /* When the theme changes, then call the update method */
@@ -156,18 +160,28 @@ export default {
         return itemsFound;
       }
     },
+    /* Make CSS to set the number of columns based on the number of sections */
     setColumnCount() {
       return `--col-count: ${this.sections.length};`;
     },
+    /* Make CSS styles to apply the users custom background image */
     getBackgroundImage() {
       if (this.appConfig && this.appConfig.backgroundImg) {
         return `background: url('${this.appConfig.backgroundImg}');background-size:cover;`;
       }
       return '';
     },
+    /* If theme present, then call helper to apply it, and any custom colors */
+    applyTheme() {
+      if (this.theme) {
+        ApplyLocalTheme(this.theme);
+        ApplyCustomVariables(this.theme);
+      }
+    },
   },
   mounted() {
     this.initiateFontAwesome();
+    this.applyTheme();
   },
 };
 </script>
@@ -208,9 +222,6 @@ export default {
   width: 90%;
   grid-template-columns: repeat(var(--col-count), 1fr);
   @extend .scroll-bar;
-
-  /* Hide when search term returns nothing */
-  .no-results { display: none; }
 
   &.showing-all {
     flex-direction: column;
