@@ -1,4 +1,32 @@
-FROM node:lts-alpine3.14
+FROM node:14.17.5-alpine AS BUILD_IMAGE
+
+ARG TARGETPLATFORM
+ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
+
+# Install additional tools needed on arm64 and armv7
+RUN \
+  case "${TARGETPLATFORM}" in \
+    'linux/arm64') apk add --no-cache python make g++ ;; \
+    'linux/arm/v7') apk add --no-cache python make g++ ;; \
+  esac
+
+# Create and set the working directory
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --network-timeout 1000000
+
+# Copy over all project files and folders to the working directory
+COPY . ./
+
+# Build initial app for production
+RUN yarn build
+
+# # remove development dependencies
+# RUN yarn install --production --ignore-scripts --prefer-offline
+
+# Build the final image
+FROM node:14.17.5-alpine
 
 # Define some ENV Vars
 ENV PORT=80 \
@@ -8,24 +36,18 @@ ENV PORT=80 \
 # Create and set the working directory
 WORKDIR ${DIRECTORY}
 
-# Copy over both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./
-COPY yarn.lock ./
+# Install tini and tzdata
+RUN apk add --no-cache tzdata tini
 
-# Install project dependencies
-RUN yarn
+# copy from build image
+COPY --from=BUILD_IMAGE /app ./
 
-# Copy over all project files and folders to the working directory
-COPY . .
-
-# Build initial app for production
-RUN yarn build
+# Finally, run start command to serve up the built application
+ENTRYPOINT [ "/sbin/tini", "--" ]
+CMD [ "yarn", "build-and-start" ]
 
 # Expose given port
 EXPOSE ${PORT}
-
-# Finally, run start command to serve up the built application
-CMD [ "yarn", "build-and-start"]
 
 # Run simple healthchecks every 5 mins, to check the Dashy's everythings great
 HEALTHCHECK --interval=5m --timeout=2s --start-period=30s CMD yarn health-check
