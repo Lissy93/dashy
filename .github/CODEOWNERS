@@ -13,4 +13,3 @@ src/assets/locales/nl.json    @evroon
 
 # Bot PR Permissions
 docs/assets/CONTRIBUTORS.svg  @liss-bot
-docs/*.md                     @liss-bot
