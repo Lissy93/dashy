@@ -1,8 +1,6 @@
 # Builds a Docker image from with latest tag when master branch is updated
 # The publishes it to GitHub container registry as a package
 name: Build and Publish Docker Image to GHCR
-permissions:
-  packages: write
 on:
   workflow_dispatch:
   push:
@@ -24,7 +22,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.PAT_GHCR }}
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
