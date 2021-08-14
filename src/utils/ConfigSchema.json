@@ -67,6 +67,15 @@
           "type": "string",
           "description": "The ISO code of your desired language, must have translations present, check docs for more info"
         },
+        "startingView": {
+          "enum": [
+            "default",
+            "minimal",
+            "workspace"
+          ],
+          "default": "default",
+          "description": "Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI"
+        },
         "theme": {
           "type": "string",
           "default": "callisto",
