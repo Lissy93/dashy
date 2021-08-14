@@ -13,6 +13,8 @@ module.exports = {
   appConfig: {},
   /* Default language code */
   language: 'en',
+  /* The page to use as the starting homepage */
+  startingView: 'default',
   /* Default icon size to be applied on initial load */
   iconSize: 'medium',
   /* Default layout to be applied on initial load */
@@ -23,6 +25,15 @@ module.exports = {
   fontAwesomeKey: '0821c65656',
   /* Default API to use for fetching of user service favicon icons (if enabled) */
   faviconApi: 'faviconkit',
+  /* The page paths for each route within the app for the router */
+  routePaths: {
+    home: '/home',
+    minimal: '/minimal',
+    workspace: '/workspace',
+    about: '/about',
+    login: '/login',
+    download: '/download',
+  },
   /* List of built-in themes, to be displayed within the theme-switcher dropdown */
   builtInThemes: [
     'callisto',
@@ -62,6 +73,8 @@ module.exports = {
   hideFurnitureOn: [
     'minimal',
     'login',
+    'download',
+    'landing-page-minimal',
   ],
   /* Key names for local storage identifiers */
   localStorageKeys: {

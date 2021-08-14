@@ -1,16 +1,24 @@
+/**
+ * This is the router config, which defined the location for
+ * each page within the app, and how they should be loaded
+ * Note that the page paths are defined in @/utils/defaults.js
+ */
+
 // Import Vue.js and vue router
 import Vue from 'vue';
 import Router from 'vue-router';
+
 // Import views
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Workspace from '@/views/Workspace.vue';
 import Minimal from '@/views/Minimal.vue';
 import DownloadConfig from '@/views/DownloadConfig.vue';
+
 // Import helper functions, config data and defaults
 import { isLoggedIn } from '@/utils/Auth';
 import { config } from '@/utils/ConfigHelpers';
-import { metaTagData } from '@/utils/defaults';
+import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 
 Vue.use(Router);
 
@@ -25,7 +33,7 @@ const isAuthenticated = () => {
 };
 
 /* Get the users chosen starting view from app config, or return default */
-const getStartingView = () => config.appConfig.startingView || 'default';
+const getStartingView = () => config.appConfig.startingView || startingView;
 
 /**
  * Returns the component that should be rendered at the base path,
@@ -58,28 +66,28 @@ const router = new Router({
       meta: makeMetaTags('Home Page'),
     },
     { // Default home page
-      path: '/home',
+      path: routePaths.home,
       name: 'home',
       component: Home,
       props: config,
       meta: makeMetaTags('Home Page'),
     },
     { // Workspace view page
-      path: '/workspace',
+      path: routePaths.workspace,
       name: 'workspace',
       component: Workspace,
       props: config,
       meta: makeMetaTags('Workspace'),
     },
     { // Minimal view page
-      path: '/minimal',
+      path: routePaths.minimal,
       name: 'minimal',
       component: Minimal,
       props: config,
       meta: makeMetaTags('Start Page'),
     },
     { // The login page
-      path: '/login',
+      path: routePaths.login,
       name: 'login',
       component: Login,
       props: {
@@ -91,13 +99,13 @@ const router = new Router({
       },
     },
     { // The about app page
-      path: '/about',
+      path: routePaths.about,
       name: 'about',
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
       meta: makeMetaTags('About Dashy'),
     },
     { // The export config page
-      path: '/download',
+      path: routePaths.download,
       name: 'download',
       component: DownloadConfig,
       props: config,
