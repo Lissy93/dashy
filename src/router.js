@@ -1,13 +1,24 @@
+/**
+ * This is the router config, which defined the location for
+ * each page within the app, and how they should be loaded
+ * Note that the page paths are defined in @/utils/defaults.js
+ */
+
+// Import Vue.js and vue router
 import Vue from 'vue';
 import Router from 'vue-router';
 
+// Import views
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Workspace from '@/views/Workspace.vue';
+import Minimal from '@/views/Minimal.vue';
 import DownloadConfig from '@/views/DownloadConfig.vue';
+
+// Import helper functions, config data and defaults
 import { isLoggedIn } from '@/utils/Auth';
 import { config } from '@/utils/ConfigHelpers';
-import { metaTagData } from '@/utils/defaults';
+import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 
 Vue.use(Router);
 
@@ -21,30 +32,62 @@ const isAuthenticated = () => {
   return (!users || users.length === 0 || isLoggedIn(users));
 };
 
+/* Get the users chosen starting view from app config, or return default */
+const getStartingView = () => config.appConfig.startingView || startingView;
+
+/**
+ * Returns the component that should be rendered at the base path,
+ * Defaults to Home, but the user can change this to Workspace of Minimal
+ */
+const getStartingComponent = () => {
+  const usersPreference = getStartingView();
+  switch (usersPreference) {
+    case 'default': return Home;
+    case 'minimal': return Minimal;
+    case 'workspace': return Workspace;
+    default: return Home;
+  }
+};
+
+/* Returns the meta tags for each route */
+const makeMetaTags = (defaultTitle) => ({
+  title: config.pageInfo.title || defaultTitle,
+  metaTags: metaTagData,
+});
+
+/* List of all routes, props, components and metadata */
 const router = new Router({
   routes: [
-    {
+    { // The default view can be customized by the user
       path: '/',
+      name: `landing-page-${getStartingView()}`,
+      component: getStartingComponent(),
+      props: config,
+      meta: makeMetaTags('Home Page'),
+    },
+    { // Default home page
+      path: routePaths.home,
       name: 'home',
       component: Home,
       props: config,
-      meta: {
-        title: config.pageInfo.title || 'Home Page',
-        metaTags: metaTagData,
-      },
+      meta: makeMetaTags('Home Page'),
     },
-    {
-      path: '/workspace',
+    { // Workspace view page
+      path: routePaths.workspace,
       name: 'workspace',
       component: Workspace,
       props: config,
-      meta: {
-        title: config.pageInfo.title || 'Dashy Workspace',
-        metaTags: metaTagData,
-      },
+      meta: makeMetaTags('Workspace'),
     },
-    {
-      path: '/login',
+    { // Minimal view page
+      path: routePaths.minimal,
+      name: 'minimal',
+      component: Minimal,
+      props: config,
+      meta: makeMetaTags('Start Page'),
+    },
+    { // The login page
+      path: routePaths.login,
       name: 'login',
       component: Login,
       props: {
@@ -55,34 +98,38 @@ const router = new Router({
         next();
       },
     },
-    {
-      path: '/about',
+    { // The about app page
+      path: routePaths.about,
       name: 'about',
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      meta: makeMetaTags('About Dashy'),
     },
-    {
-      path: '/download',
+    { // The export config page
+      path: routePaths.download,
       name: 'download',
       component: DownloadConfig,
       props: config,
-      meta: {
-        title: config.pageInfo.title || 'Download Dashy Config',
-        metaTags: metaTagData,
-      },
+      meta: makeMetaTags('Download Config'),
     },
   ],
 });
 
+/**
+ * Before loading a route, check if the user has authentication enabled *
+ * if so, then ensure that they are correctly logged in as a valid user *
+ * If not logged in, prevent access and redirect them to the login page *
+ * */
 router.beforeEach((to, from, next) => {
   if (to.name !== 'login' && !isAuthenticated()) next({ name: 'login' });
   else next();
 });
 
-const defaultTitle = 'Dashy';
+/* If title is missing, then apply default page title */
 router.afterEach((to) => {
   Vue.nextTick(() => {
-    document.title = to.meta.title || defaultTitle;
+    document.title = to.meta.title || 'Dashy';
   });
 });
 
+// Export the now configured router
 export default router;

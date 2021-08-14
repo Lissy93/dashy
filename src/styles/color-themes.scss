@@ -481,7 +481,7 @@ html[data-theme='material'], html[data-theme='material-dark'] {
 
 html[data-theme='material'] {
   --primary: #363636;
-  --background: #f5f5f5;
+  --background: #eee;
   --background-darker: #5c90eb;
   --item-group-outer-background: none;
   --item-group-shadow: none;
@@ -501,7 +501,7 @@ html[data-theme='material'] {
   --config-settings-background: #f5f5f5;
   --config-settings-color: #473f3f;
   --heading-text-color: #fff;
-  --curve-factor: 4px;
+  --curve-factor: 3px;
   --curve-factor-navbar: 8px;
   --search-container-background: #4285f4;
   --welcome-popup-text-color: #f5f5f5;
@@ -509,6 +509,30 @@ html[data-theme='material'] {
   // --login-form-background-secondary: #f5f5f5cc;
   --context-menu-secondary-color: #f5f5f5;
   --transparent-white-50: #00000080;
+
+  --minimal-view-background-color: var(--background);
+  --minimal-view-title-color: var(--background-darker);
+  --minimal-view-settings-color: var(--primary);
+  --minimal-view-section-heading-color: var(--primary);
+  --minimal-view-section-heading-background: #f6f6f6;
+  --minimal-view-search-background: #fff;
+  --minimal-view-search-color: var(--primary);
+  --minimal-view-group-color: var(--primary);
+  --minimal-view-group-background: #fff;
+
+  .minimal-section-inner.selected, div.minimal-section-heading  {
+    border: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  }
+  .title-and-search form input {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  }
+  div.minimal-section-heading.selected {
+    background: #5c90eb;
+  }
+  div.minimal-section-inner {
+    background: #ffffff80;
+  }
 
   div.jsoneditor div.jsoneditor-menu {
     background: #5c90eb !important;
@@ -584,6 +608,25 @@ html[data-theme='material-dark'] {
   --status-check-tooltip-color: #131a1f;
   // --login-form-color: #131a1f;
   --login-form-background-secondary: #131a1f;
+
+  // --minimal-view-background-color: var(--background);
+  // --minimal-view-title-color: var(--primary);
+  // --minimal-view-settings-color: var(--primary);
+  --minimal-view-section-heading-color: #131a1f;
+  --minimal-view-section-heading-background: var(--background);
+  --minimal-view-search-background: #131a1f;
+  // --minimal-view-search-color: var(--primary);
+  // --minimal-view-group-color: var(--primary);
+  --minimal-view-group-background: #131a1f;
+
+  div.minimal-section-heading h3, div.minimal-section-heading.selected h3 {
+    color: #d5d5d5;
+  }
+  div.minimal-section-heading, .minimal-section-inner.selected, input.minimal-search {
+    box-shadow: 2px 2px 4px #000000, 0 1px 3px #000000cc;
+    border-color: #131a1f80;
+  }
+
 
   &::-webkit-scrollbar-thumb {
     border-left: 1px solid #131a1f;
@@ -811,6 +854,10 @@ html[data-theme="oblivion-scotch"] {
   section.filter-container form input#filter-tiles {
     border: 1px solid #313d4f;
     box-shadow: 0 1px 5px #0c0d0e;
+  }
+
+  .minimal-home div.item-group-container, input.minimal-search {
+    box-shadow: 0 1px 6px #00000099, 0 1px 1px #000000cc;
   }
 }
 
