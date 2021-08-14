@@ -32,31 +32,6 @@ export default {
       getCustomKeyShortcuts,
     };
   },
-  mounted() {
-    window.addEventListener('keydown', (event) => {
-      const currentElem = document.activeElement.id;
-      const { key, keyCode } = event;
-      /* If a modal is open, then do nothing */
-      if (!this.active) return;
-      if (/^[a-zA-Z]$/.test(key) && currentElem !== 'filter-tiles') {
-        /* Letter key pressed - start searching */
-        if (this.$refs.filter) this.$refs.filter.focus();
-        this.userIsTypingSomething();
-      } else if (/^[0-9]$/.test(key)) {
-        /* Number key pressed, check if user has a custom binding */
-        this.handleHotKey(key);
-      } else if (keyCode >= 37 && keyCode <= 40) {
-      /* Arrow key pressed - start navigation */
-        this.akn.arrowNavigation(keyCode);
-      } else if (keyCode === 27) {
-      /* Esc key pressed - reset form */
-        this.clearFilterInput();
-      }
-    });
-  },
-  beforeDestroy() {
-    window.removeEventListener();
-  },
   methods: {
     /* Emmits users's search term up to parent */
     userIsTypingSomething() {
@@ -77,6 +52,32 @@ export default {
         }
       });
     },
+    startFiltering(event) {
+      const currentElem = document.activeElement.id;
+      const { key, keyCode } = event;
+      /* If a modal is open, then do nothing */
+      if (!this.active) return;
+      if (/^[a-zA-Z]$/.test(key) && currentElem !== 'filter-tiles') {
+        /* Letter key pressed - start searching */
+        if (this.$refs.filter) this.$refs.filter.focus();
+        this.userIsTypingSomething();
+      } else if (/^[0-9]$/.test(key)) {
+        /* Number key pressed, check if user has a custom binding */
+        this.handleHotKey(key);
+      } else if (keyCode >= 37 && keyCode <= 40) {
+      /* Arrow key pressed - start navigation */
+        this.akn.arrowNavigation(keyCode);
+      } else if (keyCode === 27) {
+      /* Esc key pressed - reset form */
+        this.clearFilterInput();
+      }
+    },
+  },
+  mounted() {
+    window.addEventListener('keydown', this.startFiltering);
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.startFiltering);
   },
 };
 </script>
