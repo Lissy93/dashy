@@ -1,5 +1,10 @@
 # Changelog
 
+## ✨ 1.5.9 - New Minimal/ Startpage View [PR #155](https://github.com/Lissy93/dashy/issues/155)
+- Adds a new view, called minimal view, designed to be like a light-weight startpage
+- Implemented all the required features (filtering, opening methods, icons, etc) into minimal view
+- Adds `appConfig.startingView`  into schema, for specifying the initial default view to be loaded
+
 ## ✨ 1.5.8 - Multi-Tasking Support in Workspace View [PR #146](https://github.com/Lissy93/dashy/pull/146)
 - Adds option to keep launched apps open in the background, to reduce friction when switching between websites, Re: #144
 - This can be enabled by setting `appConfig.enableMultiTasking: true`
