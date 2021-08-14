@@ -1,6 +1,8 @@
 # Builds a Docker image from with latest tag when master branch is updated
 # The publishes it to GitHub container registry as a package
 name: Build and Publish Docker Image to GHCR
+permissions:
+  packages: write
 on:
   workflow_dispatch:
   push:
