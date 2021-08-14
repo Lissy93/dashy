@@ -48,3 +48,6 @@ CMD [ "yarn", "build-and-start" ]
 
 # Expose given port
 EXPOSE ${PORT}
+
+# Run simple healthchecks every 5 mins, to check the Dashy's everythings great
+HEALTHCHECK --interval=5m --timeout=2s --start-period=30s CMD yarn health-check
