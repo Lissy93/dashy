@@ -85,7 +85,7 @@
 - Or on your own machine: `docker run -p 8080:80 lissy93/dashy`
   - See the [Quick Start Guide](./docs/quick-start.md) for getting Dashy up and running in under 5 minutes
 
-#### Recording
+#### Demo GIF
 <p align="center">
   <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo" />
 </p>
@@ -432,11 +432,11 @@ Found a bug, or something that isn't working as you'd expect? Please raise it as
 If you're using Dashy, and would like to help support it's development, then that would be awesome! Contributions of any type, however small are always very much appreciated, and you will be appropriately credited for your effort.
 
 Several areas that we need a bit of help with at the moment are:
-- Adding translations - Help make Dashy available to non-native English speakers by [adding text for you're language](./docs/multi-language-support.md#adding-a-new-language)
-- Donate a small amount, by [Sponsoring @Lissy93 on GitHub](https://github.com/sponsors/Lissy93) (only if you can afford to), and you'll also receive some extra perks!
+- Translating - Help make Dashy available to non-native English speakers by [adding youre language](./docs/multi-language-support.md#adding-a-new-language)
+- Donate a small amount, by [Sponsoring @Lissy93 on GitHub](https://github.com/sponsors/Lissy93) and receive some extra perks!
 - Complete a [short survey](https://n9fy6xak9yd.typeform.com/to/gl0L68ou), to have your say about future features
-- Share your dashboard in the [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-), to help provide inspiration for others
-- Community Engagement: Join the [discussion](https://github.com/Lissy93/dashy/discussions), and help answer other users questions, suggest features, share tips and ask questions
+- Share your dashboard in the [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-), to provide inspiration for others
+- Join the [discussion](https://github.com/Lissy93/dashy/discussions), help answer other users questions, suggest features, share tips and ask questions
 - Spread the word, by sharing Dashy online, to help new users discover it
 - Submit a PR, to add a new feature, fix a bug, update the docs, add a theme or something else
 - Star Dashy on GitHub/ DockerHub or leave an upvote / review on [these platforms](https://github.com/Lissy93/dashy/blob/master/docs/contributing.md#star-upvote-or-leave-a-review)
