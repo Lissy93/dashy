@@ -1,5 +1,11 @@
 <template>
   <div class="minimal-home" :style="getBackgroundImage() + setColumnCount()">
+    <!-- Buttons for config and home page -->
+    <div class="minimal-buttons">
+      <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
+        @modalChanged="modalChanged" class="config-launcher" />
+    </div>
+    <!-- Page title and search bar -->
     <div class="title-and-search">
       <router-link to="/">
         <h1>{{ pageInfo.title }}</h1>
@@ -38,6 +44,7 @@
         {{searchValue ? $t('home.no-results') : $t('home.no-data')}}
       </div>
     </div>
+    <div v-else class="no-data"> {{ $t('home.no-data') }} </div>
   </div>
 </template>
 
@@ -48,6 +55,7 @@ import MinimalHeading from '@/components/MinimalView/MinimalHeading.vue';
 import MinimalSearch from '@/components/MinimalView/MinimalSearch.vue';
 import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
+import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 
 export default {
   name: 'home',
@@ -60,6 +68,7 @@ export default {
     MinimalSection,
     MinimalHeading,
     MinimalSearch,
+    ConfigLauncher,
   },
   data: () => ({
     searchValue: '',
@@ -178,6 +187,9 @@ export default {
         ApplyCustomVariables(this.theme);
       }
     },
+    modalChanged(modalState) {
+      this.modalOpen = modalState;
+    },
   },
   mounted() {
     this.initiateFontAwesome();
@@ -193,10 +205,10 @@ export default {
 .minimal-home {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin: 1rem auto;
   padding-bottom: 1px;
-  min-height: calc(99.9vh - var(--footer-height));
+  padding-top: 10vh;
+  min-height: calc(99vh - var(--footer-height));
   width: 90%;
   max-width: 1000px;
   background: var(--background);
@@ -232,6 +244,13 @@ export default {
   }
 }
 
+ @include phone {
+   .item-group-container {
+    display: flex;
+    flex-direction: column;
+   }
+}
+
 .no-data {
     font-size: 2rem;
     color: var(--background);
@@ -242,4 +261,28 @@ export default {
     border-radius: var(--curve-factor);
 }
 
+.minimal-buttons {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    display: flex;
+    .home-page-icon {
+      color: var(--primary);
+      width: 1.5rem;
+      height: 1.5rem;
+      @extend .svg-button;
+    }
+}
+</style>
+
+<style lang="scss">
+.minimal-home .minimal-buttons {
+  .config-launcher span.config-label { display: none; }
+  svg { opacity: var(--dimming-factor); border: none; }
+  &:hover svg { opacity: 1; }
+  .view-switcher {
+    margin-top: 2rem;
+    right: 0;
+  }
+}
 </style>

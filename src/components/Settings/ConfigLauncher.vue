@@ -1,9 +1,11 @@
 <template>
-  <div class="config-options">
+  <div class="config-options" v-click-outside="closeViewSwitcher">
     <!-- Button and label -->
-    <span>{{ $t('settings.config-launcher-label') }}</span>
+    <span class="config-label">{{ $t('settings.config-launcher-label') }}</span>
     <div class="config-buttons">
       <IconSpanner @click="showEditor()" tabindex="-2"
+        v-tooltip="tooltip($t('settings.config-launcher-tooltip'))" />
+       <IconViewMode @click="openChangeViewMenu()" tabindex="-2"
         v-tooltip="tooltip($t('settings.config-launcher-tooltip'))" />
     </div>
 
@@ -19,27 +21,55 @@
       <LanguageSwitcher />
     </modal>
 
+    <!-- Menu for switching view -->
+    <div v-if="viewSwitcherOpen" class="view-switcher">
+      <ul>
+        <li>
+          <router-link to="/home">
+            <IconHome /><span>Default</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/minimal">
+            <IconMinimalView /><span>Minimal</span>
+          </router-link>
+        <li>
+          <router-link to="/workspace">
+            <IconWorkspaceView /><span>Workspace</span>
+          </router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 
-import IconSpanner from '@/assets/interface-icons/config-editor.svg';
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
 import LanguageSwitcher from '@/components/Settings/LanguageSwitcher';
 import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/defaults';
+import IconSpanner from '@/assets/interface-icons/config-editor.svg';
+import IconViewMode from '@/assets/interface-icons/application-change-view.svg';
+import IconHome from '@/assets/interface-icons/application-home.svg';
+import IconWorkspaceView from '@/assets/interface-icons/open-workspace.svg';
+import IconMinimalView from '@/assets/interface-icons/application-minimal.svg';
 
 export default {
   name: 'ConfigLauncher',
   data() {
     return {
       modalNames,
+      viewSwitcherOpen: false,
     };
   },
   components: {
-    IconSpanner,
     ConfigContainer,
     LanguageSwitcher,
+    IconSpanner,
+    IconViewMode,
+    IconHome,
+    IconWorkspaceView,
+    IconMinimalView,
   },
   props: {
     sections: Array,
@@ -48,7 +78,6 @@ export default {
   },
   methods: {
     showEditor: function show() {
-      // TODO: If users first time, then show note explaining that config is only stored locally
       this.$modal.show(modalNames.CONF_EDITOR);
       this.$emit('modalChanged', true);
     },
@@ -63,6 +92,12 @@ export default {
     },
     tooltip(content) {
       return { content, trigger: 'hover focus', delay: 250 };
+    },
+    openChangeViewMenu() {
+      this.viewSwitcherOpen = !this.viewSwitcherOpen;
+    },
+    closeViewSwitcher() {
+      this.viewSwitcherOpen = false;
     },
   },
 };
@@ -90,6 +125,40 @@ export default {
     &:hover, &.selected {
       background: var(--settings-text-color);
       path { fill: var(--background); }
+    }
+  }
+}
+
+.view-switcher {
+  position: absolute;
+  right: 1rem;
+  margin-top: 3rem;
+  z-index: 5;
+  background: var(--background);
+  border: 1px solid var(--settings-text-color);
+  border-radius: var(--curve-factor);
+  box-shadow: var(--settings-container-shadow);
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      cursor: pointer;
+      padding: 0.25rem 0.75rem;
+      a {
+        color: var(--settings-text-color);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+      &:hover {
+        background: var(--settings-text-color);
+        a { color: var(--background); }
+      }
+      svg {
+        margin: 0 0.25rem 0 0;
+        border: none;
+      }
     }
   }
 }
