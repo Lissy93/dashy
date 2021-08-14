@@ -35,54 +35,74 @@
   * all variables are optional, since they inherit initial values from above*
   * Using specific variables makes overriding for custom themes really easy */
   --heading-text-color: var(--primary);
+  // Nav-bar links 
   --nav-link-text-color: var(--primary);
   --nav-link-background-color: #607d8b33;
   --nav-link-text-color-hover: var(--primary);
   --nav-link-background-color-hover: #607d8b33;
   --nav-link-border-color: transparent;
   --nav-link-border-color-hover: var(--primary);
+  // Link items and sections
   --item-text-color: var(--primary);
   --item-text-color-hover: var(--item-text-color);
   --item-group-outer-background: var(--primary);
   --item-group-heading-text-color: var(--item-group-background);
   --item-group-heading-text-color-hover: var(--background);
+  // Settings and config
   --settings-background: var(--background);
   --settings-text-color: var(--primary);
-  --search-container-background: var(--background-darker);
-  --search-field-background: var(--background);
-  --search-label-color: var(--settings-text-color);
-  --footer-text-color: var(--medium-grey);
-  --footer-text-color-link:  var(--primary);
-  --footer-background: var(--background-darker);
-  --welcome-popup-background: var(--background-darker);
-  --welcome-popup-text-color: var(--primary);
   --config-code-background: #fff;
   --config-code-color: var(--background);
   --config-settings-color: var(--primary);
   --config-settings-background: var(--background-darker);
-  --toast-background: var(--primary);
-  --toast-color: var(--background);
+  --code-editor-color: var(--black);
+  --code-editor-background: var(--white);
+  // Search bar (on homepage)
+  --search-container-background: var(--background-darker);
+  --search-field-background: var(--background);
+  --search-label-color: var(--settings-text-color);
+  // Page footer
+  --footer-text-color: var(--medium-grey);
+  --footer-text-color-link:  var(--primary);
+  --footer-background: var(--background-darker);
+  // Right-click context menu
+  --context-menu-background: var(--background);
+  --context-menu-color: var(--primary);
+  --context-menu-secondary-color: var(--background-darker);
+  // Workspace view
+  --side-bar-background: var(--background-darker);
+  --side-bar-background-lighter: var(--background);
+  --side-bar-color: var(--primary);
+  // Minimal view
+  --minimal-view-background-color: var(--background);
+  --minimal-view-title-color: var(--primary);
+  --minimal-view-settings-color: var(--primary);
+  --minimal-view-section-heading-color: var(--primary);
+  --minimal-view-section-heading-background: var(--background-darker);
+  --minimal-view-search-background: var(--background-darker);
+  --minimal-view-search-color: var(--primary);
+  --minimal-view-group-color: var(--primary);
+  --minimal-view-group-background: var(--background-darker);
+  // Login page
+  --login-form-color: var(--primary);
+  --login-form-background: var(--background);
+  --login-form-background-secondary: var(--background-darker);
+  // About page
+  --about-page-color: var(--white);
+  --about-page-background: var(--background);
+  --about-page-accent: var(--primary);
+  // Webpage colors, highlight, scrollbar
   --scroll-bar-color: var(--primary);
   --scroll-bar-background: var(--background-darker);
   --highlight-color: var(--background);
   --highlight-background: var(--primary);
+  // Misc components
   --loading-screen-color: var(--primary);
   --loading-screen-background: var(--background);
-  --login-form-color: var(--primary);
-  --login-form-background: var(--background);
-  --login-form-background-secondary: var(--background-darker);
-  --about-page-color: var(--white);
-  --about-page-background: var(--background);
-  --about-page-accent: var(--primary);
-  --side-bar-background: var(--background-darker);
-  --side-bar-background-lighter: var(--background);
-  --side-bar-color: var(--primary);
   --status-check-tooltip-background: var(--background-darker);
   --status-check-tooltip-color: var(--primary);
-  --code-editor-color: var(--black);
-  --code-editor-background: var(--white);
-
-  --context-menu-background: var(--background);
-  --context-menu-color: var(--primary);
-  --context-menu-secondary-color: var(--background-darker);
+  --welcome-popup-background: var(--background-darker);
+  --welcome-popup-text-color: var(--primary);
+  --toast-background: var(--primary);
+  --toast-color: var(--background);
 }

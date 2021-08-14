@@ -211,13 +211,13 @@ export default {
   min-height: calc(99vh - var(--footer-height));
   width: 90%;
   max-width: 1000px;
-  background: var(--background);
+  background: var(--minimal-view-background-color);
 }
 
 .title-and-search {
   text-align: center;
   h1 {
-    color: var(--heading-text-color);
+    color: var(--minimal-view-title-color);
     margin: 0;
     font-size: 3rem;
   }
@@ -253,7 +253,7 @@ export default {
 
 .no-data {
     font-size: 2rem;
-    color: var(--background);
+    color: var(--minimal-view-background-color);
     background: #ffffffeb;
     width: fit-content;
     margin: 2rem auto;
@@ -267,7 +267,7 @@ export default {
     right: 1rem;
     display: flex;
     .home-page-icon {
-      color: var(--primary);
+      color: var(--minimal-view-settings-color);
       width: 1.5rem;
       height: 1.5rem;
       @extend .svg-button;

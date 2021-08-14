@@ -4,6 +4,7 @@
       id="filter-tiles"
       v-model="input"
       ref="filter"
+      class="minimal-search"
       :placeholder="$t('search.search-placeholder')"
       v-on:input="userIsTypingSomething"
       @keydown.esc="clearFilterInput" />
@@ -84,12 +85,6 @@ export default {
   form {
     display: flex;
     align-items: center;
-    label {
-        display: inline;
-        color: var(--search-label-color);
-        margin: 0.5rem;
-        display: inline;
-    }
     input {
       display: inline-block;
       width: 80%;
@@ -100,17 +95,17 @@ export default {
       outline: none;
       border: 1px solid var(--outline-color);
       border-radius: var(--curve-factor);
-      background: var(--background-darker);
-      color: var(--settings-text-color);
+      background: var(--minimal-view-search-background);
+      color: var(--minimal-view-search-color);
       &:focus {
-        border-color: var(--settings-text-color);
+        border-color: var(--minimal-view-search-color);
         opacity: var(--dimming-factor);
       }
     }
     .clear-search {
       //position: absolute;
-      color: var(--settings-text-color);
-      padding: 0 0.4rem;
+      color: var(--minimal-view-search-color);
+      padding: 0.15rem 0.5rem 0.2rem 0.5rem;
       font-style: normal;
       font-size: 1rem;
       opacity: var(--dimming-factor);
@@ -118,12 +113,13 @@ export default {
       cursor: pointer;
       right: 0.5rem;
       top: 1rem;
-      border: 1px solid var(--settings-text-color);
+      border: 1px solid var(--minimal-view-search-color);
       font-size: 1rem;
       margin: 0.5rem;
       &:hover {
         opacity: 1;
-        background: var(--background-darker);
+        color: var(--minimal-view-search-background);
+        background: var(--minimal-view-search-color);
       }
     }
   }

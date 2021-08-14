@@ -30,19 +30,19 @@ export default {
 div.minimal-section-heading {
   cursor: pointer;
   padding: 0.5rem 0.25rem;
-  border-radius: var(--curve-factor);
-  border: 1px solid var(--primary);
+  margin-bottom: 0;
+  background: var(--minimal-view-section-heading-background);
+  border: 1px solid var(--minimal-view-section-heading-color);
   border-bottom: none;
   border-radius: var(--curve-factor) var(--curve-factor) 0 0;
-  margin-bottom: 0;
   h3 {
     margin: 0;
-    color: var(--primary);
+    color: var(--minimal-view-section-heading-color);
   }
   &.selected {
-    background: var(--primary);
+    background: var(--minimal-view-section-heading-color);
     h3 {
-      color: var(--item-group-heading-text-color);
+      color: var(--minimal-view-section-heading-background);
     }
   }
 }

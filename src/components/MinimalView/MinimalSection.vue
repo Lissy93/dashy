@@ -93,7 +93,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  background: var(--item-group-background);
+  background: var(--minimal-view-group-background);
   border-radius: 0 0 var(--curve-factor) var(--curve-factor);
   .section-items {
     display: grid;
@@ -105,7 +105,7 @@ export default {
     @include big-screen-up { grid-template-columns: repeat(6, 1fr); }
   }
   &.selected {
-    border: 1px solid var(--primary);
+    border: 1px solid var(--minimal-view-group-color);
     grid-column-start: span var(--col-count, 3);
   }
   &.show-all {
