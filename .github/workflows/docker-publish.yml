@@ -1,8 +1,10 @@
+# Builds a Docker image from with latest tag when master branch is updated
+# The publishes it to GitHub container registry as a package
 name: Build and Publish Docker Image to GHCR
 on:
   workflow_dispatch:
   push:
-    branches: ['release']
+    branches: ['master']
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -25,5 +27,5 @@ jobs:
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
-          push: false
+          push: true
           tags: latest          
