@@ -121,10 +121,15 @@ docker run -d \
   --restart=always \
   lissy93/dashy:latest
 ```
+[![Dashy on Docker Hub](https://dockeri.co/image/lissy93/dashy)](https://hub.docker.com/r/lissy93/dashy)
 
 If you prefer to use Docker Compose, [here is an example](./docs/deployment.md#using-docker-compose).
 
-[![Dashy on Docker Hub](https://dockeri.co/image/lissy93/dashy)](https://hub.docker.com/r/lissy93/dashy)
+Dashy is also available through GHCR, run: `docker pull ghcr.io/lissy93/dashy`.
+
+To use Dashy on an system other than `amd64`, then use [one of these tags](https://hub.docker.com/r/lissy93/dashy/tags). There are containers for `arm32-7`, `arm64-v8` and a multi-architecture image.
+
+The image defaults to `:latest`, but you can instead specify a specific version, e.g. `docker pull lissy93/dashy:release-1.5.0`
 
 > Once you've got Dashy running, you can take a look at [App Management Docs](./docs/management.md), for info on using health checks, provisioning assets, configuring web servers, securing your app, logs, performance and more.
 
