@@ -53,7 +53,7 @@ export default {
       password: '',
       message: '',
       status: 'waiting', // wating, error, success
-      timeout: { label: this.$t('login.remember-me-never'), time: 0 },
+      timeout: undefined,
     };
   },
   computed: {
@@ -106,6 +106,7 @@ export default {
   },
   created() {
     this.setTheme();
+    setTimeout(() => { this.timeout = this.dropDownMenu[0]; }, 1); //eslint-disable-line
   },
 };
 
