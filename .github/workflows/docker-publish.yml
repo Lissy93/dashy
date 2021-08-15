@@ -12,6 +12,7 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
+     if: "!contains(github.event.head_commit.message, '[ci-skip]')"
     permissions:
       contents: read
       packages: write
@@ -19,12 +20,34 @@ jobs:
         # Fetch the code
       - name: Checkout repository
         uses: actions/checkout@v2
-        # Build the image from default Dockerfile
-      - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+
+      - name: Prepare
+        id: prep
+        run: echo ::set-output name=version::${GITHUB_REF##*/}
+
+      # Use QEMU for multi-architecture builds
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: all
+
+      # Use  Moby BuildKit
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          install: true
+          version: latest
+          driver-opts: image=moby/buildkit:master
+
         # Login into GH container registry
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+        # Build the image from default Dockerfile
+      - name: Build image
+        run: docker build . --file docker/Dockerfile-multi-arch --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+
         # Push build image
       - name: Push image
         run: |
