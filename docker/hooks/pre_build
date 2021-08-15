@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Source: https://github.com/ckulka/docker-multi-arch-example/blob/master/hooks/pre_build
 # Used to setup QEMU to build arm images on amd64 processors.
+# Source: https://git.io/J0ezo
 
 # Register qemu-*-static for all supported processors except the
 # current one, but also remove all registered binfmt_misc before
