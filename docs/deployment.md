@@ -56,19 +56,21 @@ Explanation of the above options:
 - `-v` Specify volumes, to pass data from your host system to the container, in the format of `[host-path]:[container-path]`, you can use this to pass your config file, directory of assets (like icons), custom CSS or web assets (like favicon.ico, manifest.json etc)
 - `--name` Give your container a human-readable name
 - `--restart=always` Spin up the container when the daemon starts, or after it has been stopped
-- `lissy93/dashy:latest` This last option is the image the container should be built from, you can also use a specific version, by replacing `:latest` with one of the [tags](https://hub.docker.com/r/lissy93/dashy/tags)
+- `lissy93/dashy:latest` This last option is the image the container should be built from, you can also use a specific version or architecture type, by replacing `:latest` with one of the [tags](https://hub.docker.com/r/lissy93/dashy/tags)
 
 For all available options, and to learn more, see the [Docker Run Docs](https://docs.docker.com/engine/reference/commandline/run/)
 
-If you're deploying Dashy on a modern ARM-based board, such as a Raspberry Pi (2+), then you'll need to use one of Dashy's ARM images. Set the base image + tag to either `lissy93/dashy:arm64v8` or `lissy93/dashy:arm32v7`, depending on your system architecture.
+Dashy is also available through GHCR: `docker pull ghcr.io/lissy93/dashy:latest`
+
+If you're deploying Dashy on a modern ARM-based board, such as a Raspberry Pi (2+), then you'll need to use one of Dashy's ARM images. Set the base image + tag to either `lissy93/dashy:arm64v8` or `lissy93/dashy:arm32v7`, depending on your system architecture. You can also use the `multi-arch` image, which should work on all system architectures. 
+
+The image defaults to `:latest`, but you can instead specify a specific version, e.g. `docker pull lissy93/dashy:release-1.5.0`
 
 ### Using Docker Compose
 
-Using Docker Compose can be useful for saving your specific config in files, without having to type out a long run command each time. Save compose config as a YAML file, and then run `docker compose up` (optionally use the `-f` flag to specify file location, if it isn't located at `./docker-compose.yml`).
+Using Docker Compose can be useful for saving your specific config in files, without having to type out a long run command each time. Save compose config as a YAML file, and then run `docker compose up` (optionally use the `-f` flag to specify file location, if it isn't located at `./docker-compose.yml`). Compose is also useful if you are using clusters, as the format is very similar to stack files, used with Docker Swarm.
 
-Compose is also useful if you are using clusters, as the format is very similar to stack files, used with Docker Swarm.
-
-The following is a complete example of a `docker-compose.yml` for Dashy. Run it as is, or uncomment the additional options you need.
+The following is a complete example of a [`docker-compose.yml`](https://github.com/Lissy93/dashy/blob/master/docker-compose.yml) for Dashy. Run it as is, or uncomment the additional options you need.
 
 ```yaml
 ---
@@ -100,6 +102,9 @@ services:
       retries: 3
       start_period: 40s
 ```
+You can use a different tag, by for example setting `image: lissy93/dashy:arm64v8`, or pull from GHCR instead by setting `image: ghcr.io/lissy93/dashy`.
+
+If you are building from source, and would like to use one of the [other Dockerfiles](https://github.com/Lissy93/dashy/tree/master/docker), then under `services.dashy` first set `context: .`, then specify the the path to the dockerfile, e.g. `dockerfile: ./docker/Dockerfile-arm32v7`
 
 ### Build from Source
 
