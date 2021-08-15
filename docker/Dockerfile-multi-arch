@@ -22,9 +22,6 @@ COPY . ./
 # Build initial app for production
 RUN yarn build
 
-# # remove development dependencies
-# RUN yarn install --production --ignore-scripts --prefer-offline
-
 # Build the final image
 FROM node:14.17.5-alpine
 
