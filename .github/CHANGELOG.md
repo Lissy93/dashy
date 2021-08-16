@@ -1,5 +1,7 @@
 # Changelog
 
+## 💄 1.6.1 - Adds new Theme [PR #166](https://github.com/Lissy93/dashy/issues/166)
+- Adds Dashy theme, for use in the dev dashboard
 ## ✨ 1.5.9 - New Minimal/ Startpage View [PR #155](https://github.com/Lissy93/dashy/issues/155)
 - Adds a new view, called minimal view, designed to be like a light-weight startpage
 - Implemented all the required features (filtering, opening methods, icons, etc) into minimal view
