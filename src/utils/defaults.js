@@ -60,6 +60,7 @@ module.exports = {
     'vaporware',
     'high-contrast-dark',
     'high-contrast-light',
+    'dashy-docs',
   ],
   /* Which structural components should be visible by default */
   visibleComponents: {
