@@ -127,6 +127,6 @@ export const getUserState = (appConfig) => {
   const users = appConfig.auth || []; // Get auth object
   if (!isAuthEnabled(users)) return notConfigured; // No auth enabled
   if (isLoggedIn(users)) return loggedIn; // User is logged in
-  if (isGuestAccessEnabled(appConfig || {})) return guestAccess; // Guest is viewing
+  if (isGuestAccessEnabled(appConfig)) return guestAccess; // Guest is viewing
   return notConfigured;
 };

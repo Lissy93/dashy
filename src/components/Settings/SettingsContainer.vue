@@ -1,6 +1,5 @@
 <template>
   <section>
-    <p>{{ getUserState }}</p>
     <SearchBar ref="SearchBar"
       @user-is-searchin="userIsTypingSomething"
       v-if="searchVisible"
@@ -14,7 +13,7 @@
         <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
         <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
           @modalChanged="modalChanged" />
-        <AuthButtons  v-if="getUserState != 'noone'" :userType="getUserState" />
+        <AuthButtons  v-if="userState != 'noone'" :userType="userState" />
       </div>
       <div :class="`show-hide-container ${settingsVisible? 'hide-btn' : 'show-btn'}`">
         <button @click="toggleSettingsVisibility()"
@@ -114,8 +113,8 @@ export default {
     * Note that if auth is enabled, but not guest access, and user not logged in,
     * then they will never be able to view the homepage, so no button needed
     */
-    getUserState() {
-      return getUserState(this.appConfig);
+    userState() {
+      return getUserState(this.appConfig || {});
     },
   },
   data() {
