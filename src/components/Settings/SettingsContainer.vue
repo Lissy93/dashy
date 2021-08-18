@@ -13,7 +13,7 @@
         <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
         <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
           @modalChanged="modalChanged" />
-        <AppButtons  v-if="isUserLoggedIn()" />
+        <AuthButtons  v-if="userState != 'noone'" :userType="userState" />
       </div>
       <div :class="`show-hide-container ${settingsVisible? 'hide-btn' : 'show-btn'}`">
         <button @click="toggleSettingsVisibility()"
@@ -34,7 +34,7 @@ import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import LayoutSelector from '@/components/Settings/LayoutSelector';
 import ItemSizeSelector from '@/components/Settings/ItemSizeSelector';
-import AppButtons from '@/components/Settings/AppButtons';
+import AuthButtons from '@/components/Settings/AuthButtons';
 import KeyboardShortcutInfo from '@/components/Settings/KeyboardShortcutInfo';
 import AppInfoModal from '@/components/Configuration/AppInfoModal';
 import IconOpen from '@/assets/interface-icons/config-open-settings.svg';
@@ -43,6 +43,8 @@ import {
   localStorageKeys,
   visibleComponents as defaultVisibleComponents,
 } from '@/utils/defaults';
+
+import { getUserState } from '@/utils/Auth';
 
 export default {
   name: 'SettingsContainer',
@@ -61,7 +63,7 @@ export default {
     ThemeSelector,
     LayoutSelector,
     ItemSizeSelector,
-    AppButtons,
+    AuthButtons,
     KeyboardShortcutInfo,
     AppInfoModal,
     IconOpen,
@@ -87,9 +89,6 @@ export default {
     getInitialTheme() {
       return this.appConfig.theme || '';
     },
-    isUserLoggedIn() {
-      return !!localStorage[localStorageKeys.USERNAME];
-    },
     /* Gets user themes if available */
     getUserThemes() {
       const userThemes = this.appConfig.cssThemes || [];
@@ -103,6 +102,19 @@ export default {
     getSettingsVisibility() {
       return JSON.parse(localStorage[localStorageKeys.HIDE_SETTINGS]
         || (this.visibleComponents || defaultVisibleComponents).settings);
+    },
+  },
+  computed: {
+    /**
+    * Determines which button should display, based on the user type
+    * 0 = Auth not configured, don't show anything
+    * 1 = Auth condifured, and user logged in, show logout button
+    * 2 = Auth configured, guest access enabled, and not logged in, show login
+    * Note that if auth is enabled, but not guest access, and user not logged in,
+    * then they will never be able to view the homepage, so no button needed
+    */
+    userState() {
+      return getUserState(this.appConfig || {});
     },
   },
   data() {

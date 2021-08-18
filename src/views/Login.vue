@@ -1,6 +1,25 @@
 <template>
   <div class="login-page">
-    <form class="login-form">
+    <!-- User is already logged in -->
+    <div v-if="isUserAlreadyLoggedIn" class="already-logged-in">
+      <h2>{{ $t('login.already-logged-in-title') }}</h2>
+      <p class="already-logged-in">
+        {{ $t('login.already-logged-in-text') }}
+        <span class="username">{{ existingUsername }}</span>
+      </p>
+      <Button class="login-button" :click="stayLoggedIn">
+        {{ $t('login.proceed-to-dashboard') }}
+      </Button>
+      <Button class="login-button" :click="getOut">{{ $t('login.log-out-button') }}</Button>
+      <span class="already-logged-in-note">
+        You need to log out, in order to proceed as a different user.
+      </span>
+      <transition name="bounce">
+        <p :class="`login-error-message ${status}`" v-show="message">{{ message }}</p>
+      </transition>
+    </div>
+    <!-- Main login form -->
+    <form class="login-form" v-if="(!isUserAlreadyLoggedIn) && isAuthenticationEnabled">
       <h2 class="login-title">{{ $t('login.title') }}</h2>
       <Input
         v-model="username"
@@ -28,6 +47,27 @@
         <p :class="`login-error-message ${status}`" v-show="message">{{ message }}</p>
       </transition>
     </form>
+    <!-- Guest login form -->
+    <form class="guest-form"
+      v-if="appConfig.enableGuestAccess && !isUserAlreadyLoggedIn && isAuthenticationEnabled">
+      <h2 class="login-title">Guest Access</h2>
+      <Button class="login-button" :click="guestLogin">
+        {{ $t('login.proceed-guest-button') }}
+      </Button>
+      <p class="guest-intro">
+        This instance has guest access enabled.<br>
+        Guests have view-only access to dashboards,
+        so cannot write any changes to disk.
+      </p>
+    </form>
+    <!-- Edge case - guest mode enabled, but no users configured -->
+    <div class="not-configured" v-if="!isAuthenticationEnabled">
+      <h2>Error</h2>
+      <p>Authentication is not enabled, or no users have been configured</p>
+      <Button class="login-button" :click="guestLogin">
+        Go Home
+      </Button>
+    </div>
   </div>
 </template>
 
@@ -36,7 +76,12 @@ import router from '@/router';
 import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
-import { checkCredentials, login } from '@/utils/Auth';
+import {
+  checkCredentials,
+  login,
+  isLoggedIn,
+  logout,
+} from '@/utils/Auth';
 
 export default {
   name: 'login',
@@ -76,6 +121,21 @@ export default {
         successMsg: this.$t('login.success-message'),
       };
     },
+    existingUsername() {
+      return localStorage[localStorageKeys.USERNAME];
+    },
+    isUserAlreadyLoggedIn() {
+      const users = this.appConfig.auth;
+      const loggedIn = (!users || users.length === 0 || isLoggedIn(users));
+      return (loggedIn && this.existingUsername);
+    },
+    isGuestAccessEnabled() {
+      if (!this.appConfig || !this.appConfig.enableGuestAccess) return false;
+      return this.appConfig.enableGuestAccess;
+    },
+    isAuthenticationEnabled() {
+      return (this.appConfig && this.appConfig.auth && this.appConfig.auth.length > 0);
+    },
   },
   methods: {
     /* Checks form is filled in, then initiates the login, and redirects to /home */
@@ -93,10 +153,41 @@ export default {
       this.status = response.correct ? 'success' : 'error';
       if (response.correct) { // Yay, credentials were correct :)
         login(this.username, this.password, timeout); // Login, to set the cookie
-        setTimeout(() => { // Wait a short while, then redirect back home
-          router.push({ path: '/' });
-        }, 250);
+        this.goHome();
       }
+    },
+    /* Calls function to double-check guest access enabled, then log in as guest */
+    guestLogin() {
+      const isAllowed = this.isGuestAccessEnabled;
+      if (isAllowed) {
+        this.$toasted.show('Logged in as Guest, Redirecting...', { className: 'toast-success' });
+        this.goHome();
+      } else {
+        this.$toasted.show('Guest access not allowed', { className: 'toast-error' });
+      }
+    },
+    /* Calls logout, shows status message, and refreshed page */
+    getOut() {
+      logout();
+      this.status = 'success';
+      this.message = 'Logging out...';
+      this.refreshPage();
+    },
+    /* Logged in user redirects to home page */
+    stayLoggedIn() {
+      this.status = 'success';
+      this.message = 'Redirecting...';
+      this.goHome();
+    },
+    /* Refreshes the page */
+    refreshPage() {
+      setTimeout(() => { location.reload(); }, 250); // eslint-disable-line no-restricted-globals
+    },
+    /* Redirects to the homepage */
+    goHome() {
+      setTimeout(() => { // Wait a short while, then redirect back home
+        router.push({ path: '/' });
+      }, 250);
     },
     /* Since Theme setter isn't loaded at this point, we must manually get and apply users theme */
     setTheme() {
@@ -119,23 +210,43 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  justify-content: space-evenly;
   min-height: calc(100vh - var(--footer-height));
 
+  /* User is already logged in note */
+  div.already-logged-in {
+    margin: 0 auto 0.5rem;
+    p.already-logged-in {
+      margin: 0 auto 0.5rem;
+      text-align: center;
+    }
+    span.username {
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+    span.already-logged-in-note {
+      font-size: 0.8rem;
+      opacity: var(--dimming-factor);
+      text-align: left;
+    }
+  }
+
   /* Login form container */
-  form.login-form {
+  form.login-form, form.guest-form, div.already-logged-in, div.not-configured {
     background: var(--login-form-background);
     color: var(--login-form-color);
     border: 1px solid var(--login-form-color);
     border-radius: var(--curve-factor);
     font-size: 1.4rem;
     padding: 2rem;
-    margin: 2rem auto;
+    margin: 2rem;
+    max-width: 22rem;
     display: flex;
     flex-direction: column;
 
     /* Login form title */
-    h2.login-title {
-      font-size: 3rem;
+    h2 {
+      font-size: 2rem;
       margin: 0 0 1rem 0;
       text-align: center;
       cursor: default;
@@ -176,6 +287,11 @@ export default {
       &.waiting { color: var(--login-form-color); }
       &.success { color: var(--success); }
       &.error { color: var(--warning); }
+    }
+    p.guest-intro {
+      font-size: 0.8rem;
+      opacity: var(--dimming-factor);
+      text-align: left;
     }
   }
 }

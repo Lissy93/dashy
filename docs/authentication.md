@@ -36,6 +36,9 @@ A hash is a one-way cryptographic function, meaning that it is easy to generate 
 ## Logging In and Out
 Once authentication is enabled, so long as there is no valid token in cookie storage, the application will redirect the user to the login page. When the user enters credentials in the login page, they will be checked, and if valid, then a token will be generated, and they can be redirected to the home page. If credentials are invalid, then an error message will be shown, and they will remain on the login page. Once in the application, to log out the user can click the logout button (in the top-right), which will clear cookie storage, causing them to be redirected back to the login page.
 
+## Enabling Guest Access
+With authentication setup, by default no access is allowed to your dashboard without first logging in with valid credentials. Guest mode can be enabled to allow for read-only access to a secured dashboard by any user, without the need to log in. A guest user cannot write any changes to the config file, but can apply modifications locally (stored in their browser). You can enable guest access, by setting `appConfig.enableGuestAccess: true`.
+
 ## Security
 Since all authentication is happening entirely on the client-side, it is vulnerable to manipulation by an adversary. An attacker could look at the source code, find the function used generate the auth token, then decode the minified JavaScript to find the hash, and manually generate a token using it, then just insert that value as a cookie using the console, and become a logged in user. Therefore, if you need secure authentication for your app, it is strongly recommended to implement this using your web server, or use a VPN to control access to Dashy. The purpose of the login page is merely to prevent immediate unauthorized access to your homepage.
 

@@ -1,5 +1,5 @@
 import sha256 from 'crypto-js/sha256';
-import { cookieKeys, localStorageKeys } from './defaults';
+import { cookieKeys, localStorageKeys, userStateEnum } from './defaults';
 
 /**
  * Generates a 1-way hash, in order to be stored in local storage for authentication
@@ -33,6 +33,12 @@ export const isLoggedIn = (users) => {
   });
   return userAuthenticated;
 };
+
+/* Returns true if authentication is enabled */
+export const isAuthEnabled = (users) => (users && users.length > 0);
+
+/* Returns true if guest access is enabled */
+export const isGuestAccessEnabled = (appConfig) => appConfig.enableGuestAccess || false;
 
 /**
  * Checks credentials entered by the user against those in the config
@@ -106,4 +112,21 @@ export const isUserAdmin = (users) => {
     }
   });
   return isAdmin;
+};
+
+/**
+  * Determines which button should display, based on the user type
+  * 0 = Auth not configured (don't show anything)
+  * 1 = Auth configured, and user logged in (show logout button)
+  * 2 = Auth configured, guest access enabled, not logged in (show login)
+  * Note that if auth is enabled, but not guest access, and user not logged in,
+  * then they will never be able to view the homepage, so no button needed
+  */
+export const getUserState = (appConfig) => {
+  const { notConfigured, loggedIn, guestAccess } = userStateEnum; // Numeric enum options
+  const users = appConfig.auth || []; // Get auth object
+  if (!isAuthEnabled(users)) return notConfigured; // No auth enabled
+  if (isLoggedIn(users)) return loggedIn; // User is logged in
+  if (isGuestAccessEnabled(appConfig)) return guestAccess; // Guest is viewing
+  return notConfigured;
 };

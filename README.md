@@ -251,7 +251,10 @@ appConfig:
     - user: alicia
       hash: 4D1E58C90B3B94BCAD9848ECCACD6D2A8C9FBC5CA913304BBA5CDEAB36FEEFA3
 ```
-At present, access control is handled on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication, such as [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules.
+
+By default, when authentication is configured no user can access your dashboard without first logging in. If you would like to allow for read-only access by unauthenticated users, then you can enable guest mode, by setting `appConfig.enableGuestAccess: true`.
+
+**Note**: At present, access control is handled on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication, such as [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules. Instructions for setting this up can be found [in the docs](docs/authentication.md#alternative-authentication-methods).
 
 <p align="center">
   <img

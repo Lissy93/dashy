@@ -23,7 +23,12 @@
     "error-incorrect-username": "User not found",
     "error-incorrect-password": "Incorrect Password",
     "success-message": "Logging in...",
-    "logout-message": "Logged Out"
+    "logout-message": "Logged Out",
+    "already-logged-in-title": "Already Logged In",
+    "already-logged-in-text": "You're logged in as",
+    "proceed-to-dashboard": "Proceed to Dashboard",
+    "log-out-button": "Logout",
+    "proceed-guest-button": "Proceed as Guest"
   },
   "config": {
     "main-tab": "Main Menu",
@@ -67,7 +72,9 @@
     "item-size-large": "Large",
     "config-launcher-label": "Config",
     "config-launcher-tooltip": "Update Configuration",
-    "sign-out-tooltip": "Sign Out"
+    "sign-out-tooltip": "Sign Out",
+    "sign-in-tooltip": "Log In",
+    "sign-in-welcome": "Hello {username}!"
   },
   "updates": {
     "app-version-note": "Dashy version",
@@ -109,7 +116,8 @@
     "error-msg-save-mode": "Please select a Save Mode: Local or File",
     "error-msg-cannot-save": "An error occurred saving config",
     "error-msg-bad-json": "Error in JSON, possibly malformed",
-    "warning-msg-validation": "Validation Warning"
+    "warning-msg-validation": "Validation Warning",
+    "not-admin-note": "You cannot write changed to disk, because you are not logged in as an admin"
   },
   "app-rebuild": {
     "title": "Rebuild Application",

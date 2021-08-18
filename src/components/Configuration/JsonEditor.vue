@@ -43,6 +43,9 @@
       {{saveSuccess
         ? $t('config-editor.status-success-msg') : $t('config-editor.status-fail-msg') }}
     </p>
+    <p v-if="!allowWriteToDisk" class="no-permission-note">
+      {{ $t('config-editor.not-admin-note') }}
+    </p>
     <p class="response-output">{{ responseText }}</p>
     <p v-if="saveSuccess" class="response-output">
       {{ $t('config-editor.success-note-l1') }}
@@ -241,6 +244,10 @@ p.response-output {
     font-weight: bold;
     color: var(--danger);
   }
+}
+
+p.no-permission-note {
+  color: var(--config-settings-color);
 }
 
 button.save-button {

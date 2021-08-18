@@ -248,6 +248,11 @@
             }
           }
         },
+        "enableGuestAccess": {
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, an unauthenticated user will be able to have read-only access to dashboard, without needing to login. Requires auth to be configured."
+        },
         "enableMultiTasking": {
           "type": "boolean",
           "default": false,

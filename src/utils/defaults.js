@@ -166,4 +166,11 @@ module.exports = {
   ],
   /* Use your own self-hosted Sentry instance. Only used if error reporting is turned on */
   sentryDsn: 'https://3138ea85f15a4fa883a5b27a4dc8ee28@o937511.ingest.sentry.io/5887934',
+  /* A JS enum for indicating the user state, when guest mode + authentication is enabled */
+  userStateEnum: {
+    notConfigured: 0,
+    loggedIn: 1,
+    guestAccess: 2,
+    notLoggedIn: 3,
+  },
 };
