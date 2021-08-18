@@ -116,7 +116,8 @@
     "error-msg-save-mode": "Please select a Save Mode: Local or File",
     "error-msg-cannot-save": "An error occurred saving config",
     "error-msg-bad-json": "Error in JSON, possibly malformed",
-    "warning-msg-validation": "Validation Warning"
+    "warning-msg-validation": "Validation Warning",
+    "not-admin-note": "You cannot write changed to disk, because you are not logged in as an admin"
   },
   "app-rebuild": {
     "title": "Rebuild Application",
