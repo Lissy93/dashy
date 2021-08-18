@@ -22,14 +22,16 @@ import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 
 Vue.use(Router);
 
-/**
- * Checks if the current user is either authenticated,
- * or if authentication is not enabled
- * @returns true if user logged in, or user management not enabled
- */
+/* Checks if guest mode is enabled in appConfig */
+const isGuestEnabled = () => {
+  if (!config || !config.appConfig) return false;
+  return config.appConfig.enableGuestAccess || false;
+};
+
+/* Returns true if user is already authenticated, or if auth is not enabled */
 const isAuthenticated = () => {
   const users = config.appConfig.auth;
-  return (!users || users.length === 0 || isLoggedIn(users));
+  return (!users || users.length === 0 || isLoggedIn(users) || isGuestEnabled());
 };
 
 /* Get the users chosen starting view from app config, or return default */
@@ -94,13 +96,14 @@ const router = new Router({
         appConfig: config.appConfig,
       },
       beforeEnter: (to, from, next) => {
-        if (isAuthenticated()) router.push({ path: '/' });
+        // If the user already logged in + guest mode not enabled, then redirect home
+        if (isAuthenticated() && !isGuestEnabled()) router.push({ path: '/' });
         next();
       },
     },
     { // The about app page
       path: routePaths.about,
-      name: 'about',
+      name: 'about', // We lazy load the About page so as to not slow down the app
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
       meta: makeMetaTags('About Dashy'),
     },
@@ -115,9 +118,9 @@ const router = new Router({
 });
 
 /**
- * Before loading a route, check if the user has authentication enabled *
- * if so, then ensure that they are correctly logged in as a valid user *
- * If not logged in, prevent access and redirect them to the login page *
+ * Before loading a route, check if the user has authentication enabled
+ * if so, then ensure that they are correctly logged in as a valid user
+ * If not logged in, prevent all access and redirect them to login page
  * */
 router.beforeEach((to, from, next) => {
   if (to.name !== 'login' && !isAuthenticated()) next({ name: 'login' });
@@ -131,5 +134,5 @@ router.afterEach((to) => {
   });
 });
 
-// Export the now configured router
+// All done - export the now configured router
 export default router;
