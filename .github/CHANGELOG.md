@@ -1,5 +1,9 @@
 # Changelog
 
+## ✨ 1.6.2 - Support for Guest Access [PR #167](https://github.com/Lissy93/dashy/pull/167)
+- Adds functionality for optional read-only guest access to dashboards with authentication
+- Can be enabled by setting `appConfig.enableGuestAccess: true`
+
 ## 💄 1.6.1 - Adds new Theme [PR #166](https://github.com/Lissy93/dashy/issues/166)
 - Adds Dashy theme, for use in the dev dashboard
 ## ✨ 1.5.9 - New Minimal/ Startpage View [PR #155](https://github.com/Lissy93/dashy/issues/155)
