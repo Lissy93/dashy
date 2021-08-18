@@ -23,7 +23,12 @@
     "error-incorrect-username": "User not found",
     "error-incorrect-password": "Incorrect Password",
     "success-message": "Logging in...",
-    "logout-message": "Logged Out"
+    "logout-message": "Logged Out",
+    "already-logged-in-title": "Already Logged In",
+    "already-logged-in-text": "You're logged in as",
+    "proceed-to-dashboard": "Proceed to Dashboard",
+    "log-out-button": "Logout",
+    "proceed-guest-button": "Proceed as Guest"
   },
   "config": {
     "main-tab": "Main Menu",
@@ -67,7 +72,9 @@
     "item-size-large": "Large",
     "config-launcher-label": "Config",
     "config-launcher-tooltip": "Update Configuration",
-    "sign-out-tooltip": "Sign Out"
+    "sign-out-tooltip": "Sign Out",
+    "sign-in-tooltip": "Log In",
+    "sign-in-welcome": "Hello {username}!"
   },
   "updates": {
     "app-version-note": "Dashy version",

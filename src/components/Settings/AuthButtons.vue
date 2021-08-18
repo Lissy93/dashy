@@ -14,7 +14,7 @@
       <IconLogout
         v-if="userType == userStateEnum.guestAccess"
         @click="goToLogin()"
-        v-tooltip="tooltip('Login')"
+        v-tooltip="tooltip($t('settings.sign-in-tooltip'))"
         class="layout-icon" tabindex="-2"
       />
     </div>
@@ -55,8 +55,13 @@ export default {
       return { content, trigger: 'hover focus', delay: 250 };
     },
     makeText() {
-      if (this.userType === userStateEnum.loggedIn) return `Hello ${localStorage[localStorageKeys.USERNAME]}!`;
-      if (this.userType === userStateEnum.guestAccess) return 'Log In';
+      if (this.userType === userStateEnum.loggedIn) {
+        const username = localStorage[localStorageKeys.USERNAME];
+        return this.$t('settings.sign-in-welcome', { username });
+      }
+      if (this.userType === userStateEnum.guestAccess) {
+        return this.$t('settings.sign-in-tooltip');
+      }
       return '';
     },
   },

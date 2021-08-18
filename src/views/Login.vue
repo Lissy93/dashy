@@ -2,12 +2,15 @@
   <div class="login-page">
     <!-- User is already logged in -->
     <div v-if="isUserAlreadyLoggedIn" class="already-logged-in">
-      <h2>Already Logged In</h2>
+      <h2>{{ $t('login.already-logged-in-title') }}</h2>
       <p class="already-logged-in">
-        You're logged in as <span class="username">{{ existingUsername }}</span>
+        {{ $t('login.already-logged-in-text') }}
+        <span class="username">{{ existingUsername }}</span>
       </p>
-      <Button class="login-button" :click="stayLoggedIn">Proceed to Dashboard</Button>
-      <Button class="login-button" :click="getOut">Logout</Button>
+      <Button class="login-button" :click="stayLoggedIn">
+        {{ $t('login.proceed-to-dashboard') }}
+      </Button>
+      <Button class="login-button" :click="getOut">{{ $t('login.log-out-button') }}</Button>
       <span class="already-logged-in-note">
         You need to log out, in order to proceed as a different user.
       </span>
@@ -49,7 +52,7 @@
       v-if="appConfig.enableGuestAccess && !isUserAlreadyLoggedIn && isAuthenticationEnabled">
       <h2 class="login-title">Guest Access</h2>
       <Button class="login-button" :click="guestLogin">
-        Proceed as Guest
+        {{ $t('login.proceed-guest-button') }}
       </Button>
       <p class="guest-intro">
         This instance has guest access enabled.<br>
