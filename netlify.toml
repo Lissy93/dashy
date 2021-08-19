@@ -7,11 +7,6 @@
   command = "yarn build"
   publish = "dist"
 
-# Specify build software preferences
-[build.environment]
-  NODE_VERSION = "14.17.5"
-	NETLIFY_USE_YARN = true
-
 # Site info, used for the 1-Click deploy page
 [template.environment]
   STATUSKIT_PAGE_TITLE = "Dashy"
