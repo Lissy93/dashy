@@ -8414,7 +8414,7 @@ sass-loader@^7.1.0:
     pify "^4.0.1"
     semver "^6.3.0"
 
-sass@^1.18.0:
+sass@^1.38.0:
   version "1.38.0"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.38.0.tgz#2f3e60a1efdcdc910586fa79dc89d3399a145b4f"
   integrity sha512-WBccZeMigAGKoI+NgD7Adh0ab1HUq+6BmyBUEaGxtErbUtWUevEbdgo5EZiJQofLUGcKtlNaO2IdN73AHEua5g==
@@ -9771,11 +9771,6 @@ vue-material-tabs@0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/vue-material-tabs/-/vue-material-tabs-0.1.5.tgz#255fc0beb27c005eaae61c1534d782a94c30c525"
   integrity sha512-ZLFRCxaCS3TM8IwnxQA4S2CVj+tBaILb8fQZDg+Ix+9Zu+k16udrdhLU2GWvJEVPLspuCzKhCEXW4cIg59YkVw==
-
-vue-prism-editor@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/vue-prism-editor/-/vue-prism-editor-1.2.2.tgz#023cfd4329848f191aac851f2f5e6c7a8c2e059f"
-  integrity sha512-Lq2VgVygTx3Whn/tC8gD4m1ajA4lzSyCTqPLZA1Dq/ErbBaZA93FWRblwCoDR7AD2nXhGWuiTzb5ih3guzB7DA==
 
 vue-resize@^1.0.1:
   version "1.0.1"
