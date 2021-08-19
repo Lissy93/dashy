@@ -1,10 +1,28 @@
+# Enables you to easily deploy a fork of Dashy to Netlify
+# without the need to configure anything in admin UI
+# Docs: https://www.netlify.com/docs/netlify-toml-reference/
+
+# Essential site config
 [build]
+	base = "/"
   command = "yarn build"
   publish = "dist"
 
+# Specify build software preferences
+[build.environment]
+  NODE_VERSION = "14.17.5"
+	NETLIFY_USE_YARN = true
+
+# Site info, used for the 1-Click deploy page
 [template.environment]
   STATUSKIT_PAGE_TITLE = "Dashy"
   STATUSKIT_COMPANY_LOGO = "https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/logo.png"
-  STATUSKIT_SUPPORT_CONTACT_LINK = "https://dashy.as93.net"
+  STATUSKIT_SUPPORT_CONTACT_LINK = "https://dashy.to"
   STATUSKIT_RESOURCES_LINK = "https://github.com/Lissy93/dashy/tree/master/docs"
   
+# Set any security headers here
+[[headers]]
+  for = "/*"
+	[headers.values]
+  # Uncomment to enable Netlify user control. You must have a paid plan.
+  # Basic-Auth = "someuser:somepassword anotheruser:anotherpassword"
