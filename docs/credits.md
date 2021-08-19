@@ -190,8 +190,6 @@ At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as we
 - [`VJsoneditor`](https://github.com/yansenlei/VJsoneditor) - Interactive JSON editor component by @yansenlei `MIT`
   - Forked from [`JsonEditor`](https://github.com/josdejong/jsoneditor) by @josdejong `Apache-2.0 License`
 - [`vue-toasted`](https://github.com/shakee93/vue-toasted) - Toast notification component by @shakee93 `MIT`
-- [`vue-prism-editor`](https://github.com/koca/vue-prism-editor) - Lightweight code editor by @koca `MIT`
-  - Forked from [`prism.js`](https://github.com/PrismJS/prism) `MIT`
 - [`vue-swatches`](https://github.com/saintplay/vue-swatches) - Color palete picker by @saintplay `MIT`
 
 ##### Backup & Sync Server

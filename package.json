@@ -24,7 +24,6 @@
     "crypto-js": "^4.1.1",
     "js-yaml": "^4.1.0",
     "npm-run-all": "^4.1.5",
-    "prismjs": "^1.24.1",
     "register-service-worker": "^1.6.2",
     "remedial": "^1.0.8",
     "serve-static": "^1.14.1",
@@ -57,7 +56,7 @@
     "sass-loader": "^7.1.0",
     "vue-svg-loader": "^0.16.0",
     "vue-template-compiler": "^2.6.10",
-    "webpack-build-notifier": "^2.3.0"
+    "webpack": "4.0.0"
   },
   "gitHooks": {
     "pre-commit": "yarn lint"
