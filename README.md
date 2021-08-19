@@ -137,7 +137,7 @@ The image defaults to `:latest`, but you can instead specify a specific version,
 
 You will need [git](https://git-scm.com/downloads), the latest or LTS version of [Node.js](https://nodejs.org/) and (optionally) [Yarn](https://yarnpkg.com/) installed on your system.
 
-- Get Code: `git clone git@github.com:Lissy93/dashy.git` and `cd dashy`
+- Get Code: `git clone https://github.com/Lissy93/dashy.git` and `cd dashy`
 - Configuration: Fill in you're settings in `./public/conf.yml`
 - Install dependencies: `yarn`
 - Build: `yarn build`
@@ -489,7 +489,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
 Dashy was made possible thanks to the following packages and components. For more details on each, see [Dependency Credits](./docs/credits.md#dependencies-). Full credit to their respective authors.
 - Utils: [`crypto-js`](https://github.com/brix/crypto-js), [`axios`](https://github.com/axios/axios), [`ajv`](https://github.com/ajv-validator/ajv)
 - Components: [`vue-select`](https://github.com/sagalbot/vue-select) by @sagalbot, [`vue-js-modal`](https://github.com/euvl/vue-js-modal) by @euvl, [`v-tooltip`](https://github.com/Akryum/v-tooltip) by @Akryum, [`vue-material-tabs`](https://github.com/jairoblatt/vue-material-tabs) by @jairoblatt, [`JsonEditor`](https://github.com/josdejong/jsoneditor) by @josdejong, [`vue-toasted`](https://github.com/shakee93/vue-toasted) by @shakee93
-[`prism.js`](https://github.com/PrismJS/prism)
 - Core: Vue.js, TypeScript, SCSS, Node.js, ESLint
 - The backup & sync server uses [Cloudflare workers](https://workers.cloudflare.com/) plus [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
 - Services: The 1-Click demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker image is hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
@@ -505,7 +504,7 @@ Dashy was made possible thanks to the following packages and components. For mor
 Before getting started, you'll need [Git](https://git-scm.com/downloads), [Node](https://nodejs.org/en/download/) and optionally [Yarn](https://yarnpkg.com/) (run `npm i -g yarn`) installed.
 
 To set up the development environment:
-1. Get Code: `git clone git@github.com:Lissy93/dashy.git`  and `cd dashy`
+1. Get Code: `git clone https://github.com/Lissy93/dashy.git`  and `cd dashy`
 2. Install dependencies: `yarn`
 3. Start dev server: `yarn dev`
 

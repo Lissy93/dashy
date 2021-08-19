@@ -18,7 +18,7 @@ You will need either the latest or LTS version of **[Node.js](https://nodejs.org
 
 ### Running the Project
 
-1. Get Code: `git clone git@github.com:Lissy93/dashy.git`
+1. Get Code: `git clone https://github.com/Lissy93/dashy.git`
 2. Navigate into the directory: `cd dashy`
 3. Install dependencies: `yarn`
 4. Start dev server: `yarn dev`
@@ -231,7 +231,7 @@ Styleguides:
 │  │  ├── Nav.vue                 # Navigation bar, includes a list of links
 │  │  ╰── PageTitle.vue           # Page title and sub-title, visible within the Header
 │  ╰── Settings                   # Components relating to the quick-settings, in the top-right
-│     ├── AppButtons.vue          # Logout button and other app info
+│     ├── AuthButtons.vue          # Logout button and other app info
 │     ├── ConfigLauncher.vue      # Icon that when clicked will launch the Configuration component
 │     ├── CustomThemeMaker.vue    # Color pickers for letting user build their own theme
 │     ├── ItemSizeSelector.vue    # Set of buttons used to set and save item size

@@ -22,7 +22,7 @@
 <!-- readme: sponsors -end -->
 
 ## Contributors
-<!-- readme: contributors -start -->
+<!-- readme: contributors, BeginCI/-, deepsourcebot/- -start -->
 <table>
 <tr>
     <td align="center">
@@ -90,7 +90,8 @@
         </a>
     </td></tr>
 </table>
-<!-- readme: contributors -end -->
+<!-- readme: contributors, BeginCI/-, deepsourcebot/- -end -->
+
 
 ## Helpful Users
 <!-- readme: EVOTk,shadowking001,turnrye,Robert-Ernst,Niklashere,evroon,MilesTEG1 -start -->
