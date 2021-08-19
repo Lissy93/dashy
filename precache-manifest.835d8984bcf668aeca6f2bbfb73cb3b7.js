@@ -72,7 +72,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/VT323-Regular.ttf"
   },
   {
-    "revision": "4cbb83a186d8a8bd7cf257ef825bca95",
+    "revision": "2d932e723b2f16ebf2db3def2cf1a94b",
     "url": "/index.html"
   },
   {
