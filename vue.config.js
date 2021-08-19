@@ -5,7 +5,7 @@
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 // Get current version
-process.env.VUE_APP_VERSION = require('./package.json');
+process.env.VUE_APP_VERSION = require('./package.json').version;
 
 // Specify and export the main Vue app config
 module.exports = {

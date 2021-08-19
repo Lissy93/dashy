@@ -1,5 +1,5 @@
 <template>
-  <div class="app-version">
+  <div class="app-version" v-if="isVersionValid()">
     <!-- Current Version -->
     <p>
       {{ $t('updates.app-version-note') }} {{ appVersion }}
@@ -31,6 +31,7 @@
 
 <script>
 import axios from 'axios';
+import ErrorHandler from '@/utils/ErrorHandler';
 
 export default {
   name: 'AppInfoModal',
@@ -75,6 +76,17 @@ export default {
       const difference = parse(latestVersion) - parse(currentVersion);
       if (difference > 5) this.veryOutOfDate = true;
       return difference <= 0;
+    },
+    /* Checks that the input version is correctly parsed */
+    isVersionValid() {
+      const isValid = !Number.isNaN(parseInt(this.appVersion.replaceAll('.', ''), 10));
+      if (!isValid) { // If invalid, then record an error
+        ErrorHandler(
+          'Unable to check for updates, because current version is unavailible.'
+          + ` ${this.appVersion} is not a valid version.`,
+        );
+      }
+      return isValid;
     },
   },
 };
