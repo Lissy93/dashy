@@ -55,8 +55,7 @@
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
     "vue-svg-loader": "^0.16.0",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "4.0.0"
+    "vue-template-compiler": "^2.6.10"
   },
   "gitHooks": {
     "pre-commit": "yarn lint"
