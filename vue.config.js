@@ -1,11 +1,16 @@
+/**
+ * Global config for the main Vue app. ES7 not supported here.
+ * See docs for all config options: https://cli.vuejs.org/config
+ */
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 
 // Get current version
-process.env.VUE_APP_VERSION = require('./package.json').version;
+process.env.VUE_APP_VERSION = require('./package.json');
 
+// Specify and export the main Vue app config
 module.exports = {
-  publicPath: process.env.BASE_URL, // || './',
+  publicPath: process.env.BASE_URL,
+  integrity: true,
   chainWebpack: config => {
     config.module.rules.delete('svg');
   },
@@ -17,15 +22,11 @@ module.exports = {
       ],
     },
     plugins: [
+      // Display progress bar while building
       new ProgressBarPlugin(),
-      new WebpackBuildNotifierPlugin({
-        title: 'Dashy Build Complete',
-        logo: './public/web-icons/dashy-logo.png',
-        suppressSuccess: true,
-        showDuration: true,
-      }),
     ],
   },
+  // Specify resources for PWA / mobile support
   pwa: {
     name: 'Dashy',
     manifestPath: './manifest.json',
@@ -40,6 +41,7 @@ module.exports = {
       msTileImage: './web-icons/dashy-logo.png',
     },
   },
+  // Specify page for app entry point
   pages: {
     dashy: {
       entry: 'src/main.js',

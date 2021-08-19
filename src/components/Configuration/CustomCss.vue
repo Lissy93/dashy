@@ -1,6 +1,6 @@
 <template>
   <div class="css-editor-outer">
-    <prism-editor class="my-editor" v-model="customCss" :highlight="highlighter" line-numbers />
+    <textarea class="css-editor" v-model="customCss" />
     <button class="save-button" @click="save()">{{ $t('config.css-save-btn') }}</button>
     <p class="quick-note">
       <b>{{ $t('config.css-note-label') }}:</b>
@@ -12,28 +12,21 @@
 
 <script>
 
-import { PrismEditor } from 'vue-prism-editor';
-import { highlight, languages } from 'prismjs/components/prism-core';
-import 'prismjs/components/prism-css';
-import 'prismjs/themes/prism-funky.css';
-import 'vue-prism-editor/dist/prismeditor.min.css';
-
 import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
 import { getTheme } from '@/utils/ConfigHelpers';
 import { localStorageKeys } from '@/utils/defaults';
 
 export default {
-  name: 'JsonEditor',
+  name: 'StyleEditor',
   props: {
     config: Object,
   },
   components: {
     CustomThemeMaker,
-    PrismEditor,
   },
   data() {
     return {
-      customCss: this.config.appConfig.customCss || '\n\n\n\n\n',
+      customCss: this.config.appConfig.customCss || '\n\n',
       currentTheme: getTheme(),
     };
   },
@@ -60,9 +53,6 @@ export default {
       const style = document.createElement('style');
       style.textContent = cleanedCss;
       document.head.append(style);
-    },
-    highlighter(code) {
-      return highlight(code, languages.css);
     },
   },
 };
@@ -91,13 +81,22 @@ button.save-button {
   }
 }
 
-.prism-editor-wrapper {
-  min-height: 200px;
-  border: 1px solid var(--transparent-70);
+.css-editor {
+  margin: 1rem auto;
+  padding: 0.5rem;
+  width: 80%;
+  height: 8rem;
+  max-height: 16rem;
+  min-height: 4rem;
+  resize: vertical;
+  outline: none;
+  border: 1px solid var(--config-settings-color);
   border-radius: var(--curve-factor);
-  width: 90%;
-  margin: 0.5rem auto;
   background: var(--transparent-50);
+  color: var(--config-settings-color);
+  &:focus {
+    box-shadow: 0 40px 70px -2px rgba(0, 0, 0, 0.6), 1px 1px 6px var(--config-settings-color);
+  }
 }
 
 p.quick-note {

@@ -1,5 +1,13 @@
 # Changelog
 
+## ✨ 1.6.3 - Dependency and Build File Updates [PR #168](https://github.com/Lissy93/dashy/pull/168)
+- Removes any dependencies which are not 100% essential
+- Moves packages that are only used for building into devDependencies
+- Updates dependencies to latest version
+- Adds a .dockerignore, so that non-essential files are not included in the container
+- Updates deployment config files for Netlify, Heroku and GH actions
+- Made a brand new bug-report template, with input fields and validation!
+
 ## ✨ 1.6.2 - Support for Guest Access [PR #167](https://github.com/Lissy93/dashy/pull/167)
 - Adds functionality for optional read-only guest access to dashboards with authentication
 - Can be enabled by setting `appConfig.enableGuestAccess: true`

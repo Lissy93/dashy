@@ -14,7 +14,6 @@ The following 3rd-party software packages may be used by or distributed with **d
 | **[highlight.js (11.1.0)](#highlight.js-11-1-0)**                     | **Multi-license:** BSD-2-Clause _OR_ BSD-3-Clause, BSD-3-Clause |
 | **[js-yaml (4.1.0)](#js-yaml-4-1-0)**                                 | MIT                                                             |
 | **[npm-run-all (4.1.5)](#npm-run-all-4-1-5)**                         | MIT                                                             |
-| **[prismjs (1.24.1)](#prismjs-1-24-1)**                               | MIT                                                             |
 | **[register-service-worker (1.7.2)](#register-service-worker-1-7-2)** | MIT                                                             |
 | **[remedial (1.0.8)](#remedial-1-0-8)**                               | **Multi-license:** Apache-2.0 _OR_ MIT                          |
 | **[serve-static (1.14.1)](#serve-static-1-14-1)**                     | MIT                                                             |
@@ -385,41 +384,6 @@ The following 3rd-party software packages may be used by or distributed with **d
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
-
-- Discovered License(s)
-
----
-
----
-
-#### **prismjs (1.24.1)**
-
-- Declared License(s)
-
-  - MIT
-
-    - Attribution:
-      MIT LICENSE
-
-    Copyright (c) 2012 Lea Verou
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
 
 - Discovered License(s)
 

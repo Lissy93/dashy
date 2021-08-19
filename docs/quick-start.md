@@ -104,3 +104,25 @@ For more info, check out the [Documentation](https://github.com/Lissy93/dashy/tr
 Enjoy your dashboard :) 
 
 ---
+
+## Alternative Deployment Method 1 - From Source
+
+You can also easily run the app on your system without Docker. For this [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/), and [Yarn](https://yarnpkg.com/) are required.
+
+```
+git clone https://github.com/Lissy93/dashy.git && cd dashy
+yarn # Install dependencies
+yarn build # Build the app
+yarn start # Start the app
+```
+Then edit `./public/conf.yml` and rebuild the app with `yarn build`
+
+---
+
+## Alternative Deployment Method 2 - Netlify
+
+Don't have a server? No problem! You can run Dashy for free on Netlify (as well as many [other cloud providers](./docs/deployment.md#deploy-to-cloud-service)). All you need it a GitHub account.
+1. Fork Dashy's repository on GitHub
+2. [Log in](app.netlify.com/login/) to Netlify with GitHub
+3. Click "New site from Git" and select your forked repo, then click **Deploy**!
+4. You can then edit the config in `./public/conf.yml` in your repo, and Netlify will rebuild the app

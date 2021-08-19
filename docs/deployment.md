@@ -3,14 +3,14 @@
 Welcome to Dashy, so glad you're here :) Deployment is super easy, and there are several methods available depending on what type of system you're using. If you're self-hosting, then deploying with Docker (or similar container engine) is the recommended approach.
 
 #### Quick Start
-If you want to skip the fuss, and [get straight down to it](./docs/quick-start.md), then you can spin up a new instance of Dashy by running:
+If you want to skip the fuss, and [get straight down to it](/docs/quick-start.md), then you can spin up a new instance of Dashy by running:
 ```
 docker run -p 8080:80 lissy93/dashy
 ```
 
-See [Management Docs](./docs/management.md) for info about securing, monitoring, updating, health checks, auto starting, web server configuration, etc
+See [Management Docs](/docs/management.md) for info about securing, monitoring, updating, health checks, auto starting, web server configuration, etc
 
-Once you've got Dashy up and running, you'll want to configure it with your own content, for this you can reference the [configuring docs](./docs/configuring.md).
+Once you've got Dashy up and running, you'll want to configure it with your own content, for this you can reference the [configuring docs](/docs/configuring.md).
 
 ## Deployment Methods
 
@@ -110,7 +110,7 @@ If you are building from source, and would like to use one of the [other Dockerf
 
 If you do not want to use Docker, you can run Dashy directly on your host system. For this, you will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed, and optionally [yarn](https://yarnpkg.com/)
 
-1. Get Code: `git clone git@github.com:Lissy93/dashy.git` and `cd dashy`
+1. Get Code: `git clone https://github.com/Lissy93/dashy.git` and `cd dashy`
 2. Configuration: Fill in you're settings in `./public/conf.yml`
 3. Install dependencies: `yarn`
 4. Build: `yarn build`
