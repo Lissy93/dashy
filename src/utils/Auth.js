@@ -52,7 +52,7 @@ export const isLoggedIn = () => {
 /* Returns true if authentication is enabled */
 export const isAuthEnabled = () => {
   const users = getUsers();
-  return (users && users.length > 0);
+  return (users.length > 0);
 };
 
 /* Returns true if guest access is enabled */
@@ -151,7 +151,7 @@ export const isLoggedInAsGuest = () => {
  */
 export const isUserAdmin = () => {
   const users = getUsers();
-  if (!users || users.length === 0) return true; // Authentication not setup
+  if (users.length === 0) return true; // Authentication not setup
   if (!isLoggedIn()) return false; // Auth setup, but not signed in as a valid user
   const currentUser = localStorage[localStorageKeys.USERNAME];
   let isAdmin = false;
@@ -172,10 +172,8 @@ export const isUserAdmin = () => {
   * then they will never be able to view the homepage, so no button needed
   */
 export const getUserState = () => {
-  const appConfig = getAppConfig();
   const { notConfigured, loggedIn, guestAccess } = userStateEnum; // Numeric enum options
-  const users = appConfig.auth || []; // Get auth object
-  if (!isAuthEnabled(users)) return notConfigured; // No auth enabled
+  if (!isAuthEnabled()) return notConfigured; // No auth enabled
   if (isLoggedIn()) return loggedIn; // User is logged in
   if (isGuestAccessEnabled()) return guestAccess; // Guest is viewing
   return notConfigured;

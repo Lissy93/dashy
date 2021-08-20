@@ -41,7 +41,7 @@ export default class ConfigAccumulator {
     usersAppConfig.language = localStorage[localStorageKeys.LANGUAGE]
       || appConfigFile.language || defaultLanguage;
     // Don't let users modify users locally
-    if (this.conf.auth) usersAppConfig.auth = appConfigFile.auth;
+    if (appConfigFile.auth) usersAppConfig.auth = appConfigFile.auth;
     // All done, return final appConfig object
     return usersAppConfig;
   }
