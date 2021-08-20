@@ -23,7 +23,12 @@
     "error-incorrect-username": "Utilisateur inexistant",
     "error-incorrect-password": "Mot de passe incorrect",
     "success-message": "Connexion ...",
-    "logout-message": "Déconnexion"
+    "logout-message": "Déconnexion",
+    "already-logged-in-title": "Déjà connecté",
+    "already-logged-in-text": "Vous êtes connecté en tant que",
+    "proceed-to-dashboard": "Proceed to Dashboard",
+    "log-out-button": "Déconnexion",
+    "proceed-guest-button": "Proceed as Guest"
   },
   "config": {
     "main-tab": "Menu principal",
@@ -67,7 +72,9 @@
     "item-size-large": "Grande",
     "config-launcher-label": "Config.",
     "config-launcher-tooltip": "Modifier la configuration",
-    "sign-out-tooltip": "Déconnexion"
+    "sign-out-tooltip": "Déconnexion",
+    "sign-in-tooltip": "Connexion",
+    "sign-in-welcome": "Bonjour {username}!"
   },
   "updates": {
     "app-version-note": "Version de Dashy",
@@ -109,7 +116,8 @@
     "error-msg-save-mode": "Veuillez sélectionner un mode d'enregistrement : Local ou Fichier",
     "error-msg-cannot-save": "Une erreur s'est produite lors de l'enregistrement de la configuration",
     "error-msg-bad-json": "Erreur dans le fichier JSON, il est peut-être mal formé",
-    "warning-msg-validation": "Attention"
+    "warning-msg-validation": "Attention",
+    "not-admin-note": "Vous ne pouvez pas écrire les modifications sur le disque, car vous n'êtes pas connecté en tant qu'administrateur"
   },
   "app-rebuild": {
     "title": "Reconstruire l'application",
@@ -148,10 +156,10 @@
     "backup-success-msg": "Sauvegarde effectuée avec succès",
     "restore-success-msg": "Configuration restaurée avec succès"
   },
-  "menu": { 
-    "sametab": "Ouvrir dans l'onglet actuel",  
+  "menu": {
+    "sametab": "Ouvrir dans l'onglet actuel",
     "newtab": "Ouvrir dans un nouvel onglet",
-    "modal": "Ouvrir en mode fenêtré",   
-    "workspace": "Ouvrir en mode plein écran"
+    "modal": "Ouvrir en mode fenêtré",
+    "workspace": "Ouvrir en plein écran"
   }
 }
