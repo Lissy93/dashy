@@ -26,9 +26,9 @@
     "logout-message": "Déconnexion",
     "already-logged-in-title": "Déjà connecté",
     "already-logged-in-text": "Vous êtes connecté en tant que",
-    "proceed-to-dashboard": "Proceed to Dashboard",
+    "proceed-to-dashboard": "Accéder au Tableau de bord",
     "log-out-button": "Déconnexion",
-    "proceed-guest-button": "Proceed as Guest"
+    "proceed-guest-button": "Continuer en tant qu'invité"
   },
   "config": {
     "main-tab": "Menu principal",
