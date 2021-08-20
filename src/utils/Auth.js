@@ -1,5 +1,19 @@
 import sha256 from 'crypto-js/sha256';
-import { cookieKeys, localStorageKeys, userStateEnum } from './defaults';
+import ConfigAccumulator from '@/utils/ConfigAccumalator';
+import { cookieKeys, localStorageKeys, userStateEnum } from '@/utils/defaults';
+
+/* Uses config accumulator to get and return app config */
+const getAppConfig = () => {
+  const Accumulator = new ConfigAccumulator();
+  const config = Accumulator.config();
+  return config.appConfig || {};
+};
+
+/* Returns the users array from appConfig, if available, else an empty array */
+const getUsers = () => {
+  const appConfig = getAppConfig();
+  return appConfig.auth || [];
+};
 
 /**
  * Generates a 1-way hash, in order to be stored in local storage for authentication
@@ -17,7 +31,8 @@ const generateUserToken = (user) => {
  * @param {Array[Object]} users An array of user objects pulled from the config
  * @returns {Boolean} Will return true if the user is logged in, else false
  */
-export const isLoggedIn = (users) => {
+export const isLoggedIn = () => {
+  const users = getUsers();
   const validTokens = users.map((user) => generateUserToken(user));
   let userAuthenticated = false;
   document.cookie.split(';').forEach((cookie) => {
@@ -35,10 +50,16 @@ export const isLoggedIn = (users) => {
 };
 
 /* Returns true if authentication is enabled */
-export const isAuthEnabled = (users) => (users && users.length > 0);
+export const isAuthEnabled = () => {
+  const users = getUsers();
+  return (users && users.length > 0);
+};
 
 /* Returns true if guest access is enabled */
-export const isGuestAccessEnabled = (appConfig) => appConfig.enableGuestAccess || false;
+export const isGuestAccessEnabled = () => {
+  const appConfig = getAppConfig();
+  return appConfig.enableGuestAccess || false;
+};
 
 /**
  * Checks credentials entered by the user against those in the config
@@ -93,6 +114,33 @@ export const logout = () => {
 };
 
 /**
+ * If correctly logged in as a valid, authenticated user,
+ * then returns the user object for the current user
+ * If not logged in, will return false
+ * */
+export const getCurrentUser = () => {
+  if (!isLoggedIn()) return false; // User not logged in
+  const username = localStorage[localStorageKeys.USERNAME]; // Get username
+  if (!username) return false; // No username
+  let foundUserObject = false; // Value to return
+  getUsers().forEach((user) => {
+    // If current logged in user found, then return that user
+    if (user.user === username) foundUserObject = user;
+  });
+  return foundUserObject;
+};
+
+/**
+ * Checks if the user is viewing the dashboard as a guest
+ * Returns true if guest mode enabled, and user not logged in
+ * */
+export const isLoggedInAsGuest = () => {
+  const guestEnabled = isGuestAccessEnabled();
+  const notLoggedIn = !isLoggedIn();
+  return guestEnabled && notLoggedIn;
+};
+
+/**
  * Checks if the current user has admin privileges.
  * If no users are setup, then function will always return true
  * But if auth is configured, then will verify user is correctly
@@ -101,9 +149,10 @@ export const logout = () => {
  * @param {String[]} - Array of users
  * @returns {Boolean} - True if admin privileges
  */
-export const isUserAdmin = (users) => {
+export const isUserAdmin = () => {
+  const users = getUsers();
   if (!users || users.length === 0) return true; // Authentication not setup
-  if (!isLoggedIn(users)) return false; // Auth setup, but not signed in as a valid user
+  if (!isLoggedIn()) return false; // Auth setup, but not signed in as a valid user
   const currentUser = localStorage[localStorageKeys.USERNAME];
   let isAdmin = false;
   users.forEach((user) => {
@@ -122,11 +171,12 @@ export const isUserAdmin = (users) => {
   * Note that if auth is enabled, but not guest access, and user not logged in,
   * then they will never be able to view the homepage, so no button needed
   */
-export const getUserState = (appConfig) => {
+export const getUserState = () => {
+  const appConfig = getAppConfig();
   const { notConfigured, loggedIn, guestAccess } = userStateEnum; // Numeric enum options
   const users = appConfig.auth || []; // Get auth object
   if (!isAuthEnabled(users)) return notConfigured; // No auth enabled
-  if (isLoggedIn(users)) return loggedIn; // User is logged in
-  if (isGuestAccessEnabled(appConfig)) return guestAccess; // Guest is viewing
+  if (isLoggedIn()) return loggedIn; // User is logged in
+  if (isGuestAccessEnabled()) return guestAccess; // Guest is viewing
   return notConfigured;
 };
