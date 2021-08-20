@@ -1,6 +1,11 @@
 # Changelog
 
-## ✨ 1.6.3 - Dependency and Build File Updates [PR #168](https://github.com/Lissy93/dashy/pull/168)
+## ✨ 1.6.4 - Adds functionality for Granular Auth Control [PR #171](https://github.com/Lissy93/dashy/pull/171)
+- Enables sections to be visible for all users except for those specified
+- Enables sections to be hidden from all users except for those specified
+- Enables sections to be hidden from guests, but visible to all authenticated users
+
+## ⚡️ 1.6.3 - Dependency and Build File Updates [PR #168](https://github.com/Lissy93/dashy/pull/168)
 - Removes any dependencies which are not 100% essential
 - Moves packages that are only used for building into devDependencies
 - Updates dependencies to latest version

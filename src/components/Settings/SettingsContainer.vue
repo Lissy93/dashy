@@ -114,7 +114,7 @@ export default {
     * then they will never be able to view the homepage, so no button needed
     */
     userState() {
-      return getUserState(this.appConfig || {});
+      return getUserState();
     },
   },
   data() {

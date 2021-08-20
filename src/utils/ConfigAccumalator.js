@@ -24,21 +24,25 @@ export default class ConfigAccumulator {
   /* App Config */
   appConfig() {
     let appConfigFile = {};
-    if (this.conf) {
-      appConfigFile = this.conf.appConfig || {};
-    }
+    // Set app config from file
+    if (this.conf) appConfigFile = this.conf.appConfig || {};
+    // Fill in defaults if anything missing
     let usersAppConfig = defaultAppConfig;
     if (localStorage[localStorageKeys.APP_CONFIG]) {
       usersAppConfig = JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
     } else if (appConfigFile !== {}) {
       usersAppConfig = appConfigFile;
     }
+    // Some settings have their own local storage keys, apply them here
     usersAppConfig.layout = localStorage[localStorageKeys.LAYOUT_ORIENTATION]
       || appConfigFile.layout || defaultLayout;
     usersAppConfig.iconSize = localStorage[localStorageKeys.ICON_SIZE]
       || appConfigFile.iconSize || defaultIconSize;
     usersAppConfig.language = localStorage[localStorageKeys.LANGUAGE]
       || appConfigFile.language || defaultLanguage;
+    // Don't let users modify users locally
+    if (appConfigFile.auth) usersAppConfig.auth = appConfigFile.auth;
+    // All done, return final appConfig object
     return usersAppConfig;
   }
 

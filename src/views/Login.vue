@@ -126,7 +126,7 @@ export default {
     },
     isUserAlreadyLoggedIn() {
       const users = this.appConfig.auth;
-      const loggedIn = (!users || users.length === 0 || isLoggedIn(users));
+      const loggedIn = (!users || users.length === 0 || isLoggedIn());
       return (loggedIn && this.existingUsername);
     },
     isGuestAccessEnabled() {

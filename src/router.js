@@ -31,7 +31,7 @@ const isGuestEnabled = () => {
 /* Returns true if user is already authenticated, or if auth is not enabled */
 const isAuthenticated = () => {
   const users = config.appConfig.auth;
-  return (!users || users.length === 0 || isLoggedIn(users) || isGuestEnabled());
+  return (!users || users.length === 0 || isLoggedIn() || isGuestEnabled());
 };
 
 /* Get the users chosen starting view from app config, or return default */
