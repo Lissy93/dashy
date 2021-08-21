@@ -64,8 +64,7 @@ To disallow any changes from being written to disk via the UI config editor, set
 **`enableFontAwesome`** | `boolean` | _Optional_ | Where `true` is enabled, if left blank font-awesome will be enabled only if required by 1 or more icons
 **`fontAwesomeKey`** | `string` | _Optional_ | If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
 **`faviconApi`** | `enum` | _Optional_ | Only applicable if you are using favicons for item icons. Specifies which service to use to resolve favicons. Set to `local` to do this locally, without using an API. Services running locally will use this option always. Available options are: `local`, `faviconkit`, `google`, `clearbit`, `webmasterapi` and `allesedv`. Defaults to `faviconkit`. See [Icons](/docs/icons.md#favicons) for more info
-**`auth`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. Note authentication is done on the client side, and so if your instance of Dashy is exposed to the internet, it is recommend to configure your web server to handle this. See [`auth`](#appconfigauth-optional)
-**`enableGuestAccess`** | `boolean` | _Optional_ | When set to `true`, an unauthenticated user will be able to access the dashboard, with read-only access, without having to login. Requires `auth` to be configured. Defaults to `false`.
+**`auth`** | `object` | _Optional_ | All settings relating to user authentication. See [`auth`](#appconfigauth-optional)
 **`layout`** | `enum` | _Optional_ | App layout, either `horizontal`, `vertical`, `auto` or `sidebar`. Defaults to `auto`. This specifies the layout and direction of how sections are positioned on the home screen. This can also be modified from the UI.
 **`iconSize`** | `enum` | _Optional_ | The size of link items / icons. Can be either `small`, `medium,` or `large`. Defaults to `medium`. This can also be set directly from the UI.
 **`theme`** | `string` | _Optional_ | The default theme for first load (you can change this later from the UI)
@@ -85,6 +84,14 @@ To disallow any changes from being written to disk via the UI config editor, set
 **[⬆️ Back to Top](#configuring)**
 
 ### `appConfig.auth` _(optional)_
+**Field** | **Type** | **Required**| **Description**
+--- | --- | --- | ---
+**`users`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. See [`appConfig.auth.users`](#appconfigauthusers-optional). <br>**Note** this method of authentication is handled on the client side, so for security critical situations, it is recommended to use an [alternate authentication method](/docs/authentication.md#alternative-authentication-methods).
+**`enableGuestAccess`** | `boolean` | _Optional_ | When set to `true`, an unauthenticated user will be able to access the dashboard, with read-only access, without having to login. Requires `auth.users` to be configured. Defaults to `false`.
+
+**[⬆️ Back to Top](#configuring)**
+
+### `appConfig.auth.users` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---

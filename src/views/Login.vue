@@ -49,7 +49,7 @@
     </form>
     <!-- Guest login form -->
     <form class="guest-form"
-      v-if="appConfig.enableGuestAccess && !isUserAlreadyLoggedIn && isAuthenticationEnabled">
+      v-if="isGuestAccessEnabled && !isUserAlreadyLoggedIn && isAuthenticationEnabled">
       <h2 class="login-title">Guest Access</h2>
       <Button class="login-button" :click="guestLogin">
         {{ $t('login.proceed-guest-button') }}
@@ -81,6 +81,7 @@ import {
   login,
   isLoggedIn,
   logout,
+  isGuestAccessEnabled,
 } from '@/utils/Auth';
 
 export default {
@@ -124,17 +125,19 @@ export default {
     existingUsername() {
       return localStorage[localStorageKeys.USERNAME];
     },
+    users() {
+      const auth = this.appConfig.auth || {};
+      return Array.isArray(auth) ? auth : auth.users || [];
+    },
     isUserAlreadyLoggedIn() {
-      const users = this.appConfig.auth;
-      const loggedIn = (!users || users.length === 0 || isLoggedIn());
+      const loggedIn = (!this.users || this.users.length === 0 || isLoggedIn());
       return (loggedIn && this.existingUsername);
     },
     isGuestAccessEnabled() {
-      if (!this.appConfig || !this.appConfig.enableGuestAccess) return false;
-      return this.appConfig.enableGuestAccess;
+      return isGuestAccessEnabled();
     },
     isAuthenticationEnabled() {
-      return (this.appConfig && this.appConfig.auth && this.appConfig.auth.length > 0);
+      return (this.appConfig && this.appConfig.auth && this.users.length > 0);
     },
   },
   methods: {
@@ -146,7 +149,7 @@ export default {
       const response = checkCredentials(
         this.username,
         this.password,
-        this.appConfig.auth || [], // All users
+        this.users, // All users
         this.responseMessages, // Translated response messages
       );
       this.message = response.msg; // Show error or success message to the user

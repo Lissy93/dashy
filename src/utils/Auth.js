@@ -9,10 +9,28 @@ const getAppConfig = () => {
   return config.appConfig || {};
 };
 
+/**
+ * Called when the user is still using array for users, prints warning
+ * This was a breaking change, implemented in V 1.6.5
+ * Support for old user structure will be removed in V 1.7.0
+ */
+const printWarning = () => {
+  const msg = 'From V 1.6.5 onwards, the structure of the users object has changed.';
+  // eslint-disable-next-line no-console
+  console.warn(msg);
+};
+
 /* Returns the users array from appConfig, if available, else an empty array */
 const getUsers = () => {
   const appConfig = getAppConfig();
-  return appConfig.auth || [];
+  const auth = appConfig.auth || {};
+  // Check if the user is still using previous schema type
+  if (Array.isArray(auth)) {
+    printWarning(); // Print warning message
+    return auth;
+  }
+  // Otherwise, return the users array, if available
+  return auth.users || [];
 };
 
 /**
@@ -58,7 +76,11 @@ export const isAuthEnabled = () => {
 /* Returns true if guest access is enabled */
 export const isGuestAccessEnabled = () => {
   const appConfig = getAppConfig();
-  return appConfig.enableGuestAccess || false;
+  if (appConfig.enableGuestAccess) return true;
+  if (!Array.isArray(appConfig.auth)) {
+    return appConfig.auth.enableGuestAccess || false;
+  }
+  return false;
 };
 
 /**

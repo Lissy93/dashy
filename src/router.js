@@ -25,12 +25,14 @@ Vue.use(Router);
 /* Checks if guest mode is enabled in appConfig */
 const isGuestEnabled = () => {
   if (!config || !config.appConfig) return false;
-  return config.appConfig.enableGuestAccess || false;
+  if (config.appConfig.enableGuestAccess) return true;
+  return config.appConfig.auth.enableGuestAccess || false;
 };
 
 /* Returns true if user is already authenticated, or if auth is not enabled */
 const isAuthenticated = () => {
-  const users = config.appConfig.auth;
+  const auth = config.appConfig.auth || {};
+  const users = Array.isArray(auth) ? auth : auth.users || [];
   return (!users || users.length === 0 || isLoggedIn() || isGuestEnabled());
 };
 
