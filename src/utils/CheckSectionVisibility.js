@@ -42,23 +42,13 @@ const isSectionVisibleToUser = (displayData, currentUser, isGuest) => {
 };
 
 /* Putting it all together, the function to export */
-const filterSectionVisibility = (sections) => {
+const checkSectionVisibility = (sections) => {
   const currentUser = getCurrentUser(); // Get current user object
   const isGuest = isLoggedInAsGuest(); // Check if current user is a guest
-  // const sectionsToReturn = [];
-  // sections.forEach((currentSection) => {
-  //   const displayData = currentSection.displayData || {};
-  //   if (isSectionVisibleToUser(displayData, currentUser, isGuest)) {
-  //     sectionsToReturn.push(currentSection);
-  //   }
-  // });
-
-  const filteredSections = sections.filter((currentSection) => {
+  return sections.filter((currentSection) => {
     const displayData = currentSection.displayData || {};
     return isSectionVisibleToUser(displayData, currentUser, isGuest);
   });
-
-  return filteredSections;
 };
 
-export default filterSectionVisibility;
+export default checkSectionVisibility;

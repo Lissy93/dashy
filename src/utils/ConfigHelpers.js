@@ -14,7 +14,6 @@ import {
  */
 export const config = (() => {
   const Accumulator = new ConfigAccumulator();
-  // return Accumulator.config();
   return {
     appConfig: Accumulator.appConfig(),
     pageInfo: Accumulator.pageInfo(),
