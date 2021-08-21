@@ -51,7 +51,6 @@
 import Item from '@/components/LinkItems/Item.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
-// import { isSectionVisibleToUser } from '@/utils/ConfigHelpers';
 
 export default {
   name: 'Section',
@@ -112,10 +111,6 @@ export default {
       if (interval < 1) interval = 0;
       return interval;
     },
-    /* Returns false if this section should not be rendered for the current user/ guest */
-    // isSectionVisibleToUser() {
-    //   return isSectionVisibleToUser(this.displayData);
-    // },
   },
 };
 </script>
