@@ -1,14 +1,14 @@
 # Authentication
 
-- [Built-In Login Feature](#built-in-auth)
+- [Basic Auth](#built-in-auth)
 	- [Setting Up Authentication](#setting-up-authentication)
 	- [Hash Password](#hash-password)
 	- [Logging In and Out](#logging-in-and-out)
 	- [Security](#security)
 - [Keycloak Auth](#keycloak)
-  - [1. Deploying Keycloak](#1-deploy-deycloak)
-  - [2. Setting up Keycloak](#2-setup-keycloak-users)
-  - [3. Configuring Dashy for Keycloak](#3-enable-keycloak-in-dashy-config-file)
+  - [Deploying Keycloak](#1-deploy-keycloak)
+  - [Setting up Keycloak](#2-setup-keycloak-users)
+  - [Configuring Dashy for Keycloak](#3-enable-keycloak-in-dashy-config-file)
 - [Alternative Authentication Methods](#alternative-authentication-methods)
 	- [VPN](#vpn)
 	- [IP-Based Access](#ip-based-access)
@@ -16,9 +16,8 @@
 	- [OAuth Services](#oauth-services)
 	- [Auth on Cloud Hosting Services](#static-site-hosting-providers)
 
-Dashy has a basic login page included, and frontend authentication. You can enable this by adding users to the `auth` section under `appConfig` in your `conf.yml`. If this section is not specified, then no authentication will be required to access the app, and it the homepage will resolve to your dashboard.
-
 ## Built-In Auth
+Dashy has a basic login page included, and frontend authentication. You can enable this by adding users to the `auth` section under `appConfig` in your `conf.yml`. If this section is not specified, then no authentication will be required to access the app, and it the homepage will resolve to your dashboard.
 
 ### Setting Up Authentication
 The `auth` property takes an array of users. Each user needs to include a username, hash and optional user type (`admin` or `normal`). The hash property is a [SHA-256 Hash](https://en.wikipedia.org/wiki/SHA-2) of your desired password. 
@@ -79,7 +78,7 @@ Since all authentication is happening entirely on the client-side, it is vulnera
 Addressing this is on the todo list, and there are several potential solutions:
 1. Encrypt all site data against the users password, so that an attacker can not physically access any data without the correct decryption key
 2. Use a backend service to handle authentication and configuration, with no user data returned from the server until the correct credentials are provided. However, this would require either Dashy to be run using it's Node.js server, or the use of an external service
-3. Implement authentication using a self-hosted identity management solution, such as [Keycloak for Vue](https://www.keycloak.org/securing-apps/vue)
+3. ~~Implement authentication using a self-hosted identity management solution, such as [Keycloak for Vue](https://www.keycloak.org/securing-apps/vue)~~ **This is now implemented, and released in PR #174 of V 1.6.5!**
 
 **[⬆️ Back to Top](#authentication)**
 
@@ -87,7 +86,7 @@ Addressing this is on the todo list, and there are several potential solutions:
 
 ## Keycloak
 
-Dashy also supports using a [Keycloack](https://www.keycloak.org/) authentication server.
+Dashy also supports using a [Keycloack](https://www.keycloak.org/) authentication server. The setup for this is a bit more involved, but it gives you greater security overall, useful for if your instance is exposed to the internet.
 
 [Keycloak](https://www.keycloak.org/about.html) is a Java-based [open source](https://github.com/keycloak/keycloak), high-performance, secure authentication system, supported by [RedHad](https://www.redhat.com/en). It is easy to setup ([with Docker](https://quay.io/repository/keycloak/keycloak)), and enables you to secure multiple self-hosted applications with single-sign on using standard protocols (OpenID Connect, OAuth 2.0, SAML 2.0 and social login). It's also very customizable, you can write or use custom [themes](https://wjw465150.gitbooks.io/keycloak-documentation/content/server_development/topics/themes.html), [plugins](https://www.keycloak.org/extensions.html), [password policies](https://wjw465150.gitbooks.io/keycloak-documentation/content/server_admin/topics/authentication/password-policies.html) and more.
 The following guide will walk you through setting up Keycloak with Dashy. If you already have a Keycloak instance configured, then skip to Step 3.
@@ -144,13 +143,13 @@ appConfig:
 ```
 Your app is now secured :) When you load Dashy, it will redirect to your Keycloak login page, and any user without valid credentials will be prevented from accessing your dashboard.
 
-From within the Keycloak console, you can then configure things like user permissions, time outs, password policies, access, etc
+From within the Keycloak console, you can then configure things like user permissions, time outs, password policies, access, etc. You can also backup your full Keycloak config, and it is recommended to do this, along with your Dashy config. You can spin up both Dashy and Keycloak simultaneously and restore both applications configs using a `docker-compose.yml` file, and this is recommended.
 
 ---
 
 ## Alternative Authentication Methods
 
-If you are self-hosting Dashy, and require secure authentication to prevent unauthorized access, you have several options:
+If you are self-hosting Dashy, and require secure authentication to prevent unauthorized access, then you can either use Keycloak, or one of the following options:
 - [Authentication Server](#authentication-server) - Put Dashy behind a self-hosted auth server
 - [VPN](#vpn) - Use a VPN to tunnel into the network where Dashy is running
 - [IP-Based Access](#ip-based-access) - Disallow access from all IP addresses, except your own
