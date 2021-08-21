@@ -64,8 +64,8 @@
 - Option to show service status for each of your apps / links, for basic availability and uptime monitoring
 - Choose how to launch apps, either in your browser, a pop-up modal or workspace view
 - Option for full-screen background image, custom nav-bar links, html footer, title, and more
-- Encrypted cloud backup and restore feature available
-- Optional authentication, requiring admins and non-privileged users to log in
+- Optional encrypted cloud backup and restore feature available
+- Optional authentication with multi-user support and configurable privileges for protecting your dashboard
 - Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
 - Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
 - Multi-language support, with more languages being added regularly
@@ -243,18 +243,22 @@ You can also specify an time interval in seconds under `appConfig.statusCheckInt
 
 > For full authentication documentation, see: [**Authentication**](./docs/authentication.md)
 
-Dashy has a built-in login feature, which can be used for basic access control. To enable this feature, add an `auth` attribute under `appConfig`, containing an array of users, each with a username, SHA-256 hashed password and optional user type.
+Dashy has full support for [Keycloak](https://www.keycloak.org/), for securing your dashboard.
+
+There is also a simple login feature for basic access control, which doesn't require any additional setup. To enable this feature, add an `auth` attribute under `appConfig`, containing an array of `users`, each with a username, SHA-256 hashed password and optional user type.
 
 ```yaml
 appConfig:
   auth:
+    users:
     - user: alicia
       hash: 4D1E58C90B3B94BCAD9848ECCACD6D2A8C9FBC5CA913304BBA5CDEAB36FEEFA3
+      type: admin
 ```
 
-By default, when authentication is configured no user can access your dashboard without first logging in. If you would like to allow for read-only access by unauthenticated users, then you can enable guest mode, by setting `appConfig.enableGuestAccess: true`.
+**Guest Access**: By default, when authentication is configured no user can access your dashboard without first logging in. If you would like to allow for read-only access by unauthenticated users, then you can enable guest mode, by setting `appConfig.auth.enableGuestAccess: true`.
 
-**Note**: At present, access control is handled on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication, such as [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules. Instructions for setting this up can be found [in the docs](docs/authentication.md#alternative-authentication-methods).
+**Note**: Using the above method involved access control being handled on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication. Keycloak is [natively supported](docs/authentication.md#keycloak), but you could also use [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules. Instructions for all of these can be found [in the docs](docs/authentication.md#alternative-authentication-methods).
 
 <p align="center">
   <img
@@ -265,6 +269,10 @@ By default, when authentication is configured no user can access your dashboard 
   />
 </p>
 
+**Granular Controls**: With basic login, it is also possible to control which sections are visible to which users. Under the `displayData` property of a section, you can pass an array of usernames to  one of the following attributes:
+- `hideForUsers` - Section will be visible to all users, except for those specified in this list
+- `showForUsers` - Section will be hidden from all users, except for those specified in this list
+- `hideForGuests` - Section will be visible for all logged in users, but not for guests (if guest access is enabled)
 
 **[⬆️ Back to Top](#dashy)**
 
