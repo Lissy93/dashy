@@ -243,7 +243,7 @@ You can also specify an time interval in seconds under `appConfig.statusCheckInt
 
 > For full authentication documentation, see: [**Authentication**](./docs/authentication.md)
 
-Dashy has full support for [Keycloak](https://www.keycloak.org/), for securing your dashboard.
+Dashy now has full support for [Keycloak](https://www.keycloak.org/)!
 
 There is also a simple login feature for basic access control, which doesn't require any additional setup. To enable this feature, add an `auth` attribute under `appConfig`, containing an array of `users`, each with a username, SHA-256 hashed password and optional user type.
 
@@ -258,7 +258,7 @@ appConfig:
 
 **Guest Access**: By default, when authentication is configured no user can access your dashboard without first logging in. If you would like to allow for read-only access by unauthenticated users, then you can enable guest mode, by setting `appConfig.auth.enableGuestAccess: true`.
 
-**Note**: Using the above method involved access control being handled on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication. Keycloak is [natively supported](docs/authentication.md#keycloak), but you could also use [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules. Instructions for all of these can be found [in the docs](docs/authentication.md#alternative-authentication-methods).
+**Note**: Using the above method involves access control being handled on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication. Keycloak is [natively supported](docs/authentication.md#keycloak), but you could also use [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules. Instructions for all of these can be found [in the docs](docs/authentication.md#alternative-authentication-methods).
 
 <p align="center">
   <img
@@ -453,7 +453,7 @@ Several areas that we need a bit of help with at the moment are:
 - Complete a [short survey](https://n9fy6xak9yd.typeform.com/to/gl0L68ou), to have your say about future features
 - Share your dashboard in the [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-), to provide inspiration for others
 - Join the [discussion](https://github.com/Lissy93/dashy/discussions), help answer other users questions, suggest features, share tips and ask questions
-- Spread the word, by sharing Dashy online, to help new users discover it
+- Spread the word, by sharing Dashy or a screenshot of your dashboard, to help new users discover it
 - Submit a PR, to add a new feature, fix a bug, update the docs, add a theme or something else
 - Star Dashy on GitHub/ DockerHub or leave an upvote / review on [these platforms](https://github.com/Lissy93/dashy/blob/master/docs/contributing.md#star-upvote-or-leave-a-review)
 
@@ -550,7 +550,8 @@ If you're new to web development, I've put together a short [list of resources](
 ## Documentation 📘
 > For full docs, see: **[Documentation Contents](./docs/readme.md)**
 #### Running Dashy
-- 🚀 [Deployment](/docs/deployment.md) - Getting Dashy up and running
+- 💨 [Quick Start](/docs/quick-start.md) - TDLR guide on getting Dashy up and running in under 5 minutes
+- 🚀 [Deployment](/docs/deployment.md) - Full guide on setting up Dashy on various different environments
 - 🔧 [Configuring](/docs/configuring.md) - Complete list of all available options in the config file
 - 💻 [Management](/docs/management.md) - Managing your app, updating, security, web server configuration, etc
 - 🚒 [Troubleshooting](/docs/troubleshooting.md) - Common errors and problems, and how to fix them
@@ -564,6 +565,7 @@ If you're new to web development, I've put together a short [list of resources](
 
 #### Feature Docs
 - 🛡️ [Authentication](/docs/authentication.md) - Guide to setting up authentication to protect your dashboard
+- 🧿 [Alternate Views](/docs/alternate-views.md) - Outline of available pages / views and item opening methods
 - 💾 [Backup & Restore](/docs/backup-restore.md) - Guide to Dashy's cloud sync feature
 - 🚦 [Status Indicators](/docs/status-indicators.md) - Using Dashy to monitor uptime and status of your apps
 - 🧸 [Icons](/docs/icons.md) - Outline of all available icon types for sections and items
