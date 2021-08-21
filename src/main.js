@@ -2,6 +2,7 @@
 // Import core framework and essential utils
 import Vue from 'vue';
 import VueI18n from 'vue-i18n'; // i18n for localization
+import Keycloak from 'keycloak-js';
 
 // Import component Vue plugins, used throughout the app
 import VTooltip from 'v-tooltip';       // A Vue directive for Popper.js, tooltip component
@@ -18,6 +19,7 @@ import clickOutside from '@/utils/ClickOutside';      // Directive for closing p
 import { messages } from '@/utils/languages';         // Language texts
 import ErrorReporting from '@/utils/ErrorReporting';  // Error reporting initializer (off)
 import { toastedOptions, language as defaultLanguage } from '@/utils/defaults'; // Defaults
+import { isKeycloakEnabled, getKeycloakConfig } from '@/utils/Auth'; // Keycloak auth config
 
 // Initialize global Vue components
 Vue.use(VueI18n);
@@ -46,5 +48,22 @@ ErrorReporting(Vue, router);
 // Render function
 const render = (awesome) => awesome(Dashy);
 
-// All done, now just initialize main Vue app!
-new Vue({ router, render, i18n }).$mount('#app');
+// If Keycloak not enabled, then proceed straight to the app
+if (!isKeycloakEnabled()) {
+  new Vue({ router, render, i18n }).$mount('#app');
+} else { // Keycloak is enabled, redirect to KC login page
+  const { serverUrl, realm, clientId } = getKeycloakConfig();
+  const initOptions = {
+    url: `${serverUrl}/auth`, realm, clientId, onLoad: 'login-required',
+  };
+  const keycloak = Keycloak(initOptions);
+  keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
+    if (!auth) {
+      // Not authenticated, reload to Keycloak login page
+      window.location.reload();
+    } else {
+      // Yay - user successfully authenticated with Keycloak, render the app!
+      new Vue({ router, render, i18n }).$mount('#app');
+    }
+  });
+}
