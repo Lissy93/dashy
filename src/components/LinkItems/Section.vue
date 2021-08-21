@@ -55,7 +55,7 @@ import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import { getCurrentUser, isLoggedInAsGuest } from '@/utils/Auth';
 
 export default {
-  name: 'ItemGroup',
+  name: 'Section',
   inject: ['config'],
   props: {
     groupId: String,
