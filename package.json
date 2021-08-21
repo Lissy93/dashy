@@ -24,6 +24,7 @@
     "connect": "^3.7.0",
     "crypto-js": "^4.1.1",
     "js-yaml": "^4.1.0",
+    "keycloak-js": "^15.0.2",
     "register-service-worker": "^1.6.2",
     "remedial": "^1.0.8",
     "serve-static": "^1.14.1",
