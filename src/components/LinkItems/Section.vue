@@ -8,7 +8,6 @@
     :rows="displayData.rows"
     :color="displayData.color"
     :customStyles="displayData.customStyles"
-    v-if="isSectionVisibleToUser()"
   >
     <div v-if="!items || items.length < 1" class="no-items">
       No Items to Show Yet
@@ -52,7 +51,7 @@
 import Item from '@/components/LinkItems/Item.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
-import { getCurrentUser, isLoggedInAsGuest } from '@/utils/Auth';
+// import { isSectionVisibleToUser } from '@/utils/ConfigHelpers';
 
 export default {
   name: 'Section',
@@ -87,9 +86,6 @@ export default {
         ? `grid-template-rows: repeat(${this.displayData.itemCountY}, 1fr);` : '';
       return styles;
     },
-    currentUser() {
-      return getCurrentUser();
-    },
   },
   methods: {
     /* Returns a unique lowercase string, based on name, for section ID */
@@ -117,34 +113,9 @@ export default {
       return interval;
     },
     /* Returns false if this section should not be rendered for the current user/ guest */
-    isSectionVisibleToUser() {
-      const determineVisibility = (visibilityList, currentUser) => {
-        let isFound = false;
-        visibilityList.forEach((userInList) => {
-          if (userInList.toLowerCase() === currentUser) isFound = true;
-        });
-        return isFound;
-      };
-      const checkVisiblity = () => {
-        if (!this.currentUser) return true;
-        const hideFor = this.displayData.hideForUsers || [];
-        const currentUser = this.currentUser.user.toLowerCase();
-        return !determineVisibility(hideFor, currentUser);
-      };
-      const checkHiddenability = () => {
-        if (!this.currentUser) return true;
-        const currentUser = this.currentUser.user.toLowerCase();
-        const showForUsers = this.displayData.showForUsers || [];
-        if (showForUsers.length < 1) return true;
-        return determineVisibility(showForUsers, currentUser);
-      };
-      const checkIfHideForGuest = () => {
-        const hideForGuest = this.displayData.hideForGuests;
-        const isGuest = isLoggedInAsGuest();
-        return !(hideForGuest && isGuest);
-      };
-      return checkVisiblity() && checkHiddenability() && checkIfHideForGuest();
-    },
+    // isSectionVisibleToUser() {
+    //   return isSectionVisibleToUser(this.displayData);
+    // },
   },
 };
 </script>

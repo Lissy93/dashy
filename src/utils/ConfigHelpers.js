@@ -1,4 +1,5 @@
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
+import filterUserSections from '@/utils/CheckSectionVisibility';
 import { languages } from '@/utils/languages';
 import {
   visibleComponents,
@@ -13,7 +14,12 @@ import {
  */
 export const config = (() => {
   const Accumulator = new ConfigAccumulator();
-  return Accumulator.config();
+  // return Accumulator.config();
+  return {
+    appConfig: Accumulator.appConfig(),
+    pageInfo: Accumulator.pageInfo(),
+    sections: filterUserSections(Accumulator.sections()),
+  };
 })();
 
 /**
