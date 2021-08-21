@@ -91,5 +91,22 @@ If the issue still persists, you should raise an issue.
 
 ---
 
+## Node Sass does not yet support your current environment
+Caused by node-sass's binaries being built for a for a different architecture
+To fix this, just run: `yarn rebuild node-sass`
+
+---
+
+## Error: Cannot find module './_baseValues'
+Clearing the cache should fix this: `yarn cache clean`
+If the issue persists, remove (`rm -rf node_modules\ yarn.lock`) and reinstall (`yarn`) node_modules
+
+---
+
+## Invalid Host Header while running through ngrok
+Just add the [-host-header](https://ngrok.com/docs#http-host-header) flag, e.g. `ngrok http 8080 -host-header="localhost:8080"`
+
+---
+
 ## Warnings in the Console during deploy
 Please acknowledge the difference between errors and warnings before raising an issue about messages in the console. It's not unusual to see warnings about a new version of a certain package being available, an asset bundle bing oversized or a service worker not yet having a cache. These shouldn't have any impact on the running application, so please don't raise issues about these unless it directly relates to a bug or issue you're experiencing. Errors on the other hand should not appear in the console, and they are worth looking into further.
