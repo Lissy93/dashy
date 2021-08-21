@@ -1,5 +1,6 @@
 import sha256 from 'crypto-js/sha256';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
+import ErrorHandler from '@/utils/ErrorHandler';
 import { cookieKeys, localStorageKeys, userStateEnum } from '@/utils/defaults';
 
 /* Uses config accumulator to get and return app config */
@@ -20,14 +21,34 @@ const printWarning = () => {
   console.warn(msg);
 };
 
-/* Returns the users array from appConfig, if available, else an empty array */
+/* Returns true if keycloak is enabled */
+export const isKeycloakEnabled = () => {
+  const appConfig = getAppConfig();
+  if (!appConfig.auth) return false;
+  return appConfig.auth.enableKeycloak || false;
+};
+
+/* Returns the users keycloak config */
+export const getKeycloakConfig = () => {
+  const appConfig = getAppConfig();
+  if (!isKeycloakEnabled()) return false;
+  const { keycloak } = appConfig.auth;
+  const { serverUrl, realm, clientId } = keycloak;
+  if (!serverUrl || !realm || !clientId) {
+    ErrorHandler('Keycloak config missing- please ensure you specify: serverUrl, realm, clientId');
+    return false;
+  }
+  return keycloak;
+};
+
+/* Returns array of users from appConfig.auth, if available, else an empty array */
 const getUsers = () => {
   const appConfig = getAppConfig();
   const auth = appConfig.auth || {};
   // Check if the user is still using previous schema type
   if (Array.isArray(auth)) {
     printWarning(); // Print warning message
-    return auth;
+    return auth; // Let the user proceed anyway, will remove in V 1.7.0
   }
   // Otherwise, return the users array, if available
   return auth.users || [];
@@ -76,7 +97,11 @@ export const isAuthEnabled = () => {
 /* Returns true if guest access is enabled */
 export const isGuestAccessEnabled = () => {
   const appConfig = getAppConfig();
-  if (appConfig.enableGuestAccess) return true;
+  if (appConfig.enableGuestAccess) {
+    // User is still using the old auth method
+    printWarning();
+    return true;
+  }
   if (!Array.isArray(appConfig.auth)) {
     return appConfig.auth.enableGuestAccess || false;
   }
