@@ -11,7 +11,7 @@ For privacy and security tips, check out another project of mine: **[Personal Se
 By default, Dashy will not make any external requests, unless you configure it to. Some features (which are all off by default) do require internat access, and this section outlines those features, the services used, and links to their privacy policies.
 
 ### Font Awesome
-If either sections or items are using font-awesome icons, then these will be fetched directly from font-awesome on page load. 
+If either any of your sections or items are using font-awesome icons, then these will be fetched directly from font-awesome on page load. See the [Font Awesome Privacy Policy](https://fontawesome.com/privacy) for more info.
 
 ### Favicon Fetching
 If an item's icon is set to `favicon`, then it will be auto-fetched from the corresponding URL. Since not all websites have their icon located at `/favicon.ico`, and if they do, it's often very low resolution (like `16 x 16 px`). Therefore, the default behavior is for Dashy to check if the URL is public, and if so will use an API to fetch the favicon. For self-hosted services, the favion will be fetched from the default path, and no external requests will be made.
@@ -41,10 +41,39 @@ If you need to monitor bugs yourself, then you can [self-host your own Sentry Se
 
 ---
 
+## Local Storage
+In order for user preferences to be persisted between sessions, certain data needs to be stored in the browsers local storage. No personal info is kept here, none of this data can be accessed by other domains, and no data is ever sent to any server without your prior consent.
+You can view your browsers session storage by opening up the dev tools (F12) --> Application --> Storage.
+
+The following section outlines all data that is stored in the browsers, as cookies or local storage.
+
+#### Cookies
+- `AUTH_TOKEN` - A unique token, generated from a hash of users credentials, to verify they are authenticated. Only used when auth is enabled 
+
+#### Local Storage
+- `LANGUAGE` - The locale to show app text in
+- `HIDE_WELCOME_BANNER` - Set to true once user dismissed welcome message, so that it's not shown again
+- `LAYOUT_ORIENTATION` - Preferred section layout, either horizontal, vertical or auto
+- `COLLAPSE_STATE` - Remembers which sections are collapsed
+- `ICON_SIZE` - Size of items, either small, medium or large
+- `THEME: 'theme` - Users applied theme
+- `CUSTOM_COLORS` - Any color modifications made to a given theme
+- `BACKUP_ID` - If a backup has been made, the ID is stored here
+- `BACKUP_HASH` - A unique hash of the previous backups meta data
+- `HIDE_SETTINGS` - Lets user hide or show the settings menu
+- `USERNAME` - If user logged in, store username in order to welcome them
+- `CONF_SECTIONS` - Array of sections, only used when user applies changes locally
+- `PAGE_INFO` - Config page info, only used when user applies changes locally
+- `APP_CONFIG` - App config, only used when user applies changes locally
+
+---
+
 ## Dependencies
 As with most web projects, Dashy relies on several [dependencies](https://github.com/Lissy93/dashy/blob/master/docs/credits.md#dependencies-). For links to each, and a breakdown of their licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md).
 
-Dependencies can introduce security vulnerabilities, but since all these packages are open source any issues are usually very quickly spotted. Dashy is using Snyk for dependency security monitoring, and you can see [the latest report here](https://snyk.io/test/github/lissy93/dashy).
+Dependencies can introduce security vulnerabilities, but since all these packages are open source any issues are usually very quickly spotted. Dashy is using Snyk for dependency security monitoring, and you can see [the latest report here](https://snyk.io/test/github/lissy93/dashy). If any issue is detected by Snyk, a note about it will appear at the top of the Reamde, and will usually be fixed within 48 hours.
+
+Note that packages listed under `deDependencies` section are only used for building the project, and are not included in the production environment.
 
 ---
 

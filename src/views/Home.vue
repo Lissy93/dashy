@@ -18,7 +18,7 @@
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections)"
       :class="`item-group-container orientation-${layout} item-size-${itemSizeBound}`">
-      <ItemGroup
+      <Section
         v-for="(section, index) in getSections(sections)"
         :key="index"
         :title="section.name"
@@ -42,7 +42,7 @@
 <script>
 
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
-import ItemGroup from '@/components/LinkItems/ItemGroup.vue';
+import Section from '@/components/LinkItems/Section.vue';
 import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 
 export default {
@@ -54,7 +54,7 @@ export default {
   },
   components: {
     SettingsContainer,
-    ItemGroup,
+    Section,
   },
   data: () => ({
     searchValue: '',
@@ -130,11 +130,11 @@ export default {
     getDisplayData(section) {
       return !section.displayData ? {} : section.displayData;
     },
-    /* Sets layout attribute, which is used by ItemGroup */
+    /* Sets layout attribute, which is used by Section */
     setLayoutOrientation(layout) {
       this.layoutOrientation = layout;
     },
-    /* Sets item size attribute, which is used by ItemGroup */
+    /* Sets item size attribute, which is used by Section */
     setItemSize(itemSize) {
       this.iconSize = itemSize;
     },
