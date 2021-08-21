@@ -43,7 +43,7 @@
         "logo": {
           "type": "string",
           "description": "Path to an optional image asset, to be displayed in the header",
-          "pattern": "^(http|\/)",
+          "pattern": "^(http|/)",
           "examples": [
             "/web-icons/dashy-logo.png",
             "https://i.ibb.co/yhbt6CY/dashy.png"
@@ -217,41 +217,77 @@
           "description": "How often to recheck statuses. If set to 0, status will only be checked on page load"
         },
         "auth": {
-          "type": "array",
-          "description": "Usernames and hashed credentials for frontend authentication",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "user",
-              "hash"
-            ],
-            "properties": {
-              "user": {
-                "type": "string",
-                "description": "The username for a user"
-              },
-              "hash": {
-                "type": "string",
-                "description": "A SHA-256 hashed password for that user",
-                "minLength": 64,
-                "maxLength": 64
-              },
-              "type": {
-                "enum": [
-                  "admin",
-                  "normal"
+          "type": "object",
+          "description": "Settings for enabling authentication",
+          "additionalProperties": false,
+          "properties": {
+            "enableGuestAccess": {
+              "type": "boolean",
+              "default": false,
+              "description": "If set to true, an unauthenticated user will be able to have read-only access to dashboard, without needing to login. Requires auth to be configured."
+            },
+            "users": {
+              "type": "array",
+              "description": "Usernames and hashed credentials for frontend authentication",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "user",
+                  "hash"
                 ],
-                "description": "User type, denoting privilege level, either admin or normal",
-                "default": "normal"
+                "properties": {
+                  "user": {
+                    "type": "string",
+                    "description": "The username for a user"
+                  },
+                  "hash": {
+                    "type": "string",
+                    "description": "A SHA-256 hashed password for that user",
+                    "minLength": 64,
+                    "maxLength": 64
+                  },
+                  "type": {
+                    "enum": [
+                      "admin",
+                      "normal"
+                    ],
+                    "description": "User type, denoting privilege level, either admin or normal",
+                    "default": "normal"
+                  }
+                }
+              }
+            },
+            "enableKeycloak": {
+              "type": "boolean",
+              "default": false,
+              "description": "If set to true, and auth.keycloak is also configured, then Keycloak will be used for app auth"
+            },
+            "keycloak": {
+              "type": "object",
+              "description": "Configuration for Keycloak server",
+              "additionalProperties": false,
+              "required": [
+                "serverUrl",
+                "realm",
+                "clientId"
+              ],
+              "properties": {
+                "serverUrl": {
+                  "type": "string",
+                  "description": "The URL (or URL/ IP + Port) where your keycloak server is running"
+                },
+                "realm": {
+                  "type": "string",
+                  "description": "The name of the realm (must already be created) that you want to use"
+                },
+                "clientId": {
+                  "type": "string",
+                  "description": "The Client ID of the client you created for use with Dashy"
+                }
               }
             }
           }
-        },
-        "enableGuestAccess": {
-          "type": "boolean",
-          "default": false,
-          "description": "If set to true, an unauthenticated user will be able to have read-only access to dashboard, without needing to login. Requires auth to be configured."
         },
         "enableMultiTasking": {
           "type": "boolean",

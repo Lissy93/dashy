@@ -1,5 +1,9 @@
 # Changelog
 
+## ✨ 1.6.5 - Adds support for Secure Authentication using Keycloak [PR #174](https://github.com/Lissy93/dashy/pull/174)
+- Major restructure of auth config
+- Implements keycloak support, adds docs and updates schema
+
 ## ✨ 1.6.4 - Adds functionality for Granular Auth Control [PR #171](https://github.com/Lissy93/dashy/pull/171)
 - Enables sections to be visible for all users except for those specified
 - Enables sections to be hidden from all users except for those specified

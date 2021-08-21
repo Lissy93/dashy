@@ -16,22 +16,18 @@ import Minimal from '@/views/Minimal.vue';
 import DownloadConfig from '@/views/DownloadConfig.vue';
 
 // Import helper functions, config data and defaults
-import { isLoggedIn } from '@/utils/Auth';
+import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/Auth';
 import { config } from '@/utils/ConfigHelpers';
 import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 
 Vue.use(Router);
 
-/* Checks if guest mode is enabled in appConfig */
-const isGuestEnabled = () => {
-  if (!config || !config.appConfig) return false;
-  return config.appConfig.enableGuestAccess || false;
-};
-
 /* Returns true if user is already authenticated, or if auth is not enabled */
 const isAuthenticated = () => {
-  const users = config.appConfig.auth;
-  return (!users || users.length === 0 || isLoggedIn() || isGuestEnabled());
+  const authEnabled = isAuthEnabled();
+  const userLoggedIn = isLoggedIn();
+  const guestEnabled = isGuestAccessEnabled();
+  return (!authEnabled || userLoggedIn || guestEnabled);
 };
 
 /* Get the users chosen starting view from app config, or return default */
@@ -97,7 +93,7 @@ const router = new Router({
       },
       beforeEnter: (to, from, next) => {
         // If the user already logged in + guest mode not enabled, then redirect home
-        if (isAuthenticated() && !isGuestEnabled()) router.push({ path: '/' });
+        if (isAuthenticated() && !isGuestAccessEnabled()) router.push({ path: '/' });
         next();
       },
     },
