@@ -53,6 +53,30 @@ Alternatively, as a workaround, you have several options:
 
 ---
 
+## Auth Validation Error: "should be object"
+
+In V 1.6.5 an update was made that in the future will become a breaking change. You will need to update you config to reflect this before V 2.0.0 is released. In the meantime, your previous config will continue to function normally, but you will see a validation warning. The change means that the structure of the `appConfig.auth` object is now an object, which has a `users` property.
+
+You can fix this by replacing:
+
+```yaml
+auth:
+- user: xxx
+  hash: xxx
+```
+
+with
+
+```yaml
+appConfig:
+  auth:
+    users:
+    - user: xxx
+      hash: xxx
+```
+
+---
+
 ## DockerHub `toomanyrequests`
 
 This situation relates to error messages similar to one of the following, returned when pulling, updating or running the Docker container from Docker Hub.
