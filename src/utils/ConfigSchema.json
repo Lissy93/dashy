@@ -257,6 +257,35 @@
                   }
                 }
               }
+            },
+            "enableKeycloak": {
+              "type": "boolean",
+              "default": false,
+              "description": "If set to true, and auth.keycloak is also configured, then Keycloak will be used for app auth"
+            },
+            "keycloak": {
+              "type": "object",
+              "description": "Configuration for Keycloak server",
+              "additionalProperties": false,
+              "required": [
+                "serverUrl",
+                "realm",
+                "clientId"
+              ],
+              "properties": {
+                "serverUrl": {
+                  "type": "string",
+                  "description": "The URL (or URL/ IP + Port) where your keycloak server is running"
+                },
+                "realm": {
+                  "type": "string",
+                  "description": "The name of the realm (must already be created) that you want to use"
+                },
+                "clientId": {
+                  "type": "string",
+                  "description": "The Client ID of the client you created for use with Dashy"
+                }
+              }
             }
           }
         },
