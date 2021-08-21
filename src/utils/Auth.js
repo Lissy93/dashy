@@ -102,7 +102,7 @@ export const isGuestAccessEnabled = () => {
     printWarning();
     return true;
   }
-  if (!Array.isArray(appConfig.auth)) {
+  if (appConfig.auth && !Array.isArray(appConfig.auth)) {
     return appConfig.auth.enableGuestAccess || false;
   }
   return false;
