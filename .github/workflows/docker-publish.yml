@@ -25,11 +25,11 @@ jobs:
         id: prep
         run: echo ::set-output name=version::${GITHUB_REF##*/}
 
-#       # Use QEMU for multi-architecture builds
-#       - name: Set up QEMU
-#         uses: docker/setup-qemu-action@v1
-#         with:
-#           platforms: all
+      # Use QEMU for multi-architecture builds
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: all
 
 #       # Use  Moby BuildKit
 #       - name: Set up Docker Buildx
