@@ -57,6 +57,8 @@ Alternatively, as a workaround, you have several options:
 
 In V 1.6.5 an update was made that in the future will become a breaking change. You will need to update you config to reflect this before V 2.0.0 is released. In the meantime, your previous config will continue to function normally, but you will see a validation warning. The change means that the structure of the `appConfig.auth` object is now an object, which has a `users` property.
 
+For more info, see [this announcement](https://github.com/Lissy93/dashy/discussions/177).
+
 You can fix this by replacing:
 
 ```yaml
@@ -68,11 +70,10 @@ auth:
 with
 
 ```yaml
-appConfig:
-  auth:
-    users:
-    - user: xxx
-      hash: xxx
+auth:
+  users:
+  - user: xxx
+    hash: xxx
 ```
 
 ---

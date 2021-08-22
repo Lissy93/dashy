@@ -69,8 +69,8 @@
 - 📏 Customizable layout, sizes, text, component visibility, behavior and colors etc
 - 🖼️ Option for full-screen background image, custom nav-bar links, html footer, title, and more
 - 🚀 Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
-- 🤏 Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
 - ⚙️ Easy single-file YAML-based configuration, with option to configure app directly through the UI
+- 🤏 Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
 - ✨ Under active development with improvements and new features added regularly 
 - 🆓 100% free and open source
 - 🔐 Strong focus on privacy
@@ -446,9 +446,9 @@ If you're having trouble getting things up and running, feel free to ask a quest
 
 Found a bug, or something that isn't working as you'd expect? Please raise it as an issue so that it can be resolved. Feature requests are also welcome. Similarlty, feedback is very useful, as it helps me know what areas of Dashy need some improvement. 
 
-- [Raise a Bug 🐛](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%90%9B+Bug&template=bug-report---.md&title=%5BBUG%5D)
-- [Submit a Feature Request 🦄](https://github.com/Lissy93/dashy/issues/new?assignees=Lissy93&labels=%F0%9F%A6%84+Feature+Request&template=feature-request---.md&title=%5BFEATURE_REQUEST%5D)
-- [Share Feedback 🌈](https://github.com/Lissy93/dashy/issues/new?assignees=&labels=%F0%9F%8C%88+Feedback&template=share-feedback---.md&title=%5BFEEDBACK%5D)
+- [Raise a Bug 🐛](https://github.com/Lissy93/dashy/issues/new?assignees=lissy93&labels=%F0%9F%90%9B+Bug&template=bug.yml&title=%5BBUG%5D+%3Ctitle%3E)
+- [Submit a Feature Request 🦄](https://github.com/Lissy93/dashy/issues/new?template=feature-request.yml)
+- [Share Feedback 🌈](https://github.com/Lissy93/dashy/issues/new?assignees=&labels=%F0%9F%8C%88+Feedback&template=share-feedback.md&title=%5BFEEDBACK%5D)
 
 **Issue Status** [![Resolution Time](http://isitmaintained.com/badge/resolution/lissy93/dashy.svg)  ![Open Issues](http://isitmaintained.com/badge/open/lissy93/dashy.svg) ![Closed Issues](https://badgen.net/github/closed-issues/lissy93/dashy)](https://isitmaintained.com/project/lissy93/dashy) [![GitHub Discussions](https://img.shields.io/github/discussions/lissy93/dashy)
 ](https://github.com/Lissy93/dashy/discussions)
