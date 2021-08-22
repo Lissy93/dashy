@@ -915,12 +915,57 @@ html[data-theme="dashy-docs"] {
     @include make-colors(#dcff5a, #ceb73f);
   }
 
+  nav.side-bar {
+    div div.side-bar-item-container div {
+      padding: 0.15rem 0;
+      color: var(--background);
+    }
+
+    div.side-bar-section:nth-child(1n) {
+      div.side-bar-item-container div.side-bar-item {
+        @include make-colors(#db78fc, #b83ddd);
+      }
+      .sub-side-bar { background: #b83ddd80; }
+    }
+    div.side-bar-section:nth-child(2n) {
+      div.side-bar-item-container div.side-bar-item {
+        @include make-colors(#5c85f7, #3d48dd);
+      }
+      .sub-side-bar { background: #3d48dd80; }
+    }
+    div.side-bar-section:nth-child(3n) {
+      div.side-bar-item-container div.side-bar-item {
+        @include make-colors(#41ef90, #1e9554);
+      }
+      .sub-side-bar { background: #1e955480; }
+    }
+    div.side-bar-section:nth-child(4n) {
+      div.side-bar-item-container div.side-bar-item {
+        @include make-colors(#dcff5a, #ceb73f);
+      }
+      .sub-side-bar { background: #ceb73f80; }
+    }
+  }
+
   // Section items
   div.collapsable:nth-child(1n) { .item-wrapper:hover { .item {box-shadow: 0 2px 3px #db78fc; .tile-title { color: #db78fc; } } } }
   div.collapsable:nth-child(2n) { .item-wrapper:hover { .item { box-shadow: 0 2px 3px #5c85f7; .tile-title { color: #5c85f7; } } } }
   div.collapsable:nth-child(3n) { .item-wrapper:hover { .item { box-shadow: 0 2px 3px #41ef90; .tile-title { color: #41ef90; } } } }
   div.collapsable:nth-child(4n) { .item-wrapper:hover { .item { box-shadow: 0 2px 3px #dcff5a; .tile-title { color: #dcff5a; } } } }
 
+
+  div.config-buttons {
+    .config-button {
+      border: none;
+      color: var(--background);
+      font-weight: bold;
+      svg path { fill: var(--background); }
+      &:nth-child(1n) { @include make-colors(#db78fc, #b83ddd); }
+      &:nth-child(2n) { @include make-colors(#41ef90, #1e9554); }
+      &:nth-child(3n) { @include make-colors(#5c85f7, #3d48dd); }
+      &:nth-child(4n) { @include make-colors(#dcff5a, #ceb73f); }
+    }
+  }
   
   a.nav-item, a.nav-item:hover, a.nav-item.router-link-active {
     border: none;

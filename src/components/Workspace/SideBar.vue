@@ -1,6 +1,6 @@
 <template>
   <nav class="side-bar">
-    <div v-for="(section, index) in sections" :key="index">
+    <div v-for="(section, index) in sections" :key="index" class="side-bar-section">
       <div @click="openSection(index)" class="side-bar-item-container">
         <SideBarItem
           class="item"

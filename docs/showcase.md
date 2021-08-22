@@ -70,7 +70,7 @@
 ## Submitting your Dashboard
 
 #### How to Submit
-- [Open an Issue](https://git.io/Jceik)
+- [Open an Issue](https://git.io/JEtgM)
 - [Open a PR](https://github.com/Lissy93/dashy/compare)
 
 #### What to Include
