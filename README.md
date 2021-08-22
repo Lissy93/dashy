@@ -56,22 +56,25 @@
 
 ## Features 🌈
 
-- Instant search by name, domain and tags - just start typing
-- Full customizable keyboard shortcuts for navigation, filtering and launching apps
-- Multiple built-in color themes, with UI color editor and support for custom CSS
-- Customizable layout, sizes, text, component visibility, behavior and colors etc
-- Many options for icons, including Font-Awesome support, auto-fetching favicon, images and emojis
-- Option to show service status for each of your apps / links, for basic availability and uptime monitoring
-- Choose how to launch apps, either in your browser, a pop-up modal or workspace view
-- Option for full-screen background image, custom nav-bar links, html footer, title, and more
-- Optional encrypted cloud backup and restore feature available
-- Optional authentication with multi-user support and configurable privileges for protecting your dashboard
-- Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
-- Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
-- Multi-language support, with more languages being added regularly
-- Easy single-file YAML-based configuration, or configure app directly through the UI
-- Strong focus on privacy
-- Plus lots more...
+- 🔎 Instant search by name, domain and tags - just start typing + customizable keyboard shortcuts
+- 🎨 Multiple built-in color themes, with UI color editor and support for custom CSS
+- 🧸 Many options for icons, including Font-Awesome support, auto-fetching favicon, images and emojis
+- 🚦 Service status feature for each of your apps / links, for basic availability and uptime monitoring
+- 💂 Optional authentication with multi-user support, configurable privileges and SSO support
+- ☁ Optional encrypted cloud backup and restore feature available
+- 💼 A workspace view, for easily switching between multiple apps at once
+- 🛩️ A minimal view, for use as a fast-loading browser startpage
+- 🖱️ Choose how to launch apps, either new tab, same tab, a pop-up modal or in the workspace view
+- 🌎 Multi-language support, with more languages being added regularly
+- 📏 Customizable layout, sizes, text, component visibility, behavior and colors etc
+- 🖼️ Option for full-screen background image, custom nav-bar links, html footer, title, and more
+- 🚀 Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
+- 🤏 Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
+- ⚙️ Easy single-file YAML-based configuration, with option to configure app directly through the UI
+- ✨ Under active development with improvements and new features added regularly 
+- 🆓 100% free and open source
+- 🔐 Strong focus on privacy
+- 🌈 Plus lots more...
 
 ## Demo ⚡
 
@@ -328,6 +331,17 @@ Quickly finding and launching applications is the primary aim of Dashy. To that 
 
 To start filtering, just start typing. No need to select the search bar or use any special key. You can then use either the tab key or arrow keys to select and move between results, and hit enter to launch the currently selected application. You can also use `Alt + Enter` on a selected app to launch it in a popup modal, `Ctrl + Enter` to open in new tab, or right-click on it to see all opening methods.
 
+You can also add custom tags to a given item, to make finding them based on keywords easier. For example, in the following example, searching for 'Movies' will show 'Plex'
+
+```yaml
+  items:
+  - title: Plex
+    description: Media library
+    icon: favicon
+    url: https://plex.lab.local
+    tags: [ movies, videos, music ]
+```
+
 For apps that you use regularly, you can set a custom keybinding. Use the `hotkey` parameter on a certain item to specify a numeric key, between `0 - 9`. You can then launch that app, by just pressing that key, which is very useful for services you use frequently.
 
 Example:
@@ -567,17 +581,18 @@ If you're new to web development, I've put together a short [list of resources](
 - 🛡️ [Authentication](/docs/authentication.md) - Guide to setting up authentication to protect your dashboard
 - 🧿 [Alternate Views](/docs/alternate-views.md) - Outline of available pages / views and item opening methods
 - 💾 [Backup & Restore](/docs/backup-restore.md) - Guide to Dashy's cloud sync feature
-- 🚦 [Status Indicators](/docs/status-indicators.md) - Using Dashy to monitor uptime and status of your apps
 - 🧸 [Icons](/docs/icons.md) - Outline of all available icon types for sections and items
 - 🌐 [Language Switching](/docs/multi-language-support.md) - How to change language, add a language, or update text
+- 🚦 [Status Indicators](/docs/status-indicators.md) - Using Dashy to monitor uptime and status of your apps
+- 🔍 [Searching  & Shortcuts](/docs/searching.md) - Finding and launching your apps, and using keyboard shortcuts
 - 🎨 [Theming](/docs/theming.md) - Complete guide to applying, writing and modifying themes and styles
 
 #### Misc
-- [🔐 Privacy & Security](/docs/privacy.md) - List of requests, potential issues, and security resources
-- [📄 License](/LICENSE) - Copy of the MIT License
-- [⚖️ Legal](/.github/LEGAL.md) - Licenses of direct dependencies
-- [📏 Code of Conduct](/.github/CODE_OF_CONDUCT.md) - Contributor Covenant Code of Conduct
-- [🌳 Changelog](/.github/CHANGELOG.md) - Details of recent changes, and historical versions
+- 🔐 [Privacy & Security](/docs/privacy.md) - List of requests, potential issues, and security resources
+- 📄 [License](/LICENSE) - Copy of the MIT License
+- ⚖️ [Legal](/.github/LEGAL.md) - Licenses of direct dependencies
+- 📏 [Code of Conduct](/.github/CODE_OF_CONDUCT.md) - Contributor Covenant Code of Conduct
+- 🌳 [Changelog](/.github/CHANGELOG.md) - Details of recent changes, and historical versions
 
 **[⬆️ Back to Top](#dashy)**
 
