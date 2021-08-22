@@ -75,6 +75,10 @@ div.css-editor-outer {
   display: flex;
   flex-direction: column;
 
+  div.css-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
   h2.css-input-title {
     margin: 0.5rem 0 0.2rem;
   }
