@@ -28,8 +28,8 @@ body:
     label: Would you like your name/ username included?
     description: This will be displayed above the screenshot to your dashboard in the showcase page
     options:
-      - Yes
-      - No
+      - 'Yes'
+      - 'No'
   validations:
     required: true
 # 4 - Social links
