@@ -54,6 +54,7 @@ import MinimalSection from '@/components/MinimalView/MinimalSection.vue';
 import MinimalHeading from '@/components/MinimalView/MinimalHeading.vue';
 import MinimalSearch from '@/components/MinimalView/MinimalSearch.vue';
 import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
+import SearchUtil from '@/utils/Search';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
 import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 
@@ -122,16 +123,7 @@ export default {
     /* Returns only the tiles that match the users search query */
     filterTiles(allTiles) {
       if (!allTiles) return [];
-      return allTiles.filter((tile) => {
-        const {
-          title, description, provider, url,
-        } = tile;
-        const searchTerm = this.searchValue.toLowerCase();
-        return (title && title.toLowerCase().includes(searchTerm))
-          || (provider && provider.toLowerCase().includes(searchTerm))
-          || (description && description.toLowerCase().includes(searchTerm))
-          || this.getDomainFromUrl(url).includes(searchTerm);
-      });
+      return SearchUtil(allTiles, this.searchValue);
     },
     /* Update data when modal is open (so that key bindings can be disabled) */
     updateModalVisibility(modalState) {
