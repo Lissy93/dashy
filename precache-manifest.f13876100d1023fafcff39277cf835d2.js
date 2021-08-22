@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/css/chunk-vendors.d8067ad8.css"
   },
   {
-    "revision": "f2c26b3faa786c416908",
-    "url": "/css/dashy.83273169.css"
+    "revision": "6252f34e260d0f22fccb",
+    "url": "/css/dashy.415df61d.css"
   },
   {
     "revision": "e24265f6c4bd4450fdafdf37cd825bfc",
@@ -72,7 +72,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/VT323-Regular.ttf"
   },
   {
-    "revision": "10c449d7de2f208ec2ca10311a81f7df",
+    "revision": "4879f5e0cb0b2241a7936766f07c4edf",
     "url": "/index.html"
   },
   {
@@ -88,8 +88,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/js/chunk-vendors.50c8d5e0.js"
   },
   {
-    "revision": "f2c26b3faa786c416908",
-    "url": "/js/dashy.15099e35.js"
+    "revision": "6252f34e260d0f22fccb",
+    "url": "/js/dashy.20d07d6d.js"
   },
   {
     "revision": "e3bf86400a2b80531902e65f51d52be0",
