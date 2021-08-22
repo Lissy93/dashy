@@ -12,7 +12,7 @@
       :style="`--open-icon: ${getUnicodeOpeningIcon()}; ${customStyles}`"
     >
       <!-- Item Text -->
-      <div :class="`tile-title  ${!icon? 'bounce': ''}`" :id="`tile-${id}`" >
+      <div :class="`tile-title  ${!icon? 'bounce no-icon': ''}`" :id="`tile-${id}`" >
         <span class="text">{{ title }}</span>
         <p class="description">{{ description }}</p>
       </div>
@@ -319,6 +319,12 @@ export default {
     .tile-title {
       min-width: 100px;
       max-width: 160px;
+      &.no-icon {
+        text-align: left;
+        width: 100%;
+        max-width: inherit;
+        margin-left: 0.5rem;
+      }
     }
   }
   /* Large Tile Specific Themes */
