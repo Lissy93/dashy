@@ -471,6 +471,14 @@
                   "type": "number",
                   "description": "A numeric shortcut key, between 0 and 9. Useful for quickly launching frequently used applications"
                 },
+                "tags": {
+                  "type": "array",
+                  "description": "Tags, which can be used for improved search",
+                  "maxItems": 12,
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "color": {
                   "type": "string",
                   "description": "A custom fill color of the item"

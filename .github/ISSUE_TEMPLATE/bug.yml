@@ -1,7 +1,9 @@
 name: Bug Report 🐛
 description: Report something that's not working the way it's (probably) intended to
 title: '[BUG] <title>'
-labels: '\U0001F41B Bug'
+labels: ['🐛 Bug']
+assignees:
+  - lissy93
 body:
   - type: dropdown
     id: environment
@@ -34,6 +36,7 @@ body:
     attributes:
       label: Additional info
       description: Logs? Screenshots? Yes, please.
+      placeholder: If the issue happens during build-time, include terminal logs. For run-time errors, include browser logs which you can view in the Dev Tools (F12), under the Console tab. Take care to blank out any personal info.
     validations:
       required: false
   - type: checkboxes
@@ -42,7 +45,7 @@ body:
       label: Please tick the boxes
       description: Before submitting, please ensure that
       options:
-        - label: You are using the latest, or recent version of Dashy
+        - label: You are using a [supported](https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md#supported-versions) version of Dashy (check the first two digits of the version number)
           required: true
         - label: You've checked that this [issue hasn't already been raised](https://github.com/Lissy93/dashy/issues?q=is%3Aissue)
           required: true

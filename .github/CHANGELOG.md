@@ -1,5 +1,10 @@
 # Changelog
 
+## ⚡️ 1.6.6 - Improved Search & Shortcuts [PR #175](https://github.com/Lissy93/dashy/pull/175)
+- Refactors the search algorithm to improve performance and code reusability
+- Updates search to ignore case, special characters and minor-typos
+- Adds the option for user to specify tags, which can be used for searching
+
 ## ✨ 1.6.5 - Adds support for Secure Authentication using Keycloak [PR #174](https://github.com/Lissy93/dashy/pull/174)
 - Major restructure of auth config
 - Implements keycloak support, adds docs and updates schema
@@ -23,6 +28,7 @@
 
 ## 💄 1.6.1 - Adds new Theme [PR #166](https://github.com/Lissy93/dashy/issues/166)
 - Adds Dashy theme, for use in the dev dashboard
+
 ## ✨ 1.5.9 - New Minimal/ Startpage View [PR #155](https://github.com/Lissy93/dashy/issues/155)
 - Adds a new view, called minimal view, designed to be like a light-weight startpage
 - Implemented all the required features (filtering, opening methods, icons, etc) into minimal view

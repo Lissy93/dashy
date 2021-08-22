@@ -1,11 +1,17 @@
 <template>
   <div class="css-editor-outer">
-    <textarea class="css-editor" v-model="customCss" />
-    <button class="save-button" @click="save()">{{ $t('config.css-save-btn') }}</button>
-    <p class="quick-note">
-      <b>{{ $t('config.css-note-label') }}:</b>
-      {{ $t('config.css-note-l1') }} {{ $t('config.css-note-l2') }} {{ $t('config.css-note-l3') }}
-    </p>
+    <!-- Add raw custom CSS -->
+    <div class="css-wrapper">
+      <h2 class="css-input-title">Custom CSS</h2>
+      <textarea class="css-editor" v-model="customCss" />
+      <button class="save-button" @click="save()">{{ $t('config.css-save-btn') }}</button>
+      <p class="quick-note">
+        <b>{{ $t('config.css-note-label') }}:</b>
+        {{ $t('config.css-note-l1') }} {{ $t('config.css-note-l2') }} {{ $t('config.css-note-l3') }}
+      </p>
+    </div>
+
+    <!-- UI color configurator -->
     <CustomThemeMaker :themeToEdit="currentTheme" class="color-config" />
   </div>
 </template>
@@ -31,9 +37,11 @@ export default {
     };
   },
   methods: {
+    /* A regex to validate the users CSS */
     validate(css) {
-      return css === '' || css.match(/((?:^\s*)([\w#.@*,:\-.:>,*\s]+)\s*{(?:[\s]*)((?:[A-Za-z\- \s]+[:]\s*['"0-9\w .,/()\-!%]+;?)*)*\s*}(?:\s*))/gmi);
+      return css === '' || css.match(/([#.@]?[\w.:> ]+)[\s]{[\r\n]?([A-Za-z\- \r\n\t]+[:][\s]*[\w ./()\-!]+;[\r\n]*(?:[A-Za-z\- \r\n\t]+[:][\s]*[\w ./()\-!]+;[\r\n]*(2)*)*)}/gmi);
     },
+    /* Save custom CSS in browser, call inject, and show success message */
     save() {
       let msg = '';
       if (this.validate(this.customCss)) {
@@ -48,6 +56,7 @@ export default {
       }
       this.$toasted.show(msg);
     },
+    /* Formats CSS, and applies it to page */
     inject(userStyles) {
       const cleanedCss = userStyles.replace(/<\/?[^>]+(>|$)/g, '');
       const style = document.createElement('style');
@@ -63,6 +72,12 @@ export default {
 div.css-editor-outer {
   text-align: center;
   padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  h2.css-input-title {
+    margin: 0.5rem 0 0.2rem;
+  }
 }
 
 button.save-button {
@@ -104,6 +119,8 @@ p.quick-note {
   width: 80%;
   margin: 1rem auto;
   padding: 0.5rem;
+  font-size: 0.9rem;
+  opacity: var(--dimming-factor);
   border-radius: var(--curve-factor);
 }
 

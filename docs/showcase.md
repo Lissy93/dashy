@@ -30,6 +30,12 @@
 
 ---
 
+### Dashy Live
+> By [@Lissy93](https://github.com/lissy93)
+> A dashboard I made to manage all project development links from one place
+
+![screenshot-dashy-live](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/10-dashy-live.png)
+
 ### CFT Toolbox
 
 ![screenshot-cft-toolbox](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/3-cft-toolbox.png)

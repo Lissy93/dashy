@@ -926,6 +926,8 @@ html[data-theme="dashy-docs"] {
     border: none;
     color: var(--background);
     font-weight: bold;
+    min-width: 5rem;
+    text-align: center;
   }
   
   .minimal-section-heading {

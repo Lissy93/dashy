@@ -1,3 +1,4 @@
+<!-- Main homepage for default view -->
 <template>
   <div class="home" :style="getBackgroundImage()">
     <!-- Search bar, layout options and settings -->
@@ -9,7 +10,7 @@
       :displayLayout="layout"
       :iconSize="itemSizeBound"
       :externalThemes="getExternalCSSLinks()"
-      :sections="getSections(sections)"
+      :sections="allSections"
       :appConfig="appConfig"
       :pageInfo="pageInfo"
       :modalOpen="modalOpen"
@@ -19,17 +20,19 @@
     <div v-if="checkTheresData(sections)"
       :class="`item-group-container orientation-${layout} item-size-${itemSizeBound}`">
       <Section
-        v-for="(section, index) in getSections(sections)"
+        v-for="(section, index) in filteredTiles"
         :key="index"
         :title="section.name"
         :icon="section.icon || undefined"
         :displayData="getDisplayData(section)"
         :groupId="`section-${index}`"
-        :items="filterTiles(section.items)"
+        :items="filterTiles(section.items, searchValue)"
+        :searchTerm="searchValue"
         :itemSize="itemSizeBound"
         @itemClicked="finishedSearching()"
         @change-modal-visibility="updateModalVisibility"
-        :class="(filterTiles(section.items).length === 0 && searchValue) ? 'no-results' : ''"
+        :class="
+        (searchValue && filterTiles(section.items, searchValue).length === 0) ? 'no-results' : ''"
       />
     </div>
     <!-- Show message when there's no data to show -->
@@ -43,6 +46,7 @@
 
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
+import SearchUtil from '@/utils/Search';
 import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 
 export default {
@@ -63,6 +67,21 @@ export default {
     modalOpen: false, // When true, keybindings are disabled
   }),
   computed: {
+    /* Combines sections from config file, with those in local storage */
+    allSections() {
+      // If the user has stored sections in local storage, return those
+      const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
+      if (localSections) {
+        const json = JSON.parse(localSections);
+        if (json.length >= 1) return json;
+      }
+      // Otherwise, return the usuall data from conf.yml
+      return this.sections;
+    },
+    filteredTiles() {
+      const sections = this.allSections;
+      return sections.filter((section) => this.filterTiles(section.items, this.searchValue));
+    },
     /* Updates layout (when button clicked), and saves in local storage */
     layoutOrientation: {
       get() { return this.appConfig.layout || Defaults.layout; },
@@ -86,17 +105,6 @@ export default {
       const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
       return (sections && sections.length >= 1) || (localSections && localSections.length >= 1);
     },
-    /* Returns sections from local storage if available, otherwise uses the conf.yml */
-    getSections(sections) {
-      // If the user has stored sections in local storage, return those
-      const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
-      if (localSections) {
-        const json = JSON.parse(localSections);
-        if (json.length >= 1) return json;
-      }
-      // Otherwise, return the usuall data from conf.yml
-      return sections;
-    },
     /* Updates local data with search value, triggered from filter comp */
     searching(searchValue) {
       this.searchValue = searchValue || '';
@@ -105,26 +113,9 @@ export default {
     finishedSearching() {
       this.$refs.filterComp.clearFilterInput();
     },
-    /* Extracts the site name from domain, used for the searching functionality */
-    getDomainFromUrl(url) {
-      if (!url) return '';
-      const urlPattern = /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d.-]+)\.(?:[a-z.]{2,10})(?:[/\w.-]*)*/;
-      const domainPattern = url.match(urlPattern);
-      return domainPattern ? domainPattern[1] : '';
-    },
     /* Returns only the tiles that match the users search query */
-    filterTiles(allTiles) {
-      if (!allTiles) return [];
-      return allTiles.filter((tile) => {
-        const {
-          title, description, provider, url,
-        } = tile;
-        const searchTerm = this.searchValue.toLowerCase();
-        return (title && title.toLowerCase().includes(searchTerm))
-          || (provider && provider.toLowerCase().includes(searchTerm))
-          || (description && description.toLowerCase().includes(searchTerm))
-          || this.getDomainFromUrl(url).includes(searchTerm);
-      });
+    filterTiles(allTiles, searchTerm) {
+      return SearchUtil(allTiles, searchTerm);
     },
     /* Returns optional section display preferences if available */
     getDisplayData(section) {
@@ -163,8 +154,8 @@ export default {
     /* Checks if any sections or items use icons from a given CDN */
     checkIfIconLibraryNeeded(prefix) {
       let isNeeded = false;
-      if (!this.sections) return false;
-      this.sections.forEach((section) => {
+      if (!this.allSections) return false;
+      this.allSections.forEach((section) => {
         if (section.icon && section.icon.includes(prefix)) isNeeded = true;
         section.items.forEach((item) => {
           if (item.icon && item.icon.includes(prefix)) isNeeded = true;
@@ -203,11 +194,11 @@ export default {
     },
     /* Returns true if there is more than 1 sub-result visible during searching */
     checkIfResults() {
-      if (!this.sections) return false;
+      if (!this.allSections) return false;
       else {
         let itemsFound = true;
-        this.sections.forEach((section) => {
-          if (this.filterTiles(section.items).length > 0) itemsFound = false;
+        this.allSections.forEach((section) => {
+          if (this.filterTiles(section.items, this.searchValue).length > 0) itemsFound = false;
         });
         return itemsFound;
       }
