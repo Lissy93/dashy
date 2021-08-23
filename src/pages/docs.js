@@ -33,25 +33,25 @@ const DocsLinks = [
   {
     title: 'Deployment',
     description: 'Getting Dashy up and running',
-    link: '',
+    link: '/docs/deployment',
     icon: (<IconDeploy />),
   },
   {
     title: 'Configuring',
     description: 'All Config Options',
-    link: '',
+    link: '/docs/configuring',
     icon: (<IconUiConfig />),
   },
   {
     title: 'Management',
     description: 'Updating, security, web server configuration, etc',
-    link: '',
+    link: '/docs/management',
     icon: (<IconManagement />),
   },
   {
     title: 'Troubleshooting',
     description: 'Solutions to Common Issues',
-    link: '',
+    link: '/docs/troubleshooting',
     icon: (<IconTroubleshooting />),
   },
 ];
@@ -63,25 +63,25 @@ const DocsSections = [
       {
         title: 'Deployment',
         description: 'Getting Dashy up and running',
-        link: '',
+        link: '/docs/deployment',
         icon: (<IconDeploy />),
       },
       {
         title: 'Configuring',
         description: 'All Config Options',
-        link: '',
+        link: '/docs/configuring',
         icon: (<IconUiConfig />),
       },
       {
         title: 'Management',
         description: 'Updating, security, web server configuration, etc',
-        link: '',
+        link: '/docs/management',
         icon: (<IconManagement />),
       },
       {
         title: 'Troubleshooting',
         description: 'Solutions to Common Issues',
-        link: '',
+        link: '/docs/troubleshooting',
         icon: (<IconTroubleshooting />),
       },
     ]
@@ -92,7 +92,7 @@ const DocsSections = [
       {
         title: 'Developing',
         description: 'Dashy workflow, and running locally',
-        link: '',
+        link: '/docs/developing',
         icon: (<IconDeveloping />),
       },
       {
@@ -104,19 +104,19 @@ const DocsSections = [
       {
         title: 'Contributing',
         description: 'How you can help support Dashy\'s development',
-        link: '',
+        link: '/docs/contributing',
         icon: (<IconContributing />),
       },
       {
         title: 'Showcase',
         description: 'See how others are using Dashy, and share your dashboard',
-        link: '',
+        link: '/docs/showcase',
         icon: (<IconShowcase />),
       },
       {
         title: 'Credits',
         description: 'List of people and projects that have made Dashy possible',
-        link: '',
+        link: '/docs/credits',
         icon: (<IconCredits />),
       },
     ]
@@ -127,13 +127,13 @@ const DocsSections = [
       {
         title: 'Authentication',
         description: 'Configure login and user control',
-        link: '',
+        link: '/docs/authentication',
         icon: (<IconAuth />),
       },
       {
         title: 'Backup & Restore',
         description: 'Cloud Sync, usage and background',
-        link: '',
+        link: '/docs/deployment',
         icon: (<IconCloudSync />),
       },
       {
@@ -166,6 +166,7 @@ const DocsSections = [
 
 function DocsLink({ title, description, icon, link, index }) {
   const color = getColor(index);
+  console.log(link);
   return (
     <Button to={link} className="docs-link" color={color}>
       <div className="row1">
