@@ -26,6 +26,8 @@ html { /* Light Theme */
   --kinda-transparent: #ffffffd9;
   --hyperlink: #ff62ce;
   --feature-img-shadow: 4px 4px 6px #a9a9a980, -2px -2px 4px rgb(0 0 0 / 40%);
+  --footer-color: var(--white);
+  --footer-text-color: var(--black);
 }
 
 html[data-theme='dark'] { /* Dark Theme */
@@ -36,4 +38,22 @@ html[data-theme='dark'] { /* Dark Theme */
   --kinda-transparent: #000000d9;
   --hyperlink: #ff62ce;
   --feature-img-shadow: 4px 4px 6px #00000080, -2px -2px 4px rgb(0 0 0 / 40%);
+  --footer-color: var(--black);
+}
+
+.footer {
+  box-shadow: var(--feature-img-shadow);
+  --ifm-footer-background-color: var(--footer-color);
+  --ifm-footer-color: var(--footer-text-color);
+  --ifm-footer-link-color: var(--footer-text-color);
+  --ifm-footer-title-color: var(--footer-text-color);
+  --ifm-footer-link-hover-color: var(--primary);
+  --ifm-link-color: var(--footer-text-color);
+  --ifm-link-hover-color: var(--primary);
+  .footer__copyright, .footer__copyright a {
+    font-size: 0.9rem;
+    font-weight: bold;
+    opacity: 0.9;
+    font-family: 'Roboto Mono', monospace;
+  }
 }

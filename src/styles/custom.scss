@@ -52,6 +52,10 @@ p a, li a {
   }
 }
 
+h1, h2, h3, h4, h5 {
+  cursor: default;
+}
+
 article div.markdown {
   p, a, ol, ul, li, code span {
     font-size: 1rem;
