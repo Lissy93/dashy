@@ -1,32 +1,36 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
-const licenseUrl = 'https://github.com/Lissy93/dashy/blob/master/LICENSE';
-const aliciaUrl = 'https://aliciasykes.com';
-const dashyUrl = 'https://dashy.to';
+/* External URLs */
+const externalUrl = {
+  editUrl: 'https://github.com/Lissy93/dashy/edit/gh-pages/docs/',
+  licenseUrl: 'https://github.com/Lissy93/dashy/blob/master/LICENSE',
+  aliciaUrl: 'https://aliciasykes.com',
+  dashyUrl: 'https://dashy.to',
+};
 
-const footerText = `<a href="${dashyUrl}">Dashy</a> - The Self-Hosted Dashboard for your Homelab`
-  + `<br>License under <a href="${licenseUrl}">MIT</a>. `
-  + `Copyright © ${new Date().getFullYear()} <a href="${aliciaUrl}">Alicia Sykes</a>`;
+const footerText = `<a href="${externalUrl.dashyUrl}">Dashy</a> - The Self-Hosted Dashboard for your Homelab`
+  + `<br />License under <a href="${externalUrl.licenseUrl}">MIT</a>. `
+  + `Copyright © ${new Date().getFullYear()} <a href="${externalUrl.aliciaUrl}">Alicia Sykes</a>`;
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'Dashy',
   tagline: 'The Ultimate Homepage for your Homelab',
-  url: 'https://dashy.to',
+  url: externalUrl.dashyUrl,
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'lissy93', // Usually your GitHub org/user name.
+  projectName: 'dashy', // Usually your repo name.
   plugins: ['docusaurus-plugin-sass'],
   themeConfig: {
     navbar: {
       title: 'Dashy',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/dashy-512.png',
+        alt: 'Dashy Logo',
+        src: 'img/dashy.png',
       },
       items: [
 
@@ -59,26 +63,26 @@ module.exports = {
             { label: 'Authentication', to: '/docs/deployment' },
             { label: 'Alternate Views', to: '/docs/configuring' },
             { label: 'Backup & Restore', to: '/docs/management' },
-            { label: 'Icons', to: '/docs/troubleshooting' },
+            { label: 'Icons', to: '/docs/icons' },
           ],
         },
         {
           title: 'Feature Docs Pt 2',
           items: [
-            { label: 'Language Switching', to: '/docs/troubleshooting' },
-            { label: 'Status Indicators', to: '/docs/troubleshooting' },
-            { label: 'Searching  & Shortcuts', to: '/docs/troubleshooting' },
-            { label: 'Theming', to: '/docs/troubleshooting' },
+            { label: 'Language Switching', to: '/docs/multi-language-support' },
+            { label: 'Status Indicators', to: '/docs/status-indicators' },
+            { label: 'Searching  & Shortcuts', to: '/docs/searching' },
+            { label: 'Theming', to: '/docs/theming' },
           ],
         },
         {
-          title: 'Developing & Community',
+          title: 'Community',
           items: [
             { label: 'Developing', to: '/docs/deployment' },
             { label: 'Development Guides', to: '/docs/configuring' },
             { label: 'Contributing', to: '/docs/management' },
-            { label: 'Showcase', to: '/docs/troubleshooting' },
-            { label: 'Credits', to: '/docs/troubleshooting' },
+            { label: 'Showcase', to: '/docs/showcase' },
+            { label: 'Credits', to: '/docs/credits' },
           ],
         },
         {
@@ -87,8 +91,8 @@ module.exports = {
             { label: 'Privacy & Security', to: '/docs/deployment' },
             { label: 'License', to: '/docs/configuring' },
             { label: 'Legal', to: '/docs/management' },
-            { label: 'Code of Conduct', to: '/docs/troubleshooting' },
-            { label: 'Changelog', to: '/docs/troubleshooting' },
+            { label: 'Code of Conduct', to: '/docs/code-of-conduct' },
+            { label: 'Changelog', to: '/docs/changelog' },
           ],
         },
       ],
@@ -106,8 +110,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+          editUrl: externalUrl.editUrl,
         },
         theme: {
           customCss: [
