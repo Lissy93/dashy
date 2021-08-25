@@ -1,9 +1,8 @@
-# Index
-
 ![Dashy Docs](https://i.ibb.co/4mdNf7M/heading-docs.png)
 
 ### Running Dashy
-- [Deployment](/docs/deployment) - Getting Dashy up and running
+- [Quick Start](/docs/quick-start) - TDLR guide on getting Dashy up and running
+- [Deployment](/docs/deployment) - Full guide on deploying Dashy either locally or online
 - [Configuring](/docs/configuring) - Complete list of all available options in the config file
 - [App Management](/docs/management) - Managing your app, updating, security, web server configuration, etc
 - [Troubleshooting](/docs/troubleshooting) - Common errors and problems, and how to fix them
@@ -17,10 +16,12 @@
 
 ### Feature Docs
 - [Authentication](/docs/authentication) - Guide to setting up authentication to protect your dashboard
+- [Alternate Views](/docs/alternate-views) - Outline of available pages / views and item opening methods
 - [Backup & Restore](/docs/backup-restore) - Guide to Dashy's cloud sync feature
 - [Icons](/docs/icons) - Outline of all available icon types for sections and items
-- [Language Switching](/docs/multi-language-support)
+- [Language Switching](/docs/multi-language-support) - Details on how to switch language, or add a new locale
 - [Status Indicators](/docs/status-indicators) - Using Dashy to monitor uptime and status of your apps
+- [Searching  & Shortcuts](/docs/searching) - Finding and launching your apps, and using keyboard shortcuts
 - [Theming](/docs/theming) - Complete guide to applying, writing and modifying themes and styles
 
 ### Misc

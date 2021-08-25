@@ -18,7 +18,7 @@ You will need either the latest or LTS version of **[Node.js](https://nodejs.org
 
 ### Running the Project
 
-1. Get Code: `git clone git@github.com:Lissy93/dashy.git`
+1. Get Code: `git clone https://github.com/Lissy93/dashy.git`
 2. Navigate into the directory: `cd dashy`
 3. Install dependencies: `yarn`
 4. Start dev server: `yarn dev`
@@ -154,7 +154,7 @@ As well as Node, Git and Docker- you'll also need an IDE (e.g. [VS Code](https:/
 
 ## Style Guide
 
-Linting is done using [ESLint](https://eslint.org/), and using the [Vue.js Styleguide](https://github.com/vuejs/eslint-config-standard), which is very similar to the [AirBnB Stylguide](https://github.com/airbnb/javascript). You can run `yarn lint` to report and fix issues. While the dev server is running, issues will be reported to the console automatically. Any lint errors will trigger the build to fail. Note that all lint checks must pass before any PR can be merged. Linting is also run as a git pre-commit hook
+Linting is done using [ESLint](https://eslint.org/), and using the [Vue.js Styleguide](https://github.com/vuejs/eslint-config-standard), which is very similar to the [AirBnB Stylguide](https://github.com/airbnb/javascript). You can run `yarn lint` to report and fix issues. While the dev server is running, issues will be reported to the console automatically, and any lint errors will trigger the build to fail. Note that all lint checks must pass before any PR can be merged. Linting is also run as a git pre-commit hook
 
 The most significant things to note are:
 - Indentation should be done with two spaces
@@ -167,7 +167,9 @@ The most significant things to note are:
 - All multiline blocks must use braces
 - Avoid console statements in the frontend
 
-For the full styleguide, see: [github.com/airbnb/javascript](https://github.com/airbnb/javascript) 
+Styleguides:
+- Vue: [Vue styleguide](https://vuejs.org/v2/style-guide/)
+- JavaScript: [github.com/airbnb/javascript](https://github.com/airbnb/javascript) 
 
 ---
 
@@ -229,7 +231,7 @@ For the full styleguide, see: [github.com/airbnb/javascript](https://github.com/
 │  │  ├── Nav.vue                 # Navigation bar, includes a list of links
 │  │  ╰── PageTitle.vue           # Page title and sub-title, visible within the Header
 │  ╰── Settings                   # Components relating to the quick-settings, in the top-right
-│     ├── AppButtons.vue          # Logout button and other app info
+│     ├── AuthButtons.vue          # Logout button and other app info
 │     ├── ConfigLauncher.vue      # Icon that when clicked will launch the Configuration component
 │     ├── CustomThemeMaker.vue    # Color pickers for letting user build their own theme
 │     ├── ItemSizeSelector.vue    # Set of buttons used to set and save item size

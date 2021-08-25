@@ -1,4 +1,4 @@
-# Dashy Showcase
+# User Showcase
 
 | 💗 Do you use Dashy? Got a sweet dashboard? Submit it to the showcase! 👉 [See How](#submitting-your-dashboard) |
 |-|
@@ -29,6 +29,12 @@
 ![screenshot-networking-services](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/6-nas-home-dashboard.png)
 
 ---
+
+### Dashy Live
+> By [@Lissy93](https://github.com/lissy93)
+> A dashboard I made to manage all project development links from one place
+
+![screenshot-dashy-live](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/10-dashy-live.png)
 
 ### CFT Toolbox
 
@@ -64,7 +70,7 @@
 ## Submitting your Dashboard
 
 #### How to Submit
-- [Open an Issue](https://git.io/Jceik)
+- [Open an Issue](https://git.io/JEtgM)
 - [Open a PR](https://github.com/Lissy93/dashy/compare)
 
 #### What to Include

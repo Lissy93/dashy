@@ -26,13 +26,15 @@ html[data-theme='tiger'] {
 }
 ```
 
-Then you can go ahead and write you're own custom CSS. Although all CSS is supported here, the best way to define you're theme is by setting the CSS variables. You can find a [list of all CSS variables, here](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#css-variables).
+Then you can go ahead and write you're own custom CSS. Although all CSS is supported here, the best way to define you're theme is by setting the CSS variables. You can find a [list of all CSS variables, here](https://github.com/Lissy93/dashy/blob/master/docs/theming#css-variables).
 
 For a full guide on styling, see [Theming Docs](./theming).
 
-Note that if you're theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#adding-your-own-theme).
+Note that if you're theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](https://github.com/Lissy93/dashy/blob/master/docs/theming#adding-your-own-theme).
 
 ## Writing Translations
+
+For full docs about Dashy's multi-language support, see [Multi-Language Support](./multi-language-support)
 
 Dashy is using [vue-i18n](https://vue-i18n.intlify.dev/guide/) to manage multi-language support.
 
@@ -40,8 +42,6 @@ Adding a new language is pretty straightforward, with just three steps:
 
 ##### 1. Create a new Language File
 Create a new JSON file in `./src/assets/locales` name is a 2-digit [ISO-639 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language, E.g. for German `de.json`, French `fr.json` or Spanish `es.json` - You can find a list of all ISO codes at [iso.org](https://www.iso.org/obp/ui).
-If your language is a specific dialect or regional language, then use the Posfix [CLDR](http://cldr.unicode.org/) format, where, e.g. `en-GB.json` (British), `es-MX.json` (Spanish, in Mexico) or `zh-CN.json` (Chinese, simplified) - A list of which can be found [here](https://github.com/unicode-org/cldr-json/blob/master/cldr-json/cldr-core/availableLocales.json)
-
 
 ##### 2. Translate!
 Using [`en.json`](https://github.com/Lissy93/dashy/tree/master/src/assets/locales/en.json) as an example, translate the JSON values to your language, while leaving the keys as they are. It's fine to leave out certain items, as if they're missing they will fall-back to English. If you see any attribute which include curly braces (`{xxx}`), then leave the inner value of these braces as is, as this is for variables.
@@ -84,7 +84,7 @@ export const languages = [
   },
 ];
 ```
-You can also add your new language to the readme, under the [Language Switching](https://github.com/Lissy93/dashy#language-switching-) section and optionally include your name/ username if you'd like to be credited for your work. Done!
+You can also add your new language to the readme, under the [Language Switching](https://github.com/Lissy93/dashy#language-switching-) section, and optionally include your name/ username if you'd like to be credited for your work. Done!
 
 If you are not comfortable with making pull requests, or do not want to modify the code, then feel free to instead send the translated file to me, and I can add it into the application. I will be sure to credit you appropriately. 
 
@@ -138,3 +138,41 @@ Checklist:
 ## Updating Dependencies
 
 Running `yarn upgrade` will updated all dependencies based on the ranges specified in the `package.json`. The `yarn.lock` file will be updated, as will the contents of `./node_modules`, for more info, see the [yarn upgrade documentation](https://classic.yarnpkg.com/en/docs/cli/upgrade/). It is important to thoroughly test after any big dependency updates.
+
+---
+
+## Hiding Page Furniture on Certain Routes
+For some pages (such as the login page, the minimal start page, etc) the basic page furniture, (like header, footer, nav, etc) is not needed. This section explains how you can hide furniture on a new view (step 1), or add a component that should be hidden on certain views (step 2).
+
+##### 1. Add the route name to the should hide array
+
+In [`./src/utils/defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js), there's an array called `hideFurnitureOn`. Append the name of the route (the same as it appears in [`router.js`](https://github.com/Lissy93/dashy/blob/master/src/router.js)) here.
+
+##### 2. Add the conditional to the structural component to hide
+
+First, import the helper function:
+```javascript
+import { shouldBeVisible } from '@/utils/MiscHelpers';
+```
+
+Then you can create a computed value, that calls this function, passing in the route name:
+```javascript
+export default {
+  ...
+  computed: {
+    ...
+    isVisible() {
+      return shouldBeVisible(this.$route.name);
+    },
+  },
+};
+```
+  
+Finally, in the markup of your component, just add a `v-if` statement, referencing your computed value
+```vue
+<header v-if="isVisible">
+  ...
+</header>
+```
+
+---

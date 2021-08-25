@@ -11,7 +11,7 @@ For privacy and security tips, check out another project of mine: **[Personal Se
 By default, Dashy will not make any external requests, unless you configure it to. Some features (which are all off by default) do require internat access, and this section outlines those features, the services used, and links to their privacy policies.
 
 ### Font Awesome
-If either sections or items are using font-awesome icons, then these will be fetched directly from font-awesome on page load. 
+If either any of your sections or items are using font-awesome icons, then these will be fetched directly from font-awesome on page load. See the [Font Awesome Privacy Policy](https://fontawesome.com/privacy) for more info.
 
 ### Favicon Fetching
 If an item's icon is set to `favicon`, then it will be auto-fetched from the corresponding URL. Since not all websites have their icon located at `/favicon.ico`, and if they do, it's often very low resolution (like `16 x 16 px`). Therefore, the default behavior is for Dashy to check if the URL is public, and if so will use an API to fetch the favicon. For self-hosted services, the favion will be fetched from the default path, and no external requests will be made.
@@ -31,18 +31,49 @@ The status check util will ping your services directly, and does not rely on any
 When the application loads, it checks for updates. The results of which are displayed in the config menu of the UI. This was implemented because using a very outdated version of Dashy may have unfixed issues. Your version is fetched from the source (local request), but the latest version is fetched from GitHub, which is an external request. This can be disabled by setting `appConfig.disableUpdateChecks: true`
 
 ### Anonymous Error Reporting
-Error reporting is disabled by default, and no data will ever be sent without your explicit consent. In fact, the error tracking method will not even be imported unless you have actively enabled it. [Sentry](https://github.com/getsentry/sentry) is used for this, it's an open source error tracking and performance monitoring tool, which is used to identify any errors which occur in the production app (if you enable it). 
+Error reporting is disabled by default, and no data will ever be sent without your explicit consent. In fact, the error tracking method will not even be imported unless you have actively enabled it. [Sentry](https://github.com/getsentry/sentry) is used for this, it's an open source error tracking and performance monitoring tool, which is used to identify any issues which occur in the production app (if you enable it). 
 
 The crash report includes the file or line of code that triggered the error, and a 2-layer deep stack trace. Reoccurring errors will also include the following user information: OS type (Mac, Windows, Linux, Android or iOS) and browser type (Firefox, Chrome, IE, Safari). Data scrubbing is enabled. IP address will not be stored. If any potentially identifiable data ever finds its way into a crash report, it will be automatically and permanently erased. All statistics collected are anonomized and stored securely, and ae automatically deleted after 14 days. For more about privacy and security, see the [Sentry Docs](https://sentry.io/security/).
 
 Enabling anonymous error reporting helps me to discover bugs I was unaware of, and then fix them, in order to make Dashy more reliable long term. Error reporting is activated  by setting `appConfig.enableErrorReporting: true`.
 
+If you need to monitor bugs yourself, then you can [self-host your own Sentry Server](https://develop.sentry.dev/self-hosted/), and use it by setting `appConfig.sentryDsn` to your Sentry instances [Data Source Name](https://docs.sentry.io/product/sentry-basics/dsn-explainer/), then just enable error reporting in Dashy.
+
+---
+
+## Local Storage
+In order for user preferences to be persisted between sessions, certain data needs to be stored in the browsers local storage. No personal info is kept here, none of this data can be accessed by other domains, and no data is ever sent to any server without your prior consent.
+You can view your browsers session storage by opening up the dev tools (F12) --> Application --> Storage.
+
+The following section outlines all data that is stored in the browsers, as cookies or local storage.
+
+#### Cookies
+- `AUTH_TOKEN` - A unique token, generated from a hash of users credentials, to verify they are authenticated. Only used when auth is enabled 
+
+#### Local Storage
+- `LANGUAGE` - The locale to show app text in
+- `HIDE_WELCOME_BANNER` - Set to true once user dismissed welcome message, so that it's not shown again
+- `LAYOUT_ORIENTATION` - Preferred section layout, either horizontal, vertical or auto
+- `COLLAPSE_STATE` - Remembers which sections are collapsed
+- `ICON_SIZE` - Size of items, either small, medium or large
+- `THEME: 'theme` - Users applied theme
+- `CUSTOM_COLORS` - Any color modifications made to a given theme
+- `BACKUP_ID` - If a backup has been made, the ID is stored here
+- `BACKUP_HASH` - A unique hash of the previous backups meta data
+- `HIDE_SETTINGS` - Lets user hide or show the settings menu
+- `USERNAME` - If user logged in, store username in order to welcome them
+- `CONF_SECTIONS` - Array of sections, only used when user applies changes locally
+- `PAGE_INFO` - Config page info, only used when user applies changes locally
+- `APP_CONFIG` - App config, only used when user applies changes locally
+
 ---
 
 ## Dependencies
-As with most web projects, Dashy relies on several [dependencies](https://github.com/Lissy93/dashy/blob/master/docs/credits.md#dependencies-). For links to each, and a breakdown of their licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL).
+As with most web projects, Dashy relies on several [dependencies](https://github.com/Lissy93/dashy/blob/master/docs/credits#dependencies-). For links to each, and a breakdown of their licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL).
 
-Dependencies can introduce security vulnerabilities, but since all these packages are open source any issues are usually very quickly spotted. Dashy is using Snyk for dependency security monitoring, and you can see [the latest report here](https://snyk.io/test/github/lissy93/dashy).
+Dependencies can introduce security vulnerabilities, but since all these packages are open source any issues are usually very quickly spotted. Dashy is using Snyk for dependency security monitoring, and you can see [the latest report here](https://snyk.io/test/github/lissy93/dashy). If any issue is detected by Snyk, a note about it will appear at the top of the Reamde, and will usually be fixed within 48 hours.
+
+Note that packages listed under `deDependencies` section are only used for building the project, and are not included in the production environment.
 
 ---
 
@@ -51,13 +82,14 @@ Running your self-hosted applications in individual, containerized environments 
 
 There is very little complexity involved with Dashy, and therefore the attack surface is reasonably small, but it is still important to follow best practices and employ monitoring for all your self-hosted apps. A couple of things that you should look at include:
 - Use SSL for securing traffic in transit
-- Configure [authentication](/docs/authentication.md#alternative-authentication-methods) to prevent unauthorized access
+- Configure [authentication](/docs/authentication#alternative-authentication-methods) to prevent unauthorized access
 - Keep your system, software and Dashy up-to-date
 - Ensure your server is appropriately secured
 - Manage users and SSH correctly
 - Enable and configure firewall rules
 - Implement security, malware and traffic scanning
 - Setup malicious traffic detection
+- Understand the [Docker attack fronts](https://docs.docker.com/engine/security/), and follow [Docker Security Best Practices](https://snyk.io/blog/10-docker-image-security-best-practices/)
 
 This is covered in more detail in [App Management](/docs/management).
 

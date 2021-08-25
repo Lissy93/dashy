@@ -14,6 +14,8 @@ Both sections and items can have an icon, which is specified using the `icon` at
   <img width="500" src="https://i.ibb.co/GTVmZnc/dashy-example-icons.png" />
 </p>
 
+Note that, if you are using icons from an external source (like font-awesome or material-design-icons), then the relevant font file will be loaded in automatically if and when needed, but combining icons from multiple services may have a negative impact on performance.
+
 ### Font Awesome
 You can use any [Font Awesome Icon](https://fontawesome.com/icons) simply by specifying it's identifier. This is in the format of `[category] [name]` and can be found on the page for any given icon on the Font Awesome site. For example: `fas fa-rocket`, `fab fa-monero` or `fas fa-unicorn`.
 
@@ -54,7 +56,7 @@ You can use almost any emoji as an icon for items or sections. You can specify t
   <img width="580" src="https://i.ibb.co/YLwgTf9/emoji-icons-1.png" />
 </p>
 
-The following example shows the unicode options available, all three will render the 🚀 emoji.
+The following examples will all render the same rocket (🚀) emoji:
 
 ```yaml
 items:
@@ -73,6 +75,26 @@ You can also set an icon by passing in a valid URL pointing to the icons locatio
 You may also want to store your icons locally, bundled within Dashy so that there is no reliance on outside services. This can be done by putting the icons within Dashy's `./public/item-icons/` directory. If you are using Docker, then the easiest option is to map a volume from your host system, for example: `-v /local/image/directory:/app/public/item-icons/`. To reference an icon stored locally, just specify it's name and extension. For example, if my icon was stored in `/app/public/item-icons/maltrail.png`, then I would just set `icon: maltrail.png`.
 
 You can also use sub-folders within the `item-icons` directory to keep things organised. You would then specify an icon with it's folder name slash image name. For example: `networking/monit.png`
+
+### Material Design Icons
+Dashy also supports 5000+ [material-design-icons](https://github.com/Templarian/MaterialDesign). To use these, first find the name/ slug for your icon [here](https://dev.materialdesignicons.com/icons), and then prefix is with `mdi-`.
+
+For example:
+```yaml
+sections:
+- name: Material Design Icons Example
+  items:
+  - title: Alien Icon
+    icon: mdi-alien 
+  - title: Fire Icon
+    icon: mdi-fire 
+  - title: Dino Icon
+    icon: mdi-google-downasaur 
+
+```
+
+### Simple Icons
+To use glyphs from [SimpleIcons.org](https://simpleicons.org/), first find the icon slug, and then prefix it with `si-`. The image will be loaded directly from the Simple Icons 
 
 ### No Icon
 If you don't wish for a given item or section to have an icon, just leave out the `icon` attribute.
