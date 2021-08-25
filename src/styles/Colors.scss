@@ -2,7 +2,7 @@
 :root {
   /* Greyscale */
   --bright-white: #ffffff;
-  --white: #e5e5e5;
+  --white: #f7f7f7;
   --pale-grey: #e9e9e8;
   --mid-grey: #a9a9a9;
   --dark-grey: ##18191a;
@@ -31,29 +31,13 @@ html { /* Light Theme */
 }
 
 html[data-theme='dark'] { /* Dark Theme */
-  --primary: #202020;
+  --primary: #db78fc;
   --background: var(--dark-grey);
   --text-color: var(--white);
   --hero-background: var(--black);
   --kinda-transparent: #000000d9;
-  --hyperlink: #ff62ce;
+  --hyperlink: var(--primary);
   --feature-img-shadow: 4px 4px 6px #00000080, -2px -2px 4px rgb(0 0 0 / 40%);
   --footer-color: var(--black);
-}
-
-.footer {
-  box-shadow: var(--feature-img-shadow);
-  --ifm-footer-background-color: var(--footer-color);
-  --ifm-footer-color: var(--footer-text-color);
-  --ifm-footer-link-color: var(--footer-text-color);
-  --ifm-footer-title-color: var(--footer-text-color);
-  --ifm-footer-link-hover-color: var(--primary);
-  --ifm-link-color: var(--footer-text-color);
-  --ifm-link-hover-color: var(--primary);
-  .footer__copyright, .footer__copyright a {
-    font-size: 0.9rem;
-    font-weight: bold;
-    opacity: 0.9;
-    font-family: 'Roboto Mono', monospace;
-  }
+  --footer-text-color: var(--white);
 }

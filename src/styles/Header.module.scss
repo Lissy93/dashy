@@ -24,6 +24,16 @@ header.heroBanner {
   h3.heroSubTitle {
     text-shadow: var(--sub-heading-shadow);
   }
+  img.starButton {
+    position: absolute;
+    width: 12rem;
+    top: 1rem;
+    right: 1rem;
+    opacity: 0.85;
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 .buttons {
   display: flex;
@@ -35,7 +45,7 @@ header.heroBanner {
   }
 }
 .dashyDescription {
-  max-width: 800px;
+  max-width: 680px;
   margin: 1rem auto;
   text-align: left;
   font-size: 1.2rem;
