@@ -16,29 +16,12 @@ import IconUiConfig from '../../static/icons/features_ui-configuration.svg';
 
 const FeatureList = [
   {
-    title: 'Search & Shortcuts',
-    description: (
-      <>
-        Arguably one of the most important features for any start page is the ability to find
-        and launch applications as quickly as possible.
-        <br />
-        To filter services, in Dashy - just start typing. No need to select the search bar or use any special key.
-        You can then use either the tab key or arrow keys to navigate the results,
-        and hit enter to launch the currently selected application.
-      </>
-    ),
-    icon: (<IconShortcuts />),
-    demo: '../../static/img/homepage-assets/searching-demo.gif',
-  },
-  {
     title: 'Theming',
     description: (
       <>
-        Dashy comes with a ton of built-in themes, so you'll easily find one that suits you.
-        But it's also easy to write you're own. All colors, and most other CSS properties
-        make use of variables, which make customizing the look and feel of Dashy simple.
-        You can apply custom styles directly through the UI,
-        or pass an external stylesheet into the config file
+        With tons of built-in themes to choose form, plus a UI color palette editor,
+        you can have a unique looking dashboard in no time. There is also support for
+        custom CSS, and since all properties use CSS variables, it is easy to override.
       </>
     ),
     icon: (<IconThemes />),
@@ -48,122 +31,105 @@ const FeatureList = [
     title: 'Icons',
     description: (
       <>
-        Both sections and items can have an icon associated with them, and defined under the icon attribute.
-        There are many options for icons, including Font Awesome support, automatic fetching from favicon,
-        programmatically generated icons and direct local or remote URLs.
-        <ul>
-          <li>
-            <b>Favicon</b>: Set icon: favicon to fetch a services icon automatically from the URL of the corresponding application
-          </li>
-          <li>
-            <b>Font-Awesome</b>: To use any font-awesome icon, specify the category,
-            followed by the icon name, e.g. `fas fa-rocket` or `fab fa-monero`.
-            You can also use Pro icons if you have a license key, just set it under `appConfig.fontAwesomeKey`.
-          </li>
-          <li>
-            <b>Generative</b>: Setting `icon: generative`, will generate a unique for a given service, based on it's URL or IP.
-          </li>
-          <li>
-            <b>URL</b>: You can also pass in a URL to an icon asset, hosted either locally or
-            using any CDN service. E.g. icon: `https://i.ibb.co/710B3Yc/space-invader-x256.png`.
-          </li>
-          <li>
-            <b>Local Image</b>: To use a local image, store it in `./public/item-icons/`
-            (or create a volume in Docker: `-v /local/image/directory:/app/public/item-icons/`) ,
-            and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`.
-            You can also use sub-folders here if you have a lot of icons, to keep them organized.
-          </li>
-        </ul>
+        Dashy can auto-fetch icons from the favicon of each of your apps/ services.
+        There is also native support for Font Awesome, Material Design Icons, emoji
+        icons and of course normal images.
       </>
     ),
     icon: (<IconIconography />),
   },
   {
-    title: 'Customizable Layouts',
-    description: (
-      <>
-        Structure your dashboard to fit your use case. Choose between multiple different layouts,
-        item sizes and show/ hide components based on what you need. Less frequently used
-        sections can be collapsed, and large sections can be set to span multiple
-        columns or rows.
-      </>
-    ),
-    icon: (<IconLayout />),
-  },
-  {
     title: 'Status Indicators',
     description: (
       <>
-        Display the status of each service as a small dot, indicating which applications are down or running slowly.
-        This is useful if you are using Dashy to organize your self-hosted services,
-        as it gives a quick overview of the health of your lab. Hovering over the status will show
-        additional data, including response time, host info and status message.
-        <br />
-        Status checks are off by default, but can be enabled globally with `appConfig.statusCheck: true`,
-        or turned on or off on a per-item basis with `item[n].statusCheck`. You can also make use of
-        continuous status checking, by specifying `statusCheckInterval` in seconds. If needed, you can
-        call a different URL, by setting it in `statusCheckUrl`, and also pass in custom headers
-        using `statusCheckHeaders`.
+        Get an instant overview of the health of each of your apps with status indicators.
+        Once enabled, a small dot next to each app will show weather it is up and online,
+        with more info like response time visible on hover.
       </>
     ),
     icon: (<IconStatusIndicators />),
     demo: '../../static/img/homepage-assets/status-check-demo.gif',
   },
   {
-    title: 'Launching Methods',
+    title: 'Authentication',
     description: (
       <>
-        There are several different options for launching services from within Dashy.
-        You can specify the default method with the `target` attribute, or right-click
-        on any item to select an alternate method.
-        <ul>
-          <li>`sametab` - The app will be launched in the current tab</li>
-          <li>`newtab` - The app will be launched in a new tab</li>
-          <li>`modal` - Launch app in a resizable/ movable popup modal on the current page</li>
-          <li>`workspace` - Changes to Workspace view, and launches app</li>
-        </ul>
+        Need to protect your dashboard, the simple auth feature is super quick to enable,
+        and has support for multiple users with granular controls. Dashy also has built-in
+        support for Keycloak and other SSO providers.
+      </>
+    ),
+    icon: (<IconAuth />),
+  },
+  {
+    title: 'Alternate Views',
+    description: (
+      <>
+        As well as the default home, there is also a minimal view, which makes a great
+        fast-loading browser startpage. Plus a workspace view useful for working on
+        multiple apps at once, all without having to leave your dashboard.
       </>
     ),
     icon: (<IconOpeningMethods />),
     demo: '../../static/img/homepage-assets/workspace-demo.gif',
   },
   {
-    title: 'Authentication',
+    title: 'Launching Methods',
     description: (
       <>
-        Dashy has a built-in login feature, which can be used for basic access control.
-        To enable this feature, add an `auth` attribute under `appConfig`, containing an array of users.
-        Each with a username, SHA-256 hashed password and optional user type.
+        Choose how to launch each of your apps by default, or right click for all options.
+        Apps can be opened in a new tab, the same tab, a quick pop-up modal or in the
+        workspace view.
       </>
     ),
-    icon: (<IconAuth />),
+    icon: (<IconOpeningMethods />),
+    demo: '../../static/img/homepage-assets/workspace-demo.gif',
+  },
+  {
+    title: 'Search & Shortcuts',
+    description: (
+      <>
+        To search, just start typing, results will be filtered instantly.Then use the
+        arrow keys or tab to navigate through results, and press enter to launch.
+        You can also create custom shortcuts for frequently used apps.
+      </>
+    ),
+    icon: (<IconShortcuts />),
+    demo: '../../static/img/homepage-assets/searching-demo.gif',
   },
   {
     title: 'Cloud Backup & Sync',
     description: (
       <>
-        Dashy has an optional built-in feature for securely backing up your config to
-        a hosted cloud service, and then restoring it on another instance.
-        This feature is totally optional, and is off by default.
-        <br />
-        All data is end-to-end encrypted with AES using your password as the key.
-        It is processed with a CF worker, and stored in KV. You can delete your data
-        at any time.
+        There is an optional, end-to-end encrypted, free backup cloud service.
+        This enables you to have your config backed up off-site, and to sync
+        data between multiple instances easily.
       </>
     ),
     icon: (<IconCloudSync />),
   },
   {
-    title: 'Configuration through UI',
+    title: 'Configuration',
     description: (
       <>
-        Dashy's config is stored in YAML format. It is possible to modify all settings
-        directly through the config editor in the UI, which will then update your YAML file,
-        and rebuild the app automatically.
+        Dashy's config is specified in a simple YAML file. But you can also configure
+        the directly through the UI, and have changes written to, and backed up on disk.
+        Real-time validation and hints are in place to help you.
       </>
     ),
     icon: (<IconUiConfig />),
     demo: '../../static/img/homepage-assets/config-editor-demo.gif',
+  },
+  {
+    title: 'Multi-Language Support',
+    description: (
+      <>
+        Dashy's UI has been translated into several languages by several amazing contributors.
+        Currently English, German, French, Dutch and Slovenian are supported.
+        Your language should be applied automatically, or you can change it in the config menu.
+      </>
+    ),
+    icon: (<IconDeploy />),
   },
   {
     title: 'Easy Deployment',
@@ -174,6 +140,20 @@ const FeatureList = [
       </>
     ),
     icon: (<IconDeploy />),
+  },
+  {
+    title: 'Customizable Layouts',
+    description: (
+      <>
+        Structure your dashboard to fit your use case. From the UI, you can choose between
+        different layouts, item sizes, show/ hide components, switch themes plus more.
+
+        You can customize pretty much every area of your dashboard. There are config
+        options for custom header, footer, nav bar links, title etc. You can also
+        choose to hide any elements you don't need.
+      </>
+    ),
+    icon: (<IconLayout />),
   },
 ];
 

@@ -23,18 +23,26 @@ export default function HomepageHeader() {
         <Button to="/docs" color="yellow"><IconBannerDocs />Documentation</Button>
       </div>
       <div className={styles.dashyDescription}>
-        Dashy is an easy-to-deploy, highly-customizable self-hosted dashboard.
-        It helps you keep your apps and services organized in a single place,
-        and makes launching your apps super quick, with customizable keyboard
-        shortcuts and instant search.
+        Dashy is an open source, highly customizable, easy to use, privacy-respecting dashboard app.
+        {showMore && (
+          <p className={styles.dashyDescription}>
+            It's packed full of useful features, to help you build your perfect dashboard.
+            Including status checks, keyboard shortcuts, auto-fetched favicon icons and
+            font-awesome support, built-in authentication, tons of themes, a UI config
+            editor, many display layouts plus loads more.
+            All the code is free and open source, and everything is thoroughly documented,
+            you can get support with any questions on GitHub.
+          </p>
+        )}
         <span className={styles.keepReading} onClick={() => setShowMore(!showMore)}>
           {!showMore ? 'Keep Reading...' : 'Show Less'}
         </span>
-        {showMore && (
-          <p className={styles.dashyDescription}>See me now</p>
-        )
-        }
       </div>
+      <a href="https://github.com/lissy93/dashy">
+        <img className={styles.starButton}
+          src="https://img.shields.io/github/stars/Lissy93/Dashy?label=Dashy%20on%20GitHub&logo=github&style=social"
+        />
+      </a>
     </header>
   );
 }
