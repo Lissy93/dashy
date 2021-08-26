@@ -5,7 +5,7 @@ const currentVersion = require('../package.json').version;
 const packageUrl = 'https://raw.githubusercontent.com/Lissy93/dashy/master/package.json';
 
 const makeMsg = (latestVersion) => {
-  const parse = (version) => parseInt(version.replaceAll('.', ''), 10);
+  const parse = (version) => parseInt(version.replace(/\./g, ''), 10);
   const difference = parse(latestVersion) - parse(currentVersion);
   let msg = '';
   if (difference <= 0) {
