@@ -33,6 +33,7 @@
         :hotkey="item.hotkey"
         :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
         :statusCheckInterval="getStatusCheckInterval()"
+        :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
       />
