@@ -1,5 +1,11 @@
 # Changelog
 
+## ⚡️ 1.6.7 - Option for non-SSL status checks plus minor things [PR #182](https://github.com/Lissy93/dashy/pull/182)
+- Adds an option for user to use status checks with non-HTTPS services, Re: #181
+- Updates the .env template, plus the variables used in the server
+- Uses the v-cloak to hide text before it's finished loading
+- Fixed the parsing of the update-checker during build
+
 ## ⚡️ 1.6.6 - Improved Search & Shortcuts [PR #175](https://github.com/Lissy93/dashy/pull/175)
 - Refactors the search algorithm to improve performance and code reusability
 - Updates search to ignore case, special characters and minor-typos
