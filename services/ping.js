@@ -4,6 +4,7 @@
  * endpoint, and then resolve the response status code, time taken, and short message
  */
 const axios = require('axios').default;
+const https = require('https');
 
 /* Determines if successful from the HTTP response code */
 const getResponseType = (code) => {
@@ -26,9 +27,14 @@ const makeErrorMessage2 = (data) => '❌ Service Error - '
   + `${data.status} - ${data.statusText}`;
 
 /* Kicks of a HTTP request, then formats and renders results */
-const makeRequest = (url, render) => {
+const makeRequest = (url, headers, insecure, render) => {
   const startTime = new Date();
-  axios.get(url)
+  const requestMaker = axios.create({
+    httpsAgent: new https.Agent({
+      rejectUnauthorized: !insecure,
+    }),
+  });
+  requestMaker.get(url, { headers })
     .then((response) => {
       const statusCode = response.status;
       const { statusText } = response;
@@ -52,15 +58,29 @@ const makeRequest = (url, render) => {
     });
 };
 
+const decodeHeaders = (maybeHeaders) => {
+  if (!maybeHeaders) return {};
+  const decodedHeaders = decodeURIComponent(maybeHeaders);
+  let parsedHeaders = {};
+  try {
+    parsedHeaders = JSON.parse(decodedHeaders);
+  } catch (e) { /* Not valid JSON, will just return false */ }
+  return parsedHeaders;
+};
+
 /* Main function, will check if a URL present, and call function */
-module.exports = (params, render) => {
-  if (!params || !params.includes('=')) {
+module.exports = (paramStr, render) => {
+  if (!paramStr || !paramStr.includes('=')) {
     render(JSON.stringify({
       success: false,
       message: '❌ Malformed URL',
     }));
   } else {
-    const url = params.split('=')[1];
-    makeRequest(url, render);
+    // Prepare the parameters, which are got from the URL
+    const params = new URLSearchParams(paramStr);
+    const url = decodeURIComponent(params.get('url'));
+    const headers = decodeHeaders(params.get('headers'));
+    const enableInsecure = !!params.get('enableInsecure');
+    makeRequest(url, headers, enableInsecure, render);
   }
 };
