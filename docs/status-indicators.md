@@ -57,6 +57,9 @@ You can set the `statusCheckUrl` property on any given item in order to do this.
 If your service is responding with an error, despite being up and running, it is most likely because custom headers for authentication, authorization or encoding are required. You can define these headers under the `statusCheckHeaders` property for any service. It should be defined as an object format, with the name of header as the key, and header content as the value.
 For example, `statusCheckHeaders: { 'X-Custom-Header': 'foobar' }`
 
+## Disabling Security
+By default, (if you're using HTTPS) any requests to insecure or non-HTTPS content will be blocked. This will likely cause the status check to fail. If you trust the endpoint (e.g. you're self-hosting it), then you can disable this security measure for an individual item. This is done by setting `statusCheckAllowInsecure: true`
+
 ## Troubleshooting Failing Status Checks
 If the status is always returning an error, despite the service being online, then it is most likely an issue with access control, and should be fixed with the correct headers. Hover over the failing status to see the error code and response, in order to know where to start with addressing it.
 If your service requires requests to include any authorization in the headers, then use the  `statusCheckHeaders` property, as described above.
