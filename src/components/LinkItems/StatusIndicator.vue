@@ -48,6 +48,7 @@ export default {
   padding: 5px;
   transition: all .2s ease-in-out;
   cursor: help;
+  z-index: 5;
   &:hover {
     transform: scale(1.25);
     filter: saturate(2);
