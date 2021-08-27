@@ -72,6 +72,7 @@ export default {
     statusCheckHeaders: Object,
     statusCheckUrl: String,
     statusCheckInterval: Number,
+    statusCheckAllowInsecure: Boolean,
   },
   data() {
     return {
@@ -144,18 +145,33 @@ export default {
         default: return '"\\f054"';
       }
     },
+    /* Pulls together all user options, returns URL + Get params for ping endpoint */
+    makeApiUrl() {
+      const {
+        url, statusCheckUrl, statusCheckHeaders, statusCheckAllowInsecure,
+      } = this;
+      const encode = (str) => encodeURIComponent(str);
+      this.statusResponse = undefined;
+      // Find base URL, where the API is hosted
+      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      // Find correct URL to check, and encode
+      const urlToCheck = `?&url=${encode(statusCheckUrl || url)}`;
+      // Get, stringify and encode any headers
+      const headers = statusCheckHeaders
+        ? `&headers=${encode(JSON.stringify(statusCheckHeaders))}` : '';
+      // Deterimine if user disabled security
+      const enableInsecure = statusCheckAllowInsecure ? '&enableInsecure=true' : '';
+      // Construct the full API endpoint's URL with GET params
+      return `${baseUrl}/ping/${urlToCheck}${headers}${enableInsecure}`;
+    },
     /* Checks if a given service is currently online */
     checkWebsiteStatus() {
-      this.statusResponse = undefined;
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      const urlToCheck = this.statusCheckUrl || this.url;
-      const headers = this.statusCheckHeaders || {};
-      const endpoint = `${baseUrl}/ping?url=${urlToCheck}`;
-      axios.get(endpoint, { headers })
+      const endpoint = this.makeApiUrl();
+      axios.get(endpoint)
         .then((response) => {
           if (response.data) this.statusResponse = response.data;
         })
-        .catch(() => {
+        .catch(() => { // Something went very wrong.
           this.statusResponse = {
             statusText: 'Failed to make request',
             statusSuccess: false,

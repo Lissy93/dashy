@@ -509,6 +509,7 @@ html[data-theme='material'] {
   // --login-form-background-secondary: #f5f5f5cc;
   --context-menu-secondary-color: #f5f5f5;
   --transparent-white-50: #00000080;
+  --status-check-tooltip-background: #fff;
 
   --minimal-view-background-color: var(--background);
   --minimal-view-title-color: var(--background-darker);
@@ -596,6 +597,9 @@ html[data-theme='material-dark'] {
   --nav-link-text-color-hover: #08B0BB;
   --nav-link-background-color-hover: #131a1fc7;
   --nav-link-border-color-hover: transparent;
+
+  --status-check-tooltip-background: #131a1f;
+  --status-check-tooltip-color: #e0e0e0;
   --curve-factor: 2px;
   --curve-factor-navbar: 0;
   
@@ -605,7 +609,6 @@ html[data-theme='material-dark'] {
   --config-settings-color: #41e2ed;
   --scroll-bar-color: #08B0BB;
   --scroll-bar-background: #131a1f;
-  --status-check-tooltip-color: #131a1f;
   // --login-form-color: #131a1f;
   --login-form-background-secondary: #131a1f;
 
@@ -741,6 +744,7 @@ html[data-theme='vaporware'] {
   --curve-factor-navbar: 6px;
   --login-form-color: #09bfe6;
   --config-settings-background: #100e2c;
+  --status-check-tooltip-background: #100e2c;
   
   .home {
     background: linear-gradient(180deg, rgba(16,14,44,1) 10%, rgba(27,24,79,1) 40%, rgba(16,14,44,1) 100%);
@@ -823,6 +827,7 @@ html[data-theme='cyberpunk'] {
 --footer-background: var(--aqua);
 --welcome-popup-background: var(--pink);
 --welcome-popup-text-color: var(--blue);
+--status-check-tooltip-background: var(--blue);
 --font-headings: 'Audiowide', cursive;
 }
 

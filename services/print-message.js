@@ -23,7 +23,7 @@ module.exports = (ip, port, isDocker) => {
   const blanks = (count) => printChars(count, ' ');
   if (isDocker) {
     // Prepare message for Docker users
-    const containerId = process.env.HOSTNAME || undefined;
+    const containerId = process.env.HOST || undefined;
     msg = `${chars.BLUE}${stars(91)}${chars.BR}${chars.RESET}`
       + `${chars.CYAN}Welcome to Dashy! 🚀${chars.RESET}${chars.BR}`
       + `${chars.GREEN}Your new dashboard is now up and running `

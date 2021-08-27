@@ -22,6 +22,10 @@ html {
   }
 }
 
+/* Hide text, and show 'Loading...' while Vue is intializing tags */
+[v-cloak] > * { display:none }
+[v-cloak]::before { content: "loading…" }
+
 /* Overriding styles for the modal component */
 .vm--modal, .dashy-modal {
   box-shadow: 0 40px 70px -2px hsl(0deg 0% 0% / 60%), 1px 1px 6px var(--primary) !important;

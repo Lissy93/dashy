@@ -499,6 +499,11 @@
                 "statusCheckHeaders": {
                   "type": "object",
                   "description": " If you're endpoint requires any specific headers for the status checking, then define them here"
+                },
+                "statusCheckAllowInsecure": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Allows for running status checks on insecure content/ non-HTTPS apps"
                 }
               }
             }
