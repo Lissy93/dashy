@@ -26,16 +26,16 @@
       <ul>
         <li>
           <router-link to="/home">
-            <IconHome /><span>Default</span>
+            <IconHome /><span>{{ $t('alternate-views.default') }}</span>
           </router-link>
         </li>
         <li>
           <router-link to="/minimal">
-            <IconMinimalView /><span>Minimal</span>
+            <IconMinimalView /><span>{{ $t('alternate-views.minimal') }}</span>
           </router-link>
         <li>
           <router-link to="/workspace">
-            <IconWorkspaceView /><span>Workspace</span>
+            <IconWorkspaceView /><span>{{ $t('alternate-views.workspace') }}</span>
           </router-link>
         </li>
       </ul>

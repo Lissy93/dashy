@@ -60,6 +60,11 @@
     "css-note-l2": "Styles overrides are only stored locally, so it is recommended to make a copy of your CSS.",
     "css-note-l3": "To remove all custom styles, delete the contents and hit Save Changes"
   },
+  "alternate-views": {
+    "default": "Default",
+    "workspace": "Workspace",
+    "minimal": "Minimal"
+  },
   "settings": {
     "theme-label": "Theme",
     "layout-label": "Layout",
