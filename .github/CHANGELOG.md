@@ -1,5 +1,10 @@
 # Changelog
 
+## ⚡️ 1.6.8 - Improved Loading Experience [PR #183](https://github.com/Lissy93/dashy/pull/183)
+- During app initialization, show the build progress and status message
+- While requests are being made, show loader at top of screen
+- Also adds some UI improvements to Workspace view
+
 ## ⚡️ 1.6.7 - Option for non-SSL status checks plus minor things [PR #182](https://github.com/Lissy93/dashy/pull/182)
 - Adds an option for user to use status checks with non-HTTPS services, Re: #181
 - Updates the .env template, plus the variables used in the server
