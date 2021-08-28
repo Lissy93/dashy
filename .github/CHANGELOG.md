@@ -1,5 +1,10 @@
 # Changelog
 
+## ✨ 1.6.9 - Web Search Feature [PR #185](https://github.com/Lissy93/dashy/pull/185)
+- Adds ability to search the web directly from Dashy by pressing enter on the search bar
+- Adds configuration options, for setting default search engine, opening method and disabling
+- Adds text under search bar, implements into minimal view also
+
 ## ⚡️ 1.6.8 - Improved Loading Experience [PR #183](https://github.com/Lissy93/dashy/pull/183)
 - During app initialization, show the build progress and status message
 - While requests are being made, show loader at top of screen
