@@ -60,6 +60,7 @@ To disallow any changes from being written to disk via the UI config editor, set
 **`startingView`** | `enum` | _Optional_ | Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI. Can be either `default`, `minimal` or `workspace`. Defaults to `default`
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping each of your services and display their status as a dot next to each item. This can be overridden by setting `statusCheck` under each item. Defaults to `false`
 **`statusCheckInterval`** | `boolean` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
+**`webSearch`** | `object` | _Optional_ | Configuration options for the web search feature, set your default search engine, opening method or disable web search. See [`webSearch`](#appconfigwebsearch-optional)
 **`backgroundImg`** | `string` | _Optional_ | Path to an optional full-screen app background image. This can be either remote (http) or local (/). Note that this will slow down initial load
 **`enableFontAwesome`** | `boolean` | _Optional_ | Where `true` is enabled, if left blank font-awesome will be enabled only if required by 1 or more icons
 **`fontAwesomeKey`** | `string` | _Optional_ | If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
@@ -115,6 +116,17 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
+### `appConfig.webSearch` _(optional)_
+
+**Field** | **Type** | **Required**| **Description**
+--- | --- | --- | ---
+**`disableWebSearch`** | `string` | _Optional_ | Web search is enabled by default, but can be disabled by setting this property to `true`
+**`searchEngine`** | `string` | _Optional_ | Set the key name for your search engine. Can also use a custom engine by setting this property to `custom`. Currently supported: `duckduckgo`, `google`, `whoogle`, `qwant`, `startpage`, `searx-bar` and `searx-info`. Defaults to `duckduckgo`
+**`customSearchEngine`** | `string` | _Optional_ | You can also use a custom search engine, or your own self-hosted instance. This requires `searchEngine: custom` to be set. Then add the URL of your service, with GET query string included here
+**`openingMethod`** | `string` | _Optional_ | Set your preferred opening method for search results: `newtab`, `sametab`, `workspace`. Defaults to `newtab`
+
+
+**[⬆️ Back to Top](#configuring)**
 
 ### `appConfig.hideComponents` _(optional)_
 
