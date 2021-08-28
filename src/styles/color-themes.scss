@@ -360,7 +360,7 @@ html[data-theme='material'], html[data-theme='material-dark'] {
     padding: 0;
   }
   /* Custom layout for medium and large icons */
-  .item:not(.size-small) {
+  .item-wrapper .item:not(.size-small) {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
@@ -510,6 +510,8 @@ html[data-theme='material'] {
   --context-menu-secondary-color: #f5f5f5;
   --transparent-white-50: #00000080;
   --status-check-tooltip-background: #fff;
+  --side-bar-background-lighter: #0c4eba;
+  --side-bar-item-background: #f5f5f5;
 
   --minimal-view-background-color: var(--background);
   --minimal-view-title-color: var(--background-darker);
@@ -603,6 +605,8 @@ html[data-theme='material-dark'] {
   --curve-factor: 2px;
   --curve-factor-navbar: 0;
   
+  --side-bar-background: #131a1f;
+
   --welcome-popup-background: #131a1f;
   --welcome-popup-text-color: var(--primary);
   --config-settings-background: #131a1f;

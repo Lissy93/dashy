@@ -46,8 +46,8 @@ export default {
 <style lang="scss" scoped>
 
 div.side-bar-item {
-  color: var(--side-bar-color);
-  background: var(--side-bar-background);
+  color: var(--side-bar-item-color);
+  background: var(--side-bar-item-background);
   text-align: center;
   &.text-only {
     background: none;
