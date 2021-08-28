@@ -47,6 +47,35 @@ For apps that you use regularly, you can set a custom keybinding. Use the `hotke
 
 In the above example, pressing <kbd>2</kbd> will launch Bookstack. Or hitting <kbd>3</kbd> will open Git in the workspace view.
 
+## Web Search
+It's possible to search the web directly from Dashy, which might be useful if you're using Dashy as your start page. This can be done by pressing <kbd>⏎</kbd> after typing your query into the search bar. Web search options are configured under `appConfig.webSearch`.
+
+#### Setting Search Engine
+By default, DuckDuckGo is used as the search engine, but you can change this by setting `webSearch.searchEngine` to the key of your favorite search provider. Currently supported providers:
+- Main: `duckduckgo`, `google`, `whoogle`, `qwant`, `startpage`, `searx-bar`, `searx-info`
+- Nice: `searx-tiekoetter`, `searx-bissisoft`, `ecosia`, `metager`, `swisscows`, `mojeek`, `peekier`
+- Specific: `wikipedia`, `wolframalpha`, `stackoverflow`, `github`, `reddit`, `youtube`, `bbc`
+
+#### Using Custom Search Engine
+If you're self-hosting your own search engine (like [Whoogle](https://github.com/benbusby/whoogle-search) or [Searx](https://searx.github.io/searx/)) or you'd like to use a provider not included in this list, then just set `searchEngine: custom` and put the URL of your engine, along with the GET parameter for query string, into `customSearchEngine`
+
+#### Setting Opening Method
+By default, results are opened in a new tab, but `sametab`, `newtab` and `workspace` are all supported
+
+#### Disabling Web Search
+Web search can be disabled, by setting `disableWebSearch: true`
+
+
+```yaml
+appConfig:
+  theme: dashy-docs
+  webSearch:
+    disableWebSearch: false
+    searchEngine: 'duckduckgo'
+    customSearchEngine: ''
+    openingMethod: 'newtab'
+```
+
 
 ## Clearing Search
 You can clear your search term at any time, by pressing <kbd>Esc</kbd>.
