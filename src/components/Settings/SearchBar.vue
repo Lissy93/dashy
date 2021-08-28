@@ -1,13 +1,18 @@
 <template>
   <form @submit.prevent="searchSubmitted">
     <label for="filter-tiles">{{ $t('search.search-label') }}</label>
-    <input
-      id="filter-tiles"
-      v-model="input"
-      ref="filter"
-      :placeholder="$t('search.search-placeholder')"
-      v-on:input="userIsTypingSomething"
-      @keydown.esc="clearFilterInput" />
+    <div class="search-wrap">
+      <input
+        id="filter-tiles"
+        v-model="input"
+        ref="filter"
+        :placeholder="$t('search.search-placeholder')"
+        v-on:input="userIsTypingSomething"
+        @keydown.esc="clearFilterInput" />
+        <p v-if="webSearchEnabled && input.length > 0" class="web-search-note">
+          {{ $t('search.enter-to-search-web') }}
+        </p>
+      </div>
       <i v-if="input.length > 0"
         class="clear-search"
         :title="$t('search.clear-search-tooltip')"
@@ -34,6 +39,15 @@ export default {
       akn: new ArrowKeyNavigation(), // Class that manages arrow key naviagtion
       getCustomKeyShortcuts,
     };
+  },
+  computed: {
+    webSearchEnabled() {
+      const { appConfig } = this.config;
+      if (appConfig && appConfig.webSearch) {
+        return !appConfig.webSearch.disableWebSearch;
+      }
+      return true;
+    },
   },
   mounted() {
     window.addEventListener('keydown', (event) => {
@@ -97,7 +111,7 @@ export default {
       // Get search preferences from appConfig
       const { appConfig } = this.config;
       const searchPrefs = appConfig.webSearch || {};
-      if (!searchPrefs.disableWebSearch) { // Only proceed if user hasn't disabled web search
+      if (this.webSearchEnabled) { // Only proceed if user hasn't disabled web search
         const openingMethod = searchPrefs.openingMethod || defaultSearchOpeningMethod;
         // Get search engine, and make URL
         const searchEngine = searchPrefs.searchEngine || defaultSearchEngine;
@@ -131,6 +145,17 @@ export default {
     border-radius: 0 0 var(--curve-factor-navbar) 0;
     padding: 0 0.2rem 0.2rem 0;
     background: var(--search-container-background);
+    .search-wrap {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      p.web-search-note {
+        margin: 0 0.5rem;
+        font-size: 0.8rem;
+        color: var(--minimal-view-search-color);
+        opacity: var(--dimming-factor);
+      }
+    }
     label {
         display: inline;
         color: var(--search-label-color);
@@ -157,7 +182,7 @@ export default {
     .clear-search {
       //position: absolute;
       color: var(--settings-text-color);
-      padding: 0 0.4rem;
+      padding: 0 0.3rem 0.1rem 0.3rem;
       font-style: normal;
       font-size: 1rem;
       opacity: var(--dimming-factor);
@@ -167,7 +192,7 @@ export default {
       top: 1rem;
       border: 1px solid var(--settings-text-color);
       font-size: 1rem;
-      margin: 0.5rem;
+      margin: 0.25rem;
       &:hover {
         opacity: 1;
         background: var(--background-darker);
