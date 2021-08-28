@@ -60,6 +60,11 @@
     "css-note-l2": "Les modifications ne sont stockés que localement, il est donc recommandé de faire une copie de votre CSS.",
     "css-note-l3": "Pour supprimer tous les styles personnalisés, supprimez le contenu et appuyez sur Enregistrer."
   },
+  "alternate-views": {
+    "default": "Défaut",
+    "workspace": "Plein écran",
+    "minimal": "Minimale"
+  },
   "settings": {
     "theme-label": "Thème",
     "layout-label": "Disposition",
