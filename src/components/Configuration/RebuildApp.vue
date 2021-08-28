@@ -46,6 +46,7 @@
 
 <script>
 import axios from 'axios';
+import ProgressBar from 'rsup-progress';
 import Button from '@/components/FormElements/Button';
 import { modalNames } from '@/utils/defaults';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
@@ -69,6 +70,7 @@ export default {
     output: '',
     message: '',
     allowRebuild: true,
+    progress: new ProgressBar({ color: 'var(--progress-bar)' }),
   }),
   methods: {
     /* Calls to the rebuild endpoint, to kickoff the app build */
@@ -76,12 +78,15 @@ export default {
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
       const endpoint = `${baseUrl}/config-manager/rebuild`;
       this.loading = true;
+      this.progress.start();
       axios.get(endpoint)
         .then((response) => {
           this.finished(response.data || false);
+          this.progress.end();
         })
         .catch((error) => {
           this.finished({ success: false, error });
+          this.progress.end();
         });
     },
     /* Called when rebuild is complete, updates UI with either success or fail message */

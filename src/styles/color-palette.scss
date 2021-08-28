@@ -73,6 +73,8 @@
   --side-bar-background: var(--background-darker);
   --side-bar-background-lighter: var(--background);
   --side-bar-color: var(--primary);
+  --side-bar-item-background: var(--side-bar-background);
+  --side-bar-item-color: var(--side-bar-color);
   // Minimal view
   --minimal-view-background-color: var(--background);
   --minimal-view-title-color: var(--primary);
@@ -96,6 +98,7 @@
   --scroll-bar-background: var(--background-darker);
   --highlight-color: var(--background);
   --highlight-background: var(--primary);
+  --progress-bar: var(--primary);
   // Misc components
   --loading-screen-color: var(--primary);
   --loading-screen-background: var(--background);

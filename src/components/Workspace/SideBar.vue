@@ -16,6 +16,14 @@
         />
       </transition>
     </div>
+    <div class="switch-view-buttons">
+      <router-link to="/home">
+        <IconHome class="view-icon" v-tooltip="$t('alternate-views.default')" />
+      </router-link>
+      <router-link to="/minimal">
+        <IconMinimalView class="view-icon" v-tooltip="$t('alternate-views.minimal')" />
+      </router-link>
+    </div>
   </nav>
 </template>
 
@@ -23,6 +31,8 @@
 
 import SideBarItem from '@/components/Workspace/SideBarItem.vue';
 import SideBarSection from '@/components/Workspace/SideBarSection.vue';
+import IconHome from '@/assets/interface-icons/application-home.svg';
+import IconMinimalView from '@/assets/interface-icons/application-minimal.svg';
 
 export default {
   name: 'SideBar',
@@ -38,6 +48,8 @@ export default {
   components: {
     SideBarItem,
     SideBarSection,
+    IconMinimalView,
+    IconHome,
   },
   methods: {
     /* Toggles the section clicked, and closes all other sections */
@@ -85,6 +97,15 @@ nav.side-bar {
 }
 .slide-leave-to {
   transform: translate(0, -80%);
+}
+
+.switch-view-buttons {
+  margin-top: 0.5rem;
+  display: flex;
+  @extend .svg-button;
+  .view-icon {
+    border: none;
+  }
 }
 
 </style>

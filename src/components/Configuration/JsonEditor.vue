@@ -59,6 +59,7 @@
 <script>
 
 import axios from 'axios';
+import ProgressBar from 'rsup-progress';
 import VJsoneditor from 'v-jsoneditor';
 import { localStorageKeys } from '@/utils/defaults';
 import configSchema from '@/utils/ConfigSchema.json';
@@ -89,6 +90,7 @@ export default {
       responseText: '',
       saveSuccess: undefined,
       allowWriteToDisk: this.shouldAllowWriteToDisk(),
+      progress: new ProgressBar({ color: 'var(--progress-bar)' }),
     };
   },
   computed: {
@@ -123,6 +125,7 @@ export default {
       const body = { config: yaml, timestamp: new Date() };
       const request = axios.post(endpoint, body, headers);
       // 3. Make the request, and handle response
+      this.progress.start();
       request.then((response) => {
         this.saveSuccess = response.data.success || false;
         this.responseText = response.data.message;
@@ -132,11 +135,13 @@ export default {
         } else {
           this.showToast(this.$t('config-editor.error-msg-cannot-save'), false);
         }
+        this.progress.end();
       })
         .catch((error) => {
           this.saveSuccess = false;
           this.responseText = error;
           this.showToast(error, false);
+          this.progress.end();
         });
     },
     saveConfigLocally() {

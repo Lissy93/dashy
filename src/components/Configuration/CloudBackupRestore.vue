@@ -59,6 +59,7 @@
 <script>
 
 import sha256 from 'crypto-js/sha256';
+import ProgressBar from 'rsup-progress';
 import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
 import IconBackup from '@/assets/interface-icons/config-backup.svg';
@@ -77,6 +78,7 @@ export default {
       restorePassword: '',
       restoreCode: '',
       backupId: localStorage[localStorageKeys.BACKUP_ID] || '',
+      progress: new ProgressBar({ color: 'var(--progress-bar)' }),
     };
   },
   components: {
@@ -87,11 +89,14 @@ export default {
   },
   methods: {
     restoreBackup() {
+      this.progress.start();
       restore(this.restoreCode, this.restorePassword)
         .then((response) => {
           this.restoreFromBackup(response, this.restoreCode);
+          this.progress.end();
         }).catch((msg) => {
           this.showErrorMsg(msg);
+          this.progress.end();
         });
     },
     checkPass() {
@@ -107,6 +112,7 @@ export default {
       }
     },
     makeBackup() {
+      this.progress.start();
       backup(this.config, this.backupPassword)
         .then((response) => {
           if (!response.data || response.data.errorMsg || !response.data.backupId) {
@@ -114,11 +120,14 @@ export default {
           } else { // All clear, no error
             this.updateUiAfterBackup(response.data.backupId, false);
           }
+          this.progress.end();
         }).catch(() => {
           this.showErrorMsg(this.$t('cloud-sync.backup-error-unknown'));
+          this.progress.end();
         });
     },
     makeUpdate() {
+      this.progress.start();
       update(this.config, this.backupPassword, this.backupId)
         .then((response) => {
           if (!response.data || response.data.errorMsg || !response.data.backupId) {
@@ -126,8 +135,10 @@ export default {
           } else { // All clear, no error
             this.updateUiAfterBackup(response.data.backupId, true);
           }
+          this.progress.end();
         }).catch(() => {
           this.showErrorMsg(this.$t('cloud-sync.backup-error-unknown'));
+          this.progress.end();
         });
     },
     restoreFromBackup(config, backupId) {

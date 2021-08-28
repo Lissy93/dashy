@@ -31,6 +31,7 @@
 
 <script>
 import axios from 'axios';
+import ProgressBar from 'rsup-progress';
 import ErrorHandler from '@/utils/ErrorHandler';
 
 export default {
@@ -39,6 +40,7 @@ export default {
   data() {
     return {
       appVersion: process.env.VUE_APP_VERSION, // Current version, from package.json
+      progress: new ProgressBar({ color: 'var(--progress-bar)' }),
       latestVersion: '', // Will store latest version, when request returns
       checksEnabled: true, // Should we check for updates
       isUpToDate: true, // Is current version === latest version
@@ -60,14 +62,17 @@ export default {
     /* Gets the apps latest version from Dashy's git repo */
     checkVersion() {
       const packageUrl = 'https://raw.githubusercontent.com/Lissy93/dashy/master/package.json';
+      this.progress.start();
       axios.get(packageUrl).then((response) => {
         if (response && response.data && response.data.version) {
           this.latestVersion = response.data.version;
           this.isUpToDate = this.checkIfUpToDate(this.appVersion, this.latestVersion);
           this.finished = true;
+          this.progress.end();
         }
       }).catch(() => {
         this.error = true;
+        this.progress.end();
       });
     },
     /* Compares the current version, with the package.json version */
