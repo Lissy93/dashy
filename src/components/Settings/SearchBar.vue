@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="searchSubmitted">
     <label for="filter-tiles">{{ $t('search.search-label') }}</label>
     <input
       id="filter-tiles"
@@ -16,12 +16,15 @@
 </template>
 
 <script>
-
+import router from '@/router';
 import ArrowKeyNavigation from '@/utils/ArrowKeyNavigation';
+import ErrorHandler from '@/utils/ErrorHandler';
 import { getCustomKeyShortcuts } from '@/utils/ConfigHelpers';
+import { searchEngineUrls, defaultSearchEngine, defaultSearchOpeningMethod } from '@/utils/defaults';
 
 export default {
   name: 'FilterTile',
+  inject: ['config'],
   props: {
     active: Boolean,
   },
@@ -73,6 +76,40 @@ export default {
           if (hotkey.url) window.open(hotkey.url, '_blank');
         }
       });
+    },
+    launchWebSearch(url, method) {
+      switch (method) {
+        case 'newtab':
+          window.open(url, '_blank');
+          break;
+        case 'sametab':
+          window.open(url, '_self');
+          break;
+        case 'workspace':
+          router.push({ name: 'workspace', query: { url } });
+          break;
+        default:
+          ErrorHandler(`Unknown opening method: ${method}`);
+          window.open(url, '_blank');
+      }
+    },
+    searchSubmitted() {
+      // Get search preferences from appConfig
+      const { appConfig } = this.config;
+      const searchPrefs = appConfig.webSearch || {};
+      if (!searchPrefs.disableWebSearch) { // Only proceed if user hasn't disabled web search
+        const openingMethod = searchPrefs.openingMethod || defaultSearchOpeningMethod;
+        // Get search engine, and make URL
+        const searchEngine = searchPrefs.searchEngine || defaultSearchEngine;
+        let searchUrl = searchEngineUrls[searchEngine];
+        if (!searchUrl) ErrorHandler(`Search engine not found - ${searchEngine}`);
+        if (searchEngine === 'custom' && searchPrefs.customSearchEngine) {
+          searchUrl = searchPrefs.customSearchEngine;
+        }
+        // Append users encoded query onto search URL, and launch
+        searchUrl += encodeURIComponent(this.input);
+        this.launchWebSearch(searchUrl, openingMethod);
+      }
     },
   },
 };
