@@ -70,7 +70,7 @@ export default {
     output: '',
     message: '',
     allowRebuild: true,
-    progress: new ProgressBar(),
+    progress: new ProgressBar({ color: 'var(--progress-bar)' }),
   }),
   methods: {
     /* Calls to the rebuild endpoint, to kickoff the app build */

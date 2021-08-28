@@ -78,7 +78,7 @@ export default {
       restorePassword: '',
       restoreCode: '',
       backupId: localStorage[localStorageKeys.BACKUP_ID] || '',
-      progress: new ProgressBar(),
+      progress: new ProgressBar({ color: 'var(--progress-bar)' }),
     };
   },
   components: {

@@ -90,7 +90,7 @@ export default {
       responseText: '',
       saveSuccess: undefined,
       allowWriteToDisk: this.shouldAllowWriteToDisk(),
-      progress: new ProgressBar(),
+      progress: new ProgressBar({ color: 'var(--progress-bar)' }),
     };
   },
   computed: {
