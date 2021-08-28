@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.14
+FROM node:14-alpine3.14
 
 # Define some ENV Vars
 ENV PORT=80 \
