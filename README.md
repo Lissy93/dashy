@@ -327,6 +327,8 @@ You can change the view from the UI, using the switch icon in the top-right corn
 
 ## Searching and Shortcuts 🔎
 
+> For full documentation on searching, see: [**Searching & Shortcuts**](./docs/searching.md)
+
 Quickly finding and launching applications is the primary aim of Dashy. To that end instant search and customizable keyboard shortcuts are built-in.
 
 To start filtering, just start typing. No need to select the search bar or use any special key. You can then use either the tab key or arrow keys to select and move between results, and hit enter to launch the currently selected application. You can also use `Alt + Enter` on a selected app to launch it in a popup modal, `Ctrl + Enter` to open in new tab, or right-click on it to see all opening methods.
@@ -351,6 +353,16 @@ Example:
   icon: far fa-books
   url: https://bookstack.local/
   hotkey: 8
+```
+
+To search the web directly through Dashy, just press enter after typing your query. Options for web search are set under `appConfig.webSearch`. There is built in support for [10+ search engines](./docs/searching.md#setting-search-engine), or [use your own custom provider](./docs/searching.md#using-custom-search-engine) or self-hosted instance.
+To disable web search all together, set: `webSearch: { disableWebSearch: true }`
+
+```yaml
+appConfig:
+  webSearch:
+    searchEngine: duckduckgo
+    openingMethod: newtab
 ```
 
 Hit `Esc` at anytime to close any open apps, clear the search field, or hide any modals.
