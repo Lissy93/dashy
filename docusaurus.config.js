@@ -60,9 +60,9 @@ module.exports = {
         {
           title: 'Feature Docs Pt 1',
           items: [
-            { label: 'Authentication', to: '/docs/deployment' },
-            { label: 'Alternate Views', to: '/docs/configuring' },
-            { label: 'Backup & Restore', to: '/docs/management' },
+            { label: 'Authentication', to: '/docs/authentication' },
+            { label: 'Alternate Views', to: '/docs/alternate-views' },
+            { label: 'Backup & Restore', to: '/docs/backup-restore' },
             { label: 'Icons', to: '/docs/icons' },
           ],
         },
@@ -78,9 +78,9 @@ module.exports = {
         {
           title: 'Community',
           items: [
-            { label: 'Developing', to: '/docs/deployment' },
-            { label: 'Development Guides', to: '/docs/configuring' },
-            { label: 'Contributing', to: '/docs/management' },
+            { label: 'Developing', to: '/docs/developing' },
+            { label: 'Development Guides', to: '/docs/development-guides' },
+            { label: 'Contributing', to: '/docs/contributing' },
             { label: 'Showcase', to: '/docs/showcase' },
             { label: 'Credits', to: '/docs/credits' },
           ],
@@ -88,9 +88,9 @@ module.exports = {
         {
           title: 'Misc',
           items: [
-            { label: 'Privacy & Security', to: '/docs/deployment' },
-            { label: 'License', to: '/docs/configuring' },
-            { label: 'Legal', to: '/docs/management' },
+            { label: 'Privacy & Security', to: '/docs/privacy' },
+            { label: 'License', to: '/docs/license' },
+            { label: 'Legal', to: 'https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md' },
             { label: 'Code of Conduct', to: '/docs/code-of-conduct' },
             { label: 'Changelog', to: '/docs/changelog' },
           ],
@@ -109,7 +109,6 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl: externalUrl.editUrl,
         },
         theme: {
