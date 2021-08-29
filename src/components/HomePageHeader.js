@@ -39,7 +39,7 @@ export default function HomepageHeader() {
           {!showMore ? 'Keep Reading...' : 'Show Less'}
         </span>
       </div>
-      {(!showMore && document.body.scrollTop === 0) &&
+      {(!showMore) &&
         <a href="#go-down" className={styles.scrollDown} id="go-down">
           <IconDownArrow className={styles.scrollDownIcon} />
           <span className={styles.scrollDownText}>Feature List</span>

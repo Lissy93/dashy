@@ -26,7 +26,7 @@
 
 ### Misc
 - [Privacy & Security](/docs/privacy) - List of requests, potential issues, and security resources
-- [License](/LICENSE) - Copy of the MIT License
-- [Legal](/.github/LEGAL) - Licenses of direct dependencies
-- [Code of Conduct](/.github/CODE_OF_CONDUCT) - Contributor Covenant Code of Conduct
-- [Changelog](/.github/CHANGELOG) - Details of recent changes, and historical versions
+- [License](/docs/license) - Copy of the MIT License
+- [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md) - Licenses of direct dependencies
+- [Code of Conduct](/docs/code-of-conduct) - Contributor Covenant Code of Conduct
+- [Changelog](/docs/changelog) - Details of recent changes, and historical versions

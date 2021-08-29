@@ -28,7 +28,7 @@ const FeatureList = [
     ),
     link: '/docs/theming',
     icon: (<IconThemes />),
-    demo: '../../static/img/homepage-assets/theme-slideshow.gif',
+    demo: '/img/homepage-assets/theme-slideshow.gif',
   },
   {
     title: 'Icons',
@@ -53,7 +53,7 @@ const FeatureList = [
     ),
     link: '/docs/status-indicators',
     icon: (<IconStatusIndicators />),
-    demo: '../../static/img/homepage-assets/status-check-demo.gif',
+    demo: '/img/homepage-assets/status-check-demo.gif',
   },
   {
     title: 'Authentication',
@@ -78,7 +78,7 @@ const FeatureList = [
     ),
     link: '/docs/alternate-views',
     icon: (<IconOpeningMethods />),
-    demo: '../../static/img/homepage-assets/workspace-demo.gif',
+    demo: '/img/homepage-assets/workspace-demo.gif',
   },
   {
     title: 'Launching Methods',
@@ -105,7 +105,7 @@ const FeatureList = [
     ),
     link: '/docs/searching',
     icon: (<IconShortcuts />),
-    demo: '../../static/img/homepage-assets/searching-demo.gif',
+    demo: '/img/homepage-assets/searching-demo.gif',
   },
   {
     title: 'Cloud Backup & Sync',
@@ -130,7 +130,7 @@ const FeatureList = [
     ),
     link: '/docs/configuring',
     icon: (<IconUiConfig />),
-    demo: '../../static/img/homepage-assets/config-editor-demo.gif',
+    demo: '/img/homepage-assets/config-editor-demo.gif',
   },
   {
     title: 'Multi-Language Support',
