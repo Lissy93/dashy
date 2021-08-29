@@ -216,6 +216,53 @@
           "default": 0,
           "description": "How often to recheck statuses. If set to 0, status will only be checked on page load"
         },
+        "webSearch": {
+          "type": "object",
+          "description": "Configure options for web search",
+          "additionalProperties": false,
+          "properties": {
+            "disableWebSearch": {
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, web search will be disabled all together"
+            },
+            "searchEngine": {
+              "type": "string",
+              "default": "duckduckgo",
+              "description": "Set your default search engine. Reference provider by key, see docs for all supported search engines, or set to custom to use your own",
+              "examples": [
+                "duckduckgo",
+                "google",
+                "whoogle",
+                "qwant",
+                "startpage",
+                "searx-bar",
+                "searx-info",
+                "ecosia",
+                "metager",
+                "wikipedia",
+                "wolframalpha",
+                "stackoverflow",
+                "bbc",
+                "custom"
+              ]
+            },
+            "customSearchEngine": {
+              "type": "string",
+              "description": "Set the URL of a self-hosted or custom search engine, including GET query params. You must also set searchEngine: custom"
+            },
+            "openingMethod": {
+              "enum": [
+                "newtab",
+                "sametab",
+                "modal",
+                "workspace"
+              ],
+              "default": "newtab",
+              "description": "Set where you would like search results to open to"
+            }
+          }
+        },
         "auth": {
           "type": "object",
           "description": "Settings for enabling authentication",

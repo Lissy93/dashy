@@ -6,7 +6,8 @@
   "search": {
     "search-label": "Recherche",
     "search-placeholder": "Commencez à taper pour filtrer",
-    "clear-search-tooltip": "Effacer la recherche"
+    "clear-search-tooltip": "Effacer la recherche",
+    "enter-to-search-web": "Appuyez sur entrée pour rechercher sur le Web"
   },
   "login": {
     "title": "Dashy",

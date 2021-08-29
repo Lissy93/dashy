@@ -4,12 +4,11 @@
 # Each line starts with file pattern, followed by one or more owners
 # Codeowners Docs: https://github.blog/2017-07-06-introducing-code-owners/
 
-# Repo Owner
+# Repo Owners
 *   @lissy93
 
 # Translations
-src/assets/locales/de.json    @niklashere
-src/assets/locales/nl.json    @evroon
+src/assets/locales/fr.json    @EVOTk
 
 # Bot PR Permissions
 docs/assets/CONTRIBUTORS.svg  @liss-bot

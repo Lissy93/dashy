@@ -152,6 +152,35 @@ module.exports = {
     localPath: '/item-icons',
     faviconName: 'favicon.ico',
   },
+  /* URLs for web search engines */
+  searchEngineUrls: {
+    // Common
+    duckduckgo: 'https://duckduckgo.com/?q=',
+    google: 'https://google.com/search?q=',
+    whoogle: 'https://whoogle.sdf.org/search?q=',
+    qwant: 'https://www.qwant.com/?q=',
+    startpage: 'https://www.startpage.com/do/search?query=',
+    // Niche
+    'searx-bar': 'https://searx.bar/search?q=',
+    'searx-info': 'https://searx.info/search?q=',
+    'searx-tiekoetter': 'https://searx.tiekoetter.com/search?q=',
+    'searx-bissisoft': 'https://searx.bissisoft.com/search?q=',
+    ecosia: 'https://www.ecosia.org/search?q=',
+    metager: 'https://metager.org/meta/meta.ger3?eingabe=',
+    swisscows: 'https://swisscows.com/web?query=',
+    mojeek: 'https://www.mojeek.com/search?q=',
+    peekier: 'https://peekier.com/#!',
+    // Specific
+    wikipedia: 'https://en.wikipedia.org/w/?search=',
+    stackoverflow: 'https://stackoverflow.com/search?q=',
+    wolframalpha: 'https://www.wolframalpha.com/input/?i=',
+    reddit: 'https://www.reddit.com/search/?q=',
+    youtube: 'https://youtube.com/results?q=',
+    github: 'https://github.com/search?q=',
+    bbc: 'https://www.bbc.co.uk/search?q=',
+  },
+  defaultSearchEngine: 'duckduckgo',
+  defaultSearchOpeningMethod: 'newtab',
   /* Available built-in colors for the theme builder */
   swatches: [
     ['#eb5cad', '#985ceb', '#5346f3', '#5c90eb'],
