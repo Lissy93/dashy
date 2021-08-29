@@ -47,6 +47,36 @@ For apps that you use regularly, you can set a custom keybinding. Use the `hotke
 
 In the above example, pressing <kbd>2</kbd> will launch Bookstack. Or hitting <kbd>3</kbd> will open Git in the workspace view.
 
+## Web Search
+It's possible to search the web directly from Dashy, which might be useful if you're using Dashy as your start page. This can be done by typing your query as normal, and then pressing <kbd>⏎</kbd>. Web search options are configured under `appConfig.webSearch`.
+
+#### Setting Search Engine
+Set your default search engine using the `webSearch.searchEngine` property. This defaults to DuckDuckGo. Search engine must be referenced by their key, the following providers are supported:
+- [`duckduckgo`](https://duckduckgo.com), [`google`](https://google.com), [`whoogle`](https://whoogle.sdf.org), [`qwant`](https://www.qwant.com), [`startpage`](https://www.startpage.com), [`searx-bar`](https://searx.bar), [`searx-info`](https://searx.info)
+- [`searx-tiekoetter`](https://searx.tiekoetter.com), [`searx-bissisoft`](https://searx.bissisoft.com), [`ecosia`](https://www.ecosia.org), [`metager`](https://metager.org/meta), [`swisscows`](https://swisscows.com), [`mojeek`](https://www.mojeek.com)
+- [`wikipedia`](https://en.wikipedia.org), [`wolframalpha`](https://www.wolframalpha.com), [`stackoverflow`](https://stackoverflow.com), [`github`](https://github.com), [`reddit`](https://www.reddit.com), [`youtube`](https://youtube.com), [`bbc`](https://www.bbc.co.uk)
+
+#### Using Custom Search Engine
+You can also use a custom search engine, that isn't included in the above list (like a self-hosted instance of [Whoogle](https://github.com/benbusby/whoogle-search) or [Searx](https://searx.github.io/searx/)). Set `searchEngine: custom`, and then specify the URL (plus query params) to you're search engine under `customSearchEngine`.
+
+For example: 
+```yaml
+appConfig:
+  webSearch:
+    searchEngine: custom
+    customSearchEngine: 'https://searx.local/search?q='
+```
+
+#### Setting Opening Method
+In a similar way to opening apps, you can specify where you would like search results to be opened. This is done under the `openingMethod` attribute, and can be set to either  `newtab`, `sametab` or `workspace`. By default results are opened in a new tab.
+
+#### Disabling Web Search
+Web search can be disabled, by setting `disableWebSearch`, for example:
+
+```yaml
+appConfig:
+  webSearch: { disableWebSearch: true }
+```
 
 ## Clearing Search
 You can clear your search term at any time, by pressing <kbd>Esc</kbd>.
