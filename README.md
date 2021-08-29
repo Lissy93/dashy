@@ -1,17 +1,31 @@
 
 <h1 align="center">Dashy</h1>
-<p align="center"><i>Dashy helps you organize your self-hosted services, by making them all accessible from a single place</i></p>
-
 <p align="center">
-  <img width="220" src="https://i.ibb.co/yhbt6CY/dashy.png" />
+  <i>Dashy helps you organize your self-hosted services, by making them all accessible from a single place</i>
+   <br/>
+  <img width="120" src="https://i.ibb.co/yhbt6CY/dashy.png" />
+  <br/>
+  <b><a href="https://demo.dashy.to">Live Demo</a></b> | <b><a href="https://github.com/Lissy93/dashy/blob/master/docs/quick-start.md">Getting Started</a></b> | <b><a href="https://dashy.to/docs">Documentation</a></b> | <b><a href="https://github.com/Lissy93/dashy">GitHub</a></b>
+  <br/><br/>
+  <a href="https://github.com/awesome-selfhosted/awesome-selfhosted#personal-dashboards">
+    <img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome Self-Hosted">
+  </a>
+  <a href="https://hub.docker.com/r/lissy93/dashy">
+    <img src="https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&amp;style=flat-square" alt="Docker Pulls">
+  </a>
+  <a href="http://as93.link/dashy-build-status">
+    <img src="https://flat.badgen.net/github/status/lissy93/dashy?icon=github" alt="GitHub Status">
+  </a>
+  <a href="https://github.com/Lissy93/dashy/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-09be48?style=flat-square&amp;logo=opensourceinitiative" alt="License MIT">
+  </a>
+  <a href="https://github.com/Lissy93/dashy/blob/master/.github/CHANGELOG.md">
+    <img src="https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&amp;logo=azurepipelines&amp;color=00af87" alt="Current Version">
+  </a>
+  <a href="https://snyk.io/test/github/lissy93/dashy">
+    <img src="https://snyk.io/test/github/lissy93/dashy/badge.svg" alt="Known Vulnerabilities">
+  </a>
 </p>
-
-[![Awesome Self-Hosted](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/awesome-selfhosted/awesome-selfhosted#personal-dashboards)
-![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&style=flat-square)
-![GitHub Status](https://flat.badgen.net/github/status/lissy93/dashy?icon=github)
-![License MIT](https://img.shields.io/badge/License-MIT-09be48?style=flat-square&logo=opensourceinitiative)
-![Current Version](https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&logo=azurepipelines&color=00af87)
-[![Known Vulnerabilities](https://snyk.io/test/github/lissy93/dashy/badge.svg)](https://snyk.io/test/github/lissy93/dashy)
 
 <details>
   <summary><b>Contents</b></summary>

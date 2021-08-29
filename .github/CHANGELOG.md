@@ -1,5 +1,8 @@
 # Changelog
 
+## 🍻 1.7.0 - Documentation Website [PR #190](https://github.com/Lissy93/dashy/pull/190)
+- Builds a quick website to host the docs. No code changes, but prepares for V1.7 release
+
 ## ✨ 1.6.9 - Web Search Feature [PR #185](https://github.com/Lissy93/dashy/pull/185)
 - Adds ability to search the web directly from Dashy by pressing enter on the search bar
 - Adds configuration options, for setting default search engine, opening method and disabling
