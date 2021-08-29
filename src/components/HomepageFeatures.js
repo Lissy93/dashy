@@ -26,6 +26,7 @@ const FeatureList = [
         custom CSS, and since all properties use CSS variables, it is easy to override.
       </>
     ),
+    link: '/docs/theming',
     icon: (<IconThemes />),
     demo: '../../static/img/homepage-assets/theme-slideshow.gif',
   },
@@ -38,6 +39,7 @@ const FeatureList = [
         icons and of course normal images.
       </>
     ),
+    link: '/docs/icons',
     icon: (<IconIconography />),
   },
   {
@@ -49,6 +51,7 @@ const FeatureList = [
         with more info like response time visible on hover.
       </>
     ),
+    link: '/docs/status-indicators',
     icon: (<IconStatusIndicators />),
     demo: '../../static/img/homepage-assets/status-check-demo.gif',
   },
@@ -61,6 +64,7 @@ const FeatureList = [
         support for Keycloak and other SSO providers.
       </>
     ),
+    link: '/docs/authentication',
     icon: (<IconAuth />),
   },
   {
@@ -72,6 +76,7 @@ const FeatureList = [
         multiple apps at once, all without having to leave your dashboard.
       </>
     ),
+    link: '/docs/alternate-views',
     icon: (<IconOpeningMethods />),
     demo: '../../static/img/homepage-assets/workspace-demo.gif',
   },
@@ -84,6 +89,7 @@ const FeatureList = [
         workspace view.
       </>
     ),
+    link: '/docs/alternate-views',
     icon: (<IconLaunching />),
   },
   {
@@ -97,6 +103,7 @@ const FeatureList = [
         using your favorite search engine.
       </>
     ),
+    link: '/docs/searching',
     icon: (<IconShortcuts />),
     demo: '../../static/img/homepage-assets/searching-demo.gif',
   },
@@ -109,6 +116,7 @@ const FeatureList = [
         data between multiple instances easily.
       </>
     ),
+    link: '/docs/backup-restore',
     icon: (<IconCloudSync />),
   },
   {
@@ -120,6 +128,7 @@ const FeatureList = [
         Real-time validation and hints are in place to help you.
       </>
     ),
+    link: '/docs/configuring',
     icon: (<IconUiConfig />),
     demo: '../../static/img/homepage-assets/config-editor-demo.gif',
   },
@@ -132,6 +141,7 @@ const FeatureList = [
         Your language should be applied automatically, or you can change it in the config menu.
       </>
     ),
+    link: '/docs/multi-language-support',
     icon: (<IconLanguage />),
   },
   {
@@ -142,6 +152,7 @@ const FeatureList = [
         Just run `docker run -p 8080:80 lissy93/dashy` to pull, build and and run Dashy.
       </>
     ),
+    link: '/docs/quick-start',
     icon: (<IconDeploy />),
   },
   {
@@ -156,11 +167,12 @@ const FeatureList = [
         choose to hide any elements you don't need.
       </>
     ),
+    link: '/docs/',
     icon: (<IconLayout />),
   },
 ];
 
-function Feature({ title, description, icon, demo, index }) {
+function Feature({ title, description, icon, demo, index, link }) {
   const side = index % 2 == 0 ? 'left' : 'right';
   const color = getColor(index)
   return (
@@ -170,11 +182,14 @@ function Feature({ title, description, icon, demo, index }) {
         {description}
         <div className="read-the-docs">
           <small>Learn more in the Docs</small>
-          <Button to="/docs" color={color}>{icon} Docs</Button>
+          <Button to={link} color={color}>{icon} Docs</Button>
         </div>
       </div>
       <div className="feature-half assets">
-        <img className="demo" src={demo} />
+        {demo
+        ? <img className="demo" src={demo} />
+        : <span className="not-demo">Screenshot Coming Soon</span>
+      }
       </div>
     </div>
   );
@@ -182,7 +197,7 @@ function Feature({ title, description, icon, demo, index }) {
 
 export default function HomepageFeatures() {
   return (
-    <section className="home-page-features-wrapper">
+    <section className="home-page-features-wrapper" id="features-wrap">
       {FeatureList.map((props, index) => (
         <Feature key={index} index={index} {...props} />
       ))}
