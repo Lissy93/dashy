@@ -28,6 +28,13 @@ import IconIconography from '../../static/icons/docs_icons.svg';
 import IconInternationalization from '../../static/icons/docs_internationalisation.svg';
 import IconStatusIndicators from '../../static/icons/docs_status-indicators.svg';
 import IconTheming from '../../static/icons/docs_theming.svg';
+import IconQuickStart from '../../static/icons/docs_quick-start.svg';
+import IconAlternateViews from '../../static/icons/features_launching.svg';
+import IconShortcuts from '../../static/icons/features_shortcuts.svg';
+import IconSecurity from '../../static/icons/docs_security.svg';
+import IconLegal from '../../static/icons/docs_legal.svg';
+import IconConduct from '../../static/icons/docs_conduct.svg';
+import IconChangelog from '../../static/icons/docs_changelog.svg';
 
 const DocsLinks = [
   {
@@ -61,8 +68,14 @@ const DocsSections = [
     section: 'Running Dashy',
     items: [
       {
+        title: 'Quick-Start',
+        description: 'TLDR Guide on running Dashy',
+        link: '/docs/quick-start',
+        icon: (<IconQuickStart />),
+      },
+      {
         title: 'Deployment',
-        description: 'Getting Dashy up and running',
+        description: 'Deploying Dashy to any server',
         link: '/docs/deployment',
         icon: (<IconDeploy />),
       },
@@ -98,7 +111,7 @@ const DocsSections = [
       {
         title: 'Dev Guides',
         description: 'Common development tasks',
-        link: '',
+        link: '/docs/development-guides',
         icon: (<IconDevGuides />),
       },
       {
@@ -131,34 +144,75 @@ const DocsSections = [
         icon: (<IconAuth />),
       },
       {
+        title: 'Alternate Views',
+        description: 'Startpage mode, Workspace and opening methods',
+        link: '/docs/alternate-views',
+        icon: (<IconAlternateViews />),
+      },
+      {
         title: 'Backup & Restore',
         description: 'Cloud Sync, usage and background',
-        link: '/docs/deployment',
+        link: '/docs/backup-restore',
         icon: (<IconCloudSync />),
       },
       {
         title: 'Icons',
         description: 'Available icon types for sections and items',
-        link: '',
+        link: '/docs/icons',
         icon: (<IconIconography />),
       },
       {
         title: 'Language Switching',
         description: 'Changing language, and adding new locales',
-        link: '',
+        link: '/docs/multi-language-support',
         icon: (<IconInternationalization />),
       },
       {
         title: 'Status Indicators',
         description: 'Monitoring uptime of your services with Dashy',
-        link: '',
+        link: '/docs/status-indicators',
         icon: (<IconStatusIndicators />),
+      },
+      {
+        title: 'Search & Shortcuts',
+        description: 'Filtering, web search and custom hotkeys',
+        link: '/docs/searching',
+        icon: (<IconShortcuts />),
       },
       {
         title: 'Theming',
         description: 'Guide to customizing the look and feel of Dashy',
-        link: '',
+        link: '/docs/theming',
         icon: (<IconTheming />),
+      },
+    ]
+  },
+  {
+    section: 'Misc',
+    items: [
+      {
+        title: 'Privacy & Security',
+        description: 'Configure login and user control',
+        link: '/docs/privacy',
+        icon: (<IconSecurity />),
+      },
+      {
+        title: 'License',
+        description: 'Configure login and user control',
+        link: '/docs/license',
+        icon: (<IconLegal />),
+      },
+      {
+        title: 'Code of Conduct',
+        description: 'Configure login and user control',
+        link: '/docs/code-of-conduct',
+        icon: (<IconConduct />),
+      },
+      {
+        title: 'Changelog',
+        description: 'Configure login and user control',
+        link: '/docs/changelog',
+        icon: (<IconChangelog />),
       },
     ]
   }
@@ -166,7 +220,6 @@ const DocsSections = [
 
 function DocsLink({ title, description, icon, link, index }) {
   const color = getColor(index);
-  console.log(link);
   return (
     <Button to={link} className="docs-link" color={color}>
       <div className="row1">
