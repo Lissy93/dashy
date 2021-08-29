@@ -6,7 +6,8 @@
   "search": {
     "search-label": "Recherche",
     "search-placeholder": "Commencez à taper pour filtrer",
-    "clear-search-tooltip": "Effacer la recherche"
+    "clear-search-tooltip": "Effacer la recherche",
+    "enter-to-search-web": "Appuyez sur entrée pour rechercher sur le Web"
   },
   "login": {
     "title": "Dashy",
@@ -59,6 +60,11 @@
     "css-note-l1": "Vous devrez actualiser la page pour que les modifications prennent effet.",
     "css-note-l2": "Les modifications ne sont stockés que localement, il est donc recommandé de faire une copie de votre CSS.",
     "css-note-l3": "Pour supprimer tous les styles personnalisés, supprimez le contenu et appuyez sur Enregistrer."
+  },
+  "alternate-views": {
+    "default": "Défaut",
+    "workspace": "Plein écran",
+    "minimal": "Minimale"
   },
   "settings": {
     "theme-label": "Thème",
