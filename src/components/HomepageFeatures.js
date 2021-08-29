@@ -13,6 +13,8 @@ import IconShortcuts from '../../static/icons/features_shortcuts.svg';
 import IconStatusIndicators from '../../static/icons/features_status-indicators.svg';
 import IconThemes from '../../static/icons/features_themes.svg';
 import IconUiConfig from '../../static/icons/features_ui-configuration.svg';
+import IconLaunching from '../../static/icons/features_launching.svg';
+import IconLanguage from '../../static/icons/features_language.svg';
 
 const FeatureList = [
   {
@@ -82,16 +84,17 @@ const FeatureList = [
         workspace view.
       </>
     ),
-    icon: (<IconOpeningMethods />),
-    demo: '../../static/img/homepage-assets/workspace-demo.gif',
+    icon: (<IconLaunching />),
   },
   {
     title: 'Search & Shortcuts',
     description: (
       <>
-        To search, just start typing, results will be filtered instantly.Then use the
+        To search, just start typing, results will be filtered instantly. Use the
         arrow keys or tab to navigate through results, and press enter to launch.
-        You can also create custom shortcuts for frequently used apps.
+        You can also create custom shortcuts for frequently used apps, or add
+        custom tags for easier searching. Dashy can also be used to search the web
+        using your favorite search engine.
       </>
     ),
     icon: (<IconShortcuts />),
@@ -129,7 +132,7 @@ const FeatureList = [
         Your language should be applied automatically, or you can change it in the config menu.
       </>
     ),
-    icon: (<IconDeploy />),
+    icon: (<IconLanguage />),
   },
   {
     title: 'Easy Deployment',
