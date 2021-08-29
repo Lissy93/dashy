@@ -52,9 +52,9 @@ It's possible to search the web directly from Dashy, which might be useful if yo
 
 #### Setting Search Engine
 Set your default search engine using the `webSearch.searchEngine` property. This defaults to DuckDuckGo. Search engine must be referenced by their key, the following providers are supported:
-- `duckduckgo`, `google`, `whoogle`, `qwant`, `startpage`, `searx-bar`, `searx-info`
-- `searx-tiekoetter`, `searx-bissisoft`, `ecosia`, `metager`, `swisscows`, `mojeek`, `peekier`
-- `wikipedia`, `wolframalpha`, `stackoverflow`, `github`, `reddit`, `youtube`, `bbc`
+- [`duckduckgo`](https://duckduckgo.com), [`google`](https://google.com), [`whoogle`](https://whoogle.sdf.org), [`qwant`](https://www.qwant.com), [`startpage`](https://www.startpage.com), [`searx-bar`](https://searx.bar), [`searx-info`](https://searx.info)
+- [`searx-tiekoetter`](https://searx.tiekoetter.com), [`searx-bissisoft`](https://searx.bissisoft.com), [`ecosia`](https://www.ecosia.org), [`metager`](https://metager.org/meta), [`swisscows`](https://swisscows.com), [`mojeek`](https://www.mojeek.com)
+- [`wikipedia`](https://en.wikipedia.org), [`wolframalpha`](https://www.wolframalpha.com), [`stackoverflow`](https://stackoverflow.com), [`github`](https://github.com), [`reddit`](https://www.reddit.com), [`youtube`](https://youtube.com), [`bbc`](https://www.bbc.co.uk)
 
 #### Using Custom Search Engine
 You can also use a custom search engine, that isn't included in the above list (like a self-hosted instance of [Whoogle](https://github.com/benbusby/whoogle-search) or [Searx](https://searx.github.io/searx/)). Set `searchEngine: custom`, and then specify the URL (plus query params) to you're search engine under `customSearchEngine`.
@@ -79,4 +79,5 @@ appConfig:
 ```
 
 ## Clearing Search
-You can clear your search term at any time, resting the UI to it's initial state, by pressing <kbd>Esc</kbd>. This can also be used to close any open pop-up modals.
+You can clear your search term at any time, resting the UI to it's initial state, by pressing <kbd>Esc</kbd>.
+This can also be used to close any open pop-up modals.
