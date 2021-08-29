@@ -6,7 +6,8 @@
   "search": {
     "search-label": "Iskanje",
     "search-placeholder": "Začnite tipkati za filtrirate",
-    "clear-search-tooltip": "Počisti iskanje"
+    "clear-search-tooltip": "Počisti iskanje",
+    "enter-to-search-web": "Za iskanje po spletu pritisnite enter"
   },
   "login": {
     "title": "Dashy",
@@ -23,7 +24,12 @@
     "error-incorrect-username": "Uporabnik ne obstaja",
     "error-incorrect-password": "Napačno Geslo",
     "success-message": "Prijavljanje...",
-    "logout-message": "Odjavljen"
+    "logout-message": "Odjavljen",
+    "already-logged-in-title": "Že prijavljeni",
+    "already-logged-in-text": "Prijavljeni ste kot",
+    "proceed-to-dashboard": "Nadaljujte na nadzorno ploščo",
+    "log-out-button": "Odjava",
+    "proceed-guest-button": "Nadaljujte kot gost"					  
   },
   "config": {
     "main-tab": "Glavni Meni",
@@ -55,6 +61,11 @@
     "css-note-l2": "Preglasitve slogov so shranjene samo lokalno, zato je priporočljivo narediti kopijo CSS -ja.",
     "css-note-l3": "Če želite odstraniti vse sloge po meri, izbrišite vsebino in pritisnite Shrani spremembe"
   },
+  "alternate-views": {
+    "default": "Privzeto",
+    "workspace": "Delovni prostor",
+    "minimal": "Minimalno"
+  },	   
   "settings": {
     "theme-label": "Tema",
     "layout-label": "Postavitev",
@@ -67,7 +78,9 @@
     "item-size-large": "Veliko",
     "config-launcher-label": "Nastavitve",
     "config-launcher-tooltip": "Posodobi Konfiguracijo",
-    "sign-out-tooltip": "Odjava"
+    "sign-out-tooltip": "Odjava",
+    "sign-in-tooltip": "Vpiši se",
+    "sign-in-welcome": "Pozdravljen {username}!"
   },
   "updates": {
     "app-version-note": "Dashy verzija",
@@ -109,7 +122,8 @@
     "error-msg-save-mode": "Izberite način shranjevanja: Lokalno ali v Datoteko",
     "error-msg-cannot-save": "Pri shranjevanju konfiguracije je prišlo do napake",
     "error-msg-bad-json": "Napaka v JSON -u, morda nepravilno oblikovana",
-    "warning-msg-validation": "Opozorilo o Validaciji"
+    "warning-msg-validation": "Opozorilo o Validaciji",
+    "not-admin-note": "Ne morete zapisati spremenjenega na disk, ker niste prijavljeni kot skrbnik"
   },
   "app-rebuild": {
     "title": "Obnovite Aplikacijo",
@@ -155,3 +169,4 @@
     "workspace": "Odpri v Delovnem Pogledu"
   }
 }
+
