@@ -57,3 +57,26 @@ header.heroBanner {
   cursor: pointer;
   text-decoration: underline;
 }
+
+.scrollDown {
+  display: flex;
+  width: fit-content;
+  cursor: pointer;
+  margin: 2rem auto;
+  position: absolute;
+  bottom: 2rem;
+  left: 42%;
+  @media (max-width: 966px) {
+   display: none;
+  }
+}
+
+.scrollDownText {
+  margin: 0 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.scrollDownIcon {
+  width: 2rem;
+}

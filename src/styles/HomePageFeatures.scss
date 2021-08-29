@@ -43,7 +43,7 @@ html[data-theme='light'] { /* Dark Theme */
         height: fit-content;
         border-radius: 8px;
         box-shadow: var(--feature-img-shadow);
-        img.demo {
+        img.demo, span.not-demo {
           background: var(--kinda-transparent);
           width: 100%;
           max-height: 36rem;
@@ -52,6 +52,11 @@ html[data-theme='light'] { /* Dark Theme */
           object-fit: contain;
           border-radius: 8px;
           box-shadow: var(--feature-img-shadow);
+        }
+        span.not-demo {
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }
