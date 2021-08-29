@@ -1,6 +1,6 @@
 {
   "name": "Dashy",
-  "version": "1.6.9",
+  "version": "1.7.0",
   "license": "MIT",
   "main": "server",
   "scripts": {
