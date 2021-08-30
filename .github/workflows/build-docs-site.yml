@@ -1,0 +1,15 @@
+# Builds and published Dashy's documentation website
+name: Build Docs Site
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/WEBSITE/docs-site-source'
+    steps:
+      - uses: actions/checkout@master
+      - uses: redkubes/docusaurus-deploy-action@master
+        with:
+          source-folder: /
+          git-user: ${{ github.actor }}
+          git-password: ${{ secrets.GITHUB_TOKEN }}
+          deployment-branch: gh-pages
