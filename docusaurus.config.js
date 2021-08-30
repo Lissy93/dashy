@@ -26,6 +26,11 @@ module.exports = {
   projectName: 'dashy', // Usually your repo name.
   plugins: ['docusaurus-plugin-sass'],
   themeConfig: {
+    defaultMode: 'dark',
+    switchConfig: {
+      darkIcon: '🌙',
+      lightIcon: '☀️',
+    },
     navbar: {
       title: 'Dashy',
       logo: {
