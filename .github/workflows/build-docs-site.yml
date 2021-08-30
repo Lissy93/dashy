@@ -1,6 +1,9 @@
 # Builds and published Dashy's documentation website
 name: Build Docs Site
-on: [push]
+on:
+  workflow_dispatch:
+  push:
+    branches: [ WEBSITE/docs-site-source ]
 jobs:
   deploy:
     runs-on: ubuntu-latest
