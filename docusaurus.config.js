@@ -1,5 +1,5 @@
-const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer/themes/github');
 
 /* External URLs */
 const externalUrl = {
@@ -26,10 +26,12 @@ module.exports = {
   projectName: 'dashy', // Usually your repo name.
   plugins: ['docusaurus-plugin-sass'],
   themeConfig: {
-    defaultMode: 'dark',
-    switchConfig: {
-      darkIcon: '🌙',
-      lightIcon: '☀️',
+    colorMode: {
+      defaultMode: 'dark',
+      switchConfig: {
+        darkIcon: '🌙',
+        lightIcon: '☀️',
+      },
     },
     navbar: {
       title: 'Dashy',
@@ -38,7 +40,10 @@ module.exports = {
         src: 'img/dashy.png',
       },
       items: [
-
+        { label: 'GitHub', to: 'https://github.com/lissy93/dashy' },
+        { label: 'Live Demo', to: 'https://demo.dashy.to' },
+        { label: 'Quick Start', to: '/docs/quick-start' },
+        { label: 'Documentation', to: '/docs' },
       ],
     },
     footer: {
