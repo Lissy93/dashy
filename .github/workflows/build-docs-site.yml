@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: redkubes/docusaurus-deploy-action@master
         with:
-          source-folder: /
+          source-folder: ./
           git-user: ${{ github.actor }}
           git-password: ${{ secrets.GITHUB_TOKEN }}
           deployment-branch: gh-pages
