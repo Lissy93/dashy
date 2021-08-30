@@ -83,5 +83,13 @@ html[data-theme='light'] { /* Dark Theme */
         margin: 0 0.5rem;
       }
     }
+    &.align-left, &.align-right {
+      @media (max-width: 966px) {
+        flex-direction: column;
+        .feature-half {
+          width: 95%;
+        }
+      }
+    }
   }
 }

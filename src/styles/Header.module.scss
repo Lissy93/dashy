@@ -20,9 +20,15 @@ header.heroBanner {
     font-size: 8rem;
     font-family: 'Racing Sans One', cursive;
     text-shadow: var(--heading-shadow);
+    @media (max-width: 966px) {
+      font-size: 6rem;
+    }
   }
   h3.heroSubTitle {
     text-shadow: var(--sub-heading-shadow);
+    @media (max-width: 966px) {
+      font-size: 1.5rem;
+    }
   }
   img.starButton {
     position: absolute;
@@ -75,8 +81,10 @@ header.heroBanner {
   margin: 0 1rem;
   font-size: 1.2rem;
   font-weight: bold;
+  color: var(--text-color);
 }
 
 .scrollDownIcon {
   width: 2rem;
+  path { fill:  var(--text-color); }
 }

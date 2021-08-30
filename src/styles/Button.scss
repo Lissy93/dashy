@@ -18,6 +18,9 @@
   margin: 0.5rem;
   color: var(--black);
   display: flex;
+  @media (max-width: 966px) {
+    width: 80%;
+  }
 
   svg {
     width: 1.8rem;
