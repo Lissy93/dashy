@@ -22,7 +22,7 @@
 <!-- readme: sponsors -end -->
 
 ## Contributors
-<!-- readme: contributors, BeginCI/-, deepsourcebot/- -start -->
+<!-- readme: contributors -start -->
 <table>
 <tr>
     <td align="center">
@@ -90,7 +90,7 @@
         </a>
     </td></tr>
 </table>
-<!-- readme: contributors, BeginCI/-, deepsourcebot/- -end -->
+<!-- readme: contributors -end -->
 
 
 ## Helpful Users
