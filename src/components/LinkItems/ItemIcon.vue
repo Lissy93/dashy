@@ -20,13 +20,12 @@
 </template>
 
 <script>
+import simpleIcons from 'simple-icons';
 import BrokenImage from '@/assets/interface-icons/broken-icon.svg';
 import ErrorHandler from '@/utils/ErrorHandler';
 import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/defaults';
 import EmojiUnicodeRegex from '@/utils/EmojiUnicodeRegex';
 import emojiLookup from '@/utils/emojis.json';
-
-const simpleIcons = require('simple-icons');
 
 export default {
   name: 'Icon',
