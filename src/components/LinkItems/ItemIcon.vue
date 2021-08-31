@@ -7,8 +7,9 @@
     <!-- Material Design Icon -->
     <span v-else-if="iconType === 'mdi'"  :class=" `mdi ${icon} ${size}`"></span>
     <!-- Simple-Icons -->
-    <object v-else-if="iconType === 'si'" :class="`simple-icons ${size}`"
-      type="image/svg+xml" :data="getSimpleIcon(icon)"></object>
+    <svg v-else-if="iconType === 'si'" :class="`simple-icons ${size}`" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path :d="getSimpleIcon(icon)" />
+    </svg>
     <!-- Standard image asset icon -->
     <img v-else-if="icon" :src="iconPath" @error="imageNotFound"
       :class="`tile-icon ${size} ${broken ? 'broken' : ''}`"
@@ -24,6 +25,8 @@ import ErrorHandler from '@/utils/ErrorHandler';
 import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/defaults';
 import EmojiUnicodeRegex from '@/utils/EmojiUnicodeRegex';
 import emojiLookup from '@/utils/emojis.json';
+
+const simpleIcons = require('simple-icons');
 
 export default {
   name: 'Icon',
@@ -113,10 +116,11 @@ export default {
     getGenerativeIcon(url) {
       return `${iconCdns.generative}/${this.getHostName(url)}.svg`;
     },
-    /* Formats the URL for getting Simple-Icons SVG asset */
+    /* Returns the SVG path content  */
     getSimpleIcon(img) {
       const imageName = img.replace('si-', '');
-      return `${iconCdns.si}/${imageName}.svg`;
+      const icon = simpleIcons.Get(imageName);
+      return icon.path;
     },
     /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
     getIconPath(img, url) {
@@ -198,10 +202,14 @@ export default {
     }
   }
   /* Simple Icons */
-  object.simple-icons {
+  .item-icon .simple-icons {
     width: 2rem;
     &.small { width: 1.5rem; }
     &.large { width: 2.5rem; }
+  }
+
+  .item-icon .simple-icons path {
+    fill: currentColor;
   }
   /* Emoji Icons */
   i.emoji-icon {
