@@ -30,41 +30,35 @@
 <details>
   <summary><b>Contents</b></summary>
   <p>
-  <ul>
-  <li><b>Getting Started</b></li>
-  <ul>
-    <li><a href="#features-">🌈 Features</a></li>
-    <li><a href="#demo-">⚡Demo</a></li>
-    <li><a href="#getting-started-">🚀 Getting Started</a></li>
-    <li><a href="#configuring-">🔧 Configuring</a></li>
-  </ul>
-  <li><b>Feature Overview</b></li>
-  <ul>
-    <li><a href="#theming-">🎨 Theming</a></li>
-    <li><a href="#icons-">🧸 Icons</a></li>
-    <li><a href="#status-indicators-">🚦 Status Indicators</a></li>
-    <li><a href="#authentication-">💂 Authentication</a></li>
-    <li><a href="#opening-methods-%EF%B8%8F">🖱️ Opening Methods</a></li>
-    <li><a href="#alternate-views-">👓 Alternate Views</a></li>
-    <li><a href="#searching-and-shortcuts-">🔎 Searching and Shortcuts</a></li>
-    <li><a href="#config-editor-%EF%B8%8F">⚙️ Config Editor</a></li>
-    <li><a href="#cloud-backup--sync-">☁ Cloud Backup &amp; Sync</a></li>
-    <li><a href="#language-switching-">🌎 Language Switching</a></li>
-    <li><a href="#setting-dashboard-info-">🌳 Dashboard Info</a></li>
-  </ul>
-  <li><b>Community</b></li>
-  <ul>
-    <li><a href="#getting-help-%EF%B8%8F">🙋‍♀️ Getting Help</a></li>
-    <li><a href="#raising-issues-">🐛 Raising Issues</a></li>
-    <li><a href="#supporting-dashy-">💖 Supporting Dashy</a></li>
-    <li><a href="#credits-">🏆 Credits</a></li>
-    <li><a href="#developing-">🧱 Developing</a></li>
-    <li><a href="#documentation-">📘 Documentation</a></li>
-    <li><a href="#roadmap-">🛣️ Roadmap</a></li>
-    <li><a href="#alternatives-">🙌 Alternatives</a></li>
-    <li><a href="#license-">📜 License</a></li>
-  </ul>
-  </ul>
+  
+- **Getting Started**
+  - [🌈 Features](#features-)
+  - [⚡Demo](#demo-)
+  - [🚀 Getting Started](#getting-started-)
+  - [🔧 Configuring](#configuring-)
+- **Feature Overview**
+  - [🎨 Theming](#theming-)
+  - [🧸 Icons](#icons-)
+  - [🚦 Status Indicators](#status-indicators-)
+  - [💂 Authentication](#authentication-)
+  - [🖱️ Opening Methods](#opening-methods-%EF%B8%8F)
+  - [👓 Alternate Views](#alternate-views-)
+  - [🔎 Searching and Shortcuts](#searching-and-shortcuts-)
+  - [⚙️ Config Editor](#config-editor-%EF%B8%8F)
+  - [☁ Cloud Backup & Sync](#cloud-backup--sync-)
+  - [🌎 Language Switching](#language-switching-)
+  - [🌳 Dashboard Info](#setting-dashboard-info-)
+- **Community**
+  - [🙋‍♀️ Getting Help](#getting-help-%EF%B8%8F)
+  - [🐛 Raising Issues](#raising-issues-)
+  - [💖 Supporting Dashy](#supporting-dashy-)
+  - [🏆 Credits](#credits-)
+  - [🧱 Developing](#developing-)
+  - [📘 Documentation](#documentation-)
+  - [🛣️ Roadmap](#roadmap-)
+  - [🙌 Alternatives](#alternatives-)
+  - [📜 License](#license-)
+    
   </p>
 </details>
 
