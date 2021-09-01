@@ -4,6 +4,7 @@ import de from '@/assets/locales/de.json';
 import nl from '@/assets/locales/nl.json';
 import fr from '@/assets/locales/fr.json';
 import sl from '@/assets/locales/sl.json';
+import zhCN from '@/assets/locales/zh-CN.json';
 
 // Language data - Add your country name, locale code and imported file here
 export const languages = [
@@ -36,6 +37,12 @@ export const languages = [
     code: 'sl',
     locale: sl,
     flag: '🇸🇮',
+  },
+  {
+    name: '简体中文',
+    code: 'cn',
+    locale: zhCN,
+    flag: '🇨🇳',
   },
   // Including:
   // name - Human readable name for your language (e.g German)
