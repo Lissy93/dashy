@@ -10,6 +10,10 @@ import IconBannerSource from '../../static/icons/banner_source.svg';
 import IconBannerDocs from '../../static/icons/banner_docs.svg';
 import IconDownArrow from '../../static/icons/interface_down.svg';
 
+const scrollToFeatures = () => {
+  document.querySelector('#go-down').scrollIntoView({ behavior: 'smooth' });
+};
+
 export default function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   const [showMore, setShowMore] = useState(false);
@@ -40,7 +44,7 @@ export default function HomepageHeader() {
         </span>
       </div>
       {(!showMore) &&
-        <a href="#go-down" className={styles.scrollDown} id="go-down">
+        <a onClick={scrollToFeatures} className={styles.scrollDown} id="go-down">
           <IconDownArrow className={styles.scrollDownIcon} />
           <span className={styles.scrollDownText}>Feature List</span>
           <IconDownArrow className={styles.scrollDownIcon} />
