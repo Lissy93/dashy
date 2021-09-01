@@ -19,7 +19,7 @@ export default function HomepageHeader() {
       <h3 className={styles.heroSubTitle}>{siteConfig.tagline}</h3>
       <div className={styles.buttons}>
         <Button to="/docs/quick-start" color="pink"><IconBannerGetStarted />Get Started</Button>
-        <Button to="/docs" color="blue"><IconBannerDemo />Try it Out</Button>
+        <Button to="https://demo.dashy.to" color="blue"><IconBannerDemo />Live Demo</Button>
         <Button to="https://github.com/Lissy93/dashy" color="green"><IconBannerSource />Source Code</Button>
         <Button to="/docs" color="yellow"><IconBannerDocs />Documentation</Button>
       </div>

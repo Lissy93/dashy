@@ -18,7 +18,7 @@ header.heroBanner {
   min-height: calc(100vh - 4rem);
   h1.heroTitle {
     font-size: 8rem;
-    font-family: 'Racing Sans One', cursive;
+    font-family: 'Racing Sans One', mono;
     text-shadow: var(--heading-shadow);
     @media (max-width: 966px) {
       font-size: 6rem;
@@ -39,6 +39,9 @@ header.heroBanner {
     &:hover {
       opacity: 1;
     }
+  }
+  @media screen and (max-width: 966px) {
+    padding: 2rem;
   }
 }
 .buttons {

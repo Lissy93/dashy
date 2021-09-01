@@ -3,7 +3,7 @@
 Dashy has an optional feature that can display a small icon next to each of your running services, indicating it's current status. This can be useful if you are using Dashy as your homelab's start page, as it gives you an overview of the health of each of your running services. The status feature will show response time, response code, online/ offline check and if applicable, a relevant error message 
 
 <p align="center">
-  <img width="800" src="/docs/assets/status-check-demo.gif" />
+  <img width="800" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/status-check-demo.gif" />
 </p>
 
 ## Enabling Status Indicators
@@ -42,7 +42,7 @@ By default, with status indicators enabled Dashy will check an applications stat
 
 The following example, will instruct Dashy to continuously check the status of your services every 20 seconds
 
-```
+```yaml
 appConfig:
   statusCheck: true
   statusCheckInterval: 20
