@@ -12,11 +12,13 @@
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { sentryDsn } from '@/utils/defaults';
 
-const ErrorTracking = (Vue, router) => {
+const ErrorReporting = (Vue, router) => {
   // Fetch users config
   const appConfig = new ConfigAccumulator().appConfig() || {};
   // Check if error reporting is enabled. Only proceed if user has turned it on.
   if (appConfig.enableErrorReporting) {
+    // Get current app version
+    const appVersion = process.env.VUE_APP_VERSION ? `Dashy@${process.env.VUE_APP_VERSION}` : '';
     // Import Sentry
     const Sentry = require('@sentry/vue');
     const { Integrations } = require('@sentry/tracing');
@@ -32,10 +34,11 @@ const ErrorTracking = (Vue, router) => {
         }),
       ],
       tracesSampleRate: 1.0,
+      release: appVersion,
     });
   } else {
-    // Error reporting not enabled. Do Nothing.
+    // Error reporting has not been enabled by the user. Do Nothing.
   }
 };
 
-export default ErrorTracking;
+export default ErrorReporting;
