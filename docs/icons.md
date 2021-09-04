@@ -42,6 +42,10 @@ The default favicon API is [Favicon Kit](https://faviconkit.com/), a free and re
 
 You can also force Dashy to always get favicons from the root of the domain, and not use an external service, by setting `appConfig.faviconApi` to `local`.
 
+To use a different favicon API for certain items, then set `icon: favicon-[api]`, e.g. `favicon-clearbit`
+
+If for a given service none of the APIs work in your situation, and nor does local, then the best option is to find the path of the services logo or favicon, and set the icon to the URL of the raw image.
+
 ### Generative Icons
 Uses a unique and programmatically generated icon for a given service. This is particularly useful when you have a lot of similar services with a different IP or port, and no specific icon. These icons are generated with [ipsicon.io](https://ipsicon.io/). To use this option, just set an item's to: `icon: generative`.
 
