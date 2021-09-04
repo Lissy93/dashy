@@ -167,15 +167,23 @@ export default {
 <style lang="scss">
   /* Default Image Icon */
   .tile-icon {
-      width: 2rem;
-      // filter: var(--item-icon-transform);
+      min-width: 1rem;
+      max-width: 2rem;
+      min-height: 1rem;
+      max-height: 2rem;
+      object-fit: cover;
+      filter: var(--item-icon-transform);
       border-radius: var(--curve-factor);
-      &.broken { display: none; }
       &.small {
-        width: 1.5rem;
+        max-width: 1.5rem;
+        max-height: 1.5rem;
       }
       &.large {
-        width: 3rem;
+        max-width: 3rem;
+        max-height: 3rem;
+      }
+      &.broken {
+        display: none;
       }
   }
   /* Font-Awesome and Material Design Icons */
