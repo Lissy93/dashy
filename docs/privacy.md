@@ -95,6 +95,18 @@ This is covered in more detail in [App Management](/docs/management.md).
 
 ---
 
+## Security Features
+
+#### Subresource Integrity
+[Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) or SRI is a security feature that enables browsers to verify that resources they fetch are delivered without unexpected manipulation. It works by allowing you to provide a cryptographic hash that a fetched resource must match. This prevents the app from loading any resources that have been manipulated, by verifying the files hashes. It safeguards against the risk of an attacker injecting arbitrary malicious content into any files served up via a CDN. 
+
+Dashy supports SRI, and it is recommended to enable this if you are hosting your dashboard via a public CDN. To enable SRI, set the `INTEGRITY` environmental variable to `true`.
+
+#### Authentication
+Dashy supports both basic auth, as well as server-based SSO using Keycloak. Full details of which, along with alternate authentication methods can be found in the [Authentication Docs](/docs/authentication.md). If your dashboard is exposed to the internet and/ or contains any sensitive info it is strongly recommended to configure access control with Keycloak or another server-side method.
+
+---
+
 ## Reporting a Security Issue
 If you think you've found a critical issue with Dashy, please send an email to `security@mail.alicia.omg.lol`. You can encrypt it, using [`0688 F8D3 4587 D954 E9E5 1FB8 FEDB 68F5 5C02 83A7`](https://keybase.io/aliciasykes/pgp_keys.asc?fingerprint=0688f8d34587d954e9e51fb8fedb68f55c0283a7). You should receive a response within 48 hours.
 
