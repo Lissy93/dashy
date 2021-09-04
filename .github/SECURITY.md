@@ -27,3 +27,9 @@ Please use only English.
 
 ## Issues That Should Not Be Raised
 Please do not raise issues in this repo which relate to Vue or Vue CLI, we're already using the latest versions of these dependencies, so any issues here to be taken up with Vue. The same applies to other dev dependencies that are at the latest version.
+
+## Known Issues
+
+> **01/09/2021** - [Inefficient Regular Expression Complexity](https://www.huntr.dev/bounties/1e8f07fc-c384-4ff9-8498-0690de2e8c31/) in Axios (Re: [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html)).
+
+This ReDos vuln, was raised and fixed by @ready-research in Axios in August 2021. The issue was resolved in [`5b45711`](https://github.com/axios/axios/commit/5b457116e31db0e88fede6c428e969e87f290929), but Snyk sometime just takes a while to show updates. Dashy is using the latest version of Axios, and so is not affected by this issue.

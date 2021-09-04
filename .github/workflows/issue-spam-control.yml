@@ -1,0 +1,27 @@
+on:
+  issues:
+    types: [opened, reopened]
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    name: Close issue opened by non-stargazer
+    steps:
+      - name: close
+        uses: uhyo/please-star-first@v1
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN }} 
+          message: |
+            Welcome to Dashy 👋
+            It's great to have you here, but unfortunately your ticket has been closed to prevent spam and low quality issues. Please ensure the following criteria are met, before reopening this issue.
+
+            Issues are sometimes closed when users:
+            - Have only recently joined GitHub
+            - Have not yet stared this repository
+            - Have not previously interacted with the repo
+
+            Before you reopen this issue, please also ensure that:
+            - You have checked that a similar issue does not already exist
+            - You have checked the documentation for an existing solution 
+            - You have completed the relevant sections in the Issue template
+
+            Once you have verified the above standards are met, you may reopen this issue.

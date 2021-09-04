@@ -62,7 +62,7 @@ export default {
     /* Returns true if the input is a path to an image file */
     isImage(img) {
       const fileExtRegex = /(?:\.([^.]+))?$/;
-      const validImgExtensions = ['png', 'jpg'];
+      const validImgExtensions = ['svg', 'png', 'jpg'];
       const splitPath = fileExtRegex.exec(img);
       if (splitPath.length >= 1) return validImgExtensions.includes(splitPath[1]);
       return false;
@@ -89,17 +89,31 @@ export default {
       return emojiCode; // Emoji is a glyph already, just return
     },
     /* Get favicon URL, for items which use the favicon as their icon */
-    getFavicon(fullUrl) {
+    getFavicon(fullUrl, specificApi) {
       if (this.shouldUseDefaultFavicon(fullUrl)) { // Check if we should use local icon
         const urlParts = fullUrl.split('/');
         if (urlParts.length >= 2) return `${urlParts[0]}/${urlParts[1]}/${urlParts[2]}/${iconCdns.faviconName}`;
       } else if (fullUrl.includes('http')) { // Service is running publicly
         const host = this.getHostName(fullUrl);
-        const faviconApi = this.config.appConfig.faviconApi || defaultFaviconApi;
+        const faviconApi = specificApi || this.config.appConfig.faviconApi || defaultFaviconApi;
         const endpoint = faviconApiEndpoints[faviconApi];
         return endpoint.replace('$URL', host);
       }
       return '';
+    },
+    /* Get the URL for a favicon, but using the non-default favicon API */
+    getCustomFavicon(fullUrl, faviconIdentifier) {
+      const faviconApi = faviconIdentifier.split('favicon-')[1];
+      if (!faviconApi) {
+        ErrorHandler('Favicon API not specified');
+      } else if (!Object.keys(faviconApiEndpoints).includes(faviconApi)) {
+        ErrorHandler(`The specified favicon API, '${faviconApi}' cannot be found.`);
+      } else {
+        return this.getFavicon(fullUrl, faviconApi);
+      }
+      // Error encountered, favicon service not found
+      this.broken = true;
+      return undefined;
     },
     /* If using favicon for icon, and if service is running locally (determined by local IP) */
     /* or if user prefers local favicon, then return true */
@@ -127,6 +141,7 @@ export default {
         case 'url': return img;
         case 'img': return this.getLocalImagePath(img);
         case 'favicon': return this.getFavicon(url);
+        case 'custom-favicon': return this.getCustomFavicon(url, img);
         case 'generative': return this.getGenerativeIcon(url);
         case 'mdi': return img; // Material design icons
         case 'simple-icons': return this.getSimpleIcon(img);
@@ -139,12 +154,12 @@ export default {
     determineImageType(img) {
       let imgType = '';
       if (!img) imgType = 'none';
-      else if (img.endsWith('.svg')) imgType = 'svg';
       else if (this.isUrl(img)) imgType = 'url';
       else if (this.isImage(img)) imgType = 'img';
       else if (img.includes('fa-')) imgType = 'font-awesome';
       else if (img.includes('mdi-')) imgType = 'mdi';
       else if (img.includes('si-')) imgType = 'si';
+      else if (img.includes('favicon-')) imgType = 'custom-favicon';
       else if (img === 'favicon') imgType = 'favicon';
       else if (img === 'generative') imgType = 'generative';
       else if (this.isEmoji(img).isEmoji) imgType = 'emoji';
@@ -167,15 +182,23 @@ export default {
 <style lang="scss">
   /* Default Image Icon */
   .tile-icon {
-      width: 2rem;
-      // filter: var(--item-icon-transform);
+      min-width: 1rem;
+      max-width: 2rem;
+      min-height: 1rem;
+      max-height: 2rem;
+      object-fit: cover;
+      filter: var(--item-icon-transform);
       border-radius: var(--curve-factor);
-      &.broken { display: none; }
       &.small {
-        width: 1.5rem;
+        max-width: 1.5rem;
+        max-height: 1.5rem;
       }
       &.large {
-        width: 3rem;
+        max-width: 3rem;
+        max-height: 3rem;
+      }
+      &.broken {
+        display: none;
       }
   }
   /* Font-Awesome and Material Design Icons */

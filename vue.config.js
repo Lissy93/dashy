@@ -7,45 +7,48 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 // Get current version
 process.env.VUE_APP_VERSION = require('./package.json').version;
 
-// Specify and export the main Vue app config
-module.exports = {
-  publicPath: process.env.BASE_URL,
-  integrity: true,
-  chainWebpack: config => {
-    config.module.rules.delete('svg');
-  },
-  configureWebpack: {
-    performance: { hints: false },
-    module: {
-      rules: [
-        { test: /.svg$/, loader: 'vue-svg-loader' },
-      ],
-    },
-    plugins: [
-      // Display progress bar while building
-      new ProgressBarPlugin(),
+// Get default info for PWA
+const { pwa } = require('./src/utils/defaults');
+
+// Get base URL
+const publicPath = process.env.BASE_URL || '/';
+
+// Should enable Subresource Integrity (SRI) on link and script tags
+const integrity = process.env.INTEGRITY === 'true';
+
+// Format for progress bar, shown while app building
+const progressFormat = '\x1b[1m\x1b[36mBuilding Dashy\x1b[0m '
+  + '[\x1b[1m\x1b[32m:bar\x1b[0m] :percent (:elapsed seconds)';
+
+// Webpack Config
+const configureWebpack = {
+  performance: { hints: false },
+  module: {
+    rules: [
+      { test: /.svg$/, loader: 'vue-svg-loader' },
     ],
   },
-  // Specify resources for PWA / mobile support
-  pwa: {
-    name: 'Dashy',
-    manifestPath: './manifest.json',
-    themeColor: '#00af87',
-    msTileColor: '#0b1021',
-    mode: 'production',
-    iconPaths: {
-      manifestCrossorigin: 'use-credentials',
-      favicon64: './web-icons/favicon-64x64.png',
-      favicon32: './web-icons/favicon-32x32.png',
-      maskIcon: './web-icons/dashy-logo.png',
-      msTileImage: './web-icons/dashy-logo.png',
-    },
+  plugins: [
+    new ProgressBarPlugin({ format: progressFormat }),
+  ],
+};
+
+// Application pages
+const pages = {
+  dashy: {
+    entry: 'src/main.js',
+    filename: 'index.html',
   },
-  // Specify page for app entry point
-  pages: {
-    dashy: {
-      entry: 'src/main.js',
-      filename: 'index.html',
-    },
+};
+
+// Export the main Vue app config
+module.exports = {
+  publicPath,
+  pwa,
+  integrity,
+  configureWebpack,
+  pages,
+  chainWebpack: config => {
+    config.module.rules.delete('svg');
   },
 };

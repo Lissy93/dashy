@@ -1,5 +1,15 @@
 # Changelog
 
+## 🐛 1.7.1 - Lots of Tiny Fixes and Improvements [PR #200](https://github.com/Lissy93/dashy/pull/201)
+- Removes background in console art
+- Updates auto environmental variables
+- Icon image assets max height Force same Icon/Item Height #200
+- Adds an action to close spammy issues
+- Adds option to enable SRI integrity, plus refactos PWA into defaults
+- Updates privacy and security docs
+- Adds option for different favicon API for each app [FEATURE_REQUEST] Allow using different faviconApi for each items #196
+- Fixes loading of local SVG icons #199
+
 ## 🍻 1.7.0 - Documentation Website [PR #190](https://github.com/Lissy93/dashy/pull/190)
 - Builds a quick website to host the docs. No code changes, but prepares for V1.7 release
 
