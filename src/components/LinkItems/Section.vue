@@ -17,7 +17,7 @@
       :style="gridStyle"
     >
       <Item
-        v-for="(item, index) in items"
+        v-for="(item, index) in sortedItems"
         :id="`${index}_${makeId(item.title)}`"
         :key="`${index}_${makeId(item.title)}`"
         :url="item.url"
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { sortOrder as defaultSortOrder } from '@/utils/defaults';
 import Item from '@/components/LinkItems/Item.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
@@ -71,6 +72,18 @@ export default {
     IframeModal,
   },
   computed: {
+    sortOrder() {
+      return this.displayData.sortBy || defaultSortOrder;
+    },
+    sortedItems() {
+      const { items } = this;
+      if (this.sortOrder === 'alphabetical') {
+        items.sort((a, b) => (a.title > b.title ? 1 : -1));
+      } else if (this.sortOrder === 'reverse-alphabetical') {
+        items.sort((a, b) => (a.title < b.title ? 1 : -1));
+      }
+      return items;
+    },
     newItemSize() {
       return this.displayData.itemSize || this.itemSize;
     },
