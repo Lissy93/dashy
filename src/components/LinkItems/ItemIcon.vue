@@ -62,7 +62,7 @@ export default {
     /* Returns true if the input is a path to an image file */
     isImage(img) {
       const fileExtRegex = /(?:\.([^.]+))?$/;
-      const validImgExtensions = ['png', 'jpg'];
+      const validImgExtensions = ['svg', 'png', 'jpg'];
       const splitPath = fileExtRegex.exec(img);
       if (splitPath.length >= 1) return validImgExtensions.includes(splitPath[1]);
       return false;
@@ -154,7 +154,6 @@ export default {
     determineImageType(img) {
       let imgType = '';
       if (!img) imgType = 'none';
-      else if (img.endsWith('.svg')) imgType = 'svg';
       else if (this.isUrl(img)) imgType = 'url';
       else if (this.isImage(img)) imgType = 'img';
       else if (img.includes('fa-')) imgType = 'font-awesome';
