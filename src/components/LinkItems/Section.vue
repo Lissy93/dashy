@@ -17,9 +17,9 @@
       :style="gridStyle"
     >
       <Item
-        v-for="(item, index) in sortedItems"
-        :id="`${index}_${makeId(item.title)}`"
-        :key="`${index}_${makeId(item.title)}`"
+        v-for="(item) in sortedItems"
+        :id="makeId(item.title)"
+        :key="makeId(item.title)"
         :url="item.url"
         :title="item.title"
         :description="item.description"
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { sortOrder as defaultSortOrder } from '@/utils/defaults';
+import { sortOrder as defaultSortOrder, localStorageKeys } from '@/utils/defaults';
 import Item from '@/components/LinkItems/Item.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
@@ -76,11 +76,13 @@ export default {
       return this.displayData.sortBy || defaultSortOrder;
     },
     sortedItems() {
-      const { items } = this;
+      let { items } = this;
       if (this.sortOrder === 'alphabetical') {
         items.sort((a, b) => (a.title > b.title ? 1 : -1));
       } else if (this.sortOrder === 'reverse-alphabetical') {
         items.sort((a, b) => (a.title < b.title ? 1 : -1));
+      } else if (this.sortOrder === 'most-used') {
+        items = this.sortByMostUsed(items);
       }
       return items;
     },
@@ -124,6 +126,13 @@ export default {
       if (interval > 60) interval = 60;
       if (interval < 1) interval = 0;
       return interval;
+    },
+    /* Sorts items by most used to least used, based on click-count */
+    sortByMostUsed(items) {
+      const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
+      const gmu = (item) => usageCount[this.makeId(item.title)] || 0;
+      items.reverse().sort((a, b) => (gmu(a) < gmu(b) ? 1 : -1));
+      return items;
     },
   },
 };

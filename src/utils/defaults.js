@@ -93,6 +93,7 @@ module.exports = {
     BACKUP_HASH: 'backupHash',
     HIDE_SETTINGS: 'hideSettings',
     USERNAME: 'username',
+    MOST_USED: 'mostUsed',
   },
   /* Key names for cookie identifiers */
   cookieKeys: {

@@ -49,6 +49,7 @@ import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
 import ContextMenu from '@/components/LinkItems/ContextMenu';
+import { localStorageKeys } from '@/utils/defaults';
 
 export default {
   name: 'Item',
@@ -106,6 +107,7 @@ export default {
       } else {
         this.$emit('itemClicked');
       }
+      this.incrementMostUsedCount(this.id);
     },
     /* Open custom context menu, and set position */
     openContextMenu(e) {
@@ -197,6 +199,14 @@ export default {
           break;
         default: window.open(url, '_blank');
       }
+    },
+    /* Used for smart-sort when sorting items by most/ last used */
+    incrementMostUsedCount(itemId) {
+      const mostUsed = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
+      let counter = mostUsed[itemId] || 0;
+      counter += 1;
+      mostUsed[itemId] = counter;
+      localStorage.setItem(localStorageKeys.MOST_USED, JSON.stringify(mostUsed));
     },
   },
   mounted() {
