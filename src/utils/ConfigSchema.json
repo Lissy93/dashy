@@ -361,6 +361,11 @@
           "default": false,
           "description": "Prevents Dashy from checking for updates"
         },
+        "disableSmartSort": {
+          "type": "boolean",
+          "default": false,
+          "description": "Prevents the app storing local click count, required for the last-used and most-used sort orders"
+        },
         "enableErrorReporting": {
           "type": "boolean",
           "default": false,
@@ -397,6 +402,18 @@
             "additionalProperties": false,
             "description": "Optional meta data for customizing a section",
             "properties": {
+              "sortBy": {
+                "enum": [
+                  "default",
+                  "most-used",
+                  "last-used",
+                  "alphabetical",
+                  "reverse-alphabetical",
+                  "random"
+                ],
+                "default": "default",
+                "description": "How to sort items within the section. By default items are displayed in the order in which they are listed in within the config"
+              },
               "collapsed": {
                 "type": "boolean",
                 "default": false,
