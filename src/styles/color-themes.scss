@@ -217,6 +217,8 @@ html[data-theme='material-original'] {
   --heading-text-color: #fff;
   --status-check-tooltip-background: #f2f2f2;
   --status-check-tooltip-color: #01579b;
+  --description-tooltip-background: #f2f2f2;
+  --description-tooltip-color: #01579b;
   --login-form-background: #fff;
   --about-page-accent: #000;
   --about-page-color: var(--background-darker);
@@ -262,6 +264,8 @@ html[data-theme='material-dark-original'] {
   --scroll-bar-background: #131a1f;
   --status-check-tooltip-background: #131a1f;
   --status-check-tooltip-color: #08B0BB;
+  --description-tooltip-background: #131a1f;
+  --description-tooltip-color: #08B0BB;
   &::-webkit-scrollbar-thumb {
     border-left: 1px solid #131a1f;
   }
@@ -510,6 +514,8 @@ html[data-theme='material'] {
   --context-menu-secondary-color: #f5f5f5;
   --transparent-white-50: #00000080;
   --status-check-tooltip-background: #fff;
+  --description-tooltip-background: #fff;
+  --description-tooltip-color: #473f3f;
   --side-bar-background-lighter: #0c4eba;
   --side-bar-item-background: #f5f5f5;
 
@@ -602,6 +608,8 @@ html[data-theme='material-dark'] {
 
   --status-check-tooltip-background: #131a1f;
   --status-check-tooltip-color: #e0e0e0;
+  --description-tooltip-background: #131a1f;
+  --description-tooltip-color: #e0e0e0;
   --curve-factor: 2px;
   --curve-factor-navbar: 0;
   
@@ -673,6 +681,8 @@ html[data-theme='minimal-light'] {
   --curve-factor-navbar: 8px;
   --status-check-tooltip-background: #f2f2f2;
   --status-check-tooltip-color: #000;
+  --description-tooltip-background: #f2f2f2;
+  --description-tooltip-color: #000;
   --login-form-color: #101931;
   --about-page-background: var(--background);
   --about-page-color: var(--background-darker);
@@ -749,6 +759,7 @@ html[data-theme='vaporware'] {
   --login-form-color: #09bfe6;
   --config-settings-background: #100e2c;
   --status-check-tooltip-background: #100e2c;
+  --description-tooltip-background: #100e2c;
   
   .home {
     background: linear-gradient(180deg, rgba(16,14,44,1) 10%, rgba(27,24,79,1) 40%, rgba(16,14,44,1) 100%);
@@ -832,6 +843,7 @@ html[data-theme='cyberpunk'] {
 --welcome-popup-background: var(--pink);
 --welcome-popup-text-color: var(--blue);
 --status-check-tooltip-background: var(--blue);
+--description-tooltip-background: var(--blue);
 --font-headings: 'Audiowide', cursive;
 }
 

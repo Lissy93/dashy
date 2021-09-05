@@ -25,6 +25,8 @@ module.exports = {
   fontAwesomeKey: '0821c65656',
   /* Default API to use for fetching of user service favicon icons (if enabled) */
   faviconApi: 'faviconkit',
+  /* The default sort order for sections */
+  sortOrder: 'default',
   /* The page paths for each route within the app for the router */
   routePaths: {
     home: '/home',
@@ -91,6 +93,8 @@ module.exports = {
     BACKUP_HASH: 'backupHash',
     HIDE_SETTINGS: 'hideSettings',
     USERNAME: 'username',
+    MOST_USED: 'mostUsed',
+    LAST_USED: 'lastUsed',
   },
   /* Key names for cookie identifiers */
   cookieKeys: {

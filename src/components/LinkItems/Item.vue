@@ -49,9 +49,11 @@ import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
 import ContextMenu from '@/components/LinkItems/ContextMenu';
+import { localStorageKeys } from '@/utils/defaults';
 
 export default {
   name: 'Item',
+  inject: ['config'],
   props: {
     id: String, // The unique ID of a tile (e.g. 001)
     title: String, // The main text of tile, required
@@ -61,6 +63,7 @@ export default {
     color: String, // Optional text and icon color, specified in hex code
     backgroundColor: String, // Optional item background color
     url: String, // URL to the resource, optional but recommended
+    provider: String, // Optional provider name, for external apps
     hotkey: Number, // Shortcut for quickly launching app
     target: { // Where resource will open, either 'newtab', 'sametab' or 'modal'
       type: String,
@@ -106,6 +109,11 @@ export default {
       } else {
         this.$emit('itemClicked');
       }
+      // Update the most/ last used ledger, for smart-sorting
+      if (!this.config.appConfig.disableSmartSort) {
+        this.incrementMostUsedCount(this.id);
+        this.incrementLastUsedCount(this.id);
+      }
     },
     /* Open custom context menu, and set position */
     openContextMenu(e) {
@@ -124,13 +132,16 @@ export default {
     },
     /* Returns configuration object for the tooltip */
     getTooltipOptions() {
-      const hotkeyText = this.hotkey ? `\nPress '${this.hotkey}' to launch` : '';
+      if (!this.description && !this.provider) return {}; // If no description, then skip
+      const description = this.description ? this.description : '';
+      const providerText = this.provider ? `<b>Provider</b>: ${this.provider}` : '';
+      const lb1 = description && providerText ? '<br>' : '';
+      const hotkeyText = this.hotkey ? `<br>Press '${this.hotkey}' to launch` : '';
       return {
-        disabled: !this.description,
-        content: this.description + hotkeyText,
+        content: providerText + lb1 + description + hotkeyText,
         trigger: 'hover focus',
         hideOnTargetClick: true,
-        html: false,
+        html: true,
         placement: this.statusResponse ? 'left' : 'auto',
         delay: { show: 600, hide: 200 },
         classes: 'item-description-tooltip',
@@ -197,6 +208,20 @@ export default {
           break;
         default: window.open(url, '_blank');
       }
+    },
+    /* Used for smart-sort when sorting items by most used apps */
+    incrementMostUsedCount(itemId) {
+      const mostUsed = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
+      let counter = mostUsed[itemId] || 0;
+      counter += 1;
+      mostUsed[itemId] = counter;
+      localStorage.setItem(localStorageKeys.MOST_USED, JSON.stringify(mostUsed));
+    },
+    /* Used for smart-sort when sorting by last used apps */
+    incrementLastUsedCount(itemId) {
+      const lastUsed = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
+      lastUsed[itemId] = new Date().getTime();
+      localStorage.setItem(localStorageKeys.LAST_USED, JSON.stringify(lastUsed));
     },
   },
   mounted() {
@@ -389,16 +414,18 @@ export default {
 
 <!-- An un-scoped style tag, since tooltip is outside this DOM tree -->
 <style lang="scss">
-.tooltip {
+.tooltip.item-description-tooltip {
+  background: var(--description-tooltip-background);
+  border: 1px solid var(--description-tooltip-color);
+  border-radius: var(--curve-factor-small);
+  color: var(--description-tooltip-color);
   padding: 0.2rem 0.5rem;
-  background: #0b1021cc;
-  border: 1px solid #0b1021;
-  border-radius: 3px;
-  color: #fff;
   max-width: 250px;
+  z-index: 5;
 }
 .tooltip-arrow {
   border-width: 5px 5px 0 5px;
+  border-color: var(--description-tooltip-color);
   border-left-color: transparent!important;
   border-right-color: transparent!important;
   border-bottom-color: transparent!important;
@@ -411,7 +438,6 @@ export default {
   border-style: solid;
   position: absolute;
   margin: 5px;
-  border-color: #0b1021cc;
   z-index: 3;
 }
 

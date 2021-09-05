@@ -1,5 +1,11 @@
 # Changelog
 
+## ✨ 1.7.2 - Item Sort Options [PR #203](https://github.com/Lissy93/dashy/pull/203)
+- Adds option for user to specify `sortBy` to order items within a section
+- Can sort by last clicked, most used, alphabetically and more
+- And fixes UI of the item tooltip and, if specified, will show Provider in the tooltip
+- Also improves error logging and console warning message
+
 ## 🐛 1.7.1 - Lots of Tiny Fixes and Improvements [PR #200](https://github.com/Lissy93/dashy/pull/201)
 - Removes background in console art
 - Updates auto environmental variables
