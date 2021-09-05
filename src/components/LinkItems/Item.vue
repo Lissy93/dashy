@@ -131,6 +131,7 @@ export default {
     },
     /* Returns configuration object for the tooltip */
     getTooltipOptions() {
+      if (!this.description) return {}; // If no description, then skip
       const hotkeyText = this.hotkey ? `\nPress '${this.hotkey}' to launch` : '';
       return {
         disabled: !this.description,
@@ -410,16 +411,18 @@ export default {
 
 <!-- An un-scoped style tag, since tooltip is outside this DOM tree -->
 <style lang="scss">
-.tooltip {
+.tooltip.item-description-tooltip {
+  background: var(--description-tooltip-background);
+  border: 1px solid var(--description-tooltip-color);
+  border-radius: var(--curve-factor-small);
+  color: var(--description-tooltip-color);
   padding: 0.2rem 0.5rem;
-  background: #0b1021cc;
-  border: 1px solid #0b1021;
-  border-radius: 3px;
-  color: #fff;
   max-width: 250px;
+  z-index: 5;
 }
 .tooltip-arrow {
   border-width: 5px 5px 0 5px;
+  border-color: var(--description-tooltip-color);
   border-left-color: transparent!important;
   border-right-color: transparent!important;
   border-bottom-color: transparent!important;
@@ -432,7 +435,6 @@ export default {
   border-style: solid;
   position: absolute;
   margin: 5px;
-  border-color: #0b1021cc;
   z-index: 3;
 }
 
