@@ -75,6 +75,7 @@ export default {
     sortOrder() {
       return this.displayData.sortBy || defaultSortOrder;
     },
+    /* If the sortBy attribute is specified, then return sorted data */
     sortedItems() {
       let { items } = this;
       if (this.sortOrder === 'alphabetical') {
@@ -83,6 +84,8 @@ export default {
         items.sort((a, b) => (a.title < b.title ? 1 : -1));
       } else if (this.sortOrder === 'most-used') {
         items = this.sortByMostUsed(items);
+      } else if (this.sortOrder === 'last-used') {
+        items = this.sortBLastUsed(items);
       }
       return items;
     },
@@ -132,6 +135,13 @@ export default {
       const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
       const gmu = (item) => usageCount[this.makeId(item.title)] || 0;
       items.reverse().sort((a, b) => (gmu(a) < gmu(b) ? 1 : -1));
+      return items;
+    },
+    /* Sorts items by most recently used */
+    sortBLastUsed(items) {
+      const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
+      const glu = (item) => usageCount[this.makeId(item.title)] || 0;
+      items.reverse().sort((a, b) => (glu(a) < glu(b) ? 1 : -1));
       return items;
     },
   },

@@ -94,6 +94,7 @@ module.exports = {
     HIDE_SETTINGS: 'hideSettings',
     USERNAME: 'username',
     MOST_USED: 'mostUsed',
+    LAST_USED: 'lastUsed',
   },
   /* Key names for cookie identifiers */
   cookieKeys: {
