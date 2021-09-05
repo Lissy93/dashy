@@ -1,0 +1,26 @@
+# Detects offensive language in comments and takes reaction
+name: Mind your language
+on:
+  issues:
+    types:
+      - opened
+      - edited
+  issue_comment:
+    types:
+      - created
+      - edited
+  pull_request_review_comment:
+    types:
+      - created
+      - edited
+jobs:
+  echo_issue_comment:
+    runs-on: ubuntu-latest
+    name: profanity check
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Profanity check step
+        uses: tailaiw/mind-your-language-action@v1.0.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
