@@ -31,6 +31,7 @@
         :statusCheckHeaders="item.statusCheckHeaders"
         :itemSize="newItemSize"
         :hotkey="item.hotkey"
+        :provider="item.provider"
         :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
         :statusCheckInterval="getStatusCheckInterval()"
         :statusCheckAllowInsecure="item.statusCheckAllowInsecure"

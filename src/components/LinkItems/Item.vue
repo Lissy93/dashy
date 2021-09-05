@@ -63,6 +63,7 @@ export default {
     color: String, // Optional text and icon color, specified in hex code
     backgroundColor: String, // Optional item background color
     url: String, // URL to the resource, optional but recommended
+    provider: String, // Optional provider name, for external apps
     hotkey: Number, // Shortcut for quickly launching app
     target: { // Where resource will open, either 'newtab', 'sametab' or 'modal'
       type: String,
@@ -131,14 +132,16 @@ export default {
     },
     /* Returns configuration object for the tooltip */
     getTooltipOptions() {
-      if (!this.description) return {}; // If no description, then skip
-      const hotkeyText = this.hotkey ? `\nPress '${this.hotkey}' to launch` : '';
+      if (!this.description && !this.provider) return {}; // If no description, then skip
+      const description = this.description ? this.description : '';
+      const providerText = this.provider ? `<b>Provider</b>: ${this.provider}` : '';
+      const lb1 = description && providerText ? '<br>' : '';
+      const hotkeyText = this.hotkey ? `<br>Press '${this.hotkey}' to launch` : '';
       return {
-        disabled: !this.description,
-        content: this.description + hotkeyText,
+        content: providerText + lb1 + description + hotkeyText,
         trigger: 'hover focus',
         hideOnTargetClick: true,
-        html: false,
+        html: true,
         placement: this.statusResponse ? 'left' : 'auto',
         delay: { show: 600, hide: 200 },
         classes: 'item-description-tooltip',
