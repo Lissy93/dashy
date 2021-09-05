@@ -1,0 +1,17 @@
+comment:
+  on-update: recreate
+  header: |
+    Thank you for contributing to Dashy! ✨
+  footer: |
+    ---
+    > I'm a bot, and this is an automated comment 🤖
+  snippets:
+    - id: docs-changes
+      files:
+        - '*.md'
+        - '**/*.md'
+      body: |
+        When making changes to the documentation, be sure to double check that:
+        - Link and images URLs properly resolve
+        - Your spelling and grammar is correct
+        - Any markdown formatting is valid 
