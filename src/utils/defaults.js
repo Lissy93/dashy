@@ -26,7 +26,7 @@ module.exports = {
   /* Default API to use for fetching of user service favicon icons (if enabled) */
   faviconApi: 'faviconkit',
   /* The default sort order for sections */
-  sortOrder: 'auto',
+  sortOrder: 'default',
   /* The page paths for each route within the app for the router */
   routePaths: {
     home: '/home',
