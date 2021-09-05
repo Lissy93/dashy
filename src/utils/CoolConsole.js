@@ -7,7 +7,7 @@ export const welcomeMsg = () => {
 
 export const warningMsg = (message) => {
   console.info(
-    `%c⚠️ Warning ⚠️%c \n${message} \n\n%c🐛If you have found a bug, please open a ticket on GitHub, at: https://git.io/JukXk`,
+    `%c⚠️ Warning ⚠️%c \n${message} \n\n%cThis is likely not an issue with Dashy, but rather your configuration. If you think it is a bug, please open a ticket on GitHub: https://git.io/JukXk`,
     "color:#ceb73f; background: #ceb73f33; font-size:1.2rem; padding:0.15rem; margin: 0.2rem auto 1rem auto; font-family: Rockwell, Tahoma, 'Trebuchet MS', Helvetica; border: 2px solid #ceb73f; border-radius: 4px; font-weight: bold; text-shadow: 1px 1px 1px #000000bf;",
     'font-weight: bold; font-size: 0.9rem;color: #ceb73f;',
     "color: #ceb73f; font-size: 0.6rem; font-family: Tahoma, 'Trebuchet MS', Helvetica;",
