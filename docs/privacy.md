@@ -56,15 +56,17 @@ The following section outlines all data that is stored in the browsers, as cooki
 - `LAYOUT_ORIENTATION` - Preferred section layout, either horizontal, vertical or auto
 - `COLLAPSE_STATE` - Remembers which sections are collapsed
 - `ICON_SIZE` - Size of items, either small, medium or large
-- `THEME: 'theme` - Users applied theme
+- `THEME` - Users applied theme
 - `CUSTOM_COLORS` - Any color modifications made to a given theme
 - `BACKUP_ID` - If a backup has been made, the ID is stored here
 - `BACKUP_HASH` - A unique hash of the previous backups meta data
 - `HIDE_SETTINGS` - Lets user hide or show the settings menu
-- `USERNAME` - If user logged in, store username in order to welcome them
+- `USERNAME` - If user logged in, store username. Only used to show welcome message, not used for auth
 - `CONF_SECTIONS` - Array of sections, only used when user applies changes locally
 - `PAGE_INFO` - Config page info, only used when user applies changes locally
 - `APP_CONFIG` - App config, only used when user applies changes locally
+- `MOST_USED` - If smart sort is used to order items by most used, store open count
+- `LAST_USED` - If smart sort is used to order items by last used, store timestamps
 
 ---
 
@@ -104,6 +106,18 @@ Dashy supports SRI, and it is recommended to enable this if you are hosting your
 
 #### Authentication
 Dashy supports both basic auth, as well as server-based SSO using Keycloak. Full details of which, along with alternate authentication methods can be found in the [Authentication Docs](/docs/authentication.md). If your dashboard is exposed to the internet and/ or contains any sensitive info it is strongly recommended to configure access control with Keycloak or another server-side method.
+
+---
+
+## Disabling Features
+You may wish to disable features that you don't want to use, if they involve storing data in the browser or making network requests.
+- To disable update checks (makes external request to GH), set `appConfig.disableUpdateChecks: true`
+- To disable the service worker (stores cache of app in browser data), set `appConfig.disableServiceWorker: true`
+- To disable smart-sort (uses local storage), set `appConfig.disableSmartSort: true`
+- To disable web search (redirect to external / internal content), set `appConfig.disableWebSearch: true`
+- To keep font-awesome icons disabled (external requests), set `appConfig.enableFontAwesome: false`
+- To keep error reporting disabled (external requests and data collection), set `appConfig.enableErrorReporting: false`
+- To keep status checks disabled (external/ internal requests), set `appConfig.statusCheck: false`
 
 ---
 

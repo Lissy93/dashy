@@ -74,7 +74,7 @@
 - 🛩️ A minimal view, for use as a fast-loading browser startpage
 - 🖱️ Choose how to launch apps, either new tab, same tab, a pop-up modal or in the workspace view
 - 🌎 Multi-language support, with more languages being added regularly
-- 📏 Customizable layout, sizes, text, component visibility, behavior and colors etc
+- 📏 Customizable layout, sizes, text, component visibility, sort order, behavior etc
 - 🖼️ Option for full-screen background image, custom nav-bar links, html footer, title, and more
 - 🚀 Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
 - ⚙️ Easy single-file YAML-based configuration, with option to configure app directly through the UI
@@ -214,7 +214,7 @@ Dashy comes with a number of built-in themes, but it's also easy to make you're 
 
 > For full iconography documentation, see: [**Icons**](./docs/icons.md)
 
-Both sections and items can have an icon associated with them, and defined under the `icon` attribute. There are many options for icons, including Font Awesome support, automatic fetching from favicon, programmatically generated icons and direct local or remote URLs.
+Both sections and items can have an icon associated with them, and defined under the `icon` attribute. There are many options for icons, including Font Awesome support, automatic fetching from favicon, emojis, programmatically generated icons and direct local or remote URLs.
 
 <p align="center">
   <img width="400" src="https://i.ibb.co/GTVmZnc/dashy-example-icons.png" />
@@ -222,11 +222,12 @@ Both sections and items can have an icon associated with them, and defined under
 
 - **Favicon**: Set `icon: favicon` to fetch a services icon automatically from the URL of the corresponding application
 - **Font-Awesome**: To use any font-awesome icon, specify the category, followed by the icon name, e.g. `fas fa-rocket` or `fab fa-monero`. You can also use Pro icons if you have a license key, just set it under `appConfig.fontAwesomeKey`
-- **Generative**: Setting `icon: generative`, will generate a unique for a given service, based on it's URL or IP
-- **Emoji**: Use an emoji as a tile icon, by putting the emoji's code as the icon attribute. Emojis can be specified either as emojis (`🚀`), unicode (`'U+1F680'`) or shortcode (`':rocket:'`).
-- **URL**: You can also pass in a URL to an icon asset, hosted either locally or using any CDN service. E.g. `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`.
-- **Local Image**: To use a local image, store it in `./public/item-icons/` (or create a volume in Docker: `-v /local/image/directory:/app/public/item-icons/`) , and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`. You can also use sub-folders here.
-- **Material Design Icons**: You can also use any icon from [materialdesignicons.com](https://dev.materialdesignicons.com/icons) by setting the icon to `mdi-[icon-name]`.
+- **Simple Icons**: Use any brand/ logo icon from [simpleicons.org](https://simpleicons.org/) by setting the icon to `si-[icon-name]`
+- **Emoji**: Use an emoji as a tile icon, by putting the emoji's code as the icon attribute. Emojis can be specified either as emojis (`🚀`), unicode (`'U+1F680'`) or shortcode (`':rocket:'`)
+- **Generative**: Setting `icon: generative`, will generate a unique logo for a given service, based on it's specified URL or IP
+- **URL**: You can also pass in a URL to an icon asset, hosted either locally or using any CDN service. E.g. `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`
+- **Local Image**: To use a local image, store it in `./public/item-icons/` (or create a volume in Docker: `-v /local/image/directory:/app/public/item-icons/`) , and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`. You can also use sub-folders here
+- **Material Design Icons**: You can also use any icon from [materialdesignicons.com](https://dev.materialdesignicons.com/icons) by setting the icon to `mdi-[icon-name]`
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -254,7 +255,7 @@ You can also specify an time interval in seconds under `appConfig.statusCheckInt
 
 > For full authentication documentation, see: [**Authentication**](./docs/authentication.md)
 
-Dashy now has full support for [Keycloak](https://www.keycloak.org/)!
+Dashy now has full support for secure single-sign-on using [Keycloak](https://www.keycloak.org/)! See [setup docs](/docs/authentication.md#keycloak) for a full usage guide
 
 There is also a simple login feature for basic access control, which doesn't require any additional setup. To enable this feature, add an `auth` attribute under `appConfig`, containing an array of `users`, each with a username, SHA-256 hashed password and optional user type.
 
@@ -269,7 +270,10 @@ appConfig:
 
 **Guest Access**: By default, when authentication is configured no user can access your dashboard without first logging in. If you would like to allow for read-only access by unauthenticated users, then you can enable guest mode, by setting `appConfig.auth.enableGuestAccess: true`.
 
-**Note**: Using the above method involves access control being handled on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication. Keycloak is [natively supported](docs/authentication.md#keycloak), but you could also use [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules. Instructions for all of these can be found [in the docs](docs/authentication.md#alternative-authentication-methods).
+**Granular Controls**: With basic login, it is also possible to control which sections are visible to which users. Under the `displayData` property of a section, you can pass an array of usernames to  one of the following attributes:
+- `hideForUsers` - Section will be visible to all users, except for those specified in this list
+- `showForUsers` - Section will be hidden from all users, except for those specified in this list
+- `hideForGuests` - Section will be visible for all logged in users, but not for guests (if guest access is enabled)
 
 <p align="center">
   <img
@@ -280,10 +284,7 @@ appConfig:
   />
 </p>
 
-**Granular Controls**: With basic login, it is also possible to control which sections are visible to which users. Under the `displayData` property of a section, you can pass an array of usernames to  one of the following attributes:
-- `hideForUsers` - Section will be visible to all users, except for those specified in this list
-- `showForUsers` - Section will be hidden from all users, except for those specified in this list
-- `hideForGuests` - Section will be visible for all logged in users, but not for guests (if guest access is enabled)
+**Note**: Using the above method involves access control being handled on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication. Keycloak is [natively supported](docs/authentication.md#keycloak), but you could also use [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules. Instructions for all of these can be found [in the docs](docs/authentication.md#alternative-authentication-methods).
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -382,13 +383,15 @@ Hit `Esc` at anytime to close any open apps, clear the search field, or hide any
 ## Config Editor ⚙️
 > For full config documentation, see: [**Configuring**](./docs/configuring.md)
 
-From the Settings Menu in Dashy, you can download, backup, edit and rest your config. An interactive editor makes editing the config file easy, it will tell you if you've got any errors. After making your changes, you can either apply them locally, or export into your main config file. After saving to the config file to the disk, the app will be rebuilt automatically, you can also manually trigger a rebuild from the Settings Menu.
+From the Settings Menu in Dashy, you can download, backup, edit and rest your config. The editor will tell you if you've got any validation warnings.
 
 A full list of available config options can be found [here](./docs/configuring.md). It's recommend to make a backup of your configuration, as you can then restore it into a new instance of Dashy, without having to set it up again. [json2yaml](https://www.json2yaml.com/) is very useful for converting between YAML to JSON and visa versa.
 
 <p align="center">
-  <img alt="Workspace view demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/config-editor-demo.gif" width="600" />
+  <img alt="Config Editor demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/config-editor-demo.gif" width="600" />
 </p>
+
+**Update:** A new and improved drag-and-drop UI editor is in progress, and should be released within the next couple of weeks!
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -637,6 +640,7 @@ The following features and tasks are planned for the near future.
 ## Alternatives 🙌
 
 There are a few self-hosted web apps, that serve a similar purpose to Dashy. If you're looking for a dashboard, and Dashy doesn't meet your needs, I highly recommend you check these projects out! 
+- [Flame](https://github.com/pawelmalak/flame) by @pawelmalak (`MIT`)
 - [HomeDash2](https://lamarios.github.io/Homedash2)
 - [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`)
 - [Organizr](https://organizr.app/) (`GPL-3.0 License`)
