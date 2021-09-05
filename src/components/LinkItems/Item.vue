@@ -53,6 +53,7 @@ import { localStorageKeys } from '@/utils/defaults';
 
 export default {
   name: 'Item',
+  inject: ['config'],
   props: {
     id: String, // The unique ID of a tile (e.g. 001)
     title: String, // The main text of tile, required
@@ -108,8 +109,10 @@ export default {
         this.$emit('itemClicked');
       }
       // Update the most/ last used ledger, for smart-sorting
-      this.incrementMostUsedCount(this.id);
-      this.incrementLastUsedCount(this.id);
+      if (!this.config.appConfig.disableSmartSort) {
+        this.incrementMostUsedCount(this.id);
+        this.incrementLastUsedCount(this.id);
+      }
     },
     /* Open custom context menu, and set position */
     openContextMenu(e) {
