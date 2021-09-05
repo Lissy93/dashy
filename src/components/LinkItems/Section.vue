@@ -18,8 +18,8 @@
     >
       <Item
         v-for="(item) in sortedItems"
-        :id="makeId(item.title)"
-        :key="makeId(item.title)"
+        :id="makeId(title, item.title)"
+        :key="makeId(title, item.title)"
         :url="item.url"
         :title="item.title"
         :description="item.description"
@@ -50,6 +50,7 @@
 
 <script>
 import { sortOrder as defaultSortOrder, localStorageKeys } from '@/utils/defaults';
+import ErrorHandler from '@/utils/ErrorHandler';
 import Item from '@/components/LinkItems/Item.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
@@ -78,14 +79,19 @@ export default {
     /* If the sortBy attribute is specified, then return sorted data */
     sortedItems() {
       let { items } = this;
+      if (this.config.appConfig.disableSmartSort) return items;
       if (this.sortOrder === 'alphabetical') {
-        items.sort((a, b) => (a.title > b.title ? 1 : -1));
+        this.sortAlphabetically(items);
       } else if (this.sortOrder === 'reverse-alphabetical') {
-        items.sort((a, b) => (a.title < b.title ? 1 : -1));
+        this.sortAlphabetically(items).reverse();
       } else if (this.sortOrder === 'most-used') {
         items = this.sortByMostUsed(items);
       } else if (this.sortOrder === 'last-used') {
         items = this.sortBLastUsed(items);
+      } else if (this.sortOrder === 'random') {
+        items = this.sortRandomly(items);
+      } else if (this.sortOrder && this.sortOrder !== 'default') {
+        ErrorHandler(`Unknown Sort order '${this.sortOrder}' under '${this.title}'`);
       }
       return items;
     },
@@ -107,8 +113,9 @@ export default {
   },
   methods: {
     /* Returns a unique lowercase string, based on name, for section ID */
-    makeId(str) {
-      return str.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
+    makeId(sectionStr, itemStr) {
+      const charSum = sectionStr.split('').map((a) => a.charCodeAt(0)).reduce((x, y) => x + y);
+      return `${charSum}_${itemStr.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase()}`;
     },
     /* Opens the iframe modal */
     triggerModal(url) {
@@ -123,6 +130,7 @@ export default {
       const globalPreference = this.config.appConfig.statusCheck || false;
       return itemPreference !== undefined ? itemPreference : globalPreference;
     },
+    /* Determine how often to re-fire status checks */
     getStatusCheckInterval() {
       let interval = this.config.appConfig.statusCheckInterval;
       if (!interval) return 0;
@@ -130,19 +138,30 @@ export default {
       if (interval < 1) interval = 0;
       return interval;
     },
+    /* Sorts items alphabetically using the title attribute */
+    sortAlphabetically(items) {
+      return items.sort((a, b) => (a.title > b.title ? 1 : -1));
+    },
     /* Sorts items by most used to least used, based on click-count */
     sortByMostUsed(items) {
       const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
-      const gmu = (item) => usageCount[this.makeId(item.title)] || 0;
+      const gmu = (item) => usageCount[this.makeId(this.title, item.title)] || 0;
       items.reverse().sort((a, b) => (gmu(a) < gmu(b) ? 1 : -1));
       return items;
     },
     /* Sorts items by most recently used */
     sortBLastUsed(items) {
       const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
-      const glu = (item) => usageCount[this.makeId(item.title)] || 0;
+      const glu = (item) => usageCount[this.makeId(this.title, item.title)] || 0;
       items.reverse().sort((a, b) => (glu(a) < glu(b) ? 1 : -1));
       return items;
+    },
+    /* Sorts items randomly */
+    sortRandomly(items) {
+      return items
+        .map((value) => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value);
     },
   },
 };
