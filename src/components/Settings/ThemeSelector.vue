@@ -12,6 +12,7 @@
     <IconPalette
       class="color-button"
       @click="openThemeConfigurator"
+      v-tooltip="$t('theme-maker.title')"
     />
     <CustomThemeMaker
       v-if="themeConfiguratorOpen"
