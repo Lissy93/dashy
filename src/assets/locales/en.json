@@ -62,6 +62,7 @@
     "css-note-l3": "To remove all custom styles, delete the contents and hit Save Changes"
   },
   "alternate-views": {
+    "alternate-view-heading": "Switch View",
     "default": "Default",
     "workspace": "Workspace",
     "minimal": "Minimal"

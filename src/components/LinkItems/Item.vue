@@ -431,8 +431,6 @@ export default {
   border-bottom-color: transparent!important;
   bottom: -11px;
   left: calc(50% - 5px);
-  margin-top: 0;
-  margin-bottom: 0;
   width: 0;
   height: 0;
   border-style: solid;

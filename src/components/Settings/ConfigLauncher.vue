@@ -6,7 +6,7 @@
       <IconSpanner @click="showEditor()" tabindex="-2"
         v-tooltip="tooltip($t('settings.config-launcher-tooltip'))" />
        <IconViewMode @click="openChangeViewMenu()" tabindex="-2"
-        v-tooltip="tooltip($t('settings.config-launcher-tooltip'))" />
+        v-tooltip="tooltip($t('alternate-views.alternate-view-heading'))" />
     </div>
 
     <!-- Modal containing all the configuration options -->
