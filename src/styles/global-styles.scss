@@ -108,12 +108,10 @@ html {
   border-bottom-color: transparent!important;
   bottom: -11px;
   left: calc(50% - 5px);
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 5px;
   width: 0;
   height: 0;
   border-style: solid;
   position: absolute;
-  margin: 5px;
   z-index: 3;
 }
