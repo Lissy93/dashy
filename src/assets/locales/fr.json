@@ -62,6 +62,7 @@
     "css-note-l3": "Pour supprimer tous les styles personnalisés, supprimez le contenu et appuyez sur Enregistrer."
   },
   "alternate-views": {
+    "alternate-view-heading": "Changer le mode d'affichage",
     "default": "Défaut",
     "workspace": "Plein écran",
     "minimal": "Minimale"
