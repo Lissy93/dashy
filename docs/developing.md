@@ -5,11 +5,22 @@ This article outlines how to get Dashy running in a development environment, and
 If you're adding new features, you may want to check out the [Development Guides](./docs/development-guides.md) docs, for tutorials covering basic tasks.
 
 - [Setting up the Development Environment](#setting-up-the-dev-environment)
+  - [Prerequisites](#prerequisites)
+  - [Running the App](#running-the-project)
+  - [Project Commands](#project-commands)
+  - [Environmental Variables](#environmental-variables)
+- [Git Strategy](#git-strategy)
+  - [Flow](#git-flow)
+  - [Branches](#git-branch-naming)
+  - [Commit emojis](#commit-emojis)
+  - [PR Guidelines](#pr-guidelines)
+- [PR Guidelines](#pr-guidelines)
 - [Resources for Beginners](#resources-for-beginners)
 - [Style Guide](#style-guide)
-- [Frontend Components](#frontend-components)
-- [Project Structure](#directory-structure)
-- [Dependencies and Packages](#dependencies-and-packages)
+- [Application Structure](#application-structure)
+- [Development Tools](#development-tools)
+- [Automated Workflows](#automated-workflows)
+- [Misc / Notes](#notes)
 
 ## Setting up the Dev Environment
 
@@ -119,7 +130,9 @@ Using a single emoji at the start of each commit message, to indicate the type t
 
 For a full list of options, see [gitmoji.dev](https://gitmoji.dev/)
 
-### PR Guidelines
+---
+
+## PR Guidelines
 Once you've made your changes, and pushed them to your fork or branch, you're ready to open a pull request!
 
 For a pull request to be merged, it must:
@@ -296,6 +309,63 @@ The easiest method of checking performance is to use Chromium's build in auditin
 [BundlePhobia](https://bundlephobia.com/) is a really useful app that lets you analyze the cost of adding any particular dependency to an application
 
 ---
+
+## Automated Workflows
+
+Dashy makes heavy use of [GitHub Actions](https://github.com/features/actions) to fully automate the checking, testing, building, deploying of the project, as well as administration tasks like management of issues, tags, releases and documentation. The following section outlines each workflow, along with a link the the action file, current status and short description. A lot of these automations were made possible using community actions contributed to GH marketplace by some amazing people.   
+
+
+### Code Processing
+
+Action | Description
+--- | ---
+**Code Linter**<br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/code-linter.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/code-linter.yml) | After a pull request is created, all new code changes will be linted, and the CI will fail with a helpful message if the code has any formatting inconsistencies
+**Code Spell Check**<br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/code-spell-check.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/code-spell-check.yml) | After a PR submitted, all auto-fixable spelling errors will be detected, then Liss-Bot will create a separate PR to propose the fixes
+**Dependency Update Summary** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/dependency-updates-summary.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/dependency-updates-summary.yml) | After a PR is submitted, if any of the dependencies are modified, then Liss-Bot will add a comment, explaining which packages have been added, removed, updated or downgraded, as well as other helpful info
+**Get Size** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/get-size.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/get-size.yml) | Adds comment to PR if the size of the built + bundled application has changed compared to the previous version
+**Security Scan** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/security-scanning.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/security-scanning.yml) | Uses Snyk to scan the code and dependencies after a PR. Will add a comment and cause the build to fail if a new vulnerability or potential issue is present
+
+### Releases
+
+Action | Description
+--- | ---
+**Create Tag** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/auto-tag-pr.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/auto-tag-pr.yml) | Whenever the version indicated in package.json is updates, a new GitHub tag will be created for that point in time
+**Build App** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/build-app.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/build-app.yml) | After changes are merged into the master branch, the app will be build, with output pushed to the `dev-demo` branch
+**Cache Artifacts** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/cache-artifacts.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/cache-artifacts.yml) | After build, returned files will be cached for future actions for that commit
+**Docker Publish** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/docker-publish.yml) | After PR is merged, the multi-architecture Docker container will be built, and then published to GHCR
+
+### Issue Management
+
+Action | Description
+--- | ---
+**Close Incomplete Issues** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/close-incomplete-issues.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/close-incomplete-issues.yml) | Issues which do not match any of the issue templates will be closed, and a comment posted explaining why
+**Close Stale Issues** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/close-stale-issues.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/close-stale-issues.yml) | Issues which have not been updated for 6 weeks will have a comment posted to them. If the author does not reply within the next week, then the issue will be marked as stale and closed. The original author may still reopen the issue at any time
+**Close Potential Spam Issues** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/issue-spam-control.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/issue-spam-control.yml) | Auto-closes issues, and adds a comment if it was submitted by a user who hasn't yet interacted with the repo, is new to GitHub and has not starred the repository. The comment will advise them to check their issue is complete, and then allow them to reopen it
+**Issue Translator** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/issue-translator.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/issue-translator.yml) | Auto-translates any comments and issues that were written in any language other than English, and posts the translation as a comment below
+**Label Sponsors** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/label-sponsors.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/label-sponsors.yml) | Adds a special label to any issues or pull requests raised by users who are sponsoring the project via GitHub, so that they can get priority support
+**LGTM Comment**<br/>[![Add Random LGTM GIF](https://github.com/Lissy93/dashy/actions/workflows/lgtm-comment.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/lgtm-comment.yml) | When a PR review contains the words LGTM (looks good to me), the Liss-Bot will reply with a random celebratory or thumbs up GIF, just as a bit of fun
+**Mind your Language** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/mind-your-language.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/mind-your-language.yml) | Replies to any comment (on issue or PR) that contains profanities, offensive or inappropriate language with a polite note reminding the user of the code of conduct
+**Release Notifier** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/release-commenter.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/release-commenter.yml) | Once a release has been published which fixes an issue, a comment will be added to the relevant issues informing the user who raised it that it was fixed in the current release
+**Update Issue after Merge** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/update-issue-after-pr.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/update-issue-after-pr.yml) | After a PR which fixes an issue is merged, Liss-Bot will add a comment to said issue based on the git commit message
+**Auto Add Comment Based on Tag** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/add-comment-from-tag.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/add-comment-from-tag.yml) | Will add comment with useful info to certain issues, based on the tag applied
+
+### PR Management
+
+Action | Description
+--- | ---
+**PR Commenter** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/pr-commenter.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/pr-commenter.yml) | Adds comment with helpful info to pull requests, based on which files have been changes
+**Issue from Todo Code** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/raise-issue-from-todo.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/raise-issue-from-todo.yml) | When a `todo` note is found in the code after a PR, then Liss-Bot will automatically raise an issue, so that the todo can be addressed/ implemented. The issue will be closed once the todo has been implemented or removed
+
+### Documentation & Reports
+
+Action | Description
+--- | ---
+**Generate Credits** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/generate-credits.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/generate-credits.yml) | Generates a report, including contributors, collaborators, sponsors, bots and helpful users. Will then insert a markdown table with thanks to these GitHub users and links to their profiles into the Credits page, as well as a summary of sponsors and top contributors into the main readme
+**Generate Issue Summary** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/generate-issue-summary.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/generate-issue-summary.yml) | Creates a markdown report of opened and closed linked-issues, sorted by category
+**Wiki Sync** <br/>[![Workflow Status](https://github.com/Lissy93/dashy/actions/workflows/wiki-sync.yml/badge.svg)](https://github.com/Lissy93/dashy/actions/workflows/wiki-sync.yml) | Generates and publishes the repositories wiki page using the markdown files within the docs directory
+
+---
+
 ## Notes
 
 ### Known Warnings
