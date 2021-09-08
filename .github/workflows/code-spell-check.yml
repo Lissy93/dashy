@@ -1,0 +1,23 @@
+# Finds typos in the English language file, and submits a PR with fixes
+name: Auto-Fix Spelling
+on:
+  - push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: sobolevn/misspell-fixer-action@master
+      # with:
+        # options: '-rsvn src/assets/locales/en.json'
+    - uses: peter-evans/create-pull-request@v2.4.4
+      with:
+        token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        commit-message: ':pencil2: Auto-fix typos in translations file'
+        title: '[AUTO] Fix spelling in language file'
+				branch: AUTO/spelling-corrections
+				committer: Alicia Bot <alicia-gh-bot@mail.as93.net>
+				author: Liss-Bot
+				delete-branch: true
+				assignees: Lissy93
+				reviewers: Lissy93
