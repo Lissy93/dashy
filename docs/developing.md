@@ -219,6 +219,7 @@ Styleguides:
 ├── components                    # All front-end Vue web components
 │  ├── Configuration              # Components relating to the user config pop-up
 │  │  ├── AppInfoModal.vue        # A modal showing core app info, like version, language, etc
+│  │  ├── AppVersion.vue          # Shows current version from package.json, compares with GitHub
 │  │  ├── CloudBackupRestore.vue  # Form where the user manages cloud sync options
 │  │  ├── ConfigContainer.vue     # Main container, wrapping all other config components
 │  │  ├── CustomCss.vue           # Form where the user can input custom CSS
@@ -237,14 +238,24 @@ Styleguides:
 │  │  ├── ItemIcon.vue            # The icon used by both items and sections
 │  │  ├── ItemOpenMethodIcon.vue  # A small icon, visible on hover, indicating opening method 
 │  │  ╰── StatusIndicator.vue     # Traffic light dot, showing if app is online or down
+│  ├── Minimal View               # Components used for the startpage / minimal alternative view
+│  │  ├── MinimalHeading.vue      # Title part of minimal view
+│  │  ├── MinimalSearch.vue       # Search bar for minimal view
+│  │  ╰── MinimalSection.vue      # Tabbed-Item section for minimal view
 │  ├── PageStrcture               # Components relating the main structure of the page
 │  │  ├── Footer.vue              # Footer, visible at the bottom of all pages
 │  │  ├── Header.vue              # Header, visible at the top of pages, and includes title and nav
 │  │  ├── LoadingScreen.vue       # Splash screen shown on first load
 │  │  ├── Nav.vue                 # Navigation bar, includes a list of links
 │  │  ╰── PageTitle.vue           # Page title and sub-title, visible within the Header
+│  ├── Workspace                  # Components used for the multi-tasking/ Workspace view
+│  │  ├── MultiTaskingWeb.vue     # When multi-tasking enabled, generates new iframe
+│  │  ├── SideBar.vue             # The left sidebar for the workspace view
+│  │  ├── SideBarItem.vue         # App item for the sidebar view
+│  │  ├── SideBarSection.vue      # Collapsible collection of items within workspace sidebar
+│  │  ╰── WebContent.vue          # Workspace iframe view, displays content of current app
 │  ╰── Settings                   # Components relating to the quick-settings, in the top-right
-│     ├── AuthButtons.vue          # Logout button and other app info
+│     ├── AuthButtons.vue         # Logout button and other app info
 │     ├── ConfigLauncher.vue      # Icon that when clicked will launch the Configuration component
 │     ├── CustomThemeMaker.vue    # Color pickers for letting user build their own theme
 │     ├── ItemSizeSelector.vue    # Set of buttons used to set and save item size
@@ -261,14 +272,21 @@ Styleguides:
 ├── utils                         # Directory of re-used helper functions
 │  ├── ArrowKeyNavigation.js      # Functionality for arrow-key navigation
 │  ├── Auth.js                    # Handles all authentication related actions
+│  ├── CheckSectionVisibility.js  # Checks which parts of the page should be visible/ hidden based on config
 │  ├── ClickOutside.js            # A directive for detecting click, used to hide dropdown, modal or context menu
-│  ├── ConfigAccumulator.js       # Central place for managing and combining config
 │  ├── ConfigHelpers.js           # Helper functions for managing configuration
 │  ├── CloudBackup.js             # Functionality for encrypting, processing and network calls
 │  ├── ConfigSchema.json          # The schema, used to validate the users conf.yml file
+│  ├── ConfigAccumulator.js       # Central place for managing and combining config
+│  ├── ConfigHelpers.json         # Collection of helper functions to process config using accumulator
 │  ├── ConfigValidator.js         # A helper script that validates the config file against schema
+│  ├── CoolConsole.js             # Prints info, warning and error messages to browser console, with a cool style
 │  ├── defaults.js                # Global constants and their default values
+│  ├── emojis.json                # List of emojis with unicode and shortcode, used for emoji icon feature
+│  ├── EmojiUnicodeRegex.js       # Regular expression to validate emoji unicode format, for emoji icons
 │  ├── ErrorHandler.js            # Helper function called when an error is returned
+│  ├── InitServiceWorker.js       # Initializes and manages service worker, if enabled
+│  ├── Search.js                  # Helper functions for searching/ filtering items in all views
 │  ├── JsonToYaml.js              # Function that parses and converts raw JSON into valid YAML
 │  ├── languages.js               # Handles fetching, switching and validating languages
 │  ╰── ThemeHelper.js             # Function that handles the fetching and setting of user themes
@@ -279,24 +297,6 @@ Styleguides:
    ├── Minimal.vue                # The minimal view
    ╰── Workspace.vue              # The workspace view with apps in sidebar
 ```
-
-### Frontend Components
-
-All frontend code is located in the `./src` directory, which is split into 5 sub-folders:
-- **Components** - All frontend web components are located here. Each component should have a distinct, well defined and simple task, and ideally should not be too long. The components directory is organised into a series of sub-directories, representing a specific area of the application
-  - **PageStrcture** - Components relating to overall page structure (nav, footer, etc)
-  - FormElements - Reusable form elements (button, input field, etc)
-  - LinkItems - Components relating to Dashy's sections and items (item group, item, item icon, etc)
-  - Configuration - Components relating to Dashy's configuration forms (cloud backup, JSON editor, etc)
-- **Views** - Each view directly corresponds to a route (defined in the router), and in effectively a page. They should have minimal logic, and just contain a few components
-- **Utils** - These are helper functions, or logic that is used within the app does not include an UI elements
-- **Styles** - Any SCSS that is used globally throughout that app, and is not specific to a single component goes here. This includes variables, color themes, typography settings, CSS reset and media queries
-- **Assets** - Static assets that need to be bundled into the application, but do not require any manipulation go here. This includes interface icons and fonts
-
-The structure of the components directory is similar to that of the frontend application layout
-
-<p align="center"><img src="https://i.ibb.co/wJCt0Lq/dashy-page-structure.png" width="600"/></p>
-
 
 ---
 
