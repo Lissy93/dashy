@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/conf.yml"
   },
   {
-    "revision": "ef3d72e7918571d82878",
+    "revision": "21c1a712cb0dcc978adb",
     "url": "/css/about.a64c098d.css"
   },
   {
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/css/chunk-vendors.d8067ad8.css"
   },
   {
-    "revision": "5ba0c4b2695763d8ef06",
+    "revision": "85e23c02e91b01f2d583",
     "url": "/css/dashy.b5245866.css"
   },
   {
@@ -72,7 +72,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/VT323-Regular.ttf"
   },
   {
-    "revision": "3581f9282b74acfed1096cbdf16669a8",
+    "revision": "14ff57ef6237b8019047cb9cba7e39c0",
     "url": "/index.html"
   },
   {
@@ -80,16 +80,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/item-icons/.gitignore"
   },
   {
-    "revision": "ef3d72e7918571d82878",
-    "url": "/js/about.0f48ceab.js"
+    "revision": "21c1a712cb0dcc978adb",
+    "url": "/js/about.6446cd7f.js"
   },
   {
     "revision": "d14fdfcc7a5bda69d4a9",
     "url": "/js/chunk-vendors.484922b6.js"
   },
   {
-    "revision": "5ba0c4b2695763d8ef06",
-    "url": "/js/dashy.3ab1b05f.js"
+    "revision": "85e23c02e91b01f2d583",
+    "url": "/js/dashy.91439846.js"
   },
   {
     "revision": "e3bf86400a2b80531902e65f51d52be0",
