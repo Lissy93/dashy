@@ -11,7 +11,6 @@ jobs:
     - uses: actions/checkout@v2
     - uses: butlerlogic/action-autotag@stable
       with:
-				tag_prefix: v
-				strategy: package
-        GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
-				commit_message_template: "🔖 {{number}} {{message}} (by {{author}})\nSHA: {{sha}}\n."
+        GITHUB_TOKEN: '${{ secrets.BOT_GITHUB_TOKEN }}'
+        strategy: package
+        commit_message_template: "🔖 {{number}} {{message}} (by {{author}})\nSHA: {{sha}}\n."
