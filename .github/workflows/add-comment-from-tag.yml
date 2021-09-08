@@ -1,0 +1,27 @@
+# Based on a label applied to an issue, the bot will add a comment with some additional info
+name: Post Status from Label
+on:
+  issues:
+    types:
+      - labeled
+      - unlabeled
+  pull_request_target:
+    types:
+      - labeled
+      - unlabeled
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  comment:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+				uses: actions/checkout@v2
+      - name: Label Commenter
+        uses: peaceiris/actions-label-commenter@v1
+				with:
+    			github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+					config_file: ./path_to/your_config.yml

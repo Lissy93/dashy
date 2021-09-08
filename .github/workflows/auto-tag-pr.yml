@@ -1,0 +1,17 @@
+# Creates a new tag, whenever the app version (in package.json) is updated in master
+name: Create Tag
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: butlerlogic/action-autotag@stable
+      with:
+				tag_prefix: v
+				strategy: package
+        GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+				commit_message_template: "🔖 {{number}} {{message}} (by {{author}})\nSHA: {{sha}}\n."
