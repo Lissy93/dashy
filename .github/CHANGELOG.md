@@ -1,5 +1,12 @@
 # Changelog
 
+## 👷 1.7.3 - CI with GH Actions [PR #212](https://github.com/Lissy93/dashy/pull/212)
+- Adds a series of GH actions for repository maintenance and administration
+- Auto-labels PR and issues, adds helpful info to PRs based on files changed
+- Lints, tests, builds and deploys the app when PR submitted
+- Checks app size, dependencies, security, accessibility etc when PR submitted
+- Closes incomplete, stale or spammy issues and leaves a comment
+
 ## ✨ 1.7.2 - Item Sort Options [PR #203](https://github.com/Lissy93/dashy/pull/203)
 - Adds option for user to specify `sortBy` to order items within a section
 - Can sort by last clicked, most used, alphabetically and more

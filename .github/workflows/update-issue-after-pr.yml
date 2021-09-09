@@ -1,0 +1,11 @@
+# After a PR is merged, the linked issue will be updated with a comment, based on commit message
+name: Update Issue After PR
+on: push
+jobs:
+  checkCommit:
+    name: Comment From Commit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: adamzolyak/commit-issue-commenter-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}

@@ -9,3 +9,5 @@ jobs:
         with:
           github-token: ${{ secrets.BOT_GITHUB_TOKEN }}
           config-file: .github/pr-auto-comments.yml
+          template-variables: |
+            { "prAuthor": "${{ github.event.pull_request.user.login }}" }

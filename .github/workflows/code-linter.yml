@@ -1,7 +1,6 @@
 # Lints code merged into master branch
 name: Lint Code Base
 on:
-  push:
   pull_request:
     branches: [master]
 jobs:

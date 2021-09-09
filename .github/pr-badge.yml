@@ -1,22 +1,33 @@
-# Config file for pull-request-badge. Enables badges to be assigned to certain PRs.
+# Config file for pull-request-badge. See: https://pullrequestbadge.com/
+# Enables badges to be inserted into the PR description, based on certain conditions
 
 # Checks if the required sections are missing
-- label: "Missing"
+- label: "⚠️Missing"
   message: "Category"
   color: "#f25265"
   when: "$payload.pull_request.body.includes('Category') === false"
-- label: "Missing"
+- label: "⚠️Missing"
   message: "Overview"
   color: "#f25265"
   when: "$payload.pull_request.body.includes('Overview') === false"
-- label: "Missing"
+- label: "⚠️Missing"
   message: "Quality Checklist"
   color: "#f25265"
   when: "$payload.pull_request.body.includes('Code Quality Checklist') === false"
-- label: "Description"
-  when: "$payload.pull_request.body.length < 25"
+- label: "⚠️Description"
   message: "Incomplete"
   color: "#f25265"
+  when: "$payload.pull_request.body.length < 25"
+- label: "⚠️Missing"
+  message: "Label"
+  color: "#f25265"
+  when: "$labels.length == 0"
+
+# Show note when in draft mode
+- label: "Status"
+  message: "Draft"
+  when: "$isDraft"
+  color: "#ffa933"
 
 # Add size label based on very large or tiny PRs
 - label: "PR Size"
@@ -32,14 +43,50 @@
 - label: "#$prNumber"
   message: "$payload.pull_request.user.login /$payload.pull_request.head.ref → $payload.repository.full_name"
   color: "#ab5afc"
+  url: "https://github.com/$slug/tree/$branchName"
 
 # Show total code added minus deleted
 - label: "New Code"
   message: "Commits: $payload.pull_request.commits | Files Changed: $payload.pull_request.changed_files | Additions: $payload.pull_request.additions-$payload.pull_request.deletions"
   color: "#dddd00"
   
-# Show submitting user's username
-- label: Submitted by
+# Show submitting user's username and profile link
+- label: 💕 Submitted by
   message: "$payload.pull_request.user.login"
-  color: "#fc7bf1"
+  color: "#f73ae6"
   when: "$payload.pull_request.author_association !== 'OWNER'"
+  url: "https://github.com/$payload.pull_request.user.login"
+
+# Show a badge indicating the PR category
+- label: "Type"
+  message: "✨ Feature"
+  color: "#39b0fd"
+  when: "$labels.includes('✨ New Feature')"
+- label: "Type"
+  message: "🐛 Fix"
+  color: "#39b0fd"
+  when: "$labels.includes('🦋 Bug Fix')"
+- label: "Type"
+  message: "📕 Docs"
+  color: "#39b0fd"
+  when: "$labels.includes('📕 Docs')"
+- label: "Type"
+  message: "🛠️ Build Changes"
+  color: "#39b0fd"
+  when: "$labels.includes('🛠️ Build Changes')"
+- label: "Type"
+  message: "🛠️ Build Changes"
+  color: "#39b0fd"
+  when: "$labels.includes('🛠️ Build Changes')"
+- label: "Type"
+  message: "🚚 Refactor"
+  color: "#39b0fd"
+  when: "$labels.includes('🚚 Refactor')"
+- label: "Type"
+  message: "💄 Stylistic Changes"
+  color: "#39b0fd"
+  when: "$labels.includes('💄 Stylistic Changes')"
+- label: "Type"
+  message: "🌟 Showcase Addition"
+  color: "#39b0fd"
+  when: "$labels.includes('💯 Showcase')"

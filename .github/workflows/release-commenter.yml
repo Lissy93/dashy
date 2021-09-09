@@ -1,4 +1,5 @@
 # Adds a comment to all issues & PRs that were fixed on a new release
+name: Release Issue Commenter
 on:
   release:
     types: [published]

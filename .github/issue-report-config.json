@@ -1,0 +1,24 @@
+[
+  {
+    "section": "Feature Requests",
+    "labels": [
+      "🦄 Feature Request"
+    ],
+    "threshold": 100
+  },
+  {
+    "section": "Bugs",
+    "labels": [
+      "🐛 Bug"
+    ],
+    "threshold": 100
+  },
+  {
+    "section": "Questions & Feedback",
+    "labels": [
+      "🤷‍♂️ Question",
+      "🌈 Feedback"
+    ],
+    "threshold": 100
+  }
+]

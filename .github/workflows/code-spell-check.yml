@@ -1,0 +1,25 @@
+# Finds typos in the English language within the app, submits a PR with fixes
+name: Auto-Fix Spelling
+on:
+  - push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      if: startsWith(github.head_ref, 'AUTO/') == false
+      uses: actions/checkout@v2
+    - name: Spell Check
+      if: startsWith(github.head_ref, 'AUTO/') == false
+      uses: sobolevn/misspell-fixer-action@master
+    - name: Create PR
+      uses: peter-evans/create-pull-request@v3.10.1
+      if: startsWith(github.head_ref, 'AUTO/') == false
+      with:
+        token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        commit-message: ':pencil2: Auto-fix typos in text'
+        title: '[AUTO] Fix spelling and language'
+        branch: 'AUTO/spelling-corrections'
+        committer: 'Liss-Bot <alicia-gh-bot@mail.as93.net>'
+        assignees: Lissy93
+        reviewers: Lissy93
