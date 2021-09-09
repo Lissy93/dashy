@@ -14,8 +14,7 @@ jobs:
         commit-message: ':pencil2: Auto-fix typos in translations file'
         title: '[AUTO] Fix spelling in language file'
         branch: 'AUTO/spelling-corrections'
-        committer: 'Alicia Bot <alicia-gh-bot@mail.as93.net>'
-        author: Liss-Bot
+        committer: 'Liss-Bot <alicia-gh-bot@mail.as93.net>'
         delete-branch: true
         assignees: Lissy93
         reviewers: Lissy93
