@@ -1,7 +1,11 @@
 # Finds typos in the English language within the app, submits a PR with fixes
 name: Auto-Fix Spelling
 on:
-  - push
+  push:
+    branches: [ master ]
+  pull_request:
+    types: [opened]
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,6 +21,7 @@ jobs:
       if: startsWith(github.head_ref, 'AUTO/') == false
       with:
         token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        base: master
         commit-message: ':pencil2: Auto-fix typos in text'
         title: '[AUTO] Fix spelling and language'
         branch: 'AUTO/spelling-corrections'
