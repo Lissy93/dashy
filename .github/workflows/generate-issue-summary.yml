@@ -1,0 +1,37 @@
+# An action to generate summary of current and past issues in Md form, for east searching
+name: Generate Issues Summary
+on:
+  workflow_dispatch: # Manual dispatch
+  schedule:
+    - cron: '0 1 * * 0' # At 01:00 on Sunday.
+env:
+  OUTPUT_FILE_NAME: .github/ISSUE_REPORT.md
+  COMMITTER_EMAIL: liss-bot@d0h.co
+  COMMITTER_NAME: Alicia Bot
+  COMMITTER_USERNAME: liss-bot
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: brcrista/summarize-issues@v3
+      with:
+        title: 'Dashy Historical Issue Report'
+        configPath: '.github/issue-report-config.json'
+        outputPath: ${{ env.OUTPUT_FILE_NAME }}
+        token: ${{ secrets.BOT_GITHUB_TOKEN }}
+
+    - name: "Commit if any changes were made"
+      run: |
+        git remote add github "https://$COMMITTER_USERNAME:${{ secrets.BOT_GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
+        git pull github ${GITHUB_REF} --ff-only
+        if [[ `git status --porcelain` ]]; then
+          git add ${OUTPUT_FILE_NAME}
+          git config --global user.email $COMMITTER_EMAIL
+          git config --global user.name $COMMITTER_NAME
+          git commit -m "Update $OUTPUT_FILE_NAME"
+          git push github HEAD:${GITHUB_REF}
+        fi
