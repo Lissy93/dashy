@@ -15,9 +15,9 @@ jobs:
         token: ${{ secrets.BOT_GITHUB_TOKEN }}
         commit-message: ':pencil2: Auto-fix typos in translations file'
         title: '[AUTO] Fix spelling in language file'
-				branch: AUTO/spelling-corrections
-				committer: Alicia Bot <alicia-gh-bot@mail.as93.net>
-				author: Liss-Bot
-				delete-branch: true
-				assignees: Lissy93
-				reviewers: Lissy93
+        branch: AUTO/spelling-corrections
+        committer: Alicia Bot <alicia-gh-bot@mail.as93.net>
+        author: Liss-Bot
+        delete-branch: true
+        assignees: Lissy93
+        reviewers: Lissy93
