@@ -10,17 +10,17 @@
   <a href="https://github.com/awesome-selfhosted/awesome-selfhosted#personal-dashboards">
     <img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome Self-Hosted">
   </a>
-  <a href="https://hub.docker.com/r/lissy93/dashy">
-    <img src="https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&amp;style=flat-square" alt="Docker Pulls">
-  </a>
-  <a href="http://as93.link/dashy-build-status">
-    <img src="https://flat.badgen.net/github/status/lissy93/dashy?icon=github" alt="GitHub Status">
-  </a>
   <a href="https://github.com/Lissy93/dashy/blob/master/LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-09be48?style=flat-square&amp;logo=opensourceinitiative" alt="License MIT">
+    <img src="https://img.shields.io/badge/License-MIT-0aa8d2?logo=opensourceinitiative&logoColor=fff" alt="License MIT">
   </a>
   <a href="https://github.com/Lissy93/dashy/blob/master/.github/CHANGELOG.md">
-    <img src="https://img.shields.io/github/package-json/v/lissy93/dashy?style=flat-square&amp;logo=azurepipelines&amp;color=00af87" alt="Current Version">
+    <img src="https://img.shields.io/github/package-json/v/lissy93/dashy?logo=azurepipelines&amp;color=0aa8d2" alt="Current Version">
+  </a>
+  <a href="https://hub.docker.com/r/lissy93/dashy">
+    <img src="https://img.shields.io/docker/pulls/lissy93/dashy?logo=docker&color=0aa8d2&logoColor=fff" alt="Docker Pulls">
+  </a>
+  <a href="http://as93.link/dashy-build-status">
+   <img src="https://badgen.net/github/status/lissy93/dashy?icon=github" alt="GitHub Status">
   </a>
   <a href="https://snyk.io/test/github/lissy93/dashy">
     <img src="https://snyk.io/test/github/lissy93/dashy/badge.svg" alt="Known Vulnerabilities">
@@ -474,7 +474,7 @@ Found a bug, or something that isn't working as you'd expect? Please raise it as
 - [Submit a Feature Request 🦄](https://github.com/Lissy93/dashy/issues/new?template=feature-request.yml)
 - [Share Feedback 🌈](https://github.com/Lissy93/dashy/issues/new?assignees=&labels=%F0%9F%8C%88+Feedback&template=share-feedback.md&title=%5BFEEDBACK%5D)
 
-**Issue Status** [![Resolution Time](http://isitmaintained.com/badge/resolution/lissy93/dashy.svg)  ![Open Issues](http://isitmaintained.com/badge/open/lissy93/dashy.svg) ![Closed Issues](https://badgen.net/github/closed-issues/lissy93/dashy)](https://isitmaintained.com/project/lissy93/dashy) [![GitHub Discussions](https://img.shields.io/github/discussions/lissy93/dashy)
+**Issue Status** [![Resolution Time](http://isitmaintained.com/badge/resolution/lissy93/dashy.svg)](https://isitmaintained.com/project/lissy93/dashy)  [![Open Issues](http://isitmaintained.com/badge/open/lissy93/dashy.svg)](https://github.com/Lissy93/dashy/issues) [![Closed Issues](https://badgen.net/github/closed-issues/lissy93/dashy)](https://github.com/Lissy93/dashy/issues?q=is%3Aissue+is%3Aclosed) [![GitHub Discussions](https://img.shields.io/github/discussions/lissy93/dashy)
 ](https://github.com/Lissy93/dashy/discussions)
 
 **[⬆️ Back to Top](#dashy)**

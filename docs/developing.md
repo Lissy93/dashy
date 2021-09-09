@@ -14,9 +14,9 @@ If you're adding new features, you may want to check out the [Development Guides
   - [Branches](#git-branch-naming)
   - [Commit emojis](#commit-emojis)
   - [PR Guidelines](#pr-guidelines)
-- [PR Guidelines](#pr-guidelines)
 - [Resources for Beginners](#resources-for-beginners)
-- [Style Guide](#style-guide)
+- [App Info](#app-info)
+- [Code Style Guide](#style-guide)
 - [Application Structure](#application-structure)
 - [Development Tools](#development-tools)
 - [Automated Workflows](#automated-workflows)
@@ -52,7 +52,7 @@ There is also:
 Using the Vue CLI:
 - The app is build with Vue, and uses the [Vue-CLI Service](https://cli.vuejs.org/guide/cli-service.html) for basic commands.
 - If you have [NPX](https://github.com/npm/npx) installed, then you can invoke the Vue CLI binary using `npx vue-cli-service [command]`
-- Vue also has a GUI environment that can be used for basic project management, and may be useful for beginners, this can be started by running `vue ui`, and opening up `http://localhost:8000`
+- Vue also has a GUI environment that can be used for basic project management, and may be useful for beginners, this can be started by running `npx vue ui`, and opening up `http://localhost:8000`
 
 Note:
 - If you are using NPM, replace `yarn` with `npm run`
@@ -61,27 +61,19 @@ Note:
 ### Environmental Variables
 All environmental variables are optional. Currently there are not many environmental variables used, as most of the user preferences are stored under `appConfig` in the `conf.yml` file.
 
-You can set variables within your local development environment using a `.env` file.
+You can set variables either in your environment, or using the [`.env`](https://github.com/Lissy93/dashy/blob/master/.env) file.
 
-Any environmental variables used by the frontend are preceded with `VUE_APP_`. Vue will merge the contents of your `.env` file into the app in a similar way to the ['dotenv'](https://github.com/motdotla/dotenv) package, where any variables that you set on your system will always take preference over the contents of any `.env` file.
-
-- `PORT` - The port in which the application will run (defaults to `4000` for the Node.js server, and `80` within the Docker container)
-- `NODE_ENV` - Which environment to use, either `production`, `development` or `test`
-- `VUE_APP_DOMAIN` - The URL where Dashy is going to be accessible from. This should include the protocol, hostname and (if not 80 or 443), then the port too, e.g. `https://localhost:3000`, `http://192.168.1.2:4002` or `https://dashy.mydomain.com`
-
-
-If you do add new variables, ensure that there is always a fallback (define it in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js)), so as to not cause breaking changes. Don't commit your `.env` file to git, but instead take a few moments to document what you've added under the appropriate section. Try and follow the concepts outlined in the [12 factor app](https://12factor.net/config).
-
+- `NODE_ENV` - Current environment, can be either development, production or test
+- `PORT` - The port to expose the running application on
+- `HOST` - The host that Dashy is running on, domain or IP
+- `BASE_URL` - The default base path for serving up static assets
+- `VUE_APP_DOMAIN` - Usually the same as BASE_URL, but accessible in frontend
+- `INTEGRITY` - Should enable SRI for build script and link resources
+- `IS_DOCKER` - Computed automatically on build. Indicates if running in container
+- `VUE_APP_VERSION` - Again, set automatically using package.json during build time
 
 ### Environment Modes
-You can set the environment using the `NODE_ENV` variable.
-The correct environment will be selected based on the script you run by default
-The following environments are supported.
-- `production`
-- `development`
-- `test`
-
-For more info, see [Vue CLI Environment Modes](https://cli.vuejs.org/guide/mode-and-env.html#modes).
+You can set the environment using the `NODE_ENV` variable. By default, the correct environment should be selected based on the script you run to start the app. The following environments are supported: `production`, `development` and `test`. For more info, see [Vue CLI Environment Modes](https://cli.vuejs.org/guide/mode-and-env.html#modes).
 
 ---
 
@@ -130,9 +122,7 @@ Using a single emoji at the start of each commit message, to indicate the type t
 
 For a full list of options, see [gitmoji.dev](https://gitmoji.dev/)
 
----
-
-## PR Guidelines
+### PR Guidelines
 Once you've made your changes, and pushed them to your fork or branch, you're ready to open a pull request!
 
 For a pull request to be merged, it must:
@@ -148,6 +138,7 @@ When you submit your PR, include the required info, by filling out the PR templa
 - Finally, check the checkboxes, to confirm that the standards are met, and hit submit!
 
 ---
+
 ## Resources for Beginners
 New to Web Development? Glad you're here! Dashy is a pretty simple app, so it should make a good candidate for your first PR. Presuming that you already have a basic knowledge of JavaScript, the following articles should point you in the right direction for getting up to speed with the technologies used in this project:
 - [Introduction to Vue.js](https://v3.vuejs.org/guide/introduction.html)
@@ -164,6 +155,8 @@ New to Web Development? Glad you're here! Dashy is a pretty simple app, so it sh
 As well as Node, Git and Docker- you'll also need an IDE (e.g. [VS Code](https://code.visualstudio.com/) or [Vim](https://www.vim.org/)) and a terminal (Windows users may find [WSL](https://docs.microsoft.com/en-us/windows/wsl/) more convenient). 
 
 ---
+
+## App Info
 
 ## Style Guide
 
@@ -187,8 +180,6 @@ Styleguides:
 ---
 
 ## Application Structure
-
-### Directory Structure
 
 #### Files in the Root: `./`
 ```
@@ -376,4 +367,3 @@ When running the build command, several warnings appear. These are not errors, a
 
 `WARN asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).` - For the PWA to support Windows 10, a splash screen asset is required, and is quite large. This throws a warning, however PWA assets are not loaded until needed, so shouldn't have any impact on application performance. A similar warning is thrown for the Raleway font, and that is looking to be addressed.
 
-`glob-parent Security Alert` - This will be fixed soon. The version of glob-parent that is used by the latest version of Vue-CLI has a security issue associated with it. I am waiting on Vue to update their dependencies.
