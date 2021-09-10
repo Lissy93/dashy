@@ -21,7 +21,7 @@
     "remember-me-week": "1 Semaine",
     "error-missing-username": "Nom d'utilisateur manquant",
     "error-missing-password": "Mot de passe manquant",
-    "error-incorrect-username": "Utilisateur inexistant",
+    "error-incorrect-username": "Utilisateur inexistent",
     "error-incorrect-password": "Mot de passe incorrect",
     "success-message": "Connexion ...",
     "logout-message": "Déconnexion",
