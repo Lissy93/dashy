@@ -290,10 +290,10 @@ div.code-container {
   display: flex;
   flex-direction: column;
   background: var(--config-settings-background);
-  height: calc(100% - 4rem);
+  height: calc(100% - 2rem);
   width: fit-content;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2rem 1rem 0;
   h2 {
     margin: 0 auto 1rem auto;
     color: var(--config-settings-color);
