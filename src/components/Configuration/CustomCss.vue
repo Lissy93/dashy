@@ -48,7 +48,7 @@ export default {
         const appConfig = { ...this.config.appConfig };
         appConfig.customCss = this.customCss;
         localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(appConfig));
-        msg = 'Changes saved succesfully';
+        msg = 'Changes saved successfully';
         this.inject(this.customCss);
         if (this.customCss === '') setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
       } else {

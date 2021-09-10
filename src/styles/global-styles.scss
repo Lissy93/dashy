@@ -22,7 +22,7 @@ html {
   }
 }
 
-/* Hide text, and show 'Loading...' while Vue is intializing tags */
+/* Hide text, and show 'Loading...' while Vue is initializing tags */
 [v-cloak] > * { display:none }
 [v-cloak]::before { content: "loading…" }
 
