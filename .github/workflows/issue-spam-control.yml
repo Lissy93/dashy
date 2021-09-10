@@ -6,7 +6,7 @@ on:
     types: [opened, reopened]
 jobs:
   check:
-    if: ${{ contains( github.event.issue.labels.*.name, 'keep-open') }}
+    if: ${{ ! contains( github.event.issue.labels.*.name, 'keep-open') }}
     runs-on: ubuntu-latest
     name: Close issue opened by non-stargazer
     steps:
