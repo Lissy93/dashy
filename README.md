@@ -418,7 +418,7 @@ All data is encrypted before being sent to the backend. In Dashy, this is done i
 ## Language Switching 🌎
 > For full internationalization documentation, see: [**Multi-Language Support**](./docs/multi-language-support.md)
 
-Dashy has the ability to support multiple languages and locales. When available, you're language should be automatically detected and applied on load, based on your browser or systems settings. But you can also select a language through the UI, under Config --> Switch Language, or set `appConfig.language` to your language (specified as a 2-digit [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)).
+Dashy supports multiple languages and locales. When available, you're language should be automatically detected and applied on load, based on your browser or systems settings. But you can also select a language through the UI (under Config --> Switch Language), or set `appConfig.language` to your language (specified as a 2-digit [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)).
 
 #### Supported Languages
 - 🇬🇧 **English**: `en` - _Default_
@@ -426,6 +426,7 @@ Dashy has the ability to support multiple languages and locales. When available,
 - 🇳🇱 **Dutch**: `nl` - Contributed by **[@evroon](https://github.com/evroon)**
 - 🇲🇫 **French**: `fr` - Contributed by **[@EVOTk](https://github.com/EVOTk)**
 - 🇩🇪 **German**: `de` - Contributed by **[@Niklashere](https://github.com/Niklashere)**
+- 🇪🇸 **Spanish**: `es` - Contributed by **[@lu4t](https://github.com/lu4t)**
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
 
 #### Add your Language
