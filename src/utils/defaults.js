@@ -185,6 +185,17 @@ module.exports = {
   },
   defaultSearchEngine: 'duckduckgo',
   defaultSearchOpeningMethod: 'newtab',
+  searchBangs: {
+    '/b': 'bbc',
+    '/d': 'duckduckgo',
+    '/g': 'google',
+    '/r': 'reddit',
+    '/w': 'wikipedia',
+    '/y': 'youtube',
+    '/gh': 'github',
+    '/so': 'stackoverflow',
+    '/wa': 'wolframalpha',
+  },
   /* Available built-in colors for the theme builder */
   swatches: [
     ['#eb5cad', '#985ceb', '#5346f3', '#5c90eb'],

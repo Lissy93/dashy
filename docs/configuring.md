@@ -141,6 +141,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`searchEngine`** | `string` | _Optional_ | Set the key name for your search engine. Can also use a custom engine by setting this property to `custom`. Currently supported: `duckduckgo`, `google`, `whoogle`, `qwant`, `startpage`, `searx-bar` and `searx-info`. Defaults to `duckduckgo`
 **`customSearchEngine`** | `string` | _Optional_ | You can also use a custom search engine, or your own self-hosted instance. This requires `searchEngine: custom` to be set. Then add the URL of your service, with GET query string included here
 **`openingMethod`** | `string` | _Optional_ | Set your preferred opening method for search results: `newtab`, `sametab`, `workspace`. Defaults to `newtab`
+**`searchBangs`** | `object` | _Optional_ | A key-value-pair set of custom search _bangs_ for redirecting query to a specific app or search engine. The key of each should be the bang you will type (typically starting with `/`, `!` or `:`), and value is the destination, either as a search engine key (e.g. `reddit`) or a URL with search parameters (e.g. `https://en.wikipedia.org/w/?search=`)
 
 
 **[⬆️ Back to Top](#configuring)**
