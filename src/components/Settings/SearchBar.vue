@@ -9,7 +9,7 @@
         :placeholder="$t('search.search-placeholder')"
         v-on:input="userIsTypingSomething"
         @keydown.esc="clearFilterInput" />
-        <p v-if="webSearchEnabled && input.length > 0" class="web-search-note">
+        <p v-if="(!searchPrefs.disableWebSearch) && input.length > 0" class="web-search-note">
           {{ $t('search.enter-to-search-web') }}
         </p>
       </div>
@@ -25,7 +25,13 @@ import router from '@/router';
 import ArrowKeyNavigation from '@/utils/ArrowKeyNavigation';
 import ErrorHandler from '@/utils/ErrorHandler';
 import { getCustomKeyShortcuts } from '@/utils/ConfigHelpers';
-import { searchEngineUrls, defaultSearchEngine, defaultSearchOpeningMethod } from '@/utils/defaults';
+import { getSearchEngineFromBang, findUrlForSearchEngine, stripBangs } from '@/utils/Search';
+import {
+  searchEngineUrls,
+  defaultSearchEngine,
+  defaultSearchOpeningMethod,
+  searchBangs as defaultSearchBangs,
+} from '@/utils/defaults';
 
 export default {
   name: 'FilterTile',
@@ -41,12 +47,8 @@ export default {
     };
   },
   computed: {
-    webSearchEnabled() {
-      const { appConfig } = this.config;
-      if (appConfig && appConfig.webSearch) {
-        return !appConfig.webSearch.disableWebSearch;
-      }
-      return true;
+    searchPrefs() {
+      return this.config.appConfig.webSearch || {};
     },
   },
   mounted() {
@@ -55,7 +57,7 @@ export default {
       const { key, keyCode } = event;
       /* If a modal is open, then do nothing */
       if (!this.active) return;
-      if (/^[a-zA-Z]$/.test(key) && currentElem !== 'filter-tiles') {
+      if (/^[/:!a-zA-Z]$/.test(key) && currentElem !== 'filter-tiles') {
         /* Letter key pressed - start searching */
         if (this.$refs.filter) this.$refs.filter.focus();
         this.userIsTypingSomething();
@@ -107,22 +109,24 @@ export default {
           window.open(url, '_blank');
       }
     },
+
+    /* Launch web search, to correct search engine, passing in users query */
     searchSubmitted() {
       // Get search preferences from appConfig
-      const { appConfig } = this.config;
-      const searchPrefs = appConfig.webSearch || {};
-      if (this.webSearchEnabled) { // Only proceed if user hasn't disabled web search
+      const { searchPrefs } = this;
+      if (!searchPrefs.disableWebSearch) { // Only proceed if user hasn't disabled web search
+        const bangList = { ...defaultSearchBangs, ...(searchPrefs.searchBangs || {}) };
         const openingMethod = searchPrefs.openingMethod || defaultSearchOpeningMethod;
-        // Get search engine, and make URL
+        const searchBang = getSearchEngineFromBang(this.input, bangList);
         const searchEngine = searchPrefs.searchEngine || defaultSearchEngine;
-        let searchUrl = searchEngineUrls[searchEngine];
-        if (!searchUrl) ErrorHandler(`Search engine not found - ${searchEngine}`);
-        if (searchEngine === 'custom' && searchPrefs.customSearchEngine) {
-          searchUrl = searchPrefs.customSearchEngine;
+        // Use either search bang, or preffered search engine
+        let searchUrl = searchBang || searchEngine;
+        searchUrl = findUrlForSearchEngine((searchBang || searchEngine), searchEngineUrls);
+        if (searchUrl) { // Append search query to URL, and launch
+          searchUrl += encodeURIComponent(stripBangs(this.input, bangList));
+          this.launchWebSearch(searchUrl, openingMethod);
+          this.clearFilterInput();
         }
-        // Append users encoded query onto search URL, and launch
-        searchUrl += encodeURIComponent(this.input);
-        this.launchWebSearch(searchUrl, openingMethod);
       }
     },
   },
