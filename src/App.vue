@@ -1,9 +1,9 @@
 <template>
   <div id="dashy">
-    <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash()" />
+    <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash" />
     <Header :pageInfo="pageInfo" />
     <router-view />
-    <Footer :text="getFooterText()" v-if="visibleComponents.footer" />
+    <Footer :text="footerText" v-if="visibleComponents.footer" />
   </div>
 </template>
 <script>
@@ -14,6 +14,7 @@ import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
 import { componentVisibility } from '@/utils/ConfigHelpers';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { welcomeMsg } from '@/utils/CoolConsole';
+import ErrorHandler from '@/utils/ErrorHandler';
 import {
   localStorageKeys,
   splashScreenTime,
@@ -45,53 +46,64 @@ export default {
       visibleComponents,
     };
   },
-  methods: {
+  computed: {
     /* If the user has specified custom text for footer - get it */
-    getFooterText() {
-      if (this.pageInfo && this.pageInfo.footerText) {
-        return this.pageInfo.footerText;
-      }
-      return '';
-    },
-    /* Injects the users custom CSS as a style tag */
-    injectCustomStyles(usersCss) {
-      const style = document.createElement('style');
-      style.textContent = usersCss;
-      document.head.append(style);
+    footerText() {
+      return this.pageInfo && this.pageInfo.footerText ? this.pageInfo.footerText : '';
     },
     /* Determine if splash screen should be shown */
     shouldShowSplash() {
       return (this.visibleComponents || defaultVisibleComponents).splashScreen
       || !localStorage[localStorageKeys.HIDE_WELCOME_BANNER];
     },
+  },
+  methods: {
+    /* Injects the users custom CSS as a style tag */
+    injectCustomStyles(usersCss) {
+      const style = document.createElement('style');
+      style.textContent = usersCss;
+      document.head.append(style);
+    },
     /* Hide splash screen, either after 2 seconds, or immediately based on user preference */
     hideSplash() {
-      if (this.shouldShowSplash()) {
+      if (this.shouldShowSplash) {
         setTimeout(() => { this.isLoading = false; }, splashScreenTime || 1500);
       } else {
         this.isLoading = false;
       }
     },
-    /* Checks local storage, then appConfig, and if a custom language is specified, its applied */
-    applyLanguage() {
-      let language = defaultLanguage; // Language to apply
-      const availibleLocales = this.$i18n.availableLocales; // All available locales
 
-      // If user has specified a language, locally or in config, then check and apply it
+    /* Auto-detects users language from browser/ os, when not specified */
+    autoDetectLanguage(availibleLocales) {
+      const isLangSupported = (languageList, userLang) => languageList
+        .map(lang => lang.toLowerCase()).find((lang) => lang === userLang.toLowerCase());
+
+      const usersBorwserLang1 = window.navigator.language || ''; // e.g. en-GB or or ''
+      const usersBorwserLang2 = usersBorwserLang1.split('-')[0]; // e.g. en or undefined
+      const usersSpairLangs = window.navigator.languages; // e.g [en, en-GB, en-US]
+      return isLangSupported(availibleLocales, usersBorwserLang1)
+        || isLangSupported(availibleLocales, usersBorwserLang2)
+        || usersSpairLangs.find((spair) => isLangSupported(availibleLocales, spair))
+        || defaultLanguage;
+    },
+
+    /* Get users language, if not available then call auto-detect */
+    getLanguage() {
+      const availibleLocales = this.$i18n.availableLocales; // All available locales
       const usersLang = localStorage[localStorageKeys.LANGUAGE] || this.appConfig.language;
-      if (usersLang && availibleLocales.includes(usersLang)) {
-        language = usersLang;
-      } else {
-        // Otherwise, attempt to apply language automatically, based on their system language
-        const usersBorwserLang1 = window.navigator.language || ''; // e.g. en-GB or or ''
-        const usersBorwserLang2 = usersBorwserLang1.split('-')[0]; // e.g. en or undefined
-        if (availibleLocales.includes(usersBorwserLang1)) {
-          language = usersBorwserLang1;
-        } else if (availibleLocales.includes(usersBorwserLang2)) {
-          language = usersBorwserLang2;
+      if (usersLang) {
+        if (availibleLocales.includes(usersLang)) {
+          return usersLang;
+        } else {
+          ErrorHandler(`Unsupported Language: '${usersLang}'`);
         }
       }
-      // Apply Language
+      return this.autoDetectLanguage(availibleLocales);
+    },
+
+    /* Fetch or detect users language, then apply it */
+    applyLanguage() {
+      const language = this.getLanguage();
       this.$i18n.locale = language;
       document.getElementsByTagName('html')[0].setAttribute('lang', language);
     },
