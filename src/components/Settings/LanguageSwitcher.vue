@@ -5,16 +5,18 @@
     <v-select
       v-model="language"
       :selectOnTab="true"
-      :options="availibleLanguages"
+      :options="languageList"
       class="language-dropdown"
-      label="name"
-      :input="setLangLocally()"
+      label="friendlyName"
+      :input="applyLanguageLocally()"
     />
     <Button class="save-button" :click="saveLanguage" :disallow="!language">
       {{ $t('language-switcher.save-button') }}
       <SaveConfigIcon />
     </Button>
-    <p v-if="language">{{ language.flag }} {{ language.name }}</p>
+    <p v-if="language" class="current-lang">
+      🌐 {{ language.flag }} {{ language.name }}
+    </p>
     <p v-if="$i18n.availableLocales.length <= 1" class="sad-times">
       There are not currently any additional languages supported,
       but stay tuned as more are on their way!
@@ -24,8 +26,9 @@
 
 <script>
 import Button from '@/components/FormElements/Button';
-import { languages } from '@/utils/languages';
 import SaveConfigIcon from '@/assets/interface-icons/save-config.svg';
+import ErrorHandler from '@/utils/ErrorHandler';
+import { languages } from '@/utils/languages';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
 
 export default {
@@ -37,37 +40,53 @@ export default {
   },
   data() {
     return {
-      availibleLanguages: languages,
-      language: '',
-      modalName: modalNames.LANG_SWITCHER,
+      language: this.getCurrentLanguage(), // The currently selected language
+      modalName: modalNames.LANG_SWITCHER, // Key for modal
     };
   },
+  computed: {
+    /* Return the array of language objects, plus a friends name */
+    languageList: () => languages.map((lang) => {
+      const newLang = lang;
+      newLang.friendlyName = `${lang.flag} ${lang.name}`;
+      return newLang;
+    }),
+  },
   methods: {
-    /* Save language to local storage, show success msg and close modal */
-    saveLanguage() {
-      const selectedLanguage = this.language;
-      if (this.checkLocale(selectedLanguage)) {
-        localStorage.setItem(localStorageKeys.LANGUAGE, selectedLanguage.code);
-        this.setLangLocally();
-        const successMsg = `${selectedLanguage.flag} `
-          + `${this.$t('language-switcher.success-msg')} ${selectedLanguage.name}`;
-        this.$toasted.show(successMsg, { className: 'toast-success' });
-        this.$modal.hide(this.modalName);
-      } else {
-        this.$toasted.show('Unable to update language', { className: 'toast-error' });
-      }
-    },
-    /* Check language is supported, before saving */
+    /* Check if language is supported */
     checkLocale(selectedLanguage) {
       if (!selectedLanguage || !selectedLanguage.code) return false;
       const i18nLocales = this.$i18n.availableLocales;
       return i18nLocales.includes(selectedLanguage.code);
     },
     /* Apply language locally */
-    setLangLocally() {
+    applyLanguageLocally() {
       if (this.language && this.language.code) {
         this.$i18n.locale = this.language.code;
+      } else {
+        ErrorHandler('Error applying language, it\'s config may be missing of incomplete');
       }
+    },
+    /* Save language to local storage, show success msg and close modal */
+    saveLanguage() {
+      const selectedLanguage = this.language;
+      if (this.checkLocale(selectedLanguage)) {
+        localStorage.setItem(localStorageKeys.LANGUAGE, selectedLanguage.code);
+        this.applyLanguageLocally();
+        const successMsg = `${selectedLanguage.flag} `
+          + `${this.$t('language-switcher.success-msg')} ${selectedLanguage.name}`;
+        this.$toasted.show(successMsg, { className: 'toast-success' });
+        this.$modal.hide(this.modalName);
+      } else {
+        this.$toasted.show('Unable to update language', { className: 'toast-error' });
+        ErrorHandler('Unable to apply language');
+      }
+    },
+    /* Gets the users current language from local storage */
+    getCurrentLanguage() {
+      const getLanguageFromIso = (iso) => languages.find((lang) => lang.code === iso);
+      const current = localStorage[localStorageKeys.LANGUAGE] || this.config.appConfig.language;
+      return getLanguageFromIso(current);
     },
   },
 };
@@ -81,29 +100,43 @@ export default {
   padding: 1rem;
   background: var(--config-settings-background);
   color: var(--config-settings-color);
-
   h3.title {
     text-align: center;
   }
   p.intro {
     margin: 0;
   }
-
   button.save-button {
     margin: 0 auto;
     width: 100%;
   }
-
   p.sad-times {
     color: var(--warning);
     text-align: center;
   }
-
-  .language-dropdown {
+  p.current-lang {
+    color: var(--success);
+    opacity: var(--dimming-factor);
+    text-align: center;
+    position: absolute;
     margin: 1rem auto;
-    div.vs__dropdown-toggle {
-      padding: 0.2rem 0;
-    }
+    cursor: default;
+    width: 100%;
+    bottom: 0;
+  }
+}
+
+</style>
+
+<style lang="scss">
+
+.language-dropdown {
+  margin: 1rem auto;
+  div.vs__dropdown-toggle {
+    padding: 0.2rem 0;
+  }
+  div, input {
+    cursor: pointer;
   }
 }
 

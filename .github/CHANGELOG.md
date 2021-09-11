@@ -1,5 +1,9 @@
 # Changelog
 
+## 🎨 1.7.5 - Improved Language Detection & UI [PR #223](https://github.com/Lissy93/dashy/pull/223)
+- Makes the auto language detection algo smarter
+- Improves responsiveness for the language selector form
+
 ## 🌐 1.7.4 - Adds Spanish Translations [PR #222](https://github.com/Lissy93/dashy/pull/222)
 - Adds Spanish language file, contributed by @lu4t
 
