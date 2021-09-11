@@ -260,6 +260,11 @@
               ],
               "default": "newtab",
               "description": "Set where you would like search results to open to"
+            },
+            "searchBangs": {
+              "type": "object",
+              "additionalProperties": true,
+              "description": "A KV-pair of custom search bangs. The key should be the shortcut to type, and the value is the search engine, specified either by key or full URL"
             }
           }
         },
