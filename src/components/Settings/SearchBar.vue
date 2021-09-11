@@ -52,28 +52,34 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener('keydown', (event) => {
+    window.addEventListener('keydown', this.handleKeyPress);
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.handleKeyPress);
+  },
+  methods: {
+    /* Call correct function dependending on which key is pressed */
+    handleKeyPress(event) {
       const currentElem = document.activeElement.id;
       const { key, keyCode } = event;
-      /* If a modal is open, then do nothing */
+      const notAlreadySearching = currentElem !== 'filter-tiles';
+      // If a modal is open, then do nothing
       if (!this.active) return;
-      if (/^[/:!a-zA-Z]$/.test(key) && currentElem !== 'filter-tiles') {
-        /* Letter key pressed - start searching */
+      if (/^[/:!a-zA-Z]$/.test(key) && notAlreadySearching) {
+        // Letter or bang key pressed - start searching
         if (this.$refs.filter) this.$refs.filter.focus();
         this.userIsTypingSomething();
       } else if (/^[0-9]$/.test(key)) {
-        /* Number key pressed, check if user has a custom binding */
+        // Number key pressed, check if user has a custom binding
         this.handleHotKey(key);
       } else if (keyCode >= 37 && keyCode <= 40) {
-      /* Arrow key pressed - start navigation */
+      // Arrow key pressed - start navigation
         this.akn.arrowNavigation(keyCode);
       } else if (keyCode === 27) {
-      /* Esc key pressed - reset form */
+      // Esc key pressed - reset form
         this.clearFilterInput();
       }
-    });
-  },
-  methods: {
+    },
     /* Emmits users's search term up to parent */
     userIsTypingSomething() {
       this.$emit('user-is-searchin', this.input);
@@ -85,6 +91,7 @@ export default {
       document.activeElement.blur(); // Remove focus
       this.akn.resetIndex(); // Reset current element index
     },
+    /* If configured, launch specific app when hotkey pressed */
     handleHotKey(key) {
       const usersHotKeys = this.getCustomKeyShortcuts();
       usersHotKeys.forEach((hotkey) => {
@@ -93,6 +100,7 @@ export default {
         }
       });
     },
+    /* Launch search results, with users desired opening method */
     launchWebSearch(url, method) {
       switch (method) {
         case 'newtab':
@@ -120,8 +128,8 @@ export default {
         const searchBang = getSearchEngineFromBang(this.input, bangList);
         const searchEngine = searchPrefs.searchEngine || defaultSearchEngine;
         // Use either search bang, or preffered search engine
-        let searchUrl = searchBang || searchEngine;
-        searchUrl = findUrlForSearchEngine((searchBang || searchEngine), searchEngineUrls);
+        const desiredSearchEngine = searchBang || searchEngine;
+        let searchUrl = findUrlForSearchEngine(desiredSearchEngine, searchEngineUrls);
         if (searchUrl) { // Append search query to URL, and launch
           searchUrl += encodeURIComponent(stripBangs(this.input, bangList));
           this.launchWebSearch(searchUrl, openingMethod);
