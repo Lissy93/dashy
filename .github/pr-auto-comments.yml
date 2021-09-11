@@ -1,5 +1,5 @@
 comment:
-  on-update: edit
+  on-update: recreate
   header: |
     Hi {{ prAuthor }}! Thank you for contributing to Dashy! ✨
   footer: |
