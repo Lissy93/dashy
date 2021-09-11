@@ -46,7 +46,7 @@
 
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
-import SearchUtil from '@/utils/Search';
+import { searchTiles } from '@/utils/Search';
 import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 
 export default {
@@ -115,7 +115,7 @@ export default {
     },
     /* Returns only the tiles that match the users search query */
     filterTiles(allTiles, searchTerm) {
-      return SearchUtil(allTiles, searchTerm);
+      return searchTiles(allTiles, searchTerm);
     },
     /* Returns optional section display preferences if available */
     getDisplayData(section) {
