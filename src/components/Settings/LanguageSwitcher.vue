@@ -26,8 +26,9 @@
 
 <script>
 import Button from '@/components/FormElements/Button';
-import { languages } from '@/utils/languages';
 import SaveConfigIcon from '@/assets/interface-icons/save-config.svg';
+import ErrorHandler from '@/utils/ErrorHandler';
+import { languages } from '@/utils/languages';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
 
 export default {
@@ -62,6 +63,8 @@ export default {
     applyLanguageLocally() {
       if (this.language && this.language.code) {
         this.$i18n.locale = this.language.code;
+      } else {
+        ErrorHandler('Error applying language, it\'s config may be missing of incomplete');
       }
     },
     /* Save language to local storage, show success msg and close modal */
@@ -76,6 +79,7 @@ export default {
         this.$modal.hide(this.modalName);
       } else {
         this.$toasted.show('Unable to update language', { className: 'toast-error' });
+        ErrorHandler('Unable to apply language');
       }
     },
     /* Gets the users current language from local storage */
