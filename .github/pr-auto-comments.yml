@@ -6,14 +6,6 @@ comment:
     ---
     > I'm a bot, and this is an automated comment 🤖
   snippets:
-    - id: docs-changes
-      files: ['*.md', '**/*.md']
-      body: |
-        When making changes to the documentation, be sure to double check that:
-        - Link and images URLs properly resolve
-        - Your spelling and grammar is correct
-        - Any markdown formatting is valid 
-
     - id: vue-config
       files:
       - vue.config.js
@@ -90,6 +82,14 @@ comment:
       body: >
         Please do not commit dependencies to git. Node modules will be pulled down
         when yarn is run, prior to building the app
+    
+    - id: user-themes
+      files:
+      - src/styles/user-defined-themes.scss
+      body: >
+        Please do not commit changes to this file, as it is intended to be overridden with Docker.
+        You can instead add your styles to the color-themes file, or for element-specific styles
+        put it within the appropriate component. Thank you
 
     - id: code-owners
       files:
@@ -99,3 +99,28 @@ comment:
         as possible, and only assign yourself to files that you created and wish to help
         maintain (such as a language file, specific feature or widget).
         If the above is not met, your PR will be declined or modified.
+
+    - id: config-schema
+      files:
+      - src/utils/ConfigSchema.json
+      body: >
+        Don't forget to verify they the config validator script responds correctly to
+        your new attribute.
+
+    - id: showcase
+      files:
+      - docs/showcase.md
+      body: >
+        Thank you for adding your dashboard to the showcase! 🌟
+    
+    - id: translations
+      files:
+      - src/assets/locales/**.json
+      body: >
+        Thank you for contributing to Dashy's translations 💖
+    
+    - id: themes
+      files:
+      - src/styles/color-themes.scss
+      body: >
+        Thank you for contributing to Dashy's themes 🎨
