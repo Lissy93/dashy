@@ -1,6 +1,7 @@
 /* Dashy: Licensed under MIT, (C) Alicia Sykes 2021 <https://aliciasykes.com> */
 
 /* Tile filtering utility */
+import ErrorHandler from '@/utils/ErrorHandler';
 
 /**
  * Extracts the site name from domain
@@ -35,7 +36,7 @@ const filterHelper = (compareStr, searchStr) => {
  * @param {string} searchTerm The users search term
  * @returns A filtered array of tiles
  */
-const search = (allTiles, searchTerm) => {
+export const searchTiles = (allTiles, searchTerm) => {
   if (!allTiles) return []; // If no data, then skip
   return allTiles.filter((tile) => {
     const {
@@ -49,4 +50,30 @@ const search = (allTiles, searchTerm) => {
   });
 };
 
-export default search;
+/* From a list of search bangs, return the URL associated with it */
+export const getSearchEngineFromBang = (searchQuery, bangList) => {
+  const bangNames = Object.keys(bangList);
+  const foundBang = bangNames.find((bang) => searchQuery.includes(bang));
+  return bangList[foundBang];
+};
+
+/* For a given search engine key, return the corresponding URL, or throw error */
+export const findUrlForSearchEngine = (searchEngine, availableSearchEngines) => {
+  // If missing search engine, report error return false
+  if (!searchEngine) { ErrorHandler('No search engine specified'); return undefined; }
+  // If search engine is already a URL, then return it
+  if ((/(http|https):\/\/[^]*/).test(searchEngine)) return searchEngine;
+  // If search engine was found successfully, return the URL
+  if (availableSearchEngines[searchEngine]) return availableSearchEngines[searchEngine];
+  // Otherwise, there's been an error, log it and return false
+  ErrorHandler(`Specified Search Engine was not Found: '${searchEngine}'`);
+  return undefined;
+};
+
+/* Removes all known bangs from a search query */
+export const stripBangs = (searchQuery, bangList) => {
+  const bangNames = Object.keys(bangList || {});
+  let q = searchQuery;
+  bangNames.forEach((bang) => { q = q.replace(bang, ''); });
+  return q.trim();
+};
