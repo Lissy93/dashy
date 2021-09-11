@@ -2,6 +2,31 @@
 
 All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format.
 
+---
+
+#### Contents
+
+- [**`pageInfo`**](#pageinfo) - Header text, footer, title, navigation, etc
+	- [`navLinks`](#pageinfonavlinks-optional) - Navigation bar items and links
+- [**`appConfig`**](#appconfig-optional) - Main application settings
+	- [`webSearch`](#appconfigwebsearch-optional) - Configure web search engine options
+	- [`hideComponents`](#appconfighidecomponents-optional) - Show/ hide page components
+	- [`auth`](#appconfigauth-optional) - Built-in authentication setup
+	  - [`users`](#appconfigauthusers-optional) - Setup for simple auth
+	  - [`keycloak`](#appconfigauthkeycloak-optional) - Auth using Keycloak
+- [**`sections`**](#section) - List of sections
+	- [`displayData`](#sectiondisplaydata-optional) - Section display settings
+	- [`icon`](#sectionicon-and-sectionitemicon) - Icon for a section
+	- [`items`](#sectionitem) - List of items
+		- [`icon`](#sectionicon-and-sectionitemicon) - Icon for an item
+- [**Notes**](#notes)
+	- [About YAML](#about-yaml)
+	- [Config Saving Methods](#config-saving-methods)
+	- [Preventing Changes](#preventing-changes-being-written-to-disk)
+	- [Example](#example)
+
+---
+
 Tips:
 - You may find it helpful to look at some sample config files to get you started, a collection of which can be found [here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
 - You can check that your config file fits the schema, by running `yarn validate-config`
@@ -10,16 +35,7 @@ Tips:
 - The config can also be modified directly through the UI, validated and written to the conf.yml file.
 - All fields are optional, unless otherwise stated.
 
-### About YAML
-If you're new to YAML, it's pretty straight-forward. The format is exactly the same as that of JSON, but instead of using curly braces, structure is denoted using whitespace. This [quick guide](https://linuxhandbook.com/yaml-basics/) should get you up to speed in a few minutes, for more advanced topics take a look at this [Wikipedia article](https://en.wikipedia.org/wiki/YAML).
-
-### Config Saving Methods
-When updating the config through the JSON editor in the UI, you have two save options: **Local** or **Write to Disk**.
-- Changes saved locally will only be applied to the current user through the browser, and will not apply to other instances - you either need to use the cloud sync feature, or manually update the conf.yml file.
-- On the other-hand, if you choose to write changes to disk, then your main `conf.yml` file will be updated, and changes will be applied to all users, and visible across all devices. For this functionality to work, you must be running Dashy with using the Docker container, or the Node server.  A backup of your current configuration will also be saved in the same directory. 
-
-### Preventing Changes being Written to Disk
-To disallow any changes from being written to disk via the UI config editor, set `appConfig.allowConfigEdit: false`. If you are using users, and have setup `auth` within Dashy, then only users with `type: admin` will be able to write config changes to disk.
+---
 
 ### Top-Level Fields
 
@@ -178,7 +194,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
-**`sortBy`** | `string` | _Optional_ | The sort order for items within the current section. By default items are displayed in the order in which they are listed in within the config. The following sort options are supported: `most-used` (most opened apps first), `last-used` (the most recently used apps), `alphabetical`, `reverse-alphabetical` and `default`
+**`sortBy`** | `string` | _Optional_ | The sort order for items within the current section. By default items are displayed in the order in which they are listed in within the config. The following sort options are supported: `most-used` (most opened apps first), `last-used` (the most recently used apps), `alphabetical`, `reverse-alphabetical`, `random` and `default`
 **`collapsed`** | `boolean` | _Optional_ | If true, the section will  be collapsed initially, and will need to be clicked to open. Useful for less regularly used, or very long sections. Defaults to `false` 
 **`rows`** | `number` | _Optional_ | Height of the section, specified as the number of rows it should span vertically, e.g. `2`. Defaults to `1`. Max is `5`.
 **`cols`** | `number` | _Optional_ | Width of the section, specified as the number of columns the section should span horizontally, e.g. `2`. Defaults to `1`. Max is `5`.
@@ -201,6 +217,21 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`icon`** | `string` | _Optional_ | The icon for a given item or section. See [Icon Docs](/docs/icons.md) for all available supported icon types. To auto-fetch icon from a services URL, aet to `favicon`. To use font-awesome, specify the category, followed by the icon name, e.g. `fas fa-rocket`, `fab fa-monero` or `fal fa-duck`. Similarly, for branded icons, you can use [simple-icons](https://simpleicons.org/) by setting icon to `si-[icon-name]` or [material-design-icons](https://dev.materialdesignicons.com/icons) by setting icon to `mdi-[icon-name]`. If set to `generative`, then a unique icon is generated from the apps URL or IP. You can also use hosted any by specifying it's URL, e.g. `https://i.ibb.co/710B3Yc/space-invader-x256.png`. To use a local image, first store it in `./public/item-icons/` (or `-v /app/public/item-icons/` in Docker) , and reference it by name and extension - e.g. set `image.png` to use `./public/item-icon/image.png`, you can also use sub-folders if you have a lot of icons, to keep them organised.
 
 **[⬆️ Back to Top](#configuring)**
+
+---
+
+## Notes
+
+### About YAML
+If you're new to YAML, it's pretty straight-forward. The format is exactly the same as that of JSON, but instead of using curly braces, structure is denoted using whitespace. This [quick guide](https://linuxhandbook.com/yaml-basics/) should get you up to speed in a few minutes, for more advanced topics take a look at this [Wikipedia article](https://en.wikipedia.org/wiki/YAML).
+
+### Config Saving Methods
+When updating the config through the JSON editor in the UI, you have two save options: **Local** or **Write to Disk**.
+- Changes saved locally will only be applied to the current user through the browser, and will not apply to other instances - you either need to use the cloud sync feature, or manually update the conf.yml file.
+- On the other-hand, if you choose to write changes to disk, then your main `conf.yml` file will be updated, and changes will be applied to all users, and visible across all devices. For this functionality to work, you must be running Dashy with using the Docker container, or the Node server.  A backup of your current configuration will also be saved in the same directory. 
+
+### Preventing Changes being Written to Disk
+To disallow any changes from being written to disk via the UI config editor, set `appConfig.allowConfigEdit: false`. If you are using users, and have setup `auth` within Dashy, then only users with `type: admin` will be able to write config changes to disk.
 
 ### Example
 
