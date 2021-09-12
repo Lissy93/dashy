@@ -1,5 +1,11 @@
 # Changelog
 
+## ⚡️ 1.7.7 - Improved Error Handling [PR #226](https://github.com/Lissy93/dashy/pull/226)
+- Errors can be viewed via the UI (Config menu --> App Info)
+- Service workers should be disabled by default
+- Also renames actions to be easier to maintain
+- Updates docs to include release schedule + merge strategy
+
 ## ✨ 1.7.6 - Adds Multi-Search Support with Bangs [PR #224](https://github.com/Lissy93/dashy/pull/224)
 - Adds option for user to add custom search bangs, in order to specify search engine/ target app. Re: #206
 
