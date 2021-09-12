@@ -57,7 +57,7 @@ export default {
     makeText() {
       if (this.userType === userStateEnum.loggedIn) {
         const username = localStorage[localStorageKeys.USERNAME];
-        return this.$t('settings.sign-in-welcome', { username });
+        return username ? this.$t('settings.sign-in-welcome', { username }) : '';
       }
       if (this.userType === userStateEnum.guestAccess) {
         return this.$t('settings.sign-in-tooltip');
