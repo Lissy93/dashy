@@ -19,6 +19,7 @@ If you're adding new features, you may want to check out the [Development Guides
 - [Code Style Guide](#style-guide)
 - [Application Structure](#application-structure)
 - [Development Tools](#development-tools)
+- [Release Schedule](#release-schedule)
 - [Automated Workflows](#automated-workflows)
 - [Misc / Notes](#notes)
 
@@ -298,6 +299,12 @@ The easiest method of checking performance is to use Chromium's build in auditin
 
 ### Dependencies - BundlePhobia
 [BundlePhobia](https://bundlephobia.com/) is a really useful app that lets you analyze the cost of adding any particular dependency to an application
+
+---
+
+## Release Schedule
+
+We're using [Semantic Versioning](https://semver.org/), to indicate major, minor and patch versions. You can find the current version number in the readme, and check your apps version under the config menu. The version number is pulled from the [package.json](https://github.com/Lissy93/dashy/blob/master/package.json#L3) file. Typically there is a new major release every 2 weeks, usually on Sunday, and you can view these under the [Releases Page](https://github.com/Lissy93/dashy/releases). Each release will create a new [tag on GitHub](https://github.com/Lissy93/dashy/tags), and each major release will also result in the creation of a new [tag on DockerHub](https://hub.docker.com/r/lissy93/dashy/tags), so that you can fix your container to a certain version. For a full breakdown of each change, you can view the [Changelog](https://github.com/Lissy93/dashy/blob/master/.github/CHANGELOG.md). Each new feature or significant change needs to be submitted through a pull request, which makes it easy to review and track these changes, and roll back if needed.
 
 ---
 
