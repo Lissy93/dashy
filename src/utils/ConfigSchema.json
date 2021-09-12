@@ -357,10 +357,10 @@
           "default": true,
           "description": "Can user write changes to conf.yml file from the UI. If set to false, preferences are only stored locally"
         },
-        "disableServiceWorker": {
+        "enableServiceWorker": {
           "type": "boolean",
           "default": false,
-          "description": "If set to true, then service workers will not be used to cache page contents"
+          "description": "If set to true, then service workers will be used to cache page contents"
         },
         "disableContextMenu": {
           "type": "boolean",
