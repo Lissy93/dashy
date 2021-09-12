@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/vue';
-import { warningMsg } from '@/utils/CoolConsole';
+import { warningMsg, statusMsg } from '@/utils/CoolConsole';
 import { sessionStorageKeys } from '@/utils/defaults';
 
 /* Makes the current time, like hh:mm:ss */
@@ -26,6 +26,11 @@ const ErrorHandler = function handler(msg) {
   warningMsg(msg); // Print to console
   appendToErrorLog(msg); // Save to local storage
   Sentry.captureMessage(`[USER-WARN] ${msg}`); // Report to bug tracker (if enabled)
+};
+
+/* Similar to error handler, but for recording general info */
+export const InfoHandler = (msg, title) => {
+  statusMsg(title || 'Info', msg);
 };
 
 export default ErrorHandler;
