@@ -1,6 +1,6 @@
 # Adds a label to any issues raised by a sponsor of Lissy93/Dashy
 # In order to allow their request can be prioritized
-name: Label sponsors
+name: 🎯 Label sponsors
 on:
   pull_request:
     types: [opened]

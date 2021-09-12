@@ -1,5 +1,5 @@
 # Creates a new tag, whenever the app version (in package.json) is updated in master
-name: Create Tag
+name: 🏗️ Create Tag on Version Change
 on:
   push:
     branches:

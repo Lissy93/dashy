@@ -1,5 +1,5 @@
 # Adds a comment to new PRs, showing the compressed size and size difference of new code
-name: Compressed Size
+name: 🌈 Get Compressed Size
 on: [pull_request]
 jobs:
   build:
@@ -7,3 +7,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: preactjs/compressed-size-action@v2
+      with:
+        repo-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        pattern: "./dist/**/**"

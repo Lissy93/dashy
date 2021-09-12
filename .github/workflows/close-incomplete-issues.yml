@@ -1,5 +1,5 @@
 # Close any issue that does not match any of the issue templates
-name: Close Non-Compliant Issues
+name: 🎯 Close Incomplete Issues
 on:
   issues:
     types: [opened, edited]

@@ -1,5 +1,5 @@
 # Will translate any issues opened in foraign language, and add the English translation as a comment 
-name: 'Issue Translator'
+name: 🎯 Issue Translator
 on: 
   issue_comment: 
     types: [created]

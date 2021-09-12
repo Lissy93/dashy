@@ -1,5 +1,5 @@
 # Detects offensive language in comments and takes reaction
-name: Mind your language
+name: 🎯 Mind your language
 on:
   issues:
     types:
