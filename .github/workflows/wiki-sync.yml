@@ -1,5 +1,5 @@
 # Uses the contents of the ./docs directory for Dashy's GH Wiki page
-name: Wiki Sync
+name: 📊 Wiki Sync
 on:
   workflow_dispatch: # Manual dispatch
   schedule:

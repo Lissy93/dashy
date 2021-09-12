@@ -1,5 +1,5 @@
 # Closes any issues that no longer have user interaction
-name: 'Close stale issues and PRs'
+name: 🎯 Close Stale Issues
 on:
   workflow_dispatch:
   schedule:

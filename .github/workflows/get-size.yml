@@ -1,9 +1,30 @@
 # Adds a comment to new PRs, showing the compressed size and size difference of new code
-name: Compressed Size
+# And labels the PR based on the number of lines changes
+name: 🌈 Check PR Size
 on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: preactjs/compressed-size-action@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+    # Find and comment with compressed size
+    - name: Get Compressed Size
+      uses: preactjs/compressed-size-action@v2
+      with:
+        repo-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        pattern: "./dist/**/**"
+    # Check number of lines of code added
+    - name: Label based on Lines of Code
+      uses: codelytv/pr-size-labeler@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+          xs_max_size: '10'
+          s_max_size: '100'
+          m_max_size: '500'
+          l_max_size: '1000'
+          fail_if_xl: 'false'
+          message_if_xl: >
+            It looks like this PR is very large (over 1000 lines).
+            Try to avoid addressing multiple issues in a single PR, and
+            in the future consider breaking large tasks down into smaller steps.

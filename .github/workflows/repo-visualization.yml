@@ -1,0 +1,20 @@
+# Generates diagram showing file breakdown
+name: 📊 Generate Repo Visualization
+on:
+  workflow_dispatch: # Manual dispatch
+  schedule:
+    - cron: '0 1 * * 0' # At 01:00 on Sunday.
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@master
+    - name: Update diagram
+      uses: githubocto/repo-visualizer@0.7.1
+      with:
+        root_path: 'src/'
+        output_file: docs/assets/repo-visualization.svg
+        excluded_paths: dist,node_modules
+        commit_message: ':yellow_heart: Updates repo diagram'
+        branch: master

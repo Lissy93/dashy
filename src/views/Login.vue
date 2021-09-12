@@ -76,6 +76,7 @@ import router from '@/router';
 import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
+import { InfoHandler } from '@/utils/ErrorHandler';
 import {
   checkCredentials,
   login,
@@ -157,6 +158,9 @@ export default {
       if (response.correct) { // Yay, credentials were correct :)
         login(this.username, this.password, timeout); // Login, to set the cookie
         this.goHome();
+        InfoHandler(`Succesfully signed in as ${this.username}`, 'Authentication');
+      } else {
+        InfoHandler(`Unable to Sign In - ${this.message}`, 'Authentication');
       }
     },
     /* Calls function to double-check guest access enabled, then log in as guest */

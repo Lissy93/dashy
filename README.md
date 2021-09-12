@@ -54,6 +54,7 @@
   - [💖 Supporting Dashy](#supporting-dashy-)
   - [🏆 Credits](#credits-)
   - [🧱 Developing](#developing-)
+  - [🗞️ Release Schedule](#release-schedule-)
   - [📘 Documentation](#documentation-)
   - [🛣️ Roadmap](#roadmap-)
   - [🙌 Alternatives](#alternatives-)
@@ -255,7 +256,7 @@ You can also specify an time interval in seconds under `appConfig.statusCheckInt
 
 > For full authentication documentation, see: [**Authentication**](./docs/authentication.md)
 
-Dashy now has full support for secure single-sign-on using [Keycloak](https://www.keycloak.org/)! See [setup docs](/docs/authentication.md#keycloak) for a full usage guide
+Dashy now has full support for secure single-sign-on using [Keycloak](https://www.keycloak.org/)! This provides secure, easy single-sign on. See [setup docs](/docs/authentication.md#keycloak) for a full usage guide
 
 There is also a simple login feature for basic access control, which doesn't require any additional setup. To enable this feature, add an `auth` attribute under `appConfig`, containing an array of `users`, each with a username, SHA-256 hashed password and optional user type.
 
@@ -284,7 +285,7 @@ appConfig:
   />
 </p>
 
-**Note**: Using the above method involves access control being handled on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication. Keycloak is [natively supported](docs/authentication.md#keycloak), but you could also use [Authelia](https://www.authelia.com/), a VPN or web server and firewall rules. Instructions for all of these can be found [in the docs](docs/authentication.md#alternative-authentication-methods).
+**Note**: The simple auth method handles access control on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication, like [Keycloak](docs/authentication.md#keycloak) or one of the [alternatives](docs/authentication.md#alternative-authentication-methods).
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -308,7 +309,7 @@ In the workspace view, you can keep previously opened websites/ apps open in the
   <img width="500" src="https://i.ibb.co/vmZdSRt/dashy-context-menu-2.png" />
 </p>
 
-The modal and workspace views work by rendering the target application in an iframe. For this to work, the HTTP response header [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) for a given application needs to be set to `ALLOW`. If you are getting a `Refused to Connect` error then this header is set to `DENY` (or `SAMEORIGIN` and it's on a different host). Here are [instructions on how to do this](./docs/troubleshooting.md#refused-to-connect-in-modal-or-workspace-view) with common web servers.
+The modal and workspace views work by rendering the target application in an iframe. If you are getting a a `Refused to Connect` error, then you need to set the HTTP response header [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) to `ALLOW [url-for-dashy]`. See [the docs](./docs/troubleshooting.md#refused-to-connect-in-modal-or-workspace-view) for instructions on how to do this.
 
 ---
 
@@ -368,10 +369,24 @@ To search the web directly through Dashy, just press enter after typing your que
 To disable web search all together, set: `webSearch: { disableWebSearch: true }`
 
 ```yaml
-appConfig:
-  webSearch:
-    searchEngine: duckduckgo
-    openingMethod: newtab
+webSearch:
+  searchEngine: duckduckgo
+  openingMethod: newtab
+```
+
+With the web search, you can also define your own bangs, to redirect results to any given app, website or search engine, when the query is preceded with a certain character sequence (usually beginning in `/`, `!` or `:`).
+
+For example, with the below code, typing `:git dashy` will search GitHub for Dashy, or `/w docker` will open the Docker Wikipedia page. 
+
+```yaml
+webSearch:
+  searchBangs:
+    /r: reddit
+    /w: wikipedia
+    /s: https://whoogle.local/search?q=
+    ':wolf': wolframalpha
+    ':so': stackoverflow
+    ':git': github
 ```
 
 Hit `Esc` at anytime to close any open apps, clear the search field, or hide any modals.
@@ -403,9 +418,9 @@ A full list of available config options can be found [here](./docs/configuring.m
 
 Dashy has an **optional** built-in feature for securely backing up your config to a hosted cloud service, and then restoring it on another instance. This feature is totally optional, and if you do not enable it, then Dashy will not make any external network requests.
 
-This is useful not only for backing up your configuration off-site, but it also enables Dashy to be used without having write a YAML config file, and makes it possible to use a public hosted instance, without the need to self-host.
+This is useful not only for backing up your configuration off-site, but it also enables Dashy to be used without having write a YAML config file, and in the future there will allow the use of the public hosted instance of Dashy for users without a server.
 
-All data is encrypted before being sent to the backend. In Dashy, this is done in [`CloudBackup.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/CloudBackup.js), using [crypto.js](https://github.com/brix/crypto-js)'s AES method, using the users chosen password as the key. The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works) (a platform for running serverless functions), and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
+All data is fully E2E encrypted before being sent to the backend. In Dashy, this is done in [`CloudBackup.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/CloudBackup.js), using [crypto.js](https://github.com/brix/crypto-js)'s AES method, with the users chosen password as the key. The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works), and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
 
 <p align="center">
   <img width="400" src="https://i.ibb.co/yBrVN4N/dashy-cloud-sync.png" />
@@ -534,11 +549,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
 
 #### Packages
 Dashy was made possible thanks to the following packages and components. For more details on each, see [Dependency Credits](./docs/credits.md#dependencies-). Full credit to their respective authors.
-- Utils: [`crypto-js`](https://github.com/brix/crypto-js), [`axios`](https://github.com/axios/axios), [`ajv`](https://github.com/ajv-validator/ajv)
-- Components: [`vue-select`](https://github.com/sagalbot/vue-select) by @sagalbot, [`vue-js-modal`](https://github.com/euvl/vue-js-modal) by @euvl, [`v-tooltip`](https://github.com/Akryum/v-tooltip) by @Akryum, [`vue-material-tabs`](https://github.com/jairoblatt/vue-material-tabs) by @jairoblatt, [`JsonEditor`](https://github.com/josdejong/jsoneditor) by @josdejong, [`vue-toasted`](https://github.com/shakee93/vue-toasted) by @shakee93
-- Core: Vue.js, TypeScript, SCSS, Node.js, ESLint
-- The backup & sync server uses [Cloudflare workers](https://workers.cloudflare.com/) plus [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
-- Services: The 1-Click demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker image is hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
+- **Utils**: [`crypto-js`](https://github.com/brix/crypto-js), [`axios`](https://github.com/axios/axios), [`ajv`](https://github.com/ajv-validator/ajv)
+- **Components**: [`vue-select`](https://github.com/sagalbot/vue-select) by @sagalbot, [`vue-js-modal`](https://github.com/euvl/vue-js-modal) by @euvl, [`v-tooltip`](https://github.com/Akryum/v-tooltip) by @Akryum, [`vue-material-tabs`](https://github.com/jairoblatt/vue-material-tabs) by @jairoblatt, [`JsonEditor`](https://github.com/josdejong/jsoneditor) by @josdejong, [`vue-toasted`](https://github.com/shakee93/vue-toasted) by @shakee93
+- **Core**: Vue.js, TypeScript, SCSS, Node.js, ESLint
+- **Backup & sync**: This server uses [Cloudflare workers](https://workers.cloudflare.com/) plus [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
+- **Services**: The 1-Click demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker image is hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
+- **Actions**: [`action-autotag`](https://github.com/butlerlogic/action-autotag) by @butlerlogic, [`contributors-list`](https://github.com/bubkoo/contributors-list), [`github-pages-deploy-action`](https://github.com/JamesIves/github-pages-deploy-action), [`is-sponsor-label-action`](https://github.com/JasonEtco/is-sponsor-label-action), [`issues-translate-action`](https://github.com/tomsun28/issues-translate-action) by @tomsun28, [`pr-commenter-action`](https://github.com/exercism/pr-commenter-action) by @exercism, [`snyk node`](https://github.com/snyk/actions/node) by @snyk, and [`yarn-lock-changes`](https://github.com/Simek/yarn-lock-changes) by @Simek. See [all action credits](/docs/credits.md#actions)
+
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -586,6 +603,23 @@ If you're new to web development, I've put together a short [list of resources](
 **[⬆️ Back to Top](#dashy)**
 
 ---
+
+## Release Schedule 🗞️
+
+> For full release, automation and CI documentation, see: [**Releases & Workflows**](./docs/release-workflow.md)
+
+Dashy is under active development, with features, improvements and changes pushed almost daily.
+
+We're using [Semantic Versioning](https://semver.org/), to indicate major, minor and patch versions. You can find the current version number in the readme, and check your apps version under the config menu. The version number is pulled from the [package.json](https://github.com/Lissy93/dashy/blob/master/package.json#L3) file.
+
+Typically there is a new major release every 2 weeks, usually on Sunday, and you can view these under the [Releases Page](https://github.com/Lissy93/dashy/releases). Each release will create a new [tag on GitHub](https://github.com/Lissy93/dashy/tags), and each major release will also result in the creation of a new [tag on DockerHub](https://hub.docker.com/r/lissy93/dashy/tags), so that you can fix your container to a certain version.
+
+For a full breakdown of each change, you can view the [Changelog](https://github.com/Lissy93/dashy/blob/master/.github/CHANGELOG.md). Each new feature or significant change needs to be submitted through a pull request, which makes it easy to review and track these changes, and roll back if needed.
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
 ## Documentation 📘
 > For full docs, see: **[Documentation Contents](./docs/readme.md)**
 #### Running Dashy
@@ -601,6 +635,7 @@ If you're new to web development, I've put together a short [list of resources](
 - 💖 [Contributing](/docs/contributing.md) - How to contribute to Dashy
 - 🌟 [Showcase](/docs/showcase.md) - See how others are using Dashy, and share your dashboard
 - 🏆 [Credits](/docs/credits.md) - Shout out to the amazing people who have contributed so far
+- 🗞️ [Release Workflow](/docs/release-workflow.md) - Info about releases, CI and automated tasks
 
 #### Feature Docs
 - 🛡️ [Authentication](/docs/authentication.md) - Guide to setting up authentication to protect your dashboard

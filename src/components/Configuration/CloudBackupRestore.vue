@@ -66,6 +66,7 @@ import IconBackup from '@/assets/interface-icons/config-backup.svg';
 import IconRestore from '@/assets/interface-icons/config-restore.svg';
 import { backup, update, restore } from '@/utils/CloudBackup';
 import { localStorageKeys } from '@/utils/defaults';
+import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
 
 export default {
   name: 'CloudBackupRestore',
@@ -160,9 +161,11 @@ export default {
       this.backupPassword = '';
     },
     showErrorMsg(errorMsg) {
+      ErrorHandler(errorMsg);
       this.$toasted.show(errorMsg, { className: 'toast-error' });
     },
     showSuccessMsg(msg) {
+      InfoHandler(msg, 'Cloud Backup');
       this.$toasted.show(msg, { className: 'toast-success' });
     },
     makeHash(pass) {

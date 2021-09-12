@@ -1,6 +1,6 @@
-# Shows changes to yarn.lock in PR comment
-# Useful for easily understanding dependency changes
-name: Yarn Lock Changes
+# Shows changes to any yarn.lock in PR comment
+# Useful for easily understanding dependency changes and consequences
+name: 💡 Show Dependency Changes
 on: [pull_request]
 jobs:
   check:

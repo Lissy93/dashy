@@ -21,6 +21,7 @@
 import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
 import { getTheme } from '@/utils/ConfigHelpers';
 import { localStorageKeys } from '@/utils/defaults';
+import { InfoHandler } from '@/utils/ErrorHandler';
 
 export default {
   name: 'StyleEditor',
@@ -49,10 +50,12 @@ export default {
         appConfig.customCss = this.customCss;
         localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(appConfig));
         msg = 'Changes saved successfully';
+        InfoHandler('User syles has been saved', 'Custom CSS Update');
         this.inject(this.customCss);
         if (this.customCss === '') setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
       } else {
         msg = 'Error - Invalid CSS';
+        InfoHandler(msg, 'Custom CSS Update');
       }
       this.$toasted.show(msg);
     },

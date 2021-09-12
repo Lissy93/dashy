@@ -61,9 +61,10 @@
 import axios from 'axios';
 import ProgressBar from 'rsup-progress';
 import VJsoneditor from 'v-jsoneditor';
-import { localStorageKeys } from '@/utils/defaults';
+import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
 import configSchema from '@/utils/ConfigSchema.json';
 import JsonToYaml from '@/utils/JsonToYaml';
+import { localStorageKeys } from '@/utils/defaults';
 import { isUserAdmin } from '@/utils/Auth';
 
 export default {
@@ -135,12 +136,14 @@ export default {
         } else {
           this.showToast(this.$t('config-editor.error-msg-cannot-save'), false);
         }
+        InfoHandler('Config has been written to disk succesfully', 'Config Update');
         this.progress.end();
       })
         .catch((error) => {
           this.saveSuccess = false;
           this.responseText = error;
           this.showToast(error, false);
+          ErrorHandler(`Failed to save config. ${error}`);
           this.progress.end();
         });
     },
@@ -159,6 +162,7 @@ export default {
       if (data.appConfig.theme) {
         localStorage.setItem(localStorageKeys.THEME, data.appConfig.theme);
       }
+      InfoHandler('Config has succesfully been saved in browser storage', 'Config Update');
       this.showToast(this.$t('config-editor.success-msg-local'), true);
     },
     carefullyClearLocalStorage() {

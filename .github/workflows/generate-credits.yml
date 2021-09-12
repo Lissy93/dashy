@@ -1,6 +1,6 @@
 # Inserts list of contributors and community members into ./docs/credits.md
 # Also generates an SVG showing all contributors, which is embedded into readme
-name: Contributors
+name: 📊 Generate Contributor Credits
 on:
   workflow_dispatch: # Manual dispatch
   schedule:

@@ -1,5 +1,5 @@
 # Uses Snyk to check for potential vulnerabilities, then sends results to GH security tab
-name: Check for vulnerabilities with Snyk
+name: 💡 Vulnerability Scanning
 on: push
 jobs:
   security:

@@ -1,5 +1,5 @@
 # Based on a label applied to an issue, the bot will add a comment with some additional info
-name: Post Status from Label
+name: 🎯 Auto-Reply to Labeled Tickets
 on:
   issues:
     types:

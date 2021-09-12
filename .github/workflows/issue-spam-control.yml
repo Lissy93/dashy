@@ -1,6 +1,6 @@
 # Will add a comment and close new issues opened by users that may be spam, or have not starred
 # Is still a work in progress, will also detect if user has previous activity in repo and check when joined GH
-name: Issue Spam Control
+name: 🎯 Issue Spam Control
 on:
   issues:
     types: [opened, reopened]

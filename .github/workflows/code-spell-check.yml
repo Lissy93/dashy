@@ -1,5 +1,5 @@
 # Finds typos in the English language within the app, submits a PR with fixes
-name: Auto-Fix Spelling
+name: 🌈 Spelling Auto-Fix
 on:
   push:
     branches: [ master ]

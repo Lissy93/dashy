@@ -1,5 +1,5 @@
 # This action builds and deploys the master branch
-name: Deploy demo of current version
+name: 🏗️ Build App to Branch
 on:
   push:
     branches: [ master ]
