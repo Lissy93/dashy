@@ -175,6 +175,27 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/netlify">
+            <img src="https://avatars.githubusercontent.com/u/7892489?v=4" width="80;" alt="netlify"/>
+            <br />
+            <sub><b>Netlify</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/viezly">
+            <img src="https://avatars.githubusercontent.com/u/78649443?v=4" width="80;" alt="viezly"/>
+            <br />
+            <sub><b>Viezly</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/muse-dev">
+            <img src="https://avatars.githubusercontent.com/u/42072939?v=4" width="80;" alt="muse-dev"/>
+            <br />
+            <sub><b>MuseDev</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/github-actions[bot]">
             <img src="https://avatars.githubusercontent.com/in/15368?v=4" width="80;" alt="github-actions[bot]"/>
             <br />
