@@ -1,5 +1,7 @@
 # Icons
 
+>> This is a Test Change
+
 Both sections and items can have an icon, which is specified using the `icon` attribute. Using icons improves the aesthetics of your UI and makes the app more intuitive to use. There are several options when it comes to setting icons, and this article outlines each of them
 
 - [Font Awesome Icons](#font-awesome)

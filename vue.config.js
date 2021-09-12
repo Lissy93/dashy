@@ -3,7 +3,7 @@
  * See docs for all config options: https://cli.vuejs.org/config
  */
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-
+// TEST
 // Get current version
 process.env.VUE_APP_VERSION = require('./package.json').version;
 
