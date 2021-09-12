@@ -11,7 +11,7 @@
       <p v-else>No recent errors detected :)</p>
       <!-- Service Worker Status -->
       <h3>Service Worker Status</h3>
-      <pre class="logs"><code v-html="serviceWorkerInfo">{{ serviceWorkerInfo }}</code></pre>
+      <pre class="logs"><code>{{ serviceWorkerInfo }}</code></pre>
       <!-- Config Validation Status -->
       <h3>Config Validation Status</h3>
       <pre class="logs"><code>{{getIsConfigValidStatus()}}</code></pre>
@@ -82,14 +82,14 @@ export default {
       const sessionData = sessionStorage[sessionStorageKeys.SW_STATUS];
       const swInfo = sessionData ? JSON.parse(sessionData) : {};
       let swStatus = '';
-      if (swInfo.registered) swStatus += 'Service worker registered<br>';
-      if (swInfo.ready) swStatus += 'Dashy is being served from service worker<br>';
-      if (swInfo.cached) swStatus += 'Content has been cached for offline use<br>';
-      if (swInfo.updateFound) swStatus += 'New content is downloading<br>';
-      if (swInfo.updated) swStatus += 'New content is available; please refresh<br>';
-      if (swInfo.offline) swStatus += 'No internet connection found. App is running in offline mode<br>';
-      if (swInfo.error) swStatus += 'Error during service worker registration<br>';
-      if (swInfo.devMode) swStatus += 'App running in dev mode, no need for service worker<br>';
+      if (swInfo.registered) swStatus += 'Service worker registered\n';
+      if (swInfo.ready) swStatus += 'Dashy is being served from service worker\n';
+      if (swInfo.cached) swStatus += 'Content has been cached for offline use\n';
+      if (swInfo.updateFound) swStatus += 'New content is downloading\n';
+      if (swInfo.updated) swStatus += 'New content is available; please refresh\n';
+      if (swInfo.offline) swStatus += 'No internet connection found. App is running in offline mode\n';
+      if (swInfo.error) swStatus += 'Error during service worker registration\n';
+      if (swInfo.devMode) swStatus += 'App running in dev mode, no need for service worker\n';
       if (swStatus.length === 0) swStatus += 'No service worker info available';
       return swStatus;
     },
