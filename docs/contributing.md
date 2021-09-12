@@ -99,7 +99,7 @@ If you've enjoyed Dashy, you can follow the me to get updates about other projec
 [![Alicia Sykes's Website](https://img.shields.io/badge/aliciasykes.com--lightgrey?style=social&logo=Tencent%20QQ)](https://aliciasykes.com)
 [![Alicia Sykes's Blog](https://img.shields.io/badge/Blog--lightgrey?style=social&logo=micro.blog)](https://notes.aliciasykes.com/)
 
-If you like, you could also consider [subscribing to my mailing list](https://notes.aliciasykes.com/subscribe) for very occasional blog post updates, or even [nominating me (`@lissy93`)](https://stars.github.com/nominate/) on the GitHub Star Programme.
+If you like, you could also consider [subscribing to my mailing list](https://notes.aliciasykes.com/subscribe) for very occasional blog post updates.
 
 ---
 
@@ -107,7 +107,7 @@ If you like, you could also consider [subscribing to my mailing list](https://no
 
 For a full list of Dashy's contributors, see the [Credits Page](/docs/credits.md)
 
-![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)
+[![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)](/docs/credits.md)
 
 ### Star-Gazers Over Time
 

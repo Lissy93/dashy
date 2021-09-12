@@ -1,6 +1,6 @@
 # Credits
 
-## Sponsors
+### Sponsors
 <!-- readme: sponsors -start -->
 <table>
 <tr>
@@ -21,7 +21,7 @@
 </table>
 <!-- readme: sponsors -end -->
 
-## Contributors
+### Contributors
 <!-- readme: contributors -start -->
 <table>
 <tr>
@@ -107,8 +107,8 @@
 <!-- readme: contributors -end -->
 
 
-## Helpful Users
-<!-- readme: EVOTk,shadowking001,turnrye,Robert-Ernst,Niklashere,evroon,MilesTEG1 -start -->
+### Helpful Users
+<!-- readme: EVOTk,shadowking001,lu4t,Robert-Ernst,Niklashere,evroon,MilesTEG1 -start -->
 <table>
 <tr>
     <td align="center">
@@ -154,10 +154,10 @@
         </a>
     </td></tr>
 </table>
-<!-- readme: EVOTk,shadowking001,turnrye,Robert-Ernst,MilesTEG1,Niklashere -end -->
+<!-- readme: EVOTk,shadowking001,lu4t,Robert-Ernst,MilesTEG1,Niklashere -end -->
 
-## Bots
-<!-- readme: liss-bot,snyk-bot,bots -start -->
+### Bots
+<!-- readme: liss-bot,snyk-bot,netlify,viezly,muse-dev,bots -start -->
 <table>
 <tr>
     <td align="center">
@@ -182,22 +182,26 @@
         </a>
     </td></tr>
 </table>
-<!-- readme: liss-bot,snyk-bot,bots -end -->
+<!-- readme: liss-bot,snyk-bot,netlify,viezly,muse-dev,bots -end -->
 
-## Dependencies 🔗
+> The above section is auto-generated, using [contribute-list](https://github.com/marketplace/actions/contribute-list) by @akhilmhdh.
+
+---
+
+## Dependencies
 
 This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them. For a full breakdown of dependency licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md)
 
-##### Core
-At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as well as it's services. Styling is done with [SCSS](https://github.com/sass/sass), JavaScript is currently [Babel](https://github.com/babel/babel), (but I am in the process of converting to [TypeScript](https://github.com/Microsoft/TypeScript)). Linting is done with [ESLint](https://github.com/eslint/eslint) and [Prettier](https://prettier.io/), both following the [AirBnB Styleguide](https://github.com/airbnb/javascript). The config is defined in [YAML](https://github.com/yaml/yaml), and there is a simple [Node.js](https://github.com/nodejs/node) server to serve up the static app and the optional API endpoints.
+#### Core
+At it's core, the application uses [**Vue.js**](https://github.com/vuejs/vue), as well as it's services with [**VueX**](https://vuex.vuejs.org/) for state management. Styling is done with [**SCSS**](https://github.com/sass/sass), JavaScript is currently [**Babel**](https://github.com/babel/babel), (but I am in the process of converting to [**TypeScript**](https://github.com/Microsoft/TypeScript)). Linting is done with [**ESLint**](https://github.com/eslint/eslint) and [**Prettier**](https://prettier.io/), both following the [**AirBnB Styleguide**](https://github.com/airbnb/javascript). The config is defined in [**YAML**](https://github.com/yaml/yaml), with a simple [**Node.js**](https://github.com/nodejs/node) server to serve up the static app and the optional API endpoints, and container deployment is done with [**Docker**](https://www.docker.com/).
 
-##### Utilities
+#### Utilities
 - [`crypto-js`](https://github.com/brix/crypto-js) - Encryption implementations by @evanvosberg and community `MIT`
 - [`axios`](https://github.com/axios/axios) - Promise based HTTP client by @mzabriskie and community `MIT`
 - [`ajv`](https://github.com/ajv-validator/ajv) - JSON schema Validator by @epoberezkin and community `MIT`
-- [`vue-i18n`](https://github.com/kazupon/vue-i18n) - Internationalization plugin by @kazupon and community `MIT`
+- [`i18n`](https://github.com/kazupon/vue-i18n) - Internationalization plugin by @kazupon and community `MIT`
 
-##### Frontend Components
+#### Frontend Components
 - [`vue-select`](https://github.com/sagalbot/vue-select) - Dropdown component by @sagalbot `MIT`
 - [`vue-js-modal`](https://github.com/euvl/vue-js-modal) - Modal component by @euvl `MIT`
 - [`v-tooltip`](https://github.com/Akryum/v-tooltip) - Tooltip component by @Akryum `MIT`
@@ -207,12 +211,33 @@ At it's core, the application uses [Vue.js](https://github.com/vuejs/vue), as we
 - [`vue-toasted`](https://github.com/shakee93/vue-toasted) - Toast notification component by @shakee93 `MIT`
 - [`vue-swatches`](https://github.com/saintplay/vue-swatches) - Color palete picker by @saintplay `MIT`
 
-##### Backup & Sync Server
-Although the app is purely frontend, there is an optional cloud backup and restore feature. This is built as a serverless function on [Cloudflare workers](https://workers.cloudflare.com/) using [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
+#### Backup & Sync Server
+Although the app is purely frontend, there is an optional cloud sync feature, for off-site backup and restore. This is built as a serverless function on [Cloudflare workers](https://workers.cloudflare.com/) using [KV](https://developers.cloudflare.com/workers/runtime-apis/kv) and [web crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto)
 
-##### External Services
+#### External Services
 The 1-Click deploy demo uses [Play-with-Docker Labs](https://play-with-docker.com/). Code is hosted on [GitHub](https://github.com), Docker images are hosted on [DockerHub](https://hub.docker.com/), and the demos are hosted on [Netlify](https://www.netlify.com/).
+
+#### Actions
+This repo makes heavy use of [GitHub actions](https://github.com/features/actions) to run automated workflows. The following base actions are totally awesome, and have been extremely useful. Full credit to their respective authors
+
+- [`action-autotag`](https://github.com/butlerlogic/action-autotag) by @butlerlogic - Tags new versions when app version changes
+- [`action-wiki-sync`](https://github.com/joeizzard/action-wiki-sync) by @joeizzard - Copies the markdown docs to the GH wiki
+- [`contributors-list`](https://github.com/bubkoo/contributors-list) by @bubkoo - Generates contributors SVG
+- [`contributors-readme-action`](https://github.com/akhilmhdh/contributors-readme-action) by @akhilmhdh - Inserts contributors into credits
+- [`create-pull-request`](https://github.com/eter-evans/create-pull-request) by @eter-evans - Creates pull request
+- [`github-pages-deploy-action`](https://github.com/JamesIves/github-pages-deploy-action) by @JamesIves - Deploy app to GH pages
+- [`github-release-commenter`](https://github.com/apexskier/github-release-commenter) by @apexskier - Updates issues when fix is released
+- [`github-sponsors-readme-action`](https://github.com/JamesIves/github-sponsors-readme-action) by @JamesIves - Inserts sponsors into credits
+- [`is-sponsor-label-action`](https://github.com/JasonEtco/is-sponsor-label-action) by @JasonEtco - Label sponsors, for priority support
+- [`issues-translate-action`](https://github.com/tomsun28/issues-translate-action) by @tomsun28 - Translates non-English issues and comments
+- [`misspell-fixer-action`](https://github.com/sobolevn/misspell-fixer-action) by @sobolevn - Finds and fixes typos
+- [`please-star-first`](https://github.com/uhyo/please-star-first) by @uhyo - Closes certain issues by non-stargazers
+- [`pr-commenter-action`](https://github.com/exercism/pr-commenter-action) by @exercism - Adds info comments to PR based on the files changed
+- [`snyk note`](https://github.com/snyk/actions/node) by @snyk - Reports vulnerabilities in the code or dependencies
+- [`todo-to-issue-action`](https://github.com/alstr/todo-to-issue-action) by @alstr - Opens issues from todos in the code
+- [`yarn-lock-changes`](https://github.com/Simek/yarn-lock-changes) by @Simek - Outputs dependency changes in PR
 
 ---
 
-> This page is auto-generated, using [contribute-list](https://github.com/marketplace/actions/contribute-list) by @akhilmhdh.
+## You!
+Would you like to be listed here? Whatever your skill set, Dashy needs people like you to help support future development. Check out the [Contributing Page](/docs/contributing.md) for ways that you can get involved. Huge thank you to everyone who has already contributed! 💖
