@@ -288,6 +288,10 @@ Styleguides:
    ╰── Workspace.vue              # The workspace view with apps in sidebar
 ```
 
+#### Visualisation of Source Directory
+
+![File Breakdown](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/repo-visualization.svg)
+
 ---
 
 ## Development Tools
