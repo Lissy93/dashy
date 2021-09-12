@@ -13,6 +13,7 @@
 - [Contributing](/docs/contributing.md) - How you can help keep Dashy alive
 - [Showcase](/docs/showcase.md) - See how others are using Dashy, and share your dashboard
 - [Credits](/docs/credits.md) - List of people and projects that have made Dashy possible
+- [Release Workflow](/docs/release-workflow.md) - Info about releases, CI and automated tasks
 
 ### Feature Docs
 - [Authentication](/docs/authentication.md) - Guide to setting up authentication to protect your dashboard
