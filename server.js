@@ -4,7 +4,7 @@
  * runs some checks, and then serves up the app from the ./dist directory
  * Also includes some routes for status checks/ ping and config saving
  * */
-
+// Test
 /* Include required node dependencies */
 const serveStatic = require('serve-static');
 const connect = require('connect');
