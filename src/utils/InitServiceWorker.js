@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
-
 import { register } from 'register-service-worker';
 import { sessionStorageKeys } from '@/utils/defaults';
+import { statusMsg, statusErrorMsg } from '@/utils/CoolConsole';
 import conf from '../../public/conf.yml';
 
 /* Sets a local storage item with the state from the SW lifecycle */
@@ -23,7 +22,7 @@ const setSwStatus = (swStateToSet) => {
     const newSwState = { ...currentSwState, ...swStateToSet };
     sessionStorage.setItem(sessionStorageKeys.SW_STATUS, JSON.stringify(newSwState));
   } catch (e) {
-    console.warn('Error setting SW data', e);
+    statusErrorMsg('Service Worker Status', 'Error Updating SW Status', e);
   }
 };
 
@@ -33,53 +32,58 @@ const setSwStatus = (swStateToSet) => {
  * Or disable if user specified to disable
  */
 const shouldEnableServiceWorker = () => {
-  let shouldEnable = true;
-  if (conf && conf.appConfig) { // Check if app Config available
-    if (conf.appConfig.disableServiceWorker) { // Disable if user requested
-      shouldEnable = false;
-      setSwStatus({ disabledByUser: true });
-    }
-  }
-  if (process.env.NODE_ENV !== 'production') {
-    shouldEnable = false; // Disable if not in production
+  if (conf && conf.appConfig && conf.appConfig.enableServiceWorker) {
+    setSwStatus({ disabledByUser: false });
+    return true;
+  } else if (process.env.NODE_ENV !== 'production') {
     setSwStatus({ devMode: true });
+    return false;
   }
-  return shouldEnable;
+  setSwStatus({ disabledByUser: true });
+  return false;
 };
 
+/* Calls to the print status function */
+const printSwStatus = (msg) => {
+  statusMsg('Service Worker Status', msg);
+};
+
+const swUrl = `${process.env.BASE_URL || '/'}service-worker.js`;
+
+/* If service worker enabled, then register it, and print message when status changes */
 const registerServiceWorker = () => {
   if (shouldEnableServiceWorker()) {
-    register(`${process.env.BASE_URL}service-worker.js`, {
+    register(swUrl, {
       ready() {
         setSwStatus({ ready: true });
-        console.log(
-          'App is being served from cache by a service worker.\n'
+        printSwStatus(
+          'Dashy is being served from cache by a service worker.\n'
           + 'For more details, visit https://goo.gl/AFskqB',
         );
       },
       registered() {
         setSwStatus({ registered: true });
-        console.log('Service worker has been registered.');
+        printSwStatus('Service worker has been registered.');
       },
       cached() {
         setSwStatus({ cached: true });
-        console.log('Content has been cached for offline use.');
+        printSwStatus('App has been cached for offline use.');
       },
       updatefound() {
         setSwStatus({ updateFound: true });
-        console.log('New content is downloading.');
+        printSwStatus('New content is downloading...');
       },
       updated() {
         setSwStatus({ updated: true });
-        console.log('New content is available; please refresh.');
+        printSwStatus('New content is available; please refresh the page.');
       },
       offline() {
         setSwStatus({ offline: true });
-        console.log('No internet connection found. App is running in offline mode.');
+        printSwStatus('No internet connection found. Dashy is running in offline mode.');
       },
       error(error) {
         setSwStatus({ error: true });
-        console.error('Error during service worker registration:', error);
+        statusErrorMsg('Service Worker Status', 'Error during SW registration', error);
       },
     });
   }
