@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: bubkoo/contributors-list@v1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
           svgPath: docs/assets/CONTRIBUTORS.svg
           affiliation: all
           includeBots: false
@@ -30,12 +30,12 @@ jobs:
       - name: Generate Sponsors in Readme 💖
         uses: JamesIves/github-sponsors-readme-action@1.0.5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
           file: 'README.md'
       - name: Generate Sponsors in Credits 💖
         uses: JamesIves/github-sponsors-readme-action@1.0.5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
           file: 'docs/credits.md'
   # Job #3 - Update the Credits page
   insert-credits:
