@@ -10,7 +10,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@master
-    - name: Update diagram
+  
+    - name: Generate File Structure Diagram
       uses: githubocto/repo-visualizer@0.7.1
       with:
         root_path: 'src/'
@@ -18,3 +19,53 @@ jobs:
         excluded_paths: dist,node_modules
         commit_message: ':yellow_heart: Updates repo diagram'
         branch: master
+        
+    - name: Generate Repo Metrics
+      uses: lowlighter/metrics@latest
+      with:
+        token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        committer_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        committer_branch: master
+        committer_message: ':purple_heart: Adds repo metrics'
+        filename: docs/assets/repo-metrics.*
+        template: classic
+        user: Lissy93
+        repo: dashy
+        delay: 5 
+            
+    - name: Generate License Metrics
+      uses: lowlighter/metrics@latest
+      with:
+        token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        committer_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        committer_branch: master
+        committer_message: ':purple_heart: Adds license metrics'
+        filename: docs/assets/license-metrics.*
+        template: repository
+        user: Lissy93
+        repo: dashy
+        delay: 5
+        plugin_licenses: yes
+        plugin_licenses_setup: yarn build
+        plugin_licenses_ratio: yes
+        plugin_licenses_legal: yes
+               
+    - name: Generate Contributor Metrics
+      uses: lowlighter/metrics@latest
+      with:
+        token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        committer_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        committer_branch: master
+        committer_message: ':purple_heart: Adds contributor metrics'
+        filename: docs/assets/controbutor-metrics.*
+        user: Lissy93
+        repo: dashy
+        delay: 5
+        plugin_contributors: yes
+        plugin_contributors_base: ""
+        plugin_contributors_head: master
+        plugin_contributors_ignored: bot
+        plugin_contributors_contributions: yes
+        plugin_contributors_sections: contributors
+        
+        
