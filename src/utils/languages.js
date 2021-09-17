@@ -6,6 +6,7 @@ import fr from '@/assets/locales/fr.json';
 import sl from '@/assets/locales/sl.json';
 import es from '@/assets/locales/es.json';
 import zhCN from '@/assets/locales/zh-CN.json';
+import ar from '@/assets/locales/ar.json';
 
 // Language data - Next register your language by adding it to this list
 export const languages = [
@@ -50,6 +51,12 @@ export const languages = [
     code: 'cn',
     locale: zhCN,
     flag: '🇨🇳',
+  },
+  {
+    name: 'العربية',
+    code: 'ar',
+    locale: ar,
+    flag: '🇦🇪',
   },
 ];
 
