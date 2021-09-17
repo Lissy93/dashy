@@ -22,9 +22,9 @@ const makePing = (ip, render) => {
   session.pingHost(ip, (error, target) => {
     const timeTaken = (new Date() - startTime);
     if (error) {
-      render(JSON.stringify({ success: false, message: `❌ ${error}` }));
+      render(JSON.stringify({ successStatus: false, message: `❌ ${error}` }));
     } else {
-      render(JSON.stringify({ success: true, message: `✅ ${target} is Alive\n⏱️ Took ${timeTaken} ms` }));
+      render(JSON.stringify({ successStatus: true, message: `✅ ${target} is Alive\n⏱️ Took ${timeTaken} ms` }));
     }
     session.close();
   });
@@ -33,7 +33,7 @@ const makePing = (ip, render) => {
 /* Checks if a given IP address is online, and accessible */
 module.exports = (paramStr, render) => {
   if (!paramStr || !paramStr.includes('ip=')) {
-    render(JSON.stringify({ success: false, message: '❌ Malformed or Missing IP' }));
+    render(JSON.stringify({ successStatus: false, message: '❌ Malformed or Missing IP' }));
   } else {
     // Prepare the parameters, which are got from the URL
     const ip = decodeURIComponent((new URLSearchParams(paramStr)).get('ip'));
