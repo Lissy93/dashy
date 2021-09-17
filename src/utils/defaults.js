@@ -36,6 +36,13 @@ module.exports = {
     login: '/login',
     download: '/download',
   },
+  /* Server Endpoints */
+  serviceEndpoints: {
+    ping: '/ping',
+    statusCheck: '/status-check',
+    save: '/config-manager/save',
+    rebuild: '/config-manager/rebuild',
+  },
   /* List of built-in themes, to be displayed within the theme-switcher dropdown */
   builtInThemes: [
     'callisto',
