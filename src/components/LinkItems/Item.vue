@@ -49,7 +49,7 @@ import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
 import ContextMenu from '@/components/LinkItems/ContextMenu';
-import { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
 
 export default {
   name: 'Item',
@@ -173,7 +173,7 @@ export default {
       // Deterimine if user disabled security
       const enableInsecure = statusCheckAllowInsecure ? '&enableInsecure=true' : '';
       // Construct the full API endpoint's URL with GET params
-      return `${baseUrl}/ping/${urlToCheck}${headers}${enableInsecure}`;
+      return `${baseUrl}${serviceEndpoints.statusCheck}/${urlToCheck}${headers}${enableInsecure}`;
     },
     /* Checks if a given service is currently online */
     checkWebsiteStatus() {

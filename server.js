@@ -17,11 +17,14 @@ const bodyParser = require('body-parser');
 require('./services/update-checker'); // Checks if there are any updates available, prints message
 require('./services/config-validator'); // Include and kicks off the config file validation script
 
-/* Include helper functions and route handlers */
-const pingUrl = require('./services/ping'); // Used by the status check feature, to ping services
+/* Include route handlers for API endpoints */
+const statusCheck = require('./services/status-check'); // Used by the status check feature, to ping services
 const saveConfig = require('./services/save-config'); // Saves users new conf.yml to file-system
-const printMessage = require('./services/print-message'); // Function to print welcome msg on start
 const rebuild = require('./services/rebuild-app'); // A script to programmatically trigger a build
+
+/* Helper functions, and default config */
+const printMessage = require('./services/print-message'); // Function to print welcome msg on start
+const ENDPOINTS = require('./src/utils/defaults').serviceEndpoints; // API endpoint URL paths
 
 /* Checks if app is running within a container, from env var */
 const isDocker = !!process.env.IS_DOCKER;
@@ -59,9 +62,9 @@ try {
     // During build, a custom page will be served before the app is available
     .use(serveStatic(`${__dirname}/public`, { index: 'default.html' }))
     // This root returns the status of a given service - used for uptime monitoring
-    .use('/ping', (req, res) => {
+    .use(ENDPOINTS.statusCheck, (req, res) => {
       try {
-        pingUrl(req.url, async (results) => {
+        statusCheck(req.url, async (results) => {
           await res.end(results);
         });
       } catch (e) {
@@ -69,7 +72,7 @@ try {
       }
     })
     // POST Endpoint used to save config, by writing conf.yml to disk
-    .use('/config-manager/save', method('POST', (req, res) => {
+    .use(ENDPOINTS.save, method('POST', (req, res) => {
       try {
         saveConfig(req.body, (results) => {
           res.end(results);
@@ -79,7 +82,7 @@ try {
       }
     }))
     // GET endpoint to trigger a build, and respond with success status and output
-    .use('/config-manager/rebuild', (req, res) => {
+    .use(ENDPOINTS.rebuild, (req, res) => {
       rebuild().then((response) => {
         res.end(JSON.stringify(response));
       }).catch((response) => {

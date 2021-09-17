@@ -64,7 +64,7 @@ import VJsoneditor from 'v-jsoneditor';
 import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
 import configSchema from '@/utils/ConfigSchema.json';
 import JsonToYaml from '@/utils/JsonToYaml';
-import { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
 import { isUserAdmin } from '@/utils/Auth';
 
 export default {
@@ -121,7 +121,7 @@ export default {
       const yaml = this.jsonParser(this.jsonData);
       // 2. Prepare the request
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      const endpoint = `${baseUrl}/config-manager/save`;
+      const endpoint = `${baseUrl}${serviceEndpoints.save}`;
       const headers = { 'Content-Type': 'text/plain' };
       const body = { config: yaml, timestamp: new Date() };
       const request = axios.post(endpoint, body, headers);
