@@ -10,6 +10,7 @@ import zhCN from '@/assets/locales/zh-CN.json';
 import ar from '@/assets/locales/ar.json';
 import hi from '@/assets/locales/hi.json';
 import ja from '@/assets/locales/ja.json';
+import pt from '@/assets/locales/pt.json';
 
 // Language data - Next register your language by adding it to this list
 export const languages = [
@@ -78,6 +79,12 @@ export const languages = [
     code: 'ja',
     locale: ja,
     flag: '🇯🇵',
+  },
+  { // Portuguese
+    name: 'Português',
+    code: 'pt',
+    locale: pt,
+    flag: '🇵🇹',
   },
 ];
 
