@@ -18,7 +18,8 @@ require('./services/update-checker'); // Checks if there are any updates availab
 require('./services/config-validator'); // Include and kicks off the config file validation script
 
 /* Include route handlers for API endpoints */
-const statusCheck = require('./services/status-check'); // Used by the status check feature, to ping services
+const statusCheck = require('./services/status-check'); // Used by the status check feature, uses GET
+const statusPing = require('./services/status-ping'); // Used for ping-only status checks
 const saveConfig = require('./services/save-config'); // Saves users new conf.yml to file-system
 const rebuild = require('./services/rebuild-app'); // A script to programmatically trigger a build
 
@@ -61,10 +62,20 @@ try {
     .use(serveStatic(`${__dirname}/dist`))
     // During build, a custom page will be served before the app is available
     .use(serveStatic(`${__dirname}/public`, { index: 'default.html' }))
-    // This root returns the status of a given service - used for uptime monitoring
+    // GET endpoint to run status of a given URL with GET request
     .use(ENDPOINTS.statusCheck, (req, res) => {
       try {
         statusCheck(req.url, async (results) => {
+          await res.end(results);
+        });
+      } catch (e) {
+        printWarning(`Error running status check for ${req.url}\n`, e);
+      }
+    })
+    // GET endpoint to ping a given IP address, also used for status checking
+    .use(ENDPOINTS.statusPing, (req, res) => {
+      try {
+        statusPing(req.url, async (results) => {
           await res.end(results);
         });
       } catch (e) {
@@ -74,9 +85,7 @@ try {
     // POST Endpoint used to save config, by writing conf.yml to disk
     .use(ENDPOINTS.save, method('POST', (req, res) => {
       try {
-        saveConfig(req.body, (results) => {
-          res.end(results);
-        });
+        saveConfig(req.body, (results) => { res.end(results); });
       } catch (e) {
         res.end(JSON.stringify({ success: false, message: e }));
       }
