@@ -443,6 +443,7 @@ Dashy supports multiple languages and locales. When available, you're language s
 - 🇩🇪 **German**: `de` - Contributed by **[@Niklashere](https://github.com/Niklashere)**
 - 🇪🇸 **Spanish**: `es` - Contributed by **[@lu4t](https://github.com/lu4t)**
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
+- 🇮🇹 **Italian**: `it` - Machine Translated *(awaiting human review)*
 - 🇦🇪 **Arabic**: `ar`
 - 🇮🇳 **Hindi**: `hi`
 

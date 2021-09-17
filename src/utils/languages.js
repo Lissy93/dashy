@@ -5,6 +5,7 @@ import nl from '@/assets/locales/nl.json';
 import fr from '@/assets/locales/fr.json';
 import sl from '@/assets/locales/sl.json';
 import es from '@/assets/locales/es.json';
+import it from '@/assets/locales/it.json';
 import zhCN from '@/assets/locales/zh-CN.json';
 import ar from '@/assets/locales/ar.json';
 import hi from '@/assets/locales/hi.json';
@@ -46,6 +47,12 @@ export const languages = [
     code: 'es',
     locale: es,
     flag: '🇪🇸',
+  },
+  { // Italian
+    name: 'Italiano',
+    code: 'it',
+    locale: it,
+    flag: '🇮🇹',
   },
   { // Chinese
     name: '简体中文',
