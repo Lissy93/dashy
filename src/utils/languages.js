@@ -11,6 +11,7 @@ import ar from '@/assets/locales/ar.json';
 import hi from '@/assets/locales/hi.json';
 import ja from '@/assets/locales/ja.json';
 import pt from '@/assets/locales/pt.json';
+import ru from '@/assets/locales/ru.json';
 
 // Language data - Next register your language by adding it to this list
 export const languages = [
@@ -20,8 +21,8 @@ export const languages = [
     locale: en,
     flag: '🇬🇧',
   },
-  {
-    name: 'German',
+  { // German
+    name: 'Deutsch',
     code: 'de',
     locale: de,
     flag: '🇩🇪',
@@ -33,19 +34,19 @@ export const languages = [
     flag: '🇳🇱',
   },
   {
-    name: 'French',
+    name: 'Français',
     code: 'fr',
     locale: fr,
     flag: '🇲🇫',
   },
   {
-    name: 'Slovenian',
+    name: 'Slovenščina',
     code: 'sl',
     locale: sl,
     flag: '🇸🇮',
   },
   { // Spanish
-    name: 'Spanish',
+    name: 'Español',
     code: 'es',
     locale: es,
     flag: '🇪🇸',
@@ -85,6 +86,12 @@ export const languages = [
     code: 'pt',
     locale: pt,
     flag: '🇵🇹',
+  },
+  { // Russian
+    name: 'Русский',
+    code: 'ru',
+    locale: ru,
+    flag: '🇷🇺',
   },
 ];
 

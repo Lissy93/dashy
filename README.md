@@ -445,9 +445,10 @@ Dashy supports multiple languages and locales. When available, you're language s
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
 - 🇮🇹 **Italian**: `it` - Machine Translated *(awaiting human review)*
 - 🇵🇹 **Portuguese**: `pt` - Machine Translated *(awaiting human review)*
-- 🇦🇪 **Arabic**: `ar`
-- 🇮🇳 **Hindi**: `hi`
-- 🇯🇵 **Japanese**: `ja`
+- 🇷🇺 **Russian**: `ru` - Contributed by Anon
+- 🇦🇪 **Arabic**: `ar` - Contributed by Anon
+- 🇮🇳 **Hindi**: `hi` - Contributed by Anon
+- 🇯🇵 **Japanese**: `ja` - Contributed by Anon
 
 #### Add your Language
 I would love for Dashy to be available to everyone, without language being a barrier to entry for non-native English speakers. If you have a few minutes to sapir, you're help with translating it would be very much appreciated.
