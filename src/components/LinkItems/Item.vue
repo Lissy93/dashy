@@ -73,8 +73,9 @@ export default {
     itemSize: String,
     enableStatusCheck: Boolean,
     statusCheckHeaders: Object,
-    statusCheckUrl: String,
+    statusCheckEndpoint: String,
     statusCheckInterval: Number,
+    statusCheckPingOnly: Boolean,
     statusCheckAllowInsecure: Boolean,
   },
   data() {
@@ -157,16 +158,16 @@ export default {
       }
     },
     /* Pulls together all user options, returns URL + Get params for ping endpoint */
-    makeApiUrl() {
+    makeStatusCheckGetEndpoint() {
       const {
-        url, statusCheckUrl, statusCheckHeaders, statusCheckAllowInsecure,
+        url, statusCheckEndpoint, statusCheckHeaders, statusCheckAllowInsecure,
       } = this;
       const encode = (str) => encodeURIComponent(str);
       this.statusResponse = undefined;
       // Find base URL, where the API is hosted
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
       // Find correct URL to check, and encode
-      const urlToCheck = `?&url=${encode(statusCheckUrl || url)}`;
+      const urlToCheck = `?&url=${encode(statusCheckEndpoint || url)}`;
       // Get, stringify and encode any headers
       const headers = statusCheckHeaders
         ? `&headers=${encode(JSON.stringify(statusCheckHeaders))}` : '';
@@ -175,9 +176,15 @@ export default {
       // Construct the full API endpoint's URL with GET params
       return `${baseUrl}${serviceEndpoints.statusCheck}/${urlToCheck}${headers}${enableInsecure}`;
     },
+    /* Return the endpoint for ping-only status checks */
+    makeStatusCheckPingEndpoint() {
+      const { statusCheckEndpoint, url } = this;
+      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const ipToCheck = `?&ip=${statusCheckEndpoint || url}`;
+      return `${baseUrl}${serviceEndpoints.statusPing}/${ipToCheck}`;
+    },
     /* Checks if a given service is currently online */
-    checkWebsiteStatus() {
-      const endpoint = this.makeApiUrl();
+    checkWebsiteStatus(endpoint) {
       axios.get(endpoint)
         .then((response) => {
           if (response.data) this.statusResponse = response.data;
@@ -223,13 +230,23 @@ export default {
       lastUsed[itemId] = new Date().getTime();
       localStorage.setItem(localStorageKeys.LAST_USED, JSON.stringify(lastUsed));
     },
+    /* Starts off the status check, with info from the above functions */
+    kickOffCheck() {
+      if (this.enableStatusCheck) {
+        // Determine endpoint function, depending if using GET or ping-only option
+        const endpoint = this.statusCheckPingOnly
+          ? this.makeStatusCheckPingEndpoint() : this.makeStatusCheckGetEndpoint();
+        // Initiate status check
+        this.checkWebsiteStatus(endpoint);
+      }
+    },
   },
   mounted() {
     // If ststus checking is enabled, then check service status
-    if (this.enableStatusCheck) this.checkWebsiteStatus();
+    this.kickOffCheck();
     // If continious status checking is enabled, then start ever-lasting loop
     if (this.statusCheckInterval > 0) {
-      setInterval(this.checkWebsiteStatus, this.statusCheckInterval * 1000);
+      setInterval(this.kickOffCheck, this.statusCheckInterval * 1000);
     }
   },
 };
