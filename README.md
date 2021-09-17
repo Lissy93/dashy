@@ -444,6 +444,7 @@ Dashy supports multiple languages and locales. When available, you're language s
 - 🇪🇸 **Spanish**: `es` - Contributed by **[@lu4t](https://github.com/lu4t)**
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
 - 🇦🇪 **Arabic**: `ar`
+- 🇮🇳 **Hindi**: `hi`
 
 #### Add your Language
 I would love for Dashy to be available to everyone, without language being a barrier to entry for non-native English speakers. If you have a few minutes to sapir, you're help with translating it would be very much appreciated.
