@@ -9,6 +9,7 @@ import it from '@/assets/locales/it.json';
 import zhCN from '@/assets/locales/zh-CN.json';
 import ar from '@/assets/locales/ar.json';
 import hi from '@/assets/locales/hi.json';
+import ja from '@/assets/locales/ja.json';
 
 // Language data - Next register your language by adding it to this list
 export const languages = [
@@ -71,6 +72,12 @@ export const languages = [
     code: 'hi',
     locale: hi,
     flag: '🇮🇳',
+  },
+  { // Japanese
+    name: '日本語',
+    code: 'ja',
+    locale: ja,
+    flag: '🇯🇵',
   },
 ];
 
