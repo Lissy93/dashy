@@ -38,7 +38,7 @@ module.exports = {
   },
   /* Server Endpoints */
   serviceEndpoints: {
-    ping: '/ping',
+    statusPing: '/status-ping',
     statusCheck: '/status-check',
     save: '/config-manager/save',
     rebuild: '/config-manager/rebuild',
