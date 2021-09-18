@@ -1,5 +1,8 @@
 # Changelog
 
+## ✨ 1.8.1 - Option for Ping-Only Status Checks [PR #233](https://github.com/Lissy93/dashy/pull/233)
+- This PR adds an attribute called `statusCheckPingOnly`, which if enabled for a given item will use a simple ping instead of a full GET request. This is useful for web services which do not resolve any content
+
 ## ⚡️ 1.7.7 - Improved Error Handling [PR #226](https://github.com/Lissy93/dashy/pull/226)
 - Errors can be viewed via the UI (Config menu --> App Info)
 - Service workers should be disabled by default
