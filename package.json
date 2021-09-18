@@ -25,7 +25,6 @@
     "crypto-js": "^4.1.1",
     "js-yaml": "^4.1.0",
     "keycloak-js": "^15.0.2",
-    "net-ping": "^1.2.3",
     "register-service-worker": "^1.6.2",
     "remedial": "^1.0.8",
     "rsup-progress": "^2.0.4",
