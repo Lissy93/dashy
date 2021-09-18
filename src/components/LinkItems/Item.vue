@@ -91,6 +91,7 @@ export default {
         posX: undefined,
         posY: undefined,
       },
+      intervalEvent: undefined,
     };
   },
   components: {
@@ -246,8 +247,11 @@ export default {
     this.kickOffCheck();
     // If continious status checking is enabled, then start ever-lasting loop
     if (this.statusCheckInterval > 0) {
-      setInterval(this.kickOffCheck, this.statusCheckInterval * 1000);
+      this.intervalEvent = setInterval(this.kickOffCheck, this.statusCheckInterval * 1000);
     }
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalEvent);
   },
 };
 </script>
