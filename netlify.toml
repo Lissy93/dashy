@@ -15,7 +15,18 @@
   STATUSKIT_COMPANY_LOGO = "https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/logo.png"
   STATUSKIT_SUPPORT_CONTACT_LINK = "https://dashy.to"
   STATUSKIT_RESOURCES_LINK = "https://github.com/Lissy93/dashy/tree/master/docs"
-  
+
+# Specify handlers to redirect to serverless functions instead of Node API endpoints
+[[edge_handlers]]
+  path = "/status-check"
+  handler = "cloud-status-check"
+[[edge_handlers]]
+  path = "/config-manager/save"
+  handler = "not-supported"
+[[edge_handlers]]
+  path = "/config-manager/rebuild"
+  handler = "not-supported"
+
 # Set any security headers here
 [[headers]]
   for = "/*"
