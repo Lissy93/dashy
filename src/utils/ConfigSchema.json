@@ -567,7 +567,7 @@
                   "default": false,
                   "description": "Whether or not to display online/ offline status for this service. Will override appConfig.statusCheck"
                 },
-                "statusCheckUrl": {
+                "statusCheckEndpoint": {
                   "type": "string",
                   "description": "If you've enabled statusCheck, and want to use a different URL to what is defined under the item, then specify it here"
                 },
@@ -579,6 +579,11 @@
                   "type": "boolean",
                   "default": false,
                   "description": "Allows for running status checks on insecure content/ non-HTTPS apps"
+                },
+                "statusCheckPingOnly": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Send just a ping to a given app, instead of a full HTTP GET request"
                 }
               }
             }
