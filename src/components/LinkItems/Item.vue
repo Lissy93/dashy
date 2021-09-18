@@ -21,7 +21,7 @@
         v-bind:style="customStyles" class="bounce" />
       <!-- Small icon, showing opening method on hover -->
       <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon || itemSize === 'small'"
-        :openingMethod="target"  :position="itemSize === 'medium'? 'bottom right' : 'top right'"
+        :openingMethod="target"  position="bottom right"
         :hotkey="hotkey" />
       <!-- Status indicator dot (if enabled) showing weather srevice is availible -->
       <StatusIndicator
@@ -49,7 +49,7 @@ import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
 import ContextMenu from '@/components/LinkItems/ContextMenu';
-import { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
 
 export default {
   name: 'Item',
@@ -173,7 +173,7 @@ export default {
       // Deterimine if user disabled security
       const enableInsecure = statusCheckAllowInsecure ? '&enableInsecure=true' : '';
       // Construct the full API endpoint's URL with GET params
-      return `${baseUrl}/ping/${urlToCheck}${headers}${enableInsecure}`;
+      return `${baseUrl}${serviceEndpoints.statusCheck}/${urlToCheck}${headers}${enableInsecure}`;
     },
     /* Checks if a given service is currently online */
     checkWebsiteStatus() {
@@ -414,30 +414,6 @@ export default {
 
 <!-- An un-scoped style tag, since tooltip is outside this DOM tree -->
 <style lang="scss">
-.tooltip.item-description-tooltip {
-  background: var(--description-tooltip-background);
-  border: 1px solid var(--description-tooltip-color);
-  border-radius: var(--curve-factor-small);
-  color: var(--description-tooltip-color);
-  padding: 0.2rem 0.5rem;
-  max-width: 250px;
-  z-index: 5;
-}
-.tooltip-arrow {
-  border-width: 5px 5px 0 5px;
-  border-color: var(--description-tooltip-color);
-  border-left-color: transparent!important;
-  border-right-color: transparent!important;
-  border-bottom-color: transparent!important;
-  bottom: -11px;
-  left: calc(50% - 5px);
-  width: 0;
-  height: 0;
-  border-style: solid;
-  position: absolute;
-  margin: 5px;
-  z-index: 3;
-}
 
 .disabled-link {
   pointer-events: none;

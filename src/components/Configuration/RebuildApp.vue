@@ -48,10 +48,10 @@
 import axios from 'axios';
 import ProgressBar from 'rsup-progress';
 import Button from '@/components/FormElements/Button';
-import { modalNames } from '@/utils/defaults';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
 import ReloadIcon from '@/assets/interface-icons/application-reload.svg';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
+import { modalNames, serviceEndpoints } from '@/utils/defaults';
 
 export default {
   name: 'RebuildApp',
@@ -76,7 +76,7 @@ export default {
     /* Calls to the rebuild endpoint, to kickoff the app build */
     startBuild() {
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      const endpoint = `${baseUrl}/config-manager/rebuild`;
+      const endpoint = `${baseUrl}${serviceEndpoints.rebuild}`;
       this.loading = true;
       this.progress.start();
       axios.get(endpoint)

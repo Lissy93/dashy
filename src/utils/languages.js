@@ -5,7 +5,13 @@ import nl from '@/assets/locales/nl.json';
 import fr from '@/assets/locales/fr.json';
 import sl from '@/assets/locales/sl.json';
 import es from '@/assets/locales/es.json';
+import it from '@/assets/locales/it.json';
 import zhCN from '@/assets/locales/zh-CN.json';
+import ar from '@/assets/locales/ar.json';
+import hi from '@/assets/locales/hi.json';
+import ja from '@/assets/locales/ja.json';
+import pt from '@/assets/locales/pt.json';
+import ru from '@/assets/locales/ru.json';
 
 // Language data - Next register your language by adding it to this list
 export const languages = [
@@ -15,8 +21,8 @@ export const languages = [
     locale: en,
     flag: '🇬🇧',
   },
-  {
-    name: 'German',
+  { // German
+    name: 'Deutsch',
     code: 'de',
     locale: de,
     flag: '🇩🇪',
@@ -28,28 +34,64 @@ export const languages = [
     flag: '🇳🇱',
   },
   {
-    name: 'French',
+    name: 'Français',
     code: 'fr',
     locale: fr,
     flag: '🇲🇫',
   },
   {
-    name: 'Slovenian',
+    name: 'Slovenščina',
     code: 'sl',
     locale: sl,
     flag: '🇸🇮',
   },
-  {
-    name: 'Spanish',
+  { // Spanish
+    name: 'Español',
     code: 'es',
     locale: es,
     flag: '🇪🇸',
   },
-  {
+  { // Italian
+    name: 'Italiano',
+    code: 'it',
+    locale: it,
+    flag: '🇮🇹',
+  },
+  { // Chinese
     name: '简体中文',
     code: 'cn',
     locale: zhCN,
     flag: '🇨🇳',
+  },
+  { // Arabic
+    name: 'العربية',
+    code: 'ar',
+    locale: ar,
+    flag: '🇦🇪',
+  },
+  { // Hindi
+    name: 'नहीं',
+    code: 'hi',
+    locale: hi,
+    flag: '🇮🇳',
+  },
+  { // Japanese
+    name: '日本語',
+    code: 'ja',
+    locale: ja,
+    flag: '🇯🇵',
+  },
+  { // Portuguese
+    name: 'Português',
+    code: 'pt',
+    locale: pt,
+    flag: '🇵🇹',
+  },
+  { // Russian
+    name: 'Русский',
+    code: 'ru',
+    locale: ru,
+    flag: '🇷🇺',
   },
 ];
 

@@ -37,25 +37,28 @@ Dashy should now be being served on http://localhost:8080/. Hot reload is enable
 
 ### Project Commands
 
-- `yarn dev` - Starts the development server with hot reloading
-- `yarn build` - Builds the project for production, and outputs it into `./dist`
-- `yarn start` - Starts a web server, and serves up the production site from `./dist`
-- `yarn validate-config` - Parses and validates your `conf.yml` against Dashy's schema
-- `yarn lint` - Lints code to ensure it follows a consistent, neat style
-- `yarn test` - Runs tests, and outputs results
+#### Basics
+- **`yarn build`** - In the interest of speed, the application is pre-compiled, this means that the config file is read during build-time, and therefore the app needs to rebuilt for any new changes to take effect. Luckily this is very straight forward. Just run `yarn build` or `docker exec -it [container-id] yarn build`
+- **`yarn start`** - Starts a web server, and serves up the production site from `./dist` (must run build command first)
 
-There is also:
-- `yarn build-and-start` will run `yarn build` and `yarn start`
-- `yarn build-watch` will output contents to `./dist` and recompile when anything in `./src` is modified, you can then use either `yarn start` or your own server, to have a production environment that watches for changes.
+#### Development
+- **`yarn dev`** - Starts the development server with hot reloading
+- **`yarn lint`** - Lints code to ensure it follows a consistent, neat style
+- **`yarn test`** - Runs tests, and outputs results
 
-Using the Vue CLI:
-- The app is build with Vue, and uses the [Vue-CLI Service](https://cli.vuejs.org/guide/cli-service.html) for basic commands.
-- If you have [NPX](https://github.com/npm/npx) installed, then you can invoke the Vue CLI binary using `npx vue-cli-service [command]`
-- Vue also has a GUI environment that can be used for basic project management, and may be useful for beginners, this can be started by running `npx vue ui`, and opening up `http://localhost:8000`
+#### Utils and Checks
+- **`yarn validate-config`** - If you have quite a long configuration file, you may wish to check that it's all good to go, before deploying the app. This can be done with `yarn validate-config` or `docker exec -it [container-id] yarn validate-config`. Your config file needs to be in `/public/conf.yml` (or within your Docker container at `/app/public/conf.yml`). This will first check that your YAML is valid, and then validates it against Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js).
+- **`yarn health-check`** - Checks that the application is up and running on it's specified port, and outputs current status and response times. Useful for integrating into your monitoring service, if you need to maintain high system availability
 
-Note:
+#### Alternate Start Commands
+- **`yarn build-and-start`** - Builds the app, runs checks and starts the production server. Commands are run in parallel, and so is faster than running them in independently. Uses the `yarn build` and `yarn start` commands
+- **`yarn build-watch`** - If you find yourself making frequent changes to your configuration, and do not want to have to keep manually rebuilding, then this option is for you. It will watch for changes to any files within the projects root, and then trigger a rebuild. Note that if you are developing new features, then `yarn dev` would be more appropriate, as it's significantly faster at recompiling (under 1 second), and has hot reloading, linting and testing integrated
+- **`yarn pm2-start`** - Starts the Node server using [PM2](https://pm2.keymetrics.io/), a process manager for Node.js applications, that helps them stay alive. PM2 has some built-in basic monitoring features, and an optional [management solution](https://pm2.io/). If you are running the app on bare metal, it is recommended to use this start command
+
+#### Notes
 - If you are using NPM, replace `yarn` with `npm run`
 - If you are using Docker, precede each command with `docker exec -it [container-id]`. Container ID can be found by running `docker ps`
+- You can manage the app using the [Vue-CLI Service](https://cli.vuejs.org/guide/cli-service.html), with `npx vue-cli-service [command]`. Or to start the Vue Management UI, run `npx vue ui`, and open `http://localhost:8000` 
 
 ### Environmental Variables
 All environmental variables are optional. Currently there are not many environmental variables used, as most of the user preferences are stored under `appConfig` in the `conf.yml` file.

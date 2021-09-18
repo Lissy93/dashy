@@ -1,9 +1,10 @@
 <template>
-  <div
+  <div class="indicator"
     v-tooltip="{
-      content: statusText || otherStatusText, classes: ['status-tooltip', `tip-${color()}`] }"
-    class="indicator"
-    @click="showToast()">
+      content: statusText || otherStatusText,
+      classes: ['status-tooltip', `tip-${color()}`],
+      delay: { show: 0, hide: 150 }
+    }">
     <div :class="`dot dot-${color()}`">
       <span><span></span></span>
     </div>
@@ -114,11 +115,19 @@ export default {
 <style lang="scss">
 .status-tooltip {
   background: var(--status-check-tooltip-background) !important;
-  color: var(--status-check-tooltip-color) !important;
+  color: var(--status-check-tooltip-color);
   font-size: 1rem;
   z-index: 10;
-  &.tip-green { border: 1px solid var(--success); }
-  &.tip-yellow { border: 1px solid var(--warning); }
-  &.tip-red { border: 1px solid var(--danger); }
+  &.tip-grey { --status-color: var(--medium-grey); }
+  &.tip-green { --status-color: var(--success); }
+  &.tip-yellow { --status-color: var(--warning); }
+  &.tip-red { --status-color: var(--danger); }
+  .tooltip-inner {
+    border: 1px solid var(--status-color);
+    // color: var(--status-color);
+  }
+  .tooltip-arrow {
+    --description-tooltip-color: var(--status-color);
+  }
 }
 </style>

@@ -33,10 +33,7 @@ export default {
         disabled: !this.title,
         content: this.title,
         trigger: 'hover focus',
-        hideOnTargetClick: true,
-        html: false,
-        placement: 'right-start',
-        delay: { show: 800, hide: 1000 },
+        placement: 'bottom-end',
       },
     };
   },

@@ -18,12 +18,12 @@ import serviceWorker from '@/utils/InitServiceWorker'; // Service worker initial
 import clickOutside from '@/utils/ClickOutside';      // Directive for closing popups, modals, etc
 import { messages } from '@/utils/languages';         // Language texts
 import ErrorReporting from '@/utils/ErrorReporting';  // Error reporting initializer (off)
-import { toastedOptions, language as defaultLanguage } from '@/utils/defaults'; // Defaults
+import { toastedOptions, tooltipOptions, language as defaultLanguage } from '@/utils/defaults';
 import { isKeycloakEnabled, getKeycloakConfig } from '@/utils/Auth'; // Keycloak auth config
 
 // Initialize global Vue components
 Vue.use(VueI18n);
-Vue.use(VTooltip);
+Vue.use(VTooltip, tooltipOptions);
 Vue.use(VModal);
 Vue.use(VTabs);
 Vue.use(Toasted, toastedOptions);
