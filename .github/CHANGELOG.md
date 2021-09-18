@@ -1,5 +1,12 @@
 # Changelog
 
+## 🩹 1.8.1 - Additional Languages, Bug Fix, and more [PR #234](https://github.com/Lissy93/dashy/pull/234)
+- Merges 5 additional languages
+- Adds RickyCZ's dashboard to showcase
+- Fixes #323, and improves status indicator tooltip
+- Define constants for endpoints
+- Updates management, translations and readme docs
+
 ## ⚡️ 1.7.7 - Improved Error Handling [PR #226](https://github.com/Lissy93/dashy/pull/226)
 - Errors can be viewed via the UI (Config menu --> App Info)
 - Service workers should be disabled by default
