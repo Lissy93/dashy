@@ -6,12 +6,15 @@ ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
 # Install additional tools needed on arm64 and armv7
 RUN \
   case "${TARGETPLATFORM}" in \
-    'linux/arm64') apk add --no-cache python make g++ ;; \
-    'linux/arm/v7') apk add --no-cache python make g++ ;; \
+  'linux/arm64') apk add --no-cache python make g++ ;; \
+  'linux/arm/v7') apk add --no-cache python make g++ ;; \
   esac
 
 # Create and set the working directory
 WORKDIR /app
+
+# Workaround for node-gyp
+RUN apk add --update python make g++ && rm -rf /var/cache/apk/*
 
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --network-timeout 1000000
@@ -27,8 +30,8 @@ FROM node:14.17.5-alpine
 
 # Define some ENV Vars
 ENV PORT=80 \
-    DIRECTORY=/app \
-    IS_DOCKER=true
+  DIRECTORY=/app \
+  IS_DOCKER=true
 
 # Create and set the working directory
 WORKDIR ${DIRECTORY}
