@@ -19,7 +19,6 @@ require('./services/config-validator'); // Include and kicks off the config file
 
 /* Include route handlers for API endpoints */
 const statusCheck = require('./services/status-check'); // Used by the status check feature, uses GET
-const statusPing = require('./services/status-ping'); // Used for ping-only status checks
 const saveConfig = require('./services/save-config'); // Saves users new conf.yml to file-system
 const rebuild = require('./services/rebuild-app'); // A script to programmatically trigger a build
 
@@ -70,16 +69,6 @@ try {
         });
       } catch (e) {
         printWarning(`Error running status check for ${req.url}\n`, e);
-      }
-    })
-    // GET endpoint to ping a given IP address, also used for status checking
-    .use(ENDPOINTS.statusPing, (req, res) => {
-      try {
-        statusPing(req.url, async (results) => {
-          await res.end(results);
-        });
-      } catch (e) {
-        printWarning(`Error running ping check for ${req.url}\n`, e);
       }
     })
     // POST Endpoint used to save config, by writing conf.yml to disk
