@@ -1,22 +1,31 @@
 # Internationalization
 
-Internationalization is the process of making an application available in other languages. This is important, as not everyone is a native English speaker.
+Internationalization is the process of making an application available in other languages. This is important, as not everyone is a native English speaker. This page explains how you can switch languages, how to add a new language, and how to make text translatable when writing a new component.
 
-## Available Languages
-
-An up-to-date list of all currently supported languages can be found in [`./src/utils/languages.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/languages.js).  Languages are specified by their 2-digit [ISO-639 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`, `fr`, `de`, `es`, etc)
+- [Setting your Language](#setting-language)
+- [Adding a new Language](#adding-a-new-language)
+- [Adding New Text to a Component](#adding-new-text-to-a-component)
 
 ---
 
-## How to change Language
+## Setting Language
 
 By default, Dashy will attempt to use the language of your browser or system. If a translation for your language does not yet exist, it will fallback to English.
 
-You can also manually select your language. This can be done, either through the UI (Config --> Language), or by setting it in your config file: 
+#### In the UI
+You can manually select your language in the UI. Under the Config Menu, click the Language button, and select your language from the dropdown menu. Your preference will be saved in local storage.
+
+#### Config File
+You can also set your language in the config file. Specify the ISO code of one of the supported languages, under `appConfig.lang`. For example:
+
 ```yaml
 appConfig:
-	lang: de
+  lang: de
 ```
+
+#### Available Languages
+
+At the time of writing the following languages are supported: `en`, `zh-CN`, `nl`, `fr`, `de`, `es`, `sl`, `it`, `pt`, `ru`, `ar`, `hi`, `ja`, but an up-to-date list of all implemented translations can be found in [`./src/utils/languages.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/languages.js).  Languages are specified by their 2-digit [ISO-639 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), or sometimes a 4-digit code if it's a regional dialect.
 
 ---
 
@@ -27,9 +36,10 @@ Dashy is using [vue-i18n](https://vue-i18n.intlify.dev/guide/) to manage multi-l
 Adding a new language is pretty straightforward, with just three steps:
 
 ##### 1. Create a new Language File
-Create a new JSON file in `./src/assets/locales` name is a 2-digit [ISO-639 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language, E.g. for German `de.json`, French `fr.json` or Spanish `es.json` - You can find a list of all ISO codes at [iso.org](https://www.iso.org/obp/ui).
-If your language is a specific dialect or regional language, then use the Posfix [CLDR](http://cldr.unicode.org/) format, where, e.g. `en-GB.json` (British), `es-MX.json` (Spanish, in Mexico) or `zh-CN.json` (Chinese, simplified) - A list of which can be found [here](https://github.com/unicode-org/cldr-json/blob/master/cldr-json/cldr-core/availableLocales.json)
+Create a new JSON file in `./src/assets/locales` for your language. 
 
+You should name it with the 2-digit [ISO-639 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your locale (e.g. for German `de.json`, French `fr.json` or Spanish `es.json`) - You can find a list of all ISO codes at [iso.org](https://www.iso.org/obp/ui).
+If your language is a specific dialect or regional translation, then use the Posfix [CLDR](http://cldr.unicode.org/) format, where, e.g. `en-GB.json` (British English), `es-MX.json` (Spanish, in Mexico) or `zh-CN.json` (Chinese, simplified) - A list of which can be found [here](https://github.com/unicode-org/cldr-json/blob/master/cldr-json/cldr-core/availableLocales.json)
 
 ##### 2. Translate!
 Using [`en.json`](https://github.com/Lissy93/dashy/tree/master/src/assets/locales/en.json) as an example, translate the JSON values to your language, while leaving the keys as they are. It's fine to leave out certain items, as if they're missing they will fall-back to English. If you see any attribute which include curly braces (`{xxx}`), then leave the inner value of these braces as is, as this is for variables.
@@ -78,12 +88,9 @@ If you are not comfortable with making pull requests, or do not want to modify t
 
 ---
 
-## Adding Text
+## Adding New Text to a Component
 
-If you're working on a new component, then any text that is displayed to the user should be extracted out of the component, and stored in the file. This also applies to any existing components, that might have been forgotten to be translated.
-
-Thankfully, everything is already setup, and so is as easy as adding text to the JSON file, and pasting the key to that text in your component.
-
+If you're working on a new component, then any text that is displayed to the user should be extracted out of the component, and stored in the file. This also applies to any existing components, that might have been forgotten to be translated. Thankfully, everything is already setup, so this is a pretty easy job.
 
 #### 1. Add Translated Text
 
@@ -95,8 +102,7 @@ Firstly, go to [`./src/assets/locales/en.json`](https://github.com/Lissy93/dashy
 }
 ```
 
-Note that you **must** add English translations for all text. Missing languages are not a problem, as they will always fallback to Enslish, but if the English is missing, then nothing can be displayed.
-
+Note that you **must** add English translations for all text. Missing languages are not a problem, as they will always fallback to English, but if the English is missing, then nothing can be displayed.
 
 #### 2. Use Text within Component
 
@@ -143,10 +149,9 @@ In [`./src/components/Settings/SearchBar.vue`](https://github.com/Lissy93/dashy/
   <form>
     <label for="search-input">{{ $t('search.search-label') }}</label>
     <input
-      id="search-input"
       v-model="searchValue"
       :placeholder="$t('search.search-placeholder')"
-		/>
+    />
   </form>
 </template>
 ```
@@ -159,6 +164,6 @@ Then in [`./src/assets/locales/en.json`](https://github.com/Lissy93/dashy/blob/m
     "search-label": "Search",
     "search-placeholder": "Start typing to filter",
   },
-	...
+  ...
 }
 ```
