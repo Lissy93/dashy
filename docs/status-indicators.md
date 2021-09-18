@@ -51,7 +51,7 @@ appConfig:
 ## Using a Different Endpoint
 By default, the status checker will use the URL of each application being checked. In some situations, you may want to use a different endpoint for status checking. Similarly, some services provide a dedicated path for uptime monitoring. 
 
-You can set the `statusCheckUrl` property on any given item in order to do this. The status checker will then ping that endpoint, instead of the apps main `url` property.
+You can set the `statusCheckEndpoint` property on any given item in order to do this. The status checker will then ping that endpoint, instead of the apps main `url` property.
 
 ## Setting Custom Headers
 If your service is responding with an error, despite being up and running, it is most likely because custom headers for authentication, authorization or encoding are required. You can define these headers under the `statusCheckHeaders` property for any service. It should be defined as an object format, with the name of header as the key, and header content as the value.
@@ -59,6 +59,12 @@ For example, `statusCheckHeaders: { 'X-Custom-Header': 'foobar' }`
 
 ## Disabling Security
 By default, (if you're using HTTPS) any requests to insecure or non-HTTPS content will be blocked. This will cause the status check to fail. If you trust the endpoint (e.g. you're self-hosting it), then you can disable this security measure for an individual item. This is done by setting `statusCheckAllowInsecure: true`
+
+## Ping-Only Status Checks
+Some services do not render any content (such as game servers, mail servers, file servers, etc), and so the normal status checking method will not work. For these applications, you can instead enable the `statusCheckPingOnly` option. This works a little differently, instead of sending a GET request, it will just ping the services IP address. If the `url` option doesn't work, then just set `statusCheckEndpoint` to your servers IP address.
+
+It's worth noting, that pinging a server will only check that it is online and responding, but is not able to verify that your app is correctly running (which is why the default method uses HTTP requests instead).
+
 
 ## Troubleshooting Failing Status Checks
 If the status is always returning an error, despite the service being online, then it is most likely an issue with access control, and should be fixed with the correct headers. Hover over the failing status to see the error code and response, in order to know where to start with addressing it.
@@ -70,17 +76,19 @@ Vary: Origin
 ```
 If the URL you are checking is not using HTTPS, then you may need to disable the rejection of insecure requests. This can be done by setting `statusCheckAllowInsecure` to true for a given item.
 
-If you get an error, like `Service Unavailable: Server resulted in a fatal error`, even when it's definitely online, this is most likely caused by missing the protocol. Don't forget to include `https://` (or whatever protocol) before the URL, and ensure that if needed, you've specified the port.
+If you get an error, like `Service Unavailable: Server resulted in a fatal error`, even when it's definitely online, this is most likely caused by missing the protocol. Don't forget to include `https://` (or whatever protocol) before the URL, and ensure that if it's needed, you've specified the port.
 
-Currently, the status check needs a page to be rendered, so if this URL in your browser does not return anything, then status checks will not work. This may be modified in the future, but in the meantime, a fix would be to make your own status service, which just checks if your app responds with whatever code you'd like, and then return a 200 plus renders an arbitrary message. Then just point `statusCheckUrl` to your custom page.
+By default, the status check needs a page to be rendered, so if this URL in your browser does not return anything, then status checks will not work. You can fix this by setting `statusCheckPingOnly: true`. This will send just a normal ping to a given IP, instead of the normal GET request.
 
-For further troubleshooting, use an application like [Postman](https://postman.com) to diagnose the issue. Set the parameter to `GET`, and then make a call to: `https://[url-of-dashy]/ping/?&url=[service-url]`. Where the service URL must have first been encoded (e.g. with `encodeURIComponent()` or [urlencoder.io](https://www.urlencoder.io/))
+For further troubleshooting, use an application like [Postman](https://postman.com) to diagnose the issue. Set the parameter to `GET`, and then make a call to either:
+- `https://[url-of-dashy]/status-check/?&url=[service-url]` - Where the service URL must have first been encoded (e.g. with `encodeURIComponent()` or [urlencoder.io](https://www.urlencoder.io/))
+- `https://[url-of-dashy]/status-ping/?&ip=[service-ip]` - Where the IP is that of your service
 
 If you're serving Dashy though a CDN, instead of using the Node server or Docker image, then the Node endpoint that makes requests will not be available to you, and all requests will fail. A workaround for this may be implemented in the future, but in the meantime, your only option is to use the Docker or Node deployment method. 
 
 ## How it Works
 
-When the app is loaded, if `appConfig.statusCheck: true` is set, or if any items have the `statusCheck: true` enabled, then Dashy will make a request, to `https://[your-host-name]/ping?url=[address-or-servce]` (may al include GET params for headers and the secure flag), which in turn will ping that running service, and respond with a status code. Response time is calculated from the difference between start and end time of the request. 
+When the app is loaded, if `appConfig.statusCheck: true` is set, or if any items have the `statusCheck: true` enabled, then Dashy will make a request, to `https://[your-host-name]/status-check?url=[address-or-servce]` (may al include GET params for headers and the secure flag), which in turn will ping that running service, and respond with a status code. Response time is calculated from the difference between start and end time of the request. 
 
 When the response completes, an indicator will display next to each item. The color denotes the status: Yellow while waiting for the response to return, green if request was successful, red if it failed, and grey if it was unable to make the request all together.
 
