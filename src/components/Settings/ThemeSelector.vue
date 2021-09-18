@@ -148,7 +148,7 @@ export default {
   }
   ul.vs__dropdown-menu {
     width: auto;
-    z-index: 5;
+    z-index: 12;
     max-width: 13rem;
     overflow-x: hidden;
     @extend .scroll-bar;

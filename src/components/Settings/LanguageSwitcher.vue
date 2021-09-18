@@ -129,9 +129,13 @@ export default {
 </style>
 
 <style lang="scss">
-
+@import '@/styles/style-helpers.scss';
 .language-dropdown {
   margin: 1rem auto;
+  ul.vs__dropdown-menu {
+    max-height: 14rem;
+    @extend .scroll-bar;
+  }
   div.vs__dropdown-toggle {
     padding: 0.2rem 0;
   }
