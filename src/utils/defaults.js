@@ -46,7 +46,6 @@ module.exports = {
   /* List of built-in themes, to be displayed within the theme-switcher dropdown */
   builtInThemes: [
     'callisto',
-    'thebe',
     'oblivion',
     'material',
     'material-dark',
@@ -57,6 +56,7 @@ module.exports = {
     'minimal-light',
     'nord',
     'nord-frost',
+    'thebe',
     'cyberpunk',
     'matrix',
     'matrix-red',
@@ -143,6 +143,17 @@ module.exports = {
     className: 'toast-message',
     iconPack: 'fontawesome',
   },
+  /* Default tooltip options */
+  tooltipOptions: {
+    defaultTrigger: 'hover focus',
+    defaultHideOnTargetClick: true,
+    autoHide: true,
+    defaultHtml: false,
+    defaultPlacement: 'auto',
+    defaultLoadingContent: 'Loading...',
+    defaultDelay: { show: 380, hide: 0 },
+    // delay: { show: 380, hide: 0 },
+  },
   /* Server location of the Backup & Sync cloud function */
   backupEndpoint: 'https://dashy-sync-service.as93.net',
   /* Available services for fetching favicon icon for user apps */
@@ -150,7 +161,6 @@ module.exports = {
     mcapi: 'https://eu.mc-api.net/v3/server/favicon/$URL',
     clearbit: 'https://logo.clearbit.com/$URL',
     faviconkit: 'https://api.faviconkit.com/$URL/64',
-    // favicongrabber: 'https://favicongrabber.com//api/grab/$URL',
     google: 'https://www.google.com/s2/favicons?sz=128&domain_url=$URL',
     allesedv: 'https://f1.allesedv.com/128/$URL',
     webmasterapi: 'https://api.webmasterapi.com/v1/favicon/yEwx0ZFs0CSPshHq/$URL',
