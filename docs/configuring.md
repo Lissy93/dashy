@@ -31,7 +31,7 @@ Tips:
 - You may find it helpful to look at some sample config files to get you started, a collection of which can be found [here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
 - You can check that your config file fits the schema, by running `yarn validate-config`
 - After modifying your config, the app needs to be recompiled, by running `yarn build`  - this happens automatically whilst the app is running if you're using Docker
-- It is recommended to make and keep a backup of your config file. You can download your current config through the UI either from the Config menu, or using the `/download` endpoint. Alternatively, you can use the [Cloud Backup](./docs/backup-restore) feature.
+- It is recommended to make and keep a backup of your config file. You can download your current config through the UI either from the Config menu, or using the `/download` endpoint. Alternatively, you can use the [Cloud Backup](/docs/backup-restore) feature.
 - The config can also be modified directly through the UI, validated and written to the conf.yml file.
 - All fields are optional, unless otherwise stated.
 
