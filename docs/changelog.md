@@ -1,5 +1,63 @@
 # Changelog
 
+## ⚡️ 1.8.3 - Improved UX for Initial Load [PR #238](https://github.com/Lissy93/dashy/pull/238)
+- Removes the old splash screen
+- Adds placeholder in the HTML index, which will usually be visible on initial load
+- Show progress bar on route switcher
+
+## ✨ 1.8.2 - Serverless Functions for Netlify Instances [PR #235](https://github.com/Lissy93/dashy/pull/235)
+- Previously when Dashy was deployed as a static site to Netlify, it was not possible to use several features, which required server-side code
+- This PR adds serverless cloud functions to provide most of this functionality
+
+## 🩹 1.8.1 - Additional Languages, Bug Fix, and more [PR #234](https://github.com/Lissy93/dashy/pull/234)
+- Merges 5 additional languages
+- Adds RickyCZ's dashboard to showcase
+- Fixes #323, and improves status indicator tooltip
+- Define constants for endpoints
+- Updates management, translations and readme docs
+
+## ⚡️ 1.7.7 - Improved Error Handling [PR #226](https://github.com/Lissy93/dashy/pull/226)
+- Errors can be viewed via the UI (Config menu --> App Info)
+- Service workers should be disabled by default
+- Also renames actions to be easier to maintain
+- Updates docs to include release schedule + merge strategy
+
+## ✨ 1.7.6 - Adds Multi-Search Support with Bangs [PR #224](https://github.com/Lissy93/dashy/pull/224)
+- Adds option for user to add custom search bangs, in order to specify search engine/ target app. Re: #206
+
+## 🎨 1.7.5 - Improved Language Detection & UI [PR #223](https://github.com/Lissy93/dashy/pull/223)
+- Makes the auto language detection algo smarter
+- Improves responsiveness for the language selector form
+
+## 🌐 1.7.4 - Adds Spanish Translations [PR #222](https://github.com/Lissy93/dashy/pull/222)
+- Adds Spanish language file, contributed by @lu4t
+
+## 👷 1.7.3 - CI with GH Actions [PR #212](https://github.com/Lissy93/dashy/pull/212)
+- Adds a series of GH actions for repository maintenance and administration
+- Auto-labels PR and issues, adds helpful info to PRs based on files changed
+- Lints, tests, builds and deploys the app when PR submitted
+- Checks app size, dependencies, security, accessibility etc when PR submitted
+- Closes incomplete, stale or spammy issues and leaves a comment
+
+## ✨ 1.7.2 - Item Sort Options [PR #203](https://github.com/Lissy93/dashy/pull/203)
+- Adds option for user to specify `sortBy` to order items within a section
+- Can sort by last clicked, most used, alphabetically and more
+- And fixes UI of the item tooltip and, if specified, will show Provider in the tooltip
+- Also improves error logging and console warning message
+
+## 🐛 1.7.1 - Lots of Tiny Fixes and Improvements [PR #200](https://github.com/Lissy93/dashy/pull/201)
+- Removes background in console art
+- Updates auto environmental variables
+- Icon image assets max height Force same Icon/Item Height #200
+- Adds an action to close spammy issues
+- Adds option to enable SRI integrity, plus refactos PWA into defaults
+- Updates privacy and security docs
+- Adds option for different favicon API for each app [FEATURE_REQUEST] Allow using different faviconApi for each items #196
+- Fixes loading of local SVG icons #199
+
+## 🍻 1.7.0 - Documentation Website [PR #190](https://github.com/Lissy93/dashy/pull/190)
+- Builds a quick website to host the docs. No code changes, but prepares for V1.7 release
+
 ## ✨ 1.6.9 - Web Search Feature [PR #185](https://github.com/Lissy93/dashy/pull/185)
 - Adds ability to search the web directly from Dashy by pressing enter on the search bar
 - Adds configuration options, for setting default search engine, opening method and disabling
