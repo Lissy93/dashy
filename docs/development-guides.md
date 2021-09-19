@@ -141,6 +141,40 @@ Running `yarn upgrade` will updated all dependencies based on the ranges specifi
 
 ---
 
+## Developing Netlify Cloud Functions
+
+When Dashy is deployed to Netlify, it is effectively running as a static app, and therefore the server-side code for the Node.js endpoints is not available. However Netlify now supports serverless cloud lambda functions, which can be used to replace most functionality.
+
+#### 1. Run Netlify Dev Server
+
+First off, install the Netlify CLI: `npm install netlify-cli -g`
+Then, from within the root of Dashy's directory, start the server, by running: `netlify dev`
+
+#### 2. Create a lambda function
+
+This should be saved it in the [`./services/serverless-functions`](https://github.com/Lissy93/dashy/tree/master/services/serverless-functions) directory
+
+```javascript
+exports.handler = async () => ({
+  statusCode: 200,
+  body: 'Return some data here...',
+});
+```
+
+#### 3. Redirect the Node endpoint to the function
+
+In the [`netlify.toml`](https://github.com/Lissy93/dashy/blob/FEATURE/serverless-functions/netlify.toml) file, add a 301 redirect, with the path to the original Node.js endpoint, and the name of your cloud function
+
+```toml
+[[redirects]]
+  from = "/status-check"
+  to = "/.netlify/functions/cloud-status-check"
+  status = 301
+  force = true
+```
+
+---
+
 ## Hiding Page Furniture on Certain Routes
 For some pages (such as the login page, the minimal start page, etc) the basic page furniture, (like header, footer, nav, etc) is not needed. This section explains how you can hide furniture on a new view (step 1), or add a component that should be hidden on certain views (step 2).
 

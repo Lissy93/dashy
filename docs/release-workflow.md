@@ -15,6 +15,30 @@ For a full breakdown of each change, you can view the [Changelog](https://github
 
 ---
 
+## Deployment Process
+
+All changes and new features are submitted as pull requests, which can then be tested, reviewed and (hopefully) merged into the master branch. Every time there is a change in the major version number, a new release is published. This usually happens every 2 weeks, on a Sunday.
+
+When a PR is opened:
+- The feature branch is built, and deployed as a Netlify instance. This can be accessed at: `https://deploy-preview-[pr-number]--dashy-dev.netlify.app`, and this URL as well as a link to the build logs are added as a comment on the PR by Netlify bot
+- Depending on what files were modified, the bot may also add a comment to remind the author of useful info
+- A series of checks will run on the new code, using GH Actions, and prevent merging if they fail. This includes: linting, testing, code quality and complexity checking, security scanning and a spell check
+- If a new dependency was added, liss-bot will comment with a summary of those changes, as well as the cost of the module, version, and any security concerns. If the bundle size has increased, this will also be added as a comment
+
+After the PR is merged:
+- The app is build, and deployed to: https://dev.dashy.to
+- A new tag in GitHub is created, using the apps version number (from the package.json)
+- The Docker container is built, and published under the `:latest` tag on DockerHub and GHCR
+
+When a new major version is released:
+- A new GitHub release is created and published, under new versions tag, with info from the changelog
+- The container is built and published under a new tag will be created on DockerHub, called `:release-[version]`
+- An announcement is opened in GitHub discussions, outlining the main changes, where users can comment and ask questions
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3a0216c3-1ed0-40f5-ad90-ff68b1c96c09/deploy-status)](https://app.netlify.com/sites/dashy-dev/deploys)
+
+---
+
 ## Automated Workflows
 
 Dashy makes heavy use of [GitHub Actions](https://github.com/features/actions) to fully automate the checking, testing, building, deploying of the project, as well as administration tasks like management of issues, tags, releases and documentation. The following section outlines each workflow, along with a link the the action file, current status and short description. A lot of these automations were made possible using community actions contributed to GH marketplace by some amazing people.   
