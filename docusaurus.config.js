@@ -19,13 +19,14 @@ module.exports = {
   tagline: 'The Ultimate Homepage for your Homelab',
   url: externalUrl.dashyUrl,
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'lissy93', // Usually your GitHub org/user name.
   projectName: 'dashy', // Usually your repo name.
   plugins: ['docusaurus-plugin-sass'],
   themeConfig: {
+    // Dark & Light Mode
     colorMode: {
       defaultMode: 'dark',
       switchConfig: {
@@ -46,6 +47,7 @@ module.exports = {
         { label: 'Documentation', to: '/docs' },
       ],
     },
+    // Page Footer Links
     footer: {
       style: 'dark',
       links: [
