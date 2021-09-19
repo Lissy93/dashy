@@ -7,6 +7,7 @@
 // Import Vue.js and vue router
 import Vue from 'vue';
 import Router from 'vue-router';
+import ProgressBar from 'rsup-progress';
 
 // Import views
 import Home from '@/views/Home.vue';
@@ -21,6 +22,7 @@ import { config } from '@/utils/ConfigHelpers';
 import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 
 Vue.use(Router);
+const progress = new ProgressBar({ color: 'var(--progress-bar)' });
 
 /* Returns true if user is already authenticated, or if auth is not enabled */
 const isAuthenticated = () => {
@@ -119,12 +121,14 @@ const router = new Router({
  * If not logged in, prevent all access and redirect them to login page
  * */
 router.beforeEach((to, from, next) => {
+  progress.start();
   if (to.name !== 'login' && !isAuthenticated()) next({ name: 'login' });
   else next();
 });
 
 /* If title is missing, then apply default page title */
 router.afterEach((to) => {
+  progress.end();
   Vue.nextTick(() => {
     document.title = to.meta.title || 'Dashy';
   });
