@@ -1,5 +1,8 @@
 # Changelog
 
+## ✨ 1.8.3 - Adds Login option to Remember Me for a Long Time [PR #237](https://github.com/Lissy93/dashy/pull/237)
+- Adds option to Remember Me dropdown, for a Long Time
+
 ## ✨ 1.8.2 - Serverless Functions for Netlify Instances [PR #235](https://github.com/Lissy93/dashy/pull/235)
 - Previously when Dashy was deployed as a static site to Netlify, it was not possible to use several features, which required server-side code
 - This PR adds serverless cloud functions to provide most of this functionality
