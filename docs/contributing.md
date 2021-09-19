@@ -20,7 +20,7 @@ Dashy now has a [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/sho
 
 ## Improve the Docs
 Found a typo, or something that isn't as clear as it could be? Maybe I've missed something off altogether, or you hit a roadblock that took you a while to figure out. Submitting a pull request to add to or improve the documentation will help future users get Dashy up and running more easily.
-All content is located either in the README or [`/docs/`](/docs) directory, and synced to the Wiki and website using a GH action (workflows/wiki-sync.yml).
+All content is located either in the [`./README.md`](/README) or [`/docs/`](/docs) directory, and synced to the Wiki and website using a GH [action](/actions/workflows/wiki-sync.yml).
 
 ## Raise a bug
 If you've found a bug, then please do raise it as an issue. This will help me know if there's something that needs fixing. Try and include as much detail as possible, such as your environment, steps to reproduce, any console output and maybe an example screenshot or recording if necessary.
@@ -89,7 +89,7 @@ If you've enjoyed Dashy, you can follow the me to get updates about other projec
 [![Alicia Sykes's Website](https://img.shields.io/badge/aliciasykes.com--lightgrey?style=social&logo=Tencent%20QQ)](https://aliciasykes.com)
 [![Alicia Sykes's Blog](https://img.shields.io/badge/Blog--lightgrey?style=social&logo=micro.blog)](https://notes.aliciasykes.com/)
 
-If you like, you could also consider [subscribing to my mailing list](https://notes.aliciasykes.com/subscribe) for very occasional blog post updates, or even [nominating me (`@lissy93`)](https://stars.github.com/nominate/) on the GitHub Star Programme.
+If you like, you could also consider [subscribing to my mailing list](https://notes.aliciasykes.com/subscribe) for very occasional blog post updates.
 
 ---
 
@@ -97,7 +97,7 @@ If you like, you could also consider [subscribing to my mailing list](https://no
 
 For a full list of Dashy's contributors, see the [Credits Page](/docs/credits)
 
-![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)
+[![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)](/docs/credits)
 
 ### Star-Gazers Over Time
 

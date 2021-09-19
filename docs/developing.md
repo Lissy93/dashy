@@ -2,14 +2,24 @@
 # Developing
 
 This article outlines how to get Dashy running in a development environment, and outlines the basics of the architecture.
-If you're adding new features, you may want to check out the [Development Guides](/docs/development-guides) docs, for tutorials covering basic tasks.
+If you're adding new features, you may want to check out the [Development Guides](./docs/development-guides) docs, for tutorials covering basic tasks.
 
 - [Setting up the Development Environment](#setting-up-the-dev-environment)
+  - [Prerequisites](#prerequisites)
+  - [Running the App](#running-the-project)
+  - [Project Commands](#project-commands)
+  - [Environmental Variables](#environmental-variables)
+- [Git Strategy](#git-strategy)
+  - [Flow](#git-flow)
+  - [Branches](#git-branch-naming)
+  - [Commit emojis](#commit-emojis)
+  - [PR Guidelines](#pr-guidelines)
 - [Resources for Beginners](#resources-for-beginners)
-- [Style Guide](#style-guide)
-- [Frontend Components](#frontend-components)
-- [Project Structure](#directory-structure)
-- [Dependencies and Packages](#dependencies-and-packages)
+- [App Info](#app-info)
+- [Code Style Guide](#style-guide)
+- [Application Structure](#application-structure)
+- [Development Tools](#development-tools)
+- [Misc / Notes](#notes)
 
 ## Setting up the Dev Environment
 
@@ -27,50 +37,45 @@ Dashy should now be being served on http://localhost:8080/. Hot reload is enable
 
 ### Project Commands
 
-- `yarn dev` - Starts the development server with hot reloading
-- `yarn build` - Builds the project for production, and outputs it into `./dist`
-- `yarn start` - Starts a web server, and serves up the production site from `./dist`
-- `yarn validate-config` - Parses and validates your `conf.yml` against Dashy's schema
-- `yarn lint` - Lints code to ensure it follows a consistent, neat style
-- `yarn test` - Runs tests, and outputs results
+#### Basics
+- **`yarn build`** - In the interest of speed, the application is pre-compiled, this means that the config file is read during build-time, and therefore the app needs to rebuilt for any new changes to take effect. Luckily this is very straight forward. Just run `yarn build` or `docker exec -it [container-id] yarn build`
+- **`yarn start`** - Starts a web server, and serves up the production site from `./dist` (must run build command first)
 
-There is also:
-- `yarn build-and-start` will run `yarn build` and `yarn start`
-- `yarn build-watch` will output contents to `./dist` and recompile when anything in `./src` is modified, you can then use either `yarn start` or your own server, to have a production environment that watches for changes.
+#### Development
+- **`yarn dev`** - Starts the development server with hot reloading
+- **`yarn lint`** - Lints code to ensure it follows a consistent, neat style
+- **`yarn test`** - Runs tests, and outputs results
 
-Using the Vue CLI:
-- The app is build with Vue, and uses the [Vue-CLI Service](https://cli.vuejs.org/guide/cli-service.html) for basic commands.
-- If you have [NPX](https://github.com/npm/npx) installed, then you can invoke the Vue CLI binary using `npx vue-cli-service [command]`
-- Vue also has a GUI environment that can be used for basic project management, and may be useful for beginners, this can be started by running `vue ui`, and opening up `http://localhost:8000`
+#### Utils and Checks
+- **`yarn validate-config`** - If you have quite a long configuration file, you may wish to check that it's all good to go, before deploying the app. This can be done with `yarn validate-config` or `docker exec -it [container-id] yarn validate-config`. Your config file needs to be in `/public/conf.yml` (or within your Docker container at `/app/public/conf.yml`). This will first check that your YAML is valid, and then validates it against Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js).
+- **`yarn health-check`** - Checks that the application is up and running on it's specified port, and outputs current status and response times. Useful for integrating into your monitoring service, if you need to maintain high system availability
 
-Note:
+#### Alternate Start Commands
+- **`yarn build-and-start`** - Builds the app, runs checks and starts the production server. Commands are run in parallel, and so is faster than running them in independently. Uses the `yarn build` and `yarn start` commands
+- **`yarn build-watch`** - If you find yourself making frequent changes to your configuration, and do not want to have to keep manually rebuilding, then this option is for you. It will watch for changes to any files within the projects root, and then trigger a rebuild. Note that if you are developing new features, then `yarn dev` would be more appropriate, as it's significantly faster at recompiling (under 1 second), and has hot reloading, linting and testing integrated
+- **`yarn pm2-start`** - Starts the Node server using [PM2](https://pm2.keymetrics.io/), a process manager for Node.js applications, that helps them stay alive. PM2 has some built-in basic monitoring features, and an optional [management solution](https://pm2.io/). If you are running the app on bare metal, it is recommended to use this start command
+
+#### Notes
 - If you are using NPM, replace `yarn` with `npm run`
 - If you are using Docker, precede each command with `docker exec -it [container-id]`. Container ID can be found by running `docker ps`
+- You can manage the app using the [Vue-CLI Service](https://cli.vuejs.org/guide/cli-service.html), with `npx vue-cli-service [command]`. Or to start the Vue Management UI, run `npx vue ui`, and open `http://localhost:8000` 
 
 ### Environmental Variables
 All environmental variables are optional. Currently there are not many environmental variables used, as most of the user preferences are stored under `appConfig` in the `conf.yml` file.
 
-You can set variables within your local development environment using a `.env` file.
+You can set variables either in your environment, or using the [`.env`](https://github.com/Lissy93/dashy/blob/master/.env) file.
 
-Any environmental variables used by the frontend are preceded with `VUE_APP_`. Vue will merge the contents of your `.env` file into the app in a similar way to the ['dotenv'](https://github.com/motdotla/dotenv) package, where any variables that you set on your system will always take preference over the contents of any `.env` file.
-
-- `PORT` - The port in which the application will run (defaults to `4000` for the Node.js server, and `80` within the Docker container)
-- `NODE_ENV` - Which environment to use, either `production`, `development` or `test`
-- `VUE_APP_DOMAIN` - The URL where Dashy is going to be accessible from. This should include the protocol, hostname and (if not 80 or 443), then the port too, e.g. `https://localhost:3000`, `http://192.168.1.2:4002` or `https://dashy.mydomain.com`
-
-
-If you do add new variables, ensure that there is always a fallback (define it in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js)), so as to not cause breaking changes. Don't commit your `.env` file to git, but instead take a few moments to document what you've added under the appropriate section. Try and follow the concepts outlined in the [12 factor app](https://12factor.net/config).
-
+- `NODE_ENV` - Current environment, can be either development, production or test
+- `PORT` - The port to expose the running application on
+- `HOST` - The host that Dashy is running on, domain or IP
+- `BASE_URL` - The default base path for serving up static assets
+- `VUE_APP_DOMAIN` - Usually the same as BASE_URL, but accessible in frontend
+- `INTEGRITY` - Should enable SRI for build script and link resources
+- `IS_DOCKER` - Computed automatically on build. Indicates if running in container
+- `VUE_APP_VERSION` - Again, set automatically using package.json during build time
 
 ### Environment Modes
-You can set the environment using the `NODE_ENV` variable.
-The correct environment will be selected based on the script you run by default
-The following environments are supported.
-- `production`
-- `development`
-- `test`
-
-For more info, see [Vue CLI Environment Modes](https://cli.vuejs.org/guide/mode-and-env.html#modes).
+You can set the environment using the `NODE_ENV` variable. By default, the correct environment should be selected based on the script you run to start the app. The following environments are supported: `production`, `development` and `test`. For more info, see [Vue CLI Environment Modes](https://cli.vuejs.org/guide/mode-and-env.html#modes).
 
 ---
 
@@ -135,6 +140,7 @@ When you submit your PR, include the required info, by filling out the PR templa
 - Finally, check the checkboxes, to confirm that the standards are met, and hit submit!
 
 ---
+
 ## Resources for Beginners
 New to Web Development? Glad you're here! Dashy is a pretty simple app, so it should make a good candidate for your first PR. Presuming that you already have a basic knowledge of JavaScript, the following articles should point you in the right direction for getting up to speed with the technologies used in this project:
 - [Introduction to Vue.js](https://v3.vuejs.org/guide/introduction.html)
@@ -151,6 +157,8 @@ New to Web Development? Glad you're here! Dashy is a pretty simple app, so it sh
 As well as Node, Git and Docker- you'll also need an IDE (e.g. [VS Code](https://code.visualstudio.com/) or [Vim](https://www.vim.org/)) and a terminal (Windows users may find [WSL](https://docs.microsoft.com/en-us/windows/wsl/) more convenient). 
 
 ---
+
+## App Info
 
 ## Style Guide
 
@@ -174,8 +182,6 @@ Styleguides:
 ---
 
 ## Application Structure
-
-### Directory Structure
 
 #### Files in the Root: `./`
 ```
@@ -206,6 +212,7 @@ Styleguides:
 ├── components                    # All front-end Vue web components
 │  ├── Configuration              # Components relating to the user config pop-up
 │  │  ├── AppInfoModal.vue        # A modal showing core app info, like version, language, etc
+│  │  ├── AppVersion.vue          # Shows current version from package.json, compares with GitHub
 │  │  ├── CloudBackupRestore.vue  # Form where the user manages cloud sync options
 │  │  ├── ConfigContainer.vue     # Main container, wrapping all other config components
 │  │  ├── CustomCss.vue           # Form where the user can input custom CSS
@@ -224,14 +231,24 @@ Styleguides:
 │  │  ├── ItemIcon.vue            # The icon used by both items and sections
 │  │  ├── ItemOpenMethodIcon.vue  # A small icon, visible on hover, indicating opening method 
 │  │  ╰── StatusIndicator.vue     # Traffic light dot, showing if app is online or down
+│  ├── Minimal View               # Components used for the startpage / minimal alternative view
+│  │  ├── MinimalHeading.vue      # Title part of minimal view
+│  │  ├── MinimalSearch.vue       # Search bar for minimal view
+│  │  ╰── MinimalSection.vue      # Tabbed-Item section for minimal view
 │  ├── PageStrcture               # Components relating the main structure of the page
 │  │  ├── Footer.vue              # Footer, visible at the bottom of all pages
 │  │  ├── Header.vue              # Header, visible at the top of pages, and includes title and nav
 │  │  ├── LoadingScreen.vue       # Splash screen shown on first load
 │  │  ├── Nav.vue                 # Navigation bar, includes a list of links
 │  │  ╰── PageTitle.vue           # Page title and sub-title, visible within the Header
+│  ├── Workspace                  # Components used for the multi-tasking/ Workspace view
+│  │  ├── MultiTaskingWeb.vue     # When multi-tasking enabled, generates new iframe
+│  │  ├── SideBar.vue             # The left sidebar for the workspace view
+│  │  ├── SideBarItem.vue         # App item for the sidebar view
+│  │  ├── SideBarSection.vue      # Collapsible collection of items within workspace sidebar
+│  │  ╰── WebContent.vue          # Workspace iframe view, displays content of current app
 │  ╰── Settings                   # Components relating to the quick-settings, in the top-right
-│     ├── AuthButtons.vue          # Logout button and other app info
+│     ├── AuthButtons.vue         # Logout button and other app info
 │     ├── ConfigLauncher.vue      # Icon that when clicked will launch the Configuration component
 │     ├── CustomThemeMaker.vue    # Color pickers for letting user build their own theme
 │     ├── ItemSizeSelector.vue    # Set of buttons used to set and save item size
@@ -248,14 +265,21 @@ Styleguides:
 ├── utils                         # Directory of re-used helper functions
 │  ├── ArrowKeyNavigation.js      # Functionality for arrow-key navigation
 │  ├── Auth.js                    # Handles all authentication related actions
+│  ├── CheckSectionVisibility.js  # Checks which parts of the page should be visible/ hidden based on config
 │  ├── ClickOutside.js            # A directive for detecting click, used to hide dropdown, modal or context menu
-│  ├── ConfigAccumulator.js       # Central place for managing and combining config
 │  ├── ConfigHelpers.js           # Helper functions for managing configuration
 │  ├── CloudBackup.js             # Functionality for encrypting, processing and network calls
 │  ├── ConfigSchema.json          # The schema, used to validate the users conf.yml file
+│  ├── ConfigAccumulator.js       # Central place for managing and combining config
+│  ├── ConfigHelpers.json         # Collection of helper functions to process config using accumulator
 │  ├── ConfigValidator.js         # A helper script that validates the config file against schema
+│  ├── CoolConsole.js             # Prints info, warning and error messages to browser console, with a cool style
 │  ├── defaults.js                # Global constants and their default values
+│  ├── emojis.json                # List of emojis with unicode and shortcode, used for emoji icon feature
+│  ├── EmojiUnicodeRegex.js       # Regular expression to validate emoji unicode format, for emoji icons
 │  ├── ErrorHandler.js            # Helper function called when an error is returned
+│  ├── InitServiceWorker.js       # Initializes and manages service worker, if enabled
+│  ├── Search.js                  # Helper functions for searching/ filtering items in all views
 │  ├── JsonToYaml.js              # Function that parses and converts raw JSON into valid YAML
 │  ├── languages.js               # Handles fetching, switching and validating languages
 │  ╰── ThemeHelper.js             # Function that handles the fetching and setting of user themes
@@ -267,23 +291,9 @@ Styleguides:
    ╰── Workspace.vue              # The workspace view with apps in sidebar
 ```
 
-### Frontend Components
+#### Visualisation of Source Directory
 
-All frontend code is located in the `./src` directory, which is split into 5 sub-folders:
-- **Components** - All frontend web components are located here. Each component should have a distinct, well defined and simple task, and ideally should not be too long. The components directory is organised into a series of sub-directories, representing a specific area of the application
-  - **PageStrcture** - Components relating to overall page structure (nav, footer, etc)
-  - FormElements - Reusable form elements (button, input field, etc)
-  - LinkItems - Components relating to Dashy's sections and items (item group, item, item icon, etc)
-  - Configuration - Components relating to Dashy's configuration forms (cloud backup, JSON editor, etc)
-- **Views** - Each view directly corresponds to a route (defined in the router), and in effectively a page. They should have minimal logic, and just contain a few components
-- **Utils** - These are helper functions, or logic that is used within the app does not include an UI elements
-- **Styles** - Any SCSS that is used globally throughout that app, and is not specific to a single component goes here. This includes variables, color themes, typography settings, CSS reset and media queries
-- **Assets** - Static assets that need to be bundled into the application, but do not require any manipulation go here. This includes interface icons and fonts
-
-The structure of the components directory is similar to that of the frontend application layout
-
-<p align="center"><img src="https://i.ibb.co/wJCt0Lq/dashy-page-structure.png" width="600"/></p>
-
+![File Breakdown](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/repo-visualization.svg)
 
 ---
 
@@ -296,6 +306,7 @@ The easiest method of checking performance is to use Chromium's build in auditin
 [BundlePhobia](https://bundlephobia.com/) is a really useful app that lets you analyze the cost of adding any particular dependency to an application
 
 ---
+
 ## Notes
 
 ### Known Warnings
@@ -306,4 +317,3 @@ When running the build command, several warnings appear. These are not errors, a
 
 `WARN asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).` - For the PWA to support Windows 10, a splash screen asset is required, and is quite large. This throws a warning, however PWA assets are not loaded until needed, so shouldn't have any impact on application performance. A similar warning is thrown for the Raleway font, and that is looking to be addressed.
 
-`glob-parent Security Alert` - This will be fixed soon. The version of glob-parent that is used by the latest version of Vue-CLI has a security issue associated with it. I am waiting on Vue to update their dependencies.

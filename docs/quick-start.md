@@ -121,8 +121,8 @@ Then edit `./public/conf.yml` and rebuild the app with `yarn build`
 
 ## Alternative Deployment Method 2 - Netlify
 
-Don't have a server? No problem! You can run Dashy for free on Netlify (as well as many [other cloud providers](/docs/deployment#deploy-to-cloud-service)). All you need it a GitHub account.
+Don't have a server? No problem! You can run Dashy for free on Netlify (as well as many [other cloud providers](./docs/deployment#deploy-to-cloud-service)). All you need it a GitHub account.
 1. Fork Dashy's repository on GitHub
-2. [Log in](https://app.netlify.com/login/) to Netlify with GitHub
+2. [Log in](app.netlify.com/login/) to Netlify with GitHub
 3. Click "New site from Git" and select your forked repo, then click **Deploy**!
 4. You can then edit the config in `./public/conf.yml` in your repo, and Netlify will rebuild the app

@@ -56,15 +56,17 @@ The following section outlines all data that is stored in the browsers, as cooki
 - `LAYOUT_ORIENTATION` - Preferred section layout, either horizontal, vertical or auto
 - `COLLAPSE_STATE` - Remembers which sections are collapsed
 - `ICON_SIZE` - Size of items, either small, medium or large
-- `THEME: 'theme` - Users applied theme
+- `THEME` - Users applied theme
 - `CUSTOM_COLORS` - Any color modifications made to a given theme
 - `BACKUP_ID` - If a backup has been made, the ID is stored here
 - `BACKUP_HASH` - A unique hash of the previous backups meta data
 - `HIDE_SETTINGS` - Lets user hide or show the settings menu
-- `USERNAME` - If user logged in, store username in order to welcome them
+- `USERNAME` - If user logged in, store username. Only used to show welcome message, not used for auth
 - `CONF_SECTIONS` - Array of sections, only used when user applies changes locally
 - `PAGE_INFO` - Config page info, only used when user applies changes locally
 - `APP_CONFIG` - App config, only used when user applies changes locally
+- `MOST_USED` - If smart sort is used to order items by most used, store open count
+- `LAST_USED` - If smart sort is used to order items by last used, store timestamps
 
 ---
 
@@ -92,6 +94,30 @@ There is very little complexity involved with Dashy, and therefore the attack su
 - Understand the [Docker attack fronts](https://docs.docker.com/engine/security/), and follow [Docker Security Best Practices](https://snyk.io/blog/10-docker-image-security-best-practices/)
 
 This is covered in more detail in [App Management](/docs/management).
+
+---
+
+## Security Features
+
+#### Subresource Integrity
+[Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) or SRI is a security feature that enables browsers to verify that resources they fetch are delivered without unexpected manipulation. It works by allowing you to provide a cryptographic hash that a fetched resource must match. This prevents the app from loading any resources that have been manipulated, by verifying the files hashes. It safeguards against the risk of an attacker injecting arbitrary malicious content into any files served up via a CDN. 
+
+Dashy supports SRI, and it is recommended to enable this if you are hosting your dashboard via a public CDN. To enable SRI, set the `INTEGRITY` environmental variable to `true`.
+
+#### Authentication
+Dashy supports both basic auth, as well as server-based SSO using Keycloak. Full details of which, along with alternate authentication methods can be found in the [Authentication Docs](/docs/authentication). If your dashboard is exposed to the internet and/ or contains any sensitive info it is strongly recommended to configure access control with Keycloak or another server-side method.
+
+---
+
+## Disabling Features
+You may wish to disable features that you don't want to use, if they involve storing data in the browser or making network requests.
+- To disable smart-sort (uses local storage), set `appConfig.disableSmartSort: true`
+- To disable update checks (makes external request to GH), set `appConfig.disableUpdateChecks: true`
+- To disable web search (redirect to external / internal content), set `appConfig.disableWebSearch: true`
+- To keep status checks disabled (external/ internal requests), set `appConfig.statusCheck: false`
+- To keep font-awesome icons disabled (external requests), set `appConfig.enableFontAwesome: false`
+- To keep error reporting disabled (external requests and data collection), set `appConfig.enableErrorReporting: false`
+- To keep the service worker disabled (stores cache of app in browser data), set `appConfig.enableServiceWorker: false`
 
 ---
 

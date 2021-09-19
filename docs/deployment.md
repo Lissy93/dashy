@@ -29,8 +29,7 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
 ![Docker Supported Architecture](https://img.shields.io/badge/Architectures-amd64%20|%20arm32v7%20|%20arm64v8-6ba6e5)
 ![Docker Base Image](https://img.shields.io/badge/Base_Image-Alpine_3.14-6ba6e5)
 ![Docker Hosted on](https://img.shields.io/badge/Hosted_on-DockerHub-6ba6e5)
-](https://hub.docker.com/r/lissy93/dashy)
-
+](https://hub.docker.com/r/lissy93/dashy)<br/>
 **Status**: [
 ![Docker Build Status](https://img.shields.io/docker/cloud/build/lissy93/dashy?label=Docker%20Build)
 ![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?color=ecb2f7)

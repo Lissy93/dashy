@@ -3,7 +3,7 @@
 Dashy has an optional feature that can display a small icon next to each of your running services, indicating it's current status. This can be useful if you are using Dashy as your homelab's start page, as it gives you an overview of the health of each of your running services. The status feature will show response time, response code, online/ offline check and if applicable, a relevant error message 
 
 <p align="center">
-  <img width="800" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/status-check-demo.gif" />
+  <img width="800" src="/docs/assets/status-check-demo.gif" />
 </p>
 
 ## Enabling Status Indicators
@@ -42,7 +42,7 @@ By default, with status indicators enabled Dashy will check an applications stat
 
 The following example, will instruct Dashy to continuously check the status of your services every 20 seconds
 
-```yaml
+```
 appConfig:
   statusCheck: true
   statusCheckInterval: 20
@@ -70,9 +70,13 @@ Vary: Origin
 ```
 If the URL you are checking is not using HTTPS, then you may need to disable the rejection of insecure requests. This can be done by setting `statusCheckAllowInsecure` to true for a given item.
 
-If you're serving Dashy though a CDN, instead of using the Node server or Docker image, then the Node endpoint that makes requests will not be available to you, and all requests will fail. A workaround for this may be implemented in the future, but in the meantime, your only option is to use the Docker or Node deployment method. 
+If you get an error, like `Service Unavailable: Server resulted in a fatal error`, even when it's definitely online, this is most likely caused by missing the protocol. Don't forget to include `https://` (or whatever protocol) before the URL, and ensure that if needed, you've specified the port.
 
-For further troubleshooting, use an application like [Postman](https://postman.com) to diagnose the issue.
+Currently, the status check needs a page to be rendered, so if this URL in your browser does not return anything, then status checks will not work. This may be modified in the future, but in the meantime, a fix would be to make your own status service, which just checks if your app responds with whatever code you'd like, and then return a 200 plus renders an arbitrary message. Then just point `statusCheckUrl` to your custom page.
+
+For further troubleshooting, use an application like [Postman](https://postman.com) to diagnose the issue. Set the parameter to `GET`, and then make a call to: `https://[url-of-dashy]/ping/?&url=[service-url]`. Where the service URL must have first been encoded (e.g. with `encodeURIComponent()` or [urlencoder.io](https://www.urlencoder.io/))
+
+If you're serving Dashy though a CDN, instead of using the Node server or Docker image, then the Node endpoint that makes requests will not be available to you, and all requests will fail. A workaround for this may be implemented in the future, but in the meantime, your only option is to use the Docker or Node deployment method. 
 
 ## How it Works
 

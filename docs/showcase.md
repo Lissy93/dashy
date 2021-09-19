@@ -54,6 +54,13 @@
 
 ---
 
+### First Week of Self-Hosting
+> By [u//RickyCZ](https://www.reddit.com/user/RickyCZ)
+
+![screenshot-week-of-self-hosting](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/11-ricky-cz.png)
+
+---
+
 ### Ground Control
 > By [@dtctek](https://github.com/dtctek)
 
