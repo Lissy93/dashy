@@ -111,6 +111,7 @@ export default {
         { label: this.$t('login.remember-me-hour'), time: 14400 * 1000 },
         { label: this.$t('login.remember-me-day'), time: 86400 * 1000 },
         { label: this.$t('login.remember-me-week'), time: 604800 * 1000 },
+        { label: this.$t('login.remember-me-long-time'), time: 604800 * 52 * 1000 },
       ];
     },
     /* Translations for login response messages */
