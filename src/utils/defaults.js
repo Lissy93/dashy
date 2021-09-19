@@ -71,8 +71,9 @@ module.exports = {
   ],
   /* Which structural components should be visible by default */
   visibleComponents: {
-    pageTitle: true,
+    splashScreen: false,
     navigation: true,
+    pageTitle: true,
     searchBar: true,
     settings: true,
     footer: true,
