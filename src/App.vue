@@ -53,8 +53,7 @@ export default {
     },
     /* Determine if splash screen should be shown */
     shouldShowSplash() {
-      return (this.visibleComponents || defaultVisibleComponents).splashScreen
-      || !localStorage[localStorageKeys.HIDE_WELCOME_BANNER];
+      return (this.visibleComponents || defaultVisibleComponents).splashScreen;
     },
   },
   methods: {
@@ -107,6 +106,10 @@ export default {
       this.$i18n.locale = language;
       document.getElementsByTagName('html')[0].setAttribute('lang', language);
     },
+    hideLoader() {
+      const loader = document.getElementById('loader');
+      if (loader) loader.style.display = 'none';
+    },
   },
   /* When component mounted, hide splash and initiate the injection of custom styles */
   mounted() {
@@ -115,6 +118,7 @@ export default {
     if (this.appConfig.customCss) {
       const cleanedCss = this.appConfig.customCss.replace(/<\/?[^>]+(>|$)/g, '');
       this.injectCustomStyles(cleanedCss);
+      this.hideLoader();
     }
     welcomeMsg();
   },

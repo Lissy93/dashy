@@ -28,7 +28,7 @@ export const statusMsg = (title, msg) => {
 /* Prints status message, with a stack trace */
 export const statusErrorMsg = (title, msg, errorLog) => {
   console.log(
-    `%c${title || ''}\n%c${msg} \n%c${errorLog}`,
+    `%c${title || ''}\n%c${msg} \n%c${errorLog || ''}`,
     'font-weight: bold; color: #0dd8d8; text-decoration: underline;',
     'color: #ff025a',
     'color: #ff025a80;',
