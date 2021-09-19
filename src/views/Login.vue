@@ -76,7 +76,7 @@ import router from '@/router';
 import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
-import { InfoHandler } from '@/utils/ErrorHandler';
+import { InfoHandler, WarningInfoHandler } from '@/utils/ErrorHandler';
 import {
   checkCredentials,
   login,
@@ -160,7 +160,7 @@ export default {
         this.goHome();
         InfoHandler(`Succesfully signed in as ${this.username}`, 'Authentication');
       } else {
-        InfoHandler(`Unable to Sign In - ${this.message}`, 'Authentication');
+        WarningInfoHandler('Unable to Sign In', 'Authentication', this.message);
       }
     },
     /* Calls function to double-check guest access enabled, then log in as guest */
@@ -168,9 +168,11 @@ export default {
       const isAllowed = this.isGuestAccessEnabled;
       if (isAllowed) {
         this.$toasted.show('Logged in as Guest, Redirecting...', { className: 'toast-success' });
+        InfoHandler('Logged in as Guest', 'Authentication');
         this.goHome();
       } else {
-        this.$toasted.show('Guest access not allowed', { className: 'toast-error' });
+        this.$toasted.show('Guest Access Not Allowed', { className: 'toast-error' });
+        WarningInfoHandler('Guest Access Not Allowed', 'Authentication');
       }
     },
     /* Calls logout, shows status message, and refreshed page */
