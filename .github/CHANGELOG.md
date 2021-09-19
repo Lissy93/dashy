@@ -1,5 +1,10 @@
 # Changelog
 
+## ⚡️ 1.8.3 - Improved UX for Initial Load [PR #238](https://github.com/Lissy93/dashy/pull/238)
+- Removes the old splash screen
+- Adds placeholder in the HTML index, which will usually be visible on initial load
+- Show progress bar on route switcher
+
 ## ✨ 1.8.2 - Serverless Functions for Netlify Instances [PR #235](https://github.com/Lissy93/dashy/pull/235)
 - Previously when Dashy was deployed as a static site to Netlify, it was not possible to use several features, which required server-side code
 - This PR adds serverless cloud functions to provide most of this functionality
