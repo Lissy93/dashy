@@ -20,7 +20,7 @@ Dashy now has a [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/sho
 
 ## Improve the Docs
 Found a typo, or something that isn't as clear as it could be? Maybe I've missed something off altogether, or you hit a roadblock that took you a while to figure out. Submitting a pull request to add to or improve the documentation will help future users get Dashy up and running more easily.
-All content is located either in the [`./README.md`](/README) or [`/docs/`](/docs) directory, and synced to the Wiki and website using a GH [action](/actions/workflows/wiki-sync.yml).
+All content is located either in the [`./README.md`](/https://github.com/Lissy93/dashy#readme) or [`/docs/`](/docs) directory, and synced to the Wiki and website using a GH [action](https://github.com/Lissy93/dashy/actions/workflows/wiki-sync.yml).
 
 ## Raise a bug
 If you've found a bug, then please do raise it as an issue. This will help me know if there's something that needs fixing. Try and include as much detail as possible, such as your environment, steps to reproduce, any console output and maybe an example screenshot or recording if necessary.
