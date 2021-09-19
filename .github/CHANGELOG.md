@@ -1,5 +1,9 @@
 # Changelog
 
+## ✨ 1.8.2 - Serverless Functions for Netlify Instances [PR #235](https://github.com/Lissy93/dashy/pull/235)
+- Previously when Dashy was deployed as a static site to Netlify, it was not possible to use several features, which required server-side code
+- This PR adds serverless cloud functions to provide most of this functionality
+
 ## 🩹 1.8.1 - Additional Languages, Bug Fix, and more [PR #234](https://github.com/Lissy93/dashy/pull/234)
 - Merges 5 additional languages
 - Adds RickyCZ's dashboard to showcase
