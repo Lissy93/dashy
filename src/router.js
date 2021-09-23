@@ -9,17 +9,17 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import ProgressBar from 'rsup-progress';
 
-// Import views
+// Import views, that are not lazy-loaded
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Workspace from '@/views/Workspace.vue';
 import Minimal from '@/views/Minimal.vue';
-import DownloadConfig from '@/views/DownloadConfig.vue';
 
 // Import helper functions, config data and defaults
 import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/Auth';
 import { config } from '@/utils/ConfigHelpers';
 import { metaTagData, startingView, routePaths } from '@/utils/defaults';
+import ErrorHandler from '@/utils/ErrorHandler';
 
 Vue.use(Router);
 const progress = new ProgressBar({ color: 'var(--progress-bar)' });
@@ -102,15 +102,31 @@ const router = new Router({
     { // The about app page
       path: routePaths.about,
       name: 'about', // We lazy load the About page so as to not slow down the app
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: () => import('./views/About.vue'),
       meta: makeMetaTags('About Dashy'),
     },
     { // The export config page
       path: routePaths.download,
       name: 'download',
-      component: DownloadConfig,
+      component: () => import('./views/DownloadConfig.vue'),
       props: config,
       meta: makeMetaTags('Download Config'),
+    },
+    { // Page not found, any non-defined routes will land here
+      path: routePaths.notFound,
+      name: '404',
+      component: () => import('./views/404.vue'),
+      meta: makeMetaTags('404 Not Found'),
+      beforeEnter: (to, from, next) => {
+        if (to.redirectedFrom) { // Log error, if redirected here from another route
+          ErrorHandler(`Route not found: '${to.redirectedFrom}'`);
+        }
+        next();
+      },
+    },
+    { // Redirect any not-found routed to the 404 view
+      path: '*',
+      redirect: '/404',
     },
   ],
 });
