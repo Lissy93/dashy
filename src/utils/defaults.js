@@ -35,6 +35,7 @@ module.exports = {
     about: '/about',
     login: '/login',
     download: '/download',
+    notFound: '/404',
   },
   /* Server Endpoints */
   serviceEndpoints: {
@@ -84,6 +85,7 @@ module.exports = {
     'login',
     'download',
     'landing-page-minimal',
+    // '404',
   ],
   /* Key names for local storage identifiers */
   localStorageKeys: {
