@@ -19,6 +19,7 @@
     "remember-me-hour": "4 Heures",
     "remember-me-day": "1 Jour",
     "remember-me-week": "1 Semaine",
+    "remember-me-long-time": "Un long moment",
     "error-missing-username": "Nom d'utilisateur manquant",
     "error-missing-password": "Mot de passe manquant",
     "error-incorrect-username": "Utilisateur inexistant",
