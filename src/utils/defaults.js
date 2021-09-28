@@ -176,6 +176,7 @@ module.exports = {
     generative: 'https://ipsicon.io',
     localPath: '/item-icons',
     faviconName: 'favicon.ico',
+    homeLabIcons: 'https://raw.githubusercontent.com/WalkxCode/dashboard-icons/master/',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

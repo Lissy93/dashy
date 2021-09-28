@@ -135,6 +135,11 @@ export default {
       const icon = simpleIcons.Get(imageName);
       return icon.path;
     },
+    /* Gets home-lab icon from GitHub */
+    getHomeLabIcon(img) {
+      const imageName = img.replace('hl-', '').toLocaleLowerCase();
+      return `${iconCdns.homeLabIcons}/png/${imageName}.png`;
+    },
     /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
     getIconPath(img, url) {
       switch (this.determineImageType(img)) {
@@ -145,6 +150,7 @@ export default {
         case 'generative': return this.getGenerativeIcon(url);
         case 'mdi': return img; // Material design icons
         case 'simple-icons': return this.getSimpleIcon(img);
+        case 'home-lab-icons': return this.getHomeLabIcon(img);
         case 'svg': return img; // Local SVG icon
         case 'emoji': return img; // Emoji/ unicode
         default: return '';
@@ -159,6 +165,7 @@ export default {
       else if (img.includes('fa-')) imgType = 'font-awesome';
       else if (img.includes('mdi-')) imgType = 'mdi';
       else if (img.includes('si-')) imgType = 'si';
+      else if (img.includes('hl-')) imgType = 'home-lab-icons';
       else if (img.includes('favicon-')) imgType = 'custom-favicon';
       else if (img === 'favicon') imgType = 'favicon';
       else if (img === 'generative') imgType = 'generative';

@@ -94,6 +94,27 @@ For example, these will all render the same rocket (🚀) emoji: `icon: ':rocket
 
 ---
 
+## Home-Lab Icons
+
+The [dashboard-icons](https://github.com/WalkxCode/dashboard-icons) repo by [@WalkxCode](https://github.com/WalkxCode) provides a comprehensive collection of 360+ high-quality PNG icons for commonly self-hosted services. Dashy natively supports these icons, and you can use them just by specifying the icon name (without extension) preceded by `hl-`. You can see a full list of all available icons [here](https://github.com/WalkxCode/dashboard-icons/tree/master/png).
+
+For example:
+```yaml
+sections:
+- name: Home Lab Icons Example
+  items:
+  - title: AdGuard Home
+    icon: hl-adguardhome
+  - title: Long Horn
+    icon: hl-longhorn
+  - title: Nagios
+    icon: hl-nagios
+  - title: Whoogle Search
+    icon: hl-whooglesearch
+```
+
+---
+
 ## Icons by URL
 You can also set an icon by passing in a valid URL pointing to the icons location. For example `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`, this can be in .png, .jpg or .svg format, and hosted anywhere- so long as it's accessible from where you are hosting Dashy. The icon will be automatically scaled to fit, however loading in a lot of large icons may have a negative impact on performance, especially if you visit Dashy from new devices often.
 
@@ -127,3 +148,20 @@ sections:
 
 ## No Icon
 If you don't wish for a given item or section to have an icon, just leave out the `icon` attribute.
+
+
+---
+
+## Icon Collections and Resources
+
+The following website provide good-quality, free icon sets. To use any of these icons, just copy the link to the raw icon (it should end in `.svg` or `.png`) and paste it as your `icon`, or download and save the icons in `/public/item-icons` or pass through with a Docker volume as described above.
+Full credit to the authors, please see the licenses for each service for usage and copyright information.
+
+- [dashboard-icons](https://github.com/WalkxCode/dashboard-icons) - 350+ high-quality icons for commonly self-hosted services, maintained by [@WalkxCode](https://github.com/WalkxCode)
+- [SVG Box](https://svgbox.net/iconsets/) - Cryptocurrency, social media apps and flag icons
+- [Simple Icons](https://simpleicons.org/) - Free SVG brand icons, with easy API access
+- [Icons8](https://icons8.com/icons) - Thousands of icons, all with free 64x64 versions
+- [Flat Icon](https://www.flaticon.com/) - Wide variety of icon sets, almost all free to use
+
+If you are a student, then you can get free access to premium icons on [Icon Scout](https://education.github.com/pack/redeem/iconscout-student) or [Icons8](https://icons8.com/github-students) using the GitHub Student Pack.
+
