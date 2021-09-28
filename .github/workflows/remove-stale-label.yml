@@ -1,0 +1,18 @@
+# When a new comment is added to an issue, if it had the Stale or Awaiting User Response labels,
+# then those labels will be removed, providing it was not user lissy93 who added the commend. 
+name: 🎯 Remove Stale Label on Update
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  remove-stale:
+   runs-on: ubuntu-latest
+   if: ${{ github.event.inputs.name != 'lissy93'}}
+   steps:
+   - name: Remove Stale labels when Updated
+     uses: actions-cool/issues-helper@v2
+     with:
+      actions: remove-labels
+      token: ${{ secrets.BOT_GITHUB_TOKEN }}
+      issue-number: ${{ github.event.issue.number }}
+      labels: '🚏 Awaiting User Response,⚰️ Stale'
