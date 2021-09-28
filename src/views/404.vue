@@ -81,8 +81,8 @@ main.not-found-page {
     color: #0c0c0c;
     margin: 2rem 0 0;
     text-decoration: none;
+    background: #db78fc;
     box-shadow: 0 4px #b83ddd;
-    background: #db78fc; box-shadow: 0 4px #b83ddd;
     &:hover { box-shadow: 0 2px #b83ddd; }
   }
   ::selection { background-color: #db78fc; color: #121212; }
