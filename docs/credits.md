@@ -126,10 +126,10 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/turnrye">
-            <img src="https://avatars.githubusercontent.com/u/701035?v=4" width="80;" alt="turnrye"/>
+        <a href="https://github.com/jhelmink">
+            <img src="https://avatars.githubusercontent.com/u/4581673?v=4" width="80;" alt="jhelmink"/>
             <br />
-            <sub><b>Ryan Turner</b></sub>
+            <sub><b>Josh</b></sub>
         </a>
     </td>
     <td align="center">
@@ -147,10 +147,10 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/niklashere">
-            <img src="https://avatars.githubusercontent.com/u/32072214?v=4" width="80;" alt="niklashere"/>
+        <a href="https://github.com/lu4t">
+            <img src="https://avatars.githubusercontent.com/u/29571529?v=4" width="80;" alt="lu4t"/>
             <br />
-            <sub><b>Niklas</b></sub>
+            <sub><b>Lu4t</b></sub>
         </a>
     </td></tr>
 </table>
