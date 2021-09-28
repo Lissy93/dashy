@@ -108,7 +108,7 @@
 
 
 ### Helpful Users
-<!-- readme: EVOTk,shadowking001,lu4t,Robert-Ernst,Niklashere,evroon,MilesTEG1 -start -->
+<!-- readme: EVOTk,shadowking001,jhelmink,Robert-Ernst,MilesTEG1,lu4t -start -->
 <table>
 <tr>
     <td align="center">
@@ -154,7 +154,7 @@
         </a>
     </td></tr>
 </table>
-<!-- readme: EVOTk,shadowking001,lu4t,Robert-Ernst,MilesTEG1,Niklashere -end -->
+<!-- readme: EVOTk,shadowking001,jhelmink,Robert-Ernst,MilesTEG1,lu4t -end -->
 
 ### Bots
 <!-- readme: liss-bot,snyk-bot,netlify,viezly,muse-dev,bots -start -->
@@ -206,6 +206,12 @@
 <!-- readme: liss-bot,snyk-bot,netlify,viezly,muse-dev,bots -end -->
 
 > The above section is auto-generated, using [contribute-list](https://github.com/marketplace/actions/contribute-list) by @akhilmhdh.
+
+### Newest Stargazers
+
+[![Recent Star Gazers](https://reporoster.com/stars/dark/Lissy93/dashy)](https://github.com/Lissy93/dashy/stargazers)
+
+[![Recent Forkers](https://reporoster.com/forks/dark/lissy93/dashy)](https://github.com/lissy93/dashy/network/members)
 
 ---
 
