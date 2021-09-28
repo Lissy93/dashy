@@ -1,5 +1,9 @@
 # Changelog
 
+## ✨ 1.8.4 - Custom Error Pages [PR #257](https://github.com/Lissy93/dashy/pull/257)
+- Creates a 404 Not Found page
+- Routes any missing views to the 404 page
+
 ## ⚡️ 1.8.3 - Improved UX for Initial Load [PR #238](https://github.com/Lissy93/dashy/pull/238)
 - Removes the old splash screen
 - Adds placeholder in the HTML index, which will usually be visible on initial load
