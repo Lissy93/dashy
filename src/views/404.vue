@@ -5,7 +5,7 @@
     <p class="not-found-subtitle">Page Not Found</p>
     <p class="not-found-message">
       Facing Issues?
-      <a href="https://github.com/lissy93/dashy">Get Support</a>.
+      <a href="https://git.io/JzpL5">Get Support</a>.
     </p>
     <router-link to="/" class="go-home">Back Home</router-link>
   </main>
