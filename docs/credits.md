@@ -108,7 +108,7 @@
 
 
 ### Helpful Users
-<!-- readme: EVOTk,shadowking001,lu4t,Robert-Ernst,Niklashere,evroon,MilesTEG1 -start -->
+<!-- readme: EVOTk,shadowking001,jhelmink,Robert-Ernst,MilesTEG1,lu4t -start -->
 <table>
 <tr>
     <td align="center">
@@ -126,10 +126,10 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/turnrye">
-            <img src="https://avatars.githubusercontent.com/u/701035?v=4" width="80;" alt="turnrye"/>
+        <a href="https://github.com/jhelmink">
+            <img src="https://avatars.githubusercontent.com/u/4581673?v=4" width="80;" alt="jhelmink"/>
             <br />
-            <sub><b>Ryan Turner</b></sub>
+            <sub><b>Josh</b></sub>
         </a>
     </td>
     <td align="center">
@@ -147,14 +147,14 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/niklashere">
-            <img src="https://avatars.githubusercontent.com/u/32072214?v=4" width="80;" alt="niklashere"/>
+        <a href="https://github.com/lu4t">
+            <img src="https://avatars.githubusercontent.com/u/29571529?v=4" width="80;" alt="lu4t"/>
             <br />
-            <sub><b>Niklas</b></sub>
+            <sub><b>Lu4t</b></sub>
         </a>
     </td></tr>
 </table>
-<!-- readme: EVOTk,shadowking001,lu4t,Robert-Ernst,MilesTEG1,Niklashere -end -->
+<!-- readme: EVOTk,shadowking001,jhelmink,Robert-Ernst,MilesTEG1,lu4t -end -->
 
 ### Bots
 <!-- readme: liss-bot,snyk-bot,netlify,viezly,muse-dev,bots -start -->
@@ -206,6 +206,12 @@
 <!-- readme: liss-bot,snyk-bot,netlify,viezly,muse-dev,bots -end -->
 
 > The above section is auto-generated, using [contribute-list](https://github.com/marketplace/actions/contribute-list) by @akhilmhdh.
+
+### Newest Stargazers
+
+[![Recent Star Gazers](https://reporoster.com/stars/dark/Lissy93/dashy)](https://github.com/Lissy93/dashy/stargazers)
+
+[![Recent Forkers](https://reporoster.com/forks/dark/lissy93/dashy)](https://github.com/lissy93/dashy/network/members)
 
 ---
 
