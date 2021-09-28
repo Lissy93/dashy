@@ -12,12 +12,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/conf.yml"
   },
   {
-    "revision": "ae30de6d5abfdb498163",
-    "url": "/css/chunk-11e2020e.8b6e47d5.css"
-  },
-  {
     "revision": "c07aa8b76c852c4ab327",
     "url": "/css/chunk-36fb5c32.a64c098d.css"
+  },
+  {
+    "revision": "b68fb3a62d44959a6ade",
+    "url": "/css/chunk-724820ea.f5d4b402.css"
   },
   {
     "revision": "fd2eb39423eb143953b2",
@@ -28,7 +28,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/css/chunk-vendors.d8067ad8.css"
   },
   {
-    "revision": "8536a778f8511d433e75",
+    "revision": "23f62034dda84435dc95",
     "url": "/css/dashy.bfdbb2fd.css"
   },
   {
@@ -80,7 +80,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/VT323-Regular.ttf"
   },
   {
-    "revision": "5487ebf21351a407f5ceb1d32b5cc83c",
+    "revision": "621ecebe3100d7725f6d29b5de752630",
     "url": "/index.html"
   },
   {
@@ -88,12 +88,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/item-icons/.gitignore"
   },
   {
-    "revision": "ae30de6d5abfdb498163",
-    "url": "/js/chunk-11e2020e.382d61c9.js"
-  },
-  {
     "revision": "c07aa8b76c852c4ab327",
     "url": "/js/chunk-36fb5c32.5ca38822.js"
+  },
+  {
+    "revision": "b68fb3a62d44959a6ade",
+    "url": "/js/chunk-724820ea.7db8f75e.js"
   },
   {
     "revision": "fd2eb39423eb143953b2",
@@ -104,8 +104,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/js/chunk-vendors.88329653.js"
   },
   {
-    "revision": "8536a778f8511d433e75",
-    "url": "/js/dashy.cb5ff336.js"
+    "revision": "23f62034dda84435dc95",
+    "url": "/js/dashy.67c42638.js"
   },
   {
     "revision": "e3bf86400a2b80531902e65f51d52be0",
