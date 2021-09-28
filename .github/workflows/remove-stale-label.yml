@@ -7,7 +7,7 @@ on:
 jobs:
   remove-stale:
    runs-on: ubuntu-latest
-   if: ${{ github.event.inputs.name != 'lissy93'}}
+   if: ${{ !['liss-bot','lissy93'].includes(github.event.inputs.name.toLowerCase()) }}
    steps:
    - name: Remove Stale labels when Updated
      uses: actions-cool/issues-helper@v2
