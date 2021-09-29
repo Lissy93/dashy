@@ -14,7 +14,9 @@ This is the main page that you will land on when you first launch the applicatio
 ### Workspace
 The workspace view displays your links in a sidebar on the left-hand side, and apps are launched within Dashy. This enables you to use all of your self-hosted apps from one place, and makes multi-tasking easy.
 
-In the workspace view, you can keep previously opened websites/ apps open in the background, by setting `appConfig.enableMultiTasking: true`. This comes at the cost of performance, but does mean that your session with each app is preserved, enabling you to quickly switch between your apps.
+In the workspace view, you can opt to keep previously opened websites/ apps open in the background, by setting `appConfig.enableMultiTasking: true`. This comes at the cost of performance, but does mean that your session with each app is preserved, enabling you to quickly switch between your apps.
+
+You can also specify a default app to be opened when you land on the workspace, by setting `appConfig.workspaceLandingUrl: https://app-to-open/`. If this app exists within your sections.items, then the corresponding section will also be expanded.
 
 <p align="center">
   <b>Example of Workspace View</b><br>
