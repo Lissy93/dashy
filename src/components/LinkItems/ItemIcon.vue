@@ -23,9 +23,10 @@
 import simpleIcons from 'simple-icons';
 import BrokenImage from '@/assets/interface-icons/broken-icon.svg';
 import ErrorHandler from '@/utils/ErrorHandler';
-import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/defaults';
 import EmojiUnicodeRegex from '@/utils/EmojiUnicodeRegex';
 import emojiLookup from '@/utils/emojis.json';
+import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/defaults';
+import { asciiHash } from '@/utils/MiscHelpers';
 
 export default {
   name: 'Icon',
@@ -127,7 +128,8 @@ export default {
     },
     /* Formats the URL for fetching the generative icons */
     getGenerativeIcon(url) {
-      return `${iconCdns.generative}/${this.getHostName(url)}.svg`;
+      const host = encodeURI(url) || Math.random().toString();
+      return iconCdns.generative.replace('{icon}', asciiHash(host));
     },
     /* Returns the SVG path content  */
     getSimpleIcon(img) {
@@ -138,7 +140,7 @@ export default {
     /* Gets home-lab icon from GitHub */
     getHomeLabIcon(img) {
       const imageName = img.replace('hl-', '').toLocaleLowerCase();
-      return `${iconCdns.homeLabIcons}/png/${imageName}.png`;
+      return iconCdns.homeLabIcons.replace('{icon}', imageName);
     },
     /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
     getIconPath(img, url) {

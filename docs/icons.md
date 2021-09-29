@@ -75,10 +75,10 @@ If for a given service none of the APIs work in your situation, and nor does loc
 ---
 
 ## Generative Icons
-Uses a unique and programmatically generated icon for a given service. This is particularly useful when you have a lot of similar services with a different IP or port, and no specific icon. These icons are generated with [ipsicon.io](https://ipsicon.io/). To use this option, just set an item's to: `icon: generative`.
+Uses a unique and programmatically generated icon for a given service. This is particularly useful when you have a lot of similar services with a different IP or port, and no specific icon. These icons are generated with [DiceBear](https://avatars.dicebear.com/), and use a hash of the services domain/ ip for entropy, so each domain will always have the same icon. To use this option, just set an item's to: `icon: generative`.
 
 <p align="center">
-  <img width="400" src="https://i.ibb.co/qrNNNcm/generative-icons.png" />
+  <img width="500" src="https://i.ibb.co/b2pC2CL/generative-icons-2.png" />
 </p>
 
 ---
@@ -112,6 +112,11 @@ sections:
   - title: Whoogle Search
     icon: hl-whooglesearch
 ```
+
+
+<p align="center">
+  <img width="580" src="https://i.ibb.co/PQzYHmD/homelab-icons-2.png" />
+</p>
 
 ---
 

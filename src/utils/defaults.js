@@ -173,10 +173,10 @@ module.exports = {
     fa: 'https://kit.fontawesome.com',
     mdi: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css',
     si: 'https://unpkg.com/simple-icons@v5/icons',
-    generative: 'https://ipsicon.io',
+    generative: 'https://avatars.dicebear.com/api/identicon/{icon}.svg',
     localPath: '/item-icons',
     faviconName: 'favicon.ico',
-    homeLabIcons: 'https://raw.githubusercontent.com/WalkxCode/dashboard-icons/master/',
+    homeLabIcons: 'https://raw.githubusercontent.com/WalkxCode/dashboard-icons/master/png/{icon}.png',
   },
   /* URLs for web search engines */
   searchEngineUrls: {
