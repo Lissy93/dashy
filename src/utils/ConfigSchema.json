@@ -385,6 +385,10 @@
         "sentryDsn": {
           "type": "string",
           "description": "The DSN to your self-hosted Sentry server, if you need to collect bug reports. Only used if enableErrorReporting is enabled"
+        },
+        "workspaceLandingUrl": {
+          "type": "string",
+          "description": "The URL of an app, service or website to render when the Workspace view is opened"
         }
       },
       "additionalProperties": false
