@@ -37,8 +37,12 @@ export default {
     MultiTaskingWebComtent,
   },
   methods: {
-    launchApp(url) {
-      this.url = url;
+    launchApp(options) {
+      if (options.target === 'newtab') {
+        window.open(options.url, '_blank');
+      } else {
+        this.url = options.url;
+      }
     },
     setTheme() {
       const theme = this.GetTheme();

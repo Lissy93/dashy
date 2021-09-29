@@ -17,6 +17,7 @@ export default {
     icon: String,
     title: String,
     url: String,
+    target: String,
     click: Function,
   },
   components: {
@@ -24,7 +25,7 @@ export default {
   },
   methods: {
     itemClicked() {
-      if (this.url) this.$emit('launch-app', this.url);
+      if (this.url) this.$emit('launch-app', { url: this.url, target: this.target });
     },
   },
   data() {

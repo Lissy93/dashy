@@ -58,8 +58,8 @@ export default {
       this.isOpen = this.isOpen.map((val, ind) => (ind !== index ? false : !val));
     },
     /* When item clicked, emit a launch event */
-    launchApp(url) {
-      this.$emit('launch-app', url);
+    launchApp(options) {
+      this.$emit('launch-app', options);
     },
     /* If an initial URL is specified, then open relevant section */
     openDefaultSection() {
