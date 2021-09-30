@@ -4,7 +4,7 @@
     <div class="css-wrapper">
       <h2 class="css-input-title">Custom CSS</h2>
       <textarea class="css-editor" v-model="customCss" />
-      <button class="save-button" @click="save()">{{ $t('config.css-save-btn') }}</button>
+      <Button class="save-button" :click="save">{{ $t('config.css-save-btn') }}</button>
       <p class="quick-note">
         <b>{{ $t('config.css-note-label') }}:</b>
         {{ $t('config.css-note-l1') }} {{ $t('config.css-note-l2') }} {{ $t('config.css-note-l3') }}
@@ -19,6 +19,7 @@
 <script>
 
 import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
+import Button from '@/components/FormElements/Button';
 import { getTheme } from '@/utils/ConfigHelpers';
 import { localStorageKeys } from '@/utils/defaults';
 import { InfoHandler } from '@/utils/ErrorHandler';
@@ -29,6 +30,7 @@ export default {
     config: Object,
   },
   components: {
+    Button,
     CustomThemeMaker,
   },
   data() {
@@ -38,26 +40,21 @@ export default {
     };
   },
   methods: {
-    /* A regex to validate the users CSS */
-    validate(css) {
-      return css === '' || css.match(/([#.@]?[\w.:> ]+)[\s]{[\r\n]?([A-Za-z\- \r\n\t]+[:][\s]*[\w ./()\-!]+;[\r\n]*(?:[A-Za-z\- \r\n\t]+[:][\s]*[\w ./()\-!]+;[\r\n]*(2)*)*)}/gmi);
-    },
     /* Save custom CSS in browser, call inject, and show success message */
     save() {
-      let msg = '';
-      if (this.validate(this.customCss)) {
-        const appConfig = { ...this.config.appConfig };
-        appConfig.customCss = this.customCss;
-        localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(appConfig));
-        msg = 'Changes saved successfully';
-        InfoHandler('User syles has been saved', 'Custom CSS Update');
-        this.inject(this.customCss);
-        if (this.customCss === '') setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
-      } else {
-        msg = 'Error - Invalid CSS';
-        InfoHandler(msg, 'Custom CSS Update');
-      }
-      this.$toasted.show(msg);
+      // Get, and sanitize users CSS
+      const css = this.customCss.replace(/<\/?[^>]+(>|$)/g, '');
+      // Update app config, and apply settings locally
+      const appConfig = { ...this.config.appConfig };
+      appConfig.customCss = css;
+      localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(appConfig));
+      // Immidiatley inject new CSS
+      this.inject(css);
+      // If reseting styles, then refresh the page
+      if (css === '') setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
+      // Show status message
+      InfoHandler('User syles has been saved', 'Custom CSS Update');
+      this.$toasted.show('Changes saved successfully');
     },
     /* Formats CSS, and applies it to page */
     inject(userStyles) {
@@ -72,6 +69,7 @@ export default {
 
 <style lang="scss">
 
+// Main layout
 div.css-editor-outer {
   text-align: center;
   padding-bottom: 1rem;
@@ -87,22 +85,19 @@ div.css-editor-outer {
   }
 }
 
-button.save-button {
-  padding:  0.5rem 1rem;
-  margin: 0.25rem auto;
-  font-size: 1.2rem;
+// Save button
+button.save-button{
   background: var(--config-settings-color);
   color: var(--config-settings-background);
   border: 1px solid var(--config-settings-background);
-  border-radius: var(--curve-factor);
-  cursor: pointer;
-  &:hover {
+  &:hover:not(:disabled) {
     background: var(--config-settings-background);
     color: var(--config-settings-color);
     border-color: var(--config-settings-color);
   }
 }
 
+// CSS textarea input
 .css-editor {
   margin: 1rem auto;
   padding: 0.5rem;
@@ -121,6 +116,7 @@ button.save-button {
   }
 }
 
+// Info note
 p.quick-note {
   text-align: left;
   width: 80%;
@@ -131,6 +127,7 @@ p.quick-note {
   border-radius: var(--curve-factor);
 }
 
+// Theme editor
 .color-config.theme-configurator-wrapper {
   border: 1px solid var(--config-settings-color);
   background: var(--config-settings-background);
