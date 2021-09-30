@@ -37,7 +37,7 @@
     "vue-js-modal": "^2.0.0-rc.6",
     "vue-material-tabs": "0.1.5",
     "vue-router": "^3.0.3",
-    "vue-select": "^3.12.1",
+    "vue-select": "^3.13.0",
     "vue-swatches": "^2.1.1",
     "vue-toasted": "^1.1.28"
   },
