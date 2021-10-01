@@ -79,4 +79,4 @@ jobs:
           bots: true
           path: .github/AUTHORS.txt
           commit: ':blue_heart: Makes author list'
-          template: {{name}} <{{email}}> - {{commits}} commits
+          template: '{{name}} <{{email}}> - {{commits}} commits'
