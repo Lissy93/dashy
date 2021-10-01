@@ -1,0 +1,10 @@
+# PR labels and the branch patterns they should be auto-assigned to
+
+🦋 Bug Fix: ['FIX/*', 'HOT-FIX/*', 'BUG-FIX/*']
+✨ New Feature: ['FEATURE/*']
+🚚 Refactor: ['IMPROVMENTS/*', 'REFACTOR/*']
+💯 Showcase: ['SHOWCASE/*']
+💄 Stylistic Changes: ['STYLES/*', 'THEME/*']
+🛠️ Build Changes: ['ARCH/*', 'ARCHITECTURE/*', 'DOCKER/*', 'BUILD/*']
+🤖 Auto: ['AUTO/*', 'BOT/*', 'snyk-upgrade-*', 'snyk-fix-*']
+⛔ Don't Merge: ['WEBSITE/*', 'EXPERIMENT/*', 'DEPLOY/*', 'deploy_*', 'gh-pages', 'dev-demo']
