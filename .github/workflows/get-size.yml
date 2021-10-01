@@ -17,14 +17,14 @@ jobs:
     # Check number of lines of code added
     - name: Label based on Lines of Code
       uses: codelytv/pr-size-labeler@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
-          xs_max_size: '10'
-          s_max_size: '100'
-          m_max_size: '500'
-          l_max_size: '1000'
-          fail_if_xl: 'false'
-          message_if_xl: >
-            It looks like this PR is very large (over 1000 lines).
-            Try to avoid addressing multiple issues in a single PR, and
-            in the future consider breaking large tasks down into smaller steps.
+      with:
+        GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+        xs_max_size: '10'
+        s_max_size: '100'
+        m_max_size: '500'
+        l_max_size: '1000'
+        fail_if_xl: 'false'
+        message_if_xl: >
+          It looks like this PR is very large (over 1000 lines).
+          Try to avoid addressing multiple issues in a single PR, and
+          in the future consider breaking large tasks down into smaller steps.
