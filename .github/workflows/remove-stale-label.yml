@@ -19,7 +19,7 @@ jobs:
 
   add-awaiting-author:
    runs-on: ubuntu-latest
-   if: ${{ github.event.comment.author_association != 'COLLABORATOR' github.event.comment.author_association != 'OWNER' }}
+   if: ${{ github.event.comment.author_association != 'COLLABORATOR' && github.event.comment.author_association != 'OWNER' }}
    steps:
    - name: Add Awaiting Author labels when Updated
      uses: actions-cool/issues-helper@v2
