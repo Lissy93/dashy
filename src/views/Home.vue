@@ -266,6 +266,15 @@ export default {
       flex-direction: row;
     }
   }
+  &.orientation-horizontal, &.orientation-vertical {
+    @include phone { --content-max-width: 100%; }
+    @include tablet { --content-max-width: 98%; }
+    @include laptop { --content-max-width: 90%; }
+    @include monitor { --content-max-width: 85%; }
+    @include big-screen { --content-max-width: 80%; }
+    @include big-screen-up { --content-max-width: 60%; }
+    max-width: var(--content-max-width, 90%);
+  }
 
   /* Specify number of columns, based on screen size or user preference */
   @include phone { --col-count: 1; }
