@@ -2,11 +2,11 @@
 name: 🎯 Unfurl Links
 on:
   issues:
-    types: [opened, edited]
+    types: [opened]
   issue_comment:
-    types: [created, edited]
+    types: [created]
   pull_request:
-    types: [opened, edited]
+    types: [opened]
 jobs:
   run:
     runs-on: ubuntu-latest
