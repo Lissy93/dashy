@@ -1,0 +1,27 @@
+# Checks for any broken links in the docs, and raises an issue if found
+name: 🌈 Broken Link Checker
+on:
+  repository_dispatch:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * 0' # At 01:00 on Sunday.
+jobs:
+  link-checker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Check for Broken Links
+        uses: lycheeverse/lychee-action@v1.0.8
+        with:
+          args: --verbose --no-progress **/*.md **/*.html
+        env:
+          GITHUB_TOKEN: ${{secrets.BOT_GITHUB_TOKEN}}
+          LYCHEE_OUT: .github/broken-link-report.md
+        
+      - name: Raise an Issue with Results
+        uses: peter-evans/create-issue-from-file@v3
+        with:
+          title: '[DOCS] Broken Links found in Documentation'
+          content-filepath: .github/broken-link-report.md
+          labels: '📕 Docs, 👩‍💻 Good First Issue, 💤 Low Priority, 🤖 Auto'

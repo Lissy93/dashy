@@ -75,10 +75,10 @@ If for a given service none of the APIs work in your situation, and nor does loc
 ---
 
 ## Generative Icons
-Uses a unique and programmatically generated icon for a given service. This is particularly useful when you have a lot of similar services with a different IP or port, and no specific icon. These icons are generated with [ipsicon.io](https://ipsicon.io/). To use this option, just set an item's to: `icon: generative`.
+Uses a unique and programmatically generated icon for a given service. This is particularly useful when you have a lot of similar services with a different IP or port, and no specific icon. These icons are generated with [DiceBear](https://avatars.dicebear.com/), and use a hash of the services domain/ ip for entropy, so each domain will always have the same icon. To use this option, just set an item's to: `icon: generative`.
 
 <p align="center">
-  <img width="400" src="https://i.ibb.co/qrNNNcm/generative-icons.png" />
+  <img width="500" src="https://i.ibb.co/b2pC2CL/generative-icons-2.png" />
 </p>
 
 ---
@@ -91,6 +91,32 @@ You can use almost any emoji as an icon for items or sections. You can specify t
 </p>
 
 For example, these will all render the same rocket (🚀) emoji: `icon: ':rocket:'` or `icon: 'U+1F680'` or `icon: 🚀`
+
+---
+
+## Home-Lab Icons
+
+The [dashboard-icons](https://github.com/WalkxCode/dashboard-icons) repo by [@WalkxCode](https://github.com/WalkxCode) provides a comprehensive collection of 360+ high-quality PNG icons for commonly self-hosted services. Dashy natively supports these icons, and you can use them just by specifying the icon name (without extension) preceded by `hl-`. You can see a full list of all available icons [here](https://github.com/WalkxCode/dashboard-icons/tree/master/png).
+
+For example:
+```yaml
+sections:
+- name: Home Lab Icons Example
+  items:
+  - title: AdGuard Home
+    icon: hl-adguardhome
+  - title: Long Horn
+    icon: hl-longhorn
+  - title: Nagios
+    icon: hl-nagios
+  - title: Whoogle Search
+    icon: hl-whooglesearch
+```
+
+
+<p align="center">
+  <img width="580" src="https://i.ibb.co/PQzYHmD/homelab-icons-2.png" />
+</p>
 
 ---
 
@@ -127,3 +153,20 @@ sections:
 
 ## No Icon
 If you don't wish for a given item or section to have an icon, just leave out the `icon` attribute.
+
+
+---
+
+## Icon Collections and Resources
+
+The following website provide good-quality, free icon sets. To use any of these icons, just copy the link to the raw icon (it should end in `.svg` or `.png`) and paste it as your `icon`, or download and save the icons in `/public/item-icons` or pass through with a Docker volume as described above.
+Full credit to the authors, please see the licenses for each service for usage and copyright information.
+
+- [dashboard-icons](https://github.com/WalkxCode/dashboard-icons) - 350+ high-quality icons for commonly self-hosted services, maintained by [@WalkxCode](https://github.com/WalkxCode)
+- [SVG Box](https://svgbox.net/iconsets/) - Cryptocurrency, social media apps and flag icons
+- [Simple Icons](https://simpleicons.org/) - Free SVG brand icons, with easy API access
+- [Icons8](https://icons8.com/icons) - Thousands of icons, all with free 64x64 versions
+- [Flat Icon](https://www.flaticon.com/) - Wide variety of icon sets, almost all free to use
+
+If you are a student, then you can get free access to premium icons on [Icon Scout](https://education.github.com/pack/redeem/iconscout-student) or [Icons8](https://icons8.com/github-students) using the GitHub Student Pack.
+

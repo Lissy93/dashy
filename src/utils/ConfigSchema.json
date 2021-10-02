@@ -145,6 +145,12 @@
           "default": "medium",
           "description": "The size of each link item / icon"
         },
+        "colCount": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 8,
+          "description": "Number of section columns for homepage. Leave blank for column count to be responsively calculated based on screen size"
+        },
         "hideComponents": {
           "type": "object",
           "description": "Hide individual parts of the page. If not set, all components are visible by default",
@@ -385,6 +391,10 @@
         "sentryDsn": {
           "type": "string",
           "description": "The DSN to your self-hosted Sentry server, if you need to collect bug reports. Only used if enableErrorReporting is enabled"
+        },
+        "workspaceLandingUrl": {
+          "type": "string",
+          "description": "The URL of an app, service or website to render when the Workspace view is opened"
         }
       },
       "additionalProperties": false

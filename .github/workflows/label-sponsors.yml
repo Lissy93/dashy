@@ -2,8 +2,6 @@
 # In order to allow their request can be prioritized
 name: 🎯 Label sponsors
 on:
-  pull_request:
-    types: [opened]
   issues:
     types: [opened]
 jobs:

@@ -18,7 +18,11 @@
     />
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections)"
-      :class="`item-group-container orientation-${layout} item-size-${itemSizeBound}`">
+      :class="`item-group-container `
+        + `orientation-${layout} `
+        + `item-size-${itemSizeBound} `
+        + (this.colCount ? `col-count-${this.colCount} ` : '')"
+      >
       <Section
         v-for="(section, index) in filteredTiles"
         :key="index"
@@ -67,6 +71,14 @@ export default {
     modalOpen: false, // When true, keybindings are disabled
   }),
   computed: {
+    /* Get class for num columns, if specified by user */
+    colCount() {
+      let { colCount } = this.appConfig;
+      if (!colCount) return null;
+      if (colCount < 1) colCount = 1;
+      if (colCount > 8) colCount = 8;
+      return colCount;
+    },
     /* Combines sections from config file, with those in local storage */
     allSections() {
       // If the user has stored sections in local storage, return those
@@ -227,7 +239,6 @@ export default {
 .home {
   padding-bottom: 1px;
   background: var(--background);
-  // min-height: calc(100vh - 126px);
   min-height: calc(99.9vh - var(--footer-height));
 }
 
@@ -256,25 +267,26 @@ export default {
     }
   }
 
-  /* Specify number of columns, based on screen size */
-  @include phone {
-    grid-template-columns: repeat(1, 1fr);
+  /* Specify number of columns, based on screen size or user preference */
+  @include phone { --col-count: 1; }
+  @include tablet { --col-count: 2; }
+  @include laptop { --col-count: 2; }
+  @include monitor { --col-count: 3; }
+  @include big-screen { --col-count: 4; }
+  @include big-screen-up { --col-count: 5; }
+
+  @include tablet-up {
+    &.col-count-1 { --col-count: 1; }
+    &.col-count-2 { --col-count: 2; }
+    &.col-count-3 { --col-count: 3; }
+    &.col-count-4 { --col-count: 4; }
+    &.col-count-5 { --col-count: 5; }
+    &.col-count-6 { --col-count: 6; }
+    &.col-count-7 { --col-count: 7; }
+    &.col-count-8 { --col-count: 8; }
   }
-  @include tablet {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include laptop {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include monitor {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @include big-screen {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @include big-screen-up {
-    grid-template-columns: repeat(5, 1fr);
-  }
+
+  grid-template-columns: repeat(var(--col-count, 2), minmax(0, 1fr));
 
   /* Hide when search term returns nothing */
   .no-results { display: none; }

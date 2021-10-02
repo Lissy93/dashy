@@ -1,5 +1,5 @@
 <template>
-  <div class="item-icon">
+  <div :class="`item-icon wrapper-${size}`">
     <!-- Font-Awesome Icon -->
     <i v-if="iconType === 'font-awesome'" :class="`${icon} ${size}`" ></i>
     <!-- Emoji Icon -->
@@ -23,9 +23,10 @@
 import simpleIcons from 'simple-icons';
 import BrokenImage from '@/assets/interface-icons/broken-icon.svg';
 import ErrorHandler from '@/utils/ErrorHandler';
-import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/defaults';
 import EmojiUnicodeRegex from '@/utils/EmojiUnicodeRegex';
 import emojiLookup from '@/utils/emojis.json';
+import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/defaults';
+import { asciiHash } from '@/utils/MiscHelpers';
 
 export default {
   name: 'Icon',
@@ -127,13 +128,19 @@ export default {
     },
     /* Formats the URL for fetching the generative icons */
     getGenerativeIcon(url) {
-      return `${iconCdns.generative}/${this.getHostName(url)}.svg`;
+      const host = encodeURI(url) || Math.random().toString();
+      return iconCdns.generative.replace('{icon}', asciiHash(host));
     },
     /* Returns the SVG path content  */
     getSimpleIcon(img) {
       const imageName = img.replace('si-', '');
       const icon = simpleIcons.Get(imageName);
       return icon.path;
+    },
+    /* Gets home-lab icon from GitHub */
+    getHomeLabIcon(img) {
+      const imageName = img.replace('hl-', '').toLocaleLowerCase();
+      return iconCdns.homeLabIcons.replace('{icon}', imageName);
     },
     /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
     getIconPath(img, url) {
@@ -145,6 +152,7 @@ export default {
         case 'generative': return this.getGenerativeIcon(url);
         case 'mdi': return img; // Material design icons
         case 'simple-icons': return this.getSimpleIcon(img);
+        case 'home-lab-icons': return this.getHomeLabIcon(img);
         case 'svg': return img; // Local SVG icon
         case 'emoji': return img; // Emoji/ unicode
         default: return '';
@@ -159,6 +167,7 @@ export default {
       else if (img.includes('fa-')) imgType = 'font-awesome';
       else if (img.includes('mdi-')) imgType = 'mdi';
       else if (img.includes('si-')) imgType = 'si';
+      else if (img.includes('hl-')) imgType = 'home-lab-icons';
       else if (img.includes('favicon-')) imgType = 'custom-favicon';
       else if (img === 'favicon') imgType = 'favicon';
       else if (img === 'generative') imgType = 'generative';
@@ -180,6 +189,18 @@ export default {
 </script>
 
 <style lang="scss">
+
+/* Icon wraper */
+.item-icon {
+  &.wrapper-medium {
+    min-height: 2.5rem;
+  }
+  &.wrapper-large {
+    min-width: 3.5rem;
+    text-align: center;
+  }
+}
+
   /* Default Image Icon */
   .tile-icon {
       min-width: 1rem;

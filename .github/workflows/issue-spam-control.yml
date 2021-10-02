@@ -1,12 +1,12 @@
-# Will add a comment and close new issues opened by users that may be spam, or have not starred
-# Is still a work in progress, will also detect if user has previous activity in repo and check when joined GH
+# Will add a comment and close any new issues opened by
+# users who have not yet committed to, or starred the repo
 name: 🎯 Issue Spam Control
 on:
   issues:
     types: [opened, reopened]
 jobs:
-  check:
-    if: ${{ ! contains( github.event.issue.labels.*.name, 'keep-open') }}
+  check-user:
+    if: ${{ ! contains( github.event.issue.labels.*.name, 'keep-open') && github.event.comment.author_association != 'CONTRIBUTOR' }}
     runs-on: ubuntu-latest
     name: Close issue opened by non-stargazer
     steps:

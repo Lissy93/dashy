@@ -18,6 +18,10 @@ If an item's icon is set to `favicon`, then it will be auto-fetched from the cor
 
 The default favicon API is [Favicon Kit](https://faviconkit.com/), but this can be changed by setting `appConfig.faviconApi` to an alternate source (`google`, `clearbit`, `webmasterapi` and `allesedv` are supported). If you do not want to use any API, then you can set this property to `local`, and the favicon will be fetched from the default path. For hosted services, this will still incur an external request.
 
+### Generative Icons
+If an item has the icon set to `generative`, then an external request it made to [Dice Bear](https://dicebear.com/) to fetch the uniquely generated icon. The URL of a given service is used as the key for generating the icon, but it is first hashed and encoded for basic privacy. For more info, please reference the [Dicebear Privacy Policy](https://avatars.dicebear.com/legal/privacy-policy)
+
+
 ### Other Icons
 Section icons, item icons and app icons are able to accept a URL to a raw image, if the image is hosted online then an external request will be made. To avoid the need to make external requests for icon assets, you can either use a self-hosted CDN, or store your images within `./public/item-icons` (which can be mounted as a volume if you're using Docker).
 

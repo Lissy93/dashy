@@ -65,4 +65,18 @@ jobs:
         committer_username: liss-bot
         committer_email: liss-bot@d0h.co
 
-
+  make-author-list:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wow-actions/update-authors@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+          sort: commits
+          bots: true
+          path: .github/AUTHORS.txt
+          commit: ':blue_heart: Makes author list'
+          template: '{{name}} <{{email}}> - {{commits}} commits'

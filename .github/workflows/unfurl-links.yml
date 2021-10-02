@@ -1,0 +1,17 @@
+# Expands any raw pasted link in comments. Useful so people know what they're clicking
+name: 🎯 Unfurl Links
+on:
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created, edited]
+  pull_request:
+    types: [opened, edited]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: wow-actions/unfurl-links@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+          raw: true
