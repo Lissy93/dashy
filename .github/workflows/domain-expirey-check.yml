@@ -38,6 +38,6 @@ jobs:
           title: '[WEBSITE] SSL Cert Expiring Soon'
           body: >
             **Priority Notice**
-            The SSL Certificate for ${{ matrix.domain }} will expire in ${{ ssl-expire-days-left }} days, on ${{ steps.check-domain.outputs.ssl-expire-date }}.
+            The SSL Certificate for ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days, on ${{ steps.check-domain.outputs.ssl-expire-date }}.
             @Lissy93 - Please take action immediately to prevent any downtime
 
