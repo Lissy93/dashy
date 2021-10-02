@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: butlerlogic/action-autotag@stable
     - name: Label Fixed Issues
       uses: gh-bot/fix-labeler@master
       with:
