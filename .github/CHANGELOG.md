@@ -1,5 +1,15 @@
 # Changelog
 
+## 💄 1.8.5 - Lots of Requested UI Improvements [PR #261](https://github.com/Lissy93/dashy/pull/261)
+- Adds an option for landing URL in workspace, Re: #255
+- Switches to a new API for generative icons, Re: #163
+- Adds new tab functionality to Workspace, Re: #254
+- Remove CSS validation in style editor, Re: #259
+- Cap item description at 2 lines, Re: #250
+- Adds native support for common homelab icons, using dashboard-icons
+- Improves general responsiveness of home page sections positioning
+- Updates, fixes and adds a bunch of actions for easier repo management
+
 ## ✨ 1.8.4 - Custom Error Pages [PR #257](https://github.com/Lissy93/dashy/pull/257)
 - Creates a 404 Not Found page
 - Routes any missing views to the 404 page
