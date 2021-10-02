@@ -22,6 +22,7 @@ jobs:
       - name: Raise an Issue with Results
         uses: peter-evans/create-issue-from-file@v3
         with:
+          token: ${{secrets.BOT_GITHUB_TOKEN}}
           title: '[DOCS] Broken Links found in Documentation'
           content-filepath: .github/broken-link-report.md
           labels: '📕 Docs, 👩‍💻 Good First Issue, 💤 Low Priority, 🤖 Auto'

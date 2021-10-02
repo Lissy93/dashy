@@ -273,8 +273,9 @@ export default {
   &:focus {
     outline: 2px solid var(--primary);
   }
-  &.short {
-    height: 18px;
+  &.short:not(.size-large) {
+    height: 2rem;
+    .tile-title { overflow: visible; }
   }
 }
 

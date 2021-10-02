@@ -1,5 +1,9 @@
 <template>
-  <button @click="click()" :disabled="disabled" :class="disallow ? 'disallowed': ''">
+  <button
+    @click="click ? click() : () => null"
+    :disabled="disabled"
+    :class="disallow ? 'disallowed': ''"
+  >
     <slot></slot>
     <slot name="text"></slot>
     <slot name="icon"></slot>

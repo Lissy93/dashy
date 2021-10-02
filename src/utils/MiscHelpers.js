@@ -11,3 +11,17 @@ export const asciiHash = (input) => {
   const shortened = asciiSum.slice(0, 30) + asciiSum.slice(asciiSum.length - 30);
   return window.btoa(shortened);
 };
+
+/* Encode potentially malicious characters from string */
+export const sanitize = (string) => {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '/': '&#x2F;',
+  };
+  const reg = /[&<>"'/]/ig;
+  return string.replace(reg, (match) => (map[match]));
+};
