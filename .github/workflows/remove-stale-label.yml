@@ -7,7 +7,7 @@ on:
 jobs:
   remove-stale:
    runs-on: ubuntu-latest
-   if: ${{ github.event.inputs.name != 'liss-bot' && github.event.inputs.name != 'lissy93' }}
+   if: ${{ github.event.inputs.name != 'liss-bot' && github.event.inputs.name != 'Lissy93' }}
    steps:
    - name: Remove Stale labels when Updated
      uses: actions-cool/issues-helper@v2
@@ -19,7 +19,7 @@ jobs:
 
   add-awaiting-author:
    runs-on: ubuntu-latest
-   if: ${{ github.event.inputs.name != 'liss-bot' && github.event.inputs.name != 'lissy93' }}
+   if: ${{ github.event.inputs.name != 'liss-bot' && github.event.inputs.name != 'Lissy93' }}
    steps:
    - name: Add Awaiting Author labels when Updated
      uses: actions-cool/issues-helper@v2
@@ -31,7 +31,7 @@ jobs:
 
   remove-awaiting-author:
    runs-on: ubuntu-latest
-   if: ${{ github.event.inputs.name == 'lissy93' }}
+   if: ${{ github.event.inputs.name == 'Lissy93' }}
    steps:
    - name: Remove Awaiting Author labels when Updated
      uses: actions-cool/issues-helper@v2
