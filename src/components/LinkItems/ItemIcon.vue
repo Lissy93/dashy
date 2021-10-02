@@ -1,5 +1,5 @@
 <template>
-  <div class="item-icon">
+  <div :class="`item-icon wrapper-${size}`">
     <!-- Font-Awesome Icon -->
     <i v-if="iconType === 'font-awesome'" :class="`${icon} ${size}`" ></i>
     <!-- Emoji Icon -->
@@ -189,6 +189,18 @@ export default {
 </script>
 
 <style lang="scss">
+
+/* Icon wraper */
+.item-icon {
+  &.wrapper-medium {
+    min-height: 2.5rem;
+  }
+  &.wrapper-large {
+    min-width: 3.5rem;
+    text-align: center;
+  }
+}
+
   /* Default Image Icon */
   .tile-icon {
       min-width: 1rem;

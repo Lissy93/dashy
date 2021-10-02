@@ -1,5 +1,5 @@
 <template ref="container">
-  <div class="item-wrapper">
+  <div :class="`item-wrapper wrap-size-${itemSize}`">
     <a @click="itemOpened"
       @mouseup.right="openContextMenu"
       @contextmenu.prevent
@@ -144,7 +144,7 @@ export default {
         html: true,
         placement: this.statusResponse ? 'left' : 'auto',
         delay: { show: 600, hide: 200 },
-        classes: 'item-description-tooltip',
+        classes: `item-description-tooltip tooltip-is-${this.itemSize}`,
       };
     },
     /* Used by certain themes, which display an icon with animated CSS */
@@ -239,6 +239,10 @@ export default {
 
 .item-wrapper {
   flex-grow: 1;
+  flex-basis: 6rem;
+  &.wrap-size-large {
+    flex-basis: 12rem;
+  }
 }
 
 .item {
@@ -392,11 +396,13 @@ export default {
         width: 100%;
       }
       p.description {
-        display: block;
         margin: 0;
+        display: block;
         white-space: pre-wrap;
-        font-size: .9em;
         text-overflow: ellipsis;
+        font-size: .9em;
+        line-height: 1rem;
+        height: 2rem;
       }
     }
   }
