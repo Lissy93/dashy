@@ -14,7 +14,7 @@ jobs:
       with:
         repo-token: ${{ secrets.BOT_GITHUB_TOKEN }}
         pattern: './dist/**/*.{js,css,html}'
-        strip-hash: '\\b\\w{8}\\.'
+        strip-hash: '\b\w{8}.'
         exclude: '{./dist/manifest.json,**/*.map,**/node_modules/**}'
         minimum-change-threshold: 100
     # Check number of lines of code added
