@@ -406,7 +406,7 @@ html[data-theme='material'], html[data-theme='material-dark'] {
       }
     }
   }
-  .tooltip.item-description-tooltip {
+  .tooltip.item-description-tooltip:not(.tooltip-is-small) {
     display: none !important;
   }
   .orientation-horizontal {

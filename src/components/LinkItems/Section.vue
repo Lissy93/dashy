@@ -178,9 +178,9 @@ export default {
     padding: 0.8rem;
     text-align: center;
     cursor: default;
-    border-radius: var(--curve-factor);
-    background: #607d8b33;
     color: var(--primary);
+    background: var(--item-background);
+    border-radius: var(--curve-factor);
     box-shadow: var(--item-shadow);
 }
 
@@ -192,12 +192,13 @@ export default {
     display: grid;
     overflow: auto;
     @extend .scroll-bar;
-    @include phone { grid-template-columns: repeat(1, 1fr); }
-    @include tablet { grid-template-columns: repeat(2, 1fr); }
-    @include laptop { grid-template-columns: repeat(2, 1fr); }
-    @include monitor { grid-template-columns: repeat(3, 1fr); }
-    @include big-screen { grid-template-columns: repeat(4, 1fr); }
-    @include big-screen-up { grid-template-columns: repeat(5, 1fr); }
+    @include phone { --item-col-count: 1; }
+    @include tablet { --item-col-count: 2; }
+    @include laptop { --item-col-count: 2; }
+    @include monitor { --item-col-count: 3; }
+    @include big-screen { --item-col-count: 4; }
+    @include big-screen-up { --item-col-count: 5; }
+    grid-template-columns: repeat(var(--item-col-count, 2), minmax(0, 1fr));
   }
 }
 .orientation-horizontal {
@@ -205,13 +206,13 @@ export default {
   flex-direction: column;
   .there-are-items {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    @include phone { grid-template-columns: repeat(2, 1fr); }
-    @include tablet { grid-template-columns: repeat(4, 1fr); }
-    @include laptop { grid-template-columns: repeat(6, 1fr); }
-    @include monitor { grid-template-columns: repeat(8, 1fr); }
-    @include big-screen { grid-template-columns: repeat(10, 1fr); }
-    @include big-screen-up { grid-template-columns: repeat(12, 1fr); }
+    @include phone { --item-col-count: 2; }
+    @include tablet { --item-col-count: 4; }
+    @include laptop { --item-col-count: 6; }
+    @include monitor { --item-col-count: 8; }
+    @include big-screen { --item-col-count: 10; }
+    @include big-screen-up { --item-col-count: 12; }
+    grid-template-columns: repeat(var(--item-col-count, 2), minmax(0, 1fr));
   }
 }
 
