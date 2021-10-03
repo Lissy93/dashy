@@ -84,11 +84,13 @@ You can set the environment using the `NODE_ENV` variable. By default, the corre
 ### Git Flow
 Like most Git repos, we are following the [Github Flow](https://guides.github.com/introduction/flow) standard.
 
-1. Create a branch (or fork if you don'd have write acces)
-2. Code some awesome stuff, then add and commit your changes
-3. Create a Pull Request, complete the checklist and ensure the build succeeds
-4. Follow up with any reviews on your code
-5. Merge 🎉
+1. Create a branch (or fork if you don'd have write access)
+2. Code some awesome stuff 🧑‍💻
+3. Add, commit and push your changes to your branch/ fork
+4. Head over to GitHub and create a Pull Request
+5. Fill in the required sections in the template, and hit submit
+6. Follow up with any reviews on your code
+7. Merge 🎉
 
 ### Git Branch Naming
 The format of your branch name should be something similar to: `[TYPE]/[TICKET]_[TITLE]`

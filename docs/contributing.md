@@ -111,5 +111,5 @@ For a full list of Dashy's contributors, see the [Credits Page](/docs/credits.md
 
 ### Star-Gazers Over Time
 
-![Stargazers](https://starchart.cc/Lissy93/dashy.svg)
+[![Stargazers](https://starchart.cc/Lissy93/dashy.svg)](https://seladb.github.io/StarTrack-js/#/preload?r=Lissy93,dashy)
 
