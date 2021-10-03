@@ -14,7 +14,7 @@ jobs:
           exclude: '[BUG] [QUESTION] [FEEDBACK] [SHOWCASE]'
           label: '🕸️ Potential Duplicate'
           state: all
-          threshold: 0.6
+          threshold: 0.75
           reactions: 'eyes'
           comment: >
             Potential duplicates: {{#issues}}
