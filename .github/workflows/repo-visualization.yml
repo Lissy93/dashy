@@ -28,9 +28,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@master
       with:
-          fetch-depth: 0
+        fetch-depth: 0
     - name: Hercules
-        uses: src-d/hercules@master
+      uses: src-d/hercules@master
     - uses: actions/upload-artifact@master
       with:
         name: hercules_charts
