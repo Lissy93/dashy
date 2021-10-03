@@ -106,9 +106,9 @@ export default {
     gridStyle() {
       let styles = '';
       styles += this.displayData.itemCountX
-        ? `grid-template-columns: repeat(${this.displayData.itemCountX}, 1fr);` : '';
+        ? `grid-template-columns: repeat(${this.displayData.itemCountX}, minmax(0, 1fr));` : '';
       styles += this.displayData.itemCountY
-        ? `grid-template-rows: repeat(${this.displayData.itemCountY}, 1fr);` : '';
+        ? `grid-template-rows: repeat(${this.displayData.itemCountY}, minmax(0, 1fr));` : '';
       return styles;
     },
   },

@@ -97,12 +97,13 @@ export default {
   border-radius: 0 0 var(--curve-factor) var(--curve-factor);
   .section-items {
     display: grid;
-    @include phone { grid-template-columns: repeat(1, 1fr); }
-    @include tablet { grid-template-columns: repeat(2, 1fr); }
-    @include laptop { grid-template-columns: repeat(3, 1fr); }
-    @include monitor { grid-template-columns: repeat(4, 1fr); }
-    @include big-screen { grid-template-columns: repeat(5, 1fr); }
-    @include big-screen-up { grid-template-columns: repeat(6, 1fr); }
+    @include phone { --minimal-col-count: 1; }
+    @include tablet { --minimal-col-count: 2; }
+    @include laptop { --minimal-col-count: 3; }
+    @include monitor { --minimal-col-count: 4; }
+    @include big-screen { --minimal-col-count: 5; }
+    @include big-screen-up { --minimal-col-count: 6; }
+    grid-template-columns: repeat(var(--minimal-col-count, 1), minmax(0, 1fr));
   }
   &.selected {
     border: 1px solid var(--minimal-view-group-color);
