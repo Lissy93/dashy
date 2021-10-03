@@ -289,6 +289,10 @@ export default {
   position: relative;
   padding: 0;
   z-index: 2;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
   span.text {
     white-space: nowrap;
   }
