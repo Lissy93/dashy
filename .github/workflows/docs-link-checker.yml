@@ -4,7 +4,7 @@ on:
   repository_dispatch:
   workflow_dispatch:
   schedule:
-    - cron: '0 1 * * 0' # At 01:00 on Sunday.
+    - cron: '0 1 1 * *' # Run monthly
 jobs:
   link-checker:
     runs-on: ubuntu-latest
@@ -14,7 +14,7 @@ jobs:
       - name: Check for Broken Links
         uses: lycheeverse/lychee-action@v1.0.8
         with:
-          args: --verbose --no-progress **/*.md **/*.html
+          args: --verbose -a 200,302,304,429 --no-progress **/*.md **/*.html
         env:
           GITHUB_TOKEN: ${{secrets.BOT_GITHUB_TOKEN}}
           LYCHEE_OUT: .github/broken-link-report.md
