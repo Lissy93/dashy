@@ -1,4 +1,5 @@
 Alicia <liss-bot@d0h.co> - 1 commits
+Alicia <o> - 1 commits
 Begin <support@begin.com> - 1 commits
 DeepSource <o> - 1 commits
 Devin <uh> - 1 commits
@@ -20,6 +21,6 @@ github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com> - 16
 liss-bot <liss-bot@d0h.co> - 16 commits
 Alicia <yke> - 25 commits
 Lissy93 <gh@d0h.co> - 64 commits
-Lissy93 <Lissy93@users.noreply.github.com> - 168 commits
-Alicia <yke> - 234 commits
-Alicia <yke> - 926 commits
+Lissy93 <Lissy93@users.noreply.github.com> - 169 commits
+Alicia <yke> - 236 commits
+Alicia <yke> - 932 commits
