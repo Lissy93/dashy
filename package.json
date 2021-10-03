@@ -39,7 +39,8 @@
     "vue-router": "^3.0.3",
     "vue-select": "^3.12.1",
     "vue-swatches": "^2.1.1",
-    "vue-toasted": "^1.1.28"
+    "vue-toasted": "^1.1.28",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@architect/sandbox": "^3.7.4",
