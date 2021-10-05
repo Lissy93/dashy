@@ -24,7 +24,7 @@ const getDomainFromUrl = (url) => {
  */
 const filterHelper = (compareStr, searchStr) => {
   if (!compareStr) return false;
-  const process = (input) => input.toString().toLowerCase().replace(/[^\w\s]/gi, '');
+  const process = (input) => input && input.toString().toLowerCase().replace(/[^\w\s]/gi, '');
   return process(compareStr).includes(process(searchStr));
 };
 
@@ -37,6 +37,7 @@ const filterHelper = (compareStr, searchStr) => {
  * @returns A filtered array of tiles
  */
 export const searchTiles = (allTiles, searchTerm) => {
+  if (!searchTerm) return allTiles; // If no search term, then return all
   if (!allTiles) return []; // If no data, then skip
   return allTiles.filter((tile) => {
     const {
