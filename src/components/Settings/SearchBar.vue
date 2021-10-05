@@ -129,7 +129,10 @@ export default {
         const searchEngine = searchPrefs.searchEngine || defaultSearchEngine;
         // Use either search bang, or preffered search engine
         const desiredSearchEngine = searchBang || searchEngine;
-        let searchUrl = findUrlForSearchEngine(desiredSearchEngine, searchEngineUrls);
+        const isCustomSearch = (searchPrefs.searchEngine === 'custom' && searchPrefs.customSearchEngine);
+        let searchUrl = isCustomSearch
+          ? searchPrefs.customSearchEngine
+          : findUrlForSearchEngine(desiredSearchEngine, searchEngineUrls);
         if (searchUrl) { // Append search query to URL, and launch
           searchUrl += encodeURIComponent(stripBangs(this.input, bangList));
           this.launchWebSearch(searchUrl, openingMethod);
