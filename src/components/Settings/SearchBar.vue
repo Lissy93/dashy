@@ -190,7 +190,6 @@ export default {
       }
     }
     .clear-search {
-      //position: absolute;
       color: var(--settings-text-color);
       padding: 0 0.3rem 0.1rem 0.3rem;
       font-style: normal;
@@ -201,7 +200,6 @@ export default {
       right: 0.5rem;
       top: 1rem;
       border: 1px solid var(--settings-text-color);
-      font-size: 1rem;
       margin: 0.25rem;
       &:hover {
         opacity: 1;
@@ -269,7 +267,6 @@ export default {
       right: 0.5rem;
       top: 1rem;
       border: 1px solid var(--minimal-view-search-color);
-      font-size: 1rem;
       margin: 0.5rem;
       &:hover {
         opacity: 1;
