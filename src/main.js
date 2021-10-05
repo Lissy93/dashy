@@ -14,6 +14,7 @@ import Toasted from 'vue-toasted';      // Toast component, used to show confirm
 // Import base Dashy components and utils
 import Dashy from '@/App.vue';          // Main Dashy Vue app
 import router from '@/router';          // Router, for navigation
+import store from '@/store';            // Store, for local state management
 import serviceWorker from '@/utils/InitServiceWorker'; // Service worker initialization
 import clickOutside from '@/utils/ClickOutside';      // Directive for closing popups, modals, etc
 import { messages } from '@/utils/languages';         // Language texts
@@ -63,7 +64,9 @@ if (!isKeycloakEnabled()) {
       window.location.reload();
     } else {
       // Yay - user successfully authenticated with Keycloak, render the app!
-      new Vue({ router, render, i18n }).$mount('#app');
+      new Vue({
+        router, store, render, i18n,
+      }).$mount('#app');
     }
   });
 }
