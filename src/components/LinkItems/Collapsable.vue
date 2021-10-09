@@ -1,14 +1,15 @@
 <template>
-  <div :class="`collapsable ${checkSpanNum(cols, 'col')} ${checkSpanNum(rows, 'row')}`"
+  <div
+    :class="`collapsable ${checkSpanNum(cols, 'col')} ${checkSpanNum(rows, 'row')}`"
     :style="`${color ? 'background: '+color : ''}; ${sanitizeCustomStyles(customStyles)};`"
   >
     <input
-        :id="`collapsible-${uniqueKey}`"
-        class="toggle"
-        type="checkbox"
-        :checked="getCollapseState()"
-        @change="collapseChanged"
-        tabIndex="-1"
+      :id="`collapsible-${uniqueKey}`"
+      class="toggle"
+      type="checkbox"
+      :checked="getCollapseState()"
+      @change="collapseChanged"
+      tabIndex="-1"
     >
     <label :for="`collapsible-${uniqueKey}`" class="lbl-toggle" tabindex="-1">
       <Icon v-if="icon" :icon="icon" size="small" :url="title" class="section-icon" />
@@ -30,14 +31,14 @@ import Icon from '@/components/LinkItems/ItemIcon.vue';
 export default {
   name: 'CollapsableContainer',
   props: {
-    uniqueKey: String,
-    title: String,
-    icon: String,
-    collapsed: Boolean,
-    cols: Number,
-    rows: Number,
-    color: String,
-    customStyles: String,
+    uniqueKey: String, // Generated unique ID
+    title: String, // The section title
+    icon: String, // An optional section icon
+    collapsed: Boolean, // Optional override collapse state
+    cols: Number, // Set section horizontal col span / width
+    rows: Number, // Set section vertical row span / height
+    color: String, // Optional color override
+    customStyles: String, // Optional custom stylings
   },
   components: {
     Icon,
@@ -45,7 +46,7 @@ export default {
   methods: {
     /* Check that row & column span is valid, and not over the max */
     checkSpanNum(span, classPrefix) {
-      const maxSpan = 8;
+      const maxSpan = 5;
       let numSpan = /^\d*$/.test(span) ? parseInt(span, 10) : 1;
       numSpan = (numSpan > maxSpan) ? maxSpan : numSpan;
       return `${classPrefix}-${numSpan}`;
@@ -78,6 +79,7 @@ export default {
       }
       return collapseState;
     },
+    /* When section collapsed, update local storage, to remember for next time */
     setCollapseState(id, newState) {
       // Get the current localstorage collapse state object
       const collapseState = JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
@@ -86,9 +88,12 @@ export default {
       // Stringify, and set the new object into local storage
       localStorage.setItem(localStorageKeys.COLLAPSE_STATE, JSON.stringify(collapseState));
     },
+    /* Called when collapse state changes, trigger local storage update if needed */
     collapseChanged(whatChanged) {
-      this.initialiseStorage();
-      this.setCollapseState(this.uniqueKey.toString(), whatChanged.srcElement.checked);
+      if (this.collapseState === undefined) { // Only run, if user hasn't manually set prop
+        this.initialiseStorage();
+        this.setCollapseState(this.uniqueKey.toString(), whatChanged.srcElement.checked);
+      }
     },
   },
 };
@@ -112,22 +117,26 @@ export default {
   &.row-2 { grid-row-start: span 2; }
   &.row-3 { grid-row-start: span 3; }
   &.row-4 { grid-row-start: span 4; }
+  &.row-5 { grid-row-start: span 5; }
 
   grid-column-start: span 1;
   @include tablet-up {
     &.col-2 { grid-column-start: span 2; }
     &.col-3 { grid-column-start: span 2; }
     &.col-4 { grid-column-start: span 2; }
+    &.col-5 { grid-column-start: span 2; }
   }
   @include laptop-up {
     &.col-2 { grid-column-start: span 2; }
     &.col-3 { grid-column-start: span 3; }
     &.col-4 { grid-column-start: span 3; }
+    &.col-5 { grid-column-start: span 3; }
   }
   @include monitor-up {
     &.col-2 { grid-column-start: span 2; }
     &.col-3 { grid-column-start: span 3; }
     &.col-4 { grid-column-start: span 4; }
+    &.col-5 { grid-column-start: span 5; }
   }
 
   .wrap-collabsible {
@@ -146,7 +155,7 @@ export default {
     border-radius: var(--curve-factor);
     transition: all 0.25s ease-out;
     text-align: left;
-    color: var(--item-group-heading-text-color); //var(--item-group-background);
+    color: var(--item-group-heading-text-color);
     h3 {
       margin: 0;
       padding: 0;
