@@ -49,9 +49,14 @@ ErrorReporting(Vue, router);
 // Render function
 const render = (awesome) => awesome(Dashy);
 
+// Mount the app, with router, store i18n and render func
+const mount = () => new Vue({
+  router, render, i18n, store,
+}).$mount('#app');
+
 // If Keycloak not enabled, then proceed straight to the app
 if (!isKeycloakEnabled()) {
-  new Vue({ router, render, i18n }).$mount('#app');
+  mount();
 } else { // Keycloak is enabled, redirect to KC login page
   const { serverUrl, realm, clientId } = getKeycloakConfig();
   const initOptions = {
@@ -64,9 +69,7 @@ if (!isKeycloakEnabled()) {
       window.location.reload();
     } else {
       // Yay - user successfully authenticated with Keycloak, render the app!
-      new Vue({
-        router, store, render, i18n,
-      }).$mount('#app');
+      mount();
     }
   });
 }
