@@ -10,9 +10,6 @@
       :displayLayout="layout"
       :iconSize="itemSizeBound"
       :externalThemes="getExternalCSSLinks()"
-      :sections="allSections"
-      :appConfig="appConfig"
-      :pageInfo="pageInfo"
       :modalOpen="modalOpen"
       class="settings-outer"
     />

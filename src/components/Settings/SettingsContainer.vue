@@ -51,9 +51,6 @@ export default {
     displayLayout: String,
     iconSize: String,
     externalThemes: Object,
-    appConfig: Object,
-    pageInfo: Object,
-    sections: Array,
     modalOpen: Boolean,
   },
   components: {
@@ -69,6 +66,15 @@ export default {
     IconClose,
   },
   computed: {
+    sections() {
+      return this.$store.getters.sections;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
     /**
     * Determines which button should display, based on the user type
     * 0 = Auth not configured, don't show anything
