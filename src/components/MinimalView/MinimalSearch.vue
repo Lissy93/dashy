@@ -35,7 +35,6 @@ import {
 
 export default {
   name: 'MinimalSearch',
-  inject: ['config'],
   props: {
     active: Boolean,
   },
@@ -47,10 +46,12 @@ export default {
     };
   },
   computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
     webSearchEnabled() {
-      const { appConfig } = this.config;
-      if (appConfig && appConfig.webSearch) {
-        return !appConfig.webSearch.disableWebSearch;
+      if (this.appConfig && this.appConfig.webSearch) {
+        return !this.appConfig.webSearch.disableWebSearch;
       }
       return true;
     },
@@ -117,8 +118,7 @@ export default {
     /* If web search enabled, then launch search results when enter is pressed */
     searchSubmitted() {
       // Get search preferences from appConfig
-      const { appConfig } = this.config;
-      const searchPrefs = appConfig.webSearch || {};
+      const searchPrefs = this.appConfig.webSearch || {};
       if (this.webSearchEnabled) { // Only proceed if user hasn't disabled web search
         const openingMethod = searchPrefs.openingMethod || defaultSearchOpeningMethod;
         // Get search engine, and make URL

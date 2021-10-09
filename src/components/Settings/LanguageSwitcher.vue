@@ -33,7 +33,6 @@ import { localStorageKeys, modalNames } from '@/utils/defaults';
 
 export default {
   name: 'LanguageSwitcher',
-  inject: ['config'],
   components: {
     Button,
     SaveConfigIcon,
@@ -45,6 +44,10 @@ export default {
     };
   },
   computed: {
+    /* Get appConfig from store */
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
     /* Return the array of language objects, plus a friends name */
     languageList: () => languages.map((lang) => {
       const newLang = lang;
@@ -85,7 +88,7 @@ export default {
     /* Gets the users current language from local storage */
     getCurrentLanguage() {
       const getLanguageFromIso = (iso) => languages.find((lang) => lang.code === iso);
-      const current = localStorage[localStorageKeys.LANGUAGE] || this.config.appConfig.language;
+      const current = localStorage[localStorageKeys.LANGUAGE] || this.appConfig.language;
       return getLanguageFromIso(current);
     },
   },

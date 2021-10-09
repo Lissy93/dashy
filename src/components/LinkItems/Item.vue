@@ -53,7 +53,6 @@ import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
 
 export default {
   name: 'Item',
-  inject: ['config'],
   props: {
     id: String, // The unique ID of a tile (e.g. 001)
     title: String, // The main text of tile, required
@@ -76,6 +75,11 @@ export default {
     statusCheckUrl: String,
     statusCheckInterval: Number,
     statusCheckAllowInsecure: Boolean,
+  },
+  computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
   },
   data() {
     return {
@@ -110,7 +114,7 @@ export default {
         this.$emit('itemClicked');
       }
       // Update the most/ last used ledger, for smart-sorting
-      if (!this.config.appConfig.disableSmartSort) {
+      if (!this.appConfig.disableSmartSort) {
         this.incrementMostUsedCount(this.id);
         this.incrementLastUsedCount(this.id);
       }

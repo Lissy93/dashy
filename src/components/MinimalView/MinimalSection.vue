@@ -37,7 +37,6 @@ import IframeModal from '@/components/LinkItems/IframeModal.vue';
 
 export default {
   name: 'ItemGroup',
-  inject: ['config'],
   props: {
     groupId: String,
     title: String,
@@ -49,6 +48,11 @@ export default {
     index: Number,
     selected: Boolean,
     showAll: Boolean,
+  },
+  computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
   },
   components: {
     Item,
@@ -70,11 +74,11 @@ export default {
       this.$emit('change-modal-visibility', changedTo);
     },
     shouldEnableStatusCheck(itemPreference) {
-      const globalPreference = this.config.appConfig.statusCheck || false;
+      const globalPreference = this.appConfig.statusCheck || false;
       return itemPreference !== undefined ? itemPreference : globalPreference;
     },
     getStatusCheckInterval() {
-      let interval = this.config.appConfig.statusCheckInterval;
+      let interval = this.appConfig.statusCheckInterval;
       if (!interval) return 0;
       if (interval > 60) interval = 60;
       if (interval < 1) interval = 0;

@@ -35,7 +35,6 @@ import {
 
 export default {
   name: 'FilterTile',
-  inject: ['config'],
   props: {
     active: Boolean,
   },
@@ -48,7 +47,7 @@ export default {
   },
   computed: {
     searchPrefs() {
-      return this.config.appConfig.webSearch || {};
+      return this.$store.getters.webSearch || {};
     },
   },
   mounted() {

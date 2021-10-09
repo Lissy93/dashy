@@ -30,7 +30,6 @@ import { asciiHash } from '@/utils/MiscHelpers';
 
 export default {
   name: 'Icon',
-  inject: ['config'],
   props: {
     icon: String, // Path to icon asset
     url: String, // Used for fetching the favicon
@@ -40,6 +39,10 @@ export default {
     BrokenImage,
   },
   computed: {
+    /* Get appConfig from store */
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
     /* Determines the type of icon */
     iconType: function iconType() {
       return this.determineImageType(this.icon);
@@ -96,7 +99,7 @@ export default {
         if (urlParts.length >= 2) return `${urlParts[0]}/${urlParts[1]}/${urlParts[2]}/${iconCdns.faviconName}`;
       } else if (fullUrl.includes('http')) { // Service is running publicly
         const host = this.getHostName(fullUrl);
-        const faviconApi = specificApi || this.config.appConfig.faviconApi || defaultFaviconApi;
+        const faviconApi = specificApi || this.appConfig.faviconApi || defaultFaviconApi;
         const endpoint = faviconApiEndpoints[faviconApi];
         return endpoint.replace('$URL', host);
       }
@@ -120,7 +123,7 @@ export default {
     /* or if user prefers local favicon, then return true */
     shouldUseDefaultFavicon(fullUrl) {
       const isLocalIP = /(127\.)|(192\.168\.)|(10\.)|(172\.1[6-9]\.)|(172\.2[0-9]\.)|(172\.3[0-1]\.)|(::1$)|([fF][cCdD])|(localhost)/;
-      return (isLocalIP.test(fullUrl) || this.config.appConfig.faviconApi === 'local');
+      return (isLocalIP.test(fullUrl) || this.appConfig.faviconApi === 'local');
     },
     /* Fetches the path of local images, from Docker container */
     getLocalImagePath(img) {

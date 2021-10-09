@@ -58,7 +58,6 @@ import IframeModal from '@/components/LinkItems/IframeModal.vue';
 
 export default {
   name: 'Section',
-  inject: ['config'],
   props: {
     groupId: String,
     title: String,
@@ -74,13 +73,16 @@ export default {
     IframeModal,
   },
   computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
     sortOrder() {
       return this.displayData.sortBy || defaultSortOrder;
     },
     /* If the sortBy attribute is specified, then return sorted data */
     sortedItems() {
       let { items } = this;
-      if (this.config.appConfig.disableSmartSort) return items;
+      if (this.appConfig.disableSmartSort) return items;
       if (this.sortOrder === 'alphabetical') {
         this.sortAlphabetically(items);
       } else if (this.sortOrder === 'reverse-alphabetical') {
@@ -128,12 +130,12 @@ export default {
     },
     /* Determines if user has enabled online status checks */
     shouldEnableStatusCheck(itemPreference) {
-      const globalPreference = this.config.appConfig.statusCheck || false;
+      const globalPreference = this.appConfig.statusCheck || false;
       return itemPreference !== undefined ? itemPreference : globalPreference;
     },
     /* Determine how often to re-fire status checks */
     getStatusCheckInterval() {
-      let interval = this.config.appConfig.statusCheckInterval;
+      let interval = this.appConfig.statusCheckInterval;
       if (!interval) return 0;
       if (interval > 60) interval = 60;
       if (interval < 1) interval = 0;

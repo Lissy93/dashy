@@ -36,7 +36,11 @@ import ErrorHandler from '@/utils/ErrorHandler';
 
 export default {
   name: 'AppInfoModal',
-  inject: ['config'],
+  computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+  },
   data() {
     return {
       appVersion: process.env.VUE_APP_VERSION, // Current version, from package.json
@@ -50,8 +54,7 @@ export default {
     };
   },
   mounted() {
-    const appConfig = this.config.appConfig || {};
-    if (!this.appVersion || (appConfig && appConfig.disableUpdateChecks)) {
+    if (!this.appVersion || (this.appConfig && this.appConfig.disableUpdateChecks)) {
       // Either current version isn't found, or user disabled checks
       this.checksEnabled = false;
     } else {

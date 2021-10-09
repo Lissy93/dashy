@@ -69,7 +69,29 @@ export default {
     IconOpen,
     IconClose,
   },
-  inject: ['visibleComponents'],
+  computed: {
+    /**
+    * Determines which button should display, based on the user type
+    * 0 = Auth not configured, don't show anything
+    * 1 = Auth condifured, and user logged in, show logout button
+    * 2 = Auth configured, guest access enabled, and not logged in, show login
+    * Note that if auth is enabled, but not guest access, and user not logged in,
+    * then they will never be able to view the homepage, so no button needed
+    */
+    userState() {
+      return getUserState();
+    },
+    /* Object indicating which components should be hidden, based on user preferences */
+    visibleComponents() {
+      return this.$store.getters.visibleComponents;
+    },
+  },
+  data() {
+    return {
+      settingsVisible: this.getSettingsVisibility(),
+      searchVisible: (this.visibleComponents || defaultVisibleComponents).searchBar,
+    };
+  },
   methods: {
     userIsTypingSomething(something) {
       this.$emit('user-is-searchin', something);
@@ -103,25 +125,6 @@ export default {
       return JSON.parse(localStorage[localStorageKeys.HIDE_SETTINGS]
         || (this.visibleComponents || defaultVisibleComponents).settings);
     },
-  },
-  computed: {
-    /**
-    * Determines which button should display, based on the user type
-    * 0 = Auth not configured, don't show anything
-    * 1 = Auth condifured, and user logged in, show logout button
-    * 2 = Auth configured, guest access enabled, and not logged in, show login
-    * Note that if auth is enabled, but not guest access, and user not logged in,
-    * then they will never be able to view the homepage, so no button needed
-    */
-    userState() {
-      return getUserState();
-    },
-  },
-  data() {
-    return {
-      settingsVisible: this.getSettingsVisibility(),
-      searchVisible: (this.visibleComponents || defaultVisibleComponents).searchBar,
-    };
   },
 };
 </script>

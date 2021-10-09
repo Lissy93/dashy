@@ -3,6 +3,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Keys from '@/utils/StoreMutations';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
+import { componentVisibility } from '@/utils/ConfigHelpers';
 
 Vue.use(Vuex);
 
@@ -24,6 +25,12 @@ const store = new Vuex.Store({
     },
     sections(state) {
       return state.config.sections || [];
+    },
+    webSearch(state, getters) {
+      return getters.appConfig.webSearch || {};
+    },
+    visibleComponents(state, getters) {
+      return componentVisibility(getters.appConfig);
     },
   },
   mutations: {
