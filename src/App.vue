@@ -11,8 +11,6 @@
 import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
-// import { componentVisibility } from '@/utils/ConfigHelpers';
-import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { welcomeMsg } from '@/utils/CoolConsole';
 import ErrorHandler from '@/utils/ErrorHandler';
 import {
@@ -22,11 +20,6 @@ import {
   language as defaultLanguage,
 } from '@/utils/defaults';
 
-const Accumulator = new ConfigAccumulator();
-const config2 = Accumulator.config();
-// const visibleComponents = componentVisibility(config.appConfig) || defaultVisibleComponents;
-const visibleComponents = defaultVisibleComponents;
-
 export default {
   name: 'app',
   components: {
@@ -34,15 +27,9 @@ export default {
     Footer,
     LoadingScreen,
   },
-  provide: {
-    config: config2,
-    visibleComponents,
-  },
   data() {
     return {
       isLoading: true, // Set to false after mount complete
-      showFooter: visibleComponents.footer,
-      visibleComponents,
     };
   },
   computed: {
@@ -65,6 +52,9 @@ export default {
     },
     sections() {
       return this.$store.getters.pageInfo;
+    },
+    visibleComponents() {
+      return this.$store.getters.visibleComponents;
     },
   },
   created() {
