@@ -71,10 +71,16 @@ export default {
     IconWorkspaceView,
     IconMinimalView,
   },
-  props: {
-    sections: Array,
-    pageInfo: Object,
-    appConfig: Object,
+  computed: {
+    sections() {
+      return this.$store.getters.sections;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
   },
   methods: {
     showEditor: function show() {

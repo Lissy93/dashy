@@ -91,9 +91,6 @@ export default {
     Button,
     Input,
   },
-  props: {
-    appConfig: Object,
-  },
   data() {
     return {
       username: '',
@@ -104,6 +101,9 @@ export default {
     };
   },
   computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
     /* Data for timeout dropdown menu, translated label + value in ms */
     dropDownMenu() {
       return [

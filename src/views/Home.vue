@@ -55,11 +55,6 @@ import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 
 export default {
   name: 'home',
-  props: {
-    sections: Array, // Main site content
-    appConfig: Object, // Main site configuation (optional)
-    pageInfo: Object, // Page metadata (optional)
-  },
   components: {
     SettingsContainer,
     Section,
@@ -71,6 +66,15 @@ export default {
     modalOpen: false, // When true, keybindings are disabled
   }),
   computed: {
+    sections() {
+      return this.$store.getters.sections;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
     /* Get class for num columns, if specified by user */
     colCount() {
       let { colCount } = this.appConfig;

@@ -62,37 +62,30 @@ const router = new Router({
       path: '/',
       name: `landing-page-${getStartingView()}`,
       component: getStartingComponent(),
-      props: config,
       meta: makeMetaTags('Home Page'),
     },
     { // Default home page
       path: routePaths.home,
       name: 'home',
       component: Home,
-      props: config,
       meta: makeMetaTags('Home Page'),
     },
     { // Workspace view page
       path: routePaths.workspace,
       name: 'workspace',
       component: Workspace,
-      props: config,
       meta: makeMetaTags('Workspace'),
     },
     { // Minimal view page
       path: routePaths.minimal,
       name: 'minimal',
       component: Minimal,
-      props: config,
       meta: makeMetaTags('Start Page'),
     },
     { // The login page
       path: routePaths.login,
       name: 'login',
       component: Login,
-      props: {
-        appConfig: config.appConfig,
-      },
       beforeEnter: (to, from, next) => {
         // If the user already logged in + guest mode not enabled, then redirect home
         if (isAuthenticated() && !isGuestAccessEnabled()) router.push({ path: '/' });
@@ -109,7 +102,6 @@ const router = new Router({
       path: routePaths.download,
       name: 'download',
       component: () => import('./views/DownloadConfig.vue'),
-      props: config,
       meta: makeMetaTags('Download Config'),
     },
     { // Page not found, any non-defined routes will land here

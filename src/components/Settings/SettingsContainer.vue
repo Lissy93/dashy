@@ -11,8 +11,7 @@
           :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
         <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
         <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
-        <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
-          @modalChanged="modalChanged" />
+        <ConfigLauncher @modalChanged="modalChanged" />
         <AuthButtons  v-if="userState != 'noone'" :userType="userState" />
       </div>
       <div :class="`show-hide-container ${settingsVisible? 'hide-btn' : 'show-btn'}`">
