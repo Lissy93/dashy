@@ -12,15 +12,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/conf.yml"
   },
   {
-    "revision": "170fbf00cc78bf4fcfeb",
+    "revision": "d9a6bb5374d4b1014f6e",
     "url": "/css/chunk-36fb5c32.a64c098d.css"
   },
   {
-    "revision": "5e617507405adbb73bda",
+    "revision": "65f3d724c7bba424cb2e",
     "url": "/css/chunk-724820ea.f5d4b402.css"
   },
   {
-    "revision": "fb9a279311ae83f8c277",
+    "revision": "c75fd2ad41aa3f9df6b2",
     "url": "/css/chunk-7a681339.974ecc90.css"
   },
   {
@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/css/chunk-vendors.d8067ad8.css"
   },
   {
-    "revision": "25a8a07631a06723cc36",
-    "url": "/css/dashy.00de9d6a.css"
+    "revision": "c79e69f3f3e163aacd96",
+    "url": "/css/dashy.b76ac1f1.css"
   },
   {
     "revision": "ecee57dfff425a634aacc7ae1b96ff0e",
@@ -80,7 +80,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/VT323-Regular.ttf"
   },
   {
-    "revision": "d78632a66a1640db8cf19ebfe2fa7e6b",
+    "revision": "2c488aec48fda71fd6a4f49c76107250",
     "url": "/index.html"
   },
   {
@@ -88,24 +88,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/item-icons/.gitignore"
   },
   {
-    "revision": "170fbf00cc78bf4fcfeb",
-    "url": "/js/chunk-36fb5c32.9fbf4038.js"
+    "revision": "d9a6bb5374d4b1014f6e",
+    "url": "/js/chunk-36fb5c32.9812891f.js"
   },
   {
-    "revision": "5e617507405adbb73bda",
-    "url": "/js/chunk-724820ea.7d96a986.js"
+    "revision": "65f3d724c7bba424cb2e",
+    "url": "/js/chunk-724820ea.3b46aa52.js"
   },
   {
-    "revision": "fb9a279311ae83f8c277",
-    "url": "/js/chunk-7a681339.c2c17222.js"
+    "revision": "c75fd2ad41aa3f9df6b2",
+    "url": "/js/chunk-7a681339.bee4c8e4.js"
   },
   {
     "revision": "0b39a26bec24e86c71ac",
     "url": "/js/chunk-vendors.18c6509a.js"
   },
   {
-    "revision": "25a8a07631a06723cc36",
-    "url": "/js/dashy.45b70ac5.js"
+    "revision": "c79e69f3f3e163aacd96",
+    "url": "/js/dashy.139121c5.js"
   },
   {
     "revision": "e3bf86400a2b80531902e65f51d52be0",
