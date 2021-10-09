@@ -45,7 +45,7 @@ export default {
   methods: {
     /* Check that row & column span is valid, and not over the max */
     checkSpanNum(span, classPrefix) {
-      const maxSpan = 4;
+      const maxSpan = 8;
       let numSpan = /^\d*$/.test(span) ? parseInt(span, 10) : 1;
       numSpan = (numSpan > maxSpan) ? maxSpan : numSpan;
       return `${classPrefix}-${numSpan}`;
@@ -68,7 +68,9 @@ export default {
       }
       return JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
     },
+    /* If not specified by user, get last state from local storage */
     getCollapseState() {
+      if (this.collapsed !== undefined) return !this.collapsed;
       const collapseStateObject = this.initialiseStorage();
       let collapseState = !this.collapsed;
       if (collapseStateObject[this.uniqueKey] !== undefined) {
