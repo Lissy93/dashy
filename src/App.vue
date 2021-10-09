@@ -11,7 +11,7 @@
 import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
-import { componentVisibility } from '@/utils/ConfigHelpers';
+// import { componentVisibility } from '@/utils/ConfigHelpers';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { welcomeMsg } from '@/utils/CoolConsole';
 import ErrorHandler from '@/utils/ErrorHandler';
@@ -23,8 +23,9 @@ import {
 } from '@/utils/defaults';
 
 const Accumulator = new ConfigAccumulator();
-const config = Accumulator.config();
-const visibleComponents = componentVisibility(config.appConfig) || defaultVisibleComponents;
+const config2 = Accumulator.config();
+// const visibleComponents = componentVisibility(config.appConfig) || defaultVisibleComponents;
+const visibleComponents = defaultVisibleComponents;
 
 export default {
   name: 'app',
@@ -34,15 +35,13 @@ export default {
     LoadingScreen,
   },
   provide: {
-    config,
+    config: config2,
     visibleComponents,
   },
   data() {
     return {
       isLoading: true, // Set to false after mount complete
       showFooter: visibleComponents.footer,
-      appConfig: Accumulator.appConfig(),
-      pageInfo: Accumulator.pageInfo(),
       visibleComponents,
     };
   },
@@ -55,6 +54,21 @@ export default {
     shouldShowSplash() {
       return (this.visibleComponents || defaultVisibleComponents).splashScreen;
     },
+    config() {
+      return this.$store.state.config;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
+    sections() {
+      return this.$store.getters.pageInfo;
+    },
+  },
+  created() {
+    this.$store.dispatch('initializeConfig');
   },
   methods: {
     /* Injects the users custom CSS as a style tag */
