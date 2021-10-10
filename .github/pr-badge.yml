@@ -1,5 +1,5 @@
-# Config file for pull-request-badge. See: https://pullrequestbadge.com/
-# Enables badges to be inserted into the PR description, based on certain conditions
+# Config file for pull-request-badge. See: https://pullrequestbadge.com/ by @stefanbuck
+# Dynamically inserts status badges into PR description, based on certain conditions
 
 # Checks if the required sections are missing
 - label: "⚠️Missing"
@@ -23,21 +23,43 @@
   color: "#f25265"
   when: "$labels.length == 0"
 
-# Show note when in draft mode
+# Show note when task list has unfinished items
+- label: "⚠️Notice"
+  message: "Unchecked Tasks"
+  when: "$payload.pull_request.body.includes('- [ ] ')"
+  color: "#f25265"
+
+# Show badge indicating PR status
 - label: "Status"
-  message: "Draft"
+  message: "✏️ Draft"
   when: "$isDraft"
   color: "#ffa933"
+- label: "Status"
+  message: "🧱 Work in Progress"
+  when: "$payload.pull_request.title.includes('WIP')"
+  color: "#29e3f4"
+- label: "Status"
+  message: "✅ Ready"
+  color: "#3ef963"
+  when: "$labels.includes('🔀 Ready for Merge')"
 
 # Add size label based on very large or tiny PRs
 - label: "PR Size"
+  message: "Extra Large"
+  color: "#f9833e"
+  when: "$additions > 1000"
+- label: "PR Size"
   message: "Large"
-  color: "#f79c47"
-  when: "$additions > 600"
+  color: "#f4b546"
+  when: "$additions > 500 && $additions < 1000"
+- label: "PR Size"
+  message: "Medium"
+  color: "#f3ff59"
+  when: "$additions > 10 && $additions < 500"
 - label: "PR Size"
   message: "Quick"
   color: "#3eef8b"
-  when: "$additions < 5"
+  when: "$additions < 10"
 
 # Show PR number, to destination and from destination
 - label: "#$prNumber"
@@ -57,7 +79,7 @@
   when: "$payload.pull_request.author_association !== 'OWNER'"
   url: "https://github.com/$payload.pull_request.user.login"
 
-# Show a badge indicating the PR category
+# Show a badge indicating the PR category, based on tag
 - label: "Type"
   message: "✨ Feature"
   color: "#39b0fd"
@@ -90,3 +112,34 @@
   message: "🌟 Showcase Addition"
   color: "#39b0fd"
   when: "$labels.includes('💯 Showcase')"
+- label: "Type"
+  message: "🏗️ Architecture"
+  color: "#39b0fd"
+  when: "$labels.includes('🏗️ Architectural Changes')"
+- label: "Type"
+  message: "🤖 Auto Submission"
+  color: "#39b0fd"
+  when: "$labels.includes('🤖 Auto')"
+- label: "Type"
+  message: "🌐 Language Update"
+  color: "#39b0fd"
+  when: "$labels.includes('🌐 Language')"
+
+# Show warning, when certain tags are applied
+- label: "Warning"
+  message: "⛔ Do Not Merge"
+  color: "#f25265"
+  when: "$labels.includes('⛔ Don't Merge')"
+- label: "Warning"
+  message: "🚫 Merge Conflicts"
+  color: "#f25265"
+  when: "$labels.includes('🚫 Merge Conflicts')"
+- label: "Warning"
+  message: "🕸️ Inactive"
+  color: "#f25265"
+  when: "$labels.includes('🕸️ Inactive')"
+- label: "Warning"
+  message: "💀 Spam"
+  color: "#f25265"
+  when: "$labels.includes('💀 Spam')"
+
