@@ -1,5 +1,8 @@
 # Changelog
 
+## ⚡️ 1.8.6 - Implementation of VueX [PR: #271](https://github.com/Lissy93/dashy/pull/271)
+- New state management pattern, which should lead to a more organized code base long term, and will also make building out the new UI editor significantly easier to do in a clean and reliable way
+
 ## 💄 1.8.5 - Lots of Requested UI Improvements [PR #261](https://github.com/Lissy93/dashy/pull/261)
 - Adds an option for landing URL in workspace, Re: #255
 - Switches to a new API for generative icons, Re: #163
