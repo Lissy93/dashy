@@ -291,6 +291,7 @@ html[data-theme='colorful'] {
   --item-group-outer-background: #05070e;
   --item-group-heading-text-color: #e8eae1;
   --item-group-heading-text-color-hover: #fff;
+  --nav-link-background-color: #141826;
   .item-wrapper:nth-child(1n) { .item { color: #eb5cad; border: 1px solid #eb5cad; } }
   .item-wrapper:nth-child(2n) { .item { color: #985ceb; border: 1px solid #985ceb; } }
   .item-wrapper:nth-child(3n) { .item { color: #5c90eb; border: 1px solid #5c90eb; } }
@@ -303,9 +304,12 @@ html[data-theme='colorful'] {
     opacity: 0.85;
     outline: none;
     background: currentColor;
-    span { color: #05070e; }
+    span.text, p.description { color: #05070e; }
+    i.fas, i.fab, i.far, i.fal, i.fad {
+      filter: drop-shadow(1px 3px 2px var(--transparent-50));
+      color: #05070e;
+    }
     svg path { fill: #05070e; }
-    i.fas, i.fab, i.far, i.fal, i.fad { color: #05070e; }
   }
   h1, h2, h3, h4 {
     font-weight: normal;
