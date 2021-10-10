@@ -11,9 +11,8 @@ import {
   pageInfo as defaultPageInfo,
   iconSize as defaultIconSize,
   layout as defaultLayout,
-  // language as defaultLanguage,
 } from '@/utils/defaults';
-
+import ErrorHandler from '@/utils/ErrorHandler';
 import conf from '../../public/conf.yml';
 
 export default class ConfigAccumulator {
@@ -46,24 +45,14 @@ export default class ConfigAccumulator {
 
   /* Page Info */
   pageInfo() {
-    const defaults = defaultPageInfo;
-    let localPageInfo;
-    try {
-      localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]);
-    } catch (e) {
-      localPageInfo = {};
+    let localPageInfo = {};
+    if (localStorage[localStorageKeys.PAGE_INFO]) {
+      // eslint-disable-next-line brace-style
+      try { localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]); }
+      catch (e) { ErrorHandler('Malformed pageInfo data in local storage'); }
     }
-    let filePageInfo = {};
-    if (this.conf) {
-      filePageInfo = this.conf.pageInfo || {};
-    }
-    const pi = filePageInfo || defaults; // The page info object to return
-    pi.title = localPageInfo.title || filePageInfo.title || defaults.title;
-    pi.logo = localPageInfo.logo || filePageInfo.logo || defaults.logo;
-    pi.description = localPageInfo.description || filePageInfo.description || defaults.description;
-    pi.navLinks = localPageInfo.navLinks || filePageInfo.navLinks || defaults.navLinks;
-    pi.footerText = localPageInfo.footerText || filePageInfo.footerText || defaults.footerText;
-    return pi;
+    const filePageInfo = this.conf ? this.conf.pageInfo || {} : {};
+    return { ...defaultPageInfo, ...filePageInfo, ...localPageInfo };
   }
 
   /* Sections */
@@ -75,13 +64,11 @@ export default class ConfigAccumulator {
         const json = JSON.parse(localSections);
         if (json.length >= 1) return json;
       } catch (e) {
-        // The data in local storage has been malformed, will return conf.sections instead
+        ErrorHandler('Malformed section data in local storage');
       }
     }
     // If the function hasn't yet returned, then return the config file sections
-    let sectionsFile = [];
-    if (this.conf) sectionsFile = this.conf.sections || [];
-    return sectionsFile;
+    return this.conf ? this.conf.sections || [] : [];
   }
 
   /* Complete config */

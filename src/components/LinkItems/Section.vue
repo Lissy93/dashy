@@ -44,7 +44,6 @@
       :ref="`iframeModal-${groupId}`"
       :name="`iframeModal-${groupId}`"
       @closed="$emit('itemClicked')"
-      @modalChanged="modalChanged"
     />
   </Collapsable>
 </template>
@@ -65,7 +64,6 @@ export default {
     displayData: Object,
     items: Array,
     itemSize: String,
-    modalOpen: Boolean,
   },
   components: {
     Collapsable,
@@ -123,10 +121,6 @@ export default {
     /* Opens the iframe modal */
     triggerModal(url) {
       this.$refs[`iframeModal-${this.groupId}`].show(url);
-    },
-    /* Emmit value upwards when iframe modal opened/ closed */
-    modalChanged(changedTo) {
-      this.$emit('change-modal-visibility', changedTo);
     },
     /* Determines if user has enabled online status checks */
     shouldEnableStatusCheck(itemPreference) {

@@ -26,7 +26,6 @@
       :ref="`iframeModal-${groupId}`"
       :name="`iframeModal-${groupId}`"
       @closed="$emit('itemClicked')"
-      @modalChanged="modalChanged"
     />
   </div>
 </template>
@@ -69,9 +68,6 @@ export default {
     /* Opens the iframe modal */
     triggerModal(url) {
       this.$refs[`iframeModal-${this.groupId}`].show(url);
-    },
-    modalChanged(changedTo) {
-      this.$emit('change-modal-visibility', changedTo);
     },
     shouldEnableStatusCheck(itemPreference) {
       const globalPreference = this.appConfig.statusCheck || false;

@@ -14,10 +14,10 @@ import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Workspace from '@/views/Workspace.vue';
 import Minimal from '@/views/Minimal.vue';
+import ConfigAccumulator from '@/utils/ConfigAccumalator';
 
 // Import helper functions, config data and defaults
 import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/Auth';
-import { config } from '@/utils/ConfigHelpers';
 import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 
@@ -32,8 +32,18 @@ const isAuthenticated = () => {
   return (!authEnabled || userLoggedIn || guestEnabled);
 };
 
+const getConfig = () => {
+  const Accumulator = new ConfigAccumulator();
+  return {
+    appConfig: Accumulator.appConfig(),
+    pageInfo: Accumulator.pageInfo(),
+  };
+};
+
+const { appConfig, pageInfo } = getConfig();
+
 /* Get the users chosen starting view from app config, or return default */
-const getStartingView = () => config.appConfig.startingView || startingView;
+const getStartingView = () => appConfig.startingView || startingView;
 
 /**
  * Returns the component that should be rendered at the base path,
@@ -51,7 +61,7 @@ const getStartingComponent = () => {
 
 /* Returns the meta tags for each route */
 const makeMetaTags = (defaultTitle) => ({
-  title: config.pageInfo.title || defaultTitle,
+  title: pageInfo.title || defaultTitle,
   metaTags: metaTagData,
 });
 

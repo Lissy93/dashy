@@ -60,7 +60,6 @@ export default {
     searchValue: '',
     layout: '',
     itemSizeBound: '',
-    modalOpen: false, // When true, keybindings are disabled
   }),
   computed: {
     sections() {
@@ -71,6 +70,9 @@ export default {
     },
     pageInfo() {
       return this.$store.getters.pageInfo;
+    },
+    modalOpen() {
+      return this.$store.state.modalOpen;
     },
     /* Get class for num columns, if specified by user */
     colCount() {
@@ -144,7 +146,7 @@ export default {
     },
     /* Update data when modal is open (so that key bindings can be disabled) */
     updateModalVisibility(modalState) {
-      this.modalOpen = modalState;
+      this.$store.commit('SET_MODAL_OPEN', modalState);
     },
     /* Returns an array of links to external CSS from the Config */
     getExternalCSSLinks() {

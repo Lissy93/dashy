@@ -51,7 +51,7 @@ const render = (awesome) => awesome(Dashy);
 
 // Mount the app, with router, store i18n and render func
 const mount = () => new Vue({
-  router, render, i18n, store,
+  store, router, render, i18n,
 }).$mount('#app');
 
 // If Keycloak not enabled, then proceed straight to the app

@@ -35,9 +35,6 @@ import {
 
 export default {
   name: 'FilterTile',
-  props: {
-    active: Boolean,
-  },
   data() {
     return {
       input: '', // Users current search term
@@ -46,6 +43,9 @@ export default {
     };
   },
   computed: {
+    active() {
+      return !this.$store.state.modalOpen;
+    },
     searchPrefs() {
       return this.$store.getters.webSearch || {};
     },

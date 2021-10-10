@@ -3,15 +3,14 @@
     <SearchBar ref="SearchBar"
       @user-is-searchin="userIsTypingSomething"
       v-if="searchVisible"
-      :active="!modalOpen"
     />
     <div class="options-outer">
       <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
-        <ThemeSelector :externalThemes="externalThemes" @modalChanged="modalChanged"
+        <ThemeSelector :externalThemes="externalThemes"
           :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
         <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
         <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
-        <ConfigLauncher @modalChanged="modalChanged" />
+        <ConfigLauncher />
         <AuthButtons  v-if="userState != 'noone'" :userType="userState" />
       </div>
       <div :class="`show-hide-container ${settingsVisible? 'hide-btn' : 'show-btn'}`">
@@ -51,7 +50,6 @@ export default {
     displayLayout: String,
     iconSize: String,
     externalThemes: Object,
-    modalOpen: Boolean,
   },
   components: {
     SearchBar,
@@ -109,9 +107,6 @@ export default {
     },
     updateIconSize(iconSize) {
       this.$emit('change-icon-size', iconSize);
-    },
-    modalChanged(changedTo) {
-      this.$emit('change-modal-visibility', changedTo);
     },
     getInitialTheme() {
       return this.appConfig.theme || '';

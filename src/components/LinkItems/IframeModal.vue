@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import Keys from '@/utils/StoreMutations';
+
 export default {
   name: 'IframeModal',
   props: {
@@ -21,13 +23,13 @@ export default {
     show(url) {
       this.url = url;
       this.$modal.show(this.name);
-      this.$emit('modalChanged', true);
+      this.$store.commit(Keys.SET_MODAL_OPEN, true);
     },
     hide() {
       this.$modal.hide(this.name);
     },
     modalClosed() {
-      this.$emit('modalChanged', false);
+      this.$store.commit(Keys.SET_MODAL_OPEN, false);
     },
   },
 };
