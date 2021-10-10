@@ -32,7 +32,8 @@
 
 ### Dashy Live
 > By [@Lissy93](https://github.com/lissy93)
-> A dashboard I made to manage all project development links from one place
+
+> A dashboard I made to manage all project development links from one place. View demo at [live.dashy.to](https://live.dashy.to/).
 
 ![screenshot-dashy-live](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/10-dashy-live.png)
 
