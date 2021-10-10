@@ -88,12 +88,12 @@ export default {
     visibleComponents() {
       return this.$store.getters.visibleComponents;
     },
-  },
-  data() {
-    return {
-      settingsVisible: this.getSettingsVisibility(),
-      searchVisible: (this.visibleComponents || defaultVisibleComponents).searchBar,
-    };
+    searchVisible() {
+      return this.$store.getters.visibleComponents.searchBar;
+    },
+    settingsVisible() {
+      return this.getSettingsVisibility();
+    },
   },
   methods: {
     userIsTypingSomething(something) {
