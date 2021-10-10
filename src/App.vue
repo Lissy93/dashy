@@ -13,6 +13,7 @@ import Footer from '@/components/PageStrcture/Footer.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
 import { welcomeMsg } from '@/utils/CoolConsole';
 import ErrorHandler from '@/utils/ErrorHandler';
+import Keys from '@/utils/StoreMutations';
 import {
   localStorageKeys,
   splashScreenTime,
@@ -107,6 +108,7 @@ export default {
     /* Fetch or detect users language, then apply it */
     applyLanguage() {
       const language = this.getLanguage();
+      this.$store.commit(Keys.SET_LANGUAGE, language);
       this.$i18n.locale = language;
       document.getElementsByTagName('html')[0].setAttribute('lang', language);
     },

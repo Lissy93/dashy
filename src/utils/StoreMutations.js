@@ -2,6 +2,7 @@
 const KEY_NAMES = [
   'UPDATE_CONFIG',
   'SET_MODAL_OPEN',
+  'SET_LANGUAGE',
 ];
 
 // Convert array of key names into an object, and export
