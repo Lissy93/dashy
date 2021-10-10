@@ -9,7 +9,9 @@
       <router-link to="/">
         <h1>{{ pageInfo.title }}</h1>
       </router-link>
-      <MinimalSearch @user-is-searchin="(s) => { this.searchValue = s; }" :active="!modalOpen" />
+      <MinimalSearch
+        @user-is-searchin="(s) => { this.searchValue = s; }"
+        :active="!modalOpen" ref="filterComp" />
     </div>
     <div v-if="checkTheresData(sections)"
       :class="`item-group-container ${!tabbedView ? 'showing-all' : ''}`">
@@ -87,7 +89,7 @@ export default {
   watch: {
     /* When the theme changes, then call the update method */
     searchValue() {
-      this.tabbedView = !(this.searchValue.length > 0);
+      this.tabbedView = !this.searchValue || this.searchValue.length === 0;
     },
   },
   methods: {
@@ -116,7 +118,7 @@ export default {
     },
     /* Clears input field, once a searched item is opened */
     finishedSearching() {
-      this.$refs.filterComp.clearFilterInput();
+      this.$refs.filterComp.clearMinFilterInput();
     },
     /* Extracts the site name from domain, used for the searching functionality */
     getDomainFromUrl(url) {
