@@ -63,6 +63,11 @@ export default {
     IconOpen,
     IconClose,
   },
+  data() {
+    return {
+      settingsVisible: true,
+    };
+  },
   computed: {
     sections() {
       return this.$store.getters.sections;
@@ -91,9 +96,9 @@ export default {
     searchVisible() {
       return this.$store.getters.visibleComponents.searchBar;
     },
-    settingsVisible() {
-      return this.getSettingsVisibility();
-    },
+  },
+  mounted() {
+    this.settingsVisible = this.getSettingsVisibility();
   },
   methods: {
     userIsTypingSomething(something) {
