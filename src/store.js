@@ -4,14 +4,16 @@ import Vuex from 'vuex';
 import Keys from '@/utils/StoreMutations';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { componentVisibility } from '@/utils/ConfigHelpers';
+import filterUserSections from '@/utils/CheckSectionVisibility';
 
 Vue.use(Vuex);
 
-const { UPDATE_CONFIG } = Keys;
+const { UPDATE_CONFIG, SET_MODAL_OPEN } = Keys;
 
 const store = new Vuex.Store({
   state: {
     config: {},
+    modalOpen: false, // KB shortcut functionality will be disabled when modal is open
   },
   getters: {
     config(state) {
@@ -24,7 +26,7 @@ const store = new Vuex.Store({
       return state.config.appConfig || {};
     },
     sections(state) {
-      return state.config.sections || [];
+      return filterUserSections(state.config.sections || []);
     },
     webSearch(state, getters) {
       return getters.appConfig.webSearch || {};
@@ -36,6 +38,9 @@ const store = new Vuex.Store({
   mutations: {
     [UPDATE_CONFIG](state, config) {
       state.config = config;
+    },
+    [SET_MODAL_OPEN](state, modalOpen) {
+      state.modalOpen = modalOpen;
     },
   },
   actions: {
