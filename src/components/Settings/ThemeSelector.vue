@@ -100,8 +100,10 @@ export default {
     },
     /* Closes the theme color configurator popup */
     closeThemeConfigurator() {
-      this.$store.commit(Keys.SET_MODAL_OPEN, false);
-      this.themeConfiguratorOpen = false;
+      if (this.themeConfiguratorOpen) {
+        this.$store.commit(Keys.SET_MODAL_OPEN, false);
+        this.themeConfiguratorOpen = false;
+      }
     },
     /* Updates theme. Checks if the new theme is local or external,
     and calls appropirate updating function. Updates local storage */
