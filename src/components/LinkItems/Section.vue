@@ -17,9 +17,9 @@
       :style="gridStyle"
     >
       <Item
-        v-for="(item) in sortedItems"
-        :id="makeId(title, item.title)"
-        :key="makeId(title, item.title)"
+        v-for="(item, index) in sortedItems"
+        :id="makeId(title, item.title, index)"
+        :key="makeId(title, item.title, index)"
         :url="item.url"
         :title="item.title"
         :description="item.description"
@@ -114,9 +114,10 @@ export default {
   },
   methods: {
     /* Returns a unique lowercase string, based on name, for section ID */
-    makeId(sectionStr, itemStr) {
+    makeId(sectionStr, itemStr, index) {
       const charSum = sectionStr.split('').map((a) => a.charCodeAt(0)).reduce((x, y) => x + y);
-      return `${charSum}_${itemStr.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase()}`;
+      const itemTitleStr = itemStr.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
+      return `${index}_${charSum}_${itemTitleStr}`;
     },
     /* Opens the iframe modal */
     triggerModal(url) {
