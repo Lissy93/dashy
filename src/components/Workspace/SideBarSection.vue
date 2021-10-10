@@ -19,7 +19,6 @@ import SideBarItem from '@/components/Workspace/SideBarItem.vue';
 
 export default {
   name: 'SideBarSection',
-  inject: ['config'],
   props: {
     items: Array,
   },

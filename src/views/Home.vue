@@ -10,9 +10,6 @@
       :displayLayout="layout"
       :iconSize="itemSizeBound"
       :externalThemes="getExternalCSSLinks()"
-      :sections="allSections"
-      :appConfig="appConfig"
-      :pageInfo="pageInfo"
       :modalOpen="modalOpen"
       class="settings-outer"
     />
@@ -55,11 +52,6 @@ import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 
 export default {
   name: 'home',
-  props: {
-    sections: Array, // Main site content
-    appConfig: Object, // Main site configuation (optional)
-    pageInfo: Object, // Page metadata (optional)
-  },
   components: {
     SettingsContainer,
     Section,
@@ -68,9 +60,20 @@ export default {
     searchValue: '',
     layout: '',
     itemSizeBound: '',
-    modalOpen: false, // When true, keybindings are disabled
   }),
   computed: {
+    sections() {
+      return this.$store.getters.sections;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
+    modalOpen() {
+      return this.$store.state.modalOpen;
+    },
     /* Get class for num columns, if specified by user */
     colCount() {
       let { colCount } = this.appConfig;
@@ -143,7 +146,7 @@ export default {
     },
     /* Update data when modal is open (so that key bindings can be disabled) */
     updateModalVisibility(modalState) {
-      this.modalOpen = modalState;
+      this.$store.commit('SET_MODAL_OPEN', modalState);
     },
     /* Returns an array of links to external CSS from the Config */
     getExternalCSSLinks() {

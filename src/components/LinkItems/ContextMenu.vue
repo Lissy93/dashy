@@ -1,6 +1,6 @@
 <template>
   <transition name="slide">
-    <div class="context-menu" v-if="show && menuEnabled"
+    <div class="context-menu" v-if="show && !isMenuDisabled()"
       :style="posX && posY ? `top:${posY}px;left:${posX}px;` : ''">
       <ul>
         <li @click="launch('sametab')">
@@ -33,7 +33,6 @@ import WorkspaceOpenIcon from '@/assets/interface-icons/open-workspace.svg';
 
 export default {
   name: 'ContextMenu',
-  inject: ['config'],
   components: {
     SameTabOpenIcon,
     NewTabOpenIcon,
@@ -45,10 +44,10 @@ export default {
     posY: Number, // The Y coordinate for positioning
     show: Boolean, // Should show or hide the menu
   },
-  data() {
-    return {
-      menuEnabled: !this.isMenuDisabled(), // Specifies if the context menu should be used
-    };
+  computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
   },
   methods: {
     /* Called on item click, emits an event up to Item */
@@ -58,10 +57,7 @@ export default {
     },
     /* Checks if the user as disabled context menu in config */
     isMenuDisabled() {
-      if (this.config && this.config.appConfig) {
-        return !!this.config.appConfig.disableContextMenu;
-      }
-      return false;
+      return !!this.appConfig.disableContextMenu;
     },
   },
 };

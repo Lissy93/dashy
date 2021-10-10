@@ -36,7 +36,6 @@ import IconMinimalView from '@/assets/interface-icons/application-minimal.svg';
 
 export default {
   name: 'SideBar',
-  inject: ['config'],
   props: {
     sections: Array,
     initUrl: String,

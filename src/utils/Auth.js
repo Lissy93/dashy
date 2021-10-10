@@ -16,9 +16,7 @@ const getAppConfig = () => {
  * Support for old user structure will be removed in V 1.7.0
  */
 const printWarning = () => {
-  const msg = 'From V 1.6.5 onwards, the structure of the users object has changed.';
-  // eslint-disable-next-line no-console
-  console.warn(msg);
+  ErrorHandler('From V 1.6.5 onwards, the structure of the users object has changed.');
 };
 
 /* Returns true if keycloak is enabled */

@@ -12,7 +12,6 @@ import Icon from '@/components/LinkItems/ItemIcon.vue';
 
 export default {
   name: 'SideBarItem',
-  inject: ['config'],
   props: {
     icon: String,
     title: String,

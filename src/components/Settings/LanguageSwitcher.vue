@@ -28,23 +28,40 @@
 import Button from '@/components/FormElements/Button';
 import SaveConfigIcon from '@/assets/interface-icons/save-config.svg';
 import ErrorHandler from '@/utils/ErrorHandler';
+import Keys from '@/utils/StoreMutations';
 import { languages } from '@/utils/languages';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
 
 export default {
   name: 'LanguageSwitcher',
-  inject: ['config'],
   components: {
     Button,
     SaveConfigIcon,
   },
   data() {
     return {
-      language: this.getCurrentLanguage(), // The currently selected language
+      language: '', // The currently selected language
       modalName: modalNames.LANG_SWITCHER, // Key for modal
     };
   },
+  created() {
+    // Initiate the current language, with VueX state
+    this.language = this.savedLanguage;
+  },
   computed: {
+    /* Get appConfig from store */
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    /* The ISO code for the users language, synced with VueX store */
+    savedLanguage: {
+      get() {
+        return this.getIsoFromLangObj(this.$store.state.lang);
+      },
+      set(newLang) {
+        this.$store.commit(Keys.SET_LANGUAGE, newLang.code);
+      },
+    },
     /* Return the array of language objects, plus a friends name */
     languageList: () => languages.map((lang) => {
       const newLang = lang;
@@ -73,6 +90,7 @@ export default {
       if (this.checkLocale(selectedLanguage)) {
         localStorage.setItem(localStorageKeys.LANGUAGE, selectedLanguage.code);
         this.applyLanguageLocally();
+        this.savedLanguage = selectedLanguage;
         const successMsg = `${selectedLanguage.flag} `
           + `${this.$t('language-switcher.success-msg')} ${selectedLanguage.name}`;
         this.$toasted.show(successMsg, { className: 'toast-success' });
@@ -82,11 +100,10 @@ export default {
         ErrorHandler('Unable to apply language');
       }
     },
-    /* Gets the users current language from local storage */
-    getCurrentLanguage() {
+    /* Gets the ISO code for a given language object */
+    getIsoFromLangObj(langObj) {
       const getLanguageFromIso = (iso) => languages.find((lang) => lang.code === iso);
-      const current = localStorage[localStorageKeys.LANGUAGE] || this.config.appConfig.language;
-      return getLanguageFromIso(current);
+      return getLanguageFromIso(langObj);
     },
   },
 };

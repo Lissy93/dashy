@@ -12,7 +12,6 @@ import SearchBar from '@/components/Settings/SearchBar';
 
 export default {
   name: 'MinimalSearch',
-  inject: ['config'],
   components: {
     SearchBar,
   },
@@ -24,16 +23,29 @@ export default {
       input: '', // Users current search term
     };
   },
+  computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    webSearchEnabled() {
+      if (this.appConfig && this.appConfig.webSearch) {
+        return !this.appConfig.webSearch.disableWebSearch;
+      }
+      return true;
+    },
+  },
   methods: {
     /* Emmits users's search term up to parent */
     userIsTypingSomething(searchValue) {
       this.input = searchValue;
       this.$emit('user-is-searchin', searchValue);
     },
-    /* Emmits an event to reset state when user is finished searching */
-    clearMinFilterInput() {
-      this.$refs.MinimalSearchBar.clearFilterInput();
-    },
+  },
+  mounted() {
+    window.addEventListener('keydown', this.startFiltering);
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.startFiltering);
   },
 };
 </script>

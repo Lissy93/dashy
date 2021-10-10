@@ -31,6 +31,7 @@ import {
   ApplyCustomVariables,
 } from '@/utils/ThemeHelper';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
+import Keys from '@/utils/StoreMutations';
 import IconPalette from '@/assets/interface-icons/config-color-palette.svg';
 
 export default {
@@ -94,13 +95,15 @@ export default {
     },
     /* Opens the theme color configurator popup */
     openThemeConfigurator() {
-      this.$emit('modalChanged', true);
+      this.$store.commit(Keys.SET_MODAL_OPEN, true);
       this.themeConfiguratorOpen = true;
     },
     /* Closes the theme color configurator popup */
     closeThemeConfigurator() {
-      // this.$emit('modalChanged', false);
-      this.themeConfiguratorOpen = false;
+      if (this.themeConfiguratorOpen) {
+        this.$store.commit(Keys.SET_MODAL_OPEN, false);
+        this.themeConfiguratorOpen = false;
+      }
     },
     /* Updates theme. Checks if the new theme is local or external,
     and calls appropirate updating function. Updates local storage */

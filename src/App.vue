@@ -11,20 +11,15 @@
 import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
-import { componentVisibility } from '@/utils/ConfigHelpers';
-import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { welcomeMsg } from '@/utils/CoolConsole';
 import ErrorHandler from '@/utils/ErrorHandler';
+import Keys from '@/utils/StoreMutations';
 import {
   localStorageKeys,
   splashScreenTime,
   visibleComponents as defaultVisibleComponents,
   language as defaultLanguage,
 } from '@/utils/defaults';
-
-const Accumulator = new ConfigAccumulator();
-const config = Accumulator.config();
-const visibleComponents = componentVisibility(config.appConfig) || defaultVisibleComponents;
 
 export default {
   name: 'app',
@@ -33,17 +28,9 @@ export default {
     Footer,
     LoadingScreen,
   },
-  provide: {
-    config,
-    visibleComponents,
-  },
   data() {
     return {
       isLoading: true, // Set to false after mount complete
-      showFooter: visibleComponents.footer,
-      appConfig: Accumulator.appConfig(),
-      pageInfo: Accumulator.pageInfo(),
-      visibleComponents,
     };
   },
   computed: {
@@ -55,6 +42,24 @@ export default {
     shouldShowSplash() {
       return (this.visibleComponents || defaultVisibleComponents).splashScreen;
     },
+    config() {
+      return this.$store.state.config;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
+    sections() {
+      return this.$store.getters.pageInfo;
+    },
+    visibleComponents() {
+      return this.$store.getters.visibleComponents;
+    },
+  },
+  created() {
+    this.$store.dispatch('initializeConfig');
   },
   methods: {
     /* Injects the users custom CSS as a style tag */
@@ -103,6 +108,7 @@ export default {
     /* Fetch or detect users language, then apply it */
     applyLanguage() {
       const language = this.getLanguage();
+      this.$store.commit(Keys.SET_LANGUAGE, language);
       this.$i18n.locale = language;
       document.getElementsByTagName('html')[0].setAttribute('lang', language);
     },

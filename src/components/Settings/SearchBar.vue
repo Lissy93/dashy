@@ -35,9 +35,7 @@ import {
 
 export default {
   name: 'FilterTile',
-  inject: ['config'],
   props: {
-    active: Boolean,
     minimalSearch: Boolean, // If true, then keep it simple
   },
   data() {
@@ -48,8 +46,11 @@ export default {
     };
   },
   computed: {
+    active() {
+      return !this.$store.state.modalOpen;
+    },
     searchPrefs() {
-      return this.config.appConfig.webSearch || {};
+      return this.$store.getters.webSearch || {};
     },
   },
   mounted() {

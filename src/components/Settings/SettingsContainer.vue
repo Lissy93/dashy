@@ -3,16 +3,14 @@
     <SearchBar ref="SearchBar"
       @user-is-searchin="userIsTypingSomething"
       v-if="searchVisible"
-      :active="!modalOpen"
     />
     <div class="options-outer">
       <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
-        <ThemeSelector :externalThemes="externalThemes" @modalChanged="modalChanged"
+        <ThemeSelector :externalThemes="externalThemes"
           :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
         <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
         <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
-        <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
-          @modalChanged="modalChanged" />
+        <ConfigLauncher />
         <AuthButtons  v-if="userState != 'noone'" :userType="userState" />
       </div>
       <div :class="`show-hide-container ${settingsVisible? 'hide-btn' : 'show-btn'}`">
@@ -52,10 +50,6 @@ export default {
     displayLayout: String,
     iconSize: String,
     externalThemes: Object,
-    appConfig: Object,
-    pageInfo: Object,
-    sections: Array,
-    modalOpen: Boolean,
   },
   components: {
     SearchBar,
@@ -69,7 +63,43 @@ export default {
     IconOpen,
     IconClose,
   },
-  inject: ['visibleComponents'],
+  data() {
+    return {
+      settingsVisible: true,
+    };
+  },
+  computed: {
+    sections() {
+      return this.$store.getters.sections;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
+    /**
+    * Determines which button should display, based on the user type
+    * 0 = Auth not configured, don't show anything
+    * 1 = Auth condifured, and user logged in, show logout button
+    * 2 = Auth configured, guest access enabled, and not logged in, show login
+    * Note that if auth is enabled, but not guest access, and user not logged in,
+    * then they will never be able to view the homepage, so no button needed
+    */
+    userState() {
+      return getUserState();
+    },
+    /* Object indicating which components should be hidden, based on user preferences */
+    visibleComponents() {
+      return this.$store.getters.visibleComponents;
+    },
+    searchVisible() {
+      return this.$store.getters.visibleComponents.searchBar;
+    },
+  },
+  mounted() {
+    this.settingsVisible = this.getSettingsVisibility();
+  },
   methods: {
     userIsTypingSomething(something) {
       this.$emit('user-is-searchin', something);
@@ -82,9 +112,6 @@ export default {
     },
     updateIconSize(iconSize) {
       this.$emit('change-icon-size', iconSize);
-    },
-    modalChanged(changedTo) {
-      this.$emit('change-modal-visibility', changedTo);
     },
     getInitialTheme() {
       return this.appConfig.theme || '';
@@ -103,25 +130,6 @@ export default {
       return JSON.parse(localStorage[localStorageKeys.HIDE_SETTINGS]
         || (this.visibleComponents || defaultVisibleComponents).settings);
     },
-  },
-  computed: {
-    /**
-    * Determines which button should display, based on the user type
-    * 0 = Auth not configured, don't show anything
-    * 1 = Auth condifured, and user logged in, show logout button
-    * 2 = Auth configured, guest access enabled, and not logged in, show login
-    * Note that if auth is enabled, but not guest access, and user not logged in,
-    * then they will never be able to view the homepage, so no button needed
-    */
-    userState() {
-      return getUserState();
-    },
-  },
-  data() {
-    return {
-      settingsVisible: this.getSettingsVisibility(),
-      searchVisible: (this.visibleComponents || defaultVisibleComponents).searchBar,
-    };
   },
 };
 </script>

@@ -11,7 +11,7 @@
 
     <!-- Modal containing all the configuration options -->
     <modal :name="modalNames.CONF_EDITOR" :resizable="true" width="60%" height="85%"
-      @closed="$emit('modalChanged', false)" classes="dashy-modal">
+      @closed="editorClosed" classes="dashy-modal">
       <ConfigContainer :config="combineConfig()" />
     </modal>
 
@@ -48,6 +48,7 @@
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
 import LanguageSwitcher from '@/components/Settings/LanguageSwitcher';
 import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/defaults';
+import Keys from '@/utils/StoreMutations';
 import IconSpanner from '@/assets/interface-icons/config-editor.svg';
 import IconViewMode from '@/assets/interface-icons/application-change-view.svg';
 import IconHome from '@/assets/interface-icons/application-home.svg';
@@ -71,15 +72,24 @@ export default {
     IconWorkspaceView,
     IconMinimalView,
   },
-  props: {
-    sections: Array,
-    pageInfo: Object,
-    appConfig: Object,
+  computed: {
+    sections() {
+      return this.$store.getters.sections;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
   },
   methods: {
     showEditor: function show() {
       this.$modal.show(modalNames.CONF_EDITOR);
-      this.$emit('modalChanged', true);
+      this.$store.commit(Keys.SET_MODAL_OPEN, true);
+    },
+    editorClosed: function show() {
+      this.$store.commit(Keys.SET_MODAL_OPEN, false);
     },
     combineConfig() {
       const conf = {};

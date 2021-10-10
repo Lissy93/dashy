@@ -16,10 +16,6 @@ import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHe
 
 export default {
   name: 'Workspace',
-  props: {
-    sections: Array,
-    appConfig: Object,
-  },
   data: () => ({
     url: '',
     GetTheme,
@@ -27,6 +23,12 @@ export default {
     ApplyCustomVariables,
   }),
   computed: {
+    sections() {
+      return this.$store.getters.sections;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
     isMultiTaskingEnabled() {
       return this.appConfig.enableMultiTasking || false;
     },

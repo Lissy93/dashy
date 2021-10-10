@@ -55,7 +55,11 @@ import { modalNames, serviceEndpoints } from '@/utils/defaults';
 
 export default {
   name: 'RebuildApp',
-  inject: ['config'],
+  computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+  },
   components: {
     Button,
     RebuildIcon,
@@ -112,12 +116,8 @@ export default {
     },
   },
   mounted() {
-    if (this.config) {
-      if (this.config.appConfig) {
-        if (this.config.appConfig.allowConfigEdit === false) {
-          this.allowRebuild = false;
-        }
-      }
+    if (this.appConfig.allowConfigEdit === false) {
+      this.allowRebuild = false;
     }
   },
 };

@@ -2,8 +2,7 @@
   <div class="minimal-home" :style="getBackgroundImage() + setColumnCount()">
     <!-- Buttons for config and home page -->
     <div class="minimal-buttons">
-      <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
-        @modalChanged="modalChanged" class="config-launcher" />
+      <ConfigLauncher @modalChanged="modalChanged" class="config-launcher" />
     </div>
     <!-- Page title and search bar -->
     <div class="title-and-search">
@@ -62,11 +61,6 @@ import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 
 export default {
   name: 'home',
-  props: {
-    sections: Array, // Main site content
-    appConfig: Object, // Main site configuation (optional)
-    pageInfo: Object,
-  },
   components: {
     MinimalSection,
     MinimalHeading,
@@ -81,6 +75,17 @@ export default {
     tabbedView: true, // By default use tabs, when searching then show all instead
     theme: GetTheme(),
   }),
+  computed: {
+    sections() {
+      return this.$store.getters.sections;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
+  },
   watch: {
     /* When the theme changes, then call the update method */
     searchValue() {

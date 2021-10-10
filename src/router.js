@@ -14,10 +14,10 @@ import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Workspace from '@/views/Workspace.vue';
 import Minimal from '@/views/Minimal.vue';
+import ConfigAccumulator from '@/utils/ConfigAccumalator';
 
 // Import helper functions, config data and defaults
 import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/Auth';
-import { config } from '@/utils/ConfigHelpers';
 import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 
@@ -32,8 +32,18 @@ const isAuthenticated = () => {
   return (!authEnabled || userLoggedIn || guestEnabled);
 };
 
+const getConfig = () => {
+  const Accumulator = new ConfigAccumulator();
+  return {
+    appConfig: Accumulator.appConfig(),
+    pageInfo: Accumulator.pageInfo(),
+  };
+};
+
+const { appConfig, pageInfo } = getConfig();
+
 /* Get the users chosen starting view from app config, or return default */
-const getStartingView = () => config.appConfig.startingView || startingView;
+const getStartingView = () => appConfig.startingView || startingView;
 
 /**
  * Returns the component that should be rendered at the base path,
@@ -51,7 +61,7 @@ const getStartingComponent = () => {
 
 /* Returns the meta tags for each route */
 const makeMetaTags = (defaultTitle) => ({
-  title: config.pageInfo.title || defaultTitle,
+  title: pageInfo.title || defaultTitle,
   metaTags: metaTagData,
 });
 
@@ -62,37 +72,30 @@ const router = new Router({
       path: '/',
       name: `landing-page-${getStartingView()}`,
       component: getStartingComponent(),
-      props: config,
       meta: makeMetaTags('Home Page'),
     },
     { // Default home page
       path: routePaths.home,
       name: 'home',
       component: Home,
-      props: config,
       meta: makeMetaTags('Home Page'),
     },
     { // Workspace view page
       path: routePaths.workspace,
       name: 'workspace',
       component: Workspace,
-      props: config,
       meta: makeMetaTags('Workspace'),
     },
     { // Minimal view page
       path: routePaths.minimal,
       name: 'minimal',
       component: Minimal,
-      props: config,
       meta: makeMetaTags('Start Page'),
     },
     { // The login page
       path: routePaths.login,
       name: 'login',
       component: Login,
-      props: {
-        appConfig: config.appConfig,
-      },
       beforeEnter: (to, from, next) => {
         // If the user already logged in + guest mode not enabled, then redirect home
         if (isAuthenticated() && !isGuestAccessEnabled()) router.push({ path: '/' });
@@ -109,7 +112,6 @@ const router = new Router({
       path: routePaths.download,
       name: 'download',
       component: () => import('./views/DownloadConfig.vue'),
-      props: config,
       meta: makeMetaTags('Download Config'),
     },
     { // Page not found, any non-defined routes will land here

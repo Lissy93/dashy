@@ -14,6 +14,7 @@ import Toasted from 'vue-toasted';      // Toast component, used to show confirm
 // Import base Dashy components and utils
 import Dashy from '@/App.vue';          // Main Dashy Vue app
 import router from '@/router';          // Router, for navigation
+import store from '@/store';            // Store, for local state management
 import serviceWorker from '@/utils/InitServiceWorker'; // Service worker initialization
 import clickOutside from '@/utils/ClickOutside';      // Directive for closing popups, modals, etc
 import { messages } from '@/utils/languages';         // Language texts
@@ -48,9 +49,14 @@ ErrorReporting(Vue, router);
 // Render function
 const render = (awesome) => awesome(Dashy);
 
+// Mount the app, with router, store i18n and render func
+const mount = () => new Vue({
+  store, router, render, i18n,
+}).$mount('#app');
+
 // If Keycloak not enabled, then proceed straight to the app
 if (!isKeycloakEnabled()) {
-  new Vue({ router, render, i18n }).$mount('#app');
+  mount();
 } else { // Keycloak is enabled, redirect to KC login page
   const { serverUrl, realm, clientId } = getKeycloakConfig();
   const initOptions = {
@@ -63,7 +69,7 @@ if (!isKeycloakEnabled()) {
       window.location.reload();
     } else {
       // Yay - user successfully authenticated with Keycloak, render the app!
-      new Vue({ router, render, i18n }).$mount('#app');
+      mount();
     }
   });
 }
