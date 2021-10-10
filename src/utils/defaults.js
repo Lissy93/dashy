@@ -61,6 +61,7 @@ module.exports = {
     'cyberpunk',
     'matrix',
     'matrix-red',
+    'glow',
     'raspberry-jam',
     'bee',
     'tiger',
