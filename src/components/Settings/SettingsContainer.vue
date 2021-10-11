@@ -173,6 +173,11 @@ export default {
     @include very-tiny-phone {
       flex-direction: column;
       align-items: baseline;
+      div {
+        width: 100%;
+        text-align: center;
+        .theme-selector-section { justify-content: center; }
+      }
     }
   }
 
