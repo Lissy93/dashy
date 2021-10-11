@@ -22,7 +22,7 @@
         ❗ {{ $t('updates.out-of-date') }}: <b>{{ latestVersion }}</b>
         <span class="please-update">
           {{ $t('updates.unsupported-version-l1') }}.<br>
-          {{ $t('updates.unsupported-version-2') }} {{ latestVersion }}
+          {{ $t('updates.unsupported-version-l2') }} {{ latestVersion }}
         </span>
       </p>
     </div>
