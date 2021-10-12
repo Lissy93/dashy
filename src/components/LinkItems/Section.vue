@@ -13,7 +13,7 @@
       No Items to Show Yet
     </div>
     <div v-else
-      :class="`there-are-items ${isGridLayout? 'item-group-grid': ''}`"
+      :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
       :style="gridStyle"
     >
       <Item
@@ -211,6 +211,16 @@ export default {
     @include monitor { --item-col-count: 8; }
     @include big-screen { --item-col-count: 10; }
     @include big-screen-up { --item-col-count: 12; }
+    grid-template-columns: repeat(var(--item-col-count, 2), minmax(0, 1fr));
+  }
+  .there-are-items.inner-size-large {
+    display: grid;
+    @include phone { --item-col-count: 1; }
+    @include tablet { --item-col-count: 2; }
+    @include laptop { --item-col-count: 3; }
+    @include monitor { --item-col-count: 5; }
+    @include big-screen { --item-col-count: 6; }
+    @include big-screen-up { --item-col-count: 8; }
     grid-template-columns: repeat(var(--item-col-count, 2), minmax(0, 1fr));
   }
 }
