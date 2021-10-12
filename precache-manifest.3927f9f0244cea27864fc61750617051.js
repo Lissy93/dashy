@@ -8,19 +8,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/.nojekyll"
   },
   {
-    "revision": "1779674b5c899ea95936e2d22682b0f9",
+    "revision": "ecda311a594402fecb4c0bb6187e6207",
     "url": "/conf.yml"
   },
   {
-    "revision": "8ea83f46fa8633eabd0e",
+    "revision": "0aba887d41b1ce2e97c6",
     "url": "/css/chunk-051d7c14.6fea770a.css"
   },
   {
-    "revision": "e0859d5542a418f3bb25",
+    "revision": "cda216033beb23ea1f75",
     "url": "/css/chunk-36fb5c32.a64c098d.css"
   },
   {
-    "revision": "ef9af38c97e729bc9467",
+    "revision": "7003fc028e0f05753274",
     "url": "/css/chunk-724820ea.f5d4b402.css"
   },
   {
@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/css/chunk-vendors.d8067ad8.css"
   },
   {
-    "revision": "01e0d42ff6e4f9547341",
-    "url": "/css/dashy.e0613042.css"
+    "revision": "f52f72c54051411144a9",
+    "url": "/css/dashy.896376b7.css"
   },
   {
     "revision": "ecee57dfff425a634aacc7ae1b96ff0e",
@@ -80,7 +80,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/VT323-Regular.ttf"
   },
   {
-    "revision": "86836f76424dceaf431394fa74f8ffe4",
+    "revision": "7883a4b7ea3ad5599b41d7d98306c844",
     "url": "/index.html"
   },
   {
@@ -88,24 +88,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/item-icons/.gitignore"
   },
   {
-    "revision": "8ea83f46fa8633eabd0e",
-    "url": "/js/chunk-051d7c14.67d4d445.js"
+    "revision": "0aba887d41b1ce2e97c6",
+    "url": "/js/chunk-051d7c14.c844986a.js"
   },
   {
-    "revision": "e0859d5542a418f3bb25",
-    "url": "/js/chunk-36fb5c32.e6d321a4.js"
+    "revision": "cda216033beb23ea1f75",
+    "url": "/js/chunk-36fb5c32.c8a6ecec.js"
   },
   {
-    "revision": "ef9af38c97e729bc9467",
-    "url": "/js/chunk-724820ea.aa7b7982.js"
+    "revision": "7003fc028e0f05753274",
+    "url": "/js/chunk-724820ea.03f06c9d.js"
   },
   {
     "revision": "dc5d981dfb872509f3e7",
     "url": "/js/chunk-vendors.3e0b4925.js"
   },
   {
-    "revision": "01e0d42ff6e4f9547341",
-    "url": "/js/dashy.5c3f02a8.js"
+    "revision": "f52f72c54051411144a9",
+    "url": "/js/dashy.2ca1fad2.js"
   },
   {
     "revision": "e3bf86400a2b80531902e65f51d52be0",
