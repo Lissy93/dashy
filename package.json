@@ -22,6 +22,7 @@
     "axios": "^0.21.4",
     "body-parser": "^1.19.0",
     "connect": "^3.7.0",
+    "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.1.1",
     "js-yaml": "^4.1.0",
     "keycloak-js": "^15.0.2",
