@@ -1,26 +1,52 @@
 # Management
 
-## Providing Assets
-Although not essential, you will most likely want to provide several assets to Dashy. All web assets can be found in the `/public` directory.
+## Contents
+- [Providing Assets](#providing-assets)
+- [Running Commands](#running-commands)
+- [Healthchecks](#healthchecks)
+- [Logs and Performance](#logs-and-performance)
+- [Auto-Starting at Boot](#auto-starting-at-system-boot)
+- [Securing](#securing)
+- [Updating](#updating)
+- [Backing Up](#backing-up)
+- [Scheduling](#scheduling)
+- [Managing Containers with Compose](#managing-containers-with-docker-compose)
+- [Passing in Environmental Variables](#passing-in-environmental-variables)
+- [Running a Modified Version of the App](#running-a-modified-version-of-the-app)
+- [Web Server Configuration](#web-server-configuration)
+- [Authentication](#authentication-1)
 
-For example:
-- `./public/conf.yml` - As mentioned, this is your main application config file
-- `./public/item-icons` - If you're using your own icons, you can choose to store them locally for better load time, and this is the directory to put them in. You can also use sub-folders here to keep things organized
-- Also within `./public` you'll find standard website assets, including `favicon.ico`, `manifest.json`, `robots.txt`, etc. There's no need to pass these in, but you can do so if you wish
+## Providing Assets
+Although not essential, you will most likely want to provide several assets to your running app.
 
 This is easy to do using [Docker Volumes](https://docs.docker.com/storage/volumes/), which lets you share a file or directory between your host system, and the container. Volumes are specified in the Docker run command, or Docker compose file, using the `--volume` or `-v` flags. The value of which consists of the path to the file / directory on your host system, followed by the destination path within the container. Fields are separated by a colon (`:`), and must be in the correct order. For example: `-v ~/alicia/my-local-conf.yml:/app/public/conf.yml`
+
+In Dashy, commonly configured resources include:
+- `./public/conf.yml` - Your main application config file
+- `./public/item-icons` - A directory containing your own icons. This allows for offline access, and better performance than fetching from a CDN
+- Also within `./public` you'll find standard website assets, including `favicon.ico`, `manifest.json`, `robots.txt`, etc. There's no need to pass these in, but you can do so if you wish
+- `/src/styles/user-defined-themes.scss` - A stylesheet for applying custom CSS to your app. You can also write your own themes here.
 
 ## Running Commands
 
 The project has a few commands that can be used for various tasks, you can find a list of these either in the [Developing Docs](/docs/developing.md#project-commands), or by looking at the [`package.json`](https://github.com/Lissy93/dashy/blob/master/package.json#L5). These can be used by running `yarn [command-name]`.
 
- But if you're using Docker, then you'll need to execute them within the container. This can be done by preceding each command with `docker exec -it [container-id]`, where container ID can be found by running `docker ps`. For example `docker exec -it 26c156c467b4 yarn build`. You can also enter the container, with `docker exec -it [container-id] /bin/ash`, and navigate around it with normal Linux commands.
+ If you're using Docker, then you'll need to execute them within the container. This can be done by preceding each command with `docker exec -it [container-id]`, where container ID can be found by running `docker ps`. For example `docker exec -it 26c156c467b4 yarn build`. You can also enter the container, with `docker exec -it [container-id] /bin/ash`, and navigate around it with normal Linux commands.
 
 ## Healthchecks
 
 Healthchecks are configured to periodically check that Dashy is up and running correctly on the specified port. By default, the health script is called every 5 minutes, but this can be modified with the `--health-interval` option. You can check the current container health with: `docker inspect --format "{{json .State.Health }}" [container-id]`, and a summary of health status will show up under `docker ps`. You can also manually request the current application status by running `docker exec -it [container-id] yarn health-check`. You can disable healthchecks altogether by adding the `--no-healthcheck` flag to your Docker run command.
 
-To restart unhealthy containers automatically, check out [Autoheal](https://hub.docker.com/r/willfarrell/autoheal/). This image watches for unhealthy containers, and automatically triggers a restart. This is a stand in for Docker's `--exit-on-unhealthy` that was proposed, but [not merged](https://github.com/moby/moby/pull/22719).
+To restart unhealthy containers automatically, check out [Autoheal](https://hub.docker.com/r/willfarrell/autoheal/). This image watches for unhealthy containers, and automatically triggers a restart. (This is a stand in for Docker's `--exit-on-unhealthy` that was proposed, but [not merged](https://github.com/moby/moby/pull/22719)).
+
+```
+docker run -d \
+    --name autoheal \
+    --restart=always \
+    -e AUTOHEAL_CONTAINER_LABEL=all \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    willfarrell/autoheal
+```
 
 ## Logs and Performance
 
@@ -95,13 +121,136 @@ docker run -d \
 For more information, see the [Watchtower Docs](https://containrrr.dev/watchtower/)
 
 ### Updating Dashy from Source
-1. Navigate into directory: `cd ./dashy`
-2. Stop your current instance
-3. Pull latest code: `git pull origin master`
-4. Re-build: `yarn build`
-5. Start: `yarn start`
+Stop your current instance of Dashy, then navigate into the source directory. Pull down the latest code, with `git pull origin master`, then update dependencies with `yarn`, rebuild with `yarn build`, and start the server again with `yarn start`.
 
 **[⬆️ Back to Top](#management)**
+
+---
+
+## Backing Up
+
+### Backing Up Containers
+
+You can make a backup of any running container really easily, using [`docker commit`](https://docs.docker.com/engine/reference/commandline/commit/) and save it with [`docker export`](https://docs.docker.com/engine/reference/commandline/export/), to do so:
+- First find the container ID, you can do this with `docker container ls`
+- Now to create the snapshot, just run `docker commit -p [container-id] my-backup`
+- Finally, to save the backup locally, run `docker save -o ~/dashy-backup.tar my-backup`
+- If you want to push this to a container registry, run  `docker push my-backup:latest`
+
+Note that this will not include any data in docker volumes, and the process here is a bit different. Since these files exist on your host system, if you have an existing backup solution implemented, you can incorporate and volume files within that system.
+
+### Backing Up Volumes
+[offen/docker-volume-backup](https://github.com/offen/docker-volume-backup) is a useful tool for periodic Docker volume backups, to any S3-compatible storage provider. It's run as a light-weight Docker container, and is easy to setup, and also supports GPG-encryption, email notification, and routing away older backups. 
+
+To get started, create a docker-compose similar to the example below, and then start the container. For more info, check out their [documentation](https://github.com/offen/docker-volume-backup), which is very clear.
+
+```yaml
+version: '3'
+services:
+  backup:
+    image: offen/docker-volume-backup:latest
+    environment:
+      BACKUP_CRON_EXPRESSION: "0 * * * *"
+      BACKUP_PRUNING_PREFIX: backup-
+      BACKUP_RETENTION_DAYS: 7
+      AWS_BUCKET_NAME: backup-bucket
+      AWS_ACCESS_KEY_ID: AKIAIOSFODNN7EXAMPLE
+      AWS_SECRET_ACCESS_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    volumes:
+      - data:/backup/my-app-backup:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+volumes:
+  data:
+```
+
+It's worth noting that this process can also be done manually, using the following commands:
+
+Backup:
+```
+docker run --rm -v some_volume:/volume -v /tmp:/backup alpine tar -cjf /backup/some_archive.tar.bz2 -C /volume ./
+```
+Restore:
+```
+docker run --rm -v some_volume:/volume -v /tmp:/backup alpine sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -C /volume/ -xjf /backup/some_archive.tar.bz2"
+```
+### Dashy-Specific Backup
+Since Dashy is open source, and freely available, providing you're configuration data is passed in as volumes, there shouldn't be any need to backup the main container. Your main config file, and any assets you're using should be kept backed up, preferably in at least two places, and you should ensure that you can easily restore from backup, if needed.
+
+Dashy also has a built-in cloud backup feature, which is free for personal users, and will let you make and restore fully encrypted backups of your config directly through the UI. To learn more, see the [Cloud Backup Docs](/docs/backup-restore.md)
+
+---
+
+## Scheduling
+
+If you need to periodically schedule the running of a given command on Dashy (or any other container), then a useful tool for doing so it [ofelia](https://github.com/mcuadros/ofelia). This runs as a Docker container and is really useful for things like backups, logging, updating, notifications, etc. Crons are specified using Go's crontab format, and a useful tool for visualizing this is [crontab.guru](https://crontab.guru/). I recommend combining this with [healthchecks](https://github.com/healthchecks/healthchecks) for easy monitoring of jobs, and failure notifications.
+
+---
+
+## Managing Containers with Docker Compose
+
+When you have a lot of containers, it quickly becomes hard to manage when using the `docker run` command. The solution to this is [docker compose](https://docs.docker.com/compose/), a handy tool for defining all a containers run settings in a single YAML file, and then spinning up that container with a single short command - `docker compose up`. For example, check out [@abhilesh's docker compose collection](https://github.com/abhilesh/self-hosted_docker_setups)
+
+You can use Dashy's default [`docker-compose.yml`](https://github.com/Lissy93/dashy/blob/master/docker-compose.yml) file as a template, and modify it according to your needs.
+
+An example Docker compose, using the default base image from DockerHub, might look something like this:
+
+```yaml
+---
+version: "3.8"
+services:
+  dashy:
+    container_name: Dashy
+    image: lissy93/dashy
+    volumes:
+      - /root/my-config.yml:/app/public/conf.yml
+    ports:
+      - 4000:80
+    environment:
+      - BASE_URL=/my-dashboard
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'node', '/app/services/healthcheck']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+```
+
+---
+
+## Passing in Environmental Variables
+
+With Docker, you can define environmental variables under the `environment` section of your Docker compose file. 
+
+Environmental variables are used to configure high-level settings, usually before the config file has been read. For a list of all supported env vars in Dashy, see [the developing docs](/docs/developing.md#environmental-variables), or the default [`.env`](https://github.com/Lissy93/dashy/blob/master/.env) file.
+
+A common use case, is to run Dashy under a sub-page, instead of at the root of a URL (e.g. `https://my-homelab.local/dashy` instead of `https://dashy.my-homelab.local`). This is done by specifying the `BASE_URL` variable.
+
+```yaml
+environment:
+  - BASE_URL=/dashy
+```
+
+You can also do the same thing with the docker run command, using the [`--env`](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file) flag
+
+If you've got many environmental variables, you might find it useful to put them in a [`.env` file](https://docs.docker.com/compose/env-file/). Similarly, for Docker run you can use [`--env-file`](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file) if you'd like to pass in a file containing all your environmental variables.
+
+---
+
+## Running a Modified Version of the App
+
+If you'd like to make any code changes to the app, and deploy your modified version, this section briefly explains how.
+
+The first step is to fork the project on GitHub, and clone it to your local system. Next, install the dependencies (`yarn`), and start the development server (`yarn dev`) and visit `localhost:8080` in your browser. You can then make changes to the codebase, and see the live app update in real-time. Once you've finished, running `yarn build` will build the app for production, and output the assets into `./dist` which can then be deployed using a web server, CDN or the built-in Node server with `yarn start`. For more info on all of this, take a look at the [Developing Docs](/docs/developing.md).
+
+You probably want to deploy your app with Docker, and this can be done as follows:
+
+To build and deploy locally, first build the app with: `docker build -t dashy .`, and then start the app with `docker run -p 8080:80 --name my-dashboard dashy`.  Or modify the `docker-compose.yml` file, replacing `image: lissy93/dashy` with `build: .` and run `docker compose up`.
+
+Your container should now be running, and will appear in the list when you run `docker container ls –a`. If you'd like to enter the container, run `docker exec -it [container-id] /bin/ash`.
+
+You may wish to upload your image to a container registry for easier access. Note that if you choose to do this on a public registry, please name your container something other than just 'dashy', to avoid confusion with the official image.
+You can push your build image, by running: `docker push ghcr.io/OWNER/IMAGE_NAME:latest`. You will first need to authenticate, this can be done by running `echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin`, where `CR_PAT` is an environmental variable containing a token generated from your GitHub account. For more info, see the [Container Registry Docs](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
 
 ---
 
