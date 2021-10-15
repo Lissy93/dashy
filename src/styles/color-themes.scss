@@ -291,6 +291,7 @@ html[data-theme='colorful'] {
   --item-group-outer-background: #05070e;
   --item-group-heading-text-color: #e8eae1;
   --item-group-heading-text-color-hover: #fff;
+  --item-hover-shadow: 1px 4px 6px #000000;
   --nav-link-background-color: #141826;
   .item-wrapper:nth-child(1n) { .item { color: #eb5cad; border: 1px solid #eb5cad; } }
   .item-wrapper:nth-child(2n) { .item { color: #985ceb; border: 1px solid #985ceb; } }
@@ -994,6 +995,8 @@ html[data-theme="dashy-docs"] {
   --item-shadow: 4px 4px 6px #00000080, -2px -2px 4px rgb(0 0 0 / 40%);
   --item-group-shadow: 0px 3px 2px #222222, 0px 0px 2px #3e3e3e;
   --font-headings: 'PTMono', 'Courier New', monospace;
+  --nav-link-background-color-hover: none;
+  --nav-link-border-color-hover: none;
 
   footer {
     box-shadow: 0 -3px 4px #010101;
@@ -1007,27 +1010,34 @@ html[data-theme="dashy-docs"] {
     background: $first; box-shadow: 0 4px $second;
     &:hover { box-shadow: 0 2px $second; }
   }
- 
   // Section headings, nav bar items and minimal tabs
   div.collapsable:nth-child(1n) label.lbl-toggle,
   .minimal-section-heading:nth-child(1n),
   a.nav-item:nth-child(1n) {
     @include make-colors(#db78fc, #b83ddd);
+    --nav-link-background-color-hover: #db78fc;
+    --nav-link-border-color-hover: #db78fc;
   }
   div.collapsable:nth-child(2n) label.lbl-toggle,
   .minimal-section-heading:nth-child(2n),
   a.nav-item:nth-child(2n) {
     @include make-colors(#5c85f7, #3d48dd);
+    --nav-link-background-color-hover: #5c85f7;
+    --nav-link-border-color-hover: #5c85f7;
   }
   div.collapsable:nth-child(3n) label.lbl-toggle,
   .minimal-section-heading:nth-child(3n),
   a.nav-item:nth-child(3n) {
     @include make-colors(#41ef90, #1e9554);
+    --nav-link-background-color-hover: #41ef90;
+    --nav-link-border-color-hover: #41ef90;
   }
   div.collapsable:nth-child(4n) label.lbl-toggle,
   .minimal-section-heading:nth-child(4n),
   a.nav-item:nth-child(4n) {
     @include make-colors(#dcff5a, #ceb73f);
+    --nav-link-background-color-hover: #dcff5a;
+    --nav-link-border-color-hover: #dcff5a;
   }
 
   nav.side-bar {
