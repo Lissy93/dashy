@@ -49,6 +49,7 @@
   - [🌎 Language Switching](#language-switching-)
   - [🌳 Dashboard Info](#setting-dashboard-info-)
 - **Community**
+  - [📊 System Requirements](#system-requirements-)
   - [🙋‍♀️ Getting Help](#getting-help-%EF%B8%8F)
   - [🐛 Raising Issues](#raising-issues-)
   - [💖 Supporting Dashy](#supporting-dashy-)
@@ -65,22 +66,22 @@
 
 ## Features 🌈
 
-- 🔎 Instant search by name, domain and tags - just start typing + customizable keyboard shortcuts
+- 🔎 Instant search by name, domain and tags + customizable hotkeys & keyboard shortcuts
 - 🎨 Multiple built-in color themes, with UI color editor and support for custom CSS
-- 🧸 Many options for icons, including Font-Awesome support, auto-fetching favicon, images and emojis
+- 🧸 Many options for icons, including Font-Awesome, homelab icons, auto-fetching favicon, images and emojis
 - 🚦 Service status feature for each of your apps / links, for basic availability and uptime monitoring
-- 💂 Optional authentication with multi-user support, configurable privileges and SSO support
-- ☁ Optional encrypted cloud backup and restore feature available
+- 💂 Optional authentication with multi-user access, configurable privileges and SSO support
+- 🌎 Multi-language support, with more languages being added regularly
+- ☁ Optional encrypted off-site cloud backup and restore feature available
 - 💼 A workspace view, for easily switching between multiple apps at once
 - 🛩️ A minimal view, for use as a fast-loading browser startpage
 - 🖱️ Choose how to launch apps, either new tab, same tab, a pop-up modal or in the workspace view
-- 🌎 Multi-language support, with more languages being added regularly
 - 📏 Customizable layout, sizes, text, component visibility, sort order, behavior etc
-- 🖼️ Option for full-screen background image, custom nav-bar links, html footer, title, and more
+- 🖼️ Option for full-screen background image, custom nav-bar links, html footer, title, etc
 - 🚀 Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
-- ⚙️ Easy single-file YAML-based configuration, with option to configure app directly through the UI
-- 🤏 Small bundle size, fully responsive UI and PWA makes the app easy to use on any device
+- ⚙️ Easy single-file YAML-based configuration, and option to configure app through the UI
 - ✨ Under active development with improvements and new features added regularly 
+- 🤏 Small bundle size, fully responsive UI and PWA for basic offline access
 - 🆓 100% free and open source
 - 🔐 Strong focus on privacy
 - 🌈 Plus lots more...
@@ -480,6 +481,21 @@ pageInfo:
 
 ---
 
+## System Requirements 📊
+
+The hardware requirements vary depending on where and how you are running Dashy. Generally speaking, on a bare metal system or Docker container, 1GB of memory should be more than enough, and depending on weather you are using your own assets, then 1GB of disk space should be sufficient.  
+
+If you are using one of the 1-click cloud deployment methods, serving the app through a CDN or using a static hosting provider, then there are no specific requirements, as the built app is just a series of static JS files, and so is very light-weight.
+
+Dashy also wells run on low-powered ARM-based single board computers, such as a Raspberry Pi (tested on Pi 3)
+
+**Browser Support**
+![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![IE](https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png)
+--- | --- | --- | --- | --- |
+Latest ✔ | Latest ✔ | 10+ ✔ | Latest ✔ | 6.1+ ✔ |
+
+---
+
 ## Getting Help 🙋‍♀️
 
 > For general discussions, check out the **[Discussions Board](https://github.com/Lissy93/dashy/discussions)**
@@ -562,7 +578,9 @@ Dashy was made possible thanks to the following packages and components. For mor
 
 > For full development documentation, see: [**Developing**](./docs/developing.md)
 
-[![Open Project in VS Code](https://img.shields.io/badge/Open_in-VS_Code-863cfc?style=for-the-badge&logo=visualstudiocode)](https://open.vscode.dev/Lissy93/Dashy)
+[![Open Project in VS Code](https://img.shields.io/badge/Open_in-VS_Code-863cfc?style=flat-square&logo=visualstudiocode)](https://open.vscode.dev/Lissy93/Dashy)
+[![Open in GitPod](https://img.shields.io/badge/Open_in-GitPod-ffae33?style=flat-square&logo=gitpod)](https://gitpod.io/#github.com/lissy93/dashy.git)
+[![Open in GitHub Code Spaces](https://img.shields.io/badge/Open_in-Code%20Spaces-131313?style=flat-square&logo=github)](https://github.dev/Lissy93/dashy)
 
 Before getting started, you'll need [Git](https://git-scm.com/downloads), [Node](https://nodejs.org/en/download/) and optionally [Yarn](https://yarnpkg.com/) (run `npm i -g yarn`) installed.
 

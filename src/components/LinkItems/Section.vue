@@ -13,13 +13,13 @@
       No Items to Show Yet
     </div>
     <div v-else
-      :class="`there-are-items ${isGridLayout? 'item-group-grid': ''}`"
+      :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
       :style="gridStyle"
     >
       <Item
-        v-for="(item) in sortedItems"
-        :id="makeId(title, item.title)"
-        :key="makeId(title, item.title)"
+        v-for="(item, index) in sortedItems"
+        :id="makeId(title, item.title, index)"
+        :key="makeId(title, item.title, index)"
         :url="item.url"
         :title="item.title"
         :description="item.description"
@@ -105,18 +105,21 @@ export default {
     },
     gridStyle() {
       let styles = '';
-      styles += this.displayData.itemCountX
-        ? `grid-template-columns: repeat(${this.displayData.itemCountX}, minmax(0, 1fr));` : '';
-      styles += this.displayData.itemCountY
-        ? `grid-template-rows: repeat(${this.displayData.itemCountY}, minmax(0, 1fr));` : '';
+      if (document.body.clientWidth > 600) { // Only proceed if not on tiny screen
+        styles += this.displayData.itemCountX
+          ? `grid-template-columns: repeat(${this.displayData.itemCountX}, minmax(0, 1fr));` : '';
+        styles += this.displayData.itemCountY
+          ? `grid-template-rows: repeat(${this.displayData.itemCountY}, minmax(0, 1fr));` : '';
+      }
       return styles;
     },
   },
   methods: {
     /* Returns a unique lowercase string, based on name, for section ID */
-    makeId(sectionStr, itemStr) {
+    makeId(sectionStr, itemStr, index) {
       const charSum = sectionStr.split('').map((a) => a.charCodeAt(0)).reduce((x, y) => x + y);
-      return `${charSum}_${itemStr.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase()}`;
+      const itemTitleStr = itemStr.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
+      return `${index}_${charSum}_${itemTitleStr}`;
     },
     /* Opens the iframe modal */
     triggerModal(url) {
@@ -197,7 +200,7 @@ export default {
     grid-template-columns: repeat(var(--item-col-count, 2), minmax(0, 1fr));
   }
 }
-.orientation-horizontal {
+.orientation-horizontal:not(.single-section-view) {
   display: flex;
   flex-direction: column;
   .there-are-items {
@@ -208,6 +211,16 @@ export default {
     @include monitor { --item-col-count: 8; }
     @include big-screen { --item-col-count: 10; }
     @include big-screen-up { --item-col-count: 12; }
+    grid-template-columns: repeat(var(--item-col-count, 2), minmax(0, 1fr));
+  }
+  .there-are-items.inner-size-large {
+    display: grid;
+    @include phone { --item-col-count: 1; }
+    @include tablet { --item-col-count: 2; }
+    @include laptop { --item-col-count: 3; }
+    @include monitor { --item-col-count: 5; }
+    @include big-screen { --item-col-count: 6; }
+    @include big-screen-up { --item-col-count: 8; }
     grid-template-columns: repeat(var(--item-col-count, 2), minmax(0, 1fr));
   }
 }

@@ -279,7 +279,6 @@ export default {
   }
   &.short:not(.size-large) {
     height: 2rem;
-    .tile-title { overflow: visible; }
   }
 }
 
@@ -346,6 +345,7 @@ export default {
     align-items: center;
     height: 2rem;
     padding-top: 4px;
+    max-width: 14rem;
     div img, div svg.missing-image {
       width: 2rem;
     }
@@ -353,7 +353,8 @@ export default {
       height: fit-content;
       min-height: 1.2rem;
       text-align: left;
-      max-width:140px;
+      max-width: 12rem;
+      overflow: hidden;
       span.text {
         text-align: left;
         padding-left: 10%;

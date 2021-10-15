@@ -127,6 +127,8 @@ export default {
       localStorage.setItem(localStorageKeys.HIDE_SETTINGS, this.settingsVisible);
     },
     getSettingsVisibility() {
+      const screenWidth = document.body.clientWidth;
+      if (screenWidth && screenWidth < 600) return false;
       return JSON.parse(localStorage[localStorageKeys.HIDE_SETTINGS]
         || (this.visibleComponents || defaultVisibleComponents).settings);
     },
@@ -173,6 +175,11 @@ export default {
     @include very-tiny-phone {
       flex-direction: column;
       align-items: baseline;
+      div {
+        width: 100%;
+        text-align: center;
+        .theme-selector-section { justify-content: center; }
+      }
     }
   }
 

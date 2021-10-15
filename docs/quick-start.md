@@ -19,14 +19,15 @@ To pull the latest image, and build and start the app run:
 ```
 docker run -d \
   -p 8080:80 \
+  -v ~/my-conf.yml:/app/public/conf.yml \
   --name my-dashboard \
   --restart=always \
   lissy93/dashy:latest
 ```
 
-For a full list of available options, then see [Dashy with Docker](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#deploy-with-docker) Docs. If you'd prefer to use Docker Compose, then see [Dashy with Docker Compose](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#using-docker-compose) Docs.
+Either replace the -v path to point to your config file, or leave it out. For a full list of available options, then see [Dashy with Docker](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#deploy-with-docker) Docs. If you'd prefer to use Docker Compose, then see [Dashy with Docker Compose](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#using-docker-compose) Docs.
 
-Your dashboard should now be up and running at `http://localhost:8080` (or your servers IP address/ domain, and the port that you chose). The first build will may take a few minutes
+Your dashboard should now be up and running at `http://localhost:8080` (or your servers IP address/ domain, and the port that you chose). The first time you build, it may take a few minutes.
 
 ---
 

@@ -65,8 +65,12 @@ const makeMetaTags = (defaultTitle) => ({
   metaTags: metaTagData,
 });
 
+/* Routing mode, can be either 'hash', 'history' or 'abstract' */
+const mode = 'history';
+
 /* List of all routes, props, components and metadata */
 const router = new Router({
+  mode,
   routes: [
     { // The default view can be customized by the user
       path: '/',
@@ -77,6 +81,12 @@ const router = new Router({
     { // Default home page
       path: routePaths.home,
       name: 'home',
+      component: Home,
+      meta: makeMetaTags('Home Page'),
+    },
+    { // View only single section
+      path: `${routePaths.home}/:section`,
+      name: 'home-section',
       component: Home,
       meta: makeMetaTags('Home Page'),
     },

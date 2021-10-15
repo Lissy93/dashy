@@ -66,9 +66,14 @@ Sponsoring will give you several perks, from $1 / £0.70 per month, as well as a
 	<summary>You can also send a one-off small contribution using crypto</summary>
 	<p>
 
+[![Donate with BTC](https://en.cryptobadges.io/badge/big/3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC)](https://en.cryptobadges.io/donate/3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC)[![Donate with Ethereum](https://en.cryptobadges.io/badge/big/0x0fc98cBf8bea932B4470C46C0FbE1ed1f6765017)](https://en.cryptobadges.io/donate/0x0fc98cBf8bea932B4470C46C0FbE1ed1f6765017)
+
 - **BTC**: `3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC`
 - **ETH**: `0x0fc98cBf8bea932B4470C46C0FbE1ed1f6765017` / `aliciasykes.eth`
 - **XMR**: `471KZdxb6N63aABR4WYwMRjTVkc1p1x7wGsUTEF7AMYzL8L94A5pCuYWkosgJQ5Ze8Y2PscVCGZFJa3hDPg6MaDq47GUm8r`
+- **LTC**: `MAuck6Ea1qaNihwKfXutkR1R6BorMth86H`
+- **ZEC**: `t1bw1SefijsXRDQVxC9w64XsRK8hBhtQohQ`
+
   </p>
 </details>
 

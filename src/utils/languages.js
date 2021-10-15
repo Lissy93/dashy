@@ -12,6 +12,7 @@ import hi from '@/assets/locales/hi.json';
 import ja from '@/assets/locales/ja.json';
 import pt from '@/assets/locales/pt.json';
 import ru from '@/assets/locales/ru.json';
+import pirate from '@/assets/locales/zz-pirate.json';
 
 // Language data - Next register your language by adding it to this list
 export const languages = [
@@ -92,6 +93,12 @@ export const languages = [
     code: 'ru',
     locale: ru,
     flag: '🇷🇺',
+  },
+  { // Joke Language - Pirate
+    name: 'Pirate',
+    code: 'pirate',
+    locale: pirate,
+    flag: '🏴‍☠️',
   },
 ];
 

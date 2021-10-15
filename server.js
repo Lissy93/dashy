@@ -12,6 +12,7 @@ const util = require('util');
 const dns = require('dns');
 const os = require('os');
 const bodyParser = require('body-parser');
+const history = require('connect-history-api-fallback');
 
 /* Kick of some basic checks */
 require('./services/update-checker'); // Checks if there are any updates available, prints message
@@ -56,6 +57,7 @@ const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, n
 
 try {
   connect()
+    .use(history())
     .use(bodyParser.json())
     // Serves up the main built application to the root
     .use(serveStatic(`${__dirname}/dist`))

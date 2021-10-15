@@ -9,6 +9,7 @@ jobs:
   assign-author:
     runs-on: ubuntu-latest
     steps:
-      - name: Assign author
-        uses: technote-space/assign-author@v1
-        GITHUB_TOKEN: ${{secrets.BOT_GITHUB_TOKEN}}
+    - name: Assign author
+      uses: technote-space/assign-author@v1
+      with:
+        GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}

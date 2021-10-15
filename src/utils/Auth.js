@@ -46,7 +46,7 @@ const getUsers = () => {
   // Check if the user is still using previous schema type
   if (Array.isArray(auth)) {
     printWarning(); // Print warning message
-    return auth; // Let the user proceed anyway, will remove in V 1.7.0
+    return []; // Support for old data structure now removed
   }
   // Otherwise, return the users array, if available
   return auth.users || [];
@@ -95,12 +95,7 @@ export const isAuthEnabled = () => {
 /* Returns true if guest access is enabled */
 export const isGuestAccessEnabled = () => {
   const appConfig = getAppConfig();
-  if (appConfig.enableGuestAccess) {
-    // User is still using the old auth method
-    printWarning();
-    return true;
-  }
-  if (appConfig.auth && !Array.isArray(appConfig.auth)) {
+  if (appConfig.auth && typeof appConfig.auth === 'object') {
     return appConfig.auth.enableGuestAccess || false;
   }
   return false;

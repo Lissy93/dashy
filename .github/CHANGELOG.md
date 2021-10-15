@@ -1,5 +1,14 @@
 # Changelog
 
+## ⚡️ 1.8.7 - Bug Fixes and Improvements [PR #273](https://github.com/Lissy93/dashy/pull/273)
+- Clean URLs without the hash, now using history-mode routing
+- New initial main example conf.yml
+- Minor UI style updates and fixes
+- Support for single section view
+- A new theme, soft-glow
+- Container security in management docs, and other things
+- Bug fixes, including missing Firefox favicon and fix custom icon paths with base_url
+
 ## ⚡️ 1.8.6 - Implementation of VueX [PR: #271](https://github.com/Lissy93/dashy/pull/271)
 - New state management pattern, which should lead to a more organized code base long term, and will also make building out the new UI editor significantly easier to do in a clean and reliable way
 

@@ -145,8 +145,10 @@ When you submit your PR, include the required info, by filling out the PR templa
 
 ## Resources for Beginners
 New to Web Development? Glad you're here! Dashy is a pretty simple app, so it should make a good candidate for your first PR. Presuming that you already have a basic knowledge of JavaScript, the following articles should point you in the right direction for getting up to speed with the technologies used in this project:
+- [Open Source for Beginners](https://opensource.guide/how-to-contribute/)
 - [Introduction to Vue.js](https://v3.vuejs.org/guide/introduction.html)
 - [Vue.js Walkthrough](https://www.taniarascia.com/getting-started-with-vue/)
+- [ES6 Features](https://github.com/lukehoban/es6features)
 - [Definitive guide to SCSS](https://blog.logrocket.com/the-definitive-guide-to-scss/)
 - [Complete beginners guide to Docker](https://docker-curriculum.com/)
 - [Docker Classroom - Interactive Tutorials](https://training.play-with-docker.com/)

@@ -172,6 +172,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  justify-content: center;
   height: 100%;
   span.theme-label {
     font-size: 1rem;

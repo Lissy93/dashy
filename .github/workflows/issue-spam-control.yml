@@ -6,7 +6,12 @@ on:
     types: [opened, reopened]
 jobs:
   check-user:
-    if: ${{ ! contains( github.event.issue.labels.*.name, 'keep-open') && github.event.comment.author_association != 'CONTRIBUTOR' }}
+    if: >
+      ${{
+      ! contains( github.event.issue.labels.*.name, '📌 Keep Open') &&
+      ! contains( github.event.issue.labels.*.name, '🌈 Feedback') &&
+      github.event.comment.author_association != 'CONTRIBUTOR'
+      }}
     runs-on: ubuntu-latest
     name: Close issue opened by non-stargazer
     steps:

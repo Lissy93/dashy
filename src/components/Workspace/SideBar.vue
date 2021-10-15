@@ -71,7 +71,11 @@ export default {
     },
   },
   mounted() {
-    this.openDefaultSection();
+    if (this.sections.length === 1) { // If only 1 section, go ahead and open it
+      this.openSection(0);
+    } else { // Otherwise, see if user set a default section, and open that
+      this.openDefaultSection();
+    }
   },
 };
 </script>
