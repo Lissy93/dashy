@@ -200,7 +200,7 @@ export default {
     grid-template-columns: repeat(var(--item-col-count, 2), minmax(0, 1fr));
   }
 }
-.orientation-horizontal {
+.orientation-horizontal:not(.single-section-view) {
   display: flex;
   flex-direction: column;
   .there-are-items {

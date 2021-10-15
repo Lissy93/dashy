@@ -13,11 +13,19 @@
       :modalOpen="modalOpen"
       class="settings-outer"
     />
+    <!-- Show back button, when on single-section view -->
+    <div v-if="singleSectionView">
+      <router-link to="/home" class="back-to-all-link">
+        <BackIcon />
+        <span>Back to All</span>
+      </router-link>
+    </div>
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections)"
       :class="`item-group-container `
         + `orientation-${layout} `
         + `item-size-${itemSizeBound} `
+        + (singleSectionView ? 'single-section-view ' : '')
         + (this.colCount ? `col-count-${this.colCount} ` : '')"
       >
       <Section
@@ -49,12 +57,15 @@ import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
 import { searchTiles } from '@/utils/Search';
 import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
+import ErrorHandler from '@/utils/ErrorHandler';
+import BackIcon from '@/assets/interface-icons/back-arrow.svg';
 
 export default {
   name: 'home',
   components: {
     SettingsContainer,
     Section,
+    BackIcon,
   },
   data: () => ({
     searchValue: '',
@@ -73,6 +84,9 @@ export default {
     },
     modalOpen() {
       return this.$store.state.modalOpen;
+    },
+    singleSectionView() {
+      return this.findSingleSection(this.$store.getters.sections, this.$route.params.section);
     },
     /* Get class for num columns, if specified by user */
     colCount() {
@@ -94,7 +108,7 @@ export default {
       return this.sections;
     },
     filteredTiles() {
-      const sections = this.allSections;
+      const sections = this.singleSectionView || this.allSections;
       return sections.filter((section) => this.filterTiles(section.items, this.searchValue));
     },
     /* Updates layout (when button clicked), and saves in local storage */
@@ -147,6 +161,19 @@ export default {
     /* Update data when modal is open (so that key bindings can be disabled) */
     updateModalVisibility(modalState) {
       this.$store.commit('SET_MODAL_OPEN', modalState);
+    },
+    /* If on sub-route, and section exists, then return only that section */
+    findSingleSection: (allSectios, sectionTitle) => {
+      if (!sectionTitle) return undefined;
+      let sectionToReturn;
+      const parse = (section) => section.replace(' ', '-').toLowerCase().trim();
+      allSectios.forEach((section) => {
+        if (parse(sectionTitle) === parse(section.name)) {
+          sectionToReturn = [section];
+        }
+      });
+      if (!sectionToReturn) ErrorHandler(`No section named '${sectionTitle}' was found`);
+      return sectionToReturn;
     },
     /* Returns an array of links to external CSS from the Config */
     getExternalCSSLinks() {
@@ -245,6 +272,16 @@ export default {
   min-height: calc(99.9vh - var(--footer-height));
 }
 
+.back-to-all-link {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  margin: 0.25rem;
+  @extend .svg-button;
+  svg { margin-right: 0.5rem; }
+  text-decoration: none;
+}
+
 /* Outside container wrapping the item groups*/
 .item-group-container {
   display: grid;
@@ -269,7 +306,7 @@ export default {
       flex-direction: row;
     }
   }
-  &.orientation-horizontal, &.orientation-vertical {
+  &.orientation-horizontal, &.orientation-vertical, &.single-section-view {
     @include phone { --content-max-width: 100%; }
     @include tablet { --content-max-width: 98%; }
     @include laptop { --content-max-width: 90%; }
@@ -302,6 +339,11 @@ export default {
 
   /* Hide when search term returns nothing */
   .no-results { display: none; }
+
+  /* When in single-section view mode */
+  &.single-section-view {
+    display: block;
+  }
 }
 
 /* Custom styles only applied when there is no sections in config */

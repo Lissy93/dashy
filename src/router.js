@@ -84,6 +84,12 @@ const router = new Router({
       component: Home,
       meta: makeMetaTags('Home Page'),
     },
+    { // View only single section
+      path: `${routePaths.home}/:section`,
+      name: 'home-section',
+      component: Home,
+      meta: makeMetaTags('Home Page'),
+    },
     { // Workspace view page
       path: routePaths.workspace,
       name: 'workspace',
