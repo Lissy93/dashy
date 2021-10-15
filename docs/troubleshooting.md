@@ -138,6 +138,12 @@ Please acknowledge the difference between errors and warnings before raising an 
 
 ---
 
+## Docker Login Fails on Ubuntu
+
+Run `sudo apt install gnupg2 pass && gpg2 -k`
+
+---
+
 ## Status Checks Failing
 If you're using status checks, and despite a given service being online, the check is displaying an error, there are a couple of things you can look at:
 
