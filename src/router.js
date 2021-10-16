@@ -66,7 +66,7 @@ const makeMetaTags = (defaultTitle) => ({
 });
 
 /* Routing mode, can be either 'hash', 'history' or 'abstract' */
-const mode = 'history';
+const mode = appConfig.routingMode || 'history';
 
 /* List of all routes, props, components and metadata */
 const router = new Router({
