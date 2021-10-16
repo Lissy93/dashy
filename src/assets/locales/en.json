@@ -164,9 +164,9 @@
     "restore-success-msg": "Config Restored Successfully"
   },
   "menu": {
-    "sametab": "Open in Current Tab",
-    "newtab": "Open in New Tab",
-    "modal": "Open in Pop-Up Modal",
-    "workspace": "Open in Workspace View"
+    "sametab": "Current Tab",
+    "newtab": "New Tab",
+    "modal": "Pop-Up Modal",
+    "workspace": "Workspace View"
   }
 }
