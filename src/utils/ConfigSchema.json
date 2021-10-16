@@ -187,6 +187,14 @@
             }
           }
         },
+        "routingMode": {
+          "enum": [
+            "hash",
+            "history"
+          ],
+          "default": "history",
+          "description": "The Vue routing mode to use, history mode will remove the annoying hash from the URL, but requires some extra config on some systems"
+        },
         "cssThemes": {
           "type": "array",
           "description": "Theme names to be added to the dropdown",
