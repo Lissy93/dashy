@@ -17,6 +17,7 @@
         :type="row.type"
         layout="horizontal"
         />
+        <BinIcon />
     </div>
     <div class="add-more-inputs">
       <h4>More Fields</h4>
@@ -26,7 +27,7 @@
           :key="row.name"
           @click="() => appendNewField(row.name)"
           class="add-field-tag">
-          ➕ {{ row.name }}
+          <AddIcon /> {{ row.name }}
         </span>
       </div>
     </div>
@@ -37,6 +38,8 @@
 <script>
 import Input from '@/components/FormElements/Input';
 import Button from '@/components/FormElements/Button';
+import AddIcon from '@/assets/interface-icons/interactive-editor-add.svg';
+import BinIcon from '@/assets/interface-icons/interactive-editor-remove.svg';
 import StoreKeys from '@/utils/StoreMutations';
 import DashySchema from '@/utils/ConfigSchema';
 import { modalNames } from '@/utils/defaults';
@@ -59,6 +62,8 @@ export default {
   components: {
     Input,
     Button,
+    AddIcon,
+    BinIcon,
   },
   mounted() {
     this.item = this.getItemFromState(this.itemId);
@@ -69,7 +74,7 @@ export default {
     makeInitialFormData() {
       const formData = [];
       const requiredFields = ['title', 'description', 'url', 'icon', 'target', 'hotkey', 'provider', 'tags'];
-      const acceptedTypes = ['text', 'number'];
+      const acceptedTypes = ['text'];
       const getType = (origType) => (acceptedTypes.includes(origType) ? origType : 'text');
       Object.keys(this.schema).forEach((property) => {
         const singleRow = {
@@ -109,6 +114,7 @@ export default {
         }
       });
     },
+    // removeSomeField(filedId) {},
     modalClosed() {
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
       this.$emit('closeEditMenu');
@@ -127,6 +133,7 @@ export default {
   color: var(--config-settings-color);
   height: 100%;
   overflow-y: auto;
+  @extend .svg-button;
   h3.title {
     font-size: 1.2rem;
     margin: 0.25rem 0;
@@ -138,22 +145,28 @@ export default {
     opacity: var(--dimming-factor);
   }
   .row {
+    display: flex;
     padding: 0.5rem 0.25rem;
     &:not(:last-child) {
       border-bottom: 1px dotted var(--config-settings-color);
     }
-    .input-container input.input-field {
-      font-size: 1rem;
-      padding: 0.35rem 0.5rem;
+    .input-container {
+        width: 100%;
+        input.input-field {
+        font-size: 1rem;
+        padding: 0.35rem 0.5rem;
+      }
     }
   }
   .more-fields {
     display: flex;
     flex-wrap: wrap;
-    .add-field-tag {
+    span.add-field-tag {
       margin: 0.2rem;
       padding: 0.2rem 0.5rem;;
       min-width: 2rem;
+      display: flex;
+      align-items: center;
       cursor: pointer;
       text-align: center;
       border: 1px solid var(--config-settings-color);
@@ -161,6 +174,14 @@ export default {
       &:hover {
         background: var(--config-settings-color);
         color: var(--config-settings-background);
+        svg {
+          background: var(--config-settings-color);
+          path { fill: var(--config-settings-background); }
+        }
+      }
+      svg {
+        margin-right: 0.25rem;
+        border: none;
       }
     }
   }
