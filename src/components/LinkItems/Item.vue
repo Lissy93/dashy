@@ -40,7 +40,7 @@
       @launchItem="launchItem"
       @openItemSettings="openItemSettings"
     />
-    <EditItem v-if="editMenuOpen" />
+    <EditItem v-if="editMenuOpen" :itemId="id" @closeEditMenu="closeEditMenu" />
   </div>
 </template>
 
@@ -226,6 +226,10 @@ export default {
       this.$modal.show(modalNames.EDIT_ITEM);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
     },
+    /* Ensure conditional is updated, once menu closed */
+    closeEditMenu() {
+      this.editMenuOpen = false;
+    },
     /* Used for smart-sort when sorting items by most used apps */
     incrementMostUsedCount(itemId) {
       const mostUsed = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
@@ -298,7 +302,7 @@ export default {
 /* Text in tile */
 .tile-title {
   white-space: nowrap;
-  overflow: hidden;
+  // overflow: hidden;
   text-overflow: ellipsis;
   min-width: 120px;
   height: 30px;
