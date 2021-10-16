@@ -17,9 +17,9 @@
       :style="gridStyle"
     >
       <Item
-        v-for="(item, index) in sortedItems"
-        :id="makeId(title, item.title, index)"
-        :key="makeId(title, item.title, index)"
+        v-for="(item) in sortedItems"
+        :id="item.id"
+        :key="item.id"
         :url="item.url"
         :title="item.title"
         :description="item.description"
@@ -115,12 +115,6 @@ export default {
     },
   },
   methods: {
-    /* Returns a unique lowercase string, based on name, for section ID */
-    makeId(sectionStr, itemStr, index) {
-      const charSum = sectionStr.split('').map((a) => a.charCodeAt(0)).reduce((x, y) => x + y);
-      const itemTitleStr = itemStr.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
-      return `${index}_${charSum}_${itemTitleStr}`;
-    },
     /* Opens the iframe modal */
     triggerModal(url) {
       this.$refs[`iframeModal-${this.groupId}`].show(url);
@@ -145,14 +139,14 @@ export default {
     /* Sorts items by most used to least used, based on click-count */
     sortByMostUsed(items) {
       const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
-      const gmu = (item) => usageCount[this.makeId(this.title, item.title)] || 0;
+      const gmu = (item) => usageCount[item.id] || 0;
       items.reverse().sort((a, b) => (gmu(a) < gmu(b) ? 1 : -1));
       return items;
     },
     /* Sorts items by most recently used */
     sortBLastUsed(items) {
       const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
-      const glu = (item) => usageCount[this.makeId(this.title, item.title)] || 0;
+      const glu = (item) => usageCount[item.id] || 0;
       items.reverse().sort((a, b) => (glu(a) < glu(b) ? 1 : -1));
       return items;
     },
