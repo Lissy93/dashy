@@ -35,6 +35,14 @@ const store = new Vuex.Store({
     visibleComponents(state, getters) {
       return componentVisibility(getters.appConfig);
     },
+    getItemById: (state, getters) => (id) => {
+      let item;
+      getters.sections.forEach(sec => {
+        const foundItem = sec.items.find((itm) => itm.id === id);
+        if (foundItem) item = foundItem;
+      });
+      return item;
+    },
   },
   mutations: {
     [UPDATE_CONFIG](state, config) {
