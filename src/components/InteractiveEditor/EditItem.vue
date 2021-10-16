@@ -7,22 +7,22 @@
     classes="dashy-modal edit-item"
     @closed="modalClosed"
   >
-  <h3>Edit Item</h3>
-  <form>
-    <div class="row" v-for="row in formData" :key="row.name">
+    <h3>Edit Item</h3>
+    <div class="row" v-for="(row, index) in formData" :key="row.name">
       <Input
-        :label="row.name"
-        :value="row.value"
+        v-model="formData[index].value"
         :description="row.description"
+        :label="row.name"
         layout="horizontal"
         />
     </div>
-  </form>
+    <Button :click="saveItem">Save</Button>
   </modal>
 </template>
 
 <script>
 import Input from '@/components/FormElements/Input';
+import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
 import DashySchema from '@/utils/ConfigSchema';
 import { modalNames } from '@/utils/defaults';
@@ -43,6 +43,7 @@ export default {
   computed: {},
   components: {
     Input,
+    Button,
   },
   mounted() {
     this.item = this.getItemFromState(this.itemId);
@@ -66,6 +67,13 @@ export default {
     getItemFromState(id) {
       return this.$store.getters.getItemById(id);
     },
+    saveItem() {
+      const newItem = {};
+      this.formData.forEach((row) => {
+        newItem[row.name] = row.value;
+      });
+      this.$store.commit(StoreKeys.UPDATE_ITEM, { newItem, itemId: this.itemId });
+    },
     modalClosed() {
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
       this.$emit('closeEditMenu');
@@ -88,6 +96,10 @@ export default {
     padding: 0.5rem 0.25rem;
     &:not(:last-child) {
       border-bottom: 1px dotted var(--config-settings-color);
+    }
+    .input-container input.input-field {
+      font-size: 1rem;
+      padding: 0.35rem 0.5rem;
     }
   }
 }

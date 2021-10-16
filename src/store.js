@@ -8,7 +8,12 @@ import filterUserSections from '@/utils/CheckSectionVisibility';
 
 Vue.use(Vuex);
 
-const { UPDATE_CONFIG, SET_MODAL_OPEN, SET_LANGUAGE } = Keys;
+const {
+  UPDATE_CONFIG,
+  SET_MODAL_OPEN,
+  SET_LANGUAGE,
+  UPDATE_ITEM,
+} = Keys;
 
 const store = new Vuex.Store({
   state: {
@@ -53,6 +58,18 @@ const store = new Vuex.Store({
     },
     [SET_MODAL_OPEN](state, modalOpen) {
       state.modalOpen = modalOpen;
+    },
+    [UPDATE_ITEM](state, payload) {
+      const { itemId, newItem } = payload;
+      const newConfig = state.config;
+      newConfig.sections.forEach((section, secIndex) => {
+        section.items.forEach((item, itemIndex) => {
+          if (item.id === itemId) {
+            newConfig.sections[secIndex].items[itemIndex] = newItem;
+          }
+        });
+      });
+      state.config = newConfig;
     },
   },
   actions: {
