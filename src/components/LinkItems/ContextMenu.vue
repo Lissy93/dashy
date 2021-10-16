@@ -1,8 +1,9 @@
 <template>
   <transition name="slide">
-    <div class="context-menu" v-if="show && !isMenuDisabled()"
+    <div class="context-menu" v-if="show && !isMenuDisabled"
       :style="posX && posY ? `top:${posY}px;left:${posX}px;` : ''">
-      <ul>
+      <ul class="menu-section">
+        <li class="section-title">Open In</li>
         <li @click="launch('sametab')">
           <SameTabOpenIcon />
           <span>{{ $t('menu.sametab') }}</span>
@@ -20,12 +21,20 @@
           <span>{{ $t('menu.workspace') }}</span>
         </li>
       </ul>
+      <ul class="menu-section">
+        <li class="section-title">Options</li>
+        <li @click="openSettings()">
+          <EditIcon />
+          <span>Edit</span>
+        </li>
+      </ul>
     </div>
   </transition>
 </template>
 
 <script>
 // Import icons for each element
+import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
 import SameTabOpenIcon from '@/assets/interface-icons/open-current-tab.svg';
 import NewTabOpenIcon from '@/assets/interface-icons/open-new-tab.svg';
 import IframeOpenIcon from '@/assets/interface-icons/open-iframe.svg';
@@ -34,6 +43,7 @@ import WorkspaceOpenIcon from '@/assets/interface-icons/open-workspace.svg';
 export default {
   name: 'ContextMenu',
   components: {
+    EditIcon,
     SameTabOpenIcon,
     NewTabOpenIcon,
     IframeOpenIcon,
@@ -45,19 +55,18 @@ export default {
     show: Boolean, // Should show or hide the menu
   },
   computed: {
-    appConfig() {
-      return this.$store.getters.appConfig;
+    isMenuDisabled() {
+      return !!this.$store.getters.appConfig.disableContextMenu;
     },
   },
   methods: {
     /* Called on item click, emits an event up to Item */
     /* in order to launch the current app to a given target */
     launch(target) {
-      this.$emit('contextItemClick', target);
+      this.$emit('launchItem', target);
     },
-    /* Checks if the user as disabled context menu in config */
-    isMenuDisabled() {
-      return !!this.appConfig.disableContextMenu;
+    openSettings() {
+      this.$emit('openItemSettings');
     },
   },
 };
@@ -77,10 +86,13 @@ div.context-menu {
   box-shadow: var(--context-menu-shadow);
   opacity: 0.98;
 
-  ul {
+  ul.menu-section {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--context-menu-color);
+    }
     li {
       cursor: pointer;
       padding: 0.5rem 1rem;
@@ -90,8 +102,13 @@ div.context-menu {
       &:not(:last-child) {
         border-bottom: 1px solid var(--context-menu-secondary-color);
       }
-      &:hover {
+      &:hover:not(.section-title) {
         background: var(--context-menu-secondary-color);
+      }
+      &.section-title {
+        cursor: default;
+        font-weight: bold;
+        justify-content: center;
       }
       svg {
         width: 1rem;

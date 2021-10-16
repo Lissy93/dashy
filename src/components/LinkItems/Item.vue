@@ -37,8 +37,10 @@
       :posX="contextPos.posX"
       :posY="contextPos.posY"
       :id="`context-menu-${id}`"
-      @contextItemClick="contextItemClick"
+      @launchItem="launchItem"
+      @openItemSettings="openItemSettings"
     />
+    <EditItem v-if="editMenuOpen" />
   </div>
 </template>
 
@@ -48,8 +50,10 @@ import router from '@/router';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
+import EditItem from '@/components/InteractiveEditor/EditItem';
 import ContextMenu from '@/components/LinkItems/ContextMenu';
-import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
+import StoreKeys from '@/utils/StoreMutations';
+import { localStorageKeys, serviceEndpoints, modalNames } from '@/utils/defaults';
 
 export default {
   name: 'Item',
@@ -94,6 +98,7 @@ export default {
         posX: undefined,
         posY: undefined,
       },
+      editMenuOpen: false,
     };
   },
   components: {
@@ -101,6 +106,7 @@ export default {
     ItemOpenMethodIcon,
     StatusIndicator,
     ContextMenu,
+    EditItem,
   },
   methods: {
     /* Called when an item is clicked, manages the opening of modal & resets the search field */
@@ -194,7 +200,7 @@ export default {
         });
     },
     /* Handle navigation options from the context menu */
-    contextItemClick(method) {
+    launchItem(method) {
       const { url } = this;
       this.contextMenuOpen = false;
       switch (method) {
@@ -212,6 +218,13 @@ export default {
           break;
         default: window.open(url, '_blank');
       }
+    },
+    /* Open the Edit Item moal form */
+    openItemSettings() {
+      this.editMenuOpen = true;
+      this.contextMenuOpen = false;
+      this.$modal.show(modalNames.EDIT_ITEM);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
     },
     /* Used for smart-sort when sorting items by most used apps */
     incrementMostUsedCount(itemId) {
