@@ -285,7 +285,6 @@ export default {
 /* Text in tile */
 .tile-title {
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
   min-width: 120px;
   height: 30px;
