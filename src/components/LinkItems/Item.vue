@@ -229,6 +229,8 @@ export default {
     /* Ensure conditional is updated, once menu closed */
     closeEditMenu() {
       this.editMenuOpen = false;
+      this.$modal.hide(modalNames.EDIT_ITEM);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
     },
     /* Used for smart-sort when sorting items by most used apps */
     incrementMostUsedCount(itemId) {

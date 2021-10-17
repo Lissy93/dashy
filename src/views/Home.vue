@@ -48,6 +48,7 @@
     <div v-if="checkIfResults()" class="no-data">
       {{searchValue ? $t('home.no-results') : $t('home.no-data')}}
     </div>
+    <EditModeSaveMenu v-if="isEditMode" />
   </div>
 </template>
 
@@ -55,6 +56,7 @@
 
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
+import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
 import { searchTiles } from '@/utils/Search';
 import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
@@ -64,6 +66,7 @@ export default {
   name: 'home',
   components: {
     SettingsContainer,
+    EditModeSaveMenu,
     Section,
     BackIcon,
   },
@@ -87,6 +90,9 @@ export default {
     },
     singleSectionView() {
       return this.findSingleSection(this.$store.getters.sections, this.$route.params.section);
+    },
+    isEditMode() {
+      return this.$store.state.editMode;
     },
     /* Get class for num columns, if specified by user */
     colCount() {
