@@ -13,7 +13,7 @@ If you speak another language, then adding translations would be really helpful,
 ## Take a 2-minute survey
 Help improve Dashy by taking a very short, 6-question survey. This will give me a better understanding of what is important to you, so that I can make Dashy better in the future :)
 
-[![Take the Survey](https://img.shields.io/badge/Take_the-Survey-%231a86fd?style=for-the-badge&logo=buddy)](https://n9fy6xak9yd.typeform.com/to/gl0L68ou)
+[![Take the Survey](https://img.shields.io/badge/Take_the-Survey-%231a86fd?style=for-the-badge&logo=buddy)](https://survey.typeform.com/to/gl0L68ou)
 
 ## Share your dashboard
 Dashy now has a [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-) where you can show off a screenshot of your dashboard, and get inspiration from other users. I also really enjoy seeing how people are using Dashy. To [submit your dashboard](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#submitting-your-dashboard), please either open a PR or raise an issue.

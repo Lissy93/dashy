@@ -526,7 +526,7 @@ If you're using Dashy, and would like to help support it's development, then tha
 Several areas that we need a bit of help with at the moment are:
 - Translating - Help make Dashy available to non-native English speakers by [adding youre language](./docs/multi-language-support.md#adding-a-new-language)
 - Donate a small amount, by [Sponsoring @Lissy93 on GitHub](https://github.com/sponsors/Lissy93) and receive some extra perks!
-- Complete a [short survey](https://n9fy6xak9yd.typeform.com/to/gl0L68ou), to have your say about future features
+- Complete a [short survey](https://survey.typeform.com/to/gl0L68ou), to have your say about future features
 - Share your dashboard in the [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-), to provide inspiration for others
 - Join the [discussion](https://github.com/Lissy93/dashy/discussions), help answer other users questions, suggest features, share tips and ask questions
 - Spread the word, by sharing Dashy or a screenshot of your dashboard, to help new users discover it
