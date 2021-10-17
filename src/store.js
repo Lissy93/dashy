@@ -13,12 +13,14 @@ const {
   SET_MODAL_OPEN,
   SET_LANGUAGE,
   UPDATE_ITEM,
+  SET_EDIT_MODE,
 } = Keys;
 
 const store = new Vuex.Store({
   state: {
     config: {},
     lang: '', // The users language, auto-detected or read from local storage / config
+    editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
   },
   getters: {
@@ -58,6 +60,9 @@ const store = new Vuex.Store({
     },
     [SET_MODAL_OPEN](state, modalOpen) {
       state.modalOpen = modalOpen;
+    },
+    [SET_EDIT_MODE](state, editMode) {
+      state.editMode = editMode;
     },
     [UPDATE_ITEM](state, payload) {
       const { itemId, newItem } = payload;

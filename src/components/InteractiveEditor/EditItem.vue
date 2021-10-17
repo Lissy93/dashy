@@ -152,10 +152,17 @@ export default {
     },
     /* Saves the updated item to VueX Store */
     saveItem() {
+      // Convert form data back into section.item data structure
       const structured = {};
       this.formData.forEach((row) => { structured[row.name] = row.value; });
+      // Some attributes need a little extra formatting
       const newItem = this.formatBeforeSave(structured);
+      // Update the data store, with new item data
       this.$store.commit(StoreKeys.UPDATE_ITEM, { newItem, itemId: this.itemId });
+      // If we're not already in edit mode, enable it now
+      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+      // Close edit menu
+      this.$emit('closeEditMenu');
     },
     /* Adds filed from extras list to main form, then removes from extras list */
     appendNewField(fieldId) {

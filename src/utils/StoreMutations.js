@@ -4,6 +4,7 @@ const KEY_NAMES = [
   'SET_MODAL_OPEN',
   'SET_LANGUAGE',
   'UPDATE_ITEM',
+  'SET_EDIT_MODE',
 ];
 
 // Convert array of key names into an object, and export

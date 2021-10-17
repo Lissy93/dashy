@@ -1,5 +1,6 @@
 <template>
   <div id="dashy">
+    <EditModeTopBanner v-if="isEditMode" />
     <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash" />
     <Header :pageInfo="pageInfo" />
     <router-view />
@@ -10,6 +11,7 @@
 
 import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
+import EditModeTopBanner from '@/components/InteractiveEditor/EditModeTopBanner.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
 import { welcomeMsg } from '@/utils/CoolConsole';
 import ErrorHandler from '@/utils/ErrorHandler';
@@ -27,6 +29,7 @@ export default {
     Header,
     Footer,
     LoadingScreen,
+    EditModeTopBanner,
   },
   data() {
     return {
@@ -56,6 +59,9 @@ export default {
     },
     visibleComponents() {
       return this.$store.getters.visibleComponents;
+    },
+    isEditMode() {
+      return this.$store.state.editMode;
     },
   },
   created() {
