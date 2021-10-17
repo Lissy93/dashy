@@ -64,6 +64,9 @@
   </p>
 </details>
 
+| 👉 PSA: Want Free Swag? [Dashy is participating in Hacktoberfest 2021!](https://github.com/Lissy93/dashy/discussions/281) |
+|-|
+
 ## Features 🌈
 
 - 🔎 Instant search by name, domain and tags + customizable hotkeys & keyboard shortcuts
