@@ -3,7 +3,7 @@
     :name="modalName"
     :resizable="true"
     width="50%"
-    height="85%"
+    height="80%"
     classes="dashy-modal edit-item"
     @closed="modalClosed"
   >
@@ -15,13 +15,33 @@
     </p>
     <div class="row" v-for="(row, index) in formData" :key="row.name">
       <Input
+        v-if="row.type === 'text' || row.type === 'number'"
         v-model="formData[index].value"
         :description="row.description"
         :label="row.name"
         :type="row.type"
         layout="horizontal"
         />
-        <BinIcon @click="() => removeField(row.name)" />
+      <Radio
+        v-else-if="row.type === 'boolean'"
+        v-model="formData[index].value"
+        :description="row.description"
+        :label="row.name"
+        :options="['true', 'false']"
+        :initialOption="boolToStr(formData[index].value)"
+      />
+      <Select
+        v-else-if="row.type === 'select'"
+        v-model="formData[index].value"
+        :options="formData[index].enum"
+        :description="row.description"
+        :initialOption="formData[index].value"
+        :label="row.name"
+      />
+      <div v-else>
+        {{ row.name }} cannot currently be edited through the UI.
+      </div>
+      <BinIcon @click="() => removeField(row.name)" />
     </div>
     <div class="add-more-inputs" v-if="additionalFormData.length > 0">
       <h4>More Fields</h4>
@@ -44,6 +64,8 @@
 import AddIcon from '@/assets/interface-icons/interactive-editor-add.svg';
 import BinIcon from '@/assets/interface-icons/interactive-editor-remove.svg';
 import Input from '@/components/FormElements/Input';
+import Radio from '@/components/FormElements/Radio';
+import Select from '@/components/FormElements/Select';
 import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
 import DashySchema from '@/utils/ConfigSchema';
@@ -66,6 +88,8 @@ export default {
   computed: {},
   components: {
     Input,
+    Radio,
+    Select,
     Button,
     AddIcon,
     BinIcon,
@@ -80,17 +104,22 @@ export default {
     getItemFromState(id) {
       return this.$store.getters.getItemById(id);
     },
-    /* Using the schema and item obj, generate data to be rendered in the form */
+    /* Using the schema, make data structure for the UI form fields to use */
+    makeRowData(property) {
+      return {
+        name: property,
+        description: this.schema[property].description,
+        value: this.item[property],
+        type: this.getInputType(this.schema[property]),
+        enum: this.schema[property].enum,
+      };
+    },
+    /* Make formatted data structure to be rendered as form elements */
     makeInitialFormData() {
       const formData = [];
-      const requiredFields = ['title', 'description', 'url', 'icon', 'target', 'hotkey', 'provider', 'tags'];
+      const requiredFields = ['title', 'description', 'url', 'icon', 'target'];
       Object.keys(this.schema).forEach((property) => {
-        const singleRow = {
-          name: property,
-          description: this.schema[property].description,
-          value: this.item[property],
-          type: this.getInputType(this.schema[property]),
-        };
+        const singleRow = this.makeRowData(property);
         if (this.item[property] || requiredFields.includes(property)) {
           formData.push(singleRow);
         } else {
@@ -99,25 +128,40 @@ export default {
       });
       return formData;
     },
+    boolToStr(bool) {
+      if (bool) return 'true';
+      if (bool === false) return 'false';
+      return undefined;
+    },
+    /* Some fields require a bit of extra processing before they're saved */
+    formatBeforeSave(item) {
+      const newItem = item;
+      newItem.id = this.itemId;
+      if (newItem.hotkey) newItem.hotkey = parseInt(newItem.hotkey, 10);
+      const strToTags = (str) => {
+        const tagArr = str.split(',');
+        return tagArr.map((tag) => tag.trim().toLowerCase().replace(/[^a-z]+/, ''));
+      };
+      const strToBool = (str) => {
+        if (str === undefined) return undefined;
+        return str === 'true';
+      };
+      if (newItem.tags) newItem.tags = strToTags(newItem.tags);
+      if (newItem.statusCheck) newItem.statusCheck = strToBool(newItem.statusCheck);
+      return newItem;
+    },
     /* Saves the updated item to VueX Store */
     saveItem() {
-      const newItem = {};
-      this.formData.forEach((row) => {
-        newItem[row.name] = row.value;
-      });
-      newItem.id = this.itemId;
+      const structured = {};
+      this.formData.forEach((row) => { structured[row.name] = row.value; });
+      const newItem = this.formatBeforeSave(structured);
       this.$store.commit(StoreKeys.UPDATE_ITEM, { newItem, itemId: this.itemId });
     },
     /* Adds filed from extras list to main form, then removes from extras list */
     appendNewField(fieldId) {
       Object.keys(this.schema).forEach((property) => {
         if (property === fieldId) {
-          this.formData.push({
-            name: property,
-            description: this.schema[property].description,
-            value: this.item[property],
-            type: this.getInputType(this.schema[property]),
-          });
+          this.formData.push(this.makeRowData(property));
         }
       });
       this.additionalFormData.forEach((elem, index) => {
@@ -137,10 +181,16 @@ export default {
     },
     /* For a given attribute, determine type from schema */
     getInputType(schemaItem) {
-      if (schemaItem.type === 'text') {
+      const definedType = schemaItem.type;
+      // console.log(definedType);
+      if (definedType === 'text') {
         return 'text';
-      } else if (schemaItem.type === 'number') {
+      } else if (definedType === 'number') {
         return 'number';
+      } else if (definedType === 'boolean') {
+        return 'boolean';
+      } else if (schemaItem.enum) {
+        return 'select';
       }
       return 'text';
     },
@@ -165,7 +215,7 @@ export default {
   overflow-y: auto;
   @extend .svg-button;
   h3.title {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin: 0.25rem 0;
   }
   p.sub-title {
@@ -183,7 +233,7 @@ export default {
     &:not(:last-child) {
       border-bottom: 1px dotted var(--config-settings-color);
     }
-    .input-container {
+    .input-container, .select-container {
         width: 100%;
         input.input-field {
         font-size: 1rem;
@@ -218,6 +268,14 @@ export default {
       }
     }
   }
-}
 
+  /* Override form input colors, to use local CSS variables */
+  .input-container input.input-field,
+  .radio-container div.radio-wrapper,
+  .form-dropdown div.vs__dropdown-toggle {
+    color: var(--config-settings-color);
+    background: var(--config-settings-background);
+    border-color: var(--config-settings-color);
+  }
+}
 </style>
