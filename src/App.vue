@@ -65,7 +65,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('initializeConfig');
+    this.$store.dispatch(Keys.INITIALIZE_CONFIG);
   },
   methods: {
     /* Injects the users custom CSS as a style tag */

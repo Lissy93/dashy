@@ -1,5 +1,6 @@
 // A list of mutation names
 const KEY_NAMES = [
+  'INITIALIZE_CONFIG',
   'UPDATE_CONFIG',
   'SET_MODAL_OPEN',
   'SET_LANGUAGE',

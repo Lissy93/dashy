@@ -9,6 +9,7 @@ import filterUserSections from '@/utils/CheckSectionVisibility';
 Vue.use(Vuex);
 
 const {
+  INITIALIZE_CONFIG,
   UPDATE_CONFIG,
   SET_MODAL_OPEN,
   SET_LANGUAGE,
@@ -79,7 +80,7 @@ const store = new Vuex.Store({
   },
   actions: {
     /* Called when app first loaded. Reads config and sets state */
-    initializeConfig({ commit }) {
+    [INITIALIZE_CONFIG]({ commit }) {
       const Accumulator = new ConfigAccumulator();
       const config = Accumulator.config();
       commit(UPDATE_CONFIG, config);
