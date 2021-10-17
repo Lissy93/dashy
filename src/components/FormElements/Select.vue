@@ -66,14 +66,13 @@ div.select-container {
   }
   .form-dropdown {
     flex-grow: 2;
-    min-width: 10rem;
+    min-width: 12rem;
     margin: 0.5rem auto;
     font-size: 1.2rem;
     box-sizing: border-box;
     color: var(--primary);
     background: var(--background);;
     border-radius: var(--curve-factor);
-    min-width: 12rem;
     &:focus {
       box-shadow: 1px 1px 6px var(--config-settings-color);
       outline: none;
