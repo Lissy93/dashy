@@ -3,12 +3,16 @@
     :name="modalName"
     :resizable="true"
     width="50%"
-    height="50%"
+    height="85%"
     classes="dashy-modal edit-item"
     @closed="modalClosed"
   >
+  <div class="edit-item-inner">
     <h3 class="title">Edit Item</h3>
     <p class="sub-title">Editing {{item.title}} (ID: {{itemId}})</p>
+    <p class="warning-note" v-if="formData.length === 0">
+      No data configured yet. Click an attribute in the list below to add the field to the form.
+    </p>
     <div class="row" v-for="(row, index) in formData" :key="row.name">
       <Input
         v-model="formData[index].value"
@@ -17,9 +21,9 @@
         :type="row.type"
         layout="horizontal"
         />
-        <BinIcon />
+        <BinIcon @click="() => removeField(row.name)" />
     </div>
-    <div class="add-more-inputs">
+    <div class="add-more-inputs" v-if="additionalFormData.length > 0">
       <h4>More Fields</h4>
       <div class="more-fields">
         <span
@@ -32,14 +36,15 @@
       </div>
     </div>
     <Button :click="saveItem">Save</Button>
+    </div>
   </modal>
 </template>
 
 <script>
-import Input from '@/components/FormElements/Input';
-import Button from '@/components/FormElements/Button';
 import AddIcon from '@/assets/interface-icons/interactive-editor-add.svg';
 import BinIcon from '@/assets/interface-icons/interactive-editor-remove.svg';
+import Input from '@/components/FormElements/Input';
+import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
 import DashySchema from '@/utils/ConfigSchema';
 import { modalNames } from '@/utils/defaults';
@@ -50,8 +55,8 @@ export default {
     return {
       modalName: modalNames.EDIT_ITEM,
       schema: DashySchema.properties.sections.items.properties.items.items.properties,
-      formData: [],
-      additionalFormData: [],
+      formData: [], // Array of form fields
+      additionalFormData: [], // Array of not-yet-used form fields
       item: {},
     };
   },
@@ -71,17 +76,20 @@ export default {
     this.$modal.show(modalNames.EDIT_ITEM);
   },
   methods: {
+    /* For a given item ID, return the item obj from store */
+    getItemFromState(id) {
+      return this.$store.getters.getItemById(id);
+    },
+    /* Using the schema and item obj, generate data to be rendered in the form */
     makeInitialFormData() {
       const formData = [];
       const requiredFields = ['title', 'description', 'url', 'icon', 'target', 'hotkey', 'provider', 'tags'];
-      const acceptedTypes = ['text'];
-      const getType = (origType) => (acceptedTypes.includes(origType) ? origType : 'text');
       Object.keys(this.schema).forEach((property) => {
         const singleRow = {
           name: property,
           description: this.schema[property].description,
-          value: this.item[property] || '',
-          type: getType(this.schema[property].type),
+          value: this.item[property],
+          type: this.getInputType(this.schema[property]),
         };
         if (this.item[property] || requiredFields.includes(property)) {
           formData.push(singleRow);
@@ -91,9 +99,7 @@ export default {
       });
       return formData;
     },
-    getItemFromState(id) {
-      return this.$store.getters.getItemById(id);
-    },
+    /* Saves the updated item to VueX Store */
     saveItem() {
       const newItem = {};
       this.formData.forEach((row) => {
@@ -102,19 +108,43 @@ export default {
       newItem.id = this.itemId;
       this.$store.commit(StoreKeys.UPDATE_ITEM, { newItem, itemId: this.itemId });
     },
-    appendNewField(filedId) {
+    /* Adds filed from extras list to main form, then removes from extras list */
+    appendNewField(fieldId) {
       Object.keys(this.schema).forEach((property) => {
-        if (property === filedId) {
+        if (property === fieldId) {
           this.formData.push({
             name: property,
             description: this.schema[property].description,
-            value: this.item[property] || '',
-            type: 'text',
+            value: this.item[property],
+            type: this.getInputType(this.schema[property]),
           });
         }
       });
+      this.additionalFormData.forEach((elem, index) => {
+        if (elem.name === fieldId) {
+          this.additionalFormData.splice(index, 1);
+        }
+      });
     },
-    // removeSomeField(filedId) {},
+    /* Removes filed from main form, adds back into extras list */
+    removeField(fieldId) {
+      this.formData.forEach((elem, index) => {
+        if (elem.name === fieldId) {
+          this.formData.splice(index, 1);
+          this.additionalFormData.push(elem);
+        }
+      });
+    },
+    /* For a given attribute, determine type from schema */
+    getInputType(schemaItem) {
+      if (schemaItem.type === 'text') {
+        return 'text';
+      } else if (schemaItem.type === 'number') {
+        return 'number';
+      }
+      return 'text';
+    },
+    /* Clean up work, triggered when modal closed */
     modalClosed() {
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
       this.$emit('closeEditMenu');
@@ -127,7 +157,7 @@ export default {
 @import '@/styles/style-helpers.scss';
 @import '@/styles/media-queries.scss';
 
-.edit-item {
+.edit-item-inner {
   padding: 1rem;
   background: var(--config-settings-background);
   color: var(--config-settings-color);
@@ -143,6 +173,9 @@ export default {
     font-size: 0.8rem;
     font-style: italic;
     opacity: var(--dimming-factor);
+  }
+  p.warning-note {
+    color: var(--warning);
   }
   .row {
     display: flex;
