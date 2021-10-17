@@ -10,6 +10,7 @@ jobs:
       ${{
       ! contains( github.event.issue.labels.*.name, '📌 Keep Open') &&
       ! contains( github.event.issue.labels.*.name, '🌈 Feedback') &&
+      ! contains( github.event.issue.labels.*.name, '💯 Showcase') &&
       github.event.comment.author_association != 'CONTRIBUTOR'
       }}
     runs-on: ubuntu-latest
@@ -21,7 +22,7 @@ jobs:
           token: ${{ secrets.BOT_GITHUB_TOKEN }} 
           message: |
             Welcome to Dashy 👋
-            It's great to have you here, but unfortunately your ticket has been closed to prevent spam and low quality issues. Please ensure the following criteria are met, before reopening this issue.
+            It's great to have you here, but unfortunately your ticket has been closed to prevent spam. Before reopening this issue, please ensure the following criteria are met.
 
             Issues are sometimes closed when users:
             - Have only recently joined GitHub
@@ -33,4 +34,4 @@ jobs:
             - You have checked the documentation for an existing solution 
             - You have completed the relevant sections in the Issue template
 
-            Once you have verified the above standards are met, you may reopen this issue.
+            Once you have verified the above standards are met, you may reopen this issue. Sorry for any inconvenience caused, I'm just a bot, and sometimes make mistakes 🤖
