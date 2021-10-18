@@ -81,8 +81,8 @@ const store = new Vuex.Store({
   actions: {
     /* Called when app first loaded. Reads config and sets state */
     [INITIALIZE_CONFIG]({ commit }) {
-      const Accumulator = new ConfigAccumulator();
-      const config = Accumulator.config();
+      const deepCopy = (json) => JSON.parse(JSON.stringify(json));
+      const config = deepCopy(new ConfigAccumulator().config());
       commit(UPDATE_CONFIG, config);
     },
   },
