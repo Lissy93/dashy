@@ -8,12 +8,16 @@
     @closed="modalClosed"
   >
   <div class="edit-item-inner">
+    <!-- Title and Item ID -->
     <h3 class="title">Edit Item</h3>
     <p class="sub-title">Editing {{item.title}} (ID: {{itemId}})</p>
+    <!-- If no elements added to form, show info message -->
     <p class="warning-note" v-if="formData.length === 0">
       No data configured yet. Click an attribute in the list below to add the field to the form.
     </p>
+    <!-- For each data attribute, render the correct type of input field -->
     <div class="row" v-for="(row, index) in formData" :key="row.name">
+      <!-- Text box, for text/ number/ raw input elements -->
       <Input
         v-if="row.type === 'text' || row.type === 'number'"
         v-model="formData[index].value"
@@ -22,6 +26,7 @@
         :type="row.type"
         layout="horizontal"
         />
+      <!-- Radio button, used for True or False input -->
       <Radio
         v-else-if="row.type === 'boolean'"
         v-model="formData[index].value"
@@ -30,6 +35,7 @@
         :options="['true', 'false']"
         :initialOption="boolToStr(formData[index].value)"
       />
+      <!-- Select/ dropdown for enum multiple-choice input -->
       <Select
         v-else-if="row.type === 'select'"
         v-model="formData[index].value"
@@ -37,12 +43,15 @@
         :description="row.description"
         :initialOption="formData[index].value"
         :label="row.name"
+        class="edit-item-select"
       />
+      <!-- Warning note, for any other data types, that aren't yet supported -->
       <div v-else>
         {{ row.name }} cannot currently be edited through the UI.
       </div>
       <BinIcon @click="() => removeField(row.name)" />
     </div>
+    <!-- Show Add chips, for adding more data elements to the form -->
     <div class="add-more-inputs" v-if="additionalFormData.length > 0">
       <h4>More Fields</h4>
       <div class="more-fields">
@@ -55,7 +64,8 @@
         </span>
       </div>
     </div>
-    <Button :click="saveItem">Save</Button>
+    <!-- Save to state button -->
+    <Button class="edit-item-save-btn" :click="saveItem">Save</Button>
     </div>
   </modal>
 </template>
@@ -128,10 +138,61 @@ export default {
       });
       return formData;
     },
+    /* Convert boolean to string */
     boolToStr(bool) {
       if (bool) return 'true';
       if (bool === false) return 'false';
       return undefined;
+    },
+    /* Adds field from extras list to main form, then removes from extras list */
+    appendNewField(fieldId) {
+      Object.keys(this.schema).forEach((property) => {
+        if (property === fieldId) {
+          this.formData.push(this.makeRowData(property));
+        }
+      });
+      this.additionalFormData.forEach((elem, index) => {
+        if (elem.name === fieldId) {
+          this.additionalFormData.splice(index, 1);
+        }
+      });
+    },
+    /* On Remove Field click, removes field from main form, and adds to chip list */
+    removeField(fieldId) {
+      this.formData.forEach((elem, index) => {
+        if (elem.name === fieldId) {
+          this.formData.splice(index, 1);
+          this.additionalFormData.push(elem);
+        }
+      });
+    },
+    /* Use schema to determine type of form element to render, for a given attribute */
+    getInputType(schemaItem) {
+      const definedType = schemaItem.type;
+      if (definedType === 'text') {
+        return 'text';
+      } else if (definedType === 'number') {
+        return 'number';
+      } else if (definedType === 'boolean') {
+        return 'boolean';
+      } else if (schemaItem.enum) {
+        return 'select';
+      }
+      return 'text';
+    },
+    /* Saves the updated item to VueX Store */
+    saveItem() {
+      // Convert form data back into section.item data structure
+      const structured = {};
+      this.formData.forEach((row) => { structured[row.name] = row.value; });
+      // Some attributes need a little extra formatting
+      const newItem = this.formatBeforeSave(structured);
+      // Update the data store, with new item data
+      this.$store.commit(StoreKeys.UPDATE_ITEM, { newItem, itemId: this.itemId });
+      // If we're not already in edit mode, enable it now
+      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+      // Close edit menu
+      this.$emit('closeEditMenu');
     },
     /* Some fields require a bit of extra processing before they're saved */
     formatBeforeSave(item) {
@@ -149,57 +210,6 @@ export default {
       if (newItem.tags) newItem.tags = strToTags(newItem.tags);
       if (newItem.statusCheck) newItem.statusCheck = strToBool(newItem.statusCheck);
       return newItem;
-    },
-    /* Saves the updated item to VueX Store */
-    saveItem() {
-      // Convert form data back into section.item data structure
-      const structured = {};
-      this.formData.forEach((row) => { structured[row.name] = row.value; });
-      // Some attributes need a little extra formatting
-      const newItem = this.formatBeforeSave(structured);
-      // Update the data store, with new item data
-      this.$store.commit(StoreKeys.UPDATE_ITEM, { newItem, itemId: this.itemId });
-      // If we're not already in edit mode, enable it now
-      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
-      // Close edit menu
-      this.$emit('closeEditMenu');
-    },
-    /* Adds filed from extras list to main form, then removes from extras list */
-    appendNewField(fieldId) {
-      Object.keys(this.schema).forEach((property) => {
-        if (property === fieldId) {
-          this.formData.push(this.makeRowData(property));
-        }
-      });
-      this.additionalFormData.forEach((elem, index) => {
-        if (elem.name === fieldId) {
-          this.additionalFormData.splice(index, 1);
-        }
-      });
-    },
-    /* Removes filed from main form, adds back into extras list */
-    removeField(fieldId) {
-      this.formData.forEach((elem, index) => {
-        if (elem.name === fieldId) {
-          this.formData.splice(index, 1);
-          this.additionalFormData.push(elem);
-        }
-      });
-    },
-    /* For a given attribute, determine type from schema */
-    getInputType(schemaItem) {
-      const definedType = schemaItem.type;
-      // console.log(definedType);
-      if (definedType === 'text') {
-        return 'text';
-      } else if (definedType === 'number') {
-        return 'number';
-      } else if (definedType === 'boolean') {
-        return 'boolean';
-      } else if (schemaItem.enum) {
-        return 'select';
-      }
-      return 'text';
     },
     /* Clean up work, triggered when modal closed */
     modalClosed() {
@@ -276,13 +286,47 @@ export default {
     }
   }
 
-  /* Override form input colors, to use local CSS variables */
-  .input-container input.input-field,
+  /* Override form element colors, with local CSS variables */
+  div.input-container input.input-field,
   .radio-container div.radio-wrapper,
   .form-dropdown div.vs__dropdown-toggle {
     color: var(--interactive-editor-color);
-    background: var(--interactive-editor-background);
     border-color: var(--interactive-editor-color);
+    background: var(--interactive-editor-background);
+  }
+  button.edit-item-save-btn {
+    color: var(--interactive-editor-color);
+    border-color: var(--interactive-editor-color);
+    background: var(--interactive-editor-background);
+    &:hover {
+      color: var(--interactive-editor-background);
+      border-color: var(--interactive-editor-color);
+      background: var(--interactive-editor-color);
+    }
+  }
+  svg {
+    path { fill: var(--interactive-editor-color); }
+    background: var(--interactive-editor-background);
+    &:hover, &.selected {
+      path { fill: var(--interactive-editor-background); }
+      background: var(--interactive-editor-color);
+    }
+  }
+  .edit-item-select .v-select {
+    input.vs__search { color: var(--interactive-editor-color); }
+    div.vs__dropdown-toggle {
+      border-color: var(--interactive-editor-color);
+      background: var(--interactive-editor-background);
+      span.vs__selected { color: var(--interactive-editor-color); }
+      .vs__actions svg {
+        background: var(--interactive-editor-background);
+        path { fill: var(--interactive-editor-color); }
+        &:hover {
+          background: var(--interactive-editor-color);
+          path { fill: var(--interactive-editor-background); }
+        }
+      }
+    }
   }
 }
 </style>
