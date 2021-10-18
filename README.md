@@ -445,6 +445,7 @@ Dashy supports multiple languages and locales. When available, you're language s
 - 🇳🇱 **Dutch**: `nl` - Contributed by **[@evroon](https://github.com/evroon)**
 - 🇲🇫 **French**: `fr` - Contributed by **[@EVOTk](https://github.com/EVOTk)**
 - 🇩🇪 **German**: `de` - Contributed by **[@Niklashere](https://github.com/Niklashere)**
+- 🇳🇴 **Norwegian Bokmål**: `nb` - Contributed by **[@rubjo](https://github.com/rubjo)**
 - 🇪🇸 **Spanish**: `es` - Contributed by **[@lu4t](https://github.com/lu4t)**
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
 - 🇮🇹 **Italian**: `it` - Machine Translated *(awaiting human review)*
@@ -455,7 +456,7 @@ Dashy supports multiple languages and locales. When available, you're language s
 - 🇯🇵 **Japanese**: `ja` - Contributed by Anon
 
 #### Add your Language
-I would love for Dashy to be available to everyone, without language being a barrier to entry for non-native English speakers. If you have a few minutes to sapir, you're help with translating it would be very much appreciated.
+I would love for Dashy to be available to everyone, without language being a barrier to entry for non-native English speakers. If you have a few minutes to spare, you're help with translating it would be very much appreciated.
 It's quite a quick task, all text is in [a single JSON file](https://github.com/Lissy93/dashy/tree/master/src/assets/locales), and you don't have to translate it all. For more info, see the [Adding a New Language Docs](./docs/multi-language-support.md#adding-a-new-language), and feel free to reach out if you need any support.
 
 **[⬆️ Back to Top](#dashy)**
@@ -649,7 +650,7 @@ For a full breakdown of each change, you can view the [Changelog](https://github
 - 💻 [Management](/docs/management.md) - Managing your app, updating, security, web server configuration, etc
 - 🚒 [Troubleshooting](/docs/troubleshooting.md) - Common errors and problems, and how to fix them
 
-#### Development and Contributing 
+#### Development and Contributing
 - 🧱 [Developing](/docs/developing.md) - Running Dashy development server locally, and general workflow
 - 🛎️ [Development Guides](/docs/development-guides.md) - Common development tasks, to help new contributors
 - 💖 [Contributing](/docs/contributing.md) - How to contribute to Dashy
