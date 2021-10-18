@@ -216,8 +216,8 @@ export default {
 
 .edit-item-inner {
   padding: 1rem;
-  background: var(--config-settings-background);
-  color: var(--config-settings-color);
+  background: var(--interactive-editor-background);
+  color: var(--interactive-editor-color);
   height: 100%;
   overflow-y: auto;
   @extend .svg-button;
@@ -238,7 +238,7 @@ export default {
     display: flex;
     padding: 0.5rem 0.25rem;
     &:not(:last-child) {
-      border-bottom: 1px dotted var(--config-settings-color);
+      border-bottom: 1px dotted var(--interactive-editor-color);
     }
     .input-container, .select-container {
         width: 100%;
@@ -259,14 +259,14 @@ export default {
       align-items: center;
       cursor: pointer;
       text-align: center;
-      border: 1px solid var(--config-settings-color);
+      border: 1px solid var(--interactive-editor-color);
       border-radius: var(--curve-factor);
       &:hover {
-        background: var(--config-settings-color);
-        color: var(--config-settings-background);
+        background: var(--interactive-editor-color);
+        color: var(--interactive-editor-background);
         svg {
-          background: var(--config-settings-color);
-          path { fill: var(--config-settings-background); }
+          background: var(--interactive-editor-color);
+          path { fill: var(--interactive-editor-background); }
         }
       }
       svg {
@@ -280,9 +280,9 @@ export default {
   .input-container input.input-field,
   .radio-container div.radio-wrapper,
   .form-dropdown div.vs__dropdown-toggle {
-    color: var(--config-settings-color);
-    background: var(--config-settings-background);
-    border-color: var(--config-settings-color);
+    color: var(--interactive-editor-color);
+    background: var(--interactive-editor-background);
+    border-color: var(--interactive-editor-color);
   }
 }
 </style>

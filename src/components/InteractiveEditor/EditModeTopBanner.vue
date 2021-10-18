@@ -9,12 +9,12 @@ div.edit-mode-top-banner {
   width: 100%;
   text-align: center;
   padding: 0.2rem 0;
-  background: var(--primary);
+  background: var(--interactive-editor-color);
   opacity: var(--dimming-factor);
   span {
     font-size: 1rem;
     font-weight: bold;
-    color: var(--background);
+    color: var(--interactive-editor-background);
   }
 }
 </style>

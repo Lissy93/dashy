@@ -102,8 +102,8 @@ div.edit-mode-bottom-banner {
   bottom: 0;
   width: 100%;
   padding: 0.25rem 0;
-  border-top: 2px solid var(--primary);
-  background: var(--background-darker);
+  border-top: 2px solid var(--interactive-editor-color);
+  background: var(--interactive-editor-background-darker);
   box-shadow: 0 -5px 7px var(--transparent-50);
   grid-template-columns: 45% 10% 45%;
   @include laptop-up { grid-template-columns: 40% 20% 40%; }
@@ -117,7 +117,7 @@ div.edit-mode-bottom-banner {
     /* Section sub-titles */
     p.section-sub-title {
       margin: 0;
-      color: var(--primary);
+      color: var(--interactive-editor-color);
       font-weight: bold;
       cursor: default;
     }
@@ -125,7 +125,7 @@ div.edit-mode-bottom-banner {
     &.intro-container  {
         p.edit-mode-intro {
         margin: 0;
-        color: var(--primary);
+        color: var(--interactive-editor-color);
         cursor: default;
       }
     }
