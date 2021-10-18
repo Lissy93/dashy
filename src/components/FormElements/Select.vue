@@ -43,6 +43,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/media-queries.scss';
+
 div.select-container {
   margin: 0.25rem auto;
   display: flex;
@@ -78,11 +80,22 @@ div.select-container {
       outline: none;
     }
   }
+  @include tablet-down {
+    flex-direction: column;
+    align-items: start;
+      label.select-label,
+      .form-dropdown,
+      p.select-description {
+        margin: 0.5rem;
+        flex-basis: auto;
+      }
+  }
 }
 </style>
 
 <style lang="scss">
 @import '@/styles/style-helpers.scss';
+
 .form-dropdown {
   margin: 1rem auto;
   ul.vs__dropdown-menu {

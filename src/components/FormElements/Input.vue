@@ -54,6 +54,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/media-queries.scss';
+
 div.input-container {
   margin: 0.25rem auto;
   display: flex;
@@ -62,18 +64,20 @@ div.input-container {
     flex-direction: column;
   }
   &.horizontal {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    label.input-label,
-    input.input-field,
-    p.input-description {
-      margin: 0.25rem;
-      flex-basis: 8rem;
-      flex-grow: 1;
+    @include tablet-up {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      label.input-label,
+      input.input-field,
+      p.input-description {
+        margin: 0.25rem;
+        flex-basis: 8rem;
+        flex-grow: 1;
+      }
+      input.input-field { flex-grow: 2; }
+      p.input-description { flex-grow: 3; }
     }
-    input.input-field { flex-grow: 2; }
-    p.input-description { flex-grow: 3; }
   }
 
   input.input-field {
@@ -98,6 +102,14 @@ div.input-container {
 
   p.input-description {
     opacity: var(--dimming-factor);
+  }
+
+  @include tablet-down {
+    flex-direction: column;
+    align-items: start;
+    input.input-field {
+      margin: 0.5rem;
+    }
   }
 }
 
