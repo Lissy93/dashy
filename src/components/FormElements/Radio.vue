@@ -37,7 +37,7 @@ export default {
   },
   created() {
     if (this.initialOption) {
-      this.selectedRadio = this.initialOption;
+      this.updateValue(this.initialOption);
     }
   },
   computed: {
