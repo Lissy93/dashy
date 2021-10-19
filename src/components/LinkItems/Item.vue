@@ -240,6 +240,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/styles/style-helpers.scss';
+@import '@/styles/media-queries.scss';
 
 .item-wrapper {
   flex-grow: 1;
@@ -269,10 +271,6 @@ export default {
     box-shadow: var(--item-hover-shadow);
     background: var(--item-background-hover);
     color: var(--item-text-color-hover);
-    position: relative;
-    .tile-title span.text {
-      white-space: pre-wrap;
-    }
   }
   &:focus {
     outline: 2px solid var(--primary);
@@ -292,11 +290,18 @@ export default {
   padding: 0;
   z-index: 2;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   word-break: keep-all;
+  &:not(.no-icon) {
+    overflow: hidden;
+  }
   span.text {
+    text-overflow: ellipsis;
     white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    width: -webkit-fill-available;
   }
 }
 
@@ -371,8 +376,7 @@ export default {
       margin-bottom: 0.25rem;
     }
     .tile-title {
-      min-width: 100px;
-      max-width: 160px;
+      width: 100%;
       &.no-icon {
         text-align: left;
         width: 100%;
@@ -398,6 +402,7 @@ export default {
     .tile-title {
       height: auto;
       padding: 0.1rem 0.25rem;
+      -webkit-line-clamp: 3;
       span.text {
         position: relative;
         font-weight: bold;
@@ -425,13 +430,28 @@ export default {
   }
 }
 
-</style>
-
-<!-- An un-scoped style tag, since tooltip is outside this DOM tree -->
-<style lang="scss">
-
 .disabled-link {
   pointer-events: none;
+}
+
+/* Modifications for more equal width on auto-layout. This is bad code. */
+.orientation-auto {
+  .collapsable.col-1 .wrap-size-medium {
+    max-width: 50%;
+  }
+  @include tablet-up {
+    .collapsable.col-2 .wrap-size-medium {
+      max-width: 25%;
+    }
+  }
+  @include tablet-up {
+    .collapsable.col-1 .wrap-size-small {
+      min-width: 50%;
+    }
+    .collapsable.col-2 .wrap-size-small {
+      min-width: 20%;
+    }
+  }
 }
 
 </style>
