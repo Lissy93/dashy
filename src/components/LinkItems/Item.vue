@@ -434,24 +434,4 @@ export default {
   pointer-events: none;
 }
 
-/* Modifications for more equal width on auto-layout. This is bad code. */
-.orientation-auto {
-  .collapsable.col-1 .wrap-size-medium {
-    max-width: 50%;
-  }
-  @include tablet-up {
-    .collapsable.col-2 .wrap-size-medium {
-      max-width: 25%;
-    }
-  }
-  @include tablet-up {
-    .collapsable.col-1 .wrap-size-small {
-      min-width: 50%;
-    }
-    .collapsable.col-2 .wrap-size-small {
-      min-width: 20%;
-    }
-  }
-}
-
 </style>
