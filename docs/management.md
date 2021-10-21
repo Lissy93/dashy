@@ -1,6 +1,6 @@
 # Management
 
-_The following article explains aspects of app management, and is useful to know for when self-hosting. It covers everything from keeping the app up-to-date, secure, backed up, to other topics like auto-starting, monitoring, log management, web server configuration and using custom environments. Most of it is aimed at running the Dashy (or any other app) in a container, but some of it also applies to bare metal setups too. It's like a top-15 list of need-to-know knowledge for self-hosting._
+_The following article explains aspects of app management, and is useful to know for when self-hosting. It covers everything from keeping the app up-to-date, secure, backed up, to other topics like auto-starting, monitoring, log management, web server configuration and using custom environments. Most of it is aimed at running the Dashy (or any other app) in a container, but some of it also applies to bare metal setups too. It's like a top-20 list of need-to-know knowledge for self-hosting._
 
 ## Contents
 - [Providing Assets](#providing-assets)
@@ -16,8 +16,10 @@ _The following article explains aspects of app management, and is useful to know
 - [Managing with Compose](#managing-containers-with-docker-compose)
 - [Environmental Variables](#passing-in-environmental-variables)
 - [Securing Containers](#container-security)
+- [Remote Access](#remote-access)
 - [Web Server Configuration](#web-server-configuration)
-- [Running a Modified Apps](#running-a-modified-version-of-the-app)
+- [Running a Modified App](#running-a-modified-version-of-the-app)
+- [Building your Own Container](#building-your-own-container)
 
 ---
 
@@ -37,9 +39,9 @@ In Dashy, commonly configured resources include:
 ---
 ## Running Commands
 
-The project has a few commands that can be used for various tasks, you can find a list of these either in the [Developing Docs](/docs/developing.md#project-commands), or by looking at the [`package.json`](https://github.com/Lissy93/dashy/blob/master/package.json#L5). These can be used by running `yarn [command-name]`.
+ If you're running an app in Docker, then commands will need to be passed to the container to be executed. This can be done by preceding each command with `docker exec -it [container-id]`, where container ID can be found by running `docker ps`. For example `docker exec -it 26c156c467b4 yarn build`. You can also enter the container, with `docker exec -it [container-id] /bin/ash`, and navigate around it with normal Linux commands.
 
- If you're using Docker, then you'll need to execute them within the container. This can be done by preceding each command with `docker exec -it [container-id]`, where container ID can be found by running `docker ps`. For example `docker exec -it 26c156c467b4 yarn build`. You can also enter the container, with `docker exec -it [container-id] /bin/ash`, and navigate around it with normal Linux commands.
+ Dashy has several commands that can be used for various tasks, you can find a list of these either in the [Developing Docs](/docs/developing.md#project-commands), or by looking at the [`package.json`](https://github.com/Lissy93/dashy/blob/master/package.json#L5). These can be used by running `yarn [command-name]`.
 
 **[⬆️ Back to Top](#management)**
 
@@ -48,7 +50,7 @@ The project has a few commands that can be used for various tasks, you can find 
 
 Healthchecks are configured to periodically check that Dashy is up and running correctly on the specified port. By default, the health script is called every 5 minutes, but this can be modified with the `--health-interval` option. You can check the current container health with: `docker inspect --format "{{json .State.Health }}" [container-id]`, and a summary of health status will show up under `docker ps`. You can also manually request the current application status by running `docker exec -it [container-id] yarn health-check`. You can disable healthchecks altogether by adding the `--no-healthcheck` flag to your Docker run command.
 
-To restart unhealthy containers automatically, check out [Autoheal](https://hub.docker.com/r/willfarrell/autoheal/). This image watches for unhealthy containers, and automatically triggers a restart. (This is a stand in for Docker's `--exit-on-unhealthy` that was proposed, but [not merged](https://github.com/moby/moby/pull/22719)).
+To restart unhealthy containers automatically, check out [Autoheal](https://hub.docker.com/r/willfarrell/autoheal/). This image watches for unhealthy containers, and automatically triggers a restart. (This is a stand in for Docker's `--exit-on-unhealthy` that was proposed, but [not merged](https://github.com/moby/moby/pull/22719)). There's also [Deunhealth](https://github.com/qdm12/deunhealth), which is super light-weight, and doesn't require network access.
 
 ```
 docker run -d \
@@ -396,6 +398,114 @@ Docker supports several modules that let you write your own security profiles.
 
 ---
 
+## Remote Access
+
+### WireGuard
+
+Using a VPN is one of the easiest ways to provide secure, full access to your local network from remote locations. [WireGuard](https://www.wireguard.com/) is a reasonably new open source VPN protocol, that was designed with ease of use, performance and security in mind. Unlike OpenVPN, it doesn't need to recreate the tunnel whenever connection is dropped, and it's also much easier to setup, using shared keys instead. 
+
+- **Install Wireguard** - See the [Install Docs](https://www.wireguard.com/install/) for download links + instructions
+	- On Debian-based systems, it's `sudo apt install wireguard`
+- **Generate a Private Key** - Run `wg genkey` on the Wireguard server, and copy it to somewhere safe for later
+- **Create Server Config** - Open or create a file at `/etc/wireguard/wg0.conf` and under `[Interface]` add the following (see example below):
+	- `Address` - as a subnet of all desired IPs
+	- `PrivateKey` - that you just generated
+	- `ListenPort` - Default is `51820`, but can be anything
+- **Get Client App** - Download the [WG client app](https://www.wireguard.com/install/) for your platform (Linux, Windows, MacOS, Android or iOS are all supported)
+- **Create new Client Tunnel** - On your client app, there should be an option to create a new tunnel, when doing so a client private key will be generated (but if not, use the `wg genkey` command again), and keep it somewhere safe. A public key will also be generated, and this will go in our saver config
+- **Add Clients to Server Config** - Head back to your `wg0.conf` file on the server, create a `[Peer]` section, and populate the following info
+	- `AllowedIPs` - List of IP address inside the subnet, the client should have access to
+	- `PublicKey` - The public key for the client you just generated
+- **Start the Server** - You can now start the WG server, using: `wg-quick up wg0` on your server
+- **Finish Client Setup** - Head back to your client device, and edit the config file, leave the private key as is, and add the following fields:
+	- `PublicKey` - The public key of the server
+	- `Address` - This should match the `AllowedIPs` section on the servers config file
+	- `DNS` - The DNS server that'll be used when accessing the network through the VPN
+	- `Endpoint` - The hostname or IP + Port where your WG server is running (you may need to forward this in your firewall's settings)
+- **Done** - Your clients should now be able to connect to your WG server :) Depending on your networks firewall rules, you may need to port forward the address of your WG server
+
+**Example Server Config**
+
+```ini
+# Server file
+[Interface]
+# Which networks does my interface belong to? Notice: /24 and /64
+Address = 10.5.0.1/24, 2001:470:xxxx:xxxx::1/64
+PrivateKey = xxx
+ListenPort = 51820
+
+# Peer 1
+[Peer]
+PublicKey = xxx
+# Which source IPs can I expect from that peer? Notice: /32 and /128
+AllowedIps = 10.5.0.35/32, 2001:470:xxxx:xxxx::746f:786f/128
+
+# Peer 2
+[Peer]
+PublicKey = xxx
+# Which source IPs can I expect from that peer? This one has a LAN which can
+# access hosts/jails without NAT.
+# Peer 2 has a single IP address inside the VPN: it's 10.5.0.25/32
+AllowedIps = 10.5.0.25/32,10.21.10.0/24,10.21.20.0/24,10.21.30.0/24,10.31.0.0/24,2001:470:xxxx:xxxx::ca:571e/128
+```
+
+**Example Client Config**
+
+```ini
+[Interface]
+# Which networks does my interface belong to? Notice: /24 and /64
+Address = 10.5.0.35/24, 2001:470:xxxx:xxxx::746f:786f/64
+PrivateKey = xxx
+
+# Server
+[Peer]
+PublicKey = xxx
+# I want to route everything through the server, both IPv4 and IPv6. All IPs are
+# thus available through the Server, and I can expect packets from any IP to
+# come from that peer.
+AllowedIPs = 0.0.0.0/0, ::0/0
+# Where is the server on the internet? This is a public address. The port
+# (:51820) is the same as ListenPort in the [Interface] of the Server file above
+Endpoint = 1.2.3.4:51820
+# Usually, clients are behind NAT. to keep the connection running, keep alive.
+PersistentKeepalive = 15
+```
+
+
+A useful tool for getting WG setup is [Algo](https://github.com/trailofbits/algo). It includes scripts and docs which cover almost all devices, platforms and clients, and has best practices implemented, and security features enabled. All of this is better explained in [this blog post](https://blog.trailofbits.com/2016/12/12/meet-algo-the-vpn-that-works/).
+
+
+### Reverse SSH Tunnel
+
+SSH (or [Secure Shell](https://en.wikipedia.org/wiki/Secure_Shell)) is a secure tunnel that allows you to connect to a remote host. Unlike the VPN methods, an SSH connection does not require an intermediary, and will not be affected by your IP changing. However it only allows you to access a single service at a time. SSH was really designed for terminal access, but because of the latter mentioned benefits it's useful to setup, as a fallback option.
+
+Directly SSH'ing into your home, would require you to open a port (usually 22), which would be terrible for security, and is not recommended. However a reverse SSH connection is initiated from inside your network. Once the connection is established, the port is redirected, allowing you to use the established connection to SSH into your home network. 
+
+The issue you've probably spotted, is that most public, corporate, and institutional networks will block SSH connections. To overcome this, you'd have to establish a server outside of your homelab that your homelab's device could SSH into to establish the reverse SSH connection. You can then connect to that remote server (the _mothership_), which in turn connects to your home network.
+
+Now all of this is starting to sound like quite a lot of work, but this is where services like [remot3.it](https://remote.it/) come in. They maintain the intermediary mothership server, and create the tunnel service for you. It's free for personal use, secure and easy. There are several similar services, such as [RemoteIoT](https://remoteiot.com/), or you could create your own on a cloud VPS (see [this tutorial](https://gist.github.com/nileshtrivedi/4c615e8d3c1bf053b0d31176b9e69e42) for more info on that).
+
+Before getting started, you'll need to head over to [Remote.it](https://app.remote.it/auth/#/sign-up) and create an account.
+
+Then setup your local device:
+1. If you haven't already done so, you'll need to enable and configure SSH.
+	- This is out-of-scope of this article, but I've explained it in detail in [this post](https://notes.aliciasykes.com/22798/my-server-setup#configure-ssh).
+2. Download the Remote.it install script from their [GitHub](https://github.com/remoteit/installer)
+	- `curl -LkO https://raw.githubusercontent.com/remoteit/installer/master/scripts/auto-install.sh`
+3. Make it executable, with `chmod +x ./auto-install.sh`, and then run it with `sudo ./auto-install.sh`
+4. Finally, configure your device, by running `sudo connectd_installer` and following the on-screen instructions
+
+And when you're ready to connect to it:
+1. Login to [app.remote.it](https://app.remote.it/), and select the name of your device
+2. You should see a list of running services, click SSH
+3. You'll then be presented with some SSH credentials that you can now use to securely connect to your home, via the Remote.it servers
+
+Done :)
+
+**[⬆️ Back to Top](#management)**
+
+---
+
 ## Web Server Configuration
 
 _The following section only applies if you are not using Docker, and would like to use your own web server_
@@ -475,9 +585,17 @@ Then restart Apache, with `sudo systemctl restart apache2`
 
 If you'd like to make any code changes to the app, and deploy your modified version, this section briefly explains how.
 
-The first step is to fork the project on GitHub, and clone it to your local system. Next, install the dependencies (`yarn`), and start the development server (`yarn dev`) and visit `localhost:8080` in your browser. You can then make changes to the codebase, and see the live app update in real-time. Once you've finished, running `yarn build` will build the app for production, and output the assets into `./dist` which can then be deployed using a web server, CDN or the built-in Node server with `yarn start`. For more info on all of this, take a look at the [Developing Docs](/docs/developing.md).
+The first step is to fork the project on GitHub, and clone it to your local system. Next, install the dependencies (`yarn`), and start the development server (`yarn dev`) and visit `localhost:8080` in your browser. You can then make changes to the codebase, and see the live app update in real-time. Once you've finished, running `yarn build` will build the app for production, and output the assets into `./dist` which can then be deployed using a web server, CDN or the built-in Node server with `yarn start`. For more info on all of this, take a look at the [Developing Docs](/docs/developing.md). To build your own Docker container from the modified app, see [Building your Own Container](#building-your-own-container)
 
-You probably want to deploy your app with Docker, and this can be done as follows:
+**[⬆️ Back to Top](#management)**
+
+---
+
+## Building your Own Container
+
+Similar to above, you'll first need to fork and clone Dashy to your local system, and then install dependencies.
+
+Then, either use Dashy's default [`Dockerfile`](https://github.com/Lissy93/dashy/blob/master/Dockerfile) as is, or modify it according to your needs.
 
 To build and deploy locally, first build the app with: `docker build -t dashy .`, and then start the app with `docker run -p 8080:80 --name my-dashboard dashy`.  Or modify the `docker-compose.yml` file, replacing `image: lissy93/dashy` with `build: .` and run `docker compose up`.
 
@@ -487,3 +605,5 @@ You may wish to upload your image to a container registry for easier access. Not
 You can push your build image, by running: `docker push ghcr.io/OWNER/IMAGE_NAME:latest`. You will first need to authenticate, this can be done by running `echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin`, where `CR_PAT` is an environmental variable containing a token generated from your GitHub account. For more info, see the [Container Registry Docs](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
 
 **[⬆️ Back to Top](#management)**
+
+---
