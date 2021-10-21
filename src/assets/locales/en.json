@@ -37,7 +37,7 @@
     "edit-config-tab": "Edit Config",
     "custom-css-tab": "Custom Styles",
     "heading": "Configuration Options",
-    "download-config-button": "Download Config",
+    "download-config-button": "View / Export Config",
     "edit-config-button": "Edit Config",
     "edit-css-button": "Edit Custom CSS",
     "cloud-sync-button": "Enable Cloud Sync",
@@ -164,26 +164,42 @@
     "restore-success-msg": "Config Restored Successfully"
   },
   "menu": {
+    "open-section-title": "Open In",
     "sametab": "Current Tab",
     "newtab": "New Tab",
     "modal": "Pop-Up Modal",
-    "workspace": "Workspace View"
+    "workspace": "Workspace View",
+    "options-section-title": "Options",
+    "edit-item": "Edit",
+    "move-item": "Move To",
+    "remove-item": "Remove"
   },
   "interactive-editor": {
+    "start-editing-tooltip": "Enter the Interactive Editor",
+    "edit-site-data-subheading": "Edit Site Data",
     "edit-page-info-btn": "Edit Page Info",
     "edit-page-info-tooltip": "App title, description, nav links, footer text, etc",
     "edit-app-config-btn": "Edit App Config",
     "edit-app-config-tooltip": "All other app configuration options",
+    "config-save-methods-subheading": "Config Saving Options",
     "save-locally-btn": "Save Locally",
     "save-locally-tooltip": "Save config locally, to browser storage. This will not affect your config file, but changes will only be saved on this device",
     "save-disk-btn": "Save to Disk",
     "save-disk-tooltip": "Save config to the conf.yml file on disk. This will backup, and then over-write your existing config",
     "export-config-btn": "Export Config",
     "export-config-tooltip": "View and export new config, either to a file, or to clipboard",
-    "cancel-changes-btn": "Reset Changes",
-    "cancel-changes-tooltip": "Reset current modifications. This will not affect your saved config",
+    "cancel-changes-btn": "Cancel Edit",
+    "cancel-changes-tooltip": "Reset current modifications, and exit Edit Mode. This will not affect your saved config",
     "edit-mode-name": "Edit Mode",
     "edit-mode-subtitle": "You are in Edit Mode",
-    "edit-mode-description": "This means you can make modifications to your config, and preview the results, but until you save, none of your changes will be preserved."
+    "edit-mode-description": "This means you can make modifications to your config, and preview the results, but until you save, none of your changes will be preserved.",
+    "export": {
+      "export-title": "Export Config",
+      "copy-clipboard-btn": "Copy to Clipboard",
+      "copy-clipboard-tooltip": "Copy all app config to system clipboard, in YAML format",
+      "download-file-btn": "Download as File",
+      "download-file-tooltip": "Download all app config to your device, in a YAML file",
+      "view-title": "View Config"
+    }
   }
 }
