@@ -406,20 +406,11 @@ html[data-theme='material'], html[data-theme='material-dark'] {
         min-height: 2rem;
       }	
     }
-    &.size-large {
-      width: 18rem;
-      min-width: 18rem;
-      max-height: 5rem;
-      margin: 0.4rem;
-      img {
-        padding: 0.2rem 0.5rem;
-      }
-    }
   }
   .tooltip.item-description-tooltip:not(.tooltip-is-small) {
     display: none !important;
   }
-  .orientation-horizontal {
+  .orientation-horizontal:not(.single-section-view) {
     display: flex;
     flex-direction: column;
     .there-are-items {
@@ -431,6 +422,11 @@ html[data-theme='material'], html[data-theme='material-dark'] {
       @include monitor { grid-template-columns: repeat(4, 1fr); }
       @include big-screen { grid-template-columns: repeat(5, 1fr); }
       @include big-screen-up { grid-template-columns: repeat(6, 1fr); }
+    }
+    .there-are-items .item-wrapper .item {
+      width: auto;
+      min-width: auto;
+      max-height: auto;
     }
   }
   a.item {
@@ -480,15 +476,9 @@ html[data-theme='material'], html[data-theme='material-dark'] {
       padding-left: 0.5rem;
       min-width: 11rem;
     }
-    &.size-large {
-      &:before {
-        width: 1.5rem;
-      }
-      &:hover {
-        div:nth-child(2) {
-          text-indent: 1.5rem;
-        }
-      }
+    &.short:not(.size-large) {
+      min-height: 2rem;
+      height: auto;
     }
   }
 }
