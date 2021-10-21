@@ -4,7 +4,7 @@
       <div class="main-options-container">
         <div class="config-buttons">
           <h2>Configuration Options</h2>
-          <a class="hyperlink-wrapper"  @click="downloadConfigFile('conf.yml', yaml)">
+          <a class="hyperlink-wrapper"  @click="openExportConfigModal()">
             <button class="config-button center">
               <DownloadIcon class="button-icon"/>
               {{ $t('config.download-config-button') }}
@@ -134,9 +134,8 @@ export default {
     openLanguageSwitchModal() {
       this.$modal.show(modalNames.LANG_SWITCHER);
     },
-    copyConfigToClipboard() {
-      navigator.clipboard.writeText(this.jsonParser(this.config));
-      this.$toasted.show(this.$t('config.data-copied-msg'));
+    openExportConfigModal() {
+      this.$modal.show(modalNames.EXPORT_CONFIG_MENU);
     },
     /* Checks that the user is sure, then resets site-wide local storage, and reloads page */
     resetLocalSettings() {
@@ -150,16 +149,6 @@ export default {
           location.reload(true); // eslint-disable-line no-restricted-globals
         }, 1900);
       }
-    },
-    /* Generates a new file, with the YAML contents, and triggers a download */
-    downloadConfigFile(filename, filecontents) {
-      const element = document.createElement('a');
-      element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(filecontents)}`);
-      element.setAttribute('download', filename);
-      element.style.display = 'none';
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
     },
     getLanguage() {
       const lang = getUsersLanguage();
