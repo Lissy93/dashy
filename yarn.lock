@@ -1023,6 +1023,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@formschema/native@^2.0.0-beta.5":
+  version "2.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@formschema/native/-/native-2.0.0-beta.5.tgz#7a6cb6850c439893ca033eeb6a5ea15f98944a89"
+  integrity sha512-zu4sdtq9o4qQtsEEpSuzQJKzcLk6WH2bfwZuop82hI/H0IltjaLWJTMdjv4c9MXsS7tNvg7ytby/OnT4GzOj5w==
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
@@ -6347,7 +6352,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.3:
+lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.3, lodash@^4.17.4:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -9809,6 +9814,14 @@ vue-js-modal@^2.0.0-rc.6:
   dependencies:
     resize-observer-polyfill "^1.5.1"
 
+vue-json-tree-view@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/vue-json-tree-view/-/vue-json-tree-view-2.1.6.tgz#a153ac1b18432b8671c65930f545ce134e38cf2d"
+  integrity sha512-gs7VDd1dC5SFQmyMdIq3O0w2IsITZfzyNFe6lsTeQwhFkh0nwWxhKWrS6opNmdOYFYmy52D9DVto78v8mF7IXQ==
+  dependencies:
+    lodash "^4.17.4"
+    vue "^2.5.16"
+
 "vue-loader-v16@npm:vue-loader@^16.1.0":
   version "16.8.1"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-16.8.1.tgz#354f12bc0897954158b71590f800295713a7792d"
@@ -9890,7 +9903,7 @@ vue-toasted@^1.1.28:
   resolved "https://registry.yarnpkg.com/vue-toasted/-/vue-toasted-1.1.28.tgz#dbabb83acc89f7a9e8765815e491d79f0dc65c26"
   integrity sha512-UUzr5LX51UbbiROSGZ49GOgSzFxaMHK6L00JV8fir/CYNJCpIIvNZ5YmS4Qc8Y2+Z/4VVYRpeQL2UO0G800Raw==
 
-vue@^2.6.10:
+vue@^2.5.16, vue@^2.6.10:
   version "2.6.14"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
   integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
