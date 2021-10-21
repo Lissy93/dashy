@@ -100,7 +100,7 @@
         <a href="https://github.com/rubjo">
             <img src="https://avatars.githubusercontent.com/u/42270947?v=4" width="80;" alt="rubjo"/>
             <br />
-            <sub><b>rubjo</b></sub>
+            <sub><b>Rubjo</b></sub>
         </a>
     </td></tr>
 <tr>
