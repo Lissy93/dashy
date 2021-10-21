@@ -2,8 +2,11 @@
   <transition name="slide">
     <div class="context-menu" v-if="show && !isMenuDisabled"
       :style="posX && posY ? `top:${posY}px;left:${posX}px;` : ''">
+      <!-- Open Options -->
       <ul class="menu-section">
-        <li class="section-title">Open In</li>
+        <li class="section-title">
+          {{ $t('menu.open-section-title') }}
+        </li>
         <li @click="launch('sametab')">
           <SameTabOpenIcon />
           <span>{{ $t('menu.sametab') }}</span>
@@ -21,11 +24,22 @@
           <span>{{ $t('menu.workspace') }}</span>
         </li>
       </ul>
+      <!-- Edit Options -->
       <ul class="menu-section">
-        <li class="section-title">Options</li>
+        <li class="section-title">
+          {{ $t('menu.options-section-title') }}
+        </li>
         <li @click="openSettings()">
           <EditIcon />
-          <span>Edit</span>
+          <span>{{ $t('menu.edit-item') }}</span>
+        </li>
+        <li v-if="isEditMode">
+          <MoveIcon />
+          <span>{{ $t('menu.move-item') }}</span>
+        </li>
+        <li v-if="isEditMode">
+          <BinIcon />
+          <span>{{ $t('menu.remove-item') }}</span>
         </li>
       </ul>
     </div>
@@ -35,6 +49,9 @@
 <script>
 // Import icons for each element
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
+import BinIcon from '@/assets/interface-icons/interactive-editor-remove.svg';
+import MoveIcon from '@/assets/interface-icons/interactive-editor-move-to.svg';
+
 import SameTabOpenIcon from '@/assets/interface-icons/open-current-tab.svg';
 import NewTabOpenIcon from '@/assets/interface-icons/open-new-tab.svg';
 import IframeOpenIcon from '@/assets/interface-icons/open-iframe.svg';
@@ -44,6 +61,8 @@ export default {
   name: 'ContextMenu',
   components: {
     EditIcon,
+    MoveIcon,
+    BinIcon,
     SameTabOpenIcon,
     NewTabOpenIcon,
     IframeOpenIcon,
@@ -57,6 +76,9 @@ export default {
   computed: {
     isMenuDisabled() {
       return !!this.$store.getters.appConfig.disableContextMenu;
+    },
+    isEditMode() {
+      return this.$store.state.editMode;
     },
   },
   methods: {
