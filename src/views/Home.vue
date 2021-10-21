@@ -49,6 +49,7 @@
       {{searchValue ? $t('home.no-results') : $t('home.no-data')}}
     </div>
     <EditModeSaveMenu v-if="isEditMode" />
+    <ExportConfigMenu />
   </div>
 </template>
 
@@ -57,6 +58,7 @@
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
 import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
+import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vue';
 import { searchTiles } from '@/utils/Search';
 import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
@@ -67,6 +69,7 @@ export default {
   components: {
     SettingsContainer,
     EditModeSaveMenu,
+    ExportConfigMenu,
     Section,
     BackIcon,
   },
