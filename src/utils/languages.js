@@ -2,6 +2,7 @@
 import en from '@/assets/locales/en.json';
 import de from '@/assets/locales/de.json';
 import nl from '@/assets/locales/nl.json';
+import pl from '@/assets/locales/pl.json';
 import fr from '@/assets/locales/fr.json';
 import sl from '@/assets/locales/sl.json';
 import es from '@/assets/locales/es.json';
@@ -34,6 +35,12 @@ export const languages = [
     code: 'nl',
     locale: nl,
     flag: '🇳🇱',
+  },
+  {
+    name: 'polski',
+    code: 'pl',
+    locale: pl,
+    flag: '🇵🇱',
   },
   {
     name: 'Français',
