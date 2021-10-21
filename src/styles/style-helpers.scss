@@ -34,6 +34,15 @@
             background: var(--settings-text-color);
             path { fill: var(--background); }
         }
+        &.disabled {
+            opacity: var(--dimming-factor);
+            cursor: not-allowed;
+            &:hover {
+                border: 1px solid currentColor;
+                background: var(--background);
+                path { fill: var(--settings-text-color); }
+            }
+        }
     }
 }
 
