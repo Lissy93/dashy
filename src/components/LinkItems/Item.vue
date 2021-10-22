@@ -3,8 +3,8 @@
     <a @click="itemOpened"
       @mouseup.right="openContextMenu"
       @contextmenu.prevent
-      :href="(target !== 'modal' && target !== 'workspace') ? url : '#'"
-      :target="target === 'newtab' ? '_blank' : ''"
+      :href="targetHref"
+      :target="anchorTarget"
       :class="`item ${!icon? 'short': ''} size-${itemSize}`"
       v-tooltip="getTooltipOptions()"
       rel="noopener noreferrer" tabindex="0"
@@ -50,6 +50,7 @@ import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
 import ContextMenu from '@/components/LinkItems/ContextMenu';
 import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
+import { targetValidator } from '@/utils/ConfigHelpers';
 
 export default {
   name: 'Item',
@@ -66,8 +67,7 @@ export default {
     hotkey: Number, // Shortcut for quickly launching app
     target: { // Where resource will open, either 'newtab', 'sametab' or 'modal'
       type: String,
-      default: 'newtab',
-      validator: (value) => ['newtab', 'sametab', 'modal', 'workspace'].indexOf(value) !== -1,
+      validator: targetValidator,
     },
     itemSize: String,
     enableStatusCheck: Boolean,
@@ -79,6 +79,21 @@ export default {
   computed: {
     appConfig() {
       return this.$store.getters.appConfig;
+    },
+    /* Convert config target value, into HTML anchor target attribute */
+    anchorTarget() {
+      switch (this.target) {
+        case 'sametab': return '_self';
+        case 'newtab': return '_blank';
+        case 'parent': return '_parent';
+        case 'top': return '_top';
+        default: return undefined;
+      }
+    },
+    /* Get the href value for the anchor, if not opening in modal/ workspace */
+    targetHref() {
+      const noAnchorNeeded = ['modal', 'workspace'];
+      return noAnchorNeeded.includes(this.target) ? '#' : this.url;
     },
   },
   data() {
