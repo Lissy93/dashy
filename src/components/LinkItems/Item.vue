@@ -3,7 +3,7 @@
     <a @click="itemOpened"
       @mouseup.right="openContextMenu"
       @contextmenu.prevent
-      :href="targetHref"
+      :href="hyperLinkHref"
       :target="anchorTarget"
       :class="`item ${!icon? 'short': ''} size-${itemSize}`"
       v-tooltip="getTooltipOptions()"
@@ -21,7 +21,7 @@
         v-bind:style="customStyles" class="bounce" />
       <!-- Small icon, showing opening method on hover -->
       <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon || itemSize === 'small'"
-        :openingMethod="target"  position="bottom right"
+        :openingMethod="accumulatedTarget"  position="bottom right"
         :hotkey="hotkey" />
       <!-- Status indicator dot (if enabled) showing weather srevice is availible -->
       <StatusIndicator
@@ -49,7 +49,11 @@ import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
 import ContextMenu from '@/components/LinkItems/ContextMenu';
-import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
+import {
+  localStorageKeys,
+  serviceEndpoints,
+  openingMethod as defaultOpeningMethod,
+} from '@/utils/defaults';
 import { targetValidator } from '@/utils/ConfigHelpers';
 
 export default {
@@ -80,9 +84,13 @@ export default {
     appConfig() {
       return this.$store.getters.appConfig;
     },
+    accumulatedTarget() {
+      return this.target || this.appConfig.defaultOpeningMethod || defaultOpeningMethod;
+    },
     /* Convert config target value, into HTML anchor target attribute */
     anchorTarget() {
-      switch (this.target) {
+      const target = this.accumulatedTarget;
+      switch (target) {
         case 'sametab': return '_self';
         case 'newtab': return '_blank';
         case 'parent': return '_parent';
@@ -91,9 +99,9 @@ export default {
       }
     },
     /* Get the href value for the anchor, if not opening in modal/ workspace */
-    targetHref() {
+    hyperLinkHref() {
       const noAnchorNeeded = ['modal', 'workspace'];
-      return noAnchorNeeded.includes(this.target) ? '#' : this.url;
+      return noAnchorNeeded.includes(this.accumulatedTarget) ? '#' : this.url;
     },
   },
   data() {
@@ -120,10 +128,10 @@ export default {
   methods: {
     /* Called when an item is clicked, manages the opening of modal & resets the search field */
     itemOpened(e) {
-      if (e.altKey || this.target === 'modal') {
+      if (e.altKey || this.accumulatedTarget === 'modal') {
         e.preventDefault();
         this.$emit('triggerModal', this.url);
-      } else if (this.target === 'workspace') {
+      } else if (this.accumulatedTarget === 'workspace') {
         router.push({ name: 'workspace', query: { url: this.url } });
       } else {
         this.$emit('itemClicked');
@@ -166,12 +174,15 @@ export default {
         classes: `item-description-tooltip tooltip-is-${this.itemSize}`,
       };
     },
-    /* Used by certain themes, which display an icon with animated CSS */
+    /* Used by certain themes (material), to show animated CSS icon */
     getUnicodeOpeningIcon() {
-      switch (this.target) {
+      switch (this.accumulatedTarget) {
         case 'newtab': return '"\\f360"';
         case 'sametab': return '"\\f24d"';
+        case 'parent': return '"\\f3bf"';
+        case 'top': return '"\\f102"';
         case 'modal': return '"\\f2d0"';
+        case 'workspace': return '"\\f0b1"';
         default: return '"\\f054"';
       }
     },
