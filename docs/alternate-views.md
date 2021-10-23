@@ -37,8 +37,11 @@ Dashy supports several different ways to launch your apps. The default opening m
 
 - `sametab` - The app will be launched in the current tab
 - `newtab` - The app will be launched in a new tab
+- `top` - Opens in the top-most browsing context, useful if your accessing Dashy through an iframe
 - `modal` - Launch app in a resizable/ movable popup modal on the current page
 - `workspace` - Changes to Workspace view, and launches app
+
+You can also set the default opening method, which will be applied to all items that don't have a specified target, using `appConfig.defaultOpeningMethod`, to one of the above values.
 
 Even if the target is not set (or is set to `sametab`), you can still launch any given app in an alternative method: Alt + Click will open the modal, and Ctrl + Click will open in a new tab. You can also right-click on any item to see all options (as seen in the screenshot below). This custom context menu can be disabled by setting `appConfig.disableContextMenu: true`.
 
