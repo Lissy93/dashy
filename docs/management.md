@@ -1,6 +1,6 @@
 # Management
 
-_The following article explains aspects of app management, and is useful to know for when self-hosting. It covers everything from keeping the app up-to-date, secure, backed up, to other topics like auto-starting, monitoring, log management, web server configuration and using custom environments. Most of it is aimed at running the Dashy (or any other app) in a container, but some of it also applies to bare metal setups too. It's like a top-20 list of need-to-know knowledge for self-hosting._
+_The following article explains aspects of app management, and is useful to know for when self-hosting. It covers everything from keeping the Dashy (or any other app) up-to-date, secure, backed up, to other topics like auto-starting, monitoring, log management, web server configuration and using custom environments. It's like a top-20 list of need-to-know knowledge for self-hosting._
 
 ## Contents
 - [Providing Assets](#providing-assets)
@@ -17,6 +17,7 @@ _The following article explains aspects of app management, and is useful to know
 - [Environmental Variables](#passing-in-environmental-variables)
 - [Securing Containers](#container-security)
 - [Remote Access](#remote-access)
+- [Custom Domain](#custom-domain)
 - [Web Server Configuration](#web-server-configuration)
 - [Running a Modified App](#running-a-modified-version-of-the-app)
 - [Building your Own Container](#building-your-own-container)
@@ -273,6 +274,22 @@ If you've got many environmental variables, you might find it useful to put them
 
 ## Container Security
 
+- [Keep Docker Up-To-Date](#keep-docker-up-to-date)
+- [Set Resource Quotas](#set-resource-quotas)
+- [Don't Run as Root](#dont-run-as-root)
+- [Specify a User](#specify-a-user)
+- [Limit Capabilities](#limit-capabilities)
+- [Prevent new Privilages being Added](#prevent-new-privilages-being-added)
+- [Disable Inter-Container Communication](#disable-inter-container-communication)
+- [Don't Expose the Docker Daemon Socket](#dont-expose-the-docker-daemon-socket)
+- [Use Read-Only Volumes](#use-read-only-volumes)
+- [Set the Logging Level](#set-the-logging-level)
+- [Verify Image before Pulling](#verify-image-before-pulling)
+- [Specify the Tag](#specify-the-tag)
+- [Container Security Scanning](#container-security-scanning)
+- [Registry Security](#registry-security)
+- [Security Modules](#security-modules)
+
 ### Keep Docker Up-To-Date
 To prevent known container escape vulnerabilities, which typically end in escalating to root/administrator privileges, patching Docker Engine and Docker Machine is crucial. For more info, see the [Docker Installation Docs](https://docs.docker.com/engine/install/).
 
@@ -400,6 +417,9 @@ Docker supports several modules that let you write your own security profiles.
 
 ## Remote Access
 
+- [WireGuard](#wireguard)
+- [Reverse SSH Tunnel](#reverse-ssh-tunnel)
+
 ### WireGuard
 
 Using a VPN is one of the easiest ways to provide secure, full access to your local network from remote locations. [WireGuard](https://www.wireguard.com/) is a reasonably new open source VPN protocol, that was designed with ease of use, performance and security in mind. Unlike OpenVPN, it doesn't need to recreate the tunnel whenever connection is dropped, and it's also much easier to setup, using shared keys instead. 
@@ -506,6 +526,63 @@ Done :)
 
 ---
 
+## Custom Domain
+
+- [Using DNS](#using-nginx)
+- [Using NGINX](#using-dns)
+
+### Using DNS
+For locally running services, a domain can be set up directly in the DNS records. This method is really quick and easy, and doesn't require you to purchase an actual domain. Just update your networks DNS resolver, to point your desired URL to the local IP where Dashy (or any other app) is running. For example, a line in your hosts file might look something like: `192.168.0.2 dashy.homelab.local`.
+
+If you're using Pi-Hole, a similar thing can be done in the `/etc/dnsmasq.d/03-custom-dns.conf` file, add a line like: `address=/dashy.example.com/192.168.2.0` for each of your services.
+
+If you're running OPNSense/ PfSense, then this can be done through the UI with Unbound, it's explained nicely in [this article](https://homenetworkguy.com/how-to/use-custom-domain-name-in-internal-network/), by Dustin Casto. 
+
+### Using NGINX
+If you're using NGINX, then you can use your own domain name, with a config similar to the below example.
+
+```
+upstream dashy {
+  server 127.0.0.1:32400;
+}
+
+server {
+  listen         80;
+  server_name    dashy.mydomain.com;
+
+  # Setup SSL
+  ssl_certificate             /var/www/mydomain/sslcert.pem;
+  ssl_certificate_key         /var/www/mydomain/sslkey.pem;
+  ssl_protocols               TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers                 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
+  ssl_session_timeout         5m;
+  ssl_prefer_server_ciphers   on;
+
+  location / {
+    proxy_pass                http://dashy;
+    proxy_redirect            off;
+    proxy_buffering           off;
+    proxy_set_header          host              $host;
+    proxy_set_header          X-Real-IP         $remote_addr;
+    proxy_set_header          X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_next_upstream       error timeout     invalid_header http_500 http_502 http_503 http_504;
+  }
+}
+```
+Similarly, a basic `Caddyfile` might look like:
+
+```
+dashy.example.com {
+    reverse_proxy / nginx:80
+}
+```
+
+For more info, [this guide](https://thehomelab.wiki/books/dns-reverse-proxy/page/create-domain-records-to-point-to-your-home-server-on-cloudflare-using-nginx-progy-manager) on Setting up Domains with NGINX Proxy Manager and CloudFlare may be useful.
+
+**[⬆️ Back to Top](#management)**
+
+---
+
 ## Web Server Configuration
 
 _The following section only applies if you are not using Docker, and would like to use your own web server_
@@ -520,6 +597,11 @@ Note, that if you choose not to use `server.js` to serve up the app, you will lo
 - Loading page, while the app is building
 - Writing config file to disk from the UI
 - Website status indicators, and ping checks
+
+Example Configs
+- [NGINX](#nginx)
+- [Apache](#apache)
+- [cPanel](#cpanel)
 
 ### NGINX
 

@@ -68,14 +68,14 @@
 
 - 🔎 Instant search by name, domain and tags + customizable hotkeys & keyboard shortcuts
 - 🎨 Multiple built-in color themes, with UI color editor and support for custom CSS
-- 🧸 Many options for icons, including Font-Awesome, homelab icons, auto-fetching favicon, images and emojis
-- 🚦 Service status feature for each of your apps / links, for basic availability and uptime monitoring
+- 🧸 Many icon options- Font-Awesome, homelab icons, auto-fetching favicon, images, emojis, etc
+- 🚦 Status monitoring for each of your apps / links, for basic availability and uptime checking
 - 💂 Optional authentication with multi-user access, configurable privileges and SSO support
-- 🌎 Multi-language support, with more languages being added regularly
-- ☁ Optional encrypted off-site cloud backup and restore feature available
-- 💼 A workspace view, for easily switching between multiple apps at once
+- 🌎 Multi-language support, with 10+ human-translated languages, and more on the way
+- ☁ Optional, encrypted, free off-site cloud backup and restore feature available
+- 💼 A workspace view, for easily switching between multiple apps at simultaneously
 - 🛩️ A minimal view, for use as a fast-loading browser startpage
-- 🖱️ Choose how to launch apps, either new tab, same tab, a pop-up modal or in the workspace view
+- 🖱️ Choose app launch method, either new tab, same tab, a pop-up modal or in the workspace view
 - 📏 Customizable layout, sizes, text, component visibility, sort order, behavior etc
 - 🖼️ Option for full-screen background image, custom nav-bar links, html footer, title, etc
 - 🚀 Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
@@ -84,7 +84,7 @@
 - 🤏 Small bundle size, fully responsive UI and PWA for basic offline access
 - 🆓 100% free and open source
 - 🔐 Strong focus on privacy
-- 🌈 Plus lots more...
+- 🌈 Plus loads more...
 
 ## Demo ⚡
 

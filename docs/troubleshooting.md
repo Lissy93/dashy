@@ -90,6 +90,12 @@ Sometimes your text editor updates files [inode](https://linuxhandbook.com/inode
 
 ---
 
+## Styles and Assets not Updating
+
+If you find that your styles and other visual assets work when visiting `ip:port` by not `dashy.domain.com`, then this is usually caused by caching. In your browser, do a hard-refresh (<kbd>Ctrl</kbd> + <kbd>F5</kbd>). If you use Cloudflare, then you can clear the cache through the management console, or set the cache level to Bypass for certain files, under the Rules tab.
+
+---
+
 ## DockerHub `toomanyrequests`
 
 This situation relates to error messages similar to one of the following, returned when pulling, updating or running the Docker container from Docker Hub.

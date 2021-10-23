@@ -127,3 +127,15 @@ Don't have a server? No problem! You can run Dashy for free on Netlify (as well 
 2. [Log in](app.netlify.com/login/) to Netlify with GitHub
 3. Click "New site from Git" and select your forked repo, then click **Deploy**!
 4. You can then edit the config in `./public/conf.yml` in your repo, and Netlify will rebuild the app
+
+---
+
+## Alternative Deployment Method 3 - Cloud Services
+
+Dashy supports 1-Click deployments on several popular cloud platforms. To spin up a new instance, just click a link below:
+- [<img src="https://i.ibb.co/ZxtzrP3/netlify.png" width="18"/> Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
+- [<img src="https://i.ibb.co/d2P1WZ7/heroku.png" width="18"/> Deploy to Heroku](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
+- [<img src="https://i.ibb.co/Ld2FZzb/vercel.png" width="18"/> Deploy to Vercel](https://vercel.com/new/project?template=https://github.com/lissy93/dashy)
+- [<img src="https://i.ibb.co/xCHtzgh/render.png" width="18"/> Deploy to Render](https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render)
+- [<img src="https://i.ibb.co/J7MGymY/googlecloud.png" width="18"/> Deploy to GCP](https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git)
+- [<img src="https://i.ibb.co/HVWVYF7/docker.png" width="18"/> Deploy to PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
