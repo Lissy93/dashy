@@ -7,6 +7,7 @@ const KEY_NAMES = [
   'SET_EDIT_MODE',
   'UPDATE_ITEM',
   'UPDATE_PAGE_INFO',
+  'UPDATE_APP_CONFIG',
 ];
 
 // Convert array of key names into an object, and export

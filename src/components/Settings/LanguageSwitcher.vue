@@ -56,7 +56,7 @@ export default {
     /* The ISO code for the users language, synced with VueX store */
     savedLanguage: {
       get() {
-        return this.getIsoFromLangObj(this.$store.state.lang);
+        return this.getIsoFromLangObj(this.$store.getters.appConfig.lang);
       },
       set(newLang) {
         this.$store.commit(Keys.SET_LANGUAGE, newLang.code);

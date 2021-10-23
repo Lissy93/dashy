@@ -16,12 +16,12 @@ const {
   UPDATE_ITEM,
   SET_EDIT_MODE,
   UPDATE_PAGE_INFO,
+  UPDATE_APP_CONFIG,
 } = Keys;
 
 const store = new Vuex.Store({
   state: {
     config: {},
-    lang: '', // The users language, auto-detected or read from local storage / config
     editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
   },
@@ -58,7 +58,9 @@ const store = new Vuex.Store({
       state.config = config;
     },
     [SET_LANGUAGE](state, lang) {
-      state.lang = lang;
+      const newConfig = state.config;
+      newConfig.appConfig.language = lang;
+      state.config = newConfig;
     },
     [SET_MODAL_OPEN](state, modalOpen) {
       state.modalOpen = modalOpen;
@@ -81,6 +83,11 @@ const store = new Vuex.Store({
     [UPDATE_PAGE_INFO](state, newPageInfo) {
       const newConfig = state.config;
       newConfig.pageInfo = newPageInfo;
+      state.config = newConfig;
+    },
+    [UPDATE_APP_CONFIG](state, newAppConfig) {
+      const newConfig = state.config;
+      newConfig.appConfig = newAppConfig;
       state.config = newConfig;
     },
   },

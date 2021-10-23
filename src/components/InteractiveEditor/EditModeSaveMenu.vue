@@ -55,6 +55,7 @@
         <PageInfoIcon />
       </Button>
       <Button
+        :click="openEditAppConfig"
         v-tooltip="tooltip($t('interactive-editor.edit-app-config-tooltip'))"
       >
         {{ $t('interactive-editor.edit-app-config-btn') }}
@@ -63,6 +64,7 @@
     </div>
     <!-- Modals for editing appConfig + pageInfo -->
     <EditPageInfo />
+    <EditAppConfig />
   </div>
 </template>
 
@@ -71,6 +73,7 @@ import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
 import EditPageInfo from '@/components/InteractiveEditor/EditPageInfo';
+import EditAppConfig from '@/components/InteractiveEditor/EditAppConfig';
 
 import SaveLocallyIcon from '@/assets/interface-icons/interactive-editor-save-locally.svg';
 import SaveToDiskIcon from '@/assets/interface-icons/interactive-editor-save-disk.svg';
@@ -90,14 +93,12 @@ export default {
     CancelIcon,
     AppConfigIcon,
     PageInfoIcon,
+    EditAppConfig,
   },
   methods: {
     reset() {
       this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG);
       this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
-    },
-    tooltip(content) {
-      return { content, trigger: 'hover focus', delay: 250 };
     },
     openExportConfigMenu() {
       this.$modal.show(modalNames.EXPORT_CONFIG_MENU);
@@ -106,6 +107,13 @@ export default {
     openEditPageInfo() {
       this.$modal.show(modalNames.EDIT_PAGE_INFO);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    openEditAppConfig() {
+      this.$modal.show(modalNames.EDIT_APP_CONFIG);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    tooltip(content) {
+      return { content, trigger: 'hover focus', delay: 250 };
     },
   },
 };
