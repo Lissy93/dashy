@@ -9,16 +9,19 @@
       "type": "object",
       "properties": {
         "title": {
+          "title": "Title",
           "type": "string",
           "description": "Title and heading for the app"
         },
         "description": {
+          "title": "Description",
           "type": "string",
           "description": "Sub-title, displayed in header"
         },
         "navLinks": {
           "type": "array",
           "maxItems": 6,
+          "title": "Navigation Links",
           "description": "Quick access links, displayed in header",
           "items": {
             "type": "object",
@@ -38,9 +41,12 @@
           }
         },
         "footerText": {
+          "title": "Footer Text",
+          "description": "Content to display within the global page footer",
           "type": "string"
         },
         "logo": {
+          "title": "App Logo",
           "type": "string",
           "description": "Path to an optional image asset, to be displayed in the header",
           "pattern": "^(http|/)",

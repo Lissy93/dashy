@@ -193,6 +193,7 @@
     "edit-mode-name": "Edit Mode",
     "edit-mode-subtitle": "You are in Edit Mode",
     "edit-mode-description": "This means you can make modifications to your config, and preview the results, but until you save, none of your changes will be preserved.",
+    "save-stage-btn": "Save",
     "export": {
       "export-title": "Export Config",
       "copy-clipboard-btn": "Copy to Clipboard",

@@ -12,8 +12,11 @@
     <div class="edit-banner-section empty-space"></div>
     <!-- Save Buttons -->
     <div class="edit-banner-section save-buttons-container">
-      <p class="section-sub-title">Config Saving Options</p>
+      <p class="section-sub-title">
+        {{ $t('interactive-editor.config-save-methods-subheading') }}
+      </p>
       <Button
+        :click="openExportConfigMenu"
         v-tooltip="tooltip($t('interactive-editor.export-config-tooltip'))"
       >
         {{ $t('interactive-editor.export-config-btn') }}
@@ -41,8 +44,11 @@
     </div>
     <!-- Open Modal Buttons -->
     <div class="edit-banner-section edit-site-config-buttons">
-      <p class="section-sub-title">Edit Site Data</p>
+      <p class="section-sub-title">
+        {{ $t('interactive-editor.edit-site-data-subheading') }}
+      </p>
       <Button
+        :click="openEditPageInfo"
         v-tooltip="tooltip($t('interactive-editor.edit-page-info-tooltip'))"
       >
         {{ $t('interactive-editor.edit-page-info-btn') }}
@@ -55,12 +61,16 @@
         <AppConfigIcon />
       </Button>
     </div>
+    <!-- Modals for editing appConfig + pageInfo -->
+    <EditPageInfo />
   </div>
 </template>
 
 <script>
 import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
+import { modalNames } from '@/utils/defaults';
+import EditPageInfo from '@/components/InteractiveEditor/EditPageInfo';
 
 import SaveLocallyIcon from '@/assets/interface-icons/interactive-editor-save-locally.svg';
 import SaveToDiskIcon from '@/assets/interface-icons/interactive-editor-save-disk.svg';
@@ -73,6 +83,7 @@ export default {
   name: 'EditModeSaveMenu',
   components: {
     Button,
+    EditPageInfo,
     SaveLocallyIcon,
     SaveToDiskIcon,
     ExportIcon,
@@ -87,6 +98,14 @@ export default {
     },
     tooltip(content) {
       return { content, trigger: 'hover focus', delay: 250 };
+    },
+    openExportConfigMenu() {
+      this.$modal.show(modalNames.EXPORT_CONFIG_MENU);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    openEditPageInfo() {
+      this.$modal.show(modalNames.EDIT_PAGE_INFO);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
     },
   },
 };
@@ -157,6 +176,17 @@ div.edit-mode-bottom-banner {
       width: 100%;
       margin: 0.2rem auto;
       flex-direction: column;
+    }
+  }
+  /* Set colors for buttons */
+  .edit-banner-section button {
+    color: var(--interactive-editor-color);
+    border-color: var(--interactive-editor-color);
+    background: var(--interactive-editor-background);
+    &:hover {
+      color: var(--interactive-editor-background);
+      border-color: var(--interactive-editor-color);
+      background: var(--interactive-editor-color);
     }
   }
 }

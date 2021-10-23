@@ -15,6 +15,7 @@ const {
   SET_LANGUAGE,
   UPDATE_ITEM,
   SET_EDIT_MODE,
+  UPDATE_PAGE_INFO,
 } = Keys;
 
 const store = new Vuex.Store({
@@ -75,6 +76,11 @@ const store = new Vuex.Store({
           }
         });
       });
+      state.config = newConfig;
+    },
+    [UPDATE_PAGE_INFO](state, newPageInfo) {
+      const newConfig = state.config;
+      newConfig.pageInfo = newPageInfo;
       state.config = newConfig;
     },
   },
