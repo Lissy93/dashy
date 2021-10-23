@@ -59,53 +59,6 @@
   }
 }
 
-/* Form elements in the auto-schema form */
-.schema-form {
-  fieldset {
-    border: none;
-    display: flex;
-    flex-direction: column;
-    > div {
-      border-bottom: 1px dashed var(--primary);
-      margin: 0.5rem 0;
-      label {
-        font-size: 1rem;
-        text-decoration: underline;
-      }
-    }
-    div[data-fs-wrapper] {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      flex-direction: row-reverse;
-      justify-content: space-between;
-      padding: 0.5rem 0;
-      @include tablet-down {
-        flex-direction: column-reverse;
-      }
-      span {
-        font-style: italic;
-        margin-right: 0.5rem;
-      }
-      input {
-        min-width: 15rem;
-        padding: 0.5rem 0.75rem;
-        margin: 0.5rem auto;
-        font-size: 1rem;
-        box-sizing: border-box;
-        color: var(--primary);
-        background: var(--background);;
-        border: 1px solid var(--primary);
-        border-radius: var(--curve-factor);
-        &:focus {
-          box-shadow: 1px 1px 6px var(--config-settings-color);
-          outline: none;
-        }
-      }
-    }
-  }
-}
-
 /* Single-style helpers */
 .bold { font-weight: bold; }
 .light { font-weight: lighter; }

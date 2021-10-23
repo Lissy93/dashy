@@ -75,6 +75,7 @@ export default {
 <style lang="scss">
 @import '@/styles/style-helpers.scss';
 @import '@/styles/media-queries.scss';
+@import '@/styles/schema-editor.scss';
 
 .edit-page-info-inner {
   padding: 1rem;
