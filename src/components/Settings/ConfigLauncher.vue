@@ -53,7 +53,7 @@ import LanguageSwitcher from '@/components/Settings/LanguageSwitcher';
 import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/defaults';
 import Keys from '@/utils/StoreMutations';
 import IconSpanner from '@/assets/interface-icons/config-editor.svg';
-import IconInteractiveEditor from '@/assets/interface-icons/interactive-editor-start-editing.svg';
+import IconInteractiveEditor from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 import IconViewMode from '@/assets/interface-icons/application-change-view.svg';
 import IconHome from '@/assets/interface-icons/application-home.svg';
 import IconWorkspaceView from '@/assets/interface-icons/open-workspace.svg';

@@ -30,6 +30,7 @@
         :statusSuccess="statusResponse ? statusResponse.successStatus : undefined"
         :statusText="statusResponse ? statusResponse.message : undefined"
       />
+      <EditModeIcon v-if="isEditMode" class="edit-mode-item" @click="openItemSettings()" />
     </a>
     <ContextMenu
       :show="contextMenuOpen"
@@ -54,6 +55,7 @@ import EditItem from '@/components/InteractiveEditor/EditItem';
 import ContextMenu from '@/components/LinkItems/ContextMenu';
 import StoreKeys from '@/utils/StoreMutations';
 import { targetValidator } from '@/utils/ConfigHelpers';
+import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 import {
   localStorageKeys,
   serviceEndpoints,
@@ -85,15 +87,27 @@ export default {
     statusCheckInterval: Number,
     statusCheckAllowInsecure: Boolean,
   },
+  components: {
+    Icon,
+    ItemOpenMethodIcon,
+    StatusIndicator,
+    ContextMenu,
+    EditItem,
+    EditModeIcon,
+  },
   computed: {
     appConfig() {
       return this.$store.getters.appConfig;
+    },
+    isEditMode() {
+      return this.$store.state.editMode;
     },
     accumulatedTarget() {
       return this.target || this.appConfig.defaultOpeningMethod || defaultOpeningMethod;
     },
     /* Convert config target value, into HTML anchor target attribute */
     anchorTarget() {
+      if (this.isEditMode) return '_self';
       const target = this.accumulatedTarget;
       switch (target) {
         case 'sametab': return '_self';
@@ -103,10 +117,12 @@ export default {
         default: return undefined;
       }
     },
-    /* Get the href value for the anchor, if not opening in modal/ workspace */
+    /* Get href for anchor, if not in edit mode, or opening in modal/ workspace */
     hyperLinkHref() {
+      const nothing = '#';
+      if (this.isEditMode) return nothing;
       const noAnchorNeeded = ['modal', 'workspace'];
-      return noAnchorNeeded.includes(this.accumulatedTarget) ? '#' : this.url;
+      return noAnchorNeeded.includes(this.accumulatedTarget) ? nothing : this.url;
     },
   },
   data() {
@@ -125,16 +141,14 @@ export default {
       editMenuOpen: false,
     };
   },
-  components: {
-    Icon,
-    ItemOpenMethodIcon,
-    StatusIndicator,
-    ContextMenu,
-    EditItem,
-  },
   methods: {
     /* Called when an item is clicked, manages the opening of modal & resets the search field */
     itemOpened(e) {
+      if (this.isEditMode) {
+        // If in edit mode, open settings, and don't launch app
+        this.openItemSettings();
+        return;
+      }
       if (e.altKey || this.accumulatedTarget === 'modal') {
         e.preventDefault();
         this.$emit('triggerModal', this.url);
@@ -378,6 +392,15 @@ export default {
   .tile-icon, .tile-svg  {
     filter: var(--item-icon-transform-hover);
   }
+}
+
+/* Edit Mode Icon */
+.item .edit-mode-item {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
 }
 
 /* Specify layout for alternate sized icons */
