@@ -75,6 +75,20 @@
           "default": "default",
           "description": "Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI"
         },
+        "defaultOpeningMethod": {
+          "title": "Default Opening Method",
+          "type": "string",
+          "enum": [
+            "newtab",
+            "sametab",
+            "parent",
+            "top",
+            "modal",
+            "workspace"
+          ],
+          "default": "newtab",
+          "description": "The default opening method for items. Only used if no item.target is specified"
+        },
         "statusCheck": {
           "title": "Enable Status Checks",
           "type": "boolean",
@@ -616,6 +630,8 @@
                   "enum": [
                     "newtab",
                     "sametab",
+                    "parent",
+                    "top",
                     "modal",
                     "workspace"
                   ],

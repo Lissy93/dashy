@@ -2,6 +2,7 @@
 import en from '@/assets/locales/en.json';
 import de from '@/assets/locales/de.json';
 import nl from '@/assets/locales/nl.json';
+import pl from '@/assets/locales/pl.json';
 import fr from '@/assets/locales/fr.json';
 import sl from '@/assets/locales/sl.json';
 import es from '@/assets/locales/es.json';
@@ -12,6 +13,7 @@ import hi from '@/assets/locales/hi.json';
 import ja from '@/assets/locales/ja.json';
 import pt from '@/assets/locales/pt.json';
 import ru from '@/assets/locales/ru.json';
+import nb from '@/assets/locales/nb.json';
 import pirate from '@/assets/locales/zz-pirate.json';
 
 // Language data - Next register your language by adding it to this list
@@ -33,6 +35,12 @@ export const languages = [
     code: 'nl',
     locale: nl,
     flag: '🇳🇱',
+  },
+  {
+    name: 'polski',
+    code: 'pl',
+    locale: pl,
+    flag: '🇵🇱',
   },
   {
     name: 'Français',
@@ -93,6 +101,12 @@ export const languages = [
     code: 'ru',
     locale: ru,
     flag: '🇷🇺',
+  },
+  { // Norwegian
+    name: 'Norsk',
+    code: 'nb',
+    locale: nb,
+    flag: '🇳🇴',
   },
   { // Joke Language - Pirate
     name: 'Pirate',

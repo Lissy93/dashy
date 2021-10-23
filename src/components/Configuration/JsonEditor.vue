@@ -156,7 +156,7 @@ export default {
         localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(data.pageInfo));
       }
       if (data.appConfig) {
-        data.appConfig.auth = this.config.appConfig.auth || [];
+        data.appConfig.auth = this.config.appConfig.auth || {};
         localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(data.appConfig));
       }
       if (data.appConfig.theme) {

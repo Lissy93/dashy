@@ -5,6 +5,9 @@
       <SameTabOpenIcon v-else-if="openingMethod === 'sametab'" />
       <IframeOpenIcon v-else-if="openingMethod === 'modal'" />
       <WorkspaceOpenIcon v-else-if="openingMethod === 'workspace'" />
+      <ParentOpenIcon v-else-if="openingMethod === 'parent'" />
+      <TopOpenIcon v-else-if="openingMethod === 'top'" />
+      <UnknownIcon v-else />
     </div>
     <div v-if="hotkey" :class="`hotkey-denominator ${makeClass(position, isSmall, isTransparent)}`">
       {{ hotkey }}
@@ -20,11 +23,14 @@ import NewTabOpenIcon from '@/assets/interface-icons/open-new-tab.svg';
 import SameTabOpenIcon from '@/assets/interface-icons/open-current-tab.svg';
 import IframeOpenIcon from '@/assets/interface-icons/open-iframe.svg';
 import WorkspaceOpenIcon from '@/assets/interface-icons/open-workspace.svg';
+import ParentOpenIcon from '@/assets/interface-icons/open-parent.svg';
+import TopOpenIcon from '@/assets/interface-icons/open-top.svg';
+import UnknownIcon from '@/assets/interface-icons/unknown-icon.svg';
 
 export default {
   name: 'ItemOpenMethodIcon',
   props: {
-    openingMethod: String, // newtab | sametab | modal | workspace
+    openingMethod: String, // newtab | sametab | parent | top | modal | workspace
     isSmall: Boolean, // If true, will apply small class
     position: String, // Position classes: top, bottom, left, right
     isTransparent: Boolean, // If true, will apply opacity
@@ -44,6 +50,9 @@ export default {
     SameTabOpenIcon,
     IframeOpenIcon,
     WorkspaceOpenIcon,
+    ParentOpenIcon,
+    TopOpenIcon,
+    UnknownIcon,
   },
 };
 </script>

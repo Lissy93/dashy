@@ -142,6 +142,8 @@ module.exports = {
   metaTagData: [
     { name: 'description', content: 'A simple static homepage for you\'re server' },
   ],
+  /* If no 'target' specified, this is the default opening method */
+  openingMethod: 'newtab',
   /* Default option for Toast messages */
   toastedOptions: {
     position: 'bottom-center',

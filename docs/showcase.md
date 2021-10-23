@@ -23,6 +23,16 @@
 
 ---
 
+### HomeLAb 3.0
+
+> By [@skoogee](https://github.com/skoogee) (http://zhrn.cc)
+
+> Dashy, is the most complete dashboard I ever tried, has all the features, and it sets itself apart from the rest. It is my default homepage now. I am thankful to the developer @Lissy93 for sharing such a wonderful creation.
+
+[![screenshot-12-skoogee-homelab-3](https://i.ibb.co/Sv7cxcg/12-skoogee-homelab-3.png)](https://ibb.co/album/ynSwzm)
+
+---
+
 ### NAS Home Dashboard
 > By [@cerealconyogurt](https://github.com/cerealconyogurt)
 

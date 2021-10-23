@@ -64,6 +64,9 @@
   </p>
 </details>
 
+| 👉 PSA: Want Free Swag? [Dashy is participating in Hacktoberfest 2021!](https://github.com/Lissy93/dashy/discussions/281) |
+|-|
+
 ## Features 🌈
 
 - 🔎 Instant search by name, domain and tags + customizable hotkeys & keyboard shortcuts
@@ -301,6 +304,9 @@ One of the primary purposes of Dashy is to make launching commonly used apps and
 - `newtab` - The app will be launched in a new tab
 - `modal` - Launch app in a resizable/ movable popup modal on the current page
 - `workspace` - Changes to Workspace view, and launches app
+- `top` - Opens in the top-most browsing context, useful if your accessing Dashy through an iframe
+
+You can also set the default opening method, which will be applied to all items that don't have a specified target, using `appConfig.defaultOpeningMethod`, to one of the above values.
 
 Even if the target is not set (or is set to `sametab`), you can still launch any given app in an alternative method: Alt + Click will open the modal, and Ctrl + Click will open in a new tab. You can also right-click on any item to see all options (as seen in the screenshot below). This custom context menu can be disabled by setting `appConfig.disableContextMenu: true`.
 
@@ -442,6 +448,7 @@ Dashy supports multiple languages and locales. When available, you're language s
 - 🇳🇱 **Dutch**: `nl` - Contributed by **[@evroon](https://github.com/evroon)**
 - 🇲🇫 **French**: `fr` - Contributed by **[@EVOTk](https://github.com/EVOTk)**
 - 🇩🇪 **German**: `de` - Contributed by **[@Niklashere](https://github.com/Niklashere)**
+- 🇳🇴 **Norwegian Bokmål**: `nb` - Contributed by **[@rubjo](https://github.com/rubjo)**
 - 🇪🇸 **Spanish**: `es` - Contributed by **[@lu4t](https://github.com/lu4t)**
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
 - 🇮🇹 **Italian**: `it` - Machine Translated *(awaiting human review)*
@@ -450,9 +457,10 @@ Dashy supports multiple languages and locales. When available, you're language s
 - 🇦🇪 **Arabic**: `ar` - Contributed by Anon
 - 🇮🇳 **Hindi**: `hi` - Contributed by Anon
 - 🇯🇵 **Japanese**: `ja` - Contributed by Anon
+- 🇵🇱 **Polish**: `pl` - Contributed by **[@skaarj1989](https://github.com/skaarj1989)**
 
 #### Add your Language
-I would love for Dashy to be available to everyone, without language being a barrier to entry for non-native English speakers. If you have a few minutes to sapir, you're help with translating it would be very much appreciated.
+I would love for Dashy to be available to everyone, without language being a barrier to entry for non-native English speakers. If you have a few minutes to spare, you're help with translating it would be very much appreciated.
 It's quite a quick task, all text is in [a single JSON file](https://github.com/Lissy93/dashy/tree/master/src/assets/locales), and you don't have to translate it all. For more info, see the [Adding a New Language Docs](./docs/multi-language-support.md#adding-a-new-language), and feel free to reach out if you need any support.
 
 **[⬆️ Back to Top](#dashy)**
@@ -646,7 +654,7 @@ For a full breakdown of each change, you can view the [Changelog](https://github
 - 💻 [Management](/docs/management.md) - Managing your app, updating, security, web server configuration, etc
 - 🚒 [Troubleshooting](/docs/troubleshooting.md) - Common errors and problems, and how to fix them
 
-#### Development and Contributing 
+#### Development and Contributing
 - 🧱 [Developing](/docs/developing.md) - Running Dashy development server locally, and general workflow
 - 🛎️ [Development Guides](/docs/development-guides.md) - Common development tasks, to help new contributors
 - 💖 [Contributing](/docs/contributing.md) - How to contribute to Dashy

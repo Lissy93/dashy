@@ -1,5 +1,11 @@
 # Changelog
 
+## ✨ 1.8.8 - Improved Item Targets [PR #292](https://github.com/Lissy93/dashy/pull/292)
+- Adds support for `_top` and `_parent` anchor targets on items, Re: #289
+- Adds `appConfig.defaultOpeningMethod` option to specify default target
+- Adds new icons to show items opening method on hover
+- Refactors target checking, updates item target docs and schema
+
 ## ⚡️ 1.8.7 - Bug Fixes and Improvements [PR #273](https://github.com/Lissy93/dashy/pull/273)
 - Clean URLs without the hash, now using history-mode routing
 - New initial main example conf.yml
