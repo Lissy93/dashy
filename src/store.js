@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 import Keys from '@/utils/StoreMutations';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { componentVisibility } from '@/utils/ConfigHelpers';
+import { applyItemId } from '@/utils/MiscHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 
 Vue.use(Vuex);
@@ -18,6 +19,7 @@ const {
   UPDATE_PAGE_INFO,
   UPDATE_APP_CONFIG,
   UPDATE_SECTION,
+  COPY_ITEM,
 } = Keys;
 
 const store = new Vuex.Store({
@@ -75,7 +77,7 @@ const store = new Vuex.Store({
     },
     [UPDATE_ITEM](state, payload) {
       const { itemId, newItem } = payload;
-      const newConfig = state.config;
+      const newConfig = { ...state.config };
       newConfig.sections.forEach((section, secIndex) => {
         section.items.forEach((item, itemIndex) => {
           if (item.id === itemId) {
@@ -100,6 +102,18 @@ const store = new Vuex.Store({
       const newConfig = { ...state.config };
       newConfig.sections[sectionIndex] = sectionData;
       state.config = newConfig;
+    },
+    [COPY_ITEM](state, payload) {
+      const { item, toSection } = payload;
+      const config = { ...state.config };
+      const newItem = { ...item };
+      config.sections.forEach((section) => {
+        if (section.name === toSection) {
+          section.items.push(newItem);
+        }
+      });
+      config.sections = applyItemId(config.sections);
+      state.config = config;
     },
   },
   actions: {
