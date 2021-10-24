@@ -174,26 +174,50 @@
     "move-item": "Move To",
     "remove-item": "Remove"
   },
+  "context-menus": {
+    "item": {
+      "open-section-title": "Open In",
+      "sametab": "Current Tab",
+      "newtab": "New Tab",
+      "modal": "Pop-Up Modal",
+      "workspace": "Workspace View",
+      "options-section-title": "Options",
+      "edit-item": "Edit",
+      "move-item": "Move To",
+      "remove-item": "Remove"
+    },
+    "section": {
+      "open-section": "Open Section",
+      "edit-section": "Edit",
+      "move-section": "Move To",
+      "remove-section": "Remove"
+    }
+  },
   "interactive-editor": {
-    "start-editing-tooltip": "Enter the Interactive Editor",
-    "edit-site-data-subheading": "Edit Site Data",
-    "edit-page-info-btn": "Edit Page Info",
-    "edit-page-info-tooltip": "App title, description, nav links, footer text, etc",
-    "edit-app-config-btn": "Edit App Config",
-    "edit-app-config-tooltip": "All other app configuration options",
-    "config-save-methods-subheading": "Config Saving Options",
-    "save-locally-btn": "Save Locally",
-    "save-locally-tooltip": "Save config locally, to browser storage. This will not affect your config file, but changes will only be saved on this device",
-    "save-disk-btn": "Save to Disk",
-    "save-disk-tooltip": "Save config to the conf.yml file on disk. This will backup, and then over-write your existing config",
-    "export-config-btn": "Export Config",
-    "export-config-tooltip": "View and export new config, either to a file, or to clipboard",
-    "cancel-changes-btn": "Cancel Edit",
-    "cancel-changes-tooltip": "Reset current modifications, and exit Edit Mode. This will not affect your saved config",
-    "edit-mode-name": "Edit Mode",
-    "edit-mode-subtitle": "You are in Edit Mode",
-    "edit-mode-description": "This means you can make modifications to your config, and preview the results, but until you save, none of your changes will be preserved.",
-    "save-stage-btn": "Save",
+    "menu": {
+      "start-editing-tooltip": "Enter the Interactive Editor",
+      "edit-site-data-subheading": "Edit Site Data",
+      "edit-page-info-btn": "Edit Page Info",
+      "edit-page-info-tooltip": "App title, description, nav links, footer text, etc",
+      "edit-app-config-btn": "Edit App Config",
+      "edit-app-config-tooltip": "All other app configuration options",
+      "config-save-methods-subheading": "Config Saving Options",
+      "save-locally-btn": "Save Locally",
+      "save-locally-tooltip": "Save config locally, to browser storage. This will not affect your config file, but changes will only be saved on this device",
+      "save-disk-btn": "Save to Disk",
+      "save-disk-tooltip": "Save config to the conf.yml file on disk. This will backup, and then over-write your existing config",
+      "export-config-btn": "Export Config",
+      "export-config-tooltip": "View and export new config, either to a file, or to clipboard",
+      "cancel-changes-btn": "Cancel Edit",
+      "cancel-changes-tooltip": "Reset current modifications, and exit Edit Mode. This will not affect your saved config",
+      "edit-mode-name": "Edit Mode",
+      "edit-mode-subtitle": "You are in Edit Mode",
+      "edit-mode-description": "This means you can make modifications to your config, and preview the results, but until you save, none of your changes will be preserved.",
+      "save-stage-btn": "Save"
+    },
+    "edit-section": {
+      "edit-tooltip": "Click to Edit, or right-click for more options"
+    },
     "export": {
       "export-title": "Export Config",
       "copy-clipboard-btn": "Copy to Clipboard",
