@@ -17,6 +17,7 @@ const {
   SET_EDIT_MODE,
   UPDATE_PAGE_INFO,
   UPDATE_APP_CONFIG,
+  UPDATE_SECTION,
 } = Keys;
 
 const store = new Vuex.Store({
@@ -43,6 +44,10 @@ const store = new Vuex.Store({
     },
     visibleComponents(state, getters) {
       return componentVisibility(getters.appConfig);
+    },
+    // eslint-disable-next-line arrow-body-style
+    getSectionByIndex: (state, getters) => (index) => {
+      return getters.sections[index];
     },
     getItemById: (state, getters) => (id) => {
       let item;
@@ -88,6 +93,12 @@ const store = new Vuex.Store({
     [UPDATE_APP_CONFIG](state, newAppConfig) {
       const newConfig = state.config;
       newConfig.appConfig = newAppConfig;
+      state.config = newConfig;
+    },
+    [UPDATE_SECTION](state, payload) {
+      const { sectionIndex, sectionData } = payload;
+      const newConfig = { ...state.config };
+      newConfig.sections[sectionIndex] = sectionData;
       state.config = newConfig;
     },
   },
