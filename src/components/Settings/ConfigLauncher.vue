@@ -47,11 +47,12 @@
 </template>
 
 <script>
-
+// Import components, and store-key identifiers
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
 import LanguageSwitcher from '@/components/Settings/LanguageSwitcher';
-import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/defaults';
 import Keys from '@/utils/StoreMutations';
+import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/defaults';
+// Import icons for config launcher buttons
 import IconSpanner from '@/assets/interface-icons/config-editor.svg';
 import IconInteractiveEditor from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 import IconViewMode from '@/assets/interface-icons/application-change-view.svg';
@@ -90,10 +91,11 @@ export default {
     isEditMode() {
       return this.$store.state.editMode;
     },
+    /* Tooltip text for Edit Mode button, to change depending on it in edit mode */
     enterEditModeTooltip() {
-      // Change tooltip text for 'Enter Edit Mode' button, when already in Edit Mode
       return this.$t(
-        `interactive-editor.${this.isEditMode ? 'edit-mode-subtitle' : 'start-editing-tooltip'}`,
+        `interactive-editor.menu.${this.isEditMode
+          ? 'edit-mode-subtitle' : 'start-editing-tooltip'}`,
       );
     },
   },
