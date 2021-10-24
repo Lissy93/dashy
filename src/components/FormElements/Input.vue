@@ -30,7 +30,7 @@
 export default {
   name: 'Input',
   props: {
-    value: String, // The value bound to v-model
+    value: [String, Number], // The value bound to v-model
     label: String, // An optional label to display above
     name: String, // Required unique ID value, for accessibility
     placeholder: String, // Optional placeholder value
