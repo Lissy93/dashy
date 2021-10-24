@@ -31,6 +31,7 @@
       <Section
         v-for="(section, index) in filteredTiles"
         :key="index"
+        :index="index"
         :title="section.name"
         :icon="section.icon || undefined"
         :displayData="getDisplayData(section)"
@@ -48,7 +49,9 @@
     <div v-if="checkIfResults()" class="no-data">
       {{searchValue ? $t('home.no-results') : $t('home.no-data')}}
     </div>
+    <!-- Show banner at bottom of screen, for Saving config changes -->
     <EditModeSaveMenu v-if="isEditMode" />
+    <!-- Modal for viewing and exporting configuration file -->
     <ExportConfigMenu />
   </div>
 </template>
@@ -116,6 +119,7 @@ export default {
       // Otherwise, return the usuall data from conf.yml
       return this.sections;
     },
+    /* Return all sections, that match users search term */
     filteredTiles() {
       const sections = this.singleSectionView || this.allSections;
       return sections.filter((section) => this.filterTiles(section.items, this.searchValue));
