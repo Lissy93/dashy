@@ -8,6 +8,7 @@
     :rows="displayData.rows"
     :color="displayData.color"
     :customStyles="displayData.customStyles"
+    @openEditSection="openEditSection"
   >
     <div v-if="!items || items.length < 1" class="no-items">
       No Items to Show Yet
@@ -45,15 +46,22 @@
       :name="`iframeModal-${groupId}`"
       @closed="$emit('itemClicked')"
     />
+    <EditSection
+      v-if="editMenuOpen"
+      @closeEditSection="closeEditSection"
+      :sectionIndex="index"
+    />
   </Collapsable>
 </template>
 
 <script>
-import { sortOrder as defaultSortOrder, localStorageKeys } from '@/utils/defaults';
-import ErrorHandler from '@/utils/ErrorHandler';
 import Item from '@/components/LinkItems/Item.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
+import EditSection from '@/components/InteractiveEditor/EditSection.vue';
+import ErrorHandler from '@/utils/ErrorHandler';
+import StoreKeys from '@/utils/StoreMutations';
+import { sortOrder as defaultSortOrder, localStorageKeys, modalNames } from '@/utils/defaults';
 
 export default {
   name: 'Section',
@@ -64,11 +72,18 @@ export default {
     displayData: Object,
     items: Array,
     itemSize: String,
+    index: Number,
   },
   components: {
     Collapsable,
     Item,
     IframeModal,
+    EditSection,
+  },
+  data() {
+    return {
+      editMenuOpen: false,
+    };
   },
   computed: {
     appConfig() {
@@ -113,6 +128,9 @@ export default {
       }
       return styles;
     },
+    isEditMode() {
+      return this.$store.state.editMode;
+    },
   },
   methods: {
     /* Opens the iframe modal */
@@ -156,6 +174,17 @@ export default {
         .map((value) => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);
+    },
+    /* Open the Section Edit Menu */
+    openEditSection() {
+      this.editMenuOpen = true;
+      this.$modal.show(modalNames.EDIT_SECTION);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    closeEditSection() {
+      this.editMenuOpen = false;
+      this.$modal.hide(modalNames.EDIT_SECTION);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
     },
   },
 };
