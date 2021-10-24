@@ -483,6 +483,7 @@
       "type": "array",
       "description": "Array of sections, containing items",
       "items": {
+        "title": "Items",
         "type": "object",
         "required": [
           "name",
@@ -491,19 +492,23 @@
         "additionalProperties": false,
         "properties": {
           "name": {
+            "title": "Section Name",
             "type": "string",
             "description": "Title/ heading for a section"
           },
           "icon": {
+            "title": "Section Icon",
             "type": "string",
             "description": "Icon will be displayed next to title"
           },
           "displayData": {
+            "title": "Display Data",
             "type": "object",
             "additionalProperties": false,
             "description": "Optional meta data for customizing a section",
             "properties": {
               "sortBy": {
+                "title": "Sort By",
                 "type": "string",
                 "enum": [
                   "default",
@@ -517,19 +522,23 @@
                 "description": "How to sort items within the section. By default items are displayed in the order in which they are listed in within the config"
               },
               "collapsed": {
+                "title": "Is Collapsed?",
                 "type": "boolean",
                 "default": false,
                 "description": "If true, section needs to be clicked to open"
               },
               "color": {
+                "title": "Color",
                 "type": "string",
                 "description": "Hex code, or HTML color for section fill"
               },
               "customStyles": {
+                "title": "Custom Styles",
                 "type": "string",
                 "description": "CSS overides for section container"
               },
               "itemSize": {
+                "title": "Item Size",
                 "type": "string",
                 "enum": [
                   "small",
@@ -540,6 +549,7 @@
                 "description": "Size of items within the section"
               },
               "rows": {
+                "title": "Num Rows",
                 "type": "number",
                 "minimum": 1,
                 "maximum": 5,
@@ -547,6 +557,7 @@
                 "description": "The amount of space that the section spans vertically"
               },
               "cols": {
+                "title": "Num Cols",
                 "type": "number",
                 "minimum": 1,
                 "maximum": 5,
@@ -554,6 +565,7 @@
                 "description": "The amount of space that the section spans horizontally"
               },
               "sectionLayout": {
+                "title": "Layout Type",
                 "type": "string",
                 "enum": [
                   "grid",
@@ -563,18 +575,21 @@
                 "description": "If set to grid, items have uniform width, and itemCount can be set"
               },
               "itemCountX": {
+                "title": "Item Count X",
                 "type": "number",
                 "minimum": 1,
                 "maximum": 12,
                 "description": "Number of items per column"
               },
               "itemCountY": {
+                "title": "Item Count Y",
                 "type": "number",
                 "minimum": 1,
                 "maximum": 12,
                 "description": "Number of items per row"
               },
               "hideForUsers": {
+                "title": "Hide for Users",
                 "type": "array",
                 "description": "Section will be visible to all users, except for those specified in this list",
                 "items": {
@@ -583,6 +598,7 @@
                 }
               },
               "showForUsers": {
+                "title": "Show for Users",
                 "type": "array",
                 "description": "Section will be hidden from all users, except for those specified in this list",
                 "items": {
@@ -591,6 +607,7 @@
                 }
               },
               "hideForGuests": {
+                "title": "Hide for Guests?",
                 "type": "boolean",
                 "default": false,
                 "description": "If set to true, section will be visible for logged in users, but not for guests"
@@ -598,6 +615,7 @@
             }
           },
           "items": {
+            "title": "Items",
             "type": "array",
             "description": "Array of items to display with a section",
             "items": {
