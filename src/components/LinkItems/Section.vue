@@ -59,11 +59,13 @@
       :id="`context-menu-${groupId}`"
       v-click-outside="closeContextMenu"
       @openEditSection="openEditSection"
+      @navigateToSection="navigateToSection"
     />
   </Collapsable>
 </template>
 
 <script>
+import router from '@/router';
 import Item from '@/components/LinkItems/Item.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
@@ -191,13 +193,21 @@ export default {
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);
     },
+    /* Navigate to the section's single-section view page */
+    navigateToSection() {
+      const parse = (section) => section.replace(' ', '-').toLowerCase().trim();
+      const sectionIdentifier = parse(this.title);
+      router.push({ path: `/home/${sectionIdentifier}` });
+      this.closeContextMenu();
+    },
     /* Open the Section Edit Menu */
     openEditSection() {
       this.editMenuOpen = true;
       this.$modal.show(modalNames.EDIT_SECTION);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
-      this.contextMenuOpen = false;
+      this.closeContextMenu();
     },
+    /* Close the section edit menu */
     closeEditSection() {
       this.editMenuOpen = false;
       this.$modal.hide(modalNames.EDIT_SECTION);
@@ -213,6 +223,7 @@ export default {
         };
       }
     },
+    /* Hide the right-click context menu */
     closeContextMenu() {
       this.contextMenuOpen = false;
     },

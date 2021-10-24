@@ -57,7 +57,7 @@ export default {
     /* Called on item click, emits an event up to Item */
     /* in order to launch the current app to a given target */
     openSection() {
-      // TODO: Open Section
+      this.$emit('navigateToSection');
     },
     openEditSectionMenu() {
       this.$emit('openEditSection');
