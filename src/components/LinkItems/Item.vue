@@ -185,8 +185,10 @@ export default {
       const providerText = this.provider ? `<b>Provider</b>: ${this.provider}` : '';
       const lb1 = description && providerText ? '<br>' : '';
       const hotkeyText = this.hotkey ? `<br>Press '${this.hotkey}' to launch` : '';
+      const tooltipText = providerText + lb1 + description + hotkeyText;
+      const editText = 'Click to Edit, or right-click for more options';
       return {
-        content: providerText + lb1 + description + hotkeyText,
+        content: (this.isEditMode ? editText : tooltipText),
         trigger: 'hover focus',
         hideOnTargetClick: true,
         html: true,
