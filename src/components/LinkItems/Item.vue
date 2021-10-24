@@ -40,7 +40,9 @@
       :id="`context-menu-${id}`"
       @launchItem="launchItem"
       @openItemSettings="openItemSettings"
+      @openMoveItemMenu="openMoveItemMenu"
     />
+    <MoveItemTo v-if="isEditMode" :itemId="id" />
     <EditItem v-if="editMenuOpen" :itemId="id" @closeEditMenu="closeEditMenu" />
   </div>
 </template>
@@ -52,6 +54,7 @@ import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
 import EditItem from '@/components/InteractiveEditor/EditItem';
+import MoveItemTo from '@/components/InteractiveEditor/MoveItemTo';
 import ContextMenu from '@/components/LinkItems/ItemContextMenu';
 import StoreKeys from '@/utils/StoreMutations';
 import { targetValidator } from '@/utils/ConfigHelpers';
@@ -92,6 +95,7 @@ export default {
     ItemOpenMethodIcon,
     StatusIndicator,
     ContextMenu,
+    MoveItemTo,
     EditItem,
     EditModeIcon,
   },
@@ -288,6 +292,11 @@ export default {
       const lastUsed = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
       lastUsed[itemId] = new Date().getTime();
       localStorage.setItem(localStorageKeys.LAST_USED, JSON.stringify(lastUsed));
+    },
+    openMoveItemMenu() {
+      this.$modal.show(`${modalNames.MOVE_ITEM_TO}-${this.id}`);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+      this.closeContextMenu();
     },
   },
   mounted() {

@@ -171,7 +171,7 @@
     "workspace": "Workspace View",
     "options-section-title": "Options",
     "edit-item": "Edit",
-    "move-item": "Move To",
+    "move-item": "Copy or Move",
     "remove-item": "Remove"
   },
   "context-menus": {
@@ -183,7 +183,7 @@
       "workspace": "Workspace View",
       "options-section-title": "Options",
       "edit-item": "Edit",
-      "move-item": "Move To",
+      "move-item": "Copy or Move",
       "remove-item": "Remove"
     },
     "section": {
@@ -213,7 +213,8 @@
       "edit-mode-name": "Edit Mode",
       "edit-mode-subtitle": "You are in Edit Mode",
       "edit-mode-description": "This means you can make modifications to your config, and preview the results, but until you save, none of your changes will be preserved.",
-      "save-stage-btn": "Save"
+      "save-stage-btn": "Save",
+      "cancel-stage-btn": "Cancel"
     },
     "edit-section": {
       "edit-tooltip": "Click to Edit, or right-click for more options"

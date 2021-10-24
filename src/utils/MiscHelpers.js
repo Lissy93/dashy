@@ -30,7 +30,7 @@ export const sanitize = (string) => {
 const makeItemId = (sectionStr, itemStr, index) => {
   const charSum = sectionStr.split('').map((a) => a.charCodeAt(0)).reduce((x, y) => x + y);
   const itemTitleStr = itemStr.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
-  return `${index}_${charSum}_${itemTitleStr}`;
+  return `${index}_${charSum}_${itemTitleStr}_${Math.random()}`;
 };
 
 /* Given an array of sections, apply a unique ID to each item, and return modified array */
@@ -40,6 +40,7 @@ export const applyItemId = (inputSections) => {
     if (sec.items) {
       sec.items.forEach((item, itemIdx) => {
         sections[secIdx].items[itemIdx].id = makeItemId(sec.name, item.title, itemIdx);
+        // TODO: Check if ID already exists, and if so, modify it
       });
     }
   });

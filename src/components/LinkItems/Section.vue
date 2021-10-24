@@ -16,7 +16,7 @@
     </div>
     <div v-else
       :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
-      :style="gridStyle"
+      :style="gridStyle" :id="`section-${groupId}`"
     >
       <Item
         v-for="(item) in sortedItems"
@@ -73,7 +73,11 @@ import EditSection from '@/components/InteractiveEditor/EditSection.vue';
 import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
 import ErrorHandler from '@/utils/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
-import { sortOrder as defaultSortOrder, localStorageKeys, modalNames } from '@/utils/defaults';
+import {
+  sortOrder as defaultSortOrder,
+  localStorageKeys,
+  modalNames,
+} from '@/utils/defaults';
 
 export default {
   name: 'Section',

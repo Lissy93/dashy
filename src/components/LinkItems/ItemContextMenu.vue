@@ -33,7 +33,7 @@
           <EditIcon />
           <span>{{ $t('menu.edit-item') }}</span>
         </li>
-        <li v-if="isEditMode">
+        <li v-if="isEditMode" @click="openMoveMenu()">
           <MoveIcon />
           <span>{{ $t('menu.move-item') }}</span>
         </li>
@@ -51,7 +51,6 @@
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
 import BinIcon from '@/assets/interface-icons/interactive-editor-remove.svg';
 import MoveIcon from '@/assets/interface-icons/interactive-editor-move-to.svg';
-
 import SameTabOpenIcon from '@/assets/interface-icons/open-current-tab.svg';
 import NewTabOpenIcon from '@/assets/interface-icons/open-new-tab.svg';
 import IframeOpenIcon from '@/assets/interface-icons/open-iframe.svg';
@@ -89,6 +88,9 @@ export default {
     },
     openSettings() {
       this.$emit('openItemSettings');
+    },
+    openMoveMenu() {
+      this.$emit('openMoveItemMenu');
     },
   },
 };

@@ -26,6 +26,7 @@
         font-style: italic;
         margin-right: 0.5rem;
         max-width: 20rem;
+        opacity: var(--dimming-factor);
       }
       input {
         min-width: 15rem;
