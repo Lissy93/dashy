@@ -209,6 +209,7 @@ export default {
       };
       if (newItem.tags) newItem.tags = strToTags(newItem.tags);
       if (newItem.statusCheck) newItem.statusCheck = strToBool(newItem.statusCheck);
+      // if (newItem.hotkey) newItem.hotkey = parseInt(newItem.hotkey, 10);
       return newItem;
     },
     /* Clean up work, triggered when modal closed */
