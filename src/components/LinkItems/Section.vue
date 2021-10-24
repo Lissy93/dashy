@@ -9,6 +9,7 @@
     :color="displayData.color"
     :customStyles="displayData.customStyles"
     @openEditSection="openEditSection"
+    @openContextMenu="openContextMenu"
   >
     <div v-if="!items || items.length < 1" class="no-items">
       No Items to Show Yet
@@ -51,6 +52,14 @@
       @closeEditSection="closeEditSection"
       :sectionIndex="index"
     />
+    <ContextMenu
+      :show="contextMenuOpen"
+      :posX="contextPos.posX"
+      :posY="contextPos.posY"
+      :id="`context-menu-${groupId}`"
+      v-click-outside="closeContextMenu"
+      @openEditSection="openEditSection"
+    />
   </Collapsable>
 </template>
 
@@ -59,6 +68,7 @@ import Item from '@/components/LinkItems/Item.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import EditSection from '@/components/InteractiveEditor/EditSection.vue';
+import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
 import ErrorHandler from '@/utils/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
 import { sortOrder as defaultSortOrder, localStorageKeys, modalNames } from '@/utils/defaults';
@@ -76,6 +86,7 @@ export default {
   },
   components: {
     Collapsable,
+    ContextMenu,
     Item,
     IframeModal,
     EditSection,
@@ -83,6 +94,11 @@ export default {
   data() {
     return {
       editMenuOpen: false,
+      contextMenuOpen: false,
+      contextPos: {
+        posX: undefined,
+        posY: undefined,
+      },
     };
   },
   computed: {
@@ -180,11 +196,25 @@ export default {
       this.editMenuOpen = true;
       this.$modal.show(modalNames.EDIT_SECTION);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+      this.contextMenuOpen = false;
     },
     closeEditSection() {
       this.editMenuOpen = false;
       this.$modal.hide(modalNames.EDIT_SECTION);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
+    },
+    /* Open custom context menu, and set position */
+    openContextMenu(e) {
+      this.contextMenuOpen = true;
+      if (e && window) {
+        this.contextPos = {
+          posX: e.clientX + window.pageXOffset,
+          posY: e.clientY + window.pageYOffset,
+        };
+      }
+    },
+    closeContextMenu() {
+      this.contextMenuOpen = false;
     },
   },
 };

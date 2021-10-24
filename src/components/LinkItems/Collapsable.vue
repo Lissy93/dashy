@@ -11,10 +11,12 @@
       @change="collapseChanged"
       tabIndex="-1"
     >
-    <label :for="sectionKey" class="lbl-toggle" tabindex="-1">
+    <label :for="sectionKey" class="lbl-toggle" tabindex="-1"
+      @mouseup.right="openContextMenu" @contextmenu.prevent>
       <Icon v-if="icon" :icon="icon" size="small" :url="title" class="section-icon" />
       <h3>{{ title }}</h3>
-      <EditModeIcon v-if="isEditMode" class="edit-mode-item" @click="openEditModal" />
+      <EditModeIcon v-if="isEditMode" @click="openEditModal"
+        v-tooltip="editTooltip()" class="edit-mode-item" />
     </label>
     <div class="collapsible-content">
       <div class="content-inner">
@@ -109,6 +111,13 @@ export default {
     },
     openEditModal() {
       this.$emit('openEditSection');
+    },
+    openContextMenu(e) {
+      this.$emit('openContextMenu', e);
+    },
+    editTooltip() {
+      const content = this.$t('interactive-editor.edit-section.edit-tooltip');
+      return { content, trigger: 'hover focus', delay: { show: 100, hide: 0 } };
     },
   },
 };

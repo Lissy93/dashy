@@ -52,7 +52,7 @@ import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
 import EditItem from '@/components/InteractiveEditor/EditItem';
-import ContextMenu from '@/components/LinkItems/ContextMenu';
+import ContextMenu from '@/components/LinkItems/ItemContextMenu';
 import StoreKeys from '@/utils/StoreMutations';
 import { targetValidator } from '@/utils/ConfigHelpers';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
@@ -186,7 +186,7 @@ export default {
       const lb1 = description && providerText ? '<br>' : '';
       const hotkeyText = this.hotkey ? `<br>Press '${this.hotkey}' to launch` : '';
       const tooltipText = providerText + lb1 + description + hotkeyText;
-      const editText = 'Click to Edit, or right-click for more options';
+      const editText = this.$t('interactive-editor.edit-section.edit-tooltip');
       return {
         content: (this.isEditMode ? editText : tooltipText),
         trigger: 'hover focus',
