@@ -3,62 +3,62 @@
   <div class="edit-mode-bottom-banner">
     <div class="edit-banner-section intro-container">
       <p class="section-sub-title edit-mode-intro l-1">
-        {{ $t('interactive-editor.edit-mode-subtitle') }}
+        {{ $t('interactive-editor.menu.edit-mode-subtitle') }}
       </p>
       <p class="edit-mode-intro l-2">
-        {{ $t('interactive-editor.edit-mode-description') }}
+        {{ $t('interactive-editor.menu.edit-mode-description') }}
       </p>
     </div>
     <div class="edit-banner-section empty-space"></div>
     <!-- Save Buttons -->
     <div class="edit-banner-section save-buttons-container">
       <p class="section-sub-title">
-        {{ $t('interactive-editor.config-save-methods-subheading') }}
+        {{ $t('interactive-editor.menu.config-save-methods-subheading') }}
       </p>
       <Button
         :click="openExportConfigMenu"
-        v-tooltip="tooltip($t('interactive-editor.export-config-tooltip'))"
+        v-tooltip="tooltip($t('interactive-editor.menu.export-config-tooltip'))"
       >
-        {{ $t('interactive-editor.export-config-btn') }}
+        {{ $t('interactive-editor.menu.export-config-btn') }}
         <ExportIcon />
       </Button>
       <Button
         :click="reset"
-        v-tooltip="tooltip($t('interactive-editor.cancel-changes-tooltip'))"
+        v-tooltip="tooltip($t('interactive-editor.menu.cancel-changes-tooltip'))"
       >
-        {{ $t('interactive-editor.cancel-changes-btn') }}
+        {{ $t('interactive-editor.menu.cancel-changes-btn') }}
         <CancelIcon />
       </Button>
       <Button
-        v-tooltip="tooltip($t('interactive-editor.save-locally-tooltip'))"
+        v-tooltip="tooltip($t('interactive-editor.menu.save-locally-tooltip'))"
       >
-        {{ $t('interactive-editor.save-locally-btn') }}
+        {{ $t('interactive-editor.menu.save-locally-btn') }}
         <SaveLocallyIcon />
       </Button>
       <Button
-        v-tooltip="tooltip($t('interactive-editor.save-disk-tooltip'))"
+        v-tooltip="tooltip($t('interactive-editor.menu.save-disk-tooltip'))"
       >
-        {{ $t('interactive-editor.save-disk-btn') }}
+        {{ $t('interactive-editor.menu.save-disk-btn') }}
         <SaveToDiskIcon />
       </Button>
     </div>
     <!-- Open Modal Buttons -->
     <div class="edit-banner-section edit-site-config-buttons">
       <p class="section-sub-title">
-        {{ $t('interactive-editor.edit-site-data-subheading') }}
+        {{ $t('interactive-editor.menu.edit-site-data-subheading') }}
       </p>
       <Button
         :click="openEditPageInfo"
-        v-tooltip="tooltip($t('interactive-editor.edit-page-info-tooltip'))"
+        v-tooltip="tooltip($t('interactive-editor.menu.edit-page-info-tooltip'))"
       >
-        {{ $t('interactive-editor.edit-page-info-btn') }}
+        {{ $t('interactive-editor.menu.edit-page-info-btn') }}
         <PageInfoIcon />
       </Button>
       <Button
         :click="openEditAppConfig"
-        v-tooltip="tooltip($t('interactive-editor.edit-app-config-tooltip'))"
+        v-tooltip="tooltip($t('interactive-editor.menu.edit-app-config-tooltip'))"
       >
-        {{ $t('interactive-editor.edit-app-config-btn') }}
+        {{ $t('interactive-editor.menu.edit-app-config-btn') }}
         <AppConfigIcon />
       </Button>
     </div>

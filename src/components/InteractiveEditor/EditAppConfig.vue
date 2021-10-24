@@ -8,7 +8,7 @@
     @closed="modalClosed"
   >
   <div class="edit-app-config-inner">
-  <h3>{{ $t('interactive-editor.edit-app-config-btn') }}</h3>
+  <h3>{{ $t('interactive-editor.menu.edit-app-config-btn') }}</h3>
   <div class="app-config-intro">
     <p class="use-caution">Proceed with Caution</p>
     The following options are for advanded app configration.
@@ -17,7 +17,7 @@
     to avoid unintended consequences.
   </div>
   <Button class="save-app-config-btn" :click="saveToState">
-    {{ $t('interactive-editor.save-stage-btn') }}
+    {{ $t('interactive-editor.menu.save-stage-btn') }}
     <SaveIcon />
   </button>
   <FormSchema
@@ -29,7 +29,7 @@
     name="appConfigForm"
   ></FormSchema>
   <Button class="save-app-config-btn" :click="saveToState">
-    {{ $t('interactive-editor.save-stage-btn') }}
+    {{ $t('interactive-editor.menu.save-stage-btn') }}
     <SaveIcon />
   </button>
   </div>

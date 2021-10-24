@@ -8,7 +8,7 @@
     @closed="modalClosed"
   >
   <div class="edit-page-info-inner">
-  <h3>{{ $t('interactive-editor.edit-page-info-btn') }}</h3>
+  <h3>{{ $t('interactive-editor.menu.edit-page-info-btn') }}</h3>
   <FormSchema
     :schema="schema"
     v-model="formData"
@@ -17,7 +17,7 @@
     name="pageInfoForm"
   >
     <Button type="submit">
-      {{ $t('interactive-editor.save-stage-btn') }}
+      {{ $t('interactive-editor.menu.save-stage-btn') }}
       <SaveIcon />
     </button>
   </FormSchema>
