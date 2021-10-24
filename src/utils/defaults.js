@@ -127,6 +127,7 @@ module.exports = {
     EDIT_PAGE_INFO: 'EDIT_PAGE_INFO',
     EDIT_APP_CONFIG: 'EDIT_APP_CONFIG',
     EXPORT_CONFIG_MENU: 'EXPORT_CONFIG_MENU',
+    MOVE_ITEM_TO: 'MOVE_ITEM_TO',
   },
   /* Key names for the top-level objects in conf.yml */
   topLevelConfKeys: {

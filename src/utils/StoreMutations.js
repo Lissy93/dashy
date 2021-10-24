@@ -9,6 +9,7 @@ const KEY_NAMES = [
   'UPDATE_PAGE_INFO',
   'UPDATE_APP_CONFIG',
   'UPDATE_SECTION',
+  'COPY_ITEM',
 ];
 
 // Convert array of key names into an object, and export
