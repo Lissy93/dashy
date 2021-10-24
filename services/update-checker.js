@@ -4,6 +4,10 @@ const currentVersion = require('../package.json').version;
 
 const packageUrl = 'https://raw.githubusercontent.com/Lissy93/dashy/master/package.json';
 
+const logToConsole = (msg) => {
+  console.log(msg); // eslint-disable-line no-console
+};
+
 const makeMsg = (latestVersion) => {
   const parse = (version) => parseInt(version.replace(/\./g, ''), 10);
   const difference = parse(latestVersion) - parse(currentVersion);
@@ -20,9 +24,9 @@ const makeMsg = (latestVersion) => {
 
 axios.get(packageUrl).then((response) => {
   if (response && response.data && response.data.version) {
-    console.log(`\nUsing Dashy V-${currentVersion}. Update Check Complete`);
-    console.log(makeMsg(response.data.version));
+    logToConsole(`\nUsing Dashy V-${currentVersion}. Update Check Complete`);
+    logToConsole(makeMsg(response.data.version));
   }
 }).catch(() => {
-  console.log('Unable to check for updates');
+  logToConsole('Unable to check for updates');
 });
