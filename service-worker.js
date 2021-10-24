@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.d888544435422f7f7e0eca495094a4f5.js"
+  "/precache-manifest.3eafb95d84d7500ff255feef6d6cb668.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "Dashy"});
