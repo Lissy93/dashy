@@ -94,6 +94,8 @@ export default {
   },
   props: {
     itemId: String,
+    isNew: Boolean,
+    parentSectionTitle: String, // If adding new item, which section to add it under
   },
   computed: {},
   components: {
@@ -105,7 +107,9 @@ export default {
     BinIcon,
   },
   mounted() {
-    this.item = this.getItemFromState(this.itemId);
+    if (!this.isNew) { // Get existing item data
+      this.item = this.getItemFromState(this.itemId);
+    }
     this.formData = this.makeInitialFormData();
     this.$modal.show(modalNames.EDIT_ITEM);
   },
@@ -187,8 +191,13 @@ export default {
       this.formData.forEach((row) => { structured[row.name] = row.value; });
       // Some attributes need a little extra formatting
       const newItem = this.formatBeforeSave(structured);
-      // Update the data store, with new item data
-      this.$store.commit(StoreKeys.UPDATE_ITEM, { newItem, itemId: this.itemId });
+      if (this.isNew) { // Insert new item into data store
+        newItem.id = `temp_${newItem.title}`;
+        const payload = { newItem, targetSection: this.parentSectionTitle };
+        this.$store.commit(StoreKeys.INSERT_ITEM, payload);
+      } else { // Update existing item from form data, in the store
+        this.$store.commit(StoreKeys.UPDATE_ITEM, { newItem, itemId: this.itemId });
+      }
       // If we're not already in edit mode, enable it now
       this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
       // Close edit menu

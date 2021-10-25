@@ -12,6 +12,7 @@ const KEY_NAMES = [
   'REMOVE_SECTION',
   'COPY_ITEM',
   'REMOVE_ITEM',
+  'INSERT_ITEM',
 ];
 
 // Convert array of key names into an object, and export

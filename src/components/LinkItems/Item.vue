@@ -5,7 +5,7 @@
       @contextmenu.prevent
       :href="hyperLinkHref"
       :target="anchorTarget"
-      :class="`item ${!icon? 'short': ''} size-${itemSize}`"
+      :class="`item ${!icon? 'short': ''} size-${itemSize} ${isAddNew ? 'add-new' : ''}`"
       v-tooltip="getTooltipOptions()"
       rel="noopener noreferrer" tabindex="0"
       :id="`link-${id}`"
@@ -44,7 +44,9 @@
       @openDeleteItem="openDeleteItem"
     />
     <MoveItemTo v-if="isEditMode" :itemId="id" />
-    <EditItem v-if="editMenuOpen" :itemId="id" @closeEditMenu="closeEditMenu" />
+    <EditItem v-if="editMenuOpen" :itemId="id"
+      @closeEditMenu="closeEditMenu"
+      :isNew="isAddNew" :parentSectionTitle="parentSectionTitle" />
   </div>
 </template>
 
@@ -90,6 +92,8 @@ export default {
     statusCheckUrl: String,
     statusCheckInterval: Number,
     statusCheckAllowInsecure: Boolean,
+    parentSectionTitle: String,
+    isAddNew: Boolean,
   },
   components: {
     Icon,
@@ -359,6 +363,9 @@ export default {
   }
   &.short:not(.size-large) {
     height: 2rem;
+  }
+  &.add-new {
+    border-style: dashed !important;
   }
 }
 

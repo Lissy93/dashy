@@ -22,6 +22,7 @@ const {
   REMOVE_SECTION,
   COPY_ITEM,
   REMOVE_ITEM,
+  INSERT_ITEM,
 } = Keys;
 
 const store = new Vuex.Store({
@@ -121,6 +122,17 @@ const store = new Vuex.Store({
         newConfig.sections.splice(sectionIndex, 1);
       }
       state.config = newConfig;
+    },
+    [INSERT_ITEM](state, payload) {
+      const { newItem, targetSection } = payload;
+      const config = { ...state.config };
+      config.sections.forEach((section) => {
+        if (section.name === targetSection) {
+          section.items.push(newItem);
+        }
+      });
+      config.sections = applyItemId(config.sections);
+      state.config = config;
     },
     [COPY_ITEM](state, payload) {
       const { item, toSection, appendTo } = payload;

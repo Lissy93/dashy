@@ -11,13 +11,15 @@
     @openEditSection="openEditSection"
     @openContextMenu="openContextMenu"
   >
+    <!-- If no items, show message -->
     <div v-if="!items || items.length < 1" class="no-items">
       No Items to Show Yet
     </div>
+    <!-- Item Container -->
     <div v-else
       :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
       :style="gridStyle" :id="`section-${groupId}`"
-    >
+    > <!-- Show for each item -->
       <Item
         v-for="(item) in sortedItems"
         :id="item.id"
@@ -34,24 +36,40 @@
         :itemSize="newItemSize"
         :hotkey="item.hotkey"
         :provider="item.provider"
+        :parentSectionTitle="title"
         :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
         :statusCheckInterval="getStatusCheckInterval()"
         :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
       />
+      <!-- When in edit mode, show additional item, for Add New item -->
+      <Item v-if="isEditMode"
+        :isAddNew="true"
+        :parentSectionTitle="title"
+        icon=":heavy_plus_sign:"
+        id="add-new"
+        title="Add New Item"
+        description="Click to add new item"
+        key="add-new"
+        class="add-new-item"
+        :itemSize="newItemSize"
+      />
       <div ref="modalContainer"></div>
     </div>
+    <!-- Modal for opening in modal view -->
     <IframeModal
       :ref="`iframeModal-${groupId}`"
       :name="`iframeModal-${groupId}`"
       @closed="$emit('itemClicked')"
     />
+    <!-- Edit item menu -->
     <EditSection
       v-if="editMenuOpen"
       @closeEditSection="closeEditSection"
       :sectionIndex="index"
     />
+    <!-- Right-click item options context menu -->
     <ContextMenu
       :show="contextMenuOpen"
       :posX="contextPos.posX"
@@ -300,4 +318,10 @@ export default {
   }
 }
 
+.add-new-item {
+  display: flex;
+  a {
+    border-style: dashed;
+  }
+}
 </style>
