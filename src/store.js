@@ -19,7 +19,9 @@ const {
   UPDATE_PAGE_INFO,
   UPDATE_APP_CONFIG,
   UPDATE_SECTION,
+  REMOVE_SECTION,
   COPY_ITEM,
+  REMOVE_ITEM,
 } = Keys;
 
 const store = new Vuex.Store({
@@ -58,6 +60,15 @@ const store = new Vuex.Store({
         if (foundItem) item = foundItem;
       });
       return item;
+    },
+    getParentSectionOfItem: (state, getters) => (itemId) => {
+      let foundSection;
+      getters.sections.forEach((section) => {
+        section.items.forEach((item) => {
+          if (item.id === itemId) foundSection = section;
+        });
+      });
+      return foundSection;
     },
   },
   mutations: {
@@ -103,16 +114,42 @@ const store = new Vuex.Store({
       newConfig.sections[sectionIndex] = sectionData;
       state.config = newConfig;
     },
+    [REMOVE_SECTION](state, payload) {
+      const { sectionIndex, sectionName } = payload;
+      const newConfig = { ...state.config };
+      if (newConfig.sections[sectionIndex].name === sectionName) {
+        newConfig.sections.splice(sectionIndex, 1);
+      }
+      state.config = newConfig;
+    },
     [COPY_ITEM](state, payload) {
-      const { item, toSection } = payload;
+      const { item, toSection, appendTo } = payload;
       const config = { ...state.config };
       const newItem = { ...item };
       config.sections.forEach((section) => {
         if (section.name === toSection) {
-          section.items.push(newItem);
+          if (appendTo === 'Begining') {
+            section.items.unshift(newItem);
+          } else {
+            section.items.push(newItem);
+          }
         }
       });
       config.sections = applyItemId(config.sections);
+      state.config = config;
+    },
+    [REMOVE_ITEM](state, payload) {
+      const { itemId, sectionName } = payload;
+      const config = { ...state.config };
+      config.sections.forEach((section) => {
+        if (section.name === sectionName) {
+          section.items.forEach((item, index) => {
+            if (item.id === itemId) {
+              section.items.splice(index, 1);
+            }
+          });
+        }
+      });
       state.config = config;
     },
   },

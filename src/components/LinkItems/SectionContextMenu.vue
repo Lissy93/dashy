@@ -12,11 +12,7 @@
           <EditIcon />
           <span>{{ $t('context-menus.section.edit-section') }}</span>
         </li>
-        <li v-if="isEditMode">
-          <MoveIcon />
-          <span>{{ $t('context-menus.section.move-section') }}</span>
-        </li>
-        <li v-if="isEditMode">
+        <li v-if="isEditMode" @click="removeSection">
           <BinIcon />
           <span>{{ $t('context-menus.section.remove-section') }}</span>
         </li>
@@ -29,14 +25,12 @@
 // Import icons for each element
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
 import BinIcon from '@/assets/interface-icons/interactive-editor-remove.svg';
-import MoveIcon from '@/assets/interface-icons/interactive-editor-move-to.svg';
 import SameTabOpenIcon from '@/assets/interface-icons/open-current-tab.svg';
 
 export default {
   name: 'ContextMenu',
   components: {
     EditIcon,
-    MoveIcon,
     BinIcon,
     SameTabOpenIcon,
   },
@@ -61,6 +55,9 @@ export default {
     },
     openEditSectionMenu() {
       this.$emit('openEditSection');
+    },
+    removeSection() {
+      this.$emit('removeSection');
     },
   },
 };

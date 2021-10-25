@@ -14,7 +14,7 @@
       <Select
         v-model="selectedSection"
         :options="sectionList"
-        :initialOption="currentSection"
+        :initialOption="selectedSection"
         label="Destination"
       />
       <Radio
@@ -84,15 +84,19 @@ export default {
       return sectionName;
     },
   },
+  mounted() {
+    this.selectedSection = this.currentSection;
+  },
   methods: {
     save() {
       const item = this.$store.getters.getItemById(this.itemId);
       // Copy item to new section
-      const copyPayload = { item, toSection: this.selectedSection };
+      const copyPayload = { item, toSection: this.selectedSection, appendTo: this.appendTo };
       this.$store.commit(StoreKeys.COPY_ITEM, copyPayload);
       // Remove item from previous section
       if (this.operation === 'Move') {
-        // TODO: Remove
+        const payload = { itemId: this.itemId, sectionName: this.currentSection };
+        this.$store.commit(StoreKeys.REMOVE_ITEM, payload);
       }
       this.close();
     },

@@ -60,6 +60,7 @@
       v-click-outside="closeContextMenu"
       @openEditSection="openEditSection"
       @navigateToSection="navigateToSection"
+      @removeSection="removeSection"
     />
   </Collapsable>
 </template>
@@ -216,6 +217,12 @@ export default {
       this.editMenuOpen = false;
       this.$modal.hide(modalNames.EDIT_SECTION);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
+    },
+    /* Deletes current section, in local state */
+    removeSection() {
+      const payload = { sectionIndex: this.index, sectionName: this.title };
+      this.$store.commit(StoreKeys.REMOVE_SECTION, payload);
+      this.closeContextMenu();
     },
     /* Open custom context menu, and set position */
     openContextMenu(e) {

@@ -244,7 +244,7 @@ export default {
   }
 
   /* Overide form element colors, so that config menu can be themed by user */
-  input, button, {
+  input, button {
     color: var(--config-settings-color);
     border: 1px solid var(--config-settings-color);
     background: none;

@@ -37,7 +37,7 @@
           <MoveIcon />
           <span>{{ $t('menu.move-item') }}</span>
         </li>
-        <li v-if="isEditMode">
+        <li v-if="isEditMode" @click="openDeleteItem()">
           <BinIcon />
           <span>{{ $t('menu.remove-item') }}</span>
         </li>
@@ -91,6 +91,9 @@ export default {
     },
     openMoveMenu() {
       this.$emit('openMoveItemMenu');
+    },
+    openDeleteItem() {
+      this.$emit('openDeleteItem');
     },
   },
 };

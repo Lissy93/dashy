@@ -115,6 +115,7 @@ export default {
     background: var(--interactive-editor-background-darker);
     border-radius: var(--curve-factor);
     box-shadow: 0px 0px 3px var(--interactive-editor-color);
+    margin-bottom: 1.5rem;
     span {
       font-family: var(--font-monospace);
     }

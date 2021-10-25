@@ -41,6 +41,7 @@
       @launchItem="launchItem"
       @openItemSettings="openItemSettings"
       @openMoveItemMenu="openMoveItemMenu"
+      @openDeleteItem="openDeleteItem"
     />
     <MoveItemTo v-if="isEditMode" :itemId="id" />
     <EditItem v-if="editMenuOpen" :itemId="id" @closeEditMenu="closeEditMenu" />
@@ -293,9 +294,17 @@ export default {
       lastUsed[itemId] = new Date().getTime();
       localStorage.setItem(localStorageKeys.LAST_USED, JSON.stringify(lastUsed));
     },
+    /* Open the modal for moving/ copying item to other section */
     openMoveItemMenu() {
       this.$modal.show(`${modalNames.MOVE_ITEM_TO}-${this.id}`);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+      this.closeContextMenu();
+    },
+    /* Deletes the current item from the state */
+    openDeleteItem() {
+      const parentSection = this.$store.getters.getParentSectionOfItem(this.id);
+      const payload = { itemId: this.id, sectionName: parentSection.name };
+      this.$store.commit(StoreKeys.REMOVE_ITEM, payload);
       this.closeContextMenu();
     },
   },
