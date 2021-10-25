@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import StoreKeys from '@/utils/StoreMutations';
 import IconDeafault from '@/assets/interface-icons/layout-default.svg';
 import IconHorizontal from '@/assets/interface-icons/layout-horizontal.svg';
 import IconVertical from '@/assets/interface-icons/layout-vertical.svg';
@@ -47,6 +48,7 @@ export default {
   methods: {
     updateDisplayLayout(layout) {
       this.$emit('layoutUpdated', layout);
+      this.$store.commit(StoreKeys.SET_ITEM_LAYOUT, layout);
     },
     tooltip(content) {
       return { content, trigger: 'hover focus', delay: 250 };

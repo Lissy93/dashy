@@ -14,6 +14,8 @@ const {
   UPDATE_CONFIG,
   SET_MODAL_OPEN,
   SET_LANGUAGE,
+  SET_ITEM_LAYOUT,
+  SET_ITEM_SIZE,
   UPDATE_ITEM,
   SET_EDIT_MODE,
   UPDATE_PAGE_INFO,
@@ -163,6 +165,12 @@ const store = new Vuex.Store({
         }
       });
       state.config = config;
+    },
+    [SET_ITEM_LAYOUT](state, layout) {
+      state.config.appConfig.layout = layout;
+    },
+    [SET_ITEM_SIZE](state, iconSize) {
+      state.config.appConfig.iconSize = iconSize;
     },
   },
   actions: {

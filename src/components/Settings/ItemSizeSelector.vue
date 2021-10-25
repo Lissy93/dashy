@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import StoreKeys from '@/utils/StoreMutations';
 import IconSmall from '@/assets/interface-icons/icon-size-small.svg';
 import IconMedium from '@/assets/interface-icons/icon-size-medium.svg';
 import IconLarge from '@/assets/interface-icons/icon-size-large.svg';
@@ -47,6 +48,7 @@ export default {
   methods: {
     updateIconSize(iconSize) {
       this.$emit('iconSizeUpdated', iconSize);
+      this.$store.commit(StoreKeys.SET_ITEM_SIZE, iconSize);
     },
     tooltip(content) {
       return { content, trigger: 'hover focus', delay: 250 };
