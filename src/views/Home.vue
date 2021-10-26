@@ -108,20 +108,9 @@ export default {
       if (colCount > 8) colCount = 8;
       return colCount;
     },
-    /* Combines sections from config file, with those in local storage */
-    allSections() {
-      // If the user has stored sections in local storage, return those
-      const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
-      if (localSections) {
-        const json = JSON.parse(localSections);
-        if (json.length >= 1) return json;
-      }
-      // Otherwise, return the usuall data from conf.yml
-      return this.sections;
-    },
     /* Return all sections, that match users search term */
     filteredTiles() {
-      const sections = this.singleSectionView || this.allSections;
+      const sections = this.singleSectionView || this.sections;
       return sections.filter((section) => this.filterTiles(section.items, this.searchValue));
     },
     /* Updates layout (when button clicked), and saves in local storage */
@@ -176,11 +165,11 @@ export default {
       this.$store.commit('SET_MODAL_OPEN', modalState);
     },
     /* If on sub-route, and section exists, then return only that section */
-    findSingleSection: (allSectios, sectionTitle) => {
+    findSingleSection: (allSections, sectionTitle) => {
       if (!sectionTitle) return undefined;
       let sectionToReturn;
       const parse = (section) => section.replace(' ', '-').toLowerCase().trim();
-      allSectios.forEach((section) => {
+      allSections.forEach((section) => {
         if (parse(sectionTitle) === parse(section.name)) {
           sectionToReturn = [section];
         }
@@ -209,8 +198,8 @@ export default {
     /* Checks if any sections or items use icons from a given CDN */
     checkIfIconLibraryNeeded(prefix) {
       let isNeeded = false;
-      if (!this.allSections) return false;
-      this.allSections.forEach((section) => {
+      if (!this.sections) return false;
+      this.sections.forEach((section) => {
         if (section.icon && section.icon.includes(prefix)) isNeeded = true;
         section.items.forEach((item) => {
           if (item.icon && item.icon.includes(prefix)) isNeeded = true;
@@ -249,10 +238,10 @@ export default {
     },
     /* Returns true if there is more than 1 sub-result visible during searching */
     checkIfResults() {
-      if (!this.allSections) return false;
+      if (!this.sections) return false;
       else {
         let itemsFound = true;
-        this.allSections.forEach((section) => {
+        this.sections.forEach((section) => {
           if (this.filterTiles(section.items, this.searchValue).length > 0) itemsFound = false;
         });
         return itemsFound;
