@@ -378,6 +378,9 @@ html[data-theme='material'], html[data-theme='material-dark'] {
     margin: 0;
     padding: 0;
   }
+  .item-wrapper.add-new-item {
+    flex-grow: inherit;
+  }
   /* Custom layout for medium and large icons */
   .item-wrapper .item:not(.size-small) {
     display: flex;
@@ -520,6 +523,7 @@ html[data-theme='material'] {
   --welcome-popup-text-color: #f5f5f5;
   --footer-text-color: #f5f5f5cc;
   // --login-form-background-secondary: #f5f5f5cc;
+  --context-menu-background: #fff;
   --context-menu-secondary-color: #f5f5f5;
   --transparent-white-50: #00000080;
   --status-check-tooltip-background: #fff;
@@ -575,11 +579,6 @@ html[data-theme='material'] {
   }
   .item:focus {
     outline-color: #4285f4cc;
-  }
-  div.context-menu {
-    border: none;
-    background: var(--white);
-    ul li:hover { svg path { fill: var(--background-darker); }}
   }
 }
 
@@ -645,6 +644,7 @@ html[data-theme='material-dark'] {
   // --minimal-view-search-color: var(--primary);
   // --minimal-view-group-color: var(--primary);
   --minimal-view-group-background: #131a1f;
+  --context-menu-secondary-color: #131a1f;
 
   div.minimal-section-heading h3, div.minimal-section-heading.selected h3 {
     color: #d5d5d5;
@@ -661,13 +661,6 @@ html[data-theme='material-dark'] {
   .item {
     &:before, &:active {
       background: #131a1f !important;
-    }
-  }
-  div.context-menu {
-    border: none;
-    background: var(--background);
-    ul li:hover {
-      background: #131a1f;
     }
   }
 }
