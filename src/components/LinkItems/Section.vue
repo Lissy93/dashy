@@ -42,6 +42,7 @@
         :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
+        :isAddNew="false"
       />
       <!-- When in edit mode, show additional item, for Add New item -->
       <Item v-if="isEditMode"

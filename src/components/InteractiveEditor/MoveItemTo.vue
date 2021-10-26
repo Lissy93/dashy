@@ -3,26 +3,31 @@
     :name="modalName" @closed="close"
     :resizable="true" width="40%" height="40%" classes="dashy-modal">
     <div class="move-menu-inner">
+    <!-- Title and item ID -->
       <h3 class="move-title">Move or Copy Item</h3>
       <p class="item-id">Editing {{ itemId }}</p>
+      <!-- Radio, for move or copy -->
       <Radio
         v-model="operation"
         :options="['Move', 'Copy']"
         label="Operation Type"
         :initialOption="operation"
       />
+      <!-- Select destionation section -->
       <Select
         v-model="selectedSection"
         :options="sectionList"
         :initialOption="selectedSection"
         label="Destination"
       />
+      <!-- Radio, for choosing append to beginning or end -->
       <Radio
         v-model="appendTo"
         :options="['Begining', 'End']"
         label="Append To"
         :initialOption="appendTo"
       />
+      <!-- Save and cancel buttons -->
       <SaveCancelButtons :saveClick="save" :cancelClick="close" />
     </div>
   </modal>

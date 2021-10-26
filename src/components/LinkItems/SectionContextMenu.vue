@@ -63,7 +63,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 
 div.context-menu {
   position: absolute;
