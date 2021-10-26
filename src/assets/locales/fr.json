@@ -163,10 +163,13 @@
     "backup-success-msg": "Sauvegarde effectuée avec succès",
     "restore-success-msg": "Configuration restaurée avec succès"
   },
-  "menu": {
-    "sametab": "Ouvrir dans l'onglet actuel",
-    "newtab": "Ouvrir dans un nouvel onglet",
-    "modal": "Ouvrir en mode fenêtré",
-    "workspace": "Ouvrir en plein écran"
+  "context-menus": {
+    "item": {
+      "sametab": "Ouvrir dans l'onglet actuel",
+      "newtab": "Ouvrir dans un nouvel onglet",
+      "modal": "Ouvrir en mode fenêtré",
+      "workspace": "Ouvrir en plein écran"
+    },
+    "section": {}
   }
 }
