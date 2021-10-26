@@ -49,7 +49,7 @@
           "title": "App Logo",
           "type": "string",
           "description": "Path to an optional image asset, to be displayed in the header",
-          "pattern": "^(http|/)",
+          "pattern": "^(http|/)(.*?)",
           "examples": [
             "/web-icons/dashy-logo.png",
             "https://i.ibb.co/yhbt6CY/dashy.png"
