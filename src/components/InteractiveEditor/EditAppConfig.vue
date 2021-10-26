@@ -86,7 +86,7 @@ export default {
     /* Remove any attribute which has an undefined value before saving */
     removeUndefinedValues(rawAppConfig) {
       const raw = rawAppConfig;
-      const isEmpty = (value) => (value === undefined || value === {} || value === []);
+      const isEmpty = (value) => (value === undefined);
       Object.keys(raw).forEach(key => isEmpty(raw[key]) && delete raw[key]);
       return raw;
     },

@@ -48,7 +48,6 @@ export default {
 div.select-container {
   margin: 0.25rem auto;
   display: flex;
-  align-items: baseline;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
