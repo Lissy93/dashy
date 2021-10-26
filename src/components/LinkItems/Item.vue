@@ -33,7 +33,7 @@
       <EditModeIcon v-if="isEditMode" class="edit-mode-item" @click="openItemSettings()" />
     </a>
     <ContextMenu
-      :show="contextMenuOpen"
+      :show="contextMenuOpen && !isAddNew"
       v-click-outside="closeContextMenu"
       :posX="contextPos.posX"
       :posY="contextPos.posY"
@@ -86,14 +86,14 @@ export default {
       type: String,
       validator: targetValidator,
     },
-    itemSize: String,
-    enableStatusCheck: Boolean,
-    statusCheckHeaders: Object,
-    statusCheckUrl: String,
-    statusCheckInterval: Number,
-    statusCheckAllowInsecure: Boolean,
-    parentSectionTitle: String,
-    isAddNew: Boolean,
+    itemSize: String, // Item size: small | medium | large
+    enableStatusCheck: Boolean, // Should run status checks
+    statusCheckHeaders: Object, // Custom status check headers
+    statusCheckUrl: String, // Custom URL for status check endpoint
+    statusCheckInterval: Number, // Num seconds beteween repeating checks
+    statusCheckAllowInsecure: Boolean, // Status check ignore SSL certs
+    parentSectionTitle: String, // Title of parent section (for add new)
+    isAddNew: Boolean, // Only set if 'fake' item used as Add New button
   },
   components: {
     Icon,

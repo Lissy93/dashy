@@ -23,16 +23,7 @@
         label="Append To"
         :initialOption="appendTo"
       />
-      <div class="button-wrapper">
-        <Button class="save-move" :click="save">
-          {{ $t('interactive-editor.menu.save-stage-btn') }}
-          <SaveIcon />
-        </Button>
-        <Button class="save-move" :click="close">
-          {{ $t('interactive-editor.menu.cancel-stage-btn') }}
-          <CancelIcon />
-        </Button>
-      </div>
+      <SaveCancelButtons :saveClick="save" :cancelClick="close" />
     </div>
   </modal>
 </template>
@@ -40,9 +31,7 @@
 <script>
 import Select from '@/components/FormElements/Select';
 import Radio from '@/components/FormElements/Radio';
-import Button from '@/components/FormElements/Button';
-import SaveIcon from '@/assets/interface-icons/save-config.svg';
-import CancelIcon from '@/assets/interface-icons/config-close.svg';
+import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
 
@@ -51,9 +40,7 @@ export default {
   components: {
     Select,
     Radio,
-    Button,
-    SaveIcon,
-    CancelIcon,
+    SaveCancelButtons,
   },
   props: {
     itemId: String, // Unique ID for item

@@ -5,41 +5,41 @@
       <!-- Open Options -->
       <ul class="menu-section">
         <li class="section-title">
-          {{ $t('menu.open-section-title') }}
+          {{ $t('context-menus.item.open-section-title') }}
         </li>
         <li @click="launch('sametab')">
           <SameTabOpenIcon />
-          <span>{{ $t('menu.sametab') }}</span>
+          <span>{{ $t('context-menus.item.sametab') }}</span>
         </li>
         <li @click="launch('newtab')">
           <NewTabOpenIcon />
-          <span>{{ $t('menu.newtab') }}</span>
+          <span>{{ $t('context-menus.item.newtab') }}</span>
         </li>
         <li @click="launch('modal')">
           <IframeOpenIcon />
-          <span>{{ $t('menu.modal') }}</span>
+          <span>{{ $t('context-menus.item.modal') }}</span>
         </li>
         <li @click="launch('workspace')">
           <WorkspaceOpenIcon />
-          <span>{{ $t('menu.workspace') }}</span>
+          <span>{{ $t('context-menus.item.workspace') }}</span>
         </li>
       </ul>
       <!-- Edit Options -->
       <ul class="menu-section">
         <li class="section-title">
-          {{ $t('menu.options-section-title') }}
+          {{ $t('context-menus.item.options-section-title') }}
         </li>
         <li @click="openSettings()">
           <EditIcon />
-          <span>{{ $t('menu.edit-item') }}</span>
+          <span>{{ $t('context-menus.item.edit-item') }}</span>
         </li>
         <li v-if="isEditMode" @click="openMoveMenu()">
           <MoveIcon />
-          <span>{{ $t('menu.move-item') }}</span>
+          <span>{{ $t('context-menus.item.move-item') }}</span>
         </li>
         <li v-if="isEditMode" @click="openDeleteItem()">
           <BinIcon />
-          <span>{{ $t('menu.remove-item') }}</span>
+          <span>{{ $t('context-menus.item.remove-item') }}</span>
         </li>
       </ul>
     </div>

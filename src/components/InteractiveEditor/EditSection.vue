@@ -8,15 +8,17 @@
     @closed="modalClosed"
   >
   <div class="edit-section-inner">
-    <h3>Edit Section</h3>
+    <h3>{{ $t('interactive-editor.edit-section.edit-section-title') }}</h3>
     <FormSchema
       :schema="customSchema"
       v-model="sectionData"
       name="editSectionForm"
       class="edit-section-form"
     />
-    <!-- Save to state button -->
-    <Button class="edit-section-save-btn" :click="saveSection">Save</Button>
+    <SaveCancelButtons
+      :saveClick="saveSection"
+      :cancelClick="modalClosed"
+    />
     </div>
   </modal>
 </template>
@@ -25,8 +27,8 @@
 import FormSchema from '@formschema/native';
 import StoreKeys from '@/utils/StoreMutations';
 import DashySchema from '@/utils/ConfigSchema';
-import Button from '@/components/FormElements/Button';
 import { modalNames } from '@/utils/defaults';
+import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 
 export default {
   name: 'EditSection',
@@ -34,7 +36,7 @@ export default {
     sectionIndex: Number,
   },
   components: {
-    Button,
+    SaveCancelButtons,
     FormSchema,
   },
   data() {

@@ -9,17 +9,21 @@
   >
   <div class="edit-app-config-inner">
   <h3>{{ $t('interactive-editor.menu.edit-app-config-btn') }}</h3>
+  <!-- Show caution message -->
   <div class="app-config-intro">
-    <p class="use-caution">Proceed with Caution</p>
-    The following options are for advanded app configration.
-    If you are unsure about any of the fields, please reference the
-    <a href="https://dashy.to/docs/configuring#appconfig-optional">documentation</a>
-    to avoid unintended consequences.
+    <p class="use-caution">
+      {{ $t('interactive-editor.edit-app-config.warning-msg-title') }}
+    </p>
+    {{ $t('interactive-editor.edit-app-config.warning-msg-l1') }}
+    {{ $t('interactive-editor.edit-app-config.warning-msg-l2') }}
+    <a href="https://dashy.to/docs/configuring#appconfig-optional">
+      {{ $t('interactive-editor.edit-app-config.warning-msg-docs') }}
+    </a>
+    {{ $t('interactive-editor.edit-app-config.warning-msg-l3') }}
   </div>
-  <Button class="save-app-config-btn" :click="saveToState">
-    {{ $t('interactive-editor.menu.save-stage-btn') }}
-    <SaveIcon />
-  </button>
+  <!-- Save Button, upper -->
+  <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
+  <!-- The main form -->
   <FormSchema
     :schema="schema"
     v-model="formData"
@@ -28,10 +32,8 @@
     class="app-config-form"
     name="appConfigForm"
   ></FormSchema>
-  <Button class="save-app-config-btn" :click="saveToState">
-    {{ $t('interactive-editor.menu.save-stage-btn') }}
-    <SaveIcon />
-  </button>
+  <!-- Save Button, lower -->
+  <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
   </div>
   </modal>
 </template>
@@ -41,8 +43,7 @@ import FormSchema from '@formschema/native';
 import DashySchema from '@/utils/ConfigSchema';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
-import Button from '@/components/FormElements/Button';
-import SaveIcon from '@/assets/interface-icons/save-config.svg';
+import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 
 export default {
   name: 'EditAppConfig',
@@ -56,8 +57,7 @@ export default {
   props: {},
   components: {
     FormSchema,
-    Button,
-    SaveIcon,
+    SaveCancelButtons,
   },
   mounted() {
     this.formData = this.appConfig;
@@ -75,6 +75,9 @@ export default {
       this.$modal.hide(this.modalName);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
       this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+    },
+    cancelEditing() {
+      this.$modal.hide(this.modalName);
     },
     /* Called when modal manually closed, updates state to allow searching again */
     modalClosed() {
@@ -125,9 +128,6 @@ export default {
     a {
       color: var(--interactive-editor-color);
     }
-  }
-  button.save-app-config-btn {
-    margin: 0.5rem auto 1.5rem;
   }
 }
 

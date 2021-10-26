@@ -1,11 +1,8 @@
 <template>
   <modal
-    :name="modalName"
-    :resizable="true"
-    width="50%"
-    height="80%"
+    :name="modalName" @closed="modalClosed"
+    :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-page-info"
-    @closed="modalClosed"
   >
   <div class="edit-page-info-inner">
   <h3>{{ $t('interactive-editor.menu.edit-page-info-btn') }}</h3>
@@ -19,7 +16,7 @@
     <Button type="submit">
       {{ $t('interactive-editor.menu.save-stage-btn') }}
       <SaveIcon />
-    </button>
+    </Button>
   </FormSchema>
   </div>
   </modal>
@@ -42,7 +39,6 @@ export default {
       modalName: modalNames.EDIT_PAGE_INFO,
     };
   },
-  props: {},
   components: {
     FormSchema,
     Button,

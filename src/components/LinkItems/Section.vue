@@ -238,8 +238,12 @@ export default {
     },
     /* Deletes current section, in local state */
     removeSection() {
-      const payload = { sectionIndex: this.index, sectionName: this.title };
-      this.$store.commit(StoreKeys.REMOVE_SECTION, payload);
+      const confirmMsg = this.$t('interactive-editor.edit-section.remove-confirm');
+      const youSure = confirm(confirmMsg); // eslint-disable-line no-alert, no-restricted-globals
+      if (youSure) {
+        const payload = { sectionIndex: this.index, sectionName: this.title };
+        this.$store.commit(StoreKeys.REMOVE_SECTION, payload);
+      }
       this.closeContextMenu();
     },
     /* Open custom context menu, and set position */

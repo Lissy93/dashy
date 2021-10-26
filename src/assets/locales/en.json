@@ -217,7 +217,16 @@
       "cancel-stage-btn": "Cancel"
     },
     "edit-section": {
-      "edit-tooltip": "Click to Edit, or right-click for more options"
+      "edit-section-title": "Edit Section",
+      "edit-tooltip": "Click to Edit, or right-click for more options",
+      "remove-confirm": "Are you sure you want to remove this section? This action can be undone later."
+    },
+    "edit-app-config": {
+      "warning-msg-title": "Proceed with Caution",
+      "warning-msg-l1": "The following options are for advanced app configuration.",
+      "warning-msg-l2": "If you are unsure about any of the fields, please reference the",
+      "warning-msg-docs": "documentation",
+      "warning-msg-l3": "to avoid unintended consequences."
     },
     "export": {
       "export-title": "Export Config",

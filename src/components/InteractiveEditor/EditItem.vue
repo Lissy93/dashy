@@ -65,7 +65,7 @@
       </div>
     </div>
     <!-- Save to state button -->
-    <Button class="edit-item-save-btn" :click="saveItem">Save</Button>
+    <SaveCancelButtons :saveClick="saveItem" :cancelClick="modalClosed" />
     </div>
   </modal>
 </template>
@@ -73,10 +73,10 @@
 <script>
 import AddIcon from '@/assets/interface-icons/interactive-editor-add.svg';
 import BinIcon from '@/assets/interface-icons/interactive-editor-remove.svg';
+import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 import Input from '@/components/FormElements/Input';
 import Radio from '@/components/FormElements/Radio';
 import Select from '@/components/FormElements/Select';
-import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
 import DashySchema from '@/utils/ConfigSchema';
 import { modalNames } from '@/utils/defaults';
@@ -102,9 +102,9 @@ export default {
     Input,
     Radio,
     Select,
-    Button,
     AddIcon,
     BinIcon,
+    SaveCancelButtons,
   },
   mounted() {
     if (!this.isNew) { // Get existing item data
@@ -303,16 +303,6 @@ export default {
     color: var(--interactive-editor-color);
     border-color: var(--interactive-editor-color);
     background: var(--interactive-editor-background);
-  }
-  button.edit-item-save-btn {
-    color: var(--interactive-editor-color);
-    border-color: var(--interactive-editor-color);
-    background: var(--interactive-editor-background);
-    &:hover {
-      color: var(--interactive-editor-background);
-      border-color: var(--interactive-editor-color);
-      background: var(--interactive-editor-color);
-    }
   }
   svg {
     path { fill: var(--interactive-editor-color); }
