@@ -163,13 +163,78 @@
     "backup-success-msg": "Sauvegarde effectuée avec succès",
     "restore-success-msg": "Configuration restaurée avec succès"
   },
+  "menu": {
+    "open-section-title": "Ouvrir ...",
+    "sametab": "Ouvrir dans l'onglet actuel",
+    "newtab": "Ouvrir dans un nouvel onglet",
+    "modal": "Ouvrir en mode fenêtré",
+    "workspace": "Ouvrir en plein écran",
+    "options-section-title": "Options",
+    "edit-item": "Modifier",
+    "move-item": "Copier et Déplacer",
+    "remove-item": "Supprimer"
+  },
   "context-menus": {
     "item": {
+      "open-section-title": "Ouvrir ...",
       "sametab": "Ouvrir dans l'onglet actuel",
       "newtab": "Ouvrir dans un nouvel onglet",
       "modal": "Ouvrir en mode fenêtré",
-      "workspace": "Ouvrir en plein écran"
+      "workspace": "Ouvrir en plein écran",
+      "options-section-title": "Options",
+      "edit-item": "Modifier",
+      "move-item": "Copier et Déplacer",
+      "remove-item": "Supprimer"
     },
-    "section": {}
+    "section": {
+      "open-section": "Ouvrir",
+      "edit-section": "Modifier",
+      "move-section": "Déplacer vers",
+      "remove-section": "Supprimer"
+    }
+  },
+  "interactive-editor": {
+    "menu": {
+      "start-editing-tooltip": "Entrer dans l'éditeur interactif",
+      "edit-site-data-subheading": "Modifier l'application",
+      "edit-page-info-btn": "Modifier les informations",
+      "edit-page-info-tooltip": "Titre de l'application, description, liens de navigation, texte de pied de page, etc.",
+      "edit-app-config-btn": "Modifier la configuration",
+      "edit-app-config-tooltip": "Toutes les autres options de configuration",
+      "config-save-methods-subheading": "Options de sauvegarde",
+      "save-locally-btn": "Enregistrer localement",
+      "save-locally-tooltip": "Enregistrez la configuration localement, dans le stockage du navigateur. Cela n'affectera pas votre fichier de configuration, mais les modifications ne seront présentes que sur cet appareil",
+      "save-disk-btn": "Enregistrer sur le disque",
+      "save-disk-tooltip": "Enregistrez la configuration dans le fichier conf.yml sur le disque. Cela sauvegardera, puis écrasera votre configuration existante",
+      "export-config-btn": "Exporter la configuration",
+      "export-config-tooltip": "Afficher et exporter la nouvelle configuration, soit dans un fichier, soit dans le presse-papier",
+      "cancel-changes-btn": "Annuler",
+      "cancel-changes-tooltip": "Réinitialisez les modifications en cours et quittez le mode d'édition. Cela n'affectera pas votre configuration enregistrée",
+      "edit-mode-name": "Éditeur interactif",
+      "edit-mode-subtitle": "Vous êtes en mode d'édition",
+      "edit-mode-description": "Vous pouvez apporter des modifications à votre configuration et prévisualiser les résultats, mais jusqu'à ce que vous sauvegardiez, aucune de vos modifications ne sera conservée.",
+      "save-stage-btn": "Enregistrer",
+      "cancel-stage-btn": "Annuler"
+    },
+    "edit-section": {
+      "edit-section-title": "Éditeur",
+      "edit-tooltip": "Cliquer pour modifier ou cliquer droit pour plus d'options",
+      "remove-confirm": "Voulez-vous vraiment supprimer cette section ? Cette action peut être annulée ultérieurement."
+    },
+    "edit-app-config": {
+      "warning-msg-title": "Procéder avec prudence",
+      "warning-msg-l1": "Les options suivantes concernent la configuration avancée de l'application.",
+      "warning-msg-l2": "Si vous n'êtes pas sûr de l'un des champs, veuillez consulter la",
+      "warning-msg-docs": "documentation",
+      "warning-msg-l3": "pour éviter des conséquences inattendues."
+    },
+    "export": {
+      "export-title": "Exporter la configuration",
+      "copy-clipboard-btn": "Copier dans le presse-papier",
+      "copy-clipboard-tooltip": "Copier la configuration complète de l'application sur votre appareil dans un fichier YAML",
+      "download-file-btn": "Télécharger",
+      "download-file-tooltip": "Téléchargez la configuration complète de l'application sur votre appareil dans un fichier YAML",
+      "view-title": "Afficher la configuration"
+    }
   }
 }
