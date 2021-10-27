@@ -164,7 +164,7 @@
     "restore-success-msg": "Configuration restaurée avec succès"
   },
   "menu": {
-    "open-section-title": "Open In",
+    "open-section-title": "Ouvrir ...",
     "sametab": "Ouvrir dans l'onglet actuel",
     "newtab": "Ouvrir dans un nouvel onglet",
     "modal": "Ouvrir en mode fenêtré",
@@ -176,7 +176,7 @@
   },
   "context-menus": {
     "item": {
-      "open-section-title": "Open In",
+      "open-section-title": "Ouvrir ...",
       "sametab": "Ouvrir dans l'onglet actuel",
       "newtab": "Ouvrir dans un nouvel onglet",
       "modal": "Ouvrir en mode fenêtré",
@@ -187,7 +187,7 @@
       "remove-item": "Supprimer"
     },
     "section": {
-      "open-section": "Open Section",
+      "open-section": "Ouvrir",
       "edit-section": "Modifier",
       "move-section": "Déplacer vers",
       "remove-section": "Supprimer"
@@ -217,7 +217,7 @@
       "cancel-stage-btn": "Annuler"
     },
     "edit-section": {
-      "edit-section-title": "Edit Section",
+      "edit-section-title": "Éditeur",
       "edit-tooltip": "Cliquer pour modifier ou cliquer droit pour plus d'options",
       "remove-confirm": "Voulez-vous vraiment supprimer cette section ? Cette action peut être annulée ultérieurement."
     },
