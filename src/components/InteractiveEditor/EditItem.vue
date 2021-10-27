@@ -22,7 +22,7 @@
         v-if="row.type === 'text' || row.type === 'number'"
         v-model="formData[index].value"
         :description="row.description"
-        :label="row.name"
+        :label="row.title || row.name"
         :type="row.type"
         layout="horizontal"
         />
@@ -31,7 +31,7 @@
         v-else-if="row.type === 'boolean'"
         v-model="formData[index].value"
         :description="row.description"
-        :label="row.name"
+        :label="row.title || row.name"
         :options="['true', 'false']"
         :initialOption="boolToStr(formData[index].value)"
       />
@@ -42,7 +42,7 @@
         :options="formData[index].enum"
         :description="row.description"
         :initialOption="formData[index].value"
-        :label="row.name"
+        :label="row.title || row.name"
         class="edit-item-select"
       />
       <!-- Warning note, for any other data types, that aren't yet supported -->
@@ -60,7 +60,7 @@
           :key="row.name"
           @click="() => appendNewField(row.name)"
           class="add-field-tag">
-          <AddIcon /> {{ row.name }}
+          <AddIcon /> {{ row.title || row.name }}
         </span>
       </div>
     </div>
@@ -126,15 +126,20 @@ export default {
         value: this.item[property],
         type: this.getInputType(this.schema[property]),
         enum: this.schema[property].enum,
+        title: this.schema[property].title,
       };
     },
     /* Make formatted data structure to be rendered as form elements */
     makeInitialFormData() {
       const formData = [];
       const requiredFields = ['title', 'description', 'url', 'icon', 'target'];
+      const unneededFields = ['id'];
+      const isPrimaryField = (property) => (
+        this.item[property] || requiredFields.includes(property)
+      ) && !unneededFields.includes(property);
       Object.keys(this.schema).forEach((property) => {
         const singleRow = this.makeRowData(property);
-        if (this.item[property] || requiredFields.includes(property)) {
+        if (isPrimaryField(property)) {
           formData.push(singleRow);
         } else {
           this.additionalFormData.push(singleRow);
@@ -263,8 +268,8 @@ export default {
     .input-container, .select-container {
         width: 100%;
         input.input-field {
-        font-size: 1rem;
-        padding: 0.35rem 0.5rem;
+          font-size: 1rem;
+          padding: 0.35rem 0.5rem;
       }
     }
   }

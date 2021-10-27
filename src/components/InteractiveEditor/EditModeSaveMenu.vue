@@ -194,7 +194,7 @@ export default {
 @import '@/styles/media-queries.scss';
 
 div.edit-mode-bottom-banner {
-  position: absolute;
+  position: fixed;
   display: grid;
   z-index: 5;
   bottom: 0;
