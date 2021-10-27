@@ -4,7 +4,7 @@
     <div class="css-wrapper">
       <h2 class="css-input-title">Custom CSS</h2>
       <textarea class="css-editor" v-model="customCss" />
-      <Button class="save-button" :click="save">{{ $t('config.css-save-btn') }}</button>
+      <Button class="save-button" :click="save">{{ $t('config.css-save-btn') }}</Button>
       <p class="quick-note">
         <b>{{ $t('config.css-note-label') }}:</b>
         {{ $t('config.css-note-l1') }} {{ $t('config.css-note-l2') }} {{ $t('config.css-note-l3') }}
@@ -20,48 +20,64 @@
 
 import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
 import Button from '@/components/FormElements/Button';
-import { getTheme } from '@/utils/ConfigHelpers';
-import { localStorageKeys } from '@/utils/defaults';
+import StoreKeys from '@/utils/StoreMutations';
 import { InfoHandler } from '@/utils/ErrorHandler';
+import { localStorageKeys, theme as defaultTheme } from '@/utils/defaults';
 
 export default {
   name: 'StyleEditor',
-  props: {
-    config: Object,
-  },
   components: {
     Button,
     CustomThemeMaker,
   },
+  computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    currentTheme() {
+      return this.appConfig.theme || defaultTheme;
+    },
+  },
   data() {
     return {
-      customCss: this.config.appConfig.customCss || '\n\n',
-      currentTheme: getTheme(),
+      customCss: '',
     };
   },
+  mounted() {
+    // Get existing custom styles (if present) from appConfig
+    this.customCss = this.appConfig.customCss || '\n\n';
+  },
   methods: {
-    /* Save custom CSS in browser, call inject, and show success message */
+    /* Sanitizes input, saves to browser and store, applies to page and shows message */
     save() {
-      // Get, and sanitize users CSS
       const css = this.customCss.replace(/<\/?[^>]+(>|$)/g, '');
-      // Update app config, and apply settings locally
-      const appConfig = { ...this.config.appConfig };
-      appConfig.customCss = css;
-      localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(appConfig));
-      // Immidiatley inject new CSS
-      this.inject(css);
-      // If reseting styles, then refresh the page
-      if (css === '') setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
-      // Show status message
-      InfoHandler('User syles has been saved', 'Custom CSS Update');
-      this.$toasted.show('Changes saved successfully');
+      this.$store.commit(StoreKeys.UPDATE_CUSTOM_CSS, css);
+      this.saveToBrowser(css);
+      this.injectToPage(css);
+      this.showSuccessMsg();
+      if (css === '') this.reloadPage();
     },
     /* Formats CSS, and applies it to page */
-    inject(userStyles) {
+    injectToPage(userStyles) {
       const cleanedCss = userStyles.replace(/<\/?[^>]+(>|$)/g, '');
       const style = document.createElement('style');
       style.textContent = cleanedCss;
       document.head.append(style);
+    },
+    /* Saves custom CSS local storage */
+    saveToBrowser(css) {
+      const localAppConfig = JSON.parse(localStorage.getItem(localStorageKeys.APP_CONFIG) || '{}');
+      localAppConfig.customCss = css;
+      localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(localAppConfig));
+    },
+    /* Reload the page (only called if removing styles) */
+    reloadPage() {
+      setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
+    },
+    /* Show success toast and lot update */
+    showSuccessMsg() {
+      this.$toasted.show('Changes saved successfully');
+      InfoHandler('User syles has been saved', 'Custom CSS');
     },
   },
 };
