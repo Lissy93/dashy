@@ -6,6 +6,7 @@ import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { componentVisibility } from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/MiscHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
+import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 
 Vue.use(Vuex);
 
@@ -26,6 +27,10 @@ const {
   REMOVE_ITEM,
   INSERT_ITEM,
 } = Keys;
+
+const editorLog = (logMessage) => {
+  InfoHandler(logMessage, InfoKeys.EDITOR);
+};
 
 const store = new Vuex.Store({
   state: {
@@ -87,7 +92,10 @@ const store = new Vuex.Store({
       state.modalOpen = modalOpen;
     },
     [SET_EDIT_MODE](state, editMode) {
-      state.editMode = editMode;
+      if (editMode !== state.editMode) {
+        editorLog(editMode ? 'Edit session started' : 'Edit session ended');
+        state.editMode = editMode;
+      }
     },
     [UPDATE_ITEM](state, payload) {
       const { itemId, newItem } = payload;
@@ -96,6 +104,7 @@ const store = new Vuex.Store({
         section.items.forEach((item, itemIndex) => {
           if (item.id === itemId) {
             newConfig.sections[secIndex].items[itemIndex] = newItem;
+            editorLog('Item updated');
           }
         });
       });
@@ -105,23 +114,27 @@ const store = new Vuex.Store({
       const newConfig = state.config;
       newConfig.pageInfo = newPageInfo;
       state.config = newConfig;
+      editorLog('Page info updated');
     },
     [UPDATE_APP_CONFIG](state, newAppConfig) {
       const newConfig = state.config;
       newConfig.appConfig = newAppConfig;
       state.config = newConfig;
+      editorLog('App config updated');
     },
     [UPDATE_SECTION](state, payload) {
       const { sectionIndex, sectionData } = payload;
       const newConfig = { ...state.config };
       newConfig.sections[sectionIndex] = sectionData;
       state.config = newConfig;
+      editorLog('Section updated');
     },
     [REMOVE_SECTION](state, payload) {
       const { sectionIndex, sectionName } = payload;
       const newConfig = { ...state.config };
       if (newConfig.sections[sectionIndex].name === sectionName) {
         newConfig.sections.splice(sectionIndex, 1);
+        editorLog('Section removed');
       }
       state.config = newConfig;
     },
@@ -131,6 +144,7 @@ const store = new Vuex.Store({
       config.sections.forEach((section) => {
         if (section.name === targetSection) {
           section.items.push(newItem);
+          editorLog('New item added');
         }
       });
       config.sections = applyItemId(config.sections);
@@ -147,6 +161,7 @@ const store = new Vuex.Store({
           } else {
             section.items.push(newItem);
           }
+          editorLog('Item copied');
         }
       });
       config.sections = applyItemId(config.sections);
@@ -160,6 +175,7 @@ const store = new Vuex.Store({
           section.items.forEach((item, index) => {
             if (item.id === itemId) {
               section.items.splice(index, 1);
+              editorLog('Item removed');
             }
           });
         }

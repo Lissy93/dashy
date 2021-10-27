@@ -38,4 +38,9 @@ export const WarningInfoHandler = (msg, title, log) => {
   statusErrorMsg(title || 'Warning', msg, log);
 };
 
+/* Titles for info logging */
+export const InfoKeys = {
+  EDITOR: 'Interactive Editor',
+};
+
 export default ErrorHandler;
