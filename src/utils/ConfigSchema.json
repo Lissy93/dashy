@@ -285,7 +285,7 @@
         "cssThemes": {
           "title": "Additional CSS Themes",
           "type": "array",
-          "description": "Theme names to be added to the dropdown",
+          "description": "Theme names to be added to the dropdown, once added you can then add custom CSS to style your theme",
           "items": {
             "type": "string"
           }
@@ -293,11 +293,11 @@
         "customColors": {
           "title": "Custom Colors",
           "type": "object",
-          "description": "Set a custom color palette for any theme"
+          "description": "Set a custom color palette for any theme, see docs for more info"
         },
         "externalStyleSheet": {
           "title": "External Stylesheets",
-          "description": "URL or URLs of external stylesheets to add to dropdown/ load",
+          "description": "List of URLs of external stylesheets to add to dropdown/ load",
           "type": "array",
           "items": {
             "type": "string"
@@ -306,7 +306,7 @@
         "customCss": {
           "title": "Custom CSS",
           "type": "string",
-          "description": "Any custom CSS overides, must be minified"
+          "description": "Any custom CSS overides to be applied globally, should be minified"
         },
         "hideComponents": {
           "title": "Hidden Components",
@@ -626,24 +626,29 @@
               ],
               "properties": {
                 "title": {
+                  "title": "Item Text",
                   "type": "string",
-                  "description": "Text shown on the item"
+                  "description": "Title of the item"
                 },
                 "description": {
+                  "title": "Description",
                   "type": "string",
                   "nullable": true,
                   "description": "Short description, shown on hover or in a tooltip"
                 },
                 "icon": {
+                  "title": "Icon",
                   "type": "string",
                   "nullable": true,
-                  "description": "An icon, either as a font-awesome identifier, local or remote URL, or the word favicon or generative"
+                  "description": "An icon, either as a font-awesome, simple-icon or mdi identifier, emoji, favicon, generative or the URL/ path to a local or remote icon asset"
                 },
                 "url": {
+                  "title": "Service URL",
                   "type": "string",
-                  "description": "The destination to navigate to when item is clicked"
+                  "description": "The destination to navigate to when item is clicked, expressed as a valid URL, IP or hostname"
                 },
                 "target": {
+                  "title": "Opening Method",
                   "type": "string",
                   "enum": [
                     "newtab",
@@ -654,45 +659,58 @@
                     "workspace"
                   ],
                   "default": "newtab",
-                  "description": "Opening method, when item is clicked"
+                  "description": "Where / how the item is opened when it's clicked"
                 },
                 "hotkey": {
+                  "title": "Hot Key",
                   "type": "number",
                   "description": "A numeric shortcut key, between 0 and 9. Useful for quickly launching frequently used applications"
                 },
                 "tags": {
+                  "title": "Tags",
                   "type": "array",
-                  "description": "Tags, which can be used for improved search",
+                  "description": "A list of tags for improved search. Separate using a comma",
                   "maxItems": 12,
                   "items": {
                     "type": "string"
                   }
                 },
-                "color": {
-                  "type": "string",
-                  "description": "A custom fill color of the item"
-                },
                 "provider": {
+                  "title": "Provider",
                   "type": "string",
-                  "description": "Provider name, e.g. Microsoft"
+                  "description": "Provider name, e.g. Microsoft, Nebucasa, DigitalOcean, etc"
                 },
                 "statusCheck": {
+                  "title": "Enable Status Check",
                   "type": "boolean",
                   "default": false,
                   "description": "Whether or not to display online/ offline status for this service. Will override appConfig.statusCheck"
                 },
                 "statusCheckUrl": {
+                  "title": "Status Check URL",
                   "type": "string",
-                  "description": "If you've enabled statusCheck, and want to use a different URL to what is defined under the item, then specify it here"
+                  "description": "Custom status check endpoint for this item. Useful if the default URL doesn't return 200, or if your service has a dedicated status check endpoint"
                 },
                 "statusCheckHeaders": {
+                  "title": "Status Check Headers",
                   "type": "object",
-                  "description": " If you're endpoint requires any specific headers for the status checking, then define them here"
+                  "description": " Custom headers for status checking, useful if your service requires authorization headers to return a 200"
                 },
                 "statusCheckAllowInsecure": {
+                  "title": "Status Check Disable SSL",
                   "type": "boolean",
                   "default": false,
-                  "description": "Allows for running status checks on insecure content/ non-HTTPS apps"
+                  "description": "Allows for running status checks on insecure content/ non-HTTPS apps. Prevents checks failing for non-SSL sites"
+                },
+                "color": {
+                  "title": "Custom Color",
+                  "type": "string",
+                  "description": "A custom fill color of the item, expressed either as hex code or color name"
+                },
+                "id": {
+                  "title": "Item ID",
+                  "type": "string",
+                  "description": "Unique ID for each item. Generated automatically, shouldn't need to be set manually."
                 }
               }
             }
