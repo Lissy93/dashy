@@ -1,31 +1,24 @@
 <template>
   <div class="json-editor-outer">
     <!-- Main JSON editor -->
-    <v-jsoneditor
-      v-model="jsonData"
-      :options="options"
-    />
+    <v-jsoneditor v-model="jsonData" :options="options" />
     <!-- Options raido, and save button -->
-    <div class="save-options">
-      <span class="save-option-title">{{ $t('config-editor.save-location-label') }}:</span>
-      <div class="option">
-        <input type="radio" id="local" value="local"
-          v-model="saveMode" class="radio-option" :disabled="!allowWriteToDisk" />
-        <label for="local" class="save-option-label">
-          {{ $t('config-editor.location-local-label') }}
-        </label>
-      </div>
-      <div class="option">
-        <input type="radio" id="file" value="file" v-model="saveMode" class="radio-option"
-          :disabled="!allowWriteToDisk" />
-        <label for="file" class="save-option-label">
-          {{ $t('config-editor.location-disk-label') }}
-        </label>
-      </div>
+    <Radio class="save-options"
+      v-model="saveMode"
+      :label="$t('config-editor.save-location-label')"
+      :options="saveOptions"
+      :initialOption="initialSaveMode"
+      :disabled="!allowWriteToDisk"
+      />
+    <!-- Save Buttons -->
+    <div :class="`btn-container ${!isValid ? 'err' : ''}`">
+      <Button :click="save">
+        {{ $t('config-editor.save-button') }}
+      </Button>
+      <Button :click="startPreview">
+        {{ $t('config-editor.preview-button') }}
+      </Button>
     </div>
-    <button :class="`save-button ${!isValid ? 'err' : ''}`" @click="save()">
-      {{ $t('config-editor.save-button') }}
-    </button>
     <!-- List validation warnings -->
     <p class="errors">
       <ul>
@@ -50,7 +43,6 @@
     <p v-if="saveSuccess" class="response-output">
       {{ $t('config-editor.success-note-l1') }}
       {{ $t('config-editor.success-note-l2') }}
-      {{ $t('config-editor.success-note-l3') }}
     </p>
     <p class="note">{{ $t('config.backup-note') }}</p>
   </div>
@@ -61,25 +53,27 @@
 import axios from 'axios';
 import ProgressBar from 'rsup-progress';
 import VJsoneditor from 'v-jsoneditor';
+import jsYaml from 'js-yaml';
 import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
 import configSchema from '@/utils/ConfigSchema.json';
-import JsonToYaml from '@/utils/JsonToYaml';
-import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
+import StoreKeys from '@/utils/StoreMutations';
+import { localStorageKeys, serviceEndpoints, modalNames } from '@/utils/defaults';
 import { isUserAdmin } from '@/utils/Auth';
+import Button from '@/components/FormElements/Button';
+import Radio from '@/components/FormElements/Radio';
 
 export default {
   name: 'JsonEditor',
-  props: {
-    config: Object,
-  },
   components: {
     VJsoneditor,
+    Button,
+    Radio,
   },
   data() {
     return {
-      jsonData: this.config,
+      jsonData: {},
       errorMessages: [],
-      saveMode: 'file',
+      saveMode: '',
       options: {
         schema: configSchema,
         mode: 'tree',
@@ -87,26 +81,36 @@ export default {
         name: 'config',
         onValidationError: this.validationErrors,
       },
-      jsonParser: JsonToYaml,
       responseText: '',
       saveSuccess: undefined,
-      allowWriteToDisk: this.shouldAllowWriteToDisk(),
       progress: new ProgressBar({ color: 'var(--progress-bar)' }),
+      saveOptions: [
+        { label: this.$t('config-editor.location-disk-label'), value: 'file' },
+        { label: this.$t('config-editor.location-local-label'), value: 'local' },
+      ],
     };
   },
   computed: {
+    config() {
+      return this.$store.state.config;
+    },
     isValid() {
       return this.errorMessages.length < 1;
     },
-  },
-  mounted() {
-    if (!this.allowWriteToDisk) this.saveMode = 'local';
-  },
-  methods: {
-    shouldAllowWriteToDisk() {
+    allowWriteToDisk() {
       const { appConfig } = this.config;
       return appConfig.allowConfigEdit !== false && isUserAdmin();
     },
+    initialSaveMode() {
+      return this.allowWriteToDisk ? 'file' : 'local';
+    },
+  },
+  mounted() {
+    this.jsonData = this.config;
+    if (!this.allowWriteToDisk) this.saveMode = 'local';
+  },
+  methods: {
+    /* Calls appropriate save method, based on save-type radio selected */
     save() {
       if (this.saveMode === 'local' || !this.allowWriteToDisk) {
         this.saveConfigLocally();
@@ -116,9 +120,21 @@ export default {
         this.$toasted.show(this.$t('config-editor.error-msg-save-mode'));
       }
     },
+    /* Applies changes to the local state, begins edit mode and closes modal */
+    startPreview() {
+      InfoHandler('Applying changes to local state...', 'Config Update');
+      const data = this.jsonData;
+      this.$store.commit(StoreKeys.SET_APP_CONFIG, data.appConfig);
+      this.$store.commit(StoreKeys.SET_PAGE_INFO, data.pageInfo);
+      this.$store.commit(StoreKeys.SET_SECTIONS, data.sections);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
+      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+      this.$modal.hide(modalNames.CONF_EDITOR);
+    },
+    /* Converts config to YAML, and writes it to disk */
     writeConfigToDisk() {
       // 1. Convert JSON into YAML
-      const yaml = this.jsonParser(this.jsonData);
+      const yaml = jsYaml.dump(this.config);
       // 2. Prepare the request
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
       const endpoint = `${baseUrl}${serviceEndpoints.save}`;
@@ -137,6 +153,7 @@ export default {
           this.showToast(this.$t('config-editor.error-msg-cannot-save'), false);
         }
         InfoHandler('Config has been written to disk succesfully', 'Config Update');
+        this.$store.commit(StoreKeys.SET_CONFIG, this.jsonData);
         this.progress.end();
       })
         .catch((error) => {
@@ -147,6 +164,7 @@ export default {
           this.progress.end();
         });
     },
+    /* Saves config to local browser storage */
     saveConfigLocally() {
       const data = this.jsonData;
       if (data.sections) {
@@ -165,11 +183,13 @@ export default {
       InfoHandler('Config has succesfully been saved in browser storage', 'Config Update');
       this.showToast(this.$t('config-editor.success-msg-local'), true);
     },
+    /* Clears config from browser storage, only removing relevant items  */
     carefullyClearLocalStorage() {
       localStorage.removeItem(localStorageKeys.PAGE_INFO);
       localStorage.removeItem(localStorageKeys.APP_CONFIG);
       localStorage.removeItem(localStorageKeys.CONF_SECTIONS);
     },
+    /* Convert error messages into readable format for UI */
     validationErrors(errors) {
       const errorMessages = [];
       errors.forEach((error) => {
@@ -197,6 +217,7 @@ export default {
       });
       this.errorMessages = errorMessages;
     },
+    /* Shows toast message */
     showToast(message, success) {
       this.$toasted.show(message, { className: `toast-${success ? 'success' : 'error'}` });
     },
@@ -259,52 +280,59 @@ p.no-permission-note {
   color: var(--config-settings-color);
 }
 
-button.save-button {
-  padding:  0.5rem 1rem;
-  margin: 0.25rem auto;
-  font-size: 1.2rem;
-  background: var(--config-settings-color);
-  color: var(--config-settings-background);
-  border: 1px solid var(--config-settings-background);
-  border-radius: var(--curve-factor);
-  cursor: pointer;
-  &:hover {
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button {
+    padding:  0.5rem 1rem;
+    margin: 0.25rem;
+    font-size: 1.2rem;
     background: var(--config-settings-background);
     color: var(--config-settings-color);
-    border-color: var(--config-settings-color);
-  }
-  &.err {
-    opacity: 0.8;
-    cursor: default;
+    border: 1px solid var(--config-settings-color);
+    border-radius: var(--curve-factor);
     &:hover {
       background: var(--config-settings-color);
       color: var(--config-settings-background);
+      border-color: var(--config-settings-background);
+    }
+  }
+  &.err button {
+    opacity: 0.8;
+    cursor: default;
+    &:hover {
+      background: var(--config-settings-background);
+      color: var(--config-settings-color);
       border-color: var(--danger);
     }
   }
 }
 
-div.save-options {
+div.save-options.radio-container {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  background: var(--code-editor-background);
-  color: var(--code-editor-color);
+  margin: 0;
+  padding: 0;
   border-top: 2px solid var(--config-settings-background);
-  @include tablet-down { flex-direction: column; }
-  .option {
-    @include tablet-up { margin-left: 2rem; }
+  background: var(--code-editor-background);
+  label.radio-label {
+    font-size: 1rem;
+    flex-grow: revert;
+    flex-basis: revert;
+    color: var(--code-editor-color);
+    padding-left: 1rem;
   }
-  span.save-option-title {
-    cursor: default;
-  }
-  input.radio-option {
-    cursor: pointer;
-  }
-  label.save-option-label {
-    cursor: pointer;
+  .radio-wrapper {
+    margin: 0;
+    font-size: 1rem;
+    justify-content: space-around;
+    background: var(--code-editor-background);
+    color: var(--code-editor-color);
+    .radio-option:hover:not(.wrap-disabled) {
+      border: 1px solid var(--code-editor-color);
+    }
   }
 }
 
