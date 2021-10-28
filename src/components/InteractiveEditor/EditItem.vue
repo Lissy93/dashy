@@ -32,7 +32,7 @@
         v-model="formData[index].value"
         :description="row.description"
         :label="row.title || row.name"
-        :options="['true', 'false']"
+        :options="[ ...boolRadioOptions ]"
         :initialOption="boolToStr(formData[index].value)"
       />
       <!-- Select/ dropdown for enum multiple-choice input -->
@@ -90,6 +90,10 @@ export default {
       formData: [], // Array of form fields
       additionalFormData: [], // Array of not-yet-used form fields
       item: {},
+      boolRadioOptions: [
+        { label: 'true', value: 'true' },
+        { label: 'false', value: 'false' },
+      ],
     };
   },
   props: {

@@ -9,7 +9,7 @@
       <!-- Radio, for move or copy -->
       <Radio
         v-model="operation"
-        :options="['Move', 'Copy']"
+        :options="operationRadioOptions"
         label="Operation Type"
         :initialOption="operation"
       />
@@ -23,7 +23,7 @@
       <!-- Radio, for choosing append to beginning or end -->
       <Radio
         v-model="appendTo"
-        :options="['Begining', 'End']"
+        :options="appendToRadioOptions"
         label="Append To"
         :initialOption="appendTo"
       />
@@ -54,9 +54,17 @@ export default {
   data() {
     return {
       selectedSection: '',
-      operation: 'Move',
-      appendTo: 'End',
+      operation: 'move',
+      appendTo: 'end',
       modalName: `${modalNames.MOVE_ITEM_TO}-${this.itemId}`,
+      operationRadioOptions: [
+        { label: 'Move', value: 'move' },
+        { label: 'Copy', value: 'copy' },
+      ],
+      appendToRadioOptions: [
+        { label: 'Beginning', value: 'beginning' },
+        { label: 'End', value: 'end' },
+      ],
     };
   },
   computed: {
@@ -86,7 +94,7 @@ export default {
       const copyPayload = { item, toSection: this.selectedSection, appendTo: this.appendTo };
       this.$store.commit(StoreKeys.COPY_ITEM, copyPayload);
       // Remove item from previous section
-      if (this.operation === 'Move') {
+      if (this.operation === 'move') {
         const payload = { itemId: this.itemId, sectionName: this.currentSection };
         this.$store.commit(StoreKeys.REMOVE_ITEM, payload);
       }

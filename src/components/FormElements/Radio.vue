@@ -2,15 +2,15 @@
   <div class="radio-container">
     <label v-if="label" class="radio-label">{{ label }}</label>
     <div class="radio-wrapper">
-      <div v-for="radio in options" :key="radio" class="radio-option">
-        <label :for="`id-${radio}`" class="option-label">{{ radio }}</label>
-        <input
-          :value="radio"
-          :id=" `id-${radio}`"
-          v-model="selectedRadio"
-          type="radio"
+      <div v-for="radio in options" :key="radio.value"
+        :class="`radio-option ${disabled ? 'wrap-disabled' : ''}`">
+        <label :for="`id-${radio.value}`" class="option-label">{{ radio.label }}</label>
+        <input type="radio" class="radio-input"
+          :id=" `id-${radio.value}`"
           :name="makeGroupName"
-          class="radio-input"
+          :value="radio.value"
+          :disabled="disabled || radio.disabled"
+          v-model="selectedRadio"
           v-on:input="updateValue($event.target.value)"
         />
       </div>
@@ -25,10 +25,11 @@ export default {
   name: 'Radio',
   components: {},
   props: {
-    options: Array, // Array of available options
+    options: Array, // Array of objects for available options
     initialOption: String, // Optional default option
     label: String, // Form label for element
     description: String, // Optional description text
+    disabled: Boolean, // Disable all radio buttons
   },
   data() {
     return {
@@ -91,8 +92,11 @@ div.radio-container {
       cursor: pointer;
       border: 1px solid transparent;
       border-radius: var(--curve-factor);
-      &:hover {
+      &:hover:not(.wrap-disabled) {
         border: 1px solid var(--primary);
+      }
+      &:disabled {
+        opacity: var(--dimming-factor);
       }
       label.option-label, input.radio-input {
         cursor: pointer;
