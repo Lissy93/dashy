@@ -55,7 +55,7 @@ export default {
   methods: {
     /* When form submitteed, update VueX store with new pageInfo, and close modal */
     saveToState() {
-      this.$store.commit(StoreKeys.UPDATE_PAGE_INFO, this.formData);
+      this.$store.commit(StoreKeys.SET_PAGE_INFO, this.formData);
       this.$modal.hide(this.modalName);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
       this.$store.commit(StoreKeys.SET_EDIT_MODE, true);

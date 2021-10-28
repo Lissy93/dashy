@@ -71,7 +71,7 @@ export default {
     /* When form submitteed, update VueX store with new appConfig, and close modal */
     saveToState() {
       const processedFormData = this.removeUndefinedValues(this.formData);
-      this.$store.commit(StoreKeys.UPDATE_APP_CONFIG, processedFormData);
+      this.$store.commit(StoreKeys.SET_APP_CONFIG, processedFormData);
       this.$modal.hide(this.modalName);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
       this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
