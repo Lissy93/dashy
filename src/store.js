@@ -12,20 +12,24 @@ Vue.use(Vuex);
 
 const {
   INITIALIZE_CONFIG,
-  UPDATE_CONFIG,
+  SET_CONFIG,
   SET_MODAL_OPEN,
   SET_LANGUAGE,
   SET_ITEM_LAYOUT,
   SET_ITEM_SIZE,
+  SET_THEME,
   UPDATE_ITEM,
   SET_EDIT_MODE,
-  UPDATE_PAGE_INFO,
-  UPDATE_APP_CONFIG,
+  SET_PAGE_INFO,
+  SET_APP_CONFIG,
+  SET_SECTIONS,
   UPDATE_SECTION,
+  INSERT_SECTION,
   REMOVE_SECTION,
   COPY_ITEM,
   REMOVE_ITEM,
   INSERT_ITEM,
+  UPDATE_CUSTOM_CSS,
 } = Keys;
 
 const editorLog = (logMessage) => {
@@ -47,6 +51,9 @@ const store = new Vuex.Store({
     },
     appConfig(state) {
       return state.config.appConfig || {};
+    },
+    theme(state) {
+      return state.config.appConfig.theme;
     },
     sections(state) {
       return filterUserSections(state.config.sections || []);
@@ -80,7 +87,7 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
-    [UPDATE_CONFIG](state, config) {
+    [SET_CONFIG](state, config) {
       state.config = config;
     },
     [SET_LANGUAGE](state, lang) {
@@ -110,17 +117,23 @@ const store = new Vuex.Store({
       });
       state.config = newConfig;
     },
-    [UPDATE_PAGE_INFO](state, newPageInfo) {
+    [SET_PAGE_INFO](state, newPageInfo) {
       const newConfig = state.config;
       newConfig.pageInfo = newPageInfo;
       state.config = newConfig;
       editorLog('Page info updated');
     },
-    [UPDATE_APP_CONFIG](state, newAppConfig) {
+    [SET_APP_CONFIG](state, newAppConfig) {
       const newConfig = state.config;
       newConfig.appConfig = newAppConfig;
       state.config = newConfig;
       editorLog('App config updated');
+    },
+    [SET_SECTIONS](state, newSections) {
+      const newConfig = state.config;
+      newConfig.sections = newSections;
+      state.config = newConfig;
+      editorLog('Sections updated');
     },
     [UPDATE_SECTION](state, payload) {
       const { sectionIndex, sectionData } = payload;
@@ -128,6 +141,13 @@ const store = new Vuex.Store({
       newConfig.sections[sectionIndex] = sectionData;
       state.config = newConfig;
       editorLog('Section updated');
+    },
+    [INSERT_SECTION](state, newSection) {
+      const newConfig = { ...state.config };
+      newSection.items = [];
+      newConfig.sections.push(newSection);
+      state.config = newConfig;
+      editorLog('New section added');
     },
     [REMOVE_SECTION](state, payload) {
       const { sectionIndex, sectionName } = payload;
@@ -156,7 +176,7 @@ const store = new Vuex.Store({
       const newItem = { ...item };
       config.sections.forEach((section) => {
         if (section.name === toSection) {
-          if (appendTo === 'Begining') {
+          if (appendTo === 'beginning') {
             section.items.unshift(newItem);
           } else {
             section.items.push(newItem);
@@ -182,11 +202,20 @@ const store = new Vuex.Store({
       });
       state.config = config;
     },
+    [SET_THEME](state, theme) {
+      const newConfig = { ...state.config };
+      newConfig.appConfig.theme = theme;
+      state.config = newConfig;
+      InfoHandler('Theme updated', InfoKeys.VISUAL);
+    },
     [SET_ITEM_LAYOUT](state, layout) {
       state.config.appConfig.layout = layout;
     },
     [SET_ITEM_SIZE](state, iconSize) {
       state.config.appConfig.iconSize = iconSize;
+    },
+    [UPDATE_CUSTOM_CSS](state, customCss) {
+      state.config.appConfig.customCss = customCss;
     },
   },
   actions: {
@@ -194,7 +223,7 @@ const store = new Vuex.Store({
     [INITIALIZE_CONFIG]({ commit }) {
       const deepCopy = (json) => JSON.parse(JSON.stringify(json));
       const config = deepCopy(new ConfigAccumulator().config());
-      commit(UPDATE_CONFIG, config);
+      commit(SET_CONFIG, config);
     },
   },
   modules: {},
