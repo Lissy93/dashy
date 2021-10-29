@@ -12,7 +12,7 @@
     @openContextMenu="openContextMenu"
   >
     <!-- If no items, show message -->
-    <div v-if="!items || items.length < 1" class="no-items">
+    <div v-if="(!items || items.length < 1) && !isEditMode" class="no-items">
       No Items to Show Yet
     </div>
     <!-- Item Container -->
@@ -69,6 +69,7 @@
       v-if="editMenuOpen"
       @closeEditSection="closeEditSection"
       :sectionIndex="index"
+      :isAddNew="false"
     />
     <!-- Right-click item options context menu -->
     <ContextMenu
