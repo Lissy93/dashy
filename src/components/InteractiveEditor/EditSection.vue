@@ -1,14 +1,13 @@
 <template>
   <modal
-    :name="modalName"
-    :resizable="true"
-    width="50%"
-    height="80%"
+    :name="modalName" @closed="modalClosed"
+    :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-section"
-    @closed="modalClosed"
   >
   <div class="edit-section-inner">
-    <h3>{{ $t('interactive-editor.edit-section.edit-section-title') }}</h3>
+    <h3>
+      {{ $t(`interactive-editor.edit-section.${isAddNew ? 'add' : 'edit'}-section-title`) }}
+    </h3>
     <FormSchema
       :schema="customSchema"
       v-model="sectionData"
@@ -34,6 +33,7 @@ export default {
   name: 'EditSection',
   props: {
     sectionIndex: Number,
+    isAddNew: Boolean,
   },
   components: {
     SaveCancelButtons,
@@ -47,6 +47,7 @@ export default {
     };
   },
   computed: {
+    /* Make a custom schema object, using fields from ConfigSchema */
     customSchema() {
       const sectionSchema = this.schema;
       const displayDataSchema = this.schema.displayData.properties;
@@ -76,7 +77,9 @@ export default {
     this.$modal.show(modalNames.EDIT_SECTION);
   },
   methods: {
+    /* From the current index, return section data */
     getSectionFromState(index) {
+      if (this.isAddNew) return {};
       return this.$store.getters.getSectionByIndex(index);
     },
     /* Clean up work, triggered when modal closed */
@@ -84,9 +87,14 @@ export default {
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
       this.$emit('closeEditSection');
     },
+    /* Either update existing section, or insert new one, then close modal */
     saveSection() {
       const { sectionIndex, sectionData } = this;
-      this.$store.commit(StoreKeys.UPDATE_SECTION, { sectionIndex, sectionData });
+      if (this.isAddNew) {
+        this.$store.commit(StoreKeys.INSERT_SECTION, sectionData);
+      } else {
+        this.$store.commit(StoreKeys.UPDATE_SECTION, { sectionIndex, sectionData });
+      }
       this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
       this.$emit('closeEditSection');
     },

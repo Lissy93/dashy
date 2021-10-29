@@ -44,6 +44,8 @@
         :class="
         (searchValue && filterTiles(section.items, searchValue).length === 0) ? 'no-results' : ''"
       />
+      <!-- Show add new section button, in edit mode -->
+      <AddNewSection v-if="isEditMode" />
     </div>
     <!-- Show message when there's no data to show -->
     <div v-if="checkIfResults()" class="no-data">
@@ -62,8 +64,10 @@ import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
 import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
 import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vue';
+import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.vue';
 import { searchTiles } from '@/utils/Search';
-import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
+import StoreKeys from '@/utils/StoreMutations';
+import Defaults, { localStorageKeys, iconCdns, modalNames } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 import BackIcon from '@/assets/interface-icons/back-arrow.svg';
 
@@ -73,6 +77,7 @@ export default {
     SettingsContainer,
     EditModeSaveMenu,
     ExportConfigMenu,
+    AddNewSection,
     Section,
     BackIcon,
   },
@@ -80,6 +85,7 @@ export default {
     searchValue: '',
     layout: '',
     itemSizeBound: '',
+    addNewSectionOpen: false,
   }),
   computed: {
     sections() {
@@ -163,6 +169,16 @@ export default {
     /* Update data when modal is open (so that key bindings can be disabled) */
     updateModalVisibility(modalState) {
       this.$store.commit('SET_MODAL_OPEN', modalState);
+    },
+    openAddNewSectionMenu() {
+      this.addNewSectionOpen = true;
+      this.$modal.show(modalNames.EDIT_SECTION);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    closeEditSection() {
+      this.addNewSectionOpen = false;
+      this.$modal.hide(modalNames.EDIT_SECTION);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
     },
     /* If on sub-route, and section exists, then return only that section */
     findSingleSection: (allSections, sectionTitle) => {
@@ -345,6 +361,18 @@ export default {
   /* When in single-section view mode */
   &.single-section-view {
     display: block;
+  }
+  .add-new-section {
+    border: 2px dashed var(--primary);
+    border-radius: var(--curve-factor);
+    padding: var(--item-group-padding);
+    background: var(--item-group-background);
+    color: var(--primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-align: center;
+    height: fit-content;
+    margin: 10px;
   }
 }
 
