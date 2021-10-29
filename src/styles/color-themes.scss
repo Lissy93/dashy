@@ -378,9 +378,6 @@ html[data-theme='material'], html[data-theme='material-dark'] {
     margin: 0;
     padding: 0;
   }
-  .item-wrapper.add-new-item {
-    flex-grow: inherit;
-  }
   /* Custom layout for medium and large icons */
   .item-wrapper .item:not(.size-small) {
     display: flex;
@@ -415,6 +412,13 @@ html[data-theme='material'], html[data-theme='material-dark'] {
         min-height: 2rem;
       }	
     }
+  }
+  .item-wrapper.add-new-item {
+    flex-grow: inherit;
+  }
+  .add-new-item a {
+    flex-grow: inherit;
+    flex-basis: inherit;
   }
   .tooltip.item-description-tooltip:not(.tooltip-is-small) {
     display: none !important;
