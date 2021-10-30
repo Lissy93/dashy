@@ -90,23 +90,17 @@
 
 > For more examples of Dashy in action, see: [**The Showcase**](./docs/showcase.md)
 
-#### Live Demos
-[Demo 1](https://dashy-demo-1.as93.net) ┆ [Demo 2](https://dashy-demo-2.as93.net) ┆ [Demo 3](https://dashy-demo-3.as93.net)
+**Live Instances**: [Demo 1](https://demo.dashy.to) (Live Demo) ┆ [Demo 2](https://live.dashy.to) (Dashy Links) ┆ [Demo 3](https://dev.dashy.to) (Dev Preview)
 
-#### Spin up your own Demo
-- 1-Click Deploy: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
-- Or on your own machine: `docker run -p 8080:80 lissy93/dashy`
-  - See the [Quick Start Guide](./docs/quick-start.md) for getting Dashy up and running in under 5 minutes
+**Screenshots**: Checkout the [Showcase](./docs/showcase.md), to see example dashboards from the community
 
-#### Demo GIF
+**Spin up your own demo**: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml) or [`docker run -p 8080:80 lissy93/dashy`](./docs/quick-start.md)
+
+
 <p align="center">
   <img width="800" src="https://i.ibb.co/L8YbNNc/dashy-demo2.gif" alt="Demo" />
 </p>
 
-#### User Showcase
-Are using Dashy? Want to share your dashboard here too - [Submit your Screenshots to the Showcase](./docs/showcase.md#submitting-your-dashboard)!
-
-![Screenshots](https://i.ibb.co/r5T3MwM/dashy-screenshots.png)
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -136,15 +130,9 @@ docker run -d \
 ```
 [![Dashy on Docker Hub](https://dockeri.co/image/lissy93/dashy)](https://hub.docker.com/r/lissy93/dashy)
 
-If you prefer to use Docker Compose, [here is an example](./docs/deployment.md#using-docker-compose).
+See also examples [with Docker Compose](./docs/deployment.md#using-docker-compose). Dashy is also available via GHCR, and tags for other architectures (`arm32-7`, `arm64-v8`, etc) and set versions are supported
 
-Dashy is also available through GHCR, run: `docker pull ghcr.io/lissy93/dashy`.
-
-To use Dashy on an system other than `amd64`, then use [one of these tags](https://hub.docker.com/r/lissy93/dashy/tags). There are containers for `arm32-7`, `arm64-v8` and a multi-architecture image.
-
-The image defaults to `:latest`, but you can instead specify a specific version, e.g. `docker pull lissy93/dashy:release-1.5.0`
-
-> Once you've got Dashy running, you can take a look at [App Management Docs](./docs/management.md), for info on using health checks, provisioning assets, configuring web servers, securing your app, logs, performance and more.
+> Once you've got Dashy running, see [App Management Docs](./docs/management.md), for info on using health checks, updating, backups, web-server configs, logs, performance, security and more.
 
 ### Deploying from Source 🚀
 
@@ -224,11 +212,12 @@ Both sections and items can have an icon associated with them, and defined under
 
 - **Favicon**: Set `icon: favicon` to fetch a services icon automatically from the URL of the corresponding application
 - **Font-Awesome**: To use any font-awesome icon, specify the category, followed by the icon name, e.g. `fas fa-rocket` or `fab fa-monero`. You can also use Pro icons if you have a license key, just set it under `appConfig.fontAwesomeKey`
-- **Simple Icons**: Use any brand/ logo icon from [simpleicons.org](https://simpleicons.org/) by setting the icon to `si-[icon-name]`
+- **Home Lab Icons**: For common self-hosted services, you can use any icon from @WalkxCode's [dashboard-icons](https://github.com/WalkxCode/dashboard-icons) repo, by preceding it with `hl-`, e.g. `icon: hl-pihole`
 - **Emoji**: Use an emoji as a tile icon, by putting the emoji's code as the icon attribute. Emojis can be specified either as emojis (`🚀`), unicode (`'U+1F680'`) or shortcode (`':rocket:'`)
 - **Generative**: Setting `icon: generative`, will generate a unique logo for a given service, based on it's specified URL or IP
 - **URL**: You can also pass in a URL to an icon asset, hosted either locally or using any CDN service. E.g. `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`
 - **Local Image**: To use a local image, store it in `./public/item-icons/` (or create a volume in Docker: `-v /local/image/directory:/app/public/item-icons/`) , and reference it by name and extension - e.g. set `icon: image.png` to use `./public/item-icon/image.png`. You can also use sub-folders here
+- **Simple Icons**: Use any brand/ logo icon from [simpleicons.org](https://simpleicons.org/) by setting the icon to `si-[icon-name]`
 - **Material Design Icons**: You can also use any icon from [materialdesignicons.com](https://dev.materialdesignicons.com/icons) by setting the icon to `mdi-[icon-name]`
 
 **[⬆️ Back to Top](#dashy)**
@@ -257,9 +246,9 @@ You can also specify an time interval in seconds under `appConfig.statusCheckInt
 
 > For full authentication documentation, see: [**Authentication**](./docs/authentication.md)
 
-Dashy now has full support for secure single-sign-on using [Keycloak](https://www.keycloak.org/)! This provides secure, easy single-sign on. See [setup docs](/docs/authentication.md#keycloak) for a full usage guide
+Dashy has full support for secure single-sign-on using [Keycloak](https://www.keycloak.org/) for secure, easy authentication, see [setup docs](/docs/authentication.md#keycloak) for a full usage guide
 
-There is also a simple login feature for basic access control, which doesn't require any additional setup. To enable this feature, add an `auth` attribute under `appConfig`, containing an array of `users`, each with a username, SHA-256 hashed password and optional user type.
+There is also a simple login feature for basic access control, which doesn't require any additional setup. To enable this feature, just add an `auth` attribute under `appConfig`, containing an array of `users`, each with a username, SHA-256 hashed password and optional user type.
 
 ```yaml
 appConfig:
@@ -286,7 +275,7 @@ appConfig:
   />
 </p>
 
-**Note**: The simple auth method handles access control on the frontend, and therefore in security-critical situations, it is recommended to use an alternate method for authentication, like [Keycloak](docs/authentication.md#keycloak) or one of the [alternatives](docs/authentication.md#alternative-authentication-methods).
+For setup instructions for other access control systems, please see the [Alternative Auth Methods](./docs/authentication.md#alternative-authentication-methods) docs.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -426,11 +415,9 @@ A full list of available config options can be found [here](./docs/configuring.m
 
 > For full backup documentation, see: [**Cloud Backup & Sync**](./docs/backup-restore.md)
 
-Dashy has an **optional** built-in feature for securely backing up your config to a hosted cloud service, and then restoring it on another instance. This feature is totally optional, and if you do not enable it, then Dashy will not make any external network requests.
+Dashy has an **optional** built-in feature for securely backing up your config to a hosted cloud service, and then restoring it on another instance. This is useful not only for backing up your configuration off-site, but it also enables Dashy to be used without having write a YAML config file.
 
-This is useful not only for backing up your configuration off-site, but it also enables Dashy to be used without having write a YAML config file, and in the future there will allow the use of the public hosted instance of Dashy for users without a server.
-
-All data is fully E2E encrypted before being sent to the backend. In Dashy, this is done in [`CloudBackup.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/CloudBackup.js), using [crypto.js](https://github.com/brix/crypto-js)'s AES method, with the users chosen password as the key. The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works), and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
+All data is fully E2E encrypted before being sent to the backend (done in [`CloudBackup.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/CloudBackup.js) using [crypto.js](https://github.com/brix/crypto-js)'s AES method). The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works), and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
 
 <p align="center">
   <img width="400" src="https://i.ibb.co/yBrVN4N/dashy-cloud-sync.png" />
@@ -464,7 +451,7 @@ Dashy supports multiple languages and locales. When available, you're language s
 
 #### Add your Language
 I would love for Dashy to be available to everyone, without language being a barrier to entry for non-native English speakers. If you have a few minutes to spare, you're help with translating it would be very much appreciated.
-It's quite a quick task, all text is in [a single JSON file](https://github.com/Lissy93/dashy/tree/master/src/assets/locales), and you don't have to translate it all. For more info, see the [Adding a New Language Docs](./docs/multi-language-support.md#adding-a-new-language), and feel free to reach out if you need any support.
+It's quite a quick task, all text is in [a single JSON file](https://github.com/Lissy93/dashy/tree/master/src/assets/locales), and you don't have to translate it all. For more info, see the [Adding a New Language Docs](./docs/multi-language-support.md#adding-a-new-language).
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -487,6 +474,12 @@ pageInfo:
     path: https://start-page.local
   footerText: 'My <b>Awesome</b> Dashboard. Built with <a href="https://dashy.to">Dashy</a>'
 ```
+You can also edit this through the UI, by entering Edit mode, then clicking Edit Page Info.
+
+<p align="center">
+  <img width="400" src="https://i.ibb.co/WyZ1Yzd/edit-page-info.png" alt="Edit Page Info Screenshot" />
+</p>
+
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -511,7 +504,7 @@ Latest ✔ | Latest ✔ | 10+ ✔ | Latest ✔ | 6.1+ ✔ |
 
 > For general discussions, check out the **[Discussions Board](https://github.com/Lissy93/dashy/discussions)**
 
-If you're having trouble getting things up and running, feel free to ask a question. The best way to do so is in the [discussion](https://github.com/Lissy93/dashy/discussions), or if you think you think the issue is on Dashy's side, you can [raise a ticket](https://github.com/Lissy93/dashy/issues/new/choose). It's best to check the [docs](./docs) and [previous questions](https://github.com/Lissy93/dashy/issues?q=label%3A%22%F0%9F%A4%B7%E2%80%8D%E2%99%82%EF%B8%8F+Question%22+) first, as you'll likely find the solution there.
+If you're having trouble getting things up and running, feel free to ask a question. The best way to do so is in the [discussion](https://github.com/Lissy93/dashy/discussions), or if you think you think the issue is on Dashy's side, you can [raise a ticket](https://github.com/Lissy93/dashy/issues/new/choose). It's best to check the [docs](./docs), [previous issues](https://github.com/Lissy93/dashy/issues?q=label%3A%22%F0%9F%A4%B7%E2%80%8D%E2%99%82%EF%B8%8F+Question%22+) and [troubleshooting guide](./docs/troubleshooting.md) first, as often the solution is already there.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -640,9 +633,9 @@ Dashy is under active development, with features, improvements and changes pushe
 
 We're using [Semantic Versioning](https://semver.org/), to indicate major, minor and patch versions. You can find the current version number in the readme, and check your apps version under the config menu. The version number is pulled from the [package.json](https://github.com/Lissy93/dashy/blob/master/package.json#L3) file.
 
-Typically there is a new major release every 2 weeks, usually on Sunday, and you can view these under the [Releases Page](https://github.com/Lissy93/dashy/releases). Each release will create a new [tag on GitHub](https://github.com/Lissy93/dashy/tags), and each major release will also result in the creation of a new [tag on DockerHub](https://hub.docker.com/r/lissy93/dashy/tags), so that you can fix your container to a certain version.
+Typically there is a new major release every 2 - 4 weeks, usually on Sunday, and you can view these under the [Releases Page](https://github.com/Lissy93/dashy/releases) and [on DockerHub](https://hub.docker.com/r/lissy93/dashy/tags). New minor versions are pushed several times a week, and are [tagged here](https://github.com/Lissy93/dashy/tags).
 
-For a full breakdown of each change, you can view the [Changelog](https://github.com/Lissy93/dashy/blob/master/.github/CHANGELOG.md). Each new feature or significant change needs to be submitted through a pull request, which makes it easy to review and track these changes, and roll back if needed.
+For a full breakdown of each change, you can view the [Changelog](https://github.com/Lissy93/dashy/blob/master/.github/CHANGELOG.md). Each new feature or significant change needs to be submitted through [a pull request](https://github.com/Lissy93/dashy/pulls?q=is%3Apr), which makes it easy to review and track these changes, and roll back if needed.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -690,10 +683,9 @@ For a full breakdown of each change, you can view the [Changelog](https://github
 
 > For past and future app updates, see: [**Changelog**](/.github/CHANGELOG.md)
 
-
 The following features and tasks are planned for the near future.
 - Widget support- cards showing live stats and interactive content from your self-hosted services
-- UI Drag & Drop editor and visual configurator
+- ✅ UI editor and visual configurator
 - Conversion to TypeScript
 - Improved test coverage
  
