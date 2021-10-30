@@ -65,6 +65,14 @@
 
 ---
 
+### Dashy Example
+
+> An example dashboard, by [@Lissy93](https://github.com/lissy93). View live at [demo.dashy.to](https://demo.dashy.to/).
+
+![screenshot-dashy-example](https://i.ibb.co/YbzqPK7/demo-dashy.png)
+
+---
+
 ### First Week of Self-Hosting
 > By [u//RickyCZ](https://www.reddit.com/user/RickyCZ)
 
