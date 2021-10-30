@@ -125,7 +125,7 @@ export default {
     getInitialTheme() {
       const localTheme = localStorage[localStorageKeys.THEME];
       if (localTheme && localTheme !== 'undefined') return localTheme;
-      return this.confTheme || Defaults.theme;
+      return this.appConfig.theme || Defaults.theme;
     },
     /* Determines if a given theme is local / not a custom user stylesheet */
     isThemeLocal(themeToCheck) {
