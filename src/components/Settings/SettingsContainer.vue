@@ -6,10 +6,9 @@
     />
     <div class="options-outer">
       <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
-        <ThemeSelector :externalThemes="externalThemes"
-          :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
-        <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
-        <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
+        <ThemeSelector />
+        <LayoutSelector :displayLayout="displayLayout" />
+        <ItemSizeSelector :iconSize="iconSize" />
         <ConfigLauncher />
         <AuthButtons  v-if="userState != 'noone'" :userType="userState" />
       </div>
@@ -106,12 +105,6 @@ export default {
     },
     clearFilterInput() {
       this.$refs.SearchBar.clearFilterInput();
-    },
-    updateDisplayLayout(layout) {
-      this.$emit('change-display-layout', layout);
-    },
-    updateIconSize(iconSize) {
-      this.$emit('change-icon-size', iconSize);
     },
     getInitialTheme() {
       return this.appConfig.theme || '';

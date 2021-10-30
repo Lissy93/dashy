@@ -119,11 +119,15 @@ module.exports = {
   /* Unique IDs of modals within the app */
   modalNames: {
     CONF_EDITOR: 'CONF_EDITOR',
-    CLOUD_BACKUP: 'CLOUD_BACKUP',
     REBUILD_APP: 'REBUILD_APP',
-    THEME_MAKER: 'THEME_MAKER',
     ABOUT_APP: 'ABOUT_APP',
     LANG_SWITCHER: 'LANG_SWITCHER',
+    EDIT_ITEM: 'EDIT_ITEM',
+    EDIT_SECTION: 'EDIT_SECTION',
+    EDIT_PAGE_INFO: 'EDIT_PAGE_INFO',
+    EDIT_APP_CONFIG: 'EDIT_APP_CONFIG',
+    EXPORT_CONFIG_MENU: 'EXPORT_CONFIG_MENU',
+    MOVE_ITEM_TO: 'MOVE_ITEM_TO',
   },
   /* Key names for the top-level objects in conf.yml */
   topLevelConfKeys: {

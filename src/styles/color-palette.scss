@@ -48,15 +48,23 @@
   --item-group-outer-background: var(--primary);
   --item-group-heading-text-color: var(--item-group-background);
   --item-group-heading-text-color-hover: var(--background);
-  // Settings and config
-  --settings-background: var(--background);
+  // Homepage settings
   --settings-text-color: var(--primary);
-  --config-code-background: #fff;
-  --config-code-color: var(--background);
+  --settings-background: var(--background);
+  // Config menu
   --config-settings-color: var(--primary);
   --config-settings-background: var(--background-darker);
+  --config-code-color: var(--background);
+  --config-code-background: #fff;
   --code-editor-color: var(--black);
   --code-editor-background: var(--white);
+  // Interactive editor
+  --interactive-editor-color: var(--primary);
+  --interactive-editor-background: var(--background);
+  --interactive-editor-background-darker: var(--background-darker);
+  // Cloud backup/ restore menu
+  --cloud-backup-color: var(--config-settings-color);
+  --cloud-backup-background: var(--config-settings-background);
   // Search bar (on homepage)
   --search-container-background: var(--background-darker);
   --search-field-background: var(--background);

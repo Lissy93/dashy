@@ -4,16 +4,19 @@
     :style="`${color ? 'background: '+color : ''}; ${sanitizeCustomStyles(customStyles)};`"
   >
     <input
-      :id="`collapsible-${uniqueKey}`"
+      :id="sectionKey"
       class="toggle"
       type="checkbox"
       :checked="getCollapseState()"
       @change="collapseChanged"
       tabIndex="-1"
     >
-    <label :for="`collapsible-${uniqueKey}`" class="lbl-toggle" tabindex="-1">
+    <label :for="sectionKey" class="lbl-toggle" tabindex="-1"
+      @mouseup.right="openContextMenu" @contextmenu.prevent>
       <Icon v-if="icon" :icon="icon" size="small" :url="title" class="section-icon" />
       <h3>{{ title }}</h3>
+      <EditModeIcon v-if="isEditMode" @click="openEditModal"
+        v-tooltip="editTooltip()" class="edit-mode-item" />
     </label>
     <div class="collapsible-content">
       <div class="content-inner">
@@ -27,6 +30,7 @@
 
 import { localStorageKeys } from '@/utils/defaults';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
+import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 
 export default {
   name: 'CollapsableContainer',
@@ -42,6 +46,16 @@ export default {
   },
   components: {
     Icon,
+    EditModeIcon,
+  },
+  computed: {
+    isEditMode() {
+      return this.$store.state.editMode;
+    },
+    sectionKey() {
+      if (this.isEditMode) return undefined;
+      return `collapsible-${this.uniqueKey}`;
+    },
   },
   methods: {
     /* Check that row & column span is valid, and not over the max */
@@ -94,6 +108,16 @@ export default {
         this.initialiseStorage();
         this.setCollapseState(this.uniqueKey.toString(), whatChanged.srcElement.checked);
       }
+    },
+    openEditModal() {
+      this.$emit('openEditSection');
+    },
+    openContextMenu(e) {
+      this.$emit('openContextMenu', e);
+    },
+    editTooltip() {
+      const content = this.$t('interactive-editor.edit-section.edit-tooltip');
+      return { content, trigger: 'hover focus', delay: { show: 100, hide: 0 } };
     },
   },
 };
@@ -206,6 +230,14 @@ export default {
 
   .collapsible-content .content-inner {
     padding: 0.5rem;
+  }
+
+  .edit-mode-item {
+    width: 1rem;
+    height: 1rem;
+    float: right;
+    right: 0.5rem;
+    top: 0.5rem;
   }
 }
 </style>

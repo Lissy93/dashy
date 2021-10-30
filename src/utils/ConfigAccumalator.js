@@ -13,6 +13,7 @@ import {
   layout as defaultLayout,
 } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
+import { applyItemId } from '@/utils/MiscHelpers';
 import conf from '../../public/conf.yml';
 
 export default class ConfigAccumulator {
@@ -57,18 +58,24 @@ export default class ConfigAccumulator {
 
   /* Sections */
   sections() {
+    let sections = [];
     // If the user has stored sections in local storage, return those
     const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
     if (localSections) {
       try {
         const json = JSON.parse(localSections);
-        if (json.length >= 1) return json;
+        if (json.length >= 1) sections = json;
       } catch (e) {
         ErrorHandler('Malformed section data in local storage');
       }
     }
-    // If the function hasn't yet returned, then return the config file sections
-    return this.conf ? this.conf.sections || [] : [];
+    // If sections were not set from local data, then use config file instead
+    if (sections.length === 0) {
+      sections = this.conf ? this.conf.sections || [] : [];
+    }
+    // Apply a unique ID to each item
+    sections = applyItemId(sections);
+    return sections;
   }
 
   /* Complete config */

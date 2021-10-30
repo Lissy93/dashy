@@ -217,6 +217,9 @@ html[data-theme='material-original'] {
   --item-group-heading-text-color-hover: #01579b;
   --config-settings-background: #01579b;
   --config-settings-color: #fff;
+  --interactive-editor-background: #01579b;
+  --interactive-editor-color: #fff;
+  --interactive-editor-background-darker: #29B6F6;
   --heading-text-color: #fff;
   --status-check-tooltip-background: #f2f2f2;
   --status-check-tooltip-color: #01579b;
@@ -263,6 +266,9 @@ html[data-theme='material-dark-original'] {
   --welcome-popup-text-color: var(--primary);
   --config-settings-background: #131a1f;
   --config-settings-color: #41e2ed;
+  --interactive-editor-color: #41e2ed;
+  --interactive-editor-background: #131a1f;
+  --interactive-editor-background-darker: #092b3a;
   --scroll-bar-color: #08B0BB;
   --scroll-bar-background: #131a1f;
   --status-check-tooltip-background: #131a1f;
@@ -407,6 +413,13 @@ html[data-theme='material'], html[data-theme='material-dark'] {
       }	
     }
   }
+  .item-wrapper.add-new-item {
+    flex-grow: inherit;
+  }
+  .add-new-item a {
+    flex-grow: inherit;
+    flex-basis: inherit;
+  }
   .tooltip.item-description-tooltip:not(.tooltip-is-small) {
     display: none !important;
   }
@@ -504,6 +517,9 @@ html[data-theme='material'] {
   --config-code-color: #363636;
   --config-settings-background: #f5f5f5;
   --config-settings-color: #473f3f;
+  --interactive-editor-color: #473f3f;
+  --interactive-editor-background: #f5f5f5;
+  --interactive-editor-background-darker: #fff;
   --heading-text-color: #fff;
   --curve-factor: 3px;
   --curve-factor-navbar: 8px;
@@ -511,6 +527,7 @@ html[data-theme='material'] {
   --welcome-popup-text-color: #f5f5f5;
   --footer-text-color: #f5f5f5cc;
   // --login-form-background-secondary: #f5f5f5cc;
+  --context-menu-background: #fff;
   --context-menu-secondary-color: #f5f5f5;
   --transparent-white-50: #00000080;
   --status-check-tooltip-background: #fff;
@@ -567,11 +584,6 @@ html[data-theme='material'] {
   .item:focus {
     outline-color: #4285f4cc;
   }
-  div.context-menu {
-    border: none;
-    background: var(--white);
-    ul li:hover { svg path { fill: var(--background-darker); }}
-  }
 }
 
 html[data-theme='material-dark'] {
@@ -612,13 +624,16 @@ html[data-theme='material-dark'] {
   --description-tooltip-color: #e0e0e0;
   --curve-factor: 2px;
   --curve-factor-navbar: 0;
-  
   --side-bar-background: #131a1f;
-
   --welcome-popup-background: #131a1f;
   --welcome-popup-text-color: var(--primary);
+
   --config-settings-background: #131a1f;
   --config-settings-color: #41e2ed;
+  --interactive-editor-background: #242a2f;
+  --interactive-editor-background-darker: #131a1f;
+  --interactive-editor-color: #41e2ed;
+
   --scroll-bar-color: #08B0BB;
   --scroll-bar-background: #131a1f;
   // --login-form-color: #131a1f;
@@ -633,6 +648,7 @@ html[data-theme='material-dark'] {
   // --minimal-view-search-color: var(--primary);
   // --minimal-view-group-color: var(--primary);
   --minimal-view-group-background: #131a1f;
+  --context-menu-secondary-color: #131a1f;
 
   div.minimal-section-heading h3, div.minimal-section-heading.selected h3 {
     color: #d5d5d5;
@@ -649,13 +665,6 @@ html[data-theme='material-dark'] {
   .item {
     &:before, &:active {
       background: #131a1f !important;
-    }
-  }
-  div.context-menu {
-    border: none;
-    background: var(--background);
-    ul li:hover {
-      background: #131a1f;
     }
   }
 }
@@ -919,6 +928,9 @@ html[data-theme='glow'], html[data-theme=glow-colorful] {
 --nav-link-border-color-hover: var(--blue);
 --config-settings-background: var(--blue);
 --config-settings-color: var(--pink);
+--interactive-editor-background: var(--blue);
+--interactive-editor-background-darker: var(--blue);
+--interactive-editor-color: var(--pink);
 --search-label-color: var(--blue);
 --item-group-background: var(--blue);
 --item-text-color: var(--pale);

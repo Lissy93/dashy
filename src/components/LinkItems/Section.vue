@@ -8,18 +8,22 @@
     :rows="displayData.rows"
     :color="displayData.color"
     :customStyles="displayData.customStyles"
+    @openEditSection="openEditSection"
+    @openContextMenu="openContextMenu"
   >
-    <div v-if="!items || items.length < 1" class="no-items">
+    <!-- If no items, show message -->
+    <div v-if="(!items || items.length < 1) && !isEditMode" class="no-items">
       No Items to Show Yet
     </div>
+    <!-- Item Container -->
     <div v-else
       :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
-      :style="gridStyle"
-    >
+      :style="gridStyle" :id="`section-${groupId}`"
+    > <!-- Show for each item -->
       <Item
-        v-for="(item, index) in sortedItems"
-        :id="makeId(title, item.title, index)"
-        :key="makeId(title, item.title, index)"
+        v-for="(item) in sortedItems"
+        :id="item.id"
+        :key="item.id"
         :url="item.url"
         :title="item.title"
         :description="item.description"
@@ -32,28 +36,69 @@
         :itemSize="newItemSize"
         :hotkey="item.hotkey"
         :provider="item.provider"
+        :parentSectionTitle="title"
         :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
         :statusCheckInterval="getStatusCheckInterval()"
         :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
+        :isAddNew="false"
+      />
+      <!-- When in edit mode, show additional item, for Add New item -->
+      <Item v-if="isEditMode"
+        :isAddNew="true"
+        :parentSectionTitle="title"
+        icon=":heavy_plus_sign:"
+        id="add-new"
+        title="Add New Item"
+        description="Click to add new item"
+        key="add-new"
+        class="add-new-item"
+        :itemSize="newItemSize"
       />
       <div ref="modalContainer"></div>
     </div>
+    <!-- Modal for opening in modal view -->
     <IframeModal
       :ref="`iframeModal-${groupId}`"
       :name="`iframeModal-${groupId}`"
       @closed="$emit('itemClicked')"
     />
+    <!-- Edit item menu -->
+    <EditSection
+      v-if="editMenuOpen"
+      @closeEditSection="closeEditSection"
+      :sectionIndex="index"
+      :isAddNew="false"
+    />
+    <!-- Right-click item options context menu -->
+    <ContextMenu
+      :show="contextMenuOpen"
+      :posX="contextPos.posX"
+      :posY="contextPos.posY"
+      :id="`context-menu-${groupId}`"
+      v-click-outside="closeContextMenu"
+      @openEditSection="openEditSection"
+      @navigateToSection="navigateToSection"
+      @removeSection="removeSection"
+    />
   </Collapsable>
 </template>
 
 <script>
-import { sortOrder as defaultSortOrder, localStorageKeys } from '@/utils/defaults';
-import ErrorHandler from '@/utils/ErrorHandler';
+import router from '@/router';
 import Item from '@/components/LinkItems/Item.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
+import EditSection from '@/components/InteractiveEditor/EditSection.vue';
+import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
+import ErrorHandler from '@/utils/ErrorHandler';
+import StoreKeys from '@/utils/StoreMutations';
+import {
+  sortOrder as defaultSortOrder,
+  localStorageKeys,
+  modalNames,
+} from '@/utils/defaults';
 
 export default {
   name: 'Section',
@@ -64,11 +109,24 @@ export default {
     displayData: Object,
     items: Array,
     itemSize: String,
+    index: Number,
   },
   components: {
     Collapsable,
+    ContextMenu,
     Item,
     IframeModal,
+    EditSection,
+  },
+  data() {
+    return {
+      editMenuOpen: false,
+      contextMenuOpen: false,
+      contextPos: {
+        posX: undefined,
+        posY: undefined,
+      },
+    };
   },
   computed: {
     appConfig() {
@@ -113,14 +171,11 @@ export default {
       }
       return styles;
     },
+    isEditMode() {
+      return this.$store.state.editMode;
+    },
   },
   methods: {
-    /* Returns a unique lowercase string, based on name, for section ID */
-    makeId(sectionStr, itemStr, index) {
-      const charSum = sectionStr.split('').map((a) => a.charCodeAt(0)).reduce((x, y) => x + y);
-      const itemTitleStr = itemStr.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
-      return `${index}_${charSum}_${itemTitleStr}`;
-    },
     /* Opens the iframe modal */
     triggerModal(url) {
       this.$refs[`iframeModal-${this.groupId}`].show(url);
@@ -145,14 +200,14 @@ export default {
     /* Sorts items by most used to least used, based on click-count */
     sortByMostUsed(items) {
       const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
-      const gmu = (item) => usageCount[this.makeId(this.title, item.title)] || 0;
+      const gmu = (item) => usageCount[item.id] || 0;
       items.reverse().sort((a, b) => (gmu(a) < gmu(b) ? 1 : -1));
       return items;
     },
     /* Sorts items by most recently used */
     sortBLastUsed(items) {
       const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
-      const glu = (item) => usageCount[this.makeId(this.title, item.title)] || 0;
+      const glu = (item) => usageCount[item.id] || 0;
       items.reverse().sort((a, b) => (glu(a) < glu(b) ? 1 : -1));
       return items;
     },
@@ -162,6 +217,50 @@ export default {
         .map((value) => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);
+    },
+    /* Navigate to the section's single-section view page */
+    navigateToSection() {
+      const parse = (section) => section.replace(' ', '-').toLowerCase().trim();
+      const sectionIdentifier = parse(this.title);
+      router.push({ path: `/home/${sectionIdentifier}` });
+      this.closeContextMenu();
+    },
+    /* Open the Section Edit Menu */
+    openEditSection() {
+      this.editMenuOpen = true;
+      this.$modal.show(modalNames.EDIT_SECTION);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+      this.closeContextMenu();
+    },
+    /* Close the section edit menu */
+    closeEditSection() {
+      this.editMenuOpen = false;
+      this.$modal.hide(modalNames.EDIT_SECTION);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
+    },
+    /* Deletes current section, in local state */
+    removeSection() {
+      const confirmMsg = this.$t('interactive-editor.edit-section.remove-confirm');
+      const youSure = confirm(confirmMsg); // eslint-disable-line no-alert, no-restricted-globals
+      if (youSure) {
+        const payload = { sectionIndex: this.index, sectionName: this.title };
+        this.$store.commit(StoreKeys.REMOVE_SECTION, payload);
+      }
+      this.closeContextMenu();
+    },
+    /* Open custom context menu, and set position */
+    openContextMenu(e) {
+      this.contextMenuOpen = true;
+      if (e && window) {
+        this.contextPos = {
+          posX: e.clientX + window.pageXOffset,
+          posY: e.clientY + window.pageYOffset,
+        };
+      }
+    },
+    /* Hide the right-click context menu */
+    closeContextMenu() {
+      this.contextMenuOpen = false;
     },
   },
 };
@@ -225,4 +324,10 @@ export default {
   }
 }
 
+.add-new-item {
+  display: flex;
+  a {
+    border-style: dashed;
+  }
+}
 </style>

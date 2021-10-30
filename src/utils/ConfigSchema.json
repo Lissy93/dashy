@@ -9,16 +9,19 @@
       "type": "object",
       "properties": {
         "title": {
+          "title": "Title",
           "type": "string",
           "description": "Title and heading for the app"
         },
         "description": {
+          "title": "Description",
           "type": "string",
           "description": "Sub-title, displayed in header"
         },
         "navLinks": {
           "type": "array",
           "maxItems": 6,
+          "title": "Navigation Links",
           "description": "Quick access links, displayed in header",
           "items": {
             "type": "object",
@@ -38,12 +41,15 @@
           }
         },
         "footerText": {
+          "title": "Footer Text",
+          "description": "Content to display within the global page footer",
           "type": "string"
         },
         "logo": {
+          "title": "App Logo",
           "type": "string",
           "description": "Path to an optional image asset, to be displayed in the header",
-          "pattern": "^(http|/)",
+          "pattern": "^(http|/)(.*?)",
           "examples": [
             "/web-icons/dashy-logo.png",
             "https://i.ibb.co/yhbt6CY/dashy.png"
@@ -57,17 +63,10 @@
     },
     "appConfig": {
       "type": "object",
-      "description": "Application configuration",
       "properties": {
-        "backgroundImg": {
-          "type": "string",
-          "description": "A URL to an image asset to be displayed as background"
-        },
-        "language": {
-          "type": "string",
-          "description": "The ISO code of your desired language, must have translations present, check docs for more info"
-        },
         "startingView": {
+          "title": "Starting View",
+          "type": "string",
           "enum": [
             "default",
             "minimal",
@@ -77,6 +76,8 @@
           "description": "Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI"
         },
         "defaultOpeningMethod": {
+          "title": "Default Opening Method",
+          "type": "string",
           "enum": [
             "newtab",
             "sametab",
@@ -88,7 +89,25 @@
           "default": "newtab",
           "description": "The default opening method for items. Only used if no item.target is specified"
         },
+        "statusCheck": {
+          "title": "Enable Status Checks",
+          "type": "boolean",
+          "default": false,
+          "description": "Displays an online/ offline status for each of your services"
+        },
+        "statusCheckInterval": {
+          "title": "Status Check Interval",
+          "type": "number",
+          "default": 0,
+          "description": "How often to recheck statuses. If set to 0, status will only be checked on page load"
+        },
+        "language": {
+          "title": "Language",
+          "type": "string",
+          "description": "The ISO code of your desired language, must have translations present, check docs for more info"
+        },
         "theme": {
+          "title": "Theme",
           "type": "string",
           "default": "callisto",
           "description": "A theme to be applied by default on first load",
@@ -116,17 +135,14 @@
             "high-contrast-light"
           ]
         },
-        "enableFontAwesome": {
-          "type": "boolean",
-          "default": true,
-          "description": "Should load font-awesome assets"
-        },
-        "fontAwesomeKey": {
+        "backgroundImg": {
+          "title": "Background Image",
           "type": "string",
-          "pattern": "^[a-z0-9]{10}$",
-          "description": "API key for font-awesome"
+          "description": "A URL to an image asset to be displayed as background"
         },
         "faviconApi": {
+          "title": "Favicon API",
+          "type": "string",
           "enum": [
             "local",
             "faviconkit",
@@ -139,6 +155,8 @@
           "description": "Which service to use to resolve favicons. Set to local to do this locally instead"
         },
         "layout": {
+          "title": "Default Layout",
+          "type": "string",
           "enum": [
             "horizontal",
             "vertical",
@@ -149,6 +167,8 @@
           "description": "Specifies sections layout orientation on the home screen"
         },
         "iconSize": {
+          "title": "Default Icon Size",
+          "type": "string",
           "enum": [
             "small",
             "medium",
@@ -158,48 +178,15 @@
           "description": "The size of each link item / icon"
         },
         "colCount": {
+          "title": "Column Count",
           "type": "number",
           "minimum": 1,
           "maximum": 8,
           "description": "Number of section columns for homepage. Leave blank for column count to be responsively calculated based on screen size"
         },
-        "hideComponents": {
-          "type": "object",
-          "description": "Hide individual parts of the page. If not set, all components are visible by default",
-          "properties": {
-            "hideHeading": {
-              "type": "boolean",
-              "default": "false",
-              "description": "If set to true, the page heading & subtitle will be hidden"
-            },
-            "hideNav": {
-              "type": "boolean",
-              "default": "false",
-              "description": "If set to true, the navigation menu will be hidden"
-            },
-            "hideSearch": {
-              "type": "boolean",
-              "default": "false",
-              "description": "If set to true, the search bar will be hidden"
-            },
-            "hideSettings": {
-              "type": "boolean",
-              "default": "false",
-              "description": "If set to true, the settings buttons will be hidden"
-            },
-            "hideFooter": {
-              "type": "boolean",
-              "default": "false",
-              "description": "If set to true, the page footer will be hidden"
-            },
-            "hideSplashScreen": {
-              "type": "boolean",
-              "default": "true",
-              "description": "If set to true, the loading / splash screen will not be shown"
-            }
-          }
-        },
         "routingMode": {
+          "title": "Routing Mode",
+          "type": "string",
           "enum": [
             "hash",
             "history"
@@ -207,52 +194,31 @@
           "default": "history",
           "description": "The Vue routing mode to use, history mode will remove the annoying hash from the URL, but requires some extra config on some systems"
         },
-        "cssThemes": {
-          "type": "array",
-          "description": "Theme names to be added to the dropdown",
-          "items": {
-            "type": "string"
-          }
-        },
-        "customColors": {
-          "type": "object",
-          "description": "Set a custom color palette for any theme"
-        },
-        "externalStyleSheet": {
-          "description": "URL or URLs of external stylesheets to add to dropdown/ load",
-          "type": [
-            "string",
-            "array"
-          ],
-          "items": {
-            "type": "string"
-          }
-        },
-        "customCss": {
+        "workspaceLandingUrl": {
+          "title": "Workspace Landing URL",
           "type": "string",
-          "description": "Any custom CSS overides, must be minified"
+          "description": "The URL of an app, service or website to render when the Workspace view is opened"
         },
-        "statusCheck": {
+        "enableMultiTasking": {
+          "title": "Enable Multi-Tasking",
           "type": "boolean",
           "default": false,
-          "description": "Displays an online/ offline status for each of your services"
-        },
-        "statusCheckInterval": {
-          "type": "number",
-          "default": 0,
-          "description": "How often to recheck statuses. If set to 0, status will only be checked on page load"
+          "description": "If set to true, will keep apps opened in the workspace open in the background. Useful for switching between sites, but comes at the cost of performance"
         },
         "webSearch": {
+          "title": "Web Search",
           "type": "object",
           "description": "Configure options for web search",
           "additionalProperties": false,
           "properties": {
             "disableWebSearch": {
+              "title": "Disable Web Search?",
               "type": "boolean",
               "default": "false",
               "description": "If set to true, web search will be disabled all together"
             },
             "searchEngine": {
+              "title": "Search Engine",
               "type": "string",
               "default": "duckduckgo",
               "description": "Set your default search engine. Reference provider by key, see docs for all supported search engines, or set to custom to use your own",
@@ -274,10 +240,13 @@
               ]
             },
             "customSearchEngine": {
+              "title": "Custom Search Engine",
               "type": "string",
               "description": "Set the URL of a self-hosted or custom search engine, including GET query params. You must also set searchEngine: custom"
             },
             "openingMethod": {
+              "title": "Search Opening Method",
+              "type": "string",
               "enum": [
                 "newtab",
                 "sametab",
@@ -288,6 +257,7 @@
               "description": "Set where you would like search results to open to"
             },
             "searchBangs": {
+              "title": "Search Bangs",
               "type": "object",
               "additionalProperties": true,
               "examples": [
@@ -300,17 +270,101 @@
             }
           }
         },
+        "enableFontAwesome": {
+          "title": "Enable Font-Awesome?",
+          "type": "boolean",
+          "default": true,
+          "description": "Should load font-awesome assets"
+        },
+        "fontAwesomeKey": {
+          "title": "Font-Awesome API Key",
+          "type": "string",
+          "pattern": "^[a-z0-9]{10}$",
+          "description": "API key for font-awesome"
+        },
+        "cssThemes": {
+          "title": "Additional CSS Themes",
+          "type": "array",
+          "description": "Theme names to be added to the dropdown, once added you can then add custom CSS to style your theme",
+          "items": {
+            "type": "string"
+          }
+        },
+        "customColors": {
+          "title": "Custom Colors",
+          "type": "object",
+          "description": "Set a custom color palette for any theme, see docs for more info"
+        },
+        "externalStyleSheet": {
+          "title": "External Stylesheets",
+          "description": "List of URLs of external stylesheets to add to dropdown/ load",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "customCss": {
+          "title": "Custom CSS",
+          "type": "string",
+          "description": "Any custom CSS overides to be applied globally, should be minified"
+        },
+        "hideComponents": {
+          "title": "Hidden Components",
+          "type": "object",
+          "description": "Hide individual parts of the page. If not set, all components are visible by default",
+          "properties": {
+            "hideHeading": {
+              "title": "Hide Heading?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the page heading & subtitle will be hidden"
+            },
+            "hideNav": {
+              "title": "Hide Nav Bar?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the navigation menu will be hidden"
+            },
+            "hideSearch": {
+              "title": "Hide Search Bar?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the search bar will be hidden"
+            },
+            "hideSettings": {
+              "title": "Hide Settings?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the settings buttons will be hidden"
+            },
+            "hideFooter": {
+              "title": "Hide Footer?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the page footer will be hidden"
+            },
+            "hideSplashScreen": {
+              "title": "Hide Splash Screen?",
+              "type": "boolean",
+              "default": "true",
+              "description": "If set to true, the loading / splash screen will not be shown"
+            }
+          }
+        },
         "auth": {
+          "title": "Authentication",
           "type": "object",
           "description": "Settings for enabling authentication",
           "additionalProperties": false,
           "properties": {
             "enableGuestAccess": {
+              "title": "Enable Guest Mode?",
               "type": "boolean",
               "default": false,
               "description": "If set to true, an unauthenticated user will be able to have read-only access to dashboard, without needing to login. Requires auth to be configured."
             },
             "users": {
+              "title": "Users",
               "type": "array",
               "description": "Usernames and hashed credentials for frontend authentication",
               "items": {
@@ -322,16 +376,20 @@
                 ],
                 "properties": {
                   "user": {
+                    "title": "Username",
                     "type": "string",
                     "description": "The username for a user"
                   },
                   "hash": {
+                    "title": "Hashed Pass",
                     "type": "string",
                     "description": "A SHA-256 hashed password for that user",
                     "minLength": 64,
                     "maxLength": 64
                   },
                   "type": {
+                    "title": "Privileges",
+                    "type": "string",
                     "enum": [
                       "admin",
                       "normal"
@@ -343,6 +401,7 @@
               }
             },
             "enableKeycloak": {
+              "title": "Enable Keycloak?",
               "type": "boolean",
               "default": false,
               "description": "If set to true, and auth.keycloak is also configured, then Keycloak will be used for app auth"
@@ -358,14 +417,17 @@
               ],
               "properties": {
                 "serverUrl": {
+                  "title": "Server URL",
                   "type": "string",
                   "description": "The URL (or URL/ IP + Port) where your keycloak server is running"
                 },
                 "realm": {
+                  "title": "Realm",
                   "type": "string",
                   "description": "The name of the realm (must already be created) that you want to use"
                 },
                 "clientId": {
+                  "title": "Client ID",
                   "type": "string",
                   "description": "The Client ID of the client you created for use with Dashy"
                 }
@@ -373,48 +435,46 @@
             }
           }
         },
-        "enableMultiTasking": {
-          "type": "boolean",
-          "default": false,
-          "description": "If set to true, will keep apps opened in the workspace open in the background. Useful for switching between sites, but comes at the cost of performance"
-        },
         "allowConfigEdit": {
+          "title": "Allow Config Editing",
           "type": "boolean",
           "default": true,
           "description": "Can user write changes to conf.yml file from the UI. If set to false, preferences are only stored locally"
         },
         "enableServiceWorker": {
+          "title": "Enable Service Worker",
           "type": "boolean",
           "default": false,
           "description": "If set to true, then service workers will be used to cache page contents"
         },
         "disableContextMenu": {
+          "title": "Disable Context Menus",
           "type": "boolean",
           "default": false,
           "description": "If set to true, custom right-click context menu will be disabled"
         },
         "disableUpdateChecks": {
+          "title": "Disable Update Checks",
           "type": "boolean",
           "default": false,
           "description": "Prevents Dashy from checking for updates"
         },
         "disableSmartSort": {
+          "title": "Disable Smart-Sort",
           "type": "boolean",
           "default": false,
           "description": "Prevents the app storing local click count, required for the last-used and most-used sort orders"
         },
         "enableErrorReporting": {
+          "title": "Enable Error Reporting",
           "type": "boolean",
           "default": false,
           "description": "Enable anonymous crash reports. This helps bugs be found and fixed, in order to make Dashy more stable. Reporting is off by default, and no data will EVER be collected without your explicit and active concent."
         },
         "sentryDsn": {
+          "title": "Custom Sentry DSN",
           "type": "string",
           "description": "The DSN to your self-hosted Sentry server, if you need to collect bug reports. Only used if enableErrorReporting is enabled"
-        },
-        "workspaceLandingUrl": {
-          "type": "string",
-          "description": "The URL of an app, service or website to render when the Workspace view is opened"
         }
       },
       "additionalProperties": false
@@ -423,6 +483,7 @@
       "type": "array",
       "description": "Array of sections, containing items",
       "items": {
+        "title": "Items",
         "type": "object",
         "required": [
           "name",
@@ -431,19 +492,24 @@
         "additionalProperties": false,
         "properties": {
           "name": {
+            "title": "Section Name",
             "type": "string",
             "description": "Title/ heading for a section"
           },
           "icon": {
+            "title": "Section Icon",
             "type": "string",
             "description": "Icon will be displayed next to title"
           },
           "displayData": {
+            "title": "Display Data",
             "type": "object",
             "additionalProperties": false,
             "description": "Optional meta data for customizing a section",
             "properties": {
               "sortBy": {
+                "title": "Sort By",
+                "type": "string",
                 "enum": [
                   "default",
                   "most-used",
@@ -456,19 +522,24 @@
                 "description": "How to sort items within the section. By default items are displayed in the order in which they are listed in within the config"
               },
               "collapsed": {
+                "title": "Is Collapsed?",
                 "type": "boolean",
                 "default": false,
                 "description": "If true, section needs to be clicked to open"
               },
               "color": {
+                "title": "Color",
                 "type": "string",
                 "description": "Hex code, or HTML color for section fill"
               },
               "customStyles": {
+                "title": "Custom Styles",
                 "type": "string",
                 "description": "CSS overides for section container"
               },
               "itemSize": {
+                "title": "Item Size",
+                "type": "string",
                 "enum": [
                   "small",
                   "medium",
@@ -478,6 +549,7 @@
                 "description": "Size of items within the section"
               },
               "rows": {
+                "title": "Num Rows",
                 "type": "number",
                 "minimum": 1,
                 "maximum": 5,
@@ -485,6 +557,7 @@
                 "description": "The amount of space that the section spans vertically"
               },
               "cols": {
+                "title": "Num Cols",
                 "type": "number",
                 "minimum": 1,
                 "maximum": 5,
@@ -492,6 +565,8 @@
                 "description": "The amount of space that the section spans horizontally"
               },
               "sectionLayout": {
+                "title": "Layout Type",
+                "type": "string",
                 "enum": [
                   "grid",
                   "auto"
@@ -500,18 +575,21 @@
                 "description": "If set to grid, items have uniform width, and itemCount can be set"
               },
               "itemCountX": {
+                "title": "Item Count X",
                 "type": "number",
                 "minimum": 1,
                 "maximum": 12,
                 "description": "Number of items per column"
               },
               "itemCountY": {
+                "title": "Item Count Y",
                 "type": "number",
                 "minimum": 1,
                 "maximum": 12,
                 "description": "Number of items per row"
               },
               "hideForUsers": {
+                "title": "Hide for Users",
                 "type": "array",
                 "description": "Section will be visible to all users, except for those specified in this list",
                 "items": {
@@ -520,6 +598,7 @@
                 }
               },
               "showForUsers": {
+                "title": "Show for Users",
                 "type": "array",
                 "description": "Section will be hidden from all users, except for those specified in this list",
                 "items": {
@@ -528,6 +607,7 @@
                 }
               },
               "hideForGuests": {
+                "title": "Hide for Guests?",
                 "type": "boolean",
                 "default": false,
                 "description": "If set to true, section will be visible for logged in users, but not for guests"
@@ -535,6 +615,7 @@
             }
           },
           "items": {
+            "title": "Items",
             "type": "array",
             "description": "Array of items to display with a section",
             "items": {
@@ -545,24 +626,30 @@
               ],
               "properties": {
                 "title": {
+                  "title": "Item Text",
                   "type": "string",
-                  "description": "Text shown on the item"
+                  "description": "Title of the item"
                 },
                 "description": {
+                  "title": "Description",
                   "type": "string",
                   "nullable": true,
                   "description": "Short description, shown on hover or in a tooltip"
                 },
                 "icon": {
+                  "title": "Icon",
                   "type": "string",
                   "nullable": true,
-                  "description": "An icon, either as a font-awesome identifier, local or remote URL, or the word favicon or generative"
+                  "description": "An icon, either as a font-awesome, simple-icon or mdi identifier, emoji, favicon, generative or the URL/ path to a local or remote icon asset"
                 },
                 "url": {
+                  "title": "Service URL",
                   "type": "string",
-                  "description": "The destination to navigate to when item is clicked"
+                  "description": "The destination to navigate to when item is clicked, expressed as a valid URL, IP or hostname"
                 },
                 "target": {
+                  "title": "Opening Method",
+                  "type": "string",
                   "enum": [
                     "newtab",
                     "sametab",
@@ -572,45 +659,58 @@
                     "workspace"
                   ],
                   "default": "newtab",
-                  "description": "Opening method, when item is clicked"
+                  "description": "Where / how the item is opened when it's clicked"
                 },
                 "hotkey": {
+                  "title": "Hot Key",
                   "type": "number",
                   "description": "A numeric shortcut key, between 0 and 9. Useful for quickly launching frequently used applications"
                 },
                 "tags": {
+                  "title": "Tags",
                   "type": "array",
-                  "description": "Tags, which can be used for improved search",
+                  "description": "A list of tags for improved search. Separate using a comma",
                   "maxItems": 12,
                   "items": {
                     "type": "string"
                   }
                 },
-                "color": {
-                  "type": "string",
-                  "description": "A custom fill color of the item"
-                },
                 "provider": {
+                  "title": "Provider",
                   "type": "string",
-                  "description": "Provider name, e.g. Microsoft"
+                  "description": "Provider name, e.g. Microsoft, Nebucasa, DigitalOcean, etc"
                 },
                 "statusCheck": {
+                  "title": "Enable Status Check",
                   "type": "boolean",
                   "default": false,
                   "description": "Whether or not to display online/ offline status for this service. Will override appConfig.statusCheck"
                 },
                 "statusCheckUrl": {
+                  "title": "Status Check URL",
                   "type": "string",
-                  "description": "If you've enabled statusCheck, and want to use a different URL to what is defined under the item, then specify it here"
+                  "description": "Custom status check endpoint for this item. Useful if the default URL doesn't return 200, or if your service has a dedicated status check endpoint"
                 },
                 "statusCheckHeaders": {
+                  "title": "Status Check Headers",
                   "type": "object",
-                  "description": " If you're endpoint requires any specific headers for the status checking, then define them here"
+                  "description": " Custom headers for status checking, useful if your service requires authorization headers to return a 200"
                 },
                 "statusCheckAllowInsecure": {
+                  "title": "Status Check Disable SSL",
                   "type": "boolean",
                   "default": false,
-                  "description": "Allows for running status checks on insecure content/ non-HTTPS apps"
+                  "description": "Allows for running status checks on insecure content/ non-HTTPS apps. Prevents checks failing for non-SSL sites"
+                },
+                "color": {
+                  "title": "Custom Color",
+                  "type": "string",
+                  "description": "A custom fill color of the item, expressed either as hex code or color name"
+                },
+                "id": {
+                  "title": "Item ID",
+                  "type": "string",
+                  "description": "Unique ID for each item. Generated automatically, shouldn't need to be set manually."
                 }
               }
             }

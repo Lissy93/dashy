@@ -5,7 +5,7 @@
       @contextmenu.prevent
       :href="hyperLinkHref"
       :target="anchorTarget"
-      :class="`item ${!icon? 'short': ''} size-${itemSize}`"
+      :class="`item ${!icon? 'short': ''} size-${itemSize} ${isAddNew ? 'add-new' : ''}`"
       v-tooltip="getTooltipOptions()"
       rel="noopener noreferrer" tabindex="0"
       :id="`link-${id}`"
@@ -30,15 +30,23 @@
         :statusSuccess="statusResponse ? statusResponse.successStatus : undefined"
         :statusText="statusResponse ? statusResponse.message : undefined"
       />
+      <EditModeIcon v-if="isEditMode" class="edit-mode-item" @click="openItemSettings()" />
     </a>
     <ContextMenu
-      :show="contextMenuOpen"
+      :show="contextMenuOpen && !isAddNew"
       v-click-outside="closeContextMenu"
       :posX="contextPos.posX"
       :posY="contextPos.posY"
       :id="`context-menu-${id}`"
-      @contextItemClick="contextItemClick"
+      @launchItem="launchItem"
+      @openItemSettings="openItemSettings"
+      @openMoveItemMenu="openMoveItemMenu"
+      @openDeleteItem="openDeleteItem"
     />
+    <MoveItemTo v-if="isEditMode" :itemId="id" />
+    <EditItem v-if="editMenuOpen" :itemId="id"
+      @closeEditMenu="closeEditMenu"
+      :isNew="isAddNew" :parentSectionTitle="parentSectionTitle" />
   </div>
 </template>
 
@@ -48,13 +56,18 @@ import router from '@/router';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
-import ContextMenu from '@/components/LinkItems/ContextMenu';
+import EditItem from '@/components/InteractiveEditor/EditItem';
+import MoveItemTo from '@/components/InteractiveEditor/MoveItemTo';
+import ContextMenu from '@/components/LinkItems/ItemContextMenu';
+import StoreKeys from '@/utils/StoreMutations';
+import { targetValidator } from '@/utils/ConfigHelpers';
+import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 import {
   localStorageKeys,
   serviceEndpoints,
+  modalNames,
   openingMethod as defaultOpeningMethod,
 } from '@/utils/defaults';
-import { targetValidator } from '@/utils/ConfigHelpers';
 
 export default {
   name: 'Item',
@@ -73,22 +86,37 @@ export default {
       type: String,
       validator: targetValidator,
     },
-    itemSize: String,
-    enableStatusCheck: Boolean,
-    statusCheckHeaders: Object,
-    statusCheckUrl: String,
-    statusCheckInterval: Number,
-    statusCheckAllowInsecure: Boolean,
+    itemSize: String, // Item size: small | medium | large
+    enableStatusCheck: Boolean, // Should run status checks
+    statusCheckHeaders: Object, // Custom status check headers
+    statusCheckUrl: String, // Custom URL for status check endpoint
+    statusCheckInterval: Number, // Num seconds beteween repeating checks
+    statusCheckAllowInsecure: Boolean, // Status check ignore SSL certs
+    parentSectionTitle: String, // Title of parent section (for add new)
+    isAddNew: Boolean, // Only set if 'fake' item used as Add New button
+  },
+  components: {
+    Icon,
+    ItemOpenMethodIcon,
+    StatusIndicator,
+    ContextMenu,
+    MoveItemTo,
+    EditItem,
+    EditModeIcon,
   },
   computed: {
     appConfig() {
       return this.$store.getters.appConfig;
+    },
+    isEditMode() {
+      return this.$store.state.editMode;
     },
     accumulatedTarget() {
       return this.target || this.appConfig.defaultOpeningMethod || defaultOpeningMethod;
     },
     /* Convert config target value, into HTML anchor target attribute */
     anchorTarget() {
+      if (this.isEditMode) return '_self';
       const target = this.accumulatedTarget;
       switch (target) {
         case 'sametab': return '_self';
@@ -98,10 +126,12 @@ export default {
         default: return undefined;
       }
     },
-    /* Get the href value for the anchor, if not opening in modal/ workspace */
+    /* Get href for anchor, if not in edit mode, or opening in modal/ workspace */
     hyperLinkHref() {
+      const nothing = '#';
+      if (this.isEditMode) return nothing;
       const noAnchorNeeded = ['modal', 'workspace'];
-      return noAnchorNeeded.includes(this.accumulatedTarget) ? '#' : this.url;
+      return noAnchorNeeded.includes(this.accumulatedTarget) ? nothing : this.url;
     },
   },
   data() {
@@ -117,17 +147,17 @@ export default {
         posX: undefined,
         posY: undefined,
       },
+      editMenuOpen: false,
     };
-  },
-  components: {
-    Icon,
-    ItemOpenMethodIcon,
-    StatusIndicator,
-    ContextMenu,
   },
   methods: {
     /* Called when an item is clicked, manages the opening of modal & resets the search field */
     itemOpened(e) {
+      if (this.isEditMode) {
+        // If in edit mode, open settings, and don't launch app
+        this.openItemSettings();
+        return;
+      }
       if (e.altKey || this.accumulatedTarget === 'modal') {
         e.preventDefault();
         this.$emit('triggerModal', this.url);
@@ -164,8 +194,10 @@ export default {
       const providerText = this.provider ? `<b>Provider</b>: ${this.provider}` : '';
       const lb1 = description && providerText ? '<br>' : '';
       const hotkeyText = this.hotkey ? `<br>Press '${this.hotkey}' to launch` : '';
+      const tooltipText = providerText + lb1 + description + hotkeyText;
+      const editText = this.$t('interactive-editor.edit-section.edit-tooltip');
       return {
-        content: providerText + lb1 + description + hotkeyText,
+        content: (this.isEditMode ? editText : tooltipText),
         trigger: 'hover focus',
         hideOnTargetClick: true,
         html: true,
@@ -220,7 +252,7 @@ export default {
         });
     },
     /* Handle navigation options from the context menu */
-    contextItemClick(method) {
+    launchItem(method) {
       const { url } = this;
       this.contextMenuOpen = false;
       switch (method) {
@@ -239,6 +271,19 @@ export default {
         default: window.open(url, '_blank');
       }
     },
+    /* Open the Edit Item moal form */
+    openItemSettings() {
+      this.editMenuOpen = true;
+      this.contextMenuOpen = false;
+      this.$modal.show(modalNames.EDIT_ITEM);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    /* Ensure conditional is updated, once menu closed */
+    closeEditMenu() {
+      this.editMenuOpen = false;
+      this.$modal.hide(modalNames.EDIT_ITEM);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
+    },
     /* Used for smart-sort when sorting items by most used apps */
     incrementMostUsedCount(itemId) {
       const mostUsed = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
@@ -252,6 +297,19 @@ export default {
       const lastUsed = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
       lastUsed[itemId] = new Date().getTime();
       localStorage.setItem(localStorageKeys.LAST_USED, JSON.stringify(lastUsed));
+    },
+    /* Open the modal for moving/ copying item to other section */
+    openMoveItemMenu() {
+      this.$modal.show(`${modalNames.MOVE_ITEM_TO}-${this.id}`);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+      this.closeContextMenu();
+    },
+    /* Deletes the current item from the state */
+    openDeleteItem() {
+      const parentSection = this.$store.getters.getParentSectionOfItem(this.id);
+      const payload = { itemId: this.id, sectionName: parentSection.name };
+      this.$store.commit(StoreKeys.REMOVE_ITEM, payload);
+      this.closeContextMenu();
     },
   },
   mounted() {
@@ -306,6 +364,9 @@ export default {
   &.short:not(.size-large) {
     height: 2rem;
   }
+  &.add-new {
+    border: 2px dashed var(--primary) !important;
+  }
 }
 
 /* Text in tile */
@@ -358,6 +419,15 @@ export default {
   .tile-icon, .tile-svg  {
     filter: var(--item-icon-transform-hover);
   }
+}
+
+/* Edit Mode Icon */
+.item .edit-mode-item {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
 }
 
 /* Specify layout for alternate sized icons */

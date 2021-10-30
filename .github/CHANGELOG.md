@@ -1,5 +1,11 @@
 # Changelog
 
+## ✨ 1.8.9 - All New Interactive Config Editor [PR #298](https://github.com/Lissy93/dashy/pull/298)
+- Builds a new UI-based config editor
+- Support for sections, items, app config and page info
+- Live preview, and undoing of local changes
+- Export config or write changes to disk through UI
+
 ## ✨ 1.8.8 - Improved Item Targets [PR #292](https://github.com/Lissy93/dashy/pull/292)
 - Adds support for `_top` and `_parent` anchor targets on items, Re: #289
 - Adds `appConfig.defaultOpeningMethod` option to specify default target

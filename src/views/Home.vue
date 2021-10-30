@@ -4,8 +4,6 @@
     <!-- Search bar, layout options and settings -->
     <SettingsContainer ref="filterComp"
       @user-is-searchin="searching"
-      @change-display-layout="setLayoutOrientation"
-      @change-icon-size="setItemSize"
       @change-modal-visibility="updateModalVisibility"
       :displayLayout="layout"
       :iconSize="itemSizeBound"
@@ -31,6 +29,7 @@
       <Section
         v-for="(section, index) in filteredTiles"
         :key="index"
+        :index="index"
         :title="section.name"
         :icon="section.icon || undefined"
         :displayData="getDisplayData(section)"
@@ -43,11 +42,17 @@
         :class="
         (searchValue && filterTiles(section.items, searchValue).length === 0) ? 'no-results' : ''"
       />
+      <!-- Show add new section button, in edit mode -->
+      <AddNewSection v-if="isEditMode" />
     </div>
     <!-- Show message when there's no data to show -->
     <div v-if="checkIfResults()" class="no-data">
       {{searchValue ? $t('home.no-results') : $t('home.no-data')}}
     </div>
+    <!-- Show banner at bottom of screen, for Saving config changes -->
+    <EditModeSaveMenu v-if="isEditMode" />
+    <!-- Modal for viewing and exporting configuration file -->
+    <ExportConfigMenu />
   </div>
 </template>
 
@@ -55,8 +60,12 @@
 
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
+import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
+import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vue';
+import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.vue';
 import { searchTiles } from '@/utils/Search';
-import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
+import StoreKeys from '@/utils/StoreMutations';
+import Defaults, { localStorageKeys, iconCdns, modalNames } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 import BackIcon from '@/assets/interface-icons/back-arrow.svg';
 
@@ -64,6 +73,9 @@ export default {
   name: 'home',
   components: {
     SettingsContainer,
+    EditModeSaveMenu,
+    ExportConfigMenu,
+    AddNewSection,
     Section,
     BackIcon,
   },
@@ -71,6 +83,7 @@ export default {
     searchValue: '',
     layout: '',
     itemSizeBound: '',
+    addNewSectionOpen: false,
   }),
   computed: {
     sections() {
@@ -88,6 +101,9 @@ export default {
     singleSectionView() {
       return this.findSingleSection(this.$store.getters.sections, this.$route.params.section);
     },
+    isEditMode() {
+      return this.$store.state.editMode;
+    },
     /* Get class for num columns, if specified by user */
     colCount() {
       let { colCount } = this.appConfig;
@@ -96,36 +112,28 @@ export default {
       if (colCount > 8) colCount = 8;
       return colCount;
     },
-    /* Combines sections from config file, with those in local storage */
-    allSections() {
-      // If the user has stored sections in local storage, return those
-      const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
-      if (localSections) {
-        const json = JSON.parse(localSections);
-        if (json.length >= 1) return json;
-      }
-      // Otherwise, return the usuall data from conf.yml
-      return this.sections;
-    },
+    /* Return all sections, that match users search term */
     filteredTiles() {
-      const sections = this.singleSectionView || this.allSections;
+      const sections = this.singleSectionView || this.sections;
       return sections.filter((section) => this.filterTiles(section.items, this.searchValue));
     },
     /* Updates layout (when button clicked), and saves in local storage */
-    layoutOrientation: {
-      get() { return this.appConfig.layout || Defaults.layout; },
-      set: function setLayout(layout) {
-        localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
-        this.layout = layout;
-      },
+    layoutOrientation() {
+      return this.$store.getters.layout;
     },
     /* Updates icon size (when button clicked), and saves in local storage */
-    iconSize: {
-      get() { return this.appConfig.iconSize || Defaults.iconSize; },
-      set: function setIconSize(iconSize) {
-        localStorage.setItem(localStorageKeys.ICON_SIZE, iconSize);
-        this.itemSizeBound = iconSize;
-      },
+    iconSize() {
+      return this.$store.getters.iconSize;
+    },
+  },
+  watch: {
+    layoutOrientation(layout) {
+      localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
+      this.layout = layout;
+    },
+    iconSize(size) {
+      localStorage.setItem(localStorageKeys.ICON_SIZE, size);
+      this.itemSizeBound = size;
     },
   },
   methods: {
@@ -150,24 +158,26 @@ export default {
     getDisplayData(section) {
       return !section.displayData ? {} : section.displayData;
     },
-    /* Sets layout attribute, which is used by Section */
-    setLayoutOrientation(layout) {
-      this.layoutOrientation = layout;
-    },
-    /* Sets item size attribute, which is used by Section */
-    setItemSize(itemSize) {
-      this.iconSize = itemSize;
-    },
     /* Update data when modal is open (so that key bindings can be disabled) */
     updateModalVisibility(modalState) {
       this.$store.commit('SET_MODAL_OPEN', modalState);
     },
+    openAddNewSectionMenu() {
+      this.addNewSectionOpen = true;
+      this.$modal.show(modalNames.EDIT_SECTION);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    closeEditSection() {
+      this.addNewSectionOpen = false;
+      this.$modal.hide(modalNames.EDIT_SECTION);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
+    },
     /* If on sub-route, and section exists, then return only that section */
-    findSingleSection: (allSectios, sectionTitle) => {
+    findSingleSection: (allSections, sectionTitle) => {
       if (!sectionTitle) return undefined;
       let sectionToReturn;
-      const parse = (section) => section.replace(' ', '-').toLowerCase().trim();
-      allSectios.forEach((section) => {
+      const parse = (section) => section.replaceAll(' ', '-').toLowerCase().trim();
+      allSections.forEach((section) => {
         if (parse(sectionTitle) === parse(section.name)) {
           sectionToReturn = [section];
         }
@@ -196,8 +206,8 @@ export default {
     /* Checks if any sections or items use icons from a given CDN */
     checkIfIconLibraryNeeded(prefix) {
       let isNeeded = false;
-      if (!this.allSections) return false;
-      this.allSections.forEach((section) => {
+      if (!this.sections) return false;
+      this.sections.forEach((section) => {
         if (section.icon && section.icon.includes(prefix)) isNeeded = true;
         section.items.forEach((item) => {
           if (item.icon && item.icon.includes(prefix)) isNeeded = true;
@@ -236,10 +246,10 @@ export default {
     },
     /* Returns true if there is more than 1 sub-result visible during searching */
     checkIfResults() {
-      if (!this.allSections) return false;
+      if (!this.sections) return false;
       else {
         let itemsFound = true;
-        this.allSections.forEach((section) => {
+        this.sections.forEach((section) => {
           if (this.filterTiles(section.items, this.searchValue).length > 0) itemsFound = false;
         });
         return itemsFound;
@@ -343,6 +353,18 @@ export default {
   /* When in single-section view mode */
   &.single-section-view {
     display: block;
+  }
+  .add-new-section {
+    border: 2px dashed var(--primary);
+    border-radius: var(--curve-factor);
+    padding: var(--item-group-padding);
+    background: var(--item-group-background);
+    color: var(--primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-align: center;
+    height: fit-content;
+    margin: 10px;
   }
 }
 

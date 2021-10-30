@@ -1,6 +1,6 @@
 {
   "name": "Dashy",
-  "version": "1.8.8",
+  "version": "1.8.9",
   "license": "MIT",
   "main": "server",
   "scripts": {
@@ -16,6 +16,7 @@
     "dependency-audit": "npx improved-yarn-audit --ignore-dev-deps"
   },
   "dependencies": {
+    "@formschema/native": "^2.0.0-beta.5",
     "@sentry/tracing": "^6.13.1",
     "@sentry/vue": "^6.13.1",
     "ajv": "^8.6.3",
@@ -36,6 +37,7 @@
     "vue": "^2.6.10",
     "vue-i18n": "^8.25.1",
     "vue-js-modal": "^2.0.0-rc.6",
+    "vue-json-tree-view": "^2.1.6",
     "vue-material-tabs": "0.1.5",
     "vue-router": "^3.0.3",
     "vue-select": "^3.13.0",

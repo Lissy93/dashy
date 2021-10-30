@@ -3,8 +3,8 @@
     <TabItem :name="$t('config.main-tab')" class="main-tab">
       <div class="main-options-container">
         <div class="config-buttons">
-          <h2>Configuration Options</h2>
-          <a class="hyperlink-wrapper"  @click="downloadConfigFile('conf.yml', yaml)">
+          <h2>{{ $t('config.heading') }}</h2>
+          <a class="hyperlink-wrapper"  @click="openExportConfigModal()">
             <button class="config-button center">
               <DownloadIcon class="button-icon"/>
               {{ $t('config.download-config-button') }}
@@ -52,13 +52,13 @@
       <RebuildApp />
     </TabItem>
     <TabItem :name="$t('config.edit-config-tab')">
-      <JsonEditor :config="config" />
+      <JsonEditor />
     </TabItem>
     <TabItem :name="$t('cloud-sync.title')">
-      <CloudBackupRestore :config="config" />
+      <CloudBackupRestore />
     </TabItem>
     <TabItem :name="$t('config.custom-css-tab')">
-      <CustomCssEditor :config="config" />
+      <CustomCssEditor />
     </TabItem>
   </Tabs>
 </template>
@@ -68,6 +68,7 @@
 import JsonToYaml from '@/utils/JsonToYaml';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
 import { getUsersLanguage } from '@/utils/ConfigHelpers';
+import StoreKeys from '@/utils/StoreMutations';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
 import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
@@ -134,32 +135,19 @@ export default {
     openLanguageSwitchModal() {
       this.$modal.show(modalNames.LANG_SWITCHER);
     },
-    copyConfigToClipboard() {
-      navigator.clipboard.writeText(this.jsonParser(this.config));
-      this.$toasted.show(this.$t('config.data-copied-msg'));
+    openExportConfigModal() {
+      this.$modal.show(modalNames.EXPORT_CONFIG_MENU);
     },
     /* Checks that the user is sure, then resets site-wide local storage, and reloads page */
     resetLocalSettings() {
-      const msg = `${this.$t('config.reset-config-msg-l1')
-      }${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
+      const msg = `${this.$t('config.reset-config-msg-l1')} `
+      + `${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
       const isTheUserSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
       if (isTheUserSure) {
         localStorage.clear();
         this.$toasted.show(this.$t('config.data-cleared-msg'));
-        setTimeout(() => {
-          location.reload(true); // eslint-disable-line no-restricted-globals
-        }, 1900);
+        this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG);
       }
-    },
-    /* Generates a new file, with the YAML contents, and triggers a download */
-    downloadConfigFile(filename, filecontents) {
-      const element = document.createElement('a');
-      element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(filecontents)}`);
-      element.setAttribute('download', filename);
-      element.style.display = 'none';
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
     },
     getLanguage() {
       const lang = getUsersLanguage();
