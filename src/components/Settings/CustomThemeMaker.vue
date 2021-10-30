@@ -2,45 +2,48 @@
   <div :class="`theme-configurator-wrapper ${showingAllVars ? 'showing-all' : ''}`">
     <h3 class="configurator-title">{{ $t('theme-maker.title') }}</h3>
     <div class="color-row-container">
-    <div class="color-row" v-for="colorName in Object.keys(customColors)" :key="colorName">
-      <label :for="`color-input-${colorName}`" class="color-name">
-        {{colorName.replaceAll('-', ' ')}}
-      </label>
-      <v-swatches
-        v-if="isColor(colorName, customColors[colorName])"
-        v-model="customColors[colorName]"
-        show-fallback
-        fallback-input-type="color"
-        popover-x="left"
-        :swatches="swatches"
-        @input="setVariable(colorName, customColors[colorName])"
-      >
-      <input
-        :id="`color-input-${colorName}`"
-        slot="trigger"
-        :value="customColors[colorName]"
-        class="swatch-input form__input__element"
-        readonly
-        :style="makeSwatchStyles(colorName)"
-      />
-      </v-swatches>
-      <input v-else
-        :id="`color-input-${colorName}`"
-        :value="customColors[colorName]"
-        class="misc-input"
-        @input="setVariable(colorName, customColors[colorName])"
-      />
-    </div> <!-- End of color list -->
+      <!-- Show color swatch input for each color -->
+      <div class="color-row" v-for="colorName in Object.keys(customColors)" :key="colorName">
+        <label :for="`color-input-${colorName}`" class="color-name">
+          {{colorName.replaceAll('-', ' ')}}
+        </label>
+        <v-swatches
+          v-if="isColor(colorName, customColors[colorName])"
+          v-model="customColors[colorName]"
+          show-fallback
+          fallback-input-type="color"
+          popover-x="left"
+          :swatches="swatches"
+          @input="setVariable(colorName, customColors[colorName])"
+        >
+          <input
+            :id="`color-input-${colorName}`"
+            slot="trigger"
+            :value="customColors[colorName]"
+            class="swatch-input form__input__element"
+            readonly
+            :style="makeSwatchStyles(colorName)"
+          />
+        </v-swatches>
+        <input v-else
+          :id="`color-input-${colorName}`"
+          :value="customColors[colorName]"
+          class="misc-input"
+          @input="setVariable(colorName, customColors[colorName])"
+        />
+      </div> <!-- End of color list -->
     </div>
+    <!-- More options: Export, Reset, Show all -->
     <p @click="exportToClipboard" class="action-text-btn">
       {{ $t('theme-maker.export-button') }}
     </p>
-    <p @click="resetAndSave" class="action-text-btn show-all-vars-btn">
+    <p @click="resetAndSave" class="action-text-btn">
        {{ $t('theme-maker.reset-button') }} '{{ themeToEdit }}'
     </p>
-    <p @click="findAllVariableNames" class="action-text-btn">
+    <p @click="findAllVariableNames" class="action-text-btn show-all-vars-btn">
        {{ $t('theme-maker.show-all-button') }}
     </p>
+    <!-- Save and cancel buttons -->
     <div class="action-buttons">
       <Button :click="saveChanges">
         <SaveIcon /> {{ $t('theme-maker.save-button') }}
@@ -55,8 +58,8 @@
 <script>
 import VSwatches from 'vue-swatches';
 import 'vue-swatches/dist/vue-swatches.css';
+import StoreKeys from '@/utils/StoreMutations';
 import { localStorageKeys, mainCssVars, swatches } from '@/utils/defaults';
-
 import Button from '@/components/FormElements/Button';
 import SaveIcon from '@/assets/interface-icons/save-config.svg';
 import CancelIcon from '@/assets/interface-icons/config-cancel.svg';
@@ -88,11 +91,12 @@ export default {
     setVariable(variable, value) {
       document.documentElement.style.setProperty(`--${variable}`, value);
     },
-    /* Saves the users omdified variables in local storage */
+    /* Updates browser storage, and srore with new color settings, and shows success msg */
     saveChanges() {
       const priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
       priorSettings[this.themeToEdit] = this.customColors;
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
+      this.$store.commit(StoreKeys.SET_CUSTOM_COLORS, priorSettings);
       this.$toasted.show(this.$t('theme-maker.saved-toast', { theme: this.themeToEdit }));
       this.$emit('closeThemeConfigurator');
     },

@@ -18,6 +18,7 @@ const {
   SET_ITEM_LAYOUT,
   SET_ITEM_SIZE,
   SET_THEME,
+  SET_CUSTOM_COLORS,
   UPDATE_ITEM,
   SET_EDIT_MODE,
   SET_PAGE_INFO,
@@ -207,6 +208,12 @@ const store = new Vuex.Store({
       newConfig.appConfig.theme = theme;
       state.config = newConfig;
       InfoHandler('Theme updated', InfoKeys.VISUAL);
+    },
+    [SET_CUSTOM_COLORS](state, customColors) {
+      const newConfig = { ...state.config };
+      newConfig.appConfig.customColors = customColors;
+      state.config = newConfig;
+      InfoHandler('Color palette updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_LAYOUT](state, layout) {
       state.config.appConfig.layout = layout;
