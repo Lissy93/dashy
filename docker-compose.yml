@@ -21,7 +21,8 @@ services:
 
     # Pass in your config file below, by specifying the path on your host machine
     # volumes:
-      # - /root/my-config.yml:/app/public/conf.yml
+      # - /path/to/my-config.yml:/app/public/conf.yml
+      # - /path/to/item-icons:/app/public/item-icons
 
     # Set port that web service will be served on. Keep container port as 80
     ports:
