@@ -365,7 +365,7 @@ export default {
     height: 2rem;
   }
   &.add-new {
-    border-style: dashed !important;
+    border: 2px dashed var(--primary) !important;
   }
 }
 

@@ -3,7 +3,7 @@
     <TabItem :name="$t('config.main-tab')" class="main-tab">
       <div class="main-options-container">
         <div class="config-buttons">
-          <h2>Configuration Options</h2>
+          <h2>{{ $t('config.heading') }}</h2>
           <a class="hyperlink-wrapper"  @click="openExportConfigModal()">
             <button class="config-button center">
               <DownloadIcon class="button-icon"/>
@@ -52,13 +52,13 @@
       <RebuildApp />
     </TabItem>
     <TabItem :name="$t('config.edit-config-tab')">
-      <JsonEditor :config="config" />
+      <JsonEditor />
     </TabItem>
     <TabItem :name="$t('cloud-sync.title')">
-      <CloudBackupRestore :config="config" />
+      <CloudBackupRestore />
     </TabItem>
     <TabItem :name="$t('config.custom-css-tab')">
-      <CustomCssEditor :config="config" />
+      <CustomCssEditor />
     </TabItem>
   </Tabs>
 </template>
@@ -68,6 +68,7 @@
 import JsonToYaml from '@/utils/JsonToYaml';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
 import { getUsersLanguage } from '@/utils/ConfigHelpers';
+import StoreKeys from '@/utils/StoreMutations';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
 import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
@@ -139,15 +140,13 @@ export default {
     },
     /* Checks that the user is sure, then resets site-wide local storage, and reloads page */
     resetLocalSettings() {
-      const msg = `${this.$t('config.reset-config-msg-l1')
-      }${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
+      const msg = `${this.$t('config.reset-config-msg-l1')} `
+      + `${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
       const isTheUserSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
       if (isTheUserSure) {
         localStorage.clear();
         this.$toasted.show(this.$t('config.data-cleared-msg'));
-        setTimeout(() => {
-          location.reload(true); // eslint-disable-line no-restricted-globals
-        }, 1900);
+        this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG);
       }
     },
     getLanguage() {
