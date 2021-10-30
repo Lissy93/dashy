@@ -64,9 +64,6 @@
   </p>
 </details>
 
-| 👉 PSA: Want Free Swag? [Dashy is participating in Hacktoberfest 2021!](https://github.com/Lissy93/dashy/discussions/281) |
-|-|
-
 ## Features 🌈
 
 - 🔎 Instant search by name, domain and tags + customizable hotkeys & keyboard shortcuts
@@ -405,15 +402,21 @@ Hit `Esc` at anytime to close any open apps, clear the search field, or hide any
 ## Config Editor ⚙️
 > For full config documentation, see: [**Configuring**](./docs/configuring.md)
 
-From the Settings Menu in Dashy, you can download, backup, edit and rest your config. The editor will tell you if you've got any validation warnings.
+As well as passing in a YAML config file, you can also configure the app directly through the UI, and preview changes live.
 
-A full list of available config options can be found [here](./docs/configuring.md). It's recommend to make a backup of your configuration, as you can then restore it into a new instance of Dashy, without having to set it up again. [json2yaml](https://www.json2yaml.com/) is very useful for converting between YAML to JSON and visa versa.
+To edit any section or item, right-click on it, and select "Edit", or enter the Edit Mode (using the Pen icon in the top-right), then click any part of the page to edit. Changes will be visible immediately, but will not be saved until you click "Save to Disk" or "Save Locally".
+
+<p align="center">
+  <img alt="Interactive Editor demo" src="https://user-images.githubusercontent.com/1862727/139543020-b0576d28-0830-476f-afc8-a815d4de6def.gif" width="600" />
+</p>
+
+Under the config menu, you can export, view, backup, or reset app config, as well as edit the raw config file in a text editor, with built-in schema validation.
 
 <p align="center">
   <img alt="Config Editor demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/config-editor-demo.gif" width="600" />
 </p>
 
-**Update:** A new and improved drag-and-drop UI editor is in progress, and should be released within the next couple of weeks!
+A full list of available config options can be found [here](./docs/configuring.md). It's recommend to make and keep a backup of your configuration, to easily restore it into a new instance of Dashy.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -449,6 +452,7 @@ Dashy supports multiple languages and locales. When available, you're language s
 - 🇲🇫 **French**: `fr` - Contributed by **[@EVOTk](https://github.com/EVOTk)**
 - 🇩🇪 **German**: `de` - Contributed by **[@Niklashere](https://github.com/Niklashere)**
 - 🇳🇴 **Norwegian Bokmål**: `nb` - Contributed by **[@rubjo](https://github.com/rubjo)**
+- 🇵🇱 **Polish**: `pl` - Contributed by **[@skaarj1989](https://github.com/skaarj1989)**
 - 🇪🇸 **Spanish**: `es` - Contributed by **[@lu4t](https://github.com/lu4t)**
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
 - 🇮🇹 **Italian**: `it` - Machine Translated *(awaiting human review)*
@@ -457,7 +461,6 @@ Dashy supports multiple languages and locales. When available, you're language s
 - 🇦🇪 **Arabic**: `ar` - Contributed by Anon
 - 🇮🇳 **Hindi**: `hi` - Contributed by Anon
 - 🇯🇵 **Japanese**: `ja` - Contributed by Anon
-- 🇵🇱 **Polish**: `pl` - Contributed by **[@skaarj1989](https://github.com/skaarj1989)**
 
 #### Add your Language
 I would love for Dashy to be available to everyone, without language being a barrier to entry for non-native English speakers. If you have a few minutes to spare, you're help with translating it would be very much appreciated.

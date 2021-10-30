@@ -1,6 +1,8 @@
 # Configuring
 
-All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format.
+All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format. Changes can also be made [directly through the UI](#editing-config-through-the-ui) and previewed live, from here you can also export, backup, reset, validate and download your configuration file.
+
+The following file provides a reference of all supported configuration options.
 
 ---
 
@@ -20,10 +22,11 @@ All app configuration is specified in [`/public/conf.yml`](https://github.com/Li
 	- [`items`](#sectionitem) - List of items
 		- [`icon`](#sectionicon-and-sectionitemicon) - Icon for an item
 - [**Notes**](#notes)
+  - [Editing Config through the UI](#editing-config-through-the-ui)
 	- [About YAML](#about-yaml)
 	- [Config Saving Methods](#config-saving-methods)
 	- [Preventing Changes](#preventing-changes-being-written-to-disk)
-	- [Example](#example)
+  - [Example](#example)
 
 ---
 
@@ -226,6 +229,22 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 ---
 
 ## Notes
+
+### Editing Config through the UI
+
+Config can be modified directly through the UI, and then written to disk, or applied locally. This can be done wither with the raw config editor (introduced in V 0.6.5 / [#3](https://github.com/Lissy93/dashy/pull/3)), or the interactive editor (introduced in V 1.8.9 / [#298](https://github.com/Lissy93/dashy/pull/298)).
+
+<p align="center">
+  <a href="https://ibb.co/CzkyMNb">
+    <b>Interactive Editor</b><br>
+    <img alt="Interactive Editor demo" src="https://user-images.githubusercontent.com/1862727/139543020-b0576d28-0830-476f-afc8-a815d4de6def.gif" width="600" />
+  </a>
+  <br>
+  <a href="https://ibb.co/zRv542H">
+  <b>Raw Editor</b><br>
+  <img alt="Config Editor demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/config-editor-demo.gif" width="600" />
+  </a>
+</p>
 
 ### About YAML
 If you're new to YAML, it's pretty straight-forward. The format is exactly the same as that of JSON, but instead of using curly braces, structure is denoted using whitespace. This [quick guide](https://linuxhandbook.com/yaml-basics/) should get you up to speed in a few minutes, for more advanced topics take a look at this [Wikipedia article](https://en.wikipedia.org/wiki/YAML).
