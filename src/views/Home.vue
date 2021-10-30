@@ -4,8 +4,6 @@
     <!-- Search bar, layout options and settings -->
     <SettingsContainer ref="filterComp"
       @user-is-searchin="searching"
-      @change-display-layout="setLayoutOrientation"
-      @change-icon-size="setItemSize"
       @change-modal-visibility="updateModalVisibility"
       :displayLayout="layout"
       :iconSize="itemSizeBound"
@@ -120,20 +118,22 @@ export default {
       return sections.filter((section) => this.filterTiles(section.items, this.searchValue));
     },
     /* Updates layout (when button clicked), and saves in local storage */
-    layoutOrientation: {
-      get() { return this.appConfig.layout || Defaults.layout; },
-      set: function setLayout(layout) {
-        localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
-        this.layout = layout;
-      },
+    layoutOrientation() {
+      return this.$store.getters.layout;
     },
     /* Updates icon size (when button clicked), and saves in local storage */
-    iconSize: {
-      get() { return this.appConfig.iconSize || Defaults.iconSize; },
-      set: function setIconSize(iconSize) {
-        localStorage.setItem(localStorageKeys.ICON_SIZE, iconSize);
-        this.itemSizeBound = iconSize;
-      },
+    iconSize() {
+      return this.$store.getters.iconSize;
+    },
+  },
+  watch: {
+    layoutOrientation(layout) {
+      localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
+      this.layout = layout;
+    },
+    iconSize(size) {
+      localStorage.setItem(localStorageKeys.ICON_SIZE, size);
+      this.itemSizeBound = size;
     },
   },
   methods: {
@@ -157,14 +157,6 @@ export default {
     /* Returns optional section display preferences if available */
     getDisplayData(section) {
       return !section.displayData ? {} : section.displayData;
-    },
-    /* Sets layout attribute, which is used by Section */
-    setLayoutOrientation(layout) {
-      this.layoutOrientation = layout;
-    },
-    /* Sets item size attribute, which is used by Section */
-    setItemSize(itemSize) {
-      this.iconSize = itemSize;
     },
     /* Update data when modal is open (so that key bindings can be disabled) */
     updateModalVisibility(modalState) {

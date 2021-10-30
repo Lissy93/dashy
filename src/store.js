@@ -86,6 +86,12 @@ const store = new Vuex.Store({
       });
       return foundSection;
     },
+    layout(state) {
+      return state.config.appConfig.layout || 'auto';
+    },
+    iconSize(state) {
+      return state.config.appConfig.iconSize || 'medium';
+    },
   },
   mutations: {
     [SET_CONFIG](state, config) {
@@ -217,12 +223,15 @@ const store = new Vuex.Store({
     },
     [SET_ITEM_LAYOUT](state, layout) {
       state.config.appConfig.layout = layout;
+      InfoHandler('Layout updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_SIZE](state, iconSize) {
       state.config.appConfig.iconSize = iconSize;
+      InfoHandler('Item size updated', InfoKeys.VISUAL);
     },
     [UPDATE_CUSTOM_CSS](state, customCss) {
       state.config.appConfig.customCss = customCss;
+      InfoHandler('Custom colors updated', InfoKeys.VISUAL);
     },
   },
   actions: {

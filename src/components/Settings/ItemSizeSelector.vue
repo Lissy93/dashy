@@ -47,7 +47,6 @@ export default {
   },
   methods: {
     updateIconSize(iconSize) {
-      this.$emit('iconSizeUpdated', iconSize);
       this.$store.commit(StoreKeys.SET_ITEM_SIZE, iconSize);
     },
     tooltip(content) {
