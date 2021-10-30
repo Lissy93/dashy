@@ -1,5 +1,5 @@
 ---
-# Welcome to Dashy! To get started, run `docker compose up`
+# Welcome to Dashy! To get started, run `docker compose up -d`
 # You can configure your container here, by modifying this file
 version: "3.8"
 services:
