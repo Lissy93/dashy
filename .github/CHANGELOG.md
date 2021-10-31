@@ -1,5 +1,9 @@
 # Changelog
 
+## 🐳 1.9.0 - Alpha of Dashy-Lite Docker Container [PR #306](https://github.com/Lissy93/dashy/pull/306)
+- Create an Alpine-based container, that serves the built app up with plain NGINX, instead of Node.
+- This is much lighter, but doesn't currently support any of the server-side actions (like status-checks, and writing changes to disk)
+
 ## ✨ 1.8.9 - All New Interactive Config Editor [PR #298](https://github.com/Lissy93/dashy/pull/298)
 - Builds a new UI-based config editor
 - Support for sections, items, app config and page info
