@@ -1,7 +1,7 @@
 
 <h1 align="center">Dashy</h1>
 <p align="center">
-  <i>Dashy helps you organize your self-hosted services, by making them all accessible from a single place</i>
+  <i>Dashy helps you organize your self-hosted services by making them accessible from a single place</i>
    <br/>
   <img width="120" src="https://i.ibb.co/yhbt6CY/dashy.png" />
   <br/>
@@ -66,25 +66,25 @@
 
 ## Features 🌈
 
-- 🔎 Instant search by name, domain and tags + customizable hotkeys & keyboard shortcuts
+- 🔎 Instant search by name, domain or tags + customizable hotkeys & keyboard shortcuts
 - 🎨 Multiple built-in color themes, with UI color editor and support for custom CSS
-- 🧸 Many icon options- Font-Awesome, homelab icons, auto-fetching favicon, images, emojis, etc
-- 🚦 Status monitoring for each of your apps / links, for basic availability and uptime checking
+- 🧸 Many icon options - Font-Awesome, homelab icons, auto-fetching favicon, images, emojis, etc.
+- 🚦 Status monitoring for each of your apps / links for basic availability and uptime checking
 - 💂 Optional authentication with multi-user access, configurable privileges and SSO support
 - 🌎 Multi-language support, with 10+ human-translated languages, and more on the way
 - ☁ Optional, encrypted, free off-site cloud backup and restore feature available
 - 💼 A workspace view, for easily switching between multiple apps at simultaneously
 - 🛩️ A minimal view, for use as a fast-loading browser startpage
 - 🖱️ Choose app launch method, either new tab, same tab, a pop-up modal or in the workspace view
-- 📏 Customizable layout, sizes, text, component visibility, sort order, behavior etc
-- 🖼️ Option for full-screen background image, custom nav-bar links, html footer, title, etc
+- 📏 Customizable layout, sizes, text, component visibility, sort order, behavior etc.
+- 🖼️ Option for full-screen background image, custom nav-bar links, html footer, title, etc.
 - 🚀 Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
 - ⚙️ Easy single-file YAML-based configuration, and option to configure app through the UI
 - ✨ Under active development with improvements and new features added regularly 
 - 🤏 Small bundle size, fully responsive UI and PWA for basic offline access
 - 🆓 100% free and open source
 - 🔐 Strong focus on privacy
-- 🌈 Plus loads more...
+- 🌈 And loads more...
 
 ## Demo ⚡
 
@@ -168,7 +168,7 @@ Dashy supports 1-Click deployments on several popular cloud platforms. To spin u
 
 All of Dashy's configuration is specified in a single [YAML](https://yaml.org/) file, located at `./public/conf.yml`. You can find a complete list of available options in th [Configuring Docs](/docs/configuring.md). If you're using Docker, you'll probably want to pass this file in as a Docker volume (e.g. `-v /root/my-local-conf.yml:/app/public/conf.yml`).
 
-The config can also be edited directly through the UI, with changes written to your conf.yml file. After making any modifications the app needs to be rebuilt, which will happen automatically or can be trigger with `yarn build` or directly through the UI.
+The config can also be edited directly through the UI with changes written to your conf.yml file. After making any modifications the app needs to be rebuilt, which will happen automatically or can be trigger with `yarn build` or directly through the UI.
 
 You can check that your config is valid and matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json), by running: `yarn validate-config`.
 
@@ -188,7 +188,7 @@ Finally, you may find these [example config](https://gist.github.com/Lissy93/000
   </a>
 </p>
 
-Dashy comes with a number of built-in themes, but it's also easy to make you're own. You can either use the color editor, or you're own custom CSS. All colors, and most other CSS properties are specified using CSS variables, which are [documented here](./docs/theming.md#css-variables), so customizing the look and feel of Dashy very easy. Learn more about adding your own theme in the [docs](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#adding-your-own-theme).
+Dashy comes with a number of built-in themes, but it's also easy to make your own. You can either use the color editor, or your own custom CSS. All colors, and most other CSS properties are specified using CSS variables, which are [documented here](./docs/theming.md#css-variables), thereby customizing the look and feel of Dashy. Learn more about adding your own theme in the [docs](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#adding-your-own-theme).
 
 <p align="center">
   <a href="https://i.ibb.co/cLDXj1R/dashy-theme-configurator.gif">
