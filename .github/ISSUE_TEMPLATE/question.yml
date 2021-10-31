@@ -7,8 +7,9 @@ body:
   # Filed 1 - Intro Text
   - type: markdown
     attributes:
-      value: |-
-        Thanks for using Dashy, questions are welcome, but in the future will be moving over to [Discussions](https://github.com/Lissy93/dashy/discussions).
+      value: >
+        Thanks for using Dashy! Questions are welcome, but in the future will be moving over to
+        [Discussions](https://github.com/Lissy93/dashy/discussions) page.
         Quick questions should be asked [here](https://github.com/Lissy93/dashy/discussions/148) instead.
     validations:
       required: false
@@ -34,6 +35,13 @@ body:
         - App Usage
         - Development
         - Documentation
+        - Alternate Views
+        - Authentication
+        - Using Icons
+        - Language Support
+        - Search & Shortcuts
+        - Status Checking
+        - Theming & Layout
     validations:
       required: true
 
