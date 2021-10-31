@@ -1,0 +1,22 @@
+# -----------------------------------------------------------------------------------------
+# A light-weight alternative Docker image, using NGINX rather than Node.js to serve the app
+# This means that certain features that require server-side endpoints will not be available
+# -----------------------------------------------------------------------------------------
+
+# Build Stage - Install dependencies + build the app
+FROM node:lts-alpine3.14 as build
+WORKDIR /dashy
+COPY package*.json .
+COPY yarn.lock .
+RUN yarn
+COPY . .
+RUN yarn build
+
+# Production Stage - Serve up built files with NGINX
+FROM nginx:alpine as production
+COPY ./docker/nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /dashy/dist /usr/share/nginx/html
+EXPOSE 80
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+LABEL maintainer="Alicia Sykes <alicia@omg.lol>"
