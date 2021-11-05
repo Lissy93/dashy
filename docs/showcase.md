@@ -93,6 +93,14 @@
 
 ---
 
+### EVO Dashboard
+
+> By [@EVOTk](https://github.com/EVOTk)
+
+![screenshot-evo-dashboard](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/12-evo-dashboard.png)
+
+---
+
 ## Submitting your Dashboard
 
 #### How to Submit
