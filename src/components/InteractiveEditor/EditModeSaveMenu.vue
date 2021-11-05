@@ -211,7 +211,7 @@ div.edit-mode-bottom-banner {
   /* Main sections */
   .edit-banner-section {
     padding: 0.5rem;
-    height: 100%;
+    height: 90%;
     /* Section sub-titles */
     p.section-sub-title {
       margin: 0;
@@ -234,7 +234,7 @@ div.edit-mode-bottom-banner {
       grid-template-columns: repeat(2, 1fr);
       button {
         margin: 0.25rem;
-        height: fit-content;
+        height: stretch;
       }
       p.section-sub-title {
         grid-column-start: span 2;
