@@ -364,10 +364,10 @@ export default {
     box-shadow: var(--item-hover-shadow);
     background: var(--item-background-hover);
     color: var(--item-text-color-hover);
-    position: relative;
-    .tile-title span.text {
-      white-space: pre-wrap;
-    }
+    // position: relative;
+    // .tile-title span.text {
+    //   white-space: pre-wrap;
+    // }
   }
   &:focus {
     outline: 2px solid var(--primary);
