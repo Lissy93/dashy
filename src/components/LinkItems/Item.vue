@@ -5,7 +5,7 @@
       @contextmenu.prevent
       :href="hyperLinkHref"
       :target="anchorTarget"
-      :class="`item ${!icon? 'short': ''} size-${itemSize} ${isAddNew ? 'add-new' : ''}`"
+      :class="`item ${makeClassList}`"
       v-tooltip="getTooltipOptions()"
       rel="noopener noreferrer" tabindex="0"
       :id="`link-${id}`"
@@ -30,8 +30,10 @@
         :statusSuccess="statusResponse ? statusResponse.successStatus : undefined"
         :statusText="statusResponse ? statusResponse.message : undefined"
       />
+      <!-- Edit icon (displayed only when in edit mode) -->
       <EditModeIcon v-if="isEditMode" class="edit-mode-item" @click="openItemSettings()" />
     </a>
+    <!-- Right-click context menu -->
     <ContextMenu
       :show="contextMenuOpen && !isAddNew"
       v-click-outside="closeContextMenu"
@@ -43,6 +45,7 @@
       @openMoveItemMenu="openMoveItemMenu"
       @openDeleteItem="openDeleteItem"
     />
+    <!-- Edit and move item menu modals -->
     <MoveItemTo v-if="isEditMode" :itemId="id" />
     <EditItem v-if="editMenuOpen" :itemId="id"
       @closeEditMenu="closeEditMenu"
@@ -113,6 +116,14 @@ export default {
     },
     accumulatedTarget() {
       return this.target || this.appConfig.defaultOpeningMethod || defaultOpeningMethod;
+    },
+    /* Based on item props, adjust class names */
+    makeClassList() {
+      const {
+        icon, itemSize, isAddNew, isEditMode,
+      } = this;
+      return `size-${itemSize} ${!icon ? 'short' : ''} `
+       + `${isAddNew ? 'add-new' : ''} ${isEditMode ? 'is-edit-mode' : ''}`;
     },
     /* Convert config target value, into HTML anchor target attribute */
     anchorTarget() {
@@ -521,13 +532,18 @@ export default {
   }
 }
 
+/* Adjust positioning of status indicator, when in edit mode */
+a.item.is-edit-mode {
+  &.size-medium .status-indicator { top: 1rem; }
+  &.size-small .status-indicator { right: 1rem; }
+  &.size-large .status-indicator { top: 1.5rem; }
+}
+
 </style>
 
 <!-- An un-scoped style tag, since tooltip is outside this DOM tree -->
 <style lang="scss">
-
 .disabled-link {
   pointer-events: none;
 }
-
 </style>
