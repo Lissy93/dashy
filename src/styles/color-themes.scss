@@ -1112,6 +1112,51 @@ html[data-theme="dashy-docs"] {
   }
 }
 
+html[data-theme="adventure"] {
+  // Main colors
+  --primary: #ffffffe6;
+  --background: #0b1021;
+  --background-darker: #181c3a;
+  // Typography
+  --font-headings: 'Podkova', 'Roboto', serif;
+  --font-body: 'Roboto', serif;
+  // Items
+  --item-background: #181c3a66;
+  --item-background-hover: #181c3a80;
+  --item-shadow: 1px 1px 2px #130f23;
+  --item-hover-shadow: 2px 2px 4px #130f23;
+  // Sections
+  --item-group-heading-text-color: var(--white);
+  --item-group-heading-text-color-hover: var(--primary);
+  --item-group-shadow: none;
+  --item-group-background: none;
+  --item-group-outer-background: none;
+  // Background Image
+  body {
+    background: url('https://i.ibb.co/wdqSsGh/adventure-bg.jpg');
+    background-size: cover;
+  }
+  // Remove background from certain components
+  div.home, div.options-outer, div.options-container, section.filter-container,
+  section.settings-outer, div.show-hide-container.hide-btn, div.show-hide-container.show-btn  {
+    background: none;
+  }
+  // Style overides
+  label.lbl-toggle h3 { font-size: 1.3rem; font-weight: bold; }
+  .content-inner { border-top: 1px dashed var(--primary); }
+  a.item.size-large:hover { border-left: 3px solid var(--white); }
+  .item.size-large .tile-title p.description { height: 3rem; }
+  .is-collapsed {
+    background: var(--item-background);
+    box-shadow: var(--item-shadow);
+    &:hover {
+      background: var(--item-background-hover);
+      box-shadow: var(--item-hover-shadow);
+    }
+  }
+}
+
+
 html[data-theme="oblivion-blue"] {
   --primary: #82a5f3;
 }
