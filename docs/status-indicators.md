@@ -65,7 +65,7 @@ If the status is always returning an error, despite the service being online, th
 If your service requires requests to include any authorization in the headers, then use the  `statusCheckHeaders` property, as described above.
 If you are still having issues, it may be because your target application is blocking requests from Dashy's IP. This is a [CORS error](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), and can be fixed by setting the headers on your target app, to include:
 ```
-Access-Control-Allow-Origin: https://location-of-dashy/
+Access-Control-Allow-Origin: https://[dashy-location]/
 Vary: Origin
 ```
 If the URL you are checking is not using HTTPS, then you may need to disable the rejection of insecure requests. This can be done by setting `statusCheckAllowInsecure` to true for a given item.
