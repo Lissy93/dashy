@@ -64,8 +64,7 @@ export default {
       outline: none;
       border: none;
       border-radius: var(--curve-factor);
-      -webkit-box-shadow: 1px 1px 2px #232323;
-      box-shadow: 1px 1px 2px #232323;
+      box-shadow: var(--nav-link-shadow);
       color: var(--nav-link-text-color);
       background: var(--nav-link-background-color);
       border: 1px solid var(--nav-link-border-color);
@@ -74,6 +73,7 @@ export default {
         color: var(--nav-link-text-color-hover);
         background: var(--nav-link-background-color-hover);
         border: 1px solid var(--nav-link-border-color-hover);
+        box-shadow: var(--nav-link-shadow-hover);
       }
     }
   }
