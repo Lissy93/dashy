@@ -1,5 +1,11 @@
 # Changelog
 
+## 💄 1.9.1 - Editor and Theming Fixes and Improvements [PR #319](https://github.com/Lissy93/dashy/pull/319)
+- Bug fixes for interactive editor: #310, #311, #312
+- Adds option to modify text font through the UI
+- Adds two new themes: One Dark and Adventure
+- Theming stylesheet refactor, better inheritance
+
 ## 🐳 1.9.0 - Alpha of Dashy-Lite Docker Container [PR #306](https://github.com/Lissy93/dashy/pull/306)
 - Create an Alpine-based container, that serves the built app up with plain NGINX, instead of Node.
 - This is much lighter, but doesn't currently support any of the server-side actions (like status-checks, and writing changes to disk)
