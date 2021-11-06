@@ -152,6 +152,7 @@ export default {
       }
       InfoHandler('Config has succesfully been saved in browser storage', 'Config Update');
       this.showToast(this.$t('config-editor.success-msg-local'), true);
+      this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
     },
     writeToDisk() {
       // 1. Convert JSON into YAML
