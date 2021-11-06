@@ -23,6 +23,7 @@
       :class="`item-group-container `
         + `orientation-${layout} `
         + `item-size-${itemSizeBound} `
+        + (isEditMode ? 'edit-mode ' : '')
         + (singleSectionView ? 'single-section-view ' : '')
         + (this.colCount ? `col-count-${this.colCount} ` : '')"
       >
@@ -349,6 +350,11 @@ export default {
 
   /* Hide when search term returns nothing */
   .no-results { display: none; }
+
+  /* Additional spacing when in edit mode */
+  &.edit-mode {
+    margin-bottom: 12rem;
+  }
 
   /* When in single-section view mode */
   &.single-section-view {

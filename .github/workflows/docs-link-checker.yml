@@ -11,10 +11,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Load Excludes
+        run: |
+          LYCHEE_EXCLUDE=$(sed -e :a  -e 'N;s/\n/ /;ta' .github/.lycheeexclude)
+          echo "LYCHEE_EXCLUDE=$LYCHEE_EXCLUDE" >> $GITHUB_ENV
+
       - name: Check for Broken Links
         uses: lycheeverse/lychee-action@v1.0.8
         with:
-          args: --verbose -a 200,302,304,429 --no-progress **/*.md **/*.html
+          args: --verbose -a 200,302,304,429 --exclude ${{ env.LYCHEE_EXCLUDE }} --exclude-mail --no-progress **/*.md
         env:
           GITHUB_TOKEN: ${{secrets.BOT_GITHUB_TOKEN}}
           LYCHEE_OUT: .github/broken-link-report.md

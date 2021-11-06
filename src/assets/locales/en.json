@@ -101,6 +101,7 @@
     "export-button": "Export Custom Variables",
     "reset-button": "Reset Styles for",
     "show-all-button": "Show All Variables",
+    "change-fonts-button": "Change Fonts",
     "save-button": "Save",
     "cancel-button": "Cancel",
     "saved-toast": "{theme} Updated Successfully",
