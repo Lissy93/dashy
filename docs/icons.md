@@ -8,9 +8,9 @@ Both sections and items can have an icon, which is specified using the `icon` at
 - [Generative Icons](#generative-icons)
 - [Emoji Icons](#emoji-icons)
 - [Home-Lab Icons](#home-lab-icons)
+- [Material Icons](#material-design-icons)
 - [Icons by URL](#icons-by-url)
 - [Local Icons](#local-icons)
-- [Material Icons](#material-design-icons)
 - [No Icon](#no-icon)
 
 <p align="center">
@@ -125,18 +125,6 @@ sections:
 
 ---
 
-## Icons by URL
-You can also set an icon by passing in a valid URL pointing to the icons location. For example `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`, this can be in .png, .jpg or .svg format, and hosted anywhere (local or remote) - so long as it's accessible from where you are hosting Dashy. The icon will be automatically scaled to fit, however loading in a lot of large icons may have a negative impact on performance, especially if you visit Dashy from new devices often.
-
----
-
-## Local Icons
-You may also want to store your icons locally, bundled within Dashy so that there is no reliance on outside services. This can be done by putting the icons within Dashy's `./public/item-icons/` directory. If you are using Docker, then the easiest option is to map a volume from your host system, for example: `-v /local/image/directory:/app/public/item-icons/`. To reference an icon stored locally, just specify it's name and extension. For example, if my icon was stored in `/app/public/item-icons/maltrail.png`, then I would just set `icon: maltrail.png`.
-
-You can also use sub-folders within the `item-icons` directory to keep things organized. You would then specify an icon with it's folder name slash image name. For example: `networking/monit.png`
-
----
-
 ## Material Design Icons
 Dashy also supports 5000+ [material-design-icons](https://github.com/Templarian/MaterialDesign). To use these, first find the name/ slug for your icon [here](https://dev.materialdesignicons.com/icons), and then prefix is with `mdi-`.
 
@@ -151,8 +139,23 @@ sections:
     icon: mdi-fire 
   - title: Dino Icon
     icon: mdi-google-downasaur 
-
 ```
+
+<p align="center">
+  <img width="500" src="https://i.ibb.co/fC9B4mq/icons-mdi-example.png" />
+</p>
+
+---
+
+## Icons by URL
+You can also set an icon by passing in a valid URL pointing to the icons location. For example `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`, this can be in .png, .jpg or .svg format, and hosted anywhere (local or remote) - so long as it's accessible from where you are hosting Dashy. The icon will be automatically scaled to fit, however loading in a lot of large icons may have a negative impact on performance, especially if you visit Dashy from new devices often.
+
+---
+
+## Local Icons
+You may also want to store your icons locally, bundled within Dashy so that there is no reliance on outside services. This can be done by putting the icons within Dashy's `./public/item-icons/` directory. If you are using Docker, then the easiest option is to map a volume from your host system, for example: `-v /local/image/directory:/app/public/item-icons/`. To reference an icon stored locally, just specify it's name and extension. For example, if my icon was stored in `/app/public/item-icons/maltrail.png`, then I would just set `icon: maltrail.png`.
+
+You can also use sub-folders within the `item-icons` directory to keep things organized. You would then specify an icon with it's folder name slash image name. For example: `networking/monit.png`
 
 ---
 
