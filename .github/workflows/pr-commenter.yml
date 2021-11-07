@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: exercism/pr-commenter-action@v1.3.0
         with:
-          github-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          github-token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           config-file: .github/pr-auto-comments.yml
           template-variables: |
             { "prAuthor": "${{ github.event.pull_request.user.login }}" }

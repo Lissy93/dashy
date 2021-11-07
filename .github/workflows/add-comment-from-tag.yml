@@ -24,4 +24,4 @@ jobs:
         uses: peaceiris/actions-label-commenter@v1
         with:
           config_file: .github/issue-auto-comments.yml
-          github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          github_token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

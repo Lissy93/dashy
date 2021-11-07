@@ -12,16 +12,16 @@ jobs:
     - name: Get Compressed Size
       uses: preactjs/compressed-size-action@v2
       with:
-        repo-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        repo-token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         pattern: './dist/**/*.{js,css,html}'
-        strip-hash: '[-|.](\w{32}|\w{8}).'
+        strip-hash: '\\b\\w{8}\\.'
         exclude: '{./dist/manifest.json,**/*.map,**/node_modules/**}'
         minimum-change-threshold: 100
     # Check number of lines of code added
     - name: Label based on Lines of Code
       uses: codelytv/pr-size-labeler@v1
       with:
-        GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         xs_max_size: '10'
         s_max_size: '100'
         m_max_size: '500'

@@ -24,4 +24,4 @@ jobs:
       - uses: ddradar/lgtm-action@v1
         with:
           image-url: ${{ steps.act.outputs.selected }}
-          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
