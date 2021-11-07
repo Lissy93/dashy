@@ -68,7 +68,7 @@ import Input from '@/components/FormElements/Input';
 import StoreKeys from '@/utils/StoreMutations';
 import { backup, update, restore } from '@/utils/CloudBackup';
 import { localStorageKeys } from '@/utils/defaults';
-import { InfoHandler, WarningInfoHandler } from '@/utils/ErrorHandler';
+import { InfoHandler, WarningInfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 // Import Icons
 import IconBackup from '@/assets/interface-icons/config-backup.svg';
 import IconRestore from '@/assets/interface-icons/config-restore.svg';
@@ -179,12 +179,12 @@ export default {
     },
     /* If the server returns a warning, then show to user and log it */
     showErrorMsg(errorMsg) {
-      WarningInfoHandler(errorMsg, 'Cloud Backup');
+      WarningInfoHandler(errorMsg, InfoKeys.CLOUD_BACKUP);
       this.$toasted.show(errorMsg, { className: 'toast-error' });
     },
     /* When server returns success message, then show to user and log it */
     showSuccessMsg(msg) {
-      InfoHandler(msg, 'Cloud Backup');
+      InfoHandler(msg, InfoKeys.CLOUD_BACKUP);
       this.$toasted.show(msg, { className: 'toast-success' });
     },
     /* Call to hash function, to hash the users chosen/ entered password */

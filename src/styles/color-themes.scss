@@ -988,25 +988,32 @@ html[data-theme="oblivion-scotch"] {
 }
 
 html[data-theme="dashy-docs"] {
+  // Base
   --primary: #f5f6f7;
   --background: #202020;
   --background-darker: #121212;
+  // Items
+  --item-background: var(--background);
+  --item-background-hover: var(--background);
+  --item-text-color: var(--primary);
+  // Sections
   --item-group-background: none;
   --item-group-outer-background: var(--background-darker);
   --item-group-heading-text-color: var(--background);
   --item-group-heading-text-color-hover: var(--background);
-  --item-background: var(--background);
-  --item-background-hover: var(--background);
-  --item-text-color: var(--primary);
-  --minimal-view-section-heading-color: var(--background);
+  // Misc
   --item-group-padding: 0;
   --curve-factor: 3px;
   --curve-factor-navbar: 6px;
   --item-shadow: 4px 4px 6px #00000080, -2px -2px 4px rgb(0 0 0 / 40%);
   --item-group-shadow: 0px 3px 2px #222222, 0px 0px 2px #3e3e3e;
   --font-headings: 'PTMono', 'Courier New', monospace;
+  --minimal-view-section-heading-color: var(--background);
+  // Navbar Links
   --nav-link-background-color-hover: none;
   --nav-link-border-color-hover: none;
+  --nav-link-text-color: var(--background);
+  --nav-link-text-color-hover: var(--background-darker);
 
   footer {
     box-shadow: 0 -3px 4px #010101;
@@ -1095,10 +1102,10 @@ html[data-theme="dashy-docs"] {
       color: var(--background);
       font-weight: bold;
       svg path { fill: var(--background); }
-      &:nth-child(1n) { @include make-colors(#db78fc, #b83ddd); }
-      &:nth-child(2n) { @include make-colors(#41ef90, #1e9554); }
-      &:nth-child(3n) { @include make-colors(#5c85f7, #3d48dd); }
-      &:nth-child(4n) { @include make-colors(#dcff5a, #ceb73f); }
+      &:nth-child(4n + 1) { @include make-colors(#db78fc, #b83ddd); }
+      &:nth-child(4n + 2) { @include make-colors(#41ef90, #1e9554); }
+      &:nth-child(4n + 3) { @include make-colors(#5c85f7, #3d48dd); }
+      &:nth-child(4n + 4) { @include make-colors(#dcff5a, #ceb73f); }
     }
   }
   
