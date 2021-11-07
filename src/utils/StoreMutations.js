@@ -20,6 +20,7 @@ const KEY_NAMES = [
   'REMOVE_ITEM',
   'INSERT_ITEM',
   'UPDATE_CUSTOM_CSS',
+  'CONF_MENU_INDEX',
 ];
 
 // Convert array of key names into an object, and export
