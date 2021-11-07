@@ -16,12 +16,6 @@
   STATUSKIT_SUPPORT_CONTACT_LINK = "https://github.com/lissy93/dashy"
   STATUSKIT_RESOURCES_LINK = "https://dashy.to/docs"
 
-# For router history mode, ensure pages land on index
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
 # Redirect the Node endpoints to serverless functions
 [[redirects]]
   from = "/status-check"
@@ -33,6 +27,12 @@
   to = "/.netlify/functions/not-supported"
   status = 301
   force = true
+  
+# For router history mode, ensure pages land on index
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
 # Set any security headers here
 [[headers]]
