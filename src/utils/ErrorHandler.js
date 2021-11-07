@@ -41,6 +41,7 @@ export const WarningInfoHandler = (msg, title, log) => {
 /* Titles for info logging */
 export const InfoKeys = {
   EDITOR: 'Interactive Editor',
+  RAW_EDITOR: 'Raw Config Editor',
   VISUAL: 'Layout & Styles',
 };
 
