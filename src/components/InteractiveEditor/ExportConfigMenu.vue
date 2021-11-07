@@ -36,7 +36,7 @@ import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
 import DownloadConfigIcon from '@/assets/interface-icons/config-download-file.svg';
 import CopyConfigIcon from '@/assets/interface-icons/interactive-editor-copy-clipboard.svg';
-import { InfoHandler } from '@/utils/ErrorHandler';
+import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 
 export default {
   name: 'ExportConfigMenu',
@@ -70,13 +70,13 @@ export default {
       document.body.appendChild(element);
       element.click();
       document.body.removeChild(element);
-      InfoHandler('Config downloaded as YAML file', 'Interactive Editor');
+      InfoHandler('Config downloaded as YAML file', InfoKeys.EDITOR);
     },
     copyConfigToClipboard() {
       const config = this.convertJsonToYaml();
       navigator.clipboard.writeText(config);
       this.$toasted.show(this.$t('config.data-copied-msg'));
-      InfoHandler('Config copied to clipboard', 'Interactive Editor');
+      InfoHandler('Config copied to clipboard', InfoKeys.EDITOR);
     },
     modalClosed() {
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);

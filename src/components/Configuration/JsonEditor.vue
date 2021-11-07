@@ -54,7 +54,7 @@ import axios from 'axios';
 import ProgressBar from 'rsup-progress';
 import VJsoneditor from 'v-jsoneditor';
 import jsYaml from 'js-yaml';
-import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import configSchema from '@/utils/ConfigSchema.json';
 import StoreKeys from '@/utils/StoreMutations';
 import { localStorageKeys, serviceEndpoints, modalNames } from '@/utils/defaults';
@@ -122,7 +122,7 @@ export default {
     },
     /* Applies changes to the local state, begins edit mode and closes modal */
     startPreview() {
-      InfoHandler('Applying changes to local state...', 'Config Update');
+      InfoHandler('Applying changes to local state...', InfoKeys.RAW_EDITOR);
       const data = this.jsonData;
       this.$store.commit(StoreKeys.SET_APP_CONFIG, data.appConfig);
       this.$store.commit(StoreKeys.SET_PAGE_INFO, data.pageInfo);
@@ -152,7 +152,7 @@ export default {
         } else {
           this.showToast(this.$t('config-editor.error-msg-cannot-save'), false);
         }
-        InfoHandler('Config has been written to disk succesfully', 'Config Update');
+        InfoHandler('Config has been written to disk succesfully', InfoKeys.RAW_EDITOR);
         this.$store.commit(StoreKeys.SET_CONFIG, this.jsonData);
         this.progress.end();
       })
@@ -180,7 +180,7 @@ export default {
       if (data.appConfig.theme) {
         localStorage.setItem(localStorageKeys.THEME, data.appConfig.theme);
       }
-      InfoHandler('Config has succesfully been saved in browser storage', 'Config Update');
+      InfoHandler('Config has succesfully been saved in browser storage', InfoKeys.RAW_EDITOR);
       this.showToast(this.$t('config-editor.success-msg-local'), true);
     },
     /* Clears config from browser storage, only removing relevant items  */

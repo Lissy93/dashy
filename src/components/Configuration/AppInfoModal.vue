@@ -10,20 +10,18 @@
       <!-- Help Links -->
       <h3>Help & Support</h3>
       For getting support with running or configuring Dashy, see the <a href="https://github.com/Lissy93/dashy/discussions">Discussions</a>
-      <h3>Report a Bug</h3>
-      If you think you've found a bug, then please <a href="https://github.com/Lissy93/dashy/issues/new/choose">raise it on GitHub</a>.
-      <br>Include version you are running, environment info, output of the console (press F12),
-      and any suppoting scerenshots.
       <h3>Supporting Dashy</h3>
       For ways that you can get involved, check out the <a href="https://github.com/Lissy93/dashy/blob/master/docs/contributing.md">Contributing</a> page.
+      <h3>Report a Bug</h3>
+      If you think you've found a bug, then please <a href="https://github.com/Lissy93/dashy/issues/new/choose">raise an Issue</a>.
       <h3>More Info</h3>
       Source: <a href="https://github.com/lissy93/dashy">github.com/lissy93/dashy</a><br>
       Documentation: <a href="https://dashy.to/docs">dashy.to/docs</a>
       <!-- License -->
       <h3>License</h3>
       Licensed under MIT X11. Copyright <a href="https://aliciasykes.com">Alicia Sykes</a> © 2021.<br>
-      For licenses for third-party modules, please see <a href="https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md">Legal</a>.
-      For a list of contributors, and application thank-you's, see <a href="https://github.com/Lissy93/dashy/blob/master/docs/credits.md">Credits</a>
+      For licenses for third-party modules, please see <a href="https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md">Legal</a>.<br>
+      For the full list of contributors and thanks, see <a href="https://github.com/Lissy93/dashy/blob/master/docs/credits.md">Credits</a>.
       <!-- App Version -->
       <h3>Version</h3>
       <AppVersion class="app-version" />
@@ -80,8 +78,8 @@ div.about-modal {
     }
   }
   h3 {
-    font-size: 1rem;
-    margin: 0.5rem 0 0.2rem 0;
+    font-size: 1.2rem;
+    margin: 0.75rem 0 0.2rem 0;
     color: var(--about-page-accent);
   }
   a {
@@ -107,4 +105,15 @@ div.about-modal {
   }
 }
 
+</style>
+
+<style lang="scss">
+div.about-modal {
+  .app-version {
+    text-align: left;
+    display: flex;
+    align-items: self-end;
+    p { margin: 0; }
+  }
+}
 </style>

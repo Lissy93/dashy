@@ -16,20 +16,6 @@
         {{ $t('interactive-editor.menu.config-save-methods-subheading') }}
       </p>
       <Button
-        :click="openExportConfigMenu"
-        v-tooltip="tooltip($t('interactive-editor.menu.export-config-tooltip'))"
-      >
-        {{ $t('interactive-editor.menu.export-config-btn') }}
-        <ExportIcon />
-      </Button>
-      <Button
-        :click="reset"
-        v-tooltip="tooltip($t('interactive-editor.menu.cancel-changes-tooltip'))"
-      >
-        {{ $t('interactive-editor.menu.cancel-changes-btn') }}
-        <CancelIcon />
-      </Button>
-      <Button
         :click="saveLocally"
         v-tooltip="tooltip($t('interactive-editor.menu.save-locally-tooltip'))"
       >
@@ -42,6 +28,34 @@
       >
         {{ $t('interactive-editor.menu.save-disk-btn') }}
         <SaveToDiskIcon />
+      </Button>
+      <Button
+        :click="openExportConfigMenu"
+        v-tooltip="tooltip($t('interactive-editor.menu.export-config-tooltip'))"
+      >
+        {{ $t('interactive-editor.menu.export-config-btn') }}
+        <ExportIcon />
+      </Button>
+      <Button
+        :click="openCloudBackupMenu"
+        v-tooltip="tooltip($t('interactive-editor.menu.cloud-backup-tooltip'))"
+      >
+        {{ $t('interactive-editor.menu.cloud-backup-btn') }}
+        <CloudBackupIcon />
+      </Button>
+      <Button
+        :click="openRawConfigEditor"
+        v-tooltip="tooltip($t('interactive-editor.menu.edit-raw-config-tooltip'))"
+      >
+        {{ $t('interactive-editor.menu.edit-raw-config-btn') }}
+        <EditRawIcon />
+      </Button>
+      <Button
+        :click="reset"
+        v-tooltip="tooltip($t('interactive-editor.menu.cancel-changes-tooltip'))"
+      >
+        {{ $t('interactive-editor.menu.cancel-changes-btn') }}
+        <CancelIcon />
       </Button>
     </div>
     <!-- Open Modal Buttons -->
@@ -88,6 +102,8 @@ import ExportIcon from '@/assets/interface-icons/interactive-editor-export-chang
 import CancelIcon from '@/assets/interface-icons/interactive-editor-cancel-changes.svg';
 import AppConfigIcon from '@/assets/interface-icons/interactive-editor-app-config.svg';
 import PageInfoIcon from '@/assets/interface-icons/interactive-editor-page-info.svg';
+import CloudBackupIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
+import EditRawIcon from '@/assets/interface-icons/config-edit-json.svg';
 
 export default {
   name: 'EditModeSaveMenu',
@@ -101,6 +117,8 @@ export default {
     AppConfigIcon,
     PageInfoIcon,
     EditAppConfig,
+    CloudBackupIcon,
+    EditRawIcon,
   },
   computed: {
     config() {
@@ -130,6 +148,16 @@ export default {
     openEditAppConfig() {
       this.$modal.show(modalNames.EDIT_APP_CONFIG);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    openCloudBackupMenu() {
+      this.$store.commit(StoreKeys.CONF_MENU_INDEX, 2);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+      this.$modal.show(modalNames.CONF_EDITOR);
+    },
+    openRawConfigEditor() {
+      this.$store.commit(StoreKeys.CONF_MENU_INDEX, 1);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+      this.$modal.show(modalNames.CONF_EDITOR);
     },
     tooltip(content) {
       return { content, trigger: 'hover focus', delay: 250 };

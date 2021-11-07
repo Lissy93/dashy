@@ -12,6 +12,7 @@
     />
     </div>
     <IconPalette
+      v-if="!hidePallete"
       class="color-button"
       @click="openThemeConfigurator"
       v-tooltip="$t('theme-maker.title')"
@@ -38,6 +39,9 @@ import IconPalette from '@/assets/interface-icons/config-color-palette.svg';
 
 export default {
   name: 'ThemeSelector',
+  props: {
+    hidePallete: Boolean,
+  },
   components: {
     CustomThemeMaker,
     IconPalette,

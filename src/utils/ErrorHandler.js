@@ -40,7 +40,10 @@ export const WarningInfoHandler = (msg, title, log) => {
 
 /* Titles for info logging */
 export const InfoKeys = {
+  AUTH: 'Authentication',
+  CLOUD_BACKUP: 'Cloud Backup & Restore',
   EDITOR: 'Interactive Editor',
+  RAW_EDITOR: 'Raw Config Editor',
   VISUAL: 'Layout & Styles',
 };
 

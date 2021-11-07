@@ -1,8 +1,8 @@
 <template>
   <div class="css-editor-outer">
     <!-- Add raw custom CSS -->
-    <div class="css-wrapper">
-      <h2 class="css-input-title">Custom CSS</h2>
+    <div class="style-section css-wrapper">
+      <h3>Custom CSS</h3>
       <textarea class="css-editor" v-model="customCss" />
       <Button class="save-button" :click="save">{{ $t('config.css-save-btn') }}</Button>
       <p class="quick-note">
@@ -10,24 +10,31 @@
         {{ $t('config.css-note-l1') }} {{ $t('config.css-note-l2') }} {{ $t('config.css-note-l3') }}
       </p>
     </div>
-
+    <!-- Theme Selector -->
+    <div class="style-section base-theme-wrapper">
+      <h3>Base Theme</h3>
+      <ThemeSelector :hidePallete="true" />
+    </div>
     <!-- UI color configurator -->
-    <CustomThemeMaker :themeToEdit="currentTheme" class="color-config" />
+    <div class="style-section">
+      <CustomThemeMaker :themeToEdit="currentTheme" class="color-config" />
+    </div>
   </div>
 </template>
 
 <script>
 
 import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
+import ThemeSelector from '@/components/Settings/ThemeSelector';
 import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
-import { InfoHandler } from '@/utils/ErrorHandler';
 import { localStorageKeys, theme as defaultTheme } from '@/utils/defaults';
 
 export default {
   name: 'StyleEditor',
   components: {
     Button,
+    ThemeSelector,
     CustomThemeMaker,
   },
   computed: {
@@ -77,7 +84,6 @@ export default {
     /* Show success toast and lot update */
     showSuccessMsg() {
       this.$toasted.show('Changes saved successfully');
-      InfoHandler('User syles has been saved', 'Custom CSS');
     },
   },
 };
@@ -92,24 +98,29 @@ div.css-editor-outer {
   display: flex;
   flex-direction: column;
 
+  .style-section {
+    padding: 1rem;
+    &:not(:last-child) { border-bottom: 1px dashed var(--config-settings-color); }
+    h3 {
+      font-size: 1.4rem;
+      margin: 0.5rem 0 0.2rem;
+    }
+  }
+
   div.css-wrapper {
     display: flex;
     flex-direction: column;
   }
-  h2.css-input-title {
-    margin: 0.5rem 0 0.2rem;
-  }
 }
 
 // Save button
-button.save-button{
-  background: var(--config-settings-color);
-  color: var(--config-settings-background);
-  border: 1px solid var(--config-settings-background);
+button.save-button {
+  background: var(--config-settings-background);
+  color: var(--config-settings-color);
+  border: 1px solid var(--config-settings-color);
   &:hover:not(:disabled) {
-    background: var(--config-settings-background);
-    color: var(--config-settings-color);
-    border-color: var(--config-settings-color);
+    background: var(--config-settings-color);
+    color: var(--config-settings-background);
   }
 }
 
@@ -143,14 +154,38 @@ p.quick-note {
   border-radius: var(--curve-factor);
 }
 
+// Base Theme Selector
+.base-theme-wrapper {
+  span.theme-label {
+    display: none;
+  }
+  div.vs__dropdown-toggle {
+    border-color: var(--config-settings-color);
+    min-width: 16rem;
+    max-width: 32rem;
+    height: 2.4rem;
+    font-size: 1rem;
+    margin: 0.5rem;
+  }
+  ul.vs__dropdown-menu {
+    min-width: 16rem;
+    max-width: 32rem;
+    background: var(--config-settings-background);
+    border-top: 1px solid var(--config-settings-color);
+  }
+  li.vs__dropdown-option--highlight {
+    background: var(--config-settings-color);
+    color: var(--config-settings-background);
+  }
+}
+
 // Theme editor
 .color-config.theme-configurator-wrapper {
-  border: 1px solid var(--config-settings-color);
   background: var(--config-settings-background);
   color: var(--config-settings-color);
   position: relative;
   width: 80%;
-  max-width: 24rem;
+  max-width: 32rem;
   margin: 1rem auto;
   box-shadow: none;
   right: 0;
@@ -159,6 +194,12 @@ p.quick-note {
   .color-row-container {
     text-align: left;
     max-height: unset;
+  }
+  .misc-input {
+    width: 6rem;
+  }
+  .misc-input.long-input {
+    width: 18rem;
   }
 }
 

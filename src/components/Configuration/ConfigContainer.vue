@@ -14,6 +14,10 @@
             <EditIcon class="button-icon"/>
             {{ $t('config.edit-config-button') }}
           </button>
+          <button class="config-button center" @click="openLanguageSwitchModal()">
+            <LanguageIcon class="button-icon"/>
+            {{ $t('config.change-language-button') }}
+          </button>
           <button class="config-button center" @click="() => navigateToTab(3)">
             <CustomCssIcon class="button-icon"/>
             {{ $t('config.edit-css-button') }}
@@ -21,10 +25,6 @@
           <button class="config-button center" @click="() => navigateToTab(2)">
             <CloudIcon class="button-icon"/>
             {{backupId ? $t('config.edit-cloud-sync-button') : $t('config.cloud-sync-button') }}
-          </button>
-          <button class="config-button center" @click="openLanguageSwitchModal()">
-            <LanguageIcon class="button-icon"/>
-            {{ $t('config.change-language-button') }}
           </button>
           <button class="config-button center" @click="openRebuildAppModal()">
             <RebuildIcon class="button-icon"/>
@@ -153,6 +153,16 @@ export default {
       const lang = getUsersLanguage();
       return lang ? `${lang.flag} ${lang.name}` : '';
     },
+    /* If launching menu from editor, navigate to correct starting tab */
+    navigateToStartingTab() {
+      const navToTab = this.$store.state.navigateConfToTab;
+      const isValidTabIndex = (indx) => typeof indx === 'number' && indx >= 0 && indx <= 5;
+      if (navToTab && isValidTabIndex(navToTab)) this.navigateToTab(navToTab);
+      this.$store.commit(StoreKeys.CONF_MENU_INDEX, undefined);
+    },
+  },
+  mounted() {
+    this.navigateToStartingTab();
   },
 };
 </script>
