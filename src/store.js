@@ -31,17 +31,15 @@ const {
   REMOVE_ITEM,
   INSERT_ITEM,
   UPDATE_CUSTOM_CSS,
+  CONF_MENU_INDEX,
 } = Keys;
-
-const editorLog = (logMessage) => {
-  InfoHandler(logMessage, InfoKeys.EDITOR);
-};
 
 const store = new Vuex.Store({
   state: {
     config: {},
     editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
+    navigateConfToTab: undefined, // Used to switch active tab in config modal
   },
   getters: {
     config(state) {
@@ -107,7 +105,7 @@ const store = new Vuex.Store({
     },
     [SET_EDIT_MODE](state, editMode) {
       if (editMode !== state.editMode) {
-        editorLog(editMode ? 'Edit session started' : 'Edit session ended');
+        InfoHandler(editMode ? 'Edit session started' : 'Edit session ended', InfoKeys.EDITOR);
         state.editMode = editMode;
       }
     },
@@ -118,7 +116,7 @@ const store = new Vuex.Store({
         section.items.forEach((item, itemIndex) => {
           if (item.id === itemId) {
             newConfig.sections[secIndex].items[itemIndex] = newItem;
-            editorLog('Item updated');
+            InfoHandler('Item updated', InfoKeys.EDITOR);
           }
         });
       });
@@ -128,40 +126,40 @@ const store = new Vuex.Store({
       const newConfig = state.config;
       newConfig.pageInfo = newPageInfo;
       state.config = newConfig;
-      editorLog('Page info updated');
+      InfoHandler('Page info updated', InfoKeys.EDITOR);
     },
     [SET_APP_CONFIG](state, newAppConfig) {
       const newConfig = state.config;
       newConfig.appConfig = newAppConfig;
       state.config = newConfig;
-      editorLog('App config updated');
+      InfoHandler('App config updated', InfoKeys.EDITOR);
     },
     [SET_SECTIONS](state, newSections) {
       const newConfig = state.config;
       newConfig.sections = newSections;
       state.config = newConfig;
-      editorLog('Sections updated');
+      InfoHandler('Sections updated', InfoKeys.EDITOR);
     },
     [UPDATE_SECTION](state, payload) {
       const { sectionIndex, sectionData } = payload;
       const newConfig = { ...state.config };
       newConfig.sections[sectionIndex] = sectionData;
       state.config = newConfig;
-      editorLog('Section updated');
+      InfoHandler('Section updated', InfoKeys.EDITOR);
     },
     [INSERT_SECTION](state, newSection) {
       const newConfig = { ...state.config };
       newSection.items = [];
       newConfig.sections.push(newSection);
       state.config = newConfig;
-      editorLog('New section added');
+      InfoHandler('New section added', InfoKeys.EDITOR);
     },
     [REMOVE_SECTION](state, payload) {
       const { sectionIndex, sectionName } = payload;
       const newConfig = { ...state.config };
       if (newConfig.sections[sectionIndex].name === sectionName) {
         newConfig.sections.splice(sectionIndex, 1);
-        editorLog('Section removed');
+        InfoHandler('Section removed', InfoKeys.EDITOR);
       }
       state.config = newConfig;
     },
@@ -171,7 +169,7 @@ const store = new Vuex.Store({
       config.sections.forEach((section) => {
         if (section.name === targetSection) {
           section.items.push(newItem);
-          editorLog('New item added');
+          InfoHandler('New item added', InfoKeys.EDITOR);
         }
       });
       config.sections = applyItemId(config.sections);
@@ -188,7 +186,7 @@ const store = new Vuex.Store({
           } else {
             section.items.push(newItem);
           }
-          editorLog('Item copied');
+          InfoHandler('Item copied', InfoKeys.EDITOR);
         }
       });
       config.sections = applyItemId(config.sections);
@@ -202,7 +200,7 @@ const store = new Vuex.Store({
           section.items.forEach((item, index) => {
             if (item.id === itemId) {
               section.items.splice(index, 1);
-              editorLog('Item removed');
+              InfoHandler('Item removed', InfoKeys.EDITOR);
             }
           });
         }
@@ -232,6 +230,9 @@ const store = new Vuex.Store({
     [UPDATE_CUSTOM_CSS](state, customCss) {
       state.config.appConfig.customCss = customCss;
       InfoHandler('Custom colors updated', InfoKeys.VISUAL);
+    },
+    [CONF_MENU_INDEX](state, index) {
+      state.navigateConfToTab = index;
     },
   },
   actions: {
