@@ -7,6 +7,7 @@
 
 /* Include required node dependencies */
 const express = require('express');
+const path = require('path');
 const util = require('util');
 const dns = require('dns');
 const os = require('os');
@@ -54,11 +55,12 @@ const printWarning = (msg, error) => {
 const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, next) : next());
 
 const app = express()
-  .use(history())
+  // Serves up static files
+  .use(express.static(path.join(__dirname, 'dist')))
+  .use(express.static(path.join(__dirname, 'public'), { index: 'initialization.html' }))
+  // Load middlewares for parsing JSON, and supporting HTML5 history routing
   .use(express.json())
-  // Serves up the main built application to the root
-  .use(express.static(`${__dirname}/dist`))
-  .use(express.static(`${__dirname}/public`, { index: 'default.html' }))
+  .use(history())
   // GET endpoint to run status of a given URL with GET request
   .use(ENDPOINTS.statusCheck, (req, res) => {
     try {
@@ -74,6 +76,7 @@ const app = express()
     try {
       saveConfig(req.body, (results) => { res.end(results); });
     } catch (e) {
+      printWarning('Error writing config file to disk', e);
       res.end(JSON.stringify({ success: false, message: e }));
     }
   }))
@@ -86,7 +89,7 @@ const app = express()
     });
   });
 
-// Finally, initialize the server then print welcome message
+// Start the server, then print welcome message
 app.listen(port, () => {
   try { printWelcomeMessage(); } catch (e) { printWarning('Dashy is Starting...'); }
 });
