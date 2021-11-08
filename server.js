@@ -6,12 +6,10 @@
  * */
 
 /* Include required node dependencies */
-const serveStatic = require('serve-static');
-const connect = require('connect');
+const express = require('express');
 const util = require('util');
 const dns = require('dns');
 const os = require('os');
-const bodyParser = require('body-parser');
 const history = require('connect-history-api-fallback');
 
 /* Kick of some basic checks */
@@ -55,44 +53,40 @@ const printWarning = (msg, error) => {
 /* A middleware function for Connect, that filters requests based on method type */
 const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, next) : next());
 
-try {
-  connect()
-    .use(history())
-    .use(bodyParser.json())
-    // Serves up the main built application to the root
-    .use(serveStatic(`${__dirname}/dist`))
-    // During build, a custom page will be served before the app is available
-    .use(serveStatic(`${__dirname}/public`, { index: 'default.html' }))
-    // GET endpoint to run status of a given URL with GET request
-    .use(ENDPOINTS.statusCheck, (req, res) => {
-      try {
-        statusCheck(req.url, async (results) => {
-          await res.end(results);
-        });
-      } catch (e) {
-        printWarning(`Error running status check for ${req.url}\n`, e);
-      }
-    })
-    // POST Endpoint used to save config, by writing conf.yml to disk
-    .use(ENDPOINTS.save, method('POST', (req, res) => {
-      try {
-        saveConfig(req.body, (results) => { res.end(results); });
-      } catch (e) {
-        res.end(JSON.stringify({ success: false, message: e }));
-      }
-    }))
-    // GET endpoint to trigger a build, and respond with success status and output
-    .use(ENDPOINTS.rebuild, (req, res) => {
-      rebuild().then((response) => {
-        res.end(JSON.stringify(response));
-      }).catch((response) => {
-        res.end(JSON.stringify(response));
+const app = express()
+  .use(history())
+  .use(express.json())
+  // Serves up the main built application to the root
+  .use(express.static(`${__dirname}/dist`))
+  .use(express.static(`${__dirname}/public`, { index: 'default.html' }))
+  // GET endpoint to run status of a given URL with GET request
+  .use(ENDPOINTS.statusCheck, (req, res) => {
+    try {
+      statusCheck(req.url, async (results) => {
+        await res.end(results);
       });
-    })
-    // Finally, initialize the server then print welcome message
-    .listen(port, () => {
-      try { printWelcomeMessage(); } catch (e) { printWarning('Dashy is Starting...'); }
+    } catch (e) {
+      printWarning(`Error running status check for ${req.url}\n`, e);
+    }
+  })
+  // POST Endpoint used to save config, by writing conf.yml to disk
+  .use(ENDPOINTS.save, method('POST', (req, res) => {
+    try {
+      saveConfig(req.body, (results) => { res.end(results); });
+    } catch (e) {
+      res.end(JSON.stringify({ success: false, message: e }));
+    }
+  }))
+  // GET endpoint to trigger a build, and respond with success status and output
+  .use(ENDPOINTS.rebuild, (req, res) => {
+    rebuild().then((response) => {
+      res.end(JSON.stringify(response));
+    }).catch((response) => {
+      res.end(JSON.stringify(response));
     });
-} catch (error) {
-  printWarning('Sorry, a critical error occurred ', error);
-}
+  });
+
+// Finally, initialize the server then print welcome message
+app.listen(port, () => {
+  try { printWelcomeMessage(); } catch (e) { printWarning('Dashy is Starting...'); }
+});
