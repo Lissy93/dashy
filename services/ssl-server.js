@@ -7,8 +7,8 @@ const stat = promise(fs.stat);
 
 module.exports = (app) => {
   const httpsCerts = {
-    private: '/etc/ssl/certs/dashy-priv.key',
-    public: '/etc/ssl/certs/dashy-pub.pem',
+    private: process.env.SSL_PRIV_KEY_PATH || '/etc/ssl/certs/dashy-priv.key',
+    public: process.env.SSL_PUB_KEY_PATH || '/etc/ssl/certs/dashy-pub.pem',
   };
 
   const isDocker = !!process.env.IS_DOCKER;
