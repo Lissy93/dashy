@@ -5,12 +5,15 @@
  * Also includes some routes for status checks/ ping and config saving
  * */
 
-/* Include required node dependencies */
-const express = require('express');
+/* Import built-in Node server modules */
+const http = require('http');
 const path = require('path');
 const util = require('util');
 const dns = require('dns');
 const os = require('os');
+
+/* Import Express + middleware functions */
+const express = require('express');
 const history = require('connect-history-api-fallback');
 
 /* Kick of some basic checks */
@@ -21,6 +24,7 @@ require('./services/config-validator'); // Include and kicks off the config file
 const statusCheck = require('./services/status-check'); // Used by the status check feature, uses GET
 const saveConfig = require('./services/save-config'); // Saves users new conf.yml to file-system
 const rebuild = require('./services/rebuild-app'); // A script to programmatically trigger a build
+const sslServer = require('./services/ssl-server');
 
 /* Helper functions, and default config */
 const printMessage = require('./services/print-message'); // Function to print welcome msg on start
@@ -89,7 +93,8 @@ const app = express()
     });
   });
 
-// Start the server, then print welcome message
-app.listen(port, () => {
-  try { printWelcomeMessage(); } catch (e) { printWarning('Dashy is Starting...'); }
-});
+/* Create HTTP server from app on port, and print welcome message */
+http.createServer(app).listen(port, () => { printWelcomeMessage(); });
+
+/* Check, and if possible start SSL server too */
+sslServer(app);
