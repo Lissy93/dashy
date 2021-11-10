@@ -1,5 +1,12 @@
 # Changelog
 
+## ⚡️ 1.9.2 - Native SSL Support + Performance Improvements [PR #326](https://github.com/Lissy93/dashy/pull/326)
+- Updates the server to use Express, removing serve-static, connect and body-parser
+- Adds native support for passing in self-signed SSL certificates and updates docs
+- Updates router to lazy-load additional pages (minimal, workspace, etc)
+- Changes default favicon API to allesedv, since faviconkit is down, and adds basic fallback
+- Updates GH action build scripts to fallback on context token when running on fork
+
 ## 💄 1.9.1 - Editor and Theming Fixes and Improvements [PR #319](https://github.com/Lissy93/dashy/pull/319)
 - Bug fixes for interactive editor: #310, #311, #312
 - Adds option to modify text font through the UI
