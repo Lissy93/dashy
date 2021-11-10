@@ -204,6 +204,9 @@ If you're hosting Dashy behind Cloudflare, then they offer [free and easy SSL](h
 
 ### Getting a Self-Signed SSL Certificate
 [Let's Encrypt](https://letsencrypt.org/docs/) is a global Certificate Authority, providing free SSL/TLS Domain Validation certificates in order to enable secure HTTPS access to your website. They have good browser/ OS [compatibility](https://letsencrypt.org/docs/certificate-compatibility/) with their ISRG X1 and DST CA X3 root certificates, support [Wildcard issuance](https://community.letsencrypt.org/t/acme-v2-production-environment-wildcards/55578) done via ACMEv2 using the DNS-01 and have [Multi-Perspective Validation](https://letsencrypt.org/2020/02/19/multi-perspective-validation.html). Let's Encrypt provide [CertBot](https://certbot.eff.org/) an easy app for generating and setting up an SSL certificate.
+
+This process can be automated, using something like the [Docker-NGINX-Auto-SSL Container](https://github.com/Valian/docker-nginx-auto-ssl) to generate and renew certificates when needed.
+
 If you're not so comfortable on the command line, then you can use a tool like [SSL For Free](https://www.sslforfree.com/) or [ZeroSSL](https://zerossl.com/) to generate your cert. They also provide step-by-step setup instructions for most platforms.
 
 ### Passing a Self-Signed Certificate to Dashy
