@@ -80,7 +80,7 @@ sections:
 ---
 
 ## Generative Icons
-To uses a unique and programmatically generated icon for a given service just set `icon: generative`. This is particularly useful when you have a lot of similar services with a different IP or port, and no specific icon. These icons are generated with [DiceBear](https://avatars.dicebear.com/), and use a hash of the services domain/ ip for entropy, so each domain will always have the same icon.
+To uses a unique and programmatically generated icon for a given service just set `icon: generative`. This is particularly useful when you have a lot of similar services with a different IP or port, and no specific icon. These icons are generated with [DiceBear](https://avatars.dicebear.com/) (or [Evatar](https://evatar.io/) for fallback), and use a hash of the services domain/ ip for entropy, so each domain will have a unique icon.
 
 <p align="center">
   <img width="500" src="https://i.ibb.co/b2pC2CL/generative-icons-2.png" />

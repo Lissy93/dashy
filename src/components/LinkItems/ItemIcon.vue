@@ -49,12 +49,14 @@ export default {
     },
     /* Gets the icon path, dependent on icon type */
     iconPath: function iconPath() {
+      if (this.broken) return this.getFallbackIcon();
       return this.getIconPath(this.icon, this.url);
     },
   },
   data() {
     return {
       broken: false, // If true, was unable to resolve icon
+      attemptedFallback: false,
     };
   },
   methods: {
@@ -94,12 +96,12 @@ export default {
     },
     /* Get favicon URL, for items which use the favicon as their icon */
     getFavicon(fullUrl, specificApi) {
-      if (this.shouldUseDefaultFavicon(fullUrl)) { // Check if we should use local icon
+      const faviconApi = specificApi || this.appConfig.faviconApi || defaultFaviconApi;
+      if (this.shouldUseDefaultFavicon(fullUrl) || faviconApi === 'local') { // Check if we should use local icon
         const urlParts = fullUrl.split('/');
         if (urlParts.length >= 2) return `${urlParts[0]}/${urlParts[1]}/${urlParts[2]}/${iconCdns.faviconName}`;
       } else if (fullUrl.includes('http')) { // Service is running publicly
         const host = this.getHostName(fullUrl);
-        const faviconApi = specificApi || this.appConfig.faviconApi || defaultFaviconApi;
         const endpoint = faviconApiEndpoints[faviconApi];
         return endpoint.replace('$URL', host);
       }
@@ -130,9 +132,9 @@ export default {
       return `${iconCdns.localPath}/${img}`;
     },
     /* Formats the URL for fetching the generative icons */
-    getGenerativeIcon(url) {
+    getGenerativeIcon(url, cdn) {
       const host = encodeURI(url) || Math.random().toString();
-      return iconCdns.generative.replace('{icon}', asciiHash(host));
+      return (cdn || iconCdns.generative).replace('{icon}', asciiHash(host));
     },
     /* Returns the SVG path content  */
     getSimpleIcon(img) {
@@ -186,6 +188,23 @@ export default {
     imageNotFound() {
       this.broken = true;
       ErrorHandler(`The path to '${this.icon}' could not be resolved`);
+    },
+    /* Called when initial icon has resulted in 404. Attempts to find new icon */
+    getFallbackIcon() {
+      if (this.attemptedFallback) return undefined; // If this is second attempt, then give up
+      const { iconType } = this;
+      const markAsSttempted = () => {
+        this.broken = false;
+        this.attemptedFallback = true;
+      };
+      if (iconType.includes('favicon')) { // Specify fallback for favicon-based icons
+        markAsSttempted();
+        return this.getFavicon(this.url, 'local');
+      } else if (iconType === 'generative') {
+        markAsSttempted();
+        return this.getGenerativeIcon(this.url, iconCdns.generativeFallback);
+      }
+      return undefined;
     },
   },
 };
