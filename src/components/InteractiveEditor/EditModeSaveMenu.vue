@@ -24,6 +24,7 @@
       </Button>
       <Button
         :click="writeToDisk"
+        :disabled="!allowWriteToDisk"
         v-tooltip="tooltip($t('interactive-editor.menu.save-disk-tooltip'))"
       >
         {{ $t('interactive-editor.menu.save-disk-btn') }}
@@ -95,6 +96,7 @@ import EditPageInfo from '@/components/InteractiveEditor/EditPageInfo';
 import EditAppConfig from '@/components/InteractiveEditor/EditAppConfig';
 import { modalNames, localStorageKeys, serviceEndpoints } from '@/utils/defaults';
 import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
+import { isUserAdmin } from '@/utils/Auth';
 
 import SaveLocallyIcon from '@/assets/interface-icons/interactive-editor-save-locally.svg';
 import SaveToDiskIcon from '@/assets/interface-icons/interactive-editor-save-disk.svg';
@@ -123,6 +125,10 @@ export default {
   computed: {
     config() {
       return this.$store.state.config;
+    },
+    allowWriteToDisk() {
+      const { appConfig } = this.config;
+      return appConfig.allowConfigEdit !== false && isUserAdmin();
     },
   },
   data() {
