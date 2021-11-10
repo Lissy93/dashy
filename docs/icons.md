@@ -28,13 +28,13 @@ Dashy can auto-fetch an icon for a given service, using it's favicon. Just set `
 
 If the service is hosted under a local IP, then Dashy will attempt to find the favicon from `http://[ip]/favicon.ico`. This has two issues, favicons are not always hosted at the same location for every service, and often the default favicon is sometimes low resolution. Therefore for remote services, by default an API is used to return a high-quality icon for almost any online service.
 
-The default favicon API is [Favicon Kit](https://faviconkit.com/), a free and reliable service for returning images from any given URL. However several other API's are supported. To change the API used, under `appConfig`, set `faviconApi` to one of the following values:
+The default favicon API is  [allesedv.com](https://favicon.allesedv.com/), but several other API's are supported. To change the API used, under `appConfig`, set `faviconApi` to one of the following values:
 
-- `faviconkit` - [faviconkit.com](https://faviconkit.com/) (Recommend)
-- `google` - Official Google favicon API service, good support for all sites, but poor quality
-- `clearbit` - [Clearbit](https://clearbit.com/logo) returns high-quality logos from mainstream websites
-- `webmasterapi` - [WebMasterAPI](https://www.webmasterapi.com/get-favicons)
 - `allesedv` - [allesedv.com](https://favicon.allesedv.com/) is a highly efficient IPv6-enabled service
+- `faviconkit` - [faviconkit.com](https://faviconkit.com/) (Note: currently down, as of Nov 2021)
+- `clearbit` - [Clearbit](https://clearbit.com/logo) returns high-quality logos from mainstream websites
+- `google` - Official Google favicon API service, good support for all sites, but poor quality
+- `webmasterapi` - [WebMasterAPI](https://www.webmasterapi.com/get-favicons)
 
 You can also force Dashy to always get favicons from the root of the domain, and not use an external service, by setting `appConfig.faviconApi` to `local`, although you may face the issue explained above.
 

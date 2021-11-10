@@ -24,7 +24,7 @@ module.exports = {
   /* Default Font-Awesome API key, for FA icons (if used) */
   fontAwesomeKey: '0821c65656',
   /* Default API to use for fetching of user service favicon icons (if enabled) */
-  faviconApi: 'faviconkit',
+  faviconApi: 'allesedv',
   /* The default sort order for sections */
   sortOrder: 'default',
   /* The page paths for each route within the app for the router */
