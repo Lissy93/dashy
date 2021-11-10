@@ -11,4 +11,4 @@ jobs:
     steps:
     - uses: jenschelkopf/broadcast-action@master
       with:
-        token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

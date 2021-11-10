@@ -17,4 +17,4 @@ jobs:
       - name: Profanity check step
         uses: tailaiw/mind-your-language-action@v1.0.3
         env:
-          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

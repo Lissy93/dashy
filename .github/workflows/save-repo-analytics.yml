@@ -12,4 +12,4 @@ jobs:
         with:
           repository: lissy93/dashy
           databranch: DATA/repo-stats
-          ghtoken: ${{ secrets.BOT_GITHUB_TOKEN }}
+          ghtoken: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

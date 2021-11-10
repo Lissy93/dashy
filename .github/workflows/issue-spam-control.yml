@@ -19,7 +19,7 @@ jobs:
       - name: close
         uses: uhyo/please-star-first@v1
         with:
-          token: ${{ secrets.BOT_GITHUB_TOKEN }} 
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }} 
           message: |
             Welcome to Dashy 👋
             It's great to have you here, but unfortunately your ticket has been closed to prevent spam. Before reopening this issue, please ensure the following criteria are met.
