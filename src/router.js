@@ -11,9 +11,6 @@ import ProgressBar from 'rsup-progress';
 
 // Import views, that are not lazy-loaded
 import Home from '@/views/Home.vue';
-import Login from '@/views/Login.vue';
-import Workspace from '@/views/Workspace.vue';
-import Minimal from '@/views/Minimal.vue';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 
 // Import helper functions, config data and defaults
@@ -52,9 +49,8 @@ const getStartingView = () => appConfig.startingView || startingView;
 const getStartingComponent = () => {
   const usersPreference = getStartingView();
   switch (usersPreference) {
-    case 'default': return Home;
-    case 'minimal': return Minimal;
-    case 'workspace': return Workspace;
+    case 'minimal': return () => import('./views/Minimal.vue');
+    case 'workspace': return () => import('./views/Workspace.vue');
     default: return Home;
   }
 };
@@ -93,19 +89,19 @@ const router = new Router({
     { // Workspace view page
       path: routePaths.workspace,
       name: 'workspace',
-      component: Workspace,
+      component: () => import('./views/Workspace.vue'),
       meta: makeMetaTags('Workspace'),
     },
     { // Minimal view page
       path: routePaths.minimal,
       name: 'minimal',
-      component: Minimal,
+      component: () => import('./views/Minimal.vue'),
       meta: makeMetaTags('Start Page'),
     },
     { // The login page
       path: routePaths.login,
       name: 'login',
-      component: Login,
+      component: () => import('./views/Login.vue'),
       beforeEnter: (to, from, next) => {
         // If the user already logged in + guest mode not enabled, then redirect home
         if (isAuthenticated() && !isGuestAccessEnabled()) router.push({ path: '/' });

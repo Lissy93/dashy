@@ -12,7 +12,7 @@ jobs:
       - name: Close Stale Issues
         uses: actions/stale@v4
         with:
-          repo-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          repo-token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           days-before-stale: 30
           days-before-close: 5
           operations-per-run: 30
@@ -40,7 +40,7 @@ jobs:
       - name: Close Issues without Response
         uses: actions/stale@v4
         with:
-          repo-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          repo-token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           days-before-stale: 5
           days-before-close: 3
           operations-per-run: 30
@@ -60,7 +60,7 @@ jobs:
       - name: Notify Repo Owner to Respond
         uses: actions/stale@v4
         with:
-          repo-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          repo-token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           days-before-stale: 7
           days-before-close: 365
           operations-per-run: 30
