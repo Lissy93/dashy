@@ -6,7 +6,7 @@
 <tr>
     <td align="center">
         <a href="https://github.com/mfnalex">
-            <img src="https://avatars.githubusercontent.com/u/1122571?v=4" width="80;" alt="mfnalex"/>
+            <img src="https://avatars.githubusercontent.com/u/1122571?u=5503223f5a5077197ddc229a938a5c3120a276ce&v=4" width="80;" alt="mfnalex"/>
             <br />
             <sub><b>Mfnalex</b></sub>
         </a>
@@ -16,6 +16,13 @@
             <img src="https://avatars.githubusercontent.com/u/9050259?u=7253b4063f1ffe3b5a894263c8b2056151802508&v=4" width="80;" alt="Robert-Ernst"/>
             <br />
             <sub><b>Robert Ernst</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/DylanBeMe">
+            <img src="https://avatars.githubusercontent.com/u/41838333?v=4" width="80;" alt="DylanBeMe"/>
+            <br />
+            <sub><b>DylanH</b></sub>
         </a>
     </td></tr>
 </table>
@@ -123,6 +130,13 @@
             <img src="https://avatars.githubusercontent.com/u/701035?v=4" width="80;" alt="turnrye"/>
             <br />
             <sub><b>Ryan Turner</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/royshreyaaa">
+            <img src="https://avatars.githubusercontent.com/u/88572557?v=4" width="80;" alt="royshreyaaa"/>
+            <br />
+            <sub><b>Shreya Roy</b></sub>
         </a>
     </td></tr>
 </table>
