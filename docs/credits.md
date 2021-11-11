@@ -162,17 +162,17 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/jhelmink">
-            <img src="https://avatars.githubusercontent.com/u/4581673?v=4" width="80;" alt="jhelmink"/>
+        <a href="https://github.com/urekd">
+            <img src="https://avatars.githubusercontent.com/u/38784343?v=4" width="80;" alt="urekd"/>
             <br />
-            <sub><b>Josh</b></sub>
+            <sub><b>urekd</b></sub>
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/robert-ernst">
-            <img src="https://avatars.githubusercontent.com/u/9050259?v=4" width="80;" alt="robert-ernst"/>
+        <a href="https://github.com/dylanbeme">
+            <img src="https://avatars.githubusercontent.com/u/41838333?v=4" width="80;" alt="dylanbeme"/>
             <br />
-            <sub><b>Robert Ernst</b></sub>
+            <sub><b>DylanH</b></sub>
         </a>
     </td>
     <td align="center">
