@@ -144,7 +144,7 @@
 
 
 ### Helpful Users
-<!-- readme: EVOTk,shadowking001,jhelmink,Robert-Ernst,MilesTEG1,lu4t -start -->
+<!-- readme: EVOTk,shadowking001,UrekD,DylanBeMe,MilesTEG1,lu4t -start -->
 <table>
 <tr>
     <td align="center">
@@ -190,7 +190,7 @@
         </a>
     </td></tr>
 </table>
-<!-- readme: EVOTk,shadowking001,jhelmink,Robert-Ernst,MilesTEG1,lu4t -end -->
+<!-- readme: EVOTk,shadowking001,UrekD,DylanBeMe,MilesTEG1,lu4t -end -->
 
 ### Bots
 <!-- readme: liss-bot,snyk-bot,netlify,viezly,muse-dev,bots -start -->
