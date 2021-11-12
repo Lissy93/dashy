@@ -46,7 +46,7 @@ jobs:
       uses: lowlighter/metrics@latest
       with:
         token: ${{ secrets.LISSY93_PAT }}
-        committer_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        committer_token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         committer_branch: master
         committer_message: ':purple_heart: Adds repo metrics'
         filename: docs/assets/repo-metrics.*
@@ -59,7 +59,7 @@ jobs:
       uses: lowlighter/metrics@latest
       with:
         token: ${{ secrets.LISSY93_PAT }}
-        committer_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        committer_token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         committer_branch: master
         committer_message: ':purple_heart: Adds license metrics'
         filename: docs/assets/license-metrics.*
@@ -76,7 +76,7 @@ jobs:
       uses: lowlighter/metrics@latest
       with:
         token: ${{ secrets.LISSY93_PAT }}
-        committer_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        committer_token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         committer_branch: master
         committer_message: ':purple_heart: Adds contributor metrics'
         filename: docs/assets/controbutor-metrics.*

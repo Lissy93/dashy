@@ -195,17 +195,34 @@ I recommend combining this with [healthchecks](https://github.com/healthchecks/h
 
 ## SSL Certificates
 
-Enabling HTTPS with an SSL certificate is recommended if you hare hosting Dashy anywhere other than your home. This will ensure that all traffic is encrypted in transit.
+Enabling HTTPS with an SSL certificate is recommended, especially if you hare hosting Dashy anywhere other than your home. This will ensure that all traffic is encrypted in transit.
 
-[Let's Encrypt](https://letsencrypt.org/docs/) is a global Certificate Authority, providing free SSL/TLS Domain Validation certificates in order to enable secure HTTPS access to your website. They have good browser/ OS [compatibility](https://letsencrypt.org/docs/certificate-compatibility/) with their ISRG X1 and DST CA X3 root certificates, support [Wildcard issuance](https://community.letsencrypt.org/t/acme-v2-production-environment-wildcards/55578) done via ACMEv2 using the DNS-01 and have [Multi-Perspective Validation](https://letsencrypt.org/2020/02/19/multi-perspective-validation.html). Let's Encrypt provide [CertBot](https://certbot.eff.org/) an easy app for generating and setting up an SSL certificate
+### Auto-SSL
+If you are using [NGINX Proxy Manager](https://nginxproxymanager.com/), then SSL is supported out of the box. Once you've added your proxy host and web address, then set the scheme to HTTPS, then under the SSL Tab select "Request a new SSL certificate" and follow the on-screen instructions.
 
-[ZeroSSL](https://zerossl.com/) is another popular certificate issuer, they are free for personal use, and also provide easy-to-use tools for getting things setup.
+If you're hosting Dashy behind Cloudflare, then they offer [free and easy SSL](https://www.cloudflare.com/en-gb/learning/ssl/what-is-an-ssl-certificate/)- all you need to do is enable it under the SSL/TLS tab. Or if you are using shared hosting, you may find [this tutorial](https://www.sitepoint.com/a-guide-to-setting-up-lets-encrypt-ssl-on-shared-hosting/) helpful. 
 
+### Getting a Self-Signed SSL Certificate
+[Let's Encrypt](https://letsencrypt.org/docs/) is a global Certificate Authority, providing free SSL/TLS Domain Validation certificates in order to enable secure HTTPS access to your website. They have good browser/ OS [compatibility](https://letsencrypt.org/docs/certificate-compatibility/) with their ISRG X1 and DST CA X3 root certificates, support [Wildcard issuance](https://community.letsencrypt.org/t/acme-v2-production-environment-wildcards/55578) done via ACMEv2 using the DNS-01 and have [Multi-Perspective Validation](https://letsencrypt.org/2020/02/19/multi-perspective-validation.html). Let's Encrypt provide [CertBot](https://certbot.eff.org/) an easy app for generating and setting up an SSL certificate.
 
-If you're hosting Dashy behind Cloudflare, then they offer [free and easy SSL](https://www.cloudflare.com/en-gb/learning/ssl/what-is-an-ssl-certificate/).
+This process can be automated, using something like the [Docker-NGINX-Auto-SSL Container](https://github.com/Valian/docker-nginx-auto-ssl) to generate and renew certificates when needed.
 
-If you're not so comfortable on the command line, then you can use a tool like [SSL For Free](https://www.sslforfree.com/) to generate your Let's Encrypt or ZeroSSL certificate, and support shared hosting servers. They also provide step-by-step tutorials on setting up your certificate on most common platforms. If you are using shared hosting, you may find [this tutorial](https://www.sitepoint.com/a-guide-to-setting-up-lets-encrypt-ssl-on-shared-hosting/) helpful.
+If you're not so comfortable on the command line, then you can use a tool like [SSL For Free](https://www.sslforfree.com/) or [ZeroSSL](https://zerossl.com/) to generate your cert. They also provide step-by-step setup instructions for most platforms.
 
+### Passing a Self-Signed Certificate to Dashy
+Once you've generated your SSL cert, you'll need to pass it to Dashy. This can be done by specifying the paths to your public and private keys using the `SSL_PRIV_KEY_PATH` and `SSL_PUB_KEY_PATH` environmental variables. Or if you're using Docker, then just pass public + private SSL keys in under `/etc/ssl/certs/dashy-pub.pem` and `/etc/ssl/certs/dashy-priv.key` respectively, e.g:
+
+```
+docker run -d \
+  -p 8080:80 \
+  -v ~/my-private-key.key:/etc/ssl/certs/dashy-priv.key:ro \
+  -v ~/my-public-key.pem:/etc/ssl/certs/dashy-pub.pem:ro \
+  lissy93/dashy:latest
+```
+
+By default the SSL port is `443` within a Docker container, or `4001` if running on bare metal, but you can override this with the `SSL_PORT` environmental variable.
+
+Once everything is setup, you can verify your site is secured using a tool like [SSL Checker](https://www.sslchecker.com/sslchecker).
 
 **[⬆️ Back to Top](#management)**
 
@@ -213,8 +230,7 @@ If you're not so comfortable on the command line, then you can use a tool like [
 
 ## Authentication
 
-Dashy natively supports secure authentication using KeyCloak. There is also a Simple Auth feature that doesn't require any additional setup. Setup instructions for which, and alternative auth methods, has now moved to the **[Authentication Docs](/docs/authentication.md)** page.
-
+Dashy natively supports secure authentication using KeyCloak. There is also a Simple Auth feature that doesn't require any additional setup. Usage instructions for both, as well as alternative auth methods, has now moved to the **[Authentication Docs](/docs/authentication.md)** page.
 
 **[⬆️ Back to Top](#management)**
 

@@ -12,4 +12,4 @@ jobs:
     - name: Assign author
       uses: technote-space/assign-author@v1
       with:
-        GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

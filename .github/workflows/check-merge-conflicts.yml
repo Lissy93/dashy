@@ -11,6 +11,6 @@ jobs:
       - uses: mschilde/auto-label-merge-conflicts@master
         with:
           CONFLICT_LABEL_NAME: "🚫 Merge Conflicts"
-          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           MAX_RETRIES: 5
           WAIT_MS: 5000

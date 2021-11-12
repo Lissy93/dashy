@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: wow-actions/potential-duplicates@v1
         with:
-          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           filter: ''
           exclude: '[BUG] [QUESTION] [FEEDBACK] [SHOWCASE]'
           label: '🕸️ Potential Duplicate'

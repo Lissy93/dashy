@@ -21,7 +21,7 @@ jobs:
         if: ${{ steps.check-domain.outputs.paid-till-days-left && steps.check-domain.outputs.paid-till-days-left < 30 }}
         uses: rishabhgupta/git-action-issue@v2
         with:
-          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           assignees: Lissy93
           title: '[WEBSITE] Domain Expiring Soon'
           body: >
@@ -33,7 +33,7 @@ jobs:
         if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < 14 }}
         uses: rishabhgupta/git-action-issue@v2
         with:
-          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           assignees: Lissy93
           title: '[WEBSITE] SSL Cert Expiring Soon'
           body: >

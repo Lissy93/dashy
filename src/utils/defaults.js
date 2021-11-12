@@ -24,7 +24,7 @@ module.exports = {
   /* Default Font-Awesome API key, for FA icons (if used) */
   fontAwesomeKey: '0821c65656',
   /* Default API to use for fetching of user service favicon icons (if enabled) */
-  faviconApi: 'faviconkit',
+  faviconApi: 'allesedv',
   /* The default sort order for sections */
   sortOrder: 'default',
   /* The page paths for each route within the app for the router */
@@ -184,6 +184,7 @@ module.exports = {
     mdi: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css',
     si: 'https://unpkg.com/simple-icons@v5/icons',
     generative: 'https://avatars.dicebear.com/api/identicon/{icon}.svg',
+    generativeFallback: 'https://evatar.io/{icon}',
     localPath: './item-icons',
     faviconName: 'favicon.ico',
     homeLabIcons: 'https://raw.githubusercontent.com/WalkxCode/dashboard-icons/master/png/{icon}.png',

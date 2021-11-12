@@ -13,7 +13,7 @@ jobs:
      uses: actions-cool/issues-helper@v2
      with:
       actions: remove-labels
-      token: ${{ secrets.BOT_GITHUB_TOKEN }}
+      token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
       issue-number: ${{ github.event.issue.number }}
       labels: '🚏 Awaiting User Response,⚰️ Stale'
 
@@ -31,7 +31,7 @@ jobs:
      uses: actions-cool/issues-helper@v2
      with:
       actions: add-labels
-      token: ${{ secrets.BOT_GITHUB_TOKEN }}
+      token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
       issue-number: ${{ github.event.issue.number }}
       labels: '👤 Awaiting Maintainer Response'
 
@@ -43,6 +43,6 @@ jobs:
      uses: actions-cool/issues-helper@v2
      with:
       actions: remove-labels
-      token: ${{ secrets.BOT_GITHUB_TOKEN }}
+      token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
       issue-number: ${{ github.event.issue.number }}
       labels: '👤 Awaiting Maintainer Response'

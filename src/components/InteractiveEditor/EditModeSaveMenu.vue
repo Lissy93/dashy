@@ -24,6 +24,7 @@
       </Button>
       <Button
         :click="writeToDisk"
+        :disabled="!allowWriteToDisk"
         v-tooltip="tooltip($t('interactive-editor.menu.save-disk-tooltip'))"
       >
         {{ $t('interactive-editor.menu.save-disk-btn') }}
@@ -35,20 +36,6 @@
       >
         {{ $t('interactive-editor.menu.export-config-btn') }}
         <ExportIcon />
-      </Button>
-      <Button
-        :click="openCloudBackupMenu"
-        v-tooltip="tooltip($t('interactive-editor.menu.cloud-backup-tooltip'))"
-      >
-        {{ $t('interactive-editor.menu.cloud-backup-btn') }}
-        <CloudBackupIcon />
-      </Button>
-      <Button
-        :click="openRawConfigEditor"
-        v-tooltip="tooltip($t('interactive-editor.menu.edit-raw-config-tooltip'))"
-      >
-        {{ $t('interactive-editor.menu.edit-raw-config-btn') }}
-        <EditRawIcon />
       </Button>
       <Button
         :click="reset"
@@ -95,6 +82,7 @@ import EditPageInfo from '@/components/InteractiveEditor/EditPageInfo';
 import EditAppConfig from '@/components/InteractiveEditor/EditAppConfig';
 import { modalNames, localStorageKeys, serviceEndpoints } from '@/utils/defaults';
 import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
+import { isUserAdmin } from '@/utils/Auth';
 
 import SaveLocallyIcon from '@/assets/interface-icons/interactive-editor-save-locally.svg';
 import SaveToDiskIcon from '@/assets/interface-icons/interactive-editor-save-disk.svg';
@@ -102,8 +90,6 @@ import ExportIcon from '@/assets/interface-icons/interactive-editor-export-chang
 import CancelIcon from '@/assets/interface-icons/interactive-editor-cancel-changes.svg';
 import AppConfigIcon from '@/assets/interface-icons/interactive-editor-app-config.svg';
 import PageInfoIcon from '@/assets/interface-icons/interactive-editor-page-info.svg';
-import CloudBackupIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
-import EditRawIcon from '@/assets/interface-icons/config-edit-json.svg';
 
 export default {
   name: 'EditModeSaveMenu',
@@ -117,12 +103,14 @@ export default {
     AppConfigIcon,
     PageInfoIcon,
     EditAppConfig,
-    CloudBackupIcon,
-    EditRawIcon,
   },
   computed: {
     config() {
       return this.$store.state.config;
+    },
+    allowWriteToDisk() {
+      const { appConfig } = this.config;
+      return appConfig.allowConfigEdit !== false && isUserAdmin();
     },
   },
   data() {
@@ -148,16 +136,6 @@ export default {
     openEditAppConfig() {
       this.$modal.show(modalNames.EDIT_APP_CONFIG);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
-    },
-    openCloudBackupMenu() {
-      this.$store.commit(StoreKeys.CONF_MENU_INDEX, 2);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
-      this.$modal.show(modalNames.CONF_EDITOR);
-    },
-    openRawConfigEditor() {
-      this.$store.commit(StoreKeys.CONF_MENU_INDEX, 1);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
-      this.$modal.show(modalNames.CONF_EDITOR);
     },
     tooltip(content) {
       return { content, trigger: 'hover focus', delay: 250 };

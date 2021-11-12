@@ -13,7 +13,7 @@ jobs:
     - name: Upload Docs to GH Wiki
       uses: docker://decathlon/wiki-page-creator-action:latest
       env:
-        GH_PAT: ${{ secrets.BOT_GITHUB_TOKEN }}
+        GH_PAT: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         ACTION_MAIL: alicia-gh-bot@mail.as93.net
         ACTION_NAME: liss-bot
         OWNER: Lissy93
