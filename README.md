@@ -487,7 +487,7 @@ You can also edit this through the UI, by entering Edit mode, then clicking Edit
 
 ## System Requirements 📊
 
-The hardware requirements vary depending on where and how you are running Dashy. Generally speaking, on a bare metal system or Docker container, 1GB of memory should be more than enough, and depending on weather you are using your own assets, then 1GB of disk space should be sufficient.  
+The hardware requirements vary depending on where and how you are running Dashy. Generally speaking, on a bare metal system or Docker container, 1GB of memory should be more than enough, and depending on whether you are using your own assets, then 1GB of disk space should be sufficient.  
 
 If you are using one of the 1-click cloud deployment methods, serving the app through a CDN or using a static hosting provider, then there are no specific requirements, as the built app is just a series of static JS files, and so is very light-weight.
 
