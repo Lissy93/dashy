@@ -122,8 +122,9 @@ export default {
     getSettingsVisibility() {
       const screenWidth = document.body.clientWidth;
       if (screenWidth && screenWidth < 600) return false;
-      return JSON.parse(localStorage[localStorageKeys.HIDE_SETTINGS]
-        || (this.visibleComponents || defaultVisibleComponents).settings);
+      if ((this.visibleComponents || {}).settings === false) return false;
+      if (localStorage[localStorageKeys.HIDE_SETTINGS] === 'false') return false;
+      return defaultVisibleComponents.settings;
     },
   },
 };
