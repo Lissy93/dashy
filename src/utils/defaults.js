@@ -171,12 +171,15 @@ module.exports = {
   backupEndpoint: 'https://dashy-sync-service.as93.net',
   /* Available services for fetching favicon icon for user apps */
   faviconApiEndpoints: {
-    mcapi: 'https://eu.mc-api.net/v3/server/favicon/$URL',
+    allesedv: 'https://f1.allesedv.com/128/$URL',
     clearbit: 'https://logo.clearbit.com/$URL',
     faviconkit: 'https://api.faviconkit.com/$URL/64',
+    duckduckgo: 'https://icons.duckduckgo.com/ip2/$URL.ico',
+    yandex: 'https://favicon.yandex.net/favicon/$URL',
     google: 'https://www.google.com/s2/favicons?sz=128&domain_url=$URL',
-    allesedv: 'https://f1.allesedv.com/128/$URL',
+    besticon: 'https://besticon-demo.herokuapp.com/icon?url=$URL&size=80..120..200',
     webmasterapi: 'https://api.webmasterapi.com/v1/favicon/yEwx0ZFs0CSPshHq/$URL',
+    mcapi: 'https://eu.mc-api.net/v3/server/favicon/$URL',
   },
   /* The URL to CDNs used for external icons. These are only loaded when required */
   iconCdns: {
