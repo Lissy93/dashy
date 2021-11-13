@@ -51,11 +51,14 @@ const store = new Vuex.Store({
     appConfig(state) {
       return state.config.appConfig || {};
     },
-    theme(state) {
-      return state.config.appConfig.theme;
-    },
     sections(state) {
       return filterUserSections(state.config.sections || []);
+    },
+    widgets(state) {
+      return state.config.widgets || [];
+    },
+    theme(state) {
+      return state.config.appConfig.theme;
     },
     webSearch(state, getters) {
       return getters.appConfig.webSearch || {};

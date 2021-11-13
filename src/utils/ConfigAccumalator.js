@@ -78,12 +78,23 @@ export default class ConfigAccumulator {
     return sections;
   }
 
+  /* Widgets */
+  widgets() {
+    const localWidgets = localStorage[localStorageKeys.CONF_WIDGETS];
+    if (localWidgets) {
+      const json = JSON.parse(localWidgets);
+      if (json.length >= 1) return json;
+    }
+    return this.conf.widgets || [];
+  }
+
   /* Complete config */
   config() {
     return {
       appConfig: this.appConfig(),
       pageInfo: this.pageInfo(),
       sections: this.sections(),
+      widgets: this.widgets(),
     };
   }
 }
