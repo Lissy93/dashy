@@ -34,7 +34,7 @@ Your dashboard should now be up and running at `http://localhost:8080` (or your 
 ## 3. Configure
 
 Now that you've got Dashy running, you are going to want to set it up with your own content.
-Config is written in [YAML Format](https://yaml.org/), and saved in [`/public/conf.yml`](/public/conf.yml).
+Config is written in [YAML Format](https://yaml.org/), and saved in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml).
 The format on the config file is pretty straight forward. There are three root attributes:
 - [`pageInfo`](/docs/configuring#pageinfo) - Dashboard meta data, like title, description, nav bar links and footer text
 - [`appConfig`](/docs/configuring#appconfig-optional) - Dashboard settings, like themes, authentication, language and customization
@@ -126,7 +126,7 @@ Then edit `./public/conf.yml` and rebuild the app with `yarn build`
 
 Don't have a server? No problem! You can run Dashy for free on Netlify (as well as many [other cloud providers](/docs/deployment#deploy-to-cloud-service)). All you need it a GitHub account.
 1. Fork Dashy's repository on GitHub
-2. [Log in](app.netlify.com/login/) to Netlify with GitHub
+2. [Log in](https://app.netlify.com/login/) to Netlify with GitHub
 3. Click "New site from Git" and select your forked repo, then click **Deploy**!
 4. You can then edit the config in `./public/conf.yml` in your repo, and Netlify will rebuild the app
 

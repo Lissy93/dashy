@@ -34,6 +34,20 @@ module.exports = {
         lightIcon: '☀️',
       },
     },
+    // Algolia Web Search
+    algolia: {
+      apiKey: '97d967bd42096f2c69f015214ff36176',
+      indexName: 'main',
+      // contextualSearch: true,
+      // appId: '9NYB4LE3DS',
+      // searchParameters: {},
+    },
+    // Prism Code Highlighting
+    prism: {
+      theme: lightCodeTheme,
+      darkTheme: darkCodeTheme,
+    },
+    // Top Navigation Bar
     navbar: {
       title: 'Dashy',
       logo: {
@@ -109,10 +123,6 @@ module.exports = {
         },
       ],
       copyright: footerText,
-    },
-    prism: {
-      theme: lightCodeTheme,
-      darkTheme: darkCodeTheme,
     },
   },
   presets: [
