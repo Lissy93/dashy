@@ -1,8 +1,15 @@
 # Credits
 
-## Sponsors
+### Sponsors
 <table>
 <tr>
+    <td align="center">
+        <a href="https://github.com/mfnalex">
+            <img src="https://avatars.githubusercontent.com/u/1122571?u=5503223f5a5077197ddc229a938a5c3120a276ce&v=4" width="80;" alt="mfnalex"/>
+            <br />
+            <sub><b>Mfnalex</b></sub>
+        </a>
+    </td>
     <td align="center">
         <a href="https://github.com/Robert-Ernst">
             <img src="https://avatars.githubusercontent.com/u/9050259?u=7253b4063f1ffe3b5a894263c8b2056151802508&v=4" width="80;" alt="Robert-Ernst"/>
@@ -11,15 +18,15 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/swcarlosrj">
-            <img src="https://avatars.githubusercontent.com/u/9881700?u=c92e4a0ccc0bff241e50582bce914b179b6d89b6&v=4" width="80;" alt="swcarlosrj"/>
+        <a href="https://github.com/DylanBeMe">
+            <img src="https://avatars.githubusercontent.com/u/41838333?v=4" width="80;" alt="DylanBeMe"/>
             <br />
-            <sub><b>Carlos Rufo</b></sub>
+            <sub><b>DylanH</b></sub>
         </a>
     </td></tr>
 </table>
 
-## Contributors
+### Contributors
 <table>
 <tr>
     <td align="center">
@@ -34,6 +41,13 @@
             <img src="https://avatars.githubusercontent.com/u/45015615?v=4" width="80;" alt="EVOTk"/>
             <br />
             <sub><b>EVOTk</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/liss-bot">
+            <img src="https://avatars.githubusercontent.com/u/87835202?v=4" width="80;" alt="liss-bot"/>
+            <br />
+            <sub><b>Alicia Bot</b></sub>
         </a>
     </td>
     <td align="center">
@@ -56,15 +70,15 @@
             <br />
             <sub><b>UrekD</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/onedr0p">
             <img src="https://avatars.githubusercontent.com/u/213795?v=4" width="80;" alt="onedr0p"/>
             <br />
             <sub><b>ᗪєνιη ᗷυнʟ</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/daentech">
             <img src="https://avatars.githubusercontent.com/u/358678?v=4" width="80;" alt="daentech"/>
@@ -80,6 +94,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/skaarj1989">
+            <img src="https://avatars.githubusercontent.com/u/34756939?v=4" width="80;" alt="skaarj1989"/>
+            <br />
+            <sub><b>David</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/deepsourcebot">
             <img src="https://avatars.githubusercontent.com/u/60907429?v=4" width="80;" alt="deepsourcebot"/>
             <br />
@@ -92,6 +113,14 @@
             <br />
             <sub><b>FormatToday</b></sub>
         </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/rubjo">
+            <img src="https://avatars.githubusercontent.com/u/42270947?v=4" width="80;" alt="rubjo"/>
+            <br />
+            <sub><b>Rubjo</b></sub>
+        </a>
     </td>
     <td align="center">
         <a href="https://github.com/turnrye">
@@ -99,11 +128,18 @@
             <br />
             <sub><b>Ryan Turner</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/royshreyaaa">
+            <img src="https://avatars.githubusercontent.com/u/88572557?v=4" width="80;" alt="royshreyaaa"/>
+            <br />
+            <sub><b>Shreya Roy</b></sub>
+        </a>
     </td></tr>
 </table>
 
 
-## Helpful Users
+### Helpful Users
 <table>
 <tr>
     <td align="center">
@@ -121,17 +157,17 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/turnrye">
-            <img src="https://avatars.githubusercontent.com/u/701035?v=4" width="80;" alt="turnrye"/>
+        <a href="https://github.com/urekd">
+            <img src="https://avatars.githubusercontent.com/u/38784343?v=4" width="80;" alt="urekd"/>
             <br />
-            <sub><b>Ryan Turner</b></sub>
+            <sub><b>urekd</b></sub>
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/robert-ernst">
-            <img src="https://avatars.githubusercontent.com/u/9050259?v=4" width="80;" alt="robert-ernst"/>
+        <a href="https://github.com/dylanbeme">
+            <img src="https://avatars.githubusercontent.com/u/41838333?v=4" width="80;" alt="dylanbeme"/>
             <br />
-            <sub><b>Robert Ernst</b></sub>
+            <sub><b>DylanH</b></sub>
         </a>
     </td>
     <td align="center">
@@ -142,15 +178,15 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/niklashere">
-            <img src="https://avatars.githubusercontent.com/u/32072214?v=4" width="80;" alt="niklashere"/>
+        <a href="https://github.com/lu4t">
+            <img src="https://avatars.githubusercontent.com/u/29571529?v=4" width="80;" alt="lu4t"/>
             <br />
-            <sub><b>Niklas</b></sub>
+            <sub><b>Lu4t</b></sub>
         </a>
     </td></tr>
 </table>
 
-## Bots
+### Bots
 <table>
 <tr>
     <td align="center">
@@ -199,11 +235,17 @@
 
 > The above section is auto-generated, using [contribute-list](https://github.com/marketplace/actions/contribute-list) by @akhilmhdh.
 
+### Newest Stargazers
+
+[![Recent Star Gazers](https://reporoster.com/stars/dark/Lissy93/dashy)](https://github.com/Lissy93/dashy/stargazers)
+
+[![Recent Forkers](https://reporoster.com/forks/dark/lissy93/dashy)](https://github.com/lissy93/dashy/network/members)
+
 ---
 
 ## Dependencies
 
-This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them. For a full breakdown of dependency licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL)
+This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them. For a full breakdown of dependency licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md)
 
 #### Core
 At it's core, the application uses [**Vue.js**](https://github.com/vuejs/vue), as well as it's services with [**VueX**](https://vuex.vuejs.org/) for state management. Styling is done with [**SCSS**](https://github.com/sass/sass), JavaScript is currently [**Babel**](https://github.com/babel/babel), (but I am in the process of converting to [**TypeScript**](https://github.com/Microsoft/TypeScript)). Linting is done with [**ESLint**](https://github.com/eslint/eslint) and [**Prettier**](https://prettier.io/), both following the [**AirBnB Styleguide**](https://github.com/airbnb/javascript). The config is defined in [**YAML**](https://github.com/yaml/yaml), with a simple [**Node.js**](https://github.com/nodejs/node) server to serve up the static app and the optional API endpoints, and container deployment is done with [**Docker**](https://www.docker.com/).

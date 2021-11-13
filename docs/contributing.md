@@ -13,14 +13,13 @@ If you speak another language, then adding translations would be really helpful,
 ## Take a 2-minute survey
 Help improve Dashy by taking a very short, 6-question survey. This will give me a better understanding of what is important to you, so that I can make Dashy better in the future :)
 
-[![Take the Survey](https://img.shields.io/badge/Take_the-Survey-%231a86fd?style=for-the-badge&logo=buddy)](https://n9fy6xak9yd.typeform.com/to/gl0L68ou)
+[![Take the Survey](https://img.shields.io/badge/Take_the-Survey-%231a86fd?style=for-the-badge&logo=buddy)](https://survey.typeform.com/to/gl0L68ou)
 
 ## Share your dashboard
 Dashy now has a [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase#dashy-showcase-) where you can show off a screenshot of your dashboard, and get inspiration from other users. I also really enjoy seeing how people are using Dashy. To [submit your dashboard](https://github.com/Lissy93/dashy/blob/master/docs/showcase#submitting-your-dashboard), please either open a PR or raise an issue.
 
 ## Improve the Docs
 Found a typo, or something that isn't as clear as it could be? Maybe I've missed something off altogether, or you hit a roadblock that took you a while to figure out. Submitting a pull request to add to or improve the documentation will help future users get Dashy up and running more easily.
-All content is located either in the [`./README.md`](/https://github.com/Lissy93/dashy#readme) or [`/docs/`](/docs) directory, and synced to the Wiki and website using a GH [action](https://github.com/Lissy93/dashy/actions/workflows/wiki-sync.yml).
 
 ## Raise a bug
 If you've found a bug, then please do raise it as an issue. This will help me know if there's something that needs fixing. Try and include as much detail as possible, such as your environment, steps to reproduce, any console output and maybe an example screenshot or recording if necessary.
@@ -58,7 +57,7 @@ Dashy is on the following platforms, and if you could spare a few seconds to giv
 ## Make a small donation
 Please only do this is you can definitely afford to. Don't feel any pressure to donate anything, as Dashy and my other projects will always be 100% free, for everyone, for ever.
 
-[![Sponsor Lissy93 on GitHub](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/sponsor-button.svg)](https://github.com/sponsors/Lissy93)
+[![Sponsor Lissy93 on GitHub](./assets/sponsor-button.svg)](https://github.com/sponsors/Lissy93)
 
 Sponsoring will give you several perks, from $1 / £0.70 per month, as well as a sponsor badge on your profile, you can also be credited on the readme, with a link to your website/ profile/ socials, get priority support,  have your feature ideas implemented, plus lots more. For more info, see [@Lissy93's Sponsor Page](https://github.com/sponsors/Lissy93).
 
@@ -101,5 +100,5 @@ For a full list of Dashy's contributors, see the [Credits Page](/docs/credits)
 
 ### Star-Gazers Over Time
 
-![Stargazers](https://starchart.cc/Lissy93/dashy.svg)
+[![Stargazers](https://starchart.cc/Lissy93/dashy.svg)](https://seladb.github.io/StarTrack-js/#/preload?r=Lissy93,dashy)
 

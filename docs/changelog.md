@@ -257,7 +257,7 @@
 ## 🐛 1.2.5 - Small Fixes, and Efficiency Improvements [PR #57](https://github.com/Lissy93/dashy/pull/57)
 - Adds correct license
 - Improves service workers, and adds serviceWorkerStatus local storage item
-- Adds missing statusCheck and statusCheckInterval docs into Configuring.md
+- Adds missing statusCheck and statusCheckInterval docs into Configuring
 - Adds an About App page, containing info needed to raise a bug report
 - Adds TDLR license into main readme
 - Introduces app versioning

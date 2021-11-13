@@ -29,7 +29,7 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
 ![Docker Supported Architecture](https://img.shields.io/badge/Architectures-amd64%20|%20arm32v7%20|%20arm64v8-6ba6e5)
 ![Docker Base Image](https://img.shields.io/badge/Base_Image-Alpine_3.14-6ba6e5)
 ![Docker Hosted on](https://img.shields.io/badge/Hosted_on-DockerHub-6ba6e5)
-](https://hub.docker.com/r/lissy93/dashy)<br/>
+](https://hub.docker.com/r/lissy93/dashy)<br />
 **Status**: [
 ![Docker Build Status](https://img.shields.io/docker/cloud/build/lissy93/dashy?label=Docker%20Build)
 ![Docker Pulls](https://img.shields.io/docker/pulls/lissy93/dashy?color=ecb2f7)
@@ -41,7 +41,7 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
 Dashy has a built container image hosted on [Docker Hub](https://hub.docker.com/r/lissy93/dashy). You will need [Docker](https://docs.docker.com/get-docker/) installed on your system.
 
 
-```bash
+```docker
 docker run -d \
   -p 8080:80 \
   -v /root/my-local-conf.yml:/app/public/conf.yml \
@@ -68,7 +68,7 @@ The image defaults to `:latest`, but you can instead specify a specific version,
 
 ### Using Docker Compose
 
-Using Docker Compose can be useful for saving your specific config in files, without having to type out a long run command each time. Save compose config as a YAML file, and then run `docker compose up` (optionally use the `-f` flag to specify file location, if it isn't located at `./docker-compose.yml`). Compose is also useful if you are using clusters, as the format is very similar to stack files, used with Docker Swarm.
+Using Docker Compose can be useful for saving your specific config in files, without having to type out a long run command each time. Save compose config as a YAML file, and then run `docker compose up -d` (optionally use the `-f` flag to specify file location, if it isn't located at `./docker-compose.yml`), `-d` is detached mode (not running in the foreground of your terminal). Compose is also useful if you are using clusters, as the format is very similar to stack files, used with Docker Swarm.
 
 The following is a complete example of a [`docker-compose.yml`](https://github.com/Lissy93/dashy/blob/master/docker-compose.yml) for Dashy. Run it as is, or uncomment the additional options you need.
 
@@ -242,3 +242,29 @@ surge ./dist
 Once Dashy has been built, it is effectivley just a static web app. This means that it can be served up with pretty much any static host, CDN or web server. To host Dashy through a CDN, the steps are very similar to building from source: clone the project, cd into it, install dependencies, write your config file and build the app. Once build is complete you will have a `./dist` directory within Dashy's root, and this is the build application which is ready to be served up.
 
 However without Dashy's node server, there are a couple of features that will be unavailible to you, including: Writing config changes to disk through the UI, triggering a rebuild through the UI and application status checks. Everything else will work fine.
+
+
+## Requirements
+
+### System Requirements
+
+Dashy works well on a Raspberry Pi (tested on Pi 3 and later), but should also run well on any system.
+
+### Docker
+Initial app build causes a spike in resource usage, but once the built app is running it is fairly steady. For this reason, Dashy works best with a minimum of 1GB of memory, and 1GB of disk space. 
+
+### Bare Metal
+Minimum 526mb mem, 2GB disk space, 
+
+### CDN / Cloud Deploy
+No specific requirements. The built application alone (without the Node server) is very light-weight, and can be handled smoothly by pretty much any CDN or cloud deployment service (see [this list](/docs/deployment#deploy-to-cloud-service) or natively supported cloud providers). 
+
+If you're using your own icons, or other assets, additional disk space will be required for those resources.
+
+### Browser Support
+
+JavaScript is required to run Dashy.
+
+In terms of browser support, pretty much any browser released since 2018 should render content just fine. However, for Internet Explorer, only IE11+ is supported, yet performance here is still not optimal. The recommended browser is either a Chromium-based / Webkit browser (Chrome, Brave, Vivaldi, Edge, Yandex, etc), or Firefox or one of it's forks (FF-ESR, Tor, LibreWolf, etc). Recent versions of Safari and Opera are also supported, but with limited continuous testing.
+
+<p align="center"><img width="500" src="https://i.ibb.co/pjnmbw9/browser-compatibility.png" /></p>

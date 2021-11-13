@@ -23,6 +23,14 @@
 
 ---
 
+### EVO Dashboard
+
+> By [@EVOTk](https://github.com/EVOTk)
+
+![screenshot-evo-dashboard](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/12-evo-dashboard.png)
+
+---
+
 ### NAS Home Dashboard
 > By [@cerealconyogurt](https://github.com/cerealconyogurt)
 
@@ -32,7 +40,8 @@
 
 ### Dashy Live
 > By [@Lissy93](https://github.com/lissy93)
-> A dashboard I made to manage all project development links from one place
+
+> A dashboard I made to manage all project development links from one place. View demo at [live.dashy.to](https://live.dashy.to/).
 
 ![screenshot-dashy-live](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/10-dashy-live.png)
 
@@ -54,10 +63,28 @@
 
 ---
 
+### Dashy Example
+
+> An example dashboard, by [@Lissy93](https://github.com/lissy93). View live at [demo.dashy.to](https://demo.dashy.to/).
+
+![screenshot-dashy-example](https://i.ibb.co/YbzqPK7/demo-dashy.png)
+
+---
+
 ### First Week of Self-Hosting
 > By [u//RickyCZ](https://www.reddit.com/user/RickyCZ)
 
 ![screenshot-week-of-self-hosting](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/11-ricky-cz.png)
+
+---
+
+### HomeLAb 3.0
+
+> By [@skoogee](https://github.com/skoogee) (http://zhrn.cc)
+
+> Dashy, is the most complete dashboard I ever tried, has all the features, and it sets itself apart from the rest. It is my default homepage now. I am thankful to the developer @Lissy93 for sharing such a wonderful creation.
+
+[![screenshot-12-skoogee-homelab-3](https://i.ibb.co/F5yBTsT/12-skoogee-homelab-3.png)](https://ibb.co/album/ynSwzm)
 
 ---
 

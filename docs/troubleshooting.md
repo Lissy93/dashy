@@ -49,7 +49,7 @@ If you're getting an error about scenarios, then you've likely installed the wro
 
 Alternatively, as a workaround, you have several options:
 - Try using [NPM](https://www.npmjs.com/get-npm) instead: So clone, cd, then run `npm install`, `npm run build` and `npm start`
-- Try using [Docker](https://www.docker.com/get-started) instead, and all of the system setup and dependencies will already be taken care of. So from within the directory, just run `docker build -t lissy93/dashy .` to build, and then use docker start to run the project, e.g: `docker run -it -p 8080:80 lissy93/dashy` (see the [deploying docs](https://github.com/Lissy93/dashy/blob/master/docs/deployment#deploy-with-docker) for more info)
+- Try using [Docker](https://www.docker.com/get-started) instead, and all of the system setup and dependencies will already be taken care of. So from within the directory, just run `docker build -t lissy93/dashy .` to build, and then use docker start to run the project, e.g: `docker run -it -p 8080:80 lissy93/dashy` (see the [deploying docs](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#deploy-with-docker) for more info)
 
 ---
 
@@ -75,6 +75,24 @@ auth:
   - user: xxx
     hash: xxx
 ```
+
+---
+
+## Config Not Updating
+
+Dashy has the option to save settings and config locally, in browser storage. Anything here will take precedence over whatever is in your config file, sometimes with unintended consequences. If you've updated the config file manually, and are not seeing changes reflected in the UI, then try visiting the site in Incognito mode. If that works, then the solution is just to clear local storage. This can be done from the config menu, under "Clear Local Settings".
+
+---
+
+## Config Still not Updating
+
+Sometimes your text editor updates files [inode](https://linuxhandbook.com/inode-linux/), meaning changes will not be picked up by the Docker container. This [article](https://medium.com/@jonsbun/why-need-to-be-careful-when-mounting-single-files-into-a-docker-container-4f929340834) explains things further.
+
+---
+
+## Styles and Assets not Updating
+
+If you find that your styles and other visual assets work when visiting `ip:port` by not `dashy.domain.com`, then this is usually caused by caching. In your browser, do a hard-refresh (<kbd>Ctrl</kbd> + <kbd>F5</kbd>). If you use Cloudflare, then you can clear the cache through the management console, or set the cache level to Bypass for certain files, under the Rules tab.
 
 ---
 
@@ -138,6 +156,12 @@ Please acknowledge the difference between errors and warnings before raising an 
 
 ---
 
+## Docker Login Fails on Ubuntu
+
+Run `sudo apt install gnupg2 pass && gpg2 -k`
+
+---
+
 ## Status Checks Failing
 If you're using status checks, and despite a given service being online, the check is displaying an error, there are a couple of things you can look at:
 
@@ -154,6 +178,6 @@ If you get an error, like `Service Unavailable: Server resulted in a fatal error
 
 Currently, the status check needs a page to be rendered, so if this URL in your browser does not return anything, then status checks will not work. This may be modified in the future, but in the meantime, a fix would be to make your own status service, which just checks if your app responds with whatever code you'd like, and then return a 200 plus renders an arbitrary message. Then just point `statusCheckUrl` to your custom page.
 
-For further troubleshooting, use an application like [Postman](https://postman.com) to diagnose the issue. Set the parameter to `GET`, and then make a call to: `https://[url-of-dashy]/ping/?&url=[service-url]`. Where the service URL must have first been encoded (e.g. with `encodeURIComponent()` or [urlencoder.io](https://www.urlencoder.io/))
+For further troubleshooting, use an application like [Postman](https://postman.com) to diagnose the issue. Set the parameter to `GET`, and then make a call to: `https://[url-of-dashy]/status-check/?&url=[service-url]`. Where the service URL must have first been encoded (e.g. with `encodeURIComponent()` or [urlencoder.io](https://www.urlencoder.io/))
 
 If you're serving Dashy though a CDN, instead of using the Node server or Docker image, then the Node endpoint that makes requests will not be available to you, and all requests will fail. A workaround for this may be implemented in the future, but in the meantime, your only option is to use the Docker or Node deployment method. 

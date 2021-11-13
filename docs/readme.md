@@ -13,6 +13,7 @@
 - [Contributing](/docs/contributing) - How you can help keep Dashy alive
 - [Showcase](/docs/showcase) - See how others are using Dashy, and share your dashboard
 - [Credits](/docs/credits) - List of people and projects that have made Dashy possible
+- [Release Workflow](/docs/release-workflow) - Info about releases, CI and automated tasks
 
 ### Feature Docs
 - [Authentication](/docs/authentication) - Guide to setting up authentication to protect your dashboard
@@ -26,7 +27,7 @@
 
 ### Misc
 - [Privacy & Security](/docs/privacy) - List of requests, potential issues, and security resources
-- [License](/docs/license) - Copy of the MIT License
-- [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL) - Licenses of direct dependencies
-- [Code of Conduct](/docs/code-of-conduct) - Contributor Covenant Code of Conduct
-- [Changelog](/docs/changelog) - Details of recent changes, and historical versions
+- [License](/LICENSE) - Copy of the MIT License
+- [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md) - Licenses of direct dependencies
+- [Code of Conduct](https://github.com/Lissy93/dashy/blob/master/.github/CODE_OF_CONDUCT.md) - Contributor Covenant Code of Conduct
+- [Changelog](https://github.com/Lissy93/dashy/blob/master/.github/CHANGELOG.md) - Details of recent changes, and historical versions
