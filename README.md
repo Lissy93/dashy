@@ -164,13 +164,7 @@ Dashy supports 1-Click deployments on several popular cloud platforms. To spin u
 
 > For full configuration documentation, see: [**Configuring**](./docs/configuring.md)
 
-All of Dashy's configuration is specified in a single [YAML](https://yaml.org/) file, located at `./public/conf.yml`. You can find a complete list of available options in th [Configuring Docs](/docs/configuring.md). If you're using Docker, you'll probably want to pass this file in as a Docker volume (e.g. `-v /root/my-local-conf.yml:/app/public/conf.yml`).
-
-The config can also be edited directly through the UI with changes written to your conf.yml file. After making any modifications the app needs to be rebuilt, which will happen automatically or can be trigger with `yarn build` or directly through the UI.
-
-You can check that your config is valid and matches Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json), by running: `yarn validate-config`.
-
-Finally, you may find these [example config](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10) helpful for getting you started.
+Dashy is configured through a YAML file, located at `./public/conf.yml`. You can find a complete list of available options in th [Configuring Docs](/docs/configuring.md). The config can also be edited and saved directly through the UI.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -263,15 +257,6 @@ appConfig:
       type: admin
 ```
 
-<p align="center">
-  <img
-    title="Example login screen, using Vapourwave theme"
-    alt="Example login screen, using Vapourwave theme"
-    src="https://i.ibb.co/K52YL1g/dashy-login-form.png"
-    width="400"
-  />
-</p>
-
 Other access control systems are also supported, see the [Alternative Auth Methods](./docs/authentication.md#alternative-authentication-methods) docs.
 
 **[⬆️ Back to Top](#dashy)**
@@ -310,10 +295,6 @@ There are several different ways apps can be launched. You can specify the defau
 - `modal` - Launch app in a resizable/ movable popup modal on the current page (or use Alt + Click)
 - `workspace` - Changes to Workspace view, and launches app
 - `top` - Opens in the top-most browsing context, useful if your accessing Dashy through an iframe
-
-<p align="center">
-  <img width="500" src="https://i.ibb.co/vmZdSRt/dashy-context-menu-2.png" />
-</p>
 
 ---
 
@@ -389,10 +370,6 @@ Under the config menu, you can export, view, backup, or reset app config, as wel
 Dashy has an **optional** built-in feature for securely backing up your config to a hosted cloud service, and then restoring it on another instance. This is useful not only for backing up your configuration off-site, but it also enables Dashy to be used without having write a YAML config file.
 
 All data is fully E2E encrypted before being sent to the backend (done in [`CloudBackup.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/CloudBackup.js) using [crypto.js](https://github.com/brix/crypto-js)'s AES method). The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works), and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
-
-<p align="center">
-  <img width="400" src="https://i.ibb.co/yBrVN4N/dashy-cloud-sync.png" />
-</p>
 
 **[⬆️ Back to Top](#dashy)**
 
