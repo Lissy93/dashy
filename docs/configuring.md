@@ -112,8 +112,8 @@ Tips:
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`users`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. See [`appConfig.auth.users`](#appconfigauthusers-optional). <br>**Note** this method of authentication is handled on the client side, so for security critical situations, it is recommended to use an [alternate authentication method](/docs/authentication.md#alternative-authentication-methods).
-**`enableKeycloak`** | `object` | _Optional_ | If set to `true`, then authentication using Keycloak will be anabled. Note that you need to have an instance running, and have also configured `auth.keycloak`. Defaults to `false`
-**`keycloak`** | `boolean` | _Optional_ | Config options to point Dashy to your Keycloak server. Requires `enableKeycloak: true`. See  [`auth.keycloak`](#appconfigauthkeycloak-optional) for more info
+**`enableKeycloak`** | `boolean` | _Optional_ | If set to `true`, then authentication using Keycloak will be anabled. Note that you need to have an instance running, and have also configured `auth.keycloak`. Defaults to `false`
+**`keycloak`** | `object` | _Optional_ | Config options to point Dashy to your Keycloak server. Requires `enableKeycloak: true`. See  [`auth.keycloak`](#appconfigauthkeycloak-optional) for more info
 **`enableGuestAccess`** | `boolean` | _Optional_ | When set to `true`, an unauthenticated user will be able to access the dashboard, with read-only access, without having to login. Requires `auth.users` to be configured. Defaults to `false`.
 
 For more info, see the **[Authentication Docs](/docs/authentication.md)**
