@@ -8698,7 +8698,7 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.5.tgz#9e3e8cc0c75a99472b44321033a7702e7738252f"
   integrity sha512-KWcOiKeQj6ZyXx7zq4YxSMgHRlod4czeBQZrPb8OKcohcqAXShm7E20kEMle9WBt26hFcAf0qLOcp5zmY7kOqQ==
 
-simple-icons@^5.14.0:
+simple-icons@^5.19.0:
   version "5.22.0"
   resolved "https://registry.yarnpkg.com/simple-icons/-/simple-icons-5.22.0.tgz#c987aeea658828e858b774ab334264dabbe0344c"
   integrity sha512-crEorhti73Sh88EZbw9mG/toCEoSQexf8HJCFFloz2V7bP7/lDpgcEmoWrW3SAh9tOQL8sWau4DSSRBVvRIRew==
@@ -9851,7 +9851,7 @@ vue-router@^3.0.3:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.5.3.tgz#041048053e336829d05dafacf6a8fb669a2e7999"
   integrity sha512-FUlILrW3DGitS2h+Xaw8aRNvGTwtuaxrRkNSHWTizOfLUie7wuYwezeZ50iflRn8YPV5kxmU2LQuu3nM/b3Zsg==
 
-vue-select@^3.13.0:
+vue-select@^3.15.0:
   version "3.16.0"
   resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-3.16.0.tgz#db2ee2ddf80bd8876ce57738107b8a1a741862f4"
   integrity sha512-F0x7HXTUc5eq7YSjR0uX77RGA+Yk2+I8aMW+NePyPqRX9OPSiDtKpezFIFhnhxqrOvMh4uVR0jHkXIDmzs6nYQ==

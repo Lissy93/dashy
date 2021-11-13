@@ -26,19 +26,20 @@ Dashy can auto-fetch an icon for a given service, using it's favicon. Just set `
   <img width="580" src="https://i.ibb.co/k6wyhnB/favicon-icons.png" />
 </p>
 
-If the service is hosted under a local IP, then Dashy will attempt to find the favicon from `http://[ip]/favicon.ico`. This has two issues, favicons are not always hosted at the same location for every service, and often the default favicon is sometimes low resolution. Therefore for remote services, by default an API is used to return a high-quality icon for almost any online service.
+Since different websites host their favicons at different paths, for the best results Dashy can use an API to resolve a websites icon.
 
-The default favicon API is  [allesedv.com](https://favicon.allesedv.com/), but several other API's are supported. To change the API used, under `appConfig`, set `faviconApi` to one of the following values:
+The default favicon API is  [allesedv.com](https://favicon.allesedv.com/), but you can change this under `appConfig.faviconApi`. If you'd prefer not to use an API, just set this value to `local`. You can also use different APIs for individual items, by setting `icon: favicon-[api]`, e.g. `favicon-clearbit`.
 
+The following favicon APIs are supported:
 - `allesedv` - [allesedv.com](https://favicon.allesedv.com/) is a highly efficient IPv6-enabled service
-- `faviconkit` - [faviconkit.com](https://faviconkit.com/) (Note: currently down, as of Nov 2021)
-- `clearbit` - [Clearbit](https://clearbit.com/logo) returns high-quality logos from mainstream websites
+- `clearbit` - [Clearbit](https://clearbit.com/logo) returns high-quality square logos from mainstream websites
+- `faviconkit` - [faviconkit.com](https://faviconkit.com/) good quality icons and most sites supported (Note: down as of Nov '21)
+- `besticon` - [BestIcon](https://github.com/mat/besticon) fetches websites icons from manifest
+- `mcapi` - [MC-API](https://eu.mc-api.net/) fetches default website favicon, originally a Minecraft util
+- `duckduckgo` - Returns decent quality website icons, from DuckDuckGo search
 - `google` - Official Google favicon API service, good support for all sites, but poor quality
-- `webmasterapi` - [WebMasterAPI](https://www.webmasterapi.com/get-favicons)
-
-You can also force Dashy to always get favicons from the root of the domain, and not use an external service, by setting `appConfig.faviconApi` to `local`, although you may face the issue explained above.
-
-To use a different favicon API for certain items, then set `icon: favicon-[api]`, e.g. `favicon-clearbit`
+- `yandex` - Lower quality icons, but useful in some regions where other services are blocked
+- `local` - Set to local to fetch the default icon at /favicon.ico instead of using an API
 
 If for a given service none of the APIs work in your situation, and nor does local, then the best option is to find the path of the services logo or favicon, and set the icon to the URL of the raw image. For example, `icon: https://monitoring.local/faviconx128.png`- you can find this path using the browser dev tools.
 
@@ -187,4 +188,3 @@ If you are using icons from an external source, these will be fetched on initial
 You can improve load speeds, by  downloading your required icons, and serving them locally. Scaling icons to the minimum required dimensions (e.g. 128x128 or 64x64) will also greatly improve application load times.
 
 For icons from external sources, please see the Privacy Policies and Licenses for that provider.
-
