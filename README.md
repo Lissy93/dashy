@@ -464,7 +464,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
 <tr>
     <td align="center">
         <a href="https://github.com/mfnalex">
-            <img src="https://avatars.githubusercontent.com/u/1122571?v=4" width="80;" alt="mfnalex"/>
+            <img src="https://avatars.githubusercontent.com/u/1122571?u=5503223f5a5077197ddc229a938a5c3120a276ce&v=4" width="80;" alt="mfnalex"/>
             <br />
             <sub><b>Mfnalex</b></sub>
         </a>
@@ -474,6 +474,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <img src="https://avatars.githubusercontent.com/u/9050259?u=7253b4063f1ffe3b5a894263c8b2056151802508&v=4" width="80;" alt="Robert-Ernst"/>
             <br />
             <sub><b>Robert Ernst</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/DylanBeMe">
+            <img src="https://avatars.githubusercontent.com/u/41838333?v=4" width="80;" alt="DylanBeMe"/>
+            <br />
+            <sub><b>DylanH</b></sub>
         </a>
     </td></tr>
 </table>
