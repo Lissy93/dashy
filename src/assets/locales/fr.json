@@ -77,7 +77,7 @@
     "item-size-small": "Petite",
     "item-size-medium": "Moyenne",
     "item-size-large": "Grande",
-    "config-launcher-label": "Config.",
+    "config-launcher-label": "Configuration",
     "config-launcher-tooltip": "Modifier la configuration",
     "sign-out-tooltip": "Déconnexion",
     "sign-in-tooltip": "Connexion",
@@ -101,6 +101,7 @@
     "export-button": "Exporter des variables personnalisées",
     "reset-button": "Réinitialiser les styles pour",
     "show-all-button": "Afficher toutes les variables",
+    "change-fonts-button": "Changer les Polices d'écritures",
     "save-button": "Enregistrer",
     "cancel-button": "Annuler",
     "saved-toast": "{theme} mis à jour avec succès",
@@ -112,6 +113,7 @@
     "location-local-label": "Appliquer localement",
     "location-disk-label": "Appliquer dans le fichier de configuration",
     "save-button": "Enregistrer",
+    "preview-button": "Prévisuliser les modifications",
     "valid-label": "La configuration est valide",
     "status-success-msg": "Tâche terminée",
     "status-fail-msg": "Échec de la tâche",
@@ -218,6 +220,7 @@
     },
     "edit-section": {
       "edit-section-title": "Éditeur",
+      "add-section-title": "Ajouter une section",
       "edit-tooltip": "Cliquer pour modifier ou cliquer droit pour plus d'options",
       "remove-confirm": "Voulez-vous vraiment supprimer cette section ? Cette action peut être annulée ultérieurement."
     },
