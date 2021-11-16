@@ -21,7 +21,7 @@
     "@sentry/tracing": "^6.13.1",
     "@sentry/vue": "^6.13.1",
     "ajv": "^8.6.3",
-    "axios": "^0.23.0",
+    "axios": "^0.24.0",
     "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.1.1",
     "express": "^4.17.1",
