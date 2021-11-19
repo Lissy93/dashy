@@ -4,7 +4,7 @@
 
 # Essential site config
 [build]
-	base = "/"
+  base = "/"
   command = "yarn build"
   publish = "dist"
   functions = "services/serverless-functions"
@@ -37,6 +37,6 @@
 # Set any security headers here
 [[headers]]
   for = "/*"
-	[headers.values]
+  [headers.values]
   # Uncomment to enable Netlify user control. You must have a paid plan.
   # Basic-Auth = "someuser:somepassword anotheruser:anotherpassword"
