@@ -346,6 +346,8 @@ Docker containers run with a subset of [Linux Kernal's Capabilities](https://man
 
 With Docker run, you can use the `--cap-drop` flag to remove capabilities, you can also use `--cap-drop=all` and then define just the required permissions using the `--cap-add` option. For a list of available capabilities, see the [Privilege Capabilities Docs](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities).
 
+Note that dropping privileges and capabilities on runtime is not fool-proof, and often any leftover privileges can be used to re-escalate, see [POS36-C](https://wiki.sei.cmu.edu/confluence/display/c/POS36-C.+Observe+correct+revocation+order+while+relinquishing+privileges).
+
 Here's an example using docker-compose, removing privileges that are not required for Dashy to run:
 
 ```yaml
