@@ -5,13 +5,6 @@
 <table>
 <tr>
     <td align="center">
-        <a href="https://github.com/mfnalex">
-            <img src="https://avatars.githubusercontent.com/u/1122571?u=5503223f5a5077197ddc229a938a5c3120a276ce&v=4" width="80;" alt="mfnalex"/>
-            <br />
-            <sub><b>Mfnalex</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/vlad-timofeev">
             <img src="https://avatars.githubusercontent.com/u/11474041?v=4" width="80;" alt="vlad-timofeev"/>
             <br />
@@ -23,6 +16,13 @@
             <img src="https://avatars.githubusercontent.com/u/41838333?v=4" width="80;" alt="DylanBeMe"/>
             <br />
             <sub><b>DylanH</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/matthewjdegarmo">
+            <img src="https://avatars.githubusercontent.com/u/46715299?v=4" width="80;" alt="matthewjdegarmo"/>
+            <br />
+            <sub><b>Matthew J. DeGarmo</b></sub>
         </a>
     </td></tr>
 </table>
