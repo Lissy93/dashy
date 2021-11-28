@@ -101,6 +101,7 @@ module.exports = {
     THEME: 'theme',
     CUSTOM_COLORS: 'customColors',
     CONF_SECTIONS: 'confSections',
+    CONF_WIDGETS: 'confSections',
     PAGE_INFO: 'pageInfo',
     APP_CONFIG: 'appConfig',
     BACKUP_ID: 'backupId',
