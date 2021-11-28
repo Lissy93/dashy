@@ -27,6 +27,8 @@
         + (singleSectionView ? 'single-section-view ' : '')
         + (this.colCount ? `col-count-${this.colCount} ` : '')"
       >
+      <!-- Display any dynamic widget content -->
+      <WidgetGroup v-if="!singleSectionView" :widgets="widgets" />
       <Section
         v-for="(section, index) in filteredTiles"
         :key="index"
@@ -61,6 +63,7 @@
 
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
+import WidgetGroup from '@/components/Widgets/WidgetGroup';
 import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
 import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vue';
 import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.vue';
@@ -74,6 +77,7 @@ export default {
   name: 'home',
   components: {
     SettingsContainer,
+    WidgetGroup,
     EditModeSaveMenu,
     ExportConfigMenu,
     AddNewSection,
@@ -95,6 +99,9 @@ export default {
     },
     pageInfo() {
       return this.$store.getters.pageInfo;
+    },
+    widgets() {
+      return this.$store.getters.widgets;
     },
     modalOpen() {
       return this.$store.state.modalOpen;
