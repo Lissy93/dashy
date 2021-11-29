@@ -227,7 +227,9 @@ export default {
       };
       if (newItem.tags) newItem.tags = strToTags(newItem.tags);
       if (newItem.statusCheck) newItem.statusCheck = strToBool(newItem.statusCheck);
-      if (newItem.statusCheckAllowInsecure) newItem.statusCheckAllowInsecure = strToBool(newItem.statusCheckAllowInsecure);
+      if (newItem.statusCheckAllowInsecure) {
+        newItem.statusCheckAllowInsecure = strToBool(newItem.statusCheckAllowInsecure);
+      }
       // if (newItem.hotkey) newItem.hotkey = parseInt(newItem.hotkey, 10);
       return newItem;
     },
