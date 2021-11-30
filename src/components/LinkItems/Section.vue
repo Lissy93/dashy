@@ -13,7 +13,7 @@
   >
     <!-- If no items, show message -->
     <div v-if="(!items || items.length < 1) && !isEditMode" class="no-items">
-      No Items to Show Yet
+      {{ $t('home.no-items-section') }}
     </div>
     <!-- Item Container -->
     <div v-else
@@ -33,12 +33,12 @@
         :backgroundColor="item.backgroundColor"
         :statusCheckUrl="item.statusCheckUrl"
         :statusCheckHeaders="item.statusCheckHeaders"
-        :itemSize="newItemSize"
+        :itemSize="itemSize"
         :hotkey="item.hotkey"
         :provider="item.provider"
         :parentSectionTitle="title"
-        :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
-        :statusCheckInterval="getStatusCheckInterval()"
+        :enableStatusCheck="item.statusCheck !== undefined ? item.statusCheck : enableStatusCheck"
+        :statusCheckInterval="statusCheckInterval"
         :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
@@ -54,9 +54,8 @@
         description="Click to add new item"
         key="add-new"
         class="add-new-item"
-        :itemSize="newItemSize"
+        :itemSize="itemSize"
       />
-      <div ref="modalContainer"></div>
     </div>
     <!-- Modal for opening in modal view -->
     <IframeModal
@@ -108,7 +107,6 @@ export default {
     icon: String,
     displayData: Object,
     items: Array,
-    itemSize: String,
     index: Number,
   },
   components: {
@@ -132,6 +130,12 @@ export default {
     appConfig() {
       return this.$store.getters.appConfig;
     },
+    isEditMode() {
+      return this.$store.state.editMode;
+    },
+    itemSize() {
+      return this.$store.getters.iconSize;
+    },
     sortOrder() {
       return this.displayData.sortBy || defaultSortOrder;
     },
@@ -146,16 +150,13 @@ export default {
       } else if (this.sortOrder === 'most-used') {
         items = this.sortByMostUsed(items);
       } else if (this.sortOrder === 'last-used') {
-        items = this.sortBLastUsed(items);
+        items = this.sortByLastUsed(items);
       } else if (this.sortOrder === 'random') {
         items = this.sortRandomly(items);
       } else if (this.sortOrder && this.sortOrder !== 'default') {
         ErrorHandler(`Unknown Sort order '${this.sortOrder}' under '${this.title}'`);
       }
       return items;
-    },
-    newItemSize() {
-      return this.displayData.itemSize || this.itemSize;
     },
     isGridLayout() {
       return this.displayData.sectionLayout === 'grid'
@@ -171,27 +172,23 @@ export default {
       }
       return styles;
     },
-    isEditMode() {
-      return this.$store.state.editMode;
+    /* Determines if user has enabled online status checks */
+    enableStatusCheck() {
+      return this.appConfig.statusCheck || false;
+    },
+    /* Determine how often to re-fire status checks */
+    statusCheckInterval() {
+      let interval = this.appConfig.statusCheckInterval;
+      if (!interval) return 0;
+      if (interval > 60) interval = 60;
+      if (interval < 1) interval = 0;
+      return interval;
     },
   },
   methods: {
     /* Opens the iframe modal */
     triggerModal(url) {
       this.$refs[`iframeModal-${this.groupId}`].show(url);
-    },
-    /* Determines if user has enabled online status checks */
-    shouldEnableStatusCheck(itemPreference) {
-      const globalPreference = this.appConfig.statusCheck || false;
-      return itemPreference !== undefined ? itemPreference : globalPreference;
-    },
-    /* Determine how often to re-fire status checks */
-    getStatusCheckInterval() {
-      let interval = this.appConfig.statusCheckInterval;
-      if (!interval) return 0;
-      if (interval > 60) interval = 60;
-      if (interval < 1) interval = 0;
-      return interval;
     },
     /* Sorts items alphabetically using the title attribute */
     sortAlphabetically(items) {
@@ -205,7 +202,7 @@ export default {
       return items;
     },
     /* Sorts items by most recently used */
-    sortBLastUsed(items) {
+    sortByLastUsed(items) {
       const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
       const glu = (item) => usageCount[item.id] || 0;
       items.reverse().sort((a, b) => (glu(a) < glu(b) ? 1 : -1));
