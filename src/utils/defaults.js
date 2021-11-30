@@ -27,6 +27,8 @@ module.exports = {
   faviconApi: 'allesedv',
   /* The default sort order for sections */
   sortOrder: 'default',
+  /* If no 'target' specified, this is the default opening method */
+  openingMethod: 'newtab',
   /* The page paths for each route within the app for the router */
   routePaths: {
     home: '/home',
@@ -74,6 +76,18 @@ module.exports = {
     'high-contrast-dark',
     'high-contrast-light',
   ],
+  /* Default color options for the theme configurator swatches */
+  swatches: [
+    ['#eb5cad', '#985ceb', '#5346f3', '#5c90eb'],
+    ['#5cdfeb', '#00CCB4', '#5ceb8d', '#afeb5c'],
+    ['#eff961', '#ebb75c', '#eb615c', '#eb2d6c'],
+    ['#060913', '#141b33', '#1c2645', '#263256'],
+    ['#2b2d42', '#1a535c', '#372424', '#312437'],
+    ['#f5f5f5', '#d9d9d9', '#bfbfbf', '#9a9a9a'],
+    ['#636363', '#363636', '#313941', '#0d0d0d'],
+  ],
+  /* Which CSS variables to show in the first view of theme configurator */
+  mainCssVars: ['primary', 'background', 'background-darker'],
   /* Which structural components should be visible by default */
   visibleComponents: {
     splashScreen: false,
@@ -88,8 +102,6 @@ module.exports = {
     'minimal',
     'login',
     'download',
-    'landing-page-minimal',
-    // '404',
   ],
   /* Key names for local storage identifiers */
   localStorageKeys: {
@@ -138,17 +150,14 @@ module.exports = {
     PAGE_INFO: 'pageInfo',
     APP_CONFIG: 'appConfig',
     SECTIONS: 'sections',
+    WIDGETS: 'widgets',
   },
-  /* Which CSS variables to show in the first view of theme configurator */
-  mainCssVars: ['primary', 'background', 'background-darker'],
   /* Amount of time to show splash screen, when enabled, in milliseconds */
-  splashScreenTime: 1900,
+  splashScreenTime: 1000,
   /* Page meta-data, rendered in the header of each view */
   metaTagData: [
     { name: 'description', content: 'A simple static homepage for you\'re server' },
   ],
-  /* If no 'target' specified, this is the default opening method */
-  openingMethod: 'newtab',
   /* Default option for Toast messages */
   toastedOptions: {
     position: 'bottom-center',
@@ -192,6 +201,7 @@ module.exports = {
     localPath: './item-icons',
     faviconName: 'favicon.ico',
     homeLabIcons: 'https://raw.githubusercontent.com/WalkxCode/dashboard-icons/master/png/{icon}.png',
+    homeLabIconsFallback: 'https://raw.githubusercontent.com/NX211/homer-icons/master/png/{icon}.png',
   },
   /* URLs for web search engines */
   searchEngineUrls: {
@@ -233,16 +243,6 @@ module.exports = {
     '/so': 'stackoverflow',
     '/wa': 'wolframalpha',
   },
-  /* Available built-in colors for the theme builder */
-  swatches: [
-    ['#eb5cad', '#985ceb', '#5346f3', '#5c90eb'],
-    ['#5cdfeb', '#00CCB4', '#5ceb8d', '#afeb5c'],
-    ['#eff961', '#ebb75c', '#eb615c', '#eb2d6c'],
-    ['#060913', '#141b33', '#1c2645', '#263256'],
-    ['#2b2d42', '#1a535c', '#372424', '#312437'],
-    ['#f5f5f5', '#d9d9d9', '#bfbfbf', '#9a9a9a'],
-    ['#636363', '#363636', '#313941', '#0d0d0d'],
-  ],
   /* Use your own self-hosted Sentry instance. Only used if error reporting is turned on */
   sentryDsn: 'https://3138ea85f15a4fa883a5b27a4dc8ee28@o937511.ingest.sentry.io/5887934',
   /* A JS enum for indicating the user state, when guest mode + authentication is enabled */

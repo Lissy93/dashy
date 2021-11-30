@@ -452,7 +452,7 @@ export default {
     height: 2rem;
     padding-top: 4px;
     max-width: 14rem;
-    div img, div svg.missing-image {
+    div img {
       width: 2rem;
     }
     .tile-title {
@@ -473,7 +473,7 @@ export default {
     flex-direction: column;
     align-items: center;
     height: auto;
-    div img, div svg.missing-image {
+    div img {
       width: 2.5rem;
       margin-bottom: 0.25rem;
     }
