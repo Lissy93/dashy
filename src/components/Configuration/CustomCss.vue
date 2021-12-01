@@ -1,70 +1,89 @@
 <template>
   <div class="css-editor-outer">
     <!-- Add raw custom CSS -->
-    <div class="css-wrapper">
-      <h2 class="css-input-title">Custom CSS</h2>
+    <div class="style-section css-wrapper">
+      <h3>Custom CSS</h3>
       <textarea class="css-editor" v-model="customCss" />
-      <button class="save-button" @click="save()">{{ $t('config.css-save-btn') }}</button>
+      <Button class="save-button" :click="save">{{ $t('config.css-save-btn') }}</Button>
       <p class="quick-note">
         <b>{{ $t('config.css-note-label') }}:</b>
         {{ $t('config.css-note-l1') }} {{ $t('config.css-note-l2') }} {{ $t('config.css-note-l3') }}
       </p>
     </div>
-
+    <!-- Theme Selector -->
+    <div class="style-section base-theme-wrapper">
+      <h3>Base Theme</h3>
+      <ThemeSelector :hidePallete="true" />
+    </div>
     <!-- UI color configurator -->
-    <CustomThemeMaker :themeToEdit="currentTheme" class="color-config" />
+    <div class="style-section">
+      <CustomThemeMaker :themeToEdit="currentTheme" class="color-config" />
+    </div>
   </div>
 </template>
 
 <script>
 
 import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
-import { getTheme } from '@/utils/ConfigHelpers';
-import { localStorageKeys } from '@/utils/defaults';
-import { InfoHandler } from '@/utils/ErrorHandler';
+import ThemeSelector from '@/components/Settings/ThemeSelector';
+import Button from '@/components/FormElements/Button';
+import StoreKeys from '@/utils/StoreMutations';
+import { localStorageKeys, theme as defaultTheme } from '@/utils/defaults';
 
 export default {
   name: 'StyleEditor',
-  props: {
-    config: Object,
-  },
   components: {
+    Button,
+    ThemeSelector,
     CustomThemeMaker,
+  },
+  computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    currentTheme() {
+      return this.appConfig.theme || defaultTheme;
+    },
   },
   data() {
     return {
-      customCss: this.config.appConfig.customCss || '\n\n',
-      currentTheme: getTheme(),
+      customCss: '',
     };
   },
+  mounted() {
+    // Get existing custom styles (if present) from appConfig
+    this.customCss = this.appConfig.customCss || '\n\n';
+  },
   methods: {
-    /* A regex to validate the users CSS */
-    validate(css) {
-      return css === '' || css.match(/([#.@]?[\w.:> ]+)[\s]{[\r\n]?([A-Za-z\- \r\n\t]+[:][\s]*[\w ./()\-!]+;[\r\n]*(?:[A-Za-z\- \r\n\t]+[:][\s]*[\w ./()\-!]+;[\r\n]*(2)*)*)}/gmi);
-    },
-    /* Save custom CSS in browser, call inject, and show success message */
+    /* Sanitizes input, saves to browser and store, applies to page and shows message */
     save() {
-      let msg = '';
-      if (this.validate(this.customCss)) {
-        const appConfig = { ...this.config.appConfig };
-        appConfig.customCss = this.customCss;
-        localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(appConfig));
-        msg = 'Changes saved successfully';
-        InfoHandler('User syles has been saved', 'Custom CSS Update');
-        this.inject(this.customCss);
-        if (this.customCss === '') setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
-      } else {
-        msg = 'Error - Invalid CSS';
-        InfoHandler(msg, 'Custom CSS Update');
-      }
-      this.$toasted.show(msg);
+      const css = this.customCss.replace(/<\/?[^>]+(>|$)/g, '');
+      this.$store.commit(StoreKeys.UPDATE_CUSTOM_CSS, css);
+      this.saveToBrowser(css);
+      this.injectToPage(css);
+      this.showSuccessMsg();
+      if (css === '') this.reloadPage();
     },
     /* Formats CSS, and applies it to page */
-    inject(userStyles) {
+    injectToPage(userStyles) {
       const cleanedCss = userStyles.replace(/<\/?[^>]+(>|$)/g, '');
       const style = document.createElement('style');
       style.textContent = cleanedCss;
       document.head.append(style);
+    },
+    /* Saves custom CSS local storage */
+    saveToBrowser(css) {
+      const localAppConfig = JSON.parse(localStorage.getItem(localStorageKeys.APP_CONFIG) || '{}');
+      localAppConfig.customCss = css;
+      localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(localAppConfig));
+    },
+    /* Reload the page (only called if removing styles) */
+    reloadPage() {
+      setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
+    },
+    /* Show success toast and lot update */
+    showSuccessMsg() {
+      this.$toasted.show('Changes saved successfully');
     },
   },
 };
@@ -72,37 +91,40 @@ export default {
 
 <style lang="scss">
 
+// Main layout
 div.css-editor-outer {
   text-align: center;
   padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
 
+  .style-section {
+    padding: 1rem;
+    &:not(:last-child) { border-bottom: 1px dashed var(--config-settings-color); }
+    h3 {
+      font-size: 1.4rem;
+      margin: 0.5rem 0 0.2rem;
+    }
+  }
+
   div.css-wrapper {
     display: flex;
     flex-direction: column;
   }
-  h2.css-input-title {
-    margin: 0.5rem 0 0.2rem;
-  }
 }
 
+// Save button
 button.save-button {
-  padding:  0.5rem 1rem;
-  margin: 0.25rem auto;
-  font-size: 1.2rem;
-  background: var(--config-settings-color);
-  color: var(--config-settings-background);
-  border: 1px solid var(--config-settings-background);
-  border-radius: var(--curve-factor);
-  cursor: pointer;
-  &:hover {
-    background: var(--config-settings-background);
-    color: var(--config-settings-color);
-    border-color: var(--config-settings-color);
+  background: var(--config-settings-background);
+  color: var(--config-settings-color);
+  border: 1px solid var(--config-settings-color);
+  &:hover:not(:disabled) {
+    background: var(--config-settings-color);
+    color: var(--config-settings-background);
   }
 }
 
+// CSS textarea input
 .css-editor {
   margin: 1rem auto;
   padding: 0.5rem;
@@ -121,6 +143,7 @@ button.save-button {
   }
 }
 
+// Info note
 p.quick-note {
   text-align: left;
   width: 80%;
@@ -131,13 +154,38 @@ p.quick-note {
   border-radius: var(--curve-factor);
 }
 
+// Base Theme Selector
+.base-theme-wrapper {
+  span.theme-label {
+    display: none;
+  }
+  div.vs__dropdown-toggle {
+    border-color: var(--config-settings-color);
+    min-width: 16rem;
+    max-width: 32rem;
+    height: 2.4rem;
+    font-size: 1rem;
+    margin: 0.5rem;
+  }
+  ul.vs__dropdown-menu {
+    min-width: 16rem;
+    max-width: 32rem;
+    background: var(--config-settings-background);
+    border-top: 1px solid var(--config-settings-color);
+  }
+  li.vs__dropdown-option--highlight {
+    background: var(--config-settings-color);
+    color: var(--config-settings-background);
+  }
+}
+
+// Theme editor
 .color-config.theme-configurator-wrapper {
-  border: 1px solid var(--config-settings-color);
   background: var(--config-settings-background);
   color: var(--config-settings-color);
   position: relative;
   width: 80%;
-  max-width: 24rem;
+  max-width: 32rem;
   margin: 1rem auto;
   box-shadow: none;
   right: 0;
@@ -146,6 +194,12 @@ p.quick-note {
   .color-row-container {
     text-align: left;
     max-height: unset;
+  }
+  .misc-input {
+    width: 6rem;
+  }
+  .misc-input.long-input {
+    width: 18rem;
   }
 }
 

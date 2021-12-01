@@ -1,22 +1,28 @@
-# Will add a comment and close new issues opened by users that may be spam, or have not starred
-# Is still a work in progress, will also detect if user has previous activity in repo and check when joined GH
+# Will add a comment and close any new issues opened by
+# users who have not yet committed to, or starred the repo
 name: 🎯 Issue Spam Control
 on:
   issues:
     types: [opened, reopened]
 jobs:
-  check:
-    if: ${{ ! contains( github.event.issue.labels.*.name, 'keep-open') }}
+  check-user:
+    if: >
+      ${{
+      ! contains( github.event.issue.labels.*.name, '📌 Keep Open') &&
+      ! contains( github.event.issue.labels.*.name, '🌈 Feedback') &&
+      ! contains( github.event.issue.labels.*.name, '💯 Showcase') &&
+      github.event.comment.author_association != 'CONTRIBUTOR'
+      }}
     runs-on: ubuntu-latest
     name: Close issue opened by non-stargazer
     steps:
       - name: close
         uses: uhyo/please-star-first@v1
         with:
-          token: ${{ secrets.BOT_GITHUB_TOKEN }} 
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }} 
           message: |
             Welcome to Dashy 👋
-            It's great to have you here, but unfortunately your ticket has been closed to prevent spam and low quality issues. Please ensure the following criteria are met, before reopening this issue.
+            It's great to have you here, but unfortunately your ticket has been closed to prevent spam. Before reopening this issue, please ensure the following criteria are met.
 
             Issues are sometimes closed when users:
             - Have only recently joined GitHub
@@ -28,4 +34,4 @@ jobs:
             - You have checked the documentation for an existing solution 
             - You have completed the relevant sections in the Issue template
 
-            Once you have verified the above standards are met, you may reopen this issue.
+            Once you have verified the above standards are met, you may reopen this issue. Sorry for any inconvenience caused, I'm just a bot, and sometimes make mistakes 🤖

@@ -1,5 +1,5 @@
 <template>
-  <div class="item-icon">
+  <div :class="`item-icon wrapper-${size}`">
     <!-- Font-Awesome Icon -->
     <i v-if="iconType === 'font-awesome'" :class="`${icon} ${size}`" ></i>
     <!-- Emoji Icon -->
@@ -23,13 +23,13 @@
 import simpleIcons from 'simple-icons';
 import BrokenImage from '@/assets/interface-icons/broken-icon.svg';
 import ErrorHandler from '@/utils/ErrorHandler';
-import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/defaults';
 import EmojiUnicodeRegex from '@/utils/EmojiUnicodeRegex';
 import emojiLookup from '@/utils/emojis.json';
+import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/defaults';
+import { asciiHash } from '@/utils/MiscHelpers';
 
 export default {
   name: 'Icon',
-  inject: ['config'],
   props: {
     icon: String, // Path to icon asset
     url: String, // Used for fetching the favicon
@@ -39,18 +39,24 @@ export default {
     BrokenImage,
   },
   computed: {
+    /* Get appConfig from store */
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
     /* Determines the type of icon */
     iconType: function iconType() {
       return this.determineImageType(this.icon);
     },
     /* Gets the icon path, dependent on icon type */
     iconPath: function iconPath() {
+      if (this.broken) return this.getFallbackIcon();
       return this.getIconPath(this.icon, this.url);
     },
   },
   data() {
     return {
       broken: false, // If true, was unable to resolve icon
+      attemptedFallback: false,
     };
   },
   methods: {
@@ -90,12 +96,12 @@ export default {
     },
     /* Get favicon URL, for items which use the favicon as their icon */
     getFavicon(fullUrl, specificApi) {
-      if (this.shouldUseDefaultFavicon(fullUrl)) { // Check if we should use local icon
+      const faviconApi = specificApi || this.appConfig.faviconApi || defaultFaviconApi;
+      if (this.shouldUseDefaultFavicon(fullUrl) || faviconApi === 'local') { // Check if we should use local icon
         const urlParts = fullUrl.split('/');
         if (urlParts.length >= 2) return `${urlParts[0]}/${urlParts[1]}/${urlParts[2]}/${iconCdns.faviconName}`;
       } else if (fullUrl.includes('http')) { // Service is running publicly
         const host = this.getHostName(fullUrl);
-        const faviconApi = specificApi || this.config.appConfig.faviconApi || defaultFaviconApi;
         const endpoint = faviconApiEndpoints[faviconApi];
         return endpoint.replace('$URL', host);
       }
@@ -119,21 +125,27 @@ export default {
     /* or if user prefers local favicon, then return true */
     shouldUseDefaultFavicon(fullUrl) {
       const isLocalIP = /(127\.)|(192\.168\.)|(10\.)|(172\.1[6-9]\.)|(172\.2[0-9]\.)|(172\.3[0-1]\.)|(::1$)|([fF][cCdD])|(localhost)/;
-      return (isLocalIP.test(fullUrl) || this.config.appConfig.faviconApi === 'local');
+      return (isLocalIP.test(fullUrl) || this.appConfig.faviconApi === 'local');
     },
     /* Fetches the path of local images, from Docker container */
     getLocalImagePath(img) {
       return `${iconCdns.localPath}/${img}`;
     },
     /* Formats the URL for fetching the generative icons */
-    getGenerativeIcon(url) {
-      return `${iconCdns.generative}/${this.getHostName(url)}.svg`;
+    getGenerativeIcon(url, cdn) {
+      const host = encodeURI(url) || Math.random().toString();
+      return (cdn || iconCdns.generative).replace('{icon}', asciiHash(host));
     },
     /* Returns the SVG path content  */
     getSimpleIcon(img) {
       const imageName = img.replace('si-', '');
       const icon = simpleIcons.Get(imageName);
       return icon.path;
+    },
+    /* Gets home-lab icon from GitHub */
+    getHomeLabIcon(img) {
+      const imageName = img.replace('hl-', '').toLocaleLowerCase();
+      return iconCdns.homeLabIcons.replace('{icon}', imageName);
     },
     /* Checks if the icon is from a local image, remote URL, SVG or font-awesome */
     getIconPath(img, url) {
@@ -145,6 +157,7 @@ export default {
         case 'generative': return this.getGenerativeIcon(url);
         case 'mdi': return img; // Material design icons
         case 'simple-icons': return this.getSimpleIcon(img);
+        case 'home-lab-icons': return this.getHomeLabIcon(img);
         case 'svg': return img; // Local SVG icon
         case 'emoji': return img; // Emoji/ unicode
         default: return '';
@@ -159,6 +172,7 @@ export default {
       else if (img.includes('fa-')) imgType = 'font-awesome';
       else if (img.includes('mdi-')) imgType = 'mdi';
       else if (img.includes('si-')) imgType = 'si';
+      else if (img.includes('hl-')) imgType = 'home-lab-icons';
       else if (img.includes('favicon-')) imgType = 'custom-favicon';
       else if (img === 'favicon') imgType = 'favicon';
       else if (img === 'generative') imgType = 'generative';
@@ -175,11 +189,40 @@ export default {
       this.broken = true;
       ErrorHandler(`The path to '${this.icon}' could not be resolved`);
     },
+    /* Called when initial icon has resulted in 404. Attempts to find new icon */
+    getFallbackIcon() {
+      if (this.attemptedFallback) return undefined; // If this is second attempt, then give up
+      const { iconType } = this;
+      const markAsSttempted = () => {
+        this.broken = false;
+        this.attemptedFallback = true;
+      };
+      if (iconType.includes('favicon')) { // Specify fallback for favicon-based icons
+        markAsSttempted();
+        return this.getFavicon(this.url, 'local');
+      } else if (iconType === 'generative') {
+        markAsSttempted();
+        return this.getGenerativeIcon(this.url, iconCdns.generativeFallback);
+      }
+      return undefined;
+    },
   },
 };
 </script>
 
 <style lang="scss">
+
+/* Icon wraper */
+.item-icon {
+  &.wrapper-medium {
+    min-height: 2.5rem;
+  }
+  &.wrapper-large {
+    min-width: 3.5rem;
+    text-align: center;
+  }
+}
+
   /* Default Image Icon */
   .tile-icon {
       min-width: 1rem;

@@ -12,7 +12,7 @@ jobs:
       - name: Automatically close issues that don't follow the issue template
         uses: lucasbento/auto-close-issues@v1.0.2
         with:
-          github-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          github-token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           closed-issues-label: '🙁 Auto-Closed'
           issue-close-message: |
             Hello @${issue.user.login} 👋

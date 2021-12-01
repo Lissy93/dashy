@@ -1,16 +1,17 @@
-# Generates diagram showing file breakdown
-name: 📊 Generate Repo Visualization
+# Generates series of diagrams and visualizations
+name: 📊 Generate Repo Stats
 on:
   workflow_dispatch: # Manual dispatch
   schedule:
     - cron: '0 1 * * 0' # At 01:00 on Sunday.
+    
 jobs:
-  build:
+  # File structure chart
+  file-structure:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@master
-  
     - name: Generate File Structure Diagram
       uses: githubocto/repo-visualizer@0.7.1
       with:
@@ -19,12 +20,33 @@ jobs:
         excluded_paths: dist,node_modules
         commit_message: ':yellow_heart: Updates repo diagram'
         branch: master
-        
+  
+  # Hercules git branching stats 
+  git-stats:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@master
+      with:
+        fetch-depth: 0
+    - name: Hercules
+      uses: src-d/hercules@master
+    - uses: actions/upload-artifact@master
+      with:
+        name: hercules_charts
+        path: hercules_charts.tar
+
+  # Lowlighter metrics community metrics
+  community-stats:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@master
     - name: Generate Repo Metrics
       uses: lowlighter/metrics@latest
       with:
         token: ${{ secrets.LISSY93_PAT }}
-        committer_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        committer_token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         committer_branch: master
         committer_message: ':purple_heart: Adds repo metrics'
         filename: docs/assets/repo-metrics.*
@@ -32,12 +54,12 @@ jobs:
         user: Lissy93
         repo: dashy
         delay: 5 
-            
+
     - name: Generate License Metrics
       uses: lowlighter/metrics@latest
       with:
         token: ${{ secrets.LISSY93_PAT }}
-        committer_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        committer_token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         committer_branch: master
         committer_message: ':purple_heart: Adds license metrics'
         filename: docs/assets/license-metrics.*
@@ -54,7 +76,7 @@ jobs:
       uses: lowlighter/metrics@latest
       with:
         token: ${{ secrets.LISSY93_PAT }}
-        committer_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        committer_token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         committer_branch: master
         committer_message: ':purple_heart: Adds contributor metrics'
         filename: docs/assets/controbutor-metrics.*
@@ -67,5 +89,4 @@ jobs:
         plugin_contributors_ignored: bot
         plugin_contributors_contributions: yes
         plugin_contributors_sections: contributors
-        
         

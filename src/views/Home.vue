@@ -4,24 +4,33 @@
     <!-- Search bar, layout options and settings -->
     <SettingsContainer ref="filterComp"
       @user-is-searchin="searching"
-      @change-display-layout="setLayoutOrientation"
-      @change-icon-size="setItemSize"
       @change-modal-visibility="updateModalVisibility"
       :displayLayout="layout"
       :iconSize="itemSizeBound"
       :externalThemes="getExternalCSSLinks()"
-      :sections="allSections"
-      :appConfig="appConfig"
-      :pageInfo="pageInfo"
       :modalOpen="modalOpen"
       class="settings-outer"
     />
+    <!-- Show back button, when on single-section view -->
+    <div v-if="singleSectionView">
+      <router-link to="/home" class="back-to-all-link">
+        <BackIcon />
+        <span>Back to All</span>
+      </router-link>
+    </div>
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections)"
-      :class="`item-group-container orientation-${layout} item-size-${itemSizeBound}`">
+      :class="`item-group-container `
+        + `orientation-${layout} `
+        + `item-size-${itemSizeBound} `
+        + (isEditMode ? 'edit-mode ' : '')
+        + (singleSectionView ? 'single-section-view ' : '')
+        + (this.colCount ? `col-count-${this.colCount} ` : '')"
+      >
       <Section
         v-for="(section, index) in filteredTiles"
         :key="index"
+        :index="index"
         :title="section.name"
         :icon="section.icon || undefined"
         :displayData="getDisplayData(section)"
@@ -34,11 +43,17 @@
         :class="
         (searchValue && filterTiles(section.items, searchValue).length === 0) ? 'no-results' : ''"
       />
+      <!-- Show add new section button, in edit mode -->
+      <AddNewSection v-if="isEditMode" />
     </div>
     <!-- Show message when there's no data to show -->
     <div v-if="checkIfResults()" class="no-data">
       {{searchValue ? $t('home.no-results') : $t('home.no-data')}}
     </div>
+    <!-- Show banner at bottom of screen, for Saving config changes -->
+    <EditModeSaveMenu v-if="isEditMode" />
+    <!-- Modal for viewing and exporting configuration file -->
+    <ExportConfigMenu />
   </div>
 </template>
 
@@ -46,57 +61,80 @@
 
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
+import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
+import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vue';
+import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.vue';
 import { searchTiles } from '@/utils/Search';
-import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
+import StoreKeys from '@/utils/StoreMutations';
+import Defaults, { localStorageKeys, iconCdns, modalNames } from '@/utils/defaults';
+import ErrorHandler from '@/utils/ErrorHandler';
+import BackIcon from '@/assets/interface-icons/back-arrow.svg';
 
 export default {
   name: 'home',
-  props: {
-    sections: Array, // Main site content
-    appConfig: Object, // Main site configuation (optional)
-    pageInfo: Object, // Page metadata (optional)
-  },
   components: {
     SettingsContainer,
+    EditModeSaveMenu,
+    ExportConfigMenu,
+    AddNewSection,
     Section,
+    BackIcon,
   },
   data: () => ({
     searchValue: '',
     layout: '',
     itemSizeBound: '',
-    modalOpen: false, // When true, keybindings are disabled
+    addNewSectionOpen: false,
   }),
   computed: {
-    /* Combines sections from config file, with those in local storage */
-    allSections() {
-      // If the user has stored sections in local storage, return those
-      const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
-      if (localSections) {
-        const json = JSON.parse(localSections);
-        if (json.length >= 1) return json;
-      }
-      // Otherwise, return the usuall data from conf.yml
-      return this.sections;
+    sections() {
+      return this.$store.getters.sections;
     },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
+    modalOpen() {
+      return this.$store.state.modalOpen;
+    },
+    singleSectionView() {
+      return this.findSingleSection(this.$store.getters.sections, this.$route.params.section);
+    },
+    isEditMode() {
+      return this.$store.state.editMode;
+    },
+    /* Get class for num columns, if specified by user */
+    colCount() {
+      let { colCount } = this.appConfig;
+      if (!colCount) return null;
+      if (colCount < 1) colCount = 1;
+      if (colCount > 8) colCount = 8;
+      return colCount;
+    },
+    /* Return all sections, that match users search term */
     filteredTiles() {
-      const sections = this.allSections;
+      const sections = this.singleSectionView || this.sections;
       return sections.filter((section) => this.filterTiles(section.items, this.searchValue));
     },
     /* Updates layout (when button clicked), and saves in local storage */
-    layoutOrientation: {
-      get() { return this.appConfig.layout || Defaults.layout; },
-      set: function setLayout(layout) {
-        localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
-        this.layout = layout;
-      },
+    layoutOrientation() {
+      return this.$store.getters.layout;
     },
     /* Updates icon size (when button clicked), and saves in local storage */
-    iconSize: {
-      get() { return this.appConfig.iconSize || Defaults.iconSize; },
-      set: function setIconSize(iconSize) {
-        localStorage.setItem(localStorageKeys.ICON_SIZE, iconSize);
-        this.itemSizeBound = iconSize;
-      },
+    iconSize() {
+      return this.$store.getters.iconSize;
+    },
+  },
+  watch: {
+    layoutOrientation(layout) {
+      localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
+      this.layout = layout;
+    },
+    iconSize(size) {
+      localStorage.setItem(localStorageKeys.ICON_SIZE, size);
+      this.itemSizeBound = size;
     },
   },
   methods: {
@@ -121,17 +159,32 @@ export default {
     getDisplayData(section) {
       return !section.displayData ? {} : section.displayData;
     },
-    /* Sets layout attribute, which is used by Section */
-    setLayoutOrientation(layout) {
-      this.layoutOrientation = layout;
-    },
-    /* Sets item size attribute, which is used by Section */
-    setItemSize(itemSize) {
-      this.iconSize = itemSize;
-    },
     /* Update data when modal is open (so that key bindings can be disabled) */
     updateModalVisibility(modalState) {
-      this.modalOpen = modalState;
+      this.$store.commit('SET_MODAL_OPEN', modalState);
+    },
+    openAddNewSectionMenu() {
+      this.addNewSectionOpen = true;
+      this.$modal.show(modalNames.EDIT_SECTION);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    closeEditSection() {
+      this.addNewSectionOpen = false;
+      this.$modal.hide(modalNames.EDIT_SECTION);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
+    },
+    /* If on sub-route, and section exists, then return only that section */
+    findSingleSection: (allSections, sectionTitle) => {
+      if (!sectionTitle) return undefined;
+      let sectionToReturn;
+      const parse = (section) => section.replaceAll(' ', '-').toLowerCase().trim();
+      allSections.forEach((section) => {
+        if (parse(sectionTitle) === parse(section.name)) {
+          sectionToReturn = [section];
+        }
+      });
+      if (!sectionToReturn) ErrorHandler(`No section named '${sectionTitle}' was found`);
+      return sectionToReturn;
     },
     /* Returns an array of links to external CSS from the Config */
     getExternalCSSLinks() {
@@ -154,8 +207,8 @@ export default {
     /* Checks if any sections or items use icons from a given CDN */
     checkIfIconLibraryNeeded(prefix) {
       let isNeeded = false;
-      if (!this.allSections) return false;
-      this.allSections.forEach((section) => {
+      if (!this.sections) return false;
+      this.sections.forEach((section) => {
         if (section.icon && section.icon.includes(prefix)) isNeeded = true;
         section.items.forEach((item) => {
           if (item.icon && item.icon.includes(prefix)) isNeeded = true;
@@ -194,10 +247,10 @@ export default {
     },
     /* Returns true if there is more than 1 sub-result visible during searching */
     checkIfResults() {
-      if (!this.allSections) return false;
+      if (!this.sections) return false;
       else {
         let itemsFound = true;
-        this.allSections.forEach((section) => {
+        this.sections.forEach((section) => {
           if (this.filterTiles(section.items, this.searchValue).length > 0) itemsFound = false;
         });
         return itemsFound;
@@ -227,8 +280,17 @@ export default {
 .home {
   padding-bottom: 1px;
   background: var(--background);
-  // min-height: calc(100vh - 126px);
   min-height: calc(99.9vh - var(--footer-height));
+}
+
+.back-to-all-link {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  margin: 0.25rem;
+  @extend .svg-button;
+  svg { margin-right: 0.5rem; }
+  text-decoration: none;
 }
 
 /* Outside container wrapping the item groups*/
@@ -255,29 +317,61 @@ export default {
       flex-direction: row;
     }
   }
+  &.orientation-horizontal, &.orientation-vertical, &.single-section-view {
+    @include phone { --content-max-width: 100%; }
+    @include tablet { --content-max-width: 98%; }
+    @include laptop { --content-max-width: 90%; }
+    @include monitor { --content-max-width: 85%; }
+    @include big-screen { --content-max-width: 80%; }
+    @include big-screen-up { --content-max-width: 60%; }
+    max-width: var(--content-max-width, 90%);
+  }
 
-  /* Specify number of columns, based on screen size */
-  @include phone {
-    grid-template-columns: repeat(1, 1fr);
+  /* Specify number of columns, based on screen size or user preference */
+  @include phone { --col-count: 1; }
+  @include tablet { --col-count: 2; }
+  @include laptop { --col-count: 2; }
+  @include monitor { --col-count: 3; }
+  @include big-screen { --col-count: 4; }
+  @include big-screen-up { --col-count: 5; }
+
+  @include tablet-up {
+    &.col-count-1 { --col-count: 1; }
+    &.col-count-2 { --col-count: 2; }
+    &.col-count-3 { --col-count: 3; }
+    &.col-count-4 { --col-count: 4; }
+    &.col-count-5 { --col-count: 5; }
+    &.col-count-6 { --col-count: 6; }
+    &.col-count-7 { --col-count: 7; }
+    &.col-count-8 { --col-count: 8; }
   }
-  @include tablet {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include laptop {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include monitor {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @include big-screen {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @include big-screen-up {
-    grid-template-columns: repeat(5, 1fr);
-  }
+
+  grid-template-columns: repeat(var(--col-count, 2), minmax(0, 1fr));
 
   /* Hide when search term returns nothing */
   .no-results { display: none; }
+
+  /* Additional spacing when in edit mode */
+  &.edit-mode {
+    margin-bottom: 12rem;
+  }
+
+  /* When in single-section view mode */
+  &.single-section-view {
+    display: block;
+  }
+  .add-new-section {
+    border: 2px dashed var(--primary);
+    border-radius: var(--curve-factor);
+    padding: var(--item-group-padding);
+    background: var(--item-group-background);
+    color: var(--primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-align: center;
+    height: fit-content;
+    margin: 10px;
+  }
 }
 
 /* Custom styles only applied when there is no sections in config */

@@ -6,6 +6,7 @@
         :icon="item.icon"
         :title="item.title"
         :url="item.url"
+        :target="item.target"
         @launch-app="launchApp"
       />
     </div>
@@ -18,7 +19,6 @@ import SideBarItem from '@/components/Workspace/SideBarItem.vue';
 
 export default {
   name: 'SideBarSection',
-  inject: ['config'],
   props: {
     items: Array,
   },
@@ -26,8 +26,8 @@ export default {
     SideBarItem,
   },
   methods: {
-    launchApp(url) {
-      this.$emit('launch-app', url);
+    launchApp(options) {
+      this.$emit('launch-app', options);
     },
   },
 };

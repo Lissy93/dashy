@@ -7,18 +7,13 @@ import JsonToYaml from '@/utils/JsonToYaml';
 
 export default {
   name: 'DownloadConfig',
-  props: {
-    sections: Array,
-    appConfig: Object,
-    pageInfo: Object,
+  computed: {
+    config() {
+      return this.$store.state.config;
+    },
   },
   data() {
     return {
-      config: {
-        appConfig: this.appConfig,
-        pageInfo: this.pageInfo,
-        sections: this.sections,
-      },
       jsonParser: JsonToYaml,
     };
   },

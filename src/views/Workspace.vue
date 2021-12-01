@@ -1,6 +1,6 @@
 <template>
   <div class="work-space">
-    <SideBar :sections="sections" @launch-app="launchApp" />
+    <SideBar :sections="sections" @launch-app="launchApp" :initUrl="getInitialUrl()" />
     <WebContent :url="url" v-if="!isMultiTaskingEnabled" />
     <MultiTaskingWebComtent :url="url" v-else />
   </div>
@@ -16,17 +16,19 @@ import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHe
 
 export default {
   name: 'Workspace',
-  props: {
-    sections: Array,
-    appConfig: Object,
-  },
   data: () => ({
-    url: '', // this.$route.query.url || '',
+    url: '',
     GetTheme,
     ApplyLocalTheme,
     ApplyCustomVariables,
   }),
   computed: {
+    sections() {
+      return this.$store.getters.sections;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
     isMultiTaskingEnabled() {
       return this.appConfig.enableMultiTasking || false;
     },
@@ -37,8 +39,12 @@ export default {
     MultiTaskingWebComtent,
   },
   methods: {
-    launchApp(url) {
-      this.url = url;
+    launchApp(options) {
+      if (options.target === 'newtab') {
+        window.open(options.url, '_blank');
+      } else {
+        this.url = options.url;
+      }
     },
     setTheme() {
       const theme = this.GetTheme();
@@ -51,16 +57,21 @@ export default {
       fontAwesomeScript.setAttribute('src', `https://kit.fontawesome.com/${faKey}.js`);
       document.head.appendChild(fontAwesomeScript);
     },
-    repositionFooter() {
-      document.getElementsByTagName('footer')[0].style.position = 'fixed';
+    /* Returns a service URL, if set as a URL param, or if user has specified landing URL */
+    getInitialUrl() {
+      const route = this.$route;
+      if (route.query && route.query.url) {
+        return decodeURI(route.query.url);
+      } else if (this.appConfig.workspaceLandingUrl) {
+        return this.appConfig.workspaceLandingUrl;
+      }
+      return undefined;
     },
   },
   mounted() {
-    const route = this.$route;
-    if (route.query && route.query.url) this.url = decodeURI(route.query.url);
     this.setTheme();
     this.initiateFontAwesome();
-    // this.repositionFooter();
+    this.url = this.getInitialUrl();
   },
 };
 

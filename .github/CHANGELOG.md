@@ -1,7 +1,64 @@
 # Changelog
 
-## ✨ 1.8.3 - Adds Login option to Remember Me for a Long Time [PR #237](https://github.com/Lissy93/dashy/pull/237)
-- Adds option to Remember Me dropdown, for a Long Time
+## ⚡️ 1.9.2 - Native SSL Support + Performance Improvements [PR #326](https://github.com/Lissy93/dashy/pull/326)
+- Updates the server to use Express, removing serve-static, connect and body-parser
+- Adds native support for passing in self-signed SSL certificates and updates docs
+- Updates router to lazy-load additional pages (minimal, workspace, etc)
+- Changes default favicon API to allesedv, since faviconkit is down, and adds basic fallback
+- Updates GH action build scripts to fallback on context token when running on fork
+
+## 💄 1.9.1 - Editor and Theming Fixes and Improvements [PR #319](https://github.com/Lissy93/dashy/pull/319)
+- Bug fixes for interactive editor: #310, #311, #312
+- Adds option to modify text font through the UI
+- Adds two new themes: One Dark and Adventure
+- Theming stylesheet refactor, better inheritance
+
+## 🐳 1.9.0 - Alpha of Dashy-Lite Docker Container [PR #306](https://github.com/Lissy93/dashy/pull/306)
+- Create an Alpine-based container, that serves the built app up with plain NGINX, instead of Node.
+- This is much lighter, but doesn't currently support any of the server-side actions (like status-checks, and writing changes to disk)
+
+## ✨ 1.8.9 - All New Interactive Config Editor [PR #298](https://github.com/Lissy93/dashy/pull/298)
+- Builds a new UI-based config editor
+- Support for sections, items, app config and page info
+- Live preview, and undoing of local changes
+- Export config or write changes to disk through UI
+
+## ✨ 1.8.8 - Improved Item Targets [PR #292](https://github.com/Lissy93/dashy/pull/292)
+- Adds support for `_top` and `_parent` anchor targets on items, Re: #289
+- Adds `appConfig.defaultOpeningMethod` option to specify default target
+- Adds new icons to show items opening method on hover
+- Refactors target checking, updates item target docs and schema
+
+## ⚡️ 1.8.7 - Bug Fixes and Improvements [PR #273](https://github.com/Lissy93/dashy/pull/273)
+- Clean URLs without the hash, now using history-mode routing
+- New initial main example conf.yml
+- Minor UI style updates and fixes
+- Support for single section view
+- A new theme, soft-glow
+- Container security in management docs, and other things
+- Bug fixes, including missing Firefox favicon and fix custom icon paths with base_url
+
+## ⚡️ 1.8.6 - Implementation of VueX [PR: #271](https://github.com/Lissy93/dashy/pull/271)
+- New state management pattern, which should lead to a more organized code base long term, and will also make building out the new UI editor significantly easier to do in a clean and reliable way
+
+## 💄 1.8.5 - Lots of Requested UI Improvements [PR #261](https://github.com/Lissy93/dashy/pull/261)
+- Adds an option for landing URL in workspace, Re: #255
+- Switches to a new API for generative icons, Re: #163
+- Adds new tab functionality to Workspace, Re: #254
+- Remove CSS validation in style editor, Re: #259
+- Cap item description at 2 lines, Re: #250
+- Adds native support for common homelab icons, using dashboard-icons
+- Improves general responsiveness of home page sections positioning
+- Updates, fixes and adds a bunch of actions for easier repo management
+
+## ✨ 1.8.4 - Custom Error Pages [PR #257](https://github.com/Lissy93/dashy/pull/257)
+- Creates a 404 Not Found page
+- Routes any missing views to the 404 page
+
+## ⚡️ 1.8.3 - Improved UX for Initial Load [PR #238](https://github.com/Lissy93/dashy/pull/238)
+- Removes the old splash screen
+- Adds placeholder in the HTML index, which will usually be visible on initial load
+- Show progress bar on route switcher
 
 ## ✨ 1.8.2 - Serverless Functions for Netlify Instances [PR #235](https://github.com/Lissy93/dashy/pull/235)
 - Previously when Dashy was deployed as a static site to Netlify, it was not possible to use several features, which required server-side code

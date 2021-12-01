@@ -5,13 +5,16 @@
     <div class="config-buttons">
       <IconSpanner @click="showEditor()" tabindex="-2"
         v-tooltip="tooltip($t('settings.config-launcher-tooltip'))" />
-       <IconViewMode @click="openChangeViewMenu()" tabindex="-2"
+      <IconInteractiveEditor @click="startInteractiveEditor()" tabindex="-2"
+        v-tooltip="tooltip(enterEditModeTooltip)"
+        :class="isEditMode ? 'disabled' : ''" />
+      <IconViewMode @click="openChangeViewMenu()" tabindex="-2"
         v-tooltip="tooltip($t('alternate-views.alternate-view-heading'))" />
     </div>
 
     <!-- Modal containing all the configuration options -->
     <modal :name="modalNames.CONF_EDITOR" :resizable="true" width="60%" height="85%"
-      @closed="$emit('modalChanged', false)" classes="dashy-modal">
+      @closed="editorClosed" classes="dashy-modal">
       <ConfigContainer :config="combineConfig()" />
     </modal>
 
@@ -44,11 +47,14 @@
 </template>
 
 <script>
-
+// Import components, and store-key identifiers
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
 import LanguageSwitcher from '@/components/Settings/LanguageSwitcher';
+import Keys from '@/utils/StoreMutations';
 import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/defaults';
+// Import icons for config launcher buttons
 import IconSpanner from '@/assets/interface-icons/config-editor.svg';
+import IconInteractiveEditor from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 import IconViewMode from '@/assets/interface-icons/application-change-view.svg';
 import IconHome from '@/assets/interface-icons/application-home.svg';
 import IconWorkspaceView from '@/assets/interface-icons/open-workspace.svg';
@@ -66,20 +72,40 @@ export default {
     ConfigContainer,
     LanguageSwitcher,
     IconSpanner,
+    IconInteractiveEditor,
     IconViewMode,
     IconHome,
     IconWorkspaceView,
     IconMinimalView,
   },
-  props: {
-    sections: Array,
-    pageInfo: Object,
-    appConfig: Object,
+  computed: {
+    sections() {
+      return this.$store.getters.sections;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
+    isEditMode() {
+      return this.$store.state.editMode;
+    },
+    /* Tooltip text for Edit Mode button, to change depending on it in edit mode */
+    enterEditModeTooltip() {
+      return this.$t(
+        `interactive-editor.menu.${this.isEditMode
+          ? 'edit-mode-subtitle' : 'start-editing-tooltip'}`,
+      );
+    },
   },
   methods: {
     showEditor: function show() {
       this.$modal.show(modalNames.CONF_EDITOR);
-      this.$emit('modalChanged', true);
+      this.$store.commit(Keys.SET_MODAL_OPEN, true);
+    },
+    editorClosed: function show() {
+      this.$store.commit(Keys.SET_MODAL_OPEN, false);
     },
     combineConfig() {
       const conf = {};
@@ -99,34 +125,24 @@ export default {
     closeViewSwitcher() {
       this.viewSwitcherOpen = false;
     },
+    startInteractiveEditor() {
+      if (!this.isEditMode) {
+        this.$store.commit(Keys.SET_EDIT_MODE, true);
+      }
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/style-helpers.scss';
+
 .config-options {
+  @extend .svg-button;
   display: flex;
   flex-direction: column;
   color: var(--settings-text-color);
   min-width: 3.2rem;
-  svg {
-    path {
-      fill: var(--settings-text-color);
-    }
-    width: 1rem;
-    height: 1rem;
-    margin: 0.2rem;
-    padding: 0.2rem;
-    text-align: center;
-    background: var(--background);
-    border: 1px solid currentColor;
-    border-radius: var(--curve-factor);
-    cursor: pointer;
-    &:hover, &.selected {
-      background: var(--settings-text-color);
-      path { fill: var(--background); }
-    }
-  }
 }
 
 .view-switcher {

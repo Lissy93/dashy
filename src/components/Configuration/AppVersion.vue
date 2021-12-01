@@ -22,7 +22,7 @@
         ❗ {{ $t('updates.out-of-date') }}: <b>{{ latestVersion }}</b>
         <span class="please-update">
           {{ $t('updates.unsupported-version-l1') }}.<br>
-          {{ $t('updates.unsupported-version-2') }} {{ latestVersion }}
+          {{ $t('updates.unsupported-version-l2') }} {{ latestVersion }}
         </span>
       </p>
     </div>
@@ -36,7 +36,11 @@ import ErrorHandler from '@/utils/ErrorHandler';
 
 export default {
   name: 'AppInfoModal',
-  inject: ['config'],
+  computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+  },
   data() {
     return {
       appVersion: process.env.VUE_APP_VERSION, // Current version, from package.json
@@ -50,8 +54,7 @@ export default {
     };
   },
   mounted() {
-    const appConfig = this.config.appConfig || {};
-    if (!this.appVersion || (appConfig && appConfig.disableUpdateChecks)) {
+    if (!this.appVersion || (this.appConfig && this.appConfig.disableUpdateChecks)) {
       // Either current version isn't found, or user disabled checks
       this.checksEnabled = false;
     } else {

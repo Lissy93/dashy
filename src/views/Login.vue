@@ -76,7 +76,7 @@ import router from '@/router';
 import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
-import { InfoHandler } from '@/utils/ErrorHandler';
+import { InfoHandler, WarningInfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import {
   checkCredentials,
   login,
@@ -91,9 +91,6 @@ export default {
     Button,
     Input,
   },
-  props: {
-    appConfig: Object,
-  },
   data() {
     return {
       username: '',
@@ -104,6 +101,9 @@ export default {
     };
   },
   computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
     /* Data for timeout dropdown menu, translated label + value in ms */
     dropDownMenu() {
       return [
@@ -159,9 +159,9 @@ export default {
       if (response.correct) { // Yay, credentials were correct :)
         login(this.username, this.password, timeout); // Login, to set the cookie
         this.goHome();
-        InfoHandler(`Succesfully signed in as ${this.username}`, 'Authentication');
+        InfoHandler(`Succesfully signed in as ${this.username}`, InfoKeys.AUTH);
       } else {
-        InfoHandler(`Unable to Sign In - ${this.message}`, 'Authentication');
+        WarningInfoHandler('Unable to Sign In', InfoKeys.AUTH, this.message);
       }
     },
     /* Calls function to double-check guest access enabled, then log in as guest */
@@ -169,9 +169,11 @@ export default {
       const isAllowed = this.isGuestAccessEnabled;
       if (isAllowed) {
         this.$toasted.show('Logged in as Guest, Redirecting...', { className: 'toast-success' });
+        InfoHandler('Logged in as Guest', InfoKeys.AUTH);
         this.goHome();
       } else {
-        this.$toasted.show('Guest access not allowed', { className: 'toast-error' });
+        this.$toasted.show('Guest Access Not Allowed', { className: 'toast-error' });
+        WarningInfoHandler('Guest Access Not Allowed', InfoKeys.AUTH);
       }
     },
     /* Calls logout, shows status message, and refreshed page */

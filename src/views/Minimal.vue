@@ -2,15 +2,16 @@
   <div class="minimal-home" :style="getBackgroundImage() + setColumnCount()">
     <!-- Buttons for config and home page -->
     <div class="minimal-buttons">
-      <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
-        @modalChanged="modalChanged" class="config-launcher" />
+      <ConfigLauncher @modalChanged="modalChanged" class="config-launcher" />
     </div>
     <!-- Page title and search bar -->
     <div class="title-and-search">
       <router-link to="/">
         <h1>{{ pageInfo.title }}</h1>
       </router-link>
-      <MinimalSearch @user-is-searchin="(s) => { this.searchValue = s; }" :active="!modalOpen" />
+      <MinimalSearch
+        @user-is-searchin="(s) => { this.searchValue = s; }"
+        :active="!modalOpen" ref="filterComp" />
     </div>
     <div v-if="checkTheresData(sections)"
       :class="`item-group-container ${!tabbedView ? 'showing-all' : ''}`">
@@ -60,11 +61,6 @@ import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 
 export default {
   name: 'home',
-  props: {
-    sections: Array, // Main site content
-    appConfig: Object, // Main site configuation (optional)
-    pageInfo: Object,
-  },
   components: {
     MinimalSection,
     MinimalHeading,
@@ -79,10 +75,21 @@ export default {
     tabbedView: true, // By default use tabs, when searching then show all instead
     theme: GetTheme(),
   }),
+  computed: {
+    sections() {
+      return this.$store.getters.sections;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
+  },
   watch: {
     /* When the theme changes, then call the update method */
     searchValue() {
-      this.tabbedView = !(this.searchValue.length > 0);
+      this.tabbedView = !this.searchValue || this.searchValue.length === 0;
     },
   },
   methods: {
@@ -111,7 +118,7 @@ export default {
     },
     /* Clears input field, once a searched item is opened */
     finishedSearching() {
-      this.$refs.filterComp.clearFilterInput();
+      this.$refs.filterComp.clearMinFilterInput();
     },
     /* Extracts the site name from domain, used for the searching functionality */
     getDomainFromUrl(url) {

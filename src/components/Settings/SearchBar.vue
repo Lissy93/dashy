@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="searchSubmitted">
+  <form @submit.prevent="searchSubmitted" :class="minimalSearch ? 'minimal' : 'normal'">
     <label for="filter-tiles">{{ $t('search.search-label') }}</label>
     <div class="search-wrap">
       <input
@@ -35,9 +35,8 @@ import {
 
 export default {
   name: 'FilterTile',
-  inject: ['config'],
   props: {
-    active: Boolean,
+    minimalSearch: Boolean, // If true, then keep it simple
   },
   data() {
     return {
@@ -47,8 +46,11 @@ export default {
     };
   },
   computed: {
+    active() {
+      return !this.$store.state.modalOpen;
+    },
     searchPrefs() {
-      return this.config.appConfig.webSearch || {};
+      return this.$store.getters.webSearch || {};
     },
   },
   mounted() {
@@ -129,7 +131,10 @@ export default {
         const searchEngine = searchPrefs.searchEngine || defaultSearchEngine;
         // Use either search bang, or preffered search engine
         const desiredSearchEngine = searchBang || searchEngine;
-        let searchUrl = findUrlForSearchEngine(desiredSearchEngine, searchEngineUrls);
+        const isCustomSearch = (searchPrefs.searchEngine === 'custom' && searchPrefs.customSearchEngine);
+        let searchUrl = isCustomSearch
+          ? searchPrefs.customSearchEngine
+          : findUrlForSearchEngine(desiredSearchEngine, searchEngineUrls);
         if (searchUrl) { // Append search query to URL, and launch
           searchUrl += encodeURIComponent(stripBangs(this.input, bangList));
           this.launchWebSearch(searchUrl, openingMethod);
@@ -145,13 +150,7 @@ export default {
 
 @import '@/styles/media-queries.scss';
 
-  section {
-    display: flex;
-    align-items: center;
-    align-items: stretch;
-    background: linear-gradient(0deg, var(--background) 0%, var(--background-darker) 100%);
-  }
-  form {
+  form.normal {
     display: flex;
     align-items: center;
     border-radius: 0 0 var(--curve-factor-navbar) 0;
@@ -192,7 +191,6 @@ export default {
       }
     }
     .clear-search {
-      //position: absolute;
       color: var(--settings-text-color);
       padding: 0 0.3rem 0.1rem 0.3rem;
       font-style: normal;
@@ -203,7 +201,6 @@ export default {
       right: 0.5rem;
       top: 1rem;
       border: 1px solid var(--settings-text-color);
-      font-size: 1rem;
       margin: 0.25rem;
       &:hover {
         opacity: 1;
@@ -213,18 +210,70 @@ export default {
   }
 
   @include tablet {
-    form {
+    form.normal {
       display: block;
       text-align: center;
     }
   }
   @include phone {
-    form {
+    form.nomral {
       flex: 1;
       border-radius: 0;
       text-align: center;
       padding: 0.25rem 0;
       display: block;
+    }
+  }
+
+  form.minimal {
+    display: flex;
+    align-items: center;
+    label { display: none; }
+    .search-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      p.web-search-note {
+        margin: 0;
+        color: var(--minimal-view-search-color);
+        opacity: var(--dimming-factor);
+      }
+    }
+    input {
+      display: inline-block;
+      width: 80%;
+      max-width: 400px;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      margin: 1rem auto;
+      outline: none;
+      border: 1px solid var(--outline-color);
+      border-radius: var(--curve-factor);
+      background: var(--minimal-view-search-background);
+      color: var(--minimal-view-search-color);
+      &:focus {
+        border-color: var(--minimal-view-search-color);
+        opacity: var(--dimming-factor);
+      }
+    }
+    .clear-search {
+      color: var(--minimal-view-search-color);
+      padding: 0.15rem 0.5rem 0.2rem 0.5rem;
+      font-style: normal;
+      font-size: 1rem;
+      opacity: var(--dimming-factor);
+      border-radius: 50px;
+      cursor: pointer;
+      right: 0.5rem;
+      top: 1rem;
+      border: 1px solid var(--minimal-view-search-color);
+      margin: 0.5rem;
+      &:hover {
+        opacity: 1;
+        color: var(--minimal-view-search-background);
+        background: var(--minimal-view-search-color);
+      }
     }
   }
 </style>

@@ -19,14 +19,15 @@ To pull the latest image, and build and start the app run:
 ```
 docker run -d \
   -p 8080:80 \
+  -v ~/my-conf.yml:/app/public/conf.yml \
   --name my-dashboard \
   --restart=always \
   lissy93/dashy:latest
 ```
 
-For a full list of available options, then see [Dashy with Docker](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#deploy-with-docker) Docs. If you'd prefer to use Docker Compose, then see [Dashy with Docker Compose](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#using-docker-compose) Docs.
+Either replace the -v path to point to your config file, or leave it out. For a full list of available options, then see [Dashy with Docker](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#deploy-with-docker) Docs. If you'd prefer to use Docker Compose, then see [Dashy with Docker Compose](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#using-docker-compose) Docs. Alternate registries, architectures and pinned versions are also supported.
 
-Your dashboard should now be up and running at `http://localhost:8080` (or your servers IP address/ domain, and the port that you chose). The first build will may take a few minutes
+Your dashboard should now be up and running at `http://localhost:8080` (or your servers IP address/ domain, and the port that you chose). The first time you build, it may take a few minutes.
 
 ---
 
@@ -84,22 +85,21 @@ Once you've got Dashy setup, you'll want to ensure the container is properly hea
 
 You might also want to check out the docs for specific features you'd like to use:
 - [Authentication](/docs/authentication.md) - Setting up authentication to protect your dashboard
+- [Alternate Views](/docs/alternate-views.md) - Using the startpage and workspace view
 - [Backup & Restore](/docs/backup-restore.md) - Guide to Dashy's cloud sync feature
 - [Icons](/docs/icons.md) - Outline of all available icon types for sections and items
 - [Localisation](/docs/multi-language-support.md) - How to change language, or add your own
 - [Status Indicators](/docs/status-indicators.md) - Using Dashy to monitor uptime and status of your apps
+- [Search & Shortcuts](/docs/searching.md) - Using instant filter, web search and custom hotkeys
 - [Theming](/docs/theming.md) - Complete guide to applying, writing and modifying themes and styles
 
 ---
 
 ## 5. Final Note
 
-If you're enjoying Dashy, and have a few minutes to spare, please do take a moment to look at the [Contributing Page](https://github.com/Lissy93/dashy/blob/master/docs/contributing.md). There are a few things that we really need some help with, and whatever your skill set, there are ways you can help out. Any contributions, however small would be greatly appreciated.
-Thank you to [everyone](https://github.com/Lissy93/dashy/blob/master/docs/credits.md) who is already doing so, without developing and maintaining Dashy would not have been so possible.
+If you need any help or support in getting Dashy running, head over to the [Discussions](https://github.com/Lissy93/dashy/discussions) page. If you think you've found a bug, please do [raise it](https://github.com/Lissy93/dashy/issues/new/choose) so it can be fixed. For contact options, see the [Support Page](https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md).
 
-You can also consider sharing your dashboard in the [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md), to help provide inspiration for others.
-
-For more info, check out the [Documentation](https://github.com/Lissy93/dashy/tree/master/docs#readme). If you've got any questions feel free to ask in the [Discussion](https://github.com/Lissy93/dashy/discussions), and if you think you've found a bug you can [raise an issue](https://github.com/Lissy93/dashy/issues/new/choose) to get it fixed.
+If you're enjoying Dashy, and have a few minutes to spare, please do take a moment to look at the [Contributing Page](https://github.com/Lissy93/dashy/blob/master/docs/contributing.md). Huge thanks to [everyone](https://github.com/Lissy93/dashy/blob/master/docs/credits.md) who has already helped out!
 
 Enjoy your dashboard :) 
 
@@ -126,3 +126,15 @@ Don't have a server? No problem! You can run Dashy for free on Netlify (as well 
 2. [Log in](app.netlify.com/login/) to Netlify with GitHub
 3. Click "New site from Git" and select your forked repo, then click **Deploy**!
 4. You can then edit the config in `./public/conf.yml` in your repo, and Netlify will rebuild the app
+
+---
+
+## Alternative Deployment Method 3 - Cloud Services
+
+Dashy supports 1-Click deployments on several popular cloud platforms. To spin up a new instance, just click a link below:
+- [<img src="https://i.ibb.co/ZxtzrP3/netlify.png" width="18"/> Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)
+- [<img src="https://i.ibb.co/d2P1WZ7/heroku.png" width="18"/> Deploy to Heroku](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
+- [<img src="https://i.ibb.co/Ld2FZzb/vercel.png" width="18"/> Deploy to Vercel](https://vercel.com/new/project?template=https://github.com/lissy93/dashy)
+- [<img src="https://i.ibb.co/xCHtzgh/render.png" width="18"/> Deploy to Render](https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render)
+- [<img src="https://i.ibb.co/J7MGymY/googlecloud.png" width="18"/> Deploy to GCP](https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git)
+- [<img src="https://i.ibb.co/HVWVYF7/docker.png" width="18"/> Deploy to PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)

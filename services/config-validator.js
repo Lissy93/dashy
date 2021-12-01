@@ -19,6 +19,9 @@ const ajv = new Ajv(validatorOptions);
 /* Message printed when validation was successful */
 const successMsg = () => '\x1b[1m\x1b[32mNo issues found, your configuration is valid :)\x1b[0m\n';
 
+/* Just a wrapper to system's console.log */
+const logToConsole = (msg) => { console.log(msg); };
+
 /* Formats error message. ready for printing to the console */
 const errorMsg = (output) => {
   const warningFont = '\x1b[103m\x1b[34m';
@@ -46,14 +49,14 @@ const setIsValidVariable = (isValid) => {
 
 /* Start the validation */
 const validate = (config) => {
-  console.log('\nChecking config file against schema...');
+  logToConsole('\nChecking config file against schema...');
   const valid = ajv.validate(schema, config);
   if (valid) {
     setIsValidVariable(true);
-    console.log(successMsg());
+    logToConsole(successMsg());
   } else {
     setIsValidVariable(false);
-    console.log(errorMsg(ajv.errors));
+    logToConsole(errorMsg(ajv.errors));
   }
 };
 
@@ -62,11 +65,11 @@ try {
   validate(config);
 } catch (e) { // Something went very wrong...
   setIsValidVariable(false);
-  console.log(bigError());
-  console.log('Please ensure that your config file is present, '
+  logToConsole(bigError());
+  logToConsole('Please ensure that your config file is present, '
     + 'has the correct access rights and is parsable. '
     + 'If this warning persists, it may be an issue with the '
     + 'validator function. Please raise an issue, and include the following stack trace:\n');
   console.warn('\x1b[33mStack Trace for config-validator.js:\x1b[0m\n', e);
-  console.log('\n\n');
+  logToConsole('\n\n');
 }

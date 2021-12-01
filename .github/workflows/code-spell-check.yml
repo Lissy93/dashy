@@ -20,7 +20,7 @@ jobs:
       uses: peter-evans/create-pull-request@v3.10.1
       if: startsWith(github.head_ref, 'AUTO/') == false
       with:
-        token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         base: master
         commit-message: ':pencil2: Auto-fix typos in text'
         title: '[AUTO] Fix spelling and language'

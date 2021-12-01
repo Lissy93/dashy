@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/vue';
-import { warningMsg, statusMsg } from '@/utils/CoolConsole';
+import { warningMsg, statusMsg, statusErrorMsg } from '@/utils/CoolConsole';
 import { sessionStorageKeys } from '@/utils/defaults';
 
 /* Makes the current time, like hh:mm:ss */
@@ -31,6 +31,20 @@ const ErrorHandler = function handler(msg) {
 /* Similar to error handler, but for recording general info */
 export const InfoHandler = (msg, title) => {
   statusMsg(title || 'Info', msg);
+};
+
+/* Outputs warnings caused by the user, such as missing field */
+export const WarningInfoHandler = (msg, title, log) => {
+  statusErrorMsg(title || 'Warning', msg, log);
+};
+
+/* Titles for info logging */
+export const InfoKeys = {
+  AUTH: 'Authentication',
+  CLOUD_BACKUP: 'Cloud Backup & Restore',
+  EDITOR: 'Interactive Editor',
+  RAW_EDITOR: 'Raw Config Editor',
+  VISUAL: 'Layout & Styles',
 };
 
 export default ErrorHandler;

@@ -36,9 +36,9 @@ import IconMinimalView from '@/assets/interface-icons/application-minimal.svg';
 
 export default {
   name: 'SideBar',
-  inject: ['config'],
   props: {
     sections: Array,
+    initUrl: String,
   },
   data() {
     return {
@@ -56,9 +56,26 @@ export default {
     openSection(index) {
       this.isOpen = this.isOpen.map((val, ind) => (ind !== index ? false : !val));
     },
-    launchApp(url) {
-      this.$emit('launch-app', url);
+    /* When item clicked, emit a launch event */
+    launchApp(options) {
+      this.$emit('launch-app', options);
     },
+    /* If an initial URL is specified, then open relevant section */
+    openDefaultSection() {
+      if (!this.initUrl) return;
+      const process = (url) => url.replace(/[^\w\s]/gi, '').toLowerCase();
+      const compare = (item) => (process(item.url) === process(this.initUrl));
+      this.sections.forEach((section, sectionIndex) => {
+        if (section.items.findIndex(compare) !== -1) this.openSection(sectionIndex);
+      });
+    },
+  },
+  mounted() {
+    if (this.sections.length === 1) { // If only 1 section, go ahead and open it
+      this.openSection(0);
+    } else { // Otherwise, see if user set a default section, and open that
+      this.openDefaultSection();
+    }
   },
 };
 </script>

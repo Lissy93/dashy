@@ -24,7 +24,7 @@ module.exports = {
   /* Default Font-Awesome API key, for FA icons (if used) */
   fontAwesomeKey: '0821c65656',
   /* Default API to use for fetching of user service favicon icons (if enabled) */
-  faviconApi: 'faviconkit',
+  faviconApi: 'allesedv',
   /* The default sort order for sections */
   sortOrder: 'default',
   /* The page paths for each route within the app for the router */
@@ -35,6 +35,7 @@ module.exports = {
     about: '/about',
     login: '/login',
     download: '/download',
+    notFound: '/404',
   },
   /* Server Endpoints */
   serviceEndpoints: {
@@ -49,17 +50,21 @@ module.exports = {
     'oblivion',
     'material',
     'material-dark',
-    'dracula',
-    'colorful',
     'dashy-docs',
+    'colorful',
+    'one-dark',
+    'dracula',
+    'adventure',
+    'nord-frost',
+    'nord',
     'minimal-dark',
     'minimal-light',
-    'nord',
-    'nord-frost',
     'thebe',
     'cyberpunk',
     'matrix',
     'matrix-red',
+    'color-block',
+    'glow',
     'raspberry-jam',
     'bee',
     'tiger',
@@ -71,8 +76,9 @@ module.exports = {
   ],
   /* Which structural components should be visible by default */
   visibleComponents: {
-    pageTitle: true,
+    splashScreen: false,
     navigation: true,
+    pageTitle: true,
     searchBar: true,
     settings: true,
     footer: true,
@@ -83,6 +89,7 @@ module.exports = {
     'login',
     'download',
     'landing-page-minimal',
+    // '404',
   ],
   /* Key names for local storage identifiers */
   localStorageKeys: {
@@ -115,11 +122,15 @@ module.exports = {
   /* Unique IDs of modals within the app */
   modalNames: {
     CONF_EDITOR: 'CONF_EDITOR',
-    CLOUD_BACKUP: 'CLOUD_BACKUP',
     REBUILD_APP: 'REBUILD_APP',
-    THEME_MAKER: 'THEME_MAKER',
     ABOUT_APP: 'ABOUT_APP',
     LANG_SWITCHER: 'LANG_SWITCHER',
+    EDIT_ITEM: 'EDIT_ITEM',
+    EDIT_SECTION: 'EDIT_SECTION',
+    EDIT_PAGE_INFO: 'EDIT_PAGE_INFO',
+    EDIT_APP_CONFIG: 'EDIT_APP_CONFIG',
+    EXPORT_CONFIG_MENU: 'EXPORT_CONFIG_MENU',
+    MOVE_ITEM_TO: 'MOVE_ITEM_TO',
   },
   /* Key names for the top-level objects in conf.yml */
   topLevelConfKeys: {
@@ -135,6 +146,8 @@ module.exports = {
   metaTagData: [
     { name: 'description', content: 'A simple static homepage for you\'re server' },
   ],
+  /* If no 'target' specified, this is the default opening method */
+  openingMethod: 'newtab',
   /* Default option for Toast messages */
   toastedOptions: {
     position: 'bottom-center',
@@ -158,21 +171,26 @@ module.exports = {
   backupEndpoint: 'https://dashy-sync-service.as93.net',
   /* Available services for fetching favicon icon for user apps */
   faviconApiEndpoints: {
-    mcapi: 'https://eu.mc-api.net/v3/server/favicon/$URL',
+    allesedv: 'https://f1.allesedv.com/128/$URL',
     clearbit: 'https://logo.clearbit.com/$URL',
     faviconkit: 'https://api.faviconkit.com/$URL/64',
+    duckduckgo: 'https://icons.duckduckgo.com/ip2/$URL.ico',
+    yandex: 'https://favicon.yandex.net/favicon/$URL',
     google: 'https://www.google.com/s2/favicons?sz=128&domain_url=$URL',
-    allesedv: 'https://f1.allesedv.com/128/$URL',
+    besticon: 'https://besticon-demo.herokuapp.com/icon?url=$URL&size=80..120..200',
     webmasterapi: 'https://api.webmasterapi.com/v1/favicon/yEwx0ZFs0CSPshHq/$URL',
+    mcapi: 'https://eu.mc-api.net/v3/server/favicon/$URL',
   },
   /* The URL to CDNs used for external icons. These are only loaded when required */
   iconCdns: {
     fa: 'https://kit.fontawesome.com',
     mdi: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css',
     si: 'https://unpkg.com/simple-icons@v5/icons',
-    generative: 'https://ipsicon.io',
-    localPath: '/item-icons',
+    generative: 'https://avatars.dicebear.com/api/identicon/{icon}.svg',
+    generativeFallback: 'https://evatar.io/{icon}',
+    localPath: './item-icons',
     faviconName: 'favicon.ico',
+    homeLabIcons: 'https://raw.githubusercontent.com/WalkxCode/dashboard-icons/master/png/{icon}.png',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

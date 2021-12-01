@@ -10,4 +10,4 @@ jobs:
       uses: "alstr/todo-to-issue-action@v4.2"
       id: "todo"
       with:
-        TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }} 
+        TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }} 

@@ -13,7 +13,7 @@ If you speak another language, then adding translations would be really helpful,
 ## Take a 2-minute survey
 Help improve Dashy by taking a very short, 6-question survey. This will give me a better understanding of what is important to you, so that I can make Dashy better in the future :)
 
-[![Take the Survey](https://img.shields.io/badge/Take_the-Survey-%231a86fd?style=for-the-badge&logo=buddy)](https://n9fy6xak9yd.typeform.com/to/gl0L68ou)
+[![Take the Survey](https://img.shields.io/badge/Take_the-Survey-%231a86fd?style=for-the-badge&logo=buddy)](https://survey.typeform.com/to/gl0L68ou)
 
 ## Share your dashboard
 Dashy now has a [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-) where you can show off a screenshot of your dashboard, and get inspiration from other users. I also really enjoy seeing how people are using Dashy. To [submit your dashboard](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#submitting-your-dashboard), please either open a PR or raise an issue.
@@ -66,9 +66,14 @@ Sponsoring will give you several perks, from $1 / £0.70 per month, as well as a
 	<summary>You can also send a one-off small contribution using crypto</summary>
 	<p>
 
+[![Donate with BTC](https://en.cryptobadges.io/badge/big/3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC)](https://en.cryptobadges.io/donate/3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC)[![Donate with Ethereum](https://en.cryptobadges.io/badge/big/0x0fc98cBf8bea932B4470C46C0FbE1ed1f6765017)](https://en.cryptobadges.io/donate/0x0fc98cBf8bea932B4470C46C0FbE1ed1f6765017)
+
 - **BTC**: `3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC`
 - **ETH**: `0x0fc98cBf8bea932B4470C46C0FbE1ed1f6765017` / `aliciasykes.eth`
 - **XMR**: `471KZdxb6N63aABR4WYwMRjTVkc1p1x7wGsUTEF7AMYzL8L94A5pCuYWkosgJQ5Ze8Y2PscVCGZFJa3hDPg6MaDq47GUm8r`
+- **LTC**: `MAuck6Ea1qaNihwKfXutkR1R6BorMth86H`
+- **ZEC**: `t1bw1SefijsXRDQVxC9w64XsRK8hBhtQohQ`
+
   </p>
 </details>
 
@@ -111,5 +116,5 @@ For a full list of Dashy's contributors, see the [Credits Page](/docs/credits.md
 
 ### Star-Gazers Over Time
 
-![Stargazers](https://starchart.cc/Lissy93/dashy.svg)
+[![Stargazers](https://starchart.cc/Lissy93/dashy.svg)](https://seladb.github.io/StarTrack-js/#/preload?r=Lissy93,dashy)
 

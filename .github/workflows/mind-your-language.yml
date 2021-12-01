@@ -2,17 +2,11 @@
 name: 🎯 Mind your language
 on:
   issues:
-    types:
-      - opened
-      - edited
+    types: [opened]
   issue_comment:
-    types:
-      - created
-      - edited
-  pull_request_review_comment:
-    types:
-      - created
-      - edited
+    types: [created]
+  pull_request:
+    types: [opened]
 jobs:
   echo_issue_comment:
     runs-on: ubuntu-latest
@@ -23,4 +17,4 @@ jobs:
       - name: Profanity check step
         uses: tailaiw/mind-your-language-action@v1.0.3
         env:
-          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

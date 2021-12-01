@@ -1,11 +1,11 @@
 <template ref="container">
-  <div class="item-wrapper">
+  <div :class="`item-wrapper wrap-size-${itemSize}`">
     <a @click="itemOpened"
       @mouseup.right="openContextMenu"
       @contextmenu.prevent
-      :href="(target !== 'modal' && target !== 'workspace') ? url : '#'"
-      :target="target === 'newtab' ? '_blank' : ''"
-      :class="`item ${!icon? 'short': ''} size-${itemSize}`"
+      :href="hyperLinkHref"
+      :target="anchorTarget"
+      :class="`item ${makeClassList}`"
       v-tooltip="getTooltipOptions()"
       rel="noopener noreferrer" tabindex="0"
       :id="`link-${id}`"
@@ -21,7 +21,7 @@
         v-bind:style="customStyles" class="bounce" />
       <!-- Small icon, showing opening method on hover -->
       <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon || itemSize === 'small'"
-        :openingMethod="target"  position="bottom right"
+        :openingMethod="accumulatedTarget"  position="bottom right"
         :hotkey="hotkey" />
       <!-- Status indicator dot (if enabled) showing weather srevice is availible -->
       <StatusIndicator
@@ -30,15 +30,26 @@
         :statusSuccess="statusResponse ? statusResponse.successStatus : undefined"
         :statusText="statusResponse ? statusResponse.message : undefined"
       />
+      <!-- Edit icon (displayed only when in edit mode) -->
+      <EditModeIcon v-if="isEditMode" class="edit-mode-item" @click="openItemSettings()" />
     </a>
+    <!-- Right-click context menu -->
     <ContextMenu
-      :show="contextMenuOpen"
+      :show="contextMenuOpen && !isAddNew"
       v-click-outside="closeContextMenu"
       :posX="contextPos.posX"
       :posY="contextPos.posY"
       :id="`context-menu-${id}`"
-      @contextItemClick="contextItemClick"
+      @launchItem="launchItem"
+      @openItemSettings="openItemSettings"
+      @openMoveItemMenu="openMoveItemMenu"
+      @openDeleteItem="openDeleteItem"
     />
+    <!-- Edit and move item menu modals -->
+    <MoveItemTo v-if="isEditMode" :itemId="id" />
+    <EditItem v-if="editMenuOpen" :itemId="id"
+      @closeEditMenu="closeEditMenu"
+      :isNew="isAddNew" :parentSectionTitle="parentSectionTitle" />
   </div>
 </template>
 
@@ -48,12 +59,21 @@ import router from '@/router';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
-import ContextMenu from '@/components/LinkItems/ContextMenu';
-import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
+import EditItem from '@/components/InteractiveEditor/EditItem';
+import MoveItemTo from '@/components/InteractiveEditor/MoveItemTo';
+import ContextMenu from '@/components/LinkItems/ItemContextMenu';
+import StoreKeys from '@/utils/StoreMutations';
+import { targetValidator } from '@/utils/ConfigHelpers';
+import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
+import {
+  localStorageKeys,
+  serviceEndpoints,
+  modalNames,
+  openingMethod as defaultOpeningMethod,
+} from '@/utils/defaults';
 
 export default {
   name: 'Item',
-  inject: ['config'],
   props: {
     id: String, // The unique ID of a tile (e.g. 001)
     title: String, // The main text of tile, required
@@ -67,15 +87,63 @@ export default {
     hotkey: Number, // Shortcut for quickly launching app
     target: { // Where resource will open, either 'newtab', 'sametab' or 'modal'
       type: String,
-      default: 'newtab',
-      validator: (value) => ['newtab', 'sametab', 'modal', 'workspace'].indexOf(value) !== -1,
+      validator: targetValidator,
     },
-    itemSize: String,
-    enableStatusCheck: Boolean,
-    statusCheckHeaders: Object,
-    statusCheckUrl: String,
-    statusCheckInterval: Number,
-    statusCheckAllowInsecure: Boolean,
+    itemSize: String, // Item size: small | medium | large
+    enableStatusCheck: Boolean, // Should run status checks
+    statusCheckHeaders: Object, // Custom status check headers
+    statusCheckUrl: String, // Custom URL for status check endpoint
+    statusCheckInterval: Number, // Num seconds beteween repeating checks
+    statusCheckAllowInsecure: Boolean, // Status check ignore SSL certs
+    parentSectionTitle: String, // Title of parent section (for add new)
+    isAddNew: Boolean, // Only set if 'fake' item used as Add New button
+  },
+  components: {
+    Icon,
+    ItemOpenMethodIcon,
+    StatusIndicator,
+    ContextMenu,
+    MoveItemTo,
+    EditItem,
+    EditModeIcon,
+  },
+  computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    isEditMode() {
+      return this.$store.state.editMode;
+    },
+    accumulatedTarget() {
+      return this.target || this.appConfig.defaultOpeningMethod || defaultOpeningMethod;
+    },
+    /* Based on item props, adjust class names */
+    makeClassList() {
+      const {
+        icon, itemSize, isAddNew, isEditMode,
+      } = this;
+      return `size-${itemSize} ${!icon ? 'short' : ''} `
+       + `${isAddNew ? 'add-new' : ''} ${isEditMode ? 'is-edit-mode' : ''}`;
+    },
+    /* Convert config target value, into HTML anchor target attribute */
+    anchorTarget() {
+      if (this.isEditMode) return '_self';
+      const target = this.accumulatedTarget;
+      switch (target) {
+        case 'sametab': return '_self';
+        case 'newtab': return '_blank';
+        case 'parent': return '_parent';
+        case 'top': return '_top';
+        default: return undefined;
+      }
+    },
+    /* Get href for anchor, if not in edit mode, or opening in modal/ workspace */
+    hyperLinkHref() {
+      const nothing = '#';
+      if (this.isEditMode) return nothing;
+      const noAnchorNeeded = ['modal', 'workspace'];
+      return noAnchorNeeded.includes(this.accumulatedTarget) ? nothing : this.url;
+    },
   },
   data() {
     return {
@@ -90,27 +158,27 @@ export default {
         posX: undefined,
         posY: undefined,
       },
+      editMenuOpen: false,
     };
-  },
-  components: {
-    Icon,
-    ItemOpenMethodIcon,
-    StatusIndicator,
-    ContextMenu,
   },
   methods: {
     /* Called when an item is clicked, manages the opening of modal & resets the search field */
     itemOpened(e) {
-      if (e.altKey || this.target === 'modal') {
+      if (this.isEditMode) {
+        // If in edit mode, open settings, and don't launch app
+        this.openItemSettings();
+        return;
+      }
+      if (e.altKey || this.accumulatedTarget === 'modal') {
         e.preventDefault();
         this.$emit('triggerModal', this.url);
-      } else if (this.target === 'workspace') {
+      } else if (this.accumulatedTarget === 'workspace') {
         router.push({ name: 'workspace', query: { url: this.url } });
       } else {
         this.$emit('itemClicked');
       }
       // Update the most/ last used ledger, for smart-sorting
-      if (!this.config.appConfig.disableSmartSort) {
+      if (!this.appConfig.disableSmartSort) {
         this.incrementMostUsedCount(this.id);
         this.incrementLastUsedCount(this.id);
       }
@@ -137,22 +205,27 @@ export default {
       const providerText = this.provider ? `<b>Provider</b>: ${this.provider}` : '';
       const lb1 = description && providerText ? '<br>' : '';
       const hotkeyText = this.hotkey ? `<br>Press '${this.hotkey}' to launch` : '';
+      const tooltipText = providerText + lb1 + description + hotkeyText;
+      const editText = this.$t('interactive-editor.edit-section.edit-tooltip');
       return {
-        content: providerText + lb1 + description + hotkeyText,
+        content: (this.isEditMode ? editText : tooltipText),
         trigger: 'hover focus',
         hideOnTargetClick: true,
         html: true,
         placement: this.statusResponse ? 'left' : 'auto',
         delay: { show: 600, hide: 200 },
-        classes: 'item-description-tooltip',
+        classes: `item-description-tooltip tooltip-is-${this.itemSize}`,
       };
     },
-    /* Used by certain themes, which display an icon with animated CSS */
+    /* Used by certain themes (material), to show animated CSS icon */
     getUnicodeOpeningIcon() {
-      switch (this.target) {
+      switch (this.accumulatedTarget) {
         case 'newtab': return '"\\f360"';
         case 'sametab': return '"\\f24d"';
+        case 'parent': return '"\\f3bf"';
+        case 'top': return '"\\f102"';
         case 'modal': return '"\\f2d0"';
+        case 'workspace': return '"\\f0b1"';
         default: return '"\\f054"';
       }
     },
@@ -190,7 +263,7 @@ export default {
         });
     },
     /* Handle navigation options from the context menu */
-    contextItemClick(method) {
+    launchItem(method) {
       const { url } = this;
       this.contextMenuOpen = false;
       switch (method) {
@@ -209,6 +282,19 @@ export default {
         default: window.open(url, '_blank');
       }
     },
+    /* Open the Edit Item moal form */
+    openItemSettings() {
+      this.editMenuOpen = true;
+      this.contextMenuOpen = false;
+      this.$modal.show(modalNames.EDIT_ITEM);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    /* Ensure conditional is updated, once menu closed */
+    closeEditMenu() {
+      this.editMenuOpen = false;
+      this.$modal.hide(modalNames.EDIT_ITEM);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
+    },
     /* Used for smart-sort when sorting items by most used apps */
     incrementMostUsedCount(itemId) {
       const mostUsed = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
@@ -222,6 +308,19 @@ export default {
       const lastUsed = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
       lastUsed[itemId] = new Date().getTime();
       localStorage.setItem(localStorageKeys.LAST_USED, JSON.stringify(lastUsed));
+    },
+    /* Open the modal for moving/ copying item to other section */
+    openMoveItemMenu() {
+      this.$modal.show(`${modalNames.MOVE_ITEM_TO}-${this.id}`);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+      this.closeContextMenu();
+    },
+    /* Deletes the current item from the state */
+    openDeleteItem() {
+      const parentSection = this.$store.getters.getParentSectionOfItem(this.id);
+      const payload = { itemId: this.id, sectionName: parentSection.name };
+      this.$store.commit(StoreKeys.REMOVE_ITEM, payload);
+      this.closeContextMenu();
     },
   },
   mounted() {
@@ -239,6 +338,10 @@ export default {
 
 .item-wrapper {
   flex-grow: 1;
+  flex-basis: 6rem;
+  &.wrap-size-large {
+    flex-basis: 12rem;
+  }
 }
 
 .item {
@@ -261,29 +364,35 @@ export default {
     box-shadow: var(--item-hover-shadow);
     background: var(--item-background-hover);
     color: var(--item-text-color-hover);
-    position: relative;
-    .tile-title span.text {
-      white-space: pre-wrap;
-    }
+    // position: relative;
+    // .tile-title span.text {
+    //   white-space: pre-wrap;
+    // }
   }
   &:focus {
     outline: 2px solid var(--primary);
   }
-  &.short {
-    height: 18px;
+  &.short:not(.size-large) {
+    height: 2rem;
+  }
+  &.add-new {
+    border: 2px dashed var(--primary) !important;
   }
 }
 
 /* Text in tile */
 .tile-title {
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
   min-width: 120px;
   height: 30px;
   position: relative;
   padding: 0;
   z-index: 2;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
   span.text {
     white-space: nowrap;
   }
@@ -323,6 +432,15 @@ export default {
   }
 }
 
+/* Edit Mode Icon */
+.item .edit-mode-item {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+}
+
 /* Specify layout for alternate sized icons */
 .item {
   /* Small Tile Specific Themes */
@@ -333,6 +451,7 @@ export default {
     align-items: center;
     height: 2rem;
     padding-top: 4px;
+    max-width: 14rem;
     div img, div svg.missing-image {
       width: 2rem;
     }
@@ -340,7 +459,8 @@ export default {
       height: fit-content;
       min-height: 1.2rem;
       text-align: left;
-      max-width:140px;
+      max-width: 12rem;
+      overflow: hidden;
       span.text {
         text-align: left;
         padding-left: 10%;
@@ -392,11 +512,13 @@ export default {
         width: 100%;
       }
       p.description {
-        display: block;
         margin: 0;
+        display: block;
         white-space: pre-wrap;
-        font-size: .9em;
         text-overflow: ellipsis;
+        font-size: .9em;
+        line-height: 1rem;
+        height: 2rem;
       }
     }
   }
@@ -410,13 +532,18 @@ export default {
   }
 }
 
+/* Adjust positioning of status indicator, when in edit mode */
+a.item.is-edit-mode {
+  &.size-medium .status-indicator { top: 1rem; }
+  &.size-small .status-indicator { right: 1rem; }
+  &.size-large .status-indicator { top: 1.5rem; }
+}
+
 </style>
 
 <!-- An un-scoped style tag, since tooltip is outside this DOM tree -->
 <style lang="scss">
-
 .disabled-link {
   pointer-events: none;
 }
-
 </style>

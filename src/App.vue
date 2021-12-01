@@ -1,5 +1,6 @@
 <template>
   <div id="dashy">
+    <EditModeTopBanner v-if="isEditMode" />
     <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash" />
     <Header :pageInfo="pageInfo" />
     <router-view />
@@ -10,11 +11,11 @@
 
 import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
+import EditModeTopBanner from '@/components/InteractiveEditor/EditModeTopBanner.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
-import { componentVisibility } from '@/utils/ConfigHelpers';
-import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { welcomeMsg } from '@/utils/CoolConsole';
 import ErrorHandler from '@/utils/ErrorHandler';
+import Keys from '@/utils/StoreMutations';
 import {
   localStorageKeys,
   splashScreenTime,
@@ -22,28 +23,17 @@ import {
   language as defaultLanguage,
 } from '@/utils/defaults';
 
-const Accumulator = new ConfigAccumulator();
-const config = Accumulator.config();
-const visibleComponents = componentVisibility(config.appConfig) || defaultVisibleComponents;
-
 export default {
   name: 'app',
   components: {
     Header,
     Footer,
     LoadingScreen,
-  },
-  provide: {
-    config,
-    visibleComponents,
+    EditModeTopBanner,
   },
   data() {
     return {
       isLoading: true, // Set to false after mount complete
-      showFooter: visibleComponents.footer,
-      appConfig: Accumulator.appConfig(),
-      pageInfo: Accumulator.pageInfo(),
-      visibleComponents,
     };
   },
   computed: {
@@ -53,9 +43,29 @@ export default {
     },
     /* Determine if splash screen should be shown */
     shouldShowSplash() {
-      return (this.visibleComponents || defaultVisibleComponents).splashScreen
-      || !localStorage[localStorageKeys.HIDE_WELCOME_BANNER];
+      return (this.visibleComponents || defaultVisibleComponents).splashScreen;
     },
+    config() {
+      return this.$store.state.config;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
+    sections() {
+      return this.$store.getters.pageInfo;
+    },
+    visibleComponents() {
+      return this.$store.getters.visibleComponents;
+    },
+    isEditMode() {
+      return this.$store.state.editMode;
+    },
+  },
+  created() {
+    this.$store.dispatch(Keys.INITIALIZE_CONFIG);
   },
   methods: {
     /* Injects the users custom CSS as a style tag */
@@ -104,8 +114,13 @@ export default {
     /* Fetch or detect users language, then apply it */
     applyLanguage() {
       const language = this.getLanguage();
+      this.$store.commit(Keys.SET_LANGUAGE, language);
       this.$i18n.locale = language;
       document.getElementsByTagName('html')[0].setAttribute('lang', language);
+    },
+    hideLoader() {
+      const loader = document.getElementById('loader');
+      if (loader) loader.style.display = 'none';
     },
   },
   /* When component mounted, hide splash and initiate the injection of custom styles */
@@ -115,6 +130,7 @@ export default {
     if (this.appConfig.customCss) {
       const cleanedCss = this.appConfig.customCss.replace(/<\/?[^>]+(>|$)/g, '');
       this.injectCustomStyles(cleanedCss);
+      this.hideLoader();
     }
     welcomeMsg();
   },

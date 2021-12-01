@@ -1,46 +1,30 @@
 <template>
-  <modal :name="modalName" :resizable="true" width="60%" height="60%" classes="dashy-modal">
+  <modal :name="modalName" :resizable="true" width="55%" height="80%" classes="dashy-modal">
     <div class="about-modal">
       <router-link to="/about" class="title"><h2>App Info</h2></router-link>
-      <!-- App Version -->
-      <h3>Version</h3>
-      <AppVersion class="app-version" />
       <!-- Error Log -->
       <h3>Error Log</h3>
       <pre v-if="errorLog" class="logs"><code>{{ errorLog }}</code></pre>
       <p v-else>No recent errors detected :)</p>
-      <!-- Service Worker Status -->
-      <h3>Service Worker Status</h3>
-      <pre class="logs"><code>{{ serviceWorkerInfo }}</code></pre>
-      <!-- Config Validation Status -->
-      <h3>Config Validation Status</h3>
-      <pre class="logs"><code>{{getIsConfigValidStatus()}}</code></pre>
       <hr />
       <!-- Help Links -->
       <h3>Help & Support</h3>
-      <ul>
-        <li><a href="https://github.com/Lissy93/dashy/discussions">Get Support</a></li>
-        <li><a href="https://github.com/Lissy93/dashy/issues/new/choose">Report a Bug</a></li>
-      </ul>
-      <span class="small-note">Please include the following info in your bug report: </span>
-      <a class="info" @click="showInfo = !showInfo">{{ showInfo ? 'Hide' : 'Show'}} system info</a>
-      <div class="system-info" v-if="showInfo">
-        <h4>System Info</h4>
-        <code><b>Dashy Version:</b> V {{appVersion}}</code><br>
-        <code><b>Browser:</b> {{systemInfo.browser}}</code><br>
-        <code><b>Is Mobile?</b> {{systemInfo.isMobile ? 'Yes' : 'No'}}</code><br>
-        <code><b>OS:</b> {{systemInfo.os}}</code><br>
-      </div>
-      <!-- About App -->
-      <h3>About</h3>
-      <p class="about-text">
-        Source: <a href="https://github.com/lissy93/dashy">github.com/lissy93/dashy</a><br>
-        Documentation: <a href="https://dashy.to/docs">dashy.to/docs</a>
-      </p>
+      For getting support with running or configuring Dashy, see the <a href="https://github.com/Lissy93/dashy/discussions">Discussions</a>
+      <h3>Supporting Dashy</h3>
+      For ways that you can get involved, check out the <a href="https://github.com/Lissy93/dashy/blob/master/docs/contributing.md">Contributing</a> page.
+      <h3>Report a Bug</h3>
+      If you think you've found a bug, then please <a href="https://github.com/Lissy93/dashy/issues/new/choose">raise an Issue</a>.
+      <h3>More Info</h3>
+      Source: <a href="https://github.com/lissy93/dashy">github.com/lissy93/dashy</a><br>
+      Documentation: <a href="https://dashy.to/docs">dashy.to/docs</a>
       <!-- License -->
       <h3>License</h3>
-      <p>Licensed under MIT X11. Copyright © 2021</p>
-      <br><br>
+      Licensed under MIT X11. Copyright <a href="https://aliciasykes.com">Alicia Sykes</a> © 2021.<br>
+      For licenses for third-party modules, please see <a href="https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md">Legal</a>.<br>
+      For the full list of contributors and thanks, see <a href="https://github.com/Lissy93/dashy/blob/master/docs/credits.md">Credits</a>.
+      <!-- App Version -->
+      <h3>Version</h3>
+      <AppVersion class="app-version" />
     </div>
   </modal>
 </template>
@@ -58,70 +42,12 @@ export default {
     return {
       modalName: modalNames.ABOUT_APP,
       appVersion: process.env.VUE_APP_VERSION,
-      systemInfo: this.getSystemInfo(),
       errorLog: this.getErrorLog(),
-      serviceWorkerInfo: 'Checking...',
-      showInfo: false,
     };
-  },
-  mounted() {
-    setTimeout(() => {
-      this.serviceWorkerInfo = this.getSwStatus();
-    }, 100);
   },
   methods: {
     getErrorLog() {
       return sessionStorage.getItem(sessionStorageKeys.ERROR_LOG) || '';
-    },
-    getIsConfigValidStatus() {
-      const isValidVar = process.env.VUE_APP_CONFIG_VALID;
-      if (isValidVar === undefined) return 'Config validation status is missing';
-      return `Config is ${isValidVar ? 'Valid' : 'Invalid'}`;
-    },
-    getSwStatus() {
-      const sessionData = sessionStorage[sessionStorageKeys.SW_STATUS];
-      const swInfo = sessionData ? JSON.parse(sessionData) : {};
-      let swStatus = '';
-      if (swInfo.registered) swStatus += 'Service worker registered\n';
-      if (swInfo.ready) swStatus += 'Dashy is being served from service worker\n';
-      if (swInfo.cached) swStatus += 'Content has been cached for offline use\n';
-      if (swInfo.updateFound) swStatus += 'New content is downloading\n';
-      if (swInfo.updated) swStatus += 'New content is available; please refresh\n';
-      if (swInfo.offline) swStatus += 'No internet connection found. App is running in offline mode\n';
-      if (swInfo.error) swStatus += 'Error during service worker registration\n';
-      if (swInfo.devMode) swStatus += 'App running in dev mode, no need for service worker\n';
-      if (swStatus.length === 0) swStatus += 'No service worker info available';
-      return swStatus;
-    },
-    getSystemInfo() {
-      const { userAgent } = navigator;
-
-      // Find Operating System
-      let os = 'Unknown';
-      if (userAgent.indexOf('Win') !== -1) os = 'Windows';
-      else if (userAgent.indexOf('Mac') !== -1) os = 'MacOS';
-      else if (userAgent.indexOf('Android') !== -1) os = 'Android';
-      else if (userAgent.indexOf('iPhone') !== -1) os = 'iOS';
-      else if (userAgent.indexOf('Linux') !== -1) os = 'Linux';
-      else if (userAgent.indexOf('X11') !== -1) os = 'UNIX';
-
-      // Find Browser
-      let browser = 'Unknown';
-      if (userAgent.indexOf('Opera') !== -1) browser = 'Opera';
-      else if (userAgent.indexOf('Chrome') !== -1) browser = 'Chrome';
-      else if (userAgent.indexOf('Safari') !== -1) browser = 'Safari';
-      else if (userAgent.indexOf('Firefox') !== -1) browser = 'Firefox';
-      else if (userAgent.indexOf('MSIE') !== -1) browser = 'IE';
-      else browser = 'Unknown';
-
-      const isMobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
-
-      return {
-        os,
-        browser,
-        userAgent,
-        isMobile,
-      };
     },
   },
 };
@@ -152,39 +78,16 @@ div.about-modal {
     }
   }
   h3 {
-    font-size: 1.3rem;
-    margin: 1rem 0 0.2rem 0;
+    font-size: 1.2rem;
+    margin: 0.75rem 0 0.2rem 0;
     color: var(--about-page-accent);
-  }
-  p.small-note {
-    margin: 0.2rem 0;
-  }
-  p.about-text {
-    margin: 0.2rem 0;
   }
   a {
     color: var(--about-page-accent);
   }
-  ul {
-    margin-top: 0.2rem;
-  }
   a.info {
     text-decoration: underline;
     margin-left: 0.2rem;
-  }
-  .system-info {
-    font-size: 0.8rem;
-    background: var(--black);
-    color: var(--white);
-    border-radius: var(--curve-factor-small);
-    padding: 0.5rem;
-    border: 1px solid var(--white);
-    width: fit-content;
-    h4 {
-      font-size: 0.8rem;
-      margin: 0 0 0.2rem 0;
-      text-decoration: underline;
-    }
   }
   .app-version {
     text-align: left;
@@ -202,4 +105,15 @@ div.about-modal {
   }
 }
 
+</style>
+
+<style lang="scss">
+div.about-modal {
+  .app-version {
+    text-align: left;
+    display: flex;
+    align-items: self-end;
+    p { margin: 0; }
+  }
+}
 </style>

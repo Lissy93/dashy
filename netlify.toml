@@ -4,7 +4,7 @@
 
 # Essential site config
 [build]
-	base = "/"
+  base = "/"
   command = "yarn build"
   publish = "dist"
   functions = "services/serverless-functions"
@@ -27,10 +27,16 @@
   to = "/.netlify/functions/not-supported"
   status = 301
   force = true
+  
+# For router history mode, ensure pages land on index
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
 # Set any security headers here
 [[headers]]
   for = "/*"
-	[headers.values]
+  [headers.values]
   # Uncomment to enable Netlify user control. You must have a paid plan.
   # Basic-Auth = "someuser:somepassword anotheruser:anotherpassword"

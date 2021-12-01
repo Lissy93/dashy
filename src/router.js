@@ -7,20 +7,19 @@
 // Import Vue.js and vue router
 import Vue from 'vue';
 import Router from 'vue-router';
+import ProgressBar from 'rsup-progress';
 
-// Import views
+// Import views, that are not lazy-loaded
 import Home from '@/views/Home.vue';
-import Login from '@/views/Login.vue';
-import Workspace from '@/views/Workspace.vue';
-import Minimal from '@/views/Minimal.vue';
-import DownloadConfig from '@/views/DownloadConfig.vue';
+import ConfigAccumulator from '@/utils/ConfigAccumalator';
 
 // Import helper functions, config data and defaults
 import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/Auth';
-import { config } from '@/utils/ConfigHelpers';
 import { metaTagData, startingView, routePaths } from '@/utils/defaults';
+import ErrorHandler from '@/utils/ErrorHandler';
 
 Vue.use(Router);
+const progress = new ProgressBar({ color: 'var(--progress-bar)' });
 
 /* Returns true if user is already authenticated, or if auth is not enabled */
 const isAuthenticated = () => {
@@ -30,8 +29,18 @@ const isAuthenticated = () => {
   return (!authEnabled || userLoggedIn || guestEnabled);
 };
 
+const getConfig = () => {
+  const Accumulator = new ConfigAccumulator();
+  return {
+    appConfig: Accumulator.appConfig(),
+    pageInfo: Accumulator.pageInfo(),
+  };
+};
+
+const { appConfig, pageInfo } = getConfig();
+
 /* Get the users chosen starting view from app config, or return default */
-const getStartingView = () => config.appConfig.startingView || startingView;
+const getStartingView = () => appConfig.startingView || startingView;
 
 /**
  * Returns the component that should be rendered at the base path,
@@ -40,57 +49,59 @@ const getStartingView = () => config.appConfig.startingView || startingView;
 const getStartingComponent = () => {
   const usersPreference = getStartingView();
   switch (usersPreference) {
-    case 'default': return Home;
-    case 'minimal': return Minimal;
-    case 'workspace': return Workspace;
+    case 'minimal': return () => import('./views/Minimal.vue');
+    case 'workspace': return () => import('./views/Workspace.vue');
     default: return Home;
   }
 };
 
 /* Returns the meta tags for each route */
 const makeMetaTags = (defaultTitle) => ({
-  title: config.pageInfo.title || defaultTitle,
+  title: pageInfo.title || defaultTitle,
   metaTags: metaTagData,
 });
 
+/* Routing mode, can be either 'hash', 'history' or 'abstract' */
+const mode = appConfig.routingMode || 'history';
+
 /* List of all routes, props, components and metadata */
 const router = new Router({
+  mode,
   routes: [
     { // The default view can be customized by the user
       path: '/',
       name: `landing-page-${getStartingView()}`,
       component: getStartingComponent(),
-      props: config,
       meta: makeMetaTags('Home Page'),
     },
     { // Default home page
       path: routePaths.home,
       name: 'home',
       component: Home,
-      props: config,
+      meta: makeMetaTags('Home Page'),
+    },
+    { // View only single section
+      path: `${routePaths.home}/:section`,
+      name: 'home-section',
+      component: Home,
       meta: makeMetaTags('Home Page'),
     },
     { // Workspace view page
       path: routePaths.workspace,
       name: 'workspace',
-      component: Workspace,
-      props: config,
+      component: () => import('./views/Workspace.vue'),
       meta: makeMetaTags('Workspace'),
     },
     { // Minimal view page
       path: routePaths.minimal,
       name: 'minimal',
-      component: Minimal,
-      props: config,
+      component: () => import('./views/Minimal.vue'),
       meta: makeMetaTags('Start Page'),
     },
     { // The login page
       path: routePaths.login,
       name: 'login',
-      component: Login,
-      props: {
-        appConfig: config.appConfig,
-      },
+      component: () => import('./views/Login.vue'),
       beforeEnter: (to, from, next) => {
         // If the user already logged in + guest mode not enabled, then redirect home
         if (isAuthenticated() && !isGuestAccessEnabled()) router.push({ path: '/' });
@@ -100,15 +111,30 @@ const router = new Router({
     { // The about app page
       path: routePaths.about,
       name: 'about', // We lazy load the About page so as to not slow down the app
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: () => import('./views/About.vue'),
       meta: makeMetaTags('About Dashy'),
     },
     { // The export config page
       path: routePaths.download,
       name: 'download',
-      component: DownloadConfig,
-      props: config,
+      component: () => import('./views/DownloadConfig.vue'),
       meta: makeMetaTags('Download Config'),
+    },
+    { // Page not found, any non-defined routes will land here
+      path: routePaths.notFound,
+      name: '404',
+      component: () => import('./views/404.vue'),
+      meta: makeMetaTags('404 Not Found'),
+      beforeEnter: (to, from, next) => {
+        if (to.redirectedFrom) { // Log error, if redirected here from another route
+          ErrorHandler(`Route not found: '${to.redirectedFrom}'`);
+        }
+        next();
+      },
+    },
+    { // Redirect any not-found routed to the 404 view
+      path: '*',
+      redirect: '/404',
     },
   ],
 });
@@ -119,12 +145,14 @@ const router = new Router({
  * If not logged in, prevent all access and redirect them to login page
  * */
 router.beforeEach((to, from, next) => {
+  progress.start();
   if (to.name !== 'login' && !isAuthenticated()) next({ name: 'login' });
   else next();
 });
 
 /* If title is missing, then apply default page title */
 router.afterEach((to) => {
+  progress.end();
   Vue.nextTick(() => {
     document.title = to.meta.title || 'Dashy';
   });

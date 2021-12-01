@@ -2,45 +2,51 @@
   <div :class="`theme-configurator-wrapper ${showingAllVars ? 'showing-all' : ''}`">
     <h3 class="configurator-title">{{ $t('theme-maker.title') }}</h3>
     <div class="color-row-container">
-    <div class="color-row" v-for="colorName in Object.keys(customColors)" :key="colorName">
-      <label :for="`color-input-${colorName}`" class="color-name">
-        {{colorName.replaceAll('-', ' ')}}
-      </label>
-      <v-swatches
-        v-if="isColor(colorName, customColors[colorName])"
-        v-model="customColors[colorName]"
-        show-fallback
-        fallback-input-type="color"
-        popover-x="left"
-        :swatches="swatches"
-        @input="setVariable(colorName, customColors[colorName])"
-      >
-      <input
-        :id="`color-input-${colorName}`"
-        slot="trigger"
-        :value="customColors[colorName]"
-        class="swatch-input form__input__element"
-        readonly
-        :style="makeSwatchStyles(colorName)"
-      />
-      </v-swatches>
-      <input v-else
-        :id="`color-input-${colorName}`"
-        :value="customColors[colorName]"
-        class="misc-input"
-        @input="setVariable(colorName, customColors[colorName])"
-      />
-    </div> <!-- End of color list -->
+      <!-- Show color swatch input for each color -->
+      <div class="color-row" v-for="colorName in Object.keys(customColors)" :key="colorName">
+        <label :for="`color-input-${colorName}`" class="color-name">
+          {{colorName.replaceAll('-', ' ')}}
+        </label>
+        <v-swatches
+          v-if="isColor(colorName, customColors[colorName])"
+          v-model="customColors[colorName]"
+          show-fallback
+          fallback-input-type="color"
+          popover-x="left"
+          :swatches="swatches"
+          @input="setVariable(colorName, customColors[colorName])"
+        >
+          <input
+            :id="`color-input-${colorName}`"
+            slot="trigger"
+            :value="customColors[colorName]"
+            class="swatch-input form__input__element"
+            readonly
+            :style="makeSwatchStyles(colorName)"
+          />
+        </v-swatches>
+        <input v-else
+          :id="`color-input-${colorName}`"
+          v-model="customColors[colorName]"
+          :class="`misc-input ${isTextual(colorName, customColors[colorName]) ? 'long-input' : ''}`"
+          @input="setVariable(colorName, customColors[colorName])"
+        />
+      </div> <!-- End of color list -->
     </div>
+    <!-- More options: Export, Reset, Show all -->
+    <p @click="showFontVariables" class="action-text-btn show-all-vars-btn">
+        {{ $t('theme-maker.change-fonts-button') }}
+    </p>
+    <p @click="findAllVariableNames" class="action-text-btn show-all-vars-btn">
+       {{ $t('theme-maker.show-all-button') }}
+    </p>
     <p @click="exportToClipboard" class="action-text-btn">
       {{ $t('theme-maker.export-button') }}
     </p>
-    <p @click="resetAndSave" class="action-text-btn show-all-vars-btn">
+    <p @click="resetAndSave" class="action-text-btn">
        {{ $t('theme-maker.reset-button') }} '{{ themeToEdit }}'
     </p>
-    <p @click="findAllVariableNames" class="action-text-btn">
-       {{ $t('theme-maker.show-all-button') }}
-    </p>
+    <!-- Save and cancel buttons -->
     <div class="action-buttons">
       <Button :click="saveChanges">
         <SaveIcon /> {{ $t('theme-maker.save-button') }}
@@ -55,8 +61,8 @@
 <script>
 import VSwatches from 'vue-swatches';
 import 'vue-swatches/dist/vue-swatches.css';
+import StoreKeys from '@/utils/StoreMutations';
 import { localStorageKeys, mainCssVars, swatches } from '@/utils/defaults';
-
 import Button from '@/components/FormElements/Button';
 import SaveIcon from '@/assets/interface-icons/save-config.svg';
 import CancelIcon from '@/assets/interface-icons/config-cancel.svg';
@@ -88,11 +94,12 @@ export default {
     setVariable(variable, value) {
       document.documentElement.style.setProperty(`--${variable}`, value);
     },
-    /* Saves the users omdified variables in local storage */
+    /* Updates browser storage, and srore with new color settings, and shows success msg */
     saveChanges() {
       const priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
       priorSettings[this.themeToEdit] = this.customColors;
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
+      this.$store.commit(StoreKeys.SET_CUSTOM_COLORS, priorSettings);
       this.$toasted.show(this.$t('theme-maker.saved-toast', { theme: this.themeToEdit }));
       this.$emit('closeThemeConfigurator');
     },
@@ -134,6 +141,13 @@ export default {
       });
       return data;
     },
+    /* Adds font variables to list */
+    showFontVariables() {
+      const currentVariables = this.customColors;
+      const fonts = ['font-headings', 'font-body', 'font-monospace'];
+      const fontVariables = this.makeInitialData(fonts);
+      this.customColors = { ...currentVariables, ...fontVariables };
+    },
     /* Find all available CSS variables for the current applied theme */
     findAllVariableNames() {
       const availableVariables = Array.from(document.styleSheets)
@@ -142,7 +156,7 @@ export default {
           ((acc, sheet) => ([
             ...acc,
             ...Array.from(sheet.cssRules).reduce(
-              (def, rule) => (rule.selectorText === ':root'
+              (def, rule) => (rule.selectorText === ':root' || rule.selectorText === 'html'
                 ? [...def, ...Array.from(rule.style).filter(name => name.startsWith('--'))] : def),
               [],
             ),
@@ -155,13 +169,25 @@ export default {
     /* Returns a complmenting text color for the palete input foreground */
     /* White if the color is dark, otherwise black */
     getForegroundColor(colorHex) {
+      /* Converts a 3-digit hex code to a 6-digit hex code (e.g. #f01 --> #ff0011) */
+      const threeToSix = (hex) => {
+        let digit = hex;
+        digit = digit.split('').map((item) => (item === '#' ? item : item + item)).join('');
+        return digit;
+      };
+      /* Converts hex code to RGB (e.g. #ff0011 --> rgb(255,0,0) ) */
       const hexToRgb = (hex) => {
-        const colorParts = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        let hexCode = hex.slice(0, 7);
+        if (hex.startsWith('#') && hex.length === 4) hexCode = threeToSix(hexCode);
+        const colorParts = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexCode);
         if (!colorParts || colorParts.length < 3) return 'black';
         const parse = (index) => parseInt(colorParts[index], 16);
         return colorParts ? { r: parse(1), g: parse(2), b: parse(3) } : null;
       };
+      /* Given an RGB value, return the lightness ratio */
       const getLightness = (rgb) => (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+      if (!colorHex.startsWith('#')) return 'white'; // Not a hex, do nothing
+      // Convert hex to RGB obj, get lightness, and return opposing color
       return getLightness(hexToRgb(colorHex.trim())) < 100 ? 'white' : 'black';
     },
     /* The contents of the style attribute, to set background and text color of swatch */
@@ -175,6 +201,7 @@ export default {
       // If value is a dimension, then it aint a color
       if ((/rem|px|%/.exec(variableValue))) return false;
       const nonColorVariables = [ // Known non-color variables
+        '--font-headings', '--font-body', '--font-monospace',
         '--curve-factor', '--curve-factor-navbar', '--curve-factor-small',
         '--dimming-factor', '--scroll-bar-width', '--header-height', '--footer-height',
         '--item-group-padding', '--item-shadow', '--item-hover-shadow:', '--item-icon-transform',
@@ -184,6 +211,10 @@ export default {
       // If the variable name is known to not be a color (in above list)
       if (nonColorVariables.includes(`--${variableName}`)) return false;
       return true; // It must be a color, we'll use the color picker
+    },
+    /* Determine if a given key is that of a known font variable, or has a long value */
+    isTextual(varName, varValue) {
+      return varName.startsWith('font-') || (varValue && varValue.length > 12);
     },
   },
 };
@@ -198,7 +229,7 @@ div.theme-configurator-wrapper {
   right: 1rem;
   width: 16rem;
   min-height: 12rem;
-  max-height: 28rem;
+  max-height: 32rem;
   padding: 0.5rem;
   z-index: 5;
   overflow-y: visible;
@@ -214,7 +245,7 @@ div.theme-configurator-wrapper {
   }
 
   div.color-row-container {
-    max-height: 16rem;
+    max-height: 20rem;
     overflow-y: visible;
     @extend .scroll-bar;
     div.color-row {
@@ -245,6 +276,15 @@ div.theme-configurator-wrapper {
     &:active {
       box-shadow: inset 0 0 4px 4px #00000080;
       outline: none;
+    }
+    &.long-input {
+      cursor: text;
+      font-style: italic;
+      font-weight: 200;
+      padding: 0.5rem 0.2rem;
+      font-size: 0.75rem;
+      width: 9rem;
+      &:hover { box-shadow: none; }
     }
   }
 }

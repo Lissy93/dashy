@@ -12,11 +12,11 @@ import Icon from '@/components/LinkItems/ItemIcon.vue';
 
 export default {
   name: 'SideBarItem',
-  inject: ['config'],
   props: {
     icon: String,
     title: String,
     url: String,
+    target: String,
     click: Function,
   },
   components: {
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     itemClicked() {
-      if (this.url) this.$emit('launch-app', this.url);
+      if (this.url) this.$emit('launch-app', { url: this.url, target: this.target });
     },
   },
   data() {

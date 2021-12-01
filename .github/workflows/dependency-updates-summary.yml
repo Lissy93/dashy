@@ -11,7 +11,7 @@ jobs:
       - name: Yarn Lock Changes
         uses: Simek/yarn-lock-changes@main
         with:
-          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           collapsibleThreshold: '25'
           failOnDowngrade: 'false'
           path: 'yarn.lock'

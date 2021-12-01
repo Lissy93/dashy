@@ -38,7 +38,7 @@
     "edit-config-tab": "Edit Config",
     "custom-css-tab": "Custom Styles",
     "heading": "Configuration Options",
-    "download-config-button": "Download Config",
+    "download-config-button": "View / Export Config",
     "edit-config-button": "Edit Config",
     "edit-css-button": "Edit Custom CSS",
     "cloud-sync-button": "Enable Cloud Sync",
@@ -102,6 +102,7 @@
     "export-button": "Export Custom Variables",
     "reset-button": "Reset Styles for",
     "show-all-button": "Show All Variables",
+    "change-fonts-button": "Change Fonts",
     "save-button": "Save",
     "cancel-button": "Cancel",
     "saved-toast": "{theme} Updated Successfully",
@@ -113,6 +114,7 @@
     "location-local-label": "Apply Locally",
     "location-disk-label": "Write Changes to Config File",
     "save-button": "Save Changes",
+    "preview-button": "Preview Changes",
     "valid-label": "Config is Valid",
     "status-success-msg": "Task Complete",
     "status-fail-msg": "Task Failed",
@@ -165,9 +167,82 @@
     "restore-success-msg": "Config Restored Successfully"
   },
   "menu": {
-    "sametab": "Open in Current Tab",
-    "newtab": "Open in New Tab",
-    "modal": "Open in Pop-Up Modal",
-    "workspace": "Open in Workspace View"
+    "open-section-title": "Open In",
+    "sametab": "Current Tab",
+    "newtab": "New Tab",
+    "modal": "Pop-Up Modal",
+    "workspace": "Workspace View",
+    "options-section-title": "Options",
+    "edit-item": "Edit",
+    "move-item": "Copy or Move",
+    "remove-item": "Remove"
+  },
+  "context-menus": {
+    "item": {
+      "open-section-title": "Open In",
+      "sametab": "Current Tab",
+      "newtab": "New Tab",
+      "modal": "Pop-Up Modal",
+      "workspace": "Workspace View",
+      "options-section-title": "Options",
+      "edit-item": "Edit",
+      "move-item": "Copy or Move",
+      "remove-item": "Remove"
+    },
+    "section": {
+      "open-section": "Open Section",
+      "edit-section": "Edit",
+      "move-section": "Move To",
+      "remove-section": "Remove"
+    }
+  },
+  "interactive-editor": {
+    "menu": {
+      "start-editing-tooltip": "Enter the Interactive Editor",
+      "edit-site-data-subheading": "Edit Site Data",
+      "edit-page-info-btn": "Edit Page Info",
+      "edit-page-info-tooltip": "App title, description, nav links, footer text, etc",
+      "edit-app-config-btn": "Edit App Config",
+      "edit-app-config-tooltip": "All other app configuration options",
+      "config-save-methods-subheading": "Config Saving Options",
+      "save-locally-btn": "Save Locally",
+      "save-locally-tooltip": "Save config locally, to browser storage. This will not affect your config file, but changes will only be saved on this device",
+      "save-disk-btn": "Save to Disk",
+      "save-disk-tooltip": "Save config to the conf.yml file on disk. This will backup, and then over-write your existing config",
+      "export-config-btn": "Export Config",
+      "export-config-tooltip": "View and export new config, either to a file, or to clipboard",
+      "cloud-backup-btn": "Backup to Cloud",
+      "cloud-backup-tooltip": "Save encrypted backup of configuration to cloud",
+      "edit-raw-config-btn": "Edit Raw Config",
+      "edit-raw-config-tooltip": "View and modify raw config via JSON editor",
+      "cancel-changes-btn": "Cancel Edit",
+      "cancel-changes-tooltip": "Reset current modifications, and exit Edit Mode. This will not affect your saved config",
+      "edit-mode-name": "Edit Mode",
+      "edit-mode-subtitle": "You are in Edit Mode",
+      "edit-mode-description": "This means you can make modifications to your config, and preview the results, but until you save, none of your changes will be preserved.",
+      "save-stage-btn": "Save",
+      "cancel-stage-btn": "Cancel"
+    },
+    "edit-section": {
+      "edit-section-title": "Edit Section",
+      "add-section-title": "Add New Section",
+      "edit-tooltip": "Click to Edit, or right-click for more options",
+      "remove-confirm": "Are you sure you want to remove this section? This action can be undone later."
+    },
+    "edit-app-config": {
+      "warning-msg-title": "Proceed with Caution",
+      "warning-msg-l1": "The following options are for advanced app configuration.",
+      "warning-msg-l2": "If you are unsure about any of the fields, please reference the",
+      "warning-msg-docs": "documentation",
+      "warning-msg-l3": "to avoid unintended consequences."
+    },
+    "export": {
+      "export-title": "Export Config",
+      "copy-clipboard-btn": "Copy to Clipboard",
+      "copy-clipboard-tooltip": "Copy all app config to system clipboard, in YAML format",
+      "download-file-btn": "Download as File",
+      "download-file-tooltip": "Download all app config to your device, in a YAML file",
+      "view-title": "View Config"
+    }
   }
 }

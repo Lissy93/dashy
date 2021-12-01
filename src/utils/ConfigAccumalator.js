@@ -11,9 +11,9 @@ import {
   pageInfo as defaultPageInfo,
   iconSize as defaultIconSize,
   layout as defaultLayout,
-  // language as defaultLanguage,
 } from '@/utils/defaults';
-
+import ErrorHandler from '@/utils/ErrorHandler';
+import { applyItemId } from '@/utils/MiscHelpers';
 import conf from '../../public/conf.yml';
 
 export default class ConfigAccumulator {
@@ -46,42 +46,36 @@ export default class ConfigAccumulator {
 
   /* Page Info */
   pageInfo() {
-    const defaults = defaultPageInfo;
-    let localPageInfo;
-    try {
-      localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]);
-    } catch (e) {
-      localPageInfo = {};
+    let localPageInfo = {};
+    if (localStorage[localStorageKeys.PAGE_INFO]) {
+      // eslint-disable-next-line brace-style
+      try { localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]); }
+      catch (e) { ErrorHandler('Malformed pageInfo data in local storage'); }
     }
-    let filePageInfo = {};
-    if (this.conf) {
-      filePageInfo = this.conf.pageInfo || {};
-    }
-    const pi = filePageInfo || defaults; // The page info object to return
-    pi.title = localPageInfo.title || filePageInfo.title || defaults.title;
-    pi.logo = localPageInfo.logo || filePageInfo.logo || defaults.logo;
-    pi.description = localPageInfo.description || filePageInfo.description || defaults.description;
-    pi.navLinks = localPageInfo.navLinks || filePageInfo.navLinks || defaults.navLinks;
-    pi.footerText = localPageInfo.footerText || filePageInfo.footerText || defaults.footerText;
-    return pi;
+    const filePageInfo = this.conf ? this.conf.pageInfo || {} : {};
+    return { ...defaultPageInfo, ...filePageInfo, ...localPageInfo };
   }
 
   /* Sections */
   sections() {
+    let sections = [];
     // If the user has stored sections in local storage, return those
     const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
     if (localSections) {
       try {
         const json = JSON.parse(localSections);
-        if (json.length >= 1) return json;
+        if (json.length >= 1) sections = json;
       } catch (e) {
-        // The data in local storage has been malformed, will return conf.sections instead
+        ErrorHandler('Malformed section data in local storage');
       }
     }
-    // If the function hasn't yet returned, then return the config file sections
-    let sectionsFile = [];
-    if (this.conf) sectionsFile = this.conf.sections || [];
-    return sectionsFile;
+    // If sections were not set from local data, then use config file instead
+    if (sections.length === 0) {
+      sections = this.conf ? this.conf.sections || [] : [];
+    }
+    // Apply a unique ID to each item
+    sections = applyItemId(sections);
+    return sections;
   }
 
   /* Complete config */

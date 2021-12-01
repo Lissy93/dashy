@@ -1,6 +1,8 @@
 # Configuring
 
-All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format.
+All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format. Changes can also be made [directly through the UI](#editing-config-through-the-ui) and previewed live, from here you can also export, backup, reset, validate and download your configuration file.
+
+The following file provides a reference of all supported configuration options.
 
 ---
 
@@ -20,10 +22,11 @@ All app configuration is specified in [`/public/conf.yml`](https://github.com/Li
 	- [`items`](#sectionitem) - List of items
 		- [`icon`](#sectionicon-and-sectionitemicon) - Icon for an item
 - [**Notes**](#notes)
+  - [Editing Config through the UI](#editing-config-through-the-ui)
 	- [About YAML](#about-yaml)
 	- [Config Saving Methods](#config-saving-methods)
 	- [Preventing Changes](#preventing-changes-being-written-to-disk)
-	- [Example](#example)
+  - [Example](#example)
 
 ---
 
@@ -74,6 +77,7 @@ Tips:
 --- | --- | --- | ---
 **`language`** | `string` | _Optional_ | The 2 (or 4-digit) [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language, e.g. `en` or `en-GB`. This must be a language that the app has already been [translated](https://github.com/Lissy93/dashy/tree/master/src/assets/locales) into. If your language is unavailable, Dashy will fallback to English. By default Dashy will attempt to auto-detect your language, although this may not work on some privacy browsers.
 **`startingView`** | `enum` | _Optional_ | Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI. Can be either `default`, `minimal` or `workspace`. Defaults to `default`
+**`defaultOpeningMethod`** | `enum` | _Optional_ | The default opening method for items, if no `target` is specified for a given item. Can be either `newtab`, `sametab`, `top`, `parent`, `modal` or `workspace`. Defaults to `newtab`
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping each of your services and display their status as a dot next to each item. This can be overridden by setting `statusCheck` under each item. Defaults to `false`
 **`statusCheckInterval`** | `boolean` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
 **`webSearch`** | `object` | _Optional_ | Configuration options for the web search feature, set your default search engine, opening method or disable web search. See [`webSearch`](#appconfigwebsearch-optional)
@@ -82,15 +86,18 @@ Tips:
 **`fontAwesomeKey`** | `string` | _Optional_ | If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
 **`faviconApi`** | `enum` | _Optional_ | Only applicable if you are using favicons for item icons. Specifies which service to use to resolve favicons. Set to `local` to do this locally, without using an API. Services running locally will use this option always. Available options are: `local`, `faviconkit`, `google`, `clearbit`, `webmasterapi` and `allesedv`. Defaults to `faviconkit`. See [Icons](/docs/icons.md#favicons) for more info
 **`auth`** | `object` | _Optional_ | All settings relating to user authentication. See [`auth`](#appconfigauth-optional)
-**`layout`** | `enum` | _Optional_ | App layout, either `horizontal`, `vertical`, `auto` or `sidebar`. Defaults to `auto`. This specifies the layout and direction of how sections are positioned on the home screen. This can also be modified from the UI.
+**`layout`** | `enum` | _Optional_ | Layout for homepage, either `horizontal`, `vertical` or `auto`. Defaults to `auto`. This specifies the layout and direction of how sections are positioned on the home screen. This can also be modified and overridden from the UI.
 **`iconSize`** | `enum` | _Optional_ | The size of link items / icons. Can be either `small`, `medium,` or `large`. Defaults to `medium`. This can also be set directly from the UI.
+**`colCount`** | `number` | _Optional_ | The number of columns of sections displayed on the homepage, using the default view. Should be in integer between `1` and `8`. Note that by default this is applied responsively, based on current screen size, and specifying a value here will override this behavior, which may not be desirable.
 **`theme`** | `string` | _Optional_ | The default theme for first load (you can change this later from the UI)
 **`cssThemes`** | `string[]` | _Optional_ | An array of custom theme names which can be used in the theme switcher dropdown
 **`customColors`** | `object`| _Optional_ | Enables you to apply a custom color palette to any given theme. Use the theme name (lowercase) as the key, for an object including key-value-pairs, with the color variable name as keys, and 6-digit hex code as value. See [Theming](/docs/theming.md#modifying-theme-colors) for more info
 **`externalStyleSheet`** | `string`  or `string[]` | _Optional_ | Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
 **`customCss`** | `string` | _Optional_ | Raw CSS that will be applied to the page. This can also be set from the UI. Please minify it first.
 **`hideComponents`** | `object` | _Optional_ | A list of key page components (header, footer, search, settings, etc) that are present by default, but can be removed using this option. See [`appConfig.hideComponents`](#appconfighideComponents-optional)
+**`routingMode`** | `string` | _Optional_ | Can be either `hash` or `history`. Determines the URL format for sub-pages, hash mode will look like `/#/home` whereas with history mode available you have nice clean URLs, like `/home`. For more info, see the [Vue docs](https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations). If you're hosting Dashy with a custom BASE_URL, you will find that a bit of extra server config is necessary to get history mode working, so here you may want to instead use `hash` mode.Defaults to `history`.
 **`enableMultiTasking`** | `boolean` | _Optional_ | If set to true, will keep apps open in the background when in the workspace view. Useful for quickly switching between multiple sites, and preserving their state, but comes at the cost of performance.
+**`workspaceLandingUrl`** | `string` | _Optional_ | The URL or an app, service or website to launch when the workspace view is opened, before another service has been launched
 **`allowConfigEdit`** | `boolean` | _Optional_ | Should prevent / allow the user to write configuration changes to the conf.yml from the UI. When set to `false`, the user can only apply changes locally using the config editor within the app, whereas if set to `true` then changes can be written to disk directly through the UI. Defaults to `true`. Note that if authentication is enabled, the user must be of type `admin` in order to apply changes globally.
 **`enableErrorReporting`** | `boolean` | _Optional_ | Enable reporting of unexpected errors and crashes. This is off by default, and **no data will ever be captured unless you explicitly enable it**. Turning on error reporting helps previously unknown bugs get discovered and fixed. Dashy uses [Sentry](https://github.com/getsentry/sentry) for error reporting. Defaults to `false`.
 **`sentryDsn`** | `boolean` | _Optional_ | If you need to monitor errors in your instance, then you can use Sentry to collect and process bug reports. Sentry can be self-hosted, or used as SaaS, once your instance is setup, then all you need to do is pass in the DSN here, and enable error reporting. You can learn more on the [Sentry DSN Docs](https://docs.sentry.io/product/sentry-basics/dsn-explainer/). Note that this will only ever be used if `enableErrorReporting` is explicitly enabled.
@@ -105,8 +112,8 @@ Tips:
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`users`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. See [`appConfig.auth.users`](#appconfigauthusers-optional). <br>**Note** this method of authentication is handled on the client side, so for security critical situations, it is recommended to use an [alternate authentication method](/docs/authentication.md#alternative-authentication-methods).
-**`enableKeycloak`** | `object` | _Optional_ | If set to `true`, then authentication using Keycloak will be anabled. Note that you need to have an instance running, and have also configured `auth.keycloak`. Defaults to `false`
-**`keycloak`** | `boolean` | _Optional_ | Config options to point Dashy to your Keycloak server. Requires `enableKeycloak: true`. See  [`auth.keycloak`](#appconfigauthkeycloak-optional) for more info
+**`enableKeycloak`** | `boolean` | _Optional_ | If set to `true`, then authentication using Keycloak will be anabled. Note that you need to have an instance running, and have also configured `auth.keycloak`. Defaults to `false`
+**`keycloak`** | `object` | _Optional_ | Config options to point Dashy to your Keycloak server. Requires `enableKeycloak: true`. See  [`auth.keycloak`](#appconfigauthkeycloak-optional) for more info
 **`enableGuestAccess`** | `boolean` | _Optional_ | When set to `true`, an unauthenticated user will be able to access the dashboard, with read-only access, without having to login. Requires `auth.users` to be configured. Defaults to `false`.
 
 For more info, see the **[Authentication Docs](/docs/authentication.md)**
@@ -178,7 +185,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`description`** | `string` | _Optional_ | Additional info about an item, which is shown in the tooltip on hover, or visible on large tiles
 **`url`** | `string` | Required | The URL / location of web address for when the item is clicked
 **`icon`** | `string` | _Optional_ | The icon for a given item. Can be a font-awesome icon, favicon, remote URL or local URL. See [`item.icon`](#sectionicon-and-sectionitemicon)
-**`target`** | `string` | _Optional_ | The opening method for when the item is clicked, either `newtab`, `sametab`, `modal` or `workspace`. Where `newtab` will open the link in a new tab, `sametab` will open it in the current tab, and `modal` will open a pop-up modal with the content displayed within that iframe. Note that for the iframe to load, you must have set the CORS headers to either allow `*` ot allow the domain that you are hosting Dashy on, for some websites and self-hosted services, this is already set.
+**`target`** | `string` | _Optional_ | The opening method for when the item is clicked, either `newtab`, `sametab`, `top`, `parent`, `modal` or `workspace`. Where `newtab` will open the link in a new tab, `sametab` will open it in the current tab, and `modal` will open a pop-up modal and `workspace` will open in the Workspace view. Defaults to `newtab`
 **`hotkey`** | `number` | _Optional_ | Give frequently opened applications a numeric hotkey, between `0 - 9`. You can then just press that key to launch that application.
 **`tags`** | `string[]` | _Optional_ | A list of tags, which can be used for improved search
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping the URL associated with the current service, and display its status as a dot next to the item. The value here will override `appConfig.statusCheck` so you can turn off or on checks for a given service. Defaults to `appConfig.statusCheck`, falls back to `false`
@@ -222,6 +229,22 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 ---
 
 ## Notes
+
+### Editing Config through the UI
+
+Config can be modified directly through the UI, and then written to disk, or applied locally. This can be done wither with the raw config editor (introduced in V 0.6.5 / [#3](https://github.com/Lissy93/dashy/pull/3)), or the interactive editor (introduced in V 1.8.9 / [#298](https://github.com/Lissy93/dashy/pull/298)).
+
+<p align="center">
+  <a href="https://ibb.co/CzkyMNb">
+    <b>Interactive Editor</b><br>
+    <img alt="Interactive Editor demo" src="https://user-images.githubusercontent.com/1862727/139543020-b0576d28-0830-476f-afc8-a815d4de6def.gif" width="600" />
+  </a>
+  <br>
+  <a href="https://ibb.co/zRv542H">
+  <b>Raw Editor</b><br>
+  <img alt="Config Editor demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/config-editor-demo.gif" width="600" />
+  </a>
+</p>
 
 ### About YAML
 If you're new to YAML, it's pretty straight-forward. The format is exactly the same as that of JSON, but instead of using curly braces, structure is denoted using whitespace. This [quick guide](https://linuxhandbook.com/yaml-basics/) should get you up to speed in a few minutes, for more advanced topics take a look at this [Wikipedia article](https://en.wikipedia.org/wiki/YAML).
