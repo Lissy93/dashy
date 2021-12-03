@@ -7,44 +7,18 @@
   </div>
   <!-- Weather description -->
   <p class="description">{{ description }}</p>
-  <!-- More temperature info -->
-  <div class="info-wrap temp">
-    <p class="info-line min">
-      <span class="lbl">Minimum</span>
-      <span class="val">{{ minTemp }}</span>
-    </p>
-    <p class="info-line min">
-      <span class="lbl">Maximum</span>
-      <span class="val">{{ maxTemp }}</span>
-    </p>
-    <p class="info-line feels">
-      <span class="lbl">Feels Like</span>
-      <span class="val">{{ feelsLike }}</span>
-    </p>
+  <div class="details" v-if="showDetails && weatherDetails.length > 0">
+    <div class="info-wrap" v-for="(section, indx) in weatherDetails" :key="indx">
+      <p class="info-line" v-for="weather in section" :key="weather.label">
+          <span class="lbl">{{weather.label}}</span>
+          <span class="val">{{ weather.value }}</span>
+        </p>
+    </div>
   </div>
-  <!-- More weather info -->
-  <div class="info-wrap conditions">
-    <p class="info-line wind">
-      <span class="lbl">Wind</span>
-      <span class="val">{{ wind }}</span>
-    </p>
-    <p class="info-line clouds">
-      <span class="lbl">Clouds</span>
-      <span class="val">{{ clouds }}</span>
-    </p>
-    <p class="info-line humidity">
-      <span class="lbl">Humidity</span>
-      <span class="val">{{ humidity }}</span>
-    </p>
-    <p class="info-line pressure">
-      <span class="lbl">Pressure</span>
-      <span class="val">{{ pressure }}</span>
-    </p>
-    <p class="info-line visibility">
-      <span class="lbl">Visibility</span>
-      <span class="val">{{ visibility }}</span>
-    </p>
-  </div>
+  <!-- Show/ hide toggle button -->
+  <p class="more-details-btn" @click="toggleDetails" v-if="weatherDetails.length > 0">
+    {{ showDetails ? 'Show Less' : ' Expand Details' }}
+  </p>
 </div>
 </template>
 
@@ -63,14 +37,8 @@ export default {
       icon: null,
       description: null,
       temp: null,
-      minTemp: null,
-      maxTemp: null,
-      feelsLike: null,
-      pressure: null,
-      visibility: null,
-      humidity: null,
-      wind: null,
-      clouds: null,
+      showDetails: false,
+      weatherDetails: [],
     };
   },
   computed: {
@@ -97,9 +65,11 @@ export default {
     },
   },
   methods: {
+    /* Adds units symbol to temperature, depending on metric or imperial */
     processTemp(temp) {
       return `${Math.round(temp)}${this.tempDisplayUnits}`;
     },
+    /* Fetches the weather from OpenWeatherMap, and processes results */
     fetchWeather() {
       axios.get(this.endpoint)
         .then((response) => {
@@ -107,19 +77,36 @@ export default {
           this.icon = data.weather[0].icon;
           this.description = data.weather[0].description;
           this.temp = this.processTemp(data.main.temp);
-          this.minTemp = this.processTemp(data.main.temp_min);
-          this.maxTemp = this.processTemp(data.main.temp_max);
-          this.feelsLike = this.processTemp(data.main.feels_like);
-          this.pressure = `${data.main.pressure}hPa`;
-          this.humidity = `${data.main.humidity}%`;
-          this.visibility = data.visibility;
-          this.wind = `${data.wind.speed}${this.speedDisplayUnits}`;
-          this.clouds = `${data.clouds.all}%`;
+          if (!this.options.hideDetails) {
+            this.makeWeatherData(data);
+          }
         })
         .catch(() => {
           this.throwError('Failed to fetch weather');
         });
     },
+    /* If showing additional info, then generate this data too */
+    makeWeatherData(data) {
+      this.weatherDetails = [
+        [
+          { label: 'Min Temp', value: this.processTemp(data.main.temp_min) },
+          { label: 'Max Temp', value: this.processTemp(data.main.temp_max) },
+          { label: 'Feels Like', value: this.processTemp(data.main.feels_like) },
+        ],
+        [
+          { label: 'Pressure', value: `${data.main.pressure}hPa` },
+          { label: 'Humidity', value: `${data.main.humidity}%` },
+          { label: 'visibility', value: data.visibility },
+          { label: 'wind', value: `${data.wind.speed}${this.speedDisplayUnits}` },
+          { label: 'clouds', value: `${data.clouds.all}%` },
+        ],
+      ];
+    },
+    /* Show/ hide additional weather info */
+    toggleDetails() {
+      this.showDetails = !this.showDetails;
+    },
+    /* Validate input props, and print warning if incorrect */
     checkProps() {
       const ops = this.options;
       let valid = true;
@@ -137,6 +124,7 @@ export default {
       }
       return valid;
     },
+    /* Just outputs an error message */
     throwError(error) {
       ErrorHandler(error);
       this.error = true;
@@ -153,9 +141,14 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/weather-icons.scss';
 
+  p {
+    color: var(--widget-text-color);
+  }
+
 .weather {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  // Weather symbol and temperature
   .intro {
     grid-column-start: span 2;
     display: flex;
@@ -170,29 +163,53 @@ export default {
       margin: 0;
     }
   }
+  // Weather description
   .description {
     grid-column-start: 2;
     text-transform: capitalize;
     text-align: center;
     margin: 0;
   }
-  .info-wrap {
-    display: flex;
-    flex-direction: column;
+  // Show more details button
+  .more-details-btn {
+    grid-column-start: span 2;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: center;
+    width: fit-content;
+    margin: 0.25rem auto;
+    padding: 0.1rem 0.25rem;
+    border: 1px solid transparent;
     opacity: var(--dimming-factor);
-    p.info-line {
-      display: flex;
-      justify-content: space-between;
-      margin: 0.1rem 0.5rem;
-      padding: 0.1rem 0;
-      color: var(--widget-text-color);
-      &:not(:last-child) {
-        border-bottom: 1px dashed var(--widget-text-color);
-      }
+    border-radius: var(--curve-factor);
+    &:hover {
+      border: 1px solid var(--widget-text-color);
+    }
+    &:focus, &:active {
+      background: var(--widget-text-color);
+      color: var(--widget-background-color);
     }
   }
-  p {
-      color: var(--widget-text-color);
+  // More weather details table
+  .details {
+    grid-column-start: span 2;
+    display: flex;
+    .info-wrap {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      opacity: var(--dimming-factor);
+      p.info-line {
+        display: flex;
+        justify-content: space-between;
+        margin: 0.1rem 0.5rem;
+        padding: 0.1rem 0;
+        color: var(--widget-text-color);
+        &:not(:last-child) {
+          border-bottom: 1px dashed var(--widget-text-color);
+        }
+      }
+    }
   }
 }
 
