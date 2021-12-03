@@ -33,6 +33,32 @@ A simple, live-updating time and date widget with time-zone support. All options
     hideDate: false
 ```
 
+### Weather
+
+A simple, live-updating local weather component, showing temperature, conditions and more info.
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | Your OpenWeatherMap API key. You can get one for free at [openweathermap.org](https://openweathermap.org/)
+**`city`** | `string` | Required | A city name to use for fetching weather. This can also be a state code or country code, following the ISO-3166 format
+**`units`** | `string` |  _Optional_ | The units to use for displaying data, can be either `metric` or `imperial`. Defaults to `metric`
+**`hideDetails`** | `boolean` |  _Optional_ | If set to `true`, the additional details (wind, humidity, pressure, etc) will not be shown. Defaults to `false`
+
+##### Example
+
+```yaml
+- name: Local Weather
+  icon: fas fa-clouds
+  type: weather
+  options:
+    apiKey: 6e29c7d514cf890f846d58178b6d418f
+    city: London
+    units: metric
+    hideDetails: false
+```
+
 ---
 
 ## Dynamic Widgets
