@@ -203,6 +203,10 @@ module.exports = {
     homeLabIcons: 'https://raw.githubusercontent.com/WalkxCode/dashboard-icons/master/png/{icon}.png',
     homeLabIconsFallback: 'https://raw.githubusercontent.com/NX211/homer-icons/master/png/{icon}.png',
   },
+  /* API endpoints for widgets that need to fetch external data */
+  widgetApiEndpoints: {
+    weather: 'https://api.openweathermap.org/data/2.5/weather',
+  },
   /* URLs for web search engines */
   searchEngineUrls: {
     // Common
