@@ -159,7 +159,7 @@ export default {
       const faviconApi = faviconIdentifier.split('favicon-')[1];
       if (!faviconApi) {
         errorMsg = 'Favicon API not specified';
-      } else if (!Object.keys(faviconApiEndpoints).includes(faviconApi)) {
+      } else if (!Object.keys(faviconApiEndpoints).includes(faviconApi) && faviconApi !== 'local') {
         errorMsg = `The specified favicon API, '${faviconApi}' cannot be found.`;
       } else {
         return this.getFavicon(fullUrl, faviconApi);
