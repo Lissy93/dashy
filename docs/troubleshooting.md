@@ -35,6 +35,14 @@ Header set X-Frame-Options: "ALLOW-FROM http://[dashy-location]/"
 
 ---
 
+## 404 On Static Hosting
+
+Try changing Vue's routing mode to hash, instead of using the HTML5 router. This can be done by setting `appConfig.routingMode` to `hash`.
+
+This determines the URL format for routing to sub-pages. hash mode will look like `/#/home` whereas with history mode available you have nice clean URLs, like `/home`. But history-mode requires a bit of extra server config if you are using a custom `BASE_URL`, which you can learn more about in the [Vue docs](https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations).
+
+---
+
 ## Yarn Error
 
 For more info, see [Issue #1](https://github.com/Lissy93/dashy/issues/1)
