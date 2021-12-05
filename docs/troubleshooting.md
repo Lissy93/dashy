@@ -37,9 +37,11 @@ Header set X-Frame-Options: "ALLOW-FROM http://[dashy-location]/"
 
 ## 404 On Static Hosting
 
-Try changing Vue's routing mode to hash, instead of using the HTML5 router. This can be done by setting `appConfig.routingMode` to `hash`.
+If you're seeing Dashy's 404 page on initial load/ refresh, and then the main app when you go back to Home, then this is likely caused by the Vue router, and if so can be fixed in one of two ways. 
 
-This determines the URL format for routing to sub-pages. hash mode will look like `/#/home` whereas with history mode available you have nice clean URLs, like `/home`. But history-mode requires a bit of extra server config if you are using a custom `BASE_URL`, which you can learn more about in the [Vue docs](https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations).
+The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by setting `appConfig.routingMode` to `hash`.
+
+If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `routingMode: history` again, for neater URLs.
 
 ---
 
