@@ -195,7 +195,7 @@ export default {
     },
     /* Sorts items alphabetically using the title attribute */
     sortAlphabetically(items) {
-      return items.sort((a, b) => (a.title > b.title ? 1 : -1));
+      return items.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1));
     },
     /* Sorts items by most used to least used, based on click-count */
     sortByMostUsed(items) {
