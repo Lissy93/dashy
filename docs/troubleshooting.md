@@ -35,6 +35,16 @@ Header set X-Frame-Options: "ALLOW-FROM http://[dashy-location]/"
 
 ---
 
+## 404 On Static Hosting
+
+If you're seeing Dashy's 404 page on initial load/ refresh, and then the main app when you go back to Home, then this is likely caused by the Vue router, and if so can be fixed in one of two ways. 
+
+The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by setting `appConfig.routingMode` to `hash`.
+
+If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `routingMode: history` again, for neater URLs.
+
+---
+
 ## Yarn Error
 
 For more info, see [Issue #1](https://github.com/Lissy93/dashy/issues/1)

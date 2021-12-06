@@ -619,6 +619,8 @@ Note, that if you choose not to use `server.js` to serve up the app, you will lo
 Example Configs
 - [NGINX](#nginx)
 - [Apache](#apache)
+- [Caddy](#caddy)
+- [Firebase](#firebase-hosting)
 - [cPanel](#cpanel)
 
 ### NGINX
@@ -640,6 +642,9 @@ server {
 	}
 }
 ```
+
+To use HTML5 history mode (`appConfig.routingMode: history`), replace the inside of the location block with: `try_files $uri $uri/ /index.html;`.
+
 Then upload the build contents of Dashy's dist directory to that location.
 For example: `scp -r ./dist/* [username]@[server_ip]:/var/www/dashy/html`
 
@@ -654,6 +659,15 @@ In your Apache config, `/etc/apche2/apache2.conf` add:
 	AllowOverride All
 	Require all granted
 </Directory>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
 ```
 
 Add a `.htaccess` file within `/var/www/html/dashy/.htaccess`, and add:
@@ -665,6 +679,39 @@ RewriteRule ^ index.html [QSA,L]
 ```
 
 Then restart Apache, with `sudo systemctl restart apache2`
+
+### Caddy
+
+Caddy v2
+```
+try_files {path} /
+```
+
+Caddy v1
+```
+rewrite {
+  regexp .*
+  to {path} /
+}
+```
+
+### Firebase Hosting
+
+Create a file names `firebase.json`, and populate it with something similar to:
+
+```
+{
+  "hosting": {
+    "public": "dist",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
+```
 
 ### cPanel
 1. Login to your WHM
