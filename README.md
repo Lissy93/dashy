@@ -465,7 +465,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
 <tr>
     <td align="center">
         <a href="https://github.com/BOZG">
-            <img src="https://avatars.githubusercontent.com/u/6022344?v=4" width="80;" alt="BOZG"/>
+            <img src="https://avatars.githubusercontent.com/u/6022344?u=a52f42b946a1e1156f7bb9d7f65e9e28bb2da89f&v=4" width="80;" alt="BOZG"/>
             <br />
             <sub><b>Stephen Rigney</b></sub>
         </a>
