@@ -119,7 +119,7 @@ export const languages = [
     name: 'Svenska',
     code: 'sv',
     locale: sv,
-    flag: 'sv',
+    flag: '🇸🇪',
   },
 ];
 
