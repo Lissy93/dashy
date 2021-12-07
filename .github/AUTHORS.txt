@@ -1,4 +1,5 @@
 Alicia <liss-bot@d0h.co> - 1 commits
+BOZG <sr@bozg.se> - 1 commits
 Begin <support@begin.com> - 1 commits
 David <skaarj1989@gmail.com> - 1 commits
 DeepSource <o> - 1 commits
@@ -25,10 +26,10 @@ github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com> - 16
 snyk-bot <snyk-bot@snyk.io> - 17 commits
 snyk-bot <snyk-bot@users.noreply.github.com> - 18 commits
 EVOTk <45015615+EVOTk@users.noreply.github.com> - 22 commits
-Alicia <o> - 27 commits
+Alicia <o> - 28 commits
 Alicia <yke> - 28 commits
-liss-bot <liss-bot@d0h.co> - 37 commits
+liss-bot <liss-bot@d0h.co> - 39 commits
 Lissy93 <gh@d0h.co> - 78 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 201 commits
-Alicia <yke> - 292 commits
+Alicia <yke> - 295 commits
 Alicia <yke> - 1182 commits
