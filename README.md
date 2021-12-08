@@ -128,7 +128,7 @@ docker run -d \
 ```
 [![Dashy on Docker Hub](https://dockeri.co/image/lissy93/dashy)](https://hub.docker.com/r/lissy93/dashy)
 
-See also examples [with Docker Compose](./docs/deployment.md#using-docker-compose). Dashy is also available via GHCR, and tags for other architectures (`arm327`, `arm64v8`, etc) and set versions are supported
+See also examples [with Docker Compose](./docs/deployment.md#using-docker-compose). Dashy is also available via GHCR, and tags for other architectures (`arm32v7`, `arm64v8`, etc) and set versions are supported
 
 > Once you've got Dashy running, see [App Management Docs](./docs/management.md), for info on using health checks, updating, backups, web-server configs, logs, performance, security and more.
 
