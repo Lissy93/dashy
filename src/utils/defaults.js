@@ -206,6 +206,7 @@ module.exports = {
   /* API endpoints for widgets that need to fetch external data */
   widgetApiEndpoints: {
     weather: 'https://api.openweathermap.org/data/2.5/weather',
+    weatherForecast: 'https://api.openweathermap.org/data/2.5/forecast/daily',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

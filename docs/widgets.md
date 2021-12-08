@@ -53,10 +53,37 @@ A simple, live-updating local weather component, showing temperature, conditions
   icon: fas fa-clouds
   type: weather
   options:
-    apiKey: 6e29c7d514cf890f846d58178b6d418f
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     city: London
     units: metric
     hideDetails: false
+```
+
+### Weather Forecast
+
+Displays the weather (temperature and conditions) for the next few days for a given location. Note that this requires either the free [OpenWeatherMap Student Plan](https://home.openweathermap.org/students), or the Premium Plan. 
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | Your OpenWeatherMap API key. You can get one for free at [openweathermap.org](https://openweathermap.org/)
+**`city`** | `string` | Required | A city name to use for fetching weather. This can also be a state code or country code, following the ISO-3166 format
+**`numDays`** | `number` |  _Optional_ | The number of days to display of forecast info to display. Defaults to `4`, max `16` days
+**`units`** | `string` |  _Optional_ | The units to use for displaying data, can be either `metric` or `imperial`. Defaults to `metric`
+**`hideDetails`** | `boolean` |  _Optional_ | If set to `true`, the additional details (wind, humidity, pressure, etc) will not be shown. Defaults to `false`
+
+##### Example
+
+```yaml
+- name: Weather Forecast
+  icon: ':sunny:'
+  type: weather-forecast
+  options:
+    city: California
+    numDays: 6
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    units: imperial
 ```
 
 ---

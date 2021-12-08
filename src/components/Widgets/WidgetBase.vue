@@ -12,6 +12,7 @@
   >
   <Clock v-if="widgetType === 'clock'" :options="widgetOptions" />
   <Weather v-else-if="widgetType === 'weather'" :options="widgetOptions" />
+  <WeatherForecast v-else-if="widgetType === 'weather-forecast'" :options="widgetOptions" />
   </Collapsable>
   </div>
 </template>
@@ -19,14 +20,16 @@
 <script>
 import Clock from '@/components/Widgets/Clock.vue';
 import Weather from '@/components/Widgets/Weather.vue';
+import WeatherForecast from '@/components/Widgets/WeatherForecast.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 
 export default {
   name: 'Widget',
   components: {
     Collapsable,
-    Weather,
     Clock,
+    Weather,
+    WeatherForecast,
   },
   props: {
     widget: Object,
