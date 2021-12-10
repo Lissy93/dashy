@@ -66,23 +66,23 @@
 
 ## Features 🌈
 
-- 🔎 Instant search by name, domain or tags + customizable hotkeys & keyboard shortcuts
+- 🔎 Instant search by name, domain, or tags + customizable hotkeys & keyboard shortcuts
 - 🎨 Multiple built-in color themes, with UI color editor and support for custom CSS
-- 🧸 Many icon options - Font-Awesome, homelab icons, auto-fetching favicon, images, emojis, etc.
-- 🚦 Status monitoring for each of your apps / links for basic availability and uptime checking
-- 💂 Optional authentication with multi-user access, configurable privileges and SSO support
+- 🧸 Many icon options - Font-Awesome, homelab icons, auto-fetching Favicon, images, emojis, etc.
+- 🚦 Status monitoring for each of your apps/links for basic availability and uptime checking
+- 💂 Optional authentication with multi-user access, configurable privileges, and SSO support
 - 🌎 Multi-language support, with 10+ human-translated languages, and more on the way
 - ☁ Optional, encrypted, free off-site cloud backup and restore feature available
-- 💼 A workspace view, for easily switching between multiple apps at simultaneously
-- 🛩️ A minimal view, for use as a fast-loading browser startpage
-- 🖱️ Choose app launch method, either new tab, same tab, a pop-up modal or in the workspace view
-- 📏 Customizable layout, sizes, text, component visibility, sort order, behavior etc.
-- 🖼️ Option for full-screen background image, custom nav-bar links, html footer, title, etc.
+- 💼 A workspace view, for easily switching between multiple apps simultaneously
+- 🛩️ A minimal view, for use as a fast-loading browser Startpage
+- 🖱️ Choose app launch method, either new tab, same tab, a pop-up modal, or in the workspace view
+- 📏 Customizable layout, sizes, text, component visibility, sort order, behavior, etc.
+- 🖼️ Options for a full-screen background image, custom nav-bar links, HTML footer, title, etc.
 - 🚀 Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
 - ⚙️ Easy single-file YAML-based configuration, and option to configure app through the UI
 - ✨ Under active development with improvements and new features added regularly 
-- 🤏 Small bundle size, fully responsive UI and PWA for basic offline access
-- 🆓 100% free and open source
+- 🤏 Small bundle size, fully responsive UI, and PWA for basic offline access
+- 🆓 100% free and open-source
 - 🔐 Strong focus on privacy
 - 🌈 And loads more...
 
@@ -128,16 +128,16 @@ docker run -d \
 ```
 [![Dashy on Docker Hub](https://dockeri.co/image/lissy93/dashy)](https://hub.docker.com/r/lissy93/dashy)
 
-See also examples [with Docker Compose](./docs/deployment.md#using-docker-compose). Dashy is also available via GHCR, and tags for other architectures (`arm32v7`, `arm64v8`, etc) and set versions are supported
+See also examples [with Docker Compose](./docs/deployment.md#using-docker-compose). Dashy is also available via GHCR, and tags for other architectures (`arm32v7`, `arm64v8`, etc.) and set versions are supported
 
-> Once you've got Dashy running, see [App Management Docs](./docs/management.md), for info on using health checks, updating, backups, web-server configs, logs, performance, security and more.
+> Once you've got Dashy running, see [App Management Docs](./docs/management.md) for info on using health checks, updating, backups, web-server configs, logs, performance, security, and more.
 
 ### Deploying from Source 🚀
 
 You will need [git](https://git-scm.com/downloads), the latest or LTS version of [Node.js](https://nodejs.org/) and (optionally) [Yarn](https://yarnpkg.com/) installed on your system.
 
 - Get Code: `git clone https://github.com/Lissy93/dashy.git` and `cd dashy`
-- Configuration: Fill in you're settings in `./public/conf.yml`
+- Configuration: Fill in your settings in `./public/conf.yml`
 - Install dependencies: `yarn`
 - Build: `yarn build`
 - Run: `yarn start`
@@ -164,7 +164,7 @@ Dashy supports 1-Click deployments on several popular cloud platforms. To spin u
 
 > For full configuration documentation, see: [**Configuring**](./docs/configuring.md)
 
-Dashy is configured through a YAML file, located at `./public/conf.yml`. You can find a complete list of available options in th [Configuring Docs](/docs/configuring.md). The config can also be edited and saved directly through the UI.
+Dashy is configured through a YAML file, located at `./public/conf.yml`. In addition, you can find a complete list of available options in the [Configuring Docs](/docs/configuring.md). The config can also be edited and saved directly through the UI.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -174,7 +174,7 @@ Dashy is configured through a YAML file, located at `./public/conf.yml`. You can
 
 > For full theming documentation, see: [**Theming**](./docs/theming.md)
 
-Dashy comes pre-bundled with several built-in themes, which you can preview, applied and edited through the UI. With the theme configurator, and support for custom CSS, everything is in place for you to easily develop your own unique looking dashboard.
+Dashy comes pre-bundled with several built-in themes, which you can preview, applied and edit through the UI. With the theme configurator and support for custom CSS, everything is in place to quickly develop your unique-looking dashboard.
 
 <p align="center">
   <a href="https://i.ibb.co/BVSHV1v/dashy-themes-slideshow.gif">
@@ -199,12 +199,12 @@ Dashy comes pre-bundled with several built-in themes, which you can preview, app
 Both sections and items can have an icon associated with them, defined under the `icon` attribute. With several different icon packs supported, you'll be able to find the perfect thumbnail for any app or service.
 
 The following icon types are supported:
-- **Favicon** - Automatically fetch an apps icon from it's favicon or logo image
+- **Favicon** - Automatically fetch an apps icon from its Favicon or logo image
 - **Icon Packs** - Use any icon from [font-awesome], [simple-icons] or [material icons]
 - **Emoji** - Any valid emoji can be used as an icon
 - **Generative** - Unique, auto-generated images for easily identifying services
 - **URL** - Pass the URL of any valid image in to have it fetched and rendered
-- **Local** - Store custom images locally, and reference by filename
+- **Local** - Store custom images locally and reference by filename
 - **Homelab Icons** - Using [dashboard-icons] for logos of commonly self-hosted services
 
 
@@ -227,9 +227,9 @@ The following icon types are supported:
 
 > For full monitoring documentation, see: [**Status Indicators**](./docs/status-indicators.md)
 
-Dashy has an optional feature that can check if each app/ service is up and responding, then display a small status indicator icon. Hovering over it will show additional stats like response time and status code.
+Dashy has an optional feature to check if each app/ service is up and responding, then display a small status indicator icon. Hovering over it will show additional stats like response time and status code.
 
-Status indicators can be globally enabled by setting `appConfig.statusCheck: true`, or enabled/ disabled on a per-item basis. Status is checked on page load, but you can enable continuous polling by specifying a time interval between checks, in seconds under `appConfig.statusCheckInterval`. You can also use a different endpoint for status checking, with `statusCheckUrl`, and if needed pass in custom headers under `statusCheckHeaders`.
+Status indicators can be globally enabled by setting `appConfig.statusCheck: true` or enabled/ disabled on a per-item basis. Status is checked on page load, but you can allow continuous polling by specifying a time interval between checks, in seconds under `appConfig.statusCheckInterval`. You can also use a different endpoint for status checking, with `statusCheckUrl`, and if needed, pass in custom headers under `statusCheckHeaders`.
 
 <p align="center">
   <img alt="Status Checks demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/status-check-demo.gif" width="600" />
@@ -245,7 +245,7 @@ Status indicators can be globally enabled by setting `appConfig.statusCheck: tru
 
 Dashy has full support for secure single-sign-on using [Keycloak](https://www.keycloak.org/) for secure, easy authentication, see [setup docs](/docs/authentication.md#keycloak) for a full usage guide.
 
-There is also a basic auth feature, which doesn't require any additional setup. To enable this, just add an `auth` attribute under `appConfig`, containing an array of `users`, each with a username, SHA-256 hashed password and optional user type. Basic auth also has support for several access control features, including read-only guest access and granular controls.
+There is also a basic auth feature, which doesn't require additional setup. To enable this, add an `auth` attribute under `appConfig`, containing an array of `users`, each with a username, SHA-256 hashed password and optional user type. Basic auth also supports several access control features, including read-only guest access and granular controls.
 
 
 ```yaml
@@ -266,10 +266,10 @@ Other access control systems are also supported, see the [Alternative Auth Metho
 ## Alternate Views 👓
 
 As well as the default homepage, there is also:
-- A minimal view, useful for use as a browser start page
+- A minimal view, valid for use as a browser start page
 - A workspace view, useful for visiting many apps simultaneously
 	
-You can change the view from the UI, using the switch icon in the top-right corner, or select a default view in the config, under `appConfig.startingView` attribute.
+You can change the view from the UI, using the switch icon in the top-right corner, or select a default view in the config under `appConfig.startingView` attribute.
 
 <p align="center">
   <b>Example of Workspace View</b><br>
@@ -289,12 +289,12 @@ You can change the view from the UI, using the switch icon in the top-right corn
 
 > For full documentation on views and opening methods, see: [**Alternate Views**](./docs/alternate-views.md)
 
-There are several different ways apps can be launched. You can specify the default opening method for any given item under the `target` attribute, or set a site-wide default under `appConfig.defaultOpeningMethod`. Right-click on an item to item for all options. The following options are supported:
+There are several different ways you can launch apps. You can specify the default opening method for any given item under the `target` attribute or set a site-wide default under `appConfig.defaultOpeningMethod`. Right-click on an item to item for all options. The following options are supported:
 - `sametab` - The app will be launched in the current tab
 - `newtab` - The app will be launched in a new tab (or use Ctrl + Click)
 - `modal` - Launch app in a resizable/ movable popup modal on the current page (or use Alt + Click)
-- `workspace` - Changes to Workspace view, and launches app
-- `top` - Opens in the top-most browsing context, useful if your accessing Dashy through an iframe
+- `workspace` - Changes to Workspace view and launches app
+- `top` - Opens in the top-most browsing context, useful if you're accessing Dashy through an iframe
 
 ---
 
@@ -302,15 +302,15 @@ There are several different ways apps can be launched. You can specify the defau
 
 > For full documentation on searching, see: [**Searching & Shortcuts**](./docs/searching.md)
 
-Quickly finding and launching applications is the primary aim of Dashy. To that end instant search and customizable keyboard shortcuts are built-in.
+Quickly finding and launching applications is the primary aim of Dashy. To that end, instant search and customizable keyboard shortcuts are built-in.
 
-To start filtering, just start typing. No need to select the search bar or use any special key. Then use either the tab key or arrow keys to select and move between results, and hit enter to launch the currently selected application.
+To start filtering, start typing—no need to select the search bar or use any special key. Then use either the tab key or arrow keys to select and move between results, and hit enter to launch the currently selected application.
 
-For apps that you use regularly, you can set a custom keybinding. Use the `hotkey` parameter on a certain item to specify a numeric key, between `0 - 9`. You can then launch that app, by just pressing that key.
+For apps that you use regularly, you can set a custom keybinding. Use the `hotkey` parameter on a certain item to specify a numeric key between `0 - 9`. You can then launch that app by just pressing that key.
 
-You can also add custom tags to a given item, to make finding them based on keywords easier. For example, in the following example, searching for 'Movies' will show 'Plex'
+You can also add custom tags to a given item to make finding them based on keywords easier. For example, in the following example, searching for 'Movies' will show 'Plex'
 
-```yaml
+"`yaml
   items:
   - title: Plex
     hotkey: 8
@@ -320,7 +320,7 @@ You can also add custom tags to a given item, to make finding them based on keyw
     tags: [ movies, videos, music ]
 ```
 
-To search the web directly through Dashy, just press enter after typing your query. Options for web search are set under `appConfig.webSearch`. There is built in support for [10+ search engines](./docs/searching.md#setting-search-engine), or [use your own custom provider](./docs/searching.md#using-custom-search-engine) or self-hosted instance. With the web search, you can also define your own bangs, to redirect results to any given app, website or search engine, when the query is preceded with a certain character sequence (usually beginning in `/`, `!` or `:`).
+To search the web directly through Dashy, just press enter after typing your query. Options for web search are set under `appConfig.webSearch`. There is built-in support for [10+ search engines](./docs/searching.md#setting-search-engine), or [use your own custom provider](./docs/searching.md#using-custom-search-engine) or self-hosted instance. With the web search, you can also define your bangs to redirect results to any given app, website, or search engine, when the query is preceded with a certain character sequence (usually beginning in `/`, `!` or `:`).
 
 ```yaml
 webSearch:
@@ -335,7 +335,7 @@ webSearch:
     ':git': github
 ```
 
-Hit `Esc` at anytime to close any open apps, clear the search field, or hide any modals.
+Hit `Esc` at any time to close any open apps, clear the search field, or hide any modals.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -344,11 +344,11 @@ Hit `Esc` at anytime to close any open apps, clear the search field, or hide any
 ## Config Editor ⚙️
 > For full config documentation, see: [**Configuring**](./docs/configuring.md)
 
-As well as passing in a YAML config file, you can also configure the app directly through the UI, and preview changes live.
+As well as passing in a YAML config file, you can also configure the app directly through the UI and preview changes live.
 
-To edit any section or item, right-click on it, and select "Edit", or enter the Edit Mode (using the Pen icon in the top-right), then click any part of the page to edit. Changes will be visible immediately, but will not be saved until you click "Save to Disk" or "Save Locally".
+To edit any section or item, right-click on it, and select "Edit", or enter the Edit Mode (using the Pen icon in the top-right), then click any part of the page to edit. Changes will be visible immediately but will not be saved until clicking "Save to Disk" or "Save Locally".
 
-Under the config menu, you can export, view, backup, or reset app config, as well as edit the raw config file in a text editor, with built-in schema validation. It's recommended to keep a backup of your config.
+Under the config menu, you can export, view, backup, or reset app config and edit the raw config file in a text editor with built-in schema validation. It's recommended to keep a backup of your config.
 
 <p align="center">
   <img alt="Interactive Editor demo" src="https://user-images.githubusercontent.com/1862727/139543020-b0576d28-0830-476f-afc8-a815d4de6def.gif" width="600" />
@@ -367,9 +367,9 @@ Under the config menu, you can export, view, backup, or reset app config, as wel
 
 > For full backup documentation, see: [**Cloud Backup & Sync**](./docs/backup-restore.md)
 
-Dashy has an **optional** built-in feature for securely backing up your config to a hosted cloud service, and then restoring it on another instance. This is useful not only for backing up your configuration off-site, but it also enables Dashy to be used without having write a YAML config file.
+Dashy has an **optional** built-in feature for securely backing up your config to a hosted cloud service and then restoring it on another instance. This is useful not only for backing up your configuration off-site but also enables Dashy to be used without having to write a YAML config file.
 
-All data is fully E2E encrypted before being sent to the backend (done in [`CloudBackup.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/CloudBackup.js) using [crypto.js](https://github.com/brix/crypto-js)'s AES method). The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works), and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
+All data is fully E2E encrypted before being sent to the backend (done in [`CloudBackup.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/CloudBackup.js) using [crypto.js](https://github.com/brix/crypto-js) 's AES method). The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works) and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -378,7 +378,7 @@ All data is fully E2E encrypted before being sent to the backend (done in [`Clou
 ## Language Switching 🌎
 > For full internationalization documentation, see: [**Multi-Language Support**](./docs/multi-language-support.md)
 
-Dashy supports multiple languages and locales. When available, your language should be automatically detected and applied on load. But you can also select a language through the UI (under Config --> Switch Language), or set `appConfig.language` to your language (specified as a 2-digit [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)).
+Dashy supports multiple languages and locales. When available, your language should be automatically detected and applied on load. But you can also select a language through the UI (under config --> Switch Language) or set `appConfig.language` to your language (specified as a 2-digit [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)).
 
 #### Supported Languages
 - 🇬🇧 **English**: `en` - _Default_
@@ -399,7 +399,7 @@ Dashy supports multiple languages and locales. When available, your language sho
 - 🇯🇵 **Japanese**: `ja` - Contributed by Anon
 
 #### Add your Language
-I would love Dashy to be available to everyone, without language being a barrier to entry. If you've got a few minutes to spare, consider adding translations for your language. It's a quick task and all text is in [a single JSON file](https://github.com/Lissy93/dashy/tree/master/src/assets/locales). Since any missing text will fallback to English, you don't need to translate it all.
+I would love Dashy to be available to everyone without language being a barrier to entry. If you've got a few minutes to spare, consider adding translations for your language. It's a quick task, and all text is in [a single JSON file](https://github.com/Lissy93/dashy/tree/master/src/assets/locales). Since any missing text will fall back to English, you don't need to translate it all.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -407,7 +407,7 @@ I would love Dashy to be available to everyone, without language being a barrier
 
 ## System Requirements 📊
 
-The hardware requirements vary depending on where and how you are running Dashy. Generally speaking, on a bare metal system or Docker container, 1GB of memory should be more than enough, and depending on whether you are using your own assets, then 1GB of disk space should be sufficient.  
+The hardware requirements vary depending on where and how you are running Dashy. Generally speaking, on a bare-metal system or Docker container, 1GB of memory should be more than enough, and depending on whether you are using your own assets, then 1GB of disk space should be sufficient.  
 
 If you are using one of the 1-click cloud deployment methods, serving the app through a CDN or using a static hosting provider, then there are no specific requirements, as the built app is just a series of static JS files, and so is very light-weight.
 
@@ -434,17 +434,17 @@ It's best to check the [docs](./docs), [previous issues](https://github.com/Liss
 
 ## Supporting Dashy 💖
 
-> For full details, and other ways you can help out, see: [**Contributing**](./docs/contributing.md)
+> For full details and other ways you can help out, see: [**Contributing**](./docs/contributing.md)
 
-If you're using Dashy, and would like to help support it's development, then that would be awesome! Contributions of any type, however small are always very much appreciated, and you will be appropriately credited for your effort.
+If you're using Dashy and would like to help support its development, then that would be awesome! Contributions of any type, any size, are always very much appreciated, and we will appropriately credit you for your effort.
 
 Several areas that we need a bit of help with at the moment are:
-- Translating - Help make Dashy available to non-native English speakers by [adding youre language](./docs/multi-language-support.md#adding-a-new-language)
-- Donate a small amount, by [Sponsoring @Lissy93 on GitHub](https://github.com/sponsors/Lissy93) and receive some extra perks!
-- Complete a [short survey](https://survey.typeform.com/to/gl0L68ou), to have your say about future features
-- Share your dashboard in the [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-), to provide inspiration for others
-- Spread the word, by sharing Dashy or a screenshot of your dashboard, to help new users discover it
-- Submit a PR, to add a new feature, fix a bug, update the docs, add a theme or something else
+- Translating - Help make Dashy available to non-native English speakers by [adding your language](./docs/multi-language-support.md#adding-a-new-language)
+- Donate a small amount by [Sponsoring @Lissy93 on GitHub](https://github.com/sponsors/Lissy93) and receive some extra perks!
+- Complete a [short survey](https://survey.typeform.com/to/gl0L68ou) to have your say about future features
+- Share your dashboard in the [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-), to inspire others
+- Spread the word by sharing Dashy or a screenshot of your dashboard to help new users discover it
+- Submit a PR to add a new feature, fix a bug, update the docs, add a theme, or something else
 - Star Dashy on GitHub/ DockerHub or leave an upvote / review on [these platforms](https://github.com/Lissy93/dashy/blob/master/docs/contributing.md#star-upvote-or-leave-a-review)
 
 [![Sponsor Lissy93 on GitHub](./docs/assets/sponsor-button.svg)](https://github.com/sponsors/Lissy93)
@@ -453,9 +453,9 @@ Several areas that we need a bit of help with at the moment are:
 
 ## Credits 🏆
 
-> For a full list of credits, and attributions to packages used within Dashy, see: [**Credits**](./docs/credits.md)
+> For a complete list of credits, and attributions to packages used within Dashy, see: [**Credits**](./docs/credits.md)
 
-Thank you so much to everyone who has helped with Dashy so far, every contribution is very much appreciated.
+Thank you so much to everyone who has helped with Dashy so far; every contribution is very much appreciated.
 
 #### Sponsors
 
@@ -516,9 +516,9 @@ To set up the development environment:
 2. Install dependencies: `yarn`
 3. Start dev server: `yarn dev`
 
-Hot reload is enabled, so changes will be automatically detected, compiled and refreshed.
+Hot reload is enabled, so changes will be automatically detected, compiled and, refreshed.
 
-If you're new to web development, I've put together a short [list of resources](https://github.com/Lissy93/dashy/blob/master/docs/developing.md#resources-for-beginners), to help beginners get started
+If you're new to web development, I've put together a short [list of resources](https://github.com/Lissy93/dashy/blob/master/docs/developing.md#resources-for-beginners) to help beginners get started
 
 **Repo Status**:
 [![Open PRs](https://flat.badgen.net/github/open-prs/lissy93/dashy?icon=github)](https://github.com/Lissy93/dashy/pulls)
@@ -535,13 +535,13 @@ If you're new to web development, I've put together a short [list of resources](
 
 > For full release, automation and CI documentation, see: [**Releases & Workflows**](./docs/release-workflow.md)
 
-Dashy is under active development, with features, improvements and changes pushed almost daily.
+Dashy is under active development, with features, improvements, and changes pushed almost daily.
 
-We're using [Semantic Versioning](https://semver.org/), to indicate major, minor and patch versions. You can find the current version number in the readme, and check your apps version under the config menu. The version number is pulled from the [package.json](https://github.com/Lissy93/dashy/blob/master/package.json#L3) file.
+We're using [Semantic Versioning](https://semver.org/) to indicate major, minor, and patch versions. You can find the current version number in the readme and check the version of your app under the config menu. The version number is pulled from the [package.json](https://github.com/Lissy93/dashy/blob/master/package.json#L3) file.
 
-Typically there is a new major release every 2 - 4 weeks, usually on Sunday, and you can view these under the [Releases Page](https://github.com/Lissy93/dashy/releases) and [on DockerHub](https://hub.docker.com/r/lissy93/dashy/tags). New minor versions are pushed several times a week, and are [tagged here](https://github.com/Lissy93/dashy/tags).
+Typically there is a new major release every 2 - 4 weeks, usually on Sunday, and you can view these under the [Releases Page](https://github.com/Lissy93/dashy/releases) and [on DockerHub](https://hub.docker.com/r/lissy93/dashy/tags). In addition, new minor versions are pushed several times a week and are [tagged here](https://github.com/Lissy93/dashy/tags).
 
-For a full breakdown of each change, you can view the [Changelog](https://github.com/Lissy93/dashy/blob/master/.github/CHANGELOG.md). Each new feature or significant change needs to be submitted through [a pull request](https://github.com/Lissy93/dashy/pulls?q=is%3Apr), which makes it easy to review and track these changes, and roll back if needed.
+For a full breakdown of each change, you can view the [Changelog](https://github.com/Lissy93/dashy/blob/master/.github/CHANGELOG.md). In addition, each new feature or significant change needs to be submitted through [a pull request](https://github.com/Lissy93/dashy/pulls?q=is%3Apr), which makes it easy to review and track these changes, and roll back if needed.
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -600,7 +600,7 @@ The following features and tasks are planned for the near future.
 
 ## Alternatives 🙌
 
-There are a few self-hosted web apps, that serve a similar purpose to Dashy. If you're looking for a dashboard, and Dashy doesn't meet your needs, I highly recommend you check these projects out! 
+A few self-hosted web apps serve a similar purpose to Dashy. If you're looking for a dashboard, and Dashy doesn't meet your needs, I highly recommend you check these projects out! 
 - [Flame](https://github.com/pawelmalak/flame) by @pawelmalak (`MIT`)
 - [HomeDash2](https://lamarios.github.io/Homedash2)
 - [Homer](https://github.com/bastienwirtz/homer) (`Apache License 2.0`)
@@ -614,13 +614,13 @@ There are a few self-hosted web apps, that serve a similar purpose to Dashy. If 
 ---
 ## License 📜
 
-Dashy is License under [MIT X11](https://en.wikipedia.org/wiki/MIT_License)
+Dashy is Licensed under [MIT X11](https://en.wikipedia.org/wiki/MIT_License)
 
 ```
 Copyright © 2021 Alicia Sykes <https://aliciasykes.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this
-software and associated documentation files (the “Software”), to deal in the Software
+software and associated documentation files (the "Software"), to deal in the Software
 without restriction, including without limitation the rights to use, copy, modify, merge,
 publish, distribute, sublicense, and/or sell copies of the Software, and to permit
 persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -628,15 +628,15 @@ persons to whom the Software is furnished to do so, subject to the following con
 The above copyright notice and this permission notice shall be included in all copies or
 substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
 INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
 PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWAREOR THE USE
+LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 OR OTHER DEALINGS IN THE SOFTWARE.
 
 Except as contained in this notice, Dashy shall not be used in advertising or otherwise
-to promote the sale, use or other dealings in this Software without prior written
+to promote the sale, use, or other dealings in this Software without prior written
 authorization from the repo owner.
 ```
 
