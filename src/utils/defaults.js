@@ -207,6 +207,7 @@ module.exports = {
   widgetApiEndpoints: {
     weather: 'https://api.openweathermap.org/data/2.5/weather',
     weatherForecast: 'https://api.openweathermap.org/data/2.5/forecast/daily',
+    tflStatus: 'https://api.tfl.gov.uk/line/mode/tube/status',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

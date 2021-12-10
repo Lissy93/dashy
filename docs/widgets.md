@@ -86,6 +86,33 @@ Displays the weather (temperature and conditions) for the next few days for a gi
     units: imperial
 ```
 
+### TFL Status
+
+Shows real-time tube status of the London Underground. All options are optional.
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`showAll`** | `boolean` |  _Optional_ | By default, details for lines with a Good Service are not visible, but you can click More Details to see all. Setting this option to `true` will show all lines on initial page load
+**`sortAlphabetically`** | `boolean` | _Optional_ | By default lines are sorted by current status, set this option to `true` to instead sort them alphabetically
+**`linesToShow`** | `array` | _Optional_ | By default all lines are shown. If you're only interested in the status of a few lines, then pass in an array of lines to show, specified by name
+
+##### Example 
+
+```yaml
+  - name: TFL Status
+    icon: '🚋'
+    type: tfl-status
+    options:
+      showAll: true
+      sortAlphabetically: true
+      linesToShow:
+      - District
+      - Jubilee
+      - Central
+```
+
 ---
 
 ## Dynamic Widgets
