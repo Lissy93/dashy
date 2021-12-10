@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: dashy.to
+Token: 15019f6f9c1b171479ae06074a389a773bde51fa8ac3eceb8455b63bdb9d06a4
