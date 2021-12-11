@@ -82,10 +82,11 @@ export default {
     },
     /* Get color, depending on the status code */
     getStatusColor(code) {
-      if (code <= 6) return 'red';
-      if (code <= 9) return 'orange';
-      if (code === 20) return 'dark';
-      return 'green';
+      if (code === 20) return 'dark'; // Strike action
+      if (code === 0) return 'info'; // Special service or upcoming planned works
+      if (code <= 6) return 'red'; // Closed, part-closed or severe delays
+      if (code <= 9) return 'orange'; // Minor delays, planned bus replacement
+      return 'green'; // Good Service - Everything is awesome!
     },
     /* If user only wants to see results from certain lines, filter the rest out */
     filterByLineName(allLines, usersLines) {
@@ -129,6 +130,7 @@ export default {
       &.green { color: var(--success); }
       &.orange { color: var(--warning); }
       &.red { color: var(--danger); }
+      &.info { color: var(--info); }
       &.dark { color: #fa360f; }
     }
     .disruption {
