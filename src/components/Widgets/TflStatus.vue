@@ -84,6 +84,7 @@ export default {
     getStatusColor(code) {
       if (code <= 6) return 'red';
       if (code <= 9) return 'orange';
+      if (code === 20) return 'dark';
       return 'green';
     },
     /* If user only wants to see results from certain lines, filter the rest out */
@@ -128,6 +129,7 @@ export default {
       &.green { color: var(--success); }
       &.orange { color: var(--warning); }
       &.red { color: var(--danger); }
+      &.dark { color: #fa360f; }
     }
     .disruption {
       opacity: var(--dimming-factor);
