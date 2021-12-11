@@ -18,7 +18,7 @@ jobs:
           npm run build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
-        if: ${{ github.repository_owner === 'lissy93' }}
+        if: ${{ github.repository_owner == 'lissy93' }}
         with:
           branch: dev-demo
           folder: dist
