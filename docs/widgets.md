@@ -86,6 +86,36 @@ Displays the weather (temperature and conditions) for the next few days for a gi
     units: imperial
 ```
 
+### Crypto Watch List
+
+Keep track of price changes of your favorite crypto assets. Data is fetched from [CoinGecko](https://www.coingecko.com/)
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`assets`** | `string` |  Required | An array of cryptocurrencies, coins and tokens. See [list of supported assets](https://api.coingecko.com/api/v3/asset_platforms)
+**`currency`** | `string` | _Optional_ | The fiat currency to display price in, expressed as an ISO-4217 alpha code (see [list of currencies](https://www.iban.com/currency-codes)). Defaults to `USD`
+**`sortBy`** | `number` |  _Optional_ | The method of sorting results. Can be `marketCap`, `volume` or `alphabetical`. Defaults to `marketCap`.
+
+##### Example
+
+```yaml
+  - name: Crypto Prices
+    icon: fas fa-rocket
+    type: crypto-watch-list
+    options:
+      currency: GBP
+      sortBy: marketCap
+      assets:
+      - bitcoin
+      - ethereum
+      - monero
+      - cosmos
+      - polkadot
+      - dogecoin
+```
+
 ### Crypto Token Price History
 
 Shows recent price history for a given crypto asset, using price data fetched from [CoinGecko](https://www.coingecko.com/)
@@ -94,7 +124,7 @@ Shows recent price history for a given crypto asset, using price data fetched fr
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`asset`** | `string` |  Required | Name of a crypto asset, coin or token to fetch price data for
+**`asset`** | `string` |  Required | Name of a crypto asset, coin or token to fetch price data for, see [list of supported assets](https://api.coingecko.com/api/v3/asset_platforms)
 **`currency`** | `string` | _Optional_ | The fiat currency to display results in, expressed as an ISO-4217 alpha code (see [list of currencies](https://www.iban.com/currency-codes)). Defaults to `USD`
 **`numDays`** | `number` |  _Optional_ | The number of days of price history to render. Defaults to `7`, min: `1`, max: `30` days
 

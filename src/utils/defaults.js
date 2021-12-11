@@ -209,6 +209,7 @@ module.exports = {
     weatherForecast: 'https://api.openweathermap.org/data/2.5/forecast/daily',
     tflStatus: 'https://api.tfl.gov.uk/line/mode/tube/status',
     cryptoPrices: 'https://api.coingecko.com/api/v3/coins/',
+    cryptoWatchList: 'https://api.coingecko.com/api/v3/coins/markets/',
   },
   /* URLs for web search engines */
   searchEngineUrls: {
