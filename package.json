@@ -25,6 +25,7 @@
     "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.1.1",
     "express": "^4.17.1",
+    "frappe-charts": "^1.6.2",
     "js-yaml": "^4.1.0",
     "keycloak-js": "^15.0.2",
     "register-service-worker": "^1.6.2",
