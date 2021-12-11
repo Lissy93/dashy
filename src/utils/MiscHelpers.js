@@ -46,3 +46,36 @@ export const applyItemId = (inputSections) => {
   });
   return sections;
 };
+
+export const convertTimestampToDate = (timestamp) => {
+  const localFormat = navigator.language;
+  const dateFormat = {
+    weekday: 'short', day: 'numeric', month: 'short', year: 'numeric',
+  };
+  const date = new Date(timestamp).toLocaleDateString(localFormat, dateFormat);
+  return `${date}`;
+};
+
+/* Given a currency code, return the corresponding unicode symbol */
+export const findCurrencySymbol = (currencyCode) => {
+  const code = currencyCode.toUpperCase().trim();
+  const currencies = {
+    USD: '$', // US Dollar
+    EUR: '€', // Euro
+    CRC: '₡', // Costa Rican Colón
+    GBP: '£', // British Pound Sterling
+    ILS: '₪', // Israeli New Sheqel
+    INR: '₹', // Indian Rupee
+    JPY: '¥', // Japanese Yen
+    KRW: '₩', // South Korean Won
+    NGN: '₦', // Nigerian Naira
+    PHP: '₱', // Philippine Peso
+    PLN: 'zł', // Polish Zloty
+    PYG: '₲', // Paraguayan Guarani
+    THB: '฿', // Thai Baht
+    UAH: '₴', // Ukrainian Hryvnia
+    VND: '₫', // Vietnamese Dong
+  };
+  if (currencies[code]) return currencies[code];
+  return code;
+};
