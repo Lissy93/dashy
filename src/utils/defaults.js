@@ -210,6 +210,7 @@ module.exports = {
     tflStatus: 'https://api.tfl.gov.uk/line/mode/tube/status',
     cryptoPrices: 'https://api.coingecko.com/api/v3/coins/',
     cryptoWatchList: 'https://api.coingecko.com/api/v3/coins/markets/',
+    xkcdComic: 'https://xkcd.vercel.app/',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

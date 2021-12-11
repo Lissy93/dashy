@@ -140,6 +140,26 @@ Shows recent price history for a given crypto asset, using price data fetched fr
     numDays: 7
 ```
 
+### XKCD Comics
+
+Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webcomic website covering everything from Linux, math, romance, science and language.
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`comic`** | `string | number` |  _Optional_ | Choose which comic to display. Set to either `random`, `latest` or the series number of a specific comic, like `627`. Defaults to `latest`
+
+##### Example
+
+```yaml
+- name: XKCD of the Day
+  icon: fas fa-laugh
+  type: xkcd-comic
+  options:
+    comic: latest
+```
+
 ### TFL Status
 
 Shows real-time tube status of the London Underground. All options are optional.
