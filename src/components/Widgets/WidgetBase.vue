@@ -14,6 +14,7 @@
       <Weather v-else-if="widgetType === 'weather'" :options="widgetOptions" />
       <WeatherForecast v-else-if="widgetType === 'weather-forecast'" :options="widgetOptions" />
       <TflStatus v-else-if="widgetType === 'tfl-status'" :options="widgetOptions" />
+      <CryptoPriceChart v-else-if="widgetType === 'crypto-price-chart'" :options="widgetOptions" />
     </Collapsable>
   </div>
 </template>
@@ -23,6 +24,7 @@ import Clock from '@/components/Widgets/Clock.vue';
 import Weather from '@/components/Widgets/Weather.vue';
 import WeatherForecast from '@/components/Widgets/WeatherForecast.vue';
 import TflStatus from '@/components/Widgets/TflStatus.vue';
+import CryptoPriceChart from '@/components/Widgets/CryptoPriceChart.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 
 export default {
@@ -33,6 +35,7 @@ export default {
     Weather,
     WeatherForecast,
     TflStatus,
+    CryptoPriceChart,
   },
   props: {
     widget: Object,

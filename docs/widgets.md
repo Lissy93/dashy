@@ -86,6 +86,30 @@ Displays the weather (temperature and conditions) for the next few days for a gi
     units: imperial
 ```
 
+### Crypto Token Price History
+
+Shows recent price history for a given crypto asset, using price data fetched from [CoinGecko](https://www.coingecko.com/)
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`asset`** | `string` |  Required | Name of a crypto asset, coin or token to fetch price data for
+**`currency`** | `string` | _Optional_ | The fiat currency to display results in, expressed as an ISO-4217 alpha code (see [list of currencies](https://www.iban.com/currency-codes)). Defaults to `USD`
+**`numDays`** | `number` |  _Optional_ | The number of days of price history to render. Defaults to `7`, min: `1`, max: `30` days
+
+##### Example
+
+```yaml
+- name: Bitcoin Price
+  icon: fab fa-bitcoin
+  type: crypto-price-chart
+  options:
+    asset: bitcoin
+    currency: GBP
+    numDays: 7
+```
+
 ### TFL Status
 
 Shows real-time tube status of the London Underground. All options are optional.
@@ -101,7 +125,12 @@ Shows real-time tube status of the London Underground. All options are optional.
 ##### Example 
 
 ```yaml
-  - name: TFL Status
+- name: London Underground
+  type: tfl-status
+```
+
+```yaml
+  - name: Commute
     icon: '🚋'
     type: tfl-status
     options:
