@@ -13,6 +13,8 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
 
 A simple, live-updating time and date widget with time-zone support. All options are optional.
 
+<p align="center"><img width="400" src="https://i.ibb.co/vjb4RTv/clock.png" /></p>
+
 ##### Options
 
 **Field** | **Type** | **Required** | **Description**
@@ -36,6 +38,8 @@ A simple, live-updating time and date widget with time-zone support. All options
 ### Weather
 
 A simple, live-updating local weather component, showing temperature, conditions and more info.
+
+<p align="center"><img width="400" src="https://i.ibb.co/r6MCfsL/weather.png" /></p>
 
 ##### Options
 
@@ -63,6 +67,8 @@ A simple, live-updating local weather component, showing temperature, conditions
 
 Displays the weather (temperature and conditions) for the next few days for a given location. Note that this requires either the free [OpenWeatherMap Student Plan](https://home.openweathermap.org/students), or the Premium Plan. 
 
+<p align="center"><img width="400" src="https://i.ibb.co/vshwgZB/weather-forecast.png" /></p>
+
 ##### Options
 
 **Field** | **Type** | **Required** | **Description**
@@ -89,6 +95,8 @@ Displays the weather (temperature and conditions) for the next few days for a gi
 ### Crypto Watch List
 
 Keep track of price changes of your favorite crypto assets. Data is fetched from [CoinGecko](https://www.coingecko.com/)
+
+<p align="center"><img width="400" src="https://i.ibb.co/WtS6jQ8/crypto-prices.png" /></p>
 
 ##### Options
 
@@ -120,6 +128,8 @@ Keep track of price changes of your favorite crypto assets. Data is fetched from
 
 Shows recent price history for a given crypto asset, using price data fetched from [CoinGecko](https://www.coingecko.com/)
 
+<p align="center"><img width="400" src="https://i.ibb.co/jr38m6S/crypto-price-history.png" /></p>
+
 ##### Options
 
 **Field** | **Type** | **Required** | **Description**
@@ -144,6 +154,8 @@ Shows recent price history for a given crypto asset, using price data fetched fr
 
 Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webcomic website covering everything from Linux, math, romance, science and language.
 
+<p align="center"><img width="400" src="https://i.ibb.co/kqV68hy/xkcd-comic.png" /></p>
+
 ##### Options
 
 **Field** | **Type** | **Required** | **Description**
@@ -163,6 +175,8 @@ Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webc
 ### TFL Status
 
 Shows real-time tube status of the London Underground. All options are optional.
+
+<p align="center"><img width="400" src="https://i.ibb.co/LRDhXDn/tfl-status.png" /></p>
 
 ##### Options
 
