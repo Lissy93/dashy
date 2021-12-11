@@ -148,7 +148,7 @@ Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webc
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`comic`** | `string | number` |  _Optional_ | Choose which comic to display. Set to either `random`, `latest` or the series number of a specific comic, like `627`. Defaults to `latest`
+**`comic`** | `string / number` |  _Optional_ | Choose which comic to display. Set to either `random`, `latest` or the series number of a specific comic, like `627`. Defaults to `latest`
 
 ##### Example
 
