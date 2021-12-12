@@ -478,13 +478,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/DylanBeMe">
-            <img src="https://avatars.githubusercontent.com/u/41838333?v=4" width="80;" alt="DylanBeMe"/>
-            <br />
-            <sub><b>DylanH</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/matthewjdegarmo">
             <img src="https://avatars.githubusercontent.com/u/46715299?u=65f979e86de9dce8a5fe04df9775d32c6cefd73a&v=4" width="80;" alt="matthewjdegarmo"/>
             <br />
