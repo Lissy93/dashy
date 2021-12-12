@@ -211,6 +211,7 @@ module.exports = {
     cryptoPrices: 'https://api.coingecko.com/api/v3/coins/',
     cryptoWatchList: 'https://api.coingecko.com/api/v3/coins/markets/',
     xkcdComic: 'https://xkcd.vercel.app/',
+    exchangeRates: 'https://v6.exchangerate-api.com/v6/',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

@@ -206,6 +206,36 @@ Shows real-time tube status of the London Underground. All options are optional.
       - Central
 ```
 
+### Exchange Rates
+
+Display current FX rates in your native currency
+
+<p align="center"><img width="400" src="https://i.ibb.co/M905JHM/exchange-rates.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | API key for [exchangerate-api.com](https://www.exchangerate-api.com/), usually a 24-digit alpha-numeric string. You can sign up for a free account [here](https://app.exchangerate-api.com/sign-up)
+**`inputCurrency`** | `string` | Required | The base currency to show results in. Specified as a 3-letter ISO-4217 code, see [here](https://www.exchangerate-api.com/docs/supported-currencies) for the full list of supported currencies, and their symbols
+**`outputCurrencies`** | `array` |  Required | List or currencies to show results for. Specified as a 3-letter ISO-4217 code, see [here](https://www.exchangerate-api.com/docs/supported-currencies) for the full list of supported currencies, and their symbols
+
+##### Example 
+
+```yaml
+- name: Exchange Rates
+  icon: fas fa-money-bill-wave
+  type: exchange-rates
+  options:
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxxx
+    inputCurrency: GBP
+    outputCurrencies:
+      - USD
+      - JPY
+      - HKD
+      - KPW
+```
+
 ---
 
 ## Dynamic Widgets

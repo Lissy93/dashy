@@ -17,6 +17,7 @@
       <CryptoPriceChart v-else-if="widgetType === 'crypto-price-chart'" :options="widgetOptions" />
       <CryptoWatchList v-else-if="widgetType === 'crypto-watch-list'" :options="widgetOptions" />
       <XkcdComic v-else-if="widgetType === 'xkcd-comic'" :options="widgetOptions" />
+      <ExchangeRates v-else-if="widgetType === 'exchange-rates'" :options="widgetOptions" />
     </Collapsable>
   </div>
 </template>
@@ -29,6 +30,7 @@ import TflStatus from '@/components/Widgets/TflStatus.vue';
 import CryptoPriceChart from '@/components/Widgets/CryptoPriceChart.vue';
 import CryptoWatchList from '@/components/Widgets/CryptoWatchList.vue';
 import XkcdComic from '@/components/Widgets/XkcdComic.vue';
+import ExchangeRates from '@/components/Widgets/ExchangeRates.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 
 export default {
@@ -42,6 +44,7 @@ export default {
     CryptoPriceChart,
     CryptoWatchList,
     XkcdComic,
+    ExchangeRates,
   },
   props: {
     widget: Object,
