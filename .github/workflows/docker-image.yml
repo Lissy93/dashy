@@ -16,14 +16,7 @@ jobs:
     - name: Set up Docker Buildx      
       uses: crazy-max/ghaction-docker-buildx@v1      
       with:        
-        version: latest    
-    - name: Prepare      
-      if: success()      
-      id: prepare      
-      run: |        
-        echo ::set-output name=docker_platform::${TARGETPLATFORM}        
-        echo ::set-output name=docker_image::${DOCKER_REGISTRY}/${DOCKER_IMAGE}        
-        echo ::set-output name=version::${GITHUB_RUN_NUMBER}    
+        version: latest      
     - name: Docker Login      
       if: success()      
       run: |        
@@ -31,6 +24,6 @@ jobs:
     - name: Run Buildx (push image)      
       if: success()      
       run: |        
-        docker buildx build --platform ${{ steps.prepare.outputs.docker_platform }} --tag kshfse/dashy:latest --build-arg TARGETPLATFORM=${TARGETPLATFORM} --file ./docker/Dockerfile-multi-arch --output type=image,push=true .
+        docker buildx build --platform linux/arm/v7 --tag kshfse/dashy:latest --build-arg TARGETPLATFORM=${TARGETPLATFORM} --file ./docker/Dockerfile-multi-arch --output type=image,push=true .
 
-        docker buildx build --platform ${{ steps.prepare.outputs.docker_platform }} --tag kshfse/dashy:latest --build-arg TARGETPLATFORM=linux/arm64 --file ./docker/Dockerfile-multi-arch --output type=image,push=true .
+        docker buildx build --platform linux/arm64 --tag kshfse/dashy:latest --build-arg TARGETPLATFORM=linux/arm64 --file ./docker/Dockerfile-multi-arch --output type=image,push=true .
