@@ -31,4 +31,6 @@ jobs:
     - name: Run Buildx (push image)      
       if: success()      
       run: |        
-        docker buildx build --platform ${{ steps.prepare.outputs.docker_platform }} --tag ksfhse/dashy:latest --file ./docker/Dockerfile-multi-arch --output type=image,push=true .
+        docker buildx build --platform ${{ steps.prepare.outputs.docker_platform }} --tag kshfse/dashy:latest --build-arg TARGETPLATFORM=${{TARGETPLATFORM}} --file ./docker/Dockerfile-multi-arch --output type=image,push=true .
+
+        docker buildx build --platform ${{ steps.prepare.outputs.docker_platform }} --tag kshfse/dashy:latest --build-arg TARGETPLATFORM=linux/arm64 --file ./docker/Dockerfile-multi-arch --output type=image,push=true .
