@@ -19,6 +19,7 @@
       <XkcdComic v-else-if="widgetType === 'xkcd-comic'" :options="widgetOptions" />
       <ExchangeRates v-else-if="widgetType === 'exchange-rates'" :options="widgetOptions" />
       <StockPriceChart v-else-if="widgetType === 'stock-price-chart'" :options="widgetOptions" />
+      <Jokes v-else-if="widgetType === 'joke'" :options="widgetOptions" />
     </Collapsable>
   </div>
 </template>
@@ -33,6 +34,7 @@ import CryptoWatchList from '@/components/Widgets/CryptoWatchList.vue';
 import XkcdComic from '@/components/Widgets/XkcdComic.vue';
 import ExchangeRates from '@/components/Widgets/ExchangeRates.vue';
 import StockPriceChart from '@/components/Widgets/StockPriceChart.vue';
+import Jokes from '@/components/Widgets/Jokes.vue';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 
 export default {
@@ -48,6 +50,7 @@ export default {
     XkcdComic,
     ExchangeRates,
     StockPriceChart,
+    Jokes,
   },
   props: {
     widget: Object,

@@ -213,6 +213,7 @@ module.exports = {
     xkcdComic: 'https://xkcd.vercel.app/',
     exchangeRates: 'https://v6.exchangerate-api.com/v6/',
     stockPriceChart: 'https://www.alphavantage.co/query',
+    jokes: 'https://v2.jokeapi.dev/joke/',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

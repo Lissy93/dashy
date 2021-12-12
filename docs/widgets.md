@@ -261,6 +261,32 @@ Shows recent price history for a given publicly-traded stock or share
     apiKey: PGUWSWD6CZTXMT8N
 ```
 
+### Joke
+
+Renders a programming or generic joke. Data is fetched from the [JokesAPI](https://github.com/Sv443/JokeAPI) by @Sv443
+
+<p align="center"><img width="400" src="https://i.ibb.co/sQJGkyR/joke.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`category`** | `string` |  _Optional_ | Set the category of jokes to return. Use a string to specify a single category, or an array to pass in multiple options. Available options are: `all`, `programming`, `pun`, `dark`, `spooky`, `christmas` and `misc`. An up-to-date list of supported categories can be found [here](https://v2.jokeapi.dev/categories). Defaults to `all`
+**`safeMode`** | `boolean` | _Optional_ | Set to `true`, to prevent the fetching of any NSFW jokes. Defaults to `false`
+**`language`** | `string` |  _Optional_ | Specify the language for returned jokes. The following languages are supported: `en`, `cs`, `de`, `es`, `fr` and `pt`, and an up-to-date list of supported languages can be found [here](https://v2.jokeapi.dev/languages). By default, your system language will be used, if it's supported, otherwise English
+
+##### Example 
+
+```yaml
+- name: Joke
+  icon: fas fa-laugh
+  type: joke
+  options:
+    safeMode: true
+    language: en
+    category: Programming
+```
+
 ---
 
 ## Dynamic Widgets
