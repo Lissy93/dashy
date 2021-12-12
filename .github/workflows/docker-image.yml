@@ -9,7 +9,7 @@ jobs:
       DOCKER_IMAGE: kshfse/dashy
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
-      DOCKER_TARGET_PLATFORM: linux/arm/v7                 
+      TARGETPLATFORM: linux/arm/v7                 
     steps:    
     - name: Checkout the code       
       uses: actions/checkout@v1          
@@ -21,7 +21,7 @@ jobs:
       if: success()      
       id: prepare      
       run: |        
-        echo ::set-output name=docker_platform::${DOCKER_TARGET_PLATFORM}        
+        echo ::set-output name=docker_platform::${TARGETPLATFORM}        
         echo ::set-output name=docker_image::${DOCKER_REGISTRY}/${DOCKER_IMAGE}        
         echo ::set-output name=version::${GITHUB_RUN_NUMBER}    
     - name: Docker Login      
@@ -31,4 +31,4 @@ jobs:
     - name: Run Buildx (push image)      
       if: success()      
       run: |        
-        docker buildx build --platform ${{ steps.prepare.outputs.docker_platform }} --tag ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.version }} --file ./docker/Dockerfile-multi-arch --output type=image,push=true .
+        docker buildx build --platform ${{ steps.prepare.outputs.docker_platform }} --tag ksfhse/dashy:latest --file ./docker/Dockerfile-multi-arch --output type=image,push=true .
