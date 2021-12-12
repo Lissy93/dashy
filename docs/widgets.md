@@ -236,6 +236,31 @@ Display current FX rates in your native currency
       - KPW
 ```
 
+### Stock Price History
+
+Shows recent price history for a given publicly-traded stock or share
+
+<p align="center"><img width="400" src="https://i.ibb.co/XZHRb4f/stock-price.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | API key for [Alpha Vantage](https://www.alphavantage.co/), you can get a free API key [here](https://www.alphavantage.co/support/#api-key)
+**`stock`** | `string` | Required | The stock symbol for the asset to fetch data for
+**`priceTime`** | `string` |  _Optional_ | The time to fetch price for. Can be `high`, `low`, `open` or `close`. Defaults to `high`
+
+##### Example 
+
+```yaml
+- name: CloudFlare Stock Price
+  icon: fas fa-analytics
+  type: stock-price-chart
+  options:
+    stock: NET
+    apiKey: PGUWSWD6CZTXMT8N
+```
+
 ---
 
 ## Dynamic Widgets

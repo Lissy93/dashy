@@ -212,6 +212,7 @@ module.exports = {
     cryptoWatchList: 'https://api.coingecko.com/api/v3/coins/markets/',
     xkcdComic: 'https://xkcd.vercel.app/',
     exchangeRates: 'https://v6.exchangerate-api.com/v6/',
+    stockPriceChart: 'https://www.alphavantage.co/query',
   },
   /* URLs for web search engines */
   searchEngineUrls: {
