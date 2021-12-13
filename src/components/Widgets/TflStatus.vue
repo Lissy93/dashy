@@ -25,7 +25,6 @@
 <script>
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import ErrorHandler from '@/utils/ErrorHandler';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
 export default {
@@ -52,6 +51,7 @@ export default {
   methods: {
     /* Extends mixin, and updates data. Called by parent component */
     update() {
+      this.startLoading();
       this.fetchData();
     },
     /* Makes GET request to the TFL API */
@@ -61,7 +61,10 @@ export default {
           this.lineStatuses = this.processData(response.data);
         })
         .catch(() => {
-          ErrorHandler('Unable to fetch data from TFL API');
+          this.error('Unable to fetch data from TFL API');
+        })
+        .finally(() => {
+          this.finishLoading();
         });
     },
     /* Processes the results to be rendered by the UI */
@@ -97,7 +100,7 @@ export default {
       const chosenLines = usersLines.map(name => name.toLowerCase());
       const filtered = allLines.filter((line) => chosenLines.includes(line.line.toLowerCase()));
       if (filtered.length < 1) {
-        ErrorHandler('No TFL lines match your filter');
+        this.error('No TFL lines match your filter');
         return allLines;
       }
       return filtered;

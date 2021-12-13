@@ -6,7 +6,6 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
-import ErrorHandler from '@/utils/ErrorHandler';
 
 export default {
   mixins: [WidgetMixin],
@@ -15,7 +14,7 @@ export default {
     frameUrl() {
       const usersChoice = this.options.url;
       if (!usersChoice || typeof usersChoice !== 'string') {
-        ErrorHandler('Iframe widget expects a URL');
+        this.error('Iframe widget expects a URL');
         return null;
       }
       return usersChoice;
@@ -28,7 +27,9 @@ export default {
   methods: {
     /* Refreshes iframe contents, called by parent */
     update() {
+      this.startLoading();
       (document.getElementById(this.frameId) || {}).src = this.frameUrl;
+      this.finishLoading();
     },
   },
 };

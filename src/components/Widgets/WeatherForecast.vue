@@ -33,7 +33,6 @@
 <script>
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import ErrorHandler from '@/utils/ErrorHandler';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
 export default {
@@ -41,7 +40,6 @@ export default {
   data() {
     return {
       loading: true,
-      error: false,
       showDetails: false,
       weatherData: [],
       moreInfo: [],
@@ -77,6 +75,7 @@ export default {
   methods: {
     /* Extends mixin, and updates data. Called by parent component */
     update() {
+      this.startLoading();
       this.fetchWeather();
     },
     /* Adds units symbol to temperature, depending on metric or imperial */
@@ -97,8 +96,11 @@ export default {
             this.processApiResults(response.data);
           }
         })
-        .catch(() => {
-          this.throwError('Failed to fetch weather');
+        .catch((error) => {
+          this.error('Failed to fetch weather', error);
+        })
+        .finally(() => {
+          this.finishLoading();
         });
     },
     /* Process the results from the Axios request */
@@ -154,23 +156,18 @@ export default {
       const ops = this.options;
       let valid = true;
       if (!ops.apiKey) {
-        this.throwError('Missing API key for OpenWeatherMap');
+        this.error('Missing API key for OpenWeatherMap');
         valid = false;
       }
       if (!ops.city) {
-        this.throwError('A city name is required to fetch weather');
+        this.error('A city name is required to fetch weather');
         valid = false;
       }
       if (ops.units && ops.units !== 'metric' && ops.units !== 'imperial') {
-        this.throwError('Invalid units specified, must be either \'metric\' or \'imperial\'');
+        this.error('Invalid units specified, must be either \'metric\' or \'imperial\'');
         valid = false;
       }
       return valid;
-    },
-    /* Just outputs an error message */
-    throwError(error) {
-      ErrorHandler(error);
-      this.error = true;
     },
   },
   /* When the widget loads, the props are checked, and weather fetched */

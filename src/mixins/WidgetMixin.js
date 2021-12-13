@@ -1,3 +1,5 @@
+import ProgressBar from 'rsup-progress';
+import ErrorHandler from '@/utils/ErrorHandler';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
 
 const WidgetMixin = {
@@ -13,6 +15,7 @@ const WidgetMixin = {
   },
   data: () => ({
     loading: true, // Indicates current loading status, to display spinner
+    progress: new ProgressBar({ color: 'var(--progress-bar)' }),
   }),
   methods: {
     /* Overridden by widget component. Re-fetches and renders any external data  *
@@ -20,6 +23,21 @@ const WidgetMixin = {
     update() {
       // eslint-disable-next-line no-console
       console.log('No update method configured for this widget');
+    },
+    /* Called when an error occurs */
+    error(msg, stackTrace) {
+      ErrorHandler(msg, stackTrace);
+      this.$emit('error', msg);
+    },
+    /* When a data request update starts, show loader */
+    startLoading() {
+      this.loading = true;
+      this.progress.start();
+    },
+    /* When a data request finishes, hide loader */
+    finishLoading() {
+      this.loading = false;
+      setTimeout(() => { this.progress.end(); }, 500);
     },
   },
   mounted() {

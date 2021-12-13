@@ -21,7 +21,6 @@
 <script>
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import ErrorHandler from '@/utils/ErrorHandler';
 import { widgetApiEndpoints } from '@/utils/defaults';
 import { findCurrencySymbol, convertTimestampToDate } from '@/utils/MiscHelpers';
 
@@ -39,13 +38,20 @@ export default {
   computed: {
     /* The crypto assets to fetch price data for */
     assets() {
-      return this.options.assets.join(',');
+      const usersChoice = this.options.assets;
+      if (!usersChoice) return '';
+      return usersChoice.join(',');
     },
     /* The fiat currency to calculate price data in */
     currency() {
       const userChoice = this.options.currency;
       if (typeof userChoice === 'string') return userChoice;
       return 'USD';
+    },
+    limit() {
+      const userChoice = this.options.limit;
+      if (userChoice && !Number.isNaN(userChoice) && userChoice > 0) return userChoice;
+      return 100;
     },
     /* How results should be sorted */
     order() {
@@ -60,7 +66,7 @@ export default {
     /* The formatted GET request API endpoint to fetch crypto data from */
     endpoint() {
       return `${widgetApiEndpoints.cryptoWatchList}?`
-      + `ids=${this.assets}&vs_currency=${this.currency}&order=${this.order}`;
+      + `ids=${this.assets}&vs_currency=${this.currency}&order=${this.order}&per_page=${this.limit}`;
     },
   },
   filters: {
@@ -70,6 +76,7 @@ export default {
     },
     /* Append percentage symbol, and up/ down arrow */
     percentage(change) {
+      if (!change) return '';
       const symbol = change > 0 ? '↑' : '↓';
       return `${symbol} ${change.toFixed(2)}%`;
     },
@@ -77,6 +84,7 @@ export default {
   methods: {
     /* Extends mixin, and updates data. Called by parent component */
     update() {
+      this.startLoading();
       this.fetchData();
     },
     /* Make GET request to CoinGecko API endpoint */
@@ -86,7 +94,10 @@ export default {
           this.processData(response.data);
         })
         .catch((error) => {
-          ErrorHandler('Unable to fetch crypto watch list', error);
+          this.error('Unable to fetch crypto watch list', error);
+        })
+        .finally(() => {
+          this.finishLoading();
         });
     },
     /* Convert response data into JSON to be consumed by the UI */

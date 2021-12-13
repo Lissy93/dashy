@@ -6,7 +6,6 @@
 import { Chart } from 'frappe-charts/dist/frappe-charts.min.esm';
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import ErrorHandler from '@/utils/ErrorHandler';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
 export default {
@@ -74,6 +73,7 @@ export default {
   methods: {
     /* Extends mixin, and updates data. Called by parent component */
     update() {
+      this.startLoading();
       this.fetchData();
     },
     /* Create new chart, using the crypto data */
@@ -103,15 +103,18 @@ export default {
       axios.get(this.endpoint)
         .then((response) => {
           if (response.data.note) {
-            ErrorHandler('API Error', response.data.Note);
+            this.error('API Error', response.data.Note);
           } else if (response.data['Error Message']) {
-            ErrorHandler('API Error', response.data['Error Message']);
+            this.error('API Error', response.data['Error Message']);
           } else {
             this.processData(response.data);
           }
         })
         .catch((error) => {
-          ErrorHandler('Unable to fetch stock price data', error);
+          this.error('Unable to fetch stock price data', error);
+        })
+        .finally(() => {
+          this.finishLoading();
         });
     },
     /* Convert data returned by API into a format that can be consumed by the chart

@@ -8,7 +8,6 @@
 <script>
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import ErrorHandler from '@/utils/ErrorHandler';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
 export default {
@@ -56,6 +55,7 @@ export default {
   methods: {
     /* Extends mixin, and updates data. Called by parent component */
     update() {
+      this.startLoading();
       this.fetchData();
     },
     /* Make GET request to Jokes API endpoint */
@@ -63,12 +63,15 @@ export default {
       axios.get(this.endpoint)
         .then((response) => {
           if (response.data.error) {
-            ErrorHandler('No matching jokes returned', response.data.additionalInfo);
+            this.error('No matching jokes returned', response.data.additionalInfo);
           }
           this.processData(response.data);
         })
         .catch((dataFetchError) => {
-          ErrorHandler('Unable to fetch any jokes', dataFetchError);
+          this.error('Unable to fetch any jokes', dataFetchError);
+        })
+        .finally(() => {
+          this.finishLoading();
         });
     },
     /* Assign data variables to the returned data */

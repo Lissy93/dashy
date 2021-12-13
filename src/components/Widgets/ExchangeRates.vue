@@ -13,7 +13,6 @@
 <script>
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import ErrorHandler from '@/utils/ErrorHandler';
 import { widgetApiEndpoints } from '@/utils/defaults';
 import { findCurrencySymbol } from '@/utils/MiscHelpers';
 
@@ -54,6 +53,7 @@ export default {
   methods: {
     /* Extends mixin, and updates data. Called by parent component */
     update() {
+      this.startLoading();
       this.fetchData();
     },
     /* Make GET request to CoinGecko API endpoint */
@@ -62,7 +62,10 @@ export default {
         .then(response => {
           this.processData(response.data);
         }).catch(error => {
-          ErrorHandler('Unable to fetch or process exchange rate data', error);
+          this.error('Unable to fetch or process exchange rate data', error);
+        })
+        .finally(() => {
+          this.finishLoading();
         });
     },
     /* Assign data variables to the returned data */

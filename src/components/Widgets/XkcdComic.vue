@@ -10,7 +10,6 @@
 <script>
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import ErrorHandler from '@/utils/ErrorHandler';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
 export default {
@@ -47,6 +46,7 @@ export default {
   methods: {
     /* Extends mixin, and updates data. Called by parent component */
     update() {
+      this.startLoading();
       this.fetchData();
     },
     /* Make GET request to CoinGecko API endpoint */
@@ -56,7 +56,10 @@ export default {
           this.processData(response.data);
         })
         .catch((dataFetchError) => {
-          ErrorHandler('Unable to fetch data', dataFetchError);
+          this.error('Unable to fetch data', dataFetchError);
+        })
+        .finally(() => {
+          this.finishLoading();
         });
     },
     /* Assign data variables to the returned data */

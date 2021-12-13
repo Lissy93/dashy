@@ -26,7 +26,6 @@
 <script>
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import ErrorHandler from '@/utils/ErrorHandler';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
 export default {
@@ -34,7 +33,6 @@ export default {
   data() {
     return {
       loading: true,
-      error: false,
       icon: null,
       description: null,
       temp: null,
@@ -68,6 +66,7 @@ export default {
   methods: {
     /* Extends mixin, and updates data. Called by parent component */
     update() {
+      this.startLoading();
       this.fetchWeather();
     },
     /* Adds units symbol to temperature, depending on metric or imperial */
@@ -87,8 +86,11 @@ export default {
             this.makeWeatherData(data);
           }
         })
-        .catch(() => {
-          this.throwError('Failed to fetch weather');
+        .catch((error) => {
+          this.throwError('Failed to fetch weather', error);
+        })
+        .finally(() => {
+          this.finishLoading();
         });
     },
     /* If showing additional info, then generate this data too */
@@ -131,9 +133,8 @@ export default {
       return valid;
     },
     /* Just outputs an error message */
-    throwError(error) {
-      ErrorHandler(error);
-      this.error = true;
+    throwError(msg, error) {
+      this.error(msg, error);
     },
   },
   created() {
