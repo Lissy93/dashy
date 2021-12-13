@@ -63,6 +63,7 @@
         :key="widgetIndx"
         :widget="widget"
         :index="index"
+        @navigateToSection="navigateToSection"
       />
     </div>
     <!-- Modal for opening in modal view -->
