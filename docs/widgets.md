@@ -3,11 +3,24 @@
 Dashy has support for displaying dynamic content in the form of widgets. There are several built-in widgets availible out-of-the-box (with more on the way!) as well as support for custom widgets to display stats from almost any service with an accessible API.
 
 ##### Contents
-- [Built-In Widgets](#built-in-widgets)
+- [General Widgets](#general-widgets)
+  - [Clock](#clock)
+  - [Weather](#weather)
+  - [Weather Forecast](#weather-forecast)
+  - [Crypto Watch List](#crypto-watch-list)
+  - [Crypto Price History](#crypto-token-price-history)
+  - [XKCD Comics](#xkcd-comics)
+  - [TFL Status](#tfl-status)
+  - [Exchange Rates](#exchange-rates)
+  - [Stock Price History](#stock-price-history)
+  - [Joke of the Day](#joke)
+- [Self-Hosted Services Widgets](#dynamic-widgets)
 - [Dynamic Widgets](#dynamic-widgets)
+  - [Iframe Widget](#iframe-widget)
+  - [HTML Widget](#html-widget)
 - [Build your own Widget](#build-your-own-widget)
 
-## Built-In Widgets
+## General Widgets
 
 ### Clock
 
@@ -26,9 +39,7 @@ A simple, live-updating time and date widget with time-zone support. All options
 ##### Example
 
 ```yaml
-- name: London Time
-  icon: fas fa-clock
-  type: clock
+- type: clock
   options:
     timeZone: Europe/London
     format: en-GB
@@ -53,9 +64,7 @@ A simple, live-updating local weather component, showing temperature, conditions
 ##### Example
 
 ```yaml
-- name: Local Weather
-  icon: fas fa-clouds
-  type: weather
+- type: weather
   options:
     apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     city: London
@@ -82,9 +91,7 @@ Displays the weather (temperature and conditions) for the next few days for a gi
 ##### Example
 
 ```yaml
-- name: Weather Forecast
-  icon: ':sunny:'
-  type: weather-forecast
+- type: weather-forecast
   options:
     city: California
     numDays: 6
@@ -109,9 +116,7 @@ Keep track of price changes of your favorite crypto assets. Data is fetched from
 ##### Example
 
 ```yaml
-  - name: Crypto Prices
-    icon: fas fa-rocket
-    type: crypto-watch-list
+  - type: crypto-watch-list
     options:
       currency: GBP
       sortBy: marketCap
@@ -141,9 +146,7 @@ Shows recent price history for a given crypto asset, using price data fetched fr
 ##### Example
 
 ```yaml
-- name: Bitcoin Price
-  icon: fab fa-bitcoin
-  type: crypto-price-chart
+- type: crypto-price-chart
   options:
     asset: bitcoin
     currency: GBP
@@ -165,9 +168,7 @@ Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webc
 ##### Example
 
 ```yaml
-- name: XKCD of the Day
-  icon: fas fa-laugh
-  type: xkcd-comic
+- type: xkcd-comic
   options:
     comic: latest
 ```
@@ -189,14 +190,11 @@ Shows real-time tube status of the London Underground. All options are optional.
 ##### Example 
 
 ```yaml
-- name: London Underground
-  type: tfl-status
+- type: tfl-status
 ```
 
 ```yaml
-  - name: Commute
-    icon: '🚋'
-    type: tfl-status
+  - type: tfl-status
     options:
       showAll: true
       sortAlphabetically: true
@@ -223,9 +221,7 @@ Display current FX rates in your native currency
 ##### Example 
 
 ```yaml
-- name: Exchange Rates
-  icon: fas fa-money-bill-wave
-  type: exchange-rates
+- type: exchange-rates
   options:
     apiKey: xxxxxxxxxxxxxxxxxxxxxxxx
     inputCurrency: GBP
@@ -253,9 +249,7 @@ Shows recent price history for a given publicly-traded stock or share
 ##### Example 
 
 ```yaml
-- name: CloudFlare Stock Price
-  icon: fas fa-analytics
-  type: stock-price-chart
+- type: stock-price-chart
   options:
     stock: NET
     apiKey: PGUWSWD6CZTXMT8N
@@ -278,9 +272,7 @@ Renders a programming or generic joke. Data is fetched from the [JokesAPI](https
 ##### Example 
 
 ```yaml
-- name: Joke
-  icon: fas fa-laugh
-  type: joke
+- type: joke
   options:
     safeMode: true
     language: en
@@ -290,6 +282,26 @@ Renders a programming or generic joke. Data is fetched from the [JokesAPI](https
 ---
 
 ## Dynamic Widgets
+
+### Iframe Widget
+
+Embed any webpage into your dashboard as a widget.
+
+<p align="center"><img width="400" src="https://i.ibb.co/t4VHnh3/iframe-widget.gif" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`url`** | `string` |  Required | The URL to the webpage to embed
+
+##### Example 
+
+```yaml
+- type: iframe
+  options:
+    url: https://fiatleak.com/
+```
 
 ---
 
