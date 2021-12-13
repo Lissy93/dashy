@@ -1,91 +1,115 @@
 <template>
-  <div class="widget-base">
+  <div :class="`widget-base ${ loading ? 'is-loading' : '' }`">
+    <!-- Update and Full-Page Action Buttons  -->
     <Button :click="update" class="action-btn update-btn" v-if="!error && !loading">
       <UpdateIcon />
     </Button>
     <Button :click="fullScreenWidget" class="action-btn open-btn" v-if="!error && !loading">
       <OpenIcon />
     </Button>
-    <div v-if="loading">Loading...</div>
-    <div v-else-if="error" class="widget-error">
+    <!-- Loading Spinner -->
+    <div v-if="loading" class="loading">
+      <LoadingAnimation v-if="loading" class="loader" />
+    </div>
+    <!-- Error Message Display -->
+    <div v-if="error" class="widget-error">
       <p class="error-msg">An error occurred, see the logs for more info.</p>
       <p class="error-output">{{ errorMsg }}</p>
     </div>
-    <Clock
-      v-else-if="widgetType === 'clock'"
-      :options="widgetOptions"
-      @error="handleError"
-      :ref="widgetRef"
-    />
-    <Weather
-      v-else-if="widgetType === 'weather'"
-      :options="widgetOptions"
-      @error="handleError"
-      :ref="widgetRef"
-    />
-    <WeatherForecast
-      v-else-if="widgetType === 'weather-forecast'"
-      :options="widgetOptions"
-      @error="handleError"
-      :ref="widgetRef"
-    />
-    <TflStatus
-      v-else-if="widgetType === 'tfl-status'"
-      :options="widgetOptions"
-      @error="handleError"
-      :ref="widgetRef"
-    />
-    <CryptoPriceChart
-      v-else-if="widgetType === 'crypto-price-chart'"
-      :options="widgetOptions"
-      @error="handleError"
-      :ref="widgetRef"
-    />
-    <CryptoWatchList
-      v-else-if="widgetType === 'crypto-watch-list'"
-      :options="widgetOptions"
-      @error="handleError"
-      :ref="widgetRef"
-    />
-    <XkcdComic
-      v-else-if="widgetType === 'xkcd-comic'"
-      :options="widgetOptions"
-      @error="handleError"
-      :ref="widgetRef"
-    />
-    <ExchangeRates
-      v-else-if="widgetType === 'exchange-rates'"
-      :options="widgetOptions"
-      @error="handleError"
-      :ref="widgetRef"
-    />
-    <StockPriceChart
-      v-else-if="widgetType === 'stock-price-chart'"
-      :options="widgetOptions"
-      @error="handleError"
-      :ref="widgetRef"
-    />
-    <Jokes
-      v-else-if="widgetType === 'joke'"
-      :options="widgetOptions"
-      @error="handleError"
-      :ref="widgetRef"
-    />
-    <IframeWidget
-      v-else-if="widgetType === 'iframe'"
-      :options="widgetOptions"
-      @error="handleError"
-      :ref="widgetRef"
-    />
+    <!-- Widget -->
+    <div v-else class="widget-wrap">
+      <Clock
+        v-if="widgetType === 'clock'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <Weather
+        v-else-if="widgetType === 'weather'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <WeatherForecast
+        v-else-if="widgetType === 'weather-forecast'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <TflStatus
+        v-else-if="widgetType === 'tfl-status'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <CryptoPriceChart
+        v-else-if="widgetType === 'crypto-price-chart'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <CryptoWatchList
+        v-else-if="widgetType === 'crypto-watch-list'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <XkcdComic
+        v-else-if="widgetType === 'xkcd-comic'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <ExchangeRates
+        v-else-if="widgetType === 'exchange-rates'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <StockPriceChart
+        v-else-if="widgetType === 'stock-price-chart'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <Jokes
+        v-else-if="widgetType === 'joke'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <IframeWidget
+        v-else-if="widgetType === 'iframe'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <!-- No widget type specified -->
+      <div v-else>{{ handleError('No widget type was specified') }}</div>
+    </div>
   </div>
 </template>
 
 <script>
+// Import form elements, icons and utils
 import ErrorHandler from '@/utils/ErrorHandler';
 import Button from '@/components/FormElements/Button';
 import UpdateIcon from '@/assets/interface-icons/widget-update.svg';
 import OpenIcon from '@/assets/interface-icons/open-new-tab.svg';
+import LoadingAnimation from '@/assets/interface-icons/loader.svg';
 
+// Import available widgets
 import Clock from '@/components/Widgets/Clock.vue';
 import Weather from '@/components/Widgets/Weather.vue';
 import WeatherForecast from '@/components/Widgets/WeatherForecast.vue';
@@ -104,6 +128,7 @@ export default {
     Button,
     UpdateIcon,
     OpenIcon,
+    LoadingAnimation,
     Clock,
     Weather,
     WeatherForecast,
@@ -134,24 +159,32 @@ export default {
       }
       return this.widget.type.toLowerCase();
     },
-    /* Returns the users specified widget options, or empty object */
+    /* Returns users specified widget options, or empty object */
     widgetOptions() {
       return this.widget.options || {};
     },
+    /* A unique string to reference the widget by */
     widgetRef() {
       return `widget-${this.widgetType}-${this.index}`;
     },
   },
   methods: {
+    /* Calls update data method on widget */
     update() {
       this.$refs[this.widgetRef].update();
     },
+    /* Shows message when error occurred */
     handleError(msg) {
       this.error = true;
       this.errorMsg = msg;
     },
+    /* Opens current widget in full-page */
     fullScreenWidget() {
       this.$emit('navigateToSection');
+    },
+    /* Toggles loading state */
+    setLoaderState(loading) {
+      this.loading = loading;
     },
   },
 };
@@ -162,6 +195,7 @@ export default {
 .widget-base {
   position: relative;
   padding-top: 0.75rem;
+  // Refresh and full-page action buttons
   button.action-btn  {
     height: 1rem;
     min-width: auto;
@@ -184,7 +218,7 @@ export default {
       right: 1.75rem;
     }
   }
-
+  // Error message output
   .widget-error {
     p.error-msg {
       color: var(--warning);
@@ -197,6 +231,20 @@ export default {
       color: var(--widget-text-color);
       font-size: 0.85rem;
       margin: 0.5rem auto;
+    }
+  }
+  // Loading spinner
+  .loading {
+    margin: 0.2rem auto;
+    text-align: center;
+    svg.loader {
+      width: 100px;
+    }
+  }
+  // Hide widget contents while loading
+  &.is-loading {
+    .widget-wrap {
+      display: none;
     }
   }
 }

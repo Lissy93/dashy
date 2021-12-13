@@ -1,6 +1,5 @@
 <template>
-<LoadingAnimation v-if="loading" class="loader" />
-<div v-else class="weather">
+<div class="weather">
   <!-- Icon + Temperature -->
   <div class="intro">
     <p class="temp">{{ temp }}</p>
