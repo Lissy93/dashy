@@ -39,8 +39,12 @@ export default {
     },
   },
   methods: {
+    update() {
+      this.setTime();
+      this.setDate();
+    },
     /* Get and format the current time */
-    updateTime() {
+    setTime() {
       this.time = Intl.DateTimeFormat(this.timeFormat, {
         timeZone: this.timeZone,
         hour: 'numeric',
@@ -49,7 +53,7 @@ export default {
       }).format();
     },
     /* Get and format the date */
-    updateDate() {
+    setDate() {
       this.date = new Date().toLocaleDateString(this.timeFormat, {
         weekday: 'long', day: 'numeric', year: 'numeric', month: 'short',
       });
@@ -57,14 +61,13 @@ export default {
   },
   created() {
     // Set initial date and time
-    this.updateTime();
-    this.updateDate();
+    this.update();
     // Update the date every hour, and the time each second
     this.timeUpdateInterval = setInterval(() => {
-      this.updateTime();
+      this.setTime();
       const now = new Date();
       if (now.getMinutes() === 0 && now.getSeconds() === 0) {
-        this.updateDate();
+        this.setDate();
       }
     }, 1000);
   },

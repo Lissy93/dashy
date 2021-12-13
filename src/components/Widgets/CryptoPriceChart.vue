@@ -65,6 +65,10 @@ export default {
     },
   },
   methods: {
+    /* Extends mixin, and updates data. Called by parent component */
+    update() {
+      this.fetchData();
+    },
     /* Create new chart, using the crypto data */
     generateChart() {
       return new Chart(`#${this.chartId}`, {

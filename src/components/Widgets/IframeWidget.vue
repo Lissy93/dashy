@@ -1,6 +1,6 @@
 <template>
 <div class="iframe-widget">
-  <iframe v-if="frameUrl" :src="frameUrl" />
+  <iframe v-if="frameUrl" :src="frameUrl" :id="frameId" />
 </div>
 </template>
 
@@ -11,6 +11,7 @@ import ErrorHandler from '@/utils/ErrorHandler';
 export default {
   mixins: [WidgetMixin],
   computed: {
+    /* Gets users specified URL to load into the iframe */
     frameUrl() {
       const usersChoice = this.options.url;
       if (!usersChoice || typeof usersChoice !== 'string') {
@@ -18,6 +19,16 @@ export default {
         return null;
       }
       return usersChoice;
+    },
+    /* Generates an ID for the iframe */
+    frameId() {
+      return `iframe-${btoa(this.frameUrl || 'empty').substring(0, 16)}`;
+    },
+  },
+  methods: {
+    /* Refreshes iframe contents, called by parent */
+    update() {
+      (document.getElementById(this.frameId) || {}).src = this.frameUrl;
     },
   },
 };

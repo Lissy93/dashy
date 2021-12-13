@@ -54,6 +54,10 @@ export default {
     },
   },
   methods: {
+    /* Extends mixin, and updates data. Called by parent component */
+    update() {
+      this.fetchData();
+    },
     /* Make GET request to Jokes API endpoint */
     fetchData() {
       axios.get(this.endpoint)

@@ -12,11 +12,11 @@
     @openContextMenu="openContextMenu"
   >
     <!-- If no items, show message -->
-    <div v-if="(!items || items.length < 1) && !isEditMode" class="no-items">
+    <div v-if="sectionType === 'empty'" class="no-items">
       {{ $t('home.no-items-section') }}
     </div>
     <!-- Item Container -->
-    <div v-else
+    <div v-else-if="sectionType === 'item'"
       :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
       :style="gridStyle" :id="`section-${groupId}`"
     > <!-- Show for each item -->
@@ -57,6 +57,14 @@
         :itemSize="itemSize"
       />
     </div>
+    <div v-else-if="sectionType === 'widget'">
+      <WidgetBase
+        v-for="(widget, widgetIndx) in widgets"
+        :key="widgetIndx"
+        :widget="widget"
+        :index="index"
+      />
+    </div>
     <!-- Modal for opening in modal view -->
     <IframeModal
       :ref="`iframeModal-${groupId}`"
@@ -87,6 +95,7 @@
 <script>
 import router from '@/router';
 import Item from '@/components/LinkItems/Item.vue';
+import WidgetBase from '@/components/Widgets/WidgetBase';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import EditSection from '@/components/InteractiveEditor/EditSection.vue';
@@ -107,12 +116,14 @@ export default {
     icon: String,
     displayData: Object,
     items: Array,
+    widgets: Array,
     index: Number,
   },
   components: {
     Collapsable,
     ContextMenu,
     Item,
+    WidgetBase,
     IframeModal,
     EditSection,
   },
@@ -138,6 +149,12 @@ export default {
     },
     sortOrder() {
       return this.displayData.sortBy || defaultSortOrder;
+    },
+    /* A section can contain either items or widgets */
+    sectionType() {
+      if (this.widgets && this.widgets.length > 0) return 'widget';
+      if (this.items && this.items.length > 0) return 'item';
+      return 'empty';
     },
     /* If the sortBy attribute is specified, then return sorted data */
     sortedItems() {

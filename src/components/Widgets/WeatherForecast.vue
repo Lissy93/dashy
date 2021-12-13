@@ -75,6 +75,10 @@ export default {
     },
   },
   methods: {
+    /* Extends mixin, and updates data. Called by parent component */
+    update() {
+      this.fetchWeather();
+    },
     /* Adds units symbol to temperature, depending on metric or imperial */
     processTemp(temp) {
       return `${Math.round(temp)}${this.tempDisplayUnits}`;

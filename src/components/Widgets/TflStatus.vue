@@ -50,6 +50,10 @@ export default {
     },
   },
   methods: {
+    /* Extends mixin, and updates data. Called by parent component */
+    update() {
+      this.fetchData();
+    },
     /* Makes GET request to the TFL API */
     fetchData() {
       axios.get(widgetApiEndpoints.tflStatus)

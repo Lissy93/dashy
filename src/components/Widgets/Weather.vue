@@ -1,5 +1,6 @@
 <template>
-<div class="weather">
+<LoadingAnimation v-if="loading" class="loader" />
+<div v-else class="weather">
   <!-- Icon + Temperature -->
   <div class="intro">
     <p class="temp">{{ temp }}</p>
@@ -65,6 +66,10 @@ export default {
     },
   },
   methods: {
+    /* Extends mixin, and updates data. Called by parent component */
+    update() {
+      this.fetchWeather();
+    },
     /* Adds units symbol to temperature, depending on metric or imperial */
     processTemp(temp) {
       return `${Math.round(temp)}${this.tempDisplayUnits}`;
@@ -73,6 +78,7 @@ export default {
     fetchWeather() {
       axios.get(this.endpoint)
         .then((response) => {
+          this.loading = false;
           const { data } = response;
           this.icon = data.weather[0].icon;
           this.description = data.weather[0].description;
@@ -141,6 +147,10 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/weather-icons.scss';
 
+.loader {
+  margin: 0 auto;
+  display: flex;
+}
   p {
     color: var(--widget-text-color);
   }

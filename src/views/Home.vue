@@ -28,23 +28,25 @@
         + (this.colCount ? `col-count-${this.colCount} ` : '')"
       >
       <!-- Display any dynamic widget content -->
-      <WidgetGroup v-if="!singleSectionView" :widgets="widgets" />
-      <Section
-        v-for="(section, index) in filteredTiles"
-        :key="index"
-        :index="index"
-        :title="section.name"
-        :icon="section.icon || undefined"
-        :displayData="getDisplayData(section)"
-        :groupId="`section-${index}`"
-        :items="filterTiles(section.items, searchValue)"
-        :searchTerm="searchValue"
-        :itemSize="itemSizeBound"
-        @itemClicked="finishedSearching()"
-        @change-modal-visibility="updateModalVisibility"
-        :class="
-        (searchValue && filterTiles(section.items, searchValue).length === 0) ? 'no-results' : ''"
-      />
+      <!-- <WidgetGroup v-if="!singleSectionView" :widgets="widgets" /> -->
+      <template v-for="(section, index) in filteredTiles">
+        <Section
+          :key="index"
+          :index="index"
+          :title="section.name"
+          :icon="section.icon || undefined"
+          :displayData="getDisplayData(section)"
+          :groupId="`section-${index}`"
+          :items="filterTiles(section.items, searchValue)"
+          :widgets="section.widgets"
+          :searchTerm="searchValue"
+          :itemSize="itemSizeBound"
+          @itemClicked="finishedSearching()"
+          @change-modal-visibility="updateModalVisibility"
+          :class="
+          (searchValue && filterTiles(section.items, searchValue).length === 0) ? 'no-results' : ''"
+        />
+      </template>
       <!-- Show add new section button, in edit mode -->
       <AddNewSection v-if="isEditMode" />
     </div>
@@ -63,7 +65,7 @@
 
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
-import WidgetGroup from '@/components/Widgets/WidgetGroup';
+// import WidgetGroup from '@/components/Widgets/WidgetGroup';
 import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
 import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vue';
 import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.vue';
@@ -77,7 +79,7 @@ export default {
   name: 'home',
   components: {
     SettingsContainer,
-    WidgetGroup,
+    // WidgetGroup,
     EditModeSaveMenu,
     ExportConfigMenu,
     AddNewSection,
@@ -160,7 +162,7 @@ export default {
     },
     /* Returns only the tiles that match the users search query */
     filterTiles(allTiles, searchTerm) {
-      return searchTiles(allTiles, searchTerm);
+      return searchTiles(allTiles, searchTerm) || [];
     },
     /* Returns optional section display preferences if available */
     getDisplayData(section) {
@@ -216,10 +218,12 @@ export default {
       let isNeeded = false;
       if (!this.sections) return false;
       this.sections.forEach((section) => {
-        if (section.icon && section.icon.includes(prefix)) isNeeded = true;
-        section.items.forEach((item) => {
-          if (item.icon && item.icon.includes(prefix)) isNeeded = true;
-        });
+        if (section && section.items) {
+          if (section.icon && section.icon.includes(prefix)) isNeeded = true;
+          section.items.forEach((item) => {
+            if (item.icon && item.icon.includes(prefix)) isNeeded = true;
+          });
+        }
       });
       return isNeeded;
     },

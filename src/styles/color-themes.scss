@@ -331,6 +331,9 @@ html[data-theme='colorful'] {
   div.context-menu {
     border-color: var(--primary);
   }
+  .collapsable.is-open {
+    height: -webkit-fill-available;
+  }
 }
 
 html[data-theme='minimal-light'], html[data-theme='minimal-dark'], html[data-theme='vaporware'] {

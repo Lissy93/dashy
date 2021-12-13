@@ -40,11 +40,18 @@ export default {
       }
       return 'latest';
     },
+    endpoint() {
+      return `${widgetApiEndpoints.xkcdComic}?comic=${this.comicNumber}`;
+    },
   },
   methods: {
+    /* Extends mixin, and updates data. Called by parent component */
+    update() {
+      this.fetchData();
+    },
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
-      axios.get(`${widgetApiEndpoints.xkcdComic}?comic=${this.comicNumber}`)
+      axios.get(this.endpoint)
         .then((response) => {
           this.processData(response.data);
         })
