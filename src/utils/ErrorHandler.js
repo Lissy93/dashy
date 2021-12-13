@@ -24,9 +24,7 @@ const appendToErrorLog = (msg) => {
  */
 const ErrorHandler = function handler(msg, errorStack) {
   // Print to console
-  warningMsg(msg);
-  // If stack trace included, then print that too
-  if (errorStack) console.warn(errorStack); // eslint-disable-line no-console
+  warningMsg(msg, errorStack);
   // Save to local storage
   appendToErrorLog(msg);
   // Report to bug tracker (if enabled)
