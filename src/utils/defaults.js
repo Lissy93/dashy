@@ -215,6 +215,7 @@ module.exports = {
     stockPriceChart: 'https://www.alphavantage.co/query',
     jokes: 'https://v2.jokeapi.dev/joke/',
     flights: 'https://aerodatabox.p.rapidapi.com/flights/airports/icao/',
+    rssToJson: 'https://api.rss2json.com/v1/api.json',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

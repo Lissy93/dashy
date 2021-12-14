@@ -39,6 +39,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <RssFeed
+        v-else-if="widgetType === 'rss-feed'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <TflStatus
         v-else-if="widgetType === 'tfl-status'"
         :options="widgetOptions"
@@ -127,6 +134,7 @@ import LoadingAnimation from '@/assets/interface-icons/loader.svg';
 import Clock from '@/components/Widgets/Clock.vue';
 import Weather from '@/components/Widgets/Weather.vue';
 import WeatherForecast from '@/components/Widgets/WeatherForecast.vue';
+import RssFeed from '@/components/Widgets/RssFeed.vue';
 import TflStatus from '@/components/Widgets/TflStatus.vue';
 import CryptoPriceChart from '@/components/Widgets/CryptoPriceChart.vue';
 import CryptoWatchList from '@/components/Widgets/CryptoWatchList.vue';
@@ -148,6 +156,7 @@ export default {
     Clock,
     Weather,
     WeatherForecast,
+    RssFeed,
     TflStatus,
     CryptoPriceChart,
     CryptoWatchList,

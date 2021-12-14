@@ -1,6 +1,6 @@
 # Widgets
 
-Dashy has support for displaying dynamic content in the form of widgets. There are several built-in widgets availible out-of-the-box (with more on the way!) as well as support for custom widgets to display stats from almost any service with an accessible API.
+Dashy has support for displaying dynamic content in the form of widgets. There are several built-in widgets available out-of-the-box as well as support for custom widgets to display stats from almost any service with an API.
 
 ##### Contents
 - [General Widgets](#general-widgets)
@@ -9,6 +9,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Weather Forecast](#weather-forecast)
   - [Crypto Watch List](#crypto-watch-list)
   - [Crypto Price History](#crypto-token-price-history)
+  - [RSS Feed](#rss-feed)
   - [XKCD Comics](#xkcd-comics)
   - [TFL Status](#tfl-status)
   - [Exchange Rates](#exchange-rates)
@@ -47,6 +48,8 @@ A simple, live-updating time and date widget with time-zone support. All options
     hideDate: false
 ```
 
+---
+
 ### Weather
 
 A simple, live-updating local weather component, showing temperature, conditions and more info.
@@ -72,6 +75,8 @@ A simple, live-updating local weather component, showing temperature, conditions
     units: metric
     hideDetails: false
 ```
+
+---
 
 ### Weather Forecast
 
@@ -99,6 +104,9 @@ Displays the weather (temperature and conditions) for the next few days for a gi
     apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     units: imperial
 ```
+
+---
+
 
 ### Crypto Watch List
 
@@ -139,6 +147,8 @@ Or
       - dogecoin
 ```
 
+---
+
 ### Crypto Token Price History
 
 Shows recent price history for a given crypto asset, using price data fetched from [CoinGecko](https://www.coingecko.com/)
@@ -163,6 +173,35 @@ Shows recent price history for a given crypto asset, using price data fetched fr
     numDays: 7
 ```
 
+---
+
+### RSS Feed
+
+Display news and updates from any RSS-enabled service.
+
+<p align="center"><img width="600" src="https://i.ibb.co/N9mvLh4/rss-feed.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`rssUrl`** | `string` |  Required | The URL location of your RSS feed
+**`apiKey`** | `string` |  _Optional_ | An API key for [rss2json](https://rss2json.com/). It's free, and will allow you to make 10,000 requests per day, you can sign up [here](https://rss2json.com/sign-up)
+**`limit`** | `number` |  _Optional_ | The number of posts to return. If you haven't specified an API key, this will be limited to 10
+**`orderBy`** | `string` |  _Optional_ | How results should be sorted. Can be either `pubDate`, `author` or `title`. Defaults to `pubDate`
+**`orderDirection`** | `string` |  _Optional_ | Order direction of feed items to return. Can be either `asc` or `desc`. Defaults to `desc`
+
+##### Example
+
+```yaml
+- type: rss-feed
+  options:
+    rssUrl: https://www.schneier.com/blog/atom.xml
+    apiKey: xxxx
+```
+
+---
+
 ### XKCD Comics
 
 Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webcomic website covering everything from Linux, math, romance, science and language.
@@ -182,6 +221,8 @@ Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webc
   options:
     comic: latest
 ```
+
+---
 
 ### TFL Status
 
@@ -214,6 +255,8 @@ Shows real-time tube status of the London Underground. All options are optional.
       - Central
 ```
 
+---
+
 ### Exchange Rates
 
 Display current FX rates in your native currency
@@ -242,6 +285,8 @@ Display current FX rates in your native currency
       - KPW
 ```
 
+---
+
 ### Stock Price History
 
 Shows recent price history for a given publicly-traded stock or share
@@ -264,6 +309,8 @@ Shows recent price history for a given publicly-traded stock or share
     stock: NET
     apiKey: PGUWSWD6CZTXMT8N
 ```
+
+---
 
 ### Joke
 
@@ -288,6 +335,8 @@ Renders a programming or generic joke. Data is fetched from the [JokesAPI](https
     language: en
     category: Programming
 ```
+
+---
 
 ### Flight Data
 
@@ -330,6 +379,16 @@ Embed any webpage into your dashboard as a widget.
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`url`** | `string` |  Required | The URL to the webpage to embed
+
+##### Example 
+
+```yaml
+- type: iframe
+  options:
+    url: https://fiatleak.com/
+```
+
+---
 
 ### HTML Embedded Widget
 
