@@ -1,6 +1,6 @@
 /**
  * Mixin that all pre-built and custom widgets extend from.
- * Manages loading state, error handling and data updates.
+ * Manages loading state, error handling, data updates and user options
  */
 import ProgressBar from 'rsup-progress';
 import ErrorHandler from '@/utils/ErrorHandler';
@@ -15,10 +15,15 @@ const WidgetMixin = {
   data: () => ({
     progress: new ProgressBar({ color: 'var(--progress-bar)' }),
   }),
+  /* When component mounted, fetch initial data */
+  mounted() {
+    this.fetchData();
+  },
   methods: {
     /* Re-fetches external data, called by parent. Usually overridden by widget */
     update() {
-      console.log('No update method configured for this widget'); // eslint-disable-line no-console
+      this.startLoading();
+      this.fetchData();
     },
     /* Called when an error occurs. Logs to handler, and passes to parent component */
     error(msg, stackTrace) {
@@ -34,6 +39,10 @@ const WidgetMixin = {
     finishLoading() {
       this.$emit('loading', false);
       setTimeout(() => { this.progress.end(); }, 500);
+    },
+    /* Overridden by child component. Will make network request, then end loader */
+    fetchData() {
+      this.finishLoading();
     },
   },
 };

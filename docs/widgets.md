@@ -367,30 +367,6 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 
 ---
 
-### Example Widget
-
-A simple example widget, to use as a template. Fetches and displays a list of images, from [Dummy APIs](https://dummyapis.com/).
-
-<p align="center"><img width="400" src="https://i.ibb.co/VSPn84t/example-widget.png" /></p>
-
-##### Options
-
-**Field** | **Type** | **Required** | **Description**
---- | --- | --- | ---
-**`text`** | `string` |  _Optional_ | Text to display in the images. Defaults to `Dashy`
-**`count`** | `number` | _Optional_ | The number of images to be rendered. Defaults to `5`
-
-##### Example
-
-```yaml
-- type: example
-  options:
-    text: Hello
-    count: 3
-```
-
----
-
 ## Dynamic Widgets
 
 ### Iframe Widget
@@ -445,3 +421,5 @@ Many websites and apps provide their own embeddable widgets. These can be used w
 ---
 
 ## Build your own Widget
+
+For a full tutorial on creating your own widget, you can follow [this guide](https://github.com/Lissy93/dashy/blob/master/docs/development-guides.md#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example. 

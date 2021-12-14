@@ -116,13 +116,6 @@
         @error="handleError"
         :ref="widgetRef"
       />
-      <ExampleWidget
-        v-else-if="widgetType === 'example'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
       <!-- No widget type specified -->
       <div v-else>{{ handleError('No widget type was specified') }}</div>
     </div>
@@ -152,7 +145,6 @@ import Jokes from '@/components/Widgets/Jokes.vue';
 import Flights from '@/components/Widgets/Flights.vue';
 import IframeWidget from '@/components/Widgets/IframeWidget.vue';
 import EmbedWidget from '@/components/Widgets/EmbedWidget.vue';
-import ExampleWidget from '@/components/Widgets/ExampleWidget.vue';
 
 export default {
   name: 'Widget',
@@ -175,7 +167,6 @@ export default {
     Flights,
     IframeWidget,
     EmbedWidget,
-    ExampleWidget,
   },
   props: {
     widget: Object,

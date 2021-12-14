@@ -216,7 +216,6 @@ module.exports = {
     jokes: 'https://v2.jokeapi.dev/joke/',
     flights: 'https://aerodatabox.p.rapidapi.com/flights/airports/icao/',
     rssToJson: 'https://api.rss2json.com/v1/api.json',
-    exampleEndpoint: 'https://hub.dummyapis.com/ImagesList',
   },
   /* URLs for web search engines */
   searchEngineUrls: {
