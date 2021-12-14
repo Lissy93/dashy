@@ -14,10 +14,11 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Exchange Rates](#exchange-rates)
   - [Stock Price History](#stock-price-history)
   - [Joke of the Day](#joke)
+  - [Flight Data](#flight-data)
 - [Self-Hosted Services Widgets](#dynamic-widgets)
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
-  - [HTML Widget](#html-widget)
+  - [HTML Embed Widget](#html-embedded-widget)
 - [Build your own Widget](#build-your-own-widget)
 
 ## General Widgets
@@ -330,12 +331,31 @@ Embed any webpage into your dashboard as a widget.
 --- | --- | --- | ---
 **`url`** | `string` |  Required | The URL to the webpage to embed
 
+### HTML Embedded Widget
+
+Many websites and apps provide their own embeddable widgets. These can be used with Dashy using the Embed widget, which lets you dynamically embed and HTML, CSS or JavaScript contents.
+
+⚠️ **NOTE:** Use with extreme caution. Embedding a script from an untrustworthy source may have serious unintended consequences.
+
+<p align="center"><img width="400" src="https://i.ibb.co/yn0SGtL/embed-widget.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`html`** | `string` |  _Optional_ | HTML contents to render in the widget
+**`script`** | `string` |  _Optional_ | Raw JavaScript code to execute (caution)
+**`scriptSrc`** | `string` |  _Optional_ | A URL to JavaScript content (caution)
+**`css`** | `string` |  _Optional_ | Any stylings for widget contents
+
 ##### Example 
 
 ```yaml
-- type: iframe
-  options:
-    url: https://fiatleak.com/
+- type: embed
+    options:
+      css: '.coinmarketcap-currency-widget { color: var(--widget-text-color); }'
+      html: '<div class="coinmarketcap-currency-widget" data-currencyid="1" data-base="USD" data-secondary="" data-ticker="true" data-rank="true" data-marketcap="true" data-volume="true" data-statsticker="true" data-stats="USD"></div>'
+      scriptSrc: 'https://files.coinmarketcap.com/static/widget/currency.js'
 ```
 
 ---

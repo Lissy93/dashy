@@ -102,6 +102,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <EmbedWidget
+        v-else-if="widgetType === 'embed'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <!-- No widget type specified -->
       <div v-else>{{ handleError('No widget type was specified') }}</div>
     </div>
@@ -127,8 +134,9 @@ import XkcdComic from '@/components/Widgets/XkcdComic.vue';
 import ExchangeRates from '@/components/Widgets/ExchangeRates.vue';
 import StockPriceChart from '@/components/Widgets/StockPriceChart.vue';
 import Jokes from '@/components/Widgets/Jokes.vue';
-import IframeWidget from '@/components/Widgets/IframeWidget.vue';
 import Flights from '@/components/Widgets/Flights.vue';
+import IframeWidget from '@/components/Widgets/IframeWidget.vue';
+import EmbedWidget from '@/components/Widgets/EmbedWidget.vue';
 
 export default {
   name: 'Widget',
@@ -147,8 +155,9 @@ export default {
     ExchangeRates,
     StockPriceChart,
     Jokes,
-    IframeWidget,
     Flights,
+    IframeWidget,
+    EmbedWidget,
   },
   props: {
     widget: Object,
