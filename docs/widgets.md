@@ -16,6 +16,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Stock Price History](#stock-price-history)
   - [Joke of the Day](#joke)
   - [Flight Data](#flight-data)
+  - [Example Widget](#example-widget)
 - [Self-Hosted Services Widgets](#dynamic-widgets)
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
@@ -362,6 +363,30 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
     apiKey: XXXXX
     limit: 12
     direction: all
+```
+
+---
+
+### Example Widget
+
+A simple example widget, to use as a template. Fetches and displays a list of images, from [Dummy APIs](https://dummyapis.com/).
+
+<p align="center"><img width="400" src="https://i.ibb.co/VSPn84t/example-widget.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`text`** | `string` |  _Optional_ | Text to display in the images. Defaults to `Dashy`
+**`count`** | `number` | _Optional_ | The number of images to be rendered. Defaults to `5`
+
+##### Example
+
+```yaml
+- type: example
+  options:
+    text: Hello
+    count: 3
 ```
 
 ---
