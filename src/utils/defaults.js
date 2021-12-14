@@ -214,6 +214,7 @@ module.exports = {
     exchangeRates: 'https://v6.exchangerate-api.com/v6/',
     stockPriceChart: 'https://www.alphavantage.co/query',
     jokes: 'https://v2.jokeapi.dev/joke/',
+    flights: 'https://aerodatabox.p.rapidapi.com/flights/airports/icao/',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

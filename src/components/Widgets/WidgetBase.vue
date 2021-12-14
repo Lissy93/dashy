@@ -88,6 +88,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <Flights
+        v-else-if="widgetType === 'flight-data'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <IframeWidget
         v-else-if="widgetType === 'iframe'"
         :options="widgetOptions"
@@ -121,6 +128,7 @@ import ExchangeRates from '@/components/Widgets/ExchangeRates.vue';
 import StockPriceChart from '@/components/Widgets/StockPriceChart.vue';
 import Jokes from '@/components/Widgets/Jokes.vue';
 import IframeWidget from '@/components/Widgets/IframeWidget.vue';
+import Flights from '@/components/Widgets/Flights.vue';
 
 export default {
   name: 'Widget',
@@ -140,6 +148,7 @@ export default {
     StockPriceChart,
     Jokes,
     IframeWidget,
+    Flights,
   },
   props: {
     widget: Object,

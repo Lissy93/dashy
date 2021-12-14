@@ -109,11 +109,20 @@ Keep track of price changes of your favorite crypto assets. Data is fetched from
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`assets`** | `string` |  Required | An array of cryptocurrencies, coins and tokens. See [list of supported assets](https://api.coingecko.com/api/v3/asset_platforms)
+**`assets`** | `string` |  _Optional_ | An array of cryptocurrencies, coins and tokens. See [list of supported assets](https://api.coingecko.com/api/v3/asset_platforms). If none are specified, then the top coins by `sortBy` (defaults to market cap) will be returned
 **`currency`** | `string` | _Optional_ | The fiat currency to display price in, expressed as an ISO-4217 alpha code (see [list of currencies](https://www.iban.com/currency-codes)). Defaults to `USD`
-**`sortBy`** | `number` |  _Optional_ | The method of sorting results. Can be `marketCap`, `volume` or `alphabetical`. Defaults to `marketCap`.
+**`sortBy`** | `string` |  _Optional_ | The method of sorting results. Can be `marketCap`, `volume` or `alphabetical`. Defaults to `marketCap`.
+**`limit`** | `number` |  _Optional_ | Number of results to return, useful when no assets are specified. Defaults to either `all` or `100`
 
 ##### Example
+
+```yaml
+- type: crypto-watch-list
+  options:
+    limit: 10
+```
+
+Or
 
 ```yaml
   - type: crypto-watch-list
@@ -277,6 +286,32 @@ Renders a programming or generic joke. Data is fetched from the [JokesAPI](https
     safeMode: true
     language: en
     category: Programming
+```
+
+### Flight Data
+
+Displays airport departure and arrival flights, using data from [AeroDataBox](https://www.aerodatabox.com/). Useful if you live near an airport and often wonder where the flight overhead is going to. Hover over a row for more flight data.
+
+<p align="center"><img width="400" src="https://i.ibb.co/yPMBJSY/flight-data.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`airport`** | `string` |  Required | The airport to show flight data from. Should be specified as a 4-character ICAO-code, a full list of which can be found [here](https://en.wikipedia.org/wiki/ICAO_airport_code) (example: `KBJC` or `EGKK`)
+**`apiKey`** | `string` | Required | A valid [RapidAPI](https://rapidapi.com/) Key, with [AeroDataBox](https://rapidapi.com/aerodatabox/api/aerodatabox/) enabled (check in your [Subscription Dashboard](https://rapidapi.com/developer/billing/subscriptions-and-usage)). This API is free to sign up for and use
+**`limit`** | `number` | _Optional_ | For busy airports, you may wish to limit the number of results visible
+**`direction`** | `string` | _Optional_ | By default, both departure and arrival flights will be fetched, if you would like to only show flights in one direction, set this to wither `departure` or `arrival`
+
+##### Example 
+
+```yaml
+- type: flight-data
+  options:
+    airport: EGLC
+    apiKey: XXXXX
+    limit: 12
+    direction: all
 ```
 
 ---
