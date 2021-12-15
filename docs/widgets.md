@@ -17,6 +17,8 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Joke of the Day](#joke)
   - [Flight Data](#flight-data)
 - [Self-Hosted Services Widgets](#dynamic-widgets)
+  - [CPU History](#cpu-history-netdata)
+  - [System Load History](#load-history-netdata)
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -384,6 +386,26 @@ Pull recent CPU usage history from NetData.
 
 ```yaml
 - type: nd-cpu-history
+  options:
+  host: http://192.168.1.1:19999
+```
+
+### Load History (NetData)
+
+Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
+
+<p align="center"><img width="400" src="https://i.ibb.co/qR9C2tJ/nd-load-history.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The URL to your NetData instance
+
+##### Example 
+
+```yaml
+- type: nd-load-history
   options:
   host: http://192.168.1.1:19999
 ```

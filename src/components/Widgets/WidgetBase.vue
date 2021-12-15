@@ -109,6 +109,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <NdLoadHistory
+        v-else-if="widgetType === 'nd-load-history'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <IframeWidget
         v-else-if="widgetType === 'iframe'"
         :options="widgetOptions"
@@ -151,6 +158,7 @@ import StockPriceChart from '@/components/Widgets/StockPriceChart.vue';
 import Jokes from '@/components/Widgets/Jokes.vue';
 import Flights from '@/components/Widgets/Flights.vue';
 import NdCpuHistory from '@/components/Widgets/NdCpuHistory.vue';
+import NdLoadHistory from '@/components/Widgets/NdLoadHistory.vue';
 import IframeWidget from '@/components/Widgets/IframeWidget.vue';
 import EmbedWidget from '@/components/Widgets/EmbedWidget.vue';
 
@@ -174,6 +182,7 @@ export default {
     Jokes,
     Flights,
     NdCpuHistory,
+    NdLoadHistory,
     IframeWidget,
     EmbedWidget,
   },
