@@ -258,6 +258,7 @@ export default {
       else {
         let itemsFound = true;
         this.sections.forEach((section) => {
+          if (section.widgets && section.widgets.length > 0) itemsFound = false;
           if (this.filterTiles(section.items, this.searchValue).length > 0) itemsFound = false;
         });
         return itemsFound;

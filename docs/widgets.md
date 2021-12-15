@@ -16,7 +16,6 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Stock Price History](#stock-price-history)
   - [Joke of the Day](#joke)
   - [Flight Data](#flight-data)
-  - [Example Widget](#example-widget)
 - [Self-Hosted Services Widgets](#dynamic-widgets)
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
@@ -367,6 +366,30 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 
 ---
 
+## Self-Hosted Services Widgets
+
+### CPU History (NetData)
+
+Pull recent CPU usage history from NetData.
+
+<p align="center"><img width="400" src="https://i.ibb.co/ZdyR5nJ/nd-cpu-history.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The URL to your NetData instance
+
+##### Example 
+
+```yaml
+- type: nd-cpu-history
+  options:
+  host: http://192.168.1.1:19999
+```
+
+---
+
 ## Dynamic Widgets
 
 ### Iframe Widget
@@ -397,7 +420,7 @@ Many websites and apps provide their own embeddable widgets. These can be used w
 
 ⚠️ **NOTE:** Use with extreme caution. Embedding a script from an untrustworthy source may have serious unintended consequences.
 
-<p align="center"><img width="400" src="https://i.ibb.co/yn0SGtL/embed-widget.png" /></p>
+<p align="center"><img width="400" src="https://i.ibb.co/fkwNnxT/embed-widget-2.png" /></p>
 
 ##### Options
 
@@ -409,6 +432,22 @@ Many websites and apps provide their own embeddable widgets. These can be used w
 **`css`** | `string` |  _Optional_ | Any stylings for widget contents
 
 ##### Example 
+
+```yaml
+- type: embed
+  options:
+    scriptSrc: https://cdn.speedcheck.org/basic/scbjs.min.js
+    html: | 
+      <div id="sc-container">
+      <div id="sc-branding" class="sc-bb">
+      <a target="_blank" href="https://www.speedcheck.org/">
+      <img src="https://cdn.speedcheck.org/branding/speedcheck-logo-18.png" alt="Speedcheck"/>
+      </a>
+      </div>
+      </div>
+```
+
+Or
 
 ```yaml
 - type: embed
