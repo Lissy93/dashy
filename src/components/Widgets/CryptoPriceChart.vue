@@ -6,10 +6,11 @@
 import { Chart } from 'frappe-charts/dist/frappe-charts.min.esm';
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
+import ChartingMixin from '@/mixins/ChartingMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
 export default {
-  mixins: [WidgetMixin],
+  mixins: [WidgetMixin, ChartingMixin],
   components: {},
   data() {
     return {
@@ -58,10 +59,6 @@ export default {
     chartId() {
       return `crypto-price-chart-${Math.round(Math.random() * 10000)}`;
     },
-    getChartColor() {
-      const cssVars = getComputedStyle(document.documentElement);
-      return cssVars.getPropertyValue('--widget-text-color').trim() || '#7cd6fd';
-    },
   },
   methods: {
     /* Extends mixin, and updates data. Called by parent component */
@@ -76,7 +73,7 @@ export default {
         data: this.chartData,
         type: 'axis-mixed',
         height: 200,
-        colors: [this.getChartColor, '#743ee2'],
+        colors: this.chartColors,
         truncateLegends: true,
         lineOptions: {
           regionFill: 1,

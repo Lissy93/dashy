@@ -4,11 +4,11 @@
 
 <script>
 import axios from 'axios';
-import { Chart } from 'frappe-charts/dist/frappe-charts.min.esm';
 import WidgetMixin from '@/mixins/WidgetMixin';
+import ChartingMixin from '@/mixins/ChartingMixin';
 
 export default {
-  mixins: [WidgetMixin],
+  mixins: [WidgetMixin, ChartingMixin],
   components: {},
   data() {
     return {
@@ -40,13 +40,6 @@ export default {
     chartId() {
       return `cpu-history-chart-${Math.round(Math.random() * 10000)}`;
     },
-    chartHeight() {
-      return this.options.chartHeight || 300;
-    },
-    getChartColor() {
-      const cssVars = getComputedStyle(document.documentElement);
-      return cssVars.getPropertyValue('--widget-text-color').trim() || '#7cd6fd';
-    },
   },
   methods: {
     /* Make GET request to NetData */
@@ -69,7 +62,7 @@ export default {
       const load5mins = [];
       const load15mins = [];
       data.data.reverse().forEach((reading) => {
-        timeData.push(this.formatDate(reading[0]));
+        timeData.push(this.formatDate(reading[0] * 1000));
         load1min.push(reading[1]);
         load5mins.push(reading[2]);
         load15mins.push(reading[3]);
@@ -95,12 +88,12 @@ export default {
     },
     /* Create new chart, using the crypto data */
     generateChart() {
-      return new Chart(`#${this.chartId}`, {
+      return new this.Chart(`#${this.chartId}`, {
         title: this.chartTitle,
         data: this.chartData,
         type: 'axis-mixed',
         height: this.chartHeight,
-        colors: [this.getChartColor, '#743ee2'],
+        colors: this.chartColors,
         truncateLegends: true,
         lineOptions: {
           regionFill: 1,
@@ -114,15 +107,6 @@ export default {
           formatTooltipY: d => `${Math.round(d)}%`,
         },
       });
-    },
-    /* Format the date for a given time stamp, also include time if required */
-    formatDate(timestamp) {
-      const localFormat = navigator.language;
-      const dateFormat = { weekday: 'short', day: 'numeric', month: 'short' };
-      const timeFormat = { hour: 'numeric', minute: 'numeric', second: 'numeric' };
-      const date = new Date(timestamp * 1000).toLocaleDateString(localFormat, dateFormat);
-      const time = Intl.DateTimeFormat(localFormat, timeFormat).format(timestamp);
-      return `${date} ${time}`;
     },
   },
 };

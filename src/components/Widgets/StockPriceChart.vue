@@ -6,10 +6,11 @@
 import { Chart } from 'frappe-charts/dist/frappe-charts.min.esm';
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
+import ChartingMixin from '@/mixins/ChartingMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
 export default {
-  mixins: [WidgetMixin],
+  mixins: [WidgetMixin, ChartingMixin],
   components: {},
   data() {
     return {
@@ -51,12 +52,6 @@ export default {
     chartId() {
       return `stock-price-chart-${Math.round(Math.random() * 10000)}`;
     },
-    /* Get color hex code for chart, from CSS variable, or user choice */
-    getChartColor() {
-      if (this.options.chartColor) return this.options.chartColor;
-      const cssVars = getComputedStyle(document.documentElement);
-      return cssVars.getPropertyValue('--widget-text-color').trim() || '#7cd6fd';
-    },
     /* Which price for each interval should be used (API requires in stupid format) */
     priceTime() {
       const usersChoice = this.options.priceTime || 'high';
@@ -83,7 +78,7 @@ export default {
         data: this.chartData,
         type: 'axis-mixed',
         height: 200,
-        colors: [this.getChartColor, '#743ee2'],
+        colors: this.chartColors,
         truncateLegends: true,
         lineOptions: {
           regionFill: 1,
