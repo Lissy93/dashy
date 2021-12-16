@@ -230,7 +230,9 @@ If add any new variables, ensure that there is always a fallback (define it in [
 
 ### Step 0 - Prerequisites
 
-If this is your first time working on Dashy, then the [Developing Docs](https://github.com/Lissy93/dashy/blob/master/docs/developing.md) instructions for project setup and running. To build a widget, you'll need some basic knowledge of Vue.js. The [official Vue docs](https://vuejs.org/v2/guide/) provides a good starting point, as does [this guide](https://www.taniarascia.com/getting-started-with-vue/) by Tania Rascia
+If this is your first time working on Dashy, then the [Developing Docs](https://github.com/Lissy93/dashy/blob/master/docs/developing.md) instructions for project setup and running. In short, you just need to clone the project, cd into it, install dependencies (`yarn`) and then start the development server (`yarn dev`).
+
+To build a widget, you'll also need some basic knowledge of Vue.js. The [official Vue docs](https://vuejs.org/v2/guide/) provides a good starting point, as does [this guide](https://www.taniarascia.com/getting-started-with-vue/) by Tania Rascia
 
 If you just want to jump straight in, then [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) is a complete implementation of a new example widget, or take a look at the [`XkcdComic.vue`](https://github.com/Lissy93/dashy/blob/master/src/components/Widgets/XkcdComic.vue) widget, which is pretty simple.
 
@@ -299,6 +301,7 @@ computed: {
 ```
 
 **Adding an API Endpoint**
+
 If your widget makes a data request, then add the URL for the API under point to the `widgetApiEndpoints` array in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L207)
 
 ```javascript
@@ -349,6 +352,7 @@ There are three things happening here:
 - Whatever the result, once the request has completed, we call `this.finishLoading()`, which will hide the loader
 
 **Processing Response**
+
 In the above example, we call the `processData()` method with the result from the API, so we need to create that under the `methods` section. How you handle this data will vary depending on what's returned by the API, and what you want to render to the user. But however you do it, you will likely need to create a data variable to store the response, so that it can be easily displayed in the HTML.
 
 ```javascript
@@ -359,7 +363,11 @@ data() {
 },
 ```
 
-And then, inside your `processData()` method, you can set `this.myResults = 'whatever'`
+And then, inside your `processData()` method, you can set the value of this, with:
+
+```javascript
+`this.myResults = 'whatever'`
+```
 
 **Rendering Response**
 
@@ -370,6 +378,7 @@ Now that the results are in the correct format, and stored as data variables, we
 ```
 
 **Styling**
+
 Styles can be written your your widget within the `<style>` block.
 
 There are several color variables used by widgets, which extend from the base pallete. Using these enables users to override colors to theme their dashboard, if they wish. The variables are: `--widget-text-color`, `--widget-background-color` and `--widget-accent-color`
