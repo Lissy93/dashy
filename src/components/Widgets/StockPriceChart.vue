@@ -77,7 +77,7 @@ export default {
         title: `${this.stock} Price Chart`,
         data: this.chartData,
         type: 'axis-mixed',
-        height: 200,
+        height: this.chartHeight,
         colors: this.chartColors,
         truncateLegends: true,
         lineOptions: {
