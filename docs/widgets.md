@@ -18,6 +18,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Flight Data](#flight-data)
 - [Self-Hosted Services Widgets](#dynamic-widgets)
   - [CPU History](#cpu-history-netdata)
+  - [Memory History](#memory-history-netdata)
   - [System Load History](#load-history-netdata)
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
@@ -164,6 +165,8 @@ Shows recent price history for a given crypto asset, using price data fetched fr
 **`asset`** | `string` |  Required | Name of a crypto asset, coin or token to fetch price data for, see [list of supported assets](https://api.coingecko.com/api/v3/asset_platforms)
 **`currency`** | `string` | _Optional_ | The fiat currency to display results in, expressed as an ISO-4217 alpha code (see [list of currencies](https://www.iban.com/currency-codes)). Defaults to `USD`
 **`numDays`** | `number` |  _Optional_ | The number of days of price history to render. Defaults to `7`, min: `1`, max: `30` days
+**`chartColor`** | `string` | _Optional_ | Color of the chart value. Defaults to `--widget-text-color` which inherits dashboard primary color
+**`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
 
 ##### Example
 
@@ -302,6 +305,8 @@ Shows recent price history for a given publicly-traded stock or share
 **`apiKey`** | `string` |  Required | API key for [Alpha Vantage](https://www.alphavantage.co/), you can get a free API key [here](https://www.alphavantage.co/support/#api-key)
 **`stock`** | `string` | Required | The stock symbol for the asset to fetch data for
 **`priceTime`** | `string` |  _Optional_ | The time to fetch price for. Can be `high`, `low`, `open` or `close`. Defaults to `high`
+**`chartColor`** | `string` | _Optional_ | Color of the chart value. Defaults to `--widget-text-color` which inherits dashboard primary color
+**`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
 
 ##### Example 
 
@@ -374,13 +379,15 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 
 Pull recent CPU usage history from NetData.
 
-<p align="center"><img width="400" src="https://i.ibb.co/ZdyR5nJ/nd-cpu-history.png" /></p>
+<p align="center"><img width="600" src="https://i.ibb.co/ZdyR5nJ/nd-cpu-history.png" /></p>
 
 ##### Options
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`host`** | `string` |  Required | The URL to your NetData instance
+**`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
+**`chartColor`** / **`chartColors`** | `string` / `array`| _Optional_ | Color of the chart value(s) as hex codes. `chartColor` is a single value (defaults to `--widget-text-color`), whereas `chartColors` is an array of colors
 
 ##### Example 
 
@@ -390,17 +397,43 @@ Pull recent CPU usage history from NetData.
   host: http://192.168.1.1:19999
 ```
 
-### Load History (NetData)
+### Memory History (NetData)
 
-Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
+Pull recent system RAM usage from NetData, and show as a breakdown of different categories.
 
-<p align="center"><img width="400" src="https://i.ibb.co/qR9C2tJ/nd-load-history.png" /></p>
+<p align="center"><img width="600" src="https://i.ibb.co/2dsSWnk/nd-memory-history.png" /></p>
 
 ##### Options
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`host`** | `string` |  Required | The URL to your NetData instance
+**`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
+**`chartColor`** / **`chartColors`** | `string` / `array`| _Optional_ | Color of the chart value(s) as hex codes. `chartColor` is a single value (defaults to `--widget-text-color`), whereas `chartColors` is an array of colors
+
+##### Example 
+
+```yaml
+- type: nd-ram-history
+  options:
+    host: http://192.168.1.1:19999
+```
+
+---
+
+### Load History (NetData)
+
+Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
+
+<p align="center"><img width="600" src="https://i.ibb.co/qR9C2tJ/nd-load-history.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The URL to your NetData instance
+**`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
+**`chartColor`** / **`chartColors`** | `string` / `array`| _Optional_ | Color of the chart value(s) as hex codes. `chartColor` is a single value (defaults to `--widget-text-color`), whereas `chartColors` is an array of colors
 
 ##### Example 
 
