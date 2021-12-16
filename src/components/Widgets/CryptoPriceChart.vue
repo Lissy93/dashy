@@ -18,9 +18,6 @@ export default {
       chartDom: null,
     };
   },
-  mounted() {
-    this.fetchData();
-  },
   computed: {
     /* The crypto asset to fetch price data for */
     asset() {
@@ -61,11 +58,6 @@ export default {
     },
   },
   methods: {
-    /* Extends mixin, and updates data. Called by parent component */
-    update() {
-      this.startLoading();
-      this.fetchData();
-    },
     /* Create new chart, using the crypto data */
     generateChart() {
       return new Chart(`#${this.chartId}`, {

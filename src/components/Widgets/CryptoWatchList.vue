@@ -32,9 +32,6 @@ export default {
       cryptoData: null,
     };
   },
-  mounted() {
-    this.fetchData();
-  },
   computed: {
     /* The crypto assets to fetch price data for */
     assets() {
@@ -82,11 +79,6 @@ export default {
     },
   },
   methods: {
-    /* Extends mixin, and updates data. Called by parent component */
-    update() {
-      this.startLoading();
-      this.fetchData();
-    },
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       axios.get(this.endpoint)

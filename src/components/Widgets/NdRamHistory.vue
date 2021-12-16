@@ -13,9 +13,6 @@ import ChartingMixin from '@/mixins/ChartingMixin';
 export default {
   mixins: [WidgetMixin, ChartingMixin],
   components: {},
-  mounted() {
-    this.fetchData();
-  },
   computed: {
     /* URL where NetData is hosted */
     netDataHost() {

@@ -49,11 +49,6 @@ export default {
     },
   },
   methods: {
-    /* Extends mixin, and updates data. Called by parent component */
-    update() {
-      this.startLoading();
-      this.fetchData();
-    },
     /* Makes GET request to the TFL API */
     fetchData() {
       axios.get(widgetApiEndpoints.tflStatus)
@@ -113,10 +108,6 @@ export default {
     toggleAllLines() {
       this.showAll = !this.showAll;
     },
-  },
-  created() {
-    if (this.options.showAll) this.showAll = true;
-    this.fetchData();
   },
 };
 </script>

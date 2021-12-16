@@ -20,9 +20,6 @@ export default {
       jokeLine2: null,
     };
   },
-  mounted() {
-    this.fetchData();
-  },
   computed: {
     /* Language code to fetch jokes for */
     language() {
@@ -53,11 +50,6 @@ export default {
     },
   },
   methods: {
-    /* Extends mixin, and updates data. Called by parent component */
-    update() {
-      this.startLoading();
-      this.fetchData();
-    },
     /* Make GET request to Jokes API endpoint */
     fetchData() {
       axios.get(this.endpoint)

@@ -17,9 +17,6 @@ export default {
       chartDom: null,
     };
   },
-  mounted() {
-    this.fetchData();
-  },
   computed: {
     /* URL where NetData is hosted */
     netDataHost() {

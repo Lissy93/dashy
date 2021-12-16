@@ -18,9 +18,6 @@ export default {
       chartDom: null,
     };
   },
-  mounted() {
-    this.fetchData();
-  },
   computed: {
     /* The stock or share asset symbol to fetch data for */
     stock() {
@@ -66,11 +63,6 @@ export default {
     },
   },
   methods: {
-    /* Extends mixin, and updates data. Called by parent component */
-    update() {
-      this.startLoading();
-      this.fetchData();
-    },
     /* Create new chart, using the crypto data */
     generateChart() {
       return new Chart(`#${this.chartId}`, {

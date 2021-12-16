@@ -43,9 +43,6 @@ export default {
       arrivals: [],
     };
   },
-  mounted() {
-    this.fetchData();
-  },
   filters: {
     formatDate(date) {
       const d = new Date(date);
@@ -105,11 +102,6 @@ export default {
     },
   },
   methods: {
-    /* Extends mixin, and updates data. Called by parent component */
-    update() {
-      this.startLoading();
-      this.fetchData();
-    },
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       const requestConfig = {

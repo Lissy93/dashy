@@ -52,11 +52,6 @@ export default {
     },
   },
   methods: {
-    /* Extends mixin, and updates data. Called by parent component */
-    update() {
-      this.startLoading();
-      this.fetchData();
-    },
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       axios.get(this.endpoint)

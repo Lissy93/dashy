@@ -42,9 +42,6 @@ export default {
       posts: null,
     };
   },
-  mounted() {
-    this.fetchData();
-  },
   computed: {
     /* The URL to users atom-format RSS feed */
     rssUrl() {
@@ -91,11 +88,6 @@ export default {
     },
   },
   methods: {
-    /* Extends mixin, and updates data. Called by parent component */
-    update() {
-      this.startLoading();
-      this.fetchData();
-    },
     /* Make GET request to Rss2Json */
     fetchData() {
       axios.get(this.endpoint)

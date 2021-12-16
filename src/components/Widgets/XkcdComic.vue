@@ -23,9 +23,6 @@ export default {
       comicNum: '',
     };
   },
-  mounted() {
-    this.fetchData();
-  },
   computed: {
     /* Let user select which comic to display: random, latest or a specific number */
     comicNumber() {
@@ -44,11 +41,6 @@ export default {
     },
   },
   methods: {
-    /* Extends mixin, and updates data. Called by parent component */
-    update() {
-      this.startLoading();
-      this.fetchData();
-    },
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       axios.get(this.endpoint)

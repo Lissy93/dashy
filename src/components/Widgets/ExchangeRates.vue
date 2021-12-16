@@ -24,9 +24,6 @@ export default {
       exchangeRates: null,
     };
   },
-  mounted() {
-    this.fetchData();
-  },
   computed: {
     /* The users API key for exchangerate-api.com */
     apiKey() {
@@ -51,11 +48,6 @@ export default {
     },
   },
   methods: {
-    /* Extends mixin, and updates data. Called by parent component */
-    update() {
-      this.startLoading();
-      this.fetchData();
-    },
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       axios.get(this.endpoint)
