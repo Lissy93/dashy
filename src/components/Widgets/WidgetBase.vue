@@ -25,34 +25,6 @@
         @error="handleError"
         :ref="widgetRef"
       />
-      <Weather
-        v-else-if="widgetType === 'weather'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <WeatherForecast
-        v-else-if="widgetType === 'weather-forecast'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <RssFeed
-        v-else-if="widgetType === 'rss-feed'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <TflStatus
-        v-else-if="widgetType === 'tfl-status'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
       <CryptoPriceChart
         v-else-if="widgetType === 'crypto-price-chart'"
         :options="widgetOptions"
@@ -67,8 +39,8 @@
         @error="handleError"
         :ref="widgetRef"
       />
-      <XkcdComic
-        v-else-if="widgetType === 'xkcd-comic'"
+      <EmbedWidget
+        v-else-if="widgetType === 'embed'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -81,20 +53,6 @@
         @error="handleError"
         :ref="widgetRef"
       />
-      <StockPriceChart
-        v-else-if="widgetType === 'stock-price-chart'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <Jokes
-        v-else-if="widgetType === 'joke'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
       <Flights
         v-else-if="widgetType === 'flight-data'"
         :options="widgetOptions"
@@ -102,8 +60,15 @@
         @error="handleError"
         :ref="widgetRef"
       />
-      <SystemInfo
-        v-else-if="widgetType === 'system-info'"
+      <IframeWidget
+        v-else-if="widgetType === 'iframe'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <Jokes
+        v-else-if="widgetType === 'joke'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -130,15 +95,50 @@
         @error="handleError"
         :ref="widgetRef"
       />
-      <IframeWidget
-        v-else-if="widgetType === 'iframe'"
+      <RssFeed
+        v-else-if="widgetType === 'rss-feed'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
         :ref="widgetRef"
       />
-      <EmbedWidget
-        v-else-if="widgetType === 'embed'"
+      <StockPriceChart
+        v-else-if="widgetType === 'stock-price-chart'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <SystemInfo
+        v-else-if="widgetType === 'system-info'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <TflStatus
+        v-else-if="widgetType === 'tfl-status'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <XkcdComic
+        v-else-if="widgetType === 'xkcd-comic'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <Weather
+        v-else-if="widgetType === 'weather'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <WeatherForecast
+        v-else-if="widgetType === 'weather-forecast'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -158,51 +158,53 @@ import UpdateIcon from '@/assets/interface-icons/widget-update.svg';
 import OpenIcon from '@/assets/interface-icons/open-new-tab.svg';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
 
-// Import available widgets
+// Import available widgets (add new widgets alphabetically)
 import Clock from '@/components/Widgets/Clock.vue';
-import Weather from '@/components/Widgets/Weather.vue';
-import WeatherForecast from '@/components/Widgets/WeatherForecast.vue';
-import RssFeed from '@/components/Widgets/RssFeed.vue';
-import TflStatus from '@/components/Widgets/TflStatus.vue';
 import CryptoPriceChart from '@/components/Widgets/CryptoPriceChart.vue';
 import CryptoWatchList from '@/components/Widgets/CryptoWatchList.vue';
-import XkcdComic from '@/components/Widgets/XkcdComic.vue';
+import EmbedWidget from '@/components/Widgets/EmbedWidget.vue';
 import ExchangeRates from '@/components/Widgets/ExchangeRates.vue';
-import StockPriceChart from '@/components/Widgets/StockPriceChart.vue';
-import Jokes from '@/components/Widgets/Jokes.vue';
 import Flights from '@/components/Widgets/Flights.vue';
-import SystemInfo from '@/components/Widgets/SystemInfo.vue';
+import IframeWidget from '@/components/Widgets/IframeWidget.vue';
+import Jokes from '@/components/Widgets/Jokes.vue';
 import NdCpuHistory from '@/components/Widgets/NdCpuHistory.vue';
 import NdLoadHistory from '@/components/Widgets/NdLoadHistory.vue';
 import NdRamHistory from '@/components/Widgets/NdRamHistory.vue';
-import IframeWidget from '@/components/Widgets/IframeWidget.vue';
-import EmbedWidget from '@/components/Widgets/EmbedWidget.vue';
+import RssFeed from '@/components/Widgets/RssFeed.vue';
+import StockPriceChart from '@/components/Widgets/StockPriceChart.vue';
+import SystemInfo from '@/components/Widgets/SystemInfo.vue';
+import TflStatus from '@/components/Widgets/TflStatus.vue';
+import Weather from '@/components/Widgets/Weather.vue';
+import WeatherForecast from '@/components/Widgets/WeatherForecast.vue';
+import XkcdComic from '@/components/Widgets/XkcdComic.vue';
 
 export default {
   name: 'Widget',
   components: {
+    // Register form elements
     Button,
     UpdateIcon,
     OpenIcon,
     LoadingAnimation,
+    // Register widget components
     Clock,
-    Weather,
-    WeatherForecast,
-    RssFeed,
-    TflStatus,
     CryptoPriceChart,
     CryptoWatchList,
-    XkcdComic,
+    EmbedWidget,
     ExchangeRates,
-    StockPriceChart,
-    Jokes,
     Flights,
-    SystemInfo,
+    IframeWidget,
+    Jokes,
     NdCpuHistory,
     NdLoadHistory,
     NdRamHistory,
-    IframeWidget,
-    EmbedWidget,
+    RssFeed,
+    StockPriceChart,
+    SystemInfo,
+    TflStatus,
+    Weather,
+    WeatherForecast,
+    XkcdComic,
   },
   props: {
     widget: Object,
