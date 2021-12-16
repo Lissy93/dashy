@@ -79,3 +79,15 @@ export const findCurrencySymbol = (currencyCode) => {
   if (currencies[code]) return currencies[code];
   return code;
 };
+
+/* Given a large number, will add commas to make more readable */
+export const putCommasInBigNum = (bigNum) => {
+  const strNum = Number.isNaN(bigNum) ? bigNum : String(bigNum);
+  return strNum.replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+};
+
+/* Given a large number, will convert 1000 into k for readability */
+export const showNumAsThousand = (bigNum) => {
+  if (bigNum < 1000) return bigNum;
+  return `${Math.round(bigNum / 1000)}k`;
+};

@@ -11,6 +11,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Crypto Price History](#crypto-token-price-history)
   - [RSS Feed](#rss-feed)
   - [XKCD Comics](#xkcd-comics)
+  - [Code Stats](#code-stats)
   - [TFL Status](#tfl-status)
   - [Exchange Rates](#exchange-rates)
   - [Stock Price History](#stock-price-history)
@@ -225,6 +226,34 @@ Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webc
 - type: xkcd-comic
   options:
     comic: latest
+```
+
+---
+
+### Code Stats
+
+Display your coding summary. [Code::Stats](https://codestats.net/) is a free and open source app that aggregates statistics about your programming activity. Dashy supports both the public instance, as well as self-hosted versions.
+
+<p align="center"><img width="400" src="https://i.ibb.co/dc0DTBW/code-stats.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`username`** | `string` |  Required | Your CodeStats username
+**`hostname`** | `string` |  _Optional_ | If your self-hosting CodeStats, then supply the host name. By default it will use the public hosted instance
+**`monthsToShow`** | `number` |  _Optional_ | Specify the number of months to render in the historical data chart. Defaults to `6`
+**`hideMeta`** | `boolean` |  _Optional_ | Optionally hide the meta section (username, level, all-time and recent XP)
+**`hideHistory`** | `boolean` |  _Optional_ | Optionally hide the historical calendar heat map
+**`hideLanguages`** | `boolean` |  _Optional_ | Optionally hide the programming languages pie chart
+**`hideMachines`** | `boolean` |  _Optional_ | Optionally hide the machines percentage chart
+
+##### Example
+
+```yaml
+- type: code-stats
+  options:
+    username: alicia
 ```
 
 ---

@@ -39,6 +39,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <CodeStats
+        v-else-if="widgetType === 'code-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <EmbedWidget
         v-else-if="widgetType === 'embed'"
         :options="widgetOptions"
@@ -162,6 +169,7 @@ import LoadingAnimation from '@/assets/interface-icons/loader.svg';
 import Clock from '@/components/Widgets/Clock.vue';
 import CryptoPriceChart from '@/components/Widgets/CryptoPriceChart.vue';
 import CryptoWatchList from '@/components/Widgets/CryptoWatchList.vue';
+import CodeStats from '@/components/Widgets/CodeStats.vue';
 import EmbedWidget from '@/components/Widgets/EmbedWidget.vue';
 import ExchangeRates from '@/components/Widgets/ExchangeRates.vue';
 import Flights from '@/components/Widgets/Flights.vue';
@@ -188,6 +196,7 @@ export default {
     LoadingAnimation,
     // Register widget components
     Clock,
+    CodeStats,
     CryptoPriceChart,
     CryptoWatchList,
     EmbedWidget,
