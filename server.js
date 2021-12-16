@@ -24,7 +24,8 @@ require('./services/config-validator'); // Include and kicks off the config file
 const statusCheck = require('./services/status-check'); // Used by the status check feature, uses GET
 const saveConfig = require('./services/save-config'); // Saves users new conf.yml to file-system
 const rebuild = require('./services/rebuild-app'); // A script to programmatically trigger a build
-const sslServer = require('./services/ssl-server');
+const systemInfo = require('./services/system-info'); // Basic system info, for resource widget
+const sslServer = require('./services/ssl-server'); // TLS-enabled web server
 
 /* Helper functions, and default config */
 const printMessage = require('./services/print-message'); // Function to print welcome msg on start
@@ -91,6 +92,16 @@ const app = express()
     }).catch((response) => {
       res.end(JSON.stringify(response));
     });
+  })
+  // GET endpoint to return system info, for widget
+  .use(ENDPOINTS.systemInfo, (req, res) => {
+    try {
+      const results = systemInfo();
+      systemInfo.success = true;
+      res.end(JSON.stringify(results));
+    } catch (e) {
+      res.end(JSON.stringify({ success: false, message: e }));
+    }
   });
 
 /* Create HTTP server from app on port, and print welcome message */

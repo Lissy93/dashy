@@ -45,6 +45,7 @@ module.exports = {
     statusCheck: '/status-check',
     save: '/config-manager/save',
     rebuild: '/config-manager/rebuild',
+    systemInfo: '/system-info',
   },
   /* List of built-in themes, to be displayed within the theme-switcher dropdown */
   builtInThemes: [

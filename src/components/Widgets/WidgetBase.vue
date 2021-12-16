@@ -102,6 +102,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <SystemInfo
+        v-else-if="widgetType === 'system-info'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <NdCpuHistory
         v-else-if="widgetType === 'nd-cpu-history'"
         :options="widgetOptions"
@@ -164,6 +171,7 @@ import ExchangeRates from '@/components/Widgets/ExchangeRates.vue';
 import StockPriceChart from '@/components/Widgets/StockPriceChart.vue';
 import Jokes from '@/components/Widgets/Jokes.vue';
 import Flights from '@/components/Widgets/Flights.vue';
+import SystemInfo from '@/components/Widgets/SystemInfo.vue';
 import NdCpuHistory from '@/components/Widgets/NdCpuHistory.vue';
 import NdLoadHistory from '@/components/Widgets/NdLoadHistory.vue';
 import NdRamHistory from '@/components/Widgets/NdRamHistory.vue';
@@ -189,6 +197,7 @@ export default {
     StockPriceChart,
     Jokes,
     Flights,
+    SystemInfo,
     NdCpuHistory,
     NdLoadHistory,
     NdRamHistory,

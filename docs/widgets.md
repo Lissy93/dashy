@@ -445,6 +445,24 @@ Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
 
 ---
 
+### System Info
+
+Displays info about the server which Dashy is hosted on. Includes user + host, operating system, uptime and basic memory & load data.
+
+<p align="center"><img width="400" src="https://i.ibb.co/rvDPBDF/system-info.png" /></p>
+
+##### Options
+
+No config options.
+
+##### Example 
+
+```yaml
+- type: system-info
+```
+
+---
+
 ## Dynamic Widgets
 
 ### Iframe Widget
