@@ -218,6 +218,7 @@ module.exports = {
     flights: 'https://aerodatabox.p.rapidapi.com/flights/airports/icao/',
     rssToJson: 'https://api.rss2json.com/v1/api.json',
     codeStats: 'https://codestats.net/',
+    holidays: 'https://kayaposoft.com/enrico/json/v2.0/?action=getHolidaysForDateRange',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

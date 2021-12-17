@@ -12,12 +12,14 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [RSS Feed](#rss-feed)
   - [XKCD Comics](#xkcd-comics)
   - [Code Stats](#code-stats)
+  - [Public Holidays](#public-holidays)
   - [TFL Status](#tfl-status)
   - [Exchange Rates](#exchange-rates)
   - [Stock Price History](#stock-price-history)
   - [Joke of the Day](#joke)
   - [Flight Data](#flight-data)
 - [Self-Hosted Services Widgets](#dynamic-widgets)
+  - [System Info](#system-info)
   - [CPU History](#cpu-history-netdata)
   - [Memory History](#memory-history-netdata)
   - [System Load History](#load-history-netdata)
@@ -258,6 +260,32 @@ Display your coding summary. [Code::Stats](https://codestats.net/) is a free and
 
 ---
 
+### Public Holidays
+
+Counting down to the next day off work? This widget displays upcoming public holidays for your country. Data is fetched from [Enrico](http://kayaposoft.com/enrico/)
+
+<p align="center"><img width="400" src="https://i.ibb.co/VC6fZqn/public-holidays.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`country`** | `string` |  Required | The region to fetch holiday data for, specified as a country code, e.g. `GB` or `US`
+**`holidayType`** | `string` |  __Optional__ | The type of holidays to fetch. Can be: `all`, `public_holiday`, `observance`, `school_holiday`, `other_day` or `extra_working_day`. Defaults to `public_holiday`
+**`monthsToShow`** | `number` |  __Optional__ | The number of months in advance to show. Min: `1`, max: `24`. Defaults to `12`
+
+##### Example
+
+```yaml
+- type: public-holidays
+  options:
+    country: GB
+    holidayType: all
+    monthsToShow: 12
+```
+
+---
+
 ### TFL Status
 
 Shows real-time tube status of the London Underground. All options are optional.
@@ -404,6 +432,25 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 
 ## Self-Hosted Services Widgets
 
+
+### System Info
+
+Displays info about the server which Dashy is hosted on. Includes user + host, operating system, uptime and basic memory & load data.
+
+<p align="center"><img width="400" src="https://i.ibb.co/rvDPBDF/system-info.png" /></p>
+
+##### Options
+
+No config options.
+
+##### Example 
+
+```yaml
+- type: system-info
+```
+
+---
+
 ### CPU History (NetData)
 
 Pull recent CPU usage history from NetData.
@@ -470,24 +517,6 @@ Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
 - type: nd-load-history
   options:
   host: http://192.168.1.1:19999
-```
-
----
-
-### System Info
-
-Displays info about the server which Dashy is hosted on. Includes user + host, operating system, uptime and basic memory & load data.
-
-<p align="center"><img width="400" src="https://i.ibb.co/rvDPBDF/system-info.png" /></p>
-
-##### Options
-
-No config options.
-
-##### Example 
-
-```yaml
-- type: system-info
 ```
 
 ---

@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 import { hideFurnitureOn } from '@/utils/defaults';
 
 /* Returns false if page furniture should be hidden on said route */
@@ -50,7 +51,7 @@ export const applyItemId = (inputSections) => {
 export const convertTimestampToDate = (timestamp) => {
   const localFormat = navigator.language;
   const dateFormat = {
-    weekday: 'short', day: 'numeric', month: 'short', year: 'numeric',
+    weekday: 'short', day: 'numeric', month: 'short', year: '2-digit',
   };
   const date = new Date(timestamp).toLocaleDateString(localFormat, dateFormat);
   return `${date}`;
@@ -90,4 +91,8 @@ export const putCommasInBigNum = (bigNum) => {
 export const showNumAsThousand = (bigNum) => {
   if (bigNum < 1000) return bigNum;
   return `${Math.round(bigNum / 1000)}k`;
+};
+
+export const capitalize = (str) => {
+  return str.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
 };

@@ -102,6 +102,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <PublicHolidays
+        v-else-if="widgetType === 'public-holidays'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <RssFeed
         v-else-if="widgetType === 'rss-feed'"
         :options="widgetOptions"
@@ -178,6 +185,7 @@ import Jokes from '@/components/Widgets/Jokes.vue';
 import NdCpuHistory from '@/components/Widgets/NdCpuHistory.vue';
 import NdLoadHistory from '@/components/Widgets/NdLoadHistory.vue';
 import NdRamHistory from '@/components/Widgets/NdRamHistory.vue';
+import PublicHolidays from '@/components/Widgets/PublicHolidays.vue';
 import RssFeed from '@/components/Widgets/RssFeed.vue';
 import StockPriceChart from '@/components/Widgets/StockPriceChart.vue';
 import SystemInfo from '@/components/Widgets/SystemInfo.vue';
@@ -207,6 +215,7 @@ export default {
     NdCpuHistory,
     NdLoadHistory,
     NdRamHistory,
+    PublicHolidays,
     RssFeed,
     StockPriceChart,
     SystemInfo,
