@@ -81,6 +81,21 @@ export const findCurrencySymbol = (currencyCode) => {
   return code;
 };
 
+/* Given a 2-digit country code, return path to flag image from Flagpedia */
+export const getCountryFlag = (countryCode, dimens) => {
+  const protocol = 'https';
+  const cdn = 'flagcdn.com';
+  const dimensions = dimens || '64x48';
+  const country = countryCode.toLowerCase();
+  const ext = 'png';
+  return `${protocol}://${cdn}/${dimensions}/${country}.${ext}`;
+};
+
+/* Given a Latitude & Longitude object, and optional zoom level, return link to OSM */
+export const getMapUrl = (location, zoom) => {
+  return `https://www.openstreetmap.org/#map=${zoom || 10}/${location.lat}/${location.lon}`;
+};
+
 /* Given a large number, will add commas to make more readable */
 export const putCommasInBigNum = (bigNum) => {
   const strNum = Number.isNaN(bigNum) ? bigNum : String(bigNum);

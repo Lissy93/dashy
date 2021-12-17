@@ -18,6 +18,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Stock Price History](#stock-price-history)
   - [Joke of the Day](#joke)
   - [Flight Data](#flight-data)
+  - [Public IP Address](#public-ip)
 - [Self-Hosted Services Widgets](#dynamic-widgets)
   - [System Info](#system-info)
   - [CPU History](#cpu-history-netdata)
@@ -430,6 +431,24 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 
 ---
 
+### Public IP
+
+Displays your public IP address, along with ISP name and approx location. Data is fetched from [IP-API.com](https://ip-api.com/).
+
+<p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
+
+##### Options
+
+_No config options._
+
+##### Example 
+
+```yaml
+- type: public-ip
+```
+
+---
+
 ## Self-Hosted Services Widgets
 
 
@@ -441,7 +460,7 @@ Displays info about the server which Dashy is hosted on. Includes user + host, o
 
 ##### Options
 
-No config options.
+_No config options._
 
 ##### Example 
 

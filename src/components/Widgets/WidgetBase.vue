@@ -109,6 +109,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <PublicIp
+        v-else-if="widgetType === 'public-ip'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <RssFeed
         v-else-if="widgetType === 'rss-feed'"
         :options="widgetOptions"
@@ -186,6 +193,7 @@ import NdCpuHistory from '@/components/Widgets/NdCpuHistory.vue';
 import NdLoadHistory from '@/components/Widgets/NdLoadHistory.vue';
 import NdRamHistory from '@/components/Widgets/NdRamHistory.vue';
 import PublicHolidays from '@/components/Widgets/PublicHolidays.vue';
+import PublicIp from '@/components/Widgets/PublicIp.vue';
 import RssFeed from '@/components/Widgets/RssFeed.vue';
 import StockPriceChart from '@/components/Widgets/StockPriceChart.vue';
 import SystemInfo from '@/components/Widgets/SystemInfo.vue';
@@ -216,6 +224,7 @@ export default {
     NdLoadHistory,
     NdRamHistory,
     PublicHolidays,
+    PublicIp,
     RssFeed,
     StockPriceChart,
     SystemInfo,
