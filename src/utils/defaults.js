@@ -220,6 +220,7 @@ module.exports = {
     codeStats: 'https://codestats.net/',
     holidays: 'https://kayaposoft.com/enrico/json/v2.0/?action=getHolidaysForDateRange',
     publicIp: 'http://ip-api.com/json',
+    readMeStats: 'https://github-readme-stats.vercel.app/api',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

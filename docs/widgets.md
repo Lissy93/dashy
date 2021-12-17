@@ -18,6 +18,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Stock Price History](#stock-price-history)
   - [Joke of the Day](#joke)
   - [Flight Data](#flight-data)
+  - [GitHub Profile Stats](#gitHub-profile-stats)
   - [Public IP Address](#public-ip)
 - [Self-Hosted Services Widgets](#dynamic-widgets)
   - [System Info](#system-info)
@@ -427,6 +428,38 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
     apiKey: XXXXX
     limit: 12
     direction: all
+```
+
+---
+
+### GitHub Profile Stats
+
+Display stats from your GitHub profile, using embedded cards from [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats)
+
+<p align="center"><img width="380" src="https://i.ibb.co/L0K1zNN/github-profile-stats.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`username`** | `string` |  Required | The GitHub username to fetch info for. E.g. `lissy93`. (Not required if `hideProfileCard` and `hideLanguagesCard` are both set to `true`)
+**`hideProfileCard`** | `boolean` |  _Optional_ | If set to `true`, the users profile card will not be shown. Defaults to `false`
+**`hideProfileCard`** | `boolean` |  _Optional_ | If set to `true`, the users top languages card will not be shown. Defaults to `false`
+**`repos`** | `array` |  _Optional_ | If you'd like to also display stats for some GitHub reposotories, then add an array or repo names here. Specified as `[username]/[repo-name]`, e.g. `lissy93/dashy`
+
+
+##### Example 
+
+
+```yaml
+- type: github-profile-stats
+  options:
+    username: Lissy93
+    hideLanguagesCard: true
+    repos:
+    - lissy93/dashy
+    - lissy93/personal-security-checklist
+    - lissy93/twitter-sentiment-visualisation
 ```
 
 ---
