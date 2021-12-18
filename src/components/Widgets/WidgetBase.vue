@@ -67,6 +67,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GitHubTrending
+        v-else-if="widgetType === 'github-trending-repos'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <GitHubProfile
         v-else-if="widgetType === 'github-profile-stats'"
         :options="widgetOptions"
@@ -194,6 +201,7 @@ import CodeStats from '@/components/Widgets/CodeStats.vue';
 import EmbedWidget from '@/components/Widgets/EmbedWidget.vue';
 import ExchangeRates from '@/components/Widgets/ExchangeRates.vue';
 import Flights from '@/components/Widgets/Flights.vue';
+import GitHubTrending from '@/components/Widgets/GitHubTrending.vue';
 import GitHubProfile from '@/components/Widgets/GitHubProfile.vue';
 import IframeWidget from '@/components/Widgets/IframeWidget.vue';
 import Jokes from '@/components/Widgets/Jokes.vue';
@@ -226,6 +234,7 @@ export default {
     EmbedWidget,
     ExchangeRates,
     Flights,
+    GitHubTrending,
     GitHubProfile,
     IframeWidget,
     Jokes,

@@ -18,7 +18,8 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Stock Price History](#stock-price-history)
   - [Joke of the Day](#joke)
   - [Flight Data](#flight-data)
-  - [GitHub Profile Stats](#gitHub-profile-stats)
+  - [GitHub Trending](#github-trending)
+  - [GitHub Profile Stats](#github-profile-stats)
   - [Public IP Address](#public-ip)
 - [Self-Hosted Services Widgets](#dynamic-widgets)
   - [System Info](#system-info)
@@ -432,6 +433,31 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 
 ---
 
+### GitHub Trending
+
+Displays currently trending projects on GitHub. Optionally specify a language and time-frame. Data is fetched from [Lissy93/gh-trending-no-cors](https://github.com/Lissy93/gh-trending-no-cors) using the GitHub API.
+
+<p align="center"><img width="380" src="https://i.ibb.co/BGy7Q3g/github-trending.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`lang`** | `string` |  _Optional_ | A programming language to fetch trending repos from that category. E.g. `javascript` or `go`
+**`since`** | `string` |  _Optional_ | The timeframe to use when calculating trends. Can be either `daily`, `weekly` or `monthly`. Defaults to `daily`
+**`limit`** | `number` |  _Optional_ | Optionally limit the number of results. Max `25`, default is `10`
+
+##### Example 
+
+```yaml
+- type: github-trending-repos
+  options:
+    limit: 8
+    since: weekly
+```
+
+---
+
 ### GitHub Profile Stats
 
 Display stats from your GitHub profile, using embedded cards from [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats)
@@ -444,7 +470,7 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
 --- | --- | --- | ---
 **`username`** | `string` |  Required | The GitHub username to fetch info for. E.g. `lissy93`. (Not required if `hideProfileCard` and `hideLanguagesCard` are both set to `true`)
 **`hideProfileCard`** | `boolean` |  _Optional_ | If set to `true`, the users profile card will not be shown. Defaults to `false`
-**`hideProfileCard`** | `boolean` |  _Optional_ | If set to `true`, the users top languages card will not be shown. Defaults to `false`
+**`hideLanguagesCard`** | `boolean` |  _Optional_ | If set to `true`, the users top languages card will not be shown. Defaults to `false`
 **`repos`** | `array` |  _Optional_ | If you'd like to also display stats for some GitHub reposotories, then add an array or repo names here. Specified as `[username]/[repo-name]`, e.g. `lissy93/dashy`
 
 

@@ -221,6 +221,7 @@ module.exports = {
     holidays: 'https://kayaposoft.com/enrico/json/v2.0/?action=getHolidaysForDateRange',
     publicIp: 'http://ip-api.com/json',
     readMeStats: 'https://github-readme-stats.vercel.app/api',
+    githubTrending: 'https://gh-trending-repos.herokuapp.com/',
   },
   /* URLs for web search engines */
   searchEngineUrls: {
