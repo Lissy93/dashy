@@ -27,6 +27,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [CPU History](#cpu-history-netdata)
   - [Memory History](#memory-history-netdata)
   - [System Load History](#load-history-netdata)
+  - [Pi Hole Stats](#pi-hole-stats)
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -618,6 +619,29 @@ Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
 - type: nd-load-history
   options:
   host: http://192.168.1.1:19999
+```
+
+---
+
+### Pi Hole Stats
+
+Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
+
+<p align="center"><img width="400" src="https://i.ibb.co/zftCLJN/pi-hole-stats.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The URL to your Pi-Hole instance
+**`hideStatus`** / **`hideChart`** / **`hideInfo`** | `boolean` |  _Optional_ | Optionally hide any of the three parts of the widget
+
+##### Example 
+
+```yaml
+- type: pi-hole-stats
+  options:
+    hostname: http://192.168.130.1
 ```
 
 ---

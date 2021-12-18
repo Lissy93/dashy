@@ -123,6 +123,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <PiHoleStats
+        v-else-if="widgetType === 'pi-hole-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <PublicHolidays
         v-else-if="widgetType === 'public-holidays'"
         :options="widgetOptions"
@@ -216,6 +223,7 @@ import Jokes from '@/components/Widgets/Jokes.vue';
 import NdCpuHistory from '@/components/Widgets/NdCpuHistory.vue';
 import NdLoadHistory from '@/components/Widgets/NdLoadHistory.vue';
 import NdRamHistory from '@/components/Widgets/NdRamHistory.vue';
+import PiHoleStats from '@/components/Widgets/PiHoleStats.vue';
 import PublicHolidays from '@/components/Widgets/PublicHolidays.vue';
 import PublicIp from '@/components/Widgets/PublicIp.vue';
 import RssFeed from '@/components/Widgets/RssFeed.vue';
@@ -250,6 +258,7 @@ export default {
     NdCpuHistory,
     NdLoadHistory,
     NdRamHistory,
+    PiHoleStats,
     PublicHolidays,
     PublicIp,
     RssFeed,
