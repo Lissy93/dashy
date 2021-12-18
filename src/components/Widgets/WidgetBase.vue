@@ -18,8 +18,15 @@
     </div>
     <!-- Widget -->
     <div v-else class="widget-wrap">
+      <Apod
+        v-if="widgetType === 'apod'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <Clock
-        v-if="widgetType === 'clock'"
+        v-else-if="widgetType === 'clock'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -194,6 +201,7 @@ import OpenIcon from '@/assets/interface-icons/open-new-tab.svg';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
 
 // Import available widgets (add new widgets alphabetically)
+import Apod from '@/components/Widgets/Apod.vue';
 import Clock from '@/components/Widgets/Clock.vue';
 import CryptoPriceChart from '@/components/Widgets/CryptoPriceChart.vue';
 import CryptoWatchList from '@/components/Widgets/CryptoWatchList.vue';
@@ -227,6 +235,7 @@ export default {
     OpenIcon,
     LoadingAnimation,
     // Register widget components
+    Apod,
     Clock,
     CodeStats,
     CryptoPriceChart,

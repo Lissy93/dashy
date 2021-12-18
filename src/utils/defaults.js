@@ -222,6 +222,7 @@ module.exports = {
     publicIp: 'http://ip-api.com/json',
     readMeStats: 'https://github-readme-stats.vercel.app/api',
     githubTrending: 'https://gh-trending-repos.herokuapp.com/',
+    astronomyPictureOfTheDay: 'https://apodapi.herokuapp.com/api',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

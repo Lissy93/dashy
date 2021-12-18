@@ -18,6 +18,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Stock Price History](#stock-price-history)
   - [Joke of the Day](#joke)
   - [Flight Data](#flight-data)
+  - [NASA APOD](#astronomy-picture-of-the-day)
   - [GitHub Trending](#github-trending)
   - [GitHub Profile Stats](#github-profile-stats)
   - [Public IP Address](#public-ip)
@@ -29,7 +30,11 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
-- [Build your own Widget](#build-your-own-widget)
+  - [API Response](#api-response)
+  - [Data Feed](#data-feed)
+- [Custom Widgets](#custom-widgets)
+  - [Build your own Widget](#build-your-own-widget)
+  - [Widget Styling](#widget-styling)
 
 ## General Widgets
 
@@ -433,6 +438,24 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 
 ---
 
+### Astronomy Picture of the Day
+
+Show the NASA Astronomy Pictore of the Day. Data is fetched from [APOD](https://apod.nasa.gov/apod/) using [PawelPleskaczynski/apod_api](https://github.com/PawelPleskaczynski/apod_api).
+
+<p align="center"><img width="400" src="https://i.ibb.co/ZMkgLFK/apod.png" /></p>
+
+##### Options
+
+_No config options._
+
+##### Example 
+
+```yaml
+- type: apod
+```
+
+---
+
 ### GitHub Trending
 
 Displays currently trending projects on GitHub. Optionally specify a language and time-frame. Data is fetched from [Lissy93/gh-trending-no-cors](https://github.com/Lissy93/gh-trending-no-cors) using the GitHub API.
@@ -668,6 +691,21 @@ Or
 
 ---
 
-## Build your own Widget
+### API Response
+
+---
+
+### Data Feed
+
+---
+
+## Custom Widgets
+
+### Build your own Widget
 
 For a full tutorial on creating your own widget, you can follow [this guide](https://github.com/Lissy93/dashy/blob/master/docs/development-guides.md#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example. 
+
+---
+
+### Widget Styling
+
