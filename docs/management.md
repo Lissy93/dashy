@@ -346,6 +346,8 @@ Docker containers run with a subset of [Linux Kernal's Capabilities](https://man
 
 With Docker run, you can use the `--cap-drop` flag to remove capabilities, you can also use `--cap-drop=all` and then define just the required permissions using the `--cap-add` option. For a list of available capabilities, see the [Privilege Capabilities Docs](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities).
 
+Note that dropping privileges and capabilities on runtime is not fool-proof, and often any leftover privileges can be used to re-escalate, see [POS36-C](https://wiki.sei.cmu.edu/confluence/display/c/POS36-C.+Observe+correct+revocation+order+while+relinquishing+privileges).
+
 Here's an example using docker-compose, removing privileges that are not required for Dashy to run:
 
 ```yaml
@@ -617,6 +619,8 @@ Note, that if you choose not to use `server.js` to serve up the app, you will lo
 Example Configs
 - [NGINX](#nginx)
 - [Apache](#apache)
+- [Caddy](#caddy)
+- [Firebase](#firebase-hosting)
 - [cPanel](#cpanel)
 
 ### NGINX
@@ -638,6 +642,9 @@ server {
 	}
 }
 ```
+
+To use HTML5 history mode (`appConfig.routingMode: history`), replace the inside of the location block with: `try_files $uri $uri/ /index.html;`.
+
 Then upload the build contents of Dashy's dist directory to that location.
 For example: `scp -r ./dist/* [username]@[server_ip]:/var/www/dashy/html`
 
@@ -652,6 +659,15 @@ In your Apache config, `/etc/apche2/apache2.conf` add:
 	AllowOverride All
 	Require all granted
 </Directory>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
 ```
 
 Add a `.htaccess` file within `/var/www/html/dashy/.htaccess`, and add:
@@ -663,6 +679,39 @@ RewriteRule ^ index.html [QSA,L]
 ```
 
 Then restart Apache, with `sudo systemctl restart apache2`
+
+### Caddy
+
+Caddy v2
+```
+try_files {path} /
+```
+
+Caddy v1
+```
+rewrite {
+  regexp .*
+  to {path} /
+}
+```
+
+### Firebase Hosting
+
+Create a file names `firebase.json`, and populate it with something similar to:
+
+```
+{
+  "hosting": {
+    "public": "dist",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
+```
 
 ### cPanel
 1. Login to your WHM

@@ -5,24 +5,24 @@
 <table>
 <tr>
     <td align="center">
-        <a href="https://github.com/mfnalex">
-            <img src="https://avatars.githubusercontent.com/u/1122571?u=5503223f5a5077197ddc229a938a5c3120a276ce&v=4" width="80;" alt="mfnalex"/>
+        <a href="https://github.com/BOZG">
+            <img src="https://avatars.githubusercontent.com/u/6022344?u=a52f42b946a1e1156f7bb9d7f65e9e28bb2da89f&v=4" width="80;" alt="BOZG"/>
             <br />
-            <sub><b>Mfnalex</b></sub>
+            <sub><b>Stephen Rigney</b></sub>
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/Robert-Ernst">
-            <img src="https://avatars.githubusercontent.com/u/9050259?u=7253b4063f1ffe3b5a894263c8b2056151802508&v=4" width="80;" alt="Robert-Ernst"/>
+        <a href="https://github.com/vlad-timofeev">
+            <img src="https://avatars.githubusercontent.com/u/11474041?v=4" width="80;" alt="vlad-timofeev"/>
             <br />
-            <sub><b>Robert Ernst</b></sub>
+            <sub><b>Vlad Timofeev</b></sub>
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/DylanBeMe">
-            <img src="https://avatars.githubusercontent.com/u/41838333?v=4" width="80;" alt="DylanBeMe"/>
+        <a href="https://github.com/matthewjdegarmo">
+            <img src="https://avatars.githubusercontent.com/u/46715299?u=65f979e86de9dce8a5fe04df9775d32c6cefd73a&v=4" width="80;" alt="matthewjdegarmo"/>
             <br />
-            <sub><b>DylanH</b></sub>
+            <sub><b>Matthew J. DeGarmo</b></sub>
         </a>
     </td></tr>
 </table>
@@ -40,13 +40,6 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/EVOTk">
-            <img src="https://avatars.githubusercontent.com/u/45015615?v=4" width="80;" alt="EVOTk"/>
-            <br />
-            <sub><b>EVOTk</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/liss-bot">
             <img src="https://avatars.githubusercontent.com/u/87835202?v=4" width="80;" alt="liss-bot"/>
             <br />
@@ -54,10 +47,10 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/evroon">
-            <img src="https://avatars.githubusercontent.com/u/11857441?v=4" width="80;" alt="evroon"/>
+        <a href="https://github.com/EVOTk">
+            <img src="https://avatars.githubusercontent.com/u/45015615?v=4" width="80;" alt="EVOTk"/>
             <br />
-            <sub><b>Erik Vroon</b></sub>
+            <sub><b>EVOTk</b></sub>
         </a>
     </td>
     <td align="center">
@@ -68,6 +61,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/evroon">
+            <img src="https://avatars.githubusercontent.com/u/11857441?v=4" width="80;" alt="evroon"/>
+            <br />
+            <sub><b>Erik Vroon</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/UrekD">
             <img src="https://avatars.githubusercontent.com/u/38784343?v=4" width="80;" alt="UrekD"/>
             <br />
@@ -75,6 +75,13 @@
         </a>
     </td></tr>
 <tr>
+    <td align="center">
+        <a href="https://github.com/walkxcode">
+            <img src="https://avatars.githubusercontent.com/u/71191962?v=4" width="80;" alt="walkxcode"/>
+            <br />
+            <sub><b>Walkx</b></sub>
+        </a>
+    </td>
     <td align="center">
         <a href="https://github.com/onedr0p">
             <img src="https://avatars.githubusercontent.com/u/213795?v=4" width="80;" alt="onedr0p"/>
@@ -90,6 +97,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/BOZG">
+            <img src="https://avatars.githubusercontent.com/u/6022344?v=4" width="80;" alt="BOZG"/>
+            <br />
+            <sub><b>Stephen Rigney</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/BeginCI">
             <img src="https://avatars.githubusercontent.com/u/57495754?v=4" width="80;" alt="BeginCI"/>
             <br />
@@ -102,7 +116,8 @@
             <br />
             <sub><b>David</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/deepsourcebot">
             <img src="https://avatars.githubusercontent.com/u/60907429?v=4" width="80;" alt="deepsourcebot"/>
@@ -116,8 +131,7 @@
             <br />
             <sub><b>FormatToday</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/Compunctus">
             <img src="https://avatars.githubusercontent.com/u/5058853?v=4" width="80;" alt="Compunctus"/>
@@ -145,7 +159,8 @@
             <br />
             <sub><b>Shreya Roy</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/jnach">
             <img src="https://avatars.githubusercontent.com/u/33467747?v=4" width="80;" alt="jnach"/>

@@ -20,6 +20,7 @@
     "remember-me-hour": "4 Hours",
     "remember-me-day": "1 Day",
     "remember-me-week": "1 Week",
+    "remember-me-long-time": "A long time",
     "error-missing-username": "Missing Username",
     "error-missing-password": "Missing Password",
     "error-incorrect-username": "User not found",

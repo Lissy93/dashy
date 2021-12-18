@@ -145,13 +145,15 @@
           "type": "string",
           "enum": [
             "local",
-            "faviconkit",
-            "google",
+            "allesedv",
             "clearbit",
-            "webmasterapi",
-            "allesedv"
+            "faviconkit",
+            "duckduckgo",
+            "yandex",
+            "google",
+            "besticon"
           ],
-          "default": "faviconkit",
+          "default": "allesedv",
           "description": "Which service to use to resolve favicons. Set to local to do this locally instead"
         },
         "layout": {
