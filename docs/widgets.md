@@ -28,6 +28,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Memory History](#memory-history-netdata)
   - [System Load History](#load-history-netdata)
   - [Pi Hole Stats](#pi-hole-stats)
+  - [Pi Hole Queries](#pi-hole-queries)
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -642,6 +643,30 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 - type: pi-hole-stats
   options:
     hostname: http://192.168.130.1
+```
+---
+
+### Pi Hole Queries
+
+Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net/).
+
+<p align="center"><img width="400" src="https://i.ibb.co/pXR0bdQ/pi-hole-queries.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The URL to your Pi-Hole instance
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD`
+**`count`** | `number` |  _Optional_ | The number of queries to display. Defaults to `10`
+
+##### Example 
+
+```yaml
+- type: pi-hole-top-queries
+  options:
+    hostname: https://pi-hole.local
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ---
