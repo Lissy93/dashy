@@ -29,6 +29,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [System Load History](#load-history-netdata)
   - [Pi Hole Stats](#pi-hole-stats)
   - [Pi Hole Queries](#pi-hole-queries)
+  - [Recent Traffic](#recent-traffic)
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -634,7 +635,7 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`host`** | `string` |  Required | The URL to your Pi-Hole instance
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
 **`hideStatus`** / **`hideChart`** / **`hideInfo`** | `boolean` |  _Optional_ | Optionally hide any of the three parts of the widget
 
 ##### Example 
@@ -656,7 +657,7 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`host`** | `string` |  Required | The URL to your Pi-Hole instance
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
 **`apiKey`** | `string` |  Required | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD`
 **`count`** | `number` |  _Optional_ | The number of queries to display. Defaults to `10`
 
@@ -667,6 +668,28 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
   options:
     hostname: https://pi-hole.local
     apiKey: xxxxxxxxxxxxxxxxxxxxxxx
+```
+
+---
+
+### Recent Traffic
+
+Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole](https://pi-hole.net/)
+
+<p align="center"><img width="500" src="https://i.ibb.co/7kdxxwx/pi-hole-recent-queries.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+
+##### Example 
+
+```yaml
+- type: pi-hole-traffic
+  options:
+    hostname: https://pi-hole.local
 ```
 
 ---
