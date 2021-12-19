@@ -26,6 +26,7 @@ const saveConfig = require('./services/save-config'); // Saves users new conf.ym
 const rebuild = require('./services/rebuild-app'); // A script to programmatically trigger a build
 const systemInfo = require('./services/system-info'); // Basic system info, for resource widget
 const sslServer = require('./services/ssl-server'); // TLS-enabled web server
+const corsProxy = require('./services/cors-proxy'); // Enables API requests to CORS-blocked services
 
 /* Helper functions, and default config */
 const printMessage = require('./services/print-message'); // Function to print welcome msg on start
@@ -99,6 +100,14 @@ const app = express()
       const results = systemInfo();
       systemInfo.success = true;
       res.end(JSON.stringify(results));
+    } catch (e) {
+      res.end(JSON.stringify({ success: false, message: e }));
+    }
+  })
+  // GET for accessing non-CORS API services
+  .use(ENDPOINTS.corsProxy, (req, res) => {
+    try {
+      corsProxy(req, res);
     } catch (e) {
       res.end(JSON.stringify({ success: false, message: e }));
     }
