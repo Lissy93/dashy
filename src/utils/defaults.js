@@ -223,6 +223,7 @@ module.exports = {
     readMeStats: 'https://github-readme-stats.vercel.app/api',
     githubTrending: 'https://gh-trending-repos.herokuapp.com/',
     astronomyPictureOfTheDay: 'https://apodapi.herokuapp.com/api',
+    news: 'https://api.currentsapi.services/v1/latest-news',
   },
   /* URLs for web search engines */
   searchEngineUrls: {

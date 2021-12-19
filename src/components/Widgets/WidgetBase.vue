@@ -123,6 +123,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <NewsHeadlines
+        v-else-if="widgetType === 'news-headlines'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <PiHoleStats
         v-else-if="widgetType === 'pi-hole-stats'"
         :options="widgetOptions"
@@ -237,6 +244,7 @@ import Jokes from '@/components/Widgets/Jokes.vue';
 import NdCpuHistory from '@/components/Widgets/NdCpuHistory.vue';
 import NdLoadHistory from '@/components/Widgets/NdLoadHistory.vue';
 import NdRamHistory from '@/components/Widgets/NdRamHistory.vue';
+import NewsHeadlines from '@/components/Widgets/NewsHeadlines.vue';
 import PiHoleStats from '@/components/Widgets/PiHoleStats.vue';
 import PiHoleTopQueries from '@/components/Widgets/PiHoleTopQueries.vue';
 import PiHoleTraffic from '@/components/Widgets/PiHoleTraffic.vue';
@@ -274,6 +282,7 @@ export default {
     NdCpuHistory,
     NdLoadHistory,
     NdRamHistory,
+    NewsHeadlines,
     PiHoleStats,
     PiHoleTopQueries,
     PiHoleTraffic,

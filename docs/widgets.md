@@ -17,6 +17,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Exchange Rates](#exchange-rates)
   - [Stock Price History](#stock-price-history)
   - [Joke of the Day](#joke)
+  - [News Headlines](#news-headlines)
   - [Flight Data](#flight-data)
   - [NASA APOD](#astronomy-picture-of-the-day)
   - [GitHub Trending](#github-trending)
@@ -409,6 +410,34 @@ Renders a programming or generic joke. Data is fetched from the [JokesAPI](https
     safeMode: true
     language: en
     category: Programming
+```
+
+---
+
+### News Headlines
+
+Displays the latest news, click to read full article. Date is fetched from various news sources using [Currents API](https://currentsapi.services/en)
+
+<p align="center"><img width="380" src="https://i.ibb.co/6NDWW0z/news-headlines.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | Your API key for CurrentsAPI. This is free, and you can [get one here](https://currentsapi.services/en/register)
+**`country`** | `string` | _Optional_ | Fetch news only from a certain country or region. Specified as a country code, e.g. `GB` or `US`. See [here](https://api.currentsapi.services/v1/available/regions) for a list of supported regions
+**`category`** | `string` | _Optional_ | Only return news from within a given category, e.g. `sports`, `programming`, `world`, `science`. The [following categories](https://api.currentsapi.services/v1/available/categories) are supported
+**`lang`** | `string` |  _Optional_ | Specify the language for returned articles as a 2-digit ISO code (limited article support). The [following languages](https://api.currentsapi.services/v1/available/languages) are supported, defaults to `en`
+**`count`** | `number` |  _Optional_ | Limit the number of results. Can be between `1` and `200`, defaults to `10`
+**`keywords`** | `string` |  _Optional_ | Only return articles that contain an exact match within their title or description
+
+##### Example 
+
+```yaml
+- type: news-headlines
+    options:
+      apiKey: xxxxxxx
+      category: world
 ```
 
 ---
