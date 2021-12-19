@@ -471,6 +471,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/Robert-Ernst">
+            <img src="https://avatars.githubusercontent.com/u/9050259?v=4" width="80;" alt="Robert-Ernst"/>
+            <br />
+            <sub><b>Robert Ernst</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/vlad-timofeev">
             <img src="https://avatars.githubusercontent.com/u/11474041?v=4" width="80;" alt="vlad-timofeev"/>
             <br />
