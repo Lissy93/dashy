@@ -46,6 +46,7 @@ module.exports = {
     save: '/config-manager/save',
     rebuild: '/config-manager/rebuild',
     systemInfo: '/system-info',
+    corsProxy: '/cors-proxy',
   },
   /* List of built-in themes, to be displayed within the theme-switcher dropdown */
   builtInThemes: [
@@ -213,7 +214,7 @@ module.exports = {
     exchangeRates: 'https://v6.exchangerate-api.com/v6/',
     flights: 'https://aerodatabox.p.rapidapi.com/flights/airports/icao/',
     githubTrending: 'https://gh-trending-repos.herokuapp.com/',
-    healthChecks: 'https://healthchecks.io/api/v1/',
+    healthChecks: 'https://healthchecks.io/api/v1/checks',
     holidays: 'https://kayaposoft.com/enrico/json/v2.0/?action=getHolidaysForDateRange',
     jokes: 'https://v2.jokeapi.dev/joke/',
     news: 'https://api.currentsapi.services/v1/latest-news',

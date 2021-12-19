@@ -88,6 +88,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <HealthChecks
+        v-else-if="widgetType === 'health-checks'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <IframeWidget
         v-else-if="widgetType === 'iframe'"
         :options="widgetOptions"
@@ -239,6 +246,7 @@ import ExchangeRates from '@/components/Widgets/ExchangeRates.vue';
 import Flights from '@/components/Widgets/Flights.vue';
 import GitHubTrending from '@/components/Widgets/GitHubTrending.vue';
 import GitHubProfile from '@/components/Widgets/GitHubProfile.vue';
+import HealthChecks from '@/components/Widgets/HealthChecks.vue';
 import IframeWidget from '@/components/Widgets/IframeWidget.vue';
 import Jokes from '@/components/Widgets/Jokes.vue';
 import NdCpuHistory from '@/components/Widgets/NdCpuHistory.vue';
@@ -277,6 +285,7 @@ export default {
     Flights,
     GitHubTrending,
     GitHubProfile,
+    HealthChecks,
     IframeWidget,
     Jokes,
     NdCpuHistory,

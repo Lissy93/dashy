@@ -25,6 +25,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Public IP Address](#public-ip)
 - [Self-Hosted Services Widgets](#dynamic-widgets)
   - [System Info](#system-info)
+  - [Cron Monitoring](#cron-monitoring-health-checks)
   - [CPU History](#cpu-history-netdata)
   - [Memory History](#memory-history-netdata)
   - [System Load History](#load-history-netdata)
@@ -580,6 +581,29 @@ _No config options._
 
 ```yaml
 - type: system-info
+```
+
+---
+
+### Cron Monitoring (Health Checks)
+
+Cron job monitoring using [Health Checks](https://github.com/healthchecks/healthchecks). Both managed and self-hosted instances are supported.
+
+<p align="center"><img width="400" src="https://i.ibb.co/Ptf2kwm/health-checks.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | A read-only API key for the project to monitor. You can generate this by selecting a Project --> Settings --> API Access. Note that you must generate a separate key for each project
+**`host`** | `string` | _Optional_ | If you're self-hosting, or using any instance other than the official (healthchecks.io), you will need to specify the host address. E.g. `https://healthchecks.example.com` or `http://cron-monitoing.local`
+
+##### Example 
+
+```yaml
+- type: health-checks
+  options:
+    apiKey: XXXXXXXXX
 ```
 
 ---
