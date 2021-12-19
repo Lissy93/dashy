@@ -39,8 +39,9 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [API Response](#api-response)
   - [Data Feed](#data-feed)
 - [Custom Widgets](#custom-widgets)
-  - [Build your own Widget](#build-your-own-widget)
+  - [Widget Usage Guide](#widget-usage-guide)
   - [Widget Styling](#widget-styling)
+  - [Build your own Widget](#build-your-own-widget)
 
 ## General Widgets
 
@@ -549,7 +550,7 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
 
 ### Public IP
 
-Displays your public IP address, along with ISP name and approx location. Data is fetched from [IP-API.com](https://ip-api.com/).
+Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data is fetched from [IP-API.com](https://ip-api.com/).
 
 <p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
 
@@ -752,7 +753,7 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 
 Displays the current and recent uptime of your running services, via a self-hosted instance of [StatPing](https://github.com/statping/statping)
 
-<p align="center"><img width="500" src="https://i.ibb.co/Fq7JDjQ/stat-ping.png" /></p>
+<p align="center"><img width="300" src="https://i.ibb.co/Fq7JDjQ/stat-ping.png" /></p>
 
 ##### Options
 
@@ -841,19 +842,38 @@ Or
 
 ### API Response
 
+Directly output plain-text response from any API-enabled service
+
 ---
 
 ### Data Feed
+
+Show live data from an RSS-enabled service. The only required parameter is `rssUrl`, which is the URL to the ATOM feed. See [RSS Widget](#rss-feed) for full list of available options.
+
+<p align="center"><img width="700" src="https://i.ibb.co/1r88pvL/rss-feed-example-1.png" /></p>
+
+##### Example
+
+```yaml
+- type: rss-feed
+  options:
+    rssUrl: https://notes.aliciasykes.com/feed
+```
 
 ---
 
 ## Custom Widgets
 
-### Build your own Widget
+### Widget Usage Guide
 
-For a full tutorial on creating your own widget, you can follow [this guide](https://github.com/Lissy93/dashy/blob/master/docs/development-guides.md#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example. 
 
 ---
 
 ### Widget Styling
 
+
+---
+
+### Build your own Widget
+
+For a full tutorial on creating your own widget, you can follow [this guide](https://github.com/Lissy93/dashy/blob/master/docs/development-guides.md#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example. 
