@@ -32,6 +32,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Pi Hole Stats](#pi-hole-stats)
   - [Pi Hole Queries](#pi-hole-queries)
   - [Recent Traffic](#recent-traffic)
+  - [Stat Ping Statuses](#stat-ping-statuses)
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -743,6 +744,28 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 - type: pi-hole-traffic
   options:
     hostname: https://pi-hole.local
+```
+
+---
+
+### Stat Ping Statuses
+
+Displays the current and recent uptime of your running services, via a self-hosted instance of [StatPing](https://github.com/statping/statping)
+
+<p align="center"><img width="500" src="https://i.ibb.co/Fq7JDjQ/stat-ping.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your StatPing instance, without a trailing slash
+
+##### Example 
+
+```yaml
+- type: stat-ping
+  options:
+    hostname: http://192.168.130.1:8080
 ```
 
 ---

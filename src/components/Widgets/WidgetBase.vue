@@ -179,6 +179,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <StatPing
+        v-else-if="widgetType === 'stat-ping'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <StockPriceChart
         v-else-if="widgetType === 'stock-price-chart'"
         :options="widgetOptions"
@@ -259,6 +266,7 @@ import PiHoleTraffic from '@/components/Widgets/PiHoleTraffic.vue';
 import PublicHolidays from '@/components/Widgets/PublicHolidays.vue';
 import PublicIp from '@/components/Widgets/PublicIp.vue';
 import RssFeed from '@/components/Widgets/RssFeed.vue';
+import StatPing from '@/components/Widgets/StatPing.vue';
 import StockPriceChart from '@/components/Widgets/StockPriceChart.vue';
 import SystemInfo from '@/components/Widgets/SystemInfo.vue';
 import TflStatus from '@/components/Widgets/TflStatus.vue';
@@ -298,6 +306,7 @@ export default {
     PublicHolidays,
     PublicIp,
     RssFeed,
+    StatPing,
     StockPriceChart,
     SystemInfo,
     TflStatus,
