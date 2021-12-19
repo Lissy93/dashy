@@ -16,7 +16,7 @@
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
-import { convertTimestampToDate } from '@/utils/MiscHelpers';
+import { timestampToDate } from '@/utils/MiscHelpers';
 
 export default {
   mixins: [WidgetMixin],
@@ -53,7 +53,7 @@ export default {
   },
   filters: {
     date(date) {
-      return convertTimestampToDate(date);
+      return timestampToDate(date);
     },
   },
   methods: {

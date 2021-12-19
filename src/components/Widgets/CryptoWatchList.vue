@@ -22,7 +22,7 @@
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
-import { findCurrencySymbol, convertTimestampToDate } from '@/utils/MiscHelpers';
+import { findCurrencySymbol, timestampToDate } from '@/utils/MiscHelpers';
 
 export default {
   mixins: [WidgetMixin],
@@ -121,7 +121,7 @@ export default {
         + `<b>${this.$options.filters.currency(info.marketCap)}</b>`
         + `<br>Circulating Supply: <b>${info.supply} ${info.symbol.toUpperCase()}</b>${maxSupply}`
         + `<br>All-time-high of <b>${info.allTimeHigh}</b> `
-        + `at <b>${convertTimestampToDate(info.allTimeHighDate)}</b>`;
+        + `at <b>${timestampToDate(info.allTimeHighDate)}</b>`;
       return {
         content, html: true, trigger: 'hover focus', delay: 250,
       };

@@ -48,13 +48,26 @@ export const applyItemId = (inputSections) => {
   return sections;
 };
 
-export const convertTimestampToDate = (timestamp) => {
+/* Given a timestamp, returns formatted date, in local format */
+export const timestampToDate = (timestamp) => {
   const localFormat = navigator.language;
   const dateFormat = {
     weekday: 'short', day: 'numeric', month: 'short', year: '2-digit',
   };
   const date = new Date(timestamp).toLocaleDateString(localFormat, dateFormat);
   return `${date}`;
+};
+
+/* Given a timestamp, returns formatted time in local format */
+export const timestampToTime = (timestamp) => {
+  const localFormat = navigator.language;
+  const timeFormat = { hour: 'numeric', minute: 'numeric', second: 'numeric' };
+  const time = Intl.DateTimeFormat(localFormat, timeFormat).format(new Date(timestamp));
+  return time;
+};
+
+export const timestampToDateTime = (timestamp) => {
+  return `${timestampToDate(timestamp)} at ${timestampToTime(timestamp)}`;
 };
 
 /* Given a currency code, return the corresponding unicode symbol */

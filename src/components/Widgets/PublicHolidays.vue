@@ -16,7 +16,7 @@
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
-import { convertTimestampToDate, capitalize } from '@/utils/MiscHelpers';
+import { timestampToDate, capitalize } from '@/utils/MiscHelpers';
 
 export default {
   mixins: [WidgetMixin],
@@ -77,7 +77,7 @@ export default {
     /* Assign data variables to the returned data */
     processData(holidays) {
       const results = [];
-      const makeDate = (date) => convertTimestampToDate(
+      const makeDate = (date) => timestampToDate(
         new Date(`${date.year}-${date.month}-${date.day}`).getTime(),
       );
       const formatType = (ht) => capitalize(ht.replaceAll('_', ' '));
