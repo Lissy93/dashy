@@ -4,6 +4,9 @@
  */
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
+// Get app mode: production, development or test
+const mode = process.env.NODE_ENV || 'production';
+
 // Get current version
 process.env.VUE_APP_VERSION = require('./package.json').version;
 
@@ -22,7 +25,8 @@ const progressFormat = '\x1b[1m\x1b[36mBuilding Dashy\x1b[0m '
 
 // Webpack Config
 const configureWebpack = {
-  performance: { hints: false },
+  mode,
+  performance: { hints: (mode === 'development') },
   module: {
     rules: [
       { test: /.svg$/, loader: 'vue-svg-loader' },
