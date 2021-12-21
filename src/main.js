@@ -33,7 +33,10 @@ Vue.use(Toasted, toastedOptions);
 Vue.component('v-select', VSelect);
 Vue.directive('clickOutside', clickOutside);
 
-Vue.config.productionTip = false; // Disable annoying console message
+// When running in dev mode, enable Vue performance tools
+const isDevMode = process.env.NODE_ENV === 'development';
+Vue.config.performance = isDevMode;
+Vue.config.productionTip = isDevMode;
 
 // Setup i18n translations
 const i18n = new VueI18n({
