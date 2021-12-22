@@ -54,9 +54,6 @@ const store = new Vuex.Store({
     sections(state) {
       return filterUserSections(state.config.sections || []);
     },
-    widgets(state) {
-      return state.config.widgets || [];
-    },
     theme(state) {
       return state.config.appConfig.theme;
     },
