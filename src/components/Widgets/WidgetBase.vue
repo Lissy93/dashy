@@ -18,19 +18,224 @@
     </div>
     <!-- Widget -->
     <div v-else class="widget-wrap">
-      <WidgetComponent
+      <Apod
+        v-if="widgetType === 'apod'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
         :ref="widgetRef"
       />
+      <Clock
+        v-else-if="widgetType === 'clock'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <CryptoPriceChart
+        v-else-if="widgetType === 'crypto-price-chart'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <CryptoWatchList
+        v-else-if="widgetType === 'crypto-watch-list'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <CodeStats
+        v-else-if="widgetType === 'code-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <EmbedWidget
+        v-else-if="widgetType === 'embed'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <ExchangeRates
+        v-else-if="widgetType === 'exchange-rates'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <Flights
+        v-else-if="widgetType === 'flight-data'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GitHubTrending
+        v-else-if="widgetType === 'github-trending-repos'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GitHubProfile
+        v-else-if="widgetType === 'github-profile-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <HealthChecks
+        v-else-if="widgetType === 'health-checks'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <IframeWidget
+        v-else-if="widgetType === 'iframe'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <Jokes
+        v-else-if="widgetType === 'joke'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <NdCpuHistory
+        v-else-if="widgetType === 'nd-cpu-history'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <NdLoadHistory
+        v-else-if="widgetType === 'nd-load-history'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <NdRamHistory
+        v-else-if="widgetType === 'nd-ram-history'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <NewsHeadlines
+        v-else-if="widgetType === 'news-headlines'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <PiHoleStats
+        v-else-if="widgetType === 'pi-hole-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <PiHoleTopQueries
+        v-else-if="widgetType === 'pi-hole-top-queries'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <PiHoleTraffic
+        v-else-if="widgetType === 'pi-hole-traffic'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <PublicHolidays
+        v-else-if="widgetType === 'public-holidays'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <PublicIp
+        v-else-if="widgetType === 'public-ip'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <RssFeed
+        v-else-if="widgetType === 'rss-feed'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <StatPing
+        v-else-if="widgetType === 'stat-ping'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <StockPriceChart
+        v-else-if="widgetType === 'stock-price-chart'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <SystemInfo
+        v-else-if="widgetType === 'system-info'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <TflStatus
+        v-else-if="widgetType === 'tfl-status'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <XkcdComic
+        v-else-if="widgetType === 'xkcd-comic'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <Weather
+        v-else-if="widgetType === 'weather'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <WeatherForecast
+        v-else-if="widgetType === 'weather-forecast'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <!-- No widget type specified -->
+      <div v-else>{{ handleError('Widget type was not found') }}</div>
     </div>
   </div>
 </template>
 
 <script>
-
-import Vue from 'vue';
+// Import form elements, icons and utils
 import ErrorHandler from '@/utils/ErrorHandler';
 import Button from '@/components/FormElements/Button';
 import UpdateIcon from '@/assets/interface-icons/widget-update.svg';
@@ -40,10 +245,42 @@ import LoadingAnimation from '@/assets/interface-icons/loader.svg';
 export default {
   name: 'Widget',
   components: {
+    // Register form elements
     Button,
     UpdateIcon,
     OpenIcon,
     LoadingAnimation,
+    // Register widget components
+    Apod: () => import('@/components/Widgets/Apod.vue'),
+    Clock: () => import('@/components/Widgets/Clock.vue'),
+    CodeStats: () => import('@/components/Widgets/CodeStats.vue'),
+    CryptoPriceChart: () => import('@/components/Widgets/CryptoPriceChart.vue'),
+    CryptoWatchList: () => import('@/components/Widgets/CryptoWatchList.vue'),
+    EmbedWidget: () => import('@/components/Widgets/EmbedWidget.vue'),
+    ExchangeRates: () => import('@/components/Widgets/ExchangeRates.vue'),
+    Flights: () => import('@/components/Widgets/Flights.vue'),
+    GitHubTrending: () => import('@/components/Widgets/GitHubTrending.vue'),
+    GitHubProfile: () => import('@/components/Widgets/GitHubProfile.vue'),
+    HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
+    IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),
+    Jokes: () => import('@/components/Widgets/Jokes.vue'),
+    NdCpuHistory: () => import('@/components/Widgets/NdCpuHistory.vue'),
+    NdLoadHistory: () => import('@/components/Widgets/NdLoadHistory.vue'),
+    NdRamHistory: () => import('@/components/Widgets/NdRamHistory.vue'),
+    NewsHeadlines: () => import('@/components/Widgets/NewsHeadlines.vue'),
+    PiHoleStats: () => import('@/components/Widgets/PiHoleStats.vue'),
+    PiHoleTopQueries: () => import('@/components/Widgets/PiHoleTopQueries.vue'),
+    PiHoleTraffic: () => import('@/components/Widgets/PiHoleTraffic.vue'),
+    PublicHolidays: () => import('@/components/Widgets/PublicHolidays.vue'),
+    PublicIp: () => import('@/components/Widgets/PublicIp.vue'),
+    RssFeed: () => import('@/components/Widgets/RssFeed.vue'),
+    StatPing: () => import('@/components/Widgets/StatPing.vue'),
+    StockPriceChart: () => import('@/components/Widgets/StockPriceChart.vue'),
+    SystemInfo: () => import('@/components/Widgets/SystemInfo.vue'),
+    TflStatus: () => import('@/components/Widgets/TflStatus.vue'),
+    Weather: () => import('@/components/Widgets/Weather.vue'),
+    WeatherForecast: () => import('@/components/Widgets/WeatherForecast.vue'),
+    XkcdComic: () => import('@/components/Widgets/XkcdComic.vue'),
   },
   props: {
     widget: Object,
@@ -90,55 +327,6 @@ export default {
     setLoaderState(loading) {
       this.loading = loading;
     },
-    getComponent() {
-      /* eslint-disable global-require, max-len */
-      const widgetType = this.widget.type;
-      if (!widgetType) { // widget type not specified
-        this.handleError('Widget type was not specified');
-        return () => require('@/components/Widgets/Blank.vue').default;
-      }
-      switch (widgetType) {
-        case ('apod'): return () => require('@/components/Widgets/Apod.vue').default;
-        case ('clock'): return () => require('@/components/Widgets/Clock.vue').default;
-        case ('code-stats'): return () => require('@/components/Widgets/CodeStats.vue').default;
-        case ('crypto-price-chart'): return () => require('@/components/Widgets/CryptoPriceChart.vue').default;
-        case ('crypto-watch-list'): return () => require('@/components/Widgets/CryptoWatchList.vue').default;
-        case ('embed'): return () => require('@/components/Widgets/EmbedWidget.vue').default;
-        case ('exchange-rates'): return () => require('@/components/Widgets/ExchangeRates.vue').default;
-        case ('flight-data'): return () => require('@/components/Widgets/Flights.vue').default;
-        case ('github-trending-repos'): return () => require('@/components/Widgets/GitHubTrending.vue').default;
-        case ('github-profile-stats'): return () => require('@/components/Widgets/GitHubProfile.vue').default;
-        case ('health-checks'): return () => require('@/components/Widgets/HealthChecks.vue').default;
-        case ('iframe'): return () => require('@/components/Widgets/IframeWidget.vue').default;
-        case ('joke'): return () => require('@/components/Widgets/Jokes.vue').default;
-        case ('nd-cpu-history'): return () => require('@/components/Widgets/NdCpuHistory.vue').default;
-        case ('nd-load-history'): return () => require('@/components/Widgets/NdLoadHistory.vue').default;
-        case ('nd-ram-history'): return () => require('@/components/Widgets/NdRamHistory.vue').default;
-        case ('news-headlines'): return () => require('@/components/Widgets/NewsHeadlines.vue').default;
-        case ('pi-hole-stats'): return () => require('@/components/Widgets/PiHoleStats.vue').default;
-        case ('pi-hole-top-queries'): return () => require('@/components/Widgets/PiHoleTopQueries.vue').default;
-        case ('pi-hole-traffic'): return () => require('@/components/Widgets/PiHoleTraffic.vue').default;
-        case ('public-holidays'): return () => require('@/components/Widgets/PublicHolidays.vue').default;
-        case ('public-ip'): return () => require('@/components/Widgets/PublicIp.vue').default;
-        case ('rss-feed'): return () => require('@/components/Widgets/RssFeed.vue').default;
-        case ('stat-ping'): return () => require('@/components/Widgets/StatPing.vue').default;
-        case ('stock-price-chart'): return () => require('@/components/Widgets/StockPriceChart.vue').default;
-        case ('system-info'): return () => require('@/components/Widgets/SystemInfo.vue').default;
-        case ('tfl-status'): return () => require('@/components/Widgets/TflStatus.vue').default;
-        case ('xkcd-comic'): return () => require('@/components/Widgets/XkcdComic.vue').default;
-        case ('weather'): return () => require('@/components/Widgets/Weather.vue').default;
-        case ('weather-forecast'): return () => require('@/components/Widgets/WeatherForecast.vue').default;
-        default: { // No widget found for specified type
-          this.handleError(`Widget not found: ${widgetType}`);
-          return () => require('@/components/Widgets/Blank.vue').default;
-        }
-      }
-      /* eslint-enable global-require, max-len */
-    },
-  },
-  beforeMount() {
-    const WidgetComponent = this.getComponent();
-    Vue.component('WidgetComponent', WidgetComponent());
   },
 };
 </script>
