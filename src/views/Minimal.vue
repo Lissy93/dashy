@@ -2,7 +2,7 @@
   <div class="minimal-home" :style="getBackgroundImage() + setColumnCount()">
     <!-- Buttons for config and home page -->
     <div class="minimal-buttons">
-      <ConfigLauncher @modalChanged="modalChanged" class="config-launcher" />
+      <ConfigLauncher @modalChanged="updateModalVisibility" class="config-launcher" />
     </div>
     <!-- Page title and search bar -->
     <div class="title-and-search">
@@ -50,17 +50,17 @@
 </template>
 
 <script>
-
+import HomeMixin from '@/mixins/HomeMixin';
 import MinimalSection from '@/components/MinimalView/MinimalSection.vue';
 import MinimalHeading from '@/components/MinimalView/MinimalHeading.vue';
 import MinimalSearch from '@/components/MinimalView/MinimalSearch.vue';
 import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
-import { searchTiles } from '@/utils/Search';
-import Defaults, { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys } from '@/utils/defaults';
 import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 
 export default {
   name: 'home',
+  mixins: [HomeMixin],
   components: {
     MinimalSection,
     MinimalHeading,
@@ -68,24 +68,11 @@ export default {
     ConfigLauncher,
   },
   data: () => ({
-    searchValue: '',
     layout: '',
-    modalOpen: false, // When true, keybindings are disabled
     selectedSection: 0, // The index of currently selected section
     tabbedView: true, // By default use tabs, when searching then show all instead
     theme: GetTheme(),
   }),
-  computed: {
-    sections() {
-      return this.$store.getters.sections;
-    },
-    appConfig() {
-      return this.$store.getters.appConfig;
-    },
-    pageInfo() {
-      return this.$store.getters.pageInfo;
-    },
-  },
   watch: {
     /* When the theme changes, then call the update method */
     searchValue() {
@@ -95,11 +82,6 @@ export default {
   methods: {
     sectionSelected(index) {
       this.selectedSection = index;
-    },
-    /* Returns true if there is one or more sections in the config */
-    checkTheresData(sections) {
-      const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
-      return (sections && sections.length >= 1) || (localSections && localSections.length >= 1);
     },
     /* Returns sections from local storage if available, otherwise uses the conf.yml */
     getSections(sections) {
@@ -112,50 +94,9 @@ export default {
       // Otherwise, return the usuall data from conf.yml
       return sections;
     },
-    /* Updates local data with search value, triggered from filter comp */
-    searching(searchValue) {
-      this.searchValue = searchValue || '';
-    },
     /* Clears input field, once a searched item is opened */
     finishedSearching() {
       this.$refs.filterComp.clearMinFilterInput();
-    },
-    /* Extracts the site name from domain, used for the searching functionality */
-    getDomainFromUrl(url) {
-      if (!url) return '';
-      const urlPattern = /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d.-]+)\.(?:[a-z.]{2,10})(?:[/\w.-]*)*/;
-      const domainPattern = url.match(urlPattern);
-      return domainPattern ? domainPattern[1] : '';
-    },
-    /* Returns only the tiles that match the users search query */
-    filterTiles(allTiles) {
-      if (!allTiles) return [];
-      return searchTiles(allTiles, this.searchValue);
-    },
-    /* Update data when modal is open (so that key bindings can be disabled) */
-    updateModalVisibility(modalState) {
-      this.modalOpen = modalState;
-    },
-    /* Checks if any of the icons are Font Awesome glyphs */
-    checkIfFontAwesomeNeeded() {
-      let isNeeded = false;
-      if (!this.sections) return false;
-      this.sections.forEach((section) => {
-        if (section.icon && section.icon.includes('fa-')) isNeeded = true;
-        section.items.forEach((item) => {
-          if (item.icon && item.icon.includes('fa-')) isNeeded = true;
-        });
-      });
-      return isNeeded;
-    },
-    /* Injects font-awesome's script tag, only if needed */
-    initiateFontAwesome() {
-      if (this.appConfig.enableFontAwesome || this.checkIfFontAwesomeNeeded()) {
-        const fontAwesomeScript = document.createElement('script');
-        const faKey = this.appConfig.fontAwesomeKey || Defaults.fontAwesomeKey;
-        fontAwesomeScript.setAttribute('src', `https://kit.fontawesome.com/${faKey}.js`);
-        document.head.appendChild(fontAwesomeScript);
-      }
     },
     /* Returns true if there is more than 1 sub-result visible during searching */
     checkIfResults() {
@@ -186,12 +127,10 @@ export default {
         ApplyCustomVariables(this.theme);
       }
     },
-    modalChanged(modalState) {
-      this.modalOpen = modalState;
-    },
   },
   mounted() {
     this.initiateFontAwesome();
+    this.initiateMaterialDesignIcons();
     this.applyTheme();
   },
 };

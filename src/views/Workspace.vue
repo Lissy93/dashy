@@ -7,7 +7,7 @@
 </template>
 
 <script>
-
+import HomeMixin from '@/mixins/HomeMixin';
 import SideBar from '@/components/Workspace/SideBar';
 import WebContent from '@/components/Workspace/WebContent';
 import MultiTaskingWebComtent from '@/components/Workspace/MultiTaskingWebComtent';
@@ -16,6 +16,7 @@ import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHe
 
 export default {
   name: 'Workspace',
+  mixins: [HomeMixin],
   data: () => ({
     url: '',
     GetTheme,
