@@ -41,7 +41,11 @@ export const applyItemId = (inputSections) => {
     if (sec.items) {
       sec.items.forEach((item, itemIdx) => {
         sections[secIdx].items[itemIdx].id = makeItemId(sec.name, item.title, itemIdx);
-        // TODO: Check if ID already exists, and if so, modify it
+      });
+    }
+    if (sec.widgets) {
+      sec.widgets.forEach((widget, widgetIdx) => {
+        sections[secIdx].widgets[widgetIdx].id = makeItemId(sec.name, widget.type, widgetIdx);
       });
     }
   });
