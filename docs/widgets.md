@@ -23,7 +23,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [GitHub Trending](#github-trending)
   - [GitHub Profile Stats](#github-profile-stats)
   - [Public IP Address](#public-ip)
-- [Self-Hosted Services Widgets](#dynamic-widgets)
+- [Self-Hosted Services Widgets](#self-hosted-services-widgets)
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
   - [CPU History](#cpu-history-netdata)
@@ -38,10 +38,11 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [HTML Embed Widget](#html-embedded-widget)
   - [API Response](#api-response)
   - [Data Feed](#data-feed)
-- [Custom Widgets](#custom-widgets)
+- [Usage & Customizations](#usage--customizations)
   - [Widget Usage Guide](#widget-usage-guide)
-  - [Widget Styling](#widget-styling)
-  - [Build your own Widget](#build-your-own-widget)
+  - [Continuous Updates](#continuous-updates)
+  - [Custom CSS Styling](#widget-styling)
+  - [Building a Widget](#build-your-own-widget)
 
 ## General Widgets
 
@@ -862,18 +863,68 @@ Show live data from an RSS-enabled service. The only required parameter is `rssU
 
 ---
 
-## Custom Widgets
+## Usage & Customizations
 
 ### Widget Usage Guide
 
+Like items, widgets are placed under sections. You may have one or more widgets per section.
+
+In your YAML config file, this will look something like:
+
+```yaml
+sections:
+- name: Today
+  icon: far fa-calendar-day
+  widgets:
+  - type: clock
+    options:
+      format: en-GB
+  - type: weather
+    options:
+      apiKey: 6e29c7d514cf890f846d58178b6d418f
+      city: London
+      units: metric
+```
+
+> In this example, there is a single section, named "Today", using a Calendar icon from Font-Awesome. It has 2 widgets, a clock and the current weather.
+
+---
+
+### Continuous Updates
+
+By default, a widget which displays dynamic data from an external source, will only fetch results on page load. If you would like to keep data updated at all times, you can enable **Continuous Updates**. This is done by setting a time value in the `updateInterval` field.
+
+The value of `updateInterval` is optional, and is specified and seconds. It must be more than `10` and less than `7200`.
+
+For example, the following widget displaying stats from Pi-Hole will update ever 20 seconds.
+
+```yaml
+widgets:
+- type: pi-hole-stats
+  updateInterval: 20
+  options:
+    hostname: http://192.168.130.2
+```
+
+Note that if you have many widgets, and set them to continuously update frequently, you will notice a hit to performance. A widget that relies on data from an external API, will also consume your usage quota faster, if set to keep updating.
 
 ---
 
 ### Widget Styling
 
+Like elsewhere in Dashy, all colours can be easily modified with CSS variables. 
+
+Widgets use the following color variables, which can be overridden if desired:
+- `--widget-text-color` - Text color, defaults to `--primary`
+- `--widget-background-color` - Background color, defaults to `--background-darker`
+- `--widget-accent-color` - Accent color, defaults to `--background`
+
+For more info on how to apply custom variables, see the [Theming Docs](/docs/theming.md#setting-custom-css-in-the-ui)
 
 ---
 
 ### Build your own Widget
+
+Widgets are built in a modular fashion, making it easy for anyone to create their own custom components.
 
 For a full tutorial on creating your own widget, you can follow [this guide](https://github.com/Lissy93/dashy/blob/master/docs/development-guides.md#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example. 

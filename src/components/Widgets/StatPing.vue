@@ -57,6 +57,9 @@ export default {
       if (!this.options.hostname) this.error('A hostname is required');
       return this.options.hostname;
     },
+    limit() {
+      return this.options.limit;
+    },
     proxyReqEndpoint() {
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
       return `${baseUrl}${serviceEndpoints.corsProxy}`;
@@ -114,7 +117,7 @@ export default {
       return 'unknown';
     },
     processData(data) {
-      const services = [];
+      let services = [];
       data.forEach((service) => {
         services.push({
           name: service.name,
@@ -128,6 +131,7 @@ export default {
           lastFailure: this.getTimeAgo(service.last_error),
         });
       });
+      if (this.limit) services = services.slice(0, this.limit);
       this.services = services;
     },
   },

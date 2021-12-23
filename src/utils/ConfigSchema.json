@@ -488,8 +488,7 @@
         "title": "Items",
         "type": "object",
         "required": [
-          "name",
-          "items"
+          "name"
         ],
         "additionalProperties": false,
         "properties": {
@@ -713,6 +712,27 @@
                   "title": "Item ID",
                   "type": "string",
                   "description": "Unique ID for each item. Generated automatically, shouldn't need to be set manually."
+                }
+              }
+            }
+          },
+          "widgets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "title": "Widget Type",
+                  "type": "string",
+                  "description": "The type of widget to use, see docs for supported options"
+                },
+                "options": {
+                  "title": "Widget Options",
+                  "type": "object",
+                  "description": "Configuration options for widget. Varies depending on widget type, see docs for all options"
                 }
               }
             }
