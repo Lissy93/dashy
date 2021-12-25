@@ -9,7 +9,7 @@
       v-tooltip="getTooltipOptions()"
       rel="noopener noreferrer" tabindex="0"
       :id="`link-${id}`"
-      :style="`--open-icon: ${getUnicodeOpeningIcon()}; ${customStyles}`"
+      :style="`--open-icon: ${getUnicodeOpeningIcon()}; color: ${color};  ${customStyles}`"
     >
       <!-- Item Text -->
       <div :class="`tile-title  ${!icon? 'bounce no-icon': ''}`" :id="`tile-${id}`" >
