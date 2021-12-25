@@ -35,7 +35,7 @@ export default {
   filters: {
     /* For a given time zone, return just the city name */
     getCity(timeZone) {
-      return timeZone.split('/')[1];
+      return timeZone.split('/')[1].replaceAll('_', ' ');
     },
   },
   methods: {
@@ -84,12 +84,15 @@ export default {
 }
 
 .clock {
+  padding: 0.5rem 0;
   .upper {
     display: flex;
     justify-content: space-between;
     border-radius: var(--curve-factor);
     padding: 0.5rem;
     opacity: 0.85;
+    font-size: 0.8rem;
+    background: var(--widget-accent-color);
   }
   p {
     color: var(--widget-text-color);
