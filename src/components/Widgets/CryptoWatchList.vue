@@ -9,9 +9,9 @@
     >
       <img class="icon" :src="asset.image" />
       <p class="name">{{ asset.name }}</p>
-      <p class="price">{{ asset.price | currency }}</p>
+      <p class="price">{{ asset.price | formatPrice }}</p>
       <p :class="`percent ${asset.percentChange > 0 ? 'up' : 'down'}`">
-        {{ asset.percentChange | percentage }}
+        {{ asset.percentChange | formatPercentage }}
       </p>
     </div>
   </template>
@@ -22,7 +22,7 @@
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
-import { findCurrencySymbol, timestampToDate } from '@/utils/MiscHelpers';
+import { findCurrencySymbol, timestampToDate, roundPrice } from '@/utils/MiscHelpers';
 
 export default {
   mixins: [WidgetMixin],
@@ -68,11 +68,11 @@ export default {
   },
   filters: {
     /* Append currency symbol to price */
-    currency(price) {
-      return `${findCurrencySymbol('usd')}${price}`;
+    formatPrice(price) {
+      return `${findCurrencySymbol('usd')}${roundPrice(price)}`;
     },
     /* Append percentage symbol, and up/ down arrow */
-    percentage(change) {
+    formatPercentage(change) {
       if (!change) return '';
       const symbol = change > 0 ? '↑' : '↓';
       return `${symbol} ${change.toFixed(2)}%`;
@@ -118,7 +118,7 @@ export default {
     tooltip(info) {
       const maxSupply = info.maxSupply ? ` out of max supply of <b>${info.maxSupply}</b>` : '';
       const content = `Rank: <b>${info.rank}</b> with market cap of `
-        + `<b>${this.$options.filters.currency(info.marketCap)}</b>`
+        + `<b>${this.$options.filters.formatPrice(info.marketCap)}</b>`
         + `<br>Circulating Supply: <b>${info.supply} ${info.symbol.toUpperCase()}</b>${maxSupply}`
         + `<br>All-time-high of <b>${info.allTimeHigh}</b> `
         + `at <b>${timestampToDate(info.allTimeHighDate)}</b>`;
@@ -137,6 +137,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   color: var(--widget-text-color);
+  font-size: 0.9rem;
   .icon {
     width: 2rem;
     height: 2rem;
@@ -151,7 +152,7 @@ export default {
     &.down { color: var(--danger); }
   }
   p {
-    width: 25%;
+    width: 28%;
   }
   &:not(:last-child) {
     border-bottom: 1px dashed var(--widget-text-color);

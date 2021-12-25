@@ -70,6 +70,7 @@ export const timestampToTime = (timestamp) => {
   return time;
 };
 
+/* Given a timestamp, returns both human Date and Time */
 export const timestampToDateTime = (timestamp) => {
   return `${timestampToDate(timestamp)} at ${timestampToTime(timestamp)}`;
 };
@@ -125,6 +126,19 @@ export const showNumAsThousand = (bigNum) => {
   return `${Math.round(bigNum / 1000)}k`;
 };
 
+/* Capitalizes the first letter of each word within a string */
 export const capitalize = (str) => {
   return str.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+};
+
+/* Round price to appropriate number of decimals */
+export const roundPrice = (price) => {
+  if (Number.isNaN(price)) return price;
+  let decimals = 2;
+  if (price > 1000) decimals = 0;
+  else if (price > 1) decimals = 2;
+  else if (price > 0.1) decimals = 3;
+  else if (price > 0.01) decimals = 4;
+  else if (price <= 0.01) decimals = 5;
+  return price.toFixed(decimals);
 };
