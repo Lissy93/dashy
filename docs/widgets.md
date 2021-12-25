@@ -785,6 +785,7 @@ Embed any webpage into your dashboard as a widget.
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`url`** | `string` |  Required | The URL to the webpage to embed
+**`frameHeight`** | `number` | _Optional_ | If needed, specify height of iframe in `px`. E.g. `400`, defaults to auto
 
 ##### Example 
 

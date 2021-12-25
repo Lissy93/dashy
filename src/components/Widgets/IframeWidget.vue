@@ -1,6 +1,11 @@
 <template>
 <div class="iframe-widget">
-  <iframe v-if="frameUrl" :src="frameUrl" :id="frameId" />
+  <iframe
+    v-if="frameUrl"
+    :src="frameUrl"
+    :id="frameId"
+    :style="frameHeight ? `height: ${frameHeight}px` : ''"
+  />
 </div>
 </template>
 
@@ -18,6 +23,9 @@ export default {
         return null;
       }
       return usersChoice;
+    },
+    frameHeight() {
+      return this.options.frameHeight;
     },
     /* Generates an ID for the iframe */
     frameId() {
