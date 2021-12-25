@@ -10,18 +10,23 @@ import WidgetMixin from '@/mixins/WidgetMixin';
 export default {
   mixins: [WidgetMixin],
   computed: {
+    /* Optional HTML markup to be rendered */
     html() {
       return this.options.html || '';
     },
+    /* Optional CSS styles to be applied */
     css() {
       return this.options.css || '';
     },
+    /* Optional raw JavaScript to be executed */
     script() {
       return this.options.script || '';
     },
+    /* Optional path to JS script to be fetched */
     scriptSrc() {
       return this.options.scriptSrc || '';
     },
+    /* Unique element ID */
     elementId() {
       return `elem-${Math.round(Math.random() * 10000)}`;
     },
@@ -65,7 +70,7 @@ export default {
       if (document.readyState === 'complete' || document.readyState === 'loaded') {
         this.injectHtml();
       } else {
-        this.eventListener = document.addEventListener('DOMContentLoaded', () => {
+        this.eventListener = window.addEventListener('load', () => {
           this.injectHtml();
         });
       }
