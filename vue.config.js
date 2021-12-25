@@ -26,7 +26,6 @@ const progressFormat = '\x1b[1m\x1b[36mBuilding Dashy\x1b[0m '
 // Webpack Config
 const configureWebpack = {
   mode,
-  performance: { hints: (mode === 'development') },
   module: {
     rules: [
       { test: /.svg$/, loader: 'vue-svg-loader' },
