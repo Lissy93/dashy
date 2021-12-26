@@ -1,9 +1,9 @@
 <template>
 <div class="readme-stats">
-  <img class="stats-card" v-if="!hideProfileCard" :src="profileCard" />
-  <img class="stats-card" v-if="!hideLanguagesCard" :src="topLanguagesCard" />
+  <img class="stats-card" v-if="!hideProfileCard" :src="profileCard" alt="Profile Card" />
+  <img class="stats-card" v-if="!hideLanguagesCard" :src="topLanguagesCard" alt="Languages" />
   <template v-if="repos">
-    <img class="stats-card" v-for="(repo, index) in repoCards" :key="index" :src="repo" />
+    <img class="stats-card" v-for="(repo, i) in repoCards" :key="i" :src="repo" :alt="repo" />
   </template>
 </div>
 </template>

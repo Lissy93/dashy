@@ -2,7 +2,7 @@
 <div class="ip-info-wrapper">
   <p class="ip-address">{{ ipAddr }}</p>
   <div class="region-wrapper" title="Open in Maps">
-    <img class="flag-image" :src="flagImg" />
+    <img class="flag-image" :src="flagImg" alt="Flag" />
     <div class="info-text">
       <p class="isp-name">{{ ispName }}</p>
       <a class="ip-location" :href="mapsUrl">{{ location }}</a>

@@ -7,7 +7,7 @@
       <span class="date">{{ article.published | date }}</span>
     </div>
     <p class="description">{{ article.description }}</p>
-    <img class="thumbnail" v-if="article.image" :src="article.image" />
+    <img class="thumbnail" v-if="article.image" :src="article.image" alt="Thumbnail" />
   </div>
 </div>
 </template>

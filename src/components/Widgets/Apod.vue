@@ -4,7 +4,7 @@
     {{ title }}
   </a>
   <a :href="hdImage" title="View HD Image" class="picture" target="__blank">
-    <img :src="image" />
+    <img :src="image" :alt="title" />
   </a>
   <p class="copyright">{{ copyright }}</p>
   <p class="description">{{ truncatedDescription }}</p>
