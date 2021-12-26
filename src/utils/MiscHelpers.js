@@ -142,3 +142,8 @@ export const roundPrice = (price) => {
   else if (price <= 0.01) decimals = 5;
   return price.toFixed(decimals);
 };
+
+/* Cuts string off at given length, and adds an ellipse */
+export const truncateStr = (str, len = 60, ellipse = '...') => {
+  return str.length > len + ellipse.length ? `${str.slice(0, len)}${ellipse}` : str;
+};

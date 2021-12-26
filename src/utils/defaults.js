@@ -211,6 +211,7 @@ module.exports = {
     codeStats: 'https://codestats.net/',
     cryptoPrices: 'https://api.coingecko.com/api/v3/coins/',
     cryptoWatchList: 'https://api.coingecko.com/api/v3/coins/markets/',
+    cveVulnerabilities: 'http://www.cvedetails.com/json-feed.php',
     exchangeRates: 'https://v6.exchangerate-api.com/v6/',
     flights: 'https://aerodatabox.p.rapidapi.com/flights/airports/icao/',
     githubTrending: 'https://gh-trending-repos.herokuapp.com/',

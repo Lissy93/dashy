@@ -46,6 +46,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <CveVulnerabilities
+        v-else-if="widgetType === 'cve-vulnerabilities'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <CodeStats
         v-else-if="widgetType === 'code-stats'"
         :options="widgetOptions"
@@ -256,6 +263,7 @@ export default {
     CodeStats: () => import('@/components/Widgets/CodeStats.vue'),
     CryptoPriceChart: () => import('@/components/Widgets/CryptoPriceChart.vue'),
     CryptoWatchList: () => import('@/components/Widgets/CryptoWatchList.vue'),
+    CveVulnerabilities: () => import('@/components/Widgets/CveVulnerabilities.vue'),
     EmbedWidget: () => import('@/components/Widgets/EmbedWidget.vue'),
     ExchangeRates: () => import('@/components/Widgets/ExchangeRates.vue'),
     Flights: () => import('@/components/Widgets/Flights.vue'),
