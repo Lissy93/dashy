@@ -47,7 +47,7 @@ export default {
     },
     limit() {
       const userChoice = this.options.limit;
-      if (userChoice && !Number.isNaN(userChoice) && userChoice > 0) return userChoice;
+      if (userChoice && userChoice > 0) return userChoice;
       return 100;
     },
     /* How results should be sorted */

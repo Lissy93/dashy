@@ -31,7 +31,7 @@ export default {
         return 'latest';
       } else if (usersChoice === 'random') {
         return Math.abs(Math.floor(Math.random() * (1 - 2553)));
-      } else if (!Number.isNaN(usersChoice)) {
+      } else if (usersChoice) {
         return usersChoice;
       }
       return 'latest';

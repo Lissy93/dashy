@@ -53,7 +53,7 @@ export default {
     },
     limit() {
       const usersChoice = this.options.limit;
-      if (usersChoice && !Number.isNaN(usersChoice)) return usersChoice;
+      if (usersChoice) return usersChoice;
       return 10;
     },
     orderBy() {
