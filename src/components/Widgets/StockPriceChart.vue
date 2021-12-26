@@ -142,7 +142,7 @@ export default {
     },
     /* Format the price, rounding to given number of decimal places */
     formatPrice(priceStr) {
-      const price = parseFloat(priceStr, 10);
+      const price = parseFloat(priceStr);
       let numDecimals = 0;
       if (price < 10) numDecimals = 1;
       if (price < 1) numDecimals = 2;
