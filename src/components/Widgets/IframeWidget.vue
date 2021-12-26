@@ -4,6 +4,7 @@
     v-if="frameUrl"
     :src="frameUrl"
     :id="frameId"
+    title="Iframe Widget"
     :style="frameHeight ? `height: ${frameHeight}px` : ''"
   />
 </div>

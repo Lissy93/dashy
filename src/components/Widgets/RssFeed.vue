@@ -2,7 +2,7 @@
 <div class="rss-wrapper">
   <!-- Feed Meta Info -->
   <a class="meta-container" v-if="meta" :href="meta.link" :title="meta.description">
-    <img class="feed-icon" :src="meta.image" v-if="meta.image" />
+    <img class="feed-icon" :src="meta.image" v-if="meta.image" alt="Feed Image" />
     <div class="feed-text">
       <p class="feed-title">{{ meta.title }}</p>
       <p class="feed-author" v-if="meta.author">By {{ meta.author }}</p>
@@ -12,7 +12,7 @@
   <div class="post-wrapper" v-if="posts">
     <div class="post-row" v-for="(post, indx) in posts" :key="indx">
       <a class="post-top" :href="post.link">
-        <img class="post-img" :src="post.image" v-if="post.image">
+        <img class="post-img" :src="post.image" v-if="post.image" alt="Post Image">
         <div class="post-title-wrap">
           <p class="post-title">{{ post.title }}</p>
           <p class="post-date">

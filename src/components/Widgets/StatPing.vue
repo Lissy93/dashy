@@ -14,8 +14,11 @@
     </p>
     <!-- Charts -->
     <div class="charts">
-      <img class="uptime-pie-chart" :src="makeChartUrl(service.uptime24, '24 Hours')" />
-      <img class="uptime-pie-chart" :src="makeChartUrl(service.uptime7, '7 Days')" />
+      <img
+        class="uptime-pie-chart" alt="24 Hour Uptime Chart"
+        :src="makeChartUrl(service.uptime24, '24 Hours')" />
+      <img class="uptime-pie-chart" alt="7 Day Uptime Chart"
+        :src="makeChartUrl(service.uptime7, '7 Days')" />
     </div>
     <!-- Info -->
     <div class="info">

@@ -7,7 +7,7 @@
       class="asset-wrapper"
       v-tooltip="tooltip(asset.info)"
     >
-      <img class="icon" :src="asset.image" />
+      <img class="icon" :src="asset.image" :alt="`${asset} icon`" />
       <p class="name">{{ asset.name }}</p>
       <p class="price">{{ asset.price | formatPrice }}</p>
       <p :class="`percent ${asset.percentChange > 0 ? 'up' : 'down'}`">

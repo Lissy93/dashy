@@ -1,7 +1,7 @@
 <template>
 <div class="trending-repos-wrapper" v-if="trendingRepos">
   <div v-for="repo in trendingRepos" :key="repo.idx" class="repo-row">
-    <img class="repo-img" v-if="repo.avatar" :src="repo.avatar" />
+    <img class="repo-img" v-if="repo.avatar" :src="repo.avatar" alt="Repo" />
     <div class="repo-info">
       <p class="repo-name">{{ repo.name }}</p>
       <div class="star-wrap">
