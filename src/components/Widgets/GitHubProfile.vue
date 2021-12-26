@@ -23,7 +23,7 @@ export default {
     },
     username() {
       const usersChoice = this.options.username;
-      if ((this.hideLanguagesCard || this.hideLanguagesCard) && !usersChoice) {
+      if ((!this.hideProfileCard || !this.hideLanguagesCard) && !usersChoice) {
         this.error('You must specify a GitHub username');
       }
       return usersChoice;
