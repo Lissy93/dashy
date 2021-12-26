@@ -12,6 +12,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [RSS Feed](#rss-feed)
   - [XKCD Comics](#xkcd-comics)
   - [Code Stats](#code-stats)
+  - [Vulnerability Feed](#vulnerability-feed)
   - [Public Holidays](#public-holidays)
   - [TFL Status](#tfl-status)
   - [Exchange Rates](#exchange-rates)
@@ -273,6 +274,44 @@ Display your coding summary. [Code::Stats](https://codestats.net/) is a free and
 - type: code-stats
   options:
     username: alicia
+```
+
+---
+
+### Vulnerability Feed
+
+Display a feed of recent vulnerabilities, with optional filtering by score, exploits, vendor and product. All fields are optional.
+
+<p align="center"><img width="400" src="https://i.ibb.co/DYJMpjp/vulnerability-feed.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`sortBy`** | `string` |  _Optional_ | The sorting method. Can be either `publish-date`, `last-update` or `cve-code`. Defaults to `publish-date`
+**`limit`** | `number` |  _Optional_ | The number of results to fetch. Can be between `5` and `30`, defaults to `10`
+**`minScore`** | `number` |  _Optional_ | If set, will only display results with a CVE score higher than the number specified. Can be a number between `0` and `9.9`. By default, vulnerabilities of all CVE scores are shown
+**`hasExploit`** | `boolean` |  _Optional_ | If set to `true`, will only show results with active exploits. Defaults to `false`
+**`vendorId`** | `number` |  _Optional_ | Only show results from a specific vendor, specified by ID. See [Vendor Search](https://www.cvedetails.com/vendor-search.php) for list of vendors. E.g. `23` (Debian), `26` (Microsoft), `23682` (CloudFlare)
+**`productId`** | `number` |  _Optional_ | Only show results from a specific app or product, specified by ID. See [Product Search](https://www.cvedetails.com/product-search.php) for list of products. E.g. `13534` (Docker), `15913` (NextCloud), `19294` (Portainer), `17908` (ProtonMail)
+
+
+##### Example
+
+```yaml
+- type: cve-vulnerabilities
+```
+
+or
+
+```yaml
+- type: cve-vulnerabilities
+  options:
+    sortBy: publish-date
+    productId: 28125
+    hasExploit: true
+    minScore: 5
+    limit: 30
 ```
 
 ---
