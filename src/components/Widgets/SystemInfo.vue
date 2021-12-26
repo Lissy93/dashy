@@ -40,7 +40,7 @@ export default {
       return username ? `${username}@` : '';
     },
     makeUptime(seconds) {
-      if (!seconds || seconds === 0) return '';
+      if (!seconds) return '';
       if (seconds < 60) return `${seconds} seconds`;
       if (seconds < 3600) return `${(seconds / 60).toFixed(1)} minutes`;
       if (seconds < 86400) return `${(seconds / 3600).toFixed(2)} hours`;

@@ -40,7 +40,7 @@ export default {
     },
     monthsToShow() {
       const usersChoice = this.options.monthsToShow;
-      if (usersChoice && !Number.isNaN(usersChoice) && usersChoice > 0 && usersChoice <= 24) {
+      if (usersChoice && usersChoice > 0 && usersChoice <= 24) {
         return usersChoice;
       }
       return 12;

@@ -85,7 +85,7 @@ export default {
       axios.get(this.endpoint)
         .then((response) => {
           try {
-            this.lineStatuses = this.processData(response.data);
+            this.processData(response.data);
           } catch (chartingError) {
             this.error('Unable to plot results on chart', chartingError);
           }
