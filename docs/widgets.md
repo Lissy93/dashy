@@ -42,6 +42,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Widget Usage Guide](#widget-usage-guide)
   - [Continuous Updates](#continuous-updates)
   - [Custom CSS Styling](#widget-styling)
+  - [Widget UI Options](#widget-ui-options)
   - [Building a Widget](#build-your-own-widget)
 
 ## General Widgets
@@ -921,6 +922,18 @@ Widgets use the following color variables, which can be overridden if desired:
 - `--widget-accent-color` - Accent color, defaults to `--background`
 
 For more info on how to apply custom variables, see the [Theming Docs](/docs/theming.md#setting-custom-css-in-the-ui)
+
+---
+
+### Widget UI Options
+
+Widgets can be opened in full-page view, by clicking the Arrow icon (top-right). The URL in your address bar will also update, and visiting that web address will take you straight to the selected widget.
+
+You can reload the data of any widget, by clicking the Refresh Data icon (also in top-right). This will only affect the widget where the action was triggered from.
+
+All [config options](/docs/configuring.md#section) that can be applied to sections, can also be applied to widget sections. For example, to make a widget span multiple columns, set `displayData.cols: 2` within the parent section. You can collapse a widget (by clicking the section title), and collapse state will be saved locally.
+
+Widgets cannot currently be edited through the UI. This feature is in development, and will be released soon.  In the meantime, you can either use the JSON config editor, or use VS Code or SSH into your box to edit the conf.yml file directly.
 
 ---
 
