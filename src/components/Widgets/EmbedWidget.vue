@@ -35,13 +35,8 @@ export default {
     this.initiate();
   },
   beforeDestroy() {
-    if (this.eventListener) {
-      window.removeEventListener(this.eventListener);
-    }
+    window.removeEventListener('load', this.injectHtml);
   },
-  data: () => ({
-    eventListener: null,
-  }),
   methods: {
     /* Injects users content */
     injectHtml() {
@@ -70,9 +65,7 @@ export default {
       if (document.readyState === 'complete' || document.readyState === 'loaded') {
         this.injectHtml();
       } else {
-        this.eventListener = window.addEventListener('load', () => {
-          this.injectHtml();
-        });
+        window.addEventListener('load', this.injectHtml);
       }
     },
     update() {
