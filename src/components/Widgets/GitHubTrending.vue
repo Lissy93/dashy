@@ -148,7 +148,6 @@ export default {
         }
       }
     }
-    .repo-stats {}
     &:not(:last-child) {
       border-bottom: 1px dashed var(--widget-text-color);
     }

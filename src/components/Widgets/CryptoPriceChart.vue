@@ -28,7 +28,7 @@ export default {
     /* Number of days worth of history to fetch and display */
     numDays() {
       const userChoice = this.options.numDays;
-      if (!Number.isNaN(userChoice) && userChoice < 30 && userChoice > 0.15) {
+      if (typeof usersChoice === 'number' && userChoice < 30 && userChoice > 0.15) {
         return userChoice;
       }
       return 7;
@@ -42,7 +42,7 @@ export default {
     /* The number of data points to render on the chart */
     dataPoints() {
       const userChoice = this.options.dataPoints;
-      if (!Number.isNaN(userChoice) && userChoice < 100 && userChoice > 5) {
+      if (typeof usersChoice === 'number' && userChoice < 100 && userChoice > 5) {
         return userChoice;
       }
       return 30;

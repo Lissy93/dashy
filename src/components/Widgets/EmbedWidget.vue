@@ -36,7 +36,7 @@ export default {
   },
   beforeDestroy() {
     if (this.eventListener) {
-      document.removeEventListener(this.eventListener);
+      window.removeEventListener(this.eventListener);
     }
   },
   data: () => ({

@@ -320,7 +320,7 @@ export default {
     /* Returns either `false` or a number in ms to continuously update widget data */
     updateInterval() {
       const usersInterval = this.widget.updateInterval;
-      if (!usersInterval) return false;
+      if (!usersInterval) return 0;
       // If set to `true`, then default to 30 seconds
       if (typeof usersInterval === 'boolean') return 30 * 1000;
       // If set to a number, and within valid range, return user choice
@@ -329,7 +329,7 @@ export default {
         && usersInterval < 7200) {
         return usersInterval * 1000;
       }
-      return false;
+      return 0;
     },
   },
   methods: {

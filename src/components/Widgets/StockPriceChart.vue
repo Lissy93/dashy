@@ -40,7 +40,7 @@ export default {
     /* The number of data points to render on the chart */
     dataPoints() {
       const userChoice = this.options.dataPoints;
-      if (!Number.isNaN(userChoice) && userChoice < 100 && userChoice > 5) {
+      if (typeof usersChoice === 'number' && userChoice < 100 && userChoice > 5) {
         return userChoice;
       }
       return 30;
@@ -137,8 +137,7 @@ export default {
     formatDate(timestamp) {
       const localFormat = navigator.language;
       const dateFormat = { weekday: 'short', day: 'numeric', month: 'short' };
-      const date = new Date(timestamp).toLocaleDateString(localFormat, dateFormat);
-      return date;
+      return new Date(timestamp).toLocaleDateString(localFormat, dateFormat);
     },
     /* Format the price, rounding to given number of decimal places */
     formatPrice(priceStr) {

@@ -1,10 +1,9 @@
 /**
  * Mixin for helper functions, used for making chart widgets
  */
-// import ErrorHandler from '@/utils/ErrorHandler';
 import { Chart } from 'frappe-charts/dist/frappe-charts.min.esm';
 
-const WidgetMixin = {
+const ChartingMixin = {
   props: {},
   computed: {
     chartHeight() {
@@ -29,15 +28,13 @@ const WidgetMixin = {
     formatDate(timestamp) {
       const localFormat = navigator.language;
       const dateFormat = { weekday: 'short', day: 'numeric', month: 'short' };
-      const date = new Date(timestamp).toLocaleDateString(localFormat, dateFormat);
-      return date;
+      return new Date(timestamp).toLocaleDateString(localFormat, dateFormat);
     },
     /* Format the time for a given time stamp */
     formatTime(timestamp) {
       const localFormat = navigator.language;
       const timeFormat = { hour: 'numeric', minute: 'numeric', second: 'numeric' };
-      const time = Intl.DateTimeFormat(localFormat, timeFormat).format(timestamp);
-      return time;
+      return Intl.DateTimeFormat(localFormat, timeFormat).format(timestamp);
     },
     /* Given an array of numbers, returns the average of all */
     average(array) {
@@ -46,4 +43,4 @@ const WidgetMixin = {
   },
 };
 
-export default WidgetMixin;
+export default ChartingMixin;

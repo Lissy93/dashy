@@ -141,8 +141,8 @@ export default {
       return 'fg-grey';
     },
     makeScoreColor(inputScore) {
-      if (!inputScore || Number.isNaN(parseFloat(inputScore, 10))) return 'bg-grey';
-      const score = parseFloat(inputScore, 10);
+      if (!inputScore || Number.isNaN(parseFloat(inputScore))) return 'bg-grey';
+      const score = parseFloat(inputScore);
       if (score >= 9) return 'bg-red';
       if (score >= 7) return 'bg-orange';
       if (score >= 4) return 'bg-yellow';

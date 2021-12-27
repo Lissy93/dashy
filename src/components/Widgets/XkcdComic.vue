@@ -31,10 +31,8 @@ export default {
         return 'latest';
       } else if (usersChoice === 'random') {
         return Math.abs(Math.floor(Math.random() * (1 - 2553)));
-      } else if (usersChoice) {
-        return usersChoice;
       }
-      return 'latest';
+      return usersChoice;
     },
     endpoint() {
       return `${widgetApiEndpoints.xkcdComic}?comic=${this.comicNumber}`;

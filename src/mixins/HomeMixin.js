@@ -1,7 +1,6 @@
 /**
  * Mixin for all homepages (default home, minimal home, workspace, etc)
  */
-// import ErrorHandler from '@/utils/ErrorHandler';
 
 import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 import { searchTiles } from '@/utils/Search';
@@ -48,16 +47,14 @@ const HomeMixin = {
     },
     /* Checks if any sections or items use icons from a given CDN */
     checkIfIconLibraryNeeded(prefix) {
-      let isNeeded = false;
       if (!this.sections) return false;
+      let isNeeded = false; // Will be set to true if prefix found in icon name
       this.sections.forEach((section) => {
-        if (section) {
-          if (section.icon && section.icon.includes(prefix)) isNeeded = true;
-          if (section.items) {
-            section.items.forEach((item) => {
-              if (item.icon && item.icon.includes(prefix)) isNeeded = true;
-            });
-          }
+        if (section && section.icon && section.icon.includes(prefix)) isNeeded = true;
+        if (section && section.items) {
+          section.items.forEach((item) => {
+            if (item.icon && item.icon.includes(prefix)) isNeeded = true;
+          });
         }
       });
       return isNeeded;

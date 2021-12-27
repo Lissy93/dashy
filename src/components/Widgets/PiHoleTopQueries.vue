@@ -36,7 +36,7 @@ export default {
     },
     count() {
       const usersChoice = this.options.count;
-      if (usersChoice && !Number.isNaN(usersChoice)) return usersChoice;
+      if (usersChoice && typeof usersChoice === 'number') return usersChoice;
       return 10;
     },
     endpoint() {

@@ -66,8 +66,7 @@ export const timestampToDate = (timestamp) => {
 export const timestampToTime = (timestamp) => {
   const localFormat = navigator.language;
   const timeFormat = { hour: 'numeric', minute: 'numeric', second: 'numeric' };
-  const time = Intl.DateTimeFormat(localFormat, timeFormat).format(new Date(timestamp));
-  return time;
+  return Intl.DateTimeFormat(localFormat, timeFormat).format(new Date(timestamp));
 };
 
 /* Given a timestamp, returns both human Date and Time */
@@ -134,12 +133,13 @@ export const capitalize = (str) => {
 /* Round price to appropriate number of decimals */
 export const roundPrice = (price) => {
   if (Number.isNaN(price)) return price;
-  let decimals = 2;
+  let decimals;
   if (price > 1000) decimals = 0;
   else if (price > 1) decimals = 2;
   else if (price > 0.1) decimals = 3;
   else if (price > 0.01) decimals = 4;
   else if (price <= 0.01) decimals = 5;
+  else decimals = 2;
   return price.toFixed(decimals);
 };
 

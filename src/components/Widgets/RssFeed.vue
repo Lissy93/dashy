@@ -80,8 +80,7 @@ export default {
     formatDate(timestamp) {
       const localFormat = navigator.language;
       const dateFormat = { weekday: 'short', day: 'numeric', month: 'short' };
-      const date = new Date(timestamp).toLocaleDateString(localFormat, dateFormat);
-      return date;
+      return new Date(timestamp).toLocaleDateString(localFormat, dateFormat);
     },
     formatAuthor(author) {
       return author ? `by ${author}` : '';
@@ -162,7 +161,6 @@ export default {
       display: flex;
       align-items: center;
       text-decoration: none;
-      .post-title-wrap {}
       p.post-title {
         margin: 0;
         font-size: 1rem;
