@@ -40,6 +40,7 @@
   - [🎨 Theming](#theming-)
   - [🧸 Icons](#icons-)
   - [🚦 Status Indicators](#status-indicators-)
+  - [📊 Widgets](#widgets-)
   - [💂 Authentication](#authentication-)
   - [🖱️ Opening Methods](#opening-methods-%EF%B8%8F)
   - [👓 Alternate Views](#alternate-views-)
@@ -234,6 +235,22 @@ Status indicators can be globally enabled by setting `appConfig.statusCheck: tru
 <p align="center">
   <img alt="Status Checks demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/status-check-demo.gif" width="600" />
 </p>
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
+## Widgets 📊
+
+> For full widget documentation, see: [**Widgets**](./docs/widgets.md)
+
+You can display dynamic content from services in the form of widgets. There are several pre-built widgets availible for showing useful info, and integrations with commonly self-hosted services, but you can also easily create your own for almost any app.
+
+
+<p align="center">
+  <img width="600" src="https://i.ibb.co/GFjXVHy/dashy-widgets.png" />
+</p>
+
 
 **[⬆️ Back to Top](#dashy)**
 

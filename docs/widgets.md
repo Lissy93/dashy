@@ -43,6 +43,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Widget Usage Guide](#widget-usage-guide)
   - [Continuous Updates](#continuous-updates)
   - [Custom CSS Styling](#widget-styling)
+  - [Language Translations](#language-translations)
   - [Widget UI Options](#widget-ui-options)
   - [Building a Widget](#build-your-own-widget)
 
@@ -1155,6 +1156,16 @@ Widgets use the following color variables, which can be overridden if desired:
 - `--widget-accent-color` - Accent color, defaults to `--background`
 
 For more info on how to apply custom variables, see the [Theming Docs](/docs/theming.md#setting-custom-css-in-the-ui)
+
+---
+
+### Language Translations
+
+Since most of the content displayed within widgets is fetched from an external API, unless that API supports multiple languages, translating dynamic content is not possible.
+
+However, any hard-coded content is translatable, and all dates and times will display in your local format.
+
+For more info about multi-language support, see the [Internationalization Docs](/docs/multi-language-support.md).
 
 ---
 
