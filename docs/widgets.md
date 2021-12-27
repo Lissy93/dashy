@@ -72,6 +72,9 @@ A simple, live-updating time and date widget with time-zone support. All options
     hideDate: false
 ```
 
+##### Info
+_No external data requests_
+
 ---
 
 ### Weather
@@ -99,6 +102,12 @@ A simple, live-updating local weather component, showing temperature, conditions
     units: metric
     hideDetails: false
 ```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free plan
+- **Privacy**: _See [OWM Privacy Policy](https://openweather.co.uk/privacy-policy)_
 
 ---
 
@@ -128,6 +137,12 @@ Displays the weather (temperature and conditions) for the next few days for a gi
     apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     units: imperial
 ```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🔴 Premium (free for personal use only)
+- **Privacy**: _See [OWM Privacy Policy](https://openweather.co.uk/privacy-policy)_
 
 ---
 
@@ -171,6 +186,12 @@ Or
       - dogecoin
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Privacy**: _See [CoinGecko Privacy Policy](https://www.coingecko.com/en/privacy)_
+
 ---
 
 ### Crypto Token Price History
@@ -199,6 +220,12 @@ Shows recent price history for a given crypto asset, using price data fetched fr
     numDays: 7
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Privacy**: _See [CoinGecko Privacy Policy](https://www.coingecko.com/en/privacy)_
+
 ---
 
 ### RSS Feed
@@ -226,6 +253,13 @@ Display news and updates from any RSS-enabled service.
     apiKey: xxxx
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟠 Optional
+- **Price**: 🟠 Free Plan (up to 10,000 requests / day)
+- **Privacy**: _See [Rss2Json Privacy Policy](https://rss2json.com/privacy-policy)_
+
+
 ---
 
 ### XKCD Comics
@@ -247,6 +281,12 @@ Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webc
   options:
     comic: latest
 ```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Privacy**: ⚫ No Policy Available
 
 ---
 
@@ -275,6 +315,13 @@ Display your coding summary. [Code::Stats](https://codestats.net/) is a free and
   options:
     username: alicia
 ```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted or Managed
+- **Privacy**: _See [Code::Stats Privacy Policy](https://codestats.net/tos#privacy)_
 
 ---
 
@@ -314,6 +361,13 @@ or
     limit: 30
 ```
 
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed
+- **Privacy**: _See [CVE Details Privacy Policy](https://www.cvedetails.com/privacy.php)_
+
 ---
 
 ### Public Holidays
@@ -339,6 +393,13 @@ Counting down to the next day off work? This widget displays upcoming public hol
     holidayType: all
     monthsToShow: 12
 ```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [jurajmajer/enrico](https://github.com/jurajmajer/enrico)) or Managed
+- **Privacy**: ⚫ No Policy Available
 
 ---
 
@@ -373,6 +434,13 @@ Shows real-time tube status of the London Underground. All options are optional.
       - Central
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed Instance Only
+- **Privacy**: _See [TFL Privacy Policy](https://tfl.gov.uk/corporate/privacy-and-cookies/)_
+
 ---
 
 ### Exchange Rates
@@ -403,6 +471,13 @@ Display current FX rates in your native currency
       - KPW
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free plan (upto 100,000 requests/ month)
+- **Host**: Managed Instance Only
+- **Privacy**: _See [ExchangeRateAPI Privacy Policy](https://www.exchangerate-api.com/terms)_
+
 ---
 
 ### Stock Price History
@@ -430,6 +505,13 @@ Shows recent price history for a given publicly-traded stock or share
     apiKey: PGUWSWD6CZTXMT8N
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free plan (upto 500 requests/day)
+- **Host**: Managed Instance Only
+- **Privacy**: _See [AlphaVantage Privacy Policy](https://www.alphavantage.co/privacy/)_
+
 ---
 
 ### Joke
@@ -455,6 +537,13 @@ Renders a programming or generic joke. Data is fetched from the [JokesAPI](https
     language: en
     category: Programming
 ```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed Instance or Self-Hosted (see [Sv443/JokeAPI](https://github.com/Sv443/JokeAPI))
+- **Privacy**: _See [SV443's Privacy Policy](https://sv443.net/privacypolicy/en)_
 
 ---
 
@@ -484,6 +573,13 @@ Displays the latest news, click to read full article. Date is fetched from vario
       category: world
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free plan (upto 600 requests / day)
+- **Host**: Managed Instance Only
+- **Privacy**: _See [CurrentsAPI Privacy Policy](https://currentsapi.services/privacy)_
+
 ---
 
 ### Flight Data
@@ -512,6 +608,13 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
     direction: all
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free plan (upto 150 requests / month)
+- **Host**: Managed Instance Only
+- **Privacy**: _See [AeroDataBox](https://www.aerodatabox.com/#h.p_CXtIYZWF_WQd) and [RapidAPI Policy](https://rapidapi.com/privacy/)_
+
 ---
 
 ### Astronomy Picture of the Day
@@ -529,6 +632,13 @@ _No config options._
 ```yaml
 - type: apod
 ```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed Instance or Self-Hosted (see [PawelPleskaczynski/apod_api](https://github.com/PawelPleskaczynski/apod_api))
+- **Privacy**: _See [NASA's Privacy Policy](https://www.nasa.gov/about/highlights/HP_Privacy.html)_
 
 ---
 
@@ -554,6 +664,13 @@ Displays currently trending projects on GitHub. Optionally specify a language an
     limit: 8
     since: weekly
 ```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed Instance or Self-Hosted (see [Lissy93/gh-trending-no-cors](https://github.com/Lissy93/gh-trending-no-cors))
+- **Privacy**: _See [GitHub's Privacy Policy](https://docs.github.com/en/github/site-policy/github-privacy-statement)_
 
 ---
 
@@ -587,6 +704,13 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
     - lissy93/twitter-sentiment-visualisation
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed Instance or Self-Hosted (see [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats))
+- **Privacy**: _See [GitHub's Privacy Policy](https://docs.github.com/en/github/site-policy/github-privacy-statement)_
+
 ---
 
 ### Public IP
@@ -604,6 +728,13 @@ _No config options._
 ```yaml
 - type: public-ip
 ```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟠 Optional
+- **Price**: 🟢 Free
+- **Host**: Managed Instance Only
+- **Privacy**: _See [IP-API Privacy Policy](https://ip-api.com/docs/legal)_
 
 ---
 
@@ -625,6 +756,9 @@ _No config options._
 ```yaml
 - type: system-info
 ```
+
+##### Info
+No external data requests made
 
 ---
 
@@ -648,6 +782,13 @@ Cron job monitoring using [Health Checks](https://github.com/healthchecks/health
   options:
     apiKey: XXXXXXXXX
 ```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free plan (upto 20 services, or self-host for unlimited)
+- **Host**: Managed Instance or Self-Hosted (see [GitHub - HealthChecks](https://github.com/healthchecks/healthchecks))
+- **Privacy**: _See [Health-Checks Privacy Policy](https://healthchecks.io/privacy/)_
 
 ---
 
@@ -673,6 +814,16 @@ Pull recent CPU usage history from NetData.
   host: http://192.168.1.1:19999
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - NetData](https://github.com/netdata/netdata))
+- **Privacy**: _See [NetData Privacy Policy](https://www.netdata.cloud/data-privacy/)_
+
+---
+
+
 ### Memory History (NetData)
 
 Pull recent system RAM usage from NetData, and show as a breakdown of different categories.
@@ -694,6 +845,13 @@ Pull recent system RAM usage from NetData, and show as a breakdown of different 
   options:
     host: http://192.168.1.1:19999
 ```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - NetData](https://github.com/netdata/netdata))
+- **Privacy**: _See [NetData Privacy Policy](https://www.netdata.cloud/data-privacy/)_
 
 ---
 
@@ -719,6 +877,13 @@ Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
   host: http://192.168.1.1:19999
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - NetData](https://github.com/netdata/netdata))
+- **Privacy**: _See [NetData Privacy Policy](https://www.netdata.cloud/data-privacy/)_
+
 ---
 
 ### Pi Hole Stats
@@ -741,6 +906,14 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
   options:
     hostname: http://192.168.130.1
 ```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - Pi-hole](https://github.com/pi-hole/pi-hole))
+- **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
+
 ---
 
 ### Pi Hole Queries
@@ -766,6 +939,13 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
     apiKey: xxxxxxxxxxxxxxxxxxxxxxx
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - Pi-hole](https://github.com/pi-hole/pi-hole))
+- **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
+
 ---
 
 ### Recent Traffic
@@ -788,6 +968,13 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
     hostname: https://pi-hole.local
 ```
 
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - Pi-hole](https://github.com/pi-hole/pi-hole))
+- **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
+
 ---
 
 ### Stat Ping Statuses
@@ -809,6 +996,13 @@ Displays the current and recent uptime of your running services, via a self-host
   options:
     hostname: http://192.168.130.1:8080
 ```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - StatPing](https://github.com/statping/statping))
+- **Privacy**: _See [StatPing Docs](https://docs.statping.com/)_
 
 ---
 
