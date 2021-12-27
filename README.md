@@ -71,6 +71,7 @@
 - 🎨 Multiple built-in color themes, with UI color editor and support for custom CSS
 - 🧸 Many icon options - Font-Awesome, homelab icons, auto-fetching Favicon, images, emojis, etc.
 - 🚦 Status monitoring for each of your apps/links for basic availability and uptime checking
+- 📊 Use widgets to display info and dynamic content from self-hosted services
 - 💂 Optional authentication with multi-user access, configurable privileges, and SSO support
 - 🌎 Multi-language support, with 10+ human-translated languages, and more on the way
 - ☁ Optional, encrypted, free off-site cloud backup and restore feature available
