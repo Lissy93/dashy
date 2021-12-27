@@ -2,7 +2,7 @@
 <div class="pi-hole-stats-wrapper">
   <!-- Current Status -->
   <div v-if="status" class="status">
-    <span class="status-lbl">Status:</span>
+    <span class="status-lbl">{{ $t('widgets.pi-hole.status-heading') }}:</span>
     <span :class="`status-val ${getStatusColor(status)}`">{{ status | capitalize }}</span>
   </div>
   <!-- Block Pie Chart -->

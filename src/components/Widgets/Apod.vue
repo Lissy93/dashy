@@ -9,7 +9,7 @@
   <p class="copyright">{{ copyright }}</p>
   <p class="description">{{ truncatedDescription }}</p>
   <p @click="toggleShowFull" class="expend-details-btn">
-    {{ showFullDesc ? 'Show Less' : ' Expand Details' }}
+    {{ showFullDesc ? $t('widgets.general.show-less') : $t('widgets.general.show-more') }}
   </p>
 </div>
 </template>

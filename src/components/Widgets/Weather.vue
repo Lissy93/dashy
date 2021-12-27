@@ -17,7 +17,7 @@
   </div>
   <!-- Show/ hide toggle button -->
   <p class="more-details-btn" @click="toggleDetails" v-if="weatherDetails.length > 0">
-    {{ showDetails ? 'Show Less' : ' Expand Details' }}
+    {{ showDetails ? $t('widgets.general.show-less') : $t('widgets.general.show-more') }}
   </p>
 </div>
 </template>

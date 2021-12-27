@@ -250,11 +250,23 @@
     "general": {
       "loading": "Loading...",
       "show-more": "Expand Details",
-      "show-less": "Show Less"
+      "show-less": "Show Less",
+      "open-link": "Continue Reading"
     },
-    "clock": {},
-    "weather": {},
-    "weather-forecast": {},
+    "pi-hole": {
+      "status-heading": "Status"
+    },
+    "stat-ping": {
+      "up": "Online",
+      "down": "Offline"
+    },
+    "system-info": {
+      "uptime": "Uptime"
+    },
+    "flight-data": {
+      "arrivals": "Arrivals",
+      "departures": "Departures"
+    },
     "tfl-status": {
       "good-service-all": "Good Service on all Lines",
       "good-service-rest": "Good Service on all other Lines"

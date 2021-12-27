@@ -5,7 +5,8 @@
       {{ info.username | isUsername }}{{ info.hostname }}
     </p>
     <p class="system">
-      {{ info.system }} <span class="gap">|</span> Uptime: {{ info.uptime | makeUptime }}
+      {{ info.system }} <span class="gap">|</span>
+      {{ $t('widgets.system-info.uptime') }}: {{ info.uptime | makeUptime }}
     </p>
   </div>
   <div class="some-charts">

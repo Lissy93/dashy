@@ -15,7 +15,7 @@
     <p class="description">
       {{ cve.description | formatDescription }}
       <a v-if="cve.description.length > 350" class="read-more" :href="cve.url" target="_blank">
-        Keep Reading
+        {{ $t('widgets.general.open-link') }}
       </a>
     </p>
   </div>

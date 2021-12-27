@@ -25,7 +25,7 @@
     </div>
   </div>
   <p class="more-details-btn" @click="toggleDetails" v-if="showDetails">
-    Show Less
+    {{ $t('widgets.general.show-less') }}
   </p>
 </div>
 </template>

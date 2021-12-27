@@ -9,8 +9,12 @@
     <!-- Title -->
     <p class="service-name">
       {{ service.name }}:
-      <span v-if="service.online" class="status-online">Online</span>
-      <span v-else class="status-offline">Offline</span>
+      <span v-if="service.online" class="status-online">
+        {{ $t('widgets.stat-ping.up') }}
+      </span>
+      <span v-else class="status-offline">
+        {{ $t('widgets.stat-ping.down') }}
+      </span>
     </p>
     <!-- Charts -->
     <div class="charts">

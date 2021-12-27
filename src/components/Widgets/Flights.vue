@@ -7,7 +7,7 @@
   <!-- Departures -->
   <div v-if="departures.length > 0" class="flight-group">
     <h3 class="flight-type-subtitle" v-if="direction === 'both'">
-      Departures
+      {{ $t('widgets.flight-data.departures') }}
     </h3>
     <div v-for="flight in departures" :key="flight.number" class="flight" v-tooltip="tip(flight)">
       <p class="info flight-time">{{ flight.time | formatDate }}</p>
@@ -18,7 +18,7 @@
   <!-- Arrivals -->
   <div v-if="arrivals.length > 0" class="flight-group">
     <h3 class="flight-type-subtitle" v-if="direction === 'both'">
-      Arrivals
+      {{ $t('widgets.flight-data.arrivals') }}
     </h3>
     <div v-for="flight in arrivals" :key="flight.number" class="flight" v-tooltip="tip(flight)">
       <p class="info flight-time">{{ flight.time | formatDate }}</p>

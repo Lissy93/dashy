@@ -21,7 +21,9 @@
         </div>
       </a>
       <div class="post-body" v-html="post.description"></div>
-      <a class="continue-reading-btn" :href="post.link">Continue Reading</a>
+      <a class="continue-reading-btn" :href="post.link">
+        {{ $t('widgets.general.open-link') }}
+      </a>
     </div>
   </div>
   <!-- End Feed Content -->
