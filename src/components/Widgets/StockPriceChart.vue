@@ -121,9 +121,9 @@ export default {
       });
       // // Combine results with chart config
       this.chartData = {
-        labels: priceLabels,
+        labels: priceLabels.reverse(),
         datasets: [
-          { name: `Price ${this.priceTime}`, type: 'bar', values: priceValues },
+          { name: `Price ${this.priceTime}`, type: 'bar', values: priceValues.reverse() },
         ],
       };
       // // Call chart render function

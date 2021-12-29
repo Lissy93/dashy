@@ -22,7 +22,9 @@
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
-import { findCurrencySymbol, timestampToDate, roundPrice } from '@/utils/MiscHelpers';
+import {
+  findCurrencySymbol, timestampToDate, roundPrice, putCommasInBigNum,
+} from '@/utils/MiscHelpers';
 
 export default {
   mixins: [WidgetMixin],
@@ -69,7 +71,7 @@ export default {
   filters: {
     /* Append currency symbol to price */
     formatPrice(price) {
-      return `${findCurrencySymbol('usd')}${roundPrice(price)}`;
+      return `${findCurrencySymbol('usd')}${putCommasInBigNum(roundPrice(price))}`;
     },
     /* Append percentage symbol, and up/ down arrow */
     formatPercentage(change) {
