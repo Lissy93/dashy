@@ -185,6 +185,7 @@ module.exports = {
   faviconApiEndpoints: {
     allesedv: 'https://f1.allesedv.com/128/$URL',
     clearbit: 'https://logo.clearbit.com/$URL',
+    iconhorse: 'https://icon.horse/icon/$URL',
     faviconkit: 'https://api.faviconkit.com/$URL/64',
     duckduckgo: 'https://icons.duckduckgo.com/ip2/$URL.ico',
     yandex: 'https://favicon.yandex.net/favicon/$URL',
