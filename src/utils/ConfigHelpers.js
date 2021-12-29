@@ -48,8 +48,6 @@ export const componentVisibility = (appConfig) => {
       ? !usersChoice.hideSettings : visibleComponents.settings,
     footer: isThere(usersChoice.hideFooter)
       ? !usersChoice.hideFooter : visibleComponents.footer,
-    splashScreen: isThere(usersChoice.hideSplashScreen)
-      ? !usersChoice.hideSplashScreen : visibleComponents.splashScreen,
   };
 };
 

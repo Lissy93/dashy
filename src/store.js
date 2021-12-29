@@ -205,6 +205,7 @@ const store = new Vuex.Store({
           });
         }
       });
+      config.sections = applyItemId(config.sections);
       state.config = config;
     },
     [SET_THEME](state, theme) {

@@ -224,6 +224,9 @@
       "save-stage-btn": "Save",
       "cancel-stage-btn": "Cancel"
     },
+    "edit-item": {
+      "missing-title-err": "An item title is required"
+    },
     "edit-section": {
       "edit-section-title": "Edit Section",
       "add-section-title": "Add New Section",

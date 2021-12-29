@@ -1,5 +1,10 @@
 # Changelog
 
+## 🐛 1.9.5 - Bug fixes and Minor Improvements [PR #388](https://github.com/Lissy93/dashy/pull/388)
+- Adds icon.horse to supported favicon APIs
+- Fixes tile move bug, Re: #366
+- Fixes save items without title bug, Re: #377
+
 ## ✨ 1.9.4 - Widget Support [PR #382](https://github.com/Lissy93/dashy/pull/382)
 - Adds support for dynamic content, through widgets
 - Adds 30+ pre-built widgets for general info and self-hosted services
