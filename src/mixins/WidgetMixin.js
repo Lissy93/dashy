@@ -44,6 +44,9 @@ const WidgetMixin = {
     fetchData() {
       this.finishLoading();
     },
+    tooltip(content) {
+      return { content, trigger: 'hover focus', delay: 250 };
+    },
   },
 };
 

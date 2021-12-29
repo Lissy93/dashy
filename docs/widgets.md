@@ -14,15 +14,15 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Crypto Watch List](#crypto-watch-list)
   - [Crypto Price History](#crypto-token-price-history)
   - [RSS Feed](#rss-feed)
-  - [XKCD Comics](#xkcd-comics)
   - [Code Stats](#code-stats)
   - [Vulnerability Feed](#vulnerability-feed)
   - [Sports Scores](#sports-scores)
+  - [Exchange Rates](#exchange-rates)
   - [Public Holidays](#public-holidays)
   - [TFL Status](#tfl-status)
-  - [Exchange Rates](#exchange-rates)
   - [Stock Price History](#stock-price-history)
   - [Joke of the Day](#joke)
+  - [XKCD Comics](#xkcd-comics)
   - [News Headlines](#news-headlines)
   - [Flight Data](#flight-data)
   - [NASA APOD](#astronomy-picture-of-the-day)
@@ -267,35 +267,6 @@ Display news and updates from any RSS-enabled service.
 - **Price**: 🟠 Free Plan (up to 10,000 requests / day)
 - **Privacy**: _See [Rss2Json Privacy Policy](https://rss2json.com/privacy-policy)_
 
-
----
-
-### XKCD Comics
-
-Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webcomic website covering everything from Linux, math, romance, science and language. All fields are optional.
-
-<p align="center"><img width="400" src="https://i.ibb.co/kqV68hy/xkcd-comic.png" /></p>
-
-##### Options
-
-**Field** | **Type** | **Required** | **Description**
---- | --- | --- | ---
-**`comic`** | `string / number` |  _Optional_ | Choose which comic to display. Set to either `random`, `latest` or the series number of a specific comic, like `627`. Defaults to `latest`
-
-##### Example
-
-```yaml
-- type: xkcd-comic
-  options:
-    comic: latest
-```
-
-##### Info
-- **CORS**: 🟢 Enabled
-- **Auth**: 🟢 Not Required
-- **Price**: 🟢 Free
-- **Privacy**: ⚫ No Policy Available
-
 ---
 
 ### Code Stats
@@ -405,9 +376,46 @@ Show recent scores and upcoming matches from your favourite sports team. Data is
 ##### Info
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟠 Optional
-- **Price**: 🟠 Free plan (upto 30 requests / second, limited endpoints)
+- **Price**: 🟠 Free plan (upto 30 requests / minute, limited endpoints)
 - **Host**: Managed Instance Only
 - **Privacy**: ⚫ No Policy Available
+
+---
+
+### Exchange Rates
+
+Display current FX rates in your native currency. Hover over a row to view more info, or click to show rates in that currency.
+
+<p align="center"><img width="400" src="https://i.ibb.co/fMdyLTB/exchange-rates.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`inputCurrency`** | `string` | Required | The base currency to show results in. Specified as a 3-letter ISO-4217 code, see [here](https://www.exchangerate-api.com/docs/supported-currencies) for the full list of supported currencies, and their symbols
+**`outputCurrencies`** | `array` |  Required | List or currencies to show results for. Specified as a 3-letter ISO-4217 code, see [here](https://www.exchangerate-api.com/docs/supported-currencies) for the full list of supported currencies, and their symbols
+**`apiKey`** | `string` |  Required | API key for [exchangerate-api.com](https://www.exchangerate-api.com/), usually a 24-digit alpha-numeric string. You can sign up for a free account [here](https://app.exchangerate-api.com/sign-up)
+
+##### Example 
+
+```yaml
+- type: exchange-rates
+  options:
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxxx
+    inputCurrency: GBP
+    outputCurrencies:
+      - USD
+      - JPY
+      - HKD
+      - KPW
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free plan (upto 100,000 requests/ month)
+- **Host**: Managed Instance Only
+- **Privacy**: _See [ExchangeRateAPI Privacy Policy](https://www.exchangerate-api.com/terms)_
 
 ---
 
@@ -484,43 +492,6 @@ Shows real-time tube status of the London Underground. All fields are optional.
 
 ---
 
-### Exchange Rates
-
-Display current FX rates in your native currency
-
-<p align="center"><img width="400" src="https://i.ibb.co/M905JHM/exchange-rates.png" /></p>
-
-##### Options
-
-**Field** | **Type** | **Required** | **Description**
---- | --- | --- | ---
-**`apiKey`** | `string` |  Required | API key for [exchangerate-api.com](https://www.exchangerate-api.com/), usually a 24-digit alpha-numeric string. You can sign up for a free account [here](https://app.exchangerate-api.com/sign-up)
-**`inputCurrency`** | `string` | Required | The base currency to show results in. Specified as a 3-letter ISO-4217 code, see [here](https://www.exchangerate-api.com/docs/supported-currencies) for the full list of supported currencies, and their symbols
-**`outputCurrencies`** | `array` |  Required | List or currencies to show results for. Specified as a 3-letter ISO-4217 code, see [here](https://www.exchangerate-api.com/docs/supported-currencies) for the full list of supported currencies, and their symbols
-
-##### Example 
-
-```yaml
-- type: exchange-rates
-  options:
-    apiKey: xxxxxxxxxxxxxxxxxxxxxxxx
-    inputCurrency: GBP
-    outputCurrencies:
-      - USD
-      - JPY
-      - HKD
-      - KPW
-```
-
-##### Info
-- **CORS**: 🟢 Enabled
-- **Auth**: 🔴 Required
-- **Price**: 🟠 Free plan (upto 100,000 requests/ month)
-- **Host**: Managed Instance Only
-- **Privacy**: _See [ExchangeRateAPI Privacy Policy](https://www.exchangerate-api.com/terms)_
-
----
-
 ### Stock Price History
 
 Shows recent price history for a given publicly-traded stock or share
@@ -585,6 +556,34 @@ Renders a programming or generic joke. Data is fetched from the [JokesAPI](https
 - **Price**: 🟢 Free
 - **Host**: Managed Instance or Self-Hosted (see [Sv443/JokeAPI](https://github.com/Sv443/JokeAPI))
 - **Privacy**: _See [SV443's Privacy Policy](https://sv443.net/privacypolicy/en)_
+
+---
+
+### XKCD Comics
+
+Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webcomic website covering everything from Linux, math, romance, science and language. All fields are optional.
+
+<p align="center"><img width="400" src="https://i.ibb.co/kqV68hy/xkcd-comic.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`comic`** | `string / number` |  _Optional_ | Choose which comic to display. Set to either `random`, `latest` or the series number of a specific comic, like `627`. Defaults to `latest`
+
+##### Example
+
+```yaml
+- type: xkcd-comic
+  options:
+    comic: latest
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Privacy**: ⚫ No Policy Available
 
 ---
 

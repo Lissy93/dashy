@@ -190,7 +190,7 @@ In [`./src/utils/defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/
 
 First, import the helper function:
 ```javascript
-import { shouldBeVisible } from '@/utils/MiscHelpers';
+import { shouldBeVisible } from '@/utils/SectionHelpers';
 ```
 
 Then you can create a computed value, that calls this function, passing in the route name:
