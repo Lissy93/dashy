@@ -198,19 +198,26 @@ export default {
       // Convert form data back into section.item data structure
       const structured = {};
       this.formData.forEach((row) => { structured[row.name] = row.value; });
-      // Some attributes need a little extra formatting
-      const newItem = this.formatBeforeSave(structured);
-      if (this.isNew) { // Insert new item into data store
-        newItem.id = `temp_${newItem.title}`;
-        const payload = { newItem, targetSection: this.parentSectionTitle };
-        this.$store.commit(StoreKeys.INSERT_ITEM, payload);
-      } else { // Update existing item from form data, in the store
-        this.$store.commit(StoreKeys.UPDATE_ITEM, { newItem, itemId: this.itemId });
+      if (!structured.title) { // Missing title, show error and don't proceed
+        this.$toasted.show(
+          this.$t('interactive-editor.edit-item.missing-title-err'),
+          { className: 'toast-error' },
+        );
+      } else {
+        // Some attributes need a little extra formatting
+        const newItem = this.formatBeforeSave(structured);
+        if (this.isNew) { // Insert new item into data store
+          newItem.id = `temp_${newItem.title}`;
+          const payload = { newItem, targetSection: this.parentSectionTitle };
+          this.$store.commit(StoreKeys.INSERT_ITEM, payload);
+        } else { // Update existing item from form data, in the store
+          this.$store.commit(StoreKeys.UPDATE_ITEM, { newItem, itemId: this.itemId });
+        }
+        // If we're not already in edit mode, enable it now
+        this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+        // Close edit menu
+        this.$emit('closeEditMenu');
       }
-      // If we're not already in edit mode, enable it now
-      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
-      // Close edit menu
-      this.$emit('closeEditMenu');
     },
     /* Some fields require a bit of extra processing before they're saved */
     formatBeforeSave(item) {
@@ -225,7 +232,7 @@ export default {
         if (str === undefined) return undefined;
         return str === 'true';
       };
-      if (newItem.tags) newItem.tags = strToTags(newItem.tags);
+      if (newItem.tags) newItem.tags = newItem.tags ? strToTags(newItem.tags) : [];
       if (newItem.statusCheck) newItem.statusCheck = strToBool(newItem.statusCheck);
       if (newItem.statusCheckAllowInsecure) {
         newItem.statusCheckAllowInsecure = strToBool(newItem.statusCheckAllowInsecure);
