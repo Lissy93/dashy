@@ -9,6 +9,13 @@
 
 ---
 
+### Ratty222
+> By [@ratty222](https://github.com/ratty222) ([#384](https://github.com/Lissy93/dashy/discussions/384))
+
+![screenshot-ratty222-dashy](https://user-images.githubusercontent.com/1862727/147582551-4c655d37-8bcc-4f95-ab41-164a9d0d6a07.png)
+
+---
+
 ### Networking Services
 > By [@Lissy93](https://github.com/lissy93)
 
