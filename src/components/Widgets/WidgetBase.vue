@@ -186,6 +186,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <SportsScores
+        v-else-if="widgetType === 'sports-scores'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <StatPing
         v-else-if="widgetType === 'stat-ping'"
         :options="widgetOptions"
@@ -282,6 +289,7 @@ export default {
     PublicHolidays: () => import('@/components/Widgets/PublicHolidays.vue'),
     PublicIp: () => import('@/components/Widgets/PublicIp.vue'),
     RssFeed: () => import('@/components/Widgets/RssFeed.vue'),
+    SportsScores: () => import('@/components/Widgets/SportsScores.vue'),
     StatPing: () => import('@/components/Widgets/StatPing.vue'),
     StockPriceChart: () => import('@/components/Widgets/StockPriceChart.vue'),
     SystemInfo: () => import('@/components/Widgets/SystemInfo.vue'),

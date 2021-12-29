@@ -222,6 +222,7 @@ module.exports = {
     publicIp: 'http://ip-api.com/json',
     readMeStats: 'https://github-readme-stats.vercel.app/api',
     rssToJson: 'https://api.rss2json.com/v1/api.json',
+    sportsScores: 'https://www.thesportsdb.com/api/v1/json',
     stockPriceChart: 'https://www.alphavantage.co/query',
     tflStatus: 'https://api.tfl.gov.uk/line/mode/tube/status',
     weather: 'https://api.openweathermap.org/data/2.5/weather',

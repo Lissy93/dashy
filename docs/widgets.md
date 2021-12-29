@@ -2,6 +2,10 @@
 
 Dashy has support for displaying dynamic content in the form of widgets. There are several built-in widgets available out-of-the-box as well as support for custom widgets to display stats from almost any service with an API.
 
+> ℹ️ **Note**: Widgets are still in the Alpha-phase of development.
+> If you find a bug, please raise it.<br>
+> Adding / editing widgets through the UI isn't yet supported, you will need to do this in the YAML config file.
+
 ##### Contents
 - [General Widgets](#general-widgets)
   - [Clock](#clock)
@@ -13,6 +17,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [XKCD Comics](#xkcd-comics)
   - [Code Stats](#code-stats)
   - [Vulnerability Feed](#vulnerability-feed)
+  - [Sports Scores](#sports-scores)
   - [Public Holidays](#public-holidays)
   - [TFL Status](#tfl-status)
   - [Exchange Rates](#exchange-rates)
@@ -38,6 +43,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
   - [API Response](#api-response)
+  - [Prometheus Data](#prometheus-data)
   - [Data Feed](#data-feed)
 - [Usage & Customizations](#usage--customizations)
   - [Widget Usage Guide](#widget-usage-guide)
@@ -46,12 +52,13 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Language Translations](#language-translations)
   - [Widget UI Options](#widget-ui-options)
   - [Building a Widget](#build-your-own-widget)
+  - [Requesting a Widget](#requesting-a-widget)
 
 ## General Widgets
 
 ### Clock
 
-A simple, live-updating time and date widget with time-zone support. All options are optional.
+A simple, live-updating time and date widget with time-zone support. All fields are optional.
 
 <p align="center"><img width="400" src="https://i.ibb.co/vjb4RTv/clock.png" /></p>
 
@@ -150,7 +157,7 @@ Displays the weather (temperature and conditions) for the next few days for a gi
 
 ### Crypto Watch List
 
-Keep track of price changes of your favorite crypto assets. Data is fetched from [CoinGecko](https://www.coingecko.com/)
+Keep track of price changes of your favorite crypto assets. Data is fetched from [CoinGecko](https://www.coingecko.com/). All fields are optional.
 
 <p align="center"><img width="400" src="https://i.ibb.co/WtS6jQ8/crypto-prices.png" /></p>
 
@@ -265,7 +272,7 @@ Display news and updates from any RSS-enabled service.
 
 ### XKCD Comics
 
-Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webcomic website covering everything from Linux, math, romance, science and language.
+Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webcomic website covering everything from Linux, math, romance, science and language. All fields are optional.
 
 <p align="center"><img width="400" src="https://i.ibb.co/kqV68hy/xkcd-comic.png" /></p>
 
@@ -328,7 +335,7 @@ Display your coding summary. [Code::Stats](https://codestats.net/) is a free and
 
 ### Vulnerability Feed
 
-Display a feed of recent vulnerabilities, with optional filtering by score, exploits, vendor and product. All fields are optional.
+Keep track of recent security advisories and vulnerabilities, with optional filtering by score, exploits, vendor and product. All fields are optional.
 
 <p align="center"><img width="400" src="https://i.ibb.co/DYJMpjp/vulnerability-feed.png" /></p>
 
@@ -371,6 +378,39 @@ or
 
 ---
 
+### Sports Scores
+
+Show recent scores and upcoming matches from your favourite sports team. Data is fetched from [TheSportsDB.com](https://www.thesportsdb.com/). From the UI, you can click any other team to view their scores and upcoming games, or click a league name to see all teams.
+
+<p align="center"><img width="400" src="https://i.ibb.co/8XhXGkN/sports-scores.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`teamId`** | `string` |  __Optional__ | The ID of a team to fetch scores from. You can search for your team on the [Teams Page](https://www.thesportsdb.com/teams_main.php)
+**`leagueId`** | `string` |  __Optional__ | Alternatively, provide a league ID to fetch all games from. You can find the ID on the [Leagues Page](https://www.thesportsdb.com/Sport/Leagues)
+**`pastOrFuture`** | `string` |  __Optional__ | Set to `past` to show scores for recent games, or `future` to show upcoming games. Defaults to `past`. You can change this within the UI
+**`apiKey`** | `string` | __Optional__ | Optionally specify your API key, which you can sign up for at [TheSportsDB.com](https://www.thesportsdb.com/)
+**`limit`** | `number` | __Optional__ | To limit output to a certain number of matches, defaults to `15`
+
+##### Example
+
+```yaml
+- type: sports-scores
+  options:
+    teamId: 133636
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟠 Optional
+- **Price**: 🟠 Free plan (upto 30 requests / second, limited endpoints)
+- **Host**: Managed Instance Only
+- **Privacy**: ⚫ No Policy Available
+
+---
+
 ### Public Holidays
 
 Counting down to the next day off work? This widget displays upcoming public holidays for your country. Data is fetched from [Enrico](http://kayaposoft.com/enrico/)
@@ -406,7 +446,7 @@ Counting down to the next day off work? This widget displays upcoming public hol
 
 ### TFL Status
 
-Shows real-time tube status of the London Underground. All options are optional.
+Shows real-time tube status of the London Underground. All fields are optional.
 
 <p align="center"><img width="400" src="https://i.ibb.co/LRDhXDn/tfl-status.png" /></p>
 
@@ -517,7 +557,7 @@ Shows recent price history for a given publicly-traded stock or share
 
 ### Joke
 
-Renders a programming or generic joke. Data is fetched from the [JokesAPI](https://github.com/Sv443/JokeAPI) by @Sv443
+Renders a programming or generic joke. Data is fetched from the [JokesAPI](https://github.com/Sv443/JokeAPI) by @Sv443. All fields are optional.
 
 <p align="center"><img width="400" src="https://i.ibb.co/sQJGkyR/joke.png" /></p>
 
@@ -645,7 +685,7 @@ _No config options._
 
 ### GitHub Trending
 
-Displays currently trending projects on GitHub. Optionally specify a language and time-frame. Data is fetched from [Lissy93/gh-trending-no-cors](https://github.com/Lissy93/gh-trending-no-cors) using the GitHub API.
+Displays currently trending projects on GitHub. Optionally specify a language and time-frame. Data is fetched from [Lissy93/gh-trending-no-cors](https://github.com/Lissy93/gh-trending-no-cors) using the GitHub API. All fields are optional.
 
 <p align="center"><img width="380" src="https://i.ibb.co/BGy7Q3g/github-trending.png" /></p>
 
@@ -1079,7 +1119,17 @@ Or
 
 ### API Response
 
-Directly output plain-text response from any API-enabled service
+Directly output plain-text response from any API-enabled service.
+
+// Coming soon...
+
+---
+
+### Prometheus Data
+
+Display data from any service with a Prometheus exporter.
+
+// Coming soon...
 
 ---
 
@@ -1185,4 +1235,23 @@ Widgets cannot currently be edited through the UI. This feature is in developmen
 
 Widgets are built in a modular fashion, making it easy for anyone to create their own custom components.
 
-For a full tutorial on creating your own widget, you can follow [this guide](https://github.com/Lissy93/dashy/blob/master/docs/development-guides.md#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example. 
+For a full tutorial on creating your own widget, you can follow [this guide](/docs/development-guides.md#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example. 
+
+Alternatively, for displaying simple data, you could also just use the either the [iframe](#iframe-widget), [embed](#html-embedded-widget), [Data Feed](#data-feed) or [API response](#api-response) widgets.
+
+---
+
+### Requesting a Widget
+
+Suggestions for widget ideas are welcome. But there is no guarantee that I will build your widget idea.
+
+You can suggest a widget [here](https://git.io/Jygo3), please star the repo before submitting a ticket.
+
+Please only request widgets for services that:
+- Have a publicly accessible API
+- Are CORS and HTTPS enabled
+- Are free to use, or have a free plan
+- Allow for use in their Terms of Service
+- Would be useful for other users
+
+For services that are not officially supported, it is likely still possible to display data using either the [iframe](#iframe-widget), [embed](#html-embedded-widget) or [API response](#api-response) widgets. For more advanced features, like charts and action buttons, you could also build your own widget, using [this tutorial](/docs/development-guides.md#building-a-widget), it's fairly straight forward, and you can use an [existing widget](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets) (or [this example](https://git.io/JygKI)) as a template.

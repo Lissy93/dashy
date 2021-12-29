@@ -113,6 +113,11 @@ export const getMapUrl = (location, zoom) => {
   return `https://www.openstreetmap.org/#map=${zoom || 10}/${location.lat}/${location.lon}`;
 };
 
+/* Given a place name, return a link to Google Maps search page */
+export const getPlaceUrl = (placeName) => {
+  return `https://www.google.com/maps/search/${encodeURIComponent(placeName)}`;
+};
+
 /* Given a large number, will add commas to make more readable */
 export const putCommasInBigNum = (bigNum) => {
   const strNum = Number.isNaN(bigNum) ? bigNum : String(bigNum);
