@@ -57,7 +57,9 @@
         :itemSize="itemSize"
       />
     </div>
-    <div v-else-if="sectionType === 'widget'">
+    <div
+      v-else-if="sectionType === 'widget'"
+      :class="`widget-list ${isWide? 'wide' : ''}`">
       <WidgetBase
         v-for="(widget, widgetIndx) in widgets"
         :key="widgetIndx"
@@ -119,6 +121,7 @@ export default {
     items: Array,
     widgets: Array,
     index: Number,
+    isWide: Boolean,
   },
   components: {
     Collapsable,
@@ -345,4 +348,17 @@ export default {
     border-style: dashed;
   }
 }
+
+.widget-list {
+  &.wide {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    .widget-base  {
+      min-width: 10rem;
+      width: -webkit-fill-available;
+    }
+  }
+}
+
 </style>

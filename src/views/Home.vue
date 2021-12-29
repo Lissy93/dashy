@@ -41,6 +41,7 @@
           :itemSize="itemSizeBound"
           @itemClicked="finishedSearching()"
           @change-modal-visibility="updateModalVisibility"
+          :isWide="!!singleSectionView || layoutOrientation === 'horizontal'"
           :class="
           (searchValue && filterTiles(section.items, searchValue).length === 0) ? 'no-results' : ''"
         />
