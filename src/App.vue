@@ -35,6 +35,12 @@ export default {
       isLoading: true, // Set to false after mount complete
     };
   },
+  watch: {
+    isEditMode(isEditMode) {
+      // When in edit mode, show confirmation dialog on page exit
+      window.onbeforeunload = isEditMode ? this.confirmExit : null;
+    },
+  },
   computed: {
     /* If the user has specified custom text for footer - get it */
     footerText() {
@@ -76,7 +82,7 @@ export default {
     /* Hide splash screen, either after 2 seconds, or immediately based on user preference */
     hideSplash() {
       if (this.shouldShowSplash) {
-        setTimeout(() => { this.isLoading = false; }, splashScreenTime || 1500);
+        setTimeout(() => { this.isLoading = false; }, splashScreenTime || 1000);
       } else {
         this.isLoading = false;
       }
@@ -117,21 +123,27 @@ export default {
       this.$i18n.locale = language;
       document.getElementsByTagName('html')[0].setAttribute('lang', language);
     },
+    /* If placeholder element still visible, hide it */
     hideLoader() {
       const loader = document.getElementById('loader');
       if (loader) loader.style.display = 'none';
     },
+    /* Called when in edit mode and navigating away from page */
+    confirmExit(e) {
+      e.preventDefault();
+      return 'You may have unsaved edits. Are you sure you want to exit the page?';
+    },
   },
-  /* When component mounted, hide splash and initiate the injection of custom styles */
+  /* Basic initialization tasks on app load */
   mounted() {
-    this.applyLanguage();
-    this.hideSplash();
-    if (this.appConfig.customCss) {
+    this.applyLanguage(); // Apply users local language
+    this.hideSplash(); // Hide the splash screen, if visible
+    if (this.appConfig.customCss) { // Inject users custom CSS, if present
       const cleanedCss = this.appConfig.customCss.replace(/<\/?[^>]+(>|$)/g, '');
       this.injectCustomStyles(cleanedCss);
-      this.hideLoader();
     }
-    welcomeMsg();
+    this.hideLoader(); // If initial placeholder still visible, hide it
+    welcomeMsg(); // Show message in console
   },
 };
 </script>
