@@ -232,7 +232,7 @@ export default {
         if (str === undefined) return undefined;
         return str === 'true';
       };
-      if (newItem.tags) newItem.tags = newItem.tags ? strToTags(newItem.tags) : [];
+      if (newItem.tags) newItem.tags = strToTags(newItem.tags);
       if (newItem.statusCheck) newItem.statusCheck = strToBool(newItem.statusCheck);
       if (newItem.statusCheckAllowInsecure) {
         newItem.statusCheckAllowInsecure = strToBool(newItem.statusCheckAllowInsecure);
