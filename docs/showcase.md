@@ -9,6 +9,13 @@
 
 ---
 
+### Ratty222
+> By [@ratty222](https://github.com/ratty222) ([#384](https://github.com/Lissy93/dashy/discussions/384))
+
+![screenshot-ratty222-dashy](https://user-images.githubusercontent.com/1862727/147582551-4c655d37-8bcc-4f95-ab41-164a9d0d6a07.png)
+
+---
+
 ### Networking Services
 > By [@Lissy93](https://github.com/lissy93)
 
@@ -95,9 +102,9 @@
 
 ---
 
-### Crypto Dash
+### Crypto Dash	
+> Example usage of widgets to monitor cryptocurrencies news, prices and data. Config is [available here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10#file-example-8-dashy-crypto-widgets-conf-yml)	
 
-> Example usage of widgets to monitor cryptocurrencies news, prices and data. Config is [available here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10#file-example-8-dashy-crypto-widgets-conf-yml)
 
 ![screenshot-crypto-dash](https://user-images.githubusercontent.com/1862727/147394584-352fe3bf-740d-4624-a01b-9003a97bc832.png)
 
