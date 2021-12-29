@@ -1,8 +1,5 @@
+/* A collection of generic reusable functions for various string processing tasks */
 /* eslint-disable arrow-body-style */
-import { hideFurnitureOn } from '@/utils/defaults';
-
-/* Returns false if page furniture should be hidden on said route */
-export const shouldBeVisible = (routeName) => !hideFurnitureOn.includes(routeName);
 
 /* Very rudimentary hash function for generative icons */
 export const asciiHash = (input) => {
@@ -27,31 +24,6 @@ export const sanitize = (string) => {
   return string.replace(reg, (match) => (map[match]));
 };
 
-/* Based on section title, item name and index, return a string value for ID */
-const makeItemId = (sectionStr, itemStr, index) => {
-  const charSum = sectionStr.split('').map((a) => a.charCodeAt(0)).reduce((x, y) => x + y);
-  const itemTitleStr = itemStr.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
-  return `${index}_${charSum}_${itemTitleStr}`;
-};
-
-/* Given an array of sections, apply a unique ID to each item, and return modified array */
-export const applyItemId = (inputSections) => {
-  const sections = inputSections || [];
-  sections.forEach((sec, secIdx) => {
-    if (sec.items) {
-      sec.items.forEach((item, itemIdx) => {
-        sections[secIdx].items[itemIdx].id = makeItemId(sec.name, item.title, itemIdx);
-      });
-    }
-    if (sec.widgets) {
-      sec.widgets.forEach((widget, widgetIdx) => {
-        sections[secIdx].widgets[widgetIdx].id = makeItemId(sec.name, widget.type, widgetIdx);
-      });
-    }
-  });
-  return sections;
-};
-
 /* Given a timestamp, returns formatted date, in local format */
 export const timestampToDate = (timestamp) => {
   const localFormat = navigator.language;
@@ -74,30 +46,6 @@ export const timestampToDateTime = (timestamp) => {
   return `${timestampToDate(timestamp)} at ${timestampToTime(timestamp)}`;
 };
 
-/* Given a currency code, return the corresponding unicode symbol */
-export const findCurrencySymbol = (currencyCode) => {
-  const code = currencyCode.toUpperCase().trim();
-  const currencies = {
-    USD: '$', // US Dollar
-    EUR: '€', // Euro
-    CRC: '₡', // Costa Rican Colón
-    GBP: '£', // British Pound Sterling
-    ILS: '₪', // Israeli New Sheqel
-    INR: '₹', // Indian Rupee
-    JPY: '¥', // Japanese Yen
-    KRW: '₩', // South Korean Won
-    NGN: '₦', // Nigerian Naira
-    PHP: '₱', // Philippine Peso
-    PLN: 'zł', // Polish Zloty
-    PYG: '₲', // Paraguayan Guarani
-    THB: '฿', // Thai Baht
-    UAH: '₴', // Ukrainian Hryvnia
-    VND: '₫', // Vietnamese Dong
-  };
-  if (currencies[code]) return currencies[code];
-  return code;
-};
-
 /* Given a 2-digit country code, return path to flag image from Flagpedia */
 export const getCountryFlag = (countryCode, dimens) => {
   const protocol = 'https';
@@ -106,6 +54,12 @@ export const getCountryFlag = (countryCode, dimens) => {
   const country = countryCode.toLowerCase();
   const ext = 'png';
   return `${protocol}://${cdn}/${dimensions}/${country}.${ext}`;
+};
+
+/* Given a currency code, return path to corresponding countries flag icon */
+export const getCurrencyFlag = (currency) => {
+  const cdn = 'https://raw.githubusercontent.com/transferwise/currency-flags';
+  return `${cdn}/master/src/flags/${currency.toLowerCase()}.png`;
 };
 
 /* Given a Latitude & Longitude object, and optional zoom level, return link to OSM */
@@ -151,4 +105,50 @@ export const roundPrice = (price) => {
 /* Cuts string off at given length, and adds an ellipse */
 export const truncateStr = (str, len = 60, ellipse = '...') => {
   return str.length > len + ellipse.length ? `${str.slice(0, len)}${ellipse}` : str;
+};
+
+/* Given a currency code, return the corresponding unicode symbol */
+export const findCurrencySymbol = (currencyCode) => {
+  const code = currencyCode.toUpperCase().trim();
+  const currencies = {
+    USD: '$', // US Dollar
+    EUR: '€', // Euro
+    GBP: '£', // British Pound Sterling
+    AFN: '؋', // Afghan Afghani
+    ALL: 'Lek', // Albanian Lek
+    AUD: '$', // Australian Dollar
+    AWG: 'ƒ', // Aruban Guilder
+    BAM: 'KM', // Bosnian Mark
+    BWP: 'P', // Botswana Pula
+    CAD: '$', // Canadian Dollar
+    CNY: '¥', // Chinese Yuan Renminbi
+    CRC: '₡', // Costa Rican Colón
+    CRS: '₡', // Costa Rican Colon
+    CUP: '₱', // Cuban Peso
+    DKK: 'kr', // Danish Krone
+    HKD: '$', // Hong Kong Dollar
+    HUF: 'Ft', // Hungarian Forint
+    HRK: 'kn', // Croatian Kuna
+    ISK: 'kr', // Icelandic Krona
+    ILS: '₪', // Israeli New Sheqel
+    INR: '₹', // Indian Rupee
+    IRR: '﷼', // Iranian Rial
+    JPY: '¥', // Japanese Yen
+    KRW: '₩', // South Korean Won
+    LAK: '₭', // Laos Kip
+    NGN: '₦', // Nigerian Naira
+    NOK: 'kr', // Norwegian Krone
+    PHP: '₱', // Philippine Peso
+    PKR: '₨', // Pakistani Rupee
+    PLN: 'zł', // Polish Zloty
+    PYG: '₲', // Paraguayan Guarani
+    RUB: '₽', // Russian Ruble
+    THB: '฿', // Thai Baht
+    UAH: '₴', // Ukrainian Hryvnia
+    VND: '₫', // Vietnamese Dong
+    YER: '﷼', // Yemen Rial
+    ZWD: 'Z$', // Zimbabwean Dollar
+  };
+  if (currencies[code]) return currencies[code];
+  return `${code} `; // Symbol not found, return text code instead
 };

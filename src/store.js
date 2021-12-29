@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import Keys from '@/utils/StoreMutations';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { componentVisibility } from '@/utils/ConfigHelpers';
-import { applyItemId } from '@/utils/MiscHelpers';
+import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 
