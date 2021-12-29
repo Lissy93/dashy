@@ -18,12 +18,13 @@
 ### Feature Docs
 - [Authentication](/docs/authentication.md) - Guide to setting up authentication to protect your dashboard
 - [Alternate Views](/docs/alternate-views.md) - Outline of available pages / views and item opening methods
-- [Backup & Restore](/docs/backup-restore.md) - Guide to Dashy's cloud sync feature
-- [Icons](/docs/icons.md) - Outline of all available icon types for sections and items
+- [Backup & Restore](/docs/backup-restore.md) - Guide to backing up config with Dashy's cloud sync feature
+- [Icons](/docs/icons.md) - Outline of all available icon types for sections and items, with examples
 - [Language Switching](/docs/multi-language-support.md) - Details on how to switch language, or add a new locale
 - [Status Indicators](/docs/status-indicators.md) - Using Dashy to monitor uptime and status of your apps
-- [Searching  & Shortcuts](/docs/searching.md) - Finding and launching your apps, and using keyboard shortcuts
-- [Theming](/docs/theming.md) - Complete guide to applying, writing and modifying themes and styles
+- [Searching  & Shortcuts](/docs/searching.md) - Searching, launching methods + keyboard shortcuts
+- [Theming](/docs/theming.md) - Complete guide to applying, writing and modifying themes + styles
+- [Widgets](/docs/widgets.md) - List of all dynamic content widgets, with usage guides and examples
 
 ### Misc
 - [Privacy & Security](/docs/privacy.md) - List of requests, potential issues, and security resources

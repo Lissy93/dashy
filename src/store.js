@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import Keys from '@/utils/StoreMutations';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { componentVisibility } from '@/utils/ConfigHelpers';
-import { applyItemId } from '@/utils/MiscHelpers';
+import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 
@@ -51,11 +51,11 @@ const store = new Vuex.Store({
     appConfig(state) {
       return state.config.appConfig || {};
     },
-    theme(state) {
-      return state.config.appConfig.theme;
-    },
     sections(state) {
       return filterUserSections(state.config.sections || []);
+    },
+    theme(state) {
+      return state.config.appConfig.theme;
     },
     webSearch(state, getters) {
       return getters.appConfig.webSearch || {};

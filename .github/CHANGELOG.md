@@ -1,5 +1,10 @@
 # Changelog
 
+## ✨ 1.9.4 - Widget Support [PR #382](https://github.com/Lissy93/dashy/pull/382)
+- Adds support for dynamic content, through widgets
+- Adds 30+ pre-built widgets for general info and self-hosted services
+- Writes docs on widget usage
+
 ## ⚡️ 1.9.2 - Native SSL Support + Performance Improvements [PR #326](https://github.com/Lissy93/dashy/pull/326)
 - Updates the server to use Express, removing serve-static, connect and body-parser
 - Adds native support for passing in self-signed SSL certificates and updates docs

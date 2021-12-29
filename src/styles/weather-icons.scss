@@ -1,0 +1,43 @@
+/**
+Styles and weather icons for the Dashy weather widget
+Based on https://github.com/isneezy/open-weather-icons
+Licensed under MIT - Copyright (c) 2017 Ivan Vilanculo
+**/
+
+@font-face {
+  font-family: 'OpenWeatherIcons';
+  src: url('/widget-resources/WeatherIcons.woff2');
+  font-style: normal;
+  font-weight: 400;
+}
+
+i.owi {
+  display: inline-block;
+  transform: translate(0, 0);
+  text-rendering: auto;
+  font-family: OpenWeatherIcons;
+  font-style: normal;
+  font-size: inherit;
+  -webkit-font-smoothing: antialiased;
+  color: var(--primary);
+
+  &.owi-01d::before { content: "\ea01"; }
+  &.owi-01n::before { content: "\ea02"; }
+  &.owi-02d::before { content: "\ea04"; }
+  &.owi-02n::before { content: "\ea03"; }
+  &.owi-03d::before { content: "\ea05"; }
+  &.owi-03n::before { content: "\ea06"; }
+  &.owi-04d::before { content: "\ea07"; }
+  &.owi-04n::before { content: "\ea08"; }
+  &.owi-09d::before { content: "\ea09"; }
+  &.owi-09n::before { content: "\ea0a"; }
+  &.owi-10d::before { content: "\ea0b"; }
+  &.owi-10n::before { content: "\ea0c"; }
+  &.owi-11d::before { content: "\ea0d"; }
+  &.owi-11n::before { content: "\ea0e"; }
+  &.owi-13d::before { content: "\ea10"; }
+  &.owi-13n::before { content: "\ea12"; }
+  &.owi-50d::before { content: "\ea11"; }
+  &.owi-50n::before { content: "\ea13"; }
+  &.owi-1232n::before { content: "\ea0f"; }
+}

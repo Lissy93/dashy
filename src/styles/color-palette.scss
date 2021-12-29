@@ -10,6 +10,7 @@
   --info: #04e4f4;
   --success: #20e253;
   --warning: #f6f000;
+  --error: #fca016;
   --danger: #f80363;
   --neutral: #272f4d;
   --white: #fff;
@@ -57,9 +58,13 @@
   --config-settings-color: var(--primary);
   --config-settings-background: var(--background-darker);
   --config-code-color: var(--background);
-  --config-code-background: #fff;
+  --config-code-background: var(--white);
   --code-editor-color: var(--black);
   --code-editor-background: var(--white);
+  // Widgets
+  --widget-text-color: var(--primary);
+  --widget-background-color: var(--background-darker);
+  --widget-accent-color: var(--background);
   // Interactive editor
   --interactive-editor-color: var(--primary);
   --interactive-editor-background: var(--background);

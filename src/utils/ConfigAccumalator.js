@@ -13,7 +13,7 @@ import {
   layout as defaultLayout,
 } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
-import { applyItemId } from '@/utils/MiscHelpers';
+import { applyItemId } from '@/utils/SectionHelpers';
 import conf from '../../public/conf.yml';
 
 export default class ConfigAccumulator {

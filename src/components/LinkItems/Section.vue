@@ -12,11 +12,11 @@
     @openContextMenu="openContextMenu"
   >
     <!-- If no items, show message -->
-    <div v-if="(!items || items.length < 1) && !isEditMode" class="no-items">
-      No Items to Show Yet
+    <div v-if="sectionType === 'empty'" class="no-items">
+      {{ $t('home.no-items-section') }}
     </div>
     <!-- Item Container -->
-    <div v-else
+    <div v-else-if="sectionType === 'item'"
       :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
       :style="gridStyle" :id="`section-${groupId}`"
     > <!-- Show for each item -->
@@ -33,12 +33,12 @@
         :backgroundColor="item.backgroundColor"
         :statusCheckUrl="item.statusCheckUrl"
         :statusCheckHeaders="item.statusCheckHeaders"
-        :itemSize="newItemSize"
+        :itemSize="itemSize"
         :hotkey="item.hotkey"
         :provider="item.provider"
         :parentSectionTitle="title"
-        :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
-        :statusCheckInterval="getStatusCheckInterval()"
+        :enableStatusCheck="item.statusCheck !== undefined ? item.statusCheck : enableStatusCheck"
+        :statusCheckInterval="statusCheckInterval"
         :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
@@ -54,9 +54,19 @@
         description="Click to add new item"
         key="add-new"
         class="add-new-item"
-        :itemSize="newItemSize"
+        :itemSize="itemSize"
       />
-      <div ref="modalContainer"></div>
+    </div>
+    <div
+      v-else-if="sectionType === 'widget'"
+      :class="`widget-list ${isWide? 'wide' : ''}`">
+      <WidgetBase
+        v-for="(widget, widgetIndx) in widgets"
+        :key="widgetIndx"
+        :widget="widget"
+        :index="index"
+        @navigateToSection="navigateToSection"
+      />
     </div>
     <!-- Modal for opening in modal view -->
     <IframeModal
@@ -88,6 +98,7 @@
 <script>
 import router from '@/router';
 import Item from '@/components/LinkItems/Item.vue';
+import WidgetBase from '@/components/Widgets/WidgetBase';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import EditSection from '@/components/InteractiveEditor/EditSection.vue';
@@ -108,13 +119,15 @@ export default {
     icon: String,
     displayData: Object,
     items: Array,
-    itemSize: String,
+    widgets: Array,
     index: Number,
+    isWide: Boolean,
   },
   components: {
     Collapsable,
     ContextMenu,
     Item,
+    WidgetBase,
     IframeModal,
     EditSection,
   },
@@ -132,8 +145,20 @@ export default {
     appConfig() {
       return this.$store.getters.appConfig;
     },
+    isEditMode() {
+      return this.$store.state.editMode;
+    },
+    itemSize() {
+      return this.$store.getters.iconSize;
+    },
     sortOrder() {
       return this.displayData.sortBy || defaultSortOrder;
+    },
+    /* A section can contain either items or widgets */
+    sectionType() {
+      if (this.widgets && this.widgets.length > 0) return 'widget';
+      if (this.items && this.items.length > 0) return 'item';
+      return 'empty';
     },
     /* If the sortBy attribute is specified, then return sorted data */
     sortedItems() {
@@ -146,16 +171,13 @@ export default {
       } else if (this.sortOrder === 'most-used') {
         items = this.sortByMostUsed(items);
       } else if (this.sortOrder === 'last-used') {
-        items = this.sortBLastUsed(items);
+        items = this.sortByLastUsed(items);
       } else if (this.sortOrder === 'random') {
         items = this.sortRandomly(items);
       } else if (this.sortOrder && this.sortOrder !== 'default') {
         ErrorHandler(`Unknown Sort order '${this.sortOrder}' under '${this.title}'`);
       }
       return items;
-    },
-    newItemSize() {
-      return this.displayData.itemSize || this.itemSize;
     },
     isGridLayout() {
       return this.displayData.sectionLayout === 'grid'
@@ -171,27 +193,23 @@ export default {
       }
       return styles;
     },
-    isEditMode() {
-      return this.$store.state.editMode;
+    /* Determines if user has enabled online status checks */
+    enableStatusCheck() {
+      return this.appConfig.statusCheck || false;
+    },
+    /* Determine how often to re-fire status checks */
+    statusCheckInterval() {
+      let interval = this.appConfig.statusCheckInterval;
+      if (!interval) return 0;
+      if (interval > 60) interval = 60;
+      if (interval < 1) interval = 0;
+      return interval;
     },
   },
   methods: {
     /* Opens the iframe modal */
     triggerModal(url) {
       this.$refs[`iframeModal-${this.groupId}`].show(url);
-    },
-    /* Determines if user has enabled online status checks */
-    shouldEnableStatusCheck(itemPreference) {
-      const globalPreference = this.appConfig.statusCheck || false;
-      return itemPreference !== undefined ? itemPreference : globalPreference;
-    },
-    /* Determine how often to re-fire status checks */
-    getStatusCheckInterval() {
-      let interval = this.appConfig.statusCheckInterval;
-      if (!interval) return 0;
-      if (interval > 60) interval = 60;
-      if (interval < 1) interval = 0;
-      return interval;
     },
     /* Sorts items alphabetically using the title attribute */
     sortAlphabetically(items) {
@@ -205,7 +223,7 @@ export default {
       return items;
     },
     /* Sorts items by most recently used */
-    sortBLastUsed(items) {
+    sortByLastUsed(items) {
       const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
       const glu = (item) => usageCount[item.id] || 0;
       items.reverse().sort((a, b) => (glu(a) < glu(b) ? 1 : -1));
@@ -330,4 +348,17 @@ export default {
     border-style: dashed;
   }
 }
+
+.widget-list {
+  &.wide {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    .widget-base  {
+      min-width: 10rem;
+      width: -webkit-fill-available;
+    }
+  }
+}
+
 </style>

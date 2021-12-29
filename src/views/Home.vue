@@ -27,22 +27,25 @@
         + (singleSectionView ? 'single-section-view ' : '')
         + (this.colCount ? `col-count-${this.colCount} ` : '')"
       >
-      <Section
-        v-for="(section, index) in filteredTiles"
-        :key="index"
-        :index="index"
-        :title="section.name"
-        :icon="section.icon || undefined"
-        :displayData="getDisplayData(section)"
-        :groupId="`section-${index}`"
-        :items="filterTiles(section.items, searchValue)"
-        :searchTerm="searchValue"
-        :itemSize="itemSizeBound"
-        @itemClicked="finishedSearching()"
-        @change-modal-visibility="updateModalVisibility"
-        :class="
-        (searchValue && filterTiles(section.items, searchValue).length === 0) ? 'no-results' : ''"
-      />
+      <template v-for="(section, index) in filteredTiles">
+        <Section
+          :key="index"
+          :index="index"
+          :title="section.name"
+          :icon="section.icon || undefined"
+          :displayData="getDisplayData(section)"
+          :groupId="`section-${index}`"
+          :items="filterTiles(section.items, searchValue)"
+          :widgets="section.widgets"
+          :searchTerm="searchValue"
+          :itemSize="itemSizeBound"
+          @itemClicked="finishedSearching()"
+          @change-modal-visibility="updateModalVisibility"
+          :isWide="!!singleSectionView || layoutOrientation === 'horizontal'"
+          :class="
+          (searchValue && filterTiles(section.items, searchValue).length === 0) ? 'no-results' : ''"
+        />
+      </template>
       <!-- Show add new section button, in edit mode -->
       <AddNewSection v-if="isEditMode" />
     </div>
@@ -58,20 +61,20 @@
 </template>
 
 <script>
-
+import HomeMixin from '@/mixins/HomeMixin';
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
 import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
 import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vue';
 import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.vue';
-import { searchTiles } from '@/utils/Search';
 import StoreKeys from '@/utils/StoreMutations';
-import Defaults, { localStorageKeys, iconCdns, modalNames } from '@/utils/defaults';
+import { localStorageKeys, modalNames } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 import BackIcon from '@/assets/interface-icons/back-arrow.svg';
 
 export default {
   name: 'home',
+  mixins: [HomeMixin],
   components: {
     SettingsContainer,
     EditModeSaveMenu,
@@ -81,29 +84,13 @@ export default {
     BackIcon,
   },
   data: () => ({
-    searchValue: '',
     layout: '',
     itemSizeBound: '',
     addNewSectionOpen: false,
   }),
   computed: {
-    sections() {
-      return this.$store.getters.sections;
-    },
-    appConfig() {
-      return this.$store.getters.appConfig;
-    },
-    pageInfo() {
-      return this.$store.getters.pageInfo;
-    },
-    modalOpen() {
-      return this.$store.state.modalOpen;
-    },
     singleSectionView() {
       return this.findSingleSection(this.$store.getters.sections, this.$route.params.section);
-    },
-    isEditMode() {
-      return this.$store.state.editMode;
     },
     /* Get class for num columns, if specified by user */
     colCount() {
@@ -138,30 +125,13 @@ export default {
     },
   },
   methods: {
-    /* Returns true if there is one or more sections in the config */
-    checkTheresData(sections) {
-      const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
-      return (sections && sections.length >= 1) || (localSections && localSections.length >= 1);
-    },
-    /* Updates local data with search value, triggered from filter comp */
-    searching(searchValue) {
-      this.searchValue = searchValue || '';
-    },
     /* Clears input field, once a searched item is opened */
     finishedSearching() {
       this.$refs.filterComp.clearFilterInput();
     },
-    /* Returns only the tiles that match the users search query */
-    filterTiles(allTiles, searchTerm) {
-      return searchTiles(allTiles, searchTerm);
-    },
     /* Returns optional section display preferences if available */
     getDisplayData(section) {
       return !section.displayData ? {} : section.displayData;
-    },
-    /* Update data when modal is open (so that key bindings can be disabled) */
-    updateModalVisibility(modalState) {
-      this.$store.commit('SET_MODAL_OPEN', modalState);
     },
     openAddNewSectionMenu() {
       this.addNewSectionOpen = true;
@@ -203,65 +173,6 @@ export default {
       }
       availibleThemes.Default = '#';
       return availibleThemes;
-    },
-    /* Checks if any sections or items use icons from a given CDN */
-    checkIfIconLibraryNeeded(prefix) {
-      let isNeeded = false;
-      if (!this.sections) return false;
-      this.sections.forEach((section) => {
-        if (section.icon && section.icon.includes(prefix)) isNeeded = true;
-        section.items.forEach((item) => {
-          if (item.icon && item.icon.includes(prefix)) isNeeded = true;
-        });
-      });
-      return isNeeded;
-    },
-    /* Checks if any of the icons are Font Awesome glyphs */
-    checkIfFontAwesomeNeeded() {
-      let isNeeded = this.checkIfIconLibraryNeeded('fa-');
-      const currentTheme = localStorage[localStorageKeys.THEME]; // Some themes require FA
-      if (['material', 'material-dark'].includes(currentTheme)) isNeeded = true;
-      return isNeeded;
-    },
-    /* Injects font-awesome's script tag, only if needed */
-    initiateFontAwesome() {
-      if (this.appConfig.enableFontAwesome || this.checkIfFontAwesomeNeeded()) {
-        const fontAwesomeScript = document.createElement('script');
-        const faKey = this.appConfig.fontAwesomeKey || Defaults.fontAwesomeKey;
-        fontAwesomeScript.setAttribute('src', `${iconCdns.fa}/${faKey}.js`);
-        document.head.appendChild(fontAwesomeScript);
-      }
-    },
-    /* Checks if any of the icons are Material Design Icons */
-    checkIfMdiNeeded() {
-      return this.checkIfIconLibraryNeeded('mdi-');
-    },
-    /* Injects Material Design Icons, only if needed */
-    initiateMaterialDesignIcons() {
-      if (this.checkIfMdiNeeded()) {
-        const mdiStylesheet = document.createElement('link');
-        mdiStylesheet.setAttribute('rel', 'stylesheet');
-        mdiStylesheet.setAttribute('href', iconCdns.mdi);
-        document.head.appendChild(mdiStylesheet);
-      }
-    },
-    /* Returns true if there is more than 1 sub-result visible during searching */
-    checkIfResults() {
-      if (!this.sections) return false;
-      else {
-        let itemsFound = true;
-        this.sections.forEach((section) => {
-          if (this.filterTiles(section.items, this.searchValue).length > 0) itemsFound = false;
-        });
-        return itemsFound;
-      }
-    },
-    /* If user has a background image, then generate CSS attributes */
-    getBackgroundImage() {
-      if (this.appConfig && this.appConfig.backgroundImg) {
-        return `background: url('${this.appConfig.backgroundImg}');background-size:cover;`;
-      }
-      return '';
     },
   },
   mounted() {
