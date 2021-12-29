@@ -19,7 +19,6 @@ import Keys from '@/utils/StoreMutations';
 import {
   localStorageKeys,
   splashScreenTime,
-  visibleComponents as defaultVisibleComponents,
   language as defaultLanguage,
 } from '@/utils/defaults';
 
@@ -43,7 +42,7 @@ export default {
     },
     /* Determine if splash screen should be shown */
     shouldShowSplash() {
-      return (this.visibleComponents || defaultVisibleComponents).splashScreen;
+      return (this.appConfig.showSplashScreen);
     },
     config() {
       return this.$store.state.config;
