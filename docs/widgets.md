@@ -1208,6 +1208,31 @@ For more info on how to apply custom variables, see the [Theming Docs](/docs/the
 
 ---
 
+### Proxying Requests
+
+If a widget fails to make a data request, and the console shows a CORS error, this means the server is blocking client-side requests.
+
+Dashy has a built-in CORS proxy ([`services/cors-proxy.js`](https://github.com/Lissy93/dashy/blob/master/services/cors-proxy.js)), which will be used automatically by some widgets, or can be forced to use by other by setting the `useProxy` option.
+
+For example:
+
+```yaml
+widgets:
+- type: pi-hole-stats
+  useProxy: true
+  options:
+    hostname: http://pi-hole.local
+```
+
+Alternativley, and more securley, you can set the auth headers on your service to accept requests from Dashy. For example:
+
+```
+Access-Control-Allow-Origin: https://location-of-dashy/
+Vary: Origin
+```
+
+---
+
 ### Language Translations
 
 Since most of the content displayed within widgets is fetched from an external API, unless that API supports multiple languages, translating dynamic content is not possible.
