@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import ChartingMixin from '@/mixins/ChartingMixin';
 
@@ -31,16 +30,22 @@ export default {
   methods: {
     /* Make GET request to local pi-hole instance */
     fetchData() {
-      axios.get(this.endpoint)
+      this.makeRequest(this.endpoint)
         .then((response) => {
-          this.processData(response.data);
-        })
-        .catch((dataFetchError) => {
-          this.error('Unable to fetch data', dataFetchError);
-        })
-        .finally(() => {
-          this.finishLoading();
+          if (this.validate(response)) {
+            this.processData(response);
+          }
         });
+    },
+    validate(response) {
+      if (!response.ads_over_time || !response.domains_over_time) {
+        this.error('Expected data was not returned from Pi-Hole');
+        return false;
+      } else if (response.ads_over_time.length < 1) {
+        this.error('Request completed succesfully, but no data in Pi-Hole yet');
+        return false;
+      }
+      return true;
     },
     /* Assign data variables to the returned data */
     processData(data) {
