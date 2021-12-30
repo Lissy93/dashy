@@ -2,8 +2,10 @@
  * Mixin that all pre-built and custom widgets extend from.
  * Manages loading state, error handling, data updates and user options
  */
+import axios from 'axios';
 import ProgressBar from 'rsup-progress';
 import ErrorHandler from '@/utils/ErrorHandler';
+import { serviceEndpoints } from '@/utils/defaults';
 
 const WidgetMixin = {
   props: {
@@ -18,6 +20,15 @@ const WidgetMixin = {
   /* When component mounted, fetch initial data */
   mounted() {
     this.fetchData();
+  },
+  computed: {
+    proxyReqEndpoint() {
+      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      return `${baseUrl}${serviceEndpoints.corsProxy}`;
+    },
+    useProxy() {
+      return this.options.useProxy;
+    },
   },
   methods: {
     /* Re-fetches external data, called by parent. Usually overridden by widget */
@@ -44,8 +55,30 @@ const WidgetMixin = {
     fetchData() {
       this.finishLoading();
     },
+    /* Used as v-tooltip, pass text content in, and will show on hover */
     tooltip(content) {
       return { content, trigger: 'hover focus', delay: 250 };
+    },
+    /* Makes data request, returns promise */
+    makeRequest(endpoint, options = {}) {
+      // Request Options
+      const method = 'GET';
+      const url = this.useProxy ? this.proxyReqEndpoint : endpoint;
+      const headers = this.useProxy ? { 'Target-URL': endpoint, ...options } : options;
+      // Make request
+      return new Promise((resolve, reject) => {
+        axios.request({ method, url, headers })
+          .then((response) => {
+            resolve(response.data);
+          })
+          .catch((dataFetchError) => {
+            this.error('Unable to fetch data', dataFetchError);
+            reject(dataFetchError);
+          })
+          .finally(() => {
+            this.finishLoading();
+          });
+      });
     },
   },
 };

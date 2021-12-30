@@ -319,7 +319,10 @@ export default {
     },
     /* Returns users specified widget options, or empty object */
     widgetOptions() {
-      return this.widget.options || {};
+      const options = this.widget.options || {};
+      const useProxy = !!this.widget.useProxy;
+      const updateInterval = this.widget.updateInterval || 0;
+      return { useProxy, updateInterval, ...options };
     },
     /* A unique string to reference the widget by */
     widgetRef() {
