@@ -16,6 +16,7 @@ const WidgetMixin = {
   },
   data: () => ({
     progress: new ProgressBar({ color: 'var(--progress-bar)' }),
+    overrideProxyChoice: false,
   }),
   /* When component mounted, fetch initial data */
   mounted() {
@@ -27,7 +28,7 @@ const WidgetMixin = {
       return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
     useProxy() {
-      return this.options.useProxy;
+      return this.options.useProxy || this.overrideProxyChoice;
     },
   },
   methods: {
@@ -60,15 +61,20 @@ const WidgetMixin = {
       return { content, trigger: 'hover focus', delay: 250 };
     },
     /* Makes data request, returns promise */
-    makeRequest(endpoint, options = {}) {
+    makeRequest(endpoint, options) {
       // Request Options
       const method = 'GET';
       const url = this.useProxy ? this.proxyReqEndpoint : endpoint;
-      const headers = this.useProxy ? { 'Target-URL': endpoint, ...options } : options;
+      const CustomHeaders = options ? { ...JSON.stringify(options) } : null;
+      const headers = this.useProxy
+        ? { 'Target-URL': endpoint, CustomHeaders } : CustomHeaders;
       // Make request
       return new Promise((resolve, reject) => {
         axios.request({ method, url, headers })
           .then((response) => {
+            if (response.data.success === false) {
+              this.error('Proxy returned error from target server', response.data.message);
+            }
             resolve(response.data);
           })
           .catch((dataFetchError) => {
