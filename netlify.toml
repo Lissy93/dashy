@@ -27,12 +27,17 @@
   to = "/.netlify/functions/not-supported"
   status = 301
   force = true
+[[redirects]]
+  from = "/cors-proxy"
+  to = "/.netlify/functions/netlify-cors"
+  status = 301
+  force = true
   
 # For router history mode, ensure pages land on index
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200
+  status = 200  
 
 # Set any security headers here
 [[headers]]
@@ -40,3 +45,4 @@
   [headers.values]
   # Uncomment to enable Netlify user control. You must have a paid plan.
   # Basic-Auth = "someuser:somepassword anotheruser:anotherpassword"
+
