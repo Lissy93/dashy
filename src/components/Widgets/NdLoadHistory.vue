@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import ChartingMixin from '@/mixins/ChartingMixin';
 
@@ -41,16 +40,9 @@ export default {
   methods: {
     /* Make GET request to NetData */
     fetchData() {
-      axios.get(this.endpoint)
-        .then((response) => {
-          this.processData(response.data);
-        })
-        .catch((dataFetchError) => {
-          this.error('Unable to fetch data', dataFetchError);
-        })
-        .finally(() => {
-          this.finishLoading();
-        });
+      this.makeRequest(this.endpoint).then(
+        (response) => { this.processData(response); },
+      );
     },
     /* Assign data variables to the returned data */
     processData(data) {
