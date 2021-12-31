@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@formschema/native": "^2.0.0-beta.5",
-    "@sentry/tracing": "^6.14.3",
+    "@sentry/tracing": "^6.16.0",
     "@sentry/vue": "^6.13.1",
     "ajv": "^8.8.1",
     "axios": "^0.24.0",
