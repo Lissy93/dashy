@@ -65,7 +65,7 @@ const WidgetMixin = {
       // Request Options
       const method = 'GET';
       const url = this.useProxy ? this.proxyReqEndpoint : endpoint;
-      const CustomHeaders = options ? { ...JSON.stringify(options) } : null;
+      const CustomHeaders = options ? JSON.stringify(options) : null;
       const headers = this.useProxy
         ? { 'Target-URL': endpoint, CustomHeaders } : CustomHeaders;
       // Make request
