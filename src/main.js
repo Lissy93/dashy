@@ -20,7 +20,7 @@ import clickOutside from '@/utils/ClickOutside';      // Directive for closing p
 import { messages } from '@/utils/languages';         // Language texts
 import ErrorReporting from '@/utils/ErrorReporting';  // Error reporting initializer (off)
 import { toastedOptions, tooltipOptions, language as defaultLanguage } from '@/utils/defaults';
-import { isKeycloakEnabled, cleanupKeycloakInfo, initKeycloak } from '@/utils/Auth'; // Keycloak auth config
+import { initKeycloakAuth, isKeycloakEnabled } from '@/utils/KeycloakAuth';
 
 // Initialize global Vue components
 Vue.use(VueI18n);
@@ -58,13 +58,11 @@ const mount = () => new Vue({
   store, router, render, i18n,
 }).$mount('#app');
 
-// every page reload removes keycloak user data
-cleanupKeycloakInfo();
 // If Keycloak not enabled, then proceed straight to the app
 if (!isKeycloakEnabled()) {
   mount();
 } else { // Keycloak is enabled, redirect to KC login page
-  initKeycloak()
+  initKeycloakAuth()
     .then(() => mount())
     .catch(() => window.location.reload());
 }

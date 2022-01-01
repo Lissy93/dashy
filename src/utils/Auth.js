@@ -1,8 +1,8 @@
 import sha256 from 'crypto-js/sha256';
-import Keycloak from 'keycloak-js';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import ErrorHandler from '@/utils/ErrorHandler';
 import { cookieKeys, localStorageKeys, userStateEnum } from '@/utils/defaults';
+import { isKeycloakEnabled } from '@/utils/KeycloakAuth';
 
 /* Uses config accumulator to get and return app config */
 const getAppConfig = () => {
@@ -18,82 +18,6 @@ const getAppConfig = () => {
  */
 const printWarning = () => {
   ErrorHandler('From V 1.6.5 onwards, the structure of the users object has changed.');
-};
-
-/* Returns true if keycloak is enabled */
-export const isKeycloakEnabled = () => {
-  const appConfig = getAppConfig();
-  if (!appConfig.auth) return false;
-  return appConfig.auth.enableKeycloak || false;
-};
-
-/* Returns the users keycloak config */
-export const getKeycloakConfig = () => {
-  const appConfig = getAppConfig();
-  if (!isKeycloakEnabled()) return false;
-  const { keycloak } = appConfig.auth;
-  const { serverUrl, realm, clientId } = keycloak;
-  if (!serverUrl || !realm || !clientId) {
-    ErrorHandler('Keycloak config missing- please ensure you specify: serverUrl, realm, clientId');
-    return false;
-  }
-  return keycloak;
-};
-
-/**
- * helper that persists keycloak user data in browser local storage
- * @param {Keycloak.KeycloakInstance} keycloak The username of user
- */
-const storeKeycloakInfo = (keycloak) => {
-  if (keycloak.tokenParsed && typeof keycloak.tokenParsed === 'object') {
-    const {
-      groups,
-      realm_access: realmAccess,
-      resource_access: resourceAccess,
-      azp: clientId,
-    } = keycloak.tokenParsed;
-
-    const realmRoles = realmAccess.roles || [];
-
-    let clientRoles = [];
-    if (Object.hasOwn(resourceAccess, clientId)) {
-      clientRoles = resourceAccess[clientId].roles || [];
-    }
-
-    const roles = [...realmRoles, ...clientRoles];
-
-    const info = {
-      groups,
-      roles,
-    };
-
-    localStorage.setItem(localStorageKeys.KEYCLOAK_INFO, JSON.stringify(info));
-  }
-};
-
-/* remove keycloak local storage */
-export const cleanupKeycloakInfo = () => localStorage.removeItem(localStorageKeys.KEYCLOAK_INFO);
-
-/* starts the keycloak login process and gathers user data */
-export const initKeycloak = () => {
-  const { serverUrl, realm, clientId } = getKeycloakConfig();
-  const initOptions = {
-    url: `${serverUrl}/auth`, realm, clientId, onLoad: 'login-required',
-  };
-  const keycloak = Keycloak(initOptions);
-
-  return new Promise((resolve, reject) => {
-    keycloak.init({ onLoad: initOptions.onLoad })
-      .then((auth) => {
-        if (auth) {
-          storeKeycloakInfo(keycloak);
-          return resolve();
-        } else {
-          return reject(new Error('Not authenticated'));
-        }
-      })
-      .catch((reason) => reject(reason));
-  });
 };
 
 /* Returns array of users from appConfig.auth, if available, else an empty array */
@@ -268,7 +192,13 @@ export const isUserAdmin = () => {
   * then they will never be able to view the homepage, so no button needed
   */
 export const getUserState = () => {
-  const { notConfigured, loggedIn, guestAccess } = userStateEnum; // Numeric enum options
+  const {
+    notConfigured,
+    loggedIn,
+    guestAccess,
+    keycloakEnabled,
+  } = userStateEnum; // Numeric enum options
+  if (isKeycloakEnabled()) return keycloakEnabled; // Keycloak auth configured
   if (!isAuthEnabled()) return notConfigured; // No auth enabled
   if (isLoggedIn()) return loggedIn; // User is logged in
   if (isGuestAccessEnabled()) return guestAccess; // Guest is viewing
