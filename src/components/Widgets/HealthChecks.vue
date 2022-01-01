@@ -17,9 +17,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints, serviceEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/defaults';
 import { capitalize, timestampToDateTime } from '@/utils/MiscHelpers';
 
 export default {
@@ -48,10 +47,6 @@ export default {
       if (this.options.host) return `${this.options.host}/api/v1/checks`;
       return `${widgetApiEndpoints.healthChecks}`;
     },
-    proxyReqEndpoint() {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      return `${baseUrl}${serviceEndpoints.corsProxy}`;
-    },
     apiKey() {
       if (!this.options.apiKey) {
         this.error('An API key is required, please see the docs for more info');
@@ -62,23 +57,11 @@ export default {
   methods: {
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
-      const requestConfig = {
-        method: 'GET',
-        url: this.proxyReqEndpoint,
-        headers: {
-          'access-control-request-headers': '*',
-          'Target-URL': this.endpoint,
-          CustomHeaders: JSON.stringify({ 'X-Api-Key': this.apiKey }),
-        },
-      };
-      axios.request(requestConfig)
-        .then((response) => {
-          this.processData(response.data);
-        }).catch((error) => {
-          this.error('Unable to fetch cron data', error);
-        }).finally(() => {
-          this.finishLoading();
-        });
+      this.overrideProxyChoice = true;
+      const authHeaders = { 'X-Api-Key': this.apiKey };
+      this.makeRequest(this.endpoint, authHeaders).then(
+        (response) => { this.processData(response); },
+      );
     },
     /* Assign data variables to the returned data */
     processData(data) {

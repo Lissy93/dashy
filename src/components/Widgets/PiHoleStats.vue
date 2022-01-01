@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import ChartingMixin from '@/mixins/ChartingMixin';
 import { capitalize } from '@/utils/MiscHelpers';
@@ -55,15 +55,9 @@ export default {
   methods: {
     /* Make GET request to local pi-hole instance */
     fetchData() {
-      axios.get(this.endpoint)
+      this.makeRequest(this.endpoint)
         .then((response) => {
-          this.processData(response.data);
-        })
-        .catch((dataFetchError) => {
-          this.error('Unable to fetch data', dataFetchError);
-        })
-        .finally(() => {
-          this.finishLoading();
+          this.processData(response);
         });
     },
     /* Assign data variables to the returned data */

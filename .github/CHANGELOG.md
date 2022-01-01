@@ -1,5 +1,11 @@
 # Changelog
 
+## ⚡️ 1.9.6 - Adds Proxy Support for Widget Requests [PR #392](https://github.com/Lissy93/dashy/pull/392)
+- Refactors widget mixin to include data requests, so that code can be shared between widgets
+- Adds a Node endpoint for proxying requests server-side, used for APIs that are not CORS enabled
+- Adds option to config file for user to force proxying of requests
+- Writes a Netlify cloud function to support proxying when the app is hosted on Netlify
+
 ## 🐛 1.9.5 - Bug fixes and Minor Improvements [PR #388](https://github.com/Lissy93/dashy/pull/388)
 - Adds icon.horse to supported favicon APIs
 - Fixes tile move bug, Re: #366

@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { showNumAsThousand } from '@/utils/MiscHelpers';
 
@@ -46,19 +45,13 @@ export default {
   methods: {
     /* Make GET request to local pi-hole instance */
     fetchData() {
-      axios.get(this.endpoint)
+      this.makeRequest(this.endpoint)
         .then((response) => {
-          if (Array.isArray(response.data)) {
+          if (Array.isArray(response)) {
             this.error('Got success, but found no results, possible authorization error');
           } else {
-            this.processData(response.data);
+            this.processData(response);
           }
-        })
-        .catch((dataFetchError) => {
-          this.error('Unable to fetch data', dataFetchError);
-        })
-        .finally(() => {
-          this.finishLoading();
         });
     },
     /* Assign data variables to the returned data */

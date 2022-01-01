@@ -263,6 +263,12 @@
       "up": "Online",
       "down": "Offline"
     },
+    "net-data": {
+      "cpu-chart-title": "CPU History",
+      "mem-chart-title": "Memory Usage",
+      "mem-breakdown-title": "Memory Breakdown",
+      "load-chart-title": "System Load"
+    },
     "system-info": {
       "uptime": "Uptime"
     },
