@@ -172,7 +172,8 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 --- | --- | --- | ---
 **`name`** | `string` | Required | The title for the section
 **`icon`** | `string` | _Optional_ | An single icon to be displayed next to the title. See [`section.icon`](#sectionicon-and-sectionitemicon)
-**`items`** | `array` | Required | An array of items to be displayed within the section. See [`item`](#sectionitem)
+**`items`** | `array` | _Optional_ | An array of items to be displayed within the section. See [`item`](#sectionitem). Sections must include either 1 or more items, or 1 or more widgets.
+**`widgets`** | `array` | _Optional_ | An array of widgets to be displayed within the section. See [`widget`](#sectionwidget-optional)
 **`displayData`** | `object` | _Optional_ | Meta-data to optionally overide display settings for a given section. See [`displayData`](#sectiondisplaydata-optional)
 
 **[⬆️ Back to Top](#configuring)**
@@ -197,6 +198,18 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`provider`** | `string` | _Optional_ | The name of the provider for a given service, useful for when including hosted apps. In some themes, this is visible under the item name
 
 **[⬆️ Back to Top](#configuring)**
+
+### `section.widget` _(optional)_
+
+**Field** | **Type** | **Required**| **Description**
+--- | --- | --- | ---
+**`type`** | `string` | Required | The widget type. See [Widget Docs](/docs/widgets.md) for full list of supported widgets
+**`options`** | `object` | _Optional_ | Some widgets accept either optional or required additional options. Again, see the [Widget Docs](/docs/widgets.md) for full list of options
+**`updateInterval`** | `number` | _Optional_ | You can keep a widget constantly updated by specifying an update interval, in seconds. See [Continuous Updates Docs](/docs/widgets.md#continuous-updates) for more info
+**`useProxy`** | `boolean` | _Optional_ | Some widgets make API requests to services that are not CORS-enabled. For these instances, you will need to route requests through a proxy, Dashy has a built in CORS-proxy, which you can use by setting this option to `true`. Defaults to `false`. See the [Proxying Requests Docs](/docs/widgets.md#proxying-requests) for more info
+
+**[⬆️ Back to Top](#configuring)**
+
 
 ### `section.displayData` _(optional)_
 
