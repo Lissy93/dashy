@@ -124,6 +124,7 @@ module.exports = {
     USERNAME: 'username',
     MOST_USED: 'mostUsed',
     LAST_USED: 'lastUsed',
+    KEYCLOAK_INFO: 'keycloakInfo',
   },
   /* Key names for cookie identifiers */
   cookieKeys: {

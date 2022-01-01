@@ -1,4 +1,5 @@
 import sha256 from 'crypto-js/sha256';
+import Keycloak from 'keycloak-js';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import ErrorHandler from '@/utils/ErrorHandler';
 import { cookieKeys, localStorageKeys, userStateEnum } from '@/utils/defaults';
@@ -39,6 +40,62 @@ export const getKeycloakConfig = () => {
   return keycloak;
 };
 
+/**
+ * helper that persists keycloak user data in browser local storage
+ * @param {Keycloak.KeycloakInstance} keycloak The username of user
+ */
+const storeKeycloakInfo = (keycloak) => {
+  if (keycloak.tokenParsed && typeof keycloak.tokenParsed === 'object') {
+    const {
+      groups,
+      realm_access: realmAccess,
+      resource_access: resourceAccess,
+      azp: clientId,
+    } = keycloak.tokenParsed;
+
+    const realmRoles = realmAccess.roles || [];
+
+    let clientRoles = [];
+    if (Object.hasOwn(resourceAccess, clientId)) {
+      clientRoles = resourceAccess[clientId].roles || [];
+    }
+
+    const roles = [...realmRoles, ...clientRoles];
+
+    const info = {
+      groups,
+      roles,
+    };
+
+    localStorage.setItem(localStorageKeys.KEYCLOAK_INFO, JSON.stringify(info));
+  }
+};
+
+/* remove keycloak local storage */
+export const cleanupKeycloakInfo = () => localStorage.removeItem(localStorageKeys.KEYCLOAK_INFO);
+
+/* starts the keycloak login process and gathers user data */
+export const initKeycloak = () => {
+  const { serverUrl, realm, clientId } = getKeycloakConfig();
+  const initOptions = {
+    url: `${serverUrl}/auth`, realm, clientId, onLoad: 'login-required',
+  };
+  const keycloak = Keycloak(initOptions);
+
+  return new Promise((resolve, reject) => {
+    keycloak.init({ onLoad: initOptions.onLoad })
+      .then((auth) => {
+        if (auth) {
+          storeKeycloakInfo(keycloak);
+          return resolve();
+        } else {
+          return reject(new Error('Not authenticated'));
+        }
+      })
+      .catch((reason) => reject(reason));
+  });
+};
+
 /* Returns array of users from appConfig.auth, if available, else an empty array */
 const getUsers = () => {
   const appConfig = getAppConfig();
@@ -65,7 +122,6 @@ const generateUserToken = (user) => {
 
 /**
  * Checks if the user is currently authenticated
- * @param {Array[Object]} users An array of user objects pulled from the config
  * @returns {Boolean} Will return true if the user is logged in, else false
  */
 export const isLoggedIn = () => {
@@ -95,7 +151,7 @@ export const isAuthEnabled = () => {
 /* Returns true if guest access is enabled */
 export const isGuestAccessEnabled = () => {
   const appConfig = getAppConfig();
-  if (appConfig.auth && typeof appConfig.auth === 'object') {
+  if (appConfig.auth && typeof appConfig.auth === 'object' && !isKeycloakEnabled()) {
     return appConfig.auth.enableGuestAccess || false;
   }
   return false;
@@ -108,6 +164,7 @@ export const isGuestAccessEnabled = () => {
  * @param {String} username The username entered by the user
  * @param {String} pass The password entered by the user
  * @param {String[]} users An array of valid user objects
+ * @param {Object} messages A static message template object
  * @returns {Object} An object containing a boolean result and a message
  */
 export const checkCredentials = (username, pass, users, messages) => {
@@ -146,7 +203,7 @@ export const login = (username, pass, timeout) => {
 };
 
 /**
- * Removed the browsers cookie, causing user to be logged out
+ * Removed the browsers' cookie, causing user to be logged out
  */
 export const logout = () => {
   document.cookie = 'authenticationToken=null';
@@ -164,7 +221,7 @@ export const getCurrentUser = () => {
   if (!username) return false; // No username
   let foundUserObject = false; // Value to return
   getUsers().forEach((user) => {
-    // If current logged in user found, then return that user
+    // If current logged-in user found, then return that user
     if (user.user === username) foundUserObject = user;
   });
   return foundUserObject;
@@ -182,11 +239,10 @@ export const isLoggedInAsGuest = () => {
 
 /**
  * Checks if the current user has admin privileges.
- * If no users are setup, then function will always return true
+ * If no users are set up, then function will always return true
  * But if auth is configured, then will verify user is correctly
  * logged in and then check weather they are of type admin, and
  * return false if any conditions fail
- * @param {String[]} - Array of users
  * @returns {Boolean} - True if admin privileges
  */
 export const isUserAdmin = () => {

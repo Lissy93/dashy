@@ -215,6 +215,8 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`hideForUsers`** | `string[]` | _Optional_ | Current section will be visible to all users, except for those specified in this list
 **`showForUsers`** | `string[]` | _Optional_ | Current section will be hidden from all users, except for those specified in this list
 **`hideForGuests`** | `boolean` | _Optional_ | Current section will be visible for logged in users, but not for guests (see `appConfig.enableGuestAccess`). Defaults to `false`
+**`hideForKeycloakUsers`** | `object`  | _Optional_ | Current section will be visible to all keycloak users, except for those configured via these groups and roles. See `hideForKeycloakUsers`
+**`showForKeycloakUsers`** | `object`  | _Optional_ | Current section will be hidden from all keyclaok users, except for those configured via these groups and roles. See `showForKeycloakUsers`
 
 **[⬆️ Back to Top](#configuring)**
 
@@ -223,6 +225,15 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`icon`** | `string` | _Optional_ | The icon for a given item or section. See [Icon Docs](/docs/icons.md) for all available supported icon types. To auto-fetch icon from a services URL, aet to `favicon`. To use font-awesome, specify the category, followed by the icon name, e.g. `fas fa-rocket`, `fab fa-monero` or `fal fa-duck`. Similarly, for branded icons, you can use [simple-icons](https://simpleicons.org/) by setting icon to `si-[icon-name]` or [material-design-icons](https://dev.materialdesignicons.com/icons) by setting icon to `mdi-[icon-name]`. If set to `generative`, then a unique icon is generated from the apps URL or IP. You can also use hosted any by specifying it's URL, e.g. `https://i.ibb.co/710B3Yc/space-invader-x256.png`. To use a local image, first store it in `./public/item-icons/` (or `-v /app/public/item-icons/` in Docker) , and reference it by name and extension - e.g. set `image.png` to use `./public/item-icon/image.png`, you can also use sub-folders if you have a lot of icons, to keep them organised.
+
+**[⬆️ Back to Top](#configuring)**
+
+### `section.displayData.hideForKeycloakUsers` and `section.displayData.showForKeycloakUsers`
+
+**Field** | **Type**   | **Required**| **Description**
+--- |------------| --- | ---
+**`groups`** | `string[]` | _Optional_ | Current Section will be hidden or shown based on the user having any of the groups in this list
+**`roles`** | `string[]` | _Optional_ | Current Section will be hidden or shown based on the user having any of the roles in this list
 
 **[⬆️ Back to Top](#configuring)**
 
