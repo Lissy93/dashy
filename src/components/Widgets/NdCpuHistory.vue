@@ -9,13 +9,6 @@ import ChartingMixin from '@/mixins/ChartingMixin';
 export default {
   mixins: [WidgetMixin, ChartingMixin],
   components: {},
-  data() {
-    return {
-      chartTitle: null,
-      chartData: null,
-      chartDom: null,
-    };
-  },
   computed: {
     /* URL where NetData is hosted */
     netDataHost() {
@@ -45,38 +38,39 @@ export default {
       );
     },
     /* Assign data variables to the returned data */
-    processData(data) {
-      const timeData = [];
-      const systemCpu = [];
-      const userCpu = [];
-      data.data.reverse().forEach((reading) => {
-        timeData.push(this.formatDate(reading[0] * 1000));
-        systemCpu.push(reading[2]);
-        userCpu.push(reading[3]);
+    processData(inputData) {
+      const { labels, data } = inputData;
+      const timeData = []; // List of timestamps for axis
+      const resultGroup = {}; // List of datasets, for each label
+      data.reverse().forEach((reading) => {
+        labels.forEach((label, indx) => {
+          if (indx === 0) { // First value is the timestamp, add to axis
+            timeData.push(this.formatTime(reading[indx] * 1000));
+          } else { // All other values correspond to a label
+            if (!resultGroup[label]) resultGroup[label] = [];
+            resultGroup[label].push(reading[indx]);
+          }
+        });
       });
-      this.chartData = {
-        labels: timeData,
-        datasets: [
-          { name: 'System CPU', type: 'bar', values: systemCpu },
-          { name: 'User CPU', type: 'bar', values: userCpu },
-        ],
-      };
-      this.chartTitle = this.makeChartTitle(data.data);
-      this.renderChart();
+      const datasets = [];
+      Object.keys(resultGroup).forEach((label) => {
+        datasets.push({ name: label, type: 'bar', values: resultGroup[label] });
+      });
+      const timeChartData = { labels: timeData, datasets };
+      const chartTitle = this.makeChartTitle(data);
+      this.generateChart(timeChartData, chartTitle);
     },
     makeChartTitle(data) {
-      if (!data || !data[0][0]) return '';
+      const prefix = this.$t('widgets.net-data.cpu-chart-title');
+      if (!data || !data[0][0]) return prefix;
       const diff = Math.round((data[data.length - 1][0] - data[0][0]) / 60);
-      return `Past ${diff} minutes`;
-    },
-    renderChart() {
-      this.chartDom = this.generateChart();
+      return `${prefix}: Past ${diff} minutes`;
     },
     /* Create new chart, using the crypto data */
-    generateChart() {
+    generateChart(timeChartData, chartTitle) {
       return new this.Chart(`#${this.chartId}`, {
-        title: this.chartTitle,
-        data: this.chartData,
+        title: chartTitle,
+        data: timeChartData,
         type: 'axis-mixed',
         height: this.chartHeight,
         colors: this.chartColors,

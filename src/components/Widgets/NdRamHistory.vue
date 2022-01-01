@@ -78,7 +78,7 @@ export default {
     /* Create new chart, using the crypto data */
     generateHistoryChart(timeChartData) {
       return new this.Chart(`#${this.chartId}`, {
-        title: 'History',
+        title: this.$t('widgets.net-data.mem-chart-title'),
         data: timeChartData,
         type: 'axis-mixed',
         height: this.chartHeight,
@@ -99,7 +99,7 @@ export default {
     },
     generateAggregateChart(aggregateChartData) {
       return new this.Chart(`#aggregate-${this.chartId}`, {
-        title: 'Averages',
+        title: this.$t('widgets.net-data.mem-breakdown-title'),
         data: aggregateChartData,
         type: 'percentage',
         height: 100,
