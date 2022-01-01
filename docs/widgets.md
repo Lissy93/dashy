@@ -1166,7 +1166,7 @@ sections:
       format: en-GB
   - type: weather
     options:
-      apiKey: 6e29c7d514cf890f846d58178b6d418f
+      apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       city: London
       units: metric
 ```
