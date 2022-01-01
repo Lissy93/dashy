@@ -2,41 +2,47 @@
 const axios = require('axios');
 
 exports.handler = (event, context, callback) => {
-  // Get URL from header or GET param
-  const requestUrl = event.queryStringParameters.url
-    || event.headers['Target-URL']
-    || event.headers['target-url'];
+  // Get input data
+  const { body, headers, queryStringParameters } = event;
 
-  // If URL missing, return error
-  if (!requestUrl) {
+  // Get URL from header or GET param
+  const requestUrl = queryStringParameters.url || headers['Target-URL'] || headers['target-url'];
+
+  const returnError = (msg, error) => {
     callback(null, {
       statusCode: 400,
-      body: JSON.stringify({ success: false, msg: 'Missing Target-URL header' }),
+      body: JSON.stringify({ success: false, msg, error }),
     });
+  };
+  // If URL missing, return error
+  if (!requestUrl) {
+    returnError('Missing Target-URL header', null);
   }
+
+  let custom = {};
+  try {
+    custom = JSON.parse(headers.CustomHeaders || headers.customheaders || '{}');
+  } catch (e) { returnError('Unable to parse custom headers'); }
+
+  // Response headers
+  const requestHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    ...custom,
+  };
 
   // Prepare request
   const requestConfig = {
     method: 'GET',
     url: requestUrl,
-    json: event.body,
-  };
-
-  // Response headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    ...event.headers,
+    json: body,
+    headers: requestHeaders,
   };
 
   // Make request
   axios.request(requestConfig)
     .then((response) => {
-      const body = JSON.stringify(response.data);
-      callback(null, { statusCode: 200, body, headers });
+      callback(null, { statusCode: 200, body: JSON.stringify(response.data) });
     }).catch((error) => {
-      callback(null, {
-        statusCode: 400,
-        body: JSON.stringify({ success: false, msg: 'Request failed', error }),
-      });
+      returnError('Request failed', error);
     });
 };
