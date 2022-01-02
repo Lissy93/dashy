@@ -501,6 +501,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Vlad Timofeev</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/KierenConnell">
+            <img src="https://avatars.githubusercontent.com/u/46445781?v=4" width="80;" alt="KierenConnell"/>
+            <br />
+            <sub><b>Kieren Connell</b></sub>
+        </a>
     </td></tr>
 </table>
 <!-- readme: sponsors -end -->
