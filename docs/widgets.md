@@ -21,6 +21,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Public Holidays](#public-holidays)
   - [TFL Status](#tfl-status)
   - [Stock Price History](#stock-price-history)
+  - [ETH Gas Prices](#eth-gas-prices)
   - [Joke of the Day](#joke)
   - [XKCD Comics](#xkcd-comics)
   - [News Headlines](#news-headlines)
@@ -129,7 +130,7 @@ Displays the weather (temperature and conditions) for the next few days for a gi
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`apiKey`** | `string` |  Required | Your OpenWeatherMap API key. You can get one for free at [openweathermap.org](https://openweathermap.org/)
+**`apiKey`** | `string` |  Required | Your OpenWeatherMap API key. You can get one at [openweathermap.org](https://openweathermap.org/) or for free via the [OWM Student Plan](https://home.openweathermap.org/students)
 **`city`** | `string` | Required | A city name to use for fetching weather. This can also be a state code or country code, following the ISO-3166 format
 **`numDays`** | `number` |  _Optional_ | The number of days to display of forecast info to display. Defaults to `4`, max `16` days
 **`units`** | `string` |  _Optional_ | The units to use for displaying data, can be either `metric` or `imperial`. Defaults to `metric`
@@ -523,6 +524,31 @@ Shows recent price history for a given publicly-traded stock or share
 - **Price**: 🟠 Free plan (upto 500 requests/day)
 - **Host**: Managed Instance Only
 - **Privacy**: _See [AlphaVantage Privacy Policy](https://www.alphavantage.co/privacy/)_
+
+---
+
+### ETH Gas Prices
+
+Renders the current Gas cost of transactions on the Ethereum network (in both GWEI and USD), along with recent historical prices. Useful for spotting a good time to transact. Uses data from [ethgas.watch](https://ethgas.watch/)
+
+<p align="center"><img width="400" src="https://i.ibb.co/LhHfQyp/eth-gas-prices.png" /></p>
+
+##### Options
+
+_No config options._
+
+##### Example 
+
+```yaml
+- type: eth-gas-prices
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed Instance or Self-Hosted (see [wslyvh/ethgaswatch](https://github.com/wslyvh/ethgaswatch))
+- **Privacy**: ⚫ No Policy Available
 
 ---
 

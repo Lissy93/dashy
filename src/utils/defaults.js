@@ -213,6 +213,8 @@ module.exports = {
     cryptoPrices: 'https://api.coingecko.com/api/v3/coins/',
     cryptoWatchList: 'https://api.coingecko.com/api/v3/coins/markets/',
     cveVulnerabilities: 'https://www.cvedetails.com/json-feed.php',
+    ethGasPrices: 'https://ethgas.watch/api/gas',
+    ethGasHistory: 'https://ethgas.watch/api/gas/trend',
     exchangeRates: 'https://v6.exchangerate-api.com/v6/',
     flights: 'https://aerodatabox.p.rapidapi.com/flights/airports/icao/',
     githubTrending: 'https://gh-trending-repos.herokuapp.com/',

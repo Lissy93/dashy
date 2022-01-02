@@ -67,6 +67,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <EthGasPrices
+        v-else-if="widgetType === 'eth-gas-prices'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <ExchangeRates
         v-else-if="widgetType === 'exchange-rates'"
         :options="widgetOptions"
@@ -272,6 +279,7 @@ export default {
     CryptoWatchList: () => import('@/components/Widgets/CryptoWatchList.vue'),
     CveVulnerabilities: () => import('@/components/Widgets/CveVulnerabilities.vue'),
     EmbedWidget: () => import('@/components/Widgets/EmbedWidget.vue'),
+    EthGasPrices: () => import('@/components/Widgets/EthGasPrices.vue'),
     ExchangeRates: () => import('@/components/Widgets/ExchangeRates.vue'),
     Flights: () => import('@/components/Widgets/Flights.vue'),
     GitHubTrending: () => import('@/components/Widgets/GitHubTrending.vue'),
