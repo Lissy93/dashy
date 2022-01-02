@@ -285,6 +285,7 @@ Styleguides:
 │  ├── InitServiceWorker.js       # Initializes and manages service worker, if enabled
 │  ├── Search.js                  # Helper functions for searching/ filtering items in all views
 │  ├── JsonToYaml.js              # Function that parses and converts raw JSON into valid YAML
+│  ├── KeycloakAuth.js            # Singleton class to manage Keycloak authentication
 │  ├── languages.js               # Handles fetching, switching and validating languages
 │  ╰── ThemeHelper.js             # Function that handles the fetching and setting of user themes
 ╰── views                         # Directory of available pages, corresponding to available routes
