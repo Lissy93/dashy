@@ -124,6 +124,7 @@ module.exports = {
     USERNAME: 'username',
     MOST_USED: 'mostUsed',
     LAST_USED: 'lastUsed',
+    KEYCLOAK_INFO: 'keycloakInfo',
   },
   /* Key names for cookie identifiers */
   cookieKeys: {
@@ -278,6 +279,7 @@ module.exports = {
     loggedIn: 1,
     guestAccess: 2,
     notLoggedIn: 3,
+    keycloakEnabled: 4,
   },
   /* Progressive Web App settings, used by Vue Config */
   pwa: {

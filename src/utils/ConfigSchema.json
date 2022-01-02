@@ -613,6 +613,60 @@
                 "type": "boolean",
                 "default": false,
                 "description": "If set to true, section will be visible for logged in users, but not for guests"
+              },
+              "showForKeycloakUsers": {
+                "title": "Show for select Keycloak groups or roles",
+                "type": "object",
+                "description": "Configure the Keycloak groups or roles that will have access to this section",
+                "additionalProperties": false,
+                "properties": {
+                  "groups": {
+                    "title": "Show for Groups",
+                    "type": "array",
+                    "description": "Section will be hidden from all users except those with one or more of these groups",
+
+                    "items": {
+                      "type": "string",
+                      "description": "Name of the group that will be able to view this section"
+                    }
+                  },
+                  "roles": {
+                    "title": "Show for Roles",
+                    "type": "array",
+                    "description": "Section will be hidden from all users except those with one or more of these roles",
+                    "items": {
+                      "type": "string",
+                      "description": "Name of the role that will be able to view this section"
+                    }
+                  }
+                }
+              },
+              "hideForKeycloakUsers": {
+                "title": "Hide for select Keycloak groups or roles",
+                "type": "object",
+                "description": "Configure the Keycloak groups or roles that will not have access to this section",
+                "additionalProperties": false,
+                "properties": {
+                  "groups": {
+                    "title": "Hide for Groups",
+                    "type": "array",
+                    "description": "Section will be hidden from users with any of these groups",
+
+                    "items": {
+                      "type": "string",
+                      "description": "name of the group that will not be able to view this section"
+                    }
+                  },
+                  "roles": {
+                    "title": "Hide for Roles",
+                    "type": "array",
+                    "description": "Section will be hidden from users with any of roles",
+                    "items": {
+                      "type": "string",
+                      "description": "name of the role that will not be able to view this section"
+                    }
+                  }
+                }
               }
             }
           },
