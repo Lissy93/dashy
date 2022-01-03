@@ -228,6 +228,8 @@ module.exports = {
     sportsScores: 'https://www.thesportsdb.com/api/v1/json',
     stockPriceChart: 'https://www.alphavantage.co/query',
     tflStatus: 'https://api.tfl.gov.uk/line/mode/tube/status',
+    walletBalance: 'https://api.blockcypher.com/v1',
+    walletQrCode: 'https://www.bitcoinqrcodemaker.com/api',
     weather: 'https://api.openweathermap.org/data/2.5/weather',
     weatherForecast: 'https://api.openweathermap.org/data/2.5/forecast/daily',
     xkcdComic: 'https://xkcd.vercel.app/',

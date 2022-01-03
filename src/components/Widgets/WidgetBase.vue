@@ -228,8 +228,8 @@
         @error="handleError"
         :ref="widgetRef"
       />
-      <XkcdComic
-        v-else-if="widgetType === 'xkcd-comic'"
+      <WalletBalance
+        v-else-if="widgetType === 'wallet-balance'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -244,6 +244,13 @@
       />
       <WeatherForecast
         v-else-if="widgetType === 'weather-forecast'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <XkcdComic
+        v-else-if="widgetType === 'xkcd-comic'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -302,6 +309,7 @@ export default {
     StockPriceChart: () => import('@/components/Widgets/StockPriceChart.vue'),
     SystemInfo: () => import('@/components/Widgets/SystemInfo.vue'),
     TflStatus: () => import('@/components/Widgets/TflStatus.vue'),
+    WalletBalance: () => import('@/components/Widgets/WalletBalance.vue'),
     Weather: () => import('@/components/Widgets/Weather.vue'),
     WeatherForecast: () => import('@/components/Widgets/WeatherForecast.vue'),
     XkcdComic: () => import('@/components/Widgets/XkcdComic.vue'),

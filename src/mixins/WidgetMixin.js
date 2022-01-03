@@ -57,8 +57,10 @@ const WidgetMixin = {
       this.finishLoading();
     },
     /* Used as v-tooltip, pass text content in, and will show on hover */
-    tooltip(content) {
-      return { content, trigger: 'hover focus', delay: 250 };
+    tooltip(content, html = false) {
+      return {
+        content, html, trigger: 'hover focus', delay: 250,
+      };
     },
     /* Makes data request, returns promise */
     makeRequest(endpoint, options) {

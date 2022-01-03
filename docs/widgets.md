@@ -13,6 +13,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Weather Forecast](#weather-forecast)
   - [Crypto Watch List](#crypto-watch-list)
   - [Crypto Price History](#crypto-token-price-history)
+  - [Crypto Wallet Balance](#wallet-balance)
   - [RSS Feed](#rss-feed)
   - [Code Stats](#code-stats)
   - [Vulnerability Feed](#vulnerability-feed)
@@ -235,6 +236,38 @@ Shows recent price history for a given crypto asset, using price data fetched fr
 - **Auth**: 🟢 Not Required
 - **Price**: 🟢 Free
 - **Privacy**: _See [CoinGecko Privacy Policy](https://www.coingecko.com/en/privacy)_
+
+---
+
+### Wallet Balance
+
+Keep track of your crypto balances and see recent transactions. Data is fetched from [BlockCypher](https://www.blockcypher.com/dev/)
+
+<p align="center"><img width="600" src="https://i.ibb.co/27HG4nj/wallet-balances.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`coin`** | `string` |  Required | Symbol of coin or asset, e.g. `btc`, `eth` or `doge`
+**`address`** | `string` | Required | Address to monitor. This is your wallet's **public** / receiving address
+**`network`** | `string` |  _Optional_ | To use a different network, other than mainnet. Defaults to `main`
+**`limit`** | `number` | _Optional_ | Limit the number of transactions to display. Defaults to `10`, set to large number to show all
+
+##### Example
+
+```yaml
+- type: wallet-balance
+  options:
+    coin: btc
+    address: 3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC	
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Privacy**: _See [BlockCypher Privacy Policy](https://www.blockcypher.com/privacy.html)_
 
 ---
 
