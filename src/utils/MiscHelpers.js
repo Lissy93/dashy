@@ -107,6 +107,21 @@ export const truncateStr = (str, len = 60, ellipse = '...') => {
   return str.length > len + ellipse.length ? `${str.slice(0, len)}${ellipse}` : str;
 };
 
+/* Given a timestamp, return how long ago it was, e.g. '10 minutes' */
+export const getTimeAgo = (dateTime) => {
+  const now = new Date().getTime();
+  const then = new Date(dateTime).getTime();
+  if (then < 0) return 'Never';
+  const diff = (now - then) / 1000;
+  const divide = (time, round) => Math.round(time / round);
+  if (diff < 60) return `${divide(diff, 1)} seconds ago`;
+  if (diff < 3600) return `${divide(diff, 60)} minutes ago`;
+  if (diff < 86400) return `${divide(diff, 3600)} hours ago`;
+  if (diff < 604800) return `${divide(diff, 86400)} days ago`;
+  if (diff >= 604800) return `${divide(diff, 604800)} weeks ago`;
+  return 'unknown';
+};
+
 /* Given a currency code, return the corresponding unicode symbol */
 export const findCurrencySymbol = (currencyCode) => {
   const code = currencyCode.toUpperCase().trim();

@@ -46,9 +46,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { serviceEndpoints } from '@/utils/defaults';
-import { showNumAsThousand } from '@/utils/MiscHelpers';
+import { showNumAsThousand, getTimeAgo } from '@/utils/MiscHelpers';
 import WidgetMixin from '@/mixins/WidgetMixin';
 
 export default {
@@ -77,21 +76,8 @@ export default {
   },
   methods: {
     fetchData() {
-      const requestConfig = {
-        method: 'GET',
-        url: this.proxyReqEndpoint,
-        headers: {
-          'Target-URL': this.endpoint,
-        },
-      };
-      axios.request(requestConfig)
-        .then((response) => {
-          this.processData(response.data);
-        }).catch((error) => {
-          this.error('Unable to fetch cron data', error);
-        }).finally(() => {
-          this.finishLoading();
-        });
+      this.overrideProxyChoice = true;
+      this.makeRequest(this.endpoint).then(this.processData);
     },
     makeChartUrl(uptime, title) {
       const host = 'https://quickchart.io';
@@ -110,19 +96,6 @@ export default {
         content, html: true, trigger: 'hover focus', delay: 250, classes: 'ping-times-tt',
       };
     },
-    getTimeAgo(dateTime) {
-      const now = new Date().getTime();
-      const then = new Date(dateTime).getTime();
-      if (then < 0) return 'Never';
-      const diff = (now - then) / 1000;
-      const divide = (time, round) => Math.round(time / round);
-      if (diff < 60) return `${divide(diff, 1)} seconds ago`;
-      if (diff < 3600) return `${divide(diff, 60)} minutes ago`;
-      if (diff < 86400) return `${divide(diff, 3600)} hours ago`;
-      if (diff < 604800) return `${divide(diff, 86400)} days ago`;
-      if (diff >= 604800) return `${divide(diff, 604800)} weeks ago`;
-      return 'unknown';
-    },
     processData(data) {
       let services = [];
       data.forEach((service) => {
@@ -134,8 +107,8 @@ export default {
           responseTime: Math.round(service.avg_response / 1000),
           totalSuccess: showNumAsThousand(service.stats.hits),
           totalFailure: showNumAsThousand(service.stats.failures),
-          lastSuccess: this.getTimeAgo(service.last_success),
-          lastFailure: this.getTimeAgo(service.last_error),
+          lastSuccess: getTimeAgo(service.last_success),
+          lastFailure: getTimeAgo(service.last_error),
         });
       });
       if (this.limit) services = services.slice(0, this.limit);
