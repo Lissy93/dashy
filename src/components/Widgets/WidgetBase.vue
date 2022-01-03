@@ -60,6 +60,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <CovidStats
+        v-else-if="widgetType === 'covid-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <EmbedWidget
         v-else-if="widgetType === 'embed'"
         :options="widgetOptions"
@@ -282,6 +289,7 @@ export default {
     Apod: () => import('@/components/Widgets/Apod.vue'),
     Clock: () => import('@/components/Widgets/Clock.vue'),
     CodeStats: () => import('@/components/Widgets/CodeStats.vue'),
+    CovidStats: () => import('@/components/Widgets/CovidStats.vue'),
     CryptoPriceChart: () => import('@/components/Widgets/CryptoPriceChart.vue'),
     CryptoWatchList: () => import('@/components/Widgets/CryptoWatchList.vue'),
     CveVulnerabilities: () => import('@/components/Widgets/CveVulnerabilities.vue'),

@@ -23,6 +23,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [TFL Status](#tfl-status)
   - [Stock Price History](#stock-price-history)
   - [ETH Gas Prices](#eth-gas-prices)
+  - [Covid-19 Status](#covid-19-status)
   - [Joke of the Day](#joke)
   - [XKCD Comics](#xkcd-comics)
   - [News Headlines](#news-headlines)
@@ -583,6 +584,53 @@ _No config options._
 - **Price**: 🟢 Free
 - **Host**: Managed Instance or Self-Hosted (see [wslyvh/ethgaswatch](https://github.com/wslyvh/ethgaswatch))
 - **Privacy**: ⚫ No Policy Available
+
+---
+
+### Covid-19 Status
+
+Keep track of the current COVID-19 status. Optionally also show cases by country, and a time-series chart. Uses live data from various sources, computed by [disease.sh](https://disease.sh/)
+
+<p align="center"><img width="400" src="https://i.ibb.co/7XjbyRg/covid-19-status.png?" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`showChart`** | `boolean` | _Optional_ | Also display a time-series chart showing number of recent cases
+**`showCountries`** | `boolean` |  _Optional_ | 
+**`numDays`** | `number` | _Optional_ | Specify number of days worth of history to render on the chart
+**`countries`** | `string[]` | _Optional_ | An array of countries to display, specified by their [ISO-3 codes](https://www.iso.org/obp/ui). Leave blank to show all, sorted by most cases
+**`limit`** | `number` | _Optional_ | If showing all countries, set a limit for number of results to return. Defaults to `10`, no maximum
+
+
+##### Example 
+
+```yaml
+- type: covid-stats
+```
+
+Or
+
+```yaml
+- type: covid-stats
+  options:
+    showChart: true
+    showCountries: true
+    countries:
+    - GBR
+    - USA
+    - IND
+    - RUS
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed Instance or Self-Hosted (see [disease-sh/api](https://github.com/disease-sh/api))
+- **Privacy**: ⚫ No Policy Available
+- **Conditions**: [Terms of Use](https://github.com/disease-sh/api/blob/master/TERMS.md)
 
 ---
 

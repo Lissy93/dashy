@@ -210,6 +210,7 @@ module.exports = {
   widgetApiEndpoints: {
     astronomyPictureOfTheDay: 'https://apodapi.herokuapp.com/api',
     codeStats: 'https://codestats.net/',
+    covidStats: 'https://disease.sh/v3/covid-19',
     cryptoPrices: 'https://api.coingecko.com/api/v3/coins/',
     cryptoWatchList: 'https://api.coingecko.com/api/v3/coins/markets/',
     cveVulnerabilities: 'https://www.cvedetails.com/json-feed.php',
