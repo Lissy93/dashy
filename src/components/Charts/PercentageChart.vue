@@ -1,0 +1,111 @@
+<template>
+<div>
+<div class="percentage-chart" :style="makeWrapperStyles(height)">
+  <div
+    v-for="(block, inx) in blocks" :key="inx"
+    class="inner" :style="makeDimens(block, inx)"
+    v-tooltip="block.label"
+  ></div>
+</div>
+<div class="legend">
+  <div v-for="(block, inx) in blocks" :key="inx"
+    class="legend-item" v-tooltip="`${Math.round(block.width)}%`">
+    <div class="dot" v-if="block.label" :style="makeDotColor(block)"></div>
+    <div class="txt" v-if="block.label">{{ block.label }}</div>
+  </div>
+</div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  props: {
+    showAsPercent: {
+      type: Boolean,
+      default: true,
+    },
+    values: Array,
+  },
+  data() {
+    return {
+      height: 1.5,
+      defaultColors: [
+        '#eb5cad', '#985ceb', '#5346f3', '#5c90eb', '#5cdfeb',
+        '#00CCB4', '#5ceb8d', '#afeb5c', '#eff961',
+      ],
+    };
+  },
+  computed: {
+    blocks() {
+      let startPositionSum = 0;
+      const results = [];
+      const total = this.values.reduce((prev, cur) => (prev.size || prev) + cur.size);
+      const multiplier = this.showAsPercent ? 100 / total : 1;
+      this.values.forEach((value, index) => {
+        const defaultColor = this.defaultColors[index % this.defaultColors.length];
+        results.push({
+          start: startPositionSum,
+          width: value.size * multiplier,
+          color: value.color || defaultColor,
+          label: value.label,
+        });
+        startPositionSum += (value.size * multiplier);
+      });
+      return results;
+    },
+  },
+  methods: {
+    makeDimens(block) {
+      return `margin-left: ${block.start}%; width: ${block.width}%; background: ${block.color}`;
+    },
+    makeDotColor(block) {
+      return `background: ${block.color};`;
+    },
+    makeWrapperStyles(height) {
+      return `height: ${height}rem`;
+    },
+  },
+};
+</script>
+
+<style scoped lang="scss">
+.percentage-chart {
+  width: 100%;
+  background: grey;
+  position: relative;
+  height: 2rem;
+  margin: 0.5rem auto;
+  .inner {
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    box-shadow: inset 0px -1px 2px #000000bf;
+    &:hover {
+      box-shadow: inset 0px -1px 4px #000000bf;
+    }
+  }
+}
+.legend {
+  display: flex;
+  margin-top: 0.5rem;
+  .legend-item {
+    display: flex;
+    align-items: center;
+    .dot {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 1rem;
+    }
+    .txt {
+      font-size: 0.8rem;
+      margin: 0.5rem;
+      color: var(--widget-text-color);
+      opacity: var(--dimming-factor);
+    }
+    &:hover {
+      .txt { opacity: 1; }
+    }
+  }
+}
+</style>
