@@ -17,6 +17,7 @@ const WidgetMixin = {
   data: () => ({
     progress: new ProgressBar({ color: 'var(--progress-bar)' }),
     overrideProxyChoice: false,
+    disableLoader: false, // Prevent ever showing the loader
   }),
   /* When component mounted, fetch initial data */
   mounted() {
@@ -44,8 +45,10 @@ const WidgetMixin = {
     },
     /* When a data request update starts, show loader */
     startLoading() {
-      this.$emit('loading', true);
-      this.progress.start();
+      if (!this.disableLoader) {
+        this.$emit('loading', true);
+        this.progress.start();
+      }
     },
     /* When a data request finishes, hide loader */
     finishLoading() {

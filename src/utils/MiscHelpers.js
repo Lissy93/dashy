@@ -86,7 +86,8 @@ export const showNumAsThousand = (bigNum) => {
 
 /* Capitalizes the first letter of each word within a string */
 export const capitalize = (str) => {
-  return str.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+  const words = str.replaceAll('_', ' ').replaceAll('-', ' ');
+  return words.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
 };
 
 /* Round price to appropriate number of decimals */
@@ -120,6 +121,12 @@ export const getTimeAgo = (dateTime) => {
   if (diff < 604800) return `${divide(diff, 86400)} days ago`;
   if (diff >= 604800) return `${divide(diff, 604800)} weeks ago`;
   return 'unknown';
+};
+
+/* Given the name of a CSS variable, returns it's value */
+export const getValueFromCss = (colorVar) => {
+  const cssProps = getComputedStyle(document.documentElement);
+  return cssProps.getPropertyValue(`--${colorVar}`).trim();
 };
 
 /* Given a currency code, return the corresponding unicode symbol */

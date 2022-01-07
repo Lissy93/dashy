@@ -95,6 +95,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GitHubProfile
+        v-else-if="widgetType === 'github-profile-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <GitHubTrending
         v-else-if="widgetType === 'github-trending-repos'"
         :options="widgetOptions"
@@ -102,8 +109,15 @@
         @error="handleError"
         :ref="widgetRef"
       />
-      <GitHubProfile
-        v-else-if="widgetType === 'github-profile-stats'"
+      <GlCpuCores
+        v-else-if="widgetType === 'gl-current-cores'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlCpuGauge
+        v-else-if="widgetType === 'gl-current-cpu'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -298,6 +312,8 @@ export default {
     ExchangeRates: () => import('@/components/Widgets/ExchangeRates.vue'),
     Flights: () => import('@/components/Widgets/Flights.vue'),
     GitHubTrending: () => import('@/components/Widgets/GitHubTrending.vue'),
+    GlCpuCores: () => import('@/components/Widgets/GlCpuCores.vue'),
+    GlCpuGauge: () => import('@/components/Widgets/GlCpuGauge.vue'),
     GitHubProfile: () => import('@/components/Widgets/GitHubProfile.vue'),
     HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
     IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),

@@ -40,6 +40,7 @@ export default {
     blocks() {
       let startPositionSum = 0;
       const results = [];
+      console.log(this.values);
       const total = this.values.reduce((prev, cur) => (prev.size || prev) + cur.size);
       const multiplier = this.showAsPercent ? 100 / total : 1;
       this.values.forEach((value, index) => {

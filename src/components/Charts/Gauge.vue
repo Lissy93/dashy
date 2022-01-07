@@ -8,7 +8,7 @@
       <defs>
         <!-- Inner shadow for empty part of the gauge -->
         <filter :id="`innershadow-${_uid}`">
-          <feFlood flood-color="#c7c6c6" />
+          <feFlood :flood-color="shadowColor" />
           <feComposite in2="SourceAlpha" operator="out" />
           <feGaussianBlur stdDeviation="2" result="blur" />
           <feComposite operator="atop" in2="SourceGraphic" />
@@ -192,13 +192,18 @@ export default {
         { offset: 0, color: '#20e253' },
         { offset: 30, color: '#f6f000' },
         { offset: 60, color: '#fca016' },
-        { offset: 90, color: '#f80363' },
+        { offset: 80, color: '#f80363' },
       ]),
     },
     /* Color of the base of the gauge */
     baseColor: {
       type: String,
       default: '#DDDDDD',
+    },
+    /* The inset shadow color */
+    shadowColor: {
+      type: String,
+      default: '#8787871a',
     },
     /* Scale interval, won't display any scall if 0 or `null` */
     scaleInterval: {
