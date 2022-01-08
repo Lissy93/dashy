@@ -130,6 +130,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GlMemGauge
+        v-else-if="widgetType === 'gl-current-mem'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <HealthChecks
         v-else-if="widgetType === 'health-checks'"
         :options="widgetOptions"
@@ -319,10 +326,11 @@ export default {
     ExchangeRates: () => import('@/components/Widgets/ExchangeRates.vue'),
     Flights: () => import('@/components/Widgets/Flights.vue'),
     GitHubTrending: () => import('@/components/Widgets/GitHubTrending.vue'),
+    GitHubProfile: () => import('@/components/Widgets/GitHubProfile.vue'),
     GlCpuCores: () => import('@/components/Widgets/GlCpuCores.vue'),
     GlCpuGauge: () => import('@/components/Widgets/GlCpuGauge.vue'),
     GlCpuHistory: () => import('@/components/Widgets/GlCpuHistory.vue'),
-    GitHubProfile: () => import('@/components/Widgets/GitHubProfile.vue'),
+    GlMemGauge: () => import('@/components/Widgets/GlMemGauge.vue'),
     HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
     IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),
     Jokes: () => import('@/components/Widgets/Jokes.vue'),

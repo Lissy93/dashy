@@ -90,6 +90,15 @@ export const capitalize = (str) => {
   return words.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
 };
 
+/* Given a mem size in bytes, will return it in appropriate unit */
+export const convertBytes = (bytes, decimals = 2) => {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return `${parseFloat((bytes / (k ** i)).toFixed(decimals))} ${sizes[i]}`;
+};
+
 /* Round price to appropriate number of decimals */
 export const roundPrice = (price) => {
   if (Number.isNaN(price)) return price;

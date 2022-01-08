@@ -46,6 +46,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
   - [CPU Usage History](#cpu-usage-history)
+  - [Memory Usage Current](#current-memory-usage)
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -1236,6 +1237,22 @@ Recent CPU usage history, across all cores, and displayed by user and system
   options:
     hostname: http://192.168.130.2:61208
     limit: 60
+```
+
+---
+
+### Current Memory Usage
+
+Real-time memory usage gauge, with more info visible on click
+
+<p align="center"><img width="500" src="https://i.ibb.co/rynp52J/gl-mem-usage.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-current-mem
+  options:
+    hostname: http://192.168.130.2:61208
 ```
 
 ---
