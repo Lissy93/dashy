@@ -137,6 +137,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GlMemHistory
+        v-else-if="widgetType === 'gl-mem-history'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <HealthChecks
         v-else-if="widgetType === 'health-checks'"
         :options="widgetOptions"
@@ -331,6 +338,7 @@ export default {
     GlCpuGauge: () => import('@/components/Widgets/GlCpuGauge.vue'),
     GlCpuHistory: () => import('@/components/Widgets/GlCpuHistory.vue'),
     GlMemGauge: () => import('@/components/Widgets/GlMemGauge.vue'),
+    GlMemHistory: () => import('@/components/Widgets/GlMemHistory.vue'),
     HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
     IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),
     Jokes: () => import('@/components/Widgets/Jokes.vue'),
