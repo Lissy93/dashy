@@ -1246,7 +1246,7 @@ Recent CPU usage history, across all cores, and displayed by user and system
 
 Real-time memory usage gauge, with more info visible on click
 
-<p align="center"><img width="500" src="https://i.ibb.co/rynp52J/gl-mem-usage.png" /></p>
+<p align="center"><img width="400" src="https://i.ibb.co/rynp52J/gl-mem-usage.png" /></p>
 
 ##### Example 
 
@@ -1278,6 +1278,22 @@ Recent memory usage chart
   options:
     hostname: http://localhost:61208
     limit: 80
+```
+
+---
+
+### Disk Space
+
+List connected disks, showing free / used space and other info (file system, mount point and space available)
+
+<p align="center"><img width="400" src="https://i.ibb.co/25y94bB/gl-disk-usage.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-disk-space
+  options:
+    hostname: http://192.168.130.2:61208
 ```
 
 ---

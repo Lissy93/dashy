@@ -130,6 +130,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GlDiskSpace
+        v-else-if="widgetType === 'gl-disk-space'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <GlMemGauge
         v-else-if="widgetType === 'gl-current-mem'"
         :options="widgetOptions"
@@ -337,6 +344,7 @@ export default {
     GlCpuCores: () => import('@/components/Widgets/GlCpuCores.vue'),
     GlCpuGauge: () => import('@/components/Widgets/GlCpuGauge.vue'),
     GlCpuHistory: () => import('@/components/Widgets/GlCpuHistory.vue'),
+    GlDiskSpace: () => import('@/components/Widgets/GlDiskSpace.vue'),
     GlMemGauge: () => import('@/components/Widgets/GlMemGauge.vue'),
     GlMemHistory: () => import('@/components/Widgets/GlMemHistory.vue'),
     HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
