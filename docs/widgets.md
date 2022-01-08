@@ -42,6 +42,10 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Pi Hole Queries](#pi-hole-queries)
   - [Recent Traffic](#recent-traffic)
   - [Stat Ping Statuses](#stat-ping-statuses)
+- [System Resource Monitoring](#system-resource-monitoring)
+  - [CPU Usage Current](#current-cpu-usage)
+  - [CPU Usage Per Core](#cpu-usage-per-core)
+  - [CPU Usage History](#cpu-usage-history)
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -1151,6 +1155,88 @@ Displays the current and recent uptime of your running services, via a self-host
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [GitHub - StatPing](https://github.com/statping/statping))
 - **Privacy**: _See [StatPing Docs](https://docs.statping.com/)_
+
+---
+
+## System Resource Monitoring
+
+The easiest method for displaying system info and resource usage in Dashy is with [Glances](https://nicolargo.github.io/glances/).
+
+Glances is a cross-platform monitoring tool developed by [@nicolargo](https://github.com/nicolargo). It's similar to top/htop but with a [Rest API](https://glances.readthedocs.io/en/latest/api.html) and many [data exporters](https://glances.readthedocs.io/en/latest/gw/index.html) available. Under the hood, it uses [psutil](https://github.com/giampaolo/psutil) for retrieving system info.
+
+If you don't already have it installed, either follow the [Installation Guide](https://github.com/nicolargo/glances/blob/master/README.rst) for your system, or setup [with Docker](https://glances.readthedocs.io/en/latest/docker.html), or use the one-line install script: `curl -L https://bit.ly/glances | /bin/bash`. You'll need to run Glances as a web server, using the `-w` option, see the [command reference docs](https://glances.readthedocs.io/en/latest/cmds.html) for more info.
+
+
+##### Options
+
+All Glance's based widgets require a `hostname`
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Glances instance, without a trailing slash
+
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - Nicolargo/Glances](https://github.com/nicolargo/glances))
+- **Privacy**: ⚫ No Policy Available
+
+---
+
+### Current CPU Usage
+
+Live-updating current CPU usage, as a combined average across alll cores
+
+<p align="center"><img width="400" src="https://i.ibb.co/qkLgxLp/gl-cpu-usage.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-current-cpu
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### CPU Usage Per Core
+
+Live-updating CPU usage breakdown per core
+
+<p align="center"><img width="400" src="https://i.ibb.co/512MYhT/gl-cpu-cores.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-current-cores
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### CPU Usage History
+
+Recent CPU usage history, across all cores, and displayed by user and system
+
+<p align="center"><img width="500" src="https://i.ibb.co/zs8BDzR/gl-cpu-history.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`limit`** | `number` |  _Optional_ | Limit the number of results returned, rendering more data points will take longer to load. Defaults to `100`
+
+##### Example 
+
+```yaml
+- type: gl-cpu-history
+  options:
+    hostname: http://192.168.130.2:61208
+    limit: 60
+```
 
 ---
 

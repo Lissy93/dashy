@@ -123,6 +123,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GlCpuHistory
+        v-else-if="widgetType === 'gl-cpu-history'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <HealthChecks
         v-else-if="widgetType === 'health-checks'"
         :options="widgetOptions"
@@ -314,6 +321,7 @@ export default {
     GitHubTrending: () => import('@/components/Widgets/GitHubTrending.vue'),
     GlCpuCores: () => import('@/components/Widgets/GlCpuCores.vue'),
     GlCpuGauge: () => import('@/components/Widgets/GlCpuGauge.vue'),
+    GlCpuHistory: () => import('@/components/Widgets/GlCpuHistory.vue'),
     GitHubProfile: () => import('@/components/Widgets/GitHubProfile.vue'),
     HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
     IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),
