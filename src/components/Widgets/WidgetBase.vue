@@ -346,7 +346,6 @@ export default {
     loading: false,
     error: false,
     errorMsg: null,
-    updater: null, // Stores interval
   }),
   computed: {
     /* Returns the widget type, shows error if not specified */
@@ -361,26 +360,12 @@ export default {
     widgetOptions() {
       const options = this.widget.options || {};
       const useProxy = !!this.widget.useProxy;
-      const updateInterval = this.widget.updateInterval || 0;
+      const updateInterval = this.widget.updateInterval || null;
       return { useProxy, updateInterval, ...options };
     },
     /* A unique string to reference the widget by */
     widgetRef() {
       return `widget-${this.widgetType}-${this.index}`;
-    },
-    /* Returns either `false` or a number in ms to continuously update widget data */
-    updateInterval() {
-      const usersInterval = this.widget.updateInterval;
-      if (!usersInterval) return 0;
-      // If set to `true`, then default to 30 seconds
-      if (typeof usersInterval === 'boolean') return 30 * 1000;
-      // If set to a number, and within valid range, return user choice
-      if (typeof usersInterval === 'number'
-        && usersInterval >= 10
-        && usersInterval < 7200) {
-        return usersInterval * 1000;
-      }
-      return 0;
     },
   },
   methods: {
@@ -401,17 +386,6 @@ export default {
     setLoaderState(loading) {
       this.loading = loading;
     },
-  },
-  mounted() {
-    // If continuous updates enabled, create interval
-    if (this.updateInterval) {
-      this.updater = setInterval(() => {
-        this.update();
-      }, this.updateInterval);
-    }
-  },
-  beforeDestroy() {
-    clearInterval(this.updater);
   },
 };
 </script>

@@ -17,11 +17,22 @@ const WidgetMixin = {
   data: () => ({
     progress: new ProgressBar({ color: 'var(--progress-bar)' }),
     overrideProxyChoice: false,
+    overrideUpdateInterval: null,
     disableLoader: false, // Prevent ever showing the loader
+    updater: null, // Stores interval
   }),
   /* When component mounted, fetch initial data */
   mounted() {
     this.fetchData();
+    if (this.updateInterval) {
+      this.continuousUpdates();
+      this.disableLoader = true;
+    }
+  },
+  beforeDestroy() {
+    if (this.updater) {
+      clearInterval(this.updater);
+    }
   },
   computed: {
     proxyReqEndpoint() {
@@ -31,12 +42,33 @@ const WidgetMixin = {
     useProxy() {
       return this.options.useProxy || this.overrideProxyChoice;
     },
+    /* Returns either a number in ms to continuously update widget data. Or 0 for no updates */
+    updateInterval() {
+      const usersInterval = this.options.updateInterval;
+      if (usersInterval === null && this.overrideUpdateInterval) {
+        return this.overrideUpdateInterval * 1000;
+      }
+      if (!usersInterval) return 0;
+      // If set to `true`, then default to 30 seconds
+      if (typeof usersInterval === 'boolean') return 30 * 1000;
+      // If set to a number, and within valid range, return user choice
+      if (typeof usersInterval === 'number'
+        && usersInterval >= 2
+        && usersInterval <= 7200) {
+        return usersInterval * 1000;
+      }
+      return 0;
+    },
   },
   methods: {
     /* Re-fetches external data, called by parent. Usually overridden by widget */
     update() {
       this.startLoading();
       this.fetchData();
+    },
+    /* If continuous updates enabled, create interval */
+    continuousUpdates() {
+      this.updater = setInterval(() => { this.update(); }, this.updateInterval);
     },
     /* Called when an error occurs. Logs to handler, and passes to parent component */
     error(msg, stackTrace) {
