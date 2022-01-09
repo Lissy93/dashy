@@ -508,6 +508,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Kieren Connell</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/ratty222">
+            <img src="https://avatars.githubusercontent.com/u/92832598?v=4" width="80;" alt="ratty222"/>
+            <br />
+            <sub><b>ratty222</b></sub>
+        </a>
     </td></tr>
 </table>
 <!-- readme: sponsors -end -->
