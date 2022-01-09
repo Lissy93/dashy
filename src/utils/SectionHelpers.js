@@ -8,7 +8,8 @@ export const shouldBeVisible = (routeName) => !hideFurnitureOn.includes(routeNam
 /* Based on section title, item name and index, return a string value for ID */
 const makeItemId = (sectionStr, itemStr, index) => {
   const charSum = sectionStr.split('').map((a) => a.charCodeAt(0)).reduce((x, y) => x + y);
-  const itemTitleStr = itemStr.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
+  const newItemStr = itemStr || `unknown_${Math.random()}`;
+  const itemTitleStr = newItemStr.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
   return `${index}_${charSum}_${itemTitleStr}`;
 };
 
