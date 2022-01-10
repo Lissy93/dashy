@@ -47,12 +47,12 @@ export default {
     },
     startDate() {
       const now = new Date();
-      return `${now.getDate()}-${now.getMonth()}-${now.getFullYear()}`;
+      return `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
     },
     endDate() {
       const now = new Date();
       const then = new Date((now.setMonth(now.getMonth() + this.monthsToShow)));
-      return `${then.getDate()}-${then.getMonth()}-${then.getFullYear()}`;
+      return `${then.getDate()}-${then.getMonth() + 1}-${then.getFullYear()}`;
     },
     endpoint() {
       return `${widgetApiEndpoints.holidays}`
