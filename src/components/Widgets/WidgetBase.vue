@@ -130,6 +130,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GlDiskIo
+        v-else-if="widgetType === 'gl-disk-io'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <GlDiskSpace
         v-else-if="widgetType === 'gl-disk-space'"
         :options="widgetOptions"
@@ -344,6 +351,7 @@ export default {
     GlCpuCores: () => import('@/components/Widgets/GlCpuCores.vue'),
     GlCpuGauge: () => import('@/components/Widgets/GlCpuGauge.vue'),
     GlCpuHistory: () => import('@/components/Widgets/GlCpuHistory.vue'),
+    GlDiskIo: () => import('@/components/Widgets/GlDiskIo.vue'),
     GlDiskSpace: () => import('@/components/Widgets/GlDiskSpace.vue'),
     GlMemGauge: () => import('@/components/Widgets/GlMemGauge.vue'),
     GlMemHistory: () => import('@/components/Widgets/GlMemHistory.vue'),

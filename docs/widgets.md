@@ -48,6 +48,8 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [CPU Usage History](#cpu-usage-history)
   - [Memory Usage Current](#current-memory-usage)
   - [Memory Usage History](#memory-usage-history)
+  - [Disk Space](#disk-space)
+  - [Disk IO](#disk-io)
 - [Dynamic Widgets](#dynamic-widgets)
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -1292,6 +1294,22 @@ List connected disks, showing free / used space and other info (file system, mou
 
 ```yaml
 - type: gl-disk-space
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### Disk IO
+
+Shows real-time read and write speeds and operations per sec for each disk 
+
+<p align="center"><img width="400" src="https://i.ibb.co/JdgjCjG/gl-disk-io.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-disk-io
   options:
     hostname: http://192.168.130.2:61208
 ```
