@@ -15,9 +15,9 @@ export default {
   mixins: [WidgetMixin],
   data() {
     return {
-      timeUpdateInterval: null, // Stores setInterval function
       time: null, // Current time string
       date: null, // Current date string
+      timeUpdateInterval: null, // Stores setInterval function
     };
   },
   computed: {
@@ -61,16 +61,11 @@ export default {
   created() {
     // Set initial date and time
     this.update();
-    // Update the date every hour, and the time each second
-    this.timeUpdateInterval = setInterval(() => {
-      this.setTime();
-      const now = new Date();
-      if (now.getMinutes() === 0 && now.getSeconds() === 0) {
-        this.setDate();
-      }
-    }, 1000);
+    // Update the time and date every second (1000 ms)
+    this.timeUpdateInterval = setInterval(this.update, 1000);
   },
   beforeDestroy() {
+    // Remove the clock interval listener
     clearInterval(this.timeUpdateInterval);
   },
 };
@@ -102,6 +97,7 @@ export default {
     font-size: 4rem;
     padding: 0.5rem;
     text-align: center;
+    font-variant-numeric: tabular-nums;
     font-family: Digital, var(--font-monospace);
   }
 }
