@@ -1,6 +1,6 @@
 # *Dashy Showcase* 🌟
 
-| 💗 Do you use Dashy? Got a sweet dashboard? Submit it to the showcase! 👉 [See How](#submitting-your-dashboard) |
+| 💗 Got a sweet dashboard? Submit it to the showcase! 👉 [See How](#submitting-your-dashboard) |
 |-|
 
 ### Home Lab 2.0
@@ -10,7 +10,7 @@
 ---
 
 ### Ratty222
-> By [@ratty222](https://github.com/ratty222) ([#384](https://github.com/Lissy93/dashy/discussions/384))
+> By [@ratty222](https://github.com/ratty222) <sup>[#384](https://github.com/Lissy93/dashy/discussions/384)</sup>
 
 ![screenshot-ratty222-dashy](https://user-images.githubusercontent.com/1862727/147582551-4c655d37-8bcc-4f95-ab41-164a9d0d6a07.png)
 
@@ -38,6 +38,14 @@
 
 ---
 
+### The Private Dashboard
+
+> By [@DylanBeMe](https://github.com/DylanBeMe) <sup>[#419](https://github.com/Lissy93/dashy/issues/419)</sup>
+
+![screenshot-evo-dashboard](https://i.ibb.co/hKS483T/private-dashboard-Dylan-Be-Me.png)
+
+---
+
 ### NAS Home Dashboard
 > By [@cerealconyogurt](https://github.com/cerealconyogurt)
 
@@ -51,6 +59,8 @@
 > A dashboard I made to manage all project development links from one place. View demo at [live.dashy.to](https://live.dashy.to/).
 
 ![screenshot-dashy-live](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/10-dashy-live.png)
+
+---
 
 ### CFT Toolbox
 
@@ -91,14 +101,14 @@
 
 > Dashy, is the most complete dashboard I ever tried, has all the features, and it sets itself apart from the rest. It is my default homepage now. I am thankful to the developer @Lissy93 for sharing such a wonderful creation.
 
-[![screenshot-12-skoogee-homelab-3](https://i.ibb.co/F5yBTsT/12-skoogee-homelab-3.png)](https://ibb.co/album/ynSwzm)
+[![screenshot-12-skoogee-homelab-3](https://i.ibb.co/F5yBTsT/12-skoogee-homelab-3.png?)](https://ibb.co/album/ynSwzm)
 
 ---
 
 ### Ground Control
 > By [@dtctek](https://github.com/dtctek)
 
-![screenshot-ground-control](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/7-ground-control-dtctek.png)
+![screenshot-ground-control](https://user-images.githubusercontent.com/1862727/149821995-e9b41dab-186c-42e6-b5b3-e233259b241d.png)
 
 ---
 
@@ -138,9 +148,9 @@ If you're submitting a pull request, please use a format similar to this:
 
 > Submitted by [@username](https://github.com/user) (optional)
 
-![dashboard-screenshot](/docs/showcase/screenshot-name.jpg) (required)
-
 [An optional text description, or any interesting details] (optional)
+
+![dashboard-screenshot](https://example.com/url-to-screenshot.png) (required)
 
 ---
 
