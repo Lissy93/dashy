@@ -53,9 +53,6 @@ export default {
       this.disks = diskData;
     },
   },
-  created() {
-    this.overrideUpdateInterval = 2;
-  },
   mounted() {
     this.background = getValueFromCss('widget-accent-color');
   },
