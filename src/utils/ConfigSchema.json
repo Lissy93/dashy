@@ -84,7 +84,8 @@
             "parent",
             "top",
             "modal",
-            "workspace"
+            "workspace",
+            "clipboard"
           ],
           "default": "newtab",
           "description": "The default opening method for items. Only used if no item.target is specified"
@@ -624,7 +625,6 @@
                     "title": "Show for Groups",
                     "type": "array",
                     "description": "Section will be hidden from all users except those with one or more of these groups",
-
                     "items": {
                       "type": "string",
                       "description": "Name of the group that will be able to view this section"
@@ -651,7 +651,6 @@
                     "title": "Hide for Groups",
                     "type": "array",
                     "description": "Section will be hidden from users with any of these groups",
-
                     "items": {
                       "type": "string",
                       "description": "name of the group that will not be able to view this section"
@@ -712,7 +711,8 @@
                     "parent",
                     "top",
                     "modal",
-                    "workspace"
+                    "workspace",
+                    "clipboard"
                   ],
                   "default": "newtab",
                   "description": "Where / how the item is opened when it's clicked"
