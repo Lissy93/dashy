@@ -513,7 +513,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
         <a href="https://github.com/ratty222">
             <img src="https://avatars.githubusercontent.com/u/92832598?v=4" width="80;" alt="ratty222"/>
             <br />
-            <sub><b>ratty222</b></sub>
+            <sub><b>Ratty222</b></sub>
         </a>
     </td></tr>
 </table>
