@@ -36,7 +36,7 @@
         <a href="https://github.com/ratty222">
             <img src="https://avatars.githubusercontent.com/u/92832598?v=4" width="80;" alt="ratty222"/>
             <br />
-            <sub><b>ratty222</b></sub>
+            <sub><b>Ratty222</b></sub>
         </a>
     </td></tr>
 </table>
@@ -180,6 +180,13 @@
             <img src="https://avatars.githubusercontent.com/u/88572557?v=4" width="80;" alt="royshreyaaa"/>
             <br />
             <sub><b>Shreya Roy</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/XertDev">
+            <img src="https://avatars.githubusercontent.com/u/16572811?v=4" width="80;" alt="XertDev"/>
+            <br />
+            <sub><b>Xert</b></sub>
         </a>
     </td>
     <td align="center">
