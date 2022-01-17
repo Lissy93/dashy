@@ -23,6 +23,10 @@
           <WorkspaceOpenIcon />
           <span>{{ $t('context-menus.item.workspace') }}</span>
         </li>
+        <li @click="launch('clipboard')">
+          <ClipboardOpenIcon />
+          <span>{{ $t('context-menus.item.clipboard') }}</span>
+        </li>
       </ul>
       <!-- Edit Options -->
       <ul class="menu-section">
@@ -55,6 +59,7 @@ import SameTabOpenIcon from '@/assets/interface-icons/open-current-tab.svg';
 import NewTabOpenIcon from '@/assets/interface-icons/open-new-tab.svg';
 import IframeOpenIcon from '@/assets/interface-icons/open-iframe.svg';
 import WorkspaceOpenIcon from '@/assets/interface-icons/open-workspace.svg';
+import ClipboardOpenIcon from '@/assets/interface-icons/open-clipboard.svg';
 
 export default {
   name: 'ContextMenu',
@@ -66,6 +71,7 @@ export default {
     NewTabOpenIcon,
     IframeOpenIcon,
     WorkspaceOpenIcon,
+    ClipboardOpenIcon,
   },
   props: {
     posX: Number, // The X coordinate for positioning

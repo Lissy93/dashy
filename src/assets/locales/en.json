@@ -185,10 +185,12 @@
       "newtab": "New Tab",
       "modal": "Pop-Up Modal",
       "workspace": "Workspace View",
+      "clipboard": "Copy to Clipboard",
       "options-section-title": "Options",
       "edit-item": "Edit",
       "move-item": "Copy or Move",
-      "remove-item": "Remove"
+      "remove-item": "Remove",
+      "copied-toast": "URL has been copied to clipboard"
     },
     "section": {
       "open-section": "Open Section",
