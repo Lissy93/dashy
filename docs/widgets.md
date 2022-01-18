@@ -7,7 +7,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
 > Adding / editing widgets through the UI isn't yet supported, you will need to do this in the YAML config file.
 
 ##### Contents
-- [General Widgets](#general-widgets)
+- **[General Widgets](#general-widgets)**
   - [Clock](#clock)
   - [Weather](#weather)
   - [Weather Forecast](#weather-forecast)
@@ -32,7 +32,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [GitHub Trending](#github-trending)
   - [GitHub Profile Stats](#github-profile-stats)
   - [Public IP Address](#public-ip)
-- [Self-Hosted Services Widgets](#self-hosted-services-widgets)
+- **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
   - [CPU History](#cpu-history-netdata)
@@ -42,7 +42,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Pi Hole Queries](#pi-hole-queries)
   - [Recent Traffic](#recent-traffic)
   - [Stat Ping Statuses](#stat-ping-statuses)
-- [System Resource Monitoring](#system-resource-monitoring)
+- **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
   - [CPU Usage History](#cpu-usage-history)
@@ -50,16 +50,20 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Memory Usage History](#memory-usage-history)
   - [Disk Space](#disk-space)
   - [Disk IO](#disk-io)
-- [Dynamic Widgets](#dynamic-widgets)
+  - [System Load](#system-load)
+  - [System Load History](#system-load-history)
+- **[Dynamic Widgets](#dynamic-widgets)**
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
   - [API Response](#api-response)
   - [Prometheus Data](#prometheus-data)
   - [Data Feed](#data-feed)
-- [Usage & Customizations](#usage--customizations)
+- **[Usage & Customizations](#usage--customizations)**
   - [Widget Usage Guide](#widget-usage-guide)
   - [Continuous Updates](#continuous-updates)
+  - [Proxying Requests](#proxying-requests)
   - [Custom CSS Styling](#widget-styling)
+  - [Customizing Charts](#customizing-charts)
   - [Language Translations](#language-translations)
   - [Widget UI Options](#widget-ui-options)
   - [Building a Widget](#build-your-own-widget)
@@ -1168,7 +1172,9 @@ The easiest method for displaying system info and resource usage in Dashy is wit
 
 Glances is a cross-platform monitoring tool developed by [@nicolargo](https://github.com/nicolargo). It's similar to top/htop but with a [Rest API](https://glances.readthedocs.io/en/latest/api.html) and many [data exporters](https://glances.readthedocs.io/en/latest/gw/index.html) available. Under the hood, it uses [psutil](https://github.com/giampaolo/psutil) for retrieving system info.
 
-If you don't already have it installed, either follow the [Installation Guide](https://github.com/nicolargo/glances/blob/master/README.rst) for your system, or setup [with Docker](https://glances.readthedocs.io/en/latest/docker.html), or use the one-line install script: `curl -L https://bit.ly/glances | /bin/bash`. You'll need to run Glances as a web server, using the `-w` option, see the [command reference docs](https://glances.readthedocs.io/en/latest/cmds.html) for more info.
+If you don't already have it installed, either follow the [Installation Guide](https://github.com/nicolargo/glances/blob/master/README.rst) for your system, or setup [with Docker](https://glances.readthedocs.io/en/latest/docker.html), or use the one-line install script: `curl -L https://bit.ly/glances | /bin/bash`.
+
+Glances can be launched with the `glances` command. You'll need to run it in web server mode, using the `-w` option for the API to be reachable. If you don't plan on using the Web UI, then you can disable it using `--disable-webui`. See the [command reference docs](https://glances.readthedocs.io/en/latest/cmds.html) for more info.
 
 
 ##### Options
@@ -1310,6 +1316,38 @@ Shows real-time read and write speeds and operations per sec for each disk
 
 ```yaml
 - type: gl-disk-io
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### System Load
+
+Shows the number of processes waiting in the run-queue, averaged across all cores. Displays for past 5, 10 and 15 minutes
+
+<p align="center"><img width="400" src="https://i.ibb.co/090FfNy/gl-system-load.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-system-load
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### System Load History
+
+Shows recent historical system load, calculated from the number of processes waiting in the run-queue, in 1, 5 and 15 minute intervals, and averaged across all cores. Optionally specify `limit` to set number of results returned, defaults to `500`, max `100000`, but the higher the number the longer the load and render times will be.
+
+<p align="center"><img width="500" src="https://i.ibb.co/C2rGMLg/system-load-history.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-load-history
   options:
     hostname: http://192.168.130.2:61208
 ```
@@ -1465,19 +1503,6 @@ Note that if you have many widgets, and set them to continuously update frequent
 
 ---
 
-### Widget Styling
-
-Like elsewhere in Dashy, all colours can be easily modified with CSS variables. 
-
-Widgets use the following color variables, which can be overridden if desired:
-- `--widget-text-color` - Text color, defaults to `--primary`
-- `--widget-background-color` - Background color, defaults to `--background-darker`
-- `--widget-accent-color` - Accent color, defaults to `--background`
-
-For more info on how to apply custom variables, see the [Theming Docs](/docs/theming.md#setting-custom-css-in-the-ui)
-
----
-
 ### Proxying Requests
 
 If a widget fails to make a data request, and the console shows a CORS error, this means the server is blocking client-side requests.
@@ -1499,6 +1524,33 @@ Alternativley, and more securley, you can set the auth headers on your service t
 ```
 Access-Control-Allow-Origin: https://location-of-dashy/
 Vary: Origin
+```
+
+---
+
+### Widget Styling
+
+Like elsewhere in Dashy, all colours can be easily modified with CSS variables. 
+
+Widgets use the following color variables, which can be overridden if desired:
+- `--widget-text-color` - Text color, defaults to `--primary`
+- `--widget-background-color` - Background color, defaults to `--background-darker`
+- `--widget-accent-color` - Accent color, defaults to `--background`
+
+For more info on how to apply custom variables, see the [Theming Docs](/docs/theming.md#setting-custom-css-in-the-ui)
+
+---
+
+### Customizing Charts
+
+For widgets that contain charts, you can set an array of colors under `chartColors`. To specify the chart height, set `chartHeight` to an integer (in `px`), defaults to `300`. For example:
+
+```yaml
+- type: gl-load-history
+  options:
+    hostname: http://192.168.130.2:61208
+    chartColors: ['#9b5de5', '#f15bb5', '#00bbf9', '#00f5d4']
+    chartHeight: 450
 ```
 
 ---
@@ -1531,7 +1583,7 @@ Widgets are built in a modular fashion, making it easy for anyone to create thei
 
 For a full tutorial on creating your own widget, you can follow [this guide](/docs/development-guides.md#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example. 
 
-Alternatively, for displaying simple data, you could also just use the either the [iframe](#iframe-widget), [embed](#html-embedded-widget), [Data Feed](#data-feed) or [API response](#api-response) widgets.
+Alternatively, for displaying simple data, you could also just use the either the [iframe](#iframe-widget), [embed](#html-embedded-widget), [data feed](#data-feed) or [API response](#api-response) widgets.
 
 ---
 

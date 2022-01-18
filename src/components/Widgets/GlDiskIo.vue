@@ -4,13 +4,13 @@
     <p class="disk-name">{{ disk.name }}</p>
     <!-- Read Data -->
     <div class="io-data read" v-tooltip="disk.readC ? `Count: ${disk.readC}` : ''">
-      <span class="lbl">Read:</span>
+      <span class="lbl">{{ $t('widgets.glances.disk-io-read') }}:</span>
       <span class="val">{{ disk.readB | formatSize }}</span>
       <span :class="`direction ${disk.readD}`">{{ disk.readD | getArrow }}</span>
     </div>
     <!-- Write Data -->
     <div class="io-data write" v-tooltip="disk.writeC ? `Count: ${disk.writeC}` : ''">
-      <span class="lbl">Write:</span>
+      <span class="lbl">{{ $t('widgets.glances.disk-io-write') }}:</span>
       <span class="val">{{ disk.writeB | formatSize }}</span>
       <span :class="`direction ${disk.writeD}`">{{ disk.writeD | getArrow }}</span>
     </div>

@@ -144,6 +144,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GlLoadHistory
+        v-else-if="widgetType === 'gl-load-history'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <GlMemGauge
         v-else-if="widgetType === 'gl-current-mem'"
         :options="widgetOptions"
@@ -153,6 +160,13 @@
       />
       <GlMemHistory
         v-else-if="widgetType === 'gl-mem-history'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlSystemLoad
+        v-else-if="widgetType === 'gl-system-load'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -353,8 +367,10 @@ export default {
     GlCpuHistory: () => import('@/components/Widgets/GlCpuHistory.vue'),
     GlDiskIo: () => import('@/components/Widgets/GlDiskIo.vue'),
     GlDiskSpace: () => import('@/components/Widgets/GlDiskSpace.vue'),
+    GlLoadHistory: () => import('@/components/Widgets/GlLoadHistory.vue'),
     GlMemGauge: () => import('@/components/Widgets/GlMemGauge.vue'),
     GlMemHistory: () => import('@/components/Widgets/GlMemHistory.vue'),
+    GlSystemLoad: () => import('@/components/Widgets/GlSystemLoad.vue'),
     HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
     IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),
     Jokes: () => import('@/components/Widgets/Jokes.vue'),
