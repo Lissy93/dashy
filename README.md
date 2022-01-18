@@ -328,7 +328,7 @@ For apps that you use regularly, you can set a custom keybinding. Use the `hotke
 
 You can also add custom tags to a given item to make finding them based on keywords easier. For example, in the following example, searching for 'Movies' will show 'Plex'
 
-"`yaml
+```yaml
   items:
   - title: Plex
     hotkey: 8
