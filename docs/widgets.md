@@ -1196,6 +1196,9 @@ All Glance's based widgets require a `hostname`
 - **Host**: Self-Hosted (see [GitHub - Nicolargo/Glances](https://github.com/nicolargo/glances))
 - **Privacy**: ⚫ No Policy Available
 
+##### Screenshot
+[![example-screenshot](https://i.ibb.co/xfK6BGb/system-monitor-board.png)](https://ibb.co/pR6dMZT)
+
 ---
 
 ### Current CPU Usage
