@@ -440,7 +440,8 @@ export default {
     widgetOptions() {
       const options = this.widget.options || {};
       const useProxy = !!this.widget.useProxy;
-      const updateInterval = this.widget.updateInterval || null;
+      const updateInterval = this.widget.updateInterval !== undefined
+        ? this.widget.updateInterval : null;
       return { useProxy, updateInterval, ...options };
     },
     /* A unique string to reference the widget by */
