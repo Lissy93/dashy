@@ -172,6 +172,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GlNetworkInterfaces
+        v-else-if="widgetType === 'gl-network-interfaces'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <GlSystemLoad
         v-else-if="widgetType === 'gl-system-load'"
         :options="widgetOptions"
@@ -378,6 +385,7 @@ export default {
     GlLoadHistory: () => import('@/components/Widgets/GlLoadHistory.vue'),
     GlMemGauge: () => import('@/components/Widgets/GlMemGauge.vue'),
     GlMemHistory: () => import('@/components/Widgets/GlMemHistory.vue'),
+    GlNetworkInterfaces: () => import('@/components/Widgets/GlNetworkInterfaces.vue'),
     GlSystemLoad: () => import('@/components/Widgets/GlSystemLoad.vue'),
     HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
     IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),
