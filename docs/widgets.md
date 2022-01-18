@@ -52,6 +52,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Disk IO](#disk-io)
   - [System Load](#system-load)
   - [System Load History](#system-load-history)
+  - [Resource Usage Alerts](#resource-usage-alerts)
 - **[Dynamic Widgets](#dynamic-widgets)**
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -1348,6 +1349,22 @@ Shows recent historical system load, calculated from the number of processes wai
 
 ```yaml
 - type: gl-load-history
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### Resource Usage Alerts
+
+Lists recent high resource usage alerts (e.g. CPU, mem, IO, load, temp)
+
+<p align="center"><img width="500" src="https://i.ibb.co/w01NX5R/gl-alerts.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-alerts
   options:
     hostname: http://192.168.130.2:61208
 ```

@@ -109,6 +109,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GlAlerts
+        v-else-if="widgetType === 'gl-alerts'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <GlCpuCores
         v-else-if="widgetType === 'gl-current-cores'"
         :options="widgetOptions"
@@ -362,6 +369,7 @@ export default {
     Flights: () => import('@/components/Widgets/Flights.vue'),
     GitHubTrending: () => import('@/components/Widgets/GitHubTrending.vue'),
     GitHubProfile: () => import('@/components/Widgets/GitHubProfile.vue'),
+    GlAlerts: () => import('@/components/Widgets/GlAlerts.vue'),
     GlCpuCores: () => import('@/components/Widgets/GlCpuCores.vue'),
     GlCpuGauge: () => import('@/components/Widgets/GlCpuGauge.vue'),
     GlCpuHistory: () => import('@/components/Widgets/GlCpuHistory.vue'),
