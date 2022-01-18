@@ -53,6 +53,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [System Load](#system-load)
   - [System Load History](#system-load-history)
   - [Network Interfaces](#network-interfaces)
+  - [Network Traffic](#network-traffic)
   - [Resource Usage Alerts](#resource-usage-alerts)
 - **[Dynamic Widgets](#dynamic-widgets)**
   - [Iframe Widget](#iframe-widget)
@@ -1185,7 +1186,7 @@ All Glance's based widgets require a `hostname`
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`hostname`** | `string` |  Required | The URL to your Glances instance, without a trailing slash
+**`hostname`** | `string` |  Required | The URL to your Glances instance (without a trailing slash)
 
 
 ##### Info
@@ -1368,6 +1369,23 @@ Lists visible network interfaces, including real-time upload/ download stats
 - type: gl-network-interfaces
   options:
     hostname: http://192.168.130.2:61208
+```
+
+---
+
+### Network Traffic
+
+Shows amount of data recently uploaded/ downloaded across all network interfaces. Optionally set the `limit` option to specify number historical of data points to return
+
+<p align="center"><img width="400" src="https://i.ibb.co/12RN6KT/gl-network-traffic.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-network-traffic
+  options:
+    hostname: http://192.168.130.2:61208
+    limit: 500
 ```
 
 ---
@@ -1577,7 +1595,9 @@ For more info on how to apply custom variables, see the [Theming Docs](/docs/the
 
 ### Customizing Charts
 
-For widgets that contain charts, you can set an array of colors under `chartColors`. To specify the chart height, set `chartHeight` to an integer (in `px`), defaults to `300`. For example:
+For widgets that contain charts, you can set an array of colors under `chartColors`.
+To specify the chart height, set `chartHeight` to an integer (in `px`), defaults to `300`.
+For example:
 
 ```yaml
 - type: gl-load-history
@@ -1601,13 +1621,13 @@ For more info about multi-language support, see the [Internationalization Docs](
 
 ### Widget UI Options
 
-Widgets can be opened in full-page view, by clicking the Arrow icon (top-right). The URL in your address bar will also update, and visiting that web address will take you straight to the selected widget.
+Widgets can be opened in full-page view, by clicking the Arrow icon (top-right). The URL in your address bar will also update, and visiting that web address directly will take you straight to that widget.
 
 You can reload the data of any widget, by clicking the Refresh Data icon (also in top-right). This will only affect the widget where the action was triggered from.
 
-All [config options](/docs/configuring.md#section) that can be applied to sections, can also be applied to widget sections. For example, to make a widget span multiple columns, set `displayData.cols: 2` within the parent section. You can collapse a widget (by clicking the section title), and collapse state will be saved locally.
+All [config options](/docs/configuring.md#section) that can be applied to sections, can also be applied to widget sections. For example, to make a widget section double the width, set `displayData.cols: 2` within the parent section. You can collapse a widget (by clicking the section title), and collapse state will be saved locally.
 
-Widgets cannot currently be edited through the UI. This feature is in development, and will be released soon.  In the meantime, you can either use the JSON config editor, or use VS Code or SSH into your box to edit the conf.yml file directly.
+Widgets cannot currently be edited through the UI. This feature is in development, and will be released soon.  In the meantime, you can either use the JSON config editor, or use [VS Code Server](https://github.com/coder/code-server), or just SSH into your box and edit the conf.yml file directly.
 
 ---
 
