@@ -112,6 +112,13 @@
 
 ---
 
+### System Monitor
+> An aggregated board for monitoring system resource usage from a single view
+
+![screenshot-monitor](https://i.ibb.co/xfK6BGb/system-monitor-board.png)
+
+---
+
 ### Crypto Dash	
 > Example usage of widgets to monitor cryptocurrencies news, prices and data. Config is [available here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10#file-example-8-dashy-crypto-widgets-conf-yml)	
 
