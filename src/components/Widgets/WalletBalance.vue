@@ -96,7 +96,7 @@ export default {
         final: formatAmount(data.final_balance),
         totalSent: formatAmount(data.total_sent),
         totalReceived: formatAmount(data.total_received),
-        lastTransaction: data.txrefs ? getTimeAgo(data.txrefs[0].confirmed) : 'Never',
+        lastTransaction: data.txrefs[0] ? getTimeAgo(data.txrefs[0].confirmed) : 'Never',
       };
       const transactions = [];
       data.txrefs.forEach((transaction) => {

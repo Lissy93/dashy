@@ -8,7 +8,7 @@
   <div class="percentage-chart" :style="makeWrapperStyles(height)">
     <div
       v-for="(block, inx) in blocks" :key="inx"
-      class="inner" :style="makeDimens(block, inx)"
+      class="inner" :style="makeDimens(block)"
       v-tooltip="`${block.label} - ${block.width}%`"
     ></div>
   </div>
