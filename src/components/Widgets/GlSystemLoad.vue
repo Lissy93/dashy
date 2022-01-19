@@ -8,23 +8,17 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
+import GlancesMixin from '@/mixins/GlancesMixin';
 import ChartingMixin from '@/mixins/ChartingMixin';
 
 export default {
-  mixins: [WidgetMixin, ChartingMixin],
+  mixins: [WidgetMixin, GlancesMixin, ChartingMixin],
   computed: {
-    hostname() {
-      if (!this.options.hostname) this.error('You must specify a \'hostname\' for Glaces');
-      return this.options.hostname;
-    },
     endpoint() {
-      return `${this.hostname}/api/3/load`;
+      return this.makeGlancesUrl('load');
     },
   },
   methods: {
-    fetchData() {
-      this.makeRequest(this.endpoint).then(this.processData);
-    },
     processData(loadData) {
       const chartData = {
         labels: ['1 Min', '5 Mins', '15 Mins'],

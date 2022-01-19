@@ -6,31 +6,25 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
+import GlancesMixin from '@/mixins/GlancesMixin';
 import ChartingMixin from '@/mixins/ChartingMixin';
 import { timestampToTime, getTimeAgo } from '@/utils/MiscHelpers';
 
 export default {
-  mixins: [WidgetMixin, ChartingMixin],
+  mixins: [WidgetMixin, GlancesMixin, ChartingMixin],
   components: {},
   data() {
     return {};
   },
   computed: {
-    hostname() {
-      if (!this.options.hostname) this.error('You must specify a \'hostname\' for Glaces');
-      return this.options.hostname;
-    },
     limit() {
       return this.options.limit || 100;
     },
     endpoint() {
-      return `${this.hostname}/api/3/cpu/history/${this.limit}`;
+      return this.makeGlancesUrl(`cpu/history/${this.limit}`);
     },
   },
   methods: {
-    fetchData() {
-      this.makeRequest(this.endpoint).then(this.processData);
-    },
     processData(cpuData) {
       const { system, user } = cpuData;
       const labels = [];

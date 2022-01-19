@@ -20,10 +20,11 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
+import GlancesMixin from '@/mixins/GlancesMixin';
 import { convertBytes } from '@/utils/MiscHelpers';
 
 export default {
-  mixins: [WidgetMixin],
+  mixins: [WidgetMixin, GlancesMixin],
   data() {
     return {
       disks: null,
@@ -31,12 +32,8 @@ export default {
     };
   },
   computed: {
-    hostname() {
-      if (!this.options.hostname) this.error('You must specify a \'hostname\' for Glaces');
-      return this.options.hostname;
-    },
     endpoint() {
-      return `${this.hostname}/api/3/diskio`;
+      return this.makeGlancesUrl('diskio');
     },
   },
   filters: {
@@ -51,9 +48,6 @@ export default {
     },
   },
   methods: {
-    fetchData() {
-      this.makeRequest(this.endpoint).then(this.processData);
-    },
     processData(diskData) {
       this.previous = this.disks;
       const disks = [];

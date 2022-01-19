@@ -20,10 +20,11 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
+import GlancesMixin from '@/mixins/GlancesMixin';
 import { timestampToDateTime, getTimeAgo, getTimeDifference } from '@/utils/MiscHelpers';
 
 export default {
-  mixins: [WidgetMixin],
+  mixins: [WidgetMixin, GlancesMixin],
   data() {
     return {
       alerts: null,
@@ -31,19 +32,12 @@ export default {
     };
   },
   computed: {
-    hostname() {
-      if (!this.options.hostname) this.error('You must specify a \'hostname\' for Glaces');
-      return this.options.hostname;
-    },
     endpoint() {
-      return `${this.hostname}/api/3/alert`;
+      return this.makeGlancesUrl('alert');
     },
   },
   filters: {},
   methods: {
-    fetchData() {
-      this.makeRequest(this.endpoint).then(this.processData);
-    },
     processData(alertData) {
       if (!alertData || alertData.length === 0) {
         this.noResults = true;

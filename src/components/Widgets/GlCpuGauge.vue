@@ -17,11 +17,12 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
+import GlancesMixin from '@/mixins/GlancesMixin';
 import GaugeChart from '@/components/Charts/Gauge';
 import { getValueFromCss, capitalize } from '@/utils/MiscHelpers';
 
 export default {
-  mixins: [WidgetMixin],
+  mixins: [WidgetMixin, GlancesMixin],
   components: {
     GaugeChart,
   },
@@ -35,18 +36,11 @@ export default {
     };
   },
   computed: {
-    hostname() {
-      if (!this.options.hostname) this.error('You must specify a \'hostname\' for Glaces');
-      return this.options.hostname;
-    },
     endpoint() {
-      return `${this.hostname}/api/3/cpu`;
+      return this.makeGlancesUrl('cpu');
     },
   },
   methods: {
-    fetchData() {
-      this.makeRequest(this.endpoint).then(this.processData);
-    },
     processData(cpuData) {
       this.gaugeValue = cpuData.total;
       this.gaugeColor = this.getColor(cpuData.total);

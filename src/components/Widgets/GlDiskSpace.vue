@@ -18,11 +18,12 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
+import GlancesMixin from '@/mixins/GlancesMixin';
 import PercentageChart from '@/components/Charts/PercentageChart';
 import { getValueFromCss, convertBytes } from '@/utils/MiscHelpers';
 
 export default {
-  mixins: [WidgetMixin],
+  mixins: [WidgetMixin, GlancesMixin],
   components: {
     PercentageChart,
   },
@@ -32,12 +33,8 @@ export default {
     };
   },
   computed: {
-    hostname() {
-      if (!this.options.hostname) this.error('You must specify a \'hostname\' for Glaces');
-      return this.options.hostname;
-    },
     endpoint() {
-      return `${this.hostname}/api/3/fs`;
+      return this.makeGlancesUrl('fs');
     },
   },
   filters: {

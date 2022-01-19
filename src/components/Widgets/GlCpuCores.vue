@@ -8,11 +8,12 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
+import GlancesMixin from '@/mixins/GlancesMixin';
 import { capitalize } from '@/utils/MiscHelpers';
 import PercentageChart from '@/components/Charts/PercentageChart';
 
 export default {
-  mixins: [WidgetMixin],
+  mixins: [WidgetMixin, GlancesMixin],
   components: {
     PercentageChart,
   },
@@ -22,12 +23,8 @@ export default {
     };
   },
   computed: {
-    hostname() {
-      if (!this.options.hostname) this.error('You must specify a \'hostname\' for Glaces');
-      return this.options.hostname;
-    },
     endpoint() {
-      return `${this.hostname}/api/3/quicklook`;
+      return this.makeGlancesUrl('quicklook');
     },
   },
   created() {
@@ -35,9 +32,6 @@ export default {
     this.overrideUpdateInterval = 2;
   },
   methods: {
-    fetchData() {
-      this.makeRequest(this.endpoint).then(this.processData);
-    },
     /* Converts returned data into format for the percentage charts */
     processData(cpuData) {
       const cpuSections = [];

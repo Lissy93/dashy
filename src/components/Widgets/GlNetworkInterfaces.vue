@@ -30,10 +30,11 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
+import GlancesMixin from '@/mixins/GlancesMixin';
 import { convertBytes } from '@/utils/MiscHelpers';
 
 export default {
-  mixins: [WidgetMixin],
+  mixins: [WidgetMixin, GlancesMixin],
   data() {
     return {
       networks: null,
@@ -41,12 +42,8 @@ export default {
     };
   },
   computed: {
-    hostname() {
-      if (!this.options.hostname) this.error('You must specify a \'hostname\' for Glaces');
-      return this.options.hostname;
-    },
     endpoint() {
-      return `${this.hostname}/api/3/network`;
+      return this.makeGlancesUrl('network');
     },
   },
   filters: {
@@ -64,9 +61,6 @@ export default {
     },
   },
   methods: {
-    fetchData() {
-      this.makeRequest(this.endpoint).then(this.processData);
-    },
     processData(networkData) {
       this.previous = this.disks;
       const networks = [];
