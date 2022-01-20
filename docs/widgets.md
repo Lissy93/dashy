@@ -11,27 +11,27 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Clock](#clock)
   - [Weather](#weather)
   - [Weather Forecast](#weather-forecast)
+  - [RSS Feed](#rss-feed)
+  - [Public IP Address](#public-ip)
   - [Crypto Watch List](#crypto-watch-list)
   - [Crypto Price History](#crypto-token-price-history)
   - [Crypto Wallet Balance](#wallet-balance)
-  - [RSS Feed](#rss-feed)
   - [Code Stats](#code-stats)
   - [Vulnerability Feed](#vulnerability-feed)
-  - [Sports Scores](#sports-scores)
   - [Exchange Rates](#exchange-rates)
   - [Public Holidays](#public-holidays)
+  - [Covid-19 Status](#covid-19-status)
+  - [Sports Scores](#sports-scores)
+  - [News Headlines](#news-headlines)
   - [TFL Status](#tfl-status)
   - [Stock Price History](#stock-price-history)
   - [ETH Gas Prices](#eth-gas-prices)
-  - [Covid-19 Status](#covid-19-status)
   - [Joke of the Day](#joke)
   - [XKCD Comics](#xkcd-comics)
-  - [News Headlines](#news-headlines)
   - [Flight Data](#flight-data)
   - [NASA APOD](#astronomy-picture-of-the-day)
   - [GitHub Trending](#github-trending)
   - [GitHub Profile Stats](#github-profile-stats)
-  - [Public IP Address](#public-ip)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
@@ -173,6 +173,63 @@ Displays the weather (temperature and conditions) for the next few days for a gi
 
 ---
 
+### RSS Feed
+
+Display news and updates from any RSS-enabled service.
+
+<p align="center"><img width="600" src="https://i.ibb.co/N9mvLh4/rss-feed.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`rssUrl`** | `string` |  Required | The URL location of your RSS feed
+**`apiKey`** | `string` |  _Optional_ | An API key for [rss2json](https://rss2json.com/). It's free, and will allow you to make 10,000 requests per day, you can sign up [here](https://rss2json.com/sign-up)
+**`limit`** | `number` |  _Optional_ | The number of posts to return. If you haven't specified an API key, this will be limited to 10
+**`orderBy`** | `string` |  _Optional_ | How results should be sorted. Can be either `pubDate`, `author` or `title`. Defaults to `pubDate`
+**`orderDirection`** | `string` |  _Optional_ | Order direction of feed items to return. Can be either `asc` or `desc`. Defaults to `desc`
+
+##### Example
+
+```yaml
+- type: rss-feed
+  options:
+    rssUrl: https://www.schneier.com/blog/atom.xml
+    apiKey: xxxx
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟠 Optional
+- **Price**: 🟠 Free Plan (up to 10,000 requests / day)
+- **Privacy**: _See [Rss2Json Privacy Policy](https://rss2json.com/privacy-policy)_
+
+---
+
+### Public IP
+
+Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data is fetched from [IP-API.com](https://ip-api.com/).
+
+<p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
+
+##### Options
+
+_No config options._
+
+##### Example 
+
+```yaml
+- type: public-ip
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟠 Optional
+- **Price**: 🟢 Free
+- **Host**: Managed Instance Only
+- **Privacy**: _See [IP-API Privacy Policy](https://ip-api.com/docs/legal)_
+
+---
 
 ### Crypto Watch List
 
@@ -287,39 +344,6 @@ Keep track of your crypto balances and see recent transactions. Data is fetched 
 
 ---
 
-### RSS Feed
-
-Display news and updates from any RSS-enabled service.
-
-<p align="center"><img width="600" src="https://i.ibb.co/N9mvLh4/rss-feed.png" /></p>
-
-##### Options
-
-**Field** | **Type** | **Required** | **Description**
---- | --- | --- | ---
-**`rssUrl`** | `string` |  Required | The URL location of your RSS feed
-**`apiKey`** | `string` |  _Optional_ | An API key for [rss2json](https://rss2json.com/). It's free, and will allow you to make 10,000 requests per day, you can sign up [here](https://rss2json.com/sign-up)
-**`limit`** | `number` |  _Optional_ | The number of posts to return. If you haven't specified an API key, this will be limited to 10
-**`orderBy`** | `string` |  _Optional_ | How results should be sorted. Can be either `pubDate`, `author` or `title`. Defaults to `pubDate`
-**`orderDirection`** | `string` |  _Optional_ | Order direction of feed items to return. Can be either `asc` or `desc`. Defaults to `desc`
-
-##### Example
-
-```yaml
-- type: rss-feed
-  options:
-    rssUrl: https://www.schneier.com/blog/atom.xml
-    apiKey: xxxx
-```
-
-##### Info
-- **CORS**: 🟢 Enabled
-- **Auth**: 🟠 Optional
-- **Price**: 🟠 Free Plan (up to 10,000 requests / day)
-- **Privacy**: _See [Rss2Json Privacy Policy](https://rss2json.com/privacy-policy)_
-
----
-
 ### Code Stats
 
 Display your coding summary. [Code::Stats](https://codestats.net/) is a free and open source app that aggregates statistics about your programming activity. Dashy supports both the public instance, as well as self-hosted versions.
@@ -400,39 +424,6 @@ or
 
 ---
 
-### Sports Scores
-
-Show recent scores and upcoming matches from your favourite sports team. Data is fetched from [TheSportsDB.com](https://www.thesportsdb.com/). From the UI, you can click any other team to view their scores and upcoming games, or click a league name to see all teams.
-
-<p align="center"><img width="400" src="https://i.ibb.co/8XhXGkN/sports-scores.png" /></p>
-
-##### Options
-
-**Field** | **Type** | **Required** | **Description**
---- | --- | --- | ---
-**`teamId`** | `string` |  __Optional__ | The ID of a team to fetch scores from. You can search for your team on the [Teams Page](https://www.thesportsdb.com/teams_main.php)
-**`leagueId`** | `string` |  __Optional__ | Alternatively, provide a league ID to fetch all games from. You can find the ID on the [Leagues Page](https://www.thesportsdb.com/Sport/Leagues)
-**`pastOrFuture`** | `string` |  __Optional__ | Set to `past` to show scores for recent games, or `future` to show upcoming games. Defaults to `past`. You can change this within the UI
-**`apiKey`** | `string` | __Optional__ | Optionally specify your API key, which you can sign up for at [TheSportsDB.com](https://www.thesportsdb.com/)
-**`limit`** | `number` | __Optional__ | To limit output to a certain number of matches, defaults to `15`
-
-##### Example
-
-```yaml
-- type: sports-scores
-  options:
-    teamId: 133636
-```
-
-##### Info
-- **CORS**: 🟢 Enabled
-- **Auth**: 🟠 Optional
-- **Price**: 🟠 Free plan (upto 30 requests / minute, limited endpoints)
-- **Host**: Managed Instance Only
-- **Privacy**: ⚫ No Policy Available
-
----
-
 ### Exchange Rates
 
 Display current FX rates in your native currency. Hover over a row to view more info, or click to show rates in that currency.
@@ -500,6 +491,121 @@ Counting down to the next day off work? This widget displays upcoming public hol
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [jurajmajer/enrico](https://github.com/jurajmajer/enrico)) or Managed
 - **Privacy**: ⚫ No Policy Available
+
+---
+
+### Covid-19 Status
+
+Keep track of the current COVID-19 status. Optionally also show cases by country, and a time-series chart. Uses live data from various sources, computed by [disease.sh](https://disease.sh/)
+
+<p align="center"><img width="400" src="https://i.ibb.co/7XjbyRg/covid-19-status.png?" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`showChart`** | `boolean` | _Optional_ | Also display a time-series chart showing number of recent cases
+**`showCountries`** | `boolean` |  _Optional_ | Also display a list of cases per country
+**`numDays`** | `number` | _Optional_ | Specify number of days worth of history to render on the chart
+**`countries`** | `string[]` | _Optional_ | An array of countries to display, specified by their [ISO-3 codes](https://www.iso.org/obp/ui). Leave blank to show all, sorted by most cases. `showCountries` must be set to `true`
+**`limit`** | `number` | _Optional_ | If showing all countries, set a limit for number of results to return. Defaults to `10`, no maximum
+
+
+##### Example 
+
+```yaml
+- type: covid-stats
+```
+
+Or
+
+```yaml
+- type: covid-stats
+  options:
+    showChart: true
+    showCountries: true
+    countries:
+    - GBR
+    - USA
+    - IND
+    - RUS
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed Instance or Self-Hosted (see [disease-sh/api](https://github.com/disease-sh/api))
+- **Privacy**: ⚫ No Policy Available
+- **Conditions**: [Terms of Use](https://github.com/disease-sh/api/blob/master/TERMS.md)
+
+---
+
+### Sports Scores
+
+Show recent scores and upcoming matches from your favourite sports team. Data is fetched from [TheSportsDB.com](https://www.thesportsdb.com/). From the UI, you can click any other team to view their scores and upcoming games, or click a league name to see all teams.
+
+<p align="center"><img width="400" src="https://i.ibb.co/8XhXGkN/sports-scores.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`teamId`** | `string` |  __Optional__ | The ID of a team to fetch scores from. You can search for your team on the [Teams Page](https://www.thesportsdb.com/teams_main.php)
+**`leagueId`** | `string` |  __Optional__ | Alternatively, provide a league ID to fetch all games from. You can find the ID on the [Leagues Page](https://www.thesportsdb.com/Sport/Leagues)
+**`pastOrFuture`** | `string` |  __Optional__ | Set to `past` to show scores for recent games, or `future` to show upcoming games. Defaults to `past`. You can change this within the UI
+**`apiKey`** | `string` | __Optional__ | Optionally specify your API key, which you can sign up for at [TheSportsDB.com](https://www.thesportsdb.com/)
+**`limit`** | `number` | __Optional__ | To limit output to a certain number of matches, defaults to `15`
+
+##### Example
+
+```yaml
+- type: sports-scores
+  options:
+    teamId: 133636
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟠 Optional
+- **Price**: 🟠 Free plan (upto 30 requests / minute, limited endpoints)
+- **Host**: Managed Instance Only
+- **Privacy**: ⚫ No Policy Available
+
+---
+
+### News Headlines
+
+Displays the latest news, click to read full article. Date is fetched from various news sources using [Currents API](https://currentsapi.services/en)
+
+<p align="center"><img width="380" src="https://i.ibb.co/6NDWW0z/news-headlines.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | Your API key for CurrentsAPI. This is free, and you can [get one here](https://currentsapi.services/en/register)
+**`country`** | `string` | _Optional_ | Fetch news only from a certain country or region. Specified as a country code, e.g. `GB` or `US`. See [here](https://api.currentsapi.services/v1/available/regions) for a list of supported regions
+**`category`** | `string` | _Optional_ | Only return news from within a given category, e.g. `sports`, `programming`, `world`, `science`. The [following categories](https://api.currentsapi.services/v1/available/categories) are supported
+**`lang`** | `string` |  _Optional_ | Specify the language for returned articles as a 2-digit ISO code (limited article support). The [following languages](https://api.currentsapi.services/v1/available/languages) are supported, defaults to `en`
+**`count`** | `number` |  _Optional_ | Limit the number of results. Can be between `1` and `200`, defaults to `10`
+**`keywords`** | `string` |  _Optional_ | Only return articles that contain an exact match within their title or description
+
+##### Example 
+
+```yaml
+- type: news-headlines
+    options:
+      apiKey: xxxxxxx
+      category: world
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free plan (upto 600 requests / day)
+- **Host**: Managed Instance Only
+- **Privacy**: _See [CurrentsAPI Privacy Policy](https://currentsapi.services/privacy)_
 
 ---
 
@@ -602,53 +708,6 @@ _No config options._
 
 ---
 
-### Covid-19 Status
-
-Keep track of the current COVID-19 status. Optionally also show cases by country, and a time-series chart. Uses live data from various sources, computed by [disease.sh](https://disease.sh/)
-
-<p align="center"><img width="400" src="https://i.ibb.co/7XjbyRg/covid-19-status.png?" /></p>
-
-##### Options
-
-**Field** | **Type** | **Required** | **Description**
---- | --- | --- | ---
-**`showChart`** | `boolean` | _Optional_ | Also display a time-series chart showing number of recent cases
-**`showCountries`** | `boolean` |  _Optional_ | 
-**`numDays`** | `number` | _Optional_ | Specify number of days worth of history to render on the chart
-**`countries`** | `string[]` | _Optional_ | An array of countries to display, specified by their [ISO-3 codes](https://www.iso.org/obp/ui). Leave blank to show all, sorted by most cases
-**`limit`** | `number` | _Optional_ | If showing all countries, set a limit for number of results to return. Defaults to `10`, no maximum
-
-
-##### Example 
-
-```yaml
-- type: covid-stats
-```
-
-Or
-
-```yaml
-- type: covid-stats
-  options:
-    showChart: true
-    showCountries: true
-    countries:
-    - GBR
-    - USA
-    - IND
-    - RUS
-```
-
-##### Info
-- **CORS**: 🟢 Enabled
-- **Auth**: 🟢 Not Required
-- **Price**: 🟢 Free
-- **Host**: Managed Instance or Self-Hosted (see [disease-sh/api](https://github.com/disease-sh/api))
-- **Privacy**: ⚫ No Policy Available
-- **Conditions**: [Terms of Use](https://github.com/disease-sh/api/blob/master/TERMS.md)
-
----
-
 ### Joke
 
 Renders a programming or generic joke. Data is fetched from the [JokesAPI](https://github.com/Sv443/JokeAPI) by @Sv443. All fields are optional.
@@ -707,41 +766,6 @@ Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webc
 - **Auth**: 🟢 Not Required
 - **Price**: 🟢 Free
 - **Privacy**: ⚫ No Policy Available
-
----
-
-### News Headlines
-
-Displays the latest news, click to read full article. Date is fetched from various news sources using [Currents API](https://currentsapi.services/en)
-
-<p align="center"><img width="380" src="https://i.ibb.co/6NDWW0z/news-headlines.png" /></p>
-
-##### Options
-
-**Field** | **Type** | **Required** | **Description**
---- | --- | --- | ---
-**`apiKey`** | `string` |  Required | Your API key for CurrentsAPI. This is free, and you can [get one here](https://currentsapi.services/en/register)
-**`country`** | `string` | _Optional_ | Fetch news only from a certain country or region. Specified as a country code, e.g. `GB` or `US`. See [here](https://api.currentsapi.services/v1/available/regions) for a list of supported regions
-**`category`** | `string` | _Optional_ | Only return news from within a given category, e.g. `sports`, `programming`, `world`, `science`. The [following categories](https://api.currentsapi.services/v1/available/categories) are supported
-**`lang`** | `string` |  _Optional_ | Specify the language for returned articles as a 2-digit ISO code (limited article support). The [following languages](https://api.currentsapi.services/v1/available/languages) are supported, defaults to `en`
-**`count`** | `number` |  _Optional_ | Limit the number of results. Can be between `1` and `200`, defaults to `10`
-**`keywords`** | `string` |  _Optional_ | Only return articles that contain an exact match within their title or description
-
-##### Example 
-
-```yaml
-- type: news-headlines
-    options:
-      apiKey: xxxxxxx
-      category: world
-```
-
-##### Info
-- **CORS**: 🟢 Enabled
-- **Auth**: 🔴 Required
-- **Price**: 🟠 Free plan (upto 600 requests / day)
-- **Host**: Managed Instance Only
-- **Privacy**: _See [CurrentsAPI Privacy Policy](https://currentsapi.services/privacy)_
 
 ---
 
@@ -873,31 +897,6 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
 - **Price**: 🟢 Free
 - **Host**: Managed Instance or Self-Hosted (see [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats))
 - **Privacy**: _See [GitHub's Privacy Policy](https://docs.github.com/en/github/site-policy/github-privacy-statement)_
-
----
-
-### Public IP
-
-Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data is fetched from [IP-API.com](https://ip-api.com/).
-
-<p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
-
-##### Options
-
-_No config options._
-
-##### Example 
-
-```yaml
-- type: public-ip
-```
-
-##### Info
-- **CORS**: 🟢 Enabled
-- **Auth**: 🟠 Optional
-- **Price**: 🟢 Free
-- **Host**: Managed Instance Only
-- **Privacy**: _See [IP-API Privacy Policy](https://ip-api.com/docs/legal)_
 
 ---
 
@@ -1189,7 +1188,7 @@ All Glance's based widgets require a `hostname`
 **`hostname`** | `string` |  Required | The URL to your Glances instance (without a trailing slash)
 **`username`** | `string` |  _Optional_ | If you have setup basic auth on Glances, specify username here (defaults to `glances`)
 **`password`** | `string` |  _Optional_ | If you have setup basic auth on Glances, specify password here. **Note**: since this password is in plaintext, it is important not to reuse it anywhere else
-
+**`apiVersion`** | `string` |  _Optional_ | Specify an API version, defaults to V `3`. Note that support for older versions is limited
 
 ##### Info
 - **CORS**: 🟢 Enabled
