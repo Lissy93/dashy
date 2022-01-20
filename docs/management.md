@@ -1,6 +1,6 @@
-# Management
+# App Management
 
-_The following article explains aspects of app management, and is useful to know for when self-hosting. It covers everything from keeping the Dashy (or any other app) up-to-date, secure, backed up, to other topics like auto-starting, monitoring, log management, web server configuration and using custom environments. It's like a top-20 list of need-to-know knowledge for self-hosting._
+_The following article is a primer on managing self-hosted apps. It covers everything from keeping the Dashy (or any other app) up-to-date, secure, backed up, to other topics like auto-starting, monitoring, log management, web server configuration and using custom domains._
 
 ## Contents
 - [Providing Assets](#providing-assets)
@@ -15,9 +15,9 @@ _The following article explains aspects of app management, and is useful to know
 - [Authentication](#authentication)
 - [Managing with Compose](#managing-containers-with-docker-compose)
 - [Environmental Variables](#passing-in-environmental-variables)
-- [Securing Containers](#container-security)
 - [Remote Access](#remote-access)
 - [Custom Domain](#custom-domain)
+- [Securing Containers](#container-security)
 - [Web Server Configuration](#web-server-configuration)
 - [Running a Modified App](#running-a-modified-version-of-the-app)
 - [Building your Own Container](#building-your-own-container)
@@ -288,6 +288,193 @@ If you've got many environmental variables, you might find it useful to put them
 
 ---
 
+## Remote Access
+
+- [WireGuard](#wireguard)
+- [Reverse SSH Tunnel](#reverse-ssh-tunnel)
+- [TCP Tunnel](#tcp-tunnel)
+
+### WireGuard
+
+Using a VPN is one of the easiest ways to provide secure, full access to your local network from remote locations. [WireGuard](https://www.wireguard.com/) is a reasonably new open source VPN protocol, that was designed with ease of use, performance and security in mind. Unlike OpenVPN, it doesn't need to recreate the tunnel whenever connection is dropped, and it's also much easier to setup, using shared keys instead. 
+
+- **Install Wireguard** - See the [Install Docs](https://www.wireguard.com/install/) for download links + instructions
+	- On Debian-based systems, it's `sudo apt install wireguard`
+- **Generate a Private Key** - Run `wg genkey` on the Wireguard server, and copy it to somewhere safe for later
+- **Create Server Config** - Open or create a file at `/etc/wireguard/wg0.conf` and under `[Interface]` add the following (see example below):
+	- `Address` - as a subnet of all desired IPs
+	- `PrivateKey` - that you just generated
+	- `ListenPort` - Default is `51820`, but can be anything
+- **Get Client App** - Download the [WG client app](https://www.wireguard.com/install/) for your platform (Linux, Windows, MacOS, Android or iOS are all supported)
+- **Create new Client Tunnel** - On your client app, there should be an option to create a new tunnel, when doing so a client private key will be generated (but if not, use the `wg genkey` command again), and keep it somewhere safe. A public key will also be generated, and this will go in our saver config
+- **Add Clients to Server Config** - Head back to your `wg0.conf` file on the server, create a `[Peer]` section, and populate the following info
+	- `AllowedIPs` - List of IP address inside the subnet, the client should have access to
+	- `PublicKey` - The public key for the client you just generated
+- **Start the Server** - You can now start the WG server, using: `wg-quick up wg0` on your server
+- **Finish Client Setup** - Head back to your client device, and edit the config file, leave the private key as is, and add the following fields:
+	- `PublicKey` - The public key of the server
+	- `Address` - This should match the `AllowedIPs` section on the servers config file
+	- `DNS` - The DNS server that'll be used when accessing the network through the VPN
+	- `Endpoint` - The hostname or IP + Port where your WG server is running (you may need to forward this in your firewall's settings)
+- **Done** - Your clients should now be able to connect to your WG server :) Depending on your networks firewall rules, you may need to port forward the address of your WG server
+
+**Example Server Config**
+
+```ini
+# Server file
+[Interface]
+# Which networks does my interface belong to? Notice: /24 and /64
+Address = 10.5.0.1/24, 2001:470:xxxx:xxxx::1/64
+PrivateKey = xxx
+ListenPort = 51820
+
+# Peer 1
+[Peer]
+PublicKey = xxx
+# Which source IPs can I expect from that peer? Notice: /32 and /128
+AllowedIps = 10.5.0.35/32, 2001:470:xxxx:xxxx::746f:786f/128
+
+# Peer 2
+[Peer]
+PublicKey = xxx
+# Which source IPs can I expect from that peer? This one has a LAN which can
+# access hosts/jails without NAT.
+# Peer 2 has a single IP address inside the VPN: it's 10.5.0.25/32
+AllowedIps = 10.5.0.25/32,10.21.10.0/24,10.21.20.0/24,10.21.30.0/24,10.31.0.0/24,2001:470:xxxx:xxxx::ca:571e/128
+```
+
+**Example Client Config**
+
+```ini
+[Interface]
+# Which networks does my interface belong to? Notice: /24 and /64
+Address = 10.5.0.35/24, 2001:470:xxxx:xxxx::746f:786f/64
+PrivateKey = xxx
+
+# Server
+[Peer]
+PublicKey = xxx
+# I want to route everything through the server, both IPv4 and IPv6. All IPs are
+# thus available through the Server, and I can expect packets from any IP to
+# come from that peer.
+AllowedIPs = 0.0.0.0/0, ::0/0
+# Where is the server on the internet? This is a public address. The port
+# (:51820) is the same as ListenPort in the [Interface] of the Server file above
+Endpoint = 1.2.3.4:51820
+# Usually, clients are behind NAT. to keep the connection running, keep alive.
+PersistentKeepalive = 15
+```
+
+
+A useful tool for getting WG setup is [Algo](https://github.com/trailofbits/algo). It includes scripts and docs which cover almost all devices, platforms and clients, and has best practices implemented, and security features enabled. All of this is better explained in [this blog post](https://blog.trailofbits.com/2016/12/12/meet-algo-the-vpn-that-works/).
+
+
+### Reverse SSH Tunnel
+
+SSH (or [Secure Shell](https://en.wikipedia.org/wiki/Secure_Shell)) is a secure tunnel that allows you to connect to a remote host. Unlike the VPN methods, an SSH connection does not require an intermediary, and will not be affected by your IP changing. However it only allows you to access a single service at a time. SSH was really designed for terminal access, but because of the latter mentioned benefits it's useful to setup, as a fallback option.
+
+Directly SSH'ing into your home, would require you to open a port (usually 22), which would be terrible for security, and is not recommended. However a reverse SSH connection is initiated from inside your network. Once the connection is established, the port is redirected, allowing you to use the established connection to SSH into your home network. 
+
+The issue you've probably spotted, is that most public, corporate, and institutional networks will block SSH connections. To overcome this, you'd have to establish a server outside of your homelab that your homelab's device could SSH into to establish the reverse SSH connection. You can then connect to that remote server (the _mothership_), which in turn connects to your home network.
+
+Now all of this is starting to sound like quite a lot of work, but this is where services like [remot3.it](https://remote.it/) come in. They maintain the intermediary mothership server, and create the tunnel service for you. It's free for personal use, secure and easy. There are several similar services, such as [RemoteIoT](https://remoteiot.com/), or you could create your own on a cloud VPS (see [this tutorial](https://gist.github.com/nileshtrivedi/4c615e8d3c1bf053b0d31176b9e69e42) for more info on that).
+
+Before getting started, you'll need to head over to [Remote.it](https://app.remote.it/auth/#/sign-up) and create an account.
+
+Then setup your local device:
+1. If you haven't already done so, you'll need to enable and configure SSH.
+	- This is out-of-scope of this article, but I've explained it in detail in [this post](https://notes.aliciasykes.com/22798/my-server-setup#configure-ssh).
+2. Download the Remote.it install script from their [GitHub](https://github.com/remoteit/installer)
+	- `curl -LkO https://raw.githubusercontent.com/remoteit/installer/master/scripts/auto-install.sh`
+3. Make it executable, with `chmod +x ./auto-install.sh`, and then run it with `sudo ./auto-install.sh`
+4. Finally, configure your device, by running `sudo connectd_installer` and following the on-screen instructions
+
+And when you're ready to connect to it:
+1. Login to [app.remote.it](https://app.remote.it/), and select the name of your device
+2. You should see a list of running services, click SSH
+3. You'll then be presented with some SSH credentials that you can now use to securely connect to your home, via the Remote.it servers
+
+Done :)
+
+### TCP Tunnel
+
+If you're running Dashy on your local network, behind a firewall, but need to temporarily share it with someone external, this can be achieved quickly and securely using [Ngrok](https://ngrok.com/). It’s basically a super slick, encrypted TCP tunnel that provides an internet-accessible address that anyone use to access your local service, from anywhere.
+
+To get started, [Download](https://ngrok.com/download) and install Ngrok for your system, then just run `ngrok http [port]` (replace the port with the http port where Dashy is running, e.g. 8080). When [using https](https://ngrok.com/docs#http-local-https), specify the full local url/ ip including the protocol.
+
+Some Ngrok features require you to be authenticated, you can [create a free account](https://dashboard.ngrok.com/signup) and generate a token in [your dashboard](https://dashboard.ngrok.com/auth/your-authtoken), then run `ngrok authtoken [token]`. 
+
+It's recommended to use authentication for any publicly accessible service. Dashy has an [Auth](/docs/authentication.md) feature built in, but an even easier method it to use the [`-auth`](https://ngrok.com/docs#http-auth) switch. E.g. `ngrok http -auth=”username:password123” 8080`
+
+By default, your web app is assigned a randomly generated ngrok domain, but you can also use your own custom domain. Under the [Domains Tab](https://dashboard.ngrok.com/endpoints/domains) of your Ngrok dashboard, add your domain, and follow the CNAME instructions. You can now use your domain, with the [`-hostname`](https://ngrok.com/docs#http-custom-domains) switch, e.g. `ngrok http -region=us -hostname=dashy.example.com 8080`. If you don't have your own domain name, you can instead use a custom sub-domain (e.g. `alicia-dashy.ngrok.io`), using the [`-subdomain`](https://ngrok.com/docs#custom-subdomain-names) switch.
+
+To integrate this into your docker-compose, take a look at the [gtriggiano/ngrok-tunnel](https://github.com/gtriggiano/ngrok-tunnel) container.
+
+There's so much more you can do with Ngrok, such as exposing a directory as a file browser, using websockets, relaying requests, rewriting headers, inspecting traffic, TLS and TCP tunnels and lots more. All or which is explained in [the Documentation](https://ngrok.com/docs).
+
+It's worth noting that Ngrok isn't the only option here, other options include: [FRP](https://github.com/fatedier/frp), [Inlets](https://inlets.dev), [Local Tunnel](https://localtunnel.me/), [TailScale](https://tailscale.com/), etc. Check out [Awesome Tunneling](https://github.com/anderspitman/awesome-tunneling) for a list of alternatives.
+
+**[⬆️ Back to Top](#management)**
+
+---
+
+## Custom Domain
+
+- [Using DNS](#using-nginx)
+- [Using NGINX](#using-dns)
+
+### Using DNS
+For locally running services, a domain can be set up directly in the DNS records. This method is really quick and easy, and doesn't require you to purchase an actual domain. Just update your networks DNS resolver, to point your desired URL to the local IP where Dashy (or any other app) is running. For example, a line in your hosts file might look something like: `192.168.0.2 dashy.homelab.local`.
+
+If you're using Pi-Hole, a similar thing can be done in the `/etc/dnsmasq.d/03-custom-dns.conf` file, add a line like: `address=/dashy.example.com/192.168.2.0` for each of your services.
+
+If you're running OPNSense/ PfSense, then this can be done through the UI with Unbound, it's explained nicely in [this article](https://homenetworkguy.com/how-to/use-custom-domain-name-in-internal-network/), by Dustin Casto. 
+
+### Using NGINX
+If you're using NGINX, then you can use your own domain name, with a config similar to the below example.
+
+```
+upstream dashy {
+  server 127.0.0.1:32400;
+}
+
+server {
+  listen         80;
+  server_name    dashy.mydomain.com;
+
+  # Setup SSL
+  ssl_certificate             /var/www/mydomain/sslcert.pem;
+  ssl_certificate_key         /var/www/mydomain/sslkey.pem;
+  ssl_protocols               TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers                 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
+  ssl_session_timeout         5m;
+  ssl_prefer_server_ciphers   on;
+
+  location / {
+    proxy_pass                http://dashy;
+    proxy_redirect            off;
+    proxy_buffering           off;
+    proxy_set_header          host              $host;
+    proxy_set_header          X-Real-IP         $remote_addr;
+    proxy_set_header          X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_next_upstream       error timeout     invalid_header http_500 http_502 http_503 http_504;
+  }
+}
+```
+Similarly, a basic `Caddyfile` might look like:
+
+```
+dashy.example.com {
+    reverse_proxy / nginx:80
+}
+```
+
+For more info, [this guide](https://thehomelab.wiki/books/dns-reverse-proxy/page/create-domain-records-to-point-to-your-home-server-on-cloudflare-using-nginx-progy-manager) on Setting up Domains with NGINX Proxy Manager and CloudFlare may be useful.
+
+**[⬆️ Back to Top](#management)**
+
+---
+
 ## Container Security
 
 - [Keep Docker Up-To-Date](#keep-docker-up-to-date)
@@ -428,174 +615,6 @@ Docker supports several modules that let you write your own security profiles.
 
 [Seccomp](https://en.wikipedia.org/wiki/Seccomp) (Secure Computing Mode) is a sandboxing facility in the Linux kernel that acts like a firewall for system calls (syscalls). It uses Berkeley Packet Filter (BPF) rules to filter syscalls and control how they are handled. These filters can significantly limit a containers access to the Docker Host’s Linux kernel - especially for simple containers/applications. It requires a Linux-based Docker host, with secomp enabled, and you can check for this by running `docker info | grep seccomp`. A great resource for learning more about this is [DockerLabs](https://training.play-with-docker.com/security-seccomp/).
 
-
-**[⬆️ Back to Top](#management)**
-
----
-
-## Remote Access
-
-- [WireGuard](#wireguard)
-- [Reverse SSH Tunnel](#reverse-ssh-tunnel)
-
-### WireGuard
-
-Using a VPN is one of the easiest ways to provide secure, full access to your local network from remote locations. [WireGuard](https://www.wireguard.com/) is a reasonably new open source VPN protocol, that was designed with ease of use, performance and security in mind. Unlike OpenVPN, it doesn't need to recreate the tunnel whenever connection is dropped, and it's also much easier to setup, using shared keys instead. 
-
-- **Install Wireguard** - See the [Install Docs](https://www.wireguard.com/install/) for download links + instructions
-	- On Debian-based systems, it's `sudo apt install wireguard`
-- **Generate a Private Key** - Run `wg genkey` on the Wireguard server, and copy it to somewhere safe for later
-- **Create Server Config** - Open or create a file at `/etc/wireguard/wg0.conf` and under `[Interface]` add the following (see example below):
-	- `Address` - as a subnet of all desired IPs
-	- `PrivateKey` - that you just generated
-	- `ListenPort` - Default is `51820`, but can be anything
-- **Get Client App** - Download the [WG client app](https://www.wireguard.com/install/) for your platform (Linux, Windows, MacOS, Android or iOS are all supported)
-- **Create new Client Tunnel** - On your client app, there should be an option to create a new tunnel, when doing so a client private key will be generated (but if not, use the `wg genkey` command again), and keep it somewhere safe. A public key will also be generated, and this will go in our saver config
-- **Add Clients to Server Config** - Head back to your `wg0.conf` file on the server, create a `[Peer]` section, and populate the following info
-	- `AllowedIPs` - List of IP address inside the subnet, the client should have access to
-	- `PublicKey` - The public key for the client you just generated
-- **Start the Server** - You can now start the WG server, using: `wg-quick up wg0` on your server
-- **Finish Client Setup** - Head back to your client device, and edit the config file, leave the private key as is, and add the following fields:
-	- `PublicKey` - The public key of the server
-	- `Address` - This should match the `AllowedIPs` section on the servers config file
-	- `DNS` - The DNS server that'll be used when accessing the network through the VPN
-	- `Endpoint` - The hostname or IP + Port where your WG server is running (you may need to forward this in your firewall's settings)
-- **Done** - Your clients should now be able to connect to your WG server :) Depending on your networks firewall rules, you may need to port forward the address of your WG server
-
-**Example Server Config**
-
-```ini
-# Server file
-[Interface]
-# Which networks does my interface belong to? Notice: /24 and /64
-Address = 10.5.0.1/24, 2001:470:xxxx:xxxx::1/64
-PrivateKey = xxx
-ListenPort = 51820
-
-# Peer 1
-[Peer]
-PublicKey = xxx
-# Which source IPs can I expect from that peer? Notice: /32 and /128
-AllowedIps = 10.5.0.35/32, 2001:470:xxxx:xxxx::746f:786f/128
-
-# Peer 2
-[Peer]
-PublicKey = xxx
-# Which source IPs can I expect from that peer? This one has a LAN which can
-# access hosts/jails without NAT.
-# Peer 2 has a single IP address inside the VPN: it's 10.5.0.25/32
-AllowedIps = 10.5.0.25/32,10.21.10.0/24,10.21.20.0/24,10.21.30.0/24,10.31.0.0/24,2001:470:xxxx:xxxx::ca:571e/128
-```
-
-**Example Client Config**
-
-```ini
-[Interface]
-# Which networks does my interface belong to? Notice: /24 and /64
-Address = 10.5.0.35/24, 2001:470:xxxx:xxxx::746f:786f/64
-PrivateKey = xxx
-
-# Server
-[Peer]
-PublicKey = xxx
-# I want to route everything through the server, both IPv4 and IPv6. All IPs are
-# thus available through the Server, and I can expect packets from any IP to
-# come from that peer.
-AllowedIPs = 0.0.0.0/0, ::0/0
-# Where is the server on the internet? This is a public address. The port
-# (:51820) is the same as ListenPort in the [Interface] of the Server file above
-Endpoint = 1.2.3.4:51820
-# Usually, clients are behind NAT. to keep the connection running, keep alive.
-PersistentKeepalive = 15
-```
-
-
-A useful tool for getting WG setup is [Algo](https://github.com/trailofbits/algo). It includes scripts and docs which cover almost all devices, platforms and clients, and has best practices implemented, and security features enabled. All of this is better explained in [this blog post](https://blog.trailofbits.com/2016/12/12/meet-algo-the-vpn-that-works/).
-
-
-### Reverse SSH Tunnel
-
-SSH (or [Secure Shell](https://en.wikipedia.org/wiki/Secure_Shell)) is a secure tunnel that allows you to connect to a remote host. Unlike the VPN methods, an SSH connection does not require an intermediary, and will not be affected by your IP changing. However it only allows you to access a single service at a time. SSH was really designed for terminal access, but because of the latter mentioned benefits it's useful to setup, as a fallback option.
-
-Directly SSH'ing into your home, would require you to open a port (usually 22), which would be terrible for security, and is not recommended. However a reverse SSH connection is initiated from inside your network. Once the connection is established, the port is redirected, allowing you to use the established connection to SSH into your home network. 
-
-The issue you've probably spotted, is that most public, corporate, and institutional networks will block SSH connections. To overcome this, you'd have to establish a server outside of your homelab that your homelab's device could SSH into to establish the reverse SSH connection. You can then connect to that remote server (the _mothership_), which in turn connects to your home network.
-
-Now all of this is starting to sound like quite a lot of work, but this is where services like [remot3.it](https://remote.it/) come in. They maintain the intermediary mothership server, and create the tunnel service for you. It's free for personal use, secure and easy. There are several similar services, such as [RemoteIoT](https://remoteiot.com/), or you could create your own on a cloud VPS (see [this tutorial](https://gist.github.com/nileshtrivedi/4c615e8d3c1bf053b0d31176b9e69e42) for more info on that).
-
-Before getting started, you'll need to head over to [Remote.it](https://app.remote.it/auth/#/sign-up) and create an account.
-
-Then setup your local device:
-1. If you haven't already done so, you'll need to enable and configure SSH.
-	- This is out-of-scope of this article, but I've explained it in detail in [this post](https://notes.aliciasykes.com/22798/my-server-setup#configure-ssh).
-2. Download the Remote.it install script from their [GitHub](https://github.com/remoteit/installer)
-	- `curl -LkO https://raw.githubusercontent.com/remoteit/installer/master/scripts/auto-install.sh`
-3. Make it executable, with `chmod +x ./auto-install.sh`, and then run it with `sudo ./auto-install.sh`
-4. Finally, configure your device, by running `sudo connectd_installer` and following the on-screen instructions
-
-And when you're ready to connect to it:
-1. Login to [app.remote.it](https://app.remote.it/), and select the name of your device
-2. You should see a list of running services, click SSH
-3. You'll then be presented with some SSH credentials that you can now use to securely connect to your home, via the Remote.it servers
-
-Done :)
-
-**[⬆️ Back to Top](#management)**
-
----
-
-## Custom Domain
-
-- [Using DNS](#using-nginx)
-- [Using NGINX](#using-dns)
-
-### Using DNS
-For locally running services, a domain can be set up directly in the DNS records. This method is really quick and easy, and doesn't require you to purchase an actual domain. Just update your networks DNS resolver, to point your desired URL to the local IP where Dashy (or any other app) is running. For example, a line in your hosts file might look something like: `192.168.0.2 dashy.homelab.local`.
-
-If you're using Pi-Hole, a similar thing can be done in the `/etc/dnsmasq.d/03-custom-dns.conf` file, add a line like: `address=/dashy.example.com/192.168.2.0` for each of your services.
-
-If you're running OPNSense/ PfSense, then this can be done through the UI with Unbound, it's explained nicely in [this article](https://homenetworkguy.com/how-to/use-custom-domain-name-in-internal-network/), by Dustin Casto. 
-
-### Using NGINX
-If you're using NGINX, then you can use your own domain name, with a config similar to the below example.
-
-```
-upstream dashy {
-  server 127.0.0.1:32400;
-}
-
-server {
-  listen         80;
-  server_name    dashy.mydomain.com;
-
-  # Setup SSL
-  ssl_certificate             /var/www/mydomain/sslcert.pem;
-  ssl_certificate_key         /var/www/mydomain/sslkey.pem;
-  ssl_protocols               TLSv1 TLSv1.1 TLSv1.2;
-  ssl_ciphers                 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
-  ssl_session_timeout         5m;
-  ssl_prefer_server_ciphers   on;
-
-  location / {
-    proxy_pass                http://dashy;
-    proxy_redirect            off;
-    proxy_buffering           off;
-    proxy_set_header          host              $host;
-    proxy_set_header          X-Real-IP         $remote_addr;
-    proxy_set_header          X-Forwarded-For   $proxy_add_x_forwarded_for;
-    proxy_next_upstream       error timeout     invalid_header http_500 http_502 http_503 http_504;
-  }
-}
-```
-Similarly, a basic `Caddyfile` might look like:
-
-```
-dashy.example.com {
-    reverse_proxy / nginx:80
-}
-```
-
-For more info, [this guide](https://thehomelab.wiki/books/dns-reverse-proxy/page/create-domain-records-to-point-to-your-home-server-on-cloudflare-using-nginx-progy-manager) on Setting up Domains with NGINX Proxy Manager and CloudFlare may be useful.
 
 **[⬆️ Back to Top](#management)**
 
