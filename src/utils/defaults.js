@@ -208,6 +208,7 @@ module.exports = {
   },
   /* API endpoints for widgets that need to fetch external data */
   widgetApiEndpoints: {
+    anonAddy: 'https://app.anonaddy.com',
     astronomyPictureOfTheDay: 'https://apodapi.herokuapp.com/api',
     codeStats: 'https://codestats.net/',
     covidStats: 'https://disease.sh/v3/covid-19',
