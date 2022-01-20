@@ -3,10 +3,7 @@ module.exports = {
   pageInfo: {
     title: 'Dashy',
     description: '',
-    navLinks: [
-      { title: 'Home', path: '/' },
-      { title: 'Source', path: 'https://github.com/Lissy93/dashy' },
-    ],
+    navLinks: [],
     footerText: '',
   },
   /* Default appConfig to be used, if user does not specify their own */
@@ -124,6 +121,7 @@ module.exports = {
     USERNAME: 'username',
     MOST_USED: 'mostUsed',
     LAST_USED: 'lastUsed',
+    KEYCLOAK_INFO: 'keycloakInfo',
   },
   /* Key names for cookie identifiers */
   cookieKeys: {
@@ -284,6 +282,7 @@ module.exports = {
     loggedIn: 1,
     guestAccess: 2,
     notLoggedIn: 3,
+    keycloakEnabled: 4,
   },
   /* Progressive Web App settings, used by Vue Config */
   pwa: {

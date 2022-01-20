@@ -1,5 +1,10 @@
 # Changelog
 
+## 🐛 1.9.7 - Minor UI Editor Bug fixes [PR #416](https://github.com/Lissy93/dashy/pull/416)
+- Fixes unable to edit item bug (#415)
+- Fixes unable to add new app bug (#390)
+- Fixes nav links visibility (#389)
+
 ## ⚡️ 1.9.6 - Adds Proxy Support for Widget Requests [PR #392](https://github.com/Lissy93/dashy/pull/392)
 - Refactors widget mixin to include data requests, so that code can be shared between widgets
 - Adds a Node endpoint for proxying requests server-side, used for APIs that are not CORS enabled

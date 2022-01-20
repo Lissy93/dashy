@@ -2,6 +2,7 @@ import sha256 from 'crypto-js/sha256';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import ErrorHandler from '@/utils/ErrorHandler';
 import { cookieKeys, localStorageKeys, userStateEnum } from '@/utils/defaults';
+import { isKeycloakEnabled } from '@/utils/KeycloakAuth';
 
 /* Uses config accumulator to get and return app config */
 const getAppConfig = () => {
@@ -17,26 +18,6 @@ const getAppConfig = () => {
  */
 const printWarning = () => {
   ErrorHandler('From V 1.6.5 onwards, the structure of the users object has changed.');
-};
-
-/* Returns true if keycloak is enabled */
-export const isKeycloakEnabled = () => {
-  const appConfig = getAppConfig();
-  if (!appConfig.auth) return false;
-  return appConfig.auth.enableKeycloak || false;
-};
-
-/* Returns the users keycloak config */
-export const getKeycloakConfig = () => {
-  const appConfig = getAppConfig();
-  if (!isKeycloakEnabled()) return false;
-  const { keycloak } = appConfig.auth;
-  const { serverUrl, realm, clientId } = keycloak;
-  if (!serverUrl || !realm || !clientId) {
-    ErrorHandler('Keycloak config missing- please ensure you specify: serverUrl, realm, clientId');
-    return false;
-  }
-  return keycloak;
 };
 
 /* Returns array of users from appConfig.auth, if available, else an empty array */
@@ -65,7 +46,6 @@ const generateUserToken = (user) => {
 
 /**
  * Checks if the user is currently authenticated
- * @param {Array[Object]} users An array of user objects pulled from the config
  * @returns {Boolean} Will return true if the user is logged in, else false
  */
 export const isLoggedIn = () => {
@@ -95,7 +75,7 @@ export const isAuthEnabled = () => {
 /* Returns true if guest access is enabled */
 export const isGuestAccessEnabled = () => {
   const appConfig = getAppConfig();
-  if (appConfig.auth && typeof appConfig.auth === 'object') {
+  if (appConfig.auth && typeof appConfig.auth === 'object' && !isKeycloakEnabled()) {
     return appConfig.auth.enableGuestAccess || false;
   }
   return false;
@@ -108,6 +88,7 @@ export const isGuestAccessEnabled = () => {
  * @param {String} username The username entered by the user
  * @param {String} pass The password entered by the user
  * @param {String[]} users An array of valid user objects
+ * @param {Object} messages A static message template object
  * @returns {Object} An object containing a boolean result and a message
  */
 export const checkCredentials = (username, pass, users, messages) => {
@@ -146,7 +127,7 @@ export const login = (username, pass, timeout) => {
 };
 
 /**
- * Removed the browsers cookie, causing user to be logged out
+ * Removed the browsers' cookie, causing user to be logged out
  */
 export const logout = () => {
   document.cookie = 'authenticationToken=null';
@@ -164,7 +145,7 @@ export const getCurrentUser = () => {
   if (!username) return false; // No username
   let foundUserObject = false; // Value to return
   getUsers().forEach((user) => {
-    // If current logged in user found, then return that user
+    // If current logged-in user found, then return that user
     if (user.user === username) foundUserObject = user;
   });
   return foundUserObject;
@@ -182,11 +163,10 @@ export const isLoggedInAsGuest = () => {
 
 /**
  * Checks if the current user has admin privileges.
- * If no users are setup, then function will always return true
+ * If no users are set up, then function will always return true
  * But if auth is configured, then will verify user is correctly
  * logged in and then check weather they are of type admin, and
  * return false if any conditions fail
- * @param {String[]} - Array of users
  * @returns {Boolean} - True if admin privileges
  */
 export const isUserAdmin = () => {
@@ -212,7 +192,13 @@ export const isUserAdmin = () => {
   * then they will never be able to view the homepage, so no button needed
   */
 export const getUserState = () => {
-  const { notConfigured, loggedIn, guestAccess } = userStateEnum; // Numeric enum options
+  const {
+    notConfigured,
+    loggedIn,
+    guestAccess,
+    keycloakEnabled,
+  } = userStateEnum; // Numeric enum options
+  if (isKeycloakEnabled()) return keycloakEnabled; // Keycloak auth configured
   if (!isAuthEnabled()) return notConfigured; // No auth enabled
   if (isLoggedIn()) return loggedIn; // User is logged in
   if (isGuestAccessEnabled()) return guestAccess; // Guest is viewing

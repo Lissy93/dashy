@@ -12,11 +12,11 @@
     @openContextMenu="openContextMenu"
   >
     <!-- If no items, show message -->
-    <div v-if="sectionType === 'empty'" class="no-items">
+    <div v-if="isEmpty" class="no-items">
       {{ $t('home.no-items-section') }}
     </div>
     <!-- Item Container -->
-    <div v-else-if="sectionType === 'item'"
+    <div v-if="hasItems"
       :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
       :style="gridStyle" :id="`section-${groupId}`"
     > <!-- Show for each item -->
@@ -58,7 +58,7 @@
       />
     </div>
     <div
-      v-else-if="sectionType === 'widget'"
+      v-if="hasWidgets"
       :class="`widget-list ${isWide? 'wide' : ''}`">
       <WidgetBase
         v-for="(widget, widgetIndx) in widgets"
@@ -154,11 +154,15 @@ export default {
     sortOrder() {
       return this.displayData.sortBy || defaultSortOrder;
     },
-    /* A section can contain either items or widgets */
-    sectionType() {
-      if (this.widgets && this.widgets.length > 0) return 'widget';
-      if (this.items && this.items.length > 0) return 'item';
-      return 'empty';
+    hasItems() {
+      if (this.isEditMode) return true;
+      return this.items && this.items.length > 0;
+    },
+    hasWidgets() {
+      return this.widgets && this.widgets.length > 0;
+    },
+    isEmpty() {
+      return !this.hasItems && !this.hasWidgets;
     },
     /* If the sortBy attribute is specified, then return sorted data */
     sortedItems() {
