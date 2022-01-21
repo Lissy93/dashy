@@ -23,7 +23,7 @@ module.exports = (req, res) => {
   // Get desired URL, from Target-URL header
   const targetURL = req.header('Target-URL');
   if (!targetURL) {
-    res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+    res.status(500).send({ error: 'There is no Target-Endpoint header in the request' });
     return;
   }
   // Apply any custom headers, if needed
@@ -40,8 +40,8 @@ module.exports = (req, res) => {
   // Make the request, and respond with result
   axios.request(requestConfig)
     .then((response) => {
-      res.send(200, response.data);
+      res.status(200).send(response.data);
     }).catch((error) => {
-      res.send(500, { error });
+      res.status(500).send({ error });
     });
 };
