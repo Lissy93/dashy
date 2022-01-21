@@ -86,7 +86,17 @@ export const showNumAsThousand = (bigNum) => {
 
 /* Capitalizes the first letter of each word within a string */
 export const capitalize = (str) => {
-  return str.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+  const words = str.replaceAll('_', ' ').replaceAll('-', ' ');
+  return words.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+};
+
+/* Given a mem size in bytes, will return it in appropriate unit */
+export const convertBytes = (bytes, decimals = 2) => {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return `${parseFloat((bytes / (k ** i)).toFixed(decimals))} ${sizes[i]}`;
 };
 
 /* Round price to appropriate number of decimals */
@@ -105,6 +115,33 @@ export const roundPrice = (price) => {
 /* Cuts string off at given length, and adds an ellipse */
 export const truncateStr = (str, len = 60, ellipse = '...') => {
   return str.length > len + ellipse.length ? `${str.slice(0, len)}${ellipse}` : str;
+};
+
+/* Given two timestamp, return the difference in text format, e.g. '10 minutes' */
+export const getTimeDifference = (startTime, endTime) => {
+  const msDifference = new Date(endTime).getTime() - new Date(startTime).getTime();
+  const diff = Math.abs(Math.round(msDifference / 1000));
+  const divide = (time, round) => Math.round(time / round);
+  if (diff < 60) return `${divide(diff, 1)} seconds`;
+  if (diff < 3600) return `${divide(diff, 60)} minutes`;
+  if (diff < 86400) return `${divide(diff, 3600)} hours`;
+  if (diff < 604800) return `${divide(diff, 86400)} days`;
+  if (diff >= 604800) return `${divide(diff, 604800)} weeks`;
+  return 'unknown';
+};
+
+/* Given a timestamp, return how long ago it was, e.g. '10 minutes' */
+export const getTimeAgo = (dateTime) => {
+  const now = new Date().getTime();
+  const diffStr = getTimeDifference(dateTime, now);
+  if (diffStr === 'unknown') return diffStr;
+  return `${diffStr} ago`;
+};
+
+/* Given the name of a CSS variable, returns it's value */
+export const getValueFromCss = (colorVar) => {
+  const cssProps = getComputedStyle(document.documentElement);
+  return cssProps.getPropertyValue(`--${colorVar}`).trim();
 };
 
 /* Given a currency code, return the corresponding unicode symbol */

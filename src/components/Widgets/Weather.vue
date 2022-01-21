@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
@@ -38,6 +37,9 @@ export default {
       showDetails: false,
       weatherDetails: [],
     };
+  },
+  mounted() {
+    this.checkProps();
   },
   computed: {
     units() {
@@ -63,34 +65,21 @@ export default {
     },
   },
   methods: {
-    /* Extends mixin, and updates data. Called by parent component */
-    update() {
-      this.startLoading();
-      this.fetchWeather();
-    },
     /* Adds units symbol to temperature, depending on metric or imperial */
     processTemp(temp) {
       return `${Math.round(temp)}${this.tempDisplayUnits}`;
     },
+    fetchData() {
+      this.makeRequest(this.endpoint).then(this.processData);
+    },
     /* Fetches the weather from OpenWeatherMap, and processes results */
-    fetchWeather() {
-      axios.get(this.endpoint)
-        .then((response) => {
-          this.loading = false;
-          const { data } = response;
-          this.icon = data.weather[0].icon;
-          this.description = data.weather[0].description;
-          this.temp = this.processTemp(data.main.temp);
-          if (!this.options.hideDetails) {
-            this.makeWeatherData(data);
-          }
-        })
-        .catch((error) => {
-          this.throwError('Failed to fetch weather', error);
-        })
-        .finally(() => {
-          this.finishLoading();
-        });
+    processData(data) {
+      this.icon = data.weather[0].icon;
+      this.description = data.weather[0].description;
+      this.temp = this.processTemp(data.main.temp);
+      if (!this.options.hideDetails) {
+        this.makeWeatherData(data);
+      }
     },
     /* If showing additional info, then generate this data too */
     makeWeatherData(data) {
@@ -116,30 +105,12 @@ export default {
     /* Validate input props, and print warning if incorrect */
     checkProps() {
       const ops = this.options;
-      let valid = true;
-      if (!ops.apiKey) {
-        this.throwError('Missing API key for OpenWeatherMap');
-        valid = false;
-      }
-      if (!ops.city) {
-        this.throwError('A city name is required to fetch weather');
-        valid = false;
-      }
+      if (!ops.apiKey) this.error('Missing API key for OpenWeatherMap');
+      if (!ops.city) this.error('A city name is required to fetch weather');
       if (ops.units && ops.units !== 'metric' && ops.units !== 'imperial') {
-        this.throwError('Invalid units specified, must be either \'metric\' or \'imperial\'');
-        valid = false;
+        this.error('Invalid units specified, must be either \'metric\' or \'imperial\'');
       }
-      return valid;
     },
-    /* Just outputs an error message */
-    throwError(msg, error) {
-      this.error(msg, error);
-    },
-  },
-  created() {
-    if (this.checkProps()) {
-      this.fetchWeather();
-    }
   },
 };
 </script>
@@ -217,6 +188,9 @@ export default {
         color: var(--widget-text-color);
         &:not(:last-child) {
           border-bottom: 1px dashed var(--widget-text-color);
+        }
+        span.lbl {
+          text-transform: capitalize;
         }
       }
     }

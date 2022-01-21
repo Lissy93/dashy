@@ -1,7 +1,7 @@
 <template>
 <div class="clock">
   <div class="upper" v-if="!options.hideDate">
-    <p class="city">{{ timeZone | getCity }}</p>
+    <p class="city">{{ cityName }}</p>
     <p class="date">{{ date }}</p>
   </div>
   <p class="time">{{ time }}</p>
@@ -15,9 +15,9 @@ export default {
   mixins: [WidgetMixin],
   data() {
     return {
-      timeUpdateInterval: null, // Stores setInterval function
       time: null, // Current time string
       date: null, // Current date string
+      timeUpdateInterval: null, // Stores setInterval function
     };
   },
   computed: {
@@ -31,11 +31,10 @@ export default {
       if (this.options.format) return this.options.format;
       return navigator.language;
     },
-  },
-  filters: {
-    /* For a given time zone, return just the city name */
-    getCity(timeZone) {
-      return timeZone.split('/')[1].replaceAll('_', ' ');
+    /* Get city name from time-zone, or return users custom city name */
+    cityName() {
+      if (this.options.customCityName) return this.options.customCityName;
+      return this.timeZone.split('/')[1].replaceAll('_', ' ');
     },
   },
   methods: {
@@ -62,16 +61,11 @@ export default {
   created() {
     // Set initial date and time
     this.update();
-    // Update the date every hour, and the time each second
-    this.timeUpdateInterval = setInterval(() => {
-      this.setTime();
-      const now = new Date();
-      if (now.getMinutes() === 0 && now.getSeconds() === 0) {
-        this.setDate();
-      }
-    }, 1000);
+    // Update the time and date every second (1000 ms)
+    this.timeUpdateInterval = setInterval(this.update, 1000);
   },
   beforeDestroy() {
+    // Remove the clock interval listener
     clearInterval(this.timeUpdateInterval);
   },
 };
@@ -103,6 +97,7 @@ export default {
     font-size: 4rem;
     padding: 0.5rem;
     text-align: center;
+    font-variant-numeric: tabular-nums;
     font-family: Digital, var(--font-monospace);
   }
 }

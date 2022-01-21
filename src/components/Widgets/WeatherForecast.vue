@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
+import { capitalize } from '@/utils/MiscHelpers';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
 export default {
@@ -44,6 +44,9 @@ export default {
       weatherData: [],
       moreInfo: [],
     };
+  },
+  mounted() {
+    this.checkProps();
   },
   computed: {
     units() {
@@ -73,11 +76,6 @@ export default {
     },
   },
   methods: {
-    /* Extends mixin, and updates data. Called by parent component */
-    update() {
-      this.startLoading();
-      this.fetchWeather();
-    },
     /* Adds units symbol to temperature, depending on metric or imperial */
     processTemp(temp) {
       return `${Math.round(temp)}${this.tempDisplayUnits}`;
@@ -88,23 +86,11 @@ export default {
       const dateFormat = { weekday: 'short', day: 'numeric', month: 'short' };
       return new Date(timestamp * 1000).toLocaleDateString(localFormat, dateFormat);
     },
-    /* Fetches the weather from OpenWeatherMap, and processes results */
-    fetchWeather() {
-      axios.get(this.endpoint)
-        .then((response) => {
-          if (response.data.list) {
-            this.processApiResults(response.data);
-          }
-        })
-        .catch((error) => {
-          this.error('Failed to fetch weather', error);
-        })
-        .finally(() => {
-          this.finishLoading();
-        });
+    fetchData() {
+      this.makeRequest(this.endpoint).then(this.processData);
     },
     /* Process the results from the Axios request */
-    processApiResults(dataList) {
+    processData(dataList) {
       const uiWeatherData = [];
       dataList.list.forEach((day, index) => {
         uiWeatherData.push({
@@ -137,8 +123,12 @@ export default {
     },
     /* When a day is clicked, then show weather info on the UI */
     showMoreInfo(moreInfo) {
-      this.moreInfo = moreInfo;
-      this.showDetails = true;
+      if (this.showDetails && JSON.stringify(moreInfo) === JSON.stringify(this.moreInfo)) {
+        this.showDetails = false;
+      } else {
+        this.moreInfo = moreInfo;
+        this.showDetails = true;
+      }
     },
     /* Show/ hide additional weather info */
     toggleDetails() {
@@ -146,35 +136,18 @@ export default {
     },
     /* Display weather description and Click for more note on hover */
     tooltip(text) {
-      const content = `${text.split(' ').map(
-        (word) => word[0].toUpperCase() + word.substring(1),
-      ).join(' ')}\nClick for more Info`;
+      const content = `${text ? capitalize(text) : ''}\nClick for more Info`;
       return { content, trigger: 'hover focus', delay: 250 };
     },
     /* Validate input props, and print warning if incorrect */
     checkProps() {
       const ops = this.options;
-      let valid = true;
-      if (!ops.apiKey) {
-        this.error('Missing API key for OpenWeatherMap');
-        valid = false;
-      }
-      if (!ops.city) {
-        this.error('A city name is required to fetch weather');
-        valid = false;
-      }
+      if (!ops.apiKey) this.error('Missing API key for OpenWeatherMap');
+      if (!ops.city) this.error('A city name is required to fetch weather');
       if (ops.units && ops.units !== 'metric' && ops.units !== 'imperial') {
         this.error('Invalid units specified, must be either \'metric\' or \'imperial\'');
-        valid = false;
       }
-      return valid;
     },
-  },
-  /* When the widget loads, the props are checked, and weather fetched */
-  created() {
-    if (this.checkProps()) {
-      this.fetchWeather();
-    }
   },
 };
 </script>
@@ -266,6 +239,9 @@ export default {
         margin: 0.1rem 0.5rem;
         padding: 0.1rem 0;
         color: var(--widget-text-color);
+        span.lbl {
+          text-transform: capitalize;
+        }
         &:not(:last-child) {
           border-bottom: 1px dashed var(--widget-text-color);
         }

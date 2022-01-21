@@ -7,29 +7,33 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
 > Adding / editing widgets through the UI isn't yet supported, you will need to do this in the YAML config file.
 
 ##### Contents
-- [General Widgets](#general-widgets)
+- **[General Widgets](#general-widgets)**
   - [Clock](#clock)
   - [Weather](#weather)
   - [Weather Forecast](#weather-forecast)
+  - [RSS Feed](#rss-feed)
+  - [Public IP Address](#public-ip)
   - [Crypto Watch List](#crypto-watch-list)
   - [Crypto Price History](#crypto-token-price-history)
-  - [RSS Feed](#rss-feed)
+  - [Crypto Wallet Balance](#wallet-balance)
   - [Code Stats](#code-stats)
+  - [Email Aliases (AnonAddy)](#anonaddy)
   - [Vulnerability Feed](#vulnerability-feed)
-  - [Sports Scores](#sports-scores)
   - [Exchange Rates](#exchange-rates)
   - [Public Holidays](#public-holidays)
+  - [Covid-19 Status](#covid-19-status)
+  - [Sports Scores](#sports-scores)
+  - [News Headlines](#news-headlines)
   - [TFL Status](#tfl-status)
   - [Stock Price History](#stock-price-history)
+  - [ETH Gas Prices](#eth-gas-prices)
   - [Joke of the Day](#joke)
   - [XKCD Comics](#xkcd-comics)
-  - [News Headlines](#news-headlines)
   - [Flight Data](#flight-data)
   - [NASA APOD](#astronomy-picture-of-the-day)
   - [GitHub Trending](#github-trending)
   - [GitHub Profile Stats](#github-profile-stats)
-  - [Public IP Address](#public-ip)
-- [Self-Hosted Services Widgets](#self-hosted-services-widgets)
+- **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
   - [CPU History](#cpu-history-netdata)
@@ -39,16 +43,31 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Pi Hole Queries](#pi-hole-queries)
   - [Recent Traffic](#recent-traffic)
   - [Stat Ping Statuses](#stat-ping-statuses)
-- [Dynamic Widgets](#dynamic-widgets)
+- **[System Resource Monitoring](#system-resource-monitoring)**
+  - [CPU Usage Current](#current-cpu-usage)
+  - [CPU Usage Per Core](#cpu-usage-per-core)
+  - [CPU Usage History](#cpu-usage-history)
+  - [Memory Usage Current](#current-memory-usage)
+  - [Memory Usage History](#memory-usage-history)
+  - [Disk Space](#disk-space)
+  - [Disk IO](#disk-io)
+  - [System Load](#system-load)
+  - [System Load History](#system-load-history)
+  - [Network Interfaces](#network-interfaces)
+  - [Network Traffic](#network-traffic)
+  - [Resource Usage Alerts](#resource-usage-alerts)
+- **[Dynamic Widgets](#dynamic-widgets)**
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
   - [API Response](#api-response)
   - [Prometheus Data](#prometheus-data)
   - [Data Feed](#data-feed)
-- [Usage & Customizations](#usage--customizations)
+- **[Usage & Customizations](#usage--customizations)**
   - [Widget Usage Guide](#widget-usage-guide)
   - [Continuous Updates](#continuous-updates)
+  - [Proxying Requests](#proxying-requests)
   - [Custom CSS Styling](#widget-styling)
+  - [Customizing Charts](#customizing-charts)
   - [Language Translations](#language-translations)
   - [Widget UI Options](#widget-ui-options)
   - [Building a Widget](#build-your-own-widget)
@@ -68,6 +87,7 @@ A simple, live-updating time and date widget with time-zone support. All fields 
 --- | --- | --- | ---
 **`timeZone`** | `string` |  _Optional_ | The time zone to display date and time in.<br> Specified as Region/City, for example: `Australia/Melbourne`. See the [Time Zone DB](https://timezonedb.com/time-zones) for a full list of supported TZs. Defaults to the browser / device's local time
 **`format`** | `string` | _Optional_ | A country code for displaying the date and time in local format.<br>Specified as `[ISO-3166]-[ISO-639]`, for example: `en-AU`. See [here](https://www.fincher.org/Utilities/CountryLanguageList.shtml) for a full list of locales. Defaults to the browser / device's region
+**`customCityName`** | `string` |  _Optional_ | By default the city from the time-zone is shown, but setting this value will override that text
 **`hideDate`** | `boolean` |  _Optional_ | If set to `true`, the date and city will not be shown. Defaults to `false`
 
 ##### Example
@@ -129,7 +149,7 @@ Displays the weather (temperature and conditions) for the next few days for a gi
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`apiKey`** | `string` |  Required | Your OpenWeatherMap API key. You can get one for free at [openweathermap.org](https://openweathermap.org/)
+**`apiKey`** | `string` |  Required | Your OpenWeatherMap API key. You can get one at [openweathermap.org](https://openweathermap.org/) or for free via the [OWM Student Plan](https://home.openweathermap.org/students)
 **`city`** | `string` | Required | A city name to use for fetching weather. This can also be a state code or country code, following the ISO-3166 format
 **`numDays`** | `number` |  _Optional_ | The number of days to display of forecast info to display. Defaults to `4`, max `16` days
 **`units`** | `string` |  _Optional_ | The units to use for displaying data, can be either `metric` or `imperial`. Defaults to `metric`
@@ -154,6 +174,63 @@ Displays the weather (temperature and conditions) for the next few days for a gi
 
 ---
 
+### RSS Feed
+
+Display news and updates from any RSS-enabled service.
+
+<p align="center"><img width="600" src="https://i.ibb.co/N9mvLh4/rss-feed.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`rssUrl`** | `string` |  Required | The URL location of your RSS feed
+**`apiKey`** | `string` |  _Optional_ | An API key for [rss2json](https://rss2json.com/). It's free, and will allow you to make 10,000 requests per day, you can sign up [here](https://rss2json.com/sign-up)
+**`limit`** | `number` |  _Optional_ | The number of posts to return. If you haven't specified an API key, this will be limited to 10
+**`orderBy`** | `string` |  _Optional_ | How results should be sorted. Can be either `pubDate`, `author` or `title`. Defaults to `pubDate`
+**`orderDirection`** | `string` |  _Optional_ | Order direction of feed items to return. Can be either `asc` or `desc`. Defaults to `desc`
+
+##### Example
+
+```yaml
+- type: rss-feed
+  options:
+    rssUrl: https://www.schneier.com/blog/atom.xml
+    apiKey: xxxx
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟠 Optional
+- **Price**: 🟠 Free Plan (up to 10,000 requests / day)
+- **Privacy**: _See [Rss2Json Privacy Policy](https://rss2json.com/privacy-policy)_
+
+---
+
+### Public IP
+
+Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data is fetched from [IP-API.com](https://ip-api.com/).
+
+<p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
+
+##### Options
+
+_No config options._
+
+##### Example 
+
+```yaml
+- type: public-ip
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟠 Optional
+- **Price**: 🟢 Free
+- **Host**: Managed Instance Only
+- **Privacy**: _See [IP-API Privacy Policy](https://ip-api.com/docs/legal)_
+
+---
 
 ### Crypto Watch List
 
@@ -236,36 +313,35 @@ Shows recent price history for a given crypto asset, using price data fetched fr
 
 ---
 
-### RSS Feed
+### Wallet Balance
 
-Display news and updates from any RSS-enabled service.
+Keep track of your crypto balances and see recent transactions. Data is fetched from [BlockCypher](https://www.blockcypher.com/dev/)
 
-<p align="center"><img width="600" src="https://i.ibb.co/N9mvLh4/rss-feed.png" /></p>
+<p align="center"><img width="600" src="https://i.ibb.co/27HG4nj/wallet-balances.png" /></p>
 
 ##### Options
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`rssUrl`** | `string` |  Required | The URL location of your RSS feed
-**`apiKey`** | `string` |  _Optional_ | An API key for [rss2json](https://rss2json.com/). It's free, and will allow you to make 10,000 requests per day, you can sign up [here](https://rss2json.com/sign-up)
-**`limit`** | `number` |  _Optional_ | The number of posts to return. If you haven't specified an API key, this will be limited to 10
-**`orderBy`** | `string` |  _Optional_ | How results should be sorted. Can be either `pubDate`, `author` or `title`. Defaults to `pubDate`
-**`orderDirection`** | `string` |  _Optional_ | Order direction of feed items to return. Can be either `asc` or `desc`. Defaults to `desc`
+**`coin`** | `string` |  Required | Symbol of coin or asset, e.g. `btc`, `eth` or `doge`
+**`address`** | `string` | Required | Address to monitor. This is your wallet's **public** / receiving address
+**`network`** | `string` |  _Optional_ | To use a different network, other than mainnet. Defaults to `main`
+**`limit`** | `number` | _Optional_ | Limit the number of transactions to display. Defaults to `10`, set to large number to show all
 
 ##### Example
 
 ```yaml
-- type: rss-feed
+- type: wallet-balance
   options:
-    rssUrl: https://www.schneier.com/blog/atom.xml
-    apiKey: xxxx
+    coin: btc
+    address: 3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC	
 ```
 
 ##### Info
 - **CORS**: 🟢 Enabled
-- **Auth**: 🟠 Optional
-- **Price**: 🟠 Free Plan (up to 10,000 requests / day)
-- **Privacy**: _See [Rss2Json Privacy Policy](https://rss2json.com/privacy-policy)_
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Privacy**: _See [BlockCypher Privacy Policy](https://www.blockcypher.com/privacy.html)_
 
 ---
 
@@ -301,6 +377,50 @@ Display your coding summary. [Code::Stats](https://codestats.net/) is a free and
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted or Managed
 - **Privacy**: _See [Code::Stats Privacy Policy](https://codestats.net/tos#privacy)_
+
+---
+
+### AnonAddy
+
+[AnonAddy](https://anonaddy.com/) is a free and open source mail forwarding service. Use it to protect your real email address, by using a different alias for each of your online accounts, and have all emails land in your normal inbox(es). Supports custom domains, email replies, PGP-encryption, multiple recipients and more
+
+This widget display email addresses / aliases from AnonAddy. Click an email address to copy to clipboard, or use the toggle switch to enable/ disable it. Shows usage stats (bandwidth, used aliases etc), as well as total messages recieved, blocked and sent. Works with both self-hosted and managed instances of AnonAddy.
+
+<p align="center"><img width="400" src="https://i.ibb.co/ZhfyRdV/anonaddy.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | Your AnonAddy API Key / Personal Access Token. You can generate this under [Account Settings](https://app.anonaddy.com/settings)
+**`hostname`** | `string` |  _Optional_ | If your self-hosting AnonAddy, then supply the host name. By default it will use the public hosted instance
+**`apiVersion`** | `string` |  _Optional_ | If you're using an API version that is not version `v1`, then specify it here
+**`limit`** | `number` |  _Optional_ | Limit the number of emails shown per page. Defaults to `10`
+**`sortBy`** | `string` |  _Optional_ | Specify the sort order for email addresses. Defaults to `updated_at`. Can be either: `local_part`, `domain`, `email`, `emails_forwarded`, `emails_blocked`, `emails_replied`, `emails_sent`, `created_at`, `updated_at` or `deleted_at`. Precede with a `-` character to reverse order.
+**`searchTerm`** | `string` |  _Optional_ | A search term to filter results by, will search the email, description and domain
+**`disableControls`** | `boolean` |  _Optional_ | Prevent any changes being made to account through the widget. User will not be able to enable or disable aliases through UI when this option is set
+**`hideMeta`** | `boolean` |  _Optional_ | Don't show account meta info (forward/ block count, quota usage etc)
+**`hideAliases`** | `boolean` |  _Optional_ | Don't show email address / alias list. Will only show account meta info
+
+##### Example
+
+```yaml
+  - type: anonaddy
+    options:
+      apiKey: "xxxxxxxxxxxxxxxxxxxxxxxx\
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      limit: 5
+      sortBy: created_at
+      disableControls: true
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free for Self-Hosted / Free Plan available on managed instance or $1/month for premium
+- **Host**: Self-Hosted or Managed
+- **Privacy**: _See [AnonAddy Privacy Policy](https://anonaddy.com/privacy/)_
 
 ---
 
@@ -346,39 +466,6 @@ or
 - **Price**: 🟢 Free
 - **Host**: Managed
 - **Privacy**: _See [CVE Details Privacy Policy](https://www.cvedetails.com/privacy.php)_
-
----
-
-### Sports Scores
-
-Show recent scores and upcoming matches from your favourite sports team. Data is fetched from [TheSportsDB.com](https://www.thesportsdb.com/). From the UI, you can click any other team to view their scores and upcoming games, or click a league name to see all teams.
-
-<p align="center"><img width="400" src="https://i.ibb.co/8XhXGkN/sports-scores.png" /></p>
-
-##### Options
-
-**Field** | **Type** | **Required** | **Description**
---- | --- | --- | ---
-**`teamId`** | `string` |  __Optional__ | The ID of a team to fetch scores from. You can search for your team on the [Teams Page](https://www.thesportsdb.com/teams_main.php)
-**`leagueId`** | `string` |  __Optional__ | Alternatively, provide a league ID to fetch all games from. You can find the ID on the [Leagues Page](https://www.thesportsdb.com/Sport/Leagues)
-**`pastOrFuture`** | `string` |  __Optional__ | Set to `past` to show scores for recent games, or `future` to show upcoming games. Defaults to `past`. You can change this within the UI
-**`apiKey`** | `string` | __Optional__ | Optionally specify your API key, which you can sign up for at [TheSportsDB.com](https://www.thesportsdb.com/)
-**`limit`** | `number` | __Optional__ | To limit output to a certain number of matches, defaults to `15`
-
-##### Example
-
-```yaml
-- type: sports-scores
-  options:
-    teamId: 133636
-```
-
-##### Info
-- **CORS**: 🟢 Enabled
-- **Auth**: 🟠 Optional
-- **Price**: 🟠 Free plan (upto 30 requests / minute, limited endpoints)
-- **Host**: Managed Instance Only
-- **Privacy**: ⚫ No Policy Available
 
 ---
 
@@ -449,6 +536,121 @@ Counting down to the next day off work? This widget displays upcoming public hol
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [jurajmajer/enrico](https://github.com/jurajmajer/enrico)) or Managed
 - **Privacy**: ⚫ No Policy Available
+
+---
+
+### Covid-19 Status
+
+Keep track of the current COVID-19 status. Optionally also show cases by country, and a time-series chart. Uses live data from various sources, computed by [disease.sh](https://disease.sh/)
+
+<p align="center"><img width="400" src="https://i.ibb.co/7XjbyRg/covid-19-status.png?" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`showChart`** | `boolean` | _Optional_ | Also display a time-series chart showing number of recent cases
+**`showCountries`** | `boolean` |  _Optional_ | Also display a list of cases per country
+**`numDays`** | `number` | _Optional_ | Specify number of days worth of history to render on the chart
+**`countries`** | `string[]` | _Optional_ | An array of countries to display, specified by their [ISO-3 codes](https://www.iso.org/obp/ui). Leave blank to show all, sorted by most cases. `showCountries` must be set to `true`
+**`limit`** | `number` | _Optional_ | If showing all countries, set a limit for number of results to return. Defaults to `10`, no maximum
+
+
+##### Example 
+
+```yaml
+- type: covid-stats
+```
+
+Or
+
+```yaml
+- type: covid-stats
+  options:
+    showChart: true
+    showCountries: true
+    countries:
+    - GBR
+    - USA
+    - IND
+    - RUS
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed Instance or Self-Hosted (see [disease-sh/api](https://github.com/disease-sh/api))
+- **Privacy**: ⚫ No Policy Available
+- **Conditions**: [Terms of Use](https://github.com/disease-sh/api/blob/master/TERMS.md)
+
+---
+
+### Sports Scores
+
+Show recent scores and upcoming matches from your favourite sports team. Data is fetched from [TheSportsDB.com](https://www.thesportsdb.com/). From the UI, you can click any other team to view their scores and upcoming games, or click a league name to see all teams.
+
+<p align="center"><img width="400" src="https://i.ibb.co/8XhXGkN/sports-scores.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`teamId`** | `string` |  __Optional__ | The ID of a team to fetch scores from. You can search for your team on the [Teams Page](https://www.thesportsdb.com/teams_main.php)
+**`leagueId`** | `string` |  __Optional__ | Alternatively, provide a league ID to fetch all games from. You can find the ID on the [Leagues Page](https://www.thesportsdb.com/Sport/Leagues)
+**`pastOrFuture`** | `string` |  __Optional__ | Set to `past` to show scores for recent games, or `future` to show upcoming games. Defaults to `past`. You can change this within the UI
+**`apiKey`** | `string` | __Optional__ | Optionally specify your API key, which you can sign up for at [TheSportsDB.com](https://www.thesportsdb.com/)
+**`limit`** | `number` | __Optional__ | To limit output to a certain number of matches, defaults to `15`
+
+##### Example
+
+```yaml
+- type: sports-scores
+  options:
+    teamId: 133636
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟠 Optional
+- **Price**: 🟠 Free plan (upto 30 requests / minute, limited endpoints)
+- **Host**: Managed Instance Only
+- **Privacy**: ⚫ No Policy Available
+
+---
+
+### News Headlines
+
+Displays the latest news, click to read full article. Date is fetched from various news sources using [Currents API](https://currentsapi.services/en)
+
+<p align="center"><img width="380" src="https://i.ibb.co/6NDWW0z/news-headlines.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | Your API key for CurrentsAPI. This is free, and you can [get one here](https://currentsapi.services/en/register)
+**`country`** | `string` | _Optional_ | Fetch news only from a certain country or region. Specified as a country code, e.g. `GB` or `US`. See [here](https://api.currentsapi.services/v1/available/regions) for a list of supported regions
+**`category`** | `string` | _Optional_ | Only return news from within a given category, e.g. `sports`, `programming`, `world`, `science`. The [following categories](https://api.currentsapi.services/v1/available/categories) are supported
+**`lang`** | `string` |  _Optional_ | Specify the language for returned articles as a 2-digit ISO code (limited article support). The [following languages](https://api.currentsapi.services/v1/available/languages) are supported, defaults to `en`
+**`count`** | `number` |  _Optional_ | Limit the number of results. Can be between `1` and `200`, defaults to `10`
+**`keywords`** | `string` |  _Optional_ | Only return articles that contain an exact match within their title or description
+
+##### Example 
+
+```yaml
+- type: news-headlines
+    options:
+      apiKey: xxxxxxx
+      category: world
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free plan (upto 600 requests / day)
+- **Host**: Managed Instance Only
+- **Privacy**: _See [CurrentsAPI Privacy Policy](https://currentsapi.services/privacy)_
 
 ---
 
@@ -526,6 +728,31 @@ Shows recent price history for a given publicly-traded stock or share
 
 ---
 
+### ETH Gas Prices
+
+Renders the current Gas cost of transactions on the Ethereum network (in both GWEI and USD), along with recent historical prices. Useful for spotting a good time to transact. Uses data from [ethgas.watch](https://ethgas.watch/)
+
+<p align="center"><img width="400" src="https://i.ibb.co/LhHfQyp/eth-gas-prices.png" /></p>
+
+##### Options
+
+_No config options._
+
+##### Example 
+
+```yaml
+- type: eth-gas-prices
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed Instance or Self-Hosted (see [wslyvh/ethgaswatch](https://github.com/wslyvh/ethgaswatch))
+- **Privacy**: ⚫ No Policy Available
+
+---
+
 ### Joke
 
 Renders a programming or generic joke. Data is fetched from the [JokesAPI](https://github.com/Sv443/JokeAPI) by @Sv443. All fields are optional.
@@ -584,41 +811,6 @@ Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webc
 - **Auth**: 🟢 Not Required
 - **Price**: 🟢 Free
 - **Privacy**: ⚫ No Policy Available
-
----
-
-### News Headlines
-
-Displays the latest news, click to read full article. Date is fetched from various news sources using [Currents API](https://currentsapi.services/en)
-
-<p align="center"><img width="380" src="https://i.ibb.co/6NDWW0z/news-headlines.png" /></p>
-
-##### Options
-
-**Field** | **Type** | **Required** | **Description**
---- | --- | --- | ---
-**`apiKey`** | `string` |  Required | Your API key for CurrentsAPI. This is free, and you can [get one here](https://currentsapi.services/en/register)
-**`country`** | `string` | _Optional_ | Fetch news only from a certain country or region. Specified as a country code, e.g. `GB` or `US`. See [here](https://api.currentsapi.services/v1/available/regions) for a list of supported regions
-**`category`** | `string` | _Optional_ | Only return news from within a given category, e.g. `sports`, `programming`, `world`, `science`. The [following categories](https://api.currentsapi.services/v1/available/categories) are supported
-**`lang`** | `string` |  _Optional_ | Specify the language for returned articles as a 2-digit ISO code (limited article support). The [following languages](https://api.currentsapi.services/v1/available/languages) are supported, defaults to `en`
-**`count`** | `number` |  _Optional_ | Limit the number of results. Can be between `1` and `200`, defaults to `10`
-**`keywords`** | `string` |  _Optional_ | Only return articles that contain an exact match within their title or description
-
-##### Example 
-
-```yaml
-- type: news-headlines
-    options:
-      apiKey: xxxxxxx
-      category: world
-```
-
-##### Info
-- **CORS**: 🟢 Enabled
-- **Auth**: 🔴 Required
-- **Price**: 🟠 Free plan (upto 600 requests / day)
-- **Host**: Managed Instance Only
-- **Privacy**: _See [CurrentsAPI Privacy Policy](https://currentsapi.services/privacy)_
 
 ---
 
@@ -750,31 +942,6 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
 - **Price**: 🟢 Free
 - **Host**: Managed Instance or Self-Hosted (see [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats))
 - **Privacy**: _See [GitHub's Privacy Policy](https://docs.github.com/en/github/site-policy/github-privacy-statement)_
-
----
-
-### Public IP
-
-Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data is fetched from [IP-API.com](https://ip-api.com/).
-
-<p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
-
-##### Options
-
-_No config options._
-
-##### Example 
-
-```yaml
-- type: public-ip
-```
-
-##### Info
-- **CORS**: 🟢 Enabled
-- **Auth**: 🟠 Optional
-- **Price**: 🟢 Free
-- **Host**: Managed Instance Only
-- **Privacy**: _See [IP-API Privacy Policy](https://ip-api.com/docs/legal)_
 
 ---
 
@@ -1046,6 +1213,249 @@ Displays the current and recent uptime of your running services, via a self-host
 
 ---
 
+## System Resource Monitoring
+
+The easiest method for displaying system info and resource usage in Dashy is with [Glances](https://nicolargo.github.io/glances/).
+
+Glances is a cross-platform monitoring tool developed by [@nicolargo](https://github.com/nicolargo). It's similar to top/htop but with a [Rest API](https://glances.readthedocs.io/en/latest/api.html) and many [data exporters](https://glances.readthedocs.io/en/latest/gw/index.html) available. Under the hood, it uses [psutil](https://github.com/giampaolo/psutil) for retrieving system info.
+
+If you don't already have it installed, either follow the [Installation Guide](https://github.com/nicolargo/glances/blob/master/README.rst) for your system, or setup [with Docker](https://glances.readthedocs.io/en/latest/docker.html), or use the one-line install script: `curl -L https://bit.ly/glances | /bin/bash`.
+
+Glances can be launched with the `glances` command. You'll need to run it in web server mode, using the `-w` option for the API to be reachable. If you don't plan on using the Web UI, then you can disable it using `--disable-webui`. See the [command reference docs](https://glances.readthedocs.io/en/latest/cmds.html) for more info.
+
+
+##### Options
+
+All Glance's based widgets require a `hostname`. All other parameters are optional.
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL or IP + port to your Glances instance (without a trailing slash)
+**`username`** | `string` |  _Optional_ | If you have setup basic auth on Glances, specify username here (defaults to `glances`)
+**`password`** | `string` |  _Optional_ | If you have setup basic auth on Glances, specify password here. **Note**: since this password is in plaintext, it is important not to reuse it anywhere else
+**`apiVersion`** | `string` |  _Optional_ | Specify an API version, defaults to V `3`. Note that support for older versions is limited
+**`limit`** | `number` |  _Optional_ | For widgets that show a time-series chart, optionally limit the number of data points returned. A higher number will show more historical results, but will take longer to load. A value between 300 - 800 is usually optimal
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟠 Optional
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - Nicolargo/Glances](https://github.com/nicolargo/glances))
+- **Privacy**: ⚫ No Policy Available
+
+##### Screenshot
+[![example-screenshot](https://i.ibb.co/xfK6BGb/system-monitor-board.png)](https://ibb.co/pR6dMZT)
+
+---
+
+### Current CPU Usage
+
+Live-updating current CPU usage, as a combined average across alll cores
+
+<p align="center"><img width="400" src="https://i.ibb.co/qkLgxLp/gl-cpu-usage.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-current-cpu
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### CPU Usage Per Core
+
+Live-updating CPU usage breakdown per core
+
+<p align="center"><img width="400" src="https://i.ibb.co/512MYhT/gl-cpu-cores.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-current-cores
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### CPU Usage History
+
+Recent CPU usage history, across all cores, and displayed by user and system
+
+<p align="center"><img width="500" src="https://i.ibb.co/zs8BDzR/gl-cpu-history.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`limit`** | `number` |  _Optional_ | Limit the number of results returned, rendering more data points will take longer to load. Defaults to `100`
+
+##### Example 
+
+```yaml
+- type: gl-cpu-history
+  options:
+    hostname: http://192.168.130.2:61208
+    limit: 60
+```
+
+---
+
+### Current Memory Usage
+
+Real-time memory usage gauge, with more info visible on click
+
+<p align="center"><img width="400" src="https://i.ibb.co/rynp52J/gl-mem-usage.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-current-mem
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### Memory Usage History
+
+Recent memory usage chart
+
+<p align="center"><img width="500" src="https://i.ibb.co/V3wSgW0/gl-mem-history.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`limit`** | `number` |  _Optional_ | Limit the number of results returned, rendering more data points will take longer to load. Defaults to `100`
+
+
+##### Example 
+
+```yaml
+- type: gl-mem-history
+  options:
+    hostname: http://localhost:61208
+    limit: 80
+```
+
+---
+
+### Disk Space
+
+List connected disks, showing free / used space and other info (file system, mount point and space available)
+
+<p align="center"><img width="400" src="https://i.ibb.co/25y94bB/gl-disk-usage.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-disk-space
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### Disk IO
+
+Shows real-time read and write speeds and operations per sec for each disk 
+
+<p align="center"><img width="400" src="https://i.ibb.co/JdgjCjG/gl-disk-io.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-disk-io
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### System Load
+
+Shows the number of processes waiting in the run-queue, averaged across all cores. Displays for past 5, 10 and 15 minutes
+
+<p align="center"><img width="400" src="https://i.ibb.co/090FfNy/gl-system-load.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-system-load
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### System Load History
+
+Shows recent historical system load, calculated from the number of processes waiting in the run-queue, in 1, 5 and 15 minute intervals, and averaged across all cores. Optionally specify `limit` to set number of results returned, defaults to `500`, max `100000`, but the higher the number the longer the load and render times will be.
+
+<p align="center"><img width="500" src="https://i.ibb.co/C2rGMLg/system-load-history.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-load-history
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### Network Interfaces
+
+Lists visible network interfaces, including real-time upload/ download stats
+
+<p align="center"><img width="400" src="https://i.ibb.co/FnhgHfG/gl-network-interfaces.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-network-interfaces
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### Network Traffic
+
+Shows amount of data recently uploaded/ downloaded across all network interfaces. Optionally set the `limit` option to specify number historical of data points to return
+
+<p align="center"><img width="400" src="https://i.ibb.co/12RN6KT/gl-network-traffic.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-network-traffic
+  options:
+    hostname: http://192.168.130.2:61208
+    limit: 500
+```
+
+---
+
+### Resource Usage Alerts
+
+Lists recent high resource usage alerts (e.g. CPU, mem, IO, load, temp)
+
+<p align="center"><img width="400" src="https://i.ibb.co/w01NX5R/gl-alerts.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-alerts
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
 ## Dynamic Widgets
 
 ### Iframe Widget
@@ -1195,19 +1605,6 @@ Note that if you have many widgets, and set them to continuously update frequent
 
 ---
 
-### Widget Styling
-
-Like elsewhere in Dashy, all colours can be easily modified with CSS variables. 
-
-Widgets use the following color variables, which can be overridden if desired:
-- `--widget-text-color` - Text color, defaults to `--primary`
-- `--widget-background-color` - Background color, defaults to `--background-darker`
-- `--widget-accent-color` - Accent color, defaults to `--background`
-
-For more info on how to apply custom variables, see the [Theming Docs](/docs/theming.md#setting-custom-css-in-the-ui)
-
----
-
 ### Proxying Requests
 
 If a widget fails to make a data request, and the console shows a CORS error, this means the server is blocking client-side requests.
@@ -1233,6 +1630,35 @@ Vary: Origin
 
 ---
 
+### Widget Styling
+
+Like elsewhere in Dashy, all colours can be easily modified with CSS variables. 
+
+Widgets use the following color variables, which can be overridden if desired:
+- `--widget-text-color` - Text color, defaults to `--primary`
+- `--widget-background-color` - Background color, defaults to `--background-darker`
+- `--widget-accent-color` - Accent color, defaults to `--background`
+
+For more info on how to apply custom variables, see the [Theming Docs](/docs/theming.md#setting-custom-css-in-the-ui)
+
+---
+
+### Customizing Charts
+
+For widgets that contain charts, you can set an array of colors under `chartColors`.
+To specify the chart height, set `chartHeight` to an integer (in `px`), defaults to `300`.
+For example:
+
+```yaml
+- type: gl-load-history
+  options:
+    hostname: http://192.168.130.2:61208
+    chartColors: ['#9b5de5', '#f15bb5', '#00bbf9', '#00f5d4']
+    chartHeight: 450
+```
+
+---
+
 ### Language Translations
 
 Since most of the content displayed within widgets is fetched from an external API, unless that API supports multiple languages, translating dynamic content is not possible.
@@ -1245,13 +1671,13 @@ For more info about multi-language support, see the [Internationalization Docs](
 
 ### Widget UI Options
 
-Widgets can be opened in full-page view, by clicking the Arrow icon (top-right). The URL in your address bar will also update, and visiting that web address will take you straight to the selected widget.
+Widgets can be opened in full-page view, by clicking the Arrow icon (top-right). The URL in your address bar will also update, and visiting that web address directly will take you straight to that widget.
 
 You can reload the data of any widget, by clicking the Refresh Data icon (also in top-right). This will only affect the widget where the action was triggered from.
 
-All [config options](/docs/configuring.md#section) that can be applied to sections, can also be applied to widget sections. For example, to make a widget span multiple columns, set `displayData.cols: 2` within the parent section. You can collapse a widget (by clicking the section title), and collapse state will be saved locally.
+All [config options](/docs/configuring.md#section) that can be applied to sections, can also be applied to widget sections. For example, to make a widget section double the width, set `displayData.cols: 2` within the parent section. You can collapse a widget (by clicking the section title), and collapse state will be saved locally.
 
-Widgets cannot currently be edited through the UI. This feature is in development, and will be released soon.  In the meantime, you can either use the JSON config editor, or use VS Code or SSH into your box to edit the conf.yml file directly.
+Widgets cannot currently be edited through the UI. This feature is in development, and will be released soon.  In the meantime, you can either use the JSON config editor, or use [VS Code Server](https://github.com/coder/code-server), or just SSH into your box and edit the conf.yml file directly.
 
 ---
 
@@ -1261,7 +1687,7 @@ Widgets are built in a modular fashion, making it easy for anyone to create thei
 
 For a full tutorial on creating your own widget, you can follow [this guide](/docs/development-guides.md#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example. 
 
-Alternatively, for displaying simple data, you could also just use the either the [iframe](#iframe-widget), [embed](#html-embedded-widget), [Data Feed](#data-feed) or [API response](#api-response) widgets.
+Alternatively, for displaying simple data, you could also just use the either the [iframe](#iframe-widget), [embed](#html-embedded-widget), [data feed](#data-feed) or [API response](#api-response) widgets.
 
 ---
 

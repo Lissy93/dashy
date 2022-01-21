@@ -271,6 +271,15 @@
       "mem-breakdown-title": "Memory Breakdown",
       "load-chart-title": "System Load"
     },
+    "glances": {
+      "disk-space-free": "Free",
+      "disk-space-used": "Used",
+      "disk-mount-point": "Mount Point",
+      "disk-file-system": "File System",
+      "disk-io-read": "Read",
+      "disk-io-write": "Write",
+      "system-load-desc": "Number of processes waiting in the run-queue, averaged across all cores"
+    },
     "system-info": {
       "uptime": "Uptime"
     },

@@ -17,10 +17,22 @@ const WidgetMixin = {
   data: () => ({
     progress: new ProgressBar({ color: 'var(--progress-bar)' }),
     overrideProxyChoice: false,
+    overrideUpdateInterval: null,
+    disableLoader: false, // Prevent ever showing the loader
+    updater: null, // Stores interval
   }),
   /* When component mounted, fetch initial data */
   mounted() {
     this.fetchData();
+    if (this.updateInterval) {
+      this.continuousUpdates();
+      this.disableLoader = true;
+    }
+  },
+  beforeDestroy() {
+    if (this.updater) {
+      clearInterval(this.updater);
+    }
   },
   computed: {
     proxyReqEndpoint() {
@@ -30,12 +42,33 @@ const WidgetMixin = {
     useProxy() {
       return this.options.useProxy || this.overrideProxyChoice;
     },
+    /* Returns either a number in ms to continuously update widget data. Or 0 for no updates */
+    updateInterval() {
+      const usersInterval = this.options.updateInterval;
+      if (usersInterval === null && this.overrideUpdateInterval) {
+        return this.overrideUpdateInterval * 1000;
+      }
+      if (!usersInterval) return 0;
+      // If set to `true`, then default to 30 seconds
+      if (typeof usersInterval === 'boolean') return 30 * 1000;
+      // If set to a number, and within valid range, return user choice
+      if (typeof usersInterval === 'number'
+        && usersInterval >= 2
+        && usersInterval <= 7200) {
+        return usersInterval * 1000;
+      }
+      return 0;
+    },
   },
   methods: {
     /* Re-fetches external data, called by parent. Usually overridden by widget */
     update() {
       this.startLoading();
       this.fetchData();
+    },
+    /* If continuous updates enabled, create interval */
+    continuousUpdates() {
+      this.updater = setInterval(() => { this.update(); }, this.updateInterval);
     },
     /* Called when an error occurs. Logs to handler, and passes to parent component */
     error(msg, stackTrace) {
@@ -44,8 +77,10 @@ const WidgetMixin = {
     },
     /* When a data request update starts, show loader */
     startLoading() {
-      this.$emit('loading', true);
-      this.progress.start();
+      if (!this.disableLoader) {
+        this.$emit('loading', true);
+        this.progress.start();
+      }
     },
     /* When a data request finishes, hide loader */
     finishLoading() {
@@ -57,20 +92,26 @@ const WidgetMixin = {
       this.finishLoading();
     },
     /* Used as v-tooltip, pass text content in, and will show on hover */
-    tooltip(content) {
-      return { content, trigger: 'hover focus', delay: 250 };
+    tooltip(content, html = false) {
+      return {
+        content, html, trigger: 'hover focus', delay: 250,
+      };
     },
     /* Makes data request, returns promise */
-    makeRequest(endpoint, options) {
+    makeRequest(endpoint, options, protocol, body) {
       // Request Options
-      const method = 'GET';
+      const method = protocol || 'GET';
       const url = this.useProxy ? this.proxyReqEndpoint : endpoint;
-      const CustomHeaders = options ? JSON.stringify(options) : null;
+      const data = JSON.stringify(body || {});
+      const CustomHeaders = options || null;
       const headers = this.useProxy
-        ? { 'Target-URL': endpoint, CustomHeaders } : CustomHeaders;
+        ? { 'Target-URL': endpoint, CustomHeaders: JSON.stringify(CustomHeaders) } : CustomHeaders;
+      const requestConfig = {
+        method, url, headers, data,
+      };
       // Make request
       return new Promise((resolve, reject) => {
-        axios.request({ method, url, headers })
+        axios.request(requestConfig)
           .then((response) => {
             if (response.data.success === false) {
               this.error('Proxy returned error from target server', response.data.message);

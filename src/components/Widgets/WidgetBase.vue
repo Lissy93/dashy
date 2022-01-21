@@ -1,7 +1,7 @@
 <template>
   <div :class="`widget-base ${ loading ? 'is-loading' : '' }`">
     <!-- Update and Full-Page Action Buttons  -->
-    <Button :click="update" class="action-btn update-btn" v-if="!error && !loading">
+    <Button :click="update" class="action-btn update-btn" v-if="!loading">
       <UpdateIcon />
     </Button>
     <Button :click="fullScreenWidget" class="action-btn open-btn" v-if="!error && !loading">
@@ -15,11 +15,19 @@
     <div v-if="error" class="widget-error">
       <p class="error-msg">An error occurred, see the logs for more info.</p>
       <p class="error-output">{{ errorMsg }}</p>
+      <p class="retry-link" @click="update">Retry</p>
     </div>
     <!-- Widget -->
-    <div v-else class="widget-wrap">
+    <div :class="`widget-wrap ${ error ? 'has-error' : '' }`">
+      <AnonAddy
+        v-if="widgetType === 'anonaddy'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <Apod
-        v-if="widgetType === 'apod'"
+        v-else-if="widgetType === 'apod'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -60,8 +68,22 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <CovidStats
+        v-else-if="widgetType === 'covid-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <EmbedWidget
         v-else-if="widgetType === 'embed'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <EthGasPrices
+        v-else-if="widgetType === 'eth-gas-prices'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -81,6 +103,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GitHubProfile
+        v-else-if="widgetType === 'github-profile-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <GitHubTrending
         v-else-if="widgetType === 'github-trending-repos'"
         :options="widgetOptions"
@@ -88,8 +117,85 @@
         @error="handleError"
         :ref="widgetRef"
       />
-      <GitHubProfile
-        v-else-if="widgetType === 'github-profile-stats'"
+      <GlAlerts
+        v-else-if="widgetType === 'gl-alerts'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlCpuCores
+        v-else-if="widgetType === 'gl-current-cores'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlCpuGauge
+        v-else-if="widgetType === 'gl-current-cpu'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlCpuHistory
+        v-else-if="widgetType === 'gl-cpu-history'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlDiskIo
+        v-else-if="widgetType === 'gl-disk-io'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlDiskSpace
+        v-else-if="widgetType === 'gl-disk-space'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlLoadHistory
+        v-else-if="widgetType === 'gl-load-history'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlMemGauge
+        v-else-if="widgetType === 'gl-current-mem'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlMemHistory
+        v-else-if="widgetType === 'gl-mem-history'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlNetworkInterfaces
+        v-else-if="widgetType === 'gl-network-interfaces'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlNetworkTraffic
+        v-else-if="widgetType === 'gl-network-activity'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <GlSystemLoad
+        v-else-if="widgetType === 'gl-system-load'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -221,8 +327,8 @@
         @error="handleError"
         :ref="widgetRef"
       />
-      <XkcdComic
-        v-else-if="widgetType === 'xkcd-comic'"
+      <WalletBalance
+        v-else-if="widgetType === 'wallet-balance'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -237,6 +343,13 @@
       />
       <WeatherForecast
         v-else-if="widgetType === 'weather-forecast'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <XkcdComic
+        v-else-if="widgetType === 'xkcd-comic'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -265,17 +378,32 @@ export default {
     OpenIcon,
     LoadingAnimation,
     // Register widget components
+    AnonAddy: () => import('@/components/Widgets/AnonAddy.vue'),
     Apod: () => import('@/components/Widgets/Apod.vue'),
     Clock: () => import('@/components/Widgets/Clock.vue'),
     CodeStats: () => import('@/components/Widgets/CodeStats.vue'),
+    CovidStats: () => import('@/components/Widgets/CovidStats.vue'),
     CryptoPriceChart: () => import('@/components/Widgets/CryptoPriceChart.vue'),
     CryptoWatchList: () => import('@/components/Widgets/CryptoWatchList.vue'),
     CveVulnerabilities: () => import('@/components/Widgets/CveVulnerabilities.vue'),
     EmbedWidget: () => import('@/components/Widgets/EmbedWidget.vue'),
+    EthGasPrices: () => import('@/components/Widgets/EthGasPrices.vue'),
     ExchangeRates: () => import('@/components/Widgets/ExchangeRates.vue'),
     Flights: () => import('@/components/Widgets/Flights.vue'),
     GitHubTrending: () => import('@/components/Widgets/GitHubTrending.vue'),
     GitHubProfile: () => import('@/components/Widgets/GitHubProfile.vue'),
+    GlAlerts: () => import('@/components/Widgets/GlAlerts.vue'),
+    GlCpuCores: () => import('@/components/Widgets/GlCpuCores.vue'),
+    GlCpuGauge: () => import('@/components/Widgets/GlCpuGauge.vue'),
+    GlCpuHistory: () => import('@/components/Widgets/GlCpuHistory.vue'),
+    GlDiskIo: () => import('@/components/Widgets/GlDiskIo.vue'),
+    GlDiskSpace: () => import('@/components/Widgets/GlDiskSpace.vue'),
+    GlLoadHistory: () => import('@/components/Widgets/GlLoadHistory.vue'),
+    GlMemGauge: () => import('@/components/Widgets/GlMemGauge.vue'),
+    GlMemHistory: () => import('@/components/Widgets/GlMemHistory.vue'),
+    GlNetworkInterfaces: () => import('@/components/Widgets/GlNetworkInterfaces.vue'),
+    GlNetworkTraffic: () => import('@/components/Widgets/GlNetworkTraffic.vue'),
+    GlSystemLoad: () => import('@/components/Widgets/GlSystemLoad.vue'),
     HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
     IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),
     Jokes: () => import('@/components/Widgets/Jokes.vue'),
@@ -294,6 +422,7 @@ export default {
     StockPriceChart: () => import('@/components/Widgets/StockPriceChart.vue'),
     SystemInfo: () => import('@/components/Widgets/SystemInfo.vue'),
     TflStatus: () => import('@/components/Widgets/TflStatus.vue'),
+    WalletBalance: () => import('@/components/Widgets/WalletBalance.vue'),
     Weather: () => import('@/components/Widgets/Weather.vue'),
     WeatherForecast: () => import('@/components/Widgets/WeatherForecast.vue'),
     XkcdComic: () => import('@/components/Widgets/XkcdComic.vue'),
@@ -306,7 +435,6 @@ export default {
     loading: false,
     error: false,
     errorMsg: null,
-    updater: null, // Stores interval
   }),
   computed: {
     /* Returns the widget type, shows error if not specified */
@@ -321,31 +449,19 @@ export default {
     widgetOptions() {
       const options = this.widget.options || {};
       const useProxy = !!this.widget.useProxy;
-      const updateInterval = this.widget.updateInterval || 0;
+      const updateInterval = this.widget.updateInterval !== undefined
+        ? this.widget.updateInterval : null;
       return { useProxy, updateInterval, ...options };
     },
     /* A unique string to reference the widget by */
     widgetRef() {
       return `widget-${this.widgetType}-${this.index}`;
     },
-    /* Returns either `false` or a number in ms to continuously update widget data */
-    updateInterval() {
-      const usersInterval = this.widget.updateInterval;
-      if (!usersInterval) return 0;
-      // If set to `true`, then default to 30 seconds
-      if (typeof usersInterval === 'boolean') return 30 * 1000;
-      // If set to a number, and within valid range, return user choice
-      if (typeof usersInterval === 'number'
-        && usersInterval >= 10
-        && usersInterval < 7200) {
-        return usersInterval * 1000;
-      }
-      return 0;
-    },
   },
   methods: {
     /* Calls update data method on widget */
     update() {
+      this.error = false;
       this.$refs[this.widgetRef].update();
     },
     /* Shows message when error occurred */
@@ -361,17 +477,6 @@ export default {
     setLoaderState(loading) {
       this.loading = loading;
     },
-  },
-  mounted() {
-    // If continuous updates enabled, create interval
-    if (this.updateInterval) {
-      this.updater = setInterval(() => {
-        this.update();
-      }, this.updateInterval);
-    }
-  },
-  beforeDestroy() {
-    clearInterval(this.updater);
   },
 };
 </script>
@@ -404,6 +509,15 @@ export default {
       right: 1.75rem;
     }
   }
+
+  .widget-wrap {
+    &.has-error {
+      cursor: not-allowed;
+      opacity: 0.5;
+      border-radius: var(--curve-factor);
+      background: #ffff0080;
+    }
+  }
   // Error message output
   .widget-error {
     p.error-msg {
@@ -417,6 +531,13 @@ export default {
       color: var(--widget-text-color);
       font-size: 0.85rem;
       margin: 0.5rem auto;
+    }
+    p.retry-link {
+      cursor: pointer;
+      text-decoration: underline;
+      color: var(--widget-text-color);
+      font-size: 0.85rem;
+      margin: 0;
     }
   }
   // Loading spinner
