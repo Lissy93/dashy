@@ -1,5 +1,5 @@
 /** Reusable mixin for all Glances widgets */
-const WidgetMixin = {
+export default {
   computed: {
     /* Required, hostname (e.g. IP + port) for Glances instance */
     hostname() {
@@ -32,5 +32,3 @@ const WidgetMixin = {
     },
   },
 };
-
-export default WidgetMixin;
