@@ -15,7 +15,7 @@
   <!-- Chart Legend / Key -->
   <div class="legend">
     <div v-for="(block, inx) in blocks" :key="inx"
-      class="legend-item" v-tooltip="`${Math.round(block.width)}%`">
+      class="legend-item" v-tooltip="`${Math.round(block.width)}% (${block.value})`">
       <div class="dot" v-if="block.label" :style="makeDotColor(block)"></div>
       <div class="txt" v-if="block.label">{{ block.label }}</div>
     </div>
@@ -59,6 +59,7 @@ export default {
           width: Math.round(value.size * multiplier),
           color: value.color || defaultColor,
           label: value.label,
+          value: value.size,
         });
         startPositionSum += (value.size * multiplier);
       });
