@@ -80,7 +80,7 @@ const store = new Vuex.Store({
     getParentSectionOfItem: (state, getters) => (itemId) => {
       let foundSection;
       getters.sections.forEach((section) => {
-        section.items.forEach((item) => {
+        (section.items || []).forEach((item) => {
           if (item.id === itemId) foundSection = section;
         });
       });
@@ -115,7 +115,7 @@ const store = new Vuex.Store({
       const { itemId, newItem } = payload;
       const newConfig = { ...state.config };
       newConfig.sections.forEach((section, secIndex) => {
-        section.items.forEach((item, itemIndex) => {
+        (section.items || []).forEach((item, itemIndex) => {
           if (item.id === itemId) {
             newConfig.sections[secIndex].items[itemIndex] = newItem;
             InfoHandler('Item updated', InfoKeys.EDITOR);
@@ -170,6 +170,7 @@ const store = new Vuex.Store({
       const config = { ...state.config };
       config.sections.forEach((section) => {
         if (section.name === targetSection) {
+          if (!section.items) section.items = [];
           section.items.push(newItem);
           InfoHandler('New item added', InfoKeys.EDITOR);
         }
@@ -183,6 +184,7 @@ const store = new Vuex.Store({
       const newItem = { ...item };
       config.sections.forEach((section) => {
         if (section.name === toSection) {
+          if (!section.items) section.items = [];
           if (appendTo === 'beginning') {
             section.items.unshift(newItem);
           } else {
@@ -198,7 +200,7 @@ const store = new Vuex.Store({
       const { itemId, sectionName } = payload;
       const config = { ...state.config };
       config.sections.forEach((section) => {
-        if (section.name === sectionName) {
+        if (section.name === sectionName && section.items) {
           section.items.forEach((item, index) => {
             if (item.id === itemId) {
               section.items.splice(index, 1);
