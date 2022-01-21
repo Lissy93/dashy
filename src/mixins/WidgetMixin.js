@@ -98,16 +98,20 @@ const WidgetMixin = {
       };
     },
     /* Makes data request, returns promise */
-    makeRequest(endpoint, options) {
+    makeRequest(endpoint, options, protocol, body) {
       // Request Options
-      const method = 'GET';
+      const method = protocol || 'GET';
       const url = this.useProxy ? this.proxyReqEndpoint : endpoint;
-      const CustomHeaders = options ? JSON.stringify(options) : null;
+      const data = JSON.stringify(body || {});
+      const CustomHeaders = options || null;
       const headers = this.useProxy
-        ? { 'Target-URL': endpoint, CustomHeaders } : CustomHeaders;
+        ? { 'Target-URL': endpoint, CustomHeaders: JSON.stringify(CustomHeaders) } : CustomHeaders;
+      const requestConfig = {
+        method, url, headers, data,
+      };
       // Make request
       return new Promise((resolve, reject) => {
-        axios.request({ method, url, headers })
+        axios.request(requestConfig)
           .then((response) => {
             if (response.data.success === false) {
               this.error('Proxy returned error from target server', response.data.message);
