@@ -18,8 +18,15 @@
     </div>
     <!-- Widget -->
     <div v-else class="widget-wrap">
+      <AnonAddy
+        v-if="widgetType === 'anonaddy'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <Apod
-        v-if="widgetType === 'apod'"
+        v-else-if="widgetType === 'apod'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -370,6 +377,7 @@ export default {
     OpenIcon,
     LoadingAnimation,
     // Register widget components
+    AnonAddy: () => import('@/components/Widgets/AnonAddy.vue'),
     Apod: () => import('@/components/Widgets/Apod.vue'),
     Clock: () => import('@/components/Widgets/Clock.vue'),
     CodeStats: () => import('@/components/Widgets/CodeStats.vue'),

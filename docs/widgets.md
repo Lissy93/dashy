@@ -17,6 +17,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Crypto Price History](#crypto-token-price-history)
   - [Crypto Wallet Balance](#wallet-balance)
   - [Code Stats](#code-stats)
+  - [Email Aliases (AnonAddy)](#anonaddy)
   - [Vulnerability Feed](#vulnerability-feed)
   - [Exchange Rates](#exchange-rates)
   - [Public Holidays](#public-holidays)
@@ -376,6 +377,50 @@ Display your coding summary. [Code::Stats](https://codestats.net/) is a free and
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted or Managed
 - **Privacy**: _See [Code::Stats Privacy Policy](https://codestats.net/tos#privacy)_
+
+---
+
+### AnonAddy
+
+[AnonAddy](https://anonaddy.com/) is a free and open source mail forwarding service. Use it to protect your real email address, by using a different alias for each of your online accounts, and have all emails land in your normal inbox(es). Supports custom domains, email replies, PGP-encryption, multiple recipients and more
+
+This widget display email addresses / aliases from AnonAddy. Click an email address to copy to clipboard, or use the toggle switch to enable/ disable it. Shows usage stats (bandwidth, used aliases etc), as well as total messages recieved, blocked and sent. Works with both self-hosted and managed instances of AnonAddy.
+
+<p align="center"><img width="400" src="https://i.ibb.co/ZhfyRdV/anonaddy.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | Your AnonAddy API Key / Personal Access Token. You can generate this under [Account Settings](https://app.anonaddy.com/settings)
+**`hostname`** | `string` |  _Optional_ | If your self-hosting AnonAddy, then supply the host name. By default it will use the public hosted instance
+**`apiVersion`** | `string` |  _Optional_ | If you're using an API version that is not version `v1`, then specify it here
+**`limit`** | `number` |  _Optional_ | Limit the number of emails shown per page. Defaults to `10`
+**`sortBy`** | `string` |  _Optional_ | Specify the sort order for email addresses. Defaults to `updated_at`. Can be either: `local_part`, `domain`, `email`, `emails_forwarded`, `emails_blocked`, `emails_replied`, `emails_sent`, `created_at`, `updated_at` or `deleted_at`. Precede with a `-` character to reverse order.
+**`searchTerm`** | `string` |  _Optional_ | A search term to filter results by, will search the email, description and domain
+**`disableControls`** | `boolean` |  _Optional_ | Prevent any changes being made to account through the widget. User will not be able to enable or disable aliases through UI when this option is set
+**`hideMeta`** | `boolean` |  _Optional_ | Don't show account meta info (forward/ block count, quota usage etc)
+**`hideAliases`** | `boolean` |  _Optional_ | Don't show email address / alias list. Will only show account meta info
+
+##### Example
+
+```yaml
+  - type: anonaddy
+    options:
+      apiKey: "xxxxxxxxxxxxxxxxxxxxxxxx\
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      limit: 5
+      sortBy: created_at
+      disableControls: true
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free for Self-Hosted / Free Plan available on managed instance or $1/month for premium
+- **Host**: Self-Hosted or Managed
+- **Privacy**: _See [AnonAddy Privacy Policy](https://anonaddy.com/privacy/)_
 
 ---
 
@@ -1181,14 +1226,15 @@ Glances can be launched with the `glances` command. You'll need to run it in web
 
 ##### Options
 
-All Glance's based widgets require a `hostname`
+All Glance's based widgets require a `hostname`. All other parameters are optional.
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`hostname`** | `string` |  Required | The URL to your Glances instance (without a trailing slash)
+**`hostname`** | `string` |  Required | The URL or IP + port to your Glances instance (without a trailing slash)
 **`username`** | `string` |  _Optional_ | If you have setup basic auth on Glances, specify username here (defaults to `glances`)
 **`password`** | `string` |  _Optional_ | If you have setup basic auth on Glances, specify password here. **Note**: since this password is in plaintext, it is important not to reuse it anywhere else
 **`apiVersion`** | `string` |  _Optional_ | Specify an API version, defaults to V `3`. Note that support for older versions is limited
+**`limit`** | `number` |  _Optional_ | For widgets that show a time-series chart, optionally limit the number of data points returned. A higher number will show more historical results, but will take longer to load. A value between 300 - 800 is usually optimal
 
 ##### Info
 - **CORS**: 🟢 Enabled
