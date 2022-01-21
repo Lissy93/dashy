@@ -1,5 +1,11 @@
 # Changelog
 
+## ✨ 1.9.8 - More Widgets and Widget Improvements [PR #425](https://github.com/Lissy93/dashy/pull/425)
+- Fixes several minor widget issues raised by users
+- Adds several new widgets, for monitoring system
+- Better widget data requests and error handling
+- Implements widget support into Workspace view
+
 ## 🐛 1.9.7 - Minor UI Editor Bug fixes [PR #416](https://github.com/Lissy93/dashy/pull/416)
 - Fixes unable to edit item bug (#415)
 - Fixes unable to add new app bug (#390)
