@@ -1,7 +1,7 @@
 <template>
   <div :class="`widget-base ${ loading ? 'is-loading' : '' }`">
     <!-- Update and Full-Page Action Buttons  -->
-    <Button :click="update" class="action-btn update-btn" v-if="!error && !loading">
+    <Button :click="update" class="action-btn update-btn" v-if="!loading">
       <UpdateIcon />
     </Button>
     <Button :click="fullScreenWidget" class="action-btn open-btn" v-if="!error && !loading">
@@ -15,9 +15,10 @@
     <div v-if="error" class="widget-error">
       <p class="error-msg">An error occurred, see the logs for more info.</p>
       <p class="error-output">{{ errorMsg }}</p>
+      <p class="retry-link" @click="update">Retry</p>
     </div>
     <!-- Widget -->
-    <div v-else class="widget-wrap">
+    <div :class="`widget-wrap ${ error ? 'has-error' : '' }`">
       <AnonAddy
         v-if="widgetType === 'anonaddy'"
         :options="widgetOptions"
@@ -460,6 +461,7 @@ export default {
   methods: {
     /* Calls update data method on widget */
     update() {
+      this.error = false;
       this.$refs[this.widgetRef].update();
     },
     /* Shows message when error occurred */
@@ -507,6 +509,15 @@ export default {
       right: 1.75rem;
     }
   }
+
+  .widget-wrap {
+    &.has-error {
+      cursor: not-allowed;
+      opacity: 0.5;
+      border-radius: var(--curve-factor);
+      background: #ffff0080;
+    }
+  }
   // Error message output
   .widget-error {
     p.error-msg {
@@ -520,6 +531,13 @@ export default {
       color: var(--widget-text-color);
       font-size: 0.85rem;
       margin: 0.5rem auto;
+    }
+    p.retry-link {
+      cursor: pointer;
+      text-decoration: underline;
+      color: var(--widget-text-color);
+      font-size: 0.85rem;
+      margin: 0;
     }
   }
   // Loading spinner
