@@ -257,12 +257,22 @@ import { widgetApiEndpoints } from '@/utils/defaults';
 export default {
   mixins: [WidgetMixin],
   data() {
-    return {};
+    return {
+      results: null,
+    };
   },
-  computed: {},
+  computed: {
+    endpoint() {
+      return `${widgetApiEndpoints.myApi}/something`;
+    },
+  },
   methods: {
     fetchData() {
-      // TODO: Make Data Request
+      this.makeRequest(this.endpoint).then(this.processData);
+    },
+    processData(data) {
+      // Do processing any here, and set component data
+      this.results = data;
     },
   },
 };
@@ -333,16 +343,7 @@ Under the `methods` block, we'll create a function called `fetchData`, here we c
 
 ```javascript
 fetchData() {
-  axios.get(this.endpoint)
-    .then((response) => {
-      this.processData(response.data);
-    })
-    .catch((dataFetchError) => {
-      this.error('Unable to fetch data', dataFetchError);
-    })
-    .finally(() => {
-      this.finishLoading();
-    });
+  this.makeRequest(this.endpoint, this.headers).then(this.processData);
 },
 ```
 
