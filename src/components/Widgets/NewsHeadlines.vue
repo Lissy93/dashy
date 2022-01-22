@@ -7,7 +7,7 @@
       <span class="date">{{ article.published | date }}</span>
     </div>
     <p class="description">{{ article.description }}</p>
-    <img class="thumbnail" v-if="article.image" :src="article.image" alt="Thumbnail" />
+    <img class="thumbnail" v-if="article.image && !hideImages" :src="article.image" alt="Image" />
   </div>
 </div>
 </template>
@@ -45,6 +45,9 @@ export default {
     },
     keywords() {
       return this.options.keywords ? `&keywords=${this.options.keywords}` : '';
+    },
+    hideImages() {
+      return this.options.hideImages;
     },
     endpoint() {
       return `${widgetApiEndpoints.news}?apiKey=${this.apiKey}`
