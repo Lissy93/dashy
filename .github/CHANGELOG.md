@@ -1,5 +1,10 @@
 # Changelog
 
+## 💄 1.9.9 - Minor UI + Docs Updates [PR #431](https://github.com/Lissy93/dashy/pull/431)
+- Improved theme support for widgets
+- Better widget layout in Workspace and Minimal views
+- Updates lots of the docs
+
 ## ✨ 1.9.8 - More Widgets and Widget Improvements [PR #425](https://github.com/Lissy93/dashy/pull/425)
 - Fixes several minor widget issues raised by users
 - Adds several new widgets, for monitoring system
