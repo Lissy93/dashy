@@ -22,7 +22,7 @@
         @triggerModal="triggerModal"
       />
     </div>
-    <div v-if="widgets && (selected || showAll)">
+    <div v-if="widgets && (selected && !showAll)" class="minimal-widget-wrap">
       <WidgetBase
         v-for="(widget, widgetIndx) in widgets"
         :key="widgetIndx"
@@ -124,6 +124,9 @@ export default {
     @include big-screen { --minimal-col-count: 5; }
     @include big-screen-up { --minimal-col-count: 6; }
     grid-template-columns: repeat(var(--minimal-col-count, 1), minmax(0, 1fr));
+  }
+  .minimal-widget-wrap {
+    padding: 1rem;
   }
   &.selected {
     border: 1px solid var(--minimal-view-group-color);

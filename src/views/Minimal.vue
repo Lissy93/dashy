@@ -21,9 +21,11 @@
         :key="`heading-${index}`"
         :index="index"
         :title="section.name"
+        :icon="section.icon"
         :selected="selectedSection === index"
         @sectionSelected="sectionSelected"
         class="headings"
+        :hideTitleText="sections.length > 8"
       />
       <!-- Section item groups -->
       <MinimalSection
