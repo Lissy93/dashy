@@ -62,6 +62,13 @@
 
 ---
 
+### System Monitor
+> An aggregated board for monitoring system resource usage from a single view
+
+![screenshot-monitor](https://i.ibb.co/xfK6BGb/system-monitor-board.png)
+
+---
+
 ### CFT Toolbox
 
 ![screenshot-cft-toolbox](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/3-cft-toolbox.png)
@@ -112,10 +119,10 @@
 
 ---
 
-### System Monitor
-> An aggregated board for monitoring system resource usage from a single view
+### Morning Dashboard
+> Displayed on my smart screen between 05:00 - 08:00, and includes all the info that I usually check before leaving for work
 
-![screenshot-monitor](https://i.ibb.co/xfK6BGb/system-monitor-board.png)
+![screenshot-morning-dash](https://i.ibb.co/4Wx8zb7/morning-dashboard.png)
 
 ---
 

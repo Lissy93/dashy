@@ -1,10 +1,11 @@
 <template>
   <div :class="`widget-base ${ loading ? 'is-loading' : '' }`">
     <!-- Update and Full-Page Action Buttons  -->
-    <Button :click="update" class="action-btn update-btn" v-if="!loading">
+    <Button :click="update" class="action-btn update-btn" v-if="!hideControls && !loading">
       <UpdateIcon />
     </Button>
-    <Button :click="fullScreenWidget" class="action-btn open-btn" v-if="!error && !loading">
+    <Button :click="fullScreenWidget"
+      class="action-btn open-btn" v-if="!hideControls && !error && !loading">
       <OpenIcon />
     </Button>
     <!-- Loading Spinner -->
@@ -457,6 +458,9 @@ export default {
     widgetRef() {
       return `widget-${this.widgetType}-${this.index}`;
     },
+    hideControls() {
+      return this.widget.hideControls;
+    },
   },
   methods: {
     /* Calls update data method on widget */
@@ -485,7 +489,7 @@ export default {
 @import '@/styles/media-queries.scss';
 .widget-base {
   position: relative;
-  padding-top: 0.75rem;
+  padding: 0.75rem 0.5rem 0.5rem 0.5rem;
   // Refresh and full-page action buttons
   button.action-btn  {
     height: 1rem;

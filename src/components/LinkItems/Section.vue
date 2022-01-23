@@ -8,6 +8,7 @@
     :rows="displayData.rows"
     :color="displayData.color"
     :customStyles="displayData.customStyles"
+    :cutToHeight="displayData.cutToHeight"
     @openEditSection="openEditSection"
     @openContextMenu="openContextMenu"
   >

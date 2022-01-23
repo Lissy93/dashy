@@ -26,7 +26,7 @@ iframe {
   height: calc(100% - var(--header-height));
   width: calc(100% - var(--side-bar-width));
   border: none;
-  background: white;
+  background: var(--workspace-web-content-background);
 }
 
 .web-content.hide {

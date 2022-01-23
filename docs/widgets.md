@@ -635,6 +635,7 @@ Displays the latest news, click to read full article. Date is fetched from vario
 **`lang`** | `string` |  _Optional_ | Specify the language for returned articles as a 2-digit ISO code (limited article support). The [following languages](https://api.currentsapi.services/v1/available/languages) are supported, defaults to `en`
 **`count`** | `number` |  _Optional_ | Limit the number of results. Can be between `1` and `200`, defaults to `10`
 **`keywords`** | `string` |  _Optional_ | Only return articles that contain an exact match within their title or description
+**`hideImages`** | `boolean` |  _Optional_ | If set to `true`, then article image thumbnails will not be displayed
 
 ##### Example 
 
