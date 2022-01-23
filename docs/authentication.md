@@ -143,9 +143,25 @@ appConfig:
       realm: 'alicia-homelab'
       clientId: 'dashy'
 ```
+
+### 4. Add groups and roles (Optional)
+Keycloak allows you to assign users roles and groups. You can use these values to configure who can access various sections in Dashy.
+Keycloak server administration and configuration is a deep topic; please refer to the [server admin guide](https://www.keycloak.org/docs/latest/server_admin/index.html#assigning-permissions-and-access-using-roles-and-groups) to see details about creating and assigning roles and groups.
+Once you have groups or roles assigned to users you can configure access under each sections `displayData.showForKeycloakUser` and `displayData.hideForKeycloakUser`.
+Both show and hide configurations accept a list of `groups` and `roles` that limit access. If a users data matches one or more items in these lists they will be allowed or excluded as defined.
+```yaml
+sections:
+  - name: DeveloperResources
+    displayData:
+      showForKeycloakUsers:
+        roles: ['canViewDevResources']
+      hideForKeycloakUsers:
+        groups: ['ProductTeam']
+```
+
 Your app is now secured :) When you load Dashy, it will redirect to your Keycloak login page, and any user without valid credentials will be prevented from accessing your dashboard.
 
-From within the Keycloak console, you can then configure things like user permissions, time outs, password policies, access, etc. You can also backup your full Keycloak config, and it is recommended to do this, along with your Dashy config. You can spin up both Dashy and Keycloak simultaneously and restore both applications configs using a `docker-compose.yml` file, and this is recommended.
+From within the Keycloak console, you can then configure things like time-outs, password policies, etc. You can also backup your full Keycloak config, and it is recommended to do this, along with your Dashy config. You can spin up both Dashy and Keycloak simultaneously and restore both applications configs using a `docker-compose.yml` file, and this is recommended.
 
 ---
 

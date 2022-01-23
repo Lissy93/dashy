@@ -18,16 +18,17 @@
 ### Feature Docs
 - [Authentication](/docs/authentication) - Guide to setting up authentication to protect your dashboard
 - [Alternate Views](/docs/alternate-views) - Outline of available pages / views and item opening methods
-- [Backup & Restore](/docs/backup-restore) - Guide to Dashy's cloud sync feature
-- [Icons](/docs/icons) - Outline of all available icon types for sections and items
+- [Backup & Restore](/docs/backup-restore) - Guide to backing up config with Dashy's cloud sync feature
+- [Icons](/docs/icons) - Outline of all available icon types for sections and items, with examples
 - [Language Switching](/docs/multi-language-support) - Details on how to switch language, or add a new locale
 - [Status Indicators](/docs/status-indicators) - Using Dashy to monitor uptime and status of your apps
-- [Searching  & Shortcuts](/docs/searching) - Finding and launching your apps, and using keyboard shortcuts
-- [Theming](/docs/theming) - Complete guide to applying, writing and modifying themes and styles
+- [Searching  & Shortcuts](/docs/searching) - Searching, launching methods + keyboard shortcuts
+- [Theming](/docs/theming) - Complete guide to applying, writing and modifying themes + styles
+- [Widgets](/docs/widgets) - List of all dynamic content widgets, with usage guides and examples
 
 ### Misc
 - [Privacy & Security](/docs/privacy) - List of requests, potential issues, and security resources
-- [License](/docs/license) - Copy of the MIT License
-- [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md) - Licenses of direct dependencies
-- [Code of Conduct](https://github.com/Lissy93/dashy/blob/master/.github/CODE_OF_CONDUCT.md) - Contributor Covenant Code of Conduct
-- [Changelog](https://github.com/Lissy93/dashy/blob/master/.github/CHANGELOG.md) - Details of recent changes, and historical versions
+- [License](/LICENSE) - Copy of the MIT License
+- [Legal](/.github/LEGAL) - Licenses of direct dependencies
+- [Code of Conduct](/.github/CODE_OF_CONDUCT) - Contributor Covenant Code of Conduct
+- [Changelog](/.github/CHANGELOG) - Details of recent changes, and historical versions

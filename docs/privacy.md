@@ -1,5 +1,7 @@
 # Privacy & Security
-Dashy was built with privacy in mind. Self-hosting your own apps and services is a great way to protect yourself from the mass data collection employed by big tech companies, and Dashy was designed to keep your local services organized and accessible from a single place.
+
+Dashy was built with privacy in mind.
+Self-hosting your own apps and services is a great way to protect yourself from the mass data collection employed by big tech companies, and Dashy was designed to keep your local services organized and accessible from a single place.
 
 It's fully open source, and I've tried to keep to code as clear and thoroughly documented as possible, which will make it easy for you to understand exactly how it works, and what goes on behind the scenes.
 
@@ -8,7 +10,7 @@ For privacy and security tips, check out another project of mine: **[Personal Se
 ---
 
 ## External Requests
-By default, Dashy will not make any external requests, unless you configure it to. Some features (which are all off by default) do require internat access, and this section outlines those features, the services used, and links to their privacy policies.
+By default, Dashy will not make any external requests, unless you configure it to. Some features (which are off by default) do require internat access, and this section outlines those features, the services used, and links to their privacy policies.
 
 ### Font Awesome
 If either any of your sections or items are using font-awesome icons, then these will be fetched directly from font-awesome on page load. See the [Font Awesome Privacy Policy](https://fontawesome.com/privacy) for more info.
@@ -42,6 +44,8 @@ The crash report includes the file or line of code that triggered the error, and
 Enabling anonymous error reporting helps me to discover bugs I was unaware of, and then fix them, in order to make Dashy more reliable long term. Error reporting is activated  by setting `appConfig.enableErrorReporting: true`.
 
 If you need to monitor bugs yourself, then you can [self-host your own Sentry Server](https://develop.sentry.dev/self-hosted/), and use it by setting `appConfig.sentryDsn` to your Sentry instances [Data Source Name](https://docs.sentry.io/product/sentry-basics/dsn-explainer/), then just enable error reporting in Dashy.
+
+### Widgets
 
 ---
 
@@ -79,7 +83,7 @@ As with most web projects, Dashy relies on several [dependencies](https://github
 
 Dependencies can introduce security vulnerabilities, but since all these packages are open source any issues are usually very quickly spotted. Dashy is using Snyk for dependency security monitoring, and you can see [the latest report here](https://snyk.io/test/github/lissy93/dashy). If any issue is detected by Snyk, a note about it will appear at the top of the Reamde, and will usually be fixed within 48 hours.
 
-Note that packages listed under `deDependencies` section are only used for building the project, and are not included in the production environment.
+Note that packages listed under `devDependencies` section are only used for building the project, and are not included in the production environment.
 
 ---
 

@@ -193,6 +193,7 @@ Styleguides:
 ├── package.json        # Project meta-data, dependencies and paths to scripts
 ├── src/                # Project front-end source code
 ├── server.js           # A Node.js server to serve up the /dist directory
+├── services/           # All server-side endpoints and utilities
 ├── vue.config.js       # Vue.js configuration
 ├── Dockerfile          # The blueprint for building the Docker container
 ├── docker-compose.yml  # A Docker run command
@@ -214,6 +215,9 @@ Styleguides:
 │  ├── locales                    # All app text, each language in a separate JSON file
 │  ╰── interface-icons            # SVG icons used in the app 
 ├── components                    # All front-end Vue web components
+│  ├── Charts                     # Charting components for dynamically displaying widget data
+│  │  ├── Gauge.vue               # A speed-dial style chart for showing 0 - 100 values
+│  │  ╰── PercentageChart.vue     # A horizontal bar for showing percentage breakdowns
 │  ├── Configuration              # Components relating to the user config pop-up
 │  │  ├── AppInfoModal.vue        # A modal showing core app info, like version, language, etc
 │  │  ├── AppVersion.vue          # Shows current version from package.json, compares with GitHub
@@ -225,15 +229,30 @@ Styleguides:
 │  │  ╰── RebuildApp.vue          # A component allowing user to trigger a rebuild through the UI
 │  ├── FormElements               # Basic form elements used throughout the app
 │  │  ├── Button.vue              # Standard button component
-│  │  ╰── Input.vue               # Standard text field input component
+│  │  ├── Radio.vue               # Standard radio button input
+│  │  ├── Select.vue              # Standard dropdown input selector
+│  │  ├── Input.vue               # Standard text field input component
+│  │  ╰── Toggle.vue              # Standard on / off toggle switch
+│  ├── InteractiveEditor          # Components for the interactive UI config editor
+│  │  ├── AddNewSectionLauncher   # Button that launches the EditSection form, used for adding new section
+│  │  ├── EditAppConfig.vue       # Form for editing appConfig
+│  │  ├── EditPageInfo.vue        # Form for editing pageInfo
+│  │  ├── EditSection.vue         # Form for adding / editing sections
+│  │  ├── EditItem.vue            # Form for adding or editing items
+│  │  ├── EditModeSaveMenu.vue    # The bar at the bottom of screen in edit mode, containing save buttons
+│  │  ├── EditModeTopBanner.vue   # The bar at the top of screen in edit mode
+│  │  ├── ExportConfigMenu.vue    # Modal for viewing / exporting edited config
+│  │  ├── MoveItemTo.vue          # Form for moving / copying items to other sections
+│  │  ╰── SaveCancelButtons.vue   # Buttons visible in all the edit menus, to save or cancel changes
 │  ├── LinkItems                  # Components for Sections and Link Items
 │  │  ├── Collapsable.vue         # The collapsible functionality of sections
-│  │  ├── ContextMenu.vue         # The right-click menu, for showing Item opening methods and info
 │  │  ├── IframeModal.vue         # Pop-up iframe modal, for viewing websites within the app
 │  │  ├── Item.vue                # Main link item, which is displayed within an item group
 │  │  ├── ItemGroup.vue           # Item group is a section containing icons
 │  │  ├── ItemIcon.vue            # The icon used by both items and sections
 │  │  ├── ItemOpenMethodIcon.vue  # A small icon, visible on hover, indicating opening method 
+│  │  ├── ItemContextMenu.vue     # The right-click menu, for showing Item opening methods and info
+│  │  ├── SectionContextMenu.vue  # The right-click menu, for showing Section edit/ open options
 │  │  ╰── StatusIndicator.vue     # Traffic light dot, showing if app is online or down
 │  ├── Minimal View               # Components used for the startpage / minimal alternative view
 │  │  ├── MinimalHeading.vue      # Title part of minimal view
@@ -250,7 +269,10 @@ Styleguides:
 │  │  ├── SideBar.vue             # The left sidebar for the workspace view
 │  │  ├── SideBarItem.vue         # App item for the sidebar view
 │  │  ├── SideBarSection.vue      # Collapsible collection of items within workspace sidebar
-│  │  ╰── WebContent.vue          # Workspace iframe view, displays content of current app
+│  │  ├── WebContent.vue          # Workspace iframe view, displays content of current app
+│  │  ╰── WidgetView.vue          # Workspace container for displaying widgets in main content
+│  ├── Widgets                    # Directory contains all custom widget components
+│  │  ╰── ....                    # Too many to list, see widget docs instead
 │  ╰── Settings                   # Components relating to the quick-settings, in the top-right
 │     ├── AuthButtons.vue         # Logout button and other app info
 │     ├── ConfigLauncher.vue      # Icon that when clicked will launch the Configuration component
@@ -266,6 +288,19 @@ Styleguides:
 ├── registerServiceWorker.js      # Registers and manages service workers, for PWA apps
 ├── router.js                     # Defines all available application routes
 ├── styles                        # Directory of all globally used common SCSS styles
+│  ├── color-palette.scss         # All color variable names and default values
+│  ├── color-themes.scss          # All variable values for built-in themes
+│  ├── dimensions.scss            # Dimensions and sizes as variables
+│  ├── global-styles.scss         # Basics and style resets used globally
+│  ├── media-queries.scss         # Screen sizes and media queries
+│  ├── style-helpers.scss         # SCSS functions used for modifying values
+│  ├── typography.scss            # Font and text styles used globally
+│  ╰── user-defined-themes.scss   # Empty, put any custom styles or themes here
+├── mixins                        # Reusable component bases, extended by other views / components
+│  ├── ChartingMixin.js           # Functions for rendering charts in widget components
+│  ├── GlancesMixin.js            # Functions for fetching system info from Glances for widgets
+│  ├── HomeMixin.js               # Functions for homepage, used by default, minimal and workspace views
+│  ╰── WidgetMixin.js             # Functions for all widgets, like data fetching, updating and error handling
 ├── utils                         # Directory of re-used helper functions
 │  ├── ArrowKeyNavigation.js      # Functionality for arrow-key navigation
 │  ├── Auth.js                    # Handles all authentication related actions
@@ -285,6 +320,7 @@ Styleguides:
 │  ├── InitServiceWorker.js       # Initializes and manages service worker, if enabled
 │  ├── Search.js                  # Helper functions for searching/ filtering items in all views
 │  ├── JsonToYaml.js              # Function that parses and converts raw JSON into valid YAML
+│  ├── KeycloakAuth.js            # Singleton class to manage Keycloak authentication
 │  ├── languages.js               # Handles fetching, switching and validating languages
 │  ╰── ThemeHelper.js             # Function that handles the fetching and setting of user themes
 ╰── views                         # Directory of available pages, corresponding to available routes

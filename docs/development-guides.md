@@ -7,6 +7,10 @@ Sections:
 - [Writing Translations](#writing-translations)
 - [Adding a new option in the config file](#adding-a-new-option-in-the-config-file)
 - [Updating Dependencies](#updating-dependencies)
+- [Writing Netlify Cloud Functions](#developing-netlify-cloud-functions)
+- [Hiding Page Furniture](#hiding-page-furniture-on-certain-routes)
+- [Adding / Using Environmental Variables](#adding--using-environmental-variables)
+- [Building a Widget](#building-a-widget)
 
 ## Creating a new theme
 
@@ -26,11 +30,11 @@ html[data-theme='tiger'] {
 }
 ```
 
-Then you can go ahead and write you're own custom CSS. Although all CSS is supported here, the best way to define you're theme is by setting the CSS variables. You can find a [list of all CSS variables, here](https://github.com/Lissy93/dashy/blob/master/docs/theming#css-variables).
+Then you can go ahead and write you're own custom CSS. Although all CSS is supported here, the best way to define you're theme is by setting the CSS variables. You can find a [list of all CSS variables, here](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#css-variables).
 
 For a full guide on styling, see [Theming Docs](./theming).
 
-Note that if you're theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](https://github.com/Lissy93/dashy/blob/master/docs/theming#adding-your-own-theme).
+Note that if you're theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#adding-your-own-theme).
 
 ## Writing Translations
 
@@ -124,13 +128,13 @@ Next, if you're property should have a default value, then add it to [`defaults.
 
 If your property needs additional logic for fetching, setting or processing, then you can add a helper function within [`ConfigHelpers.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigHelpers.js).
 
-Finally, add your new property to the [`configuring`](./configuring) API docs. Put it under the relevant section, and be sure to include field name, data type, a description and mention that it is optional.  If your new feature needs more explaining, then you can also document it under the relevant section elsewhere in the documentation.
+Finally, add your new property to the [`configuring.md`](./configuring) API docs. Put it under the relevant section, and be sure to include field name, data type, a description and mention that it is optional.  If your new feature needs more explaining, then you can also document it under the relevant section elsewhere in the documentation.
 
 Checklist:
 - [ ] Ensure the new attribute is actually necessary, and nothing similar already exists 
 - [ ] Update the [Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js) with the parameters for your new option
 - [ ] Set a default value (if required) within [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js)
-- [ ] Document the new value in [`configuring`](./configuring)
+- [ ] Document the new value in [`configuring.md`](./configuring)
 - [ ] Test that the reading of the new attribute is properly handled, and will not cause any errors when it is missing or populated with an unexpected value
 
 ---
@@ -186,7 +190,7 @@ In [`./src/utils/defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/
 
 First, import the helper function:
 ```javascript
-import { shouldBeVisible } from '@/utils/MiscHelpers';
+import { shouldBeVisible } from '@/utils/SectionHelpers';
 ```
 
 Then you can create a computed value, that calls this function, passing in the route name:
@@ -219,3 +223,210 @@ You can set variables either in your environment, or using the [`.env`](https://
 Any environmental variables used by the frontend are preceded with `VUE_APP_`. Vue will merge the contents of your `.env` file into the app in a similar way to the ['dotenv'](https://github.com/motdotla/dotenv) package, where any variables that you set on your system will always take preference over the contents of any `.env` file.
 
 If add any new variables, ensure that there is always a fallback (define it in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js)), so as to not cause breaking changes. Don't commit the contents of your `.env` file to git, but instead take a few moments to document what you've added under the appropriate section. Try and follow the concepts outlined in the [12 factor app](https://12factor.net/config).
+
+---
+
+## Building a Widget
+
+### Step 0 - Prerequisites
+
+If this is your first time working on Dashy, then the [Developing Docs](https://github.com/Lissy93/dashy/blob/master/docs/developing.md) instructions for project setup and running. In short, you just need to clone the project, cd into it, install dependencies (`yarn`) and then start the development server (`yarn dev`).
+
+To build a widget, you'll also need some basic knowledge of Vue.js. The [official Vue docs](https://vuejs.org/v2/guide/) provides a good starting point, as does [this guide](https://www.taniarascia.com/getting-started-with-vue/) by Tania Rascia
+
+If you just want to jump straight in, then [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) is a complete implementation of a new example widget, or take a look at the [`XkcdComic.vue`](https://github.com/Lissy93/dashy/blob/master/src/components/Widgets/XkcdComic.vue) widget, which is pretty simple.
+
+
+### Step 1 - Create Widget
+
+Firstly, create a new `.vue` file under [`./src/components/Widgets`](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets).
+
+
+```vue
+<template>
+<div class="example-wrapper">
+</div>
+</template>
+
+<script>
+
+import axios from 'axios';
+import WidgetMixin from '@/mixins/WidgetMixin';
+import { widgetApiEndpoints } from '@/utils/defaults';
+
+export default {
+  mixins: [WidgetMixin],
+  data() {
+    return {
+      results: null,
+    };
+  },
+  computed: {
+    endpoint() {
+      return `${widgetApiEndpoints.myApi}/something`;
+    },
+  },
+  methods: {
+    fetchData() {
+      this.makeRequest(this.endpoint).then(this.processData);
+    },
+    processData(data) {
+      // Do processing any here, and set component data
+      this.results = data;
+    },
+  },
+};
+</script>
+
+<style scoped lang="scss">
+</style>
+```
+
+All widgets extend from the [Widget](https://github.com/Lissy93/dashy/blob/master/src/mixins/WidgetMixin.js) mixin. This provides some basic functionality that is shared by all widgets. The mixin includes the following `options`, `startLoading()`, `finishLoading()`, `error()` and `update()`.
+- **Getting user options: `options`**
+	- Any user-specific config can be accessed with `this.options.something` (where something is the data key your accessing)
+- **Loading state: `startLoading()` and `finishLoading()`**
+	- You can show the loader with `this.startLoading()`, then when your data request completes, hide it again with `this.finishLoading()`
+- **Error handling: `error()`**
+	- If something goes wrong (such as API error, or missing user parameters), then call `this.error()` to show message to user
+- **Updating data: `update()`**
+	- When the user clicks the update button, or if continuous updates are enabled, then the `update()` method within your widget will be called
+
+### Step 2 - Adding Functionality
+
+**Accessing User Options**
+
+If your widget is going to accept any parameters from the user, then we can access these with `this.options.[parmName]`. It's best to put these as computed properties, which will enable us to check it exists, is valid, and if needed format it. For example, if we have an optional property called `count` (to determine number of results), we can do the following, and then reference it within our component with `this.count`
+
+```javascript
+computed: {
+  count() {
+    if (!this.options.count) {
+      return 5;
+    }
+    return this.options.count;
+  },
+	...
+},
+```
+
+**Adding an API Endpoint**
+
+If your widget makes a data request, then add the URL for the API under point to the `widgetApiEndpoints` array in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L207)
+
+```javascript
+widgetApiEndpoints: {
+  ...
+  exampleEndpoint: 'https://hub.dummyapis.com/ImagesList',
+},
+```
+
+Then in your widget file:
+
+```javascript
+import { widgetApiEndpoints } from '@/utils/defaults';
+```
+
+For GET requests, you may need to add some parameters onto the end of the URL. We can use another computed property for this, for example:
+
+```javascript
+endpoint() {
+  return `${widgetApiEndpoints.exampleEndpoint}?count=${this.count}`;
+},
+```
+
+**Making an API Request**
+
+Axios is used for making data requests, so import it into your component: `import axios from 'axios';`
+
+Under the `methods` block, we'll create a function called `fetchData`, here we can use Axios to make a call to our endpoint.
+
+```javascript
+fetchData() {
+  this.makeRequest(this.endpoint, this.headers).then(this.processData);
+},
+```
+
+There are three things happening here:
+- If the response completes successfully, we'll pass the results to another function that will handle them
+- If there's an error, then we call `this.error()`, which will show a message to the user
+- Whatever the result, once the request has completed, we call `this.finishLoading()`, which will hide the loader
+
+**Processing Response**
+
+In the above example, we call the `processData()` method with the result from the API, so we need to create that under the `methods` section. How you handle this data will vary depending on what's returned by the API, and what you want to render to the user. But however you do it, you will likely need to create a data variable to store the response, so that it can be easily displayed in the HTML.
+
+```javascript
+data() {
+  return {
+    myResults: null,
+  };
+},
+```
+
+And then, inside your `processData()` method, you can set the value of this, with:
+
+```javascript
+`this.myResults = 'whatever'`
+```
+
+**Rendering Response**
+
+Now that the results are in the correct format, and stored as data variables, we can use them within the `<template>` to render results to the user. Again, how you do this will depend on the structure of your data, and what you want to display, but at it's simplest, it might look something like this:
+
+```vue
+<p class="results">{{ myResults }}</p>
+```
+
+**Styling**
+
+Styles can be written your your widget within the `<style>` block.
+
+There are several color variables used by widgets, which extend from the base pallete. Using these enables users to override colors to theme their dashboard, if they wish. The variables are: `--widget-text-color`, `--widget-background-color` and `--widget-accent-color`
+
+
+```vue
+<style scoped lang="scss">
+p.results {
+  color: var(--widget-text-color);
+}
+</style>
+```
+
+For examples of finished widget components, see the [Widgets](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets) directory. Specifically, the [`XkcdComic.vue`](https://github.com/Lissy93/dashy/blob/master/src/components/Widgets/XkcdComic.vue) widget is quite minimal, so would make a good example, as will [this example implementation](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e).
+
+
+### Step 3 - Register
+
+Next, import and register your new widget, in [`WidgetBase.vue`](https://github.com/Lissy93/dashy/blob/master/src/components/Widgets/WidgetBase.vue). In this file, you'll need to add the following:
+
+Import your widget file
+```javascript
+import ExampleWidget from '@/components/Widgets/ExampleWidget.vue';
+```
+
+Then register the component
+```javascript
+components: {
+  ...
+  ExampleWidget,
+},
+```
+
+Finally, add the markup to render it. The only attribute you need to change here is, setting `widgetType === 'example'` to your widget's name.
+```vue
+<ExampleWidget
+  v-else-if="widgetType === 'example'"
+  :options="widgetOptions"
+  @loading="setLoaderState"
+  @error="handleError"
+  :ref="widgetRef"
+/>
+```
+
+### Step 4 - Docs
+
+Finally, add some documentation for your widget in the [Widget Docs](https://github.com/Lissy93/dashy/blob/master/docs/widgets.md), so that others know hoe to use it. Include the following information: Title, short description, screenshot, config options and some example YAML.
+
+
+**Summary**: For a complete example of everything discussed here, see: [`3da76ce`](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e)

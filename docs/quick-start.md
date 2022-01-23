@@ -25,7 +25,7 @@ docker run -d \
   lissy93/dashy:latest
 ```
 
-Either replace the -v path to point to your config file, or leave it out. For a full list of available options, then see [Dashy with Docker](/docs/deployment#deploy-with-docker) Docs. If you'd prefer to use Docker Compose, then see [Dashy with Docker Compose](/docs/deployment#using-docker-compose) Docs. Alternate registries, architectures and pinned versions are also supported.
+Either replace the -v path to point to your config file, or leave it out. For a full list of available options, then see [Dashy with Docker](h/docs/deployment#deploy-with-docker) Docs. If you'd prefer to use Docker Compose, then see [Dashy with Docker Compose](/docs/deployment#using-docker-compose) Docs. Alternate registries, architectures and pinned versions are also supported.
 
 Your dashboard should now be up and running at `http://localhost:8080` (or your servers IP address/ domain, and the port that you chose). The first time you build, it may take a few minutes.
 
@@ -80,7 +80,7 @@ Notes:
 
 ## 4. Further Customisation
 
-Once you've got Dashy setup, you'll want to ensure the container is properly healthy, secured, backed up and kept up-to-date. All this is covered in the [Management Docs](/docs/management).
+Once you've got Dashy setup, you'll want to ensure the container is properly healthy, secured, backed up and kept up-to-date. All this is covered in the [Management Docs](https://github.com/Lissy93/dashy/blob/master/docs/management).
 
 
 You might also want to check out the docs for specific features you'd like to use:
@@ -97,12 +97,9 @@ You might also want to check out the docs for specific features you'd like to us
 
 ## 5. Final Note
 
-If you're enjoying Dashy, and have a few minutes to spare, please do take a moment to look at the [Contributing Page](/docs/contributing). There are a few things that we really need some help with, and whatever your skill set, there are ways you can help out. Any contributions, however small would be greatly appreciated.
-Thank you to [everyone](/docs/credits) who is already doing so, without developing and maintaining Dashy would not have been so possible.
+If you need any help or support in getting Dashy running, head over to the [Discussions](https://github.com/Lissy93/dashy/discussions) page. If you think you've found a bug, please do [raise it](https://github.com/Lissy93/dashy/issues/new/choose) so it can be fixed. For contact options, see the [Support Page](https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md).
 
-You can also consider sharing your dashboard in the [Showcase](/docs/showcase), to help provide inspiration for others.
-
-If you're enjoying Dashy, and have a few minutes to spare, please do take a moment to look at the [Contributing Page](/docs/contributing). Huge thanks to [everyone](/docs/credits) who has already helped out!
+If you're enjoying Dashy, and have a few minutes to spare, please do take a moment to look at the [Contributing Page](/docs/contributing). Huge thanks to [everyone](https://github.com/Lissy93/dashy/blob/master/docs/credits.md) who has already helped out!
 
 Enjoy your dashboard :) 
 
@@ -126,7 +123,7 @@ Then edit `./public/conf.yml` and rebuild the app with `yarn build`
 
 Don't have a server? No problem! You can run Dashy for free on Netlify (as well as many [other cloud providers](/docs/deployment#deploy-to-cloud-service)). All you need it a GitHub account.
 1. Fork Dashy's repository on GitHub
-2. [Log in](https://app.netlify.com/login/) to Netlify with GitHub
+2. [Log in](app.netlify.com/login/) to Netlify with GitHub
 3. Click "New site from Git" and select your forked repo, then click **Deploy**!
 4. You can then edit the config in `./public/conf.yml` in your repo, and Netlify will rebuild the app
 

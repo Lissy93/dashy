@@ -1,6 +1,6 @@
-# Management
+# App Management
 
-_The following article explains aspects of app management, and is useful to know for when self-hosting. It covers everything from keeping the Dashy (or any other app) up-to-date, secure, backed up, to other topics like auto-starting, monitoring, log management, web server configuration and using custom environments. It's like a top-20 list of need-to-know knowledge for self-hosting._
+_The following article is a primer on managing self-hosted apps. It covers everything from keeping the Dashy (or any other app) up-to-date, secure, backed up, to other topics like auto-starting, monitoring, log management, web server configuration and using custom domains._
 
 ## Contents
 - [Providing Assets](#providing-assets)
@@ -15,9 +15,9 @@ _The following article explains aspects of app management, and is useful to know
 - [Authentication](#authentication)
 - [Managing with Compose](#managing-containers-with-docker-compose)
 - [Environmental Variables](#passing-in-environmental-variables)
-- [Securing Containers](#container-security)
 - [Remote Access](#remote-access)
 - [Custom Domain](#custom-domain)
+- [Securing Containers](#container-security)
 - [Web Server Configuration](#web-server-configuration)
 - [Running a Modified App](#running-a-modified-version-of-the-app)
 - [Building your Own Container](#building-your-own-container)
@@ -288,153 +288,11 @@ If you've got many environmental variables, you might find it useful to put them
 
 ---
 
-## Container Security
-
-- [Keep Docker Up-To-Date](#keep-docker-up-to-date)
-- [Set Resource Quotas](#set-resource-quotas)
-- [Don't Run as Root](#dont-run-as-root)
-- [Specify a User](#specify-a-user)
-- [Limit Capabilities](#limit-capabilities)
-- [Prevent new Privilages being Added](#prevent-new-privilages-being-added)
-- [Disable Inter-Container Communication](#disable-inter-container-communication)
-- [Don't Expose the Docker Daemon Socket](#dont-expose-the-docker-daemon-socket)
-- [Use Read-Only Volumes](#use-read-only-volumes)
-- [Set the Logging Level](#set-the-logging-level)
-- [Verify Image before Pulling](#verify-image-before-pulling)
-- [Specify the Tag](#specify-the-tag)
-- [Container Security Scanning](#container-security-scanning)
-- [Registry Security](#registry-security)
-- [Security Modules](#security-modules)
-
-### Keep Docker Up-To-Date
-To prevent known container escape vulnerabilities, which typically end in escalating to root/administrator privileges, patching Docker Engine and Docker Machine is crucial. For more info, see the [Docker Installation Docs](https://docs.docker.com/engine/install/).
-
-### Set Resource Quotas
-Docker enables you to limit resource consumption (CPU, memory, disk) on a per-container basis. This not only enhances system performance, but also prevents a compromised container from consuming a large amount of resources, in order to disrupt service or perform malicious activities. To learn more, see the [Resource Constraints Docs](https://docs.docker.com/config/containers/resource_constraints/)
-
-For example, to run Dashy with max of 1GB ram, and max of 50% of 1 CP core:
-`docker run -d -p 8080:80 --cpus=".5" --memory="1024m" lissy93/dashy:latest`
-
-### Don't Run as Root
-Running a container with admin privileges gives it more power than it needs, and can be abused. Dashy does not need any root privileges, and Docker by default doesn't run containers as root, so providing you don't specifically type sudo, you should be all good here.
-
-Note that if you're facing permission issues on Debian-based systems, you may need to add your user to the Docker group. First create the group: `sudo groupadd docker`,  then add your (non-root) user: `sudo usermod −aG docker [my-username]`, finally `newgrp docker` to refresh.
-
-### Specify a User
-One of the best ways to prevent privilege escalation attacks, is to configure the container to use an unprivileged user. This also means that any files created by the container and mounted, will be owned by the specified user (and not root), which makes things much easier. 
-
-You can specify a user, using the [`--user` param](https://docs.docker.com/engine/reference/run/#user), and should include the user ID (`UID`), which can be found by running `id -u`, and the and the group ID (`GID`), using `id -g`.
-
-With Docker run, you specify it like:
-`docker run --user 1000:1000 -p 8080:80 lissy93/dashy`
-
-Of if you're using Docker-compose, you could use an environmental variable
-
-```yaml
-version: "3.8"
-services:
-  dashy:
-    image: lissy93/dashy
-    user: ${CURRENT_UID}
-    ports: [ 4000:80 ]
-```   
-
-And then to set the variable, and start the container, run: `CURRENT_UID=$(id -u):$(id -g) docker-compose up`
-
-###  Limit capabilities 
-Docker containers run with a subset of [Linux Kernal's Capabilities](https://man7.org/linux/man-pages/man7/capabilities.7.html) by default. It's good practice to drop privilege permissions that are not needed for any given container.
-
-With Docker run, you can use the `--cap-drop` flag to remove capabilities, you can also use `--cap-drop=all` and then define just the required permissions using the `--cap-add` option. For a list of available capabilities, see the [Privilege Capabilities Docs](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities).
-
-Here's an example using docker-compose, removing privileges that are not required for Dashy to run:
-
-```yaml
-version: "3.8"
-services:
-  dashy:
-    image: lissy93/dashy
-    ports: [ 4000:80 ]
-    cap_drop:
-    - ALL
-    cap_add:
-    - CHOWN
-    - SETGID
-    - SETUID
-    - DAC_OVERRIDE
-    - NET_BIND_SERVICE
-``` 
-
-### Prevent new Privilages being Added
-To prevent processes inside the container from getting additional privileges, pass in the `--security-opt=no-new-privileges:true` option to the Docker run command (see [docs](https://docs.docker.com/engine/reference/run/#security-configuration)).
-
-Run Command:
-`docker run --security-opt=no-new-privileges:true -p 8080:80 lissy93/dashy`
-
-Docker Compose
-```yaml
-security_opt:
-- no-new-privileges:true
-```
-
-### Disable Inter-Container Communication
-By default Docker containers can talk to each other (using [`docker0` bridged network](https://docs.docker.com/config/containers/container-networking/)). If you don't need this capability, then it should be disabled. This can be done with the `--icc=false` in your run command. You can learn more about how to facilitate secure communication between containers in the [Compose Networking docs](https://docs.docker.com/compose/networking/).
-
-### Don't Expose the Docker Daemon Socket
-Docker socket `/var/run/docker.sock` is the UNIX socket that Docker is listening to. This is the primary entry point for the Docker API. The owner of this socket is root. Giving someone access to it is equivalent to giving unrestricted root access to your host.
-
-You should **not** enable TCP Docker daemon socket (`-H tcp://0.0.0.0:XXX`), as doing so exposes un-encrypted and unauthenticated direct access to the Docker daemon, and if the host is connected to the internet, the daemon on your computer can be used by anyone from the public internet- which is bad. If you need TCP, you should [see the docs](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option) to understand how to do this more securely.
-Similarly, never expose `/var/run/docker.sock` to other containers as a volume, as it can be exploited.
-
-### Use Read-Only Volumes
-You can specify that a specific volume should be read-only by appending `:ro` to the `-v` switch. For example, while running Dashy, if we want our config to be writable, but keep all other assets protected, we would do:
-```
-docker run -d \
-  -p 8080:80 \
-  -v ~/dashy-conf.yml:/app/public/conf.yml \
-  -v ~/dashy-icons:/app/public/item-icons:ro \
-  -v ~/dashy-theme.scss:/app/src/styles/user-defined-themes.scss:ro \
-  lissy93/dashy:latest
-```
-
-You can also prevent a container from writing any changes to volumes on your host's disk, using the `--read-only` flag. Although, for Dashy, you will not be able to write config changes to disk, when edited through the UI with this method. You could make this work, by specifying the config directory as a temp write location, with `--tmpfs /app/public/conf.yml` - but  that this will not write the volume back to your host.
-
-### Set the Logging Level
-Logging is important, as it enables you to review events in the future, and in the case of a compromise this will let get an idea of what may have happened. The default log level is `INFO`, and this is also the recommendation, use `--log-level info` to ensure this is set.
-
-### Verify Image before Pulling
-Only use trusted images, from verified/ official sources. If an app is open source, it is more likely to be safe, as anyone can verify the code. There are also tools available for scanning containers, 
-
-Unless otherwise configured, containers can communicate among each other, so running one bad image may lead to other areas of your setup being compromised. Docker images typically contain both original code, as well as up-stream packages, and even if that image has come from a trusted source, the up-stream packages it includes may not have.
-
-### Specify the Tag
-Using fixed tags (as opposed to `:latest` ) will ensure immutability, meaning the base image will not change between builds. Note that for Dashy, the app is being actively developed, new features, bug fixes and general improvements are merged each week, and if you use a fixed version you will not enjoy these benefits. So it's up to you weather you would prefer a stable and reproducible environment, or the latest features and enhancements.
-
-### Container Security Scanning
-It's helpful to be aware of any potential security issues in any of the Docker images you are using. You can run a quick scan using Snyk on any image to output known vulnerabilities using [Docker scan](https://docs.docker.com/engine/scan/), e.g: `docker scan lissy93/dashy:latest`.
-
-A similar product is [Trivy](https://github.com/aquasecurity/trivy), which is free an open source. First install it (with your package manager), then to scan an image, just run: `trivy image lissy93/dashy:latest`
-
-For larger systems, RedHat [Clair](https://www.redhat.com/en/topics/containers/what-is-clair) is an app for parsing image contents and reporting on any found vulnerabilities. You run it locally in a container, and configure it with YAML. It can be integrated with Red Hat Quay, to show results on a dashboard. Most of these use static analysis to find potential issues, and scan included packages for any known security vulnerabilities.
-
-### Registry Security
-Although over-kill for most users, you could run your own registry locally which would give you ultimate control over all images, see the [Deploying a Registry Docs](https://docs.docker.com/registry/deploying/) for more info. Another option is [Docker Trusted Registry](https://docker-docs.netlify.app/ee/dtr/), it's great for enterprise applications, it sits behind your firewall, running on a swarm managed by Docker Universal Control Plane, and lets you securely store and manage your Docker images, mitigating the risk of breaches from the internet.
-
-### Security Modules
-Docker supports several modules that let you write your own security profiles.
-
-[AppArmor](https://www.apparmor.net/)is a kernel module that proactively protects the operating system and applications from external or internal threats, by enabling you to  restrict programs' capabilities with per-program profiles. You can specify either a security policy by name, or by file path with the `apparmor` flag in docker run. Learn more about writing profiles, [here](https://gitlab.com/apparmor/apparmor/-/wikis/QuickProfileLanguage).
-
-[Seccomp](https://en.wikipedia.org/wiki/Seccomp) (Secure Computing Mode) is a sandboxing facility in the Linux kernel that acts like a firewall for system calls (syscalls). It uses Berkeley Packet Filter (BPF) rules to filter syscalls and control how they are handled. These filters can significantly limit a containers access to the Docker Host’s Linux kernel - especially for simple containers/applications. It requires a Linux-based Docker host, with secomp enabled, and you can check for this by running `docker info | grep seccomp`. A great resource for learning more about this is [DockerLabs](https://training.play-with-docker.com/security-seccomp/).
-
-
-**[⬆️ Back to Top](#)**
-
----
-
 ## Remote Access
 
 - [WireGuard](#wireguard)
 - [Reverse SSH Tunnel](#reverse-ssh-tunnel)
+- [TCP Tunnel](#tcp-tunnel)
 
 ### WireGuard
 
@@ -538,6 +396,24 @@ And when you're ready to connect to it:
 
 Done :)
 
+### TCP Tunnel
+
+If you're running Dashy on your local network, behind a firewall, but need to temporarily share it with someone external, this can be achieved quickly and securely using [Ngrok](https://ngrok.com/). It’s basically a super slick, encrypted TCP tunnel that provides an internet-accessible address that anyone use to access your local service, from anywhere.
+
+To get started, [Download](https://ngrok.com/download) and install Ngrok for your system, then just run `ngrok http [port]` (replace the port with the http port where Dashy is running, e.g. 8080). When [using https](https://ngrok.com/docs#http-local-https), specify the full local url/ ip including the protocol.
+
+Some Ngrok features require you to be authenticated, you can [create a free account](https://dashboard.ngrok.com/signup) and generate a token in [your dashboard](https://dashboard.ngrok.com/auth/your-authtoken), then run `ngrok authtoken [token]`. 
+
+It's recommended to use authentication for any publicly accessible service. Dashy has an [Auth](/docs/authentication) feature built in, but an even easier method it to use the [`-auth`](https://ngrok.com/docs#http-auth) switch. E.g. `ngrok http -auth=”username:password123” 8080`
+
+By default, your web app is assigned a randomly generated ngrok domain, but you can also use your own custom domain. Under the [Domains Tab](https://dashboard.ngrok.com/endpoints/domains) of your Ngrok dashboard, add your domain, and follow the CNAME instructions. You can now use your domain, with the [`-hostname`](https://ngrok.com/docs#http-custom-domains) switch, e.g. `ngrok http -region=us -hostname=dashy.example.com 8080`. If you don't have your own domain name, you can instead use a custom sub-domain (e.g. `alicia-dashy.ngrok.io`), using the [`-subdomain`](https://ngrok.com/docs#custom-subdomain-names) switch.
+
+To integrate this into your docker-compose, take a look at the [gtriggiano/ngrok-tunnel](https://github.com/gtriggiano/ngrok-tunnel) container.
+
+There's so much more you can do with Ngrok, such as exposing a directory as a file browser, using websockets, relaying requests, rewriting headers, inspecting traffic, TLS and TCP tunnels and lots more. All or which is explained in [the Documentation](https://ngrok.com/docs).
+
+It's worth noting that Ngrok isn't the only option here, other options include: [FRP](https://github.com/fatedier/frp), [Inlets](https://inlets.dev), [Local Tunnel](https://localtunnel.me/), [TailScale](https://tailscale.com/), etc. Check out [Awesome Tunneling](https://github.com/anderspitman/awesome-tunneling) for a list of alternatives.
+
 **[⬆️ Back to Top](#)**
 
 ---
@@ -599,6 +475,151 @@ For more info, [this guide](https://thehomelab.wiki/books/dns-reverse-proxy/page
 
 ---
 
+## Container Security
+
+- [Keep Docker Up-To-Date](#keep-docker-up-to-date)
+- [Set Resource Quotas](#set-resource-quotas)
+- [Don't Run as Root](#dont-run-as-root)
+- [Specify a User](#specify-a-user)
+- [Limit Capabilities](#limit-capabilities)
+- [Prevent new Privilages being Added](#prevent-new-privilages-being-added)
+- [Disable Inter-Container Communication](#disable-inter-container-communication)
+- [Don't Expose the Docker Daemon Socket](#dont-expose-the-docker-daemon-socket)
+- [Use Read-Only Volumes](#use-read-only-volumes)
+- [Set the Logging Level](#set-the-logging-level)
+- [Verify Image before Pulling](#verify-image-before-pulling)
+- [Specify the Tag](#specify-the-tag)
+- [Container Security Scanning](#container-security-scanning)
+- [Registry Security](#registry-security)
+- [Security Modules](#security-modules)
+
+### Keep Docker Up-To-Date
+To prevent known container escape vulnerabilities, which typically end in escalating to root/administrator privileges, patching Docker Engine and Docker Machine is crucial. For more info, see the [Docker Installation Docs](https://docs.docker.com/engine/install/).
+
+### Set Resource Quotas
+Docker enables you to limit resource consumption (CPU, memory, disk) on a per-container basis. This not only enhances system performance, but also prevents a compromised container from consuming a large amount of resources, in order to disrupt service or perform malicious activities. To learn more, see the [Resource Constraints Docs](https://docs.docker.com/config/containers/resource_constraints/)
+
+For example, to run Dashy with max of 1GB ram, and max of 50% of 1 CP core:
+`docker run -d -p 8080:80 --cpus=".5" --memory="1024m" lissy93/dashy:latest`
+
+### Don't Run as Root
+Running a container with admin privileges gives it more power than it needs, and can be abused. Dashy does not need any root privileges, and Docker by default doesn't run containers as root, so providing you don't specifically type sudo, you should be all good here.
+
+Note that if you're facing permission issues on Debian-based systems, you may need to add your user to the Docker group. First create the group: `sudo groupadd docker`,  then add your (non-root) user: `sudo usermod −aG docker [my-username]`, finally `newgrp docker` to refresh.
+
+### Specify a User
+One of the best ways to prevent privilege escalation attacks, is to configure the container to use an unprivileged user. This also means that any files created by the container and mounted, will be owned by the specified user (and not root), which makes things much easier. 
+
+You can specify a user, using the [`--user` param](https://docs.docker.com/engine/reference/run/#user), and should include the user ID (`UID`), which can be found by running `id -u`, and the and the group ID (`GID`), using `id -g`.
+
+With Docker run, you specify it like:
+`docker run --user 1000:1000 -p 8080:80 lissy93/dashy`
+
+Of if you're using Docker-compose, you could use an environmental variable
+
+```yaml
+version: "3.8"
+services:
+  dashy:
+    image: lissy93/dashy
+    user: ${CURRENT_UID}
+    ports: [ 4000:80 ]
+```   
+
+And then to set the variable, and start the container, run: `CURRENT_UID=$(id -u):$(id -g) docker-compose up`
+
+###  Limit capabilities 
+Docker containers run with a subset of [Linux Kernal's Capabilities](https://man7.org/linux/man-pages/man7/capabilities.7.html) by default. It's good practice to drop privilege permissions that are not needed for any given container.
+
+With Docker run, you can use the `--cap-drop` flag to remove capabilities, you can also use `--cap-drop=all` and then define just the required permissions using the `--cap-add` option. For a list of available capabilities, see the [Privilege Capabilities Docs](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities).
+
+Note that dropping privileges and capabilities on runtime is not fool-proof, and often any leftover privileges can be used to re-escalate, see [POS36-C](https://wiki.sei.cmu.edu/confluence/display/c/POS36-C.+Observe+correct+revocation+order+while+relinquishing+privileges).
+
+Here's an example using docker-compose, removing privileges that are not required for Dashy to run:
+
+```yaml
+version: "3.8"
+services:
+  dashy:
+    image: lissy93/dashy
+    ports: [ 4000:80 ]
+    cap_drop:
+    - ALL
+    cap_add:
+    - CHOWN
+    - SETGID
+    - SETUID
+    - DAC_OVERRIDE
+    - NET_BIND_SERVICE
+``` 
+
+### Prevent new Privilages being Added
+To prevent processes inside the container from getting additional privileges, pass in the `--security-opt=no-new-privileges:true` option to the Docker run command (see [docs](https://docs.docker.com/engine/reference/run/#security-configuration)).
+
+Run Command:
+`docker run --security-opt=no-new-privileges:true -p 8080:80 lissy93/dashy`
+
+Docker Compose
+```yaml
+security_opt:
+- no-new-privileges:true
+```
+
+### Disable Inter-Container Communication
+By default Docker containers can talk to each other (using [`docker0` bridged network](https://docs.docker.com/config/containers/container-networking/)). If you don't need this capability, then it should be disabled. This can be done with the `--icc=false` in your run command. You can learn more about how to facilitate secure communication between containers in the [Compose Networking docs](https://docs.docker.com/compose/networking/).
+
+### Don't Expose the Docker Daemon Socket
+Docker socket `/var/run/docker.sock` is the UNIX socket that Docker is listening to. This is the primary entry point for the Docker API. The owner of this socket is root. Giving someone access to it is equivalent to giving unrestricted root access to your host.
+
+You should **not** enable TCP Docker daemon socket (`-H tcp://0.0.0.0:XXX`), as doing so exposes un-encrypted and unauthenticated direct access to the Docker daemon, and if the host is connected to the internet, the daemon on your computer can be used by anyone from the public internet- which is bad. If you need TCP, you should [see the docs](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option) to understand how to do this more securely.
+Similarly, never expose `/var/run/docker.sock` to other containers as a volume, as it can be exploited.
+
+### Use Read-Only Volumes
+You can specify that a specific volume should be read-only by appending `:ro` to the `-v` switch. For example, while running Dashy, if we want our config to be writable, but keep all other assets protected, we would do:
+```
+docker run -d \
+  -p 8080:80 \
+  -v ~/dashy-conf.yml:/app/public/conf.yml \
+  -v ~/dashy-icons:/app/public/item-icons:ro \
+  -v ~/dashy-theme.scss:/app/src/styles/user-defined-themes.scss:ro \
+  lissy93/dashy:latest
+```
+
+You can also prevent a container from writing any changes to volumes on your host's disk, using the `--read-only` flag. Although, for Dashy, you will not be able to write config changes to disk, when edited through the UI with this method. You could make this work, by specifying the config directory as a temp write location, with `--tmpfs /app/public/conf.yml` - but  that this will not write the volume back to your host.
+
+### Set the Logging Level
+Logging is important, as it enables you to review events in the future, and in the case of a compromise this will let get an idea of what may have happened. The default log level is `INFO`, and this is also the recommendation, use `--log-level info` to ensure this is set.
+
+### Verify Image before Pulling
+Only use trusted images, from verified/ official sources. If an app is open source, it is more likely to be safe, as anyone can verify the code. There are also tools available for scanning containers, 
+
+Unless otherwise configured, containers can communicate among each other, so running one bad image may lead to other areas of your setup being compromised. Docker images typically contain both original code, as well as up-stream packages, and even if that image has come from a trusted source, the up-stream packages it includes may not have.
+
+### Specify the Tag
+Using fixed tags (as opposed to `:latest` ) will ensure immutability, meaning the base image will not change between builds. Note that for Dashy, the app is being actively developed, new features, bug fixes and general improvements are merged each week, and if you use a fixed version you will not enjoy these benefits. So it's up to you weather you would prefer a stable and reproducible environment, or the latest features and enhancements.
+
+### Container Security Scanning
+It's helpful to be aware of any potential security issues in any of the Docker images you are using. You can run a quick scan using Snyk on any image to output known vulnerabilities using [Docker scan](https://docs.docker.com/engine/scan/), e.g: `docker scan lissy93/dashy:latest`.
+
+A similar product is [Trivy](https://github.com/aquasecurity/trivy), which is free an open source. First install it (with your package manager), then to scan an image, just run: `trivy image lissy93/dashy:latest`
+
+For larger systems, RedHat [Clair](https://www.redhat.com/en/topics/containers/what-is-clair) is an app for parsing image contents and reporting on any found vulnerabilities. You run it locally in a container, and configure it with YAML. It can be integrated with Red Hat Quay, to show results on a dashboard. Most of these use static analysis to find potential issues, and scan included packages for any known security vulnerabilities.
+
+### Registry Security
+Although over-kill for most users, you could run your own registry locally which would give you ultimate control over all images, see the [Deploying a Registry Docs](https://docs.docker.com/registry/deploying/) for more info. Another option is [Docker Trusted Registry](https://docker-docs.netlify.app/ee/dtr/), it's great for enterprise applications, it sits behind your firewall, running on a swarm managed by Docker Universal Control Plane, and lets you securely store and manage your Docker images, mitigating the risk of breaches from the internet.
+
+### Security Modules
+Docker supports several modules that let you write your own security profiles.
+
+[AppArmor](https://www.apparmor.net/)is a kernel module that proactively protects the operating system and applications from external or internal threats, by enabling you to  restrict programs' capabilities with per-program profiles. You can specify either a security policy by name, or by file path with the `apparmor` flag in docker run. Learn more about writing profiles, [here](https://gitlab.com/apparmor/apparmor/-/wikis/QuickProfileLanguage).
+
+[Seccomp](https://en.wikipedia.org/wiki/Seccomp) (Secure Computing Mode) is a sandboxing facility in the Linux kernel that acts like a firewall for system calls (syscalls). It uses Berkeley Packet Filter (BPF) rules to filter syscalls and control how they are handled. These filters can significantly limit a containers access to the Docker Host’s Linux kernel - especially for simple containers/applications. It requires a Linux-based Docker host, with secomp enabled, and you can check for this by running `docker info | grep seccomp`. A great resource for learning more about this is [DockerLabs](https://training.play-with-docker.com/security-seccomp/).
+
+
+**[⬆️ Back to Top](#)**
+
+---
+
 ## Web Server Configuration
 
 _The following section only applies if you are not using Docker, and would like to use your own web server_
@@ -617,6 +638,8 @@ Note, that if you choose not to use `server.js` to serve up the app, you will lo
 Example Configs
 - [NGINX](#nginx)
 - [Apache](#apache)
+- [Caddy](#caddy)
+- [Firebase](#firebase-hosting)
 - [cPanel](#cpanel)
 
 ### NGINX
@@ -638,6 +661,9 @@ server {
 	}
 }
 ```
+
+To use HTML5 history mode (`appConfig.routingMode: history`), replace the inside of the location block with: `try_files $uri $uri/ /index.html;`.
+
 Then upload the build contents of Dashy's dist directory to that location.
 For example: `scp -r ./dist/* [username]@[server_ip]:/var/www/dashy/html`
 
@@ -652,6 +678,15 @@ In your Apache config, `/etc/apche2/apache2.conf` add:
 	AllowOverride All
 	Require all granted
 </Directory>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
 ```
 
 Add a `.htaccess` file within `/var/www/html/dashy/.htaccess`, and add:
@@ -663,6 +698,39 @@ RewriteRule ^ index.html [QSA,L]
 ```
 
 Then restart Apache, with `sudo systemctl restart apache2`
+
+### Caddy
+
+Caddy v2
+```
+try_files {path} /
+```
+
+Caddy v1
+```
+rewrite {
+  regexp .*
+  to {path} /
+}
+```
+
+### Firebase Hosting
+
+Create a file names `firebase.json`, and populate it with something similar to:
+
+```
+{
+  "hosting": {
+    "public": "dist",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
+```
 
 ### cPanel
 1. Login to your WHM
