@@ -7,7 +7,7 @@ on:
 
 env:
   DH_IMAGE: ${{ secrets.DOCKER_REPO }}
-  GH_IMAGE: ${{ github.repository_owner }}/{{ github.event.repository.name }}
+  GH_IMAGE: ${{ github.repository_owner }}/${{ github.event.repository.name }}
 
 jobs:
   docker:
