@@ -20,6 +20,8 @@
 - [Warnings in the Console during deploy](#warnings-in-the-console-during-deploy)
 - [Docker Login Fails on Ubuntu](#docker-login-fails-on-ubuntu)
 - [Status Checks Failing](#status-checks-failing)
+- [Diagnosing Widget Errors](#widget-errors)
+- [Fixing Widget CORS Errors](#widget-cors-errors)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
 
@@ -214,6 +216,54 @@ Currently, the status check needs a page to be rendered, so if this URL in your 
 For further troubleshooting, use an application like [Postman](https://postman.com) to diagnose the issue. Set the parameter to `GET`, and then make a call to: `https://[url-of-dashy]/status-check/?&url=[service-url]`. Where the service URL must have first been encoded (e.g. with `encodeURIComponent()` or [urlencoder.io](https://www.urlencoder.io/))
 
 If you're serving Dashy though a CDN, instead of using the Node server or Docker image, then the Node endpoint that makes requests will not be available to you, and all requests will fail. A workaround for this may be implemented in the future, but in the meantime, your only option is to use the Docker or Node deployment method. 
+
+---
+
+## Widget Errors
+
+If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't addequatley explain the problem, then you can [open the browser console](/docs/troubleshooting#how-to-open-browser-console) to see more details.
+
+Before proceeding, ensure that if the widget requires auth your API is correct, and for custom widgets, double check that the URL and protocol is correct.
+
+If the console message mentions to corss-origin blocking, then this is a CORS error, see: [Fixing Widget CORS Errors](#widget-cors-errors)
+
+If you're able to, you can find more information about why the request may be failing in the Dev Tools under the Network tab, and you can ensure your endpoint is correct and working using a tool like Postman.
+
+---
+
+## Widget CORS Errors
+
+The most common widget issue is a CORS error. This is a browser security mechanism which prevents the client-side app (Dashy) from from accessing resources on a remote origin, without that server's explicit permission (e.g. with headers like Access-Control-Allow-Origin). See the MDN Docs for more info: [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+
+There are several ways to fix a CORS error:
+
+#### Option 1 - Ensure Correct Protocol
+You will get a CORS error if you try and access a http service from a https source. So ensure that the URL you are requesting has the right protocol, and is correctly formatted.
+
+#### Option 2 - Set Headers
+
+If you have control over the destination (e.g. for a self-hosted service), then you can simply apply the correct headers.
+Add the `Access-Control-Allow-Origin` header, with the value of either `*` to allow requests from anywhere, or more securely, the host of where Dashy is served from. For example:
+
+```
+Access-Control-Allow-Origin: https://url-of-dashy.local
+```
+
+or
+
+```
+Access-Control-Allow-Origin: *
+```
+
+#### Option 3 - Proxying Request
+
+You can route requests through Dashy's built-in CORS proxy. Instructions and more details can be found [here](/docs/widgets#proxying-requests). If you don't have control over the target origin, and you are running Dashy either through Docker, with the Node server or on Netlify, then this solution will work for you.
+
+Just add the `useProxy: true` option to the failing widget.
+
+#### Option 4 - Use a plugin
+
+For testing purposes, you can use an addon, which will disable the CORS checks. You can get the Allow-CORS extension for [Chrome](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en-US) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/access-control-allow-origin/), more details [here](https://mybrowseraddon.com/access-control-allow-origin.html)
 
 ---
 
