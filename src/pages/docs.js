@@ -23,6 +23,7 @@ import IconContributing from '../../static/icons/docs_contributing.svg';
 import IconShowcase from '../../static/icons/docs_showcase.svg';
 import IconCredits from '../../static/icons/docs_credits.svg';
 import IconAuth from '../../static/icons/docs_authentication.svg';
+import IconWidgets from '../../static/icons/features_widgets.svg';
 // import IconCloudSync from '../../static/icons/docs_cloud-sync.svg';
 import IconIconography from '../../static/icons/docs_icons.svg';
 import IconInternationalization from '../../static/icons/docs_internationalisation.svg';
@@ -100,41 +101,6 @@ const DocsSections = [
     ]
   },
   {
-    section: 'Community',
-    items: [
-      {
-        title: 'Developing',
-        description: 'Dashy workflow, and running locally',
-        link: '/docs/developing',
-        icon: (<IconDeveloping />),
-      },
-      {
-        title: 'Dev Guides',
-        description: 'Common development tasks',
-        link: '/docs/development-guides',
-        icon: (<IconDevGuides />),
-      },
-      {
-        title: 'Contributing',
-        description: 'How you can help support Dashy\'s development',
-        link: '/docs/contributing',
-        icon: (<IconContributing />),
-      },
-      {
-        title: 'Showcase',
-        description: 'See how others are using Dashy, and share your dashboard',
-        link: '/docs/showcase',
-        icon: (<IconShowcase />),
-      },
-      {
-        title: 'Credits',
-        description: 'List of people and projects that have made Dashy possible',
-        link: '/docs/credits',
-        icon: (<IconCredits />),
-      },
-    ]
-  },
-  {
     section: 'Feature Docs',
     items: [
       {
@@ -184,6 +150,47 @@ const DocsSections = [
         description: 'Guide to customizing the look and feel of Dashy',
         link: '/docs/theming',
         icon: (<IconTheming />),
+      },
+      {
+        title: 'Widgets',
+        description: 'List of all pre-built and custom widgets supported',
+        link: '/docs/widgets',
+        icon: (<IconWidgets />),
+      },
+    ]
+  },
+  {
+    section: 'Community',
+    items: [
+      {
+        title: 'Developing',
+        description: 'Dashy workflow, and running locally',
+        link: '/docs/developing',
+        icon: (<IconDeveloping />),
+      },
+      {
+        title: 'Dev Guides',
+        description: 'Common development tasks',
+        link: '/docs/development-guides',
+        icon: (<IconDevGuides />),
+      },
+      {
+        title: 'Contributing',
+        description: 'How you can help support Dashy\'s development',
+        link: '/docs/contributing',
+        icon: (<IconContributing />),
+      },
+      {
+        title: 'Showcase',
+        description: 'See how others are using Dashy, and share your dashboard',
+        link: '/docs/showcase',
+        icon: (<IconShowcase />),
+      },
+      {
+        title: 'Credits',
+        description: 'List of people and projects that have made Dashy possible',
+        link: '/docs/credits',
+        icon: (<IconCredits />),
       },
     ]
   },
