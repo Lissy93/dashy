@@ -15,6 +15,7 @@ import IconThemes from '../../static/icons/features_themes.svg';
 import IconUiConfig from '../../static/icons/features_ui-configuration.svg';
 import IconLaunching from '../../static/icons/features_launching.svg';
 import IconLanguage from '../../static/icons/features_language.svg';
+import IconWidgets from '../../static/icons/features_widgets.svg';
 
 const FeatureList = [
   {
@@ -66,6 +67,18 @@ const FeatureList = [
     ),
     link: '/docs/authentication',
     icon: (<IconAuth />),
+  },
+  {
+    title: 'Widgets',
+    description: (
+      <>
+        Display dynamic content from any API-enabled service. Dashy comes bundled with 50+
+        pre-built widgets for self-hosted services, productivity and monitoring.
+      </>
+    ),
+    link: '/docs/widgets',
+    icon: (<IconWidgets />),
+    demo: 'https://i.ibb.co/GFjXVHy/dashy-widgets.png',
   },
   {
     title: 'Alternate Views',
@@ -187,9 +200,9 @@ function Feature({ title, description, icon, demo, index, link }) {
       </div>
       <div className="feature-half assets">
         {demo
-        ? <img className="demo" src={demo} />
-        : <span className="not-demo">Screenshot Coming Soon</span>
-      }
+          ? <img className="demo" src={demo} />
+          : <span className="not-demo">Screenshot Coming Soon</span>
+        }
       </div>
     </div>
   );

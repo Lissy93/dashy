@@ -32,9 +32,9 @@ export default function HomepageHeader() {
         {showMore && (
           <p className={styles.dashyDescription}>
             It's packed full of useful features, to help you build your perfect dashboard.
-            Including status checks, keyboard shortcuts, auto-fetched favicon icons and
-            font-awesome support, built-in authentication, tons of themes, a UI config
-            editor, many display layouts plus loads more.
+            Including status checks, keyboard shortcuts, dynamic widgets, auto-fetched
+            favicon icons and font-awesome support, built-in authentication, tons of themes,
+            an interactive config editor, many display layouts plus loads more.<br />
             All the code is free and open source, and everything is thoroughly documented,
             you can get support with any questions on GitHub.
           </p>
