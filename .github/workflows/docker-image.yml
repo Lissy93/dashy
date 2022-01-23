@@ -65,12 +65,9 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        dockerfile: ./docker/Dockerfile-multi-arch
+        file: ./docker/Dockerfile-multi-arch
         platforms: linux/amd64,linux/arm64,linux/arm/v7
         push: true
-        tags: |
-          ${{ env.DH_IMAGE }}:latest
-          ${{ env.DH_IMAGE }}:${{ steps.package-version.outputs.version }}
-          ${{ env.GH_IMAGE }}:latest
-          ${{ env.GH_IMAGE }}:${{ steps.package-version.outputs.version }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
           
