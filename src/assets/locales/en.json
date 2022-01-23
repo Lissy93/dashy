@@ -1,7 +1,8 @@
 {
   "home": {
     "no-results": "No Search Results",
-    "no-data": "No Data Configured"
+    "no-data": "No Data Configured",
+    "no-items-section": "No Items to Show Yet"
   },
   "search": {
     "search-label": "Search",
@@ -184,10 +185,12 @@
       "newtab": "New Tab",
       "modal": "Pop-Up Modal",
       "workspace": "Workspace View",
+      "clipboard": "Copy to Clipboard",
       "options-section-title": "Options",
       "edit-item": "Edit",
       "move-item": "Copy or Move",
-      "remove-item": "Remove"
+      "remove-item": "Remove",
+      "copied-toast": "URL has been copied to clipboard"
     },
     "section": {
       "open-section": "Open Section",
@@ -223,6 +226,9 @@
       "save-stage-btn": "Save",
       "cancel-stage-btn": "Cancel"
     },
+    "edit-item": {
+      "missing-title-err": "An item title is required"
+    },
     "edit-section": {
       "edit-section-title": "Edit Section",
       "add-section-title": "Add New Section",
@@ -243,6 +249,47 @@
       "download-file-btn": "Download as File",
       "download-file-tooltip": "Download all app config to your device, in a YAML file",
       "view-title": "View Config"
+    }
+  },
+  "widgets": {
+    "general": {
+      "loading": "Loading...",
+      "show-more": "Expand Details",
+      "show-less": "Show Less",
+      "open-link": "Continue Reading"
+    },
+    "pi-hole": {
+      "status-heading": "Status"
+    },
+    "stat-ping": {
+      "up": "Online",
+      "down": "Offline"
+    },
+    "net-data": {
+      "cpu-chart-title": "CPU History",
+      "mem-chart-title": "Memory Usage",
+      "mem-breakdown-title": "Memory Breakdown",
+      "load-chart-title": "System Load"
+    },
+    "glances": {
+      "disk-space-free": "Free",
+      "disk-space-used": "Used",
+      "disk-mount-point": "Mount Point",
+      "disk-file-system": "File System",
+      "disk-io-read": "Read",
+      "disk-io-write": "Write",
+      "system-load-desc": "Number of processes waiting in the run-queue, averaged across all cores"
+    },
+    "system-info": {
+      "uptime": "Uptime"
+    },
+    "flight-data": {
+      "arrivals": "Arrivals",
+      "departures": "Departures"
+    },
+    "tfl-status": {
+      "good-service-all": "Good Service on all Lines",
+      "good-service-rest": "Good Service on all other Lines"
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="`collapsable ${rowColSpanClass} ${collapseClass}`"
+    :class="`collapsable ${rowColSpanClass} ${collapseClass} ${!cutToHeight ? 'full-height' : ''}`"
     :style="`${color ? 'background: '+color : ''}; ${sanitizeCustomStyles(customStyles)};`"
   >
     <input
@@ -43,6 +43,7 @@ export default {
     rows: Number, // Set section vertical row span / height
     color: String, // Optional color override
     customStyles: String, // Optional custom stylings
+    cutToHeight: Boolean, // To set section height with content height
   },
   components: {
     Icon,
@@ -251,6 +252,17 @@ export default {
     float: right;
     right: 0.5rem;
     top: 0.5rem;
+  }
+  // Makes sections fill available space
+  &.is-open.full-height {
+    height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    align-items: normal;
+    .collapsible-content {
+      height: -webkit-fill-available;
+      width: 100%;
+    }
   }
 }
 </style>

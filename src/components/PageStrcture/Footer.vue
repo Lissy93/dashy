@@ -12,7 +12,7 @@
 
 <script>
 
-import { shouldBeVisible } from '@/utils/MiscHelpers';
+import { shouldBeVisible } from '@/utils/SectionHelpers';
 
 export default {
   name: 'Footer',

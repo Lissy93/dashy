@@ -9,7 +9,7 @@
       v-tooltip="getTooltipOptions()"
       rel="noopener noreferrer" tabindex="0"
       :id="`link-${id}`"
-      :style="`--open-icon: ${getUnicodeOpeningIcon()}; ${customStyles}`"
+      :style="`--open-icon: ${getUnicodeOpeningIcon()}; color: ${color};  ${customStyles}`"
     >
       <!-- Item Text -->
       <div :class="`tile-title  ${!icon? 'bounce no-icon': ''}`" :id="`tile-${id}`" >
@@ -141,7 +141,7 @@ export default {
     hyperLinkHref() {
       const nothing = '#';
       if (this.isEditMode) return nothing;
-      const noAnchorNeeded = ['modal', 'workspace'];
+      const noAnchorNeeded = ['modal', 'workspace', 'clipboard'];
       return noAnchorNeeded.includes(this.accumulatedTarget) ? nothing : this.url;
     },
   },
@@ -174,6 +174,9 @@ export default {
         this.$emit('triggerModal', this.url);
       } else if (this.accumulatedTarget === 'workspace') {
         router.push({ name: 'workspace', query: { url: this.url } });
+      } else if (this.accumulatedTarget === 'clipboard') {
+        navigator.clipboard.writeText(this.url);
+        this.$toasted.show(this.$t('context-menus.item.copied-toast'));
       } else {
         this.$emit('itemClicked');
       }
@@ -226,6 +229,7 @@ export default {
         case 'top': return '"\\f102"';
         case 'modal': return '"\\f2d0"';
         case 'workspace': return '"\\f0b1"';
+        case 'clipboard': return '"\\f0ea"';
         default: return '"\\f054"';
       }
     },
@@ -278,6 +282,10 @@ export default {
           break;
         case 'workspace':
           router.push({ name: 'workspace', query: { url } });
+          break;
+        case 'clipboard':
+          navigator.clipboard.writeText(url);
+          this.$toasted.show(this.$t('context-menus.item.copied-toast'));
           break;
         default: window.open(url, '_blank');
       }
@@ -452,7 +460,7 @@ export default {
     height: 2rem;
     padding-top: 4px;
     max-width: 14rem;
-    div img, div svg.missing-image {
+    div img {
       width: 2rem;
     }
     .tile-title {
@@ -473,7 +481,7 @@ export default {
     flex-direction: column;
     align-items: center;
     height: auto;
-    div img, div svg.missing-image {
+    div img {
       width: 2.5rem;
       margin-bottom: 0.25rem;
     }
@@ -545,5 +553,8 @@ a.item.is-edit-mode {
 <style lang="scss">
 .disabled-link {
   pointer-events: none;
+}
+.tooltip.item-description-tooltip {
+  z-index: 7;
 }
 </style>

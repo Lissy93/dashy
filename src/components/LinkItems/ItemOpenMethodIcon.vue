@@ -7,6 +7,7 @@
       <WorkspaceOpenIcon v-else-if="openingMethod === 'workspace'" />
       <ParentOpenIcon v-else-if="openingMethod === 'parent'" />
       <TopOpenIcon v-else-if="openingMethod === 'top'" />
+      <ClipboardOpenIcon v-else-if="openingMethod === 'clipboard'" />
       <UnknownIcon v-else />
     </div>
     <div v-if="hotkey" :class="`hotkey-denominator ${makeClass(position, isSmall, isTransparent)}`">
@@ -25,6 +26,7 @@ import IframeOpenIcon from '@/assets/interface-icons/open-iframe.svg';
 import WorkspaceOpenIcon from '@/assets/interface-icons/open-workspace.svg';
 import ParentOpenIcon from '@/assets/interface-icons/open-parent.svg';
 import TopOpenIcon from '@/assets/interface-icons/open-top.svg';
+import ClipboardOpenIcon from '@/assets/interface-icons/open-clipboard.svg';
 import UnknownIcon from '@/assets/interface-icons/unknown-icon.svg';
 
 export default {
@@ -52,6 +54,7 @@ export default {
     WorkspaceOpenIcon,
     ParentOpenIcon,
     TopOpenIcon,
+    ClipboardOpenIcon,
     UnknownIcon,
   },
 };

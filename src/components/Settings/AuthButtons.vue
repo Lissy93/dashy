@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- If auth configured, show status text -->
-    <span class="user-type-note">{{ makeText() }}</span>
+    <span class="user-type-note">{{ makeUserGreeting() }}</span>
     <div class="display-options">
       <!-- If user logged in, show logout button -->
       <IconLogout
@@ -17,6 +17,13 @@
         v-tooltip="tooltip($t('settings.sign-in-tooltip'))"
         class="layout-icon" tabindex="-2"
       />
+      <!-- If user logged in via keycloak, show keycloak logout button -->
+      <IconLogout
+        v-if="userType == userStateEnum.keycloakEnabled"
+        @click="keycloakLogout()"
+        v-tooltip="tooltip($t('settings.sign-out-tooltip'))"
+        class="layout-icon" tabindex="-2"
+      />
     </div>
   </div>
 </template>
@@ -24,6 +31,7 @@
 <script>
 import router from '@/router';
 import { logout as registerLogout } from '@/utils/Auth';
+import { getKeycloakAuth } from '@/utils/KeycloakAuth';
 import { localStorageKeys, userStateEnum } from '@/utils/defaults';
 import IconLogout from '@/assets/interface-icons/user-logout.svg';
 
@@ -48,14 +56,22 @@ export default {
         router.push({ path: '/login' });
       }, 500);
     },
+    keycloakLogout() {
+      const keycloak = getKeycloakAuth();
+      this.$toasted.show(this.$t('login.logout-message'));
+      setTimeout(() => {
+        keycloak.logout();
+      }, 500);
+    },
     goToLogin() {
       router.push({ path: '/login' });
     },
     tooltip(content) {
       return { content, trigger: 'hover focus', delay: 250 };
     },
-    makeText() {
-      if (this.userType === userStateEnum.loggedIn) {
+    makeUserGreeting() {
+      if (this.userType === userStateEnum.loggedIn
+        || this.userType === userStateEnum.keycloakEnabled) {
         const username = localStorage[localStorageKeys.USERNAME];
         return username ? this.$t('settings.sign-in-welcome', { username }) : '';
       }
@@ -73,7 +89,6 @@ export default {
 
 span.user-type-note {
   color: var(--settings-text-color);
-  text-transform: capitalize;
   margin-right: 0.5rem;
 }
 

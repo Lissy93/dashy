@@ -84,7 +84,8 @@
             "parent",
             "top",
             "modal",
-            "workspace"
+            "workspace",
+            "clipboard"
           ],
           "default": "newtab",
           "description": "The default opening method for items. Only used if no item.target is specified"
@@ -147,6 +148,7 @@
             "local",
             "allesedv",
             "clearbit",
+            "iconhorse",
             "faviconkit",
             "duckduckgo",
             "yandex",
@@ -344,12 +346,6 @@
               "type": "boolean",
               "default": "false",
               "description": "If set to true, the page footer will be hidden"
-            },
-            "hideSplashScreen": {
-              "title": "Hide Splash Screen?",
-              "type": "boolean",
-              "default": "true",
-              "description": "If set to true, the loading / splash screen will not be shown"
             }
           }
         },
@@ -437,6 +433,12 @@
             }
           }
         },
+        "showSplashScreen": {
+          "title": "Show splash screen",
+          "type": "boolean",
+          "default": "false",
+          "description": "If set to true, a loading screen will be shown"
+        },
         "allowConfigEdit": {
           "title": "Allow Config Editing",
           "type": "boolean",
@@ -488,8 +490,7 @@
         "title": "Items",
         "type": "object",
         "required": [
-          "name",
-          "items"
+          "name"
         ],
         "additionalProperties": false,
         "properties": {
@@ -613,6 +614,58 @@
                 "type": "boolean",
                 "default": false,
                 "description": "If set to true, section will be visible for logged in users, but not for guests"
+              },
+              "showForKeycloakUsers": {
+                "title": "Show for select Keycloak groups or roles",
+                "type": "object",
+                "description": "Configure the Keycloak groups or roles that will have access to this section",
+                "additionalProperties": false,
+                "properties": {
+                  "groups": {
+                    "title": "Show for Groups",
+                    "type": "array",
+                    "description": "Section will be hidden from all users except those with one or more of these groups",
+                    "items": {
+                      "type": "string",
+                      "description": "Name of the group that will be able to view this section"
+                    }
+                  },
+                  "roles": {
+                    "title": "Show for Roles",
+                    "type": "array",
+                    "description": "Section will be hidden from all users except those with one or more of these roles",
+                    "items": {
+                      "type": "string",
+                      "description": "Name of the role that will be able to view this section"
+                    }
+                  }
+                }
+              },
+              "hideForKeycloakUsers": {
+                "title": "Hide for select Keycloak groups or roles",
+                "type": "object",
+                "description": "Configure the Keycloak groups or roles that will not have access to this section",
+                "additionalProperties": false,
+                "properties": {
+                  "groups": {
+                    "title": "Hide for Groups",
+                    "type": "array",
+                    "description": "Section will be hidden from users with any of these groups",
+                    "items": {
+                      "type": "string",
+                      "description": "name of the group that will not be able to view this section"
+                    }
+                  },
+                  "roles": {
+                    "title": "Hide for Roles",
+                    "type": "array",
+                    "description": "Section will be hidden from users with any of roles",
+                    "items": {
+                      "type": "string",
+                      "description": "name of the role that will not be able to view this section"
+                    }
+                  }
+                }
               }
             }
           },
@@ -658,7 +711,8 @@
                     "parent",
                     "top",
                     "modal",
-                    "workspace"
+                    "workspace",
+                    "clipboard"
                   ],
                   "default": "newtab",
                   "description": "Where / how the item is opened when it's clicked"
@@ -713,6 +767,27 @@
                   "title": "Item ID",
                   "type": "string",
                   "description": "Unique ID for each item. Generated automatically, shouldn't need to be set manually."
+                }
+              }
+            }
+          },
+          "widgets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "title": "Widget Type",
+                  "type": "string",
+                  "description": "The type of widget to use, see docs for supported options"
+                },
+                "options": {
+                  "title": "Widget Options",
+                  "type": "object",
+                  "description": "Configuration options for widget. Varies depending on widget type, see docs for all options"
                 }
               }
             }

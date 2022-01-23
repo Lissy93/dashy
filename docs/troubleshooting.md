@@ -1,6 +1,31 @@
 # Troubleshooting
 
-This document contains common problems and their solutions.
+> _**This document contains common problems and their solutions.**_
+>
+> _If you came across an issue where the solution was not immediately obvious, consider adding it to this list to help other users._
+
+### Contents
+- [Refused to Connect in Web Content View](#refused-to-connect-in-modal-or-workspace-view)
+- [404 On Static Hosting](#404-on-static-hosting)
+- [Yarn Build or Run Error](#yarn-error)
+- [Auth Validation Error: "should be object"](#auth-validation-error-should-be-object)
+- [Config Not Updating](#config-not-updating)
+- [Config Still not Updating](#config-still-not-updating)
+- [Styles and Assets not Updating](#styles-and-assets-not-updating)
+- [DockerHub toomanyrequests](#dockerhub-toomanyrequests)
+- [Config Validation Errors](#config-validation-errors)
+- [Node Sass unsupported environment](#node-sass-does-not-yet-support-your-current-environment)
+- [Cannot find module './_baseValues'](#error-cannot-find-module-_basevalues)
+- [Ngrok Invalid Host Headers](#invalid-host-header-while-running-through-ngrok)
+- [Warnings in the Console during deploy](#warnings-in-the-console-during-deploy)
+- [Docker Login Fails on Ubuntu](#docker-login-fails-on-ubuntu)
+- [Status Checks Failing](#status-checks-failing)
+- [Diagnosing Widget Errors](#widget-errors)
+- [Fixing Widget CORS Errors](#widget-cors-errors)
+- [How-To Open Browser Console](#how-to-open-browser-console)
+- [Git Contributions not Displaying](#git-contributions-not-displaying)
+
+---
 ## `Refused to Connect` in Modal or Workspace View
 
 This is not an issue with Dashy, but instead caused by the target app preventing direct access through embedded elements. It can be fixed by setting the [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) HTTP header set to `ALLOW [path to Dashy]` or `SAMEORIGIN`, as defined in [RFC-7034](https://datatracker.ietf.org/doc/html/rfc7034). These settings are usually set in the config file for the web server that's hosting the target application, here are some examples of how to enable cross-origin access with common web servers:
@@ -191,3 +216,80 @@ Currently, the status check needs a page to be rendered, so if this URL in your 
 For further troubleshooting, use an application like [Postman](https://postman.com) to diagnose the issue. Set the parameter to `GET`, and then make a call to: `https://[url-of-dashy]/status-check/?&url=[service-url]`. Where the service URL must have first been encoded (e.g. with `encodeURIComponent()` or [urlencoder.io](https://www.urlencoder.io/))
 
 If you're serving Dashy though a CDN, instead of using the Node server or Docker image, then the Node endpoint that makes requests will not be available to you, and all requests will fail. A workaround for this may be implemented in the future, but in the meantime, your only option is to use the Docker or Node deployment method. 
+
+---
+
+## Widget Errors
+
+If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't addequatley explain the problem, then you can [open the browser console](/docs/troubleshooting.md#how-to-open-browser-console) to see more details.
+
+Before proceeding, ensure that if the widget requires auth your API is correct, and for custom widgets, double check that the URL and protocol is correct.
+
+If the console message mentions to corss-origin blocking, then this is a CORS error, see: [Fixing Widget CORS Errors](#widget-cors-errors)
+
+If you're able to, you can find more information about why the request may be failing in the Dev Tools under the Network tab, and you can ensure your endpoint is correct and working using a tool like Postman.
+
+---
+
+## Widget CORS Errors
+
+The most common widget issue is a CORS error. This is a browser security mechanism which prevents the client-side app (Dashy) from from accessing resources on a remote origin, without that server's explicit permission (e.g. with headers like Access-Control-Allow-Origin). See the MDN Docs for more info: [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+
+There are several ways to fix a CORS error:
+
+#### Option 1 - Ensure Correct Protocol
+You will get a CORS error if you try and access a http service from a https source. So ensure that the URL you are requesting has the right protocol, and is correctly formatted.
+
+#### Option 2 - Set Headers
+
+If you have control over the destination (e.g. for a self-hosted service), then you can simply apply the correct headers.
+Add the `Access-Control-Allow-Origin` header, with the value of either `*` to allow requests from anywhere, or more securely, the host of where Dashy is served from. For example:
+
+```
+Access-Control-Allow-Origin: https://url-of-dashy.local
+```
+
+or
+
+```
+Access-Control-Allow-Origin: *
+```
+
+#### Option 3 - Proxying Request
+
+You can route requests through Dashy's built-in CORS proxy. Instructions and more details can be found [here](/docs/widgets.md#proxying-requests). If you don't have control over the target origin, and you are running Dashy either through Docker, with the Node server or on Netlify, then this solution will work for you.
+
+Just add the `useProxy: true` option to the failing widget.
+
+#### Option 4 - Use a plugin
+
+For testing purposes, you can use an addon, which will disable the CORS checks. You can get the Allow-CORS extension for [Chrome](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en-US) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/access-control-allow-origin/), more details [here](https://mybrowseraddon.com/access-control-allow-origin.html)
+
+---
+
+## How-To Open Browser Console
+When raising a bug, one crucial piece of info needed is the browser's console output. This will help the developer diagnose and fix the issue.
+
+If you've been asked for this info, but are unsure where to find it, then it is under the "Console" tab, in the browsers developer tools, which can be opened with <kbd>F12</kbd>. You can right-click the console, and select Save As to download the log.
+
+To open dev tools, and jump straight to the console:
+- Win / Linux: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>
+- MacOS: <kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>J</kbd>
+
+For more detailed walk through, see [this article](https://support.shortpoint.com/support/solutions/articles/1000222881-save-browser-console-file).
+
+---
+
+## Git Contributions not Displaying
+
+If you've contributed to Dashy (or any other project), but your contributions are not showing up on your GH profile, or in Dashy's [Credits Page](https://github.com/Lissy93/dashy/blob/master/docs/credits.md), then this is likely a git config issue.
+
+These statistics are generated using the username / email associated with commits. This info needs to be setup on your local machine using [`git config`](https://git-scm.com/docs/git-config).
+
+Run the following commands (replacing name + email with your info):
+- `git config --global user.name "John Doe"`
+- `git config --global user.email johndoe@example.com`
+
+For more info, see [Git First Time Setup Docs](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
+
+Note that only contributions to the master / main branch or a project are counted

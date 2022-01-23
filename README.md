@@ -40,6 +40,7 @@
   - [🎨 Theming](#theming-)
   - [🧸 Icons](#icons-)
   - [🚦 Status Indicators](#status-indicators-)
+  - [📊 Widgets](#widgets-)
   - [💂 Authentication](#authentication-)
   - [🖱️ Opening Methods](#opening-methods-%EF%B8%8F)
   - [👓 Alternate Views](#alternate-views-)
@@ -70,6 +71,7 @@
 - 🎨 Multiple built-in color themes, with UI color editor and support for custom CSS
 - 🧸 Many icon options - Font-Awesome, homelab icons, auto-fetching Favicon, images, emojis, etc.
 - 🚦 Status monitoring for each of your apps/links for basic availability and uptime checking
+- 📊 Use widgets to display info and dynamic content from self-hosted services
 - 💂 Optional authentication with multi-user access, configurable privileges, and SSO support
 - 🌎 Multi-language support, with 10+ human-translated languages, and more on the way
 - ☁ Optional, encrypted, free off-site cloud backup and restore feature available
@@ -239,6 +241,22 @@ Status indicators can be globally enabled by setting `appConfig.statusCheck: tru
 
 ---
 
+## Widgets 📊
+
+> For full widget documentation, see: [**Widgets**](./docs/widgets.md)
+
+You can display dynamic content from services in the form of widgets. There are several pre-built widgets availible for showing useful info, and integrations with commonly self-hosted services, but you can also easily create your own for almost any app.
+
+
+<p align="center">
+  <img width="600" src="https://i.ibb.co/GFjXVHy/dashy-widgets.png" />
+</p>
+
+
+**[⬆️ Back to Top](#dashy)**
+
+---
+
 ## Authentication 💂
 
 > For full authentication documentation, see: [**Authentication**](./docs/authentication.md)
@@ -310,7 +328,7 @@ For apps that you use regularly, you can set a custom keybinding. Use the `hotke
 
 You can also add custom tags to a given item to make finding them based on keywords easier. For example, in the following example, searching for 'Movies' will show 'Plex'
 
-"`yaml
+```yaml
   items:
   - title: Plex
     hotkey: 8
@@ -472,7 +490,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td>
     <td align="center">
         <a href="https://github.com/Robert-Ernst">
-            <img src="https://avatars.githubusercontent.com/u/9050259?v=4" width="80;" alt="Robert-Ernst"/>
+            <img src="https://avatars.githubusercontent.com/u/9050259?u=7253b4063f1ffe3b5a894263c8b2056151802508&v=4" width="80;" alt="Robert-Ernst"/>
             <br />
             <sub><b>Robert Ernst</b></sub>
         </a>
@@ -485,10 +503,17 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/matthewjdegarmo">
-            <img src="https://avatars.githubusercontent.com/u/46715299?u=65f979e86de9dce8a5fe04df9775d32c6cefd73a&v=4" width="80;" alt="matthewjdegarmo"/>
+        <a href="https://github.com/KierenConnell">
+            <img src="https://avatars.githubusercontent.com/u/46445781?u=5502f8fb780938e2825735d7bbb9236642d212c0&v=4" width="80;" alt="KierenConnell"/>
             <br />
-            <sub><b>Matthew J. DeGarmo</b></sub>
+            <sub><b>Kieren Connell</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/ratty222">
+            <img src="https://avatars.githubusercontent.com/u/92832598?v=4" width="80;" alt="ratty222"/>
+            <br />
+            <sub><b>Ratty222</b></sub>
         </a>
     </td></tr>
 </table>

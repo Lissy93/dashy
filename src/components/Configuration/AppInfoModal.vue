@@ -7,16 +7,27 @@
       <pre v-if="errorLog" class="logs"><code>{{ errorLog }}</code></pre>
       <p v-else>No recent errors detected :)</p>
       <hr />
-      <!-- Help Links -->
+      <!-- Getting Help -->
       <h3>Help & Support</h3>
       For getting support with running or configuring Dashy, see the <a href="https://github.com/Lissy93/dashy/discussions">Discussions</a>
+      <!-- Please help out :) -->
       <h3>Supporting Dashy</h3>
       For ways that you can get involved, check out the <a href="https://github.com/Lissy93/dashy/blob/master/docs/contributing.md">Contributing</a> page.
+      <!-- Bug Reports -->
       <h3>Report a Bug</h3>
       If you think you've found a bug, then please <a href="https://github.com/Lissy93/dashy/issues/new/choose">raise an Issue</a>.
+      <!-- Source and Docs Links -->
       <h3>More Info</h3>
       Source: <a href="https://github.com/lissy93/dashy">github.com/lissy93/dashy</a><br>
       Documentation: <a href="https://dashy.to/docs">dashy.to/docs</a>
+      <!-- Privacy & Security -->
+      <h3>Privacy & Security</h3>
+      For a break-down of how your data is managed by Dashy, see
+      the <a href="https://github.com/Lissy93/dashy/blob/master/docs/privacy.md">Privacy Policy</a>.<br>
+      For advise in securing your dashboard, you can reference the
+      <a href="https://github.com/Lissy93/dashy/blob/master/docs/management.md">Management Docs</a>.<br>
+      If you've found a potential security issue, report it following our
+      <a href="https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md">Security Policy</a>
       <!-- License -->
       <h3>License</h3>
       Licensed under MIT X11. Copyright <a href="https://aliciasykes.com">Alicia Sykes</a> © 2021.<br>

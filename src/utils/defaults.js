@@ -3,10 +3,7 @@ module.exports = {
   pageInfo: {
     title: 'Dashy',
     description: '',
-    navLinks: [
-      { title: 'Home', path: '/' },
-      { title: 'Source', path: 'https://github.com/Lissy93/dashy' },
-    ],
+    navLinks: [],
     footerText: '',
   },
   /* Default appConfig to be used, if user does not specify their own */
@@ -27,6 +24,8 @@ module.exports = {
   faviconApi: 'allesedv',
   /* The default sort order for sections */
   sortOrder: 'default',
+  /* If no 'target' specified, this is the default opening method */
+  openingMethod: 'newtab',
   /* The page paths for each route within the app for the router */
   routePaths: {
     home: '/home',
@@ -43,6 +42,8 @@ module.exports = {
     statusCheck: '/status-check',
     save: '/config-manager/save',
     rebuild: '/config-manager/rebuild',
+    systemInfo: '/system-info',
+    corsProxy: '/cors-proxy',
   },
   /* List of built-in themes, to be displayed within the theme-switcher dropdown */
   builtInThemes: [
@@ -74,6 +75,18 @@ module.exports = {
     'high-contrast-dark',
     'high-contrast-light',
   ],
+  /* Default color options for the theme configurator swatches */
+  swatches: [
+    ['#eb5cad', '#985ceb', '#5346f3', '#5c90eb'],
+    ['#5cdfeb', '#00CCB4', '#5ceb8d', '#afeb5c'],
+    ['#eff961', '#ebb75c', '#eb615c', '#eb2d6c'],
+    ['#060913', '#141b33', '#1c2645', '#263256'],
+    ['#2b2d42', '#1a535c', '#372424', '#312437'],
+    ['#f5f5f5', '#d9d9d9', '#bfbfbf', '#9a9a9a'],
+    ['#636363', '#363636', '#313941', '#0d0d0d'],
+  ],
+  /* Which CSS variables to show in the first view of theme configurator */
+  mainCssVars: ['primary', 'background', 'background-darker'],
   /* Which structural components should be visible by default */
   visibleComponents: {
     splashScreen: false,
@@ -88,8 +101,6 @@ module.exports = {
     'minimal',
     'login',
     'download',
-    'landing-page-minimal',
-    // '404',
   ],
   /* Key names for local storage identifiers */
   localStorageKeys: {
@@ -101,6 +112,7 @@ module.exports = {
     THEME: 'theme',
     CUSTOM_COLORS: 'customColors',
     CONF_SECTIONS: 'confSections',
+    CONF_WIDGETS: 'confSections',
     PAGE_INFO: 'pageInfo',
     APP_CONFIG: 'appConfig',
     BACKUP_ID: 'backupId',
@@ -109,6 +121,7 @@ module.exports = {
     USERNAME: 'username',
     MOST_USED: 'mostUsed',
     LAST_USED: 'lastUsed',
+    KEYCLOAK_INFO: 'keycloakInfo',
   },
   /* Key names for cookie identifiers */
   cookieKeys: {
@@ -137,17 +150,14 @@ module.exports = {
     PAGE_INFO: 'pageInfo',
     APP_CONFIG: 'appConfig',
     SECTIONS: 'sections',
+    WIDGETS: 'widgets',
   },
-  /* Which CSS variables to show in the first view of theme configurator */
-  mainCssVars: ['primary', 'background', 'background-darker'],
   /* Amount of time to show splash screen, when enabled, in milliseconds */
-  splashScreenTime: 1900,
+  splashScreenTime: 1000,
   /* Page meta-data, rendered in the header of each view */
   metaTagData: [
     { name: 'description', content: 'A simple static homepage for you\'re server' },
   ],
-  /* If no 'target' specified, this is the default opening method */
-  openingMethod: 'newtab',
   /* Default option for Toast messages */
   toastedOptions: {
     position: 'bottom-center',
@@ -173,6 +183,7 @@ module.exports = {
   faviconApiEndpoints: {
     allesedv: 'https://f1.allesedv.com/128/$URL',
     clearbit: 'https://logo.clearbit.com/$URL',
+    iconhorse: 'https://icon.horse/icon/$URL',
     faviconkit: 'https://api.faviconkit.com/$URL/64',
     duckduckgo: 'https://icons.duckduckgo.com/ip2/$URL.ico',
     yandex: 'https://favicon.yandex.net/favicon/$URL',
@@ -191,6 +202,37 @@ module.exports = {
     localPath: './item-icons',
     faviconName: 'favicon.ico',
     homeLabIcons: 'https://raw.githubusercontent.com/WalkxCode/dashboard-icons/master/png/{icon}.png',
+    homeLabIconsFallback: 'https://raw.githubusercontent.com/NX211/homer-icons/master/png/{icon}.png',
+  },
+  /* API endpoints for widgets that need to fetch external data */
+  widgetApiEndpoints: {
+    anonAddy: 'https://app.anonaddy.com',
+    astronomyPictureOfTheDay: 'https://apodapi.herokuapp.com/api',
+    codeStats: 'https://codestats.net/',
+    covidStats: 'https://disease.sh/v3/covid-19',
+    cryptoPrices: 'https://api.coingecko.com/api/v3/coins/',
+    cryptoWatchList: 'https://api.coingecko.com/api/v3/coins/markets/',
+    cveVulnerabilities: 'https://www.cvedetails.com/json-feed.php',
+    ethGasPrices: 'https://ethgas.watch/api/gas',
+    ethGasHistory: 'https://ethgas.watch/api/gas/trend',
+    exchangeRates: 'https://v6.exchangerate-api.com/v6/',
+    flights: 'https://aerodatabox.p.rapidapi.com/flights/airports/icao/',
+    githubTrending: 'https://gh-trending-repos.herokuapp.com/',
+    healthChecks: 'https://healthchecks.io/api/v1/checks',
+    holidays: 'https://kayaposoft.com/enrico/json/v2.0/?action=getHolidaysForDateRange',
+    jokes: 'https://v2.jokeapi.dev/joke/',
+    news: 'https://api.currentsapi.services/v1/latest-news',
+    publicIp: 'http://ip-api.com/json',
+    readMeStats: 'https://github-readme-stats.vercel.app/api',
+    rssToJson: 'https://api.rss2json.com/v1/api.json',
+    sportsScores: 'https://www.thesportsdb.com/api/v1/json',
+    stockPriceChart: 'https://www.alphavantage.co/query',
+    tflStatus: 'https://api.tfl.gov.uk/line/mode/tube/status',
+    walletBalance: 'https://api.blockcypher.com/v1',
+    walletQrCode: 'https://www.bitcoinqrcodemaker.com/api',
+    weather: 'https://api.openweathermap.org/data/2.5/weather',
+    weatherForecast: 'https://api.openweathermap.org/data/2.5/forecast/daily',
+    xkcdComic: 'https://xkcd.vercel.app/',
   },
   /* URLs for web search engines */
   searchEngineUrls: {
@@ -232,16 +274,6 @@ module.exports = {
     '/so': 'stackoverflow',
     '/wa': 'wolframalpha',
   },
-  /* Available built-in colors for the theme builder */
-  swatches: [
-    ['#eb5cad', '#985ceb', '#5346f3', '#5c90eb'],
-    ['#5cdfeb', '#00CCB4', '#5ceb8d', '#afeb5c'],
-    ['#eff961', '#ebb75c', '#eb615c', '#eb2d6c'],
-    ['#060913', '#141b33', '#1c2645', '#263256'],
-    ['#2b2d42', '#1a535c', '#372424', '#312437'],
-    ['#f5f5f5', '#d9d9d9', '#bfbfbf', '#9a9a9a'],
-    ['#636363', '#363636', '#313941', '#0d0d0d'],
-  ],
   /* Use your own self-hosted Sentry instance. Only used if error reporting is turned on */
   sentryDsn: 'https://3138ea85f15a4fa883a5b27a4dc8ee28@o937511.ingest.sentry.io/5887934',
   /* A JS enum for indicating the user state, when guest mode + authentication is enabled */
@@ -250,6 +282,7 @@ module.exports = {
     loggedIn: 1,
     guestAccess: 2,
     notLoggedIn: 3,
+    keycloakEnabled: 4,
   },
   /* Progressive Web App settings, used by Vue Config */
   pwa: {

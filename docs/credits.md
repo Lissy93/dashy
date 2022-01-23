@@ -13,7 +13,7 @@
     </td>
     <td align="center">
         <a href="https://github.com/Robert-Ernst">
-            <img src="https://avatars.githubusercontent.com/u/9050259?v=4" width="80;" alt="Robert-Ernst"/>
+            <img src="https://avatars.githubusercontent.com/u/9050259?u=7253b4063f1ffe3b5a894263c8b2056151802508&v=4" width="80;" alt="Robert-Ernst"/>
             <br />
             <sub><b>Robert Ernst</b></sub>
         </a>
@@ -26,10 +26,17 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/matthewjdegarmo">
-            <img src="https://avatars.githubusercontent.com/u/46715299?u=65f979e86de9dce8a5fe04df9775d32c6cefd73a&v=4" width="80;" alt="matthewjdegarmo"/>
+        <a href="https://github.com/KierenConnell">
+            <img src="https://avatars.githubusercontent.com/u/46445781?u=5502f8fb780938e2825735d7bbb9236642d212c0&v=4" width="80;" alt="KierenConnell"/>
             <br />
-            <sub><b>Matthew J. DeGarmo</b></sub>
+            <sub><b>Kieren Connell</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/ratty222">
+            <img src="https://avatars.githubusercontent.com/u/92832598?v=4" width="80;" alt="ratty222"/>
+            <br />
+            <sub><b>Ratty222</b></sub>
         </a>
     </td></tr>
 </table>
@@ -97,17 +104,17 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/daentech">
-            <img src="https://avatars.githubusercontent.com/u/358678?v=4" width="80;" alt="daentech"/>
-            <br />
-            <sub><b>Dan Gilbert</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/BOZG">
             <img src="https://avatars.githubusercontent.com/u/6022344?v=4" width="80;" alt="BOZG"/>
             <br />
             <sub><b>Stephen Rigney</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/daentech">
+            <img src="https://avatars.githubusercontent.com/u/358678?v=4" width="80;" alt="daentech"/>
+            <br />
+            <sub><b>Dan Gilbert</b></sub>
         </a>
     </td>
     <td align="center">
@@ -147,12 +154,27 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/b1thunt3r">
+            <img src="https://avatars.githubusercontent.com/u/791091?v=4" width="80;" alt="b1thunt3r"/>
+            <br />
+            <sub><b>Ishan Jain</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/KierenConnell">
+            <img src="https://avatars.githubusercontent.com/u/46445781?v=4" width="80;" alt="KierenConnell"/>
+            <br />
+            <sub><b>Kieren Connell</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/rubjo">
             <img src="https://avatars.githubusercontent.com/u/42270947?v=4" width="80;" alt="rubjo"/>
             <br />
             <sub><b>Rubjo</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/turnrye">
             <img src="https://avatars.githubusercontent.com/u/701035?v=4" width="80;" alt="turnrye"/>
@@ -166,8 +188,14 @@
             <br />
             <sub><b>Shreya Roy</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
+    <td align="center">
+        <a href="https://github.com/XertDev">
+            <img src="https://avatars.githubusercontent.com/u/16572811?v=4" width="80;" alt="XertDev"/>
+            <br />
+            <sub><b>Xert</b></sub>
+        </a>
+    </td>
     <td align="center">
         <a href="https://github.com/jnach">
             <img src="https://avatars.githubusercontent.com/u/33467747?v=4" width="80;" alt="jnach"/>
@@ -299,6 +327,7 @@ At it's core, the application uses [**Vue.js**](https://github.com/vuejs/vue), a
 - [`axios`](https://github.com/axios/axios) - Promise based HTTP client by @mzabriskie and community `MIT`
 - [`ajv`](https://github.com/ajv-validator/ajv) - JSON schema Validator by @epoberezkin and community `MIT`
 - [`i18n`](https://github.com/kazupon/vue-i18n) - Internationalization plugin by @kazupon and community `MIT`
+- [`frappe-charts`](https://github.com/frappe/charts) - Lightweight charting library by @frappe `MIT`
 
 #### Frontend Components
 - [`vue-select`](https://github.com/sagalbot/vue-select) - Dropdown component by @sagalbot `MIT`

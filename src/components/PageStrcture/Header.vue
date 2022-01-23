@@ -13,7 +13,7 @@
 <script>
 import PageTitle from '@/components/PageStrcture/PageTitle.vue';
 import Nav from '@/components/PageStrcture/Nav.vue';
-import { shouldBeVisible } from '@/utils/MiscHelpers';
+import { shouldBeVisible } from '@/utils/SectionHelpers';
 
 export default {
   name: 'Header',

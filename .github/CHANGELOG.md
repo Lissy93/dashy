@@ -1,5 +1,37 @@
 # Changelog
 
+## 💄 1.9.9 - Minor UI + Docs Updates [PR #431](https://github.com/Lissy93/dashy/pull/431)
+- Improved theme support for widgets
+- Better widget layout in Workspace and Minimal views
+- Updates lots of the docs
+
+## ✨ 1.9.8 - More Widgets and Widget Improvements [PR #425](https://github.com/Lissy93/dashy/pull/425)
+- Fixes several minor widget issues raised by users
+- Adds several new widgets, for monitoring system
+- Better widget data requests and error handling
+- Implements widget support into Workspace view
+
+## 🐛 1.9.7 - Minor UI Editor Bug fixes [PR #416](https://github.com/Lissy93/dashy/pull/416)
+- Fixes unable to edit item bug (#415)
+- Fixes unable to add new app bug (#390)
+- Fixes nav links visibility (#389)
+
+## ⚡️ 1.9.6 - Adds Proxy Support for Widget Requests [PR #392](https://github.com/Lissy93/dashy/pull/392)
+- Refactors widget mixin to include data requests, so that code can be shared between widgets
+- Adds a Node endpoint for proxying requests server-side, used for APIs that are not CORS enabled
+- Adds option to config file for user to force proxying of requests
+- Writes a Netlify cloud function to support proxying when the app is hosted on Netlify
+
+## 🐛 1.9.5 - Bug fixes and Minor Improvements [PR #388](https://github.com/Lissy93/dashy/pull/388)
+- Adds icon.horse to supported favicon APIs
+- Fixes tile move bug, Re: #366
+- Fixes save items without title bug, Re: #377
+
+## ✨ 1.9.4 - Widget Support [PR #382](https://github.com/Lissy93/dashy/pull/382)
+- Adds support for dynamic content, through widgets
+- Adds 30+ pre-built widgets for general info and self-hosted services
+- Writes docs on widget usage
+
 ## ⚡️ 1.9.2 - Native SSL Support + Performance Improvements [PR #326](https://github.com/Lissy93/dashy/pull/326)
 - Updates the server to use Express, removing serve-static, connect and body-parser
 - Adds native support for passing in self-signed SSL certificates and updates docs

@@ -16,6 +16,8 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
 
 - [Deploy with Docker](#deploy-with-docker)
 - [Using Docker Compose](#using-docker-compose)
+- [Unraid](#unraid)
+- [Synology NAS](#synology-nas)
 - [Build from Source](#build-from-source)
 - [Hosting with CDN](#hosting-with-cdn)
 - [Run as executable](#run-as-executable)
@@ -23,7 +25,9 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
 - [Deploy to cloud service](#deploy-to-cloud-service)
 - [Use managed instance](#use-managed-instance)
 
-### Deploy with Docker
+---
+
+## Deploy with Docker
 
 **Container Info**: [
 ![Docker Supported Architecture](https://img.shields.io/badge/Architectures-amd64%20|%20arm32v7%20|%20arm64v8-6ba6e5)
@@ -66,7 +70,9 @@ If you're deploying Dashy on a modern ARM-based board, such as a Raspberry Pi (2
 
 The image defaults to `:latest`, but you can instead specify a specific version, e.g. `docker pull lissy93/dashy:release-1.5.0`
 
-### Using Docker Compose
+---
+
+## Using Docker Compose
 
 Using Docker Compose can be useful for saving your specific config in files, without having to type out a long run command each time. Save compose config as a YAML file, and then run `docker compose up -d` (optionally use the `-f` flag to specify file location, if it isn't located at `./docker-compose.yml`), `-d` is detached mode (not running in the foreground of your terminal). Compose is also useful if you are using clusters, as the format is very similar to stack files, used with Docker Swarm.
 
@@ -106,7 +112,21 @@ You can use a different tag, by for example setting `image: lissy93/dashy:arm64v
 
 If you are building from source, and would like to use one of the [other Dockerfiles](https://github.com/Lissy93/dashy/tree/master/docker), then under `services.dashy` first set `context: .`, then specify the the path to the dockerfile, e.g. `dockerfile: ./docker/Dockerfile-arm32v7`
 
-### Build from Source
+---
+
+## Unraid
+
+// TODO
+
+---
+
+## Synology NAS
+
+// TODO
+
+---
+
+## Build from Source
 
 If you do not want to use Docker, you can run Dashy directly on your host system. For this, you will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed, and optionally [yarn](https://yarnpkg.com/)
 
@@ -115,6 +135,8 @@ If you do not want to use Docker, you can run Dashy directly on your host system
 3. Install dependencies: `yarn`
 4. Build: `yarn build`
 5. Run: `yarn start`
+
+---
 
 ### Deploy to cloud service
 
@@ -236,12 +258,15 @@ yarn build
 surge ./dist
 ```
 
+---
 
-### Hosting with CDN
+## Hosting with CDN
 
 Once Dashy has been built, it is effectivley just a static web app. This means that it can be served up with pretty much any static host, CDN or web server. To host Dashy through a CDN, the steps are very similar to building from source: clone the project, cd into it, install dependencies, write your config file and build the app. Once build is complete you will have a `./dist` directory within Dashy's root, and this is the build application which is ready to be served up.
 
 However without Dashy's node server, there are a couple of features that will be unavailible to you, including: Writing config changes to disk through the UI, triggering a rebuild through the UI and application status checks. Everything else will work fine.
+
+---
 
 
 ## Requirements

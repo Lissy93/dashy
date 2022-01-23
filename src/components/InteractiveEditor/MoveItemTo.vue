@@ -77,7 +77,7 @@ export default {
     currentSection() {
       let sectionName = '';
       this.sections.forEach((section) => {
-        section.items.forEach((item) => {
+        (section.items || []).forEach((item) => {
           if (item.id === this.itemId) sectionName = section.name;
         });
       });

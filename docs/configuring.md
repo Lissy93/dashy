@@ -77,14 +77,14 @@ Tips:
 --- | --- | --- | ---
 **`language`** | `string` | _Optional_ | The 2 (or 4-digit) [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language, e.g. `en` or `en-GB`. This must be a language that the app has already been [translated](https://github.com/Lissy93/dashy/tree/master/src/assets/locales) into. If your language is unavailable, Dashy will fallback to English. By default Dashy will attempt to auto-detect your language, although this may not work on some privacy browsers.
 **`startingView`** | `enum` | _Optional_ | Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI. Can be either `default`, `minimal` or `workspace`. Defaults to `default`
-**`defaultOpeningMethod`** | `enum` | _Optional_ | The default opening method for items, if no `target` is specified for a given item. Can be either `newtab`, `sametab`, `top`, `parent`, `modal` or `workspace`. Defaults to `newtab`
+**`defaultOpeningMethod`** | `enum` | _Optional_ | The default opening method for items, if no `target` is specified for a given item. Can be either `newtab`, `sametab`, `modal`, `workspace`, `clipboard`, `top` or `parent`. Defaults to `newtab`
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping each of your services and display their status as a dot next to each item. This can be overridden by setting `statusCheck` under each item. Defaults to `false`
 **`statusCheckInterval`** | `boolean` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
 **`webSearch`** | `object` | _Optional_ | Configuration options for the web search feature, set your default search engine, opening method or disable web search. See [`webSearch`](#appconfigwebsearch-optional)
 **`backgroundImg`** | `string` | _Optional_ | Path to an optional full-screen app background image. This can be either remote (http) or local (/). Note that this will slow down initial load
 **`enableFontAwesome`** | `boolean` | _Optional_ | Where `true` is enabled, if left blank font-awesome will be enabled only if required by 1 or more icons
 **`fontAwesomeKey`** | `string` | _Optional_ | If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
-**`faviconApi`** | `enum` | _Optional_ | Only applicable if you are using favicons for item icons. Specifies which service to use to resolve favicons. Set to `local` to do this locally, without using an API. Services running locally will use this option always. Available options are: `local`, `faviconkit`, `google`, `clearbit`, `webmasterapi` and `allesedv`. Defaults to `faviconkit`. See [Icons](/docs/icons.md#favicons) for more info
+**`faviconApi`** | `enum` | _Optional_ | Only applicable if you are using favicons for item icons. Specifies which service to use to resolve favicons. Set to `local` to do this locally, without using an API. Services running locally will use this option always. Available options are: `local`, `faviconkit`, `iconhorse`, `google`, `clearbit`, `webmasterapi` and `allesedv`. Defaults to `faviconkit`. See [Icons](/docs/icons.md#favicons) for more info
 **`auth`** | `object` | _Optional_ | All settings relating to user authentication. See [`auth`](#appconfigauth-optional)
 **`layout`** | `enum` | _Optional_ | Layout for homepage, either `horizontal`, `vertical` or `auto`. Defaults to `auto`. This specifies the layout and direction of how sections are positioned on the home screen. This can also be modified and overridden from the UI.
 **`iconSize`** | `enum` | _Optional_ | The size of link items / icons. Can be either `small`, `medium,` or `large`. Defaults to `medium`. This can also be set directly from the UI.
@@ -99,6 +99,7 @@ Tips:
 **`enableMultiTasking`** | `boolean` | _Optional_ | If set to true, will keep apps open in the background when in the workspace view. Useful for quickly switching between multiple sites, and preserving their state, but comes at the cost of performance.
 **`workspaceLandingUrl`** | `string` | _Optional_ | The URL or an app, service or website to launch when the workspace view is opened, before another service has been launched
 **`allowConfigEdit`** | `boolean` | _Optional_ | Should prevent / allow the user to write configuration changes to the conf.yml from the UI. When set to `false`, the user can only apply changes locally using the config editor within the app, whereas if set to `true` then changes can be written to disk directly through the UI. Defaults to `true`. Note that if authentication is enabled, the user must be of type `admin` in order to apply changes globally.
+**`showSplashScreen`** | `boolean` | _Optional_ | If set to `true`, a loading screen will be shown. Defaults to `false`.
 **`enableErrorReporting`** | `boolean` | _Optional_ | Enable reporting of unexpected errors and crashes. This is off by default, and **no data will ever be captured unless you explicitly enable it**. Turning on error reporting helps previously unknown bugs get discovered and fixed. Dashy uses [Sentry](https://github.com/getsentry/sentry) for error reporting. Defaults to `false`.
 **`sentryDsn`** | `boolean` | _Optional_ | If you need to monitor errors in your instance, then you can use Sentry to collect and process bug reports. Sentry can be self-hosted, or used as SaaS, once your instance is setup, then all you need to do is pass in the DSN here, and enable error reporting. You can learn more on the [Sentry DSN Docs](https://docs.sentry.io/product/sentry-basics/dsn-explainer/). Note that this will only ever be used if `enableErrorReporting` is explicitly enabled.
 **`disableSmartSort`** | `boolean` | _Optional_ | For the most-used and last-used app sort functions to work, a basic open-count is stored in local storage. If you do not want this to happen, then disable smart sort here, but you wil no longer be able to use these sort options. Defaults to `false`.
@@ -160,9 +161,8 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`hideHeading`** | `boolean` | _Optional_ | If set to `true`, the page title & sub-title will not be visible. Defaults to `false`
 **`hideNav`** | `boolean` | _Optional_ | If set to `true`, the navigation menu will not be visible. Defaults to `false`
 **`hideSearch`** | `boolean` | _Optional_ | If set to `true`, the search bar will not be visible. Defaults to `false`
-**`hideSettings`** | `boolean` | _Optional_ | If set to `true`, the settings menu will not be visible. Defaults to `false`
+**`hideSettings`** | `boolean` | _Optional_ | If set to `true`, the settings menu will be initially collapsed. Defaults to `false`
 **`hideFooter`** | `boolean` | _Optional_ | If set to `true`, the footer will not be visible. Defaults to `false`
-**`hideSplashScreen`** | `boolean` | _Optional_ | If set to `true`, splash screen will not be visible while the app loads. Defaults to `true` (except on first load, when the loading screen is always shown)
 
 **[⬆️ Back to Top](#configuring)**
 
@@ -172,7 +172,8 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 --- | --- | --- | ---
 **`name`** | `string` | Required | The title for the section
 **`icon`** | `string` | _Optional_ | An single icon to be displayed next to the title. See [`section.icon`](#sectionicon-and-sectionitemicon)
-**`items`** | `array` | Required | An array of items to be displayed within the section. See [`item`](#sectionitem)
+**`items`** | `array` | _Optional_ | An array of items to be displayed within the section. See [`item`](#sectionitem). Sections must include either 1 or more items, or 1 or more widgets.
+**`widgets`** | `array` | _Optional_ | An array of widgets to be displayed within the section. See [`widget`](#sectionwidget-optional)
 **`displayData`** | `object` | _Optional_ | Meta-data to optionally overide display settings for a given section. See [`displayData`](#sectiondisplaydata-optional)
 
 **[⬆️ Back to Top](#configuring)**
@@ -185,7 +186,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`description`** | `string` | _Optional_ | Additional info about an item, which is shown in the tooltip on hover, or visible on large tiles
 **`url`** | `string` | Required | The URL / location of web address for when the item is clicked
 **`icon`** | `string` | _Optional_ | The icon for a given item. Can be a font-awesome icon, favicon, remote URL or local URL. See [`item.icon`](#sectionicon-and-sectionitemicon)
-**`target`** | `string` | _Optional_ | The opening method for when the item is clicked, either `newtab`, `sametab`, `top`, `parent`, `modal` or `workspace`. Where `newtab` will open the link in a new tab, `sametab` will open it in the current tab, and `modal` will open a pop-up modal and `workspace` will open in the Workspace view. Defaults to `newtab`
+**`target`** | `string` | _Optional_ | The opening method for when the item is clicked, either `newtab`, `sametab`, `modal`, `workspace`, `clipboard`, `top` or `parent`. Where `newtab` will open the link in a new tab, `sametab` will open it in the current tab, and `modal` will open a pop-up modal, `workspace` will open in the Workspace view and `clipboard` will copy the URL to system clipboard (but not launch app). Defaults to `newtab`
 **`hotkey`** | `number` | _Optional_ | Give frequently opened applications a numeric hotkey, between `0 - 9`. You can then just press that key to launch that application.
 **`tags`** | `string[]` | _Optional_ | A list of tags, which can be used for improved search
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping the URL associated with the current service, and display its status as a dot next to the item. The value here will override `appConfig.statusCheck` so you can turn off or on checks for a given service. Defaults to `appConfig.statusCheck`, falls back to `false`
@@ -198,12 +199,25 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
+### `section.widget` _(optional)_
+
+**Field** | **Type** | **Required**| **Description**
+--- | --- | --- | ---
+**`type`** | `string` | Required | The widget type. See [Widget Docs](/docs/widgets.md) for full list of supported widgets
+**`options`** | `object` | _Optional_ | Some widgets accept either optional or required additional options. Again, see the [Widget Docs](/docs/widgets.md) for full list of options
+**`updateInterval`** | `number` | _Optional_ | You can keep a widget constantly updated by specifying an update interval, in seconds. See [Continuous Updates Docs](/docs/widgets.md#continuous-updates) for more info
+**`useProxy`** | `boolean` | _Optional_ | Some widgets make API requests to services that are not CORS-enabled. For these instances, you will need to route requests through a proxy, Dashy has a built in CORS-proxy, which you can use by setting this option to `true`. Defaults to `false`. See the [Proxying Requests Docs](/docs/widgets.md#proxying-requests) for more info
+
+**[⬆️ Back to Top](#configuring)**
+
+
 ### `section.displayData` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`sortBy`** | `string` | _Optional_ | The sort order for items within the current section. By default items are displayed in the order in which they are listed in within the config. The following sort options are supported: `most-used` (most opened apps first), `last-used` (the most recently used apps), `alphabetical`, `reverse-alphabetical`, `random` and `default`
-**`collapsed`** | `boolean` | _Optional_ | If true, the section will  be collapsed initially, and will need to be clicked to open. Useful for less regularly used, or very long sections. Defaults to `false` 
+**`collapsed`** | `boolean` | _Optional_ | If true, the section will  be collapsed initially, and will need to be clicked to open. Useful for less regularly used, or very long sections. Defaults to `false`
+**`cutToHeight`** | `boolean` | _Optional_ | By default, sections will fill available space. Set this option to true to match section height with content height
 **`rows`** | `number` | _Optional_ | Height of the section, specified as the number of rows it should span vertically, e.g. `2`. Defaults to `1`. Max is `5`.
 **`cols`** | `number` | _Optional_ | Width of the section, specified as the number of columns the section should span horizontally, e.g. `2`. Defaults to `1`. Max is `5`.
 **`itemSize`** | `string` | _Optional_ | Specify the size for items within this group, either `small`, `medium` or `large`. Note that this will overide any settings specified through the UI
@@ -215,6 +229,8 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`hideForUsers`** | `string[]` | _Optional_ | Current section will be visible to all users, except for those specified in this list
 **`showForUsers`** | `string[]` | _Optional_ | Current section will be hidden from all users, except for those specified in this list
 **`hideForGuests`** | `boolean` | _Optional_ | Current section will be visible for logged in users, but not for guests (see `appConfig.enableGuestAccess`). Defaults to `false`
+**`hideForKeycloakUsers`** | `object`  | _Optional_ | Current section will be visible to all keycloak users, except for those configured via these groups and roles. See `hideForKeycloakUsers`
+**`showForKeycloakUsers`** | `object`  | _Optional_ | Current section will be hidden from all keyclaok users, except for those configured via these groups and roles. See `showForKeycloakUsers`
 
 **[⬆️ Back to Top](#configuring)**
 
@@ -222,7 +238,16 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
-**`icon`** | `string` | _Optional_ | The icon for a given item or section. See [Icon Docs](/docs/icons.md) for all available supported icon types. To auto-fetch icon from a services URL, aet to `favicon`. To use font-awesome, specify the category, followed by the icon name, e.g. `fas fa-rocket`, `fab fa-monero` or `fal fa-duck`. Similarly, for branded icons, you can use [simple-icons](https://simpleicons.org/) by setting icon to `si-[icon-name]` or [material-design-icons](https://dev.materialdesignicons.com/icons) by setting icon to `mdi-[icon-name]`. If set to `generative`, then a unique icon is generated from the apps URL or IP. You can also use hosted any by specifying it's URL, e.g. `https://i.ibb.co/710B3Yc/space-invader-x256.png`. To use a local image, first store it in `./public/item-icons/` (or `-v /app/public/item-icons/` in Docker) , and reference it by name and extension - e.g. set `image.png` to use `./public/item-icon/image.png`, you can also use sub-folders if you have a lot of icons, to keep them organised.
+**`icon`** | `string` | _Optional_ | The icon for a given item or section. <br>See [Icon Docs](/docs/icons.md) for all available supported icon types, including: auto-fetched favicons, generative icons, emoji icons, home-lab service logos, font-awesome, simple-icons, material icons, and icons specified by URL
+
+**[⬆️ Back to Top](#configuring)**
+
+### `section.displayData.hideForKeycloakUsers` and `section.displayData.showForKeycloakUsers`
+
+**Field** | **Type**   | **Required**| **Description**
+--- |------------| --- | ---
+**`groups`** | `string[]` | _Optional_ | Current Section will be hidden or shown based on the user having any of the groups in this list
+**`roles`** | `string[]` | _Optional_ | Current Section will be hidden or shown based on the user having any of the roles in this list
 
 **[⬆️ Back to Top](#configuring)**
 
@@ -241,7 +266,7 @@ Config can be modified directly through the UI, and then written to disk, or app
   </a>
   <br>
   <a href="https://ibb.co/zRv542H">
-  <b>Raw Editor</b><br>
+  <b>JSON Editor</b><br>
   <img alt="Config Editor demo" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/config-editor-demo.gif" width="600" />
   </a>
 </p>

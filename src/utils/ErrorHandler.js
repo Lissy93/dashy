@@ -22,10 +22,13 @@ const appendToErrorLog = (msg) => {
  * If error reporting is enabled, will also log the message to Sentry
  * If you wish to use your own error logging service, put code for it here
  */
-const ErrorHandler = function handler(msg) {
-  warningMsg(msg); // Print to console
-  appendToErrorLog(msg); // Save to local storage
-  Sentry.captureMessage(`[USER-WARN] ${msg}`); // Report to bug tracker (if enabled)
+const ErrorHandler = function handler(msg, errorStack) {
+  // Print to console
+  warningMsg(msg, errorStack);
+  // Save to local storage
+  appendToErrorLog(msg);
+  // Report to bug tracker (if enabled)
+  Sentry.captureMessage(`[USER-WARN] ${msg}`);
 };
 
 /* Similar to error handler, but for recording general info */

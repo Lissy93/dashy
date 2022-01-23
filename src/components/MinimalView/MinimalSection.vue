@@ -1,6 +1,6 @@
 <template>
    <div :class="`minimal-section-inner ${selected ? 'selected' : ''} ${showAll ? 'show-all': ''}`">
-    <div class="section-items" v-if="selected || showAll">
+    <div class="section-items" v-if="items && (selected || showAll)">
       <Item
         v-for="(item, index) in items"
         :id="`${index}_${makeId(item.title)}`"
@@ -22,6 +22,15 @@
         @triggerModal="triggerModal"
       />
     </div>
+    <div v-if="widgets && (selected && !showAll)" class="minimal-widget-wrap">
+      <WidgetBase
+        v-for="(widget, widgetIndx) in widgets"
+        :key="widgetIndx"
+        :widget="widget"
+        :index="widgetIndx"
+        @navigateToSection="navigateToSection"
+      />
+    </div>
     <IframeModal
       :ref="`iframeModal-${groupId}`"
       :name="`iframeModal-${groupId}`"
@@ -31,7 +40,9 @@
 </template>
 
 <script>
+import router from '@/router';
 import Item from '@/components/LinkItems/Item.vue';
+import WidgetBase from '@/components/Widgets/WidgetBase';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
 
 export default {
@@ -42,6 +53,7 @@ export default {
     icon: String,
     displayData: Object,
     items: Array,
+    widgets: Array,
     itemSize: String,
     modalOpen: Boolean,
     index: Number,
@@ -55,6 +67,7 @@ export default {
   },
   components: {
     Item,
+    WidgetBase,
     IframeModal,
   },
   methods: {
@@ -80,6 +93,13 @@ export default {
       if (interval < 1) interval = 0;
       return interval;
     },
+    /* Navigate to the section's single-section view page */
+    navigateToSection() {
+      const parse = (section) => section.replace(' ', '-').toLowerCase().trim();
+      const sectionIdentifier = parse(this.title);
+      router.push({ path: `/home/${sectionIdentifier}` });
+      this.closeContextMenu();
+    },
   },
 };
 </script>
@@ -104,6 +124,9 @@ export default {
     @include big-screen { --minimal-col-count: 5; }
     @include big-screen-up { --minimal-col-count: 6; }
     grid-template-columns: repeat(var(--minimal-col-count, 1), minmax(0, 1fr));
+  }
+  .minimal-widget-wrap {
+    padding: 1rem;
   }
   &.selected {
     border: 1px solid var(--minimal-view-group-color);
