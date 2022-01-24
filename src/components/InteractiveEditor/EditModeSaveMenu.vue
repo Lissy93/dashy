@@ -242,6 +242,7 @@ div.edit-mode-bottom-banner {
       button {
         margin: 0.25rem;
         height: stretch;
+        max-height: 3rem;
       }
       p.section-sub-title {
         grid-column-start: span 2;
