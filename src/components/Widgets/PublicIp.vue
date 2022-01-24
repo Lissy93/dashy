@@ -1,25 +1,41 @@
 <template>
 <div class="ip-info-wrapper">
   <p class="ip-address">{{ ipAddr }}</p>
-  <div class="region-wrapper" title="Open in Maps">
+  <div class="region-wrapper">
     <img class="flag-image" :src="flagImg" alt="Flag" />
     <div class="info-text">
       <p class="isp-name">{{ ispName }}</p>
-      <a class="ip-location" :href="mapsUrl">{{ location }}</a>
+      <a class="ip-location" :href="mapsUrl" title="🗺️ Open in Maps">
+        {{ location }}
+      </a>
     </div>
   </div>
 </div>
 </template>
 
 <script>
-import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 import { getCountryFlag, getMapUrl } from '@/utils/MiscHelpers';
 
 export default {
   mixins: [WidgetMixin],
-  components: {},
+  computed: {
+    endpoint() {
+      if (this.provider === 'ipgeolocation') {
+        return `${widgetApiEndpoints.publicIp2}?apiKey=${this.apiKey}`;
+      }
+      return widgetApiEndpoints.publicIp;
+    },
+    apiKey() {
+      if (this.provider === 'ipgeolocation' && !this.options.apiKey) this.error('Missing API Key');
+      return this.options.apiKey;
+    },
+    provider() {
+      // Can be either `ip-api` or `ipgeolocation`
+      return this.options.provider || 'ip-api';
+    },
+  },
   data() {
     return {
       ipAddr: null,
@@ -32,24 +48,23 @@ export default {
   methods: {
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
-      axios.get(widgetApiEndpoints.publicIp)
-        .then((response) => {
-          this.processData(response.data);
-        })
-        .catch((dataFetchError) => {
-          this.error('Unable to fetch IP info', dataFetchError);
-        })
-        .finally(() => {
-          this.finishLoading();
-        });
+      this.makeRequest(this.endpoint).then(this.processData);
     },
     /* Assign data variables to the returned data */
     processData(ipInfo) {
-      this.ipAddr = ipInfo.query;
-      this.ispName = ipInfo.isp;
-      this.location = `${ipInfo.city}, ${ipInfo.regionName}`;
-      this.flagImg = getCountryFlag(ipInfo.countryCode);
-      this.mapsUrl = getMapUrl({ lat: ipInfo.lat, lon: ipInfo.lon });
+      if (this.provider === 'ip-api') {
+        this.ipAddr = ipInfo.query;
+        this.ispName = ipInfo.isp;
+        this.location = `${ipInfo.city}, ${ipInfo.regionName}`;
+        this.flagImg = getCountryFlag(ipInfo.countryCode);
+        this.mapsUrl = getMapUrl({ lat: ipInfo.lat, lon: ipInfo.lon });
+      } else if (this.provider === 'ipgeolocation') {
+        this.ipAddr = ipInfo.ip;
+        this.ispName = ipInfo.organization || ipInfo.isp;
+        this.flagImg = ipInfo.country_flag;
+        this.location = `${ipInfo.city}, ${ipInfo.country_name}`;
+        this.mapsUrl = getMapUrl({ lat: ipInfo.latitude, lon: ipInfo.longitude });
+      }
     },
   },
 };

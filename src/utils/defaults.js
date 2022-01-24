@@ -223,6 +223,7 @@ module.exports = {
     jokes: 'https://v2.jokeapi.dev/joke/',
     news: 'https://api.currentsapi.services/v1/latest-news',
     publicIp: 'http://ip-api.com/json',
+    publicIp2: 'https://api.ipgeolocation.io/ipgeo',
     readMeStats: 'https://github-readme-stats.vercel.app/api',
     rssToJson: 'https://api.rss2json.com/v1/api.json',
     sportsScores: 'https://www.thesportsdb.com/api/v1/json',

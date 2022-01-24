@@ -210,13 +210,16 @@ Display news and updates from any RSS-enabled service.
 
 ### Public IP
 
-Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data is fetched from [IP-API.com](https://ip-api.com/).
+Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data can be fetched from either [IP-API.com](https://ip-api.com/) or [ipgeolocation.io](https://ipgeolocation.io/).
 
 <p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
 
 ##### Options
 
-_No config options._
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`provider`** | `string` |  Required | The name of the service to fetch IP address from. Can be either `ip-api` or `ipgeolocation`. Defaults to `ip-api` which only works via HTTP, if you set to `ipgeolocation` then you must also provide an API key
+**`apiKey`** | `string` |  Required | Only required if provider is set to `ipgeolocation`. You can get a free API key [here](https://ipgeolocation.io/signup.html)
 
 ##### Example 
 
@@ -224,12 +227,21 @@ _No config options._
 - type: public-ip
 ```
 
+Or
+
+```yaml
+- type: public-ip
+  options:
+    provider: ipgeolocation
+    apiKey: xxxxxxxxxxxxxxx
+```
+
 ##### Info
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟠 Optional
 - **Price**: 🟢 Free
 - **Host**: Managed Instance Only
-- **Privacy**: _See [IP-API Privacy Policy](https://ip-api.com/docs/legal)_
+- **Privacy**: _See [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html) or [IP-API Privacy Policy](https://ip-api.com/docs/legal)_
 
 ---
 
