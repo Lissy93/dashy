@@ -1,3 +1,5 @@
+# Builds, scans and tests the multi-architecture docker image
+# Then releases it to the DockerHub, GHCR and Quay registries
 name: 🐳 Build + Publish Multi-Platform Image
 
 on:
@@ -31,9 +33,10 @@ jobs:
         images: |
           ${{ env.DH_IMAGE }}
           ghcr.io/${{ env.GH_IMAGE }}
+          ${{ secrets.ACR_SERVER }}/${{ secrets.ACR_USERNAME }}
         tags: |
-          type=ref,event=tag,suffix={{tag}}
-          type=semver,pattern={{raw}},value=${{ steps.package-version.outputs.version }},prefix=release-
+          type=ref,event=tag,prefix=release-,suffix={{tag}}
+          type=semver,pattern={{raw}},value=${{ steps.package-version.outputs.version }}
         labels: |
           maintainer=Lissy93
           org.opencontainers.image.title=Dashy
@@ -61,13 +64,20 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: 🔑 Login to Azure Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ${{ secrets.ACR_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
     - name: ⚒️ Build and push
       uses: docker/build-push-action@v2
       with:
         context: .
         file: ./docker/Dockerfile-multi-arch
         platforms: linux/amd64,linux/arm64,linux/arm/v7
-        push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+        push: true
           
