@@ -160,6 +160,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GlIpAddress
+        v-else-if="widgetType === 'gl-ip-address'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <GlLoadHistory
         v-else-if="widgetType === 'gl-load-history'"
         :options="widgetOptions"
@@ -399,6 +406,7 @@ export default {
     GlCpuHistory: () => import('@/components/Widgets/GlCpuHistory.vue'),
     GlDiskIo: () => import('@/components/Widgets/GlDiskIo.vue'),
     GlDiskSpace: () => import('@/components/Widgets/GlDiskSpace.vue'),
+    GlIpAddress: () => import('@/components/Widgets/GlIpAddress.vue'),
     GlLoadHistory: () => import('@/components/Widgets/GlLoadHistory.vue'),
     GlMemGauge: () => import('@/components/Widgets/GlMemGauge.vue'),
     GlMemHistory: () => import('@/components/Widgets/GlMemHistory.vue'),

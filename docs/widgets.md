@@ -56,6 +56,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Network Interfaces](#network-interfaces)
   - [Network Traffic](#network-traffic)
   - [Resource Usage Alerts](#resource-usage-alerts)
+  - [Public & Private IP](#ip-address)
 - **[Dynamic Widgets](#dynamic-widgets)**
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -210,13 +211,17 @@ Display news and updates from any RSS-enabled service.
 
 ### Public IP
 
-Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data is fetched from [IP-API.com](https://ip-api.com/).
+Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data can be fetched from either [IpApi.co](https://ipapi.co/), [IP-API.com](https://ip-api.com/) or [IpGeolocation.io](https://ipgeolocation.io/).
 
 <p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
 
 ##### Options
+_All fields are optional_
 
-_No config options._
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`provider`** | `string` |  _Optional_ | The name of the service to fetch IP address from. Can be either `ipapi.co`, `ip-api` or `ipgeolocation`. Defaults to `ipapi.co`. Note, `ip-api` doesn't work on HTTPS, and if you set to `ipgeolocation` then you must also provide an API key
+**`apiKey`** | `string` |  _Optional_ | Only required if provider is set to `ipgeolocation`. You can get a free API key [here](https://ipgeolocation.io/signup.html)
 
 ##### Example 
 
@@ -224,12 +229,21 @@ _No config options._
 - type: public-ip
 ```
 
+Or
+
+```yaml
+- type: public-ip
+  options:
+    provider: ipgeolocation
+    apiKey: xxxxxxxxxxxxxxx
+```
+
 ##### Info
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟠 Optional
 - **Price**: 🟢 Free
 - **Host**: Managed Instance Only
-- **Privacy**: _See [IP-API Privacy Policy](https://ip-api.com/docs/legal)_
+- **Privacy**: _See [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html) or [IP-API Privacy Policy](https://ip-api.com/docs/legal)_
 
 ---
 
@@ -1452,6 +1466,22 @@ Lists recent high resource usage alerts (e.g. CPU, mem, IO, load, temp)
 
 ```yaml
 - type: gl-alerts
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### IP Address
+
+Shows public and private IP address. Note that the ip plugin is not available on all instances of Glances.
+
+<p align="center"><img width="400" src="https://i.ibb.co/ZhXBxZr/gl-ip-address.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-ip-address
   options:
     hostname: http://192.168.130.2:61208
 ```
