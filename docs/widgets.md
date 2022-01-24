@@ -210,16 +210,17 @@ Display news and updates from any RSS-enabled service.
 
 ### Public IP
 
-Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data can be fetched from either [IP-API.com](https://ip-api.com/) or [ipgeolocation.io](https://ipgeolocation.io/).
+Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data can be fetched from either [IpApi.co](https://ipapi.co/), [IP-API.com](https://ip-api.com/) or [IpGeolocation.io](https://ipgeolocation.io/).
 
 <p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
 
 ##### Options
+_All fields are optional_
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`provider`** | `string` |  Required | The name of the service to fetch IP address from. Can be either `ip-api` or `ipgeolocation`. Defaults to `ip-api` which only works via HTTP, if you set to `ipgeolocation` then you must also provide an API key
-**`apiKey`** | `string` |  Required | Only required if provider is set to `ipgeolocation`. You can get a free API key [here](https://ipgeolocation.io/signup.html)
+**`provider`** | `string` |  _Optional_ | The name of the service to fetch IP address from. Can be either `ipapi.co`, `ip-api` or `ipgeolocation`. Defaults to `ipapi.co`. Note, `ip-api` doesn't work on HTTPS, and if you set to `ipgeolocation` then you must also provide an API key
+**`apiKey`** | `string` |  _Optional_ | Only required if provider is set to `ipgeolocation`. You can get a free API key [here](https://ipgeolocation.io/signup.html)
 
 ##### Example 
 

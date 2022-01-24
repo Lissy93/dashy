@@ -24,6 +24,8 @@ export default {
     endpoint() {
       if (this.provider === 'ipgeolocation') {
         return `${widgetApiEndpoints.publicIp2}?apiKey=${this.apiKey}`;
+      } else if (this.provider === 'ipapi') {
+        return widgetApiEndpoints.publicIp3;
       }
       return widgetApiEndpoints.publicIp;
     },
@@ -32,8 +34,8 @@ export default {
       return this.options.apiKey;
     },
     provider() {
-      // Can be either `ip-api` or `ipgeolocation`
-      return this.options.provider || 'ip-api';
+      // Can be either `ip-api`, `ipapi.co` or `ipgeolocation`
+      return this.options.provider || 'ipapi.co';
     },
   },
   data() {
@@ -52,18 +54,26 @@ export default {
     },
     /* Assign data variables to the returned data */
     processData(ipInfo) {
-      if (this.provider === 'ip-api') {
+      if (this.provider === 'ipapi.co') {
+        this.ipAddr = ipInfo.ip;
+        this.ispName = ipInfo.org;
+        this.location = `${ipInfo.city}, ${ipInfo.region}`;
+        this.flagImg = getCountryFlag(ipInfo.country_code);
+        this.mapsUrl = getMapUrl({ lat: ipInfo.latitude, lon: ipInfo.longitude });
+      } else if (this.provider === 'ipgeolocation') {
+        this.ipAddr = ipInfo.ip;
+        this.ispName = ipInfo.organization || ipInfo.isp;
+        this.location = `${ipInfo.city}, ${ipInfo.country_name}`;
+        this.flagImg = ipInfo.country_flag;
+        this.mapsUrl = getMapUrl({ lat: ipInfo.latitude, lon: ipInfo.longitude });
+      } else if (this.provider === 'ip-api') {
         this.ipAddr = ipInfo.query;
         this.ispName = ipInfo.isp;
         this.location = `${ipInfo.city}, ${ipInfo.regionName}`;
         this.flagImg = getCountryFlag(ipInfo.countryCode);
         this.mapsUrl = getMapUrl({ lat: ipInfo.lat, lon: ipInfo.lon });
-      } else if (this.provider === 'ipgeolocation') {
-        this.ipAddr = ipInfo.ip;
-        this.ispName = ipInfo.organization || ipInfo.isp;
-        this.flagImg = ipInfo.country_flag;
-        this.location = `${ipInfo.city}, ${ipInfo.country_name}`;
-        this.mapsUrl = getMapUrl({ lat: ipInfo.latitude, lon: ipInfo.longitude });
+      } else {
+        this.error('Unknown API provider fo IP address');
       }
     },
   },
