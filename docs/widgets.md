@@ -56,6 +56,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Network Interfaces](#network-interfaces)
   - [Network Traffic](#network-traffic)
   - [Resource Usage Alerts](#resource-usage-alerts)
+  - [Public & Private IP](#ip-address)
 - **[Dynamic Widgets](#dynamic-widgets)**
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -1465,6 +1466,22 @@ Lists recent high resource usage alerts (e.g. CPU, mem, IO, load, temp)
 
 ```yaml
 - type: gl-alerts
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### IP Address
+
+Shows public and private IP address. Note that the ip plugin is not available on all instances of Glances.
+
+<p align="center"><img width="400" src="https://i.ibb.co/ZhXBxZr/gl-ip-address.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-ip-address
   options:
     hostname: http://192.168.130.2:61208
 ```
