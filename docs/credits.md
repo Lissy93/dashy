@@ -75,20 +75,27 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/kashif-se">
+            <img src="https://avatars.githubusercontent.com/u/5568138?v=4" width="80;" alt="kashif-se"/>
+            <br />
+            <sub><b>Kashif Sohail</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/evroon">
             <img src="https://avatars.githubusercontent.com/u/11857441?v=4" width="80;" alt="evroon"/>
             <br />
             <sub><b>Erik Vroon</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/UrekD">
             <img src="https://avatars.githubusercontent.com/u/38784343?v=4" width="80;" alt="UrekD"/>
             <br />
             <sub><b>UrekD</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/walkxcode">
             <img src="https://avatars.githubusercontent.com/u/71191962?v=4" width="80;" alt="walkxcode"/>
@@ -123,15 +130,15 @@
             <br />
             <sub><b>Begin</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/skaarj1989">
             <img src="https://avatars.githubusercontent.com/u/34756939?v=4" width="80;" alt="skaarj1989"/>
             <br />
             <sub><b>David</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/deepsourcebot">
             <img src="https://avatars.githubusercontent.com/u/60907429?v=4" width="80;" alt="deepsourcebot"/>
@@ -166,15 +173,15 @@
             <br />
             <sub><b>Kieren Connell</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/rubjo">
             <img src="https://avatars.githubusercontent.com/u/42270947?v=4" width="80;" alt="rubjo"/>
             <br />
             <sub><b>Rubjo</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/turnrye">
             <img src="https://avatars.githubusercontent.com/u/701035?v=4" width="80;" alt="turnrye"/>
