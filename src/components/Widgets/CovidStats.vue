@@ -12,11 +12,11 @@
       </div>
       <div class="stat-wrap">
         <span class="lbl">Total Recovered</span>
-        <span class="val recovered">{{ basicStats.deaths | numberFormat }}</span>
+        <span class="val recovered">{{ basicStats.recovered | numberFormat }}</span>
       </div>
       <div class="stat-wrap">
         <span class="lbl">Total Deaths</span>
-        <span class="val deaths">{{ basicStats.recovered | numberFormat }}</span>
+        <span class="val deaths">{{ basicStats.deaths | numberFormat }}</span>
       </div>
     </div>
   </div>
