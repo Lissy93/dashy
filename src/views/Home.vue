@@ -260,7 +260,7 @@ export default {
   grid-template-columns: repeat(var(--col-count, 2), minmax(0, 1fr));
 
   /* Hide when search term returns nothing */
-  .no-results { display: none; }
+  .no-results { display: none !important; }
 
   /* Additional spacing when in edit mode */
   &.edit-mode {
