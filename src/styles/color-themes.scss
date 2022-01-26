@@ -586,6 +586,8 @@ html[data-theme='material'] {
 
   --widget-background-color: var(--background);
 
+  --warning: #d4d015;
+
   .minimal-section-inner.selected, div.minimal-section-heading  {
     border: none;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
