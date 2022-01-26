@@ -74,7 +74,7 @@ export default {
   methods: {
     /* Check that row & column span is valid, and not over the max */
     checkSpanNum(span, classPrefix) {
-      const maxSpan = 5;
+      const maxSpan = 6;
       let numSpan = /^\d*$/.test(span) ? parseInt(span, 10) : 1;
       numSpan = (numSpan > maxSpan) ? maxSpan : numSpan;
       return `${classPrefix}-${numSpan}`;
@@ -142,43 +142,36 @@ export default {
 @import '@/styles/media-queries.scss';
 
 .collapsable {
-  padding: var(--item-group-padding);
-  margin: 10px;
-  border-radius: var(--curve-factor);
-  background: var(--item-group-outer-background);
-  box-shadow: var(--item-group-shadow);
-  height: fit-content;
   width: 100%;
   width: stretch;
+  height: fit-content;
+  margin: 10px;
+  padding: var(--item-group-padding);
+  border-radius: var(--curve-factor);
+  box-shadow: var(--item-group-shadow);
+  background: var(--item-group-outer-background);
 
+  /* Options allowing sections to SPAN multiple rows or columns */
   grid-row-start: span 1;
   &.row-2 { grid-row-start: span 2; }
   &.row-3 { grid-row-start: span 3; }
   &.row-4 { grid-row-start: span 4; }
   &.row-5 { grid-row-start: span 5; }
-
+  &.row-6 { grid-row-start: span 6; }
   grid-column-start: span 1;
   @include tablet-up {
-    &.col-2 { grid-column-start: span 2; }
-    &.col-3 { grid-column-start: span 2; }
-    &.col-4 { grid-column-start: span 2; }
-    &.col-5 { grid-column-start: span 2; }
+    &.col-2, &.col-3, &.col-4, &.col-5, &.col-6  { grid-column-start: span 2; }
   }
   @include laptop-up {
     &.col-2 { grid-column-start: span 2; }
-    &.col-3 { grid-column-start: span 3; }
-    &.col-4 { grid-column-start: span 3; }
-    &.col-5 { grid-column-start: span 3; }
+    &.col-3, &.col-4, &.col-5,  &.col-6 { grid-column-start: span 3; }
   }
   @include monitor-up {
     &.col-2 { grid-column-start: span 2; }
     &.col-3 { grid-column-start: span 3; }
     &.col-4 { grid-column-start: span 4; }
     &.col-5 { grid-column-start: span 5; }
-  }
-
-  .wrap-collabsible {
-    margin-bottom: 1.2rem 0;
+    &.col-6 { grid-column-start: span 6; }
   }
 
   input[type='checkbox'] {
@@ -203,25 +196,23 @@ export default {
       display: inline;
       margin-right: 0.5rem;
     }
+    &:hover {
+      color: var(--item-group-heading-text-color-hover);
+    }
+    &::before {
+      content: ' ';
+      display: inline-block;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 5px solid currentColor;
+      vertical-align: middle;
+      margin-right: .7rem;
+      transform: translateY(-2px);
+      transition: transform .2s ease-out;
+    }
   }
 
-  .lbl-toggle:hover {
-    color: var(--item-group-heading-text-color-hover);
-  }
-
-  .lbl-toggle::before {
-    content: ' ';
-    display: inline-block;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-left: 5px solid currentColor;
-    vertical-align: middle;
-    margin-right: .7rem;
-    transform: translateY(-2px);
-    transition: transform .2s ease-out;
-  }
-
-  .toggle:checked + .lbl-toggle::before {
+  input.toggle:checked + .lbl-toggle::before {
     transform: rotate(90deg) translateX(-3px);
   }
 
@@ -233,11 +224,11 @@ export default {
     border-radius: 0 0 var(--curve-factor) var(--curve-factor);
   }
 
-  .toggle:checked + .lbl-toggle + .collapsible-content {
-    max-height: 3000px;
+  input.toggle:checked + .lbl-toggle + .collapsible-content {
+    max-height: var(--section-max-height);
   }
 
-  .toggle:checked + .lbl-toggle {
+  input.toggle:checked + .lbl-toggle {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
@@ -246,6 +237,7 @@ export default {
     padding: 0.5rem;
   }
 
+  /* Section edit button, shown when in edit mode */
   .edit-mode-item {
     width: 1rem;
     height: 1rem;
@@ -253,15 +245,18 @@ export default {
     right: 0.5rem;
     top: 0.5rem;
   }
-  // Makes sections fill available space
-  &.is-open.full-height {
-    height: -webkit-fill-available;
-    display: flex;
-    flex-direction: column;
-    align-items: normal;
-    .collapsible-content {
-      height: -webkit-fill-available;
-      width: 100%;
+
+  /* Makes sections fill available space */
+  @include phone-up {
+    &.is-open.full-height {
+      height: auto;
+      display: flex;
+      align-items: normal;
+      flex-direction: column;
+      .collapsible-content {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }
