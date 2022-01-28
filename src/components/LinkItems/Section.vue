@@ -41,6 +41,7 @@
         :enableStatusCheck="item.statusCheck !== undefined ? item.statusCheck : enableStatusCheck"
         :statusCheckInterval="statusCheckInterval"
         :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
+        :statusCheckAcceptCodes="item.statusCheckAcceptCodes"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
         :isAddNew="false"
