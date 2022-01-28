@@ -758,6 +758,12 @@
                   "default": false,
                   "description": "Allows for running status checks on insecure content/ non-HTTPS apps. Prevents checks failing for non-SSL sites"
                 },
+                "statusCheckAcceptCodes": {
+                  "title": "Accepted HTTP Status Codes",
+                  "type": "string",
+                  "default": "",
+                  "description": "If your service's response code is anything other than 2xx, then you can opt to specify an alternative success code"
+                },
                 "color": {
                   "title": "Custom Color",
                   "type": "string",
