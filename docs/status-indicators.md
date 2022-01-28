@@ -60,17 +60,28 @@ For example, `statusCheckHeaders: { 'X-Custom-Header': 'foobar' }`
 ## Disabling Security
 By default, (if you're using HTTPS) any requests to insecure or non-HTTPS content will be blocked. This will cause the status check to fail. If you trust the endpoint (e.g. you're self-hosting it), then you can disable this security measure for an individual item. This is done by setting `statusCheckAllowInsecure: true`
 
+## Allowing Alternative Status Codes
+If you expect your service to return a status code that is not in the 2XX range, and still want the indicator to be green, then you can specify an expected status code under `statusCheckAcceptCodes` for a given item. For example, `statusCheckAcceptCodes: '403,418'`
+
 ## Troubleshooting Failing Status Checks
-If the status is always returning an error, despite the service being online, then it is most likely an issue with access control, and should be fixed with the correct headers. Hover over the failing status to see the error code and response, in order to know where to start with addressing it.
-If your service requires requests to include any authorization in the headers, then use the  `statusCheckHeaders` property, as described above.
+If you're using status checks, and despite a given service being online, the check is displaying an error, there are a couple of things you can look at:
+
+If your service requires requests to include any authorization in the headers, then use the  `statusCheckHeaders` property, as described  [above](#setting-custom-headers).
+
 If you are still having issues, it may be because your target application is blocking requests from Dashy's IP. This is a [CORS error](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), and can be fixed by setting the headers on your target app, to include:
 ```
-Access-Control-Allow-Origin: https://[dashy-location]/
+Access-Control-Allow-Origin: https://location-of-dashy/
 Vary: Origin
 ```
-If the URL you are checking is not using HTTPS, then you may need to disable the rejection of insecure requests. This can be done by setting `statusCheckAllowInsecure` to true for a given item.
+If the URL you are checking has an unsigned certificate, or is not using HTTPS, then you may need to disable the rejection of insecure requests. This can be done by setting `statusCheckAllowInsecure` to true for a given item.
+
+If your service is online, but responds with a status code that is not in the 2xx range, then you can use `statusCheckAcceptCodes` to set an accepted status code.
 
 If you get an error, like `Service Unavailable: Server resulted in a fatal error`, even when it's definitely online, this is most likely caused by missing the protocol. Don't forget to include `https://` (or whatever protocol) before the URL, and ensure that if needed, you've specified the port.
+
+Running Dashy in HOST network mode, instead of BRIDGE will allow status check access to other services in HOST mode. For more info, see [#445](https://github.com/Lissy93/dashy/discussions/445).
+
+If you have firewall rules configured, then ensure that they don't prevent Dashy from making requests to the other services you are trying to access.
 
 Currently, the status check needs a page to be rendered, so if this URL in your browser does not return anything, then status checks will not work. This may be modified in the future, but in the meantime, a fix would be to make your own status service, which just checks if your app responds with whatever code you'd like, and then return a 200 plus renders an arbitrary message. Then just point `statusCheckUrl` to your custom page.
 
