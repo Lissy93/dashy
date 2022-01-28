@@ -196,7 +196,7 @@
         :ref="widgetRef"
       />
       <GlNetworkTraffic
-        v-else-if="widgetType === 'gl-network-activity'"
+        v-else-if="widgetType === 'gl-network-traffic'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
