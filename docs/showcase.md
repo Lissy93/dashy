@@ -38,14 +38,6 @@
 
 ---
 
-### Storm
-
-> By [@stuu3k](https://github.com/stuu3k) <sup>[#446](https://github.com/Lissy93/dashy/discussions/446)</sup>
-
-![screenshot-stuu3k-storm](https://i.ibb.co/pPdJ85H/stuu3k-storm.png)
-
----
-
 ### The Private Dashboard
 
 > By [@DylanBeMe](https://github.com/DylanBeMe) <sup>[#419](https://github.com/Lissy93/dashy/issues/419)</sup>
