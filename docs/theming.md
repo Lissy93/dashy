@@ -1,6 +1,6 @@
-## Theming
+# Theming
 
-By default Dashy comes with 20 built in themes, which can be applied from the dropwodwn menu in the UI
+By default Dashy comes with 25+ built-in themes, which can be applied from the dropwodwn menu in the UI.
 
 ![Built-in Themes](https://i.ibb.co/GV3wRss/Dashy-Themes.png)
 
@@ -125,7 +125,7 @@ You can target specific elements on the UI with these variables. All are optiona
 - `--nav-link-text-color` - The text color for links displayed in the navigation bar. Defaults to `--primary`
 - `--nav-link-background-color` - The background color for links displayed in the navigation bar
 - `--nav-link-text-color-hover` - The text color when a navigation bar link is hovered over. Defaults to `--primary`
-- `--nav-link-background-color-hover` - The background color for nav bar links when hovered over 
+- `--nav-link-background-color-hover` - The background color for nav bar links when hovered over
 - `--nav-link-border-color` - The border color for nav bar links. Defaults to `transparent`
 - `--nav-link-border-color-hover` - The border color for nav bar links when hovered over. Defaults to `--primary`
 - `--search-container-background` - Background for the container containing the search bar. Defaults to `--background-darker`
