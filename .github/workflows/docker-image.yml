@@ -25,11 +25,11 @@ jobs:
       uses: tyankatsu0105/read-package-version-actions@v1
       id: package-version
 
-    - name: ✨ Validate Dockerfile
-      uses: ghe-actions/dockerfile-validator@v1
-      with:
-        dockerfile: 'Dockerfile'
-        lint: 'hadolint'
+    # - name: ✨ Validate Dockerfile
+    #   uses: ghe-actions/dockerfile-validator@v1
+    #   with:
+    #     dockerfile: 'Dockerfile'
+    #     lint: 'hadolint'
 
     - name: 🗂️ Make Docker Meta
       id: meta
