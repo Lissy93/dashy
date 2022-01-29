@@ -25,6 +25,11 @@ jobs:
       uses: tyankatsu0105/read-package-version-actions@v1
       id: package-version
 
+    - name: ✨ Validate Dockerfile
+      uses: ghe-actions/dockerfile-validator@v1
+      with:
+        dockerfile: 'Dockerfile'
+        lint: 'hadolint'
 
     - name: 🗂️ Make Docker Meta
       id: meta
@@ -81,3 +86,11 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
         push: true
           
+    - name: 💬 Set Docker Hub Description
+      uses: peter-evans/dockerhub-description@v2
+      with:
+        repository: lissy93/dashy
+        readme-filepath: ./README.md
+        short-description: Dashy - A self-hosted start page for your server
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
