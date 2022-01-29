@@ -1,5 +1,15 @@
 # Changelog
 
+## ⚡️ 2.0.0 - Small Fixes and Docker Multi-Arch Build [PR #451](https://github.com/Lissy93/dashy/pull/451)
+- Fixes full-height sections for mobile and Safari (Re: #432, #442)
+- Fixes empty section visible in search (Re: #447)
+- Fixes numbers omited from tag names (Re: #430)
+- Option for custom status code in status check (Re: #456, #448)
+- Adds @stuu3k's dashboard to showcase (Re: #446)
+- Switches recover and death count in Covid widget (Re: #148)
+- Improved contrast in light material theme
+- Adds new script to lint, test, build and publish a multi-architecture Docker image to various registries
+
 ## 💄 1.9.9 - Minor UI + Docs Updates [PR #431](https://github.com/Lissy93/dashy/pull/431)
 - Improved theme support for widgets
 - Better widget layout in Workspace and Minimal views
