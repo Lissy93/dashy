@@ -7,7 +7,8 @@ const axios = require('axios').default;
 const https = require('https');
 
 /* Determines if successful from the HTTP response code */
-const getResponseType = (code) => {
+const getResponseType = (code, validCodes) => {
+  if (validCodes && String(validCodes).includes(String(code))) return true;
   if (Number.isNaN(code)) return false;
   const numericCode = parseInt(code, 10);
   return (numericCode >= 200 && numericCode <= 302);
@@ -27,7 +28,8 @@ const makeErrorMessage2 = (data) => '❌ Service Error - '
   + `${data.status} - ${data.statusText}`;
 
 /* Kicks of a HTTP request, then formats and renders results */
-const makeRequest = (url, headers, insecure, render) => {
+const makeRequest = (url, headers, insecure, acceptCodes, render) => {
+  const validCodes = acceptCodes && acceptCodes !== 'null' ? acceptCodes : null;
   const startTime = new Date();
   const requestMaker = axios.create({
     httpsAgent: new https.Agent({
@@ -38,22 +40,35 @@ const makeRequest = (url, headers, insecure, render) => {
     .then((response) => {
       const statusCode = response.status;
       const { statusText } = response;
-      const successStatus = getResponseType(statusCode);
+      const successStatus = getResponseType(statusCode, validCodes);
       const serverName = response.request.socket.servername;
       const timeTaken = (new Date() - startTime);
       const results = {
         statusCode, statusText, serverName, successStatus, timeTaken,
       };
-      const messageText = makeMessageText(results);
-      results.message = messageText;
+      results.message = makeMessageText(results);
       return results;
     })
     .catch((error) => {
-      render(JSON.stringify({
-        successStatus: false,
-        message: error.response ? makeErrorMessage2(error.response) : makeErrorMessage(error),
-      }));
+      const response = error ? (error.response || {}) : {};
+      const returnCode = response.status || response.code;
+      if (validCodes && String(validCodes).includes(returnCode)) { // Success overridden by user
+        const results = {
+          successStatus: getResponseType(returnCode, validCodes),
+          statusCode: returnCode,
+          statusText: response.statusText,
+          timeTaken: (new Date() - startTime),
+        };
+        results.message = makeMessageText(results);
+        return results;
+      } else { // Request failed
+        return {
+          successStatus: false,
+          message: error.response ? makeErrorMessage2(error.response) : makeErrorMessage(error),
+        };
+      }
     }).then((results) => {
+      // Request completed (either successfully, or failed) - render results
       render(JSON.stringify(results));
     });
 };
@@ -68,19 +83,26 @@ const decodeHeaders = (maybeHeaders) => {
   return parsedHeaders;
 };
 
+/* Returned if the URL param is not present or correct */
+const immediateError = (render) => {
+  render(JSON.stringify({
+    successStatus: false,
+    message: '❌ Missing or Malformed URL',
+  }));
+};
+
 /* Main function, will check if a URL present, and call function */
 module.exports = (paramStr, render) => {
   if (!paramStr || !paramStr.includes('=')) {
-    render(JSON.stringify({
-      success: false,
-      message: '❌ Malformed URL',
-    }));
+    immediateError(render);
   } else {
     // Prepare the parameters, which are got from the URL
     const params = new URLSearchParams(paramStr);
     const url = decodeURIComponent(params.get('url'));
+    const acceptCodes = decodeURIComponent(params.get('acceptCodes'));
     const headers = decodeHeaders(params.get('headers'));
     const enableInsecure = !!params.get('enableInsecure');
-    makeRequest(url, headers, enableInsecure, render);
+    if (!url || url === 'undefined') immediateError(render);
+    makeRequest(url, headers, enableInsecure, acceptCodes, render);
   }
 };

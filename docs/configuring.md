@@ -193,6 +193,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`statusCheckUrl`** | `string` | _Optional_ | If you've enabled `statusCheck`, and want to use a different URL to what is defined under the item, then specify it here
 **`statusCheckHeaders`** | `object` | _Optional_ | If you're endpoint requires any specific headers for the status checking, then define them here 
 **`statusCheckAllowInsecure`** | `boolean` | _Optional_ | By default, any request to insecure content will be blocked. Setting this option to `true` will disable the `rejectUnauthorized` option, enabling you to ping non-HTTPS services for the current item. Defaults to `false`
+**`statusCheckAcceptCodes`** | `string` | _Optional_ | If your service's response code is anything other than 2xx, then you can opt to specify an alternative success code. E.g. if you expect your server to return 403, but still want the status indicator to be green, set this value to `403`
 **`color`** | `string` | _Optional_ | An optional color for the text and font-awesome icon to be displayed in. Note that this will override the current theme and so may not display well
 **`backgroundColor`** | `string` | _Optional_ | An optional background fill color for the that given item. Again, this will override the current theme and so might not display well against the background
 **`provider`** | `string` | _Optional_ | The name of the provider for a given service, useful for when including hosted apps. In some themes, this is visible under the item name

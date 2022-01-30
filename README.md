@@ -312,6 +312,7 @@ There are several different ways you can launch apps. You can specify the defaul
 - `newtab` - The app will be launched in a new tab (or use Ctrl + Click)
 - `modal` - Launch app in a resizable/ movable popup modal on the current page (or use Alt + Click)
 - `workspace` - Changes to Workspace view and launches app
+- `clipboard` - Copy the app's URL to your system clipboard
 - `top` - Opens in the top-most browsing context, useful if you're accessing Dashy through an iframe
 
 ---
@@ -462,7 +463,7 @@ Several areas that we need a bit of help with at the moment are:
 - Complete a [short survey](https://survey.typeform.com/to/gl0L68ou) to have your say about future features
 - Share your dashboard in the [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-), to inspire others
 - Spread the word by sharing Dashy or a screenshot of your dashboard to help new users discover it
-- Submit a PR to add a new feature, fix a bug, update the docs, add a theme, or something else
+- Submit a PR to add a new feature, fix a bug, update the docs, add a theme, widget or something else
 - Star Dashy on GitHub/ DockerHub or leave an upvote / review on [these platforms](https://github.com/Lissy93/dashy/blob/master/docs/contributing.md#star-upvote-or-leave-a-review)
 
 [![Sponsor Lissy93 on GitHub](./docs/assets/sponsor-button.svg)](https://github.com/sponsors/Lissy93)
@@ -540,8 +541,9 @@ To set up the development environment:
 1. Get Code: `git clone https://github.com/Lissy93/dashy.git`  and `cd dashy`
 2. Install dependencies: `yarn`
 3. Start dev server: `yarn dev`
+4. Open the browser: `http://localhost:8080`
 
-Hot reload is enabled, so changes will be automatically detected, compiled and, refreshed.
+When you're ready, you can build the production app with `yarn build`, and then run it with `yarn start`
 
 If you're new to web development, I've put together a short [list of resources](https://github.com/Lissy93/dashy/blob/master/docs/developing.md#resources-for-beginners) to help beginners get started
 
@@ -556,22 +558,6 @@ If you're new to web development, I've put together a short [list of resources](
 
 ---
 
-## Release Schedule 🗞️
-
-> For full release, automation and CI documentation, see: [**Releases & Workflows**](./docs/release-workflow.md)
-
-Dashy is under active development, with features, improvements, and changes pushed almost daily.
-
-We're using [Semantic Versioning](https://semver.org/) to indicate major, minor, and patch versions. You can find the current version number in the readme and check the version of your app under the config menu. The version number is pulled from the [package.json](https://github.com/Lissy93/dashy/blob/master/package.json#L3) file.
-
-Typically there is a new major release every 2 - 4 weeks, usually on Sunday, and you can view these under the [Releases Page](https://github.com/Lissy93/dashy/releases) and [on DockerHub](https://hub.docker.com/r/lissy93/dashy/tags). In addition, new minor versions are pushed several times a week and are [tagged here](https://github.com/Lissy93/dashy/tags).
-
-For a full breakdown of each change, you can view the [Changelog](https://github.com/Lissy93/dashy/blob/master/.github/CHANGELOG.md). In addition, each new feature or significant change needs to be submitted through [a pull request](https://github.com/Lissy93/dashy/pulls?q=is%3Apr), which makes it easy to review and track these changes, and roll back if needed.
-
-**[⬆️ Back to Top](#dashy)**
-
----
-
 ## Documentation 📘
 > For full docs, see: **[Documentation Contents](./docs/readme.md)**
 #### Running Dashy
@@ -581,6 +567,17 @@ For a full breakdown of each change, you can view the [Changelog](https://github
 - 💻 [Management](/docs/management.md) - Managing your app, updating, security, web server configuration, etc
 - 🚒 [Troubleshooting](/docs/troubleshooting.md) - Common errors and problems, and how to fix them
 
+#### Feature Docs
+- 🛡️ [Authentication](/docs/authentication.md) - Guide to setting up authentication to protect your dashboard
+- 🌈 [Alternate Views](/docs/alternate-views.md) - Outline of available pages / views and item opening methods
+- 💾 [Backup & Restore](/docs/backup-restore.md) - Guide to backing up config with Dashy's cloud sync feature
+- 🧸 [Icons](/docs/icons.md) - Outline of all available icon types for sections and items, with examples
+- 🌐 [Multi-Language Support](/docs/multi-language-support.md) - Switching languages, and adding a new locales
+- 🚦 [Status Indicators](/docs/status-indicators.md) - Using Dashy to monitor uptime and status of your apps
+- 🔍 [Searching  & Shortcuts](/docs/searching.md) - Searching, launching methods + keyboard shortcuts
+- 🎨 [Theming](/docs/theming.md) - Complete guide to applying, writing and modifying themes + styles
+- 📊 [Widgets](/docs/widgets.md) - List of all dynamic content widgets, with usage guides and examples
+
 #### Development and Contributing
 - 🧱 [Developing](/docs/developing.md) - Running Dashy development server locally, and general workflow
 - 🛎️ [Development Guides](/docs/development-guides.md) - Common development tasks, to help new contributors
@@ -588,16 +585,6 @@ For a full breakdown of each change, you can view the [Changelog](https://github
 - 🌟 [Showcase](/docs/showcase.md) - See how others are using Dashy, and share your dashboard
 - 🏆 [Credits](/docs/credits.md) - Shout out to the amazing people who have contributed so far
 - 🗞️ [Release Workflow](/docs/release-workflow.md) - Info about releases, CI and automated tasks
-
-#### Feature Docs
-- 🛡️ [Authentication](/docs/authentication.md) - Guide to setting up authentication to protect your dashboard
-- 🧿 [Alternate Views](/docs/alternate-views.md) - Outline of available pages / views and item opening methods
-- 💾 [Backup & Restore](/docs/backup-restore.md) - Guide to Dashy's cloud sync feature
-- 🧸 [Icons](/docs/icons.md) - Outline of all available icon types for sections and items
-- 🌐 [Language Switching](/docs/multi-language-support.md) - How to change language, add a language, or update text
-- 🚦 [Status Indicators](/docs/status-indicators.md) - Using Dashy to monitor uptime and status of your apps
-- 🔍 [Searching  & Shortcuts](/docs/searching.md) - Finding and launching your apps, and using keyboard shortcuts
-- 🎨 [Theming](/docs/theming.md) - Complete guide to applying, writing and modifying themes and styles
 
 #### Misc
 - 🔐 [Privacy & Security](/docs/privacy.md) - List of requests, potential issues, and security resources
@@ -612,14 +599,11 @@ For a full breakdown of each change, you can view the [Changelog](https://github
 
 ## Roadmap 🛣️
 
-> For past and future app updates, see: [**Changelog**](/.github/CHANGELOG.md)
+For upcoming features that will be released in the near future, see the [**Current Roadmap**](https://github.com/Lissy93/dashy/discussions/405)
 
-The following features and tasks are planned for the near future.
-- Widget support- cards showing live stats and interactive content from your self-hosted services
-- ✅ UI editor and visual configurator
-- Replacement of Node backend with Go
- 
- **[⬆️ Back to Top](#dashy)**
+For past updates, see the [**Changelog**](/.github/CHANGELOG.md)
+
+**[⬆️ Back to Top](#dashy)**
 
 ---
 

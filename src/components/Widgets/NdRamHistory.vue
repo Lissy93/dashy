@@ -36,9 +36,7 @@ export default {
   methods: {
     /* Make GET request to NetData */
     fetchData() {
-      this.makeRequest(this.endpoint).then(
-        (response) => { this.processData(response); },
-      );
+      this.makeRequest(this.endpoint).then(this.processData);
     },
     /* Assign data variables to the returned data */
     processData(inputData) {

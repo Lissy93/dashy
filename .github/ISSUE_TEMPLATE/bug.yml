@@ -59,5 +59,6 @@ body:
         ## Thanks 🙏
         Sorry you are having issues with Dashy, and thank you for raising this ticket - in doing so you are helping to make the app better for everyone 💪
         You should expect a reply within the next 48 hours :)
+        ⭐️ If you are not a bot, please star the repo before submitting your ticket.
     validations:
       required: false

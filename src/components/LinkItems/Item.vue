@@ -95,6 +95,7 @@ export default {
     statusCheckUrl: String, // Custom URL for status check endpoint
     statusCheckInterval: Number, // Num seconds beteween repeating checks
     statusCheckAllowInsecure: Boolean, // Status check ignore SSL certs
+    statusCheckAcceptCodes: String, // Allow status checks to pass with a code other than 200
     parentSectionTitle: String, // Title of parent section (for add new)
     isAddNew: Boolean, // Only set if 'fake' item used as Add New button
   },
@@ -236,7 +237,7 @@ export default {
     /* Pulls together all user options, returns URL + Get params for ping endpoint */
     makeApiUrl() {
       const {
-        url, statusCheckUrl, statusCheckHeaders, statusCheckAllowInsecure,
+        url, statusCheckUrl, statusCheckHeaders, statusCheckAllowInsecure, statusCheckAcceptCodes,
       } = this;
       const encode = (str) => encodeURIComponent(str);
       this.statusResponse = undefined;
@@ -249,8 +250,10 @@ export default {
         ? `&headers=${encode(JSON.stringify(statusCheckHeaders))}` : '';
       // Deterimine if user disabled security
       const enableInsecure = statusCheckAllowInsecure ? '&enableInsecure=true' : '';
+      const acceptCodes = statusCheckAcceptCodes ? `&acceptCodes=${statusCheckAcceptCodes}` : '';
       // Construct the full API endpoint's URL with GET params
-      return `${baseUrl}${serviceEndpoints.statusCheck}/${urlToCheck}${headers}${enableInsecure}`;
+      return `${baseUrl}${serviceEndpoints.statusCheck}/${urlToCheck}`
+        + `${headers}${enableInsecure}${acceptCodes}`;
     },
     /* Checks if a given service is currently online */
     checkWebsiteStatus() {

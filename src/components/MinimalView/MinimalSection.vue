@@ -17,6 +17,8 @@
         :itemSize="itemSize"
         :hotkey="item.hotkey"
         :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
+        :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
+        :statusCheckAcceptCodes="item.statusCheckAcceptCodes"
         :statusCheckInterval="getStatusCheckInterval()"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
