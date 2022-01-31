@@ -1,5 +1,9 @@
 # Changelog
 
+## 🐛 2.0.1 - Fixes Section Height [PR #462](https://github.com/Lissy93/dashy/pull/462)
+- Adds `cutToHeight` to config schema (Re: #461)
+- Removes the full-height CSS from colorful theme
+
 ## ⚡️ 2.0.0 - Small Fixes and Docker Multi-Arch Build [PR #451](https://github.com/Lissy93/dashy/pull/451)
 - Fixes full-height sections for mobile and Safari (Re: #432, #442)
 - Fixes empty section visible in search (Re: #447)
