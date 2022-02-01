@@ -3,6 +3,9 @@
 ## 🐛 2.0.1 - Fixes Section Height [PR #462](https://github.com/Lissy93/dashy/pull/462)
 - Adds `cutToHeight` to config schema (Re: #461)
 - Removes the full-height CSS from colorful theme
+- Improved config validation warnings in JSON editor
+- Removes empty Keycloak block from appConfig editor
+- Adds typechecking to search and clear search for Safari
 
 ## ⚡️ 2.0.0 - Small Fixes and Docker Multi-Arch Build [PR #451](https://github.com/Lissy93/dashy/pull/451)
 - Fixes full-height sections for mobile and Safari (Re: #432, #442)
