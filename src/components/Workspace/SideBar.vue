@@ -64,10 +64,10 @@ export default {
     /* If an initial URL is specified, then open relevant section */
     openDefaultSection() {
       if (!this.initUrl) return;
-      const process = (url) => url.replace(/[^\w\s]/gi, '').toLowerCase();
+      const process = (url) => (url ? url.replace(/[^\w\s]/gi, '').toLowerCase() : undefined);
       const compare = (item) => (process(item.url) === process(this.initUrl));
-      this.sections.forEach((section, sectionIndex) => {
-        if (section.items.findIndex(compare) !== -1) this.openSection(sectionIndex);
+      this.sections.forEach((section, secIndex) => {
+        if (section.items && section.items.findIndex(compare) !== -1) this.openSection(secIndex);
       });
     },
   },

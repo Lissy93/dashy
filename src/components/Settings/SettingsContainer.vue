@@ -100,11 +100,13 @@ export default {
     this.settingsVisible = this.getSettingsVisibility();
   },
   methods: {
+    /* Emit event to begin/ continue searching */
     userIsTypingSomething(something) {
       this.$emit('user-is-searchin', something);
     },
+    /* Call function to clear search field, remove focus and reset results */
     clearFilterInput() {
-      this.$refs.SearchBar.clearFilterInput();
+      if (this.$refs.SearchBar) this.$refs.SearchBar.clearFilterInput();
     },
     getInitialTheme() {
       return this.appConfig.theme || '';
@@ -115,10 +117,12 @@ export default {
       if (typeof userThemes === 'string') return [userThemes];
       return userThemes;
     },
+    /* Show / hide settings */
     toggleSettingsVisibility() {
       this.settingsVisible = !this.settingsVisible;
       localStorage.setItem(localStorageKeys.HIDE_SETTINGS, this.settingsVisible);
     },
+    /* Get initial settings visibility, either from appConfig, local storage or browser type */
     getSettingsVisibility() {
       const screenWidth = document.body.clientWidth;
       if (screenWidth && screenWidth < 600) return false;

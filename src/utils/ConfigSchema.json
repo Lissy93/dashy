@@ -530,6 +530,12 @@
                 "default": false,
                 "description": "If true, section needs to be clicked to open"
               },
+              "cutToHeight": {
+                "title": "Cut to Height",
+                "type": "boolean",
+                "default": false,
+                "description": "By default, sections will fill available space. Set this option to true to match section height with content height"
+              },
               "color": {
                 "title": "Color",
                 "type": "string",
