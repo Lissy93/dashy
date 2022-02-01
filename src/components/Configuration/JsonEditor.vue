@@ -193,12 +193,13 @@ export default {
     validationErrors(errors) {
       const errorMessages = [];
       errors.forEach((error) => {
+        console.log(error);
         switch (error.type) {
           case 'validation':
             errorMessages.push({
               type: 'validation',
               msg: `${this.$t('config-editor.warning-msg-validation')}: `
-                + `${error.error.keyword} ${error.error.message}`,
+                  + `${(error.error || error).dataPath} ${(error.error || error).message}`,
             });
             break;
           case 'error':
