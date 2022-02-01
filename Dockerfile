@@ -1,4 +1,4 @@
-FROM node:14.17.5-alpine AS BUILD_IMAGE
+FROM node:14.18.1-alpine AS BUILD_IMAGE
 
 ARG TARGETPLATFORM
 ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
@@ -24,7 +24,7 @@ COPY . ./
 RUN yarn build
 
 # Build the final image
-FROM node:14.17.5-alpine
+FROM node:14.18.1-alpine
 
 # Define some ENV Vars
 ENV PORT=80 \
