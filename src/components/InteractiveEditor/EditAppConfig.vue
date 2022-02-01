@@ -86,8 +86,15 @@ export default {
     /* Remove any attribute which has an undefined value before saving */
     removeUndefinedValues(rawAppConfig) {
       const raw = rawAppConfig;
-      const isEmpty = (value) => (value === undefined);
-      Object.keys(raw).forEach(key => isEmpty(raw[key]) && delete raw[key]);
+      const isEmptyObject = (obj) => (typeof obj === 'object' && Object.keys(obj).length === 0);
+      const isEmpty = (value) => (value === undefined || isEmptyObject(value));
+      // Delete empty values
+      Object.keys(raw).forEach(key => {
+        if (isEmpty(raw[key])) delete raw[key];
+      });
+      // If KC config empty, delete it
+      const kcConfig = raw.auth.keycloak;
+      if (!kcConfig.clientId && !kcConfig.realm && !kcConfig.serverUrl) delete raw.auth.keycloak;
       return raw;
     },
   },
