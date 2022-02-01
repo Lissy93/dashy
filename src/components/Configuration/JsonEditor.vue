@@ -193,7 +193,6 @@ export default {
     validationErrors(errors) {
       const errorMessages = [];
       errors.forEach((error) => {
-        console.log(error);
         switch (error.type) {
           case 'validation':
             errorMessages.push({
