@@ -75,7 +75,8 @@ export const getPlaceUrl = (placeName) => {
 /* Given a large number, will add commas to make more readable */
 export const putCommasInBigNum = (bigNum) => {
   const strNum = Number.isNaN(bigNum) ? bigNum : String(bigNum);
-  return strNum.replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+  const [integerPart, decimalPart] = strNum.split('.');
+  return integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (decimalPart ? `.${decimalPart}` : '');
 };
 
 /* Given a large number, will convert 1000 into k for readability */
