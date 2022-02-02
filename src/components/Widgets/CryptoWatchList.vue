@@ -9,7 +9,7 @@
     >
       <img class="icon" :src="asset.image" :alt="`${asset} icon`" />
       <p class="name">{{ asset.name }}</p>
-      <p class="price">{{ asset.price | formatPrice }}</p>
+      <p class="price">{{ asset.price | formatPrice(currency) }}</p>
       <p :class="`percent ${asset.percentChange > 0 ? 'up' : 'down'}`">
         {{ asset.percentChange | formatPercentage }}
       </p>
@@ -70,8 +70,9 @@ export default {
   },
   filters: {
     /* Append currency symbol to price */
-    formatPrice(price) {
-      return `${findCurrencySymbol('usd')}${putCommasInBigNum(roundPrice(price))}`;
+    formatPrice(price, currency) {
+      if (currency === undefined) return '';
+      return `${findCurrencySymbol(currency)}${putCommasInBigNum(roundPrice(price))}`;
     },
     /* Append percentage symbol, and up/ down arrow */
     formatPercentage(change) {
