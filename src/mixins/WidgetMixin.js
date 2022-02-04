@@ -3,7 +3,7 @@
  * Manages loading state, error handling, data updates and user options
  */
 import axios from 'axios';
-import ProgressBar from 'rsup-progress';
+import { Progress } from 'rsup-progress';
 import ErrorHandler from '@/utils/ErrorHandler';
 import { serviceEndpoints } from '@/utils/defaults';
 
@@ -15,7 +15,7 @@ const WidgetMixin = {
     },
   },
   data: () => ({
-    progress: new ProgressBar({ color: 'var(--progress-bar)' }),
+    progress: new Progress({ color: 'var(--progress-bar)' }),
     overrideProxyChoice: false,
     overrideUpdateInterval: null,
     disableLoader: false, // Prevent ever showing the loader

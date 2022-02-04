@@ -31,7 +31,7 @@
 
 <script>
 import axios from 'axios';
-import ProgressBar from 'rsup-progress';
+import { Progress } from 'rsup-progress';
 import ErrorHandler from '@/utils/ErrorHandler';
 
 export default {
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       appVersion: process.env.VUE_APP_VERSION, // Current version, from package.json
-      progress: new ProgressBar({ color: 'var(--progress-bar)' }),
+      progress: new Progress({ color: 'var(--progress-bar)' }),
       latestVersion: '', // Will store latest version, when request returns
       checksEnabled: true, // Should we check for updates
       isUpToDate: true, // Is current version === latest version

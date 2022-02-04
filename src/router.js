@@ -7,7 +7,7 @@
 // Import Vue.js and vue router
 import Vue from 'vue';
 import Router from 'vue-router';
-import ProgressBar from 'rsup-progress';
+import { Progress } from 'rsup-progress';
 
 // Import views, that are not lazy-loaded
 import Home from '@/views/Home.vue';
@@ -19,7 +19,7 @@ import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 
 Vue.use(Router);
-const progress = new ProgressBar({ color: 'var(--progress-bar)' });
+const progress = new Progress({ color: 'var(--progress-bar)' });
 
 /* Returns true if user is already authenticated, or if auth is not enabled */
 const isAuthenticated = () => {

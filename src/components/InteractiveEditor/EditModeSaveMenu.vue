@@ -74,7 +74,7 @@
 <script>
 import axios from 'axios';
 import jsYaml from 'js-yaml';
-import ProgressBar from 'rsup-progress';
+import { Progress } from 'rsup-progress';
 
 import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
@@ -117,7 +117,7 @@ export default {
     return {
       saveSuccess: undefined,
       responseText: '',
-      progress: new ProgressBar({ color: 'var(--progress-bar)' }),
+      progress: new Progress({ color: 'var(--progress-bar)' }),
     };
   },
   methods: {
