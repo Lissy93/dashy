@@ -9,10 +9,6 @@
   publish = "dist"
   functions = "services/serverless-functions"
 
-# Set the Node runtime to LTS
-[context.production]
-  NODE_VERSION = "16.13.2"
-
 # Site info, used for the 1-Click deploy page
 [template.environment]
   STATUSKIT_PAGE_TITLE = "Dashy"
