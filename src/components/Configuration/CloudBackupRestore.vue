@@ -60,7 +60,7 @@
 <script>
 // Import libraries
 import sha256 from 'crypto-js/sha256';
-import ProgressBar from 'rsup-progress';
+import { Progress } from 'rsup-progress';
 // Import form elements
 import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
@@ -86,7 +86,7 @@ export default {
       restorePassword: '',
       restoreCode: '',
       backupId: localStorage[localStorageKeys.BACKUP_ID] || '',
-      progress: new ProgressBar({ color: 'var(--progress-bar)' }),
+      progress: new Progress({ color: 'var(--progress-bar)' }),
     };
   },
   components: { // UI components / icons

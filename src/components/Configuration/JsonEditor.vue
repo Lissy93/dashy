@@ -51,7 +51,7 @@
 <script>
 
 import axios from 'axios';
-import ProgressBar from 'rsup-progress';
+import { Progress } from 'rsup-progress';
 import VJsoneditor from 'v-jsoneditor';
 import jsYaml from 'js-yaml';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
@@ -83,7 +83,7 @@ export default {
       },
       responseText: '',
       saveSuccess: undefined,
-      progress: new ProgressBar({ color: 'var(--progress-bar)' }),
+      progress: new Progress({ color: 'var(--progress-bar)' }),
       saveOptions: [
         { label: this.$t('config-editor.location-disk-label'), value: 'file' },
         { label: this.$t('config-editor.location-local-label'), value: 'local' },

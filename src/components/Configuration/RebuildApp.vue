@@ -46,7 +46,7 @@
 
 <script>
 import axios from 'axios';
-import ProgressBar from 'rsup-progress';
+import { Progress } from 'rsup-progress';
 import Button from '@/components/FormElements/Button';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
 import ReloadIcon from '@/assets/interface-icons/application-reload.svg';
@@ -74,7 +74,7 @@ export default {
     output: '',
     message: '',
     allowRebuild: true,
-    progress: new ProgressBar({ color: 'var(--progress-bar)' }),
+    progress: new Progress({ color: 'var(--progress-bar)' }),
   }),
   methods: {
     /* Calls to the rebuild endpoint, to kickoff the app build */

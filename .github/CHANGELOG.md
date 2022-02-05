@@ -1,5 +1,9 @@
 # Changelog
 
+## ⬆️ 2.0.2 - Dependency Updates [PR #471](https://github.com/Lissy93/dashy/pull/471)
+- Updates Alpine version for main Dockerfile
+- Updates node_modules to latest stable versions
+
 ## 🐛 2.0.1 - Fixes Section Height [PR #462](https://github.com/Lissy93/dashy/pull/462)
 - Adds `cutToHeight` to config schema (Re: #461)
 - Removes the full-height CSS from colorful theme
