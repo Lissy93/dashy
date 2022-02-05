@@ -24,7 +24,7 @@ COPY . ./
 RUN yarn build
 
 # Build the final image
-FROM node:14.17.5-alpine
+FROM node:16.13.2-alpine
 
 # Define some ENV Vars
 ENV PORT=80 \
