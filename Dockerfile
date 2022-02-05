@@ -1,4 +1,4 @@
-FROM node:14.17.5-alpine AS BUILD_IMAGE
+FROM node:16.13.2-alpine AS BUILD_IMAGE
 
 ARG TARGETPLATFORM
 ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
@@ -6,8 +6,8 @@ ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
 # Install additional tools needed on arm64 and armv7
 RUN \
   case "${TARGETPLATFORM}" in \
-  'linux/arm64') apk add --no-cache python make g++ ;; \
-  'linux/arm/v7') apk add --no-cache python make g++ ;; \
+  'linux/arm64') apk add --no-cache python3 make g++ ;; \
+  'linux/arm/v7') apk add --no-cache python3 make g++ ;; \
   esac
 
 # Create and set the working directory
