@@ -516,9 +516,24 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td>
     <td align="center">
         <a href="https://github.com/ratty222">
-            <img src="https://avatars.githubusercontent.com/u/92832598?v=4" width="80;" alt="ratty222"/>
+            <img src="https://avatars.githubusercontent.com/u/92832598?u=137b65530cbd5f5af9c24cde51baa6cc77cc934b&v=4" width="80;" alt="ratty222"/>
             <br />
             <sub><b>Ratty222</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/undefined">
+            <img src="" width="80;" alt="undefined"/>
+            <br />
+            <sub><b>undefined</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/jtfinley72">
+            <img src="https://avatars.githubusercontent.com/u/96497997?v=4" width="80;" alt="jtfinley72"/>
+            <br />
+            <sub><b>jtfinley72</b></sub>
         </a>
     </td></tr>
 </table>
