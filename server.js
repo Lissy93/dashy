@@ -1,8 +1,8 @@
 /**
- *  Note: The app must first be built (yarn build) before this script is run
  * This is the main entry point for the application, a simple server that
  * runs some checks, and then serves up the app from the ./dist directory
- * Also includes some routes for status checks/ ping and config saving
+ * Also imports some routes for status checks/ ping and config saving
+ * Note: The app must first be built (yarn build) before this script is run
  * */
 
 /* Import built-in Node server modules */
@@ -46,10 +46,15 @@ const getLocalIp = () => {
 
 /* Gets the users local IP and port, then calls to print welcome message */
 const printWelcomeMessage = () => {
-  getLocalIp().then(({ address }) => {
-    const ip = address || 'localhost';
-    console.log(printMessage(ip, port, isDocker)); // eslint-disable-line no-console
-  });
+  try {
+    getLocalIp().then(({ address }) => {
+      const ip = address || 'localhost';
+      console.log(printMessage(ip, port, isDocker)); // eslint-disable-line no-console
+    });
+  } catch (e) {
+    // Fetching info for welcome message failed, print simple msg instead
+    console.log(`Dashy server has started (${port})`); // eslint-disable-line no-console
+  }
 };
 
 /* Just console.warns an error */
@@ -65,7 +70,7 @@ const app = express()
   .use(express.static(path.join(__dirname, 'dist')))
   .use(express.static(path.join(__dirname, 'public'), { index: 'initialization.html' }))
   // Load middlewares for parsing JSON, and supporting HTML5 history routing
-  .use(express.json())
+  .use(express.json({ limit: '1mb' }))
   .use(history())
   // GET endpoint to run status of a given URL with GET request
   .use(ENDPOINTS.statusCheck, (req, res) => {
@@ -114,7 +119,13 @@ const app = express()
   });
 
 /* Create HTTP server from app on port, and print welcome message */
-http.createServer(app).listen(port, () => { printWelcomeMessage(); });
+http.createServer(app)
+  .listen(port, () => {
+    printWelcomeMessage();
+  })
+  .on('error', (err) => {
+    printWarning('Unable to start Dashy\'s Node server', err);
+  });
 
 /* Check, and if possible start SSL server too */
 sslServer(app);
