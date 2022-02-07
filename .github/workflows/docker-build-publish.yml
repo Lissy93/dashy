@@ -3,6 +3,7 @@
 name: 🐳 Build + Publish Multi-Platform Image
 
 on:
+  workflow_dispatch:
   push:
     branches: ['master']
     tags: [v*]
