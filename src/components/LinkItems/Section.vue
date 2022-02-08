@@ -21,31 +21,36 @@
       :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
       :style="gridStyle" :id="`section-${groupId}`"
     > <!-- Show for each item -->
-      <Item
-        v-for="(item) in sortedItems"
-        :id="item.id"
-        :key="item.id"
-        :url="item.url"
-        :title="item.title"
-        :description="item.description"
-        :icon="item.icon"
-        :target="item.target"
-        :color="item.color"
-        :backgroundColor="item.backgroundColor"
-        :statusCheckUrl="item.statusCheckUrl"
-        :statusCheckHeaders="item.statusCheckHeaders"
-        :itemSize="itemSize"
-        :hotkey="item.hotkey"
-        :provider="item.provider"
-        :parentSectionTitle="title"
-        :enableStatusCheck="item.statusCheck !== undefined ? item.statusCheck : enableStatusCheck"
-        :statusCheckInterval="statusCheckInterval"
-        :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
-        :statusCheckAcceptCodes="item.statusCheckAcceptCodes"
-        @itemClicked="$emit('itemClicked')"
-        @triggerModal="triggerModal"
-        :isAddNew="false"
-      />
+      <template v-for="(item) in sortedItems">
+        <div v-if="item.subItems" :key="item.id">
+          Sub-Items
+        </div>
+        <Item
+          v-else
+          :id="item.id"
+          :key="item.id"
+          :url="item.url"
+          :title="item.title"
+          :description="item.description"
+          :icon="item.icon"
+          :target="item.target"
+          :color="item.color"
+          :backgroundColor="item.backgroundColor"
+          :statusCheckUrl="item.statusCheckUrl"
+          :statusCheckHeaders="item.statusCheckHeaders"
+          :itemSize="itemSize"
+          :hotkey="item.hotkey"
+          :provider="item.provider"
+          :parentSectionTitle="title"
+          :enableStatusCheck="item.statusCheck !== undefined ? item.statusCheck : enableStatusCheck"
+          :statusCheckInterval="statusCheckInterval"
+          :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
+          :statusCheckAcceptCodes="item.statusCheckAcceptCodes"
+          @itemClicked="$emit('itemClicked')"
+          @triggerModal="triggerModal"
+          :isAddNew="false"
+        />
+      </template>
       <!-- When in edit mode, show additional item, for Add New item -->
       <Item v-if="isEditMode"
         :isAddNew="true"

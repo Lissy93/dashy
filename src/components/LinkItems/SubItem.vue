@@ -1,4 +1,4 @@
-<template ref="container">
+<template>
   <div :class="`item-wrapper wrap-size-${itemSize}`">
     <a @click="itemOpened"
       @mouseup.right="openContextMenu"
@@ -11,45 +11,10 @@
       :id="`link-${id}`"
       :style="`--open-icon: ${getUnicodeOpeningIcon()}; color: ${color};  ${customStyles}`"
     >
-      <!-- Item Text -->
-      <div :class="`tile-title  ${!icon? 'bounce no-icon': ''}`" :id="`tile-${id}`" >
-        <span class="text">{{ title }}</span>
-        <p class="description">{{ description }}</p>
-      </div>
       <!-- Item Icon -->
       <Icon :icon="icon" :url="url" :size="itemSize" :color="color"
         v-bind:style="customStyles" class="bounce" />
-      <!-- Small icon, showing opening method on hover -->
-      <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon || itemSize === 'small'"
-        :openingMethod="accumulatedTarget"  position="bottom right"
-        :hotkey="hotkey" />
-      <!-- Status indicator dot (if enabled) showing weather srevice is availible -->
-      <StatusIndicator
-        class="status-indicator"
-        v-if="enableStatusCheck"
-        :statusSuccess="statusResponse ? statusResponse.successStatus : undefined"
-        :statusText="statusResponse ? statusResponse.message : undefined"
-      />
-      <!-- Edit icon (displayed only when in edit mode) -->
-      <EditModeIcon v-if="isEditMode" class="edit-mode-item" @click="openItemSettings()" />
     </a>
-    <!-- Right-click context menu -->
-    <ContextMenu
-      :show="contextMenuOpen && !isAddNew"
-      v-click-outside="closeContextMenu"
-      :posX="contextPos.posX"
-      :posY="contextPos.posY"
-      :id="`context-menu-${id}`"
-      @launchItem="launchItem"
-      @openItemSettings="openItemSettings"
-      @openMoveItemMenu="openMoveItemMenu"
-      @openDeleteItem="openDeleteItem"
-    />
-    <!-- Edit and move item menu modals -->
-    <MoveItemTo v-if="isEditMode" :itemId="id" />
-    <EditItem v-if="editMenuOpen" :itemId="id"
-      @closeEditMenu="closeEditMenu"
-      :isNew="isAddNew" :parentSectionTitle="parentSectionTitle" />
   </div>
 </template>
 
@@ -57,66 +22,59 @@
 import axios from 'axios';
 import router from '@/router';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
-import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
-import StatusIndicator from '@/components/LinkItems/StatusIndicator';
-import EditItem from '@/components/InteractiveEditor/EditItem';
-import MoveItemTo from '@/components/InteractiveEditor/MoveItemTo';
-import ContextMenu from '@/components/LinkItems/ItemContextMenu';
 import StoreKeys from '@/utils/StoreMutations';
-import ItemMixin from '@/mixins/ItemMixin';
 import { targetValidator } from '@/utils/ConfigHelpers';
-import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 import {
   localStorageKeys,
   serviceEndpoints,
   modalNames,
+  openingMethod as defaultOpeningMethod,
 } from '@/utils/defaults';
 
 export default {
   name: 'Item',
-  mixins: [ItemMixin],
   props: {
     id: String, // The unique ID of a tile (e.g. 001)
     title: String, // The main text of tile, required
-    subtitle: String, // Optional sub-text
     description: String, // Optional tooltip hover text
     icon: String, // Optional path to icon, within public/img/tile-icons
-    color: String, // Optional text and icon color, specified in hex code
-    backgroundColor: String, // Optional item background color
     url: String, // URL to the resource, optional but recommended
-    provider: String, // Optional provider name, for external apps
-    hotkey: Number, // Shortcut for quickly launching app
     target: { // Where resource will open, either 'newtab', 'sametab' or 'modal'
       type: String,
       validator: targetValidator,
     },
-    itemSize: String, // Item size: small | medium | large
-    enableStatusCheck: Boolean, // Should run status checks
-    statusCheckHeaders: Object, // Custom status check headers
-    statusCheckUrl: String, // Custom URL for status check endpoint
-    statusCheckInterval: Number, // Num seconds beteween repeating checks
-    statusCheckAllowInsecure: Boolean, // Status check ignore SSL certs
-    statusCheckAcceptCodes: String, // Allow status checks to pass with a code other than 200
-    parentSectionTitle: String, // Title of parent section (for add new)
-    isAddNew: Boolean, // Only set if 'fake' item used as Add New button
   },
   components: {
     Icon,
-    ItemOpenMethodIcon,
-    StatusIndicator,
-    ContextMenu,
-    MoveItemTo,
-    EditItem,
-    EditModeIcon,
   },
   computed: {
-    /* Based on item props, adjust class names */
-    makeClassList() {
-      const {
-        icon, itemSize, isAddNew, isEditMode,
-      } = this;
-      return `size-${itemSize} ${!icon ? 'short' : ''} `
-       + `${isAddNew ? 'add-new' : ''} ${isEditMode ? 'is-edit-mode' : ''}`;
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    isEditMode() {
+      return this.$store.state.editMode;
+    },
+    accumulatedTarget() {
+      return this.target || this.appConfig.defaultOpeningMethod || defaultOpeningMethod;
+    },
+    /* Convert config target value, into HTML anchor target attribute */
+    anchorTarget() {
+      if (this.isEditMode) return '_self';
+      const target = this.accumulatedTarget;
+      switch (target) {
+        case 'sametab': return '_self';
+        case 'newtab': return '_blank';
+        case 'parent': return '_parent';
+        case 'top': return '_top';
+        default: return undefined;
+      }
+    },
+    /* Get href for anchor, if not in edit mode, or opening in modal/ workspace */
+    hyperLinkHref() {
+      const nothing = '#';
+      if (this.isEditMode) return nothing;
+      const noAnchorNeeded = ['modal', 'workspace', 'clipboard'];
+      return noAnchorNeeded.includes(this.accumulatedTarget) ? nothing : this.url;
     },
   },
   data() {

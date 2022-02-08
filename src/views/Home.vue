@@ -127,7 +127,7 @@ export default {
   methods: {
     /* Clears input field, once a searched item is opened */
     finishedSearching() {
-      this.$refs.filterComp.clearFilterInput();
+      if (this.$refs.filterComp) this.$refs.filterComp.clearFilterInput();
     },
     /* Returns optional section display preferences if available */
     getDisplayData(section) {

@@ -99,7 +99,7 @@ export default {
     },
     /* Clears input field, once a searched item is opened */
     finishedSearching() {
-      this.$refs.filterComp.clearMinFilterInput();
+      if (this.$refs.filterComp) this.$refs.filterComp.clearMinFilterInput();
     },
     /* Returns true if there is more than 1 sub-result visible during searching */
     checkIfResults() {
