@@ -14,6 +14,7 @@
       :name="name"
       :id="name"
       :placeholder="placeholder"
+      @keyup.enter="onEnter ? onEnter() : () => {}"
       class="input-field"
     />
     <p
@@ -35,6 +36,7 @@ export default {
     name: String, // Required unique ID value, for accessibility
     placeholder: String, // Optional placeholder value
     description: String, // Optional info paragraph
+    onEnter: Function,
     type: {
       default: 'text', // Input type, e.g. text, password, number
       type: String,
