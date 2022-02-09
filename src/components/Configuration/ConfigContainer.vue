@@ -65,7 +65,6 @@
 
 <script>
 
-import JsonToYaml from '@/utils/JsonToYaml';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
 import { getUsersLanguage } from '@/utils/ConfigHelpers';
 import StoreKeys from '@/utils/StoreMutations';
@@ -88,7 +87,6 @@ export default {
   name: 'ConfigContainer',
   data() {
     return {
-      jsonParser: JsonToYaml,
       backupId: localStorage[localStorageKeys.BACKUP_ID] || '',
       appVersion: process.env.VUE_APP_VERSION,
       latestVersion: '',
@@ -100,9 +98,6 @@ export default {
   computed: {
     sections: function getSections() {
       return this.config.sections;
-    },
-    yaml() {
-      return this.jsonParser(this.config);
     },
   },
   components: {

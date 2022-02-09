@@ -1,9 +1,9 @@
 <template>
-  <pre><code>{{ jsonParser(config) }}</code></pre>
+  <pre><code>{{ yamlConfig }}</code></pre>
 </template>
 
 <script>
-import JsonToYaml from '@/utils/JsonToYaml';
+import JsYaml from 'js-yaml';
 
 export default {
   name: 'DownloadConfig',
@@ -11,11 +11,9 @@ export default {
     config() {
       return this.$store.state.config;
     },
-  },
-  data() {
-    return {
-      jsonParser: JsonToYaml,
-    };
+    yamlConfig() {
+      return JsYaml.dump(this.config);
+    },
   },
 };
 
@@ -23,8 +21,9 @@ export default {
 
 <style scoped lang="scss">
 pre {
-  background: var(--code-editor-background);
-  color: var(--code-editor-color);
+  margin: 0;
   padding: 1rem;
+  color: var(--code-editor-color);
+  background: var(--code-editor-background);
 }
 </style>
