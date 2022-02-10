@@ -209,6 +209,12 @@
           "default": false,
           "description": "If set to true, will keep apps opened in the workspace open in the background. Useful for switching between sites, but comes at the cost of performance"
         },
+        "widgetsAlwaysUseProxy": {
+          "title": "Widgets always use proxy",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, the useProxy option for widgets will always be applied without having to specify it for each widget"
+        },
         "webSearch": {
           "title": "Web Search",
           "type": "object",

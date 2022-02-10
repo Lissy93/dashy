@@ -446,6 +446,9 @@ export default {
     errorMsg: null,
   }),
   computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
     /* Returns the widget type, shows error if not specified */
     widgetType() {
       if (!this.widget.type) {
@@ -457,7 +460,7 @@ export default {
     /* Returns users specified widget options, or empty object */
     widgetOptions() {
       const options = this.widget.options || {};
-      const useProxy = !!this.widget.useProxy;
+      const useProxy = this.appConfig.widgetsAlwaysUseProxy || !!this.widget.useProxy;
       const updateInterval = this.widget.updateInterval !== undefined
         ? this.widget.updateInterval : null;
       return { useProxy, updateInterval, ...options };
