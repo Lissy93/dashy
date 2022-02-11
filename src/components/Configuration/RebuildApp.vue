@@ -51,7 +51,9 @@ import Button from '@/components/FormElements/Button';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
 import ReloadIcon from '@/assets/interface-icons/application-reload.svg';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
+import ErrorHandler from '@/utils/ErrorHandler';
 import { modalNames, serviceEndpoints } from '@/utils/defaults';
+import { isUserAdmin } from '@/utils/Auth';
 
 export default {
   name: 'RebuildApp',
@@ -79,6 +81,10 @@ export default {
   methods: {
     /* Calls to the rebuild endpoint, to kickoff the app build */
     startBuild() {
+      if (!this.allowRebuild) { // Double check user is allowed
+        ErrorHandler('Unable to trigger rebuild, insufficient permission');
+        return;
+      }
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
       const endpoint = `${baseUrl}${serviceEndpoints.rebuild}`;
       this.loading = true;
@@ -116,7 +122,10 @@ export default {
     },
   },
   mounted() {
-    if (this.appConfig.allowConfigEdit === false) {
+    // Disable rebuild functionality if user not allowed
+    if (this.appConfig.allowConfigEdit === false
+      || this.appConfig.preventWriteToDisk
+      || !isUserAdmin()) {
       this.allowRebuild = false;
     }
   },

@@ -99,7 +99,7 @@ export default {
     },
     allowWriteToDisk() {
       const { appConfig } = this.config;
-      return appConfig.allowConfigEdit !== false && isUserAdmin();
+      return !appConfig.preventWriteToDisk && appConfig.allowConfigEdit !== false && isUserAdmin();
     },
     initialSaveMode() {
       return this.allowWriteToDisk ? 'file' : 'local';

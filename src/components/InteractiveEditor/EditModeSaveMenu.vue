@@ -110,7 +110,10 @@ export default {
     },
     allowWriteToDisk() {
       const { appConfig } = this.config;
-      return appConfig.allowConfigEdit !== false && isUserAdmin();
+      if (appConfig.preventWriteToDisk) return false;
+      if (appConfig.allowConfigEdit === false) return false;
+      if (!isUserAdmin()) return false; // If auth configured, but user NOT admin
+      return true;
     },
   },
   data() {
@@ -161,6 +164,10 @@ export default {
       this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
     },
     writeToDisk() {
+      if (this.config.appConfig.preventWriteToDisk) {
+        ErrorHandler('Unable to write changed to disk, as this functionality is disabled');
+        return;
+      }
       // 1. Convert JSON into YAML
       const yamlOptions = {};
       const yaml = jsYaml.dump(this.config, yamlOptions);
