@@ -17,6 +17,7 @@
       </p>
       <Button
         :click="saveLocally"
+        :disallow="!allowSaveLocally"
         v-tooltip="tooltip($t('interactive-editor.menu.save-locally-tooltip'))"
       >
         {{ $t('interactive-editor.menu.save-locally-btn') }}
@@ -24,7 +25,7 @@
       </Button>
       <Button
         :click="writeToDisk"
-        :disabled="!allowWriteToDisk"
+        :disallow="!allowWriteToDisk"
         v-tooltip="tooltip($t('interactive-editor.menu.save-disk-tooltip'))"
       >
         {{ $t('interactive-editor.menu.save-disk-btn') }}
@@ -115,6 +116,10 @@ export default {
       if (!isUserAdmin()) return false; // If auth configured, but user NOT admin
       return true;
     },
+    allowSaveLocally() {
+      if (this.config.appConfig.preventLocalSave) return false;
+      return true;
+    },
   },
   data() {
     return {
@@ -152,6 +157,10 @@ export default {
       localStorage.removeItem(localStorageKeys.CONF_SECTIONS);
     },
     saveLocally() {
+      if (!this.allowSaveLocally) {
+        ErrorHandler('Unable to save changes locally, this feature has been disabled');
+        return;
+      }
       const data = this.config;
       localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(data.sections));
       localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(data.pageInfo));
@@ -277,7 +286,7 @@ div.edit-mode-bottom-banner {
     color: var(--interactive-editor-color);
     border-color: var(--interactive-editor-color);
     background: var(--interactive-editor-background);
-    &:hover {
+    &:hover:not(.disallowed) {
       color: var(--interactive-editor-background);
       border-color: var(--interactive-editor-color);
       background: var(--interactive-editor-color);

@@ -8,11 +8,11 @@
       :label="$t('config-editor.save-location-label')"
       :options="saveOptions"
       :initialOption="initialSaveMode"
-      :disabled="!allowWriteToDisk"
+      :disabled="!allowWriteToDisk || !allowSaveLocally"
       />
     <!-- Save Buttons -->
     <div :class="`btn-container ${!isValid ? 'err' : ''}`">
-      <Button :click="save">
+      <Button :click="save" :disallow="!allowWriteToDisk && !allowSaveLocally">
         {{ $t('config-editor.save-button') }}
       </Button>
       <Button :click="startPreview">
@@ -101,8 +101,14 @@ export default {
       const { appConfig } = this.config;
       return !appConfig.preventWriteToDisk && appConfig.allowConfigEdit !== false && isUserAdmin();
     },
+    allowSaveLocally() {
+      if (this.config.appConfig.preventLocalSave) return false;
+      return true;
+    },
     initialSaveMode() {
-      return this.allowWriteToDisk ? 'file' : 'local';
+      if (this.allowWriteToDisk) return 'file';
+      if (this.allowSaveLocally) return 'local';
+      return '';
     },
   },
   mounted() {
@@ -166,6 +172,10 @@ export default {
     },
     /* Saves config to local browser storage */
     saveConfigLocally() {
+      if (!this.allowSaveLocally) {
+        ErrorHandler('Unable to save changes locally, this feature has been disabled');
+        return;
+      }
       const data = this.jsonData;
       if (data.sections) {
         localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(data.sections));
@@ -180,7 +190,7 @@ export default {
       if (data.appConfig.theme) {
         localStorage.setItem(localStorageKeys.THEME, data.appConfig.theme);
       }
-      InfoHandler('Config has succesfully been saved in browser storage', InfoKeys.RAW_EDITOR);
+      InfoHandler('Config has successfully been saved in browser storage', InfoKeys.RAW_EDITOR);
       this.showToast(this.$t('config-editor.success-msg-local'), true);
     },
     /* Clears config from browser storage, only removing relevant items  */
