@@ -445,6 +445,18 @@
           "default": "false",
           "description": "If set to true, a loading screen will be shown"
         },
+        "preventWriteToDisk": {
+          "title": "Prevent saving config to disk",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, no users will not be able to save config changes to disk through the UI"
+        },
+        "preventLocalSave": {
+          "title": "Prevent saving config to local storage",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, no users will not be able to save config changes to the browser's local storage"
+        },
         "allowConfigEdit": {
           "title": "Allow Config Editing",
           "type": "boolean",
