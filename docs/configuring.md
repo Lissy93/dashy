@@ -1,42 +1,50 @@
 # Configuring
 
-All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format. Changes can also be made [directly through the UI](#editing-config-through-the-ui) and previewed live, from here you can also export, backup, reset, validate and download your configuration file.
+All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format. If you're using Docker, this file can be passed in as a volume. Changes can either be made directly to this file, or done [through the UI](#editing-config-through-the-ui). From the UI you can also export, backup, reset, validate and download your configuration file.
+
+#### There are three ways to edit the config
+- **Directly in the YAML file** _(5/5 reliability, 3/5 usability)_
+  - Write changes directly to the conf.yml file, optionally using one of the templates provided. This can be done in your favorite editor and uploading to your server, or directly editing the file via SSH, but the easiest method would be to use [Code Server](https://github.com/coder/code-server)
+- **UI JSON Editor** _(4/5 reliability, 4/5 usability)_
+  - From the UI, under the config menu there is a JSON editor, with built-in validation, documentation and advanced options
+- **UI Visual Editor** _(3/5 reliability, 5/5 usability)_
+  - From the UI, enter the Interactive Edit Mode, then click any part of the page to edit. Changes are previewed live, and then saved to disk
+- **REST API** _(Coming soon)_
+  - Programmatically edit config either through the command line, using a script or a third-party application
+
+#### Tips
+- You may find it helpful to look at some sample config files to get you started, a collection of which can be found [here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
+- You can check that your config file fits the schema, by running `yarn validate-config`
+- After modifying your config, the app needs to be recompiled, by running `yarn build`  - this happens automatically if you're using Docker
+- It is recommended to keep a backup of your config file. You can download it under Config menu, or use the [Cloud Backup](./docs/backup-restore.md) feature.
+- You can make use of YAML features, like anchors, comments, multi-line strings, etc to reuse attributes and keep your config file readable
+- All fields are optional, unless otherwise stated.
 
 The following file provides a reference of all supported configuration options.
-
----
 
 #### Contents
 
 - [**`pageInfo`**](#pageinfo) - Header text, footer, title, navigation, etc
-	- [`navLinks`](#pageinfonavlinks-optional) - Navigation bar items and links
+  - [`navLinks`](#pageinfonavlinks-optional) - Links to display in the navigation bar
 - [**`appConfig`**](#appconfig-optional) - Main application settings
-	- [`webSearch`](#appconfigwebsearch-optional) - Configure web search engine options
-	- [`hideComponents`](#appconfighidecomponents-optional) - Show/ hide page components
-	- [`auth`](#appconfigauth-optional) - Built-in authentication setup
-	  - [`users`](#appconfigauthusers-optional) - Setup for simple auth
-	  - [`keycloak`](#appconfigauthkeycloak-optional) - Auth using Keycloak
+  - [`webSearch`](#appconfigwebsearch-optional) - Configure web search engine options
+  - [`hideComponents`](#appconfighidecomponents-optional) - Show/ hide page components
+  - [`auth`](#appconfigauth-optional) - Built-in authentication setup
+    - [`users`](#appconfigauthusers-optional) - List or users (for simple auth)
+    - [`keycloak`](#appconfigauthkeycloak-optional) - Auth config for Keycloak
 - [**`sections`**](#section) - List of sections
-	- [`displayData`](#sectiondisplaydata-optional) - Section display settings
-	- [`icon`](#sectionicon-and-sectionitemicon) - Icon for a section
-	- [`items`](#sectionitem) - List of items
-		- [`icon`](#sectionicon-and-sectionitemicon) - Icon for an item
+  - [`displayData`](#sectiondisplaydata-optional) - Section display settings
+    - [`show/hideForKeycloakUsers`](#sectiondisplaydatahideforkeycloakusers-and-sectiondisplaydatashowforkeycloakusers) - Set user controls
+  - [`icon`](#sectionicon-and-sectionitemicon) - Icon for a section
+  - [`items`](#sectionitem) - List of items
+    - [`icon`](#sectionicon-and-sectionitemicon) - Icon for an item
+  - [`widgets`](#sectionwidget-optional) - List of widgets
 - [**Notes**](#notes)
   - [Editing Config through the UI](#editing-config-through-the-ui)
-	- [About YAML](#about-yaml)
-	- [Config Saving Methods](#config-saving-methods)
-	- [Preventing Changes](#preventing-changes-being-written-to-disk)
+  - [About YAML](#about-yaml)
+  - [Config Saving Methods](#config-saving-methods)
+  - [Preventing Changes](#preventing-changes-being-written-to-disk)
   - [Example](#example)
-
----
-
-Tips:
-- You may find it helpful to look at some sample config files to get you started, a collection of which can be found [here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
-- You can check that your config file fits the schema, by running `yarn validate-config`
-- After modifying your config, the app needs to be recompiled, by running `yarn build`  - this happens automatically whilst the app is running if you're using Docker
-- It is recommended to make and keep a backup of your config file. You can download your current config through the UI either from the Config menu, or using the `/download` endpoint. Alternatively, you can use the [Cloud Backup](./docs/backup-restore.md) feature.
-- The config can also be modified directly through the UI, validated and written to the conf.yml file.
-- All fields are optional, unless otherwise stated.
 
 ---
 
