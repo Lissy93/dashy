@@ -4,7 +4,7 @@
     :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-page-info"
   >
-  <div class="edit-page-info-inner">
+  <div class="edit-page-info-inner" v-if="allowViewConfig">
   <h3>{{ $t('interactive-editor.menu.edit-page-info-btn') }}</h3>
   <FormSchema
     :schema="schema"
@@ -19,6 +19,7 @@
     </Button>
   </FormSchema>
   </div>
+  <AccessError v-else />
   </modal>
 </template>
 
@@ -29,6 +30,7 @@ import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
 import Button from '@/components/FormElements/Button';
 import SaveIcon from '@/assets/interface-icons/save-config.svg';
+import AccessError from '@/components/Configuration/AccessError';
 
 export default {
   name: 'EditPageInfo',
@@ -43,6 +45,7 @@ export default {
     FormSchema,
     Button,
     SaveIcon,
+    AccessError,
   },
   mounted() {
     this.formData = this.pageInfo;
@@ -50,6 +53,9 @@ export default {
   computed: {
     pageInfo() {
       return this.$store.getters.pageInfo;
+    },
+    allowViewConfig() {
+      return this.$store.getters.permissions.allowViewConfig;
     },
   },
   methods: {

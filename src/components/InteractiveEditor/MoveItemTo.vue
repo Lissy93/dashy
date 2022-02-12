@@ -2,7 +2,7 @@
   <modal
     :name="modalName" @closed="close"
     :resizable="true" width="40%" height="40%" classes="dashy-modal">
-    <div class="move-menu-inner">
+    <div class="move-menu-inner" v-if="allowViewConfig">
     <!-- Title and item ID -->
       <h3 class="move-title">Move or Copy Item</h3>
       <p class="item-id">Editing {{ itemId }}</p>
@@ -30,6 +30,7 @@
       <!-- Save and cancel buttons -->
       <SaveCancelButtons :saveClick="save" :cancelClick="close" />
     </div>
+    <AccessError v-else />
   </modal>
 </template>
 
@@ -37,6 +38,7 @@
 import Select from '@/components/FormElements/Select';
 import Radio from '@/components/FormElements/Radio';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
+import AccessError from '@/components/Configuration/AccessError';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
 
@@ -45,6 +47,7 @@ export default {
   components: {
     Select,
     Radio,
+    AccessError,
     SaveCancelButtons,
   },
   props: {
@@ -82,6 +85,9 @@ export default {
         });
       });
       return sectionName;
+    },
+    allowViewConfig() {
+      return this.$store.getters.permissions.allowViewConfig;
     },
   },
   mounted() {

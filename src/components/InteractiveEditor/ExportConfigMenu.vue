@@ -4,10 +4,10 @@
     :resizable="true"
     width="50%"
     height="80%"
-    classes="dashy-modal edit-item"
+    classes="dashy-modal export-modal"
     @closed="modalClosed"
   >
-  <div class="export-config-inner">
+  <div class="export-config-inner" v-if="allowViewConfig">
     <!-- Download and Copy to CLipboard Buttons -->
     <h3>{{ $t('interactive-editor.export.export-title') }}</h3>
     <div class="download-button-container">
@@ -26,6 +26,7 @@
     <h3>{{ $t('interactive-editor.export.view-title') }}</h3>
     <tree-view :data="config" class="config-tree-view" />
   </div>
+  <AccessError v-else />
   </modal>
 </template>
 
@@ -34,6 +35,7 @@ import JsYaml from 'js-yaml';
 import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
+import AccessError from '@/components/Configuration/AccessError';
 import DownloadConfigIcon from '@/assets/interface-icons/config-download-file.svg';
 import CopyConfigIcon from '@/assets/interface-icons/interactive-editor-copy-clipboard.svg';
 import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
@@ -42,6 +44,7 @@ export default {
   name: 'ExportConfigMenu',
   components: {
     Button,
+    AccessError,
     CopyConfigIcon,
     DownloadConfigIcon,
   },
@@ -54,6 +57,9 @@ export default {
   computed: {
     config() {
       return this.$store.state.config;
+    },
+    allowViewConfig() {
+      return this.$store.getters.permissions.allowViewConfig;
     },
   },
   methods: {
@@ -122,6 +128,9 @@ export default {
       font-family: var(--font-monospace);
     }
   }
+}
+.export-modal {
+  background: var(--interactive-editor-background);
 }
 
 </style>

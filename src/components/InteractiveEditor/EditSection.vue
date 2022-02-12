@@ -4,7 +4,7 @@
     :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-section"
   >
-  <div class="edit-section-inner">
+  <div class="edit-section-inner" v-if="allowViewConfig">
     <h3>
       {{ $t(`interactive-editor.edit-section.${isAddNew ? 'add' : 'edit'}-section-title`) }}
     </h3>
@@ -19,6 +19,7 @@
       :cancelClick="modalClosed"
     />
     </div>
+    <AccessError v-else />
   </modal>
 </template>
 
@@ -28,6 +29,7 @@ import StoreKeys from '@/utils/StoreMutations';
 import DashySchema from '@/utils/ConfigSchema';
 import { modalNames } from '@/utils/defaults';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
+import AccessError from '@/components/Configuration/AccessError';
 
 export default {
   name: 'EditSection',
@@ -38,6 +40,7 @@ export default {
   components: {
     SaveCancelButtons,
     FormSchema,
+    AccessError,
   },
   data() {
     return {
@@ -70,6 +73,9 @@ export default {
           },
         },
       };
+    },
+    allowViewConfig() {
+      return this.$store.getters.permissions.allowViewConfig;
     },
   },
   mounted() {
