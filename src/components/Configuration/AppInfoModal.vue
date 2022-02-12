@@ -30,7 +30,8 @@
       <a href="https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md">Security Policy</a>
       <!-- License -->
       <h3>License</h3>
-      Licensed under MIT X11. Copyright <a href="https://aliciasykes.com">Alicia Sykes</a> © 2021.<br>
+      Licensed under <a href="https://github.com/Lissy93/dashy/blob/master/LICENSE">MIT X11</a>.
+      Copyright <a href="https://aliciasykes.com">Alicia Sykes</a> © 2021.<br>
       For licenses for third-party modules, please see <a href="https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md">Legal</a>.<br>
       For the full list of contributors and thanks, see <a href="https://github.com/Lissy93/dashy/blob/master/docs/credits.md">Credits</a>.
       <!-- App Version -->
