@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign, prefer-destructuring */
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Keys from '@/utils/StoreMutations';
@@ -62,6 +62,30 @@ const store = new Vuex.Store({
     },
     visibleComponents(state, getters) {
       return componentVisibility(getters.appConfig);
+    },
+    /* Make config read/ write permissions object */
+    permissions(state, getters) {
+      const appConfig = getters.appConfig;
+      const perms = {
+        allowWriteToDisk: true,
+        allowSaveLocally: true,
+        allowViewConfig: true,
+      };
+      // Disable saving changes locally, only
+      if (appConfig.preventLocalSave) {
+        perms.allowSaveLocally = false;
+      }
+      // Disable saving changes to disk, only
+      if (appConfig.preventWriteToDisk) {
+        perms.allowWriteToDisk = false;
+      }
+      // Disable everything
+      if (appConfig.disableConfiguration) {
+        perms.allowWriteToDisk = false;
+        perms.allowSaveLocally = false;
+        perms.allowViewConfig = false;
+      }
+      return perms;
     },
     // eslint-disable-next-line arrow-body-style
     getSectionByIndex: (state, getters) => (index) => {
