@@ -1,5 +1,5 @@
 <template>
-  <div class="json-editor-outer">
+  <div class="json-editor-outer" v-if="allowViewConfig">
     <!-- Main JSON editor -->
     <v-jsoneditor v-model="jsonData" :options="options" />
     <!-- Options raido, and save button -->
@@ -46,6 +46,7 @@
     </p>
     <p class="note">{{ $t('config.backup-note') }}</p>
   </div>
+  <AccessError v-else />
 </template>
 
 <script>
@@ -58,9 +59,9 @@ import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import configSchema from '@/utils/ConfigSchema.json';
 import StoreKeys from '@/utils/StoreMutations';
 import { localStorageKeys, serviceEndpoints, modalNames } from '@/utils/defaults';
-import { isUserAdmin } from '@/utils/Auth';
 import Button from '@/components/FormElements/Button';
 import Radio from '@/components/FormElements/Radio';
+import AccessError from '@/components/Configuration/AccessError';
 
 export default {
   name: 'JsonEditor',
@@ -68,6 +69,7 @@ export default {
     VJsoneditor,
     Button,
     Radio,
+    AccessError,
   },
   data() {
     return {
@@ -97,13 +99,18 @@ export default {
     isValid() {
       return this.errorMessages.length < 1;
     },
+    permissions() {
+      // Returns: { allowWriteToDisk, allowSaveLocally, allowViewConfig }
+      return this.$store.getters.permissions;
+    },
     allowWriteToDisk() {
-      const { appConfig } = this.config;
-      return !appConfig.preventWriteToDisk && appConfig.allowConfigEdit !== false && isUserAdmin();
+      return this.permissions.allowWriteToDisk;
     },
     allowSaveLocally() {
-      if (this.config.appConfig.preventLocalSave) return false;
-      return true;
+      return this.permissions.allowSaveLocally;
+    },
+    allowViewConfig() {
+      return this.permissions.allowViewConfig;
     },
     initialSaveMode() {
       if (this.allowWriteToDisk) return 'file';
@@ -287,7 +294,7 @@ p.response-output {
 }
 
 p.no-permission-note {
-  color: var(--config-settings-color);
+  color: var(--warning);
 }
 
 .btn-container {
