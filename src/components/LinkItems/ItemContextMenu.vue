@@ -29,7 +29,7 @@
         </li>
       </ul>
       <!-- Edit Options -->
-      <ul class="menu-section">
+      <ul class="menu-section" v-bind:class="{ disabled: !isEditAllowed }">
         <li class="section-title">
           {{ $t('context-menus.item.options-section-title') }}
         </li>
@@ -85,6 +85,9 @@ export default {
     isEditMode() {
       return this.$store.state.editMode;
     },
+    isEditAllowed() {
+      return this.$store.getters.permissions.allowViewConfig;
+    },
   },
   methods: {
     /* Called on item click, emits an event up to Item */
@@ -93,13 +96,19 @@ export default {
       this.$emit('launchItem', target);
     },
     openSettings() {
-      this.$emit('openItemSettings');
+      if (this.isEditAllowed) {
+        this.$emit('openItemSettings');
+      }
     },
     openMoveMenu() {
-      this.$emit('openMoveItemMenu');
+      if (this.isEditAllowed) {
+        this.$emit('openMoveItemMenu');
+      }
     },
     openDeleteItem() {
-      this.$emit('openDeleteItem');
+      if (this.isEditAllowed) {
+        this.$emit('openDeleteItem');
+      }
     },
   },
 };
@@ -147,6 +156,13 @@ div.context-menu {
         width: 1rem;
          margin-right: 0.5rem;
           path { fill: currentColor; }
+      }
+    }
+    &.disabled li:not(.section-title) {
+      cursor: not-allowed;
+      opacity: var(--dimming-factor);
+      &:hover {
+        background: var(--context-menu-background);
       }
     }
   }
