@@ -11,6 +11,7 @@ Sections:
 - [Hiding Page Furniture](#hiding-page-furniture-on-certain-routes)
 - [Adding / Using Environmental Variables](#adding--using-environmental-variables)
 - [Building a Widget](#building-a-widget)
+- [Respecting Config Permissions](#respecting-config-permissions)
 
 ## Creating a new theme
 
@@ -443,3 +444,31 @@ Finally, add some documentation for your widget in the [Widget Docs](https://git
 
 
 **Summary**: For a complete example of everything discussed here, see: [`3da76ce`](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e)
+
+---
+
+## Respecting Config Permissions
+
+Any screen that displays part or all of the users config, must not be shown when the user has disabled viewing config.
+
+This can be done by checking the `allowViewConfig` attribute of the `permissions` getter, in the store.
+First create a new `computed` property, like:
+```
+allowViewConfig() {
+  return this.$store.getters.permissions.allowViewConfig;
+},
+```
+
+Then wrap the part of your UI which displays config with: `v-if="allowViewConfig"`
+
+If required, add a message showing that the component isn't available, using the `AccessError` component. E.g.
+
+```
+import AccessError from '@/components/Configuration/AccessError';
+```
+
+```
+<AccessError v-else />
+```
+
+The `$store.getters.permissions` object also returns options for when and where config can be saved, using: `allowWriteToDisk`,  and `allowSaveLocally` - both are booleans.
