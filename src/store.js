@@ -7,6 +7,7 @@ import { componentVisibility } from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import { isUserAdmin } from '@/utils/Auth';
 
 Vue.use(Vuex);
 
@@ -76,7 +77,11 @@ const store = new Vuex.Store({
         perms.allowSaveLocally = false;
       }
       // Disable saving changes to disk, only
-      if (appConfig.preventWriteToDisk) {
+      if (appConfig.preventWriteToDisk || !isUserAdmin) {
+        perms.allowWriteToDisk = false;
+      }
+      // Legacy Option: Will be removed in V 2.1.0
+      if (appConfig.allowConfigEdit === false) {
         perms.allowWriteToDisk = false;
       }
       // Disable everything
