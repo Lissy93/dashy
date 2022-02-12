@@ -39,6 +39,10 @@ const getUsers = () => {
  * @returns {String} The hashed token
  */
 const generateUserToken = (user) => {
+  if (!user.user || !user.hash) {
+    ErrorHandler('Invalid user object. Must have `user` and `hash` parameters');
+    return undefined;
+  }
   const strAndUpper = (input) => input.toString().toUpperCase();
   const sha = sha256(strAndUpper(user.user) + strAndUpper(user.hash));
   return strAndUpper(sha);
