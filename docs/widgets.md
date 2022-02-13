@@ -1576,6 +1576,14 @@ Or
       scriptSrc: 'https://files.coinmarketcap.com/static/widget/currency.js'
 ```
 
+You can also use this widget to display an image, wither locally or from a remote origin.
+
+```yaml
+- type: embed
+  options:
+    html: '<img src="https://dashy.lan/item-icons/my-image.png" />'
+```
+
 ---
 
 ### API Response
