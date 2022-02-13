@@ -12,6 +12,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Weather](#weather)
   - [Weather Forecast](#weather-forecast)
   - [RSS Feed](#rss-feed)
+  - [Image](#image)
   - [Public IP Address](#public-ip)
   - [Crypto Watch List](#crypto-watch-list)
   - [Crypto Price History](#crypto-token-price-history)
@@ -207,6 +208,41 @@ Display news and updates from any RSS-enabled service.
 - **Auth**: 🟠 Optional
 - **Price**: 🟠 Free Plan (up to 10,000 requests / day)
 - **Privacy**: _See [Rss2Json Privacy Policy](https://rss2json.com/privacy-policy)_
+
+---
+
+### Image
+
+Displays an image.
+
+This may be useful if you have a service (such as Grafana - [see example](https://mattionline.de/grafana-api-export-graph-as-png/)), which periodically exports charts or other data as an image.
+
+You can also store images within Dashy's public directory (using a Docker volume), and reference them directly. E.g. `-v ./path/to/my-homelab-logo.png:/app/public/logo.png`, then in the widget `imagePath: /logo.png`.
+
+Similarly, any web service that serves up widgets as image can be used. E.g. you could show current star chart for a GitHub repo, with: `imagePath: https://starchart.cc/Lissy93/dashy.svg`.
+
+If you'd like to embed a live screenshot, of all or just part of a website, then this can be done using [API Flash](https://apiflash.com/).
+
+Or what about showing a photo of the day? Try `https://source.unsplash.com/random/400x300` or `https://picsum.photos/400/300`
+
+<p align="center"><img width="300" src="https://i.ibb.co/P48Y443/image-widget.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`imagePath`** | `string` |  Required | The path (local or remote) of the image to display
+
+##### Example 
+
+```yaml
+- type: image
+  options:
+    imagePath: https://i.ibb.co/yhbt6CY/dashy.png
+```
+
+##### Info
+Unless image fetched from remote source, no external data request is made.
 
 ---
 

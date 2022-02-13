@@ -230,6 +230,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <ImageWidget
+        v-else-if="widgetType === 'image'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <Jokes
         v-else-if="widgetType === 'joke'"
         :options="widgetOptions"
@@ -423,6 +430,7 @@ export default {
     GlCpuTemp: () => import('@/components/Widgets/GlCpuTemp.vue'),
     HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
     IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),
+    ImageWidget: () => import('@/components/Widgets/ImageWidget.vue'),
     Jokes: () => import('@/components/Widgets/Jokes.vue'),
     NdCpuHistory: () => import('@/components/Widgets/NdCpuHistory.vue'),
     NdLoadHistory: () => import('@/components/Widgets/NdLoadHistory.vue'),
