@@ -1,9 +1,10 @@
 FROM node:16.13.2-alpine AS BUILD_IMAGE
 
+# Set the platform to build image for
 ARG TARGETPLATFORM
 ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
 
-# Install additional tools needed on arm64 and armv7
+# Install additional tools needed if on arm64 / armv7
 RUN \
   case "${TARGETPLATFORM}" in \
   'linux/arm64') apk add --no-cache python3 make g++ ;; \
@@ -23,7 +24,7 @@ COPY . ./
 # Build initial app for production
 RUN yarn build
 
-# Build the final image
+# Production stage
 FROM node:16.13.2-alpine
 
 # Define some ENV Vars
@@ -44,8 +45,8 @@ COPY --from=BUILD_IMAGE /app ./
 ENTRYPOINT [ "/sbin/tini", "--" ]
 CMD [ "yarn", "build-and-start" ]
 
-# Expose given port
+# Expose the port
 EXPOSE ${PORT}
 
-# Run simple healthchecks every 5 mins, to check the Dashy's everythings great
+# Run simple healthchecks every 5 mins, to check that everythings still great
 HEALTHCHECK --interval=5m --timeout=2s --start-period=30s CMD yarn health-check
