@@ -18,6 +18,7 @@ All app configuration is specified in [`/public/conf.yml`](https://github.com/Li
 - After modifying your config, the app needs to be recompiled, by running `yarn build`  - this happens automatically if you're using Docker
 - It is recommended to keep a backup of your config file. You can download it under Config menu, or use the [Cloud Backup](./docs/backup-restore.md) feature.
 - You can make use of YAML features, like anchors, comments, multi-line strings, etc to reuse attributes and keep your config file readable
+- Once you have finished configuring your dashboard, you can choose to [disable UI config](#preventing-changes) if you wish
 - All fields are optional, unless otherwise stated.
 
 The following file provides a reference of all supported configuration options.
@@ -43,7 +44,7 @@ The following file provides a reference of all supported configuration options.
   - [Editing Config through the UI](#editing-config-through-the-ui)
   - [About YAML](#about-yaml)
   - [Config Saving Methods](#config-saving-methods)
-  - [Preventing Changes](#preventing-changes-being-written-to-disk)
+  - [Preventing Changes](#preventing-changes)
   - [Example](#example)
 
 ---
@@ -108,6 +109,7 @@ The following file provides a reference of all supported configuration options.
 **`workspaceLandingUrl`** | `string` | _Optional_ | The URL or an app, service or website to launch when the workspace view is opened, before another service has been launched
 **`preventWriteToDisk`** | `boolean` | _Optional_ | If set to `true`, users will be prevented from saving config changes to disk through the UI
 **`preventLocalSave`** | `boolean` | _Optional_ | If set to `true`, users will be prevented from applying config changes to local storage
+**`disableConfiguration`** | `boolean` | _Optional_ | If set to true, no users will be able to view or edit the config through the UI
 **`widgetsAlwaysUseProxy`** | `boolean` | _Optional_ | If set to `true`, requests made by widgets will always be proxied, same as setting `useProxy: true` on each widget. Note that this may break some widgets.
 **`showSplashScreen`** | `boolean` | _Optional_ | If set to `true`, a loading screen will be shown. Defaults to `false`.
 **`enableErrorReporting`** | `boolean` | _Optional_ | Enable reporting of unexpected errors and crashes. This is off by default, and **no data will ever be captured unless you explicitly enable it**. Turning on error reporting helps previously unknown bugs get discovered and fixed. Dashy uses [Sentry](https://github.com/getsentry/sentry) for error reporting. Defaults to `false`.
@@ -290,8 +292,13 @@ When updating the config through the JSON editor in the UI, you have two save op
 - Changes saved locally will only be applied to the current user through the browser, and will not apply to other instances - you either need to use the cloud sync feature, or manually update the conf.yml file.
 - On the other-hand, if you choose to write changes to disk, then your main `conf.yml` file will be updated, and changes will be applied to all users, and visible across all devices. For this functionality to work, you must be running Dashy with using the Docker container, or the Node server.  A backup of your current configuration will also be saved in the same directory. 
 
-### Preventing Changes being Written to Disk
-To disallow any changes from being written to disk via the UI config editor, set `appConfig.allowConfigEdit: false`. If you are using users, and have setup `auth` within Dashy, then only users with `type: admin` will be able to write config changes to disk.
+### Preventing Changes
+
+If you have authentication set up, then any user who is not an admin (with `type: admin`) will not be able to write changes to disk.
+
+You can also prevent changes fro any user being written to disk, using `preventWriteToDisk`. Or prevent any changes from being saved locally in browser storage, using `preventLocalSave`.
+
+To disable all UI config features, set `disableConfiguration`.
 
 ### Example
 

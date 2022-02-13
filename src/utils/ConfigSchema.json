@@ -457,6 +457,12 @@
           "default": false,
           "description": "If set to true, no users will not be able to save config changes to the browser's local storage"
         },
+        "disableConfiguration": {
+          "title": "Disable all UI Config",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, no users will be able to view or edit the config through the UI"
+        },
         "allowConfigEdit": {
           "title": "Allow Config Editing",
           "type": "boolean",
