@@ -57,6 +57,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Network Traffic](#network-traffic)
   - [Resource Usage Alerts](#resource-usage-alerts)
   - [Public & Private IP](#ip-address)
+  - [CPU Temperature](#cpu-temp)
 - **[Dynamic Widgets](#dynamic-widgets)**
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -1482,6 +1483,25 @@ Shows public and private IP address. Note that the ip plugin is not available on
 
 ```yaml
 - type: gl-ip-address
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### CPU Temp
+
+Displays temperature data from system CPUs.
+
+Note: This widget uses the [`sensors`](https://github.com/nicolargo/glances/blob/develop/glances/plugins/glances_sensors.py) plugin, which is disabled by default, and may cause [performance issues](https://github.com/nicolargo/glances/issues/1664#issuecomment-632063558).
+You'll need to enable the sensors plugin to use this widget, using: `--enable-plugin sensors` when you start Glances.
+
+<p align="center"><img width="400" src="https://i.ibb.co/xSs4Gqd/gl-cpu-temp.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-cpu-temp
   options:
     hostname: http://192.168.130.2:61208
 ```

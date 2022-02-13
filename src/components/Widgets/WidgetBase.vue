@@ -209,6 +209,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GlCpuTemp
+        v-else-if="widgetType === 'gl-cpu-temp'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <HealthChecks
         v-else-if="widgetType === 'health-checks'"
         :options="widgetOptions"
@@ -413,6 +420,7 @@ export default {
     GlNetworkInterfaces: () => import('@/components/Widgets/GlNetworkInterfaces.vue'),
     GlNetworkTraffic: () => import('@/components/Widgets/GlNetworkTraffic.vue'),
     GlSystemLoad: () => import('@/components/Widgets/GlSystemLoad.vue'),
+    GlCpuTemp: () => import('@/components/Widgets/GlCpuTemp.vue'),
     HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
     IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),
     Jokes: () => import('@/components/Widgets/Jokes.vue'),
