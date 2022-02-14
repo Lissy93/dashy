@@ -89,12 +89,12 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
         push: true
           
-    - name: 💬 Set Docker Hub Description
-      uses: peter-evans/dockerhub-description@v2
-      with:
-        repository: lissy93/dashy
-        readme-filepath: ./docker/docker-readme.md
-        short-description: Dashy - A self-hosted start page for your server
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_USER_PASS }}
+#     - name: 💬 Set Docker Hub Description
+#       uses: peter-evans/dockerhub-description@v2
+#       with:
+#         repository: lissy93/dashy
+#         readme-filepath: ./docker/docker-readme.md
+#         short-description: Dashy - A self-hosted start page for your server
+#         username: ${{ secrets.DOCKER_USERNAME }}
+#         password: ${{ secrets.DOCKER_USER_PASS }}
 
