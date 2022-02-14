@@ -3,7 +3,7 @@
     @click="click ? click() : () => null"
     :class="disallow ? 'disallowed': ''"
     :type="type || 'button'"
-    :disabled="disabled"
+    :disabled="disabled || disallow"
     v-tooltip="hoverText"
     :title="tooltip"
   >
@@ -68,7 +68,7 @@ button {
   background: var(--background);
   border: 1px solid var(--primary);
   border-radius: var(--curve-factor);
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled):not(.disallowed) {
     color: var(--background);
     background: var(--primary);
     border-color: var(--background);

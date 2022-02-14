@@ -244,6 +244,10 @@ export default {
     },
     /* Navigate to the section's single-section view page */
     navigateToSection() {
+      if (!this.title) {
+        ErrorHandler('Cannot open section without a valid name');
+        return;
+      }
       const parse = (section) => section.replace(' ', '-').toLowerCase().trim();
       const sectionIdentifier = parse(this.title);
       router.push({ path: `/home/${sectionIdentifier}` });

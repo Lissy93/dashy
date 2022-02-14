@@ -1,42 +1,51 @@
 # Configuring
 
-All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format. Changes can also be made [directly through the UI](#editing-config-through-the-ui) and previewed live, from here you can also export, backup, reset, validate and download your configuration file.
+All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format. If you're using Docker, this file can be passed in as a volume. Changes can either be made directly to this file, or done [through the UI](#editing-config-through-the-ui). From the UI you can also export, backup, reset, validate and download your configuration file.
+
+#### There are three ways to edit the config
+- **Directly in the YAML file** _(5/5 reliability, 3/5 usability)_
+  - Write changes directly to the conf.yml file, optionally using one of the templates provided. This can be done in your favorite editor and uploading to your server, or directly editing the file via SSH, but the easiest method would be to use [Code Server](https://github.com/coder/code-server)
+- **UI JSON Editor** _(4/5 reliability, 4/5 usability)_
+  - From the UI, under the config menu there is a JSON editor, with built-in validation, documentation and advanced options
+- **UI Visual Editor** _(3/5 reliability, 5/5 usability)_
+  - From the UI, enter the Interactive Edit Mode, then click any part of the page to edit. Changes are previewed live, and then saved to disk
+- **REST API** _(Coming soon)_
+  - Programmatically edit config either through the command line, using a script or a third-party application
+
+#### Tips
+- You may find it helpful to look at some sample config files to get you started, a collection of which can be found [here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
+- You can check that your config file fits the schema, by running `yarn validate-config`
+- After modifying your config, the app needs to be recompiled, by running `yarn build`  - this happens automatically if you're using Docker
+- It is recommended to keep a backup of your config file. You can download it under Config menu, or use the [Cloud Backup](./docs/backup-restore.md) feature.
+- You can make use of YAML features, like anchors, comments, multi-line strings, etc to reuse attributes and keep your config file readable
+- Once you have finished configuring your dashboard, you can choose to [disable UI config](#preventing-changes) if you wish
+- All fields are optional, unless otherwise stated.
 
 The following file provides a reference of all supported configuration options.
-
----
 
 #### Contents
 
 - [**`pageInfo`**](#pageinfo) - Header text, footer, title, navigation, etc
-	- [`navLinks`](#pageinfonavlinks-optional) - Navigation bar items and links
+  - [`navLinks`](#pageinfonavlinks-optional) - Links to display in the navigation bar
 - [**`appConfig`**](#appconfig-optional) - Main application settings
-	- [`webSearch`](#appconfigwebsearch-optional) - Configure web search engine options
-	- [`hideComponents`](#appconfighidecomponents-optional) - Show/ hide page components
-	- [`auth`](#appconfigauth-optional) - Built-in authentication setup
-	  - [`users`](#appconfigauthusers-optional) - Setup for simple auth
-	  - [`keycloak`](#appconfigauthkeycloak-optional) - Auth using Keycloak
+  - [`webSearch`](#appconfigwebsearch-optional) - Configure web search engine options
+  - [`hideComponents`](#appconfighidecomponents-optional) - Show/ hide page components
+  - [`auth`](#appconfigauth-optional) - Built-in authentication setup
+    - [`users`](#appconfigauthusers-optional) - List or users (for simple auth)
+    - [`keycloak`](#appconfigauthkeycloak-optional) - Auth config for Keycloak
 - [**`sections`**](#section) - List of sections
-	- [`displayData`](#sectiondisplaydata-optional) - Section display settings
-	- [`icon`](#sectionicon-and-sectionitemicon) - Icon for a section
-	- [`items`](#sectionitem) - List of items
-		- [`icon`](#sectionicon-and-sectionitemicon) - Icon for an item
+  - [`displayData`](#sectiondisplaydata-optional) - Section display settings
+    - [`show/hideForKeycloakUsers`](#sectiondisplaydatahideforkeycloakusers-and-sectiondisplaydatashowforkeycloakusers) - Set user controls
+  - [`icon`](#sectionicon-and-sectionitemicon) - Icon for a section
+  - [`items`](#sectionitem) - List of items
+    - [`icon`](#sectionicon-and-sectionitemicon) - Icon for an item
+  - [`widgets`](#sectionwidget-optional) - List of widgets
 - [**Notes**](#notes)
   - [Editing Config through the UI](#editing-config-through-the-ui)
-	- [About YAML](#about-yaml)
-	- [Config Saving Methods](#config-saving-methods)
-	- [Preventing Changes](#preventing-changes-being-written-to-disk)
+  - [About YAML](#about-yaml)
+  - [Config Saving Methods](#config-saving-methods)
+  - [Preventing Changes](#preventing-changes)
   - [Example](#example)
-
----
-
-Tips:
-- You may find it helpful to look at some sample config files to get you started, a collection of which can be found [here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
-- You can check that your config file fits the schema, by running `yarn validate-config`
-- After modifying your config, the app needs to be recompiled, by running `yarn build`  - this happens automatically whilst the app is running if you're using Docker
-- It is recommended to make and keep a backup of your config file. You can download your current config through the UI either from the Config menu, or using the `/download` endpoint. Alternatively, you can use the [Cloud Backup](./docs/backup-restore.md) feature.
-- The config can also be modified directly through the UI, validated and written to the conf.yml file.
-- All fields are optional, unless otherwise stated.
 
 ---
 
@@ -98,7 +107,10 @@ Tips:
 **`routingMode`** | `string` | _Optional_ | Can be either `hash` or `history`. Determines the URL format for sub-pages, hash mode will look like `/#/home` whereas with history mode available you have nice clean URLs, like `/home`. For more info, see the [Vue docs](https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations). If you're hosting Dashy with a custom BASE_URL, you will find that a bit of extra server config is necessary to get history mode working, so here you may want to instead use `hash` mode.Defaults to `history`.
 **`enableMultiTasking`** | `boolean` | _Optional_ | If set to true, will keep apps open in the background when in the workspace view. Useful for quickly switching between multiple sites, and preserving their state, but comes at the cost of performance.
 **`workspaceLandingUrl`** | `string` | _Optional_ | The URL or an app, service or website to launch when the workspace view is opened, before another service has been launched
-**`allowConfigEdit`** | `boolean` | _Optional_ | Should prevent / allow the user to write configuration changes to the conf.yml from the UI. When set to `false`, the user can only apply changes locally using the config editor within the app, whereas if set to `true` then changes can be written to disk directly through the UI. Defaults to `true`. Note that if authentication is enabled, the user must be of type `admin` in order to apply changes globally.
+**`preventWriteToDisk`** | `boolean` | _Optional_ | If set to `true`, users will be prevented from saving config changes to disk through the UI
+**`preventLocalSave`** | `boolean` | _Optional_ | If set to `true`, users will be prevented from applying config changes to local storage
+**`disableConfiguration`** | `boolean` | _Optional_ | If set to true, no users will be able to view or edit the config through the UI
+**`widgetsAlwaysUseProxy`** | `boolean` | _Optional_ | If set to `true`, requests made by widgets will always be proxied, same as setting `useProxy: true` on each widget. Note that this may break some widgets.
 **`showSplashScreen`** | `boolean` | _Optional_ | If set to `true`, a loading screen will be shown. Defaults to `false`.
 **`enableErrorReporting`** | `boolean` | _Optional_ | Enable reporting of unexpected errors and crashes. This is off by default, and **no data will ever be captured unless you explicitly enable it**. Turning on error reporting helps previously unknown bugs get discovered and fixed. Dashy uses [Sentry](https://github.com/getsentry/sentry) for error reporting. Defaults to `false`.
 **`sentryDsn`** | `boolean` | _Optional_ | If you need to monitor errors in your instance, then you can use Sentry to collect and process bug reports. Sentry can be self-hosted, or used as SaaS, once your instance is setup, then all you need to do is pass in the DSN here, and enable error reporting. You can learn more on the [Sentry DSN Docs](https://docs.sentry.io/product/sentry-basics/dsn-explainer/). Note that this will only ever be used if `enableErrorReporting` is explicitly enabled.
@@ -280,8 +292,13 @@ When updating the config through the JSON editor in the UI, you have two save op
 - Changes saved locally will only be applied to the current user through the browser, and will not apply to other instances - you either need to use the cloud sync feature, or manually update the conf.yml file.
 - On the other-hand, if you choose to write changes to disk, then your main `conf.yml` file will be updated, and changes will be applied to all users, and visible across all devices. For this functionality to work, you must be running Dashy with using the Docker container, or the Node server.  A backup of your current configuration will also be saved in the same directory. 
 
-### Preventing Changes being Written to Disk
-To disallow any changes from being written to disk via the UI config editor, set `appConfig.allowConfigEdit: false`. If you are using users, and have setup `auth` within Dashy, then only users with `type: admin` will be able to write config changes to disk.
+### Preventing Changes
+
+If you have authentication set up, then any user who is not an admin (with `type: admin`) will not be able to write changes to disk.
+
+You can also prevent changes fro any user being written to disk, using `preventWriteToDisk`. Or prevent any changes from being saved locally in browser storage, using `preventLocalSave`.
+
+To disable all UI config features, set `disableConfiguration`.
 
 ### Example
 

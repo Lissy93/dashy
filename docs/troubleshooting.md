@@ -22,6 +22,7 @@
 - [Status Checks Failing](#status-checks-failing)
 - [Diagnosing Widget Errors](#widget-errors)
 - [Fixing Widget CORS Errors](#widget-cors-errors)
+- [Keycloak Redirect Error](#keycloak-redirect-error)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
 
@@ -270,6 +271,25 @@ Just add the `useProxy: true` option to the failing widget.
 #### Option 4 - Use a plugin
 
 For testing purposes, you can use an addon, which will disable the CORS checks. You can get the Allow-CORS extension for [Chrome](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en-US) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/access-control-allow-origin/), more details [here](https://mybrowseraddon.com/access-control-allow-origin.html)
+
+---
+
+## Keycloak Redirect Error
+
+Firstly, ensure that in your Keycloak instance you have populated the Valid Redirect URIs field ([screenshot](https://user-images.githubusercontent.com/1862727/148599768-db4ee4f8-72c5-402d-8f00-051d999e6267.png)) with the URL to your Dashy instance.
+
+You may need to specify CORS headers on your Keycloak instance, to allow requests coming from Dashy, e.g:
+
+```
+Access-Control-Allow-Origin: https://dashy.example.com
+```
+
+If you're running in Kubernetes, you will need to enable CORS ingress rules, see [docs](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#enable-cors), e.g:
+
+```
+nginx.ingress.kubernetes.io/cors-allow-origin: "https://dashy.example.com"
+nginx.ingress.kubernetes.io/enable-cors: "true"
+```
 
 ---
 

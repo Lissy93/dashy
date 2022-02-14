@@ -39,6 +39,7 @@ export default {
   filters: {},
   methods: {
     processData(alertData) {
+      const round = (num) => ((num && typeof num === 'number') ? Math.round(num) : num);
       if (!alertData || alertData.length === 0) {
         this.noResults = true;
       } else {
@@ -51,8 +52,9 @@ export default {
             lasted: alert[1] ? getTimeDifference(alert[0] * 1000, alert[1] * 1000) : 'Ongoing',
             severity: alert[2],
             category: alert[3],
-            value: alert[5],
-            minMax: `Min: ${alert[4]}%<br>Avg: ${alert[5]}%<br>Max: ${alert[6]}%`,
+            value: round(alert[5]),
+            minMax: `Min: ${round(alert[4])}%<br>Avg: `
+            + `${round(alert[5])}%<br>Max: ${round(alert[6])}%`,
           });
         });
         this.alerts = alerts;

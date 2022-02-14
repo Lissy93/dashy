@@ -209,6 +209,12 @@
           "default": false,
           "description": "If set to true, will keep apps opened in the workspace open in the background. Useful for switching between sites, but comes at the cost of performance"
         },
+        "widgetsAlwaysUseProxy": {
+          "title": "Widgets always use proxy",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, the useProxy option for widgets will always be applied without having to specify it for each widget"
+        },
         "webSearch": {
           "title": "Web Search",
           "type": "object",
@@ -438,6 +444,24 @@
           "type": "boolean",
           "default": "false",
           "description": "If set to true, a loading screen will be shown"
+        },
+        "preventWriteToDisk": {
+          "title": "Prevent saving config to disk",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, no users will not be able to save config changes to disk through the UI"
+        },
+        "preventLocalSave": {
+          "title": "Prevent saving config to local storage",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, no users will not be able to save config changes to the browser's local storage"
+        },
+        "disableConfiguration": {
+          "title": "Disable all UI Config",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, no users will be able to view or edit the config through the UI"
         },
         "allowConfigEdit": {
           "title": "Allow Config Editing",

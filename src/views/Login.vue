@@ -21,15 +21,15 @@
     <!-- Main login form -->
     <form class="login-form" v-if="(!isUserAlreadyLoggedIn) && isAuthenticationEnabled">
       <h2 class="login-title">{{ $t('login.title') }}</h2>
-      <Input
+      <Input type="text"
         v-model="username"
-        type="text"
+        :onEnter="submitLogin"
         :label="$t('login.username-label')"
         class="login-field username"
       />
-      <Input
+      <Input type="password"
         v-model="password"
-        type="password"
+        :onEnter="submitLogin"
         :label="$t('login.password-label')"
         class="login-field password"
       />
@@ -38,6 +38,7 @@
         v-model="timeout"
         :selectOnTab="true"
         :options="dropDownMenu"
+        :map-keydown="(map) => ({ ...map, 13: () => this.submitLogin() })"
         class="login-time-dropdown"
       />
       <Button class="login-button" :click="submitLogin">

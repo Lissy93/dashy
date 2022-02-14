@@ -7,7 +7,7 @@
     classes="dashy-modal edit-item"
     @closed="modalClosed"
   >
-  <div class="edit-item-inner">
+  <div class="edit-item-inner" v-if="allowViewConfig">
     <!-- Title and Item ID -->
     <h3 class="title">Edit Item</h3>
     <p class="sub-title">Editing {{item.title}} (ID: {{itemId}})</p>
@@ -67,6 +67,7 @@
     <!-- Save to state button -->
     <SaveCancelButtons :saveClick="saveItem" :cancelClick="modalClosed" />
     </div>
+    <AccessError v-else />
   </modal>
 </template>
 
@@ -74,6 +75,7 @@
 import AddIcon from '@/assets/interface-icons/interactive-editor-add.svg';
 import BinIcon from '@/assets/interface-icons/interactive-editor-remove.svg';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
+import AccessError from '@/components/Configuration/AccessError';
 import Input from '@/components/FormElements/Input';
 import Radio from '@/components/FormElements/Radio';
 import Select from '@/components/FormElements/Select';
@@ -101,13 +103,18 @@ export default {
     isNew: Boolean,
     parentSectionTitle: String, // If adding new item, which section to add it under
   },
-  computed: {},
+  computed: {
+    allowViewConfig() {
+      return this.$store.getters.permissions.allowViewConfig;
+    },
+  },
   components: {
     Input,
     Radio,
     Select,
     AddIcon,
     BinIcon,
+    AccessError,
     SaveCancelButtons,
   },
   mounted() {
