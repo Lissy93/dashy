@@ -96,5 +96,5 @@ jobs:
         readme-filepath: ./docker/docker-readme.md
         short-description: Dashy - A self-hosted start page for your server
         username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        password: ${{ secrets.DOCKER_USER_PASS }}
 
