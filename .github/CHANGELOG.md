@@ -1,5 +1,17 @@
 # Changelog
 
+## 🐛 2.0.3 - Bug Fixes [PR #488](https://github.com/Lissy93/dashy/pull/488)
+- Press enter to submit login form (Re: #483)
+- Allow disabling write to local storage and disk (Re: #485)
+- Fix malformed YAML from export config (Re: #482)
+- Allow global option for useProxy (Re: #486)
+- Look into arrow key navigation error (Re: #463)
+- Disallow displaying config (Re: #455)
+- Round values in Glances Alerts widget (Re: #454)
+- Create a CPU temp widget (Re: #452)
+- Add to docs: Keycloak in Kubernetes (Re: #479)
+- Add a widget for displaying images (Re: #487)
+
 ## ⬆️ 2.0.2 - Dependency Updates [PR #471](https://github.com/Lissy93/dashy/pull/471)
 - Updates Alpine version for main Dockerfile
 - Updates node_modules to latest stable versions

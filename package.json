@@ -1,6 +1,6 @@
 {
   "name": "Dashy",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "license": "MIT",
   "main": "server",
   "author": "Alicia Sykes <alicia@omg.lol> (https://aliciasykes.com)",
@@ -63,9 +63,6 @@
     "vue-cli-plugin-yaml": "^1.0.2",
     "vue-svg-loader": "^0.16.0",
     "vue-template-compiler": "^2.6.14"
-  },
-  "gitHooks": {
-    "pre-commit": "yarn lint"
   },
   "engines": {
     "node": ">=16.0.0"
