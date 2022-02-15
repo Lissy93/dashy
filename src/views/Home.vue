@@ -149,7 +149,7 @@ export default {
       let sectionToReturn;
       const parse = (section) => section.replaceAll(' ', '-').toLowerCase().trim();
       allSections.forEach((section) => {
-        if (parse(sectionTitle) === parse(section.name)) {
+        if (parse(sectionTitle) === parse(section.name || '')) {
           sectionToReturn = [section];
         }
       });

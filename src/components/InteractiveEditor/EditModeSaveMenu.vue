@@ -1,13 +1,16 @@
 <template>
   <!-- Intro Info -->
   <div class="edit-mode-bottom-banner">
-    <div class="edit-banner-section intro-container">
+    <div class="edit-banner-section intro-container"  v-if="showEditMsg">
       <p class="section-sub-title edit-mode-intro l-1">
         {{ $t('interactive-editor.menu.edit-mode-subtitle') }}
       </p>
       <p class="edit-mode-intro l-2">
         {{ $t('interactive-editor.menu.edit-mode-description') }}
       </p>
+    </div>
+    <div class="edit-banner-section intro-container" v-else>
+      <AccessError class="no-permission" />
     </div>
     <div class="edit-banner-section empty-space"></div>
     <!-- Save Buttons -->
@@ -17,6 +20,7 @@
       </p>
       <Button
         :click="saveLocally"
+        :disallow="!permissions.allowSaveLocally"
         v-tooltip="tooltip($t('interactive-editor.menu.save-locally-tooltip'))"
       >
         {{ $t('interactive-editor.menu.save-locally-btn') }}
@@ -24,7 +28,7 @@
       </Button>
       <Button
         :click="writeToDisk"
-        :disabled="!allowWriteToDisk"
+        :disallow="!permissions.allowWriteToDisk"
         v-tooltip="tooltip($t('interactive-editor.menu.save-disk-tooltip'))"
       >
         {{ $t('interactive-editor.menu.save-disk-btn') }}
@@ -32,6 +36,7 @@
       </Button>
       <Button
         :click="openExportConfigMenu"
+        :disallow="!permissions.allowViewConfig"
         v-tooltip="tooltip($t('interactive-editor.menu.export-config-tooltip'))"
       >
         {{ $t('interactive-editor.menu.export-config-btn') }}
@@ -52,6 +57,7 @@
       </p>
       <Button
         :click="openEditPageInfo"
+        :disallow="!permissions.allowViewConfig"
         v-tooltip="tooltip($t('interactive-editor.menu.edit-page-info-tooltip'))"
       >
         {{ $t('interactive-editor.menu.edit-page-info-btn') }}
@@ -59,6 +65,7 @@
       </Button>
       <Button
         :click="openEditAppConfig"
+        :disallow="!permissions.allowViewConfig"
         v-tooltip="tooltip($t('interactive-editor.menu.edit-app-config-tooltip'))"
       >
         {{ $t('interactive-editor.menu.edit-app-config-btn') }}
@@ -82,7 +89,7 @@ import EditPageInfo from '@/components/InteractiveEditor/EditPageInfo';
 import EditAppConfig from '@/components/InteractiveEditor/EditAppConfig';
 import { modalNames, localStorageKeys, serviceEndpoints } from '@/utils/defaults';
 import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
-import { isUserAdmin } from '@/utils/Auth';
+import AccessError from '@/components/Configuration/AccessError';
 
 import SaveLocallyIcon from '@/assets/interface-icons/interactive-editor-save-locally.svg';
 import SaveToDiskIcon from '@/assets/interface-icons/interactive-editor-save-disk.svg';
@@ -103,14 +110,18 @@ export default {
     AppConfigIcon,
     PageInfoIcon,
     EditAppConfig,
+    AccessError,
   },
   computed: {
     config() {
       return this.$store.state.config;
     },
-    allowWriteToDisk() {
-      const { appConfig } = this.config;
-      return appConfig.allowConfigEdit !== false && isUserAdmin();
+    permissions() {
+      // Returns: { allowWriteToDisk, allowSaveLocally, allowViewConfig }
+      return this.$store.getters.permissions;
+    },
+    showEditMsg() {
+      return this.permissions.allowWriteToDisk || this.permissions.allowSaveLocally;
     },
   },
   data() {
@@ -149,6 +160,10 @@ export default {
       localStorage.removeItem(localStorageKeys.CONF_SECTIONS);
     },
     saveLocally() {
+      if (!this.permissions.allowSaveLocally) {
+        ErrorHandler('Unable to save changes locally, this feature has been disabled');
+        return;
+      }
       const data = this.config;
       localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(data.sections));
       localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(data.pageInfo));
@@ -161,6 +176,10 @@ export default {
       this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
     },
     writeToDisk() {
+      if (this.config.appConfig.preventWriteToDisk) {
+        ErrorHandler('Unable to write changed to disk, as this functionality is disabled');
+        return;
+      }
       // 1. Convert JSON into YAML
       const yamlOptions = {};
       const yaml = jsYaml.dump(this.config, yamlOptions);
@@ -228,10 +247,15 @@ div.edit-mode-bottom-banner {
     }
     /* Intro-text container */
     &.intro-container  {
-        p.edit-mode-intro {
+      p.edit-mode-intro {
         margin: 0;
         color: var(--interactive-editor-color);
         cursor: default;
+      }
+      .no-permission {
+        margin: 0;
+        width: auto;
+        padding: 0 0.5rem;
       }
     }
     /* Button containers */
@@ -270,7 +294,7 @@ div.edit-mode-bottom-banner {
     color: var(--interactive-editor-color);
     border-color: var(--interactive-editor-color);
     background: var(--interactive-editor-background);
-    &:hover {
+    &:hover:not(.disallowed) {
       color: var(--interactive-editor-background);
       border-color: var(--interactive-editor-color);
       background: var(--interactive-editor-color);

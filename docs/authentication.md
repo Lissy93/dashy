@@ -74,13 +74,15 @@ For Example:
     ...
 ```
 
-### Security
-Since all authentication is happening entirely on the client-side, it is vulnerable to manipulation by an adversary. An attacker could look at the source code, find the function used generate the auth token, then decode the minified JavaScript to find the hash, and manually generate a token using it, then just insert that value as a cookie using the console, and become a logged in user. Therefore, if you need secure authentication for your app, it is strongly recommended to implement this using your web server, or use a VPN to control access to Dashy. The purpose of the login page is merely to prevent immediate unauthorized access to your homepage.
+### Permissions
+Any user who is not an admin (with `type: admin`) will not be able to write changes to disk.
 
-Addressing this is on the todo list, and there are several potential solutions:
-1. Encrypt all site data against the users password, so that an attacker can not physically access any data without the correct decryption key
-2. Use a backend service to handle authentication and configuration, with no user data returned from the server until the correct credentials are provided. However, this would require either Dashy to be run using it's Node.js server, or the use of an external service
-3. ~~Implement authentication using a self-hosted identity management solution, such as [Keycloak for Vue](https://www.keycloak.org/securing-apps/vue)~~ **This is now implemented, and released in PR #174 of V 1.6.5!**
+You can also prevent any user from writing changes to disk, using `preventWriteToDisk`. Or prevent any changes from being saved locally in browser storage, using `preventLocalSave`. Both properties can be found under [`appConfig`](./docs/configuring.md#appconfig-optional).
+
+To disable all UI config features, including View Config, set `disableConfiguration`.
+
+### Security
+With basic auth, all logic is happening on the client-side, which could mean a skilled user could manipulate the code to view parts of your configuration, including the hash. If the SHA-256 hash is of a common password, it may be possible to determine it, using a lookup table, in order to find the original password. Which can be used to manually generate the auth token, that can then be inserted into session storage, to become a valid logged in user. Therefore, you should always use a long, strong and unique password, and if you instance contains security-critical info and/ or is exposed directly to the internet, and alternative authentication method may be better. The purpose of the login page is merely to prevent immediate unauthorized access to your homepage.
 
 **[⬆️ Back to Top](#authentication)**
 

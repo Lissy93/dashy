@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign, prefer-destructuring */
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Keys from '@/utils/StoreMutations';
@@ -7,6 +7,7 @@ import { componentVisibility } from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import { isUserAdmin } from '@/utils/Auth';
 
 Vue.use(Vuex);
 
@@ -62,6 +63,34 @@ const store = new Vuex.Store({
     },
     visibleComponents(state, getters) {
       return componentVisibility(getters.appConfig);
+    },
+    /* Make config read/ write permissions object */
+    permissions(state, getters) {
+      const appConfig = getters.appConfig;
+      const perms = {
+        allowWriteToDisk: true,
+        allowSaveLocally: true,
+        allowViewConfig: true,
+      };
+      // Disable saving changes locally, only
+      if (appConfig.preventLocalSave) {
+        perms.allowSaveLocally = false;
+      }
+      // Disable saving changes to disk, only
+      if (appConfig.preventWriteToDisk || !isUserAdmin) {
+        perms.allowWriteToDisk = false;
+      }
+      // Legacy Option: Will be removed in V 2.1.0
+      if (appConfig.allowConfigEdit === false) {
+        perms.allowWriteToDisk = false;
+      }
+      // Disable everything
+      if (appConfig.disableConfiguration) {
+        perms.allowWriteToDisk = false;
+        perms.allowSaveLocally = false;
+        perms.allowViewConfig = false;
+      }
+      return perms;
     },
     // eslint-disable-next-line arrow-body-style
     getSectionByIndex: (state, getters) => (index) => {

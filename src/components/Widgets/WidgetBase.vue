@@ -209,6 +209,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <GlCpuTemp
+        v-else-if="widgetType === 'gl-cpu-temp'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <HealthChecks
         v-else-if="widgetType === 'health-checks'"
         :options="widgetOptions"
@@ -218,6 +225,13 @@
       />
       <IframeWidget
         v-else-if="widgetType === 'iframe'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <ImageWidget
+        v-else-if="widgetType === 'image'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -413,8 +427,10 @@ export default {
     GlNetworkInterfaces: () => import('@/components/Widgets/GlNetworkInterfaces.vue'),
     GlNetworkTraffic: () => import('@/components/Widgets/GlNetworkTraffic.vue'),
     GlSystemLoad: () => import('@/components/Widgets/GlSystemLoad.vue'),
+    GlCpuTemp: () => import('@/components/Widgets/GlCpuTemp.vue'),
     HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
     IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),
+    ImageWidget: () => import('@/components/Widgets/ImageWidget.vue'),
     Jokes: () => import('@/components/Widgets/Jokes.vue'),
     NdCpuHistory: () => import('@/components/Widgets/NdCpuHistory.vue'),
     NdLoadHistory: () => import('@/components/Widgets/NdLoadHistory.vue'),
@@ -446,6 +462,9 @@ export default {
     errorMsg: null,
   }),
   computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
     /* Returns the widget type, shows error if not specified */
     widgetType() {
       if (!this.widget.type) {
@@ -457,7 +476,7 @@ export default {
     /* Returns users specified widget options, or empty object */
     widgetOptions() {
       const options = this.widget.options || {};
-      const useProxy = !!this.widget.useProxy;
+      const useProxy = this.appConfig.widgetsAlwaysUseProxy || !!this.widget.useProxy;
       const updateInterval = this.widget.updateInterval !== undefined
         ? this.widget.updateInterval : null;
       return { useProxy, updateInterval, ...options };

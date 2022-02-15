@@ -7,7 +7,7 @@
         v-tooltip="tooltip($t('settings.config-launcher-tooltip'))" />
       <IconInteractiveEditor @click="startInteractiveEditor()" tabindex="-2"
         v-tooltip="tooltip(enterEditModeTooltip)"
-        :class="isEditMode ? 'disabled' : ''" />
+        :class="(isEditMode || !isEditAllowed) ? 'disabled' : ''" />
       <IconViewMode @click="openChangeViewMenu()" tabindex="-2"
         v-tooltip="tooltip($t('alternate-views.alternate-view-heading'))" />
     </div>
@@ -91,8 +91,12 @@ export default {
     isEditMode() {
       return this.$store.state.editMode;
     },
+    isEditAllowed() {
+      return this.$store.getters.permissions.allowViewConfig;
+    },
     /* Tooltip text for Edit Mode button, to change depending on it in edit mode */
     enterEditModeTooltip() {
+      if (!this.isEditAllowed) return 'Config editor not available';
       return this.$t(
         `interactive-editor.menu.${this.isEditMode
           ? 'edit-mode-subtitle' : 'start-editing-tooltip'}`,
@@ -126,7 +130,7 @@ export default {
       this.viewSwitcherOpen = false;
     },
     startInteractiveEditor() {
-      if (!this.isEditMode) {
+      if (!this.isEditMode && this.isEditAllowed) {
         this.$store.commit(Keys.SET_EDIT_MODE, true);
       }
     },

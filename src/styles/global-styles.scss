@@ -31,7 +31,7 @@ html {
   box-shadow: 0 40px 70px -2px hsl(0deg 0% 0% / 60%), 1px 1px 6px var(--primary) !important;
   min-width: 350px;
   min-height: 200px;
-
+  background: var(--background-darker);
   @include phone {
     left: 0.5rem !important;
     right: 0.5rem !important;
