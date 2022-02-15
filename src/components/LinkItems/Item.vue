@@ -1,6 +1,6 @@
 <template ref="container">
   <div :class="`item-wrapper wrap-size-${itemSize}`">
-    <a @click="itemOpened"
+    <a @click="beforeLaunchItem"
       @mouseup.right="openContextMenu"
       @contextmenu.prevent
       :href="hyperLinkHref"
@@ -9,7 +9,7 @@
       v-tooltip="getTooltipOptions()"
       rel="noopener noreferrer" tabindex="0"
       :id="`link-${id}`"
-      :style="`--open-icon: ${getUnicodeOpeningIcon()}; color: ${color};  ${customStyles}`"
+      :style="`--open-icon:${unicodeOpeningIcon};color:${color};background:${backgroundColor}`"
     >
       <!-- Item Text -->
       <div :class="`tile-title  ${!icon? 'bounce no-icon': ''}`" :id="`tile-${id}`" >
@@ -23,7 +23,7 @@
       <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon || itemSize === 'small'"
         :openingMethod="accumulatedTarget"  position="bottom right"
         :hotkey="hotkey" />
-      <!-- Status indicator dot (if enabled) showing weather srevice is availible -->
+      <!-- Status indicator dot (if enabled) showing weather service is available -->
       <StatusIndicator
         class="status-indicator"
         v-if="enableStatusCheck"
@@ -54,8 +54,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-import router from '@/router';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
@@ -66,11 +64,7 @@ import StoreKeys from '@/utils/StoreMutations';
 import ItemMixin from '@/mixins/ItemMixin';
 import { targetValidator } from '@/utils/ConfigHelpers';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
-import {
-  localStorageKeys,
-  serviceEndpoints,
-  modalNames,
-} from '@/utils/defaults';
+import { modalNames } from '@/utils/defaults';
 
 export default {
   name: 'Item',
@@ -118,62 +112,53 @@ export default {
       return `size-${itemSize} ${!icon ? 'short' : ''} `
        + `${isAddNew ? 'add-new' : ''} ${isEditMode ? 'is-edit-mode' : ''}`;
     },
+    /* Used by certain themes (material), to show animated CSS icon */
+    unicodeOpeningIcon() {
+      switch (this.accumulatedTarget) {
+        case 'newtab': return '"\\f360"';
+        case 'sametab': return '"\\f24d"';
+        case 'parent': return '"\\f3bf"';
+        case 'top': return '"\\f102"';
+        case 'modal': return '"\\f2d0"';
+        case 'workspace': return '"\\f0b1"';
+        case 'clipboard': return '"\\f0ea"';
+        default: return '"\\f054"';
+      }
+    },
   },
   data() {
     return {
-      contextMenuOpen: false,
-      getId: this.id,
+      editMenuOpen: false,
       customStyles: {
         color: this.color,
         background: this.backgroundColor,
       },
-      statusResponse: undefined,
-      contextPos: {
-        posX: undefined,
-        posY: undefined,
-      },
-      editMenuOpen: false,
     };
   },
   methods: {
     /* Called when an item is clicked, manages the opening of modal & resets the search field */
-    itemOpened(e) {
-      if (this.isEditMode) {
-        // If in edit mode, open settings, and don't launch app
+    beforeLaunchItem(e) {
+      if (this.isEditMode) { // If in edit mode, open settings, don't launch app
         this.openItemSettings();
         return;
       }
-      if (e.altKey || this.accumulatedTarget === 'modal') {
+      if (e.altKey) {
         e.preventDefault();
-        this.$emit('triggerModal', this.url);
+        this.launchItem('modal');
+      } else if (this.accumulatedTarget === 'modal') {
+        this.launchItem('modal');
       } else if (this.accumulatedTarget === 'workspace') {
-        router.push({ name: 'workspace', query: { url: this.url } });
+        this.launchItem('workspace');
       } else if (this.accumulatedTarget === 'clipboard') {
-        navigator.clipboard.writeText(this.url);
-        this.$toasted.show(this.$t('context-menus.item.copied-toast'));
-      } else {
-        this.$emit('itemClicked');
+        this.launchItem('clipboard');
       }
+      // Clear search bar
+      this.$emit('itemClicked');
       // Update the most/ last used ledger, for smart-sorting
       if (!this.appConfig.disableSmartSort) {
         this.incrementMostUsedCount(this.id);
         this.incrementLastUsedCount(this.id);
       }
-    },
-    /* Open custom context menu, and set position */
-    openContextMenu(e) {
-      this.contextMenuOpen = !this.contextMenuOpen;
-      if (e && window) {
-        // Calculate placement based on cursor and scroll position
-        this.contextPos = {
-          posX: e.clientX + window.pageXOffset,
-          posY: e.clientY + window.pageYOffset,
-        };
-      }
-    },
-    /* Closes the context menu, called when user clicks literally anywhere */
-    closeContextMenu() {
-      this.contextMenuOpen = false;
     },
     /* Returns configuration object for the tooltip */
     getTooltipOptions() {
@@ -194,79 +179,7 @@ export default {
         classes: `item-description-tooltip tooltip-is-${this.itemSize}`,
       };
     },
-    /* Used by certain themes (material), to show animated CSS icon */
-    getUnicodeOpeningIcon() {
-      switch (this.accumulatedTarget) {
-        case 'newtab': return '"\\f360"';
-        case 'sametab': return '"\\f24d"';
-        case 'parent': return '"\\f3bf"';
-        case 'top': return '"\\f102"';
-        case 'modal': return '"\\f2d0"';
-        case 'workspace': return '"\\f0b1"';
-        case 'clipboard': return '"\\f0ea"';
-        default: return '"\\f054"';
-      }
-    },
-    /* Pulls together all user options, returns URL + Get params for ping endpoint */
-    makeApiUrl() {
-      const {
-        url, statusCheckUrl, statusCheckHeaders, statusCheckAllowInsecure, statusCheckAcceptCodes,
-      } = this;
-      const encode = (str) => encodeURIComponent(str);
-      this.statusResponse = undefined;
-      // Find base URL, where the API is hosted
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      // Find correct URL to check, and encode
-      const urlToCheck = `?&url=${encode(statusCheckUrl || url)}`;
-      // Get, stringify and encode any headers
-      const headers = statusCheckHeaders
-        ? `&headers=${encode(JSON.stringify(statusCheckHeaders))}` : '';
-      // Deterimine if user disabled security
-      const enableInsecure = statusCheckAllowInsecure ? '&enableInsecure=true' : '';
-      const acceptCodes = statusCheckAcceptCodes ? `&acceptCodes=${statusCheckAcceptCodes}` : '';
-      // Construct the full API endpoint's URL with GET params
-      return `${baseUrl}${serviceEndpoints.statusCheck}/${urlToCheck}`
-        + `${headers}${enableInsecure}${acceptCodes}`;
-    },
-    /* Checks if a given service is currently online */
-    checkWebsiteStatus() {
-      const endpoint = this.makeApiUrl();
-      axios.get(endpoint)
-        .then((response) => {
-          if (response.data) this.statusResponse = response.data;
-        })
-        .catch(() => { // Something went very wrong.
-          this.statusResponse = {
-            statusText: 'Failed to make request',
-            statusSuccess: false,
-          };
-        });
-    },
-    /* Handle navigation options from the context menu */
-    launchItem(method) {
-      const { url } = this;
-      this.contextMenuOpen = false;
-      switch (method) {
-        case 'newtab':
-          window.open(url, '_blank');
-          break;
-        case 'sametab':
-          window.open(url, '_self');
-          break;
-        case 'modal':
-          this.$emit('triggerModal', url);
-          break;
-        case 'workspace':
-          router.push({ name: 'workspace', query: { url } });
-          break;
-        case 'clipboard':
-          navigator.clipboard.writeText(url);
-          this.$toasted.show(this.$t('context-menus.item.copied-toast'));
-          break;
-        default: window.open(url, '_blank');
-      }
-    },
-    /* Open the Edit Item moal form */
+    /* Open the Edit Item modal form */
     openItemSettings() {
       this.editMenuOpen = true;
       this.contextMenuOpen = false;
@@ -278,20 +191,6 @@ export default {
       this.editMenuOpen = false;
       this.$modal.hide(modalNames.EDIT_ITEM);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-    },
-    /* Used for smart-sort when sorting items by most used apps */
-    incrementMostUsedCount(itemId) {
-      const mostUsed = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
-      let counter = mostUsed[itemId] || 0;
-      counter += 1;
-      mostUsed[itemId] = counter;
-      localStorage.setItem(localStorageKeys.MOST_USED, JSON.stringify(mostUsed));
-    },
-    /* Used for smart-sort when sorting by last used apps */
-    incrementLastUsedCount(itemId) {
-      const lastUsed = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
-      lastUsed[itemId] = new Date().getTime();
-      localStorage.setItem(localStorageKeys.LAST_USED, JSON.stringify(lastUsed));
     },
     /* Open the modal for moving/ copying item to other section */
     openMoveItemMenu() {
@@ -348,19 +247,15 @@ export default {
     box-shadow: var(--item-hover-shadow);
     background: var(--item-background-hover);
     color: var(--item-text-color-hover);
-    // position: relative;
-    // .tile-title span.text {
-    //   white-space: pre-wrap;
-    // }
   }
   &:focus {
     outline: 2px solid var(--primary);
   }
-  &.short:not(.size-large) {
-    height: 2rem;
-  }
   &.add-new {
     border: 2px dashed var(--primary) !important;
+  }
+  &.short:not(.size-large) {
+    height: 2rem;
   }
 }
 
@@ -410,19 +305,23 @@ export default {
     }
   }
 
-  /* Apply transofmation of icons on hover */
+  /* Apply transformation of icons on hover */
   .tile-icon, .tile-svg  {
     filter: var(--item-icon-transform-hover);
   }
 }
 
-/* Edit Mode Icon */
+/* Edit icon, visible in edit mode */
 .item .edit-mode-item {
   width: 1rem;
   height: 1rem;
   position: absolute;
   top: 0.2rem;
   right: 0.2rem;
+}
+
+p.description {
+  display: none; // By default, we don't show the description
 }
 
 /* Specify layout for alternate sized icons */
@@ -505,9 +404,6 @@ export default {
         height: 2rem;
       }
     }
-  }
-  p.description {
-    display: none; // By default, we don't show the description
   }
   &:before { // Certain themes (e.g. material) show css animated fas icon on hover
     display: none;
