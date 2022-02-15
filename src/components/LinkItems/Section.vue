@@ -23,7 +23,15 @@
     > <!-- Show for each item -->
       <template v-for="(item) in sortedItems">
         <div v-if="item.subItems" :key="item.id">
-          Sub-Items
+          <template v-for="(subItem, subIndex) in item.subItems">
+            <SubItem
+              :key="subIndex"
+              :id="`${item.id}-sub-${subIndex}`"
+              :url="item.url"
+              :icon="item.icon"
+              :title="item.title"
+            />
+          </template>
         </div>
         <Item
           v-else
@@ -105,6 +113,7 @@
 <script>
 import router from '@/router';
 import Item from '@/components/LinkItems/Item.vue';
+import SubItem from '@/components/LinkItems/SubItem.vue';
 import WidgetBase from '@/components/Widgets/WidgetBase';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
@@ -134,6 +143,7 @@ export default {
     Collapsable,
     ContextMenu,
     Item,
+    SubItem,
     WidgetBase,
     IframeModal,
     EditSection,
