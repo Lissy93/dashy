@@ -1791,14 +1791,14 @@ Alternatively, for displaying simple data, you could also just use the either th
 
 Suggestions for widget ideas are welcome. But there is no guarantee that I will build your widget idea.
 
-You can suggest a widget [here](https://git.io/Jygo3), please star the repo before submitting a ticket.
-
 Please only request widgets for services that:
 - Have a publicly accessible API
 - Are CORS and HTTPS enabled
 - Are free to use, or have a free plan
 - Allow for use in their Terms of Service
 - Would be useful for other users
+
+You can suggest a widget [here](https://git.io/Jygo3), please star the repo before submitting a ticket. If you are a monthly GitHub sponsor, I will happily build out a custom widget for any service that meets the above criteria, usually 2 within weeks of initial request.
 
 For services that are not officially supported, it is likely still possible to display data using either the [iframe](#iframe-widget), [embed](#html-embedded-widget) or [API response](#api-response) widgets. For more advanced features, like charts and action buttons, you could also build your own widget, using [this tutorial](/docs/development-guides.md#building-a-widget), it's fairly straight forward, and you can use an [existing widget](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets) (or [this example](https://git.io/JygKI)) as a template.
 
