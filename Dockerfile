@@ -30,8 +30,15 @@ FROM node:16.13.2-alpine
 # Define some ENV Vars
 ENV PORT=80 \
   DIRECTORY=/app \
-  IS_DOCKER=true
+  IS_DOCKER=true \
+  UID=1000 \
+  GUID=1000
 
+# Create a group and user
+RUN addgroup --gid ${GUID} application \
+  && adduser --no-create-home --uid ${UID} application application
+
+USER application
 # Create and set the working directory
 WORKDIR ${DIRECTORY}
 
