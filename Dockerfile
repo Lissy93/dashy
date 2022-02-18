@@ -31,22 +31,31 @@ FROM node:16.13.2-alpine
 ENV PORT=80 \
   DIRECTORY=/app \
   IS_DOCKER=true \
-  UID=1000 \
-  GUID=1000
+  USER=docker \
+  UID=12345 \
+  GID=23456
 
-# Create a group and user
-RUN addgroup --gid ${GUID} application \
-  && adduser --no-create-home --uid ${UID} application application
+# Install tini for initialization and tzdata for setting timezone
+RUN apk add --no-cache tzdata tini \
+  # Add group
+    && addgroup --gid ${GID} "${USER}" \ 
+  # Add user
+    && adduser \
+    --disabled-password \
+    --ingroup "${USER}" \
+    --gecos "" \
+    --home "${DIRECTORY}" \
+    --no-create-home \
+    --uid "$UID" \
+    "$USER"
 
-USER application
+USER ${USER}
+
 # Create and set the working directory
 WORKDIR ${DIRECTORY}
 
-# Install tini for initialization and tzdata for setting timezone
-RUN apk add --no-cache tzdata tini
-
 # Copy built application from build phase
-COPY --from=BUILD_IMAGE /app ./
+COPY --from=BUILD_IMAGE --chown=${USER}:${USER} /app ./
 
 # Finally, run start command to serve up the built application
 ENTRYPOINT [ "/sbin/tini", "--" ]
