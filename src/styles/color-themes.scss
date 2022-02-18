@@ -328,6 +328,7 @@ html[data-theme='colorful'] {
   --item-group-heading-text-color-hover: var(--primary);
   --item-hover-shadow: 1px 4px 6px var(--black);
   --nav-link-background-color: var(--background);
+  --outline-color: var(--primary);
   .item-wrapper:nth-child(1n) { .item { color: #eb5cad; border: 1px solid #eb5cad; } }
   .item-wrapper:nth-child(2n) { .item { color: #985ceb; border: 1px solid #985ceb; } }
   .item-wrapper:nth-child(3n) { .item { color: #5c90eb; border: 1px solid #5c90eb; } }

@@ -22,14 +22,14 @@
       :style="gridStyle" :id="`section-${groupId}`"
     > <!-- Show for each item -->
       <template v-for="(item) in sortedItems">
-        <div v-if="item.subItems" :key="item.id">
+        <div v-if="item.subItems" :key="item.id" class="sub-items-group">
           <template v-for="(subItem, subIndex) in item.subItems">
             <SubItem
               :key="subIndex"
               :id="`${item.id}-sub-${subIndex}`"
-              :url="item.url"
-              :icon="item.icon"
-              :title="item.title"
+              :url="subItem.url"
+              :icon="subItem.icon"
+              :title="subItem.title"
             />
           </template>
         </div>
@@ -384,6 +384,20 @@ export default {
       width: -webkit-fill-available;
     }
   }
+}
+
+.sub-items-group {
+  display: grid;
+  margin: 0.5rem;
+  padding: 0.1rem;
+  flex-grow: 1;
+  flex-basis: 6rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  color: var(--item-text-color);
+  border: 1px solid var(--outline-color);
+  border-radius: var(--curve-factor);
+  text-decoration: none;
+  transition: all 0.2s ease-in-out 0s;
 }
 
 </style>
