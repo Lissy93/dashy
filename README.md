@@ -490,7 +490,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
         <a href="https://github.com/peng1can">
             <img src="https://avatars.githubusercontent.com/u/225854?v=4" width="80;" alt="peng1can"/>
             <br />
-            <sub><b>peng1can</b></sub>
+            <sub><b>Peng1can</b></sub>
         </a>
     </td>
     <td align="center">
