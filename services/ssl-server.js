@@ -12,7 +12,7 @@ module.exports = (app) => {
   };
 
   const isDocker = !!process.env.IS_DOCKER;
-  const SSLPort = process.env.SSL_PORT || (isDocker ? 443 : 4001);
+  const SSLPort = process.env.SSL_PORT || (isDocker ? 8081 : 4001);
 
   const printSuccess = () => {
     console.log(`🔐 HTTPS server successfully started (port: ${SSLPort} ${isDocker ? 'of container' : ''})`);

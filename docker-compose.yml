@@ -24,9 +24,9 @@ services:
       # - /path/to/my-config.yml:/app/public/conf.yml
       # - /path/to/item-icons:/app/public/item-icons
 
-    # Set port that web service will be served on. Keep container port as 80
+    # Set port that web service will be served on. Keep container port as 8080
     ports:
-      - 4000:80
+      - 4000:8080
 
     # Set any environmental variables
     environment:
