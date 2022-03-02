@@ -33,20 +33,27 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/aghybris">
+            <img src="https://avatars.githubusercontent.com/u/11677119?v=4" width="80;" alt="aghybris"/>
+            <br />
+            <sub><b>aghybris</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/Famku">
             <img src="https://avatars.githubusercontent.com/u/27890413?v=4" width="80;" alt="Famku"/>
             <br />
             <sub><b>Famku</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/hugalafutro">
             <img src="https://avatars.githubusercontent.com/u/30209689?v=4" width="80;" alt="hugalafutro"/>
             <br />
-            <sub><b>hugalafutro</b></sub>
+            <sub><b>Hugalafutro</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/KierenConnell">
             <img src="https://avatars.githubusercontent.com/u/46445781?u=5502f8fb780938e2825735d7bbb9236642d212c0&v=4" width="80;" alt="KierenConnell"/>
