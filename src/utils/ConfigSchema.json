@@ -284,7 +284,13 @@
           "title": "Enable Font-Awesome?",
           "type": "boolean",
           "default": true,
-          "description": "Should load font-awesome assets"
+          "description": "If true, font-awesome will be loaded, if false they will not be. If left empty, icons will only be loaded if needed"
+        },
+        "enableMaterialDesignIcons": {
+          "title": "Enable Font-Awesome?",
+          "type": "boolean",
+          "default": false,
+          "description": "If true, material-design-icons will be loaded, if false they will not be. If left empty, icons will only be loaded if needed"
         },
         "fontAwesomeKey": {
           "title": "Font-Awesome API Key",
