@@ -189,7 +189,7 @@ https://vercel.com/new/project?template=https://github.com/lissy93/dashy
 #### DigitalOcean
 [![Deploy to DO](https://i.ibb.co/PFt0PkB/deploy-digital-ocean-button.png)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean&refcode=3838338e7f79)
 
-[DigitalOcan](https://www.digitalocean.com/) is a cloud service providing affordable developer-friendly virtual machines from $5/month. But they also have an app platform, where you can run web apps, static sites, APIs and background workers. CDN-backed static sites are free for personal use.
+[DigitalOcean](https://www.digitalocean.com/) is a cloud service providing affordable developer-friendly virtual machines from $5/month. But they also have an app platform, where you can run web apps, static sites, APIs and background workers. CDN-backed static sites are free for personal use.
 
 ```
 https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean
