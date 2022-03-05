@@ -299,6 +299,8 @@ or
 Access-Control-Allow-Origin: *
 ```
 
+For more info on how to set headers, see: [Setting Headers](/docs/management.md#setting-headers) in the management docs
+
 #### Option 3 - Proxying Request
 
 You can route requests through Dashy's built-in CORS proxy. Instructions and more details can be found [here](/docs/widgets.md#proxying-requests). If you don't have control over the target origin, and you are running Dashy either through Docker, with the Node server or on Netlify, then this solution will work for you.
