@@ -42,6 +42,7 @@ module.exports = {
     statusCheck: '/status-check',
     save: '/config-manager/save',
     rebuild: '/config-manager/rebuild',
+    getConf: '/config-manager/get',
     systemInfo: '/system-info',
     corsProxy: '/cors-proxy',
   },

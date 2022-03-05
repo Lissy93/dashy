@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign, prefer-destructuring */
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from 'axios';
 import Keys from '@/utils/StoreMutations';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { componentVisibility } from '@/utils/ConfigHelpers';
@@ -8,12 +9,14 @@ import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import { isUserAdmin } from '@/utils/Auth';
+import { serviceEndpoints } from '@/utils/defaults';
 
 Vue.use(Vuex);
 
 const {
   INITIALIZE_CONFIG,
   SET_CONFIG,
+  SET_REMOTE_CONFIG,
   SET_MODAL_OPEN,
   SET_LANGUAGE,
   SET_ITEM_LAYOUT,
@@ -38,6 +41,7 @@ const {
 const store = new Vuex.Store({
   state: {
     config: {},
+    remoteConfig: {}, // The configuration stored on the server
     editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
     navigateConfToTab: undefined, // Used to switch active tab in config modal
@@ -125,6 +129,9 @@ const store = new Vuex.Store({
   mutations: {
     [SET_CONFIG](state, config) {
       state.config = config;
+    },
+    [SET_REMOTE_CONFIG](state, config) {
+      state.remoteConfig = config;
     },
     [SET_LANGUAGE](state, lang) {
       const newConfig = state.config;
@@ -271,7 +278,9 @@ const store = new Vuex.Store({
   },
   actions: {
     /* Called when app first loaded. Reads config and sets state */
-    [INITIALIZE_CONFIG]({ commit }) {
+    async [INITIALIZE_CONFIG]({ commit }) {
+      // Get the config file from the server and store it for use by the accumulator
+      commit(SET_REMOTE_CONFIG, (await axios.get(serviceEndpoints.getConf)).data);
       const deepCopy = (json) => JSON.parse(JSON.stringify(json));
       const config = deepCopy(new ConfigAccumulator().config());
       commit(SET_CONFIG, config);
