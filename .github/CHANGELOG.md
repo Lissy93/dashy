@@ -1,5 +1,8 @@
 # Changelog
 
+## :sparkles: 2.0.4 - Dynamic Config Loading [PR #528](https://github.com/Lissy93/dashy/pull/528)
+- `conf.yml` is now loaded dynamically and the app now only needs a browser refresh on config change, not a full rebuild!
+
 ## 🐛 2.0.3 - Bug Fixes [PR #488](https://github.com/Lissy93/dashy/pull/488)
 - Press enter to submit login form (Re: #483)
 - Allow disabling write to local storage and disk (Re: #485)
