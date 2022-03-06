@@ -16,6 +16,7 @@ Xert <xertdev@gmail.com> - 1 commits
 deepsource-io[bot] <deepsource-io[bot]@users.noreply.github.com> - 1 commits
 icy-comet <50461557+icy-comet@users.noreply.github.com> - 1 commits
 jnach <33467747+jnach@users.noreply.github.com> - 1 commits
+tazboyz16 <tazboyz_16@yahoo.com> - 1 commits
 BOZG <sr@bozg.se> - 2 commits
 Brendan <&#39;Lear> - 2 commits
 Dan <ilber> - 2 commits
@@ -37,9 +38,9 @@ EVOTk <45015615+EVOTk@users.noreply.github.com> - 22 commits
 repo-visualizer <repo-visualizer@users.noreply.github.com> - 27 commits
 Alicia <yke> - 28 commits
 snyk-bot <snyk-bot@snyk.io> - 32 commits
-Alicia <o> - 53 commits
-Alicia <yke> - 64 commits
-liss-bot <liss-bot@d0h.co> - 67 commits
+Alicia <o> - 54 commits
+Alicia <yke> - 67 commits
+liss-bot <liss-bot@d0h.co> - 69 commits
 Lissy93 <gh@d0h.co> - 78 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 206 commits
 Alicia <yke> - 334 commits
