@@ -14,7 +14,7 @@ import {
 } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 import { applyItemId } from '@/utils/SectionHelpers';
-import $store from '../store';
+import $store from '@/store';
 
 export default class ConfigAccumulator {
   constructor() {
