@@ -36,17 +36,24 @@
         <a href="https://github.com/aghybris">
             <img src="https://avatars.githubusercontent.com/u/11677119?v=4" width="80;" alt="aghybris"/>
             <br />
-            <sub><b>aghybris</b></sub>
+            <sub><b>Aghybris</b></sub>
         </a>
     </td>
+    <td align="center">
+        <a href="https://github.com/Byolock">
+            <img src="https://avatars.githubusercontent.com/u/25748003?v=4" width="80;" alt="Byolock"/>
+            <br />
+            <sub><b>Byolock</b></sub>
+        </a>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/Famku">
             <img src="https://avatars.githubusercontent.com/u/27890413?v=4" width="80;" alt="Famku"/>
             <br />
             <sub><b>Famku</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/hugalafutro">
             <img src="https://avatars.githubusercontent.com/u/30209689?v=4" width="80;" alt="hugalafutro"/>
@@ -273,6 +280,13 @@
             <img src="https://avatars.githubusercontent.com/u/33467747?v=4" width="80;" alt="jnach"/>
             <br />
             <sub><b>Jnach</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/tazboyz16">
+            <img src="https://avatars.githubusercontent.com/u/12215340?v=4" width="80;" alt="tazboyz16"/>
+            <br />
+            <sub><b>tazboyz16</b></sub>
         </a>
     </td></tr>
 </table>
