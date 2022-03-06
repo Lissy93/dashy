@@ -27,7 +27,6 @@ const rebuild = require('./services/rebuild-app'); // A script to programmatical
 const systemInfo = require('./services/system-info'); // Basic system info, for resource widget
 const sslServer = require('./services/ssl-server'); // TLS-enabled web server
 const corsProxy = require('./services/cors-proxy'); // Enables API requests to CORS-blocked services
-const getConf = require('./services/get-conf'); // Returns the configuration as a JSON object
 
 /* Helper functions, and default config */
 const printMessage = require('./services/print-message'); // Function to print welcome msg on start
@@ -69,7 +68,7 @@ const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, n
 const app = express()
   // Serves up static files
   .use(express.static(path.join(__dirname, 'dist')))
-  .use(express.static(path.join(__dirname, 'public'), { index: 'initialization.html' }))
+  .use(express.static(path.join(__dirname, 'public')))
   // Load middlewares for parsing JSON, and supporting HTML5 history routing
   .use(express.json({ limit: '1mb' }))
   .use(history())
@@ -114,14 +113,6 @@ const app = express()
   .use(ENDPOINTS.corsProxy, (req, res) => {
     try {
       corsProxy(req, res);
-    } catch (e) {
-      res.end(JSON.stringify({ success: false, message: e }));
-    }
-  })
-  // GET endpoint returns the app configuration
-  .use(ENDPOINTS.getConf, (req, res) => {
-    try {
-      res.end(JSON.stringify(getConf()));
     } catch (e) {
       res.end(JSON.stringify({ success: false, message: e }));
     }
