@@ -68,7 +68,7 @@ const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, n
 const app = express()
   // Serves up static files
   .use(express.static(path.join(__dirname, 'dist')))
-  .use(express.static(path.join(__dirname, 'public'), { index: 'initialization.html' }))
+  .use(express.static(path.join(__dirname, 'public')))
   // Load middlewares for parsing JSON, and supporting HTML5 history routing
   .use(express.json({ limit: '1mb' }))
   .use(history())

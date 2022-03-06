@@ -1,7 +1,8 @@
+import axios from 'axios';
+import yaml from 'js-yaml';
 import { register } from 'register-service-worker';
 import { sessionStorageKeys } from '@/utils/defaults';
 import { statusMsg, statusErrorMsg } from '@/utils/CoolConsole';
-import conf from '../../public/conf.yml';
 
 /* Sets a local storage item with the state from the SW lifecycle */
 const setSwStatus = (swStateToSet) => {
@@ -31,7 +32,8 @@ const setSwStatus = (swStateToSet) => {
  * Disable if not running in production
  * Or disable if user specified to disable
  */
-const shouldEnableServiceWorker = () => {
+const shouldEnableServiceWorker = async () => {
+  const conf = yaml.load((await axios.get('conf.yml')).data);
   if (conf && conf.appConfig && conf.appConfig.enableServiceWorker) {
     setSwStatus({ disabledByUser: false });
     return true;
@@ -51,8 +53,8 @@ const printSwStatus = (msg) => {
 const swUrl = `${process.env.BASE_URL || '/'}service-worker.js`;
 
 /* If service worker enabled, then register it, and print message when status changes */
-const registerServiceWorker = () => {
-  if (shouldEnableServiceWorker()) {
+const registerServiceWorker = async () => {
+  if (await shouldEnableServiceWorker()) {
     register(swUrl, {
       ready() {
         setSwStatus({ ready: true });

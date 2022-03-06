@@ -14,11 +14,11 @@ import {
 } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 import { applyItemId } from '@/utils/SectionHelpers';
-import conf from '../../public/conf.yml';
+import $store from '@/store';
 
 export default class ConfigAccumulator {
   constructor() {
-    this.conf = conf;
+    this.conf = $store.state.remoteConfig;
   }
 
   /* App Config */
