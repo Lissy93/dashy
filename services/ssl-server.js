@@ -12,7 +12,7 @@ const httpsCerts = {
 
 const isDocker = !!process.env.IS_DOCKER;
 const SSLPort = process.env.SSL_PORT || (isDocker ? 443 : 4001);
-const redirectHttps = process.env.REDIRECT_HTTPS || true;
+const redirectHttps = process.env.REDIRECT_HTTPS ? process.env.REDIRECT_HTTPS : true;
 
 const printNotSoGood = (msg) => {
   console.log(`SSL Not Enabled: ${msg}`);
