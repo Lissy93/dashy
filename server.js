@@ -66,6 +66,8 @@ const printWarning = (msg, error) => {
 const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, next) : next());
 
 const app = express()
+  // Load SSL redirection middleware
+  .use(sslServer.middleware)
   // Serves up static files
   .use(express.static(path.join(__dirname, 'dist')))
   .use(express.static(path.join(__dirname, 'public')))
@@ -128,4 +130,4 @@ http.createServer(app)
   });
 
 /* Check, and if possible start SSL server too */
-sslServer(app);
+sslServer.startSSLServer(app);
