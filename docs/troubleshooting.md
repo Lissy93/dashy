@@ -9,6 +9,7 @@
 - [404 On Static Hosting](#404-on-static-hosting)
 - [Yarn Build or Run Error](#yarn-error)
 - [Auth Validation Error: "should be object"](#auth-validation-error-should-be-object)
+- [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
 - [Keycloak Redirect Error](#keycloak-redirect-error)
 - [Docker Directory Error](#docker-directory)
 - [Config Not Updating](#config-not-updating)
@@ -112,6 +113,18 @@ auth:
   users:
   - user: xxx
     hash: xxx
+```
+
+---
+
+## App Not Starting After Update to 2.0.4
+
+Version 2.0.4 introduced changes to how the config is read, and the app is build. If you were previously mounting `/public` as a volume, then this will over-write the build app, preventing it from starting. The solution is to just pass in the file(s) / sub-directories that you need. For example:
+
+```yaml
+volumes:
+- /srv/dashy/conf.yml:/app/public/conf.yml
+- /srv/dashy/item-icons:/app/public/item-icons
 ```
 
 ---
