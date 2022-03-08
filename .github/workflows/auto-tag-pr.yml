@@ -28,7 +28,7 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ needs.tag-pre-release.outputs.tag }}
-        bodyFile: ".github/CHANGELOG.md"
+        bodyFile: ".github/LATEST_CHANGELOG.md"
   mark-issue-fixed:
     runs-on: ubuntu-latest
     steps:
