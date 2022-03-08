@@ -1,0 +1,2 @@
+## :sparkles: Dynamic Config Loading [PR #528](https://github.com/Lissy93/dashy/pull/528)
+- `conf.yml` is now loaded dynamically and the app now only needs a browser refresh on config change, not a full rebuild!

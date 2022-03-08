@@ -8,13 +8,27 @@ on:
 jobs:
   tag-pre-release:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.autotag.outputs.tagname }}
     steps:
     - uses: actions/checkout@v2
     - uses: butlerlogic/action-autotag@stable
+      id: autotag
       with:
         GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         strategy: package
         commit_message_template: "🔖 {{number}} {{message}} (by {{author}})\nSHA: {{sha}}\n."
+  github-release:
+    runs-on: ubuntu-latest
+    needs: tag-pre-release
+    if: ${{ needs.tag-pre-release.outputs.tag }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ncipollo/release-action@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ needs.tag-pre-release.outputs.tag }}
+        bodyFile: ".github/LATEST_CHANGELOG.md"
   mark-issue-fixed:
     runs-on: ubuntu-latest
     steps:
