@@ -17,7 +17,7 @@ jobs:
     name: Close issue opened by non-stargazer
     steps:
       - name: close
-        uses: uhyo/please-star-first@v1
+        uses: uhyo/please-star-first@v1.0.1
         with:
           token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }} 
           message: |
