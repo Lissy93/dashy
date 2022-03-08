@@ -17,6 +17,8 @@
       <h3>{{ title }}</h3>
       <EditModeIcon v-if="isEditMode" @click="openEditModal"
         v-tooltip="editTooltip()" class="edit-mode-item" />
+      <OpenIcon @click.prevent.stop="openContextMenu" @contextmenu.prevent
+        class="edit-mode-item" />
     </label>
     <div class="collapsible-content">
       <div class="content-inner">
@@ -31,6 +33,7 @@
 import { localStorageKeys } from '@/utils/defaults';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
+import OpenIcon from '@/assets/interface-icons/config-open-settings.svg';
 
 export default {
   name: 'CollapsableContainer',
@@ -48,6 +51,7 @@ export default {
   components: {
     Icon,
     EditModeIcon,
+    OpenIcon,
   },
   computed: {
     isEditMode() {
@@ -244,6 +248,8 @@ export default {
     float: right;
     right: 0.5rem;
     top: 0.5rem;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
   }
 
   /* Makes sections fill available space */
