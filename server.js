@@ -69,8 +69,9 @@ const app = express()
   // Load SSL redirection middleware
   .use(sslServer.middleware)
   // Serves up static files
+  .use('conf.yml', express.static(path.join(__dirname, 'public/conf.yml')))
+  .use('extra-conf.js', express.static(path.join(__dirname, 'public/extra-conf.js')))
   .use(express.static(path.join(__dirname, 'dist')))
-  .use(express.static(path.join(__dirname, 'public')))
   // Load middlewares for parsing JSON, and supporting HTML5 history routing
   .use(express.json({ limit: '1mb' }))
   .use(history())
