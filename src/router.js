@@ -17,9 +17,16 @@ import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/Auth';
 import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
+import $store from '@/store';
+import Keys from '@/utils/StoreMutations';
 
 Vue.use(Router);
 const progress = new Progress({ color: 'var(--progress-bar)' });
+
+let appConfig;
+let pageInfo;
+let configFetched;
+let defaultView;
 
 /* Returns true if user is already authenticated, or if auth is not enabled */
 const isAuthenticated = () => {
@@ -31,29 +38,13 @@ const isAuthenticated = () => {
 
 const getConfig = () => {
   const Accumulator = new ConfigAccumulator();
-  return {
-    appConfig: Accumulator.appConfig(),
-    pageInfo: Accumulator.pageInfo(),
-  };
+  appConfig = Accumulator.appConfig();
+  pageInfo = Accumulator.pageInfo();
+  defaultView = (appConfig.startingView || startingView) === 'default' ? 'home' : (appConfig.startingView || startingView);
+  configFetched = $store.state.configFetched;
 };
 
-const { appConfig, pageInfo } = getConfig();
-
-/* Get the users chosen starting view from app config, or return default */
-const getStartingView = () => appConfig.startingView || startingView;
-
-/**
- * Returns the component that should be rendered at the base path,
- * Defaults to Home, but the user can change this to Workspace of Minimal
- */
-const getStartingComponent = () => {
-  const usersPreference = getStartingView();
-  switch (usersPreference) {
-    case 'minimal': return () => import('./views/Minimal.vue');
-    case 'workspace': return () => import('./views/Workspace.vue');
-    default: return Home;
-  }
-};
+getConfig();
 
 /* Returns the meta tags for each route */
 const makeMetaTags = (defaultTitle) => ({
@@ -62,17 +53,14 @@ const makeMetaTags = (defaultTitle) => ({
 });
 
 /* Routing mode, can be either 'hash', 'history' or 'abstract' */
-const mode = appConfig.routingMode || 'history';
+const mode = window.extraConf.routingMode || 'history';
 
 /* List of all routes, props, components and metadata */
 const router = new Router({
   mode,
   routes: [
-    { // The default view can be customized by the user
+    {
       path: '/',
-      name: `landing-page-${getStartingView()}`,
-      component: getStartingComponent(),
-      meta: makeMetaTags('Home Page'),
     },
     { // Default home page
       path: routePaths.home,
@@ -144,10 +132,21 @@ const router = new Router({
  * if so, then ensure that they are correctly logged in as a valid user
  * If not logged in, prevent all access and redirect them to login page
  * */
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   progress.start();
+  // Confirm that the config is initialized, if not wait for it to be
+  if (!configFetched) {
+    await $store.dispatch(Keys.WAIT_FOR_CONFIG);
+    getConfig();
+  }
   if (to.name !== 'login' && !isAuthenticated()) next({ name: 'login' });
-  else next();
+  // If routing to home, redirect to the correct view
+  else if (to.path === '/') {
+    if (from.name === defaultView) {
+      next(false);
+      progress.end();
+    } else next({ name: defaultView });
+  } else next();
 });
 
 /* If title is missing, then apply default page title */

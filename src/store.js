@@ -8,7 +8,7 @@ import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { componentVisibility } from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
-import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import { isUserAdmin } from '@/utils/Auth';
 
 Vue.use(Vuex);
@@ -17,6 +17,7 @@ const {
   INITIALIZE_CONFIG,
   SET_CONFIG,
   SET_REMOTE_CONFIG,
+  SET_CONFIG_FETCHED,
   SET_MODAL_OPEN,
   SET_LANGUAGE,
   SET_ITEM_LAYOUT,
@@ -36,12 +37,14 @@ const {
   INSERT_ITEM,
   UPDATE_CUSTOM_CSS,
   CONF_MENU_INDEX,
+  WAIT_FOR_CONFIG,
 } = Keys;
 
 const store = new Vuex.Store({
   state: {
     config: {},
     remoteConfig: {}, // The configuration stored on the server
+    configFetched: false,
     editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
     navigateConfToTab: undefined, // Used to switch active tab in config modal
@@ -132,6 +135,9 @@ const store = new Vuex.Store({
     },
     [SET_REMOTE_CONFIG](state, config) {
       state.remoteConfig = config;
+    },
+    [SET_CONFIG_FETCHED](state, fetched) {
+      state.configFetched = fetched;
     },
     [SET_LANGUAGE](state, lang) {
       const newConfig = state.config;
@@ -280,13 +286,29 @@ const store = new Vuex.Store({
     /* Called when app first loaded. Reads config and sets state */
     async [INITIALIZE_CONFIG]({ commit }) {
       // Get the config file from the server and store it for use by the accumulator
-      commit(SET_REMOTE_CONFIG, yaml.load((await axios.get('conf.yml')).data));
+      try {
+        commit(SET_REMOTE_CONFIG, yaml.load((await axios.get('conf.yml')).data));
+      } catch {
+        ErrorHandler('Unable to fetch conf.yml');
+      }
       const deepCopy = (json) => JSON.parse(JSON.stringify(json));
       const config = deepCopy(new ConfigAccumulator().config());
       commit(SET_CONFIG, config);
+      commit(SET_CONFIG_FETCHED, true);
+    },
+    /* Returns a promise which resolves when conf.yml has been fetched */
+    [WAIT_FOR_CONFIG]({ state }) {
+      return new Promise((resolve) => {
+        if (state.configFetched) resolve();
+        this.watch(() => state.configFetched, (value) => {
+          if (value) resolve();
+        });
+      });
     },
   },
   modules: {},
 });
 
 export default store;
+
+store.dispatch(INITIALIZE_CONFIG);

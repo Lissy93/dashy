@@ -3,6 +3,7 @@ const KEY_NAMES = [
   'INITIALIZE_CONFIG',
   'SET_CONFIG',
   'SET_REMOTE_CONFIG',
+  'SET_CONFIG_FETCHED',
   'SET_MODAL_OPEN',
   'SET_LANGUAGE',
   'SET_EDIT_MODE',
@@ -22,6 +23,7 @@ const KEY_NAMES = [
   'INSERT_ITEM',
   'UPDATE_CUSTOM_CSS',
   'CONF_MENU_INDEX',
+  'WAIT_FOR_CONFIG',
 ];
 
 // Convert array of key names into an object, and export

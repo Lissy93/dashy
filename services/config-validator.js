@@ -47,12 +47,24 @@ const setIsValidVariable = (isValid) => {
   process.env.VUE_APP_CONFIG_VALID = isValid;
 };
 
+/**
+ * Build extra-conf.js for variables needed on the front end
+ * before Vue is loaded
+ */
+const buildExtraConf = (config) => {
+  const conf = {
+    routingMode: config.appConfig.routingMode,
+  };
+  fs.writeFileSync('./public/extra-conf.js', `window.extraConf = ${JSON.stringify(conf)};`);
+};
+
 /* Start the validation */
 const validate = (config) => {
   logToConsole('\nChecking config file against schema...');
   const valid = ajv.validate(schema, config);
   if (valid) {
     setIsValidVariable(true);
+    buildExtraConf(config);
     logToConsole(successMsg());
   } else {
     setIsValidVariable(false);

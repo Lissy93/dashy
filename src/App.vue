@@ -2,9 +2,9 @@
   <div id="dashy">
     <EditModeTopBanner v-if="isEditMode" />
     <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash" />
-    <Header :pageInfo="pageInfo" />
-    <router-view v-if="!isFetching" />
-    <Footer :text="footerText" v-if="visibleComponents.footer && !isFetching" />
+    <Header v-if="$route.path !== '/'" :pageInfo="pageInfo" />
+    <router-view />
+    <Footer :text="footerText" v-if="visibleComponents.footer && ($route.path !== '/')" />
   </div>
 </template>
 <script>
@@ -33,7 +33,6 @@ export default {
   data() {
     return {
       isLoading: true, // Set to false after mount complete
-      isFetching: true, // Set to false after the conf has been fetched
     };
   },
   watch: {
@@ -41,8 +40,8 @@ export default {
       // When in edit mode, show confirmation dialog on page exit
       window.onbeforeunload = isEditMode ? this.confirmExit : null;
     },
-    config() {
-      this.isFetching = false;
+    configFetched(value) {
+      if (value) this.loadSettings();
     },
   },
   computed: {
@@ -72,6 +71,9 @@ export default {
     isEditMode() {
       return this.$store.state.editMode;
     },
+    configFetched() {
+      return this.$store.state.configFetched;
+    },
   },
   methods: {
     /* Injects the users custom CSS as a style tag */
@@ -88,7 +90,6 @@ export default {
         this.isLoading = false;
       }
     },
-
     /* Auto-detects users language from browser/ os, when not specified */
     autoDetectLanguage(availibleLocales) {
       const isLangSupported = (languageList, userLang) => languageList
@@ -102,7 +103,6 @@ export default {
         || usersSpairLangs.find((spair) => isLangSupported(availibleLocales, spair))
         || defaultLanguage;
     },
-
     /* Get users language, if not available then call auto-detect */
     getLanguage() {
       const availibleLocales = this.$i18n.availableLocales; // All available locales
@@ -116,7 +116,6 @@ export default {
       }
       return this.autoDetectLanguage(availibleLocales);
     },
-
     /* Fetch or detect users language, then apply it */
     applyLanguage() {
       const language = this.getLanguage();
@@ -134,18 +133,17 @@ export default {
       e.preventDefault();
       return 'You may have unsaved edits. Are you sure you want to exit the page?';
     },
-  },
-  /* Basic initialization tasks on app load */
-  async mounted() {
-    await this.$store.dispatch(Keys.INITIALIZE_CONFIG); // Initialize config before moving on
-    this.applyLanguage(); // Apply users local language
-    this.hideSplash(); // Hide the splash screen, if visible
-    if (this.appConfig.customCss) { // Inject users custom CSS, if present
-      const cleanedCss = this.appConfig.customCss.replace(/<\/?[^>]+(>|$)/g, '');
-      this.injectCustomStyles(cleanedCss);
-    }
-    this.hideLoader(); // If initial placeholder still visible, hide it
-    welcomeMsg(); // Show message in console
+    /* Basic initialization tasks after config has been loaded */
+    loadSettings() {
+      this.applyLanguage(); // Apply users local language
+      this.hideSplash(); // Hide the splash screen, if visible
+      if (this.appConfig.customCss) { // Inject users custom CSS, if present
+        const cleanedCss = this.appConfig.customCss.replace(/<\/?[^>]+(>|$)/g, '');
+        this.injectCustomStyles(cleanedCss);
+      }
+      this.hideLoader(); // If initial placeholder still visible, hide it
+      welcomeMsg(); // Show message in console
+    },
   },
 };
 </script>
