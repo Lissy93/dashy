@@ -24,7 +24,7 @@
     "axios": "^0.25.0",
     "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.1.1",
-    "express": "^4.17.2",
+    "express": "^4.17.3",
     "frappe-charts": "^1.6.2",
     "js-yaml": "^4.1.0",
     "keycloak-js": "^16.1.1",
