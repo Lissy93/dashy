@@ -70,6 +70,8 @@ If you're seeing Dashy's 404 page on initial load/ refresh, and then the main ap
 
 The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by setting `appConfig.routingMode` to `hash`.
 
+**As of 2.0.4, on static hosting this is changed by editing `routingMode` under `public/extra-conf.js`. If running with the included server, `conf.yml` still functions as intended.**
+
 If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `routingMode: history` again, for neater URLs.
 
 ---
