@@ -42,6 +42,7 @@
         :statusCheckInterval="statusCheckInterval"
         :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
         :statusCheckAcceptCodes="item.statusCheckAcceptCodes"
+        :statusCheckMaxRedirects="item.statusCheckMaxRedirects"
         @itemClicked="$emit('itemClicked')"
         @triggerModal="triggerModal"
         :isAddNew="false"
