@@ -789,10 +789,15 @@
                   "description": "Allows for running status checks on insecure content/ non-HTTPS apps. Prevents checks failing for non-SSL sites"
                 },
                 "statusCheckAcceptCodes": {
-                  "title": "Accepted HTTP Status Codes",
+                  "title": "Status Check - Accepted HTTP Codes",
                   "type": "string",
-                  "default": "",
                   "description": "If your service's response code is anything other than 2xx, then you can opt to specify an alternative success code"
+                },
+                "statusCheckMaxRedirects": {
+                  "title": "Status Check - Max Redirects",
+                  "type": "number",
+                  "default": "0",
+                  "description": "If your service redirects to another page, and you would like status checks to follow redirects, then specify the maximum number of redirects here"
                 },
                 "color": {
                   "title": "Custom Color",
