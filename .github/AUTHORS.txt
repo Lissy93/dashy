@@ -1,4 +1,3 @@
-Alessandro <e> - 1 commits
 Alicia <liss-bot@d0h.co> - 1 commits
 Begin <support@begin.com> - 1 commits
 David <skaarj1989@gmail.com> - 1 commits
@@ -13,11 +12,13 @@ Rune <jørnerå> - 1 commits
 Ryan <urne> - 1 commits
 Shreya <o> - 1 commits
 Singebob <jeremy.chauvin@systeme-u.fr> - 1 commits
+Steven <as> - 1 commits
 Xert <xertdev@gmail.com> - 1 commits
 deepsource-io[bot] <deepsource-io[bot]@users.noreply.github.com> - 1 commits
 icy-comet <50461557+icy-comet@users.noreply.github.com> - 1 commits
 jnach <33467747+jnach@users.noreply.github.com> - 1 commits
 tazboyz16 <tazboyz_16@yahoo.com> - 1 commits
+Alessandro <e> - 2 commits
 BOZG <sr@bozg.se> - 2 commits
 Brendan <&#39;Lear> - 2 commits
 Dan <ilber> - 2 commits
@@ -25,6 +26,7 @@ Ruben <ilv> - 2 commits
 liss-bot <87835202+liss-bot@users.noreply.github.com> - 2 commits
 ᗪєνιη <υн> - 2 commits
 Walkx <71191962+walkxcode@users.noreply.github.com> - 3 commits
+aterox <kenneth@kenneth.church> - 3 commits
 Niklas <abe> - 4 commits
 Alicie <gh@d0h.co> - 5 commits
 UrekD <urek.denis@gmail.com> - 5 commits
@@ -39,11 +41,11 @@ aterox <church.kennetha@gmail.com> - 19 commits
 EVOTk <45015615+EVOTk@users.noreply.github.com> - 22 commits
 Alicia <yke> - 28 commits
 repo-visualizer <repo-visualizer@users.noreply.github.com> - 29 commits
-snyk-bot <snyk-bot@snyk.io> - 35 commits
-Alicia <o> - 57 commits
-liss-bot <liss-bot@d0h.co> - 72 commits
+snyk-bot <snyk-bot@snyk.io> - 36 commits
+Alicia <o> - 59 commits
+liss-bot <liss-bot@d0h.co> - 73 commits
 Lissy93 <gh@d0h.co> - 78 commits
-Alicia <yke> - 80 commits
+Alicia <yke> - 84 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 206 commits
 Alicia <yke> - 334 commits
 Alicia <yke> - 1430 commits
