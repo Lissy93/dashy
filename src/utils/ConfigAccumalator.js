@@ -30,7 +30,7 @@ export default class ConfigAccumulator {
     let usersAppConfig = defaultAppConfig;
     if (localStorage[localStorageKeys.APP_CONFIG]) {
       usersAppConfig = JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
-    } else if (appConfigFile !== {}) {
+    } else if (Object.keys(appConfigFile).length > 0) {
       usersAppConfig = appConfigFile;
     }
     // Some settings have their own local storage keys, apply them here
