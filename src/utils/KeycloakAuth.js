@@ -14,7 +14,7 @@ class KeycloakAuth {
     const { auth } = getAppConfig();
     const { serverUrl, realm, clientId } = auth.keycloak;
     const initOptions = {
-      url: `${serverUrl}/auth`, realm, clientId, onLoad: 'login-required',
+      url: `${serverUrl}`, realm, clientId, onLoad: 'login-required',
     };
 
     this.keycloakClient = Keycloak(initOptions);
