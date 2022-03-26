@@ -77,6 +77,7 @@ The following file provides a reference of all supported configuration options.
 --- | --- | --- | ---
 **`title`** | `string` |  Required | The text to display on the link button
 **`path`** | `string` | Required | The URL to navigate to when clicked. Can be relative (e.g. `/about`) or absolute (e.g. `https://example.com` or `http://192.168.1.1`)
+**`target`** | `string` |  _Optional_ | The opening method (external links only). Can be either `newtab`, `sametab`, `top` or `parent`. Defaults to `newtab`
 
 **[⬆️ Back to Top](#configuring)**
 

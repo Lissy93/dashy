@@ -36,6 +36,18 @@
               },
               "path": {
                 "type": "string"
+              },
+              "target": {
+                "title": "Opening Method",
+                "type": "string",
+                "enum": [
+                  "newtab",
+                  "sametab",
+                  "parent",
+                  "top"
+                ],
+                "default": "newtab",
+                "description": "Where / how the item is opened when it's clicked"
               }
             }
           }
