@@ -29,7 +29,11 @@
 ---
 ## `Refused to Connect` in Modal or Workspace View
 
-This is not an issue with Dashy, but instead caused by the target app preventing direct access through embedded elements. It can be fixed by setting the [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) HTTP header set to `ALLOW [path to Dashy]` or `SAMEORIGIN`, as defined in [RFC-7034](https://datatracker.ietf.org/doc/html/rfc7034). These settings are usually set in the config file for the web server that's hosting the target application, here are some examples of how to enable cross-origin access with common web servers:
+This is not an issue with Dashy, but instead caused by the target app preventing direct access through embedded elements. 
+
+As defined in [RFC-7034](https://datatracker.ietf.org/doc/html/rfc7034), for any web content to be accessed through an embedded element, it must have the [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) HTTP header set to `ALLOW`. If you are getting a `Refused to Connect` error then this header is set to `DENY` (or `SAMEORIGIN` and it's on a different host). Thankfully, for self-hosted services, it is easy to set these headers.
+
+These settings are usually set in the config file for the web server that's hosting the target application, here are some examples of how to enable cross-origin access with common web servers:
 
 ### NGINX
 In NGINX, you can use the [`add_header`](https://nginx.org/en/docs/http/ngx_http_headers_module.html) module within the app block.
@@ -57,6 +61,12 @@ In Apache, you can use the [`mod_headers`](https://httpd.apache.org/docs/current
 
 ```
 Header set X-Frame-Options: "ALLOW-FROM http://[dashy-location]/" 
+```
+
+### LightHttpd
+
+```
+Content-Security-Policy: frame-ancestors 'self' https://[dashy-location]/
 ```
 
 ---
