@@ -3,7 +3,7 @@
     <a @click="itemOpened"
       @mouseup.right="openContextMenu"
       @contextmenu.prevent
-      :href="hyperLinkHref"
+      :href="url"
       :target="anchorTarget"
       :class="`item ${makeClassList}`"
       v-tooltip="getTooltipOptions()"
@@ -141,6 +141,7 @@ export default {
     },
     /* Get href for anchor, if not in edit mode, or opening in modal/ workspace */
     hyperLinkHref() {
+      // TODO Remove this method, and implement elsewhere
       const nothing = '#';
       if (this.isEditMode) return nothing;
       const noAnchorNeeded = ['modal', 'workspace', 'clipboard'];
@@ -168,20 +169,28 @@ export default {
     itemOpened(e) {
       if (this.isEditMode) {
         // If in edit mode, open settings, and don't launch app
+        e.preventDefault();
         this.openItemSettings();
         return;
       }
-      if (e.altKey || this.accumulatedTarget === 'modal') {
+      // For certain opening methods, prevent default and manually navigate
+      if (e.ctrlKey) {
+        e.preventDefault();
+        window.open(this.url, '_blank');
+      } else if (e.altKey || this.accumulatedTarget === 'modal') {
         e.preventDefault();
         this.$emit('triggerModal', this.url);
       } else if (this.accumulatedTarget === 'workspace') {
+        e.preventDefault();
         router.push({ name: 'workspace', query: { url: this.url } });
       } else if (this.accumulatedTarget === 'clipboard') {
+        e.preventDefault();
         navigator.clipboard.writeText(this.url);
         this.$toasted.show(this.$t('context-menus.item.copied-toast'));
-      } else {
-        this.$emit('itemClicked');
       }
+      // Emit event to clear search field, etc
+      this.$emit('itemClicked');
+
       // Update the most/ last used ledger, for smart-sorting
       if (!this.appConfig.disableSmartSort) {
         this.incrementMostUsedCount(this.id);
