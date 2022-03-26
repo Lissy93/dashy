@@ -45,11 +45,11 @@ export default {
       return this.$store.getters.appConfig;
     },
     /* Determines the type of icon */
-    iconType: function iconType() {
+    iconType() {
       return this.determineImageType(this.icon);
     },
     /* Gets the icon path, dependent on icon type */
-    iconPath: function iconPath() {
+    iconPath() {
       if (this.broken) return this.getFallbackIcon();
       return this.getIconPath(this.icon, this.url);
     },
@@ -176,7 +176,7 @@ export default {
     },
     /* Fetches the path of local images, from Docker container */
     getLocalImagePath(img) {
-      return `${iconCdns.localPath}/${img}`;
+      return `/${iconCdns.localPath}/${img}`;
     },
     /* Formats the URL for fetching the generative icons */
     getGenerativeIcon(url, cdn) {
