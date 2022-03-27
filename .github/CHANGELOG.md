@@ -10,6 +10,7 @@
 - Fixes Glances widgets with Authorization headers, Re: #546
 - Adds target attribute to nav links, Re: #552
 - Removes fixed max-width on wide-screens, Re: #554
+- Adds missing type attribute to external CSS, Re: #560
 - Updates path to Keycloak API, Re: #564
 - Fixes link to @walkxhub homelab icons, Re #568
 - Fixes local image path on sub-page, Re: #570
