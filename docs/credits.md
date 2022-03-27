@@ -197,6 +197,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/0n1cOn3">
+            <img src="https://avatars.githubusercontent.com/u/27576311?v=4" width="80;" alt="0n1cOn3"/>
+            <br />
+            <sub><b>0n1cOn3</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/BeginCI">
             <img src="https://avatars.githubusercontent.com/u/57495754?v=4" width="80;" alt="BeginCI"/>
             <br />
@@ -209,15 +216,15 @@
             <br />
             <sub><b>David</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/deepsourcebot">
             <img src="https://avatars.githubusercontent.com/u/60907429?v=4" width="80;" alt="deepsourcebot"/>
             <br />
             <sub><b>DeepSource Bot</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/FormatToday">
             <img src="https://avatars.githubusercontent.com/u/20515769?v=4" width="80;" alt="FormatToday"/>
@@ -252,15 +259,15 @@
             <br />
             <sub><b>Rubjo</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/turnrye">
             <img src="https://avatars.githubusercontent.com/u/701035?v=4" width="80;" alt="turnrye"/>
             <br />
             <sub><b>Ryan Turner</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/royshreyaaa">
             <img src="https://avatars.githubusercontent.com/u/88572557?v=4" width="80;" alt="royshreyaaa"/>
@@ -287,13 +294,6 @@
             <img src="https://avatars.githubusercontent.com/u/50461557?v=4" width="80;" alt="icy-comet"/>
             <br />
             <sub><b>Aniket Teredesai</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/jnach">
-            <img src="https://avatars.githubusercontent.com/u/33467747?v=4" width="80;" alt="jnach"/>
-            <br />
-            <sub><b>Jnach</b></sub>
         </a>
     </td></tr>
 </table>
