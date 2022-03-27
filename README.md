@@ -410,7 +410,7 @@ Dashy supports multiple languages and locales. When available, your language sho
 - 🇪🇸 **Spanish**: `es` - Contributed by **[@lu4t](https://github.com/lu4t)**
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
 - 🇸🇪 **Swedish**: `sv` - Contributed by **[@BOZG](https://github.com/BOZG)**
-- 🇮🇹 **Italian**: `it` - Machine Translated *(awaiting human review)*
+- 🇮🇹 **Italian**: `it` - Contributed by **[@alexdelprete](https://github.com/alexdelprete)**
 - 🇵🇹 **Portuguese**: `pt` - Machine Translated *(awaiting human review)*
 - 🇷🇺 **Russian**: `ru` - Contributed by Anon
 - 🇦🇪 **Arabic**: `ar` - Contributed by Anon
@@ -529,13 +529,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td></tr>
 <tr>
-    <td align="center">
-        <a href="https://github.com/Famku">
-            <img src="https://avatars.githubusercontent.com/u/27890413?v=4" width="80;" alt="Famku"/>
-            <br />
-            <sub><b>Famku</b></sub>
-        </a>
-    </td>
     <td align="center">
         <a href="https://github.com/hugalafutro">
             <img src="https://avatars.githubusercontent.com/u/30209689?v=4" width="80;" alt="hugalafutro"/>

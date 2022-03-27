@@ -39,15 +39,13 @@ WORKDIR ${DIRECTORY}
 RUN apk add --no-cache tzdata tini
 
 # Copy built application from build phase
-COPY --from=BUILD_IMAGE /app/dist/ public/
-COPY --from=BUILD_IMAGE /app/node_modules/ node_modules/
-COPY services/ services/
-COPY src/utils/ src/utils/
-COPY package.json yarn.lock server.js ./
+COPY --from=BUILD_IMAGE /app ./
+# Ensure only one version of conf.yml exists
+RUN rm dist/conf.yml
 
 # Finally, run start command to serve up the built application
 ENTRYPOINT [ "/sbin/tini", "--" ]
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "build-and-start" ]
 
 # Expose the port
 EXPOSE ${PORT}
