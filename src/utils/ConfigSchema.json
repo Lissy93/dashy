@@ -837,6 +837,21 @@
                   "type": "string",
                   "description": "The type of widget to use, see docs for supported options"
                 },
+                "updateInterval": {
+                  "title": "Update Interval",
+                  "type": "number",
+                  "description": "Specified in seconds. If set, widget data will be re-retched at this interval to display up-to-date data"
+                },
+                "timeout": {
+                  "title": "Timeout",
+                  "type": "number",
+                  "description": "Specified in milliseconds. If set, request will timeout after the specified interval. Defaults to 500/ half a sec"
+                },
+                "useProxy": {
+                  "title": "Use Proxy?",
+                  "type": "boolean",
+                  "description": "If set to true, request will be proxied through the backend. Requires the Node server to be running"
+                },
                 "options": {
                   "title": "Widget Options",
                   "type": "object",
