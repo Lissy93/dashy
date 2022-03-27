@@ -1,2 +1,12 @@
-## :sparkles: Dynamic Config Loading [PR #528](https://github.com/Lissy93/dashy/pull/528)
-- `conf.yml` is now loaded dynamically and the app now only needs a browser refresh on config change, not a full rebuild!
+## 🐛 Fixes user requested issues [PR #557](https://github.com/Lissy93/dashy/pull/557)
+- Allows middle click open new tab, Re: #492
+- Implements Max redirects for status checks, Re: #494
+- Adds Gitpod config for cloud-ready IDE, Re: #497
+- Adss new screenshots to showcase. Re: #505
+- Adds target attribute to nav links, Re: #552
+- Removes fixed max-width on wide-screens, Re: #554
+- Updates path to Keycloak API, Re: #564
+- Fixes link to @walkxhub homelab icons, Re #568
+- Fixes local image path on sub-page, Re: #570
+- Adds typecheck on edit item tags, Re: #575
+- Fixes item size in config not honored, Re: #576
