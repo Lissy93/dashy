@@ -4,7 +4,10 @@
 - Allows middle click open new tab, Re: #492
 - Implements Max redirects for status checks, Re: #494
 - Adds Gitpod config for cloud-ready IDE, Re: #497
-- Adss new screenshots to showcase. Re: #505
+- Adss new screenshots to showcase, Re: #505
+- Fixes excess space below footer, Re: #522
+- Allows iframe content to be viewed full-screen, Re: #524
+- Fixes Glances widgets with Authorization headers, Re: #546
 - Adds target attribute to nav links, Re: #552
 - Removes fixed max-width on wide-screens, Re: #554
 - Updates path to Keycloak API, Re: #564

@@ -139,14 +139,6 @@ export default {
         default: return undefined;
       }
     },
-    /* Get href for anchor, if not in edit mode, or opening in modal/ workspace */
-    hyperLinkHref() {
-      // TODO Remove this method, and implement elsewhere
-      const nothing = '#';
-      if (this.isEditMode) return nothing;
-      const noAnchorNeeded = ['modal', 'workspace', 'clipboard'];
-      return noAnchorNeeded.includes(this.accumulatedTarget) ? nothing : this.url;
-    },
   },
   data() {
     return {
