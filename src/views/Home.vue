@@ -213,7 +213,7 @@ export default {
   overflow: auto;
   @extend .scroll-bar;
   @include monitor-up {
-    max-width: 1400px;
+    max-width: 85%;
   }
 
   /* Options for alternate layouts, triggered by buttons */
