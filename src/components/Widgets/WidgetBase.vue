@@ -476,10 +476,13 @@ export default {
     /* Returns users specified widget options, or empty object */
     widgetOptions() {
       const options = this.widget.options || {};
+      const timeout = this.widget.timeout || 500;
       const useProxy = this.appConfig.widgetsAlwaysUseProxy || !!this.widget.useProxy;
       const updateInterval = this.widget.updateInterval !== undefined
         ? this.widget.updateInterval : null;
-      return { useProxy, updateInterval, ...options };
+      return {
+        timeout, useProxy, updateInterval, ...options,
+      };
     },
     /* A unique string to reference the widget by */
     widgetRef() {

@@ -106,8 +106,9 @@ const WidgetMixin = {
       const CustomHeaders = options || null;
       const headers = this.useProxy
         ? { 'Target-URL': endpoint, CustomHeaders: JSON.stringify(CustomHeaders) } : CustomHeaders;
+      const timeout = this.options.timeout || 500;
       const requestConfig = {
-        method, url, headers, data,
+        method, url, headers, data, timeout,
       };
       // Make request
       return new Promise((resolve, reject) => {
