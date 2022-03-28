@@ -3,7 +3,7 @@
     <a @click="itemOpened"
       @mouseup.right="openContextMenu"
       @contextmenu.prevent
-      :href="hyperLinkHref"
+      :href="url"
       :target="anchorTarget"
       :class="`item ${makeClassList}`"
       v-tooltip="getTooltipOptions()"
@@ -96,6 +96,7 @@ export default {
     statusCheckInterval: Number, // Num seconds beteween repeating checks
     statusCheckAllowInsecure: Boolean, // Status check ignore SSL certs
     statusCheckAcceptCodes: String, // Allow status checks to pass with a code other than 200
+    statusCheckMaxRedirects: Number, // Specify max number of redirects
     parentSectionTitle: String, // Title of parent section (for add new)
     isAddNew: Boolean, // Only set if 'fake' item used as Add New button
   },
@@ -138,13 +139,6 @@ export default {
         default: return undefined;
       }
     },
-    /* Get href for anchor, if not in edit mode, or opening in modal/ workspace */
-    hyperLinkHref() {
-      const nothing = '#';
-      if (this.isEditMode) return nothing;
-      const noAnchorNeeded = ['modal', 'workspace', 'clipboard'];
-      return noAnchorNeeded.includes(this.accumulatedTarget) ? nothing : this.url;
-    },
   },
   data() {
     return {
@@ -167,20 +161,28 @@ export default {
     itemOpened(e) {
       if (this.isEditMode) {
         // If in edit mode, open settings, and don't launch app
+        e.preventDefault();
         this.openItemSettings();
         return;
       }
-      if (e.altKey || this.accumulatedTarget === 'modal') {
+      // For certain opening methods, prevent default and manually navigate
+      if (e.ctrlKey) {
+        e.preventDefault();
+        window.open(this.url, '_blank');
+      } else if (e.altKey || this.accumulatedTarget === 'modal') {
         e.preventDefault();
         this.$emit('triggerModal', this.url);
       } else if (this.accumulatedTarget === 'workspace') {
+        e.preventDefault();
         router.push({ name: 'workspace', query: { url: this.url } });
       } else if (this.accumulatedTarget === 'clipboard') {
+        e.preventDefault();
         navigator.clipboard.writeText(this.url);
         this.$toasted.show(this.$t('context-menus.item.copied-toast'));
-      } else {
-        this.$emit('itemClicked');
       }
+      // Emit event to clear search field, etc
+      this.$emit('itemClicked');
+
       // Update the most/ last used ledger, for smart-sorting
       if (!this.appConfig.disableSmartSort) {
         this.incrementMostUsedCount(this.id);
@@ -237,7 +239,12 @@ export default {
     /* Pulls together all user options, returns URL + Get params for ping endpoint */
     makeApiUrl() {
       const {
-        url, statusCheckUrl, statusCheckHeaders, statusCheckAllowInsecure, statusCheckAcceptCodes,
+        url,
+        statusCheckUrl,
+        statusCheckHeaders,
+        statusCheckAllowInsecure,
+        statusCheckAcceptCodes,
+        statusCheckMaxRedirects,
       } = this;
       const encode = (str) => encodeURIComponent(str);
       this.statusResponse = undefined;
@@ -251,9 +258,10 @@ export default {
       // Deterimine if user disabled security
       const enableInsecure = statusCheckAllowInsecure ? '&enableInsecure=true' : '';
       const acceptCodes = statusCheckAcceptCodes ? `&acceptCodes=${statusCheckAcceptCodes}` : '';
+      const maxRedirects = statusCheckMaxRedirects ? `&maxRedirects=${statusCheckMaxRedirects}` : '';
       // Construct the full API endpoint's URL with GET params
       return `${baseUrl}${serviceEndpoints.statusCheck}/${urlToCheck}`
-        + `${headers}${enableInsecure}${acceptCodes}`;
+        + `${headers}${enableInsecure}${acceptCodes}${maxRedirects}`;
     },
     /* Checks if a given service is currently online */
     checkWebsiteStatus() {

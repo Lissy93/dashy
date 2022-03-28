@@ -77,6 +77,7 @@ The following file provides a reference of all supported configuration options.
 --- | --- | --- | ---
 **`title`** | `string` |  Required | The text to display on the link button
 **`path`** | `string` | Required | The URL to navigate to when clicked. Can be relative (e.g. `/about`) or absolute (e.g. `https://example.com` or `http://192.168.1.1`)
+**`target`** | `string` |  _Optional_ | The opening method (external links only). Can be either `newtab`, `sametab`, `top` or `parent`. Defaults to `newtab`
 
 **[⬆️ Back to Top](#configuring)**
 
@@ -206,6 +207,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`statusCheckHeaders`** | `object` | _Optional_ | If you're endpoint requires any specific headers for the status checking, then define them here 
 **`statusCheckAllowInsecure`** | `boolean` | _Optional_ | By default, any request to insecure content will be blocked. Setting this option to `true` will disable the `rejectUnauthorized` option, enabling you to ping non-HTTPS services for the current item. Defaults to `false`
 **`statusCheckAcceptCodes`** | `string` | _Optional_ | If your service's response code is anything other than 2xx, then you can opt to specify an alternative success code. E.g. if you expect your server to return 403, but still want the status indicator to be green, set this value to `403`
+**`statusCheckMaxRedirects`** | `number` | _Optional_ | If your service redirects to another page, and you would like status checks to follow redirects, then specify the maximum number of redirects here. Defaults to `0` / will not follow redirects
 **`color`** | `string` | _Optional_ | An optional color for the text and font-awesome icon to be displayed in. Note that this will override the current theme and so may not display well
 **`backgroundColor`** | `string` | _Optional_ | An optional background fill color for the that given item. Again, this will override the current theme and so might not display well against the background
 **`provider`** | `string` | _Optional_ | The name of the provider for a given service, useful for when including hosted apps. In some themes, this is visible under the item name
@@ -220,6 +222,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`options`** | `object` | _Optional_ | Some widgets accept either optional or required additional options. Again, see the [Widget Docs](/docs/widgets.md) for full list of options
 **`updateInterval`** | `number` | _Optional_ | You can keep a widget constantly updated by specifying an update interval, in seconds. See [Continuous Updates Docs](/docs/widgets.md#continuous-updates) for more info
 **`useProxy`** | `boolean` | _Optional_ | Some widgets make API requests to services that are not CORS-enabled. For these instances, you will need to route requests through a proxy, Dashy has a built in CORS-proxy, which you can use by setting this option to `true`. Defaults to `false`. See the [Proxying Requests Docs](/docs/widgets.md#proxying-requests) for more info
+**`timeout`** | `number` | _Optional_ | Request timeout in milliseconds, defaults to ½ a second (`500`)
 
 **[⬆️ Back to Top](#configuring)**
 

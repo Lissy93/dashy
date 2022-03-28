@@ -5,15 +5,23 @@
         @click="navVisible = !navVisible"
       />
       <nav id="nav" v-if="navVisible">
-        <router-link
-          v-for="(link, index) in links"
-          :key="index"
-          :to="link.path"
-          :href="link.path"
-          :target="isUrl(link.path) ? '_blank' : ''"
-          rel="noopener noreferrer"
-          class="nav-item"
-        >{{link.title}}</router-link>
+        <!-- Render either router-link or anchor, depending if internal / external link -->
+        <template v-for="(link, index) in links">
+          <router-link v-if="!isUrl(link.path)"
+            :key="index"
+            :to="link.path"
+            class="nav-item"
+          >{{link.title}}
+          </router-link>
+          <a v-else
+            :key="index"
+            :href="link.path"
+            :target="determineTarget(link)"
+            class="nav-item"
+            rel="noopener noreferrer"
+          >{{link.title}}
+          </a>
+        </template>
       </nav>
     </div>
 </template>
@@ -43,6 +51,16 @@ export default {
       return screenWidth && screenWidth < 600;
     },
     isUrl: (str) => new RegExp(/(http|https):\/\/(\S+)(:[0-9]+)?/).test(str),
+    determineTarget(link) {
+      if (!link.target) return '_blank';
+      switch (link.target) {
+        case 'sametab': return '_self';
+        case 'newtab': return '_blank';
+        case 'parent': return '_parent';
+        case 'top': return '_top';
+        default: return undefined;
+      }
+    },
   },
 };
 </script>

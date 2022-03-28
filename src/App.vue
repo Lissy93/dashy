@@ -1,5 +1,5 @@
 <template>
-  <div id="dashy">
+  <div id="dashy" :style="topLevelStyleModifications">
     <EditModeTopBanner v-if="isEditMode" />
     <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash" />
     <Header :pageInfo="pageInfo" />
@@ -71,6 +71,17 @@ export default {
     },
     isEditMode() {
       return this.$store.state.editMode;
+    },
+    topLevelStyleModifications() {
+      const vc = this.visibleComponents;
+      if (!vc.footer && !vc.pageTitle) {
+        return '--footer-height: 1rem;';
+      } else if (!vc.footer) {
+        return '--footer-height: 5rem;';
+      } else if (!vc.pageTitle) {
+        return '--footer-height: 4rem;';
+      }
+      return '';
     },
   },
   methods: {

@@ -1289,6 +1289,7 @@ All Glance's based widgets require a `hostname`. All other parameters are option
 **`apiVersion`** | `string` |  _Optional_ | Specify an API version, defaults to V `3`. Note that support for older versions is limited
 **`limit`** | `number` |  _Optional_ | For widgets that show a time-series chart, optionally limit the number of data points returned. A higher number will show more historical results, but will take longer to load. A value between 300 - 800 is usually optimal
 
+Note that if auth is configured, requests must be proxied with `useProxy: true`
 ##### Info
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟠 Optional
@@ -1723,6 +1724,12 @@ Alternativley, and more securley, you can set the auth headers on your service t
 Access-Control-Allow-Origin: https://location-of-dashy/
 Vary: Origin
 ```
+
+---
+
+### Setting Timeout
+
+Default timeout is ½ a second. This can be overridden with the `timeout` attribute on a widget, specified as an integer in milliseconds.
 
 ---
 

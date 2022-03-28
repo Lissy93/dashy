@@ -36,6 +36,18 @@
               },
               "path": {
                 "type": "string"
+              },
+              "target": {
+                "title": "Opening Method",
+                "type": "string",
+                "enum": [
+                  "newtab",
+                  "sametab",
+                  "parent",
+                  "top"
+                ],
+                "default": "newtab",
+                "description": "Where / how the item is opened when it's clicked"
               }
             }
           }
@@ -789,10 +801,15 @@
                   "description": "Allows for running status checks on insecure content/ non-HTTPS apps. Prevents checks failing for non-SSL sites"
                 },
                 "statusCheckAcceptCodes": {
-                  "title": "Accepted HTTP Status Codes",
+                  "title": "Status Check - Accepted HTTP Codes",
                   "type": "string",
-                  "default": "",
                   "description": "If your service's response code is anything other than 2xx, then you can opt to specify an alternative success code"
+                },
+                "statusCheckMaxRedirects": {
+                  "title": "Status Check - Max Redirects",
+                  "type": "number",
+                  "default": "0",
+                  "description": "If your service redirects to another page, and you would like status checks to follow redirects, then specify the maximum number of redirects here"
                 },
                 "color": {
                   "title": "Custom Color",
@@ -819,6 +836,21 @@
                   "title": "Widget Type",
                   "type": "string",
                   "description": "The type of widget to use, see docs for supported options"
+                },
+                "updateInterval": {
+                  "title": "Update Interval",
+                  "type": "number",
+                  "description": "Specified in seconds. If set, widget data will be re-retched at this interval to display up-to-date data"
+                },
+                "timeout": {
+                  "title": "Timeout",
+                  "type": "number",
+                  "description": "Specified in milliseconds. If set, request will timeout after the specified interval. Defaults to 500/ half a sec"
+                },
+                "useProxy": {
+                  "title": "Use Proxy?",
+                  "type": "boolean",
+                  "description": "If set to true, request will be proxied through the backend. Requires the Node server to be running"
                 },
                 "options": {
                   "title": "Widget Options",

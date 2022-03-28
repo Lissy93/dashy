@@ -32,14 +32,16 @@ export default class ConfigAccumulator {
     let usersAppConfig = defaultAppConfig;
     if (localStorage[localStorageKeys.APP_CONFIG]) {
       usersAppConfig = JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
-    } else if (appConfigFile !== {}) {
+    } else if (Object.keys(appConfigFile).length > 0) {
       usersAppConfig = appConfigFile;
     }
     // Some settings have their own local storage keys, apply them here
-    usersAppConfig.layout = localStorage[localStorageKeys.LAYOUT_ORIENTATION]
-      || appConfigFile.layout || defaultLayout;
-    usersAppConfig.iconSize = localStorage[localStorageKeys.ICON_SIZE]
-      || appConfigFile.iconSize || defaultIconSize;
+    usersAppConfig.layout = appConfigFile.layout
+      || localStorage[localStorageKeys.LAYOUT_ORIENTATION]
+      || defaultLayout;
+    usersAppConfig.iconSize = appConfigFile.iconSize
+      || localStorage[localStorageKeys.ICON_SIZE]
+      || defaultIconSize;
     // Don't let users modify users locally
     if (appConfigFile.auth) usersAppConfig.auth = appConfigFile.auth;
     // All done, return final appConfig object
