@@ -89,7 +89,7 @@ services:
     container_name: Dashy
     # Pass in your config file below, by specifying the path on your host machine
     # volumes:
-      # - /root/my-config.yml:/app/public/conf.yml
+      # - /root/my-config.yml:/public/conf.yml
     ports:
       - 4000:80
     # Set any environmental variables
@@ -122,8 +122,27 @@ If you are building from source, and would like to use one of the [other Dockerf
 
 ## Synology NAS
 
-// TODO
+Installing dashy is really simply and fast:
 
+1. Install Docker via Synology ```Package Center```.
+2. Go to ```File Station``` and open the ```docker``` folder. Inside the docker folder, create one new folder and name it ```dashy```.
+ > Note: Be careful to enter only lowercase, not uppercase letters.
+3. Go to Control Panel / Task Scheduler / Create / Scheduled Task / User-defined script.
+4. Once you click on ```User-defined``` script a new window will open. 
+5. Follow the instructions below:
+6. General: In the Task field type in Install dashy. Uncheck “Enabled” option. Select root User.
+7. Schedule: Select Run on the following date then select “Do not repeat“.
+8. Task Settings: Check “Send run details by email“, add your email then copy paste the code below in the Run command area. After that click OK.
+
+```
+docker run -d \
+  -p 4000:80 \
+  -v /volume1/docker/dashy/my-local-conf.yml:/app/public/conf.yml \
+  --name dashy \
+  --restart=always \
+  lissy93/dashy:latest
+```
+dashy should be up within 1-2min after you've started the install task procedure
 ---
 
 ## Build from Source
@@ -189,7 +208,7 @@ https://vercel.com/new/project?template=https://github.com/lissy93/dashy
 #### DigitalOcean
 [![Deploy to DO](https://i.ibb.co/PFt0PkB/deploy-digital-ocean-button.png)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean&refcode=3838338e7f79)
 
-[DigitalOcan](https://www.digitalocean.com/) is a cloud service providing affordable developer-friendly virtual machines from $5/month. But they also have an app platform, where you can run web apps, static sites, APIs and background workers. CDN-backed static sites are free for personal use.
+[DigitalOcean](https://www.digitalocean.com/) is a cloud service providing affordable developer-friendly virtual machines from $5/month. But they also have an app platform, where you can run web apps, static sites, APIs and background workers. CDN-backed static sites are free for personal use.
 
 ```
 https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean

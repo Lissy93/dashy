@@ -1,9 +1,9 @@
 <template ref="container">
   <div :class="`item-wrapper wrap-size-${itemSize}`">
-    <a @click="beforeLaunchItem"
+    <a @click="itemClicked"
       @mouseup.right="openContextMenu"
       @contextmenu.prevent
-      :href="hyperLinkHref"
+      :href="url"
       :target="anchorTarget"
       :class="`item ${makeClassList}`"
       v-tooltip="getTooltipOptions()"
@@ -91,6 +91,7 @@ export default {
     statusCheckInterval: Number, // Num seconds beteween repeating checks
     statusCheckAllowInsecure: Boolean, // Status check ignore SSL certs
     statusCheckAcceptCodes: String, // Allow status checks to pass with a code other than 200
+    statusCheckMaxRedirects: Number, // Specify max number of redirects
     parentSectionTitle: String, // Title of parent section (for add new)
     isAddNew: Boolean, // Only set if 'fake' item used as Add New button
   },
@@ -136,30 +137,6 @@ export default {
     };
   },
   methods: {
-    /* Called when an item is clicked, manages the opening of modal & resets the search field */
-    beforeLaunchItem(e) {
-      if (this.isEditMode) { // If in edit mode, open settings, don't launch app
-        this.openItemSettings();
-        return;
-      }
-      if (e.altKey) {
-        e.preventDefault();
-        this.launchItem('modal');
-      } else if (this.accumulatedTarget === 'modal') {
-        this.launchItem('modal');
-      } else if (this.accumulatedTarget === 'workspace') {
-        this.launchItem('workspace');
-      } else if (this.accumulatedTarget === 'clipboard') {
-        this.launchItem('clipboard');
-      }
-      // Clear search bar
-      this.$emit('itemClicked');
-      // Update the most/ last used ledger, for smart-sorting
-      if (!this.appConfig.disableSmartSort) {
-        this.incrementMostUsedCount(this.id);
-        this.incrementLastUsedCount(this.id);
-      }
-    },
     /* Returns configuration object for the tooltip */
     getTooltipOptions() {
       if (!this.description && !this.provider) return {}; // If no description, then skip
@@ -179,7 +156,6 @@ export default {
         classes: `item-description-tooltip tooltip-is-${this.itemSize}`,
       };
     },
-    /* Open the Edit Item modal form */
     openItemSettings() {
       this.editMenuOpen = true;
       this.contextMenuOpen = false;

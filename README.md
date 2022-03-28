@@ -410,7 +410,7 @@ Dashy supports multiple languages and locales. When available, your language sho
 - 🇪🇸 **Spanish**: `es` - Contributed by **[@lu4t](https://github.com/lu4t)**
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
 - 🇸🇪 **Swedish**: `sv` - Contributed by **[@BOZG](https://github.com/BOZG)**
-- 🇮🇹 **Italian**: `it` - Machine Translated *(awaiting human review)*
+- 🇮🇹 **Italian**: `it` - Contributed by **[@alexdelprete](https://github.com/alexdelprete)**
 - 🇵🇹 **Portuguese**: `pt` - Machine Translated *(awaiting human review)*
 - 🇷🇺 **Russian**: `ru` - Contributed by Anon
 - 🇦🇪 **Arabic**: `ar` - Contributed by Anon
@@ -490,7 +490,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
         <a href="https://github.com/peng1can">
             <img src="https://avatars.githubusercontent.com/u/225854?v=4" width="80;" alt="peng1can"/>
             <br />
-            <sub><b>peng1can</b></sub>
+            <sub><b>Peng1can</b></sub>
         </a>
     </td>
     <td align="center">
@@ -515,10 +515,25 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/Famku">
-            <img src="https://avatars.githubusercontent.com/u/27890413?v=4" width="80;" alt="Famku"/>
+        <a href="https://github.com/aghybris">
+            <img src="https://avatars.githubusercontent.com/u/11677119?v=4" width="80;" alt="aghybris"/>
             <br />
-            <sub><b>Famku</b></sub>
+            <sub><b>Aghybris</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Byolock">
+            <img src="https://avatars.githubusercontent.com/u/25748003?v=4" width="80;" alt="Byolock"/>
+            <br />
+            <sub><b>Byolock</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/hugalafutro">
+            <img src="https://avatars.githubusercontent.com/u/30209689?v=4" width="80;" alt="hugalafutro"/>
+            <br />
+            <sub><b>Hugalafutro</b></sub>
         </a>
     </td>
     <td align="center">
@@ -527,8 +542,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Kieren Connell</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/ratty222">
             <img src="https://avatars.githubusercontent.com/u/92832598?u=137b65530cbd5f5af9c24cde51baa6cc77cc934b&v=4" width="80;" alt="ratty222"/>

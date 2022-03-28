@@ -19,7 +19,7 @@
       </router-link>
     </div>
     <!-- Main content, section for each group of items -->
-    <div v-if="checkTheresData(sections)"
+    <div v-if="checkTheresData(sections) || isEditMode"
       :class="`item-group-container `
         + `orientation-${layout} `
         + `item-size-${itemSizeBound} `
@@ -50,7 +50,7 @@
       <AddNewSection v-if="isEditMode" />
     </div>
     <!-- Show message when there's no data to show -->
-    <div v-if="checkIfResults()" class="no-data">
+    <div v-if="checkIfResults() && !isEditMode" class="no-data">
       {{searchValue ? $t('home.no-results') : $t('home.no-data')}}
     </div>
     <!-- Show banner at bottom of screen, for Saving config changes -->
@@ -213,7 +213,7 @@ export default {
   overflow: auto;
   @extend .scroll-bar;
   @include monitor-up {
-    max-width: 1400px;
+    max-width: 85%;
   }
 
   /* Options for alternate layouts, triggered by buttons */

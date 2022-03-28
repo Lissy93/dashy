@@ -9,6 +9,9 @@
 - [404 On Static Hosting](#404-on-static-hosting)
 - [Yarn Build or Run Error](#yarn-error)
 - [Auth Validation Error: "should be object"](#auth-validation-error-should-be-object)
+- [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
+- [Keycloak Redirect Error](#keycloak-redirect-error)
+- [Docker Directory Error](#docker-directory)
 - [Config Not Updating](#config-not-updating)
 - [Config Still not Updating](#config-still-not-updating)
 - [Styles and Assets not Updating](#styles-and-assets-not-updating)
@@ -121,6 +124,53 @@ auth:
   - user: xxx
     hash: xxx
 ```
+
+---
+
+## App Not Starting After Update to 2.0.4
+
+Version 2.0.4 introduced changes to how the config is read, and the app is build. If you were previously mounting `/public` as a volume, then this will over-write the build app, preventing it from starting. The solution is to just pass in the file(s) / sub-directories that you need. For example:
+
+```yaml
+volumes:
+- /srv/dashy/conf.yml:/app/public/conf.yml
+- /srv/dashy/item-icons:/app/public/item-icons
+```
+
+---
+
+## Keycloak Redirect Error
+
+Check the [browser's console output](#how-to-open-browser-console), if you've not set any headers, you will likely see a CORS error here, which would be the source of the issue.
+
+You need to allow Dashy to make requests to Keycloak, and Keycloak to redirect to Dashy. The way you do this depends on how you're hosting these applications / which proxy you are using, and examples can be found in the [Management Docs](/docs/management.md#setting-headers).
+
+For example, add the access control header to Keycloak, like:
+
+`Access-Control-Allow-Origin [URL-of Dashy]`
+
+Note that for requests that transport sensitive info like credentials, setting the accept header to a wildcard (`*`) is not allowed - see [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#requests_with_credentials), so you will need to specify the actual URL.
+
+You should also ensure that Keycloak is correctly configured, with a user, realm and application, and be sure that you have set a valid redirect URL in Keycloak ([screenshot](https://user-images.githubusercontent.com/1862727/148599768-db4ee4f8-72c5-402d-8f00-051d999e6267.png)).
+
+For more details on how to set headers, see the [Example Headers](/docs/management.md#setting-headers) in the management docs, or reference the documentation for your proxy.
+
+See also: #479, #409, #507, #491, #341, #520
+
+---
+
+## Docker Directory
+
+```
+Error response from daemon: OCI runtime create failed: container_linux.go:380:
+starting container process caused: process_linux.go:545: container init caused:
+rootfs_linux.go:76: mounting "/home/ubuntu/my-conf.yml" to rootfs at 
+"/app/public/conf.yml" caused: mount through procfd: not a directory: 
+unknown: Are you trying to mount a directory onto a file (or vice-versa)?
+Check if the specified host path exists and is the expected type.
+```
+
+If you get an error similar to the one above, you are mounting a directory to the config file's location, when a plain file is expected. Create a YAML file, (`touch my-conf.yml`), populate it with a sample config, then pass it as a volume: `-v ./my-local-conf.yml:/app/public/conf.yml` 
 
 ---
 
@@ -271,6 +321,8 @@ or
 ```
 Access-Control-Allow-Origin: *
 ```
+
+For more info on how to set headers, see: [Setting Headers](/docs/management.md#setting-headers) in the management docs
 
 #### Option 3 - Proxying Request
 

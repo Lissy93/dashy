@@ -14,30 +14,34 @@ import {
 } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 import { applyItemId } from '@/utils/SectionHelpers';
-import conf from '../../public/conf.yml';
+import $store from '@/store';
+
+import buildConf from '../../public/conf.yml';
 
 export default class ConfigAccumulator {
   constructor() {
-    this.conf = conf;
+    this.conf = $store.state.remoteConfig;
   }
 
   /* App Config */
   appConfig() {
     let appConfigFile = {};
     // Set app config from file
-    if (this.conf) appConfigFile = this.conf.appConfig || {};
+    if (this.conf) appConfigFile = this.conf.appConfig || buildConf.appConfig || {};
     // Fill in defaults if anything missing
     let usersAppConfig = defaultAppConfig;
     if (localStorage[localStorageKeys.APP_CONFIG]) {
       usersAppConfig = JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
-    } else if (appConfigFile !== {}) {
+    } else if (Object.keys(appConfigFile).length > 0) {
       usersAppConfig = appConfigFile;
     }
     // Some settings have their own local storage keys, apply them here
-    usersAppConfig.layout = localStorage[localStorageKeys.LAYOUT_ORIENTATION]
-      || appConfigFile.layout || defaultLayout;
-    usersAppConfig.iconSize = localStorage[localStorageKeys.ICON_SIZE]
-      || appConfigFile.iconSize || defaultIconSize;
+    usersAppConfig.layout = appConfigFile.layout
+      || localStorage[localStorageKeys.LAYOUT_ORIENTATION]
+      || defaultLayout;
+    usersAppConfig.iconSize = appConfigFile.iconSize
+      || localStorage[localStorageKeys.ICON_SIZE]
+      || defaultIconSize;
     // Don't let users modify users locally
     if (appConfigFile.auth) usersAppConfig.auth = appConfigFile.auth;
     // All done, return final appConfig object

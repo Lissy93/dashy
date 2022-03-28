@@ -54,6 +54,7 @@
           :statusCheckInterval="statusCheckInterval"
           :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
           :statusCheckAcceptCodes="item.statusCheckAcceptCodes"
+          :statusCheckMaxRedirects="item.statusCheckMaxRedirects"
           @itemClicked="$emit('itemClicked')"
           @triggerModal="triggerModal"
           :isAddNew="false"
@@ -166,7 +167,7 @@ export default {
       return this.$store.state.editMode;
     },
     itemSize() {
-      return this.$store.getters.iconSize;
+      return this.displayData.itemSize || this.$store.getters.iconSize;
     },
     sortOrder() {
       return this.displayData.sortBy || defaultSortOrder;

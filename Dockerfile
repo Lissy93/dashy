@@ -40,6 +40,8 @@ RUN apk add --no-cache tzdata tini
 
 # Copy built application from build phase
 COPY --from=BUILD_IMAGE /app ./
+# Ensure only one version of conf.yml exists
+RUN rm dist/conf.yml
 
 # Finally, run start command to serve up the built application
 ENTRYPOINT [ "/sbin/tini", "--" ]

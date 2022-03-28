@@ -1,5 +1,37 @@
 # Changelog
 
+## 🐛 2.0.6 Fixes user requested issues [PR #557](https://github.com/Lissy93/dashy/pull/557)
+- Allows middle click open new tab, Re: #492
+- Implements Max redirects for status checks, Re: #494
+- Adds Gitpod config for cloud-ready IDE, Re: #497
+- Adss new screenshots to showcase, Re: #505
+- Fixes excess space below footer, Re: #522
+- Allows iframe content to be viewed full-screen, Re: #524
+- Fixes Glances widgets with Authorization headers, Re: #546
+- Adds target attribute to nav links, Re: #552
+- Removes fixed max-width on wide-screens, Re: #554
+- Adds missing type attribute to external CSS, Re: #560
+- Updates path to Keycloak API, Re: #564
+- Fixes link to @walkxhub homelab icons, Re #568
+- Fixes local image path on sub-page, Re: #570
+- Adds typecheck on edit item tags, Re: #575
+- Fixes item size in config not honored, Re: #576
+
+## ✨ 2.0.5 - Bug Fixes and a few New Features
+
+#### Partially revert 2.0.4, fixing several issues caused by `conf.yml` not being loaded at startup.
+This change requires a rebuild of the application when several options under `appConfig` are changed.
+Fixes #544 #555
+
+#### Several other changes since 2.0.4, including:
+The `Add New Section` button on the UI editor now displays if no sections are present. #536
+When using SSL, the server can now redirect from HTTP to HTTPS. This is enabled by default when using SSL. #538
+Section context menus are now accessible on mobile, and will no longer clip off the screen. #541
+Italian translations have been added. #556
+
+## ✨ 2.0.4 - Dynamic Config Loading [PR #528](https://github.com/Lissy93/dashy/pull/528)
+- `conf.yml` is now loaded dynamically and the app now only needs a browser refresh on config change, not a full rebuild!
+
 ## 🐛 2.0.3 - Bug Fixes [PR #488](https://github.com/Lissy93/dashy/pull/488)
 - Press enter to submit login form (Re: #483)
 - Allow disabling write to local storage and disk (Re: #485)
