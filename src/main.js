@@ -16,9 +16,9 @@ import Dashy from '@/App.vue';          // Main Dashy Vue app
 import router from '@/router';          // Router, for navigation
 import store from '@/store';            // Store, for local state management
 import serviceWorker from '@/utils/InitServiceWorker'; // Service worker initialization
-import clickOutside from '@/utils/ClickOutside';      // Directive for closing popups, modals, etc
 import { messages } from '@/utils/languages';         // Language texts
 import ErrorReporting from '@/utils/ErrorReporting';  // Error reporting initializer (off)
+import clickOutside from '@/directives/ClickOutside'; // Directive for closing popups, modals, etc
 import { toastedOptions, tooltipOptions, language as defaultLanguage } from '@/utils/defaults';
 import { initKeycloakAuth, isKeycloakEnabled } from '@/utils/KeycloakAuth';
 
