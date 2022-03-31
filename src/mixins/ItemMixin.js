@@ -1,6 +1,7 @@
 /** Reusable mixin for items */
 import axios from 'axios';
 import router from '@/router';
+import longPress from '@/directives/LongPress';
 import {
   openingMethod as defaultOpeningMethod,
   serviceEndpoints,
@@ -8,6 +9,9 @@ import {
 } from '@/utils/defaults';
 
 export default {
+  directives: {
+    longPress,
+  },
   data() {
     return {
       statusResponse: undefined,
@@ -51,7 +55,12 @@ export default {
     /* Pulls together all user options, returns URL + Get params for ping endpoint */
     makeApiUrl() {
       const {
-        url, statusCheckUrl, statusCheckHeaders, statusCheckAllowInsecure, statusCheckAcceptCodes,
+        url,
+        statusCheckUrl,
+        statusCheckHeaders,
+        statusCheckAllowInsecure,
+        statusCheckAcceptCodes,
+        statusCheckMaxRedirects,
       } = this;
       const encode = (str) => encodeURIComponent(str);
       this.statusResponse = undefined;
@@ -65,9 +74,10 @@ export default {
       // Deterimine if user disabled security
       const enableInsecure = statusCheckAllowInsecure ? '&enableInsecure=true' : '';
       const acceptCodes = statusCheckAcceptCodes ? `&acceptCodes=${statusCheckAcceptCodes}` : '';
+      const maxRedirects = statusCheckMaxRedirects ? `&maxRedirects=${statusCheckMaxRedirects}` : '';
       // Construct the full API endpoint's URL with GET params
       return `${baseUrl}${serviceEndpoints.statusCheck}/${urlToCheck}`
-        + `${headers}${enableInsecure}${acceptCodes}`;
+        + `${headers}${enableInsecure}${acceptCodes}${maxRedirects}`;
     },
     /* Checks if a given service is currently online */
     checkWebsiteStatus() {
@@ -85,6 +95,37 @@ export default {
     },
   },
   methods: {
+    /* Called when an item is clicked, manages the opening of modal & resets the search field */
+    itemClicked(e) {
+      if (this.isEditMode) {
+        // If in edit mode, open settings, and don't launch app
+        e.preventDefault();
+        this.openItemSettings();
+        return;
+      }
+      // For certain opening methods, prevent default and manually navigate
+      if (e.ctrlKey) {
+        e.preventDefault();
+        window.open(this.url, '_blank');
+      } else if (e.altKey || this.accumulatedTarget === 'modal') {
+        e.preventDefault();
+        this.$emit('triggerModal', this.url);
+      } else if (this.accumulatedTarget === 'workspace') {
+        e.preventDefault();
+        router.push({ name: 'workspace', query: { url: this.url } });
+      } else if (this.accumulatedTarget === 'clipboard') {
+        e.preventDefault();
+        navigator.clipboard.writeText(this.url);
+        this.$toasted.show(this.$t('context-menus.item.copied-toast'));
+      }
+      // Emit event to clear search field, etc
+      this.$emit('itemClicked');
+      // Update the most/ last used ledger, for smart-sorting
+      if (!this.appConfig.disableSmartSort) {
+        this.incrementMostUsedCount(this.id);
+        this.incrementLastUsedCount(this.id);
+      }
+    },
     /* Open item, using specified method */
     launchItem(method, link) {
       const url = link || this.url;

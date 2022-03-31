@@ -1,6 +1,8 @@
 <template ref="container">
-  <div :class="`item-wrapper wrap-size-${itemSize}`">
+  <div :class="`item-wrapper wrap-size-${itemSize}`" >
     <a @click="itemClicked"
+      @long-press="openContextMenu"
+      v-longPress="500"
       @mouseup.right="openContextMenu"
       @contextmenu.prevent
       :href="url"
