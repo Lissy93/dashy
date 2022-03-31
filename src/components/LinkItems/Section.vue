@@ -1,5 +1,5 @@
 <template>
-   <Collapsable
+  <Collapsable
     :title="title"
     :icon="icon"
     :uniqueKey="groupId"
@@ -11,6 +11,7 @@
     :cutToHeight="displayData.cutToHeight"
     @openEditSection="openEditSection"
     @openContextMenu="openContextMenu"
+    :id="`section-outer-${groupId}`"
   >
     <!-- If no items, show message -->
     <div v-if="isEmpty" class="no-items">
@@ -294,13 +295,14 @@ export default {
     },
     /* Open custom context menu, and set position */
     openContextMenu(e) {
-      this.contextMenuOpen = true;
-      if (e && window) {
-        this.contextPos = {
-          posX: e.clientX + window.pageXOffset,
-          posY: e.clientY + window.pageYOffset,
-        };
-      }
+      this.contextMenuOpen = true; // Open context menu
+      // If mouse position not set, use section coordinates
+      const sectionOuterId = `section-outer-${this.groupId}`;
+      const sectionPosition = document.getElementById(sectionOuterId).getBoundingClientRect();
+      this.contextPos = {
+        posX: (e.clientX || sectionPosition.right - 10) + window.pageXOffset,
+        posY: (e.clientY || sectionPosition.top + 30) + window.pageYOffset,
+      };
     },
     /* Hide the right-click context menu */
     closeContextMenu() {
