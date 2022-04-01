@@ -17,6 +17,7 @@ body { margin: 0; }
 }
 #app .loading-placeholder h1 {
   font-size: 20vh;
+  margin: 1rem auto;
   font-family: Tahoma, monospace;
   cursor: progress;
   color: #0c0c0c;
@@ -24,9 +25,13 @@ body { margin: 0; }
 }
 #app .loading-placeholder p.loading {
   font-size: 2rem;
+  opacity: 0.75;
   font-family: monospace;
   cursor: progress;
   color: #0c0c0c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-shadow: 0 1px 1px #090909, 0 0 0 #000, 0 1px 1px #000000;
 }
 #app .loading-placeholder .catastrophic-error p {
@@ -39,8 +44,10 @@ body { margin: 0; }
   text-shadow: 1px 2px 1px #090909, 0 0 0 #000, 0 1px 1px #000000
 }
 #app .loading-placeholder .catastrophic-error p.err-l2 {
+  opacity: 0.75;
   font-size: 2vh;
   font-weight: normal;
+  padding: 0 1rem;
 }
 #app .loading-placeholder .catastrophic-error p.err-l2 a {
   color: #e11a4bfc;
@@ -53,4 +60,4 @@ body { margin: 0; }
   #app .loading-placeholder .catastrophic-error p { font-size: 2.5vh !important; }
   #app .loading-placeholder .catastrophic-error p.err-l2 { font-size: 1.2vh !important; }
 }
-::selection { background-color: #db78fc; color: #121212; }
+::selection { background-color: #e11a4bfc; color: #121212; }
