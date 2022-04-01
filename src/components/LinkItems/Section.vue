@@ -36,26 +36,10 @@
         </div>
         <Item
           v-else
-          :id="item.id"
+          :item="item"
           :key="item.id"
-          :url="item.url"
-          :title="item.title"
-          :description="item.description"
-          :icon="item.icon"
-          :target="item.target"
-          :color="item.color"
-          :backgroundColor="item.backgroundColor"
-          :statusCheckUrl="item.statusCheckUrl"
-          :statusCheckHeaders="item.statusCheckHeaders"
           :itemSize="itemSize"
-          :hotkey="item.hotkey"
-          :provider="item.provider"
           :parentSectionTitle="title"
-          :enableStatusCheck="item.statusCheck !== undefined ? item.statusCheck : enableStatusCheck"
-          :statusCheckInterval="statusCheckInterval"
-          :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
-          :statusCheckAcceptCodes="item.statusCheckAcceptCodes"
-          :statusCheckMaxRedirects="item.statusCheckMaxRedirects"
           @itemClicked="$emit('itemClicked')"
           @triggerModal="triggerModal"
           :isAddNew="false"
@@ -63,12 +47,14 @@
       </template>
       <!-- When in edit mode, show additional item, for Add New item -->
       <Item v-if="isEditMode"
+        :item="{
+          icon: ':heavy_plus_sign:',
+          title: 'Add New Item',
+          description: 'Click to add new item',
+          id: 'add-new',
+        }"
         :isAddNew="true"
         :parentSectionTitle="title"
-        icon=":heavy_plus_sign:"
-        id="add-new"
-        title="Add New Item"
-        description="Click to add new item"
         key="add-new"
         class="add-new-item"
         :itemSize="itemSize"
@@ -216,18 +202,18 @@ export default {
       }
       return styles;
     },
-    /* Determines if user has enabled online status checks */
-    enableStatusCheck() {
-      return this.appConfig.statusCheck || false;
-    },
-    /* Determine how often to re-fire status checks */
-    statusCheckInterval() {
-      let interval = this.appConfig.statusCheckInterval;
-      if (!interval) return 0;
-      if (interval > 60) interval = 60;
-      if (interval < 1) interval = 0;
-      return interval;
-    },
+    // /* Determines if user has enabled online status checks */
+    // enableStatusCheck() {
+    //   return this.appConfig.statusCheck || false;
+    // },
+    // /* Determine how often to re-fire status checks */
+    // statusCheckInterval() {
+    //   let interval = this.appConfig.statusCheckInterval;
+    //   if (!interval) return 0;
+    //   if (interval > 60) interval = 60;
+    //   if (interval < 1) interval = 0;
+    //   return interval;
+    // },
   },
   methods: {
     /* Opens the iframe modal */

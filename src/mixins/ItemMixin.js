@@ -6,11 +6,16 @@ import {
   openingMethod as defaultOpeningMethod,
   serviceEndpoints,
   localStorageKeys,
+  iconSize as defaultSize,
 } from '@/utils/defaults';
 
 export default {
   directives: {
     longPress,
+  },
+  props: {
+    item: Object,
+    isAddNew: Boolean,
   },
   data() {
     return {
@@ -28,6 +33,25 @@ export default {
     },
     isEditMode() {
       return this.$store.state.editMode;
+    },
+    size() {
+      const validSizes = ['small', 'medium', 'large'];
+      if (this.itemSize && validSizes.includes(this.itemSize)) return this.itemSize;
+      return this.appConfig.iconSize || defaultSize;
+    },
+    /* Determines if user has enabled online status checks */
+    enableStatusCheck() {
+      const globalPref = this.appConfig.statusCheck || false;
+      const itemPref = this.item.statusCheck || false;
+      return itemPref || globalPref;
+    },
+    /* Determine how often to re-fire status checks */
+    statusCheckInterval() {
+      let interval = this.item.statusCheckInterval || this.appConfig.statusCheckInterval;
+      if (!interval) return 0;
+      if (interval > 60) interval = 60;
+      if (interval < 1) interval = 0;
+      return interval;
     },
     accumulatedTarget() {
       return this.target || this.appConfig.defaultOpeningMethod || defaultOpeningMethod;
@@ -53,7 +77,7 @@ export default {
       return noAnchorNeeded.includes(this.accumulatedTarget) ? nothing : url;
     },
     /* Pulls together all user options, returns URL + Get params for ping endpoint */
-    makeApiUrl() {
+    statusCheckApiUrl() {
       const {
         url,
         statusCheckUrl,
@@ -61,7 +85,7 @@ export default {
         statusCheckAllowInsecure,
         statusCheckAcceptCodes,
         statusCheckMaxRedirects,
-      } = this;
+      } = this.item;
       const encode = (str) => encodeURIComponent(str);
       this.statusResponse = undefined;
       // Find base URL, where the API is hosted
@@ -79,9 +103,16 @@ export default {
       return `${baseUrl}${serviceEndpoints.statusCheck}/${urlToCheck}`
         + `${headers}${enableInsecure}${acceptCodes}${maxRedirects}`;
     },
+    customStyle() {
+      return `--open-icon:${this.unicodeOpeningIcon};`
+        + `color:${this.item.color};`
+        + `background:${this.item.backgroundColor}`;
+    },
+  },
+  methods: {
     /* Checks if a given service is currently online */
     checkWebsiteStatus() {
-      const endpoint = this.makeApiUrl();
+      const endpoint = this.statusCheckApiUrl;
       axios.get(endpoint)
         .then((response) => {
           if (response.data) this.statusResponse = response.data;
@@ -93,8 +124,6 @@ export default {
           };
         });
     },
-  },
-  methods: {
     /* Called when an item is clicked, manages the opening of modal & resets the search field */
     itemClicked(e) {
       if (this.isEditMode) {

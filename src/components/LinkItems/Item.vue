@@ -1,30 +1,32 @@
 <template ref="container">
-  <div :class="`item-wrapper wrap-size-${itemSize}`" >
+  <div :class="`item-wrapper wrap-size-${size}`" >
     <a @click="itemClicked"
       @long-press="openContextMenu"
-      v-longPress="500"
-      @mouseup.right="openContextMenu"
       @contextmenu.prevent
-      :href="url"
+      @mouseup.right="openContextMenu"
+      v-longPress="true"
+      :href="item.url"
       :target="anchorTarget"
       :class="`item ${makeClassList}`"
       v-tooltip="getTooltipOptions()"
       rel="noopener noreferrer" tabindex="0"
-      :id="`link-${id}`"
-      :style="`--open-icon:${unicodeOpeningIcon};color:${color};background:${backgroundColor}`"
+      :id="`link-${item.id}`"
+      :style=
+      "`--open-icon:${unicodeOpeningIcon};color:${item.color};background:${item.backgroundColor}`"
     >
       <!-- Item Text -->
-      <div :class="`tile-title  ${!icon? 'bounce no-icon': ''}`" :id="`tile-${id}`" >
-        <span class="text">{{ title }}</span>
-        <p class="description">{{ description }}</p>
+      <div :class="`tile-title  ${!item.icon? 'bounce no-icon': ''}`" :id="`tile-${item.id}`" >
+        <span class="text">{{ item.title }}</span>
+        <p class="description">{{ item.description }}</p>
       </div>
       <!-- Item Icon -->
-      <Icon :icon="icon" :url="url" :size="itemSize" :color="color"
+      <Icon :icon="item.icon" :url="item.url" :size="size" :color="item.color"
         v-bind:style="customStyles" class="bounce" />
       <!-- Small icon, showing opening method on hover -->
-      <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon || itemSize === 'small'"
+      <ItemOpenMethodIcon class="opening-method-icon"
+        :isSmall="!item.icon || size === 'small'"
         :openingMethod="accumulatedTarget"  position="bottom right"
-        :hotkey="hotkey" />
+        :hotkey="item.hotkey" />
       <!-- Status indicator dot (if enabled) showing weather service is available -->
       <StatusIndicator
         class="status-indicator"
@@ -41,15 +43,15 @@
       v-click-outside="closeContextMenu"
       :posX="contextPos.posX"
       :posY="contextPos.posY"
-      :id="`context-menu-${id}`"
+      :id="`context-menu-${item.id}`"
       @launchItem="launchItem"
       @openItemSettings="openItemSettings"
       @openMoveItemMenu="openMoveItemMenu"
       @openDeleteItem="openDeleteItem"
     />
     <!-- Edit and move item menu modals -->
-    <MoveItemTo v-if="isEditMode" :itemId="id" />
-    <EditItem v-if="editMenuOpen" :itemId="id"
+    <MoveItemTo v-if="isEditMode" :itemId="item.id" />
+    <EditItem v-if="editMenuOpen" :itemId="item.id"
       @closeEditMenu="closeEditMenu"
       :isNew="isAddNew" :parentSectionTitle="parentSectionTitle" />
   </div>
@@ -64,7 +66,7 @@ import MoveItemTo from '@/components/InteractiveEditor/MoveItemTo';
 import ContextMenu from '@/components/LinkItems/ItemContextMenu';
 import StoreKeys from '@/utils/StoreMutations';
 import ItemMixin from '@/mixins/ItemMixin';
-import { targetValidator } from '@/utils/ConfigHelpers';
+// import { targetValidator } from '@/utils/ConfigHelpers';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 import { modalNames } from '@/utils/defaults';
 
@@ -72,28 +74,7 @@ export default {
   name: 'Item',
   mixins: [ItemMixin],
   props: {
-    id: String, // The unique ID of a tile (e.g. 001)
-    title: String, // The main text of tile, required
-    subtitle: String, // Optional sub-text
-    description: String, // Optional tooltip hover text
-    icon: String, // Optional path to icon, within public/img/tile-icons
-    color: String, // Optional text and icon color, specified in hex code
-    backgroundColor: String, // Optional item background color
-    url: String, // URL to the resource, optional but recommended
-    provider: String, // Optional provider name, for external apps
-    hotkey: Number, // Shortcut for quickly launching app
-    target: { // Where resource will open, either 'newtab', 'sametab' or 'modal'
-      type: String,
-      validator: targetValidator,
-    },
-    itemSize: String, // Item size: small | medium | large
-    enableStatusCheck: Boolean, // Should run status checks
-    statusCheckHeaders: Object, // Custom status check headers
-    statusCheckUrl: String, // Custom URL for status check endpoint
-    statusCheckInterval: Number, // Num seconds beteween repeating checks
-    statusCheckAllowInsecure: Boolean, // Status check ignore SSL certs
-    statusCheckAcceptCodes: String, // Allow status checks to pass with a code other than 200
-    statusCheckMaxRedirects: Number, // Specify max number of redirects
+    itemSize: String,
     parentSectionTitle: String, // Title of parent section (for add new)
     isAddNew: Boolean, // Only set if 'fake' item used as Add New button
   },
@@ -109,11 +90,10 @@ export default {
   computed: {
     /* Based on item props, adjust class names */
     makeClassList() {
-      const {
-        icon, itemSize, isAddNew, isEditMode,
-      } = this;
-      return `size-${itemSize} ${!icon ? 'short' : ''} `
-       + `${isAddNew ? 'add-new' : ''} ${isEditMode ? 'is-edit-mode' : ''}`;
+      const { isAddNew, isEditMode, size } = this;
+      const { icon } = this.item;
+      return `size-${size} ${!icon ? 'short' : ''} `
+        + `${isAddNew ? 'add-new' : ''} ${isEditMode ? 'is-edit-mode' : ''}`;
     },
     /* Used by certain themes (material), to show animated CSS icon */
     unicodeOpeningIcon() {
@@ -133,19 +113,19 @@ export default {
     return {
       editMenuOpen: false,
       customStyles: {
-        color: this.color,
-        background: this.backgroundColor,
+        color: this.item.color,
+        background: this.item.backgroundColor,
       },
     };
   },
   methods: {
     /* Returns configuration object for the tooltip */
     getTooltipOptions() {
-      if (!this.description && !this.provider) return {}; // If no description, then skip
-      const description = this.description ? this.description : '';
-      const providerText = this.provider ? `<b>Provider</b>: ${this.provider}` : '';
+      if (!this.item.description && !this.item.provider) return {}; // If no description, then skip
+      const description = this.item.description || '';
+      const providerText = this.item.provider ? `<b>Provider</b>: ${this.item.provider}` : '';
       const lb1 = description && providerText ? '<br>' : '';
-      const hotkeyText = this.hotkey ? `<br>Press '${this.hotkey}' to launch` : '';
+      const hotkeyText = this.item.hotkey ? `<br>Press '${this.item.hotkey}' to launch` : '';
       const tooltipText = providerText + lb1 + description + hotkeyText;
       const editText = this.$t('interactive-editor.edit-section.edit-tooltip');
       return {
@@ -155,7 +135,7 @@ export default {
         html: true,
         placement: this.statusResponse ? 'left' : 'auto',
         delay: { show: 600, hide: 200 },
-        classes: `item-description-tooltip tooltip-is-${this.itemSize}`,
+        classes: `item-description-tooltip tooltip-is-${this.size}`,
       };
     },
     openItemSettings() {
@@ -172,14 +152,14 @@ export default {
     },
     /* Open the modal for moving/ copying item to other section */
     openMoveItemMenu() {
-      this.$modal.show(`${modalNames.MOVE_ITEM_TO}-${this.id}`);
+      this.$modal.show(`${modalNames.MOVE_ITEM_TO}-${this.item.id}`);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
       this.closeContextMenu();
     },
     /* Deletes the current item from the state */
     openDeleteItem() {
-      const parentSection = this.$store.getters.getParentSectionOfItem(this.id);
-      const payload = { itemId: this.id, sectionName: parentSection.name };
+      const parentSection = this.$store.getters.getParentSectionOfItem(this.item.id);
+      const payload = { itemId: this.item.id, sectionName: parentSection.name };
       this.$store.commit(StoreKeys.REMOVE_ITEM, payload);
       this.closeContextMenu();
     },

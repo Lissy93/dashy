@@ -1,8 +1,9 @@
 <template>
-   <div :class="`minimal-section-inner ${selected ? 'selected' : ''} ${showAll ? 'show-all': ''}`">
+  <div :class="`minimal-section-inner ${selected ? 'selected' : ''} ${showAll ? 'show-all': ''}`">
     <div class="section-items" v-if="items && (selected || showAll)">
       <Item
         v-for="(item, index) in items"
+        :item="item"
         :id="`${index}_${makeId(item.title)}`"
         :key="`${index}_${makeId(item.title)}`"
         :url="item.url"
@@ -33,6 +34,9 @@
         :index="widgetIndx"
         @navigateToSection="navigateToSection"
       />
+    </div>
+    <div v-if="selected && !showAll && !widgets && items.length < 1" class="empty-section">
+      <p>{{ $t('home.no-items-section') }}</p>
     </div>
     <IframeModal
       :ref="`iframeModal-${groupId}`"
@@ -131,9 +135,18 @@ export default {
   .minimal-widget-wrap {
     padding: 1rem;
   }
+  .empty-section {
+    padding: 1rem;
+    margin: 0.5rem auto;
+    color: var(--minimal-view-group-color);
+    font-size: 1rem;
+    font-style: italic;
+    opacity: var(--dimming-factor);
+  }
   &.selected {
     border: 1px solid var(--minimal-view-group-color);
     grid-column-start: span var(--col-count, 3);
+    &:not(.show-all) { min-height: 300px; }
   }
   &.show-all {
     border: none;
