@@ -29,7 +29,6 @@ const makeErrorMessage2 = (data) => '❌ Service Error - '
 
 /* Kicks of a HTTP request, then formats and renders results */
 const makeRequest = (url, options, render) => {
-  console.log(options);
   const {
     headers, enableInsecure, acceptCodes, maxRedirects,
   } = options;
