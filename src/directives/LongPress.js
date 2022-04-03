@@ -6,7 +6,10 @@
  */
 
 const LONG_PRESS_DEFAULT_DELAY = 750;
+const TRIGGER_FOR_RIGHT_CLICK = true;
 const longPressEvent = new CustomEvent('long-press');
+
+let startTime = null;
 
 export default {
   bind(element, binding, vnode) {
@@ -16,12 +19,17 @@ export default {
     const swallowClick = (e) => {
       el.removeEventListener('click', swallowClick);
       if (!el.dataset.elapsed) return true;
-      e.preventDefault();
-      e.stopPropagation();
+      const totalTime = Date.now() - startTime;
+      // If was long press, then cancel original action
+      if (totalTime > LONG_PRESS_DEFAULT_DELAY) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
       return false;
     };
 
-    const complete = () => {
+    /* Emit event to component */
+    const triggerEvent = () => {
       if (vnode.componentInstance) vnode.componentInstance.$emit('long-press');
       else el.dispatchEvent(longPressEvent);
       el.dataset.elapsed = true;
@@ -32,19 +40,26 @@ export default {
       document.removeEventListener('pointerup', onPointerUp);
     };
 
-    const onPointerDown = () => {
+    const onPointerDown = (e) => {
+      // If event was right-click, then immediately trigger
+      if (e.button === 2) {
+        if (TRIGGER_FOR_RIGHT_CLICK) triggerEvent();
+        else return;
+      }
+      startTime = Date.now();
       document.addEventListener('pointerup', onPointerUp);
       el.addEventListener('click', swallowClick);
-      const timeoutDuration = binding.value || LONG_PRESS_DEFAULT_DELAY;
-      const timeout = setTimeout(complete, timeoutDuration);
+      const timeoutDuration = LONG_PRESS_DEFAULT_DELAY;
+      const timeout = setTimeout(triggerEvent, timeoutDuration);
       el.dataset.elapsed = false;
       el.dataset.longPressTimeout = timeout;
+      e.preventDefault();
     };
-
     el.$longPressHandler = onPointerDown;
     el.addEventListener('pointerdown', onPointerDown);
   },
   unbind(el) {
+    startTime = null;
     clearTimeout(parseInt(el.dataset.longPressTimeout, 10));
     el.removeEventListener('pointerdown', el.$longPressHandler);
   },
