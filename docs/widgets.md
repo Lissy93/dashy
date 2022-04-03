@@ -69,6 +69,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Widget Usage Guide](#widget-usage-guide)
   - [Continuous Updates](#continuous-updates)
   - [Proxying Requests](#proxying-requests)
+  - [Setting Timeout](#setting-timeout)
   - [Custom CSS Styling](#widget-styling)
   - [Customizing Charts](#customizing-charts)
   - [Language Translations](#language-translations)
@@ -1729,7 +1730,16 @@ Vary: Origin
 
 ### Setting Timeout
 
-Default timeout is ½ a second. This can be overridden with the `timeout` attribute on a widget, specified as an integer in milliseconds.
+If the endpoint you are requesting data from is slow to respond, you may see a timeout error in the console. This can easily be fixed by specifying the `timeout` property on the offending widget. This should be an integer value, in milliseconds. By default timeout is `2500` ms (2½ seconds).
+
+For example:
+
+```yaml
+- type: gl-current-cpu
+  timeout: 8000
+  options:
+    hostname: https://glances.dns-device.local
+```
 
 ---
 
