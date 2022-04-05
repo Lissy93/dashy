@@ -47,7 +47,7 @@
         />
       </template>
       <!-- Show add new section button, in edit mode -->
-      <AddNewSection v-if="isEditMode" />
+      <AddNewSection v-if="isEditMode && !singleSectionView" />
     </div>
     <!-- Show message when there's no data to show -->
     <div v-if="checkIfResults() && !isEditMode" class="no-data">
