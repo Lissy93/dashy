@@ -1,21 +1,36 @@
 <template ref="container">
   <div class="sub-item-wrapper">
-    <a @click="beforeLaunchItem"
+    <a @click="itemClicked"
+      @contextmenu.prevent
+      @long-press="openContextMenu"
+      @mouseup.right="openContextMenu"
+      v-longPress="true"
       :href="hyperLinkHref"
       :target="anchorTarget"
-      class="sub-item-link item"
       v-tooltip="subItemTooltip"
       rel="noopener noreferrer" tabindex="0"
       :id="`link-${id}`"
+      class="sub-item-link item"
     >
       <!-- Item Icon -->
       <Icon :icon="icon" :url="url" size="small" class="sub-icon-img bounce" />
     </a>
+    <!-- Right-click context menu -->
+    <ContextMenu
+      :show="contextMenuOpen && !isAddNew"
+      v-click-outside="closeContextMenu"
+      :posX="contextPos.posX"
+      :posY="contextPos.posY"
+      :id="`context-menu-${id}`"
+      :disableEdit="true"
+      @launchItem="launchItem"
+    />
   </div>
 </template>
 
 <script>
 import Icon from '@/components/LinkItems/ItemIcon.vue';
+import ContextMenu from '@/components/LinkItems/ItemContextMenu';
 import ItemMixin from '@/mixins/ItemMixin';
 import { targetValidator } from '@/utils/ConfigHelpers';
 
@@ -34,6 +49,7 @@ export default {
   },
   components: {
     Icon,
+    ContextMenu,
   },
   computed: {
     subItemTooltip() {
@@ -43,23 +59,7 @@ export default {
   data() {
     return {};
   },
-  methods: {
-    beforeLaunchItem(e) {
-      if (this.isEditMode) return;
-      if (e.altKey) {
-        e.preventDefault();
-        this.launchItem('modal');
-      } else if (this.accumulatedTarget === 'modal') {
-        this.launchItem('modal');
-      } else if (this.accumulatedTarget === 'workspace') {
-        this.launchItem('workspace');
-      } else if (this.accumulatedTarget === 'clipboard') {
-        this.launchItem('clipboard');
-      }
-      // Clear search bar
-      this.$emit('itemClicked');
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -68,7 +68,7 @@ export default {
   flex-grow: 1;
   flex-basis: 6rem;
   display: flex;
-  a {
+  a.sub-item-link {
     border: none;
     margin: 0.2rem;
     .sub-icon-img {

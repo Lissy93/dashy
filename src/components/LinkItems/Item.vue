@@ -1,5 +1,5 @@
 <template ref="container">
-  <div :class="`item-wrapper wrap-size-${size}`" >
+  <div :class="`item-wrapper wrap-size-${size} span-${makeColumnCount}`" >
     <a @click="itemClicked"
       @long-press="openContextMenu"
       @contextmenu.prevent
@@ -11,8 +11,7 @@
       v-tooltip="getTooltipOptions()"
       rel="noopener noreferrer" tabindex="0"
       :id="`link-${item.id}`"
-      :style=
-      "`--open-icon:${unicodeOpeningIcon};color:${item.color};background:${item.backgroundColor}`"
+      :style="customStyle"
     >
       <!-- Item Text -->
       <div :class="`tile-title  ${!item.icon? 'bounce no-icon': ''}`" :id="`tile-${item.id}`" >
@@ -77,6 +76,8 @@ export default {
     itemSize: String,
     parentSectionTitle: String, // Title of parent section (for add new)
     isAddNew: Boolean, // Only set if 'fake' item used as Add New button
+    sectionWidth: Number, // Width of parent section
+    sectionDisplayData: Object,
   },
   components: {
     Icon,
@@ -88,6 +89,15 @@ export default {
     EditModeIcon,
   },
   computed: {
+    makeColumnCount() {
+      if ((this.sectionDisplayData || {}).itemCountX) return this.sectionDisplayData.itemCountX;
+      if (this.sectionWidth < 380) return 1;
+      if (this.sectionWidth < 520) return 2;
+      if (this.sectionWidth < 730) return 3;
+      if (this.sectionWidth < 1000) return 4;
+      if (this.sectionWidth < 1300) return 5;
+      return 0;
+    },
     /* Based on item props, adjust class names */
     makeClassList() {
       const { isAddNew, isEditMode, size } = this;
@@ -182,6 +192,17 @@ export default {
   flex-basis: 6rem;
   &.wrap-size-large {
     flex-basis: 12rem;
+  }
+  &.wrap-size-small {
+    flex-grow: revert;
+    &.span-1 { min-width: 100%; }
+    &.span-2 { min-width: 50%; }
+    &.span-3 { min-width: 33%; }
+    &.span-4 { min-width: 25%; }
+    &.span-5 { min-width: 20%; }
+    &.span-6 { min-width: 16%; }
+    &.span-7 { min-width: 14%; }
+    &.span-8 { min-width: 12.5%; }
   }
 }
 
@@ -292,7 +313,6 @@ p.description {
     align-items: center;
     height: 2rem;
     padding-top: 4px;
-    max-width: 14rem;
     div img {
       width: 2rem;
     }

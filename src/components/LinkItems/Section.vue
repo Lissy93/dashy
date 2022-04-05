@@ -11,7 +11,8 @@
     :cutToHeight="displayData.cutToHeight"
     @openEditSection="openEditSection"
     @openContextMenu="openContextMenu"
-    :id="`section-outer-${groupId}`"
+    :id="sectionRef"
+    :ref="sectionRef"
   >
     <!-- If no items, show message -->
     <div v-if="isEmpty" class="no-items">
@@ -23,17 +24,13 @@
       :style="gridStyle" :id="`section-${groupId}`"
     > <!-- Show for each item -->
       <template v-for="(item) in sortedItems">
-        <div v-if="item.subItems" :key="item.id" class="sub-items-group">
-          <template v-for="(subItem, subIndex) in item.subItems">
-            <SubItem
-              :key="subIndex"
-              :id="`${item.id}-sub-${subIndex}`"
-              :url="subItem.url"
-              :icon="subItem.icon"
-              :title="subItem.title"
-            />
-          </template>
-        </div>
+        <SubItemGroup
+          v-if="item.subItems"
+          :key="item.id"
+          :itemId="item.id"
+          :title="item.title"
+          :subItems="item.subItems"
+        />
         <Item
           v-else
           :item="item"
@@ -43,6 +40,8 @@
           @itemClicked="$emit('itemClicked')"
           @triggerModal="triggerModal"
           :isAddNew="false"
+          :sectionWidth="sectionWidth"
+          :sectionDisplayData="displayData"
         />
       </template>
       <!-- When in edit mode, show additional item, for Add New item -->
@@ -101,7 +100,7 @@
 <script>
 import router from '@/router';
 import Item from '@/components/LinkItems/Item.vue';
-import SubItem from '@/components/LinkItems/SubItem.vue';
+import SubItemGroup from '@/components/LinkItems/SubItemGroup.vue';
 import WidgetBase from '@/components/Widgets/WidgetBase';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
@@ -131,7 +130,7 @@ export default {
     Collapsable,
     ContextMenu,
     Item,
-    SubItem,
+    SubItemGroup,
     WidgetBase,
     IframeModal,
     EditSection,
@@ -144,6 +143,8 @@ export default {
         posX: undefined,
         posY: undefined,
       },
+      sectionWidth: 0,
+      resizeObserver: null,
     };
   },
   computed: {
@@ -168,6 +169,9 @@ export default {
     },
     isEmpty() {
       return !this.hasItems && !this.hasWidgets;
+    },
+    sectionRef() {
+      return `section-outer-${this.groupId}`;
     },
     /* If the sortBy attribute is specified, then return sorted data */
     sortedItems() {
@@ -294,6 +298,22 @@ export default {
     closeContextMenu() {
       this.contextMenuOpen = false;
     },
+    /* Calculate width of section, used to dynamically set number of columns */
+    calculateSectionWidth() {
+      const secElem = this.$refs[this.sectionRef];
+      if (secElem) this.sectionWidth = secElem.$el.clientWidth;
+    },
+  },
+  mounted() {
+    // Set the section width, and recalculate when section resized
+    this.resizeObserver = new ResizeObserver(this.calculateSectionWidth)
+      .observe(this.$refs[this.sectionRef].$el);
+  },
+  beforeDestroy() {
+    // If resize observer set, and element still present, then de-register
+    if (this.resizeObserver && this.$refs[this.sectionRef]) {
+      this.resizeObserver.unobserve(this.$refs[this.sectionRef].$el);
+    }
   },
 };
 </script>
@@ -373,20 +393,6 @@ export default {
       width: -webkit-fill-available;
     }
   }
-}
-
-.sub-items-group {
-  display: grid;
-  margin: 0.5rem;
-  padding: 0.1rem;
-  flex-grow: 1;
-  flex-basis: 6rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  color: var(--item-text-color);
-  border: 1px solid var(--outline-color);
-  border-radius: var(--curve-factor);
-  text-decoration: none;
-  transition: all 0.2s ease-in-out 0s;
 }
 
 </style>
