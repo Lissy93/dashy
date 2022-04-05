@@ -280,7 +280,7 @@ const store = new Vuex.Store({
     /* Called when app first loaded. Reads config and sets state */
     async [INITIALIZE_CONFIG]({ commit }) {
       // Get the config file from the server and store it for use by the accumulator
-      commit(SET_REMOTE_CONFIG, yaml.load((await axios.get('conf.yml')).data));
+      commit(SET_REMOTE_CONFIG, yaml.load((await axios.get('/conf.yml')).data));
       const deepCopy = (json) => JSON.parse(JSON.stringify(json));
       const config = deepCopy(new ConfigAccumulator().config());
       commit(SET_CONFIG, config);
