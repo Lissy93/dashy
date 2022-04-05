@@ -6,7 +6,6 @@
  */
 
 const LONG_PRESS_DEFAULT_DELAY = 750;
-const TRIGGER_FOR_RIGHT_CLICK = true;
 const longPressEvent = new CustomEvent('long-press');
 
 let startTime = null;
@@ -42,10 +41,7 @@ export default {
 
     const onPointerDown = (e) => {
       // If event was right-click, then immediately trigger
-      if (e.button === 2) {
-        if (TRIGGER_FOR_RIGHT_CLICK) triggerEvent();
-        else return;
-      }
+      if (e.button === 2) return;
       startTime = Date.now();
       document.addEventListener('pointerup', onPointerUp);
       el.addEventListener('click', swallowClick);
