@@ -1,17 +1,25 @@
 # Privacy & Security
 
 Dashy was built with privacy in mind.
-Self-hosting your own apps and services is a great way to protect yourself from the mass data collection employed by big tech companies, and Dashy was designed to keep your local services organized and accessible from a single place.
+Self-hosting your own apps and services is a great way to protect yourself from the mass data collection employed by big tech companies, and Dashy was designed to make self-hosting easier, by keeping your local services organized and accessible from a single place. The [management docs](https://github.com/Lissy93/dashy/blob/master/docs/management.md) contains a though guide on the steps you can take to secure your homelab.
 
-It's fully open source, and I've tried to keep to code as clear and thoroughly documented as possible, which will make it easy for you to understand exactly how it works, and what goes on behind the scenes.
+Dashy operates on the premise, that no external data requests should ever be made, unless explicitly enabled by the user. In the interest of transparency, the code is 100% open source and clearly documented throughout.
 
-For privacy and security tips, check out another project of mine: **[Personal Security Checklist](https://github.com/Lissy93/personal-security-checklist)**.
+| 🔐 For privacy and security tips, check out another project of mine: **[Personal Security Checklist](https://github.com/Lissy93/personal-security-checklist)** |
+|-|
+
+### Contents
 
 - [External Requests](#external-requests)
-  - [Themes](#themes)
   - [Icons](#icons)
-  - [Features](#features)
+  - [Themes](#themes)
   - [Widgets](#widgets)
+  - [Features](#features)
+    - [Status Checking](#status-checking)
+    - [Update Checks](#update-checks)
+    - [Cloud Backup](#cloud-backup)
+    - [Web Search](#web-search)
+    - [Error Reporting](#anonymous-error-reporting)
 - [Browser Storage](#browser-storage)
 - [App Dependencies](#dependencies)
 - [Security Features](#security-features)
@@ -24,8 +32,6 @@ For privacy and security tips, check out another project of mine: **[Personal Se
 By default, Dashy will not make any external requests, unless you configure it to. Some features (which are off by default) do require internat access, and this section outlines those features, the services used, and links to their privacy policies.
 
 The following section outlines all network requests that are made when certain features are enabled.
-
-### Themes
 
 ### Icons
 
@@ -46,12 +52,13 @@ If an item has the icon set to `generative`, then an external request it made to
 
 As a fallback, if Dicebear fails, then [Evatar](https://evatar.io/) is used.
 
-
 #### Other Icons
 Section icons, item icons and app icons are able to accept a URL to a raw image, if the image is hosted online then an external request will be made. To avoid the need to make external requests for icon assets, you can either use a self-hosted CDN, or store your images within `./public/item-icons` (which can be mounted as a volume if you're using Docker).
 
 #### Web Assets
 By default, all assets required by Dashy come bundled within the source, and so no external requests are made. If you add an additional font, which is imported from a CDN, then that will incur an external request. The same applies for other web assets, like external images, scripts or styles.
+
+---
 
 ### Features
 
@@ -63,6 +70,18 @@ Dashy will ping your services directly, and does not rely on any third party. If
 #### Update Checks
 When the application loads, it checks for updates. The results of which are displayed in the config menu of the UI. This was implemented because using a very outdated version of Dashy may have unfixed issues. Your version is fetched from the source (local request), but the latest version is fetched from GitHub, which is an external request. This can be disabled by setting `appConfig.disableUpdateChecks: true`
 
+#### Cloud Backup
+Dashy has an optional End-to-End encrypted [cloud backup feature](https://github.com/Lissy93/dashy/blob/master/docs/backup-restore.md). No data is ever transimtted unless you actively enable this feature through the UI.
+
+All data is encrypted before being sent to the backend. This is done in [`CloudBackup.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/CloudBackup.js), using [crypto.js](https://github.com/brix/crypto-js)'s AES method, using the users chosen password as the key. The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works) (a platform for running serverless functions), and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
+
+Your selected password never leaves your device, and is hashed before being compared. It is only possible to restore a configuration if you have both the backup ID and decryption password. Because the data is encrypted on the client-side (before being sent to the cloud), it is not possible for a man-in-the-middle, government entity, website owner, or even Cloudflare to be able read any of your data.
+
+#### Web Search
+Dashy has a primitive [web search feature](https://github.com/Lissy93/dashy/blob/master/docs/searching.md#web-search). No external requests are made, instead you are redirected to your chosen search engine (defaults to DuckDuckGo), using your chosen opening method.
+
+This feature can be disabled under appConfig, with `webSearch: { disableWebSearch: true }`
+
 #### Anonymous Error Reporting
 Error reporting is disabled by default, and no data will ever be sent without your explicit consent. In fact, the error tracking code isn't even imported unless you have actively enabled it. [Sentry](https://github.com/getsentry/sentry) is used for this, it's an open source error tracking and performance monitoring tool, used to identify any issues which occur in the production app (if you enable it). 
 
@@ -72,9 +91,16 @@ Enabling anonymous error reporting helps me to discover bugs I was unaware of, a
 
 If you need to monitor bugs yourself, then you can [self-host your own Sentry Server](https://develop.sentry.dev/self-hosted/), and use it by setting `appConfig.sentryDsn` to your Sentry instances [Data Source Name](https://docs.sentry.io/product/sentry-basics/dsn-explainer/), then just enable error reporting in Dashy.
 
+---
+
+### Themes
+Certain themes may use external assets (such as fonts or images). Currently, this only applies the Adventure theme.
+
+---
+
 ### Widgets
 
-Dashy supports [Widgets](/docs/widgets.md) for displaying dynamic content. The following widgets make external data requests:
+Dashy supports [Widgets](/docs/widgets.md) for displaying dynamic content. Below is a list of all widgets that make external data requests, along with the endpoint they call and a link to the Privacy Policy of that service.
 
 - **[Weather](/docs/widgets.md#weather)** and **[Weather Forecast](/docs/widgets.md#weather-forecast)**: `https://api.openweathermap.org`
     - [OWM Privacy Policy](https://openweather.co.uk/privacy-policy)
@@ -86,7 +112,7 @@ Dashy supports [Widgets](/docs/widgets.md) for displaying dynamic content. The f
 - **[Crypto Watch List](/docs/widgets.md#crypto-watch-list)** and **[Token Price History](/docs/widgets.md#crypto-token-price-history)**: `https://api.coingecko.com`
     - [CoinGecko Privacy Policy](https://www.coingecko.com/en/privacy)
 - **[Wallet Balance](/docs/widgets.md#wallet-balance)**: `https://api.blockcypher.com/`
-    - BlockCypher Privacy Policy](https://www.blockcypher.com/privacy.html)
+    - [BlockCypher Privacy Policy](https://www.blockcypher.com/privacy.html)
 - **[Code::Stats](/docs/widgets.md#code-stats)**: `https://codestats.net`
     - [Code::Stats Privacy Policy](https://codestats.net/tos#privacy)
 - **[AnonAddy](/docs/widgets.md#anonaddy)**: `https://app.anonaddy.com`
@@ -112,7 +138,7 @@ Dashy supports [Widgets](/docs/widgets.md) for displaying dynamic content. The f
 - **[Joke](/docs/widgets.md#joke)**: `https://v2.jokeapi.dev`
     - [SV443's Privacy Policy](https://sv443.net/privacypolicy/en)
 - **[Flight Data](/docs/widgets.md#flight-data)**: `https://aerodatabox.p.rapidapi.com`
-    - [AeroDataBox](https://www.aerodatabox.com/#h.p_CXtIYZWF_WQd)
+    - [AeroDataBox Privacy Policy](https://www.aerodatabox.com/#h.p_CXtIYZWF_WQd)
 - **[Astronomy Picture of the Day](/docs/widgets.md#astronomy-picture-of-the-day)**: `https://apodapi.herokuapp.com`
     - [NASA's Privacy Policy](https://www.nasa.gov/about/highlights/HP_Privacy.html)
 - **[GitHub Trending](/docs/widgets.md#github-trending)** and **[GitHub Profile Stats](/docs/widgets.md#github-profile-stats)**: `https://api.github.com`
@@ -124,12 +150,13 @@ Dashy supports [Widgets](/docs/widgets.md) for displaying dynamic content. The f
 
 ## Browser Storage
 In order for user preferences to be persisted between sessions, certain data needs to be stored in the browsers local storage. No personal info is kept here, none of this data can be accessed by other domains, and no data is ever sent to any server without your prior consent.
-You can view your browsers session storage by opening up the dev tools (F12) --> Application --> Storage.
 
-The following section outlines all data that is stored in the browsers, as cookies or local storage.
+You can view and delete stored data by opening up the dev tools: <kbd>F12</kbd> --> `Application` --> `Storage`.
+
+The following section outlines all data that is stored in the browsers, as cookies, session storage or local storage.
 
 #### Cookies
-> Cookies have a pre-defined lifetime
+> [Cookies](https://en.wikipedia.org/wiki/HTTP_cookie) will expire after their pre-defined lifetime
 
 - `AUTH_TOKEN` - A unique token, generated from a hash of users credentials, to verify they are authenticated. Only used when auth is enabled 
 
@@ -176,6 +203,8 @@ Note that packages listed under `devDependencies` section are only used for buil
 ## Securing your Environment
 Running your self-hosted applications in individual, containerized environments (such as containers or VMs) helps keep them isolated, and prevent an exploit in one service effecting another.
 
+If you're running Dashy in a container, see [Management Docs --> Container Security](https://github.com/Lissy93/dashy/blob/master/docs/management.md#container-security) for step-by-step security guide.
+
 There is very little complexity involved with Dashy, and therefore the attack surface is reasonably small, but it is still important to follow best practices and employ monitoring for all your self-hosted apps. A couple of things that you should look at include:
 - Use SSL for securing traffic in transit
 - Configure [authentication](/docs/authentication.md#alternative-authentication-methods) to prevent unauthorized access
@@ -219,7 +248,7 @@ You may wish to disable features that you don't want to use, if they involve sto
 ---
 
 ## Reporting a Security Issue
-If you think you've found a critical issue with Dashy, please send an email to `security@mail.alicia.omg.lol`. You can encrypt it, using [`0688 F8D3 4587 D954 E9E5 1FB8 FEDB 68F5 5C02 83A7`](https://keybase.io/aliciasykes/pgp_keys.asc?fingerprint=0688f8d34587d954e9e51fb8fedb68f55c0283a7). You should receive a response within 48 hours.
+If you think you've found a critical issue with Dashy, please send an email to `security@mail.alicia.omg.lol`. You can encrypt it, using [`0688 F8D3 4587 D954 E9E5 1FB8 FEDB 68F5 5C02 83A7`](https://keybase.io/aliciasykes/pgp_keys.asc?fingerprint=0688f8d34587d954e9e51fb8fedb68f55c0283a7). You should receive a response within 48 hours. For more information, see [SECURITY.md](https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md).
 
 All non-critical issues can be raised as a ticket.
 
