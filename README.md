@@ -540,7 +540,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
         <a href="https://github.com/gdepountis">
             <img src="https://avatars.githubusercontent.com/u/56775783?v=4" width="80;" alt="gdepountis"/>
             <br />
-            <sub><b>gdepountis</b></sub>
+            <sub><b>Gdepountis</b></sub>
         </a>
     </td>
     <td align="center">
