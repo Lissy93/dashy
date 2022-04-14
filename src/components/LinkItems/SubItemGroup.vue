@@ -58,7 +58,6 @@ export default {
   border-radius: var(--curve-factor);
   text-decoration: none;
   transition: all 0.2s ease-in-out 0s;
-  color: var(--item-text-color);
   p.sub-item-group-title {
     margin: 0 auto;
     cursor: default;

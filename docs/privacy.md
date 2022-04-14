@@ -109,6 +109,8 @@ Dashy supports [Widgets](/docs/widgets.md) for displaying dynamic content. Below
 - **[IP Address](/docs/widgets.md#public-ip)**: `https://ipapi.co/json` or `http://ip-api.com/json`
     - [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html)
     - [IP-API Privacy Policy](https://ip-api.com/docs/legal)
+- **[IP Blacklist](/docs/widgets.md#ip-blacklist)**: `https://api.blacklistchecker.com`
+    - [Blacklist Checker Privacy Policy](https://blacklistchecker.com/privacy)
 - **[Crypto Watch List](/docs/widgets.md#crypto-watch-list)** and **[Token Price History](/docs/widgets.md#crypto-token-price-history)**: `https://api.coingecko.com`
     - [CoinGecko Privacy Policy](https://www.coingecko.com/en/privacy)
 - **[Wallet Balance](/docs/widgets.md#wallet-balance)**: `https://api.blockcypher.com/`
@@ -129,6 +131,8 @@ Dashy supports [Widgets](/docs/widgets.md) for displaying dynamic content. Below
     - No Policy Availible
 - **[News Headlines](/docs/widgets.md#news-headlines)**: `https://api.currentsapi.services`
     - [CurrentsAPI Privacy Policy](https://currentsapi.services/privacy)
+- **[Mullvad Status](/docs/widgets.md#mullvad-status)**: `https://am.i.mullvad.net`
+    - [Mullvad Privacy Policy](https://mullvad.net/en/help/privacy-policy/)
 - **[TFL Status](/docs/widgets.md#tfl-status)**: `https://api.tfl.gov.uk`
     - [TFL Privacy Policy](https://tfl.gov.uk/corporate/privacy-and-cookies/)
 - **[Stock Price History](/docs/widgets.md#stock-price-history)**: `https://alphavantage.co`

@@ -14,10 +14,12 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [RSS Feed](#rss-feed)
   - [Image](#image)
   - [Public IP Address](#public-ip)
+  - [IP Blacklist Checker](#ip-blacklist)
   - [Crypto Watch List](#crypto-watch-list)
   - [Crypto Price History](#crypto-token-price-history)
   - [Crypto Wallet Balance](#wallet-balance)
   - [Code Stats](#code-stats)
+  - [Mullvad Status](#mullvad-status)
   - [Email Aliases (AnonAddy)](#anonaddy)
   - [Vulnerability Feed](#vulnerability-feed)
   - [Exchange Rates](#exchange-rates)
@@ -285,6 +287,37 @@ Or
 
 ---
 
+### IP Blacklist
+
+Notice certain web pages aren't loading? This widget quickly shows which blacklists your IP address (or host, or email) appears on, using data from [blacklistchecker.com](https://blacklistchecker.com/).
+
+<p align="center"><img width="600" src="https://i.ibb.co/hX0fp5Z/ip-blacklist.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`ipAddress`** | `string` |  _Optional_ | The IP to check. This can also be a domain/ host name or even an email address. If left blank, Dashy will use your current public IP address.
+**`apiKey`** | `string` |  Required | You can get your free API key from [blacklistchecker.com](https://blacklistchecker.com/keys)
+
+##### Example 
+
+```yaml
+- type: blacklist-check
+  options:
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    ipAddress: 1.1.1.1
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free Plan
+- **Host**: Managed Instance Only
+- **Privacy**: _See [BlacklistChecker Privacy Policy](https://blacklistchecker.com/privacy)_
+
+---
+
 ### Crypto Watch List
 
 Keep track of price changes of your favorite crypto assets. Data is fetched from [CoinGecko](https://www.coingecko.com/). All fields are optional.
@@ -430,6 +463,31 @@ Display your coding summary. [Code::Stats](https://codestats.net/) is a free and
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted or Managed
 - **Privacy**: _See [Code::Stats Privacy Policy](https://codestats.net/tos#privacy)_
+
+---
+
+### Mullvad Status
+
+Shows your Mullvad VPN connection status, as well as server info. Fetched from [am.i.mullvad.net](https://mullvad.net/en/check/)
+
+<p align="center"><img width="400" src="https://i.ibb.co/3BCb2YV/mullvad-check.png" /></p>
+
+##### Options
+
+_No Options_
+
+##### Example
+
+```yaml
+- type: mullvad-status
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed
+- **Privacy**: _See [Mullvad Privacy Policy](https://mullvad.net/en/help/privacy-policy/)_
 
 ---
 

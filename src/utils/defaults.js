@@ -209,6 +209,7 @@ module.exports = {
   widgetApiEndpoints: {
     anonAddy: 'https://app.anonaddy.com',
     astronomyPictureOfTheDay: 'https://apodapi.herokuapp.com/api',
+    blacklistCheck: 'https://api.blacklistchecker.com/check',
     codeStats: 'https://codestats.net/',
     covidStats: 'https://disease.sh/v3/covid-19',
     cryptoPrices: 'https://api.coingecko.com/api/v3/coins/',
@@ -223,6 +224,7 @@ module.exports = {
     holidays: 'https://kayaposoft.com/enrico/json/v2.0/?action=getHolidaysForDateRange',
     jokes: 'https://v2.jokeapi.dev/joke/',
     news: 'https://api.currentsapi.services/v1/latest-news',
+    mullvad: 'https://am.i.mullvad.net/json',
     publicIp: 'https://ipapi.co/json',
     publicIp2: 'https://api.ipgeolocation.io/ipgeo',
     publicIp3: 'http://ip-api.com/json',
