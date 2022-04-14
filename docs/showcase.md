@@ -76,6 +76,12 @@
 
 ---
 
+### Browser Startpage
+
+![screenshot-startpage](https://i.ibb.co/rs07dS1/startpage.png)
+
+---
+
 ### CFT Toolbox
 
 ![screenshot-cft-toolbox](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/3-cft-toolbox.png)
