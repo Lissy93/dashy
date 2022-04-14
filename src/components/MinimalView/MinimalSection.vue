@@ -1,30 +1,27 @@
 <template>
   <div :class="`minimal-section-inner ${selected ? 'selected' : ''} ${showAll ? 'show-all': ''}`">
     <div class="section-items" v-if="items && (selected || showAll)">
-      <Item
-        v-for="(item, index) in items"
-        :item="item"
-        :id="`${index}_${makeId(item.title)}`"
-        :key="`${index}_${makeId(item.title)}`"
-        :url="item.url"
-        :title="item.title"
-        :description="item.description"
-        :icon="item.icon"
-        :target="item.target"
-        :color="item.color"
-        :backgroundColor="item.backgroundColor"
-        :statusCheckUrl="item.statusCheckUrl"
-        :statusCheckHeaders="item.statusCheckHeaders"
-        :itemSize="itemSize"
-        :hotkey="item.hotkey"
-        :enableStatusCheck="shouldEnableStatusCheck(item.statusCheck)"
-        :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
-        :statusCheckAcceptCodes="item.statusCheckAcceptCodes"
-        :statusCheckMaxRedirects="item.statusCheckMaxRedirects"
-        :statusCheckInterval="getStatusCheckInterval()"
-        @itemClicked="$emit('itemClicked')"
-        @triggerModal="triggerModal"
-      />
+      <template v-for="(item) in items">
+        <SubItemGroup
+          v-if="item.subItems"
+          :key="item.id"
+          :itemId="item.id"
+          :title="item.title"
+          :subItems="item.subItems"
+          @triggerModal="triggerModal"
+        />
+        <Item
+          v-else
+          :item="item"
+          :key="item.id"
+          :itemSize="itemSize"
+          :parentSectionTitle="title"
+          @itemClicked="$emit('itemClicked')"
+          @triggerModal="triggerModal"
+          :isAddNew="false"
+          :sectionDisplayData="displayData"
+        />
+      </template>
     </div>
     <div v-if="widgets && (selected && !showAll)" class="minimal-widget-wrap">
       <WidgetBase
@@ -50,6 +47,7 @@
 import router from '@/router';
 import Item from '@/components/LinkItems/Item.vue';
 import WidgetBase from '@/components/Widgets/WidgetBase';
+import SubItemGroup from '@/components/LinkItems/SubItemGroup.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
 
 export default {
@@ -75,6 +73,7 @@ export default {
   components: {
     Item,
     WidgetBase,
+    SubItemGroup,
     IframeModal,
   },
   methods: {
@@ -83,6 +82,7 @@ export default {
     },
     /* Returns a unique lowercase string, based on name, for section ID */
     makeId(str) {
+      if (!str) return 'unnamed-item';
       return str.replace(/\s+/g, '-').replace(/[^a-zA-Z ]/g, '').toLowerCase();
     },
     /* Opens the iframe modal */
@@ -105,7 +105,6 @@ export default {
       const parse = (section) => section.replace(' ', '-').toLowerCase().trim();
       const sectionIdentifier = parse(this.title);
       router.push({ path: `/home/${sectionIdentifier}` });
-      this.closeContextMenu();
     },
   },
 };

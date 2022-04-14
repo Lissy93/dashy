@@ -61,6 +61,7 @@ export default {
   text-align: center;
   height: fit-content;
   margin: 10px;
+  min-width: 250px;
 }
 
 </style>

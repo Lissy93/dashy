@@ -55,6 +55,7 @@ module.exports = {
     'dracula',
     'one-dark',
     'lissy',
+    'cherry-blossom',
     'nord-frost',
     'nord',
     'oblivion',

@@ -30,6 +30,7 @@
           :itemId="item.id"
           :title="item.title"
           :subItems="item.subItems"
+          @triggerModal="triggerModal"
         />
         <Item
           v-else
@@ -56,6 +57,7 @@
         :parentSectionTitle="title"
         key="add-new"
         class="add-new-item"
+        :sectionWidth="sectionWidth"
         :itemSize="itemSize"
       />
     </div>

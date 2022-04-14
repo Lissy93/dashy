@@ -520,6 +520,8 @@ export default {
 .widget-base {
   position: relative;
   padding: 0.75rem 0.5rem 0.5rem 0.5rem;
+  background: var(--widget-base-background);
+  box-shadow: var(--widget-base-shadow, none);
   // Refresh and full-page action buttons
   button.action-btn  {
     height: 1rem;

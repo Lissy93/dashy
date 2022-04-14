@@ -13,7 +13,8 @@
       class="sub-item-link item"
     >
       <!-- Item Icon -->
-      <Icon :icon="icon" :url="url" size="small" class="sub-icon-img bounce" />
+      <Icon :icon="item.icon" :url="item.url"
+      size="small" v-bind:style="customStyles" class="sub-icon-img bounce" />
     </a>
     <!-- Right-click context menu -->
     <ContextMenu
@@ -32,20 +33,14 @@
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ContextMenu from '@/components/LinkItems/ItemContextMenu';
 import ItemMixin from '@/mixins/ItemMixin';
-import { targetValidator } from '@/utils/ConfigHelpers';
+// import { targetValidator } from '@/utils/ConfigHelpers';
 
 export default {
   name: 'Item',
   mixins: [ItemMixin],
   props: {
     id: String, // The unique ID of a tile (e.g. 001)
-    title: String, // The main text of tile, required
-    icon: String, // Optional path to icon, within public/img/tile-icons
-    url: String, // URL to the resource, optional but recommended
-    target: { // Where resource will open, either 'newtab', 'sametab' or 'modal'
-      type: String,
-      validator: targetValidator,
-    },
+    item: Object,
   },
   components: {
     Icon,
@@ -69,7 +64,6 @@ export default {
   flex-basis: 6rem;
   display: flex;
   a.sub-item-link {
-    border: none;
     margin: 0.2rem;
     .sub-icon-img {
       margin: 0;

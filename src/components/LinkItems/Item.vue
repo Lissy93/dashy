@@ -122,10 +122,6 @@ export default {
   data() {
     return {
       editMenuOpen: false,
-      customStyles: {
-        color: this.item.color,
-        background: this.item.backgroundColor,
-      },
     };
   },
   methods: {
@@ -312,7 +308,8 @@ p.description {
     justify-content: flex-end;
     align-items: center;
     height: 2rem;
-    padding-top: 4px;
+    padding-top: 0.25rem;
+    padding-left: 0.5rem;
     div img {
       width: 2rem;
     }

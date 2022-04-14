@@ -2,6 +2,7 @@
   <div class="sub-side-bar">
     <div v-for="(item, index) in items" :key="index">
       <SideBarItem
+        v-if="!item.subItems"
         class="item"
         :icon="item.icon"
         :title="item.title"
@@ -9,6 +10,18 @@
         :target="item.target"
         @launch-app="launchApp"
       />
+      <div v-if="item.subItems" class="sub-item-group">
+        <SideBarItem
+          v-for="(subItem, subIndex) in item.subItems"
+          :key="subIndex"
+          class="item sub-item"
+          :icon="subItem.icon"
+          :title="subItem.title"
+          :url="subItem.url"
+          :target="subItem.target"
+          @launch-app="launchApp"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -46,8 +59,10 @@ div.sub-side-bar {
   color: var(--side-bar-color);
   text-align: center;
   z-index: 3;
-  .item:not(:last-child) {
-    border-bottom: 1px dashed var(--side-bar-color);
+  .sub-item-group {
+    border: 1px dotted var(--side-bar-color);
+    border-radius: 4px;
+    background: #00000033;
   }
 }
 

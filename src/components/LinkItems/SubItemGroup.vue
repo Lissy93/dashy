@@ -5,9 +5,8 @@
       v-for="(subItem, subIndex) in subItems"
       :key="subIndex"
       :id="`${itemId}-sub-${subIndex}`"
-      :url="subItem.url"
-      :icon="subItem.icon"
-      :title="subItem.title"
+      :item="subItem"
+      @triggerModal="triggerModal"
     />
   </div>
 </template>
@@ -35,6 +34,12 @@ export default {
       if (numItems >= 2) return 2;
       if (numItems === 1) return 1;
       return 2;
+    },
+  },
+  methods: {
+    /* Pass open modal emit event up */
+    triggerModal(url) {
+      this.$emit('triggerModal', url);
     },
   },
 };

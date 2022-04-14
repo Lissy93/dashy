@@ -25,6 +25,10 @@ export default {
         posX: undefined,
         posY: undefined,
       },
+      customStyles: {
+        color: this.item.color,
+        background: this.item.backgroundColor,
+      },
     };
   },
   computed: {
@@ -71,7 +75,7 @@ export default {
     /* Get href for anchor, if not in edit mode, or opening in modal/ workspace */
     hyperLinkHref() {
       const nothing = '#';
-      const url = this.url || nothing;
+      const url = this.url || this.item.url || nothing;
       if (this.isEditMode) return nothing;
       const noAnchorNeeded = ['modal', 'workspace', 'clipboard'];
       return noAnchorNeeded.includes(this.accumulatedTarget) ? nothing : url;
@@ -126,6 +130,7 @@ export default {
     },
     /* Called when an item is clicked, manages the opening of modal & resets the search field */
     itemClicked(e) {
+      const url = this.url || this.item.url;
       if (this.isEditMode) {
         // If in edit mode, open settings, and don't launch app
         e.preventDefault();
@@ -135,16 +140,16 @@ export default {
       // For certain opening methods, prevent default and manually navigate
       if (e.ctrlKey) {
         e.preventDefault();
-        window.open(this.url, '_blank');
+        window.open(url, '_blank');
       } else if (e.altKey || this.accumulatedTarget === 'modal') {
         e.preventDefault();
-        this.$emit('triggerModal', this.url);
+        this.$emit('triggerModal', url);
       } else if (this.accumulatedTarget === 'workspace') {
         e.preventDefault();
-        router.push({ name: 'workspace', query: { url: this.url } });
+        router.push({ name: 'workspace', query: { url } });
       } else if (this.accumulatedTarget === 'clipboard') {
         e.preventDefault();
-        navigator.clipboard.writeText(this.url);
+        navigator.clipboard.writeText(url);
         this.$toasted.show(this.$t('context-menus.item.copied-toast'));
       }
       // Emit event to clear search field, etc
@@ -157,7 +162,7 @@ export default {
     },
     /* Open item, using specified method */
     launchItem(method, link) {
-      const url = link || this.url;
+      const url = link || this.item.url;
       this.contextMenuOpen = false;
       switch (method) {
         case 'newtab':
