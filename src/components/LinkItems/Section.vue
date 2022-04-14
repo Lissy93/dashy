@@ -208,18 +208,6 @@ export default {
       }
       return styles;
     },
-    // /* Determines if user has enabled online status checks */
-    // enableStatusCheck() {
-    //   return this.appConfig.statusCheck || false;
-    // },
-    // /* Determine how often to re-fire status checks */
-    // statusCheckInterval() {
-    //   let interval = this.appConfig.statusCheckInterval;
-    //   if (!interval) return 0;
-    //   if (interval > 60) interval = 60;
-    //   if (interval < 1) interval = 0;
-    //   return interval;
-    // },
   },
   methods: {
     /* Opens the iframe modal */
