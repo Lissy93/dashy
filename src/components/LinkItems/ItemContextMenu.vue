@@ -77,6 +77,7 @@ export default {
     posX: Number, // The X coordinate for positioning
     posY: Number, // The Y coordinate for positioning
     show: Boolean, // Should show or hide the menu
+    disableEdit: Boolean, // Disable editing for certain items
   },
   computed: {
     isMenuDisabled() {
@@ -86,6 +87,7 @@ export default {
       return this.$store.state.editMode;
     },
     isEditAllowed() {
+      if (this.disableEdit) return false;
       return this.$store.getters.permissions.allowViewConfig;
     },
   },

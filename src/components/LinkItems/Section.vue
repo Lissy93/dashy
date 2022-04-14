@@ -1,5 +1,5 @@
 <template>
-   <Collapsable
+  <Collapsable
     :title="title"
     :icon="icon"
     :uniqueKey="groupId"
@@ -11,6 +11,8 @@
     :cutToHeight="displayData.cutToHeight"
     @openEditSection="openEditSection"
     @openContextMenu="openContextMenu"
+    :id="sectionRef"
+    :ref="sectionRef"
   >
     <!-- If no items, show message -->
     <div v-if="isEmpty" class="no-items">
@@ -21,42 +23,41 @@
       :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
       :style="gridStyle" :id="`section-${groupId}`"
     > <!-- Show for each item -->
-      <Item
-        v-for="(item) in sortedItems"
-        :id="item.id"
-        :key="item.id"
-        :url="item.url"
-        :title="item.title"
-        :description="item.description"
-        :icon="item.icon"
-        :target="item.target"
-        :color="item.color"
-        :backgroundColor="item.backgroundColor"
-        :statusCheckUrl="item.statusCheckUrl"
-        :statusCheckHeaders="item.statusCheckHeaders"
-        :itemSize="itemSize"
-        :hotkey="item.hotkey"
-        :provider="item.provider"
-        :parentSectionTitle="title"
-        :enableStatusCheck="item.statusCheck !== undefined ? item.statusCheck : enableStatusCheck"
-        :statusCheckInterval="statusCheckInterval"
-        :statusCheckAllowInsecure="item.statusCheckAllowInsecure"
-        :statusCheckAcceptCodes="item.statusCheckAcceptCodes"
-        :statusCheckMaxRedirects="item.statusCheckMaxRedirects"
-        @itemClicked="$emit('itemClicked')"
-        @triggerModal="triggerModal"
-        :isAddNew="false"
-      />
+      <template v-for="(item) in sortedItems">
+        <SubItemGroup
+          v-if="item.subItems"
+          :key="item.id"
+          :itemId="item.id"
+          :title="item.title"
+          :subItems="item.subItems"
+          @triggerModal="triggerModal"
+        />
+        <Item
+          v-else
+          :item="item"
+          :key="item.id"
+          :itemSize="itemSize"
+          :parentSectionTitle="title"
+          @itemClicked="$emit('itemClicked')"
+          @triggerModal="triggerModal"
+          :isAddNew="false"
+          :sectionWidth="sectionWidth"
+          :sectionDisplayData="displayData"
+        />
+      </template>
       <!-- When in edit mode, show additional item, for Add New item -->
       <Item v-if="isEditMode"
+        :item="{
+          icon: ':heavy_plus_sign:',
+          title: 'Add New Item',
+          description: 'Click to add new item',
+          id: 'add-new',
+        }"
         :isAddNew="true"
         :parentSectionTitle="title"
-        icon=":heavy_plus_sign:"
-        id="add-new"
-        title="Add New Item"
-        description="Click to add new item"
         key="add-new"
         class="add-new-item"
+        :sectionWidth="sectionWidth"
         :itemSize="itemSize"
       />
     </div>
@@ -101,6 +102,7 @@
 <script>
 import router from '@/router';
 import Item from '@/components/LinkItems/Item.vue';
+import SubItemGroup from '@/components/LinkItems/SubItemGroup.vue';
 import WidgetBase from '@/components/Widgets/WidgetBase';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
@@ -130,6 +132,7 @@ export default {
     Collapsable,
     ContextMenu,
     Item,
+    SubItemGroup,
     WidgetBase,
     IframeModal,
     EditSection,
@@ -142,6 +145,8 @@ export default {
         posX: undefined,
         posY: undefined,
       },
+      sectionWidth: 0,
+      resizeObserver: null,
     };
   },
   computed: {
@@ -166,6 +171,9 @@ export default {
     },
     isEmpty() {
       return !this.hasItems && !this.hasWidgets;
+    },
+    sectionRef() {
+      return `section-outer-${this.groupId}`;
     },
     /* If the sortBy attribute is specified, then return sorted data */
     sortedItems() {
@@ -199,18 +207,6 @@ export default {
           ? `grid-template-rows: repeat(${this.displayData.itemCountY}, minmax(0, 1fr));` : '';
       }
       return styles;
-    },
-    /* Determines if user has enabled online status checks */
-    enableStatusCheck() {
-      return this.appConfig.statusCheck || false;
-    },
-    /* Determine how often to re-fire status checks */
-    statusCheckInterval() {
-      let interval = this.appConfig.statusCheckInterval;
-      if (!interval) return 0;
-      if (interval > 60) interval = 60;
-      if (interval < 1) interval = 0;
-      return interval;
     },
   },
   methods: {
@@ -279,18 +275,35 @@ export default {
     },
     /* Open custom context menu, and set position */
     openContextMenu(e) {
-      this.contextMenuOpen = true;
-      if (e && window) {
-        this.contextPos = {
-          posX: e.clientX + window.pageXOffset,
-          posY: e.clientY + window.pageYOffset,
-        };
-      }
+      this.contextMenuOpen = true; // Open context menu
+      // If mouse position not set, use section coordinates
+      const sectionOuterId = `section-outer-${this.groupId}`;
+      const sectionPosition = document.getElementById(sectionOuterId).getBoundingClientRect();
+      this.contextPos = {
+        posX: (e.clientX || sectionPosition.right - 10) + window.pageXOffset,
+        posY: (e.clientY || sectionPosition.top + 30) + window.pageYOffset,
+      };
     },
     /* Hide the right-click context menu */
     closeContextMenu() {
       this.contextMenuOpen = false;
     },
+    /* Calculate width of section, used to dynamically set number of columns */
+    calculateSectionWidth() {
+      const secElem = this.$refs[this.sectionRef];
+      if (secElem) this.sectionWidth = secElem.$el.clientWidth;
+    },
+  },
+  mounted() {
+    // Set the section width, and recalculate when section resized
+    this.resizeObserver = new ResizeObserver(this.calculateSectionWidth)
+      .observe(this.$refs[this.sectionRef].$el);
+  },
+  beforeDestroy() {
+    // If resize observer set, and element still present, then de-register
+    if (this.resizeObserver && this.$refs[this.sectionRef]) {
+      this.resizeObserver.unobserve(this.$refs[this.sectionRef].$el);
+    }
   },
 };
 </script>

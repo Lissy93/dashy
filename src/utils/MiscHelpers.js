@@ -46,6 +46,12 @@ export const timestampToDateTime = (timestamp) => {
   return `${timestampToDate(timestamp)} at ${timestampToTime(timestamp)}`;
 };
 
+/* Given a 2-letter country ISO code, return the countries name */
+export const getCountryFromIso = (iso) => {
+  const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
+  return regionNames.of(iso);
+};
+
 /* Given a 2-digit country code, return path to flag image from Flagpedia */
 export const getCountryFlag = (countryCode, dimens) => {
   const protocol = 'https';

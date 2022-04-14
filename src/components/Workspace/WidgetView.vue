@@ -33,7 +33,7 @@ export default {
   width: calc(100% - var(--side-bar-width));
   .workspace-widget {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0.5rem auto 1rem auto;
   }
 }
 </style>

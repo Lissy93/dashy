@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-bind:class="{ 'settings-hidden': !settingsVisible }">
     <SearchBar ref="SearchBar"
       @user-is-searchin="userIsTypingSomething"
       v-if="searchVisible"

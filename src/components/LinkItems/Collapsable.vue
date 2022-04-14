@@ -12,7 +12,8 @@
       tabIndex="-1"
     >
     <label :for="sectionKey" class="lbl-toggle" tabindex="-1"
-      @mouseup.right="openContextMenu" @contextmenu.prevent>
+      @mouseup.right="openContextMenu" @contextmenu.prevent
+      @long-press="openContextMenu" v-longPress="500">
       <Icon v-if="icon" :icon="icon" size="small" :url="title" class="section-icon" />
       <h3>{{ title }}</h3>
       <EditModeIcon v-if="isEditMode" @click="openEditModal"
@@ -29,7 +30,7 @@
 </template>
 
 <script>
-
+import longPress from '@/directives/LongPress';
 import { localStorageKeys } from '@/utils/defaults';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
@@ -52,6 +53,9 @@ export default {
     Icon,
     EditModeIcon,
     OpenIcon,
+  },
+  directives: {
+    longPress,
   },
   computed: {
     isEditMode() {

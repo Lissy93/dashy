@@ -1,5 +1,5 @@
 <template>
-    <div class="nav-outer">
+    <div class="nav-outer" v-if="links && links.length > 0">
       <IconBurger
         :class="`burger ${!navVisible ? 'visible' : ''}`"
         @click="navVisible = !navVisible"

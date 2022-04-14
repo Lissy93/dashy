@@ -47,7 +47,7 @@
         />
       </template>
       <!-- Show add new section button, in edit mode -->
-      <AddNewSection v-if="isEditMode" />
+      <AddNewSection v-if="isEditMode && !singleSectionView" />
     </div>
     <!-- Show message when there's no data to show -->
     <div v-if="checkIfResults() && !isEditMode" class="no-data">
@@ -127,7 +127,7 @@ export default {
   methods: {
     /* Clears input field, once a searched item is opened */
     finishedSearching() {
-      this.$refs.filterComp.clearFilterInput();
+      if (this.$refs.filterComp) this.$refs.filterComp.clearFilterInput();
     },
     /* Returns optional section display preferences if available */
     getDisplayData(section) {

@@ -34,6 +34,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <BlacklistCheck
+        v-else-if="widgetType === 'blacklist-check'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <Clock
         v-else-if="widgetType === 'clock'"
         :options="widgetOptions"
@@ -244,6 +251,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <MullvadStatus
+        v-else-if="widgetType === 'mullvad-status'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <NdCpuHistory
         v-else-if="widgetType === 'nd-cpu-history'"
         :options="widgetOptions"
@@ -402,6 +416,7 @@ export default {
     // Register widget components
     AnonAddy: () => import('@/components/Widgets/AnonAddy.vue'),
     Apod: () => import('@/components/Widgets/Apod.vue'),
+    BlacklistCheck: () => import('@/components/Widgets/BlacklistCheck.vue'),
     Clock: () => import('@/components/Widgets/Clock.vue'),
     CodeStats: () => import('@/components/Widgets/CodeStats.vue'),
     CovidStats: () => import('@/components/Widgets/CovidStats.vue'),
@@ -432,6 +447,7 @@ export default {
     IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),
     ImageWidget: () => import('@/components/Widgets/ImageWidget.vue'),
     Jokes: () => import('@/components/Widgets/Jokes.vue'),
+    MullvadStatus: () => import('@/components/Widgets/MullvadStatus.vue'),
     NdCpuHistory: () => import('@/components/Widgets/NdCpuHistory.vue'),
     NdLoadHistory: () => import('@/components/Widgets/NdLoadHistory.vue'),
     NdRamHistory: () => import('@/components/Widgets/NdRamHistory.vue'),
@@ -476,7 +492,7 @@ export default {
     /* Returns users specified widget options, or empty object */
     widgetOptions() {
       const options = this.widget.options || {};
-      const timeout = this.widget.timeout || 2500;
+      const timeout = this.widget.timeout || null;
       const useProxy = this.appConfig.widgetsAlwaysUseProxy || !!this.widget.useProxy;
       const updateInterval = this.widget.updateInterval !== undefined
         ? this.widget.updateInterval : null;
@@ -520,6 +536,8 @@ export default {
 .widget-base {
   position: relative;
   padding: 0.75rem 0.5rem 0.5rem 0.5rem;
+  background: var(--widget-base-background);
+  box-shadow: var(--widget-base-shadow, none);
   // Refresh and full-page action buttons
   button.action-btn  {
     height: 1rem;

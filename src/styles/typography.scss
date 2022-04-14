@@ -42,11 +42,7 @@ html {
   }
 }
 /* Optional fonts for specific themes */
-/* These fonts are loaded from ./public and therefore not bundled within the apps source */
-@font-face { // Used by Dracula. Credit to Matt McInerney
-  font-family: 'Allerta Stencil';
-  src: url('/fonts/AllertaStencil-Regular.ttf');
-}
+/* These fonts are loaded from ./public so not bundled within dist */
 @font-face { // Used by body text in Matrix and Hacker themes. Credit to the late Vernon Adams, RIP
   font-family: 'Cutive Mono';
   src: url('/fonts/CutiveMono-Regular.ttf');
@@ -71,9 +67,11 @@ html {
   font-family: 'VT323';
   src: url('/fonts/VT323-Regular.ttf');
 }
-
 @font-face { // Used by cyberpunk theme. Credit to Astigmatic
   font-family: 'Audiowide';
   src: url('/fonts/Audiowide-Regular.ttf');
 }
-
+@font-face { // Used by Dracula, Lissy themes. Credit to Jonny Pinhorn
+  font-family: 'Shrikhand';
+  src: url('/fonts/Shrikhand-Regular.ttf');
+}
