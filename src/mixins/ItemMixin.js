@@ -58,7 +58,7 @@ export default {
       return interval;
     },
     accumulatedTarget() {
-      return this.target || this.appConfig.defaultOpeningMethod || defaultOpeningMethod;
+      return this.item.target || this.appConfig.defaultOpeningMethod || defaultOpeningMethod;
     },
     /* Convert config target value, into HTML anchor target attribute */
     anchorTarget() {
