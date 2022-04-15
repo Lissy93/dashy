@@ -18,6 +18,8 @@ import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/Auth';
 import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 
+import { pages } from '../public/conf.yml';
+
 Vue.use(Router);
 const progress = new Progress({ color: 'var(--progress-bar)' });
 
@@ -34,6 +36,7 @@ const getConfig = () => {
   return {
     appConfig: Accumulator.appConfig(),
     pageInfo: Accumulator.pageInfo(),
+    pages: Accumulator.pages(),
   };
 };
 
@@ -61,6 +64,24 @@ const makeMetaTags = (defaultTitle) => ({
   metaTags: metaTagData,
 });
 
+const makePageSlug = (pageName) => {
+  const formattedName = pageName.toLowerCase().replaceAll(' ', '-');
+  return `/${formattedName}`;
+};
+
+const makeMultiPageRoutes = (userPages) => {
+  if (!userPages) return [];
+  const multiPageRoutes = [];
+  userPages.forEach((page) => {
+    multiPageRoutes.push({
+      path: makePageSlug(page.name),
+      name: page.name,
+      component: Home,
+    });
+  });
+  return multiPageRoutes;
+};
+
 /* Routing mode, can be either 'hash', 'history' or 'abstract' */
 const mode = appConfig.routingMode || 'history';
 
@@ -68,6 +89,7 @@ const mode = appConfig.routingMode || 'history';
 const router = new Router({
   mode,
   routes: [
+    ...makeMultiPageRoutes(pages),
     { // The default view can be customized by the user
       path: '/',
       name: `landing-page-${getStartingView()}`,

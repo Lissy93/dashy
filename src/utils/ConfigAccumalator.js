@@ -23,6 +23,10 @@ export default class ConfigAccumulator {
     this.conf = $store.state.remoteConfig;
   }
 
+  pages() {
+    return this.conf.pages;
+  }
+
   /* App Config */
   appConfig() {
     let appConfigFile = {};
@@ -88,6 +92,7 @@ export default class ConfigAccumulator {
       appConfig: this.appConfig(),
       pageInfo: this.pageInfo(),
       sections: this.sections(),
+      pages: this.pages(),
     };
   }
 }
