@@ -128,8 +128,23 @@ export default {
           };
         });
     },
+    callWebHook() {
+      const endpoint = `${serviceEndpoints.actionButtonCall}/?url=${this.item.url}`;
+      axios.get(endpoint)
+        .then((response) => {
+          console.log(response);
+          this.$toasted.show('TODO: Show response in toast', { className: 'toast-success' });
+        })
+        .catch(() => { // Something went very wrong.
+          this.$toasted.show('TODO: failure msg', { className: 'toast-error' });
+        });
+    },
     /* Called when an item is clicked, manages the opening of modal & resets the search field */
     itemClicked(e) {
+      if (this.item.action) {
+        this.callWebHook();
+        return;
+      }
       const url = this.url || this.item.url;
       if (this.isEditMode) {
         // If in edit mode, open settings, and don't launch app
