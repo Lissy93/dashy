@@ -22,6 +22,7 @@ require('./services/config-validator'); // Include and kicks off the config file
 
 /* Include route handlers for API endpoints */
 const statusCheck = require('./services/status-check'); // Used by the status check feature, uses GET
+const actionButton = require('./services/action-buttons-call'); // Used by action buttons, to execute users web hooks
 const saveConfig = require('./services/save-config'); // Saves users new conf.yml to file-system
 const rebuild = require('./services/rebuild-app'); // A script to programmatically trigger a build
 const systemInfo = require('./services/system-info'); // Basic system info, for resource widget
@@ -82,6 +83,16 @@ const app = express()
       });
     } catch (e) {
       printWarning(`Error running status check for ${req.url}\n`, e);
+    }
+  })
+  // GET endpoint for executing web-hooks for action buttons
+  .use(ENDPOINTS.actionButtonCall, (req, res) => {
+    try {
+      actionButton(req.url, async (results) => {
+        await res.end(results);
+      });
+    } catch (e) {
+      printWarning(`Error executing web hook for ${req.url}\n`, e);
     }
   })
   // POST Endpoint used to save config, by writing conf.yml to disk
