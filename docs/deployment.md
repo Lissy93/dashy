@@ -89,7 +89,7 @@ services:
     container_name: Dashy
     # Pass in your config file below, by specifying the path on your host machine
     # volumes:
-      # - /root/my-config.yml:/public/conf.yml
+      # - /root/my-config.yml:/app/public/conf.yml
     ports:
       - 4000:80
     # Set any environmental variables
