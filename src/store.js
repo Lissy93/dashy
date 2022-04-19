@@ -8,13 +8,14 @@ import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { componentVisibility } from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
-import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import { isUserAdmin } from '@/utils/Auth';
 
 Vue.use(Vuex);
 
 const {
   INITIALIZE_CONFIG,
+  INITIALIZE_MULTI_PAGE_CONFIG,
   SET_CONFIG,
   SET_REMOTE_CONFIG,
   SET_MODAL_OPEN,
@@ -24,6 +25,7 @@ const {
   SET_THEME,
   SET_CUSTOM_COLORS,
   UPDATE_ITEM,
+  USE_MAIN_CONFIG,
   SET_EDIT_MODE,
   SET_PAGE_INFO,
   SET_APP_CONFIG,
@@ -58,6 +60,9 @@ const store = new Vuex.Store({
     },
     sections(state) {
       return filterUserSections(state.config.sections || []);
+    },
+    pages(state) {
+      return state.remoteConfig.pages || [];
     },
     theme(state) {
       return state.config.appConfig.theme;
@@ -275,6 +280,13 @@ const store = new Vuex.Store({
     [CONF_MENU_INDEX](state, index) {
       state.navigateConfToTab = index;
     },
+    [USE_MAIN_CONFIG](state) {
+      if (state.remoteConfig) {
+        state.config = state.remoteConfig;
+      } else {
+        this.dispatch(Keys.INITIALIZE_CONFIG);
+      }
+    },
   },
   actions: {
     /* Called when app first loaded. Reads config and sets state */
@@ -284,6 +296,16 @@ const store = new Vuex.Store({
       const deepCopy = (json) => JSON.parse(JSON.stringify(json));
       const config = deepCopy(new ConfigAccumulator().config());
       commit(SET_CONFIG, config);
+    },
+    /* Fetch config for a sub-page (sections and pageInfo only) */
+    async [INITIALIZE_MULTI_PAGE_CONFIG]({ commit, state }, configPath) {
+      axios.get(configPath).then((response) => {
+        const subConfig = yaml.load(response.data);
+        subConfig.appConfig = state.config.appConfig; // Always use parent appConfig
+        commit(SET_CONFIG, subConfig);
+      }).catch((err) => {
+        ErrorHandler(`Unable to load config from '${configPath}'`, err);
+      });
     },
   },
   modules: {},

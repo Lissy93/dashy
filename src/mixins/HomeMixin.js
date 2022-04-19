@@ -3,10 +3,13 @@
  */
 
 import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
+import Keys from '@/utils/StoreMutations';
 import { searchTiles } from '@/utils/Search';
 
 const HomeMixin = {
-  props: {},
+  props: {
+    confPath: String,
+  },
   computed: {
     sections() {
       return this.$store.getters.sections;
@@ -27,7 +30,22 @@ const HomeMixin = {
   data: () => ({
     searchValue: '',
   }),
+  async mounted() {
+    await this.getConfigForRoute();
+  },
+  watch: {
+    async $route() {
+      await this.getConfigForRoute();
+    },
+  },
   methods: {
+    async getConfigForRoute() {
+      if (this.confPath) { // Get config for sub-page
+        await this.$store.dispatch(Keys.INITIALIZE_MULTI_PAGE_CONFIG, this.confPath);
+      } else { // Otherwise, use main config
+        this.$store.commit(Keys.USE_MAIN_CONFIG);
+      }
+    },
     updateModalVisibility(modalState) {
       this.$store.commit('SET_MODAL_OPEN', modalState);
     },

@@ -11,10 +11,13 @@ import { Progress } from 'rsup-progress';
 
 // Import views, that are not lazy-loaded
 import Home from '@/views/Home.vue';
+// import Workspace from '@/views/Workspace.vue';
+// import Minimal from '@/views/Minimal.vue';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 
 // Import helper functions, config data and defaults
 import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/Auth';
+import { makePageSlug } from '@/utils/ConfigHelpers';
 import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 
@@ -64,19 +67,33 @@ const makeMetaTags = (defaultTitle) => ({
   metaTags: metaTagData,
 });
 
-const makePageSlug = (pageName) => {
-  const formattedName = pageName.toLowerCase().replaceAll(' ', '-');
-  return `/${formattedName}`;
+const makeSubConfigPath = (rawPath) => {
+  if (rawPath.startsWith('/') || rawPath.startsWith('http')) return rawPath;
+  else return `/${rawPath}`;
 };
 
+/* For each additional config file, create routes for home, minimal and workspace views */
 const makeMultiPageRoutes = (userPages) => {
   if (!userPages) return [];
   const multiPageRoutes = [];
   userPages.forEach((page) => {
     multiPageRoutes.push({
-      path: makePageSlug(page.name),
-      name: page.name,
+      path: makePageSlug(page.name, 'home'),
+      name: `${page.name}-home`,
       component: Home,
+      props: { confPath: makeSubConfigPath(page.path) },
+    });
+    multiPageRoutes.push({
+      path: makePageSlug(page.name, 'workspace'),
+      name: `${page.name}-workspace`,
+      component: () => import('./views/Workspace.vue'),
+      props: { confPath: makeSubConfigPath(page.path) },
+    });
+    multiPageRoutes.push({
+      path: makePageSlug(page.name, 'minimal'),
+      name: `${page.name}-minimal`,
+      component: () => import('./views/Minimal.vue'),
+      props: { confPath: makeSubConfigPath(page.path) },
     });
   });
   return multiPageRoutes;

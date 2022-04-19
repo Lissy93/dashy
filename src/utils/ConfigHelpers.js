@@ -10,6 +10,12 @@ import {
 import ErrorHandler from '@/utils/ErrorHandler';
 import ConfigSchema from '@/utils/ConfigSchema.json';
 
+/* For a given sub-page, and page type, return the URL */
+export const makePageSlug = (pageName, pageType) => {
+  const formattedName = pageName.toLowerCase().replaceAll(' ', '-').replaceAll('.yml', '');
+  return `/${pageType}/${formattedName}`;
+};
+
 /**
  * Initiates the Accumulator class and generates a complete config object
  * Self-executing function, returns the full user config as a JSON object
