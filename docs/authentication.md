@@ -209,7 +209,7 @@ Allow from [your-ip]
 In NGINX you can specify [control access](https://docs.nginx.com/nginx/admin-guide/security-controls/controlling-access-proxied-http/) rules for a given site in your `nginx.conf` or hosts file. For example:
 ```
 server {
-	listen 80;
+	listen 8080;
 	server_name www.dashy.example.com;
 	location / {
 		root /path/to/dashy/;
