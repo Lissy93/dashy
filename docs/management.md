@@ -215,7 +215,7 @@ Once you've generated your SSL cert, you'll need to pass it to Dashy. This can b
 
 ```
 docker run -d \
-  -p 8080:80 \
+  -p 8080:8080 \
   -v ~/my-private-key.key:/etc/ssl/certs/dashy-priv.key:ro \
   -v ~/my-public-key.pem:/etc/ssl/certs/dashy-pub.pem:ro \
   lissy93/dashy:latest
@@ -255,7 +255,7 @@ services:
     volumes:
       - /root/my-config.yml:/app/public/conf.yml
     ports:
-      - 4000:80
+      - 4000:8080
     environment:
       - BASE_URL=/my-dashboard
     restart: unless-stopped
@@ -523,7 +523,7 @@ upstream dashy {
 }
 
 server {
-  listen         80;
+  listen         8080;
   server_name    dashy.mydomain.com;
 
   # Setup SSL
@@ -549,7 +549,7 @@ Similarly, a basic `Caddyfile` might look like:
 
 ```
 dashy.example.com {
-    reverse_proxy / nginx:80
+    reverse_proxy / nginx:8080
 }
 ```
 
@@ -597,7 +597,7 @@ One of the best ways to prevent privilege escalation attacks, is to configure th
 You can specify a user, using the [`--user` param](https://docs.docker.com/engine/reference/run/#user), and should include the user ID (`UID`), which can be found by running `id -u`, and the and the group ID (`GID`), using `id -g`.
 
 With Docker run, you specify it like:
-`docker run --user 1000:1000 -p 8080:80 lissy93/dashy`
+`docker run --user 1000:1000 -p 8080:8080 lissy93/dashy`
 
 Of if you're using Docker-compose, you could use an environmental variable
 
@@ -607,7 +607,7 @@ services:
   dashy:
     image: lissy93/dashy
     user: ${CURRENT_UID}
-    ports: [ 4000:80 ]
+    ports: [ 4000:8080 ]
 ```   
 
 And then to set the variable, and start the container, run: `CURRENT_UID=$(id -u):$(id -g) docker-compose up`
@@ -732,8 +732,8 @@ Create a new file in `/etc/nginx/sites-enabled/dashy`
 
 ```
 server {
-	listen 80;
-	listen [::]:80;
+	listen 8080;
+	listen [::]:8080;
 
 	root /var/www/dashy/html;
 	index index.html;
@@ -847,7 +847,7 @@ Similar to above, you'll first need to fork and clone Dashy to your local system
 
 Then, either use Dashy's default [`Dockerfile`](https://github.com/Lissy93/dashy/blob/master/Dockerfile) as is, or modify it according to your needs.
 
-To build and deploy locally, first build the app with: `docker build -t dashy .`, and then start the app with `docker run -p 8080:80 --name my-dashboard dashy`.  Or modify the `docker-compose.yml` file, replacing `image: lissy93/dashy` with `build: .` and run `docker compose up`.
+To build and deploy locally, first build the app with: `docker build -t dashy .`, and then start the app with `docker run -p 8080:8080 --name my-dashboard dashy`.  Or modify the `docker-compose.yml` file, replacing `image: lissy93/dashy` with `build: .` and run `docker compose up`.
 
 Your container should now be running, and will appear in the list when you run `docker container ls –a`. If you'd like to enter the container, run `docker exec -it [container-id] /bin/ash`.
 
