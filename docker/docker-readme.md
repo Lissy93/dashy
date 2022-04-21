@@ -55,7 +55,7 @@
 
 **Screenshots**: Checkout the [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md), to see example dashboards from the community
 
-**Spin up your own demo**: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml) or [`docker run -p 8080:80 lissy93/dashy`](./docs/quick-start.md)
+**Spin up your own demo**: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml) or [`docker run -p 8080:8080 lissy93/dashy`](./docs/quick-start.md)
 
 
 <p align="center">
@@ -69,7 +69,7 @@
 
 ## Getting Started 🛫
 
-To deploy Dashy with Docker, just run `docker run -p 8080:80 lissy93/dashy`, then open `http://localhost:8080`
+To deploy Dashy with Docker, just run `docker run -p 8080:8080 lissy93/dashy`, then open `http://localhost:8080`
 
 For full list of options and a Docker compose file, see the [Deployment Docs](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md).
 
