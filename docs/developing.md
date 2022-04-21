@@ -73,6 +73,7 @@ You can set variables either in your environment, or using the [`.env`](https://
 - `INTEGRITY` - Should enable SRI for build script and link resources
 - `IS_DOCKER` - Computed automatically on build. Indicates if running in container
 - `VUE_APP_VERSION` - Again, set automatically using package.json during build time
+- `DEST_DIRECTORY` - Location for the output of the `vue-cli-service build` command.  Set automatically during build.
 
 ### Environment Modes
 You can set the environment using the `NODE_ENV` variable. By default, the correct environment should be selected based on the script you run to start the app. The following environments are supported: `production`, `development` and `test`. For more info, see [Vue CLI Environment Modes](https://cli.vuejs.org/guide/mode-and-env.html#modes).
