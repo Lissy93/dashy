@@ -4,22 +4,35 @@
 This article outlines how to get Dashy running in a development environment, and outlines the basics of the architecture.
 If you're adding new features, you may want to check out the [Development Guides](./docs/development-guides.md) docs, for tutorials covering basic tasks.
 
-- [Setting up the Development Environment](#setting-up-the-dev-environment)
-  - [Prerequisites](#prerequisites)
-  - [Running the App](#running-the-project)
-  - [Project Commands](#project-commands)
-  - [Environmental Variables](#environmental-variables)
-- [Git Strategy](#git-strategy)
-  - [Flow](#git-flow)
-  - [Branches](#git-branch-naming)
-  - [Commit emojis](#commit-emojis)
-  - [PR Guidelines](#pr-guidelines)
-- [Resources for Beginners](#resources-for-beginners)
-- [App Info](#app-info)
-- [Code Style Guide](#style-guide)
-- [Application Structure](#application-structure)
-- [Development Tools](#development-tools)
-- [Misc / Notes](#notes)
+- [Developing](#developing)
+  - [Setting up the Dev Environment](#setting-up-the-dev-environment)
+    - [Prerequisites](#prerequisites)
+    - [Running the Project](#running-the-project)
+    - [Project Commands](#project-commands)
+      - [Basics](#basics)
+      - [Development](#development)
+      - [Utils and Checks](#utils-and-checks)
+      - [Alternate Start Commands](#alternate-start-commands)
+      - [Notes](#notes)
+    - [Environmental Variables](#environmental-variables)
+    - [Environment Modes](#environment-modes)
+  - [Git Strategy](#git-strategy)
+    - [Git Flow](#git-flow)
+    - [Git Branch Naming](#git-branch-naming)
+    - [Commit Emojis](#commit-emojis)
+    - [PR Guidelines](#pr-guidelines)
+  - [Resources for Beginners](#resources-for-beginners)
+  - [App Info](#app-info)
+  - [Style Guide](#style-guide)
+  - [Application Structure](#application-structure)
+      - [Files in the Root: `./`](#files-in-the-root-)
+      - [Frontend Source: `./src/`](#frontend-source-src)
+      - [Visualisation of Source Directory](#visualisation-of-source-directory)
+  - [Development Tools](#development-tools)
+    - [Performance - Lighthouse](#performance---lighthouse)
+    - [Dependencies - BundlePhobia](#dependencies---bundlephobia)
+  - [Notes](#notes-1)
+    - [Known Warnings](#known-warnings)
 
 ## Setting up the Dev Environment
 
@@ -73,7 +86,6 @@ You can set variables either in your environment, or using the [`.env`](https://
 - `INTEGRITY` - Should enable SRI for build script and link resources
 - `IS_DOCKER` - Computed automatically on build. Indicates if running in container
 - `VUE_APP_VERSION` - Again, set automatically using package.json during build time
-- `DEST_DIRECTORY` - Location for the output of the `vue-cli-service build` command.  Set automatically during build.
 
 ### Environment Modes
 You can set the environment using the `NODE_ENV` variable. By default, the correct environment should be selected based on the script you run to start the app. The following environments are supported: `production`, `development` and `test`. For more info, see [Vue CLI Environment Modes](https://cli.vuejs.org/guide/mode-and-env.html#modes).
