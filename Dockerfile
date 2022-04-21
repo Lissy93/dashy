@@ -28,9 +28,12 @@ RUN yarn build
 FROM node:16.14.2-alpine
 
 # Define some ENV Vars
-ENV PORT=80 \
+ENV PORT=8080 \
   DIRECTORY=/app \
-  IS_DOCKER=true
+  DEST_DIRECTORY=/app/dist \
+  IS_DOCKER=true \
+  UID=5000 \
+  GID=5000
 
 # Create and set the working directory
 WORKDIR ${DIRECTORY}
@@ -40,8 +43,14 @@ RUN apk add --no-cache tzdata tini
 
 # Copy built application from build phase
 COPY --from=BUILD_IMAGE /app ./
-# Ensure only one version of conf.yml exists
-RUN rm dist/conf.yml
+
+# fix permissions
+RUN rm -rf ${DEST_DIRECTORY} && \
+    mkdir ${DEST_DIRECTORY} && \
+    chown $UID:$GID ${DEST_DIRECTORY} && \
+    chmod 755 ${DEST_DIRECTORY}
+
+USER ${UID}
 
 # Finally, run start command to serve up the built application
 ENTRYPOINT [ "/sbin/tini", "--" ]
