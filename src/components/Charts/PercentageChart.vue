@@ -13,7 +13,7 @@
     ></div>
   </div>
   <!-- Chart Legend / Key -->
-  <div class="legend">
+  <div class="legend" v-if="showLegend">
     <div v-for="(block, inx) in blocks" :key="inx"
       class="legend-item" v-tooltip="`${Math.round(block.width)}% (${block.value})`">
       <div class="dot" v-if="block.label" :style="makeDotColor(block)"></div>
@@ -28,6 +28,10 @@
 export default {
   props: {
     showAsPercent: {
+      type: Boolean,
+      default: true,
+    },
+    showLegend: {
       type: Boolean,
       default: true,
     },
