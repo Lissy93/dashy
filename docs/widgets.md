@@ -46,6 +46,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Pi Hole Queries](#pi-hole-queries)
   - [Recent Traffic](#recent-traffic)
   - [Stat Ping Statuses](#stat-ping-statuses)
+  - [Synology Download Station](#stat-ping-statuses)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -1322,6 +1323,41 @@ Displays the current and recent uptime of your running services, via a self-host
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [GitHub - StatPing](https://github.com/statping/statping))
 - **Privacy**: _See [StatPing Docs](https://docs.statping.com/)_
+
+---
+
+### Synology Download Station
+
+Displays the current downloads/torrents tasks of your Synology NAS
+
+<p align="center"><img width="300" src="https://i.ibb.co/N2kKWTN/image.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Synology NAS, without a trailing slash
+**`username`** | `string` |  Required | The username of a user on your synology NAS. You will see only this user download station tasks if he is not part of the administrator group. Currently don't support OTP protected accounts.
+**`password`** | `string` |  Required | The password of the account specified above.
+
+##### Example 
+
+```yaml
+- type: synology-download
+  options:
+    hostname: http://192.168.1.1:8080
+    username: dashy
+    password: totally-secure-password
+
+
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Synology](https://www.synology.com/en-us))
+- **Privacy**: _See [Synology Privacy Statement](https://www.synology.com/en-us/company/legal/privacy)_
 
 ---
 
