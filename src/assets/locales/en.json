@@ -290,6 +290,15 @@
     "tfl-status": {
       "good-service-all": "Good Service on all Lines",
       "good-service-rest": "Good Service on all other Lines"
+    },
+    "synology-download": {
+      "download": "Download",
+      "upload": "Upload",
+      "downloaded": "Downloaded",
+      "uploaded": "Uploaded",
+      "remaining": "Remaining",
+      "up": "Up",
+      "down": "Down"
     }
   }
 }
