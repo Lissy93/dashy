@@ -28,12 +28,13 @@ RUN yarn build
 FROM node:16.14.2-alpine
 
 # Define some ENV Vars
-ENV PORT=8080 \
-  DIRECTORY=/app \
-  DEST_DIRECTORY=/app/dist \
-  IS_DOCKER=true \
-  UID=5000 \
-  GID=5000
+ENV DIRECTORY=/app \
+    PUBLIC_DIR=public \
+    DEST_DIR=dist \
+    IS_DOCKER=true \
+    UID=5000 \
+    GID=5000 \
+    PORT=8080
 
 # Create and set the working directory
 WORKDIR ${DIRECTORY}
@@ -42,13 +43,19 @@ WORKDIR ${DIRECTORY}
 RUN apk add --no-cache tzdata tini
 
 # Copy built application from build phase
-COPY --from=BUILD_IMAGE /app ./
+COPY --from=BUILD_IMAGE /app ${DIRECTORY}
 
 # fix permissions
-RUN rm -rf ${DEST_DIRECTORY} && \
-    mkdir ${DEST_DIRECTORY} && \
-    chown $UID:$GID ${DEST_DIRECTORY} && \
-    chmod 755 ${DEST_DIRECTORY}
+RUN chown ${UID}:${GID} ${DEST_DIR} && \
+    chmod 755 ${DEST_DIR} && \
+    find ${DEST_DIR} -exec chown ${UID}:${GID} "{}" \; && \
+    find ${DEST_DIR} -type d -exec chmod 755 "{}" \; && \
+    find ${DEST_DIR} -type f -exec chmod 644 "{}" \; && \
+    chown ${UID}:${GID} ${PUBLIC_DIR} && \
+    chmod 755 ${PUBLIC_DIR} && \
+    find ${PUBLIC_DIR} -exec chown $UID:$GID "{}" \; && \
+    find ${PUBLIC_DIR} -type d -exec chmod 755 "{}" \; && \
+    find ${PUBLIC_DIR} -type f -exec chmod 644 "{}" \;
 
 USER ${UID}
 
