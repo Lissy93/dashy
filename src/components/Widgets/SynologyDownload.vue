@@ -11,10 +11,12 @@
         size: 100 - task.Progress, color: '#6092d1' },
       ]" />
     <p class="info">
-      <b>{{ $t('widgets.synology-download.downloaded') }}</b>: {{ task.Downloaded | formatSize }}
+      <strong>{{ $t('widgets.synology-download.downloaded') }}</strong>:
+       {{ task.Downloaded | formatSize }}
       / {{ task.TotalSize | formatSize }} ({{ task.Progress }}%)
       ({{ task.DownSpeed | formatSize }}/s)<br/>
-      <b>{{ $t('widgets.synology-download.uploaded') }}</b>: {{ task.Uploaded | formatSize }}
+      <strong>{{ $t('widgets.synology-download.uploaded') }}</strong>:
+       {{ task.Uploaded | formatSize }}
       ({{ task.UpSpeed | formatSize }}/s)
       (ratio : {{ Math.floor( task.Uploaded / task.Downloaded * 100 ) / 100 }})
     </p>
