@@ -18,6 +18,7 @@ const {
   INITIALIZE_MULTI_PAGE_CONFIG,
   SET_CONFIG,
   SET_REMOTE_CONFIG,
+  SET_CURRENT_SUB_PAGE,
   SET_MODAL_OPEN,
   SET_LANGUAGE,
   SET_ITEM_LAYOUT,
@@ -42,10 +43,11 @@ const {
 
 const store = new Vuex.Store({
   state: {
-    config: {},
+    config: {}, // The current config, rendered to the UI
     remoteConfig: {}, // The configuration stored on the server
     editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
+    currentConfigInfo: undefined, // For multi-page support, will store info about config file
     navigateConfToTab: undefined, // Used to switch active tab in config modal
   },
   getters: {
@@ -279,6 +281,9 @@ const store = new Vuex.Store({
     },
     [CONF_MENU_INDEX](state, index) {
       state.navigateConfToTab = index;
+    },
+    [SET_CURRENT_SUB_PAGE](state, subPageObject) {
+      state.currentConfigInfo = subPageObject;
     },
     [USE_MAIN_CONFIG](state) {
       if (state.remoteConfig) {
