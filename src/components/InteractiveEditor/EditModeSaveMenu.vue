@@ -79,16 +79,12 @@
 </template>
 
 <script>
-import axios from 'axios';
-import jsYaml from 'js-yaml';
-import { Progress } from 'rsup-progress';
-
+import ConfigSavingMixin from '@/mixins/ConfigSaving';
 import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
 import EditPageInfo from '@/components/InteractiveEditor/EditPageInfo';
 import EditAppConfig from '@/components/InteractiveEditor/EditAppConfig';
-import { modalNames, localStorageKeys, serviceEndpoints } from '@/utils/defaults';
-import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
+import { modalNames } from '@/utils/defaults';
 import AccessError from '@/components/Configuration/AccessError';
 
 import SaveLocallyIcon from '@/assets/interface-icons/interactive-editor-save-locally.svg';
@@ -100,6 +96,7 @@ import PageInfoIcon from '@/assets/interface-icons/interactive-editor-page-info.
 
 export default {
   name: 'EditModeSaveMenu',
+  mixins: [ConfigSavingMixin],
   components: {
     Button,
     EditPageInfo,
@@ -124,13 +121,6 @@ export default {
       return this.permissions.allowWriteToDisk || this.permissions.allowSaveLocally;
     },
   },
-  data() {
-    return {
-      saveSuccess: undefined,
-      responseText: '',
-      progress: new Progress({ color: 'var(--progress-bar)' }),
-    };
-  },
   methods: {
     reset() {
       this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG);
@@ -154,63 +144,11 @@ export default {
     showToast(message, success) {
       this.$toasted.show(message, { className: `toast-${success ? 'success' : 'error'}` });
     },
-    carefullyClearLocalStorage() {
-      localStorage.removeItem(localStorageKeys.PAGE_INFO);
-      localStorage.removeItem(localStorageKeys.APP_CONFIG);
-      localStorage.removeItem(localStorageKeys.CONF_SECTIONS);
-    },
     saveLocally() {
-      if (!this.permissions.allowSaveLocally) {
-        ErrorHandler('Unable to save changes locally, this feature has been disabled');
-        return;
-      }
-      const data = this.config;
-      localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(data.sections));
-      localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(data.pageInfo));
-      localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(data.appConfig));
-      if (data.appConfig.theme) {
-        localStorage.setItem(localStorageKeys.THEME, data.appConfig.theme);
-      }
-      InfoHandler('Config has succesfully been saved in browser storage', 'Config Update');
-      this.showToast(this.$t('config-editor.success-msg-local'), true);
-      this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
+      this.saveConfigLocally(this.config);
     },
     writeToDisk() {
-      if (this.config.appConfig.preventWriteToDisk) {
-        ErrorHandler('Unable to write changed to disk, as this functionality is disabled');
-        return;
-      }
-      // 1. Convert JSON into YAML
-      const yamlOptions = {};
-      const yaml = jsYaml.dump(this.config, yamlOptions);
-      // 2. Prepare the request
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      const endpoint = `${baseUrl}${serviceEndpoints.save}`;
-      const headers = { 'Content-Type': 'text/plain' };
-      const body = { config: yaml, timestamp: new Date() };
-      const request = axios.post(endpoint, body, headers);
-      // 3. Make the request, and handle response
-      this.progress.start();
-      request.then((response) => {
-        this.saveSuccess = response.data.success || false;
-        this.responseText = response.data.message;
-        if (this.saveSuccess) {
-          this.carefullyClearLocalStorage();
-          this.showToast(this.$t('config-editor.success-msg-disk'), true);
-        } else {
-          this.showToast(this.$t('config-editor.error-msg-cannot-save'), false);
-        }
-        InfoHandler('Config has been written to disk succesfully', 'Config Update');
-        this.progress.end();
-        this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
-      })
-        .catch((error) => {
-          this.saveSuccess = false;
-          this.responseText = error;
-          this.showToast(error, false);
-          ErrorHandler(`Failed to save config. ${error}`);
-          this.progress.end();
-        });
+      this.writeConfigToDisk(this.config);
     },
   },
 };
