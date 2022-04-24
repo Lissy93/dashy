@@ -10,9 +10,19 @@ import {
 import ErrorHandler from '@/utils/ErrorHandler';
 import ConfigSchema from '@/utils/ConfigSchema.json';
 
+/* Given a page name, converts to lowercase, removes special characters and extension */
+export const makePageName = (pageName) => {
+  if (!pageName) return 'unnamed-page';
+  return pageName
+    .toLowerCase()
+    .replaceAll(' ', '-')
+    .replace('.yml', '')
+    .replace(/[^\w\s-]/gi, '');
+};
+
 /* For a given sub-page, and page type, return the URL */
 export const makePageSlug = (pageName, pageType) => {
-  const formattedName = pageName.toLowerCase().replaceAll(' ', '-').replaceAll('.yml', '');
+  const formattedName = makePageName(pageName);
   return `/${pageType}/${formattedName}`;
 };
 
