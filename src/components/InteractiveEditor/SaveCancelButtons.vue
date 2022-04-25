@@ -56,6 +56,9 @@ export default {
         path { fill: var(--interactive-editor-background); }
       }
     }
+    &:focus {
+      box-shadow: 1px 1px 6px var(--interactive-editor-color);
+    }
   }
 }
 </style>

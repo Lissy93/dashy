@@ -51,10 +51,11 @@
       </Button>
     </div>
     <!-- Open Modal Buttons -->
-    <div class="edit-banner-section edit-site-config-buttons">
+    <div class="edit-banner-section edit-config-buttons-container">
       <p class="section-sub-title">
         {{ $t('interactive-editor.menu.edit-site-data-subheading') }}
       </p>
+      <!-- Button to open pageInfo editor -->
       <Button
         :click="openEditPageInfo"
         :disallow="!permissions.allowViewConfig"
@@ -63,6 +64,7 @@
         {{ $t('interactive-editor.menu.edit-page-info-btn') }}
         <PageInfoIcon />
       </Button>
+      <!-- Button to open appConfig editor -->
       <Button
         :click="openEditAppConfig"
         :disallow="!permissions.allowViewConfig"
@@ -71,10 +73,20 @@
         {{ $t('interactive-editor.menu.edit-app-config-btn') }}
         <AppConfigIcon />
       </Button>
+      <!-- Button to open pages editor -->
+      <Button
+        :click="openEditMultiPages"
+        :disallow="!permissions.allowViewConfig"
+        v-tooltip="tooltip($t('interactive-editor.menu.edit-pages-tooltip'))"
+      >
+        {{ $t('interactive-editor.menu.edit-pages-btn') }}
+        <MultiPagesIcon />
+      </Button>
     </div>
-    <!-- Modals for editing appConfig + pageInfo -->
+    <!-- Modals for editing appConfig, pageInfo and pages -->
     <EditPageInfo />
     <EditAppConfig />
+    <EditMultiPages />
   </div>
 </template>
 
@@ -84,6 +96,7 @@ import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
 import EditPageInfo from '@/components/InteractiveEditor/EditPageInfo';
 import EditAppConfig from '@/components/InteractiveEditor/EditAppConfig';
+import EditMultiPages from '@/components/InteractiveEditor/EditMultiPages';
 import { modalNames } from '@/utils/defaults';
 import AccessError from '@/components/Configuration/AccessError';
 
@@ -93,6 +106,7 @@ import ExportIcon from '@/assets/interface-icons/interactive-editor-export-chang
 import CancelIcon from '@/assets/interface-icons/interactive-editor-cancel-changes.svg';
 import AppConfigIcon from '@/assets/interface-icons/interactive-editor-app-config.svg';
 import PageInfoIcon from '@/assets/interface-icons/interactive-editor-page-info.svg';
+import MultiPagesIcon from '@/assets/interface-icons/config-pages.svg';
 
 export default {
   name: 'EditModeSaveMenu',
@@ -100,13 +114,15 @@ export default {
   components: {
     Button,
     EditPageInfo,
+    EditAppConfig,
+    EditMultiPages,
     SaveLocallyIcon,
     SaveToDiskIcon,
     ExportIcon,
     CancelIcon,
     AppConfigIcon,
     PageInfoIcon,
-    EditAppConfig,
+    MultiPagesIcon,
     AccessError,
   },
   computed: {
@@ -138,6 +154,10 @@ export default {
       this.$modal.show(modalNames.EDIT_APP_CONFIG);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
     },
+    openEditMultiPages() {
+      this.$modal.show(modalNames.EDIT_MULTI_PAGES);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
     tooltip(content) {
       return { content, trigger: 'hover focus', delay: 250 };
     },
@@ -145,7 +165,11 @@ export default {
       this.$toasted.show(message, { className: `toast-${success ? 'success' : 'error'}` });
     },
     saveLocally() {
-      this.saveConfigLocally(this.config);
+      const msg = this.$t('interactive-editor.menu.save-locally-warning');
+      const youSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
+      if (youSure) {
+        this.saveConfigLocally(this.config);
+      }
     },
     writeToDisk() {
       this.writeConfigToDisk(this.config);
@@ -168,14 +192,15 @@ div.edit-mode-bottom-banner {
   background: var(--interactive-editor-background-darker);
   box-shadow: 0 -5px 7px var(--transparent-50);
   grid-template-columns: 45% 10% 45%;
-  @include laptop-up { grid-template-columns: 40% 20% 40%; }
-  @include monitor-up { grid-template-columns: 30% 40% 30%; }
+  @include laptop-up { grid-template-columns: 50% 10% 40%; }
+  @include monitor-up { grid-template-columns: 40% 30% 30%; }
   @include big-screen-up { grid-template-columns: 25% 50% 25%; }
 
   /* Main sections */
   .edit-banner-section {
     padding: 0.5rem;
     height: 90%;
+    display: grid;
     /* Section sub-titles */
     p.section-sub-title {
       margin: 0;
@@ -196,22 +221,24 @@ div.edit-mode-bottom-banner {
         padding: 0 0.5rem;
       }
     }
+    button {
+      margin: 0.25rem;
+      height: stretch;
+      max-height: 3rem;
+    }
     /* Button containers */
-    &.edit-site-config-buttons,
-    &.save-buttons-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      button {
-        margin: 0.25rem;
-        height: stretch;
-        max-height: 3rem;
-      }
+    &.edit-config-buttons-container {
+      grid-template-columns: repeat(3, 1fr);
       p.section-sub-title {
-        grid-column-start: span 2;
+        grid-column-start: span 3;
       }
     }
     &.save-buttons-container {
       grid-row-start: span 2;
+      grid-template-columns: repeat(2, 1fr);
+      p.section-sub-title {
+        grid-column-start: span 2;
+      }
     }
   }
 
