@@ -36,14 +36,14 @@ appConfig:
 All reporting is **disabled** by default, and no data will ever be sent to any external endpoint without your explicit consent. All statistics are anonomized and stored securely. For more about privacy and security, see the [Sentry Security Docs](https://sentry.io/security/).
 
 ## Add Translations
-If you speak another language, then adding translations will help make Dashy available to non-native English speakers. This is a very quick and easy task, as all application text is located in [`locales/en.json`](https://github.com/Lissy93/dashy/blob/master/src/assets/locales/en.json), so adding a new language is as simple as copying this file and translating the values. You don't have to translate it all, as any missing attributes will just fallback to English. For a full tutorial, see the [Multi-Language Support Docs](https://github.com/Lissy93/dashy/blob/master/docs/multi-language-support).
+If you speak another language, then adding translations will help make Dashy available to non-native English speakers. This is a very quick and easy task, as all application text is located in [`locales/en.json`](https://github.com/Lissy93/dashy/blob/master/src/assets/locales/en.json), so adding a new language is as simple as copying this file and translating the values. You don't have to translate it all, as any missing attributes will just fallback to English. For a full tutorial, see the [Multi-Language Support Docs](https://github.com/Lissy93/dashy/blob/master/docs/multi-language-support.md).
 
 ## Submit a PR
 Contributing to the code or docs is super helpful. You can fix a bug, add a new feature or improve an existing one. If you've built your own custom widget, theme or view, consider sharing it in a PR. I've written [several guides](/docs/development-guides) to help you get started, and the steps for setting up the development environment are outlined in the [Development Docs](/docs/development). Feel free to ask if you have any questions.
 
 ## Improve the Docs
 Found a typo, or something that isn't as clear as it could be? Maybe I've missed something off altogether, or you hit a roadblock that took you a while to figure out. Submitting a pull request to add to or improve the documentation will help future users get Dashy up and running more easily.
-All content is located either in the [`./README.md`](/README) or [`/docs/`](/docs) directory, and synced to the Wiki and website using a GH [action](/actions/workflows/wiki-sync.yml).
+All content is located either in the [`./README`](/README) or [`/docs/`](/docs) directory, and synced to the Wiki and website using a GH [action](/actions/workflows/wiki-sync.yml).
 
 ## Raise a bug
 If you've found a bug, then please do raise it as an issue. This will help me know if there's something that needs fixing. Try and include as much detail as possible, such as your environment, steps to reproduce, any console output and maybe an example screenshot or recording if necessary.

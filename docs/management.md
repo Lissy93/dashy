@@ -15,6 +15,7 @@ _The following article is a primer on managing self-hosted apps. It covers every
 - [Authentication](#authentication)
 - [Managing with Compose](#managing-containers-with-docker-compose)
 - [Environmental Variables](#passing-in-environmental-variables)
+- [Setting Headers](#setting-headers)
 - [Remote Access](#remote-access)
 - [Custom Domain](#custom-domain)
 - [Securing Containers](#container-security)
@@ -283,6 +284,89 @@ environment:
 
 You can also do the same thing with the docker run command, using the [`--env`](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file) flag.
 If you've got many environmental variables, you might find it useful to put them in a [`.env` file](https://docs.docker.com/compose/env-file/). Similarly, for Docker run you can use [`--env-file`](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file) if you'd like to pass in a file containing all your environmental variables.
+
+**[⬆️ Back to Top](#)**
+
+---
+
+## Setting Headers
+
+Any external requests made to a different origin (app/ service under a different domain) will be blocked if the correct headers are not specified. This is known as [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) (CORS) and is a security feature built into modern browsers.
+
+If you see a CORS error in your console, this can be easily fixed by setting the correct headers. This is not a bug with Dashy, so please don't raise it as a bug!
+
+### Example Headers
+- [Caddy](#caddy)
+- [NGINX](#nginx)
+- [Træfɪk](#traefik)
+- [HAProxy](#haproxy)
+- [Apache](#apache)
+
+_The following section briefly outlines how you can set headers for common web proxies/ servers. More info can be found in the documentation for the proxy that you are using, or in the [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)._
+
+These examples are using:
+- `Access-Control-Allow-Origin` header, but depending on what type of content you are enabling, this will vary. For example, to allow a site to be loaded in an iframe (for the modal or workspace views) you would use `X-Frame-Options`.
+- The domain root (`/`), if your're hosting from a sub-page, replace that with your path.
+- A wildcard (`*`), which would allow access from traffic on any domain, this is discorouaged, and you should replace it with the URL where you are hosting Dashy. Note that for requests that transport sensitive info, like credentials (e.g. Keycloak login), the wildcard is [disallowed all together](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#requests_with_credentials) and will be blocked.
+
+#### Caddy
+
+> See [Caddy `header` docs](https://caddyserver.com/docs/caddyfile/directives/header) for more info.
+
+```
+headers / {
+  Access-Control-Allow-Origin *
+}
+```
+
+#### NGINX
+
+> See [NGINX `ngx_http_headers_module` docs](https://nginx.org/en/docs/http/ngx_http_headers_module.html) for more info.
+
+```
+location / {
+  add_header Access-Control-Allow-Origin *;      
+}
+```
+
+Note this can also be done through the UI, using NGINX Proxy Manager.
+
+#### Traefik
+
+> See [Træfɪk CORS headers docs](https://doc.traefik.io/traefik/middlewares/http/headers/#cors-headers) for more info.
+
+```
+labels:
+  - "traefik.http.middlewares.testheader.headers.accesscontrolallowmethods=GET,OPTIONS,PUT"
+  - "traefik.http.middlewares.testheader.headers.accesscontrolalloworiginlist=https://foo.bar.org,https://example.org"
+  - "traefik.http.middlewares.testheader.headers.accesscontrolmaxage=100"
+  - "traefik.http.middlewares.testheader.headers.addvaryheader=true"
+```
+
+#### HAProxy
+
+> See [HAProxy Rewrite Response Docs](https://www.haproxy.com/documentation/hapee/latest/traffic-routing/rewrites/rewrite-responses/) for more info.
+
+```
+/
+   http-response add-header Access-Control-Allow-Origin *
+```
+
+#### Apache
+
+> See [Apache `mode_headers` docs](https://httpd.apache.org/docs/current/mod/mod_headers.html) for more info.
+
+```
+Header always set Access-Control-Allow-Origin "*"
+```
+
+#### Squid
+
+> See [Squid `request_header_access` docs](http://www2.gr.squid-cache.org/Doc/config/request_header_access/) for more info.
+
+```
+request_header_access Authorization allow all
+```
 
 **[⬆️ Back to Top](#)**
 

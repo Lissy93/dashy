@@ -11,6 +11,7 @@ Sections:
 - [Hiding Page Furniture](#hiding-page-furniture-on-certain-routes)
 - [Adding / Using Environmental Variables](#adding--using-environmental-variables)
 - [Building a Widget](#building-a-widget)
+- [Respecting Config Permissions](#respecting-config-permissions)
 
 ## Creating a new theme
 
@@ -94,18 +95,34 @@ If you are not comfortable with making pull requests, or do not want to modify t
 
 # Adding a new option in the config file
 
-This section is for, if you're adding a new component or setting, that requires an additional item to be added to the users config file.
+This section is for, adding a new setting to the config file.
 
-All of the users config is specified in `./public/conf.yml` - see [Configuring Docs](./configuring) for info.
-Before adding a new option in the config file, first ensure that there is nothing similar available, that is is definitely necessary, it will not conflict with any other options and most importantly that it will not cause any breaking changes. Ensure that you choose an appropriate and relevant section to place it under.
+All of the users config is specified in `./public/conf.yml` - see [Configuring Docs](./configuring.md) for info.
+It's important to first ensure that there isn't a similar option already available, the new option is definitely necessary, and most importantly that it is fully backwards compatible.
 
-Next decide the most appropriate place for your attribute:
+Next choose the appropriate section to place it under
 - Application settings should be located under `appConfig`
 - Page info (such as text and metadata) should be under `pageInfo`
 - Data relating to specific sections should be under `section[n].displayData`
-- And for setting applied to specific items, it should be under `item[n]`
+- Settings applied to specific items or widgets, should be under `item[n]` or `widget[n]`
 
-In order for the user to be able to add your new attribute using the Config Editor, and for the build validation to pass, your attribute must be included within the [ConfigSchema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js). You can read about how to do this on the [ajv docs](https://ajv.js.org/json-schema.html). Give your property a type and a description, as well as any other optional fields that you feel are relevant. For example:
+For example, if your option is added under `appConfig`, you can access it within your component using the `$store`, this is typically placed in a computed property, e.g:
+
+```javascript
+computed: {
+  appConfig() {
+    return this.$store.getters.appConfig;
+  },
+  ...
+},
+```
+
+Then, where you want get the users value within your component, use something like: `this.appConfig.myProperty`. Don't forget to have a fallback or default for then the user hasn't specified it.
+
+If you have a default fallback value, then this would typically be specified in the [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js) file.
+
+You will now need to add the definition of your new attribute into the [ConfigSchema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js). This will make it available in the UI config editor, and also ensure that the config validation check doesn't fail.
+For example:
 
 ```json
 "fontAwesomeKey": {
@@ -124,24 +141,21 @@ or
 }
 ```
 
-Next, if you're property should have a default value, then add it to [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js). This ensures that nothing will break if the user does not use your property, and having all defaults together keeps things organised and easy to manage.
-
-If your property needs additional logic for fetching, setting or processing, then you can add a helper function within [`ConfigHelpers.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigHelpers.js).
-
 Finally, add your new property to the [`configuring.md`](./configuring) API docs. Put it under the relevant section, and be sure to include field name, data type, a description and mention that it is optional.  If your new feature needs more explaining, then you can also document it under the relevant section elsewhere in the documentation.
 
 Checklist:
 - [ ] Ensure the new attribute is actually necessary, and nothing similar already exists 
 - [ ] Update the [Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js) with the parameters for your new option
-- [ ] Set a default value (if required) within [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js)
-- [ ] Document the new value in [`configuring.md`](./configuring)
-- [ ] Test that the reading of the new attribute is properly handled, and will not cause any errors when it is missing or populated with an unexpected value
+- [ ] If required, set a default or fallback value (usually in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js))
+- [ ] Document the new value in [`configuring.md`](./configuring), and if required under the relevant section in the docs
+- [ ] Ensure your changes are backwards compatible, and that nothing breaks if the attribute isn't specified
 
 ---
 
 ## Updating Dependencies
 
-Running `yarn upgrade` will updated all dependencies based on the ranges specified in the `package.json`. The `yarn.lock` file will be updated, as will the contents of `./node_modules`, for more info, see the [yarn upgrade documentation](https://classic.yarnpkg.com/en/docs/cli/upgrade/). It is important to thoroughly test after any big dependency updates.
+Running `yarn upgrade` will updated all dependencies based on the ranges specified in the `package.json`. The `yarn.lock` file will be updated, as will the contents of `./node_modules`, for more info, see the [yarn upgrade documentation](https://classic.yarnpkg.com/en/docs/cli/upgrade/). [`npm-check-updates`](https://github.com/raineorshine/npm-check-updates) is a useful tool to help with this.
+It is important to thoroughly test after any big dependency updates.
 
 ---
 
@@ -430,3 +444,31 @@ Finally, add some documentation for your widget in the [Widget Docs](https://git
 
 
 **Summary**: For a complete example of everything discussed here, see: [`3da76ce`](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e)
+
+---
+
+## Respecting Config Permissions
+
+Any screen that displays part or all of the users config, must not be shown when the user has disabled viewing config.
+
+This can be done by checking the `allowViewConfig` attribute of the `permissions` getter, in the store.
+First create a new `computed` property, like:
+```
+allowViewConfig() {
+  return this.$store.getters.permissions.allowViewConfig;
+},
+```
+
+Then wrap the part of your UI which displays config with: `v-if="allowViewConfig"`
+
+If required, add a message showing that the component isn't available, using the `AccessError` component. E.g.
+
+```
+import AccessError from '@/components/Configuration/AccessError';
+```
+
+```
+<AccessError v-else />
+```
+
+The `$store.getters.permissions` object also returns options for when and where config can be saved, using: `allowWriteToDisk`,  and `allowSaveLocally` - both are booleans.

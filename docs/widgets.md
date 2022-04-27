@@ -12,11 +12,14 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Weather](#weather)
   - [Weather Forecast](#weather-forecast)
   - [RSS Feed](#rss-feed)
+  - [Image](#image)
   - [Public IP Address](#public-ip)
+  - [IP Blacklist Checker](#ip-blacklist)
   - [Crypto Watch List](#crypto-watch-list)
   - [Crypto Price History](#crypto-token-price-history)
   - [Crypto Wallet Balance](#wallet-balance)
   - [Code Stats](#code-stats)
+  - [Mullvad Status](#mullvad-status)
   - [Email Aliases (AnonAddy)](#anonaddy)
   - [Vulnerability Feed](#vulnerability-feed)
   - [Exchange Rates](#exchange-rates)
@@ -43,6 +46,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Pi Hole Queries](#pi-hole-queries)
   - [Recent Traffic](#recent-traffic)
   - [Stat Ping Statuses](#stat-ping-statuses)
+  - [Synology Download Station](#synology-download-station)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -56,6 +60,8 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Network Interfaces](#network-interfaces)
   - [Network Traffic](#network-traffic)
   - [Resource Usage Alerts](#resource-usage-alerts)
+  - [Public & Private IP](#ip-address)
+  - [CPU Temperature](#cpu-temp)
 - **[Dynamic Widgets](#dynamic-widgets)**
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -66,6 +72,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Widget Usage Guide](#widget-usage-guide)
   - [Continuous Updates](#continuous-updates)
   - [Proxying Requests](#proxying-requests)
+  - [Setting Timeout](#setting-timeout)
   - [Custom CSS Styling](#widget-styling)
   - [Customizing Charts](#customizing-charts)
   - [Language Translations](#language-translations)
@@ -208,15 +215,54 @@ Display news and updates from any RSS-enabled service.
 
 ---
 
+### Image
+
+Displays an image.
+
+This may be useful if you have a service (such as Grafana - [see example](https://mattionline.de/grafana-api-export-graph-as-png/)), which periodically exports charts or other data as an image.
+
+You can also store images within Dashy's public directory (using a Docker volume), and reference them directly. E.g. `-v ./path/to/my-homelab-logo.png:/app/public/logo.png`, then in the widget `imagePath: /logo.png`.
+
+Similarly, any web service that serves up widgets as image can be used. E.g. you could show current star chart for a GitHub repo, with: `imagePath: https://starchart.cc/Lissy93/dashy.svg`.
+
+If you'd like to embed a live screenshot, of all or just part of a website, then this can be done using [API Flash](https://apiflash.com/).
+
+Or what about showing a photo of the day? Try `https://source.unsplash.com/random/400x300` or `https://picsum.photos/400/300`
+
+<p align="center"><img width="300" src="https://i.ibb.co/P48Y443/image-widget.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`imagePath`** | `string` |  Required | The path (local or remote) of the image to display
+
+##### Example 
+
+```yaml
+- type: image
+  options:
+    imagePath: https://i.ibb.co/yhbt6CY/dashy.png
+```
+
+##### Info
+Unless image fetched from remote source, no external data request is made.
+
+---
+
 ### Public IP
 
-Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data is fetched from [IP-API.com](https://ip-api.com/).
+Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data can be fetched from either [IpApi.co](https://ipapi.co/), [IP-API.com](https://ip-api.com/) or [IpGeolocation.io](https://ipgeolocation.io/).
 
 <p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
 
 ##### Options
+_All fields are optional_
 
-_No config options._
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`provider`** | `string` |  _Optional_ | The name of the service to fetch IP address from. Can be either `ipapi.co`, `ip-api` or `ipgeolocation`. Defaults to `ipapi.co`. Note, `ip-api` doesn't work on HTTPS, and if you set to `ipgeolocation` then you must also provide an API key
+**`apiKey`** | `string` |  _Optional_ | Only required if provider is set to `ipgeolocation`. You can get a free API key [here](https://ipgeolocation.io/signup.html)
 
 ##### Example 
 
@@ -224,12 +270,52 @@ _No config options._
 - type: public-ip
 ```
 
+Or
+
+```yaml
+- type: public-ip
+  options:
+    provider: ipgeolocation
+    apiKey: xxxxxxxxxxxxxxx
+```
+
 ##### Info
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟠 Optional
 - **Price**: 🟢 Free
 - **Host**: Managed Instance Only
-- **Privacy**: _See [IP-API Privacy Policy](https://ip-api.com/docs/legal)_
+- **Privacy**: _See [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html) or [IP-API Privacy Policy](https://ip-api.com/docs/legal)_
+
+---
+
+### IP Blacklist
+
+Notice certain web pages aren't loading? This widget quickly shows which blacklists your IP address (or host, or email) appears on, using data from [blacklistchecker.com](https://blacklistchecker.com/).
+
+<p align="center"><img width="600" src="https://i.ibb.co/hX0fp5Z/ip-blacklist.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`ipAddress`** | `string` |  _Optional_ | The IP to check. This can also be a domain/ host name or even an email address. If left blank, Dashy will use your current public IP address.
+**`apiKey`** | `string` |  Required | You can get your free API key from [blacklistchecker.com](https://blacklistchecker.com/keys)
+
+##### Example 
+
+```yaml
+- type: blacklist-check
+  options:
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    ipAddress: 1.1.1.1
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free Plan
+- **Host**: Managed Instance Only
+- **Privacy**: _See [BlacklistChecker Privacy Policy](https://blacklistchecker.com/privacy)_
 
 ---
 
@@ -378,6 +464,31 @@ Display your coding summary. [Code::Stats](https://codestats.net/) is a free and
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted or Managed
 - **Privacy**: _See [Code::Stats Privacy Policy](https://codestats.net/tos#privacy)_
+
+---
+
+### Mullvad Status
+
+Shows your Mullvad VPN connection status, as well as server info. Fetched from [am.i.mullvad.net](https://mullvad.net/en/check/)
+
+<p align="center"><img width="400" src="https://i.ibb.co/3BCb2YV/mullvad-check.png" /></p>
+
+##### Options
+
+_No Options_
+
+##### Example
+
+```yaml
+- type: mullvad-status
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed
+- **Privacy**: _See [Mullvad Privacy Policy](https://mullvad.net/en/help/privacy-policy/)_
 
 ---
 
@@ -1215,6 +1326,41 @@ Displays the current and recent uptime of your running services, via a self-host
 
 ---
 
+### Synology Download Station
+
+Displays the current downloads/torrents tasks of your Synology NAS
+
+<p align="center"><img width="300" src="https://i.ibb.co/N2kKWTN/image.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Synology NAS, without a trailing slash
+**`username`** | `string` |  Required | The username of a user on your synology NAS. You will see only this user download station tasks if he is not part of the administrator group. Currently don't support OTP protected accounts.
+**`password`** | `string` |  Required | The password of the account specified above.
+
+##### Example 
+
+```yaml
+- type: synology-download
+  options:
+    hostname: http://192.168.1.1:8080
+    username: dashy
+    password: totally-secure-password
+
+
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Synology](https://www.synology.com/en-us))
+- **Privacy**: _See [Synology Privacy Statement](https://www.synology.com/en-us/company/legal/privacy)_
+
+---
+
 ## System Resource Monitoring
 
 The easiest method for displaying system info and resource usage in Dashy is with [Glances](https://nicolargo.github.io/glances/).
@@ -1238,6 +1384,7 @@ All Glance's based widgets require a `hostname`. All other parameters are option
 **`apiVersion`** | `string` |  _Optional_ | Specify an API version, defaults to V `3`. Note that support for older versions is limited
 **`limit`** | `number` |  _Optional_ | For widgets that show a time-series chart, optionally limit the number of data points returned. A higher number will show more historical results, but will take longer to load. A value between 300 - 800 is usually optimal
 
+Note that if auth is configured, requests must be proxied with `useProxy: true`
 ##### Info
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟠 Optional
@@ -1458,6 +1605,41 @@ Lists recent high resource usage alerts (e.g. CPU, mem, IO, load, temp)
 
 ---
 
+### IP Address
+
+Shows public and private IP address. Note that the ip plugin is not available on all instances of Glances.
+
+<p align="center"><img width="400" src="https://i.ibb.co/ZhXBxZr/gl-ip-address.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-ip-address
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### CPU Temp
+
+Displays temperature data from system CPUs.
+
+Note: This widget uses the [`sensors`](https://github.com/nicolargo/glances/blob/develop/glances/plugins/glances_sensors.py) plugin, which is disabled by default, and may cause [performance issues](https://github.com/nicolargo/glances/issues/1664#issuecomment-632063558).
+You'll need to enable the sensors plugin to use this widget, using: `--enable-plugin sensors` when you start Glances.
+
+<p align="center"><img width="400" src="https://i.ibb.co/xSs4Gqd/gl-cpu-temp.png" /></p>
+
+##### Example 
+
+```yaml
+- type: gl-cpu-temp
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
 ## Dynamic Widgets
 
 ### Iframe Widget
@@ -1524,6 +1706,14 @@ Or
       css: '.coinmarketcap-currency-widget { color: var(--widget-text-color); }'
       html: '<div class="coinmarketcap-currency-widget" data-currencyid="1" data-base="USD" data-secondary="" data-ticker="true" data-rank="true" data-marketcap="true" data-volume="true" data-statsticker="true" data-stats="USD"></div>'
       scriptSrc: 'https://files.coinmarketcap.com/static/widget/currency.js'
+```
+
+You can also use this widget to display an image, wither locally or from a remote origin.
+
+```yaml
+- type: embed
+  options:
+    html: '<img src="https://dashy.lan/item-icons/my-image.png" />'
 ```
 
 ---
@@ -1623,11 +1813,26 @@ widgets:
     hostname: http://pi-hole.local
 ```
 
-Alternatively, and more securely, you can set the auth headers on your service to accept requests from Dashy. For example:
+Alternativley, and more securley, you can set the auth headers on your service to accept requests from Dashy. For example:
 
 ```
 Access-Control-Allow-Origin: https://location-of-dashy/
 Vary: Origin
+```
+
+---
+
+### Setting Timeout
+
+If the endpoint you are requesting data from is slow to respond, you may see a timeout error in the console. This can easily be fixed by specifying the `timeout` property on the offending widget. This should be an integer value, in milliseconds. By default timeout is `2500` ms (2½ seconds).
+
+For example:
+
+```yaml
+- type: gl-current-cpu
+  timeout: 8000
+  options:
+    hostname: https://glances.dns-device.local
 ```
 
 ---
@@ -1697,14 +1902,14 @@ Alternatively, for displaying simple data, you could also just use the either th
 
 Suggestions for widget ideas are welcome. But there is no guarantee that I will build your widget idea.
 
-You can suggest a widget [here](https://git.io/Jygo3), please star the repo before submitting a ticket.
-
 Please only request widgets for services that:
 - Have a publicly accessible API
 - Are CORS and HTTPS enabled
 - Are free to use, or have a free plan
 - Allow for use in their Terms of Service
 - Would be useful for other users
+
+You can suggest a widget [here](https://git.io/Jygo3), please star the repo before submitting a ticket. If you are a monthly GitHub sponsor, I will happily build out a custom widget for any service that meets the above criteria, usually 2 within weeks of initial request.
 
 For services that are not officially supported, it is likely still possible to display data using either the [iframe](#iframe-widget), [embed](#html-embedded-widget) or [API response](#api-response) widgets. For more advanced features, like charts and action buttons, you could also build your own widget, using [this tutorial](/docs/development-guides#building-a-widget), it's fairly straight forward, and you can use an [existing widget](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets) (or [this example](https://git.io/JygKI)) as a template.
 

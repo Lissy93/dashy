@@ -2,7 +2,7 @@
 # Developing
 
 This article outlines how to get Dashy running in a development environment, and outlines the basics of the architecture.
-If you're adding new features, you may want to check out the [Development Guides](/docs/development-guides) docs, for tutorials covering basic tasks.
+If you're adding new features, you may want to check out the [Development Guides](/docs/development-guides.md) docs, for tutorials covering basic tasks.
 
 - [Setting up the Development Environment](#setting-up-the-dev-environment)
   - [Prerequisites](#prerequisites)

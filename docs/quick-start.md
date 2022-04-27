@@ -9,7 +9,7 @@ Welcome to Dashy! So glad you're here 😊 In a couple of minutes, you'll have y
 ## 1. Prerequisites
 
 The quickest and easiest method of running Dashy is using Docker (or another container engine). You can find installation instructions for your system in the [Docker Documentation](https://docs.docker.com/get-docker/).
-If you don't want to use Docker, then you can use one of Dashy's other supported installation methods instead, all of which are outlined in the [Deployment Docs](/docs/deployment).
+If you don't want to use Docker, then you can use one of Dashy's other supported installation methods instead, all of which are outlined in the [Deployment Docs](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md).
 
 ---
 
@@ -25,7 +25,7 @@ docker run -d \
   lissy93/dashy:latest
 ```
 
-Either replace the -v path to point to your config file, or leave it out. For a full list of available options, then see [Dashy with Docker](h/docs/deployment#deploy-with-docker) Docs. If you'd prefer to use Docker Compose, then see [Dashy with Docker Compose](/docs/deployment#using-docker-compose) Docs. Alternate registries, architectures and pinned versions are also supported.
+Either replace the -v path to point to your config file, or leave it out. For a full list of available options, then see [Dashy with Docker](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#deploy-with-docker) Docs. If you'd prefer to use Docker Compose, then see [Dashy with Docker Compose](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#using-docker-compose) Docs. Alternate registries, architectures and pinned versions are also supported.
 
 Your dashboard should now be up and running at `http://localhost:8080` (or your servers IP address/ domain, and the port that you chose). The first time you build, it may take a few minutes.
 
@@ -36,12 +36,12 @@ Your dashboard should now be up and running at `http://localhost:8080` (or your 
 Now that you've got Dashy running, you are going to want to set it up with your own content.
 Config is written in [YAML Format](https://yaml.org/), and saved in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml).
 The format on the config file is pretty straight forward. There are three root attributes:
-- [`pageInfo`](/docs/configuring#pageinfo) - Dashboard meta data, like title, description, nav bar links and footer text
-- [`appConfig`](/docs/configuring#appconfig-optional) - Dashboard settings, like themes, authentication, language and customization
-- [`sections`](/docs/configuring#section) - An array of sections, each including an array of items
+- [`pageInfo`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#pageinfo) - Dashboard meta data, like title, description, nav bar links and footer text
+- [`appConfig`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#appconfig-optional) - Dashboard settings, like themes, authentication, language and customization
+- [`sections`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#section) - An array of sections, each including an array of items
 
 
-You can view a full list of all available config options in the [Configuring Docs](/docs/configuring).
+You can view a full list of all available config options in the [Configuring Docs](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md).
 
 ```yaml
 pageInfo:
@@ -80,7 +80,7 @@ Notes:
 
 ## 4. Further Customisation
 
-Once you've got Dashy setup, you'll want to ensure the container is properly healthy, secured, backed up and kept up-to-date. All this is covered in the [Management Docs](https://github.com/Lissy93/dashy/blob/master/docs/management).
+Once you've got Dashy setup, you'll want to ensure the container is properly healthy, secured, backed up and kept up-to-date. All this is covered in the [Management Docs](https://github.com/Lissy93/dashy/blob/master/docs/management.md).
 
 
 You might also want to check out the docs for specific features you'd like to use:
@@ -99,7 +99,7 @@ You might also want to check out the docs for specific features you'd like to us
 
 If you need any help or support in getting Dashy running, head over to the [Discussions](https://github.com/Lissy93/dashy/discussions) page. If you think you've found a bug, please do [raise it](https://github.com/Lissy93/dashy/issues/new/choose) so it can be fixed. For contact options, see the [Support Page](https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md).
 
-If you're enjoying Dashy, and have a few minutes to spare, please do take a moment to look at the [Contributing Page](/docs/contributing). Huge thanks to [everyone](https://github.com/Lissy93/dashy/blob/master/docs/credits.md) who has already helped out!
+If you're enjoying Dashy, and have a few minutes to spare, please do take a moment to look at the [Contributing Page](https://github.com/Lissy93/dashy/blob/master/docs/contributing.md). Huge thanks to [everyone](https://github.com/Lissy93/dashy/blob/master/docs/credits.md) who has already helped out!
 
 Enjoy your dashboard :) 
 

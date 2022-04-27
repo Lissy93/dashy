@@ -8,7 +8,11 @@
 - [Refused to Connect in Web Content View](#refused-to-connect-in-modal-or-workspace-view)
 - [404 On Static Hosting](#404-on-static-hosting)
 - [Yarn Build or Run Error](#yarn-error)
+- [Remote Config Not Loading](#remote-config-not-loading)
 - [Auth Validation Error: "should be object"](#auth-validation-error-should-be-object)
+- [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
+- [Keycloak Redirect Error](#keycloak-redirect-error)
+- [Docker Directory Error](#docker-directory)
 - [Config Not Updating](#config-not-updating)
 - [Config Still not Updating](#config-still-not-updating)
 - [Styles and Assets not Updating](#styles-and-assets-not-updating)
@@ -22,13 +26,18 @@
 - [Status Checks Failing](#status-checks-failing)
 - [Diagnosing Widget Errors](#widget-errors)
 - [Fixing Widget CORS Errors](#widget-cors-errors)
+- [Keycloak Redirect Error](#keycloak-redirect-error)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
 
 ---
 ## `Refused to Connect` in Modal or Workspace View
 
-This is not an issue with Dashy, but instead caused by the target app preventing direct access through embedded elements. It can be fixed by setting the [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) HTTP header set to `ALLOW [path to Dashy]` or `SAMEORIGIN`, as defined in [RFC-7034](https://datatracker.ietf.org/doc/html/rfc7034). These settings are usually set in the config file for the web server that's hosting the target application, here are some examples of how to enable cross-origin access with common web servers:
+This is not an issue with Dashy, but instead caused by the target app preventing direct access through embedded elements. 
+
+As defined in [RFC-7034](https://datatracker.ietf.org/doc/html/rfc7034), for any web content to be accessed through an embedded element, it must have the [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) HTTP header set to `ALLOW`. If you are getting a `Refused to Connect` error then this header is set to `DENY` (or `SAMEORIGIN` and it's on a different host). Thankfully, for self-hosted services, it is easy to set these headers.
+
+These settings are usually set in the config file for the web server that's hosting the target application, here are some examples of how to enable cross-origin access with common web servers:
 
 ### NGINX
 In NGINX, you can use the [`add_header`](https://nginx.org/en/docs/http/ngx_http_headers_module.html) module within the app block.
@@ -56,6 +65,12 @@ In Apache, you can use the [`mod_headers`](https://httpd.apache.org/docs/current
 
 ```
 Header set X-Frame-Options: "ALLOW-FROM http://[dashy-location]/" 
+```
+
+### LightHttpd
+
+```
+Content-Security-Policy: frame-ancestors 'self' https://[dashy-location]/
 ```
 
 ---
@@ -88,6 +103,21 @@ Alternatively, as a workaround, you have several options:
 
 ---
 
+## Remote Config Not Loading
+
+If you've got a multi-page dashboard, and are hosting the additional config files yourself, then CORS rules will apply. A CORS error will look something like:
+
+```
+Access to XMLHttpRequest at 'https://example.com/raw/my-config.yml' from origin 'http://dashy.local' has been blocked by CORS policy:
+No 'Access-Control-Allow-Origin' header is present on the requested resource.
+```
+
+The solution is to add the appropriate headers onto the target server, to allow it to accept requests from the origin where you're running Dashy.
+
+If it is a remote service, that you do not have admin access to, then another option is to proxy the request. Either host your own, or use a publicly accessible service, like [allorigins.win](https://allorigins.win), e.g: `https://api.allorigins.win/raw?url=https://pastebin.com/raw/4tZpaJV5`. For git-based services specifically, there's [raw.githack.com](https://raw.githack.com/)
+
+---
+
 ## Auth Validation Error: "should be object"
 
 In V 1.6.5 an update was made that in the future will become a breaking change. You will need to update you config to reflect this before V 2.0.0 is released. In the meantime, your previous config will continue to function normally, but you will see a validation warning. The change means that the structure of the `appConfig.auth` object is now an object, which has a `users` property.
@@ -110,6 +140,53 @@ auth:
   - user: xxx
     hash: xxx
 ```
+
+---
+
+## App Not Starting After Update to 2.0.4
+
+Version 2.0.4 introduced changes to how the config is read, and the app is build. If you were previously mounting `/public` as a volume, then this will over-write the build app, preventing it from starting. The solution is to just pass in the file(s) / sub-directories that you need. For example:
+
+```yaml
+volumes:
+- /srv/dashy/conf.yml:/app/public/conf.yml
+- /srv/dashy/item-icons:/app/public/item-icons
+```
+
+---
+
+## Keycloak Redirect Error
+
+Check the [browser's console output](#how-to-open-browser-console), if you've not set any headers, you will likely see a CORS error here, which would be the source of the issue.
+
+You need to allow Dashy to make requests to Keycloak, and Keycloak to redirect to Dashy. The way you do this depends on how you're hosting these applications / which proxy you are using, and examples can be found in the [Management Docs](/docs/management#setting-headers).
+
+For example, add the access control header to Keycloak, like:
+
+`Access-Control-Allow-Origin [URL-of Dashy]`
+
+Note that for requests that transport sensitive info like credentials, setting the accept header to a wildcard (`*`) is not allowed - see [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#requests_with_credentials), so you will need to specify the actual URL.
+
+You should also ensure that Keycloak is correctly configured, with a user, realm and application, and be sure that you have set a valid redirect URL in Keycloak ([screenshot](https://user-images.githubusercontent.com/1862727/148599768-db4ee4f8-72c5-402d-8f00-051d999e6267.png)).
+
+For more details on how to set headers, see the [Example Headers](/docs/management#setting-headers) in the management docs, or reference the documentation for your proxy.
+
+See also: #479, #409, #507, #491, #341, #520
+
+---
+
+## Docker Directory
+
+```
+Error response from daemon: OCI runtime create failed: container_linux.go:380:
+starting container process caused: process_linux.go:545: container init caused:
+rootfs_linux.go:76: mounting "/home/ubuntu/my-conf.yml" to rootfs at 
+"/app/public/conf.yml" caused: mount through procfd: not a directory: 
+unknown: Are you trying to mount a directory onto a file (or vice-versa)?
+Check if the specified host path exists and is the expected type.
+```
+
+If you get an error similar to the one above, you are mounting a directory to the config file's location, when a plain file is expected. Create a YAML file, (`touch my-conf.yml`), populate it with a sample config, then pass it as a volume: `-v ./my-local-conf.yml:/app/public/conf.yml` 
 
 ---
 
@@ -209,7 +286,13 @@ Vary: Origin
 ```
 If the URL you are checking has an unsigned certificate, or is not using HTTPS, then you may need to disable the rejection of insecure requests. This can be done by setting `statusCheckAllowInsecure` to true for a given item.
 
+If your service is online, but responds with a status code that is not in the 2xx range, then you can use `statusCheckAcceptCodes` to set an accepted status code.
+
 If you get an error, like `Service Unavailable: Server resulted in a fatal error`, even when it's definitely online, this is most likely caused by missing the protocol. Don't forget to include `https://` (or whatever protocol) before the URL, and ensure that if needed, you've specified the port.
+
+Running Dashy in HOST network mode, instead of BRIDGE will allow status check access to other services in HOST mode. For more info, see [#445](https://github.com/Lissy93/dashy/discussions/445).
+
+If you have firewall rules configured, then ensure that they don't prevent Dashy from making requests to the other services you are trying to access.
 
 Currently, the status check needs a page to be rendered, so if this URL in your browser does not return anything, then status checks will not work. This may be modified in the future, but in the meantime, a fix would be to make your own status service, which just checks if your app responds with whatever code you'd like, and then return a 200 plus renders an arbitrary message. Then just point `statusCheckUrl` to your custom page.
 
@@ -221,12 +304,19 @@ If you're serving Dashy though a CDN, instead of using the Node server or Docker
 
 ## Widget Errors
 
+#### Find Error Message
 If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't addequatley explain the problem, then you can [open the browser console](/docs/troubleshooting#how-to-open-browser-console) to see more details.
 
+#### Check Config
 Before proceeding, ensure that if the widget requires auth your API is correct, and for custom widgets, double check that the URL and protocol is correct.
 
+#### Timeout Error
+If the error message in the console includes: `Error: timeout of 500ms exceeded`, then your Glances endpoint is slower to respond than expected. You can fix this by [setting timeout](https://github.com/Lissy93/dashy/blob/master/docs/widgets.md#setting-timeout) to a larger value. This is done on each widget, with the `timeout` attribute, and is specified in ms. E.g. `timeout: 5000` would only fail if no response is returned within 5 seconds.
+
+#### CORS error
 If the console message mentions to corss-origin blocking, then this is a CORS error, see: [Fixing Widget CORS Errors](#widget-cors-errors)
 
+#### More Info
 If you're able to, you can find more information about why the request may be failing in the Dev Tools under the Network tab, and you can ensure your endpoint is correct and working using a tool like Postman.
 
 ---
@@ -255,15 +345,36 @@ or
 Access-Control-Allow-Origin: *
 ```
 
+For more info on how to set headers, see: [Setting Headers](/docs/management#setting-headers) in the management docs
+
 #### Option 3 - Proxying Request
 
-You can route requests through Dashy's built-in CORS proxy. Instructions and more details can be found [here](/docs/widgets#proxying-requests). If you don't have control over the target origin, and you are running Dashy either through Docker, with the Node server or on Netlify, then this solution will work for you.
+You can route requests through Dashy's built-in CORS proxy. Instructions and more details can be found [here](/docs/widgets.md#proxying-requests). If you don't have control over the target origin, and you are running Dashy either through Docker, with the Node server or on Netlify, then this solution will work for you.
 
 Just add the `useProxy: true` option to the failing widget.
 
 #### Option 4 - Use a plugin
 
 For testing purposes, you can use an addon, which will disable the CORS checks. You can get the Allow-CORS extension for [Chrome](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en-US) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/access-control-allow-origin/), more details [here](https://mybrowseraddon.com/access-control-allow-origin.html)
+
+---
+
+## Keycloak Redirect Error
+
+Firstly, ensure that in your Keycloak instance you have populated the Valid Redirect URIs field ([screenshot](https://user-images.githubusercontent.com/1862727/148599768-db4ee4f8-72c5-402d-8f00-051d999e6267.png)) with the URL to your Dashy instance.
+
+You may need to specify CORS headers on your Keycloak instance, to allow requests coming from Dashy, e.g:
+
+```
+Access-Control-Allow-Origin: https://dashy.example.com
+```
+
+If you're running in Kubernetes, you will need to enable CORS ingress rules, see [docs](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#enable-cors), e.g:
+
+```
+nginx.ingress.kubernetes.io/cors-allow-origin: "https://dashy.example.com"
+nginx.ingress.kubernetes.io/enable-cors: "true"
+```
 
 ---
 
