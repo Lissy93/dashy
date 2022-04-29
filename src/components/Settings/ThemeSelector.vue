@@ -75,7 +75,8 @@ export default {
     themeNames: function themeNames() {
       const externalThemeNames = Object.keys(this.externalThemes);
       const specialThemes = ['custom'];
-      return [...externalThemeNames, ...Defaults.builtInThemes, ...specialThemes];
+      return [...this.extraThemeNames, ...externalThemeNames,
+        ...Defaults.builtInThemes, ...specialThemes];
     },
     extraThemeNames() {
       const userThemes = this.appConfig.cssThemes || [];
