@@ -11,8 +11,6 @@ import { Progress } from 'rsup-progress';
 
 // Import views, that are not lazy-loaded
 import Home from '@/views/Home.vue';
-// import Workspace from '@/views/Workspace.vue';
-// import Minimal from '@/views/Minimal.vue';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 
 // Import helper functions, config data and defaults
@@ -68,6 +66,7 @@ const makeMetaTags = (defaultTitle) => ({
 });
 
 const makeSubConfigPath = (rawPath) => {
+  if (!rawPath) return '';
   if (rawPath.startsWith('/') || rawPath.startsWith('http')) return rawPath;
   else return `/${rawPath}`;
 };
@@ -77,6 +76,9 @@ const makeMultiPageRoutes = (userPages) => {
   if (!userPages) return [];
   const multiPageRoutes = [];
   userPages.forEach((page) => {
+    if (!page.name || !page.path) {
+      ErrorHandler('Additional pages must have both a `name` and `path`');
+    }
     // Props to be passed to home mixin
     const subPageInfo = {
       subPageInfo: {
@@ -88,21 +90,21 @@ const makeMultiPageRoutes = (userPages) => {
     // Create route for default homepage
     multiPageRoutes.push({
       path: makePageSlug(page.name, 'home'),
-      name: `${subPageInfo.pageId}-home`,
+      name: `${subPageInfo.subPageInfo.pageId}-home`,
       component: Home,
       props: subPageInfo,
     });
     // Create route for the workspace view
     multiPageRoutes.push({
       path: makePageSlug(page.name, 'workspace'),
-      name: `${subPageInfo.pageId}-workspace`,
+      name: `${subPageInfo.subPageInfo.pageId}-workspace`,
       component: () => import('./views/Workspace.vue'),
       props: subPageInfo,
     });
     // Create route for the minimal view
     multiPageRoutes.push({
       path: makePageSlug(page.name, 'minimal'),
-      name: `${subPageInfo.pageId}-minimal`,
+      name: `${subPageInfo.subPageInfo.pageId}-minimal`,
       component: () => import('./views/Minimal.vue'),
       props: subPageInfo,
     });

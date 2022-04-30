@@ -31,6 +31,7 @@ const {
   SET_PAGE_INFO,
   SET_APP_CONFIG,
   SET_SECTIONS,
+  SET_PAGES,
   UPDATE_SECTION,
   INSERT_SECTION,
   REMOVE_SECTION,
@@ -178,6 +179,12 @@ const store = new Vuex.Store({
       newConfig.appConfig = newAppConfig;
       state.config = newConfig;
       InfoHandler('App config updated', InfoKeys.EDITOR);
+    },
+    [SET_PAGES](state, multiPages) {
+      const newConfig = state.config;
+      newConfig.pages = multiPages;
+      state.config = newConfig;
+      InfoHandler('Pages updated', InfoKeys.EDITOR);
     },
     [SET_SECTIONS](state, newSections) {
       const newConfig = state.config;
