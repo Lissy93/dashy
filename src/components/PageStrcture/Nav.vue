@@ -46,7 +46,7 @@ export default {
     /* Get links to sub-pages, and combine with nav-links */
     allLinks() {
       const subPages = this.$store.getters.pages.map((subPage) => ({
-        path: makePageSlug(subPage.path, 'home'),
+        path: makePageSlug(subPage.name, 'home'),
         title: subPage.name,
       }));
       const navLinks = this.links || [];
