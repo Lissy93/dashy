@@ -207,6 +207,8 @@
       "edit-page-info-tooltip": "App title, description, nav links, footer text, etc.",
       "edit-app-config-btn": "Edit App Config",
       "edit-app-config-tooltip": "All other app configuration options",
+      "edit-pages-btn": "Edit Pages",
+      "edit-pages-tooltip": "Add or remove additional views",
       "config-save-methods-subheading": "Config Saving Options",
       "save-locally-btn": "Save Locally",
       "save-locally-tooltip": "Save config locally, to browser storage. This will not affect your config file, but changes will only be saved on this device",
@@ -224,7 +226,8 @@
       "edit-mode-subtitle": "You are in Edit Mode",
       "edit-mode-description": "This means you can make modifications to your config, and preview the results, but until you save, none of your changes will be preserved.",
       "save-stage-btn": "Save",
-      "cancel-stage-btn": "Cancel"
+      "cancel-stage-btn": "Cancel",
+      "save-locally-warning": "If you proceed, changes will be saved only in your browser. You should export a copy of your config for use on other machines. Would you like to continue?"
     },
     "edit-item": {
       "missing-title-err": "An item title is required"
