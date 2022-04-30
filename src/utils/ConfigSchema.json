@@ -5,6 +5,29 @@
   ],
   "additionalProperties": false,
   "properties": {
+    "pages": {
+      "title": "Page List",
+      "type": "array",
+      "description": "List of additional config files to load as extra pages",
+      "items": {
+        "title": "Pages",
+        "type": "object",
+        "required": ["name", "path"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Unique page identifier"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string",
+            "description": "The file name, or path. If in public directory, use just `file-name.yml`"
+          }
+        }
+      }
+    },
     "pageInfo": {
       "type": "object",
       "properties": {
