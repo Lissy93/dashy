@@ -26,9 +26,11 @@
 - [Status Checks Failing](#status-checks-failing)
 - [Diagnosing Widget Errors](#widget-errors)
 - [Fixing Widget CORS Errors](#widget-cors-errors)
+- [Weather Forecast Widget 401](#weather-forecast-widget-401)
 - [Keycloak Redirect Error](#keycloak-redirect-error)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
+
 
 ---
 ## `Refused to Connect` in Modal or Workspace View
@@ -356,6 +358,16 @@ Just add the `useProxy: true` option to the failing widget.
 #### Option 4 - Use a plugin
 
 For testing purposes, you can use an addon, which will disable the CORS checks. You can get the Allow-CORS extension for [Chrome](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en-US) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/access-control-allow-origin/), more details [here](https://mybrowseraddon.com/access-control-allow-origin.html)
+
+---
+
+## Weather Forecast Widget 401
+
+[Weather widget](/docs/widgets.md#weather-forecast) is working fine, but you are getting a `401` for the [Weather Forecast widget](/docs/widgets.md#weather-forecast), then this is most likely an OWM API key issue.
+
+The forecasting API requires an upgraded plan. ULPT: You can get a free, premium API key by filling in [this form](https://home.openweathermap.org/students). It's a student plan, but there's no verification to check that you are still a student.
+
+A future update will be pushed out, to use a free weather forecasting API.
 
 ---
 

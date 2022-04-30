@@ -12,7 +12,7 @@
         </span>
       </div>
     </a>
-    <p class="description">
+    <p class="cve-description">
       {{ cve.description | formatDescription }}
       <a v-if="cve.description.length > 350" class="read-more" :href="cve.url" target="_blank">
         {{ $t('widgets.general.open-link') }}
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { timestampToDate, truncateStr } from '@/utils/MiscHelpers';
 import { widgetApiEndpoints, serviceEndpoints } from '@/utils/defaults';
@@ -103,18 +102,8 @@ export default {
   methods: {
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
-      axios.request({
-        method: 'GET',
-        url: this.proxyReqEndpoint,
-        headers: { 'Target-URL': this.endpoint },
-      })
-        .then((response) => {
-          this.processData(response.data);
-        }).catch((error) => {
-          this.error('Unable to fetch CVE data', error);
-        }).finally(() => {
-          this.finishLoading();
-        });
+      this.defaultTimeout = 12000;
+      this.makeRequest(this.endpoint).then(this.processData);
     },
     /* Assign data variables to the returned data */
     processData(data) {
@@ -214,7 +203,8 @@ export default {
       margin: 0;
       opacity: var(--dimming-factor);
     }
-    .description {
+    .cve-description {
+      font-size: 0.9rem;
       margin: 0 0.25rem 0.5rem 0.25rem;
     }
     a.read-more {
