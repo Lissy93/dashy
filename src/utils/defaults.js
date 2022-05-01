@@ -58,9 +58,13 @@ module.exports = {
     'cherry-blossom',
     'nord-frost',
     'nord',
+    'argon',
+    'fallout',
+    'whimsy',
     'oblivion',
     'adventure',
     'crayola',
+    'deep-ocean',
     'minimal-dark',
     'minimal-light',
     'thebe',
@@ -77,6 +81,7 @@ module.exports = {
     'material-dark-original',
     'high-contrast-dark',
     'high-contrast-light',
+    'basic',
   ],
   /* Default color options for the theme configurator swatches */
   swatches: [
