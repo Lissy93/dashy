@@ -7,6 +7,14 @@
 const fsPromises = require('fs').promises;
 
 module.exports = async (newConfig, render) => {
+  /* Either returns nothing (if using default path), or strips navigational characters from path */
+  const makeSafeFileName = (configObj) => {
+    if (!configObj || !configObj.filename) return undefined;
+    return configObj.filename.replaceAll('/', '').replaceAll('..', '');
+  };
+
+  const usersFileName = makeSafeFileName(newConfig);
+
   // Define constants for the config file
   const settings = {
     defaultLocation: './public/',
@@ -16,11 +24,11 @@ module.exports = async (newConfig, render) => {
   };
 
   // Make the full file name and path to save the backup config file
-  const backupFilePath = `${settings.defaultLocation}${newConfig.filename || settings.filename}-`
+  const backupFilePath = `${settings.defaultLocation}${usersFileName || settings.filename}-`
     + `${Math.round(new Date() / 1000)}${settings.backupDenominator}`;
 
   // The path where the main conf.yml should be read and saved to
-  const defaultFilePath = settings.defaultLocation + (newConfig.filename || settings.defaultFile);
+  const defaultFilePath = settings.defaultLocation + (usersFileName || settings.defaultFile);
 
   // Returns a string confirming successful job
   const getSuccessMessage = () => `Successfully backed up ${settings.defaultFile} to`
