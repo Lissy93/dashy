@@ -60,6 +60,11 @@ footer {
     font-size: 0.75rem;
     margin: 0.1rem 0.5rem 0 0;
     opacity: var(--dimming-factor);
+    max-width: 10rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    max-height: 1rem;
   }
 }
 
