@@ -3,10 +3,15 @@
   <footer v-if="text && text !== '' && visible" v-html="text"></footer>
   <!-- Default Footer -->
   <footer v-else-if="visible">
+    <span v-if="$store.state.currentConfigInfo" class="path-to-config">
+      Using: {{ $store.state.currentConfigInfo.confPath }}
+    </span>
+    <span>
       Developed by <a :href="authorUrl">{{authorName}}</a>.
       Licensed under <a :href="licenseUrl">{{license}}</a>
       {{ showCopyright? '©': '' }} {{date}}.
       Get the <a :href="repoUrl">Source Code</a>.
+    </span>
   </footer>
 </template>
 
@@ -49,6 +54,17 @@ footer {
   border-top: 1px solid var(--outline-color);
   @include tablet-down {
     display: none;
+  }
+  span.path-to-config {
+    float: right;
+    font-size: 0.75rem;
+    margin: 0.1rem 0.5rem 0 0;
+    opacity: var(--dimming-factor);
+    max-width: 10rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    max-height: 1rem;
   }
 }
 

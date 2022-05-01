@@ -12,7 +12,7 @@
         text-decoration: underline;
       }
     }
-    div[data-fs-wrapper] {
+    div[data-fs-wrapper], div[data-fs-kind=object] {
       display: flex;
       flex-wrap: wrap;
       align-items: flex-start;
@@ -81,7 +81,7 @@
           box-shadow: 1px 1px 6px var(--interactive-editor-color);
         }
       }
-      div[data-fs-input=array] button {
+      div[data-fs-input=array] button, div[data-fs-buttons] button {
         font-size: 1rem;
         margin: 0.25rem;
         border-radius: var(--curve-factor);

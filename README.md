@@ -48,6 +48,7 @@
   - [⚙️ Config Editor](#config-editor-)
   - [☁ Cloud Backup & Sync](#cloud-backup--sync-)
   - [🌎 Language Switching](#language-switching-)
+  - [📃 Multi-Page Support](#multi-page-support-)
 - **Community**
   - [📊 System Requirements](#system-requirements-)
   - [🙋‍♀️ Support](#support-)
@@ -64,18 +65,18 @@
 </details>
 
 ## Features 🌈
-
+- 📃 Support for multiple pages
+- 🚦 Real-time status monitoring for each of your apps/links
+- 📊 Use widgets to display info and dynamic content from self-hosted services
 - 🔎 Instant search by name, domain, or tags + customizable hotkeys & keyboard shortcuts
 - 🎨 Many built-in color themes, with UI color editor and support for custom CSS
 - 🧸 Many icon options - Font-Awesome, homelab icons, auto-fetching Favicon, images, emojis, etc.
-- 🚦 Status monitoring for each of your apps/links for basic availability and uptime checking
-- 📊 Use widgets to display info and dynamic content from self-hosted services
 - 💂 Optional authentication with multi-user access, configurable privileges, and SSO support
 - 🌎 Multi-language support, with 10+ human-translated languages, and more on the way
 - ☁ Optional, encrypted, free off-site cloud backup and restore feature available
 - 💼 A workspace view, for easily switching between multiple apps simultaneously
 - 🛩️ A minimal view, for use as a fast-loading browser Startpage
-- 🖱️ Choose app launch method, either new tab, same tab, a pop-up modal, or in the workspace view
+- 🖱️ Choose app launch methods: new tab, same tab, clipboard, pop-up modal, or open in workspace view
 - 📏 Customizable layout, sizes, text, component visibility, sort order, behavior, etc.
 - 🖼️ Options for a full-screen background image, custom nav-bar links, HTML footer, title, etc.
 - 🚀 Easy to setup with Docker, or on bare metal, or with 1-Click cloud deployment
@@ -413,16 +414,44 @@ Dashy supports multiple languages and locales. When available, your language sho
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
 - 🇸🇪 **Swedish**: `sv` - Contributed by **[@BOZG](https://github.com/BOZG)**
 - 🇮🇹 **Italian**: `it` - Contributed by **[@alexdelprete](https://github.com/alexdelprete)**
-- 🇵🇹 **Portuguese**: `pt` - Machine Translated *(awaiting human review)*
+- 🇵🇹 **Portuguese**: `pt` - Contributed by **[@LeoColman](https://github.com/LeoColman)**
 - 🇷🇺 **Russian**: `ru` - Contributed by Anon
-- 🇦🇪 **Arabic**: `ar` - Contributed by Anon
-- 🇮🇳 **Hindi**: `hi` - Contributed by Anon
-- 🇯🇵 **Japanese**: `ja` - Contributed by Anon
+- 🇦🇪 **Arabic**: `ar`
+- 🇮🇳 **Hindi**: `hi`
+- 🇯🇵 **Japanese**: `ja`
 
 #### Add your Language
 I would love Dashy to be available to everyone without language being a barrier to entry. If you've got a few minutes to spare, consider adding translations for your language. It's a quick task, and all text is in [a single JSON file](https://github.com/Lissy93/dashy/tree/master/src/assets/locales). Since any missing text will fall back to English, you don't need to translate it all.
 
 **[⬆️ Back to Top](#dashy)**
+
+---
+
+## Multi-Page Support 📃
+
+> For full multi-page documentation, see: [**Pages & Sections**](./docs/pages-and-sections.md)
+
+Within your dashboard, you can have as many sub-pages as you require. To load additional pages, specify a name, and path to a config file under `pages`. The config file can be either local (stored in `/public`), or remote (located anywhere accessible).
+
+```yaml
+pages:
+- name: Networking Services
+  path: 'networking.yml'
+- name: Work Stuff
+  path: 'work.yml'
+```
+
+Or
+
+```yaml
+pages:
+- name: Getting Started
+  path: 'https://snippet.host/tvcw/raw'
+- name: Homelab
+  path: 'https://snippet.host/tetp/raw'
+- name: Browser Startpage
+  path: 'https://snippet.host/zcom/raw'
+```
 
 ---
 

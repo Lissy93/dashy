@@ -1,12 +1,12 @@
 <template>
-    <div class="nav-outer" v-if="links && links.length > 0">
+    <div class="nav-outer" v-if="allLinks && allLinks.length > 0">
       <IconBurger
         :class="`burger ${!navVisible ? 'visible' : ''}`"
         @click="navVisible = !navVisible"
       />
       <nav id="nav" v-if="navVisible">
         <!-- Render either router-link or anchor, depending if internal / external link -->
-        <template v-for="(link, index) in links">
+        <template v-for="(link, index) in allLinks">
           <router-link v-if="!isUrl(link.path)"
             :key="index"
             :to="link.path"
@@ -28,6 +28,7 @@
 
 <script>
 import IconBurger from '@/assets/interface-icons/burger-menu.svg';
+import { makePageSlug } from '@/utils/ConfigHelpers';
 
 export default {
   name: 'Nav',
@@ -41,6 +42,17 @@ export default {
     navVisible: true,
     isMobile: false,
   }),
+  computed: {
+    /* Get links to sub-pages, and combine with nav-links */
+    allLinks() {
+      const subPages = this.$store.getters.pages.map((subPage) => ({
+        path: makePageSlug(subPage.name, 'home'),
+        title: subPage.name,
+      }));
+      const navLinks = this.links || [];
+      return [...navLinks, ...subPages];
+    },
+  },
   created() {
     this.navVisible = !this.detectMobile();
     this.isMobile = this.detectMobile();

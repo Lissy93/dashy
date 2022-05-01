@@ -8,15 +8,17 @@ import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { componentVisibility } from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
-import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import { isUserAdmin } from '@/utils/Auth';
 
 Vue.use(Vuex);
 
 const {
   INITIALIZE_CONFIG,
+  INITIALIZE_MULTI_PAGE_CONFIG,
   SET_CONFIG,
   SET_REMOTE_CONFIG,
+  SET_CURRENT_SUB_PAGE,
   SET_MODAL_OPEN,
   SET_LANGUAGE,
   SET_ITEM_LAYOUT,
@@ -24,10 +26,12 @@ const {
   SET_THEME,
   SET_CUSTOM_COLORS,
   UPDATE_ITEM,
+  USE_MAIN_CONFIG,
   SET_EDIT_MODE,
   SET_PAGE_INFO,
   SET_APP_CONFIG,
   SET_SECTIONS,
+  SET_PAGES,
   UPDATE_SECTION,
   INSERT_SECTION,
   REMOVE_SECTION,
@@ -40,10 +44,11 @@ const {
 
 const store = new Vuex.Store({
   state: {
-    config: {},
+    config: {}, // The current config, rendered to the UI
     remoteConfig: {}, // The configuration stored on the server
     editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
+    currentConfigInfo: undefined, // For multi-page support, will store info about config file
     navigateConfToTab: undefined, // Used to switch active tab in config modal
   },
   getters: {
@@ -58,6 +63,9 @@ const store = new Vuex.Store({
     },
     sections(state) {
       return filterUserSections(state.config.sections || []);
+    },
+    pages(state) {
+      return state.remoteConfig.pages || [];
     },
     theme(state) {
       return state.config.appConfig.theme;
@@ -172,6 +180,12 @@ const store = new Vuex.Store({
       state.config = newConfig;
       InfoHandler('App config updated', InfoKeys.EDITOR);
     },
+    [SET_PAGES](state, multiPages) {
+      const newConfig = state.config;
+      newConfig.pages = multiPages;
+      state.config = newConfig;
+      InfoHandler('Pages updated', InfoKeys.EDITOR);
+    },
     [SET_SECTIONS](state, newSections) {
       const newConfig = state.config;
       newConfig.sections = newSections;
@@ -275,6 +289,16 @@ const store = new Vuex.Store({
     [CONF_MENU_INDEX](state, index) {
       state.navigateConfToTab = index;
     },
+    [SET_CURRENT_SUB_PAGE](state, subPageObject) {
+      state.currentConfigInfo = subPageObject;
+    },
+    [USE_MAIN_CONFIG](state) {
+      if (state.remoteConfig) {
+        state.config = state.remoteConfig;
+      } else {
+        this.dispatch(Keys.INITIALIZE_CONFIG);
+      }
+    },
   },
   actions: {
     /* Called when app first loaded. Reads config and sets state */
@@ -284,6 +308,16 @@ const store = new Vuex.Store({
       const deepCopy = (json) => JSON.parse(JSON.stringify(json));
       const config = deepCopy(new ConfigAccumulator().config());
       commit(SET_CONFIG, config);
+    },
+    /* Fetch config for a sub-page (sections and pageInfo only) */
+    async [INITIALIZE_MULTI_PAGE_CONFIG]({ commit, state }, configPath) {
+      axios.get(configPath).then((response) => {
+        const subConfig = yaml.load(response.data);
+        subConfig.appConfig = state.config.appConfig; // Always use parent appConfig
+        commit(SET_CONFIG, subConfig);
+      }).catch((err) => {
+        ErrorHandler(`Unable to load config from '${configPath}'`, err);
+      });
     },
   },
   modules: {},
