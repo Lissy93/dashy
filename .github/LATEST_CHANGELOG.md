@@ -1,7 +1,4 @@
-## ⚡️ 2.0.7 Improves handling of Sections and Items [PR #595](https://github.com/Lissy93/dashy/pull/595)
-- Adds functionality for sub-items / item-groups
-- Creates an item mixin, for reusing functionality
-- Item width calculated based on parent section width
-- Improved mobile support, long-press for right-click
-- Adds 2 new themes (`lissy` and `charry-blossom`)
-- Adds 2 new widgets (`mullvad-status`, and `blacklist-check`)
+## ✨ 2.0.8 Adds Multi-Page Support [PR #617](https://github.com/Lissy93/dashy/pull/617)
+- Adds support for multiple pages per-dashboard
+- Adds new attribute at root of main config file: `pages`
+- Updates router and nav-bar to automatically create paths for both local and remote configs

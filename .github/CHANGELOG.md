@@ -1,5 +1,10 @@
 # Changelog
 
+## ✨ 2.0.8 Adds Multi-Page Support [PR #617](https://github.com/Lissy93/dashy/pull/617)
+- Adds support for multiple pages per-dashboard
+- Adds new attribute at root of main config file: `pages`
+- Updates router and nav-bar to automatically create paths for both local and remote configs
+
 ## ⚡️ 2.0.7 Improves handling of Sections and Items [PR #595](https://github.com/Lissy93/dashy/pull/595)
 - Adds functionality for sub-items / item-groups
 - Creates an item mixin, for reusing functionality
