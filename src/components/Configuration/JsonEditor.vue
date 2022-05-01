@@ -144,7 +144,11 @@ export default {
       this.writeConfigToDisk(this.config);
     },
     saveLocally() {
-      this.saveConfigLocally(this.jsonData);
+      const msg = this.$t('interactive-editor.menu.save-locally-warning');
+      const youSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
+      if (youSure) {
+        this.saveConfigLocally(this.jsonData);
+      }
     },
     /* Convert error messages into readable format for UI */
     validationErrors(errors) {
