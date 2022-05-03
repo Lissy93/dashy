@@ -136,9 +136,11 @@ const store = new Vuex.Store({
   },
   mutations: {
     [SET_CONFIG](state, config) {
+      if (!config.appConfig) config.appConfig = {};
       state.config = config;
     },
     [SET_REMOTE_CONFIG](state, config) {
+      if (!config.appConfig) config.appConfig = {};
       state.remoteConfig = config;
     },
     [SET_LANGUAGE](state, lang) {
