@@ -7,8 +7,11 @@
 ### Contents
 - [Refused to Connect in Web Content View](#refused-to-connect-in-modal-or-workspace-view)
 - [404 On Static Hosting](#404-on-static-hosting)
+- [404 from Mobile Home Screen](#404-after-launch-from-mobile-home-screen)
 - [Yarn Build or Run Error](#yarn-error)
 - [Remote Config Not Loading](#remote-config-not-loading)
+- [Heap limit Allocation failed](ineffective-mark-compacts-near-heap-limit-allocation-failed)
+- [Command failed with signal "SIGKILL"](#command-failed-with-signal-sigkill)
 - [Auth Validation Error: "should be object"](#auth-validation-error-should-be-object)
 - [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
 - [Keycloak Redirect Error](#keycloak-redirect-error)
@@ -87,6 +90,15 @@ If this works, but you wish to continue using HTML5 history mode, then a bit of 
 
 ---
 
+## 404 after Launch from Mobile Home Screen
+
+Similar to the above issue, if you get a 404 after using iOS's “add to Home Screen” feature, then this is caused by Vue router.
+It can be fixed by setting `appConfig.routingMode` to `hash`
+
+See also: [#628](https://github.com/Lissy93/dashy/issues/628)
+
+---
+
 ## Yarn Error
 
 For more info, see [Issue #1](https://github.com/Lissy93/dashy/issues/1)
@@ -117,6 +129,35 @@ No 'Access-Control-Allow-Origin' header is present on the requested resource.
 The solution is to add the appropriate headers onto the target server, to allow it to accept requests from the origin where you're running Dashy.
 
 If it is a remote service, that you do not have admin access to, then another option is to proxy the request. Either host your own, or use a publicly accessible service, like [allorigins.win](https://allorigins.win), e.g: `https://api.allorigins.win/raw?url=https://pastebin.com/raw/4tZpaJV5`. For git-based services specifically, there's [raw.githack.com](https://raw.githack.com/)
+
+---
+
+##  Ineffective mark-compacts near heap limit Allocation failed
+
+If you see an error message, similar to:
+
+```
+<--- Last few GCs --->
+
+[61:0x74533040] 229060 ms: Mark-sweep (reduce) 127.1 (236.9) -> 127.1 (137.4) MB, 5560.7 / 0.3 ms (average mu = 0.286, current mu = 0.011) allocation failure scavenge might not succeed
+
+<--- JS stacktrace --->
+
+FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
+```
+
+
+This is likely caused by insufficient memory allocation to the container. When the container first starts up, or has to rebuild, the memory usage spikes, and if there isn't enough memory, it may terminate. This can be specified with, for example: `--memory=1024m`. For more info, see [Docker: Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/).
+
+See also: [#380](https://github.com/Lissy93/dashy/issues/380), [#350](https://github.com/Lissy93/dashy/issues/350), [#297](https://github.com/Lissy93/dashy/issues/297), [#349](https://github.com/Lissy93/dashy/issues/349), [#510](https://github.com/Lissy93/dashy/issues/510) and [#511](https://github.com/Lissy93/dashy/issues/511)
+
+---
+
+## Command failed with signal "SIGKILL"
+
+In Docker, this can be caused by not enough memory. When the container first starts up, or has to rebuild, the memory usage spikes, and so a larger allocation may be required. This can be specified with, for example: `--memory=1024m`. For more info, see [Docker: Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/)
+
+See also [#624](https://github.com/Lissy93/dashy/issues/624)
 
 ---
 
