@@ -103,7 +103,7 @@ For example, these will all render the same rocket (🚀) emoji: `icon: ':rocket
 
 ## Home-Lab Icons
 
-The [dashboard-icons](https://github.com/WalkxCode/dashboard-icons) repo by [@WalkxCode](https://github.com/WalkxCode) provides a comprehensive collection of 360+ high-quality PNG icons for commonly self-hosted services. Dashy natively supports these icons, and you can use them just by specifying the icon name (without extension) preceded by `hl-`. See [here](https://github.com/WalkxCode/dashboard-icons/tree/master/png) for a full list of all available icons. Note that these are fetched and cached strait from GitHub, so if you require offline access, the [Local Icons](#local-icons) method may be a better option for you.
+The [dashboard-icons](https://github.com/WalkxHub/dashboard-icons) repo by [@WalkxCode](https://github.com/WalkxCode) provides a comprehensive collection of 360+ high-quality PNG icons for commonly self-hosted services. Dashy natively supports these icons, and you can use them just by specifying the icon name (without extension) preceded by `hl-`. See [here](https://github.com/WalkxCode/dashboard-icons/tree/master/png) for a full list of all available icons. Note that these are fetched and cached strait from GitHub, so if you require offline access, the [Local Icons](#local-icons) method may be a better option for you.
 
 For example:
 ```yaml

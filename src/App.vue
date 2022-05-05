@@ -1,5 +1,5 @@
 <template>
-  <div id="dashy" :style="topLevelStyleModifications">
+  <div id="dashy" :style="topLevelStyleModifications" :class="subPageClassName">
     <EditModeTopBanner v-if="isEditMode" />
     <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash" />
     <Header :pageInfo="pageInfo" />
@@ -71,6 +71,10 @@ export default {
     },
     isEditMode() {
       return this.$store.state.editMode;
+    },
+    subPageClassName() {
+      const currentSubPage = this.$store.state.currentConfigInfo;
+      return (currentSubPage && currentSubPage.pageId) ? currentSubPage.pageId : '';
     },
     topLevelStyleModifications() {
       const vc = this.visibleComponents;

@@ -133,6 +133,13 @@
     </td></tr>
 <tr>
     <td align="center">
+        <a href="https://github.com/walkxcode">
+            <img src="https://avatars.githubusercontent.com/u/71191962?v=4" width="80;" alt="walkxcode"/>
+            <br />
+            <sub><b>Walkx</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/evroon">
             <img src="https://avatars.githubusercontent.com/u/11857441?v=4" width="80;" alt="evroon"/>
             <br />
@@ -147,10 +154,10 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/walkxcode">
-            <img src="https://avatars.githubusercontent.com/u/71191962?v=4" width="80;" alt="walkxcode"/>
+        <a href="https://github.com/remygrandin">
+            <img src="https://avatars.githubusercontent.com/u/1934515?v=4" width="80;" alt="remygrandin"/>
             <br />
-            <sub><b>Walkx</b></sub>
+            <sub><b>Remygrandin</b></sub>
         </a>
     </td>
     <td align="center">
@@ -166,15 +173,22 @@
             <br />
             <sub><b>Alessandro Del Prete</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/BOZG">
             <img src="https://avatars.githubusercontent.com/u/6022344?v=4" width="80;" alt="BOZG"/>
             <br />
             <sub><b>Stephen Rigney</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
+    <td align="center">
+        <a href="https://github.com/moemoeq">
+            <img src="https://avatars.githubusercontent.com/u/1808434?v=4" width="80;" alt="moemoeq"/>
+            <br />
+            <sub><b>CHAIYEON CHO</b></sub>
+        </a>
+    </td>
     <td align="center">
         <a href="https://github.com/daentech">
             <img src="https://avatars.githubusercontent.com/u/358678?v=4" width="80;" alt="daentech"/>
@@ -202,7 +216,8 @@
             <br />
             <sub><b>0n1cOn3</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/BeginCI">
             <img src="https://avatars.githubusercontent.com/u/57495754?v=4" width="80;" alt="BeginCI"/>
@@ -216,13 +231,19 @@
             <br />
             <sub><b>David</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/deepsourcebot">
             <img src="https://avatars.githubusercontent.com/u/60907429?v=4" width="80;" alt="deepsourcebot"/>
             <br />
             <sub><b>DeepSource Bot</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/emiran-orange">
+            <img src="https://avatars.githubusercontent.com/u/71817149?v=4" width="80;" alt="emiran-orange"/>
+            <br />
+            <sub><b>emiran-orange</b></sub>
         </a>
     </td>
     <td align="center">
@@ -238,7 +259,8 @@
             <br />
             <sub><b>Iaroslav Dronskii</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/b1thunt3r">
             <img src="https://avatars.githubusercontent.com/u/791091?v=4" width="80;" alt="b1thunt3r"/>
@@ -259,8 +281,7 @@
             <br />
             <sub><b>Rubjo</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/turnrye">
             <img src="https://avatars.githubusercontent.com/u/701035?v=4" width="80;" alt="turnrye"/>
@@ -273,27 +294,6 @@
             <img src="https://avatars.githubusercontent.com/u/88572557?v=4" width="80;" alt="royshreyaaa"/>
             <br />
             <sub><b>Shreya Roy</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/StevKast">
-            <img src="https://avatars.githubusercontent.com/u/17804308?v=4" width="80;" alt="StevKast"/>
-            <br />
-            <sub><b>Steven Kast</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/XertDev">
-            <img src="https://avatars.githubusercontent.com/u/16572811?v=4" width="80;" alt="XertDev"/>
-            <br />
-            <sub><b>Xert</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/icy-comet">
-            <img src="https://avatars.githubusercontent.com/u/50461557?v=4" width="80;" alt="icy-comet"/>
-            <br />
-            <sub><b>Aniket Teredesai</b></sub>
         </a>
     </td></tr>
 </table>

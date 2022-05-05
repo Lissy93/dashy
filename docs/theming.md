@@ -69,6 +69,16 @@ Custom CSS can be developed, tested and applied directly through the UI. Althoug
 
 This can be done from the Config menu (spanner icon in the top-right), under the Custom Styles tab. This is then associated with `appConfig.customCss` in local storage. Styles can also be directly applied to this attribute in the config file, but this may get messy very quickly if you have a lot of CSS.
 
+### Page-Specific Styles
+
+If you've got multiple pages within your dashboard, you can choose to target certain styles to specific pages. The top-most element within `<body>` will have a class name specific to the current sub-page. This is usually the page's name, all lowercase, with dashes instead of spaces, but you can easily check this yourself within the dev tools.
+
+For example, if the pages name was "CFT Toolbox", and you wanted to target `.item`s, you would do:
+
+```css
+.cft-toolbox .item { border: 4px solid yellow; }
+```
+
 ### Loading External Stylesheets
 
 The URI of a stylesheet, either local or hosted on a remote CDN can be passed into the config file. The attribute `appConfig.externalStyleSheet` accepts either a string, or an array of strings. You can also pass custom font stylesheets here, they must be in a CSS format (for example, `https://fonts.googleapis.com/css2?family=Cutive+Mono`).

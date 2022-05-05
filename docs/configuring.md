@@ -27,6 +27,7 @@ The following file provides a reference of all supported configuration options.
 
 - [**`pageInfo`**](#pageinfo) - Header text, footer, title, navigation, etc
   - [`navLinks`](#pageinfonavlinks-optional) - Links to display in the navigation bar
+- [**`pages`**](#pages-optional) - List of additional config files, for multi-page dashboards
 - [**`appConfig`**](#appconfig-optional) - Main application settings
   - [`webSearch`](#appconfigwebsearch-optional) - Configure web search engine options
   - [`hideComponents`](#appconfighidecomponents-optional) - Show/ hide page components
@@ -56,6 +57,7 @@ The following file provides a reference of all supported configuration options.
 **`pageInfo`** | `object` | Required | Basic meta data like title, description, nav bar links, footer text. See [`pageInfo`](#pageinfo)
 **`appConfig`** | `object` | _Optional_ | Settings related to how the app functions, including API keys and global styles. See [`appConfig`](#appconfig-optional)
 **`sections`** | `array` | Required | An array of sections, each containing an array of items, which will be displayed as links. See [`section`](#section)
+**`pages`** | `array` | _Optional_ | An array additional config files, used for multi-page dashboards. See [`pages`](#pages-optional)
 
 **[⬆️ Back to Top](#configuring)**
 
@@ -78,6 +80,15 @@ The following file provides a reference of all supported configuration options.
 **`title`** | `string` |  Required | The text to display on the link button
 **`path`** | `string` | Required | The URL to navigate to when clicked. Can be relative (e.g. `/about`) or absolute (e.g. `https://example.com` or `http://192.168.1.1`)
 **`target`** | `string` |  _Optional_ | The opening method (external links only). Can be either `newtab`, `sametab`, `top` or `parent`. Defaults to `newtab`
+
+**[⬆️ Back to Top](#configuring)**
+
+### `pages[]` _(optional)_
+
+**Field** | **Type** | **Required**| **Description**
+--- | --- | --- | ---
+**`name`** | `string` |  Required | A unique name for that page
+**`path`** | `string` |  Required | The path (local or remote) to the config file to use.<br>For files located within `/public`, you only need to specify filename, for externally hosted files you must include the full URL
 
 **[⬆️ Back to Top](#configuring)**
 

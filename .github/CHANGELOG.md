@@ -1,11 +1,17 @@
 # Changelog
 
-## 🐳 2.0.8 - Container run without root [PR #606](https://github.com/Lissy93/dashy/pull/606)
+
+## 🐳 2.0.9 - Container run without root [PR #606](https://github.com/Lissy93/dashy/pull/606)
 - Uses an unprivileged port (8080 instead of 80)
 - Adds the UID and GID variables to not be 0
 - Adds a DEST_DIRECTORY variable to control where build output goes
 - Adds a RUN block to set permissions on the DEST_DIRECTORY so the non-root user can write
 - Adds a USER directive to make the process run as the non-root user
+
+## ✨ 2.0.8 Adds Multi-Page Support [PR #617](https://github.com/Lissy93/dashy/pull/617)
+- Adds support for multiple pages per-dashboard
+- Adds new attribute at root of main config file: `pages`
+- Updates router and nav-bar to automatically create paths for both local and remote configs
 
 ## ⚡️ 2.0.7 Improves handling of Sections and Items [PR #595](https://github.com/Lissy93/dashy/pull/595)
 - Adds functionality for sub-items / item-groups

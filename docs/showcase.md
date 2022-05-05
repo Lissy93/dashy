@@ -154,6 +154,16 @@
 
 ---
 
+### Raspberry PI Docker Dashboard
+
+> By [@henkiewie](https://github.com/henkiewie) <sup>via [#622](https://github.com/Lissy93/dashy/issues/622)</sup>
+
+> I use this dashboard every day. It now even includes a player for a radio stream which I configured with Logitech media server and icecast. I made an smaller version of the grafana dashboard to fit an iframe in kiosk mode, so it monitors the most important values of my RPI. The PI is in Argon m2 case and used as a NAS. The dashboard is a copy of the adventure theme with some changes saved in `/app/src/styles/user-defined-themes.scss`
+
+![screenshot-henkiewie-dashy](https://i.ibb.co/jGzPm6b/henkiewie-dashy-showcase.png)
+
+---
+
 ### Stefantigro
 > By [u/stefantigro](https://www.reddit.com/user/stefantigro/) <sup>via [reddit](https://www.reddit.com/r/selfhosted/comments/t5oril/been_selfhosting_close_to_half_a_year_now_all/)</sup>
 
