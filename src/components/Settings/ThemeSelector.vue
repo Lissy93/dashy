@@ -35,6 +35,7 @@ import {
 } from '@/utils/ThemeHelper';
 import Defaults, { localStorageKeys } from '@/utils/defaults';
 import Keys from '@/utils/StoreMutations';
+import ErrorHandler from '@/utils/ErrorHandler';
 import IconPalette from '@/assets/interface-icons/config-color-palette.svg';
 
 export default {
@@ -86,19 +87,19 @@ export default {
     /* Returns an array of links to external CSS from the Config */
     externalThemes() {
       const availibleThemes = {};
-      if (this.appConfig) {
-        if (this.appConfig.externalStyleSheet) {
-          const externals = this.appConfig.externalStyleSheet;
-          if (Array.isArray(externals)) {
-            externals.forEach((ext, i) => {
-              availibleThemes[`External Stylesheet ${i + 1}`] = ext;
-            });
-          } else {
-            availibleThemes['External Stylesheet'] = this.appConfig.externalStyleSheet;
-          }
+      if (this.appConfig && this.appConfig.externalStyleSheet) {
+        const externals = this.appConfig.externalStyleSheet;
+        if (Array.isArray(externals)) {
+          externals.forEach((ext, i) => {
+            availibleThemes[`External Stylesheet ${i + 1}`] = ext;
+          });
+        } else if (typeof externals === 'string') {
+          availibleThemes['External Stylesheet'] = this.appConfig.externalStyleSheet;
+        } else {
+          ErrorHandler('External stylesheets must be of type string or string[]');
         }
       }
-      availibleThemes.Default = '#';
+      // availibleThemes.Default = '#';
       return availibleThemes;
     },
   },

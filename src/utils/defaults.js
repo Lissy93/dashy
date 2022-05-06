@@ -47,6 +47,7 @@ module.exports = {
   },
   /* List of built-in themes, to be displayed within the theme-switcher dropdown */
   builtInThemes: [
+    'default',
     'callisto',
     'material',
     'material-dark',
