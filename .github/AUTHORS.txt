@@ -10,6 +10,7 @@ Iaroslav <ronski> - 1 commits
 Ishan <ai> - 1 commits
 Jeremy <hauvi> - 1 commits
 Kieren <onnel> - 1 commits
+Leonardo <olma> - 1 commits
 Rune <jørnerå> - 1 commits
 Ryan <urne> - 1 commits
 Shreya <o> - 1 commits
@@ -48,10 +49,10 @@ EVOTk <45015615+EVOTk@users.noreply.github.com> - 22 commits
 Alicia <yke> - 28 commits
 repo-visualizer <repo-visualizer@users.noreply.github.com> - 35 commits
 snyk-bot <snyk-bot@snyk.io> - 40 commits
-Alicia <o> - 68 commits
+Alicia <o> - 70 commits
 Lissy93 <gh@d0h.co> - 78 commits
-liss-bot <liss-bot@d0h.co> - 81 commits
-Alicia <yke> - 105 commits
+liss-bot <liss-bot@d0h.co> - 82 commits
+Alicia <yke> - 107 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 207 commits
-Alicia <yke> - 356 commits
+Alicia <yke> - 368 commits
 Alicia <yke> - 1488 commits
