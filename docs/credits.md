@@ -243,7 +243,7 @@
         <a href="https://github.com/emiran-orange">
             <img src="https://avatars.githubusercontent.com/u/71817149?v=4" width="80;" alt="emiran-orange"/>
             <br />
-            <sub><b>emiran-orange</b></sub>
+            <sub><b>Emiran-orange</b></sub>
         </a>
     </td>
     <td align="center">
@@ -276,6 +276,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/LeoColman">
+            <img src="https://avatars.githubusercontent.com/u/1577251?v=4" width="80;" alt="LeoColman"/>
+            <br />
+            <sub><b>Leonardo Colman</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/rubjo">
             <img src="https://avatars.githubusercontent.com/u/42270947?v=4" width="80;" alt="rubjo"/>
             <br />
@@ -287,13 +294,6 @@
             <img src="https://avatars.githubusercontent.com/u/701035?v=4" width="80;" alt="turnrye"/>
             <br />
             <sub><b>Ryan Turner</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/royshreyaaa">
-            <img src="https://avatars.githubusercontent.com/u/88572557?v=4" width="80;" alt="royshreyaaa"/>
-            <br />
-            <sub><b>Shreya Roy</b></sub>
         </a>
     </td></tr>
 </table>
