@@ -5,9 +5,9 @@
     },
     "search": {
         "search-label": "搜尋",
-        "search-placeholder": "開始輸入以篩選",
+        "search-placeholder": "開始輸入以搜尋",
         "clear-search-tooltip": "清空搜尋",
-        "enter-to-search-web": "按下enter來搜尋"
+        "enter-to-search-web": "按下enter來搜尋網際網路"
     },
     "login": {
         "title": "Dashy",
