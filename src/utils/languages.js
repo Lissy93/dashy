@@ -8,6 +8,7 @@ import sl from '@/assets/locales/sl.json';
 import es from '@/assets/locales/es.json';
 import it from '@/assets/locales/it.json';
 import zhCN from '@/assets/locales/zh-CN.json';
+import zhTW from '@/assets/locales/zh-TW.json';
 import ar from '@/assets/locales/ar.json';
 import hi from '@/assets/locales/hi.json';
 import ja from '@/assets/locales/ja.json';
@@ -72,6 +73,12 @@ export const languages = [
     code: 'cn',
     locale: zhCN,
     flag: '🇨🇳',
+  },
+  { // Chinese
+    name: '繁體中文',
+    code: 'zh-TW',
+    locale: zhTW,
+    flag: '🇹🇼',
   },
   { // Arabic
     name: 'العربية',
