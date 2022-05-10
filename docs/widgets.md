@@ -1080,6 +1080,8 @@ _No config options._
 ##### Info
 No external data requests made
 
+Note that this widget is not available if you are running Dashy in a container or VM. Instead you can use the [System Monitoring](#system-resource-monitoring) widgets to display stats from the host system instead.
+
 ---
 
 ### Cron Monitoring (Health Checks)
