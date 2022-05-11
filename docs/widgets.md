@@ -97,6 +97,7 @@ A simple, live-updating time and date widget with time-zone support. All fields 
 **`format`** | `string` | _Optional_ | A country code for displaying the date and time in local format.<br>Specified as `[ISO-3166]-[ISO-639]`, for example: `en-AU`. See [here](https://www.fincher.org/Utilities/CountryLanguageList.shtml) for a full list of locales. Defaults to the browser / device's region
 **`customCityName`** | `string` |  _Optional_ | By default the city from the time-zone is shown, but setting this value will override that text
 **`hideDate`** | `boolean` |  _Optional_ | If set to `true`, the date and city will not be shown. Defaults to `false`
+**`hideSeconds`** | `boolean` |  _Optional_ | If set to `true`, seconds will not be shown. Defaults to `false`
 
 ##### Example
 

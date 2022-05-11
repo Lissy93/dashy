@@ -36,6 +36,9 @@ export default {
       if (this.options.customCityName) return this.options.customCityName;
       return this.timeZone.split('/')[1].replaceAll('_', ' ');
     },
+    showSeconds() {
+      return !this.options.hideSeconds;
+    },
   },
   methods: {
     update() {
@@ -48,7 +51,7 @@ export default {
         timeZone: this.timeZone,
         hour: 'numeric',
         minute: 'numeric',
-        second: 'numeric',
+        ...(this.showSeconds && { second: 'numeric' }),
       }).format();
     },
     /* Get and format the date */
