@@ -6,6 +6,11 @@ on:
   push:
     branches: ['master']
     tags: [v*]
+    paths:
+      - '**.js'
+      - 'src/**'
+      - 'public/**'
+      - 'services/**'
 
 env:
   DH_IMAGE: ${{ secrets.DOCKER_REPO }}
