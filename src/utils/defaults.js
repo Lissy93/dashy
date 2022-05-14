@@ -82,6 +82,7 @@ module.exports = {
     'material-dark-original',
     'high-contrast-dark',
     'high-contrast-light',
+    'adventure-basic',
     'basic',
   ],
   /* Default color options for the theme configurator swatches */
