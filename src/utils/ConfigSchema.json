@@ -322,7 +322,7 @@
           "description": "If true, font-awesome will be loaded, if false they will not be. If left empty, icons will only be loaded if needed"
         },
         "enableMaterialDesignIcons": {
-          "title": "Enable Font-Awesome?",
+          "title": "Enable Material Design Icons?",
           "type": "boolean",
           "default": false,
           "description": "If true, material-design-icons will be loaded, if false they will not be. If left empty, icons will only be loaded if needed"
