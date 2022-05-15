@@ -527,6 +527,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/emlazzarin">
+            <img src="https://avatars.githubusercontent.com/u/1141361?v=4" width="80;" alt="emlazzarin"/>
+            <br />
+            <sub><b>Eddy Lazzarin</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/BOZG">
             <img src="https://avatars.githubusercontent.com/u/6022344?u=a52f42b946a1e1156f7bb9d7f65e9e28bb2da89f&v=4" width="80;" alt="BOZG"/>
             <br />
@@ -553,27 +560,27 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Byolock</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/hugalafutro">
             <img src="https://avatars.githubusercontent.com/u/30209689?v=4" width="80;" alt="hugalafutro"/>
             <br />
             <sub><b>Hugalafutro</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
+    <td align="center">
+        <a href="https://github.com/shadowking001">
+            <img src="https://avatars.githubusercontent.com/u/43928955?v=4" width="80;" alt="shadowking001"/>
+            <br />
+            <sub><b>LawrenceP.</b></sub>
+        </a>
+    </td>
     <td align="center">
         <a href="https://github.com/KierenConnell">
             <img src="https://avatars.githubusercontent.com/u/46445781?u=5502f8fb780938e2825735d7bbb9236642d212c0&v=4" width="80;" alt="KierenConnell"/>
             <br />
             <sub><b>Kieren Connell</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/gdepountis">
-            <img src="https://avatars.githubusercontent.com/u/56775783?v=4" width="80;" alt="gdepountis"/>
-            <br />
-            <sub><b>Gdepountis</b></sub>
         </a>
     </td>
     <td align="center">
