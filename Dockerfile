@@ -1,4 +1,4 @@
-FROM node:16.13.2-alpine AS BUILD_IMAGE
+FROM node:16.14.2-alpine AS BUILD_IMAGE
 
 # Set the platform to build image for
 ARG TARGETPLATFORM
@@ -25,12 +25,16 @@ COPY . ./
 RUN yarn build
 
 # Production stage
-FROM node:16.13.2-alpine
+FROM node:16.14.2-alpine
 
 # Define some ENV Vars
-ENV PORT=80 \
-  DIRECTORY=/app \
-  IS_DOCKER=true
+ENV DIRECTORY=/app \
+    PUBLIC_DIR=public \
+    DEST_DIR=dist \
+    IS_DOCKER=true \
+    UID=5000 \
+    GID=5000 \
+    PORT=8080
 
 # Create and set the working directory
 WORKDIR ${DIRECTORY}
@@ -39,9 +43,21 @@ WORKDIR ${DIRECTORY}
 RUN apk add --no-cache tzdata tini
 
 # Copy built application from build phase
-COPY --from=BUILD_IMAGE /app ./
-# Ensure only one version of conf.yml exists
-RUN rm dist/conf.yml
+COPY --from=BUILD_IMAGE /app ${DIRECTORY}
+
+# fix permissions
+RUN chown ${UID}:${GID} ${DEST_DIR} && \
+    chmod 755 ${DEST_DIR} && \
+    find ${DEST_DIR} -exec chown ${UID}:${GID} "{}" \; && \
+    find ${DEST_DIR} -type d -exec chmod 755 "{}" \; && \
+    find ${DEST_DIR} -type f -exec chmod 644 "{}" \; && \
+    chown ${UID}:${GID} ${PUBLIC_DIR} && \
+    chmod 755 ${PUBLIC_DIR} && \
+    find ${PUBLIC_DIR} -exec chown $UID:$GID "{}" \; && \
+    find ${PUBLIC_DIR} -type d -exec chmod 755 "{}" \; && \
+    find ${PUBLIC_DIR} -type f -exec chmod 644 "{}" \;
+
+USER ${UID}
 
 # Finally, run start command to serve up the built application
 ENTRYPOINT [ "/sbin/tini", "--" ]

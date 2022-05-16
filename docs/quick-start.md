@@ -2,7 +2,7 @@
 
 Welcome to Dashy! So glad you're here 😊 In a couple of minutes, you'll have your new dashboard up and running 🚀
 
-**TDLR;** Run `docker run -p 8080:80 lissy93/dashy`, then open `http://localhost:8080`
+**TDLR;** Run `docker run -p 8080:8080 lissy93/dashy`, then open `http://localhost:8080`
 
 ---
 
@@ -18,7 +18,7 @@ If you don't want to use Docker, then you can use one of Dashy's other supported
 To pull the latest image, and build and start the app run:
 ```
 docker run -d \
-  -p 8080:80 \
+  -p 8080:8080 \
   -v ~/my-conf.yml:/app/public/conf.yml \
   --name my-dashboard \
   --restart=always \

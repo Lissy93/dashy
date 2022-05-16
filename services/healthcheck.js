@@ -7,7 +7,7 @@
 const http = require('http');
 
 /* Location of the server to test */
-const port = process.env.PORT || !!process.env.IS_DOCKER ? 80 : 4000;
+const port = process.env.PORT || !!process.env.IS_DOCKER ? 8080 : 4000;
 const host = process.env.HOST || '0.0.0.0';
 const timeout = 2000;
 
