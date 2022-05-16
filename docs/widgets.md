@@ -714,6 +714,7 @@ Show recent scores and upcoming matches from your favourite sports team. Data is
 **`pastOrFuture`** | `string` |  __Optional__ | Set to `past` to show scores for recent games, or `future` to show upcoming games. Defaults to `past`. You can change this within the UI
 **`apiKey`** | `string` | __Optional__ | Optionally specify your API key, which you can sign up for at [TheSportsDB.com](https://www.thesportsdb.com/)
 **`limit`** | `number` | __Optional__ | To limit output to a certain number of matches, defaults to `15`
+**`hideImage`** | `boolean` | __Optional__ | Set to `true` to not render the team / match banner image, defaults to `false`
 
 ##### Example
 

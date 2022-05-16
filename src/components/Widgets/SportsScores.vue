@@ -28,7 +28,7 @@
   </div>
   <div class="match-row" v-for="match in matches" :key="match.id">
     <!-- Banner Image -->
-    <div class="match-thumbnail-wrap">
+    <div class="match-thumbnail-wrap" v-if="!hideImage">
       <img :src="match.thumbnail" :alt="`${match.title} Banner Image`" class="match-thumbnail" />
     </div>
     <!-- Team Scores -->
@@ -100,6 +100,9 @@ export default {
     },
     pastOrFuture() {
       return this.options.pastOrFuture || 'past';
+    },
+    hideImage() {
+      return this.options.hideImage || false;
     },
     endpoint() {
       this.initiate();
