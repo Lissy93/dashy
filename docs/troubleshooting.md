@@ -30,12 +30,13 @@
 - [Diagnosing Widget Errors](#widget-errors)
 - [Fixing Widget CORS Errors](#widget-cors-errors)
 - [Weather Forecast Widget 401](#weather-forecast-widget-401)
-- [Keycloak Redirect Error](#keycloak-redirect-error)
+- [Font Awesome Icons not Displaying](#font-awesome-icons-not-displaying)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
 
 
 ---
+
 ## `Refused to Connect` in Modal or Workspace View
 
 This is not an issue with Dashy, but instead caused by the target app preventing direct access through embedded elements. 
@@ -213,6 +214,13 @@ Note that for requests that transport sensitive info like credentials, setting t
 You should also ensure that Keycloak is correctly configured, with a user, realm and application, and be sure that you have set a valid redirect URL in Keycloak ([screenshot](https://user-images.githubusercontent.com/1862727/148599768-db4ee4f8-72c5-402d-8f00-051d999e6267.png)).
 
 For more details on how to set headers, see the [Example Headers](/docs/management.md#setting-headers) in the management docs, or reference the documentation for your proxy.
+
+If you're running in Kubernetes, you will need to enable CORS ingress rules, see [docs](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#enable-cors), e.g:
+
+```
+nginx.ingress.kubernetes.io/cors-allow-origin: "https://dashy.example.com"
+nginx.ingress.kubernetes.io/enable-cors: "true"
+```
 
 See also: #479, #409, #507, #491, #341, #520
 
@@ -412,22 +420,19 @@ A future update will be pushed out, to use a free weather forecasting API.
 
 ---
 
-## Keycloak Redirect Error
+## Font Awesome Icons not Displaying
 
-Firstly, ensure that in your Keycloak instance you have populated the Valid Redirect URIs field ([screenshot](https://user-images.githubusercontent.com/1862727/148599768-db4ee4f8-72c5-402d-8f00-051d999e6267.png)) with the URL to your Dashy instance.
+Usually, Font Awesome will be automatically enabled if one or more of your icons are using Font-Awesome. If this is not happening, then you can always manually enable (or disable) Font Awesome by setting: [`appConfig`](/docs/configuring.md#appconfig-optional).`enableFontAwesome` to `true`.
 
-You may need to specify CORS headers on your Keycloak instance, to allow requests coming from Dashy, e.g:
+If you are trying to use a premium icon, then you must have a [Pro License](https://fontawesome.com/plans). You'll then need to specify your Pro plan API key under `appConfig.fontAwesomeKey`. You can find this key, by logging into your FA account, navigate to Account → [Kits](https://fontawesome.com/kits) → New Kit → Copy Kit Code. The code is a 10-digit alpha-numeric code, and is also visible within the new kit's URL, for example: `81e48ce079`.
 
-```
-Access-Control-Allow-Origin: https://dashy.example.com
-```
+Be sure that you're specifying the icon category and name correctly. You're icon should look be `[category] fa-[icon-name]`. The following categories are supported: `far` _(regular)_, `fas` _(solid)_, `fal`_(light)_, `fad` _(duo-tone)_ and `fab`_(brands)_. With the exception of brands, you'll usually want all your icons to be in from same category, so they look uniform.
 
-If you're running in Kubernetes, you will need to enable CORS ingress rules, see [docs](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#enable-cors), e.g:
+Ensure the icon you are trying to use, is available within [FontAwesome Version 5](https://fontawesome.com/v5/search).
 
-```
-nginx.ingress.kubernetes.io/cors-allow-origin: "https://dashy.example.com"
-nginx.ingress.kubernetes.io/enable-cors: "true"
-```
+Examples: `fab fa-raspberry-pi`, `fas fa-database`, `fas fa-server`, `fas fa-ethernet`
+
+Finally, check the [browser console](#how-to-open-browser-console) for any error messages, and raise a ticket if the issue persists.
 
 ---
 
