@@ -163,6 +163,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`serverUrl`** | `string` | Required | The URL (or URL/ IP + Port) where your keycloak server is running
 **`realm`** | `string` | Required | The name of the realm (must already be created) that you want to use
 **`clientId`** | `string` | Required | The Client ID of the client you created for use with Dashy
+**`legacySupport`** | `boolean` | _Optional_ | If using Keycloak 17 or older, then set this to `true`
 
 **[⬆️ Back to Top](#configuring)**
 

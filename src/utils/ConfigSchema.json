@@ -475,6 +475,11 @@
                   "title": "Client ID",
                   "type": "string",
                   "description": "The Client ID of the client you created for use with Dashy"
+                },
+                "legacySupport": {
+                  "title": "Legacy Support",
+                  "type": "boolean",
+                  "description": "If using Keycloak 17 or older, then set this to true"
                 }
               }
             }
