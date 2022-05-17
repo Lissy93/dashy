@@ -1,6 +1,9 @@
 <template>
   <div
-    :class="`collapsable ${rowColSpanClass} ${collapseClass} ${!cutToHeight ? 'full-height' : ''}`"
+    v-bind:class="[
+    { 'is-open': isExpanded, 'full-height': cutToHeight },
+    `collapsable ${rowColSpanClass}`
+    ]"
     :style="`${color ? 'background: '+color : ''}; ${sanitizeCustomStyles(customStyles)};`"
   >
     <input
@@ -72,12 +75,32 @@ export default {
       const { rows, cols, checkSpanNum } = this;
       return `${checkSpanNum(cols, 'col')} ${checkSpanNum(rows, 'row')}`;
     },
+    isExpanded: {
+    // getter
+      get() {
+        if (this.collapsed !== undefined) return !this.collapsed;
+        const collapseStateObject = this.initialiseStorage(); // Check local storage
+        if (collapseStateObject[this.uniqueKey] !== undefined) {
+          return collapseStateObject[this.uniqueKey];
+        }
+        return true; // Nothing specified, return Open
+      },
+      // setter
+      set(newState) {
+        // Get the current localstorage collapse state object
+        const collapseState = JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
+        // Add the new state to it
+        collapseState[this.uniqueKey] = newState;
+        // Stringify, and set the new object into local storage
+        localStorage.setItem(localStorageKeys.COLLAPSE_STATE, JSON.stringify(collapseState));
+      },
+    },
   },
   data: () => ({
-    isExpanded: false,
+    // isExpanded: false,
   }),
   mounted() {
-    this.isExpanded = this.getCollapseState();
+    // this.isExpanded = this.getCollapseState();
   },
   methods: {
     /* Check that row & column span is valid, and not over the max */
@@ -93,43 +116,17 @@ export default {
     },
     /* Returns local storage collapse state data, and if not yet set then initialized is */
     initialiseStorage() {
-      const storageKey = localStorageKeys.COLLAPSE_STATE;
-      /* Initialize function will create and set a blank object to storage */
-      const initStorage = () => localStorage.setItem(storageKey, JSON.stringify({}));
       // If not yet set, then call initialize
-      if (!localStorage[storageKey]) {
-        initStorage();
+      if (!localStorage[localStorageKeys.COLLAPSE_STATE]) {
+        localStorage.setItem(localStorageKeys.COLLAPSE_STATE, JSON.stringify({}));
         return {};
       }
       // Otherwise, return value of local storage
-      return JSON.parse(localStorage[storageKey]);
+      return JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
     },
-    /* If specified by user, return conf collapse state, otherwise check local storage */
-    getCollapseState() {
-      if (this.collapsed !== undefined) return !this.collapsed; // Check users config
-      const collapseStateObject = this.initialiseStorage(); // Check local storage
-      if (collapseStateObject[this.uniqueKey] !== undefined) {
-        return collapseStateObject[this.uniqueKey];
-      }
-      // Nothing specified, return Open
-      return true;
-    },
-    /* When section collapsed, update local storage, to remember for next time */
-    setCollapseState(id, newState) {
-      // Get the current localstorage collapse state object
-      const collapseState = JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
-      // Add the new state to it
-      collapseState[id] = newState;
-      // Stringify, and set the new object into local storage
-      localStorage.setItem(localStorageKeys.COLLAPSE_STATE, JSON.stringify(collapseState));
-    },
-    /* Called when collapse state changes, trigger local storage update if needed */
+    // /* Called when collapse state changes, trigger local storage update if needed */
     collapseChanged(whatChanged) {
       this.isExpanded = whatChanged.srcElement.checked;
-      if (this.collapseState === undefined) { // Only run, if user hasn't manually set prop
-        this.initialiseStorage();
-        this.setCollapseState(this.uniqueKey.toString(), this.isExpanded);
-      }
     },
     openEditModal() {
       this.$emit('openEditSection');
