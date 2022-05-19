@@ -94,6 +94,7 @@
       v-click-outside="closeContextMenu"
       @openEditSection="openEditSection"
       @navigateToSection="navigateToSection"
+      @expandCollapseSection="expandCollapseSection"
       @removeSection="removeSection"
     />
   </Collapsable>
@@ -248,6 +249,12 @@ export default {
       const parse = (section) => section.replace(' ', '-').toLowerCase().trim();
       const sectionIdentifier = parse(this.title);
       router.push({ path: `/home/${sectionIdentifier}` });
+      this.closeContextMenu();
+    },
+    /* Toggle sections collapse state */
+    expandCollapseSection() {
+      const secElem = this.$refs[this.sectionRef];
+      if (secElem) secElem.toggle();
       this.closeContextMenu();
     },
     /* Open the Section Edit Menu */
