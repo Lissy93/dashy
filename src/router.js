@@ -50,7 +50,7 @@ const getStartingComponent = () => {
 
 /* Returns the meta tags for each route */
 const makeMetaTags = (defaultTitle) => ({
-  title: pageInfo?.title || defaultTitle,
+  title: pageInfo && pageInfo.title ? pageInfo.title : defaultTitle,
   metaTags: metaTagData,
 });
 

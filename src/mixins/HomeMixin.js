@@ -27,7 +27,7 @@ const HomeMixin = {
       return this.$store.state.modalOpen;
     },
     pageId() {
-      return this.subPageInfo?.pageId ? this.subPageInfo.pageId : 'home';
+      return (this.subPageInfo && this.subPageInfo.pageId) ? this.subPageInfo.pageId : 'home';
     },
   },
   data: () => ({

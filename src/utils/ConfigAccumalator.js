@@ -60,7 +60,7 @@ export default class ConfigAccumulator {
       try { localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]); }
       catch (e) { ErrorHandler('Malformed pageInfo data in local storage'); }
     }
-    const filePageInfo = this.conf?.pageInfo || {};
+    const filePageInfo = (this.conf && this.conf.pageInfo) ? this.conf.pageInfo : {};
     return { ...defaultPageInfo, ...filePageInfo, ...localPageInfo };
   }
 
