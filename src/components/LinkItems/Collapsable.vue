@@ -10,8 +10,7 @@
       :id="sectionKey"
       class="toggle"
       type="checkbox"
-      :checked="isExpanded"
-      @change="collapseChanged"
+      v-model="checkboxState"
       tabIndex="-1"
     >
     <label :for="sectionKey" class="lbl-toggle" tabindex="-1"
@@ -75,34 +74,42 @@ export default {
       const { rows, cols, checkSpanNum } = this;
       return `${checkSpanNum(cols, 'col')} ${checkSpanNum(rows, 'row')}`;
     },
+    /* Used to fetch initial collapse state, and set new collapse state on change */
     isExpanded: {
-    // getter
       get() {
         if (this.collapsed !== undefined) return !this.collapsed;
-        const collapseStateObject = this.initialiseStorage(); // Check local storage
+        const collapseStateObject = this.locallyStoredCollapseStates();
         if (collapseStateObject[this.uniqueKey] !== undefined) {
           return collapseStateObject[this.uniqueKey];
         }
-        return true; // Nothing specified, return Open
+        return true;
       },
-      // setter
       set(newState) {
-        // Get the current localstorage collapse state object
-        const collapseState = JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
-        // Add the new state to it
+        const collapseState = this.locallyStoredCollapseStates();
         collapseState[this.uniqueKey] = newState;
-        // Stringify, and set the new object into local storage
         localStorage.setItem(localStorageKeys.COLLAPSE_STATE, JSON.stringify(collapseState));
       },
     },
   },
   data: () => ({
-    // isExpanded: false,
+    checkboxState: true,
   }),
   mounted() {
-    // this.isExpanded = this.getCollapseState();
+    this.checkboxState = this.isExpanded;
+  },
+  watch: {
+    checkboxState(newState) {
+      this.isExpanded = newState;
+    },
+    uniqueKey() {
+      this.checkboxState = this.isExpanded;
+    },
   },
   methods: {
+    /* Either expand or collapse section, based on it's current state */
+    toggle() {
+      this.checkboxState = !this.checkboxState;
+    },
     /* Check that row & column span is valid, and not over the max */
     checkSpanNum(span, classPrefix) {
       const maxSpan = 6;
@@ -115,7 +122,7 @@ export default {
       return userCss ? userCss.replace(/[^a-zA-Z0-9- :;.]/g, '') : '';
     },
     /* Returns local storage collapse state data, and if not yet set then initialized is */
-    initialiseStorage() {
+    locallyStoredCollapseStates() {
       // If not yet set, then call initialize
       if (!localStorage[localStorageKeys.COLLAPSE_STATE]) {
         localStorage.setItem(localStorageKeys.COLLAPSE_STATE, JSON.stringify({}));
@@ -123,10 +130,6 @@ export default {
       }
       // Otherwise, return value of local storage
       return JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
-    },
-    // /* Called when collapse state changes, trigger local storage update if needed */
-    collapseChanged(whatChanged) {
-      this.isExpanded = whatChanged.srcElement.checked;
     },
     openEditModal() {
       this.$emit('openEditSection');
@@ -214,6 +217,8 @@ export default {
       margin-right: .7rem;
       transform: translateY(-2px);
       transition: transform .2s ease-out;
+      opacity: 0.3;
+      transition: all 0.4s ease-in-out;
     }
   }
 
@@ -251,6 +256,16 @@ export default {
     top: 0.5rem;
     margin-left: 0.2rem;
     margin-right: 0.2rem;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+  }
+
+  /* On section hover, set interface icons to full visible */
+  &:hover {
+    .edit-mode-item, label.lbl-toggle::before {
+      opacity: 1;
+      transition: all 0.2s ease-out;
+    }
   }
 
   /* Makes sections fill available space */
