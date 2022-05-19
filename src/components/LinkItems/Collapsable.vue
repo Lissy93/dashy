@@ -216,7 +216,6 @@ export default {
       vertical-align: middle;
       margin-right: .7rem;
       transform: translateY(-2px);
-      transition: transform .2s ease-out;
       opacity: 0.3;
       transition: all 0.4s ease-in-out;
     }
