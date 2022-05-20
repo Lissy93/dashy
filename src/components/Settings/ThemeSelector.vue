@@ -106,15 +106,17 @@ export default {
   mounted() {
     const initialTheme = this.getInitialTheme();
     this.selectedTheme = initialTheme;
-    // Pass all user custom stylesheets to the themehelper
-    const added = Object.keys(this.externalThemes).map(
-      name => this.themeHelper.add(name, this.externalThemes[name]),
-    );
     // Quicker loading, if the theme is local we can apply it immidiatley
     if (this.isThemeLocal(initialTheme)) {
       this.updateTheme(initialTheme);
+    }
+
     // If it's an external stylesheet, then wait for promise to resolve
-    } else if (initialTheme !== Defaults.theme) {
+    if (this.externalThemes && Object.entries(this.externalThemes).length > 0) {
+      const added = Object.keys(this.externalThemes).map(
+        name => this.themeHelper.add(name, this.externalThemes[name]),
+      );
+      // Once, added, then apply users initial theme
       Promise.all(added).then(() => {
         this.updateTheme(initialTheme);
       });

@@ -1357,7 +1357,7 @@ html[data-theme="dashy-docs"] {
   }
 }
 
-html[data-theme="adventure"] {
+html[data-theme="adventure"], html[data-theme="adventure-basic"] {
   // Main colors
   --primary: #ffffffe6;
   --background: #0b1021;
@@ -1376,11 +1376,6 @@ html[data-theme="adventure"] {
   --item-group-shadow: none;
   --item-group-background: none;
   --item-group-outer-background: none;
-  // Background Image
-  body {
-    background: url('https://i.ibb.co/wdqSsGh/adventure-bg.jpg');
-    background-size: cover;
-  }
   // Remove background from certain components
   div.home, div.options-outer, div.options-container, section.filter-container,
   section.settings-outer, div.show-hide-container.hide-btn, div.show-hide-container.show-btn  {
@@ -1398,6 +1393,14 @@ html[data-theme="adventure"] {
       background: var(--item-background-hover);
       box-shadow: var(--item-hover-shadow);
     }
+  }
+}
+
+html[data-theme="adventure"] {
+  // Background Image
+  body {
+    background: url('https://i.ibb.co/wdqSsGh/adventure-bg.jpg');
+    background-size: cover;
   }
 }
 

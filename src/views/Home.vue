@@ -34,7 +34,7 @@
           :title="section.name"
           :icon="section.icon || undefined"
           :displayData="getDisplayData(section)"
-          :groupId="`section-${index}`"
+          :groupId="`${pageId}-section-${index}`"
           :items="filterTiles(section.items, searchValue)"
           :widgets="section.widgets"
           :searchTerm="searchValue"

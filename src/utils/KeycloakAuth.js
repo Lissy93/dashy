@@ -12,9 +12,12 @@ const getAppConfig = () => {
 class KeycloakAuth {
   constructor() {
     const { auth } = getAppConfig();
-    const { serverUrl, realm, clientId } = auth.keycloak;
+    const {
+      serverUrl, realm, clientId, legacySupport,
+    } = auth.keycloak;
+    const url = legacySupport ? `${serverUrl}/auth` : serverUrl;
     const initOptions = {
-      url: `${serverUrl}`, realm, clientId, onLoad: 'login-required',
+      url, realm, clientId, onLoad: 'login-required',
     };
 
     this.keycloakClient = Keycloak(initOptions);

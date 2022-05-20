@@ -20,7 +20,7 @@ const WidgetMixin = {
     overrideUpdateInterval: null,
     disableLoader: false, // Prevent ever showing the loader
     updater: null, // Stores interval
-    defaultTimeout: 1000,
+    defaultTimeout: 10000,
   }),
   /* When component mounted, fetch initial data */
   mounted() {

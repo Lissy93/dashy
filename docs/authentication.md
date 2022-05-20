@@ -146,6 +146,8 @@ appConfig:
       clientId: 'dashy'
 ```
 
+Note that if you are using Keycloak V 17 or older, you will also need to set `legacySupport: true` (also under `appConfig.auth.keycloak`). This is because the API endpoint was updated in later versions.
+
 ### 4. Add groups and roles (Optional)
 Keycloak allows you to assign users roles and groups. You can use these values to configure who can access various sections in Dashy.
 Keycloak server administration and configuration is a deep topic; please refer to the [server admin guide](https://www.keycloak.org/docs/latest/server_admin/index.html#assigning-permissions-and-access-using-roles-and-groups) to see details about creating and assigning roles and groups.

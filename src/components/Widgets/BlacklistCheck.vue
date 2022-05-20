@@ -58,7 +58,7 @@ export default {
       if (!this.ipAddress) {
         this.getUsersIpAddress(); return;
       }
-      this.defaultTimeout = 20000;
+      this.defaultTimeout = 200000;
       const options = { Authorization: `Basic ${this.apiKey}` };
       this.makeRequest(this.endpoint, options).then(this.processData);
     },

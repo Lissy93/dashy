@@ -195,6 +195,7 @@
     "section": {
       "open-section": "Open Section",
       "edit-section": "Edit",
+      "expand-collapse": "Expand / Collapse",
       "move-section": "Move To",
       "remove-section": "Remove"
     }

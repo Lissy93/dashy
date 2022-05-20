@@ -41,13 +41,13 @@ export default {
     size() {
       const validSizes = ['small', 'medium', 'large'];
       if (this.itemSize && validSizes.includes(this.itemSize)) return this.itemSize;
-      return this.appConfig.iconSize || defaultSize;
+      return this.$store.getters.iconSize || defaultSize;
     },
     /* Determines if user has enabled online status checks */
     enableStatusCheck() {
       const globalPref = this.appConfig.statusCheck || false;
-      const itemPref = this.item.statusCheck || false;
-      return itemPref || globalPref;
+      const itemPref = this.item.statusCheck;
+      return typeof itemPref === 'boolean' ? itemPref : globalPref;
     },
     /* Determine how often to re-fire status checks */
     statusCheckInterval() {

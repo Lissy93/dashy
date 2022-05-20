@@ -26,6 +26,9 @@ const HomeMixin = {
     modalOpen() {
       return this.$store.state.modalOpen;
     },
+    pageId() {
+      return (this.subPageInfo && this.subPageInfo.pageId) ? this.subPageInfo.pageId : 'home';
+    },
   },
   data: () => ({
     searchValue: '',

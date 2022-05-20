@@ -56,3 +56,43 @@ The following example shows creating a config, publishing it as a [Gist](https:/
 Only top-level fields supported by sub-pages are `pageInfo` and `sections`. The `appConfig` and `pages` will always be inherited from your main `conf.yml` file. Other than that, sub-pages behave exactly the same as your default view, and can contain sections, items, widgets and page info like nav links, title and logo.
 
 Note that since page paths are required by the router, they are set at build-time, not run-time, and so a rebuild (happens automatically) is required for changes to page paths to take effect (this only applies to changes to the `pages` array, rebuild isn't required for editing page content).
+
+
+## Sub-Items
+
+A normal section will contain zero or more items, for example:
+
+```yaml
+- name: Coding
+  icon: far fa-code
+  items:
+  - title: GitHub
+    url: https://github.com/
+  - title: StackOverflow
+    url: http://stackoverflow.com/
+```
+
+But items can also be grouped together, referred to as sub-items. This is useful for a group of less frequently used items, which you don't want to take up too much space, or for action buttons (_coming soon_).
+
+Item groups may also have an optional title.
+
+```yaml
+- name: Coding
+  icon: far fa-code
+  items:
+  - title: Normal Item 1
+  - title: Normal Item 2
+  - subItems:
+    - title: JavaScript
+      url: https://developer.mozilla.org
+      icon: si-javascript
+    - title: TypeScript
+      url: https://www.typescriptlang.org/docs
+      icon: si-typescript
+    - title: Svelt
+      url: https://svelte.dev/docs
+      icon: si-svelte
+    - title: Go
+      url: https://go.dev/doc
+      icon: si-go
+```

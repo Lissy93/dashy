@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
@@ -91,16 +90,7 @@ export default {
   methods: {
     /* Make GET request to Rss2Json */
     fetchData() {
-      axios.get(this.endpoint)
-        .then((response) => {
-          this.processData(response.data);
-        })
-        .catch((error) => {
-          this.error('Unable to RSS feed', error);
-        })
-        .finally(() => {
-          this.finishLoading();
-        });
+      this.makeRequest(this.endpoint).then(this.processData);
     },
     /* Assign data variables to the returned data */
     processData(data) {
