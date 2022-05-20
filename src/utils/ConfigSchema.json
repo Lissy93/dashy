@@ -854,6 +854,15 @@
                   "title": "Item ID",
                   "type": "string",
                   "description": "Unique ID for each item. Generated automatically, shouldn't need to be set manually."
+                },
+                "subItems": {
+                  "title": "Sub-Items",
+                  "type": "array",
+                  "description": "List of sub-items",
+                  "items": {
+                    "type": "object",
+                    "properties": {}
+                  }
                 }
               }
             }
