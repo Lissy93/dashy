@@ -312,7 +312,7 @@ When updating the config through the JSON editor in the UI, you have two save op
 
 If you have authentication set up, then any user who is not an admin (with `type: admin`) will not be able to write changes to disk.
 
-You can also prevent changes fro any user being written to disk, using `preventWriteToDisk`. Or prevent any changes from being saved locally in browser storage, using `preventLocalSave`.
+You can also prevent changes from any user being written to disk, using `preventWriteToDisk`. Or prevent any changes from being saved locally in browser storage, using `preventLocalSave`.
 
 To disable all UI config features, set `disableConfiguration`.
 
