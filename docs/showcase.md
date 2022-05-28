@@ -30,6 +30,14 @@
 
 ---
 
+### Brewhack
+
+> By [@brpeterso](https://github.com/brpeterso) <sup>Re: [#680](https://github.com/Lissy93/dashy/issues/680)</sup>
+
+![screenshot-brewhack-dashboard](https://i.ibb.co/cNjzPT4/brewhack.png)
+
+---
+
 ### The Private Dashboard
 
 > By [@DylanBeMe](https://github.com/DylanBeMe) <sup>Re: [#419](https://github.com/Lissy93/dashy/issues/419)</sup>
