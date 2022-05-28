@@ -69,6 +69,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <DomainMonitor
+        v-else-if="widgetType === 'domain-monitor'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <CodeStats
         v-else-if="widgetType === 'code-stats'"
         :options="widgetOptions"
@@ -430,6 +437,7 @@ export default {
     CryptoPriceChart: () => import('@/components/Widgets/CryptoPriceChart.vue'),
     CryptoWatchList: () => import('@/components/Widgets/CryptoWatchList.vue'),
     CveVulnerabilities: () => import('@/components/Widgets/CveVulnerabilities.vue'),
+    DomainMonitor: () => import('@/components/Widgets/DomainMonitor.vue'),
     EmbedWidget: () => import('@/components/Widgets/EmbedWidget.vue'),
     EthGasPrices: () => import('@/components/Widgets/EthGasPrices.vue'),
     ExchangeRates: () => import('@/components/Widgets/ExchangeRates.vue'),
@@ -575,7 +583,8 @@ export default {
       cursor: not-allowed;
       opacity: 0.5;
       border-radius: var(--curve-factor);
-      background: #ffff0080;
+      background: #ffff0040;
+      &:hover { background: none; }
     }
   }
   // Error message output
