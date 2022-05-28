@@ -111,6 +111,8 @@ Dashy supports [Widgets](/docs/widgets.md) for displaying dynamic content. Below
     - [IP-API Privacy Policy](https://ip-api.com/docs/legal)
 - **[IP Blacklist](/docs/widgets.md#ip-blacklist)**: `https://api.blacklistchecker.com`
     - [Blacklist Checker Privacy Policy](https://blacklistchecker.com/privacy)
+- **[Domain Monitor](/docs/widgets.md#domain-monitor)**: `http://api.whoapi.com`
+    - [WhoAPI Privacy Policy](https://whoapi.com/privacy-policy/)
 - **[Crypto Watch List](/docs/widgets.md#crypto-watch-list)** and **[Token Price History](/docs/widgets.md#crypto-token-price-history)**: `https://api.coingecko.com`
     - [CoinGecko Privacy Policy](https://www.coingecko.com/en/privacy)
 - **[Wallet Balance](/docs/widgets.md#wallet-balance)**: `https://api.blockcypher.com/`

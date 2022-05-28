@@ -2,10 +2,6 @@
 
 Dashy has support for displaying dynamic content in the form of widgets. There are several built-in widgets available out-of-the-box as well as support for custom widgets to display stats from almost any service with an API.
 
-> ℹ️ **Note**: Widgets are still in the Alpha-phase of development.
-> If you find a bug, please raise it.<br>
-> Adding / editing widgets through the UI isn't yet supported, you will need to do this in the YAML config file.
-
 ##### Contents
 - **[General Widgets](#general-widgets)**
   - [Clock](#clock)
@@ -15,6 +11,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Image](#image)
   - [Public IP Address](#public-ip)
   - [IP Blacklist Checker](#ip-blacklist)
+  - [Domain Monitor](#domain-monitor)
   - [Crypto Watch List](#crypto-watch-list)
   - [Crypto Price History](#crypto-token-price-history)
   - [Crypto Wallet Balance](#wallet-balance)
@@ -317,6 +314,43 @@ Notice certain web pages aren't loading? This widget quickly shows which blackli
 - **Price**: 🟠 Free Plan
 - **Host**: Managed Instance Only
 - **Privacy**: _See [BlacklistChecker Privacy Policy](https://blacklistchecker.com/privacy)_
+
+---
+
+### Domain Monitor
+
+Keep an eye on the expiry dates of your domain names, using public whois records fetched from [whoapi.com](https://whoapi.com/). Click the domain name to view additional info, like registrar, name servers and date last updated.
+
+<p align="center"><img width="600" src="https://i.ibb.co/7XjByG9/domain-monitor.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`domain`** | `string` |  Required | The domain to check
+**`apiKey`** | `string` |  Required | You can get your free API key from [my.whoapi.com](https://my.whoapi.com/user/signup)
+**`showFullInfo`** | `boolean` |  _Optional_ | If set to true, the toggle-full-info panel will be open by default
+
+##### Example 
+
+```yaml
+  - type: domain-monitor
+    options:
+      domain: example.com
+      apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+  - type: domain-monitor
+    options:
+      domain: example2.com
+      apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+##### Info
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Free Plan (10,000 requests)
+- **Host**: Managed Instance Only
+- **Privacy**: _See [WhoAPI Privacy Policy](https://whoapi.com/privacy-policy/)_
 
 ---
 
@@ -1334,7 +1368,7 @@ Displays the current and recent uptime of your running services, via a self-host
 
 Displays the current downloads/torrents tasks of your Synology NAS
 
-<p align="center"><img width="300" src="https://i.ibb.co/N2kKWTN/image.png" /></p>
+<p align="center"><img width="500" src="https://i.ibb.co/N2kKWTN/image.png" /></p>
 
 ##### Options
 
