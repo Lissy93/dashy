@@ -23,25 +23,10 @@
 
 ---
 
-### Networking Services
-> By [@Lissy93](https://github.com/lissy93)
+### NAS Home Dashboard
+> By [@cerealconyogurt](https://github.com/cerealconyogurt)
 
-![screenshot-networking-services](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/2-networking-services-minimal-dark.png)
-
----
-
-### Homelab & VPS dashboard
-> By [@shadowking001](https://github.com/shadowking001)
-
-![screenshot-shadowking001-dashy](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/8-shadowking001s-dashy.png)
-
----
-
-### EVO Dashboard
-
-> By [@EVOTk](https://github.com/EVOTk)
-
-![screenshot-evo-dashboard](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/12-evo-dashboard.png)
+![screenshot-networking-services](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/6-nas-home-dashboard.png)
 
 ---
 
@@ -53,10 +38,42 @@
 
 ---
 
-### NAS Home Dashboard
-> By [@cerealconyogurt](https://github.com/cerealconyogurt)
+### Homelab & VPS dashboard
+> By [@shadowking001](https://github.com/shadowking001)
 
-![screenshot-networking-services](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/6-nas-home-dashboard.png)
+![screenshot-shadowking001-dashy](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/8-shadowking001s-dashy.png)
+
+---
+
+### Raspberry PI Docker Dashboard
+
+> By [@henkiewie](https://github.com/henkiewie) <sup>via [#622](https://github.com/Lissy93/dashy/issues/622)</sup>
+
+> I use this dashboard every day. It now even includes a player for a radio stream which I configured with Logitech media server and icecast. I made an smaller version of the grafana dashboard to fit an iframe in kiosk mode, so it monitors the most important values of my RPI. The PI is in Argon m2 case and used as a NAS. The dashboard is a copy of the adventure theme with some changes saved in `/app/src/styles/user-defined-themes.scss`
+
+![screenshot-henkiewie-dashy](https://i.ibb.co/jGzPm6b/henkiewie-dashy-showcase.png)
+
+---
+
+### First Week of Self-Hosting
+> By [u//RickyCZ](https://www.reddit.com/user/RickyCZ)
+
+![screenshot-week-of-self-hosting](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/11-ricky-cz.png)
+
+---
+
+### EVO Dashboard
+
+> By [@EVOTk](https://github.com/EVOTk)
+
+![screenshot-evo-dashboard](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/12-evo-dashboard.png)
+
+---
+
+### Networking Services
+> By [@Lissy93](https://github.com/lissy93)
+
+![screenshot-networking-services](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/2-networking-services-minimal-dark.png)
 
 ---
 
@@ -108,13 +125,6 @@
 
 ---
 
-### First Week of Self-Hosting
-> By [u//RickyCZ](https://www.reddit.com/user/RickyCZ)
-
-![screenshot-week-of-self-hosting](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/11-ricky-cz.png)
-
----
-
 ### HomeLAb 3.0
 
 > By [@skoogee](https://github.com/skoogee) (http://zhrn.cc)
@@ -129,13 +139,6 @@
 > By [@dtctek](https://github.com/dtctek)
 
 ![screenshot-ground-control](https://user-images.githubusercontent.com/1862727/149821995-e9b41dab-186c-42e6-b5b3-e233259b241d.png)
-
----
-
-### Morning Dashboard
-> Displayed on my smart screen between 05:00 - 08:00, and includes all the info that I usually check before leaving for work
-
-![screenshot-morning-dash](https://i.ibb.co/4Wx8zb7/morning-dashboard.png)
 
 ---
 
@@ -154,20 +157,17 @@
 
 ---
 
-### Raspberry PI Docker Dashboard
-
-> By [@henkiewie](https://github.com/henkiewie) <sup>via [#622](https://github.com/Lissy93/dashy/issues/622)</sup>
-
-> I use this dashboard every day. It now even includes a player for a radio stream which I configured with Logitech media server and icecast. I made an smaller version of the grafana dashboard to fit an iframe in kiosk mode, so it monitors the most important values of my RPI. The PI is in Argon m2 case and used as a NAS. The dashboard is a copy of the adventure theme with some changes saved in `/app/src/styles/user-defined-themes.scss`
-
-![screenshot-henkiewie-dashy](https://i.ibb.co/jGzPm6b/henkiewie-dashy-showcase.png)
-
----
-
 ### Stefantigro
 > By [u/stefantigro](https://www.reddit.com/user/stefantigro/) <sup>via [reddit](https://www.reddit.com/r/selfhosted/comments/t5oril/been_selfhosting_close_to_half_a_year_now_all/)</sup>
 
 ![screenshot-stefantigro-dashy](https://i.ibb.co/1Kb43Yy/dashy-stefantigro.png)
+
+---
+
+### Morning Dashboard
+> Displayed on my smart screen between 05:00 - 08:00, and includes all the info that I usually check before leaving for work
+
+![screenshot-morning-dash](https://i.ibb.co/4Wx8zb7/morning-dashboard.png)
 
 ---
 
