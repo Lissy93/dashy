@@ -56,9 +56,11 @@ const store = new Vuex.Store({
       return state.config;
     },
     pageInfo(state) {
+      if (!state.config) return {};
       return state.config.pageInfo || {};
     },
     appConfig(state) {
+      if (!state.config) return {};
       return state.config.appConfig || {};
     },
     sections(state) {
@@ -140,8 +142,9 @@ const store = new Vuex.Store({
       state.config = config;
     },
     [SET_REMOTE_CONFIG](state, config) {
-      if (!config.appConfig) config.appConfig = {};
-      state.remoteConfig = config;
+      const notNullConfig = config || {};
+      if (!notNullConfig.appConfig) notNullConfig.appConfig = {};
+      state.remoteConfig = notNullConfig;
     },
     [SET_LANGUAGE](state, lang) {
       const newConfig = state.config;

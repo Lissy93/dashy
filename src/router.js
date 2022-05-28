@@ -19,7 +19,17 @@ import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 
 // Import data from users conf file. Note that rebuild is required for this to update.
-import { pages, pageInfo, appConfig } from '../public/conf.yml';
+import conf from '../public/conf.yml';
+
+if (!conf) {
+  ErrorHandler('You\'ve not got any data in your config file yet.');
+}
+
+// Assign top-level config fields, check not null
+const config = conf || {};
+const pages = config.pages || [];
+const pageInfo = config.pageInfo || {};
+const appConfig = config.appConfig || {};
 
 Vue.use(Router);
 const progress = new Progress({ color: 'var(--progress-bar)' });
