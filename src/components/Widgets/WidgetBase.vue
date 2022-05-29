@@ -20,8 +20,15 @@
     </div>
     <!-- Widget -->
     <div :class="`widget-wrap ${ error ? 'has-error' : '' }`">
+      <AdGuardStats
+        v-if="widgetType === 'adguard-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <AnonAddy
-        v-if="widgetType === 'anonaddy'"
+        v-else-if="widgetType === 'anonaddy'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -428,6 +435,7 @@ export default {
     OpenIcon,
     LoadingAnimation,
     // Register widget components
+    AdGuardStats: () => import('@/components/Widgets/AdGuardStats.vue'),
     AnonAddy: () => import('@/components/Widgets/AnonAddy.vue'),
     Apod: () => import('@/components/Widgets/Apod.vue'),
     BlacklistCheck: () => import('@/components/Widgets/BlacklistCheck.vue'),
