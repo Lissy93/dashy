@@ -20,8 +20,29 @@
     </div>
     <!-- Widget -->
     <div :class="`widget-wrap ${ error ? 'has-error' : '' }`">
+      <AdGuardDnsInfo
+        v-if="widgetType === 'adguard-dns-info'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <AdGuardFilterStatus
+        v-else-if="widgetType === 'adguard-filter-status'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <AdGuardStats
-        v-if="widgetType === 'adguard-stats'"
+        v-else-if="widgetType === 'adguard-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <AdGuardTopDomains
+        v-else-if="widgetType === 'adguard-top-domains'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -435,7 +456,10 @@ export default {
     OpenIcon,
     LoadingAnimation,
     // Register widget components
+    AdGuardDnsInfo: () => import('@/components/Widgets/AdGuardDnsInfo.vue'),
+    AdGuardFilterStatus: () => import('@/components/Widgets/AdGuardFilterStatus.vue'),
     AdGuardStats: () => import('@/components/Widgets/AdGuardStats.vue'),
+    AdGuardTopDomains: () => import('@/components/Widgets/AdGuardTopDomains.vue'),
     AnonAddy: () => import('@/components/Widgets/AnonAddy.vue'),
     Apod: () => import('@/components/Widgets/Apod.vue'),
     BlacklistCheck: () => import('@/components/Widgets/BlacklistCheck.vue'),
