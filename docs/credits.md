@@ -40,13 +40,27 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/kitl000">
+            <img src="https://avatars.githubusercontent.com/u/19974513?v=4" width="80;" alt="kitl000"/>
+            <br />
+            <sub><b>Kit L.</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
         <a href="https://github.com/Byolock">
             <img src="https://avatars.githubusercontent.com/u/25748003?v=4" width="80;" alt="Byolock"/>
             <br />
             <sub><b>Byolock</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
+    <td align="center">
+        <a href="https://github.com/PAPAMICA">
+            <img src="https://avatars.githubusercontent.com/u/29079741?v=4" width="80;" alt="PAPAMICA"/>
+            <br />
+            <sub><b>Mickael Asseline</b></sub>
+        </a>
+    </td>
     <td align="center">
         <a href="https://github.com/hugalafutro">
             <img src="https://avatars.githubusercontent.com/u/30209689?v=4" width="80;" alt="hugalafutro"/>
@@ -70,11 +84,12 @@
     </td>
     <td align="center">
         <a href="https://github.com/Antiz96">
-            <img src="https://avatars.githubusercontent.com/u/53110319?v=4" width="80;" alt="Antiz96"/>
+            <img src="https://avatars.githubusercontent.com/u/53110319?u=a4fad84fed8fb2fd9ca7c507d303fd6048b3e497&v=4" width="80;" alt="Antiz96"/>
             <br />
             <sub><b>Robin Candau</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/ratty222">
             <img src="https://avatars.githubusercontent.com/u/92832598?u=137b65530cbd5f5af9c24cde51baa6cc77cc934b&v=4" width="80;" alt="ratty222"/>
@@ -88,8 +103,7 @@
             <br />
             <sub><b>Undefined</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/jtfinley72">
             <img src="https://avatars.githubusercontent.com/u/96497997?v=4" width="80;" alt="jtfinley72"/>
@@ -241,6 +255,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/pinarruiz">
+            <img src="https://avatars.githubusercontent.com/u/37040888?v=4" width="80;" alt="pinarruiz"/>
+            <br />
+            <sub><b>Alejandro Pinar Ruiz</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/BeginCI">
             <img src="https://avatars.githubusercontent.com/u/57495754?v=4" width="80;" alt="BeginCI"/>
             <br />
@@ -267,15 +288,15 @@
             <br />
             <sub><b>Emiran-orange</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/FormatToday">
             <img src="https://avatars.githubusercontent.com/u/20515769?v=4" width="80;" alt="FormatToday"/>
             <br />
             <sub><b>FormatToday</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/Compunctus">
             <img src="https://avatars.githubusercontent.com/u/5058853?v=4" width="80;" alt="Compunctus"/>
@@ -302,13 +323,6 @@
             <img src="https://avatars.githubusercontent.com/u/46445781?v=4" width="80;" alt="KierenConnell"/>
             <br />
             <sub><b>Kieren Connell</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/LeoColman">
-            <img src="https://avatars.githubusercontent.com/u/1577251?v=4" width="80;" alt="LeoColman"/>
-            <br />
-            <sub><b>Leonardo Colman</b></sub>
         </a>
     </td></tr>
 </table>
