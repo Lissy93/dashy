@@ -37,12 +37,26 @@ export default {
       const remaining = totalAllowed - blockTotal;
 
       // Put data into a flat array for the chart
-      const chartColors = ['#ef476f', '#ffc43d', '#f8ffe5', '#1b9aaa', '#06d6a0'];
-      const chartValues = [blocked, safeBrowsing, safeSearch, parental, remaining];
-      const chartLabels = [
-        'Blocked', 'Safe Browsing - Blocked', 'Safe Search - Blocked',
-        'Parental Controls - Blocked', 'Allowed',
-      ];
+      const chartColors = ['#ef476f', '#06d6a0'];
+      const chartValues = [blocked, remaining];
+      const chartLabels = ['Blocked', 'Allowed'];
+
+      // If additional blocked results are non-zero, append to chart data
+      if (safeBrowsing > 0) {
+        chartColors.push('#ffc43d');
+        chartValues.push(safeBrowsing);
+        chartLabels.push('Safe Search - Blocked');
+      }
+      if (safeSearch > 0) {
+        chartColors.push('#f8ffe5');
+        chartValues.push(safeSearch);
+        chartLabels.push('Safe Search - Blocked');
+      }
+      if (parental > 0) {
+        chartColors.push('#1b9aaa');
+        chartValues.push(parental);
+        chartLabels.push('Parental Controls - Blocked');
+      }
 
       // Call generate chart function
       this.generateBlockPie(chartLabels, chartValues, chartColors);
@@ -60,7 +74,7 @@ export default {
         strokeWidth: 20,
         colors,
         tooltipOptions: {
-          formatTooltipY: d => `${Math.round(d)}%`,
+          formatTooltipY: d => `${Math.round(d)} queries`,
         },
       });
     },
