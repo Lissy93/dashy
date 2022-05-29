@@ -46,6 +46,13 @@ export default {
     endpoint() {
       return `${this.hostname}/control/filtering/status`;
     },
+    authHeaders() {
+      if (this.options.username && this.options.password) {
+        const encoded = window.btoa(`${this.options.username}:${this.options.password}`);
+        return { Authorization: `Basic ${encoded}` };
+      }
+      return {};
+    },
   },
   data() {
     return {
@@ -62,7 +69,7 @@ export default {
   methods: {
     /* Make GET request to AdGuard endpoint */
     fetchData() {
-      this.makeRequest(this.endpoint).then(this.processData);
+      this.makeRequest(this.endpoint, this.authHeaders).then(this.processData);
     },
     /* Assign data variables to the returned data */
     processData(data) {

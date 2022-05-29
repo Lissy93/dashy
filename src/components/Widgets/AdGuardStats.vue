@@ -19,11 +19,18 @@ export default {
     endpoint() {
       return `${this.hostname}/control/stats`;
     },
+    authHeaders() {
+      if (this.options.username && this.options.password) {
+        const encoded = window.btoa(`${this.options.username}:${this.options.password}`);
+        return { Authorization: `Basic ${encoded}` };
+      }
+      return {};
+    },
   },
   methods: {
     /* Make GET request to AdGuard endpoint */
     fetchData() {
-      this.makeRequest(this.endpoint).then(this.processData);
+      this.makeRequest(this.endpoint, this.authHeaders).then(this.processData);
     },
     /* Assign data variables to the returned data */
     processData(data) {
