@@ -221,7 +221,6 @@ export default {
     opacity: var(--dimming-factor);
     color: var(--widget-text-color);
     &:not(:last-child) { border-bottom: 1px dashed var(--widget-text-color); }
-    span.lbl {}
     span.val {
       font-family: var(--font-monospace);
       max-width: 70%;
