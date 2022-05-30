@@ -45,9 +45,6 @@ export default {
       }
       return {};
     },
-    showOnOffStatusOnly() {
-      return this.options.showOnOffStatusOnly;
-    },
     limit() {
       return this.options.limit || 10;
     },
