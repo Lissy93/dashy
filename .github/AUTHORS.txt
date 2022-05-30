@@ -1,4 +1,5 @@
 0n1cOn3 <0n1cOn3@gmx.ch> - 1 commits
+Alejandro <ina> - 1 commits
 Alicia <liss-bot@d0h.co> - 1 commits
 Begin <support@begin.com> - 1 commits
 David <skaarj1989@gmail.com> - 1 commits
@@ -50,12 +51,12 @@ snyk-bot <snyk-bot@users.noreply.github.com> - 18 commits
 aterox <church.kennetha@gmail.com> - 19 commits
 EVOTk <45015615+EVOTk@users.noreply.github.com> - 22 commits
 Alicia <yke> - 28 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 37 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 38 commits
 snyk-bot <snyk-bot@snyk.io> - 43 commits
-Alicia <o> - 74 commits
+Alicia <o> - 76 commits
 Lissy93 <gh@d0h.co> - 78 commits
-liss-bot <liss-bot@d0h.co> - 85 commits
-Alicia <yke> - 112 commits
+liss-bot <liss-bot@d0h.co> - 87 commits
+Alicia <yke> - 113 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 207 commits
-Alicia <yke> - 395 commits
+Alicia <yke> - 404 commits
 Alicia <yke> - 1488 commits

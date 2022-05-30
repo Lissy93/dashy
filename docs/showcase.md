@@ -185,6 +185,15 @@
 
 ---
 
+### The Dragons Lair
+> By [dr460nf1r3](https://github.com/dr460nf1r3) <sup>via [#684](https://github.com/Lissy93/dashy/issues/684)</sup>
+
+> My new startpage featuring the stuff I use most. And of course dragons! 
+
+![screenshot-dragons-lair](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/13-dragons-lair.png)
+
+---
+
 ## Submitting your Dashboard
 
 #### How to Submit
