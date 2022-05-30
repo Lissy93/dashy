@@ -44,6 +44,10 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Recent Traffic](#recent-traffic)
   - [Stat Ping Statuses](#stat-ping-statuses)
   - [Synology Download Station](#synology-download-station)
+  - [AdGuard Home Block Stats](#adguard-home-block-stats)
+  - [AdGuard Home Filters](#adguard-home-filters)
+  - [AdGuard Home DNS Info](#adguard-home-dns-info)
+  - [AdGuard Home Top Domains](#adguard-home-top-domains)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -1396,6 +1400,152 @@ Displays the current downloads/torrents tasks of your Synology NAS
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Synology](https://www.synology.com/en-us))
 - **Privacy**: _See [Synology Privacy Statement](https://www.synology.com/en-us/company/legal/privacy)_
+
+---
+
+### AdGuard Home Block Stats
+
+Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) instance, and
+displays total number of allowed and blocked queries, plus a pie chart showing breakdown by block type.
+
+<p align="center"><img width="400" src="https://i.ibb.co/qgkcxsN/adguard-block-percent-2.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your AdGuard Home instance
+**`username`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your username here
+**`password`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your password here
+
+##### Example 
+
+```yaml
+- type: adguard-stats
+  useProxy: true
+  options:
+    hostname: http://127.0.0.1
+    username: admin
+    password: test
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟠 Optional
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [AdGuard Home](https://adguard.com/en/adguard-home/overview.html))
+- **Privacy**: _See [AdGuard Privacy Policy](https://adguard.com/en/privacy.html)_
+
+
+---
+
+### AdGuard Home Filters
+
+Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) instance, to display the current status of each of your filter lists. Includes filter name, last updated, number of items, and a link to the list.
+
+<p align="center"><img width="400" src="https://i.ibb.co/WsJkf5g/adguard-filters-list.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your AdGuard Home instance
+**`username`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your username here
+**`password`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your password here
+**`showOnOffStatusOnly`** | `boolean` |  _Optional_ | If set to `true`, will only show aggregated AdGuard filter status (on/off), instead of a list of filters
+
+##### Example 
+
+```yaml
+- type: adguard-filter-status
+  useProxy: true
+  options:
+    hostname: http://127.0.0.1
+    username: admin
+    password: test
+    showOnOffStatusOnly: false
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟠 Optional
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [AdGuard Home](https://adguard.com/en/adguard-home/overview.html))
+- **Privacy**: _See [AdGuard Privacy Policy](https://adguard.com/en/privacy.html)_
+
+---
+
+### AdGuard Home DNS Info
+
+Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) instance, and displays the current status (Enabled / Disabled) of AdGuard DNS. Click show more to view detailed info, including upstream DNS provider, active ports, and the status of DNSSEC, EDNS CS, PTR and IPv6.
+
+<p align="center"><img width="400" src="https://i.ibb.co/G0JngBb/adguard-dns-info.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your AdGuard Home instance
+**`username`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your username here
+**`password`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your password here
+**`showFullInfo`** | `boolean` |  _Optional_ | If set to `true`, the full DNS info will be shown by default, without having to click "Show Info"
+
+##### Example 
+
+```yaml
+- type: adguard-dns-info
+  useProxy: true
+  options:
+    hostname: http://127.0.0.1
+    username: admin
+    password: test
+    showFullInfo: false
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟠 Optional
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [AdGuard Home](https://adguard.com/en/adguard-home/overview.html))
+- **Privacy**: _See [AdGuard Privacy Policy](https://adguard.com/en/privacy.html)_
+
+---
+
+### AdGuard Home Top Domains
+
+Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) instance, and displays a list of the most queried, and most blocked domains.
+
+<p align="center"><img width="600" src="https://i.ibb.co/qRhYYTk/adguard-top-domains.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your AdGuard Home instance
+**`username`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your username here
+**`password`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your password here
+**`limit`** | `number` |  _Optional_ | Specify the number of results to show, between `1` and `100`, defaults to `10`
+**`hideBlockedDomains`** | `boolean` |  _Optional_ | Don't show the blocked domains list (queried domains only)
+**`hideQueriedDomains`** | `boolean` |  _Optional_ | Don't show the queried domains list (blocked domains only)
+
+##### Example 
+
+```yaml
+- type: adguard-top-domains
+  useProxy: true
+  options:
+    hostname: http://127.0.0.1
+    username: admin
+    password: test
+    limit: 10
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟠 Optional
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [AdGuard Home](https://adguard.com/en/adguard-home/overview.html))
+- **Privacy**: _See [AdGuard Privacy Policy](https://adguard.com/en/privacy.html)_
 
 ---
 
