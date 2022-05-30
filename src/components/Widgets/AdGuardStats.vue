@@ -1,5 +1,11 @@
 <template>
 <div class="ad-guard-stats-wrapper">
+  <!-- Show total query and block count -->
+  <div v-if="queryCount && blockCount" class="summary">
+    <div><span class="lbl">Queries:</span><span class="val">{{ queryCount }}</span></div>
+    <div><span class="lbl">Blocked:</span><span class="val">{{ blockCount }}</span></div>
+  </div>
+  <!-- Pie chart with block breakdown -->
   <p :id="chartId" class="block-pie"></p>
 </div>
 </template>
@@ -27,6 +33,12 @@ export default {
       return {};
     },
   },
+  data() {
+    return {
+      queryCount: null,
+      blockCount: null,
+    };
+  },
   methods: {
     /* Make GET request to AdGuard endpoint */
     fetchData() {
@@ -42,6 +54,10 @@ export default {
       const parental = data.num_replaced_parental || 0;
       const blockTotal = blocked + safeBrowsing + safeSearch + parental;
       const remaining = totalAllowed - blockTotal;
+
+      // Set query and block count, for first line
+      this.queryCount = totalAllowed;
+      this.blockCount = blockTotal;
 
       // Put data into a flat array for the chart
       const chartColors = ['#ef476f', '#06d6a0'];
@@ -95,6 +111,19 @@ export default {
     margin: 0;
     svg.frappe-chart.chart {
       overflow: visible;
+    }
+  }
+  .summary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    color: var(--widget-text-color);
+    span.lbl {
+      font-weight: bold;
+      margin: 0.25rem;
+    }
+    span.val {
+      font-family: var(--font-monospace);
     }
   }
 }
