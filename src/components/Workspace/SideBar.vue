@@ -13,7 +13,7 @@
       <transition name="slide">
         <SideBarSection
           v-if="isOpen[index]"
-          :items="section.items"
+          :items="filterTiles(section.items)"
           @launch-app="launchApp"
         />
       </transition>
@@ -36,6 +36,7 @@ import SideBarItem from '@/components/Workspace/SideBarItem.vue';
 import SideBarSection from '@/components/Workspace/SideBarSection.vue';
 import IconHome from '@/assets/interface-icons/application-home.svg';
 import IconMinimalView from '@/assets/interface-icons/application-minimal.svg';
+import { checkItemVisibility } from '@/utils/CheckItemVisibility';
 
 export default {
   name: 'SideBar',
@@ -76,6 +77,12 @@ export default {
           if (item.subItems && item.subItems.findIndex(compare) !== -1) this.openSection(secIndx);
         });
       });
+    },
+    filterTiles(allTiles) {
+      if (!allTiles) {
+        return [];
+      }
+      return allTiles.filter((tile) => checkItemVisibility(tile));
     },
   },
   mounted() {
