@@ -74,7 +74,7 @@ const isItemVisibleToUser = (displayData, currentUser, isGuest) => {
 };
 
 /* Putting it all together, the function to export */
-const checkItemVisibility = (item) => {
+export const checkItemVisibility = (item) => {
   const currentUser = getCurrentUser(); // Get current user object
   const isGuest = isLoggedInAsGuest(); // Check if current user is a guest
   const displayData = item.displayData || {};
