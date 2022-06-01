@@ -78,6 +78,7 @@ export default {
         });
       });
     },
+    /* Return a list with visible items on a section to the user or guest */
     filterTiles(allTiles) {
       if (!allTiles) {
         return [];
