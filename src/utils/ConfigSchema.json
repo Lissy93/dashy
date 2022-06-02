@@ -782,141 +782,54 @@
                   "title": "Display Data",
                   "type": "object",
                   "additionalProperties": false,
-                  "description": "Optional meta data for customizing a section",
+                  "description": "Optional meta data for customizing an item",
                   "properties": {
-                    "sortBy": {
-                      "title": "Sort By",
-                      "type": "string",
-                      "enum": [
-                        "default",
-                        "most-used",
-                        "last-used",
-                        "alphabetical",
-                        "reverse-alphabetical",
-                        "random"
-                      ],
-                      "default": "default",
-                      "description": "How to sort items within the section. By default items are displayed in the order in which they are listed in within the config"
-                    },
-                    "collapsed": {
-                      "title": "Is Collapsed?",
-                      "type": "boolean",
-                      "default": false,
-                      "description": "If true, section needs to be clicked to open"
-                    },
-                    "cutToHeight": {
-                      "title": "Cut to Height",
-                      "type": "boolean",
-                      "default": false,
-                      "description": "By default, sections will fill available space. Set this option to true to match section height with content height"
-                    },
-                    "color": {
-                      "title": "Color",
-                      "type": "string",
-                      "description": "Hex code, or HTML color for section fill"
-                    },
-                    "customStyles": {
-                      "title": "Custom Styles",
-                      "type": "string",
-                      "description": "CSS overides for section container"
-                    },
-                    "itemSize": {
-                      "title": "Item Size",
-                      "type": "string",
-                      "enum": [
-                        "small",
-                        "medium",
-                        "large"
-                      ],
-                      "default": "medium",
-                      "description": "Size of items within the section"
-                    },
-                    "rows": {
-                      "title": "Num Rows",
-                      "type": "number",
-                      "minimum": 1,
-                      "maximum": 5,
-                      "default": 1,
-                      "description": "The amount of space that the section spans vertically"
-                    },
-                    "cols": {
-                      "title": "Num Cols",
-                      "type": "number",
-                      "minimum": 1,
-                      "maximum": 5,
-                      "default": 1,
-                      "description": "The amount of space that the section spans horizontally"
-                    },
-                    "sectionLayout": {
-                      "title": "Layout Type",
-                      "type": "string",
-                      "enum": [
-                        "grid",
-                        "auto"
-                      ],
-                      "default": "auto",
-                      "description": "If set to grid, items have uniform width, and itemCount can be set"
-                    },
-                    "itemCountX": {
-                      "title": "Item Count X",
-                      "type": "number",
-                      "minimum": 1,
-                      "maximum": 12,
-                      "description": "Number of items per column"
-                    },
-                    "itemCountY": {
-                      "title": "Item Count Y",
-                      "type": "number",
-                      "minimum": 1,
-                      "maximum": 12,
-                      "description": "Number of items per row"
-                    },
                     "hideForUsers": {
                       "title": "Hide for Users",
                       "type": "array",
-                      "description": "Section will be visible to all users, except for those specified in this list",
+                      "description": "Item will be visible to all users, except for those specified in this list",
                       "items": {
                         "type": "string",
-                        "description": "Username for the user that will not be able to view this section"
+                        "description": "Username for the user that will not be able to view this item"
                       }
                     },
                     "showForUsers": {
                       "title": "Show for Users",
                       "type": "array",
-                      "description": "Section will be hidden from all users, except for those specified in this list",
+                      "description": "Item will be hidden from all users, except for those specified in this list",
                       "items": {
                         "type": "string",
-                        "description": "Username for the user that will have access to this section"
+                        "description": "Username for the user that will have access to this item"
                       }
                     },
                     "hideForGuests": {
                       "title": "Hide for Guests?",
                       "type": "boolean",
                       "default": false,
-                      "description": "If set to true, section will be visible for logged in users, but not for guests"
+                      "description": "If set to true, item will be visible for logged in users, but not for guests"
                     },
                     "showForKeycloakUsers": {
                       "title": "Show for select Keycloak groups or roles",
                       "type": "object",
-                      "description": "Configure the Keycloak groups or roles that will have access to this section",
+                      "description": "Configure the Keycloak groups or roles that will have access to this item",
                       "additionalProperties": false,
                       "properties": {
                         "groups": {
                           "title": "Show for Groups",
                           "type": "array",
-                          "description": "Section will be hidden from all users except those with one or more of these groups",
+                          "description": "Item will be hidden from all users except those with one or more of these groups",
                           "items": {
                             "type": "string",
-                            "description": "Name of the group that will be able to view this section"
+                            "description": "Name of the group that will be able to view this item"
                           }
                         },
                         "roles": {
                           "title": "Show for Roles",
                           "type": "array",
-                          "description": "Section will be hidden from all users except those with one or more of these roles",
+                          "description": "Item will be hidden from all users except those with one or more of these roles",
                           "items": {
                             "type": "string",
-                            "description": "Name of the role that will be able to view this section"
+                            "description": "Name of the role that will be able to view this item"
                           }
                         }
                       }
@@ -924,25 +837,25 @@
                     "hideForKeycloakUsers": {
                       "title": "Hide for select Keycloak groups or roles",
                       "type": "object",
-                      "description": "Configure the Keycloak groups or roles that will not have access to this section",
+                      "description": "Configure the Keycloak groups or roles that will not have access to this item",
                       "additionalProperties": false,
                       "properties": {
                         "groups": {
                           "title": "Hide for Groups",
                           "type": "array",
-                          "description": "Section will be hidden from users with any of these groups",
+                          "description": "Item will be hidden from users with any of these groups",
                           "items": {
                             "type": "string",
-                            "description": "name of the group that will not be able to view this section"
+                            "description": "name of the group that will not be able to view this item"
                           }
                         },
                         "roles": {
                           "title": "Hide for Roles",
                           "type": "array",
-                          "description": "Section will be hidden from users with any of roles",
+                          "description": "Item will be hidden from users with any of roles",
                           "items": {
                             "type": "string",
-                            "description": "name of the role that will not be able to view this section"
+                            "description": "name of the role that will not be able to view this item"
                           }
                         }
                       }
