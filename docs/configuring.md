@@ -224,6 +224,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`color`** | `string` | _Optional_ | An optional color for the text and font-awesome icon to be displayed in. Note that this will override the current theme and so may not display well
 **`backgroundColor`** | `string` | _Optional_ | An optional background fill color for the that given item. Again, this will override the current theme and so might not display well against the background
 **`provider`** | `string` | _Optional_ | The name of the provider for a given service, useful for when including hosted apps. In some themes, this is visible under the item name
+**`displayData`** | `object` | _Optional_ | Meta-data to optionally overide display settings for a given item. See [`displayData`](#itemdisplaydata-optional)
 
 **[⬆️ Back to Top](#configuring)**
 
