@@ -36,7 +36,7 @@ The following file provides a reference of all supported configuration options.
     - [`keycloak`](#appconfigauthkeycloak-optional) - Auth config for Keycloak
 - [**`sections`**](#section) - List of sections
   - [`displayData`](#sectiondisplaydata-optional) - Section display settings
-    - [`show/hideForKeycloakUsers`](#sectiondisplaydatahideforkeycloakusers-and-sectiondisplaydatashowforkeycloakusers) - Set user controls
+    - [`show/hideForKeycloakUsers`](#sectiondisplaydatahideforkeycloakusers,-sectiondisplaydatashowforkeycloakusers,-itemdisplayDatahideForKeycloakUsers-and-itemdisplayDatashowForKeycloakUsers) - Set user controls
   - [`icon`](#sectionicon-and-sectionitemicon) - Icon for a section
   - [`items`](#sectionitem) - List of items
     - [`icon`](#sectionicon-and-sectionitemicon) - Icon for an item
@@ -285,12 +285,12 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-### `section.displayData.hideForKeycloakUsers` and `section.displayData.showForKeycloakUsers`
+### `section.displayData.hideForKeycloakUsers`, `section.displayData.showForKeycloakUsers`, `item.displayData.hideForKeycloakUsers` and `item.displayData.showForKeycloakUsers`
 
 **Field** | **Type**   | **Required**| **Description**
 --- |------------| --- | ---
-**`groups`** | `string[]` | _Optional_ | Current Section will be hidden or shown based on the user having any of the groups in this list
-**`roles`** | `string[]` | _Optional_ | Current Section will be hidden or shown based on the user having any of the roles in this list
+**`groups`** | `string[]` | _Optional_ | Current Section or Item will be hidden or shown based on the user having any of the groups in this list
+**`roles`** | `string[]` | _Optional_ | Current Section or Item will be hidden or shown based on the user having any of the roles in this list
 
 **[⬆️ Back to Top](#configuring)**
 
