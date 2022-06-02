@@ -36,7 +36,7 @@ The following file provides a reference of all supported configuration options.
     - [`keycloak`](#appconfigauthkeycloak-optional) - Auth config for Keycloak
 - [**`sections`**](#section) - List of sections
   - [`displayData`](#sectiondisplaydata-optional) - Section display settings
-    - [`show/hideForKeycloakUsers`](#sectiondisplaydatahideforkeycloakusers,-sectiondisplaydatashowforkeycloakusers,-itemdisplayDatahideForKeycloakUsers-and-itemdisplayDatashowForKeycloakUsers) - Set user controls
+    - [`show/hideForKeycloakUsers`](#sectiondisplaydatahideforkeycloakusers-sectiondisplaydatashowforkeycloakusers-itemdisplaydatahideforkeycloakusers-and-itemdisplaydatashowforkeycloakusers) - Set user controls
   - [`icon`](#sectionicon-and-sectionitemicon) - Icon for a section
   - [`items`](#sectionitem) - List of items
     - [`icon`](#sectionicon-and-sectionitemicon) - Icon for an item
