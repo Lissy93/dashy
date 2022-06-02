@@ -48,10 +48,10 @@ Once authentication is enabled, so long as there is no valid token in cookie sto
 With authentication setup, by default no access is allowed to your dashboard without first logging in with valid credentials. Guest mode can be enabled to allow for read-only access to a secured dashboard by any user, without the need to log in. A guest user cannot write any changes to the config file, but can apply modifications locally (stored in their browser). You can enable guest access, by setting `appConfig.auth.enableGuestAccess: true`.
 
 ### Granular Access
-You can use the following properties to make certain sections only visible to some users, or hide sections from guests.
-- `hideForUsers` - Section will be visible to all users, except for those specified in this list
-- `showForUsers` - Section will be hidden from all users, except for those specified in this list
-- `hideForGuests` - Section will be visible for logged in users, but not for guests
+You can use the following properties to make certain sections or items only visible to some users, or hide sections and items from guests.
+- `hideForUsers` - Section or Item will be visible to all users, except for those specified in this list
+- `showForUsers` - Section or Item will be hidden from all users, except for those specified in this list
+- `hideForGuests` - Section or Item will be visible for logged in users, but not for guests
 
 For Example:
 
@@ -71,7 +71,9 @@ For Example:
   displayData:
     hideForGuests: true
   items:
-    ...
+    - title: Hide Me
+      displayData:
+        hideForUsers: [alicia, bob]
 ```
 
 ### Permissions
@@ -149,9 +151,9 @@ appConfig:
 Note that if you are using Keycloak V 17 or older, you will also need to set `legacySupport: true` (also under `appConfig.auth.keycloak`). This is because the API endpoint was updated in later versions.
 
 ### 4. Add groups and roles (Optional)
-Keycloak allows you to assign users roles and groups. You can use these values to configure who can access various sections in Dashy.
+Keycloak allows you to assign users roles and groups. You can use these values to configure who can access various sections or items in Dashy.
 Keycloak server administration and configuration is a deep topic; please refer to the [server admin guide](https://www.keycloak.org/docs/latest/server_admin/index.html#assigning-permissions-and-access-using-roles-and-groups) to see details about creating and assigning roles and groups.
-Once you have groups or roles assigned to users you can configure access under each sections `displayData.showForKeycloakUser` and `displayData.hideForKeycloakUser`.
+Once you have groups or roles assigned to users you can configure access under each section or item `displayData.showForKeycloakUser` and `displayData.hideForKeycloakUser`.
 Both show and hide configurations accept a list of `groups` and `roles` that limit access. If a users data matches one or more items in these lists they will be allowed or excluded as defined.
 ```yaml
 sections:
@@ -161,6 +163,11 @@ sections:
         roles: ['canViewDevResources']
       hideForKeycloakUsers:
         groups: ['ProductTeam']
+    items:
+      - title: Not Visible for developers
+        displayData:
+          hideForKeycloakUsers:
+            groups: ['DevelopmentTeam']
 ```
 
 Depending on how you're hosting Dashy and Keycloak, you may also need to set some HTTP headers, to prevent a CORS error. This would typically be the `Access-Control-Allow-Origin [URL-of Dashy]` on your Keycloak instance. See the [Setting Headers](https://github.com/Lissy93/dashy/blob/master/docs/management.md#setting-headers) guide in the management docs for more info.
