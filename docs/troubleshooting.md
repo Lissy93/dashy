@@ -31,6 +31,7 @@
 - [Fixing Widget CORS Errors](#widget-cors-errors)
 - [Weather Forecast Widget 401](#weather-forecast-widget-401)
 - [Font Awesome Icons not Displaying](#font-awesome-icons-not-displaying)
+- [Copy to Clipboard not Working](#copy-to-clipboard-not-working)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
 
@@ -433,6 +434,17 @@ Ensure the icon you are trying to use, is available within [FontAwesome Version 
 Examples: `fab fa-raspberry-pi`, `fas fa-database`, `fas fa-server`, `fas fa-ethernet`
 
 Finally, check the [browser console](#how-to-open-browser-console) for any error messages, and raise a ticket if the issue persists.
+
+---
+
+## Copy to Clipboard not Working
+
+If the copy to clipboard feature (either under Config --> Export, or Item --> Copy URL) isn't functioning as expected, first check the browser console. If you see `TypeError: Cannot read properties of undefined (reading 'writeText')` then this feature is not supported by your browser. 
+The most common reason for this, is if you not running the app over HTTPS. Copying to the clipboard requires the app to be running in a secure origin / aka have valid HTTPS cert. You can read more about this [here](https://stackoverflow.com/a/71876238/979052).
+
+As a workaround, you could either:
+- Highlight the text and copy / <kbd>Ctrl</kbd> + <kbd>C</kbd>
+- Or setup SSL - [here's a guide](https://github.com/Lissy93/dashy/blob/master/docs/management.md#ssl-certificates) on doing so
 
 ---
 

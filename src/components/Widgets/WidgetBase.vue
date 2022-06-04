@@ -20,8 +20,36 @@
     </div>
     <!-- Widget -->
     <div :class="`widget-wrap ${ error ? 'has-error' : '' }`">
+      <AdGuardDnsInfo
+        v-if="widgetType === 'adguard-dns-info'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <AdGuardFilterStatus
+        v-else-if="widgetType === 'adguard-filter-status'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <AdGuardStats
+        v-else-if="widgetType === 'adguard-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <AdGuardTopDomains
+        v-else-if="widgetType === 'adguard-top-domains'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <AnonAddy
-        v-if="widgetType === 'anonaddy'"
+        v-else-if="widgetType === 'anonaddy'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -64,6 +92,13 @@
       />
       <CveVulnerabilities
         v-else-if="widgetType === 'cve-vulnerabilities'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <DomainMonitor
+        v-else-if="widgetType === 'domain-monitor'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -421,6 +456,10 @@ export default {
     OpenIcon,
     LoadingAnimation,
     // Register widget components
+    AdGuardDnsInfo: () => import('@/components/Widgets/AdGuardDnsInfo.vue'),
+    AdGuardFilterStatus: () => import('@/components/Widgets/AdGuardFilterStatus.vue'),
+    AdGuardStats: () => import('@/components/Widgets/AdGuardStats.vue'),
+    AdGuardTopDomains: () => import('@/components/Widgets/AdGuardTopDomains.vue'),
     AnonAddy: () => import('@/components/Widgets/AnonAddy.vue'),
     Apod: () => import('@/components/Widgets/Apod.vue'),
     BlacklistCheck: () => import('@/components/Widgets/BlacklistCheck.vue'),
@@ -430,6 +469,7 @@ export default {
     CryptoPriceChart: () => import('@/components/Widgets/CryptoPriceChart.vue'),
     CryptoWatchList: () => import('@/components/Widgets/CryptoWatchList.vue'),
     CveVulnerabilities: () => import('@/components/Widgets/CveVulnerabilities.vue'),
+    DomainMonitor: () => import('@/components/Widgets/DomainMonitor.vue'),
     EmbedWidget: () => import('@/components/Widgets/EmbedWidget.vue'),
     EthGasPrices: () => import('@/components/Widgets/EthGasPrices.vue'),
     ExchangeRates: () => import('@/components/Widgets/ExchangeRates.vue'),
@@ -575,7 +615,8 @@ export default {
       cursor: not-allowed;
       opacity: 0.5;
       border-radius: var(--curve-factor);
-      background: #ffff0080;
+      background: #ffff0040;
+      &:hover { background: none; }
     }
   }
   // Error message output
