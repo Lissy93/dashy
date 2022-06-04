@@ -1,5 +1,8 @@
 # Changelog
 
+## ✨ 2.0.9 Adds Multi-Page Support [PR #685](https://github.com/Lissy93/dashy/pull/685)
+- Adds Widgets for AdGuard
+
 ## ✨ 2.0.9 Adds Multi-Page Support [PR #663](https://github.com/Lissy93/dashy/pull/663)
 - Fix KeyCloak API URL (#564)
 - Fix guest has config access (#590)
