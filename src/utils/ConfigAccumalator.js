@@ -12,61 +12,78 @@ import {
   iconSize as defaultIconSize,
   layout as defaultLayout,
 } from '@/utils/defaults';
+import ErrorHandler from '@/utils/ErrorHandler';
+import { applyItemId } from '@/utils/SectionHelpers';
+import $store from '@/store';
 
-import conf from '../../public/conf.yml';
+import buildConf from '../../public/conf.yml';
 
 export default class ConfigAccumulator {
   constructor() {
-    this.conf = conf;
+    this.conf = $store.state.remoteConfig;
+  }
+
+  pages() {
+    return this.conf.pages;
   }
 
   /* App Config */
   appConfig() {
-    const appConfigFile = this.conf.appConfig || {};
+    let appConfigFile = {};
+    // Set app config from file
+    if (this.conf) appConfigFile = this.conf.appConfig || buildConf.appConfig || {};
+    // Fill in defaults if anything missing
     let usersAppConfig = defaultAppConfig;
     if (localStorage[localStorageKeys.APP_CONFIG]) {
       usersAppConfig = JSON.parse(localStorage[localStorageKeys.APP_CONFIG]);
-    } else if (appConfigFile !== {}) {
+    } else if (Object.keys(appConfigFile).length > 0) {
       usersAppConfig = appConfigFile;
     }
+    // Some settings have their own local storage keys, apply them here
     usersAppConfig.layout = localStorage[localStorageKeys.LAYOUT_ORIENTATION]
-      || appConfigFile.layout || defaultLayout;
+      || appConfigFile.layout
+      || defaultLayout;
     usersAppConfig.iconSize = localStorage[localStorageKeys.ICON_SIZE]
-      || appConfigFile.iconSize || defaultIconSize;
+      || appConfigFile.iconSize
+      || defaultIconSize;
+    // Don't let users modify users locally
+    if (appConfigFile.auth) usersAppConfig.auth = appConfigFile.auth;
+    // All done, return final appConfig object
     return usersAppConfig;
   }
 
   /* Page Info */
   pageInfo() {
-    const defaults = defaultPageInfo;
-    let localPageInfo;
-    try {
-      localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]);
-    } catch (e) {
-      localPageInfo = {};
+    let localPageInfo = {};
+    if (localStorage[localStorageKeys.PAGE_INFO]) {
+      // eslint-disable-next-line brace-style
+      try { localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]); }
+      catch (e) { ErrorHandler('Malformed pageInfo data in local storage'); }
     }
-    const pi = this.conf.pageInfo || defaults; // The page info object to return
-    pi.title = localPageInfo.title || conf.pageInfo.title || defaults.title;
-    pi.description = localPageInfo.description || conf.pageInfo.description || defaults.description;
-    pi.navLinks = localPageInfo.navLinks || conf.pageInfo.navLinks || defaults.navLinks;
-    pi.footerText = localPageInfo.footerText || conf.pageInfo.footerText || defaults.footerText;
-    return pi;
+    const filePageInfo = (this.conf && this.conf.pageInfo) ? this.conf.pageInfo : {};
+    return { ...defaultPageInfo, ...filePageInfo, ...localPageInfo };
   }
 
   /* Sections */
   sections() {
+    let sections = [];
     // If the user has stored sections in local storage, return those
     const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
     if (localSections) {
       try {
         const json = JSON.parse(localSections);
-        if (json.length >= 1) return json;
+        if (json.length >= 1) sections = json;
       } catch (e) {
-        // The data in local storage has been malformed, will return conf.sections instead
+        ErrorHandler('Malformed section data in local storage');
       }
     }
-    // If the function hasn't yet returned, then return the config file sections
-    return this.conf.sections;
+    // If sections were not set from local data, then use config file instead
+    if (sections.length === 0) {
+      sections = this.conf ? this.conf.sections || [] : [];
+    }
+    // Apply a unique ID to each item
+    sections = applyItemId(sections);
+    return sections;
   }
 
   /* Complete config */
@@ -75,6 +92,7 @@ export default class ConfigAccumulator {
       appConfig: this.appConfig(),
       pageInfo: this.pageInfo(),
       sections: this.sections(),
+      pages: this.pages(),
     };
   }
 }

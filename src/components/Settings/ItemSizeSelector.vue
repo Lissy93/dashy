@@ -1,18 +1,31 @@
 <template>
   <div>
-    <span class="options-label">Icon Size</span>
+    <span class="options-label">{{ $t('settings.item-size-label') }}</span>
     <div class="display-options">
-      <IconSmall @click="updateIconSize('small')" v-tooltip="tooltip('Small')"
-        :class="`layout-icon ${iconSize === 'small' ? 'selected' : ''}`" tabindex="-2" />
-      <IconMedium @click="updateIconSize('medium')" v-tooltip="tooltip('Medium')"
-        :class="`layout-icon ${iconSize === 'medium' ? 'selected' : ''}`" tabindex="-2" />
-      <IconLarge @click="updateIconSize('large')" v-tooltip="tooltip('Large')"
-        :class="`layout-icon ${iconSize === 'large' ? 'selected' : ''}`" tabindex="-2" />
+      <IconSmall
+        @click="updateIconSize('small')"
+        v-tooltip="tooltip($t('settings.item-size-small'))"
+        :class="`layout-icon ${iconSize === 'small' ? 'selected' : ''}`"
+        tabindex="-2"
+      />
+      <IconMedium
+        @click="updateIconSize('medium')"
+        v-tooltip="tooltip($t('settings.item-size-medium'))"
+        :class="`layout-icon ${iconSize === 'medium' ? 'selected' : ''}`"
+        tabindex="-2"
+      />
+      <IconLarge
+        @click="updateIconSize('large')"
+        v-tooltip="tooltip($t('settings.item-size-large'))"
+        :class="`layout-icon ${iconSize === 'large' ? 'selected' : ''}`"
+        tabindex="-2"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import StoreKeys from '@/utils/StoreMutations';
 import IconSmall from '@/assets/interface-icons/icon-size-small.svg';
 import IconMedium from '@/assets/interface-icons/icon-size-medium.svg';
 import IconLarge from '@/assets/interface-icons/icon-size-large.svg';
@@ -34,7 +47,7 @@ export default {
   },
   methods: {
     updateIconSize(iconSize) {
-      this.$emit('iconSizeUpdated', iconSize);
+      this.$store.commit(StoreKeys.SET_ITEM_SIZE, iconSize);
     },
     tooltip(content) {
       return { content, trigger: 'hover focus', delay: 250 };

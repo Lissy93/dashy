@@ -1,0 +1,14 @@
+# Code Owners helps give greater control to those who developed a feature
+# PR's which modify files that you own will be marked as trusted
+# After developing a feature, you can add yourself as it's owner
+# Each line starts with file pattern, followed by one or more owners
+# Codeowners Docs: https://github.blog/2017-07-06-introducing-code-owners/
+
+# Repo Owners
+*   @lissy93
+
+# Translations
+src/assets/locales/fr.json    @EVOTk
+
+# Bot PR Permissions
+docs/assets/CONTRIBUTORS.svg  @liss-bot

@@ -1,0 +1,13 @@
+# Finds any TO-DO notes within the code, and opens up an issue for it to be fixed
+name: 🌈 Open issue for Todos
+on: ["push"]
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@master"
+    - name: "TODO to Issue"
+      uses: "alstr/todo-to-issue-action@v4.2"
+      id: "todo"
+      with:
+        TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }} 

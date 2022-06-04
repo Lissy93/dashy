@@ -1,5 +1,12 @@
 <template>
-  <button @click="click()" :disabled="disabled" :class="disallow ? 'disallowed': ''">
+  <button
+    @click="click ? click() : () => null"
+    :class="disallow ? 'disallowed': ''"
+    :type="type || 'button'"
+    :disabled="disabled || disallow"
+    v-tooltip="hoverText"
+    :title="tooltip"
+  >
     <slot></slot>
     <slot name="text"></slot>
     <slot name="icon"></slot>
@@ -11,10 +18,21 @@
 export default {
   name: 'Button',
   props: {
-    text: String,
-    click: Function,
-    disabled: Boolean,
-    disallow: Boolean,
+    text: String, // The text to be displayed in the button
+    click: Function, // Function to call when clicked
+    disabled: Boolean, // If true, button cannot be clicked
+    disallow: Boolean, // Show not-allowed cursor when true
+    type: String, // The html button type attribute
+    tooltip: String, // Text to be displayed on hover
+  },
+  computed: {
+    /* If tooltip prop specified, then return config for v-tooltip */
+    hoverText() {
+      const content = this.tooltip;
+      const trigger = 'hover focus';
+      const delay = { show: 350, hide: 100 };
+      return (content) ? { content, trigger, delay } : undefined;
+    },
   },
 };
 </script>
@@ -50,7 +68,7 @@ button {
   background: var(--background);
   border: 1px solid var(--primary);
   border-radius: var(--curve-factor);
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled):not(.disallowed) {
     color: var(--background);
     background: var(--primary);
     border-color: var(--background);

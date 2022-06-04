@@ -1,181 +1,173 @@
 <template ref="container">
-  <div class="item-wrapper">
-    <a @click="itemOpened"
-      @mouseup.right="openContextMenu"
+  <div :class="`item-wrapper wrap-size-${size} span-${makeColumnCount}`" >
+    <a @click="itemClicked"
+      @long-press="openContextMenu"
       @contextmenu.prevent
-      :href="target !== 'modal' ? url : '#'"
-      :target="target === 'newtab' ? '_blank' : ''"
-      :class="`item ${!icon? 'short': ''} size-${itemSize}`"
+      @mouseup.right="openContextMenu"
+      v-longPress="true"
+      :href="item.url"
+      :target="anchorTarget"
+      :class="`item ${makeClassList}`"
       v-tooltip="getTooltipOptions()"
       rel="noopener noreferrer" tabindex="0"
-      :id="`link-${id}`"
-      :style="`--open-icon: ${getUnicodeOpeningIcon()}; ${customStyles}`"
+      :id="`link-${item.id}`"
+      :style="customStyle"
     >
       <!-- Item Text -->
-      <div :class="`tile-title  ${!icon? 'bounce': ''}`" :id="`tile-${id}`" >
-        <span class="text">{{ title }}</span>
-        <p class="description">{{ description }}</p>
+      <div :class="`tile-title  ${!item.icon? 'bounce no-icon': ''}`" :id="`tile-${item.id}`" >
+        <span class="text">{{ item.title }}</span>
+        <p class="description">{{ item.description }}</p>
       </div>
       <!-- Item Icon -->
-      <Icon :icon="icon" :url="url" :size="itemSize" :color="color"
+      <Icon :icon="item.icon" :url="item.url" :size="size" :color="item.color"
         v-bind:style="customStyles" class="bounce" />
       <!-- Small icon, showing opening method on hover -->
-      <ItemOpenMethodIcon class="opening-method-icon" :isSmall="!icon" :openingMethod="target"
-        :position="itemSize === 'medium'? 'bottom right' : 'top right'"/>
-      <!-- Status indicator dot (if enabled) showing weather srevice is availible -->
+      <ItemOpenMethodIcon class="opening-method-icon"
+        :isSmall="!item.icon || size === 'small'"
+        :openingMethod="accumulatedTarget"  position="bottom right"
+        :hotkey="item.hotkey" />
+      <!-- Status indicator dot (if enabled) showing weather service is available -->
       <StatusIndicator
         class="status-indicator"
         v-if="enableStatusCheck"
         :statusSuccess="statusResponse ? statusResponse.successStatus : undefined"
         :statusText="statusResponse ? statusResponse.message : undefined"
       />
+      <!-- Edit icon (displayed only when in edit mode) -->
+      <EditModeIcon v-if="isEditMode" class="edit-mode-item" @click="openItemSettings()" />
     </a>
+    <!-- Right-click context menu -->
     <ContextMenu
-      :show="contextMenuOpen"
+      :show="contextMenuOpen && !isAddNew"
       v-click-outside="closeContextMenu"
       :posX="contextPos.posX"
       :posY="contextPos.posY"
-      :id="`context-menu-${id}`"
-      @contextItemClick="contextItemClick"
+      :id="`context-menu-${item.id}`"
+      @launchItem="launchItem"
+      @openItemSettings="openItemSettings"
+      @openMoveItemMenu="openMoveItemMenu"
+      @openDeleteItem="openDeleteItem"
     />
+    <!-- Edit and move item menu modals -->
+    <MoveItemTo v-if="isEditMode" :itemId="item.id" />
+    <EditItem v-if="editMenuOpen" :itemId="item.id"
+      @closeEditMenu="closeEditMenu"
+      :isNew="isAddNew" :parentSectionTitle="parentSectionTitle" />
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import router from '@/router';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
-import ContextMenu from '@/components/LinkItems/ContextMenu';
+import EditItem from '@/components/InteractiveEditor/EditItem';
+import MoveItemTo from '@/components/InteractiveEditor/MoveItemTo';
+import ContextMenu from '@/components/LinkItems/ItemContextMenu';
+import StoreKeys from '@/utils/StoreMutations';
+import ItemMixin from '@/mixins/ItemMixin';
+// import { targetValidator } from '@/utils/ConfigHelpers';
+import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
+import { modalNames } from '@/utils/defaults';
 
 export default {
   name: 'Item',
+  mixins: [ItemMixin],
   props: {
-    id: String, // The unique ID of a tile (e.g. 001)
-    title: String, // The main text of tile, required
-    subtitle: String, // Optional sub-text
-    description: String, // Optional tooltip hover text
-    icon: String, // Optional path to icon, within public/img/tile-icons
-    color: String, // Optional text and icon color, specified in hex code
-    backgroundColor: String, // Optional item background color
-    url: String, // URL to the resource, optional but recommended
-    target: { // Where resource will open, either 'newtab', 'sametab' or 'modal'
-      type: String,
-      default: 'newtab',
-      validator: (value) => ['newtab', 'sametab', 'modal', 'workspace'].indexOf(value) !== -1,
-    },
     itemSize: String,
-    enableStatusCheck: Boolean,
-    statusCheckHeaders: Object,
-    statusCheckUrl: String,
-    statusCheckInterval: Number,
-  },
-  data() {
-    return {
-      contextMenuOpen: false,
-      getId: this.id,
-      customStyles: {
-        color: this.color,
-        background: this.backgroundColor,
-      },
-      statusResponse: undefined,
-      contextPos: {
-        posX: undefined,
-        posY: undefined,
-      },
-    };
+    parentSectionTitle: String, // Title of parent section (for add new)
+    isAddNew: Boolean, // Only set if 'fake' item used as Add New button
+    sectionWidth: Number, // Width of parent section
+    sectionDisplayData: Object,
   },
   components: {
     Icon,
     ItemOpenMethodIcon,
     StatusIndicator,
     ContextMenu,
+    MoveItemTo,
+    EditItem,
+    EditModeIcon,
   },
-  methods: {
-    /* Called when an item is clicked, manages the opening of modal & resets the search field */
-    itemOpened(e) {
-      if (e.altKey || this.target === 'modal') {
-        e.preventDefault();
-        this.$emit('triggerModal', this.url);
-      } else {
-        this.$emit('itemClicked');
-      }
+  computed: {
+    makeColumnCount() {
+      if ((this.sectionDisplayData || {}).itemCountX) return this.sectionDisplayData.itemCountX;
+      if (this.sectionWidth < 380) return 1;
+      if (this.sectionWidth < 520) return 2;
+      if (this.sectionWidth < 730) return 3;
+      if (this.sectionWidth < 1000) return 4;
+      if (this.sectionWidth < 1300) return 5;
+      return 0;
     },
-    /* Open custom context menu, and set position */
-    openContextMenu(e) {
-      this.contextMenuOpen = !this.contextMenuOpen;
-      if (e && window) {
-        // Calculate placement based on cursor and scroll position
-        this.contextPos = {
-          posX: e.clientX + window.pageXOffset,
-          posY: e.clientY + window.pageYOffset,
-        };
-      }
+    /* Based on item props, adjust class names */
+    makeClassList() {
+      const { isAddNew, isEditMode, size } = this;
+      const { icon } = this.item;
+      return `size-${size} ${!icon ? 'short' : ''} `
+        + `${isAddNew ? 'add-new' : ''} ${isEditMode ? 'is-edit-mode' : ''}`;
     },
-    /* Closes the context menu, called when user clicks literally anywhere */
-    closeContextMenu() {
-      this.contextMenuOpen = false;
-    },
-    /* Returns configuration object for the tooltip */
-    getTooltipOptions() {
-      return {
-        disabled: !this.description,
-        content: this.description,
-        trigger: 'hover focus',
-        hideOnTargetClick: true,
-        html: false,
-        placement: this.statusResponse ? 'left' : 'auto',
-        delay: { show: 600, hide: 200 },
-        classes: 'item-description-tooltip',
-      };
-    },
-    /* Used by certain themes, which display an icon with animated CSS */
-    getUnicodeOpeningIcon() {
-      switch (this.target) {
+    /* Used by certain themes (material), to show animated CSS icon */
+    unicodeOpeningIcon() {
+      switch (this.accumulatedTarget) {
         case 'newtab': return '"\\f360"';
         case 'sametab': return '"\\f24d"';
+        case 'parent': return '"\\f3bf"';
+        case 'top': return '"\\f102"';
         case 'modal': return '"\\f2d0"';
+        case 'workspace': return '"\\f0b1"';
+        case 'clipboard': return '"\\f0ea"';
         default: return '"\\f054"';
       }
     },
-    /* Checks if a given service is currently online */
-    checkWebsiteStatus() {
-      this.statusResponse = undefined;
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      const urlToCheck = this.statusCheckUrl || this.url;
-      const headers = this.statusCheckHeaders || {};
-      const endpoint = `${baseUrl}/ping?url=${urlToCheck}`;
-      axios.get(endpoint, { headers })
-        .then((response) => {
-          if (response.data) this.statusResponse = response.data;
-        })
-        .catch(() => {
-          this.statusResponse = {
-            statusText: 'Failed to make request',
-            statusSuccess: false,
-          };
-        });
+  },
+  data() {
+    return {
+      editMenuOpen: false,
+    };
+  },
+  methods: {
+    /* Returns configuration object for the tooltip */
+    getTooltipOptions() {
+      if (!this.item.description && !this.item.provider) return {}; // If no description, then skip
+      const description = this.item.description || '';
+      const providerText = this.item.provider ? `<b>Provider</b>: ${this.item.provider}` : '';
+      const lb1 = description && providerText ? '<br>' : '';
+      const hotkeyText = this.item.hotkey ? `<br>Press '${this.item.hotkey}' to launch` : '';
+      const tooltipText = providerText + lb1 + description + hotkeyText;
+      const editText = this.$t('interactive-editor.edit-section.edit-tooltip');
+      return {
+        content: (this.isEditMode ? editText : tooltipText),
+        trigger: 'hover focus',
+        hideOnTargetClick: true,
+        html: true,
+        placement: this.statusResponse ? 'left' : 'auto',
+        delay: { show: 600, hide: 200 },
+        classes: `item-description-tooltip tooltip-is-${this.size}`,
+      };
     },
-    /* Handle navigation options from the context menu */
-    contextItemClick(method) {
-      const { url } = this;
+    openItemSettings() {
+      this.editMenuOpen = true;
       this.contextMenuOpen = false;
-      switch (method) {
-        case 'newtab':
-          window.open(url, '_blank');
-          break;
-        case 'sametab':
-          window.open(url, '_self');
-          break;
-        case 'modal':
-          this.$emit('triggerModal', url);
-          break;
-        case 'workspace':
-          router.push({ name: 'workspace', query: { url } });
-          break;
-        default: window.open(url, '_blank');
-      }
+      this.$modal.show(modalNames.EDIT_ITEM);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    /* Ensure conditional is updated, once menu closed */
+    closeEditMenu() {
+      this.editMenuOpen = false;
+      this.$modal.hide(modalNames.EDIT_ITEM);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
+    },
+    /* Open the modal for moving/ copying item to other section */
+    openMoveItemMenu() {
+      this.$modal.show(`${modalNames.MOVE_ITEM_TO}-${this.item.id}`);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+      this.closeContextMenu();
+    },
+    /* Deletes the current item from the state */
+    openDeleteItem() {
+      const parentSection = this.$store.getters.getParentSectionOfItem(this.item.id);
+      const payload = { itemId: this.item.id, sectionName: parentSection.name };
+      this.$store.commit(StoreKeys.REMOVE_ITEM, payload);
+      this.closeContextMenu();
     },
   },
   mounted() {
@@ -193,6 +185,21 @@ export default {
 
 .item-wrapper {
   flex-grow: 1;
+  flex-basis: 6rem;
+  &.wrap-size-large {
+    flex-basis: 12rem;
+  }
+  &.wrap-size-small {
+    flex-grow: revert;
+    &.span-1 { min-width: 100%; }
+    &.span-2 { min-width: 50%; }
+    &.span-3 { min-width: 33%; }
+    &.span-4 { min-width: 25%; }
+    &.span-5 { min-width: 20%; }
+    &.span-6 { min-width: 16%; }
+    &.span-7 { min-width: 14%; }
+    &.span-8 { min-width: 12.5%; }
+  }
 }
 
 .item {
@@ -215,29 +222,31 @@ export default {
     box-shadow: var(--item-hover-shadow);
     background: var(--item-background-hover);
     color: var(--item-text-color-hover);
-    position: relative;
-    .tile-title span.text {
-      white-space: pre-wrap;
-    }
   }
   &:focus {
     outline: 2px solid var(--primary);
   }
-  &.short {
-    height: 18px;
+  &.add-new {
+    border: 2px dashed var(--primary) !important;
+  }
+  &.short:not(.size-large) {
+    height: 2rem;
   }
 }
 
 /* Text in tile */
 .tile-title {
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
   min-width: 120px;
   height: 30px;
   position: relative;
   padding: 0;
   z-index: 2;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
   span.text {
     white-space: nowrap;
   }
@@ -271,10 +280,23 @@ export default {
     }
   }
 
-  /* Apply transofmation of icons on hover */
+  /* Apply transformation of icons on hover */
   .tile-icon, .tile-svg  {
     filter: var(--item-icon-transform-hover);
   }
+}
+
+/* Edit icon, visible in edit mode */
+.item .edit-mode-item {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+}
+
+p.description {
+  display: none; // By default, we don't show the description
 }
 
 /* Specify layout for alternate sized icons */
@@ -286,15 +308,17 @@ export default {
     justify-content: flex-end;
     align-items: center;
     height: 2rem;
-    padding-top: 4px;
-    div img, div svg.missing-image {
+    padding-top: 0.25rem;
+    padding-left: 0.5rem;
+    div img {
       width: 2rem;
     }
     .tile-title {
       height: fit-content;
       min-height: 1.2rem;
       text-align: left;
-      max-width:140px;
+      max-width: 12rem;
+      overflow: hidden;
       span.text {
         text-align: left;
         padding-left: 10%;
@@ -307,13 +331,19 @@ export default {
     flex-direction: column;
     align-items: center;
     height: auto;
-    div img, div svg.missing-image {
+    div img {
       width: 2.5rem;
       margin-bottom: 0.25rem;
     }
     .tile-title {
       min-width: 100px;
       max-width: 160px;
+      &.no-icon {
+        text-align: left;
+        width: 100%;
+        max-width: inherit;
+        margin-left: 0.5rem;
+      }
     }
   }
   /* Large Tile Specific Themes */
@@ -340,16 +370,15 @@ export default {
         width: 100%;
       }
       p.description {
-        display: block;
         margin: 0;
+        display: block;
         white-space: pre-wrap;
-        font-size: .9em;
         text-overflow: ellipsis;
+        font-size: .9em;
+        line-height: 1rem;
+        height: 2rem;
       }
     }
-  }
-  p.description {
-    display: none; // By default, we don't show the description
   }
   &:before { // Certain themes (e.g. material) show css animated fas icon on hover
     display: none;
@@ -358,38 +387,21 @@ export default {
   }
 }
 
+/* Adjust positioning of status indicator, when in edit mode */
+a.item.is-edit-mode {
+  &.size-medium .status-indicator { top: 1rem; }
+  &.size-small .status-indicator { right: 1rem; }
+  &.size-large .status-indicator { top: 1.5rem; }
+}
+
 </style>
 
 <!-- An un-scoped style tag, since tooltip is outside this DOM tree -->
 <style lang="scss">
-.tooltip {
-  padding: 0.2rem 0.5rem;
-  background: #0b1021cc;
-  border: 1px solid #0b1021;
-  border-radius: 3px;
-  color: #fff;
-  max-width: 250px;
-}
-.tooltip-arrow {
-  border-width: 5px 5px 0 5px;
-  border-left-color: transparent!important;
-  border-right-color: transparent!important;
-  border-bottom-color: transparent!important;
-  bottom: -11px;
-  left: calc(50% - 5px);
-  margin-top: 0;
-  margin-bottom: 0;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  position: absolute;
-  margin: 5px;
-  border-color: #0b1021cc;
-  z-index: 3;
-}
-
 .disabled-link {
   pointer-events: none;
 }
-
+.tooltip.item-description-tooltip {
+  z-index: 7;
+}
 </style>

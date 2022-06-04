@@ -1,19 +1,16 @@
 <template>
-  <section>
+  <section v-bind:class="{ 'settings-hidden': !settingsVisible }">
     <SearchBar ref="SearchBar"
       @user-is-searchin="userIsTypingSomething"
       v-if="searchVisible"
-      :active="!modalOpen"
     />
     <div class="options-outer">
       <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
-        <ThemeSelector :themes="availableThemes"
-          :confTheme="getInitialTheme()" :userThemes="getUserThemes()" />
-        <LayoutSelector :displayLayout="displayLayout" @layoutUpdated="updateDisplayLayout"/>
-        <ItemSizeSelector :iconSize="iconSize" @iconSizeUpdated="updateIconSize" />
-        <ConfigLauncher :sections="sections" :pageInfo="pageInfo" :appConfig="appConfig"
-          @modalChanged="modalChanged" />
-        <AppButtons  v-if="isUserLoggedIn()" />
+        <ThemeSelector />
+        <LayoutSelector :displayLayout="displayLayout" />
+        <ItemSizeSelector :iconSize="iconSize" />
+        <ConfigLauncher />
+        <AuthButtons  v-if="userState !== 0" :userType="userState" />
       </div>
       <div :class="`show-hide-container ${settingsVisible? 'hide-btn' : 'show-btn'}`">
         <button @click="toggleSettingsVisibility()"
@@ -23,7 +20,6 @@
         </button>
       </div>
     </div>
-    <KeyboardShortcutInfo />
     <AppInfoModal />
   </section>
 </template>
@@ -34,10 +30,8 @@ import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import LayoutSelector from '@/components/Settings/LayoutSelector';
 import ItemSizeSelector from '@/components/Settings/ItemSizeSelector';
-import AppButtons from '@/components/Settings/AppButtons';
-import KeyboardShortcutInfo from '@/components/Settings/KeyboardShortcutInfo';
+import AuthButtons from '@/components/Settings/AuthButtons';
 import AppInfoModal from '@/components/Configuration/AppInfoModal';
-import { logout as registerLogout } from '@/utils/Auth';
 import IconOpen from '@/assets/interface-icons/config-open-settings.svg';
 import IconClose from '@/assets/interface-icons/config-close.svg';
 import {
@@ -45,16 +39,14 @@ import {
   visibleComponents as defaultVisibleComponents,
 } from '@/utils/defaults';
 
+import { getUserState } from '@/utils/Auth';
+
 export default {
   name: 'SettingsContainer',
   props: {
     displayLayout: String,
     iconSize: String,
-    availableThemes: Object,
-    appConfig: Object,
-    pageInfo: Object,
-    sections: Array,
-    modalOpen: Boolean,
+    externalThemes: Object,
   },
   components: {
     SearchBar,
@@ -62,41 +54,59 @@ export default {
     ThemeSelector,
     LayoutSelector,
     ItemSizeSelector,
-    AppButtons,
-    KeyboardShortcutInfo,
+    AuthButtons,
     AppInfoModal,
     IconOpen,
     IconClose,
   },
-  inject: ['visibleComponents'],
+  data() {
+    return {
+      settingsVisible: true,
+    };
+  },
+  computed: {
+    sections() {
+      return this.$store.getters.sections;
+    },
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+    pageInfo() {
+      return this.$store.getters.pageInfo;
+    },
+    /**
+    * Determines which button should display, based on the user type
+    * 0 = Auth not configured, don't show anything
+    * 1 = Auth configured, and user logged in, show logout button
+    * 2 = Auth configured, guest access enabled, and not logged in, show login
+    * Note that if auth is enabled, but not guest access, and user not logged in,
+    * then they will never be able to view the homepage, so no button needed
+    */
+    userState() {
+      return getUserState();
+    },
+    /* Object indicating which components should be hidden, based on user preferences */
+    visibleComponents() {
+      return this.$store.getters.visibleComponents;
+    },
+    searchVisible() {
+      return this.$store.getters.visibleComponents.searchBar;
+    },
+  },
+  mounted() {
+    this.settingsVisible = this.getSettingsVisibility();
+  },
   methods: {
+    /* Emit event to begin/ continue searching */
     userIsTypingSomething(something) {
       this.$emit('user-is-searchin', something);
     },
+    /* Call function to clear search field, remove focus and reset results */
     clearFilterInput() {
-      this.$refs.SearchBar.clearFilterInput();
-    },
-    updateDisplayLayout(layout) {
-      this.$emit('change-display-layout', layout);
-    },
-    updateIconSize(iconSize) {
-      this.$emit('change-icon-size', iconSize);
-    },
-    modalChanged(changedTo) {
-      this.$emit('change-modal-visibility', changedTo);
+      if (this.$refs.SearchBar) this.$refs.SearchBar.clearFilterInput();
     },
     getInitialTheme() {
       return this.appConfig.theme || '';
-    },
-    logout() {
-      registerLogout();
-      this.$toasted.show('Logged Out');
-      setTimeout(() => {
-        location.reload(true); // eslint-disable-line no-restricted-globals
-      }, 100);
-    },
-    isUserLoggedIn() {
-      return !!localStorage[localStorageKeys.USERNAME];
     },
     /* Gets user themes if available */
     getUserThemes() {
@@ -104,20 +114,19 @@ export default {
       if (typeof userThemes === 'string') return [userThemes];
       return userThemes;
     },
+    /* Show / hide settings */
     toggleSettingsVisibility() {
       this.settingsVisible = !this.settingsVisible;
       localStorage.setItem(localStorageKeys.HIDE_SETTINGS, this.settingsVisible);
     },
+    /* Get initial settings visibility, either from appConfig, local storage or browser type */
     getSettingsVisibility() {
-      return JSON.parse(localStorage[localStorageKeys.HIDE_SETTINGS]
-        || (this.visibleComponents || defaultVisibleComponents).settings);
+      const screenWidth = document.body.clientWidth;
+      if (screenWidth && screenWidth < 600) return false;
+      if ((this.visibleComponents || {}).settings === false) return false;
+      if (localStorage[localStorageKeys.HIDE_SETTINGS] === 'false') return false;
+      return defaultVisibleComponents.settings;
     },
-  },
-  data() {
-    return {
-      settingsVisible: this.getSettingsVisibility(),
-      searchVisible: (this.visibleComponents || defaultVisibleComponents).searchBar,
-    };
   },
 };
 </script>
@@ -161,6 +170,11 @@ export default {
     @include very-tiny-phone {
       flex-direction: column;
       align-items: baseline;
+      div {
+        width: 100%;
+        text-align: center;
+        .theme-selector-section { justify-content: center; }
+      }
     }
   }
 
@@ -198,25 +212,6 @@ export default {
       color: var(--settings-background);
     }
   }
-
-    svg.logout-icon {
-      path {
-        fill: var(--settings-text-color);
-      }
-      width: 1rem;
-      height: 1rem;
-      margin: 0.35rem 0.2rem;
-      padding: 0.2rem;
-      text-align: center;
-      background: var(--background);
-      border: 1px solid var(--settings-text-color);;
-      border-radius: var(--curve-factor);
-      cursor: pointer;
-      &:hover, &.selected {
-        background: var(--settings-text-color);
-        path { fill: var(--background); }
-      }
-    }
 
   @include tablet {
     section {

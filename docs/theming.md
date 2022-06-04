@@ -1,6 +1,6 @@
-## Theming
+# Theming
 
-By default Dashy comes with 20 built in themes, which can be applied from the dropwodwn menu in the UI
+By default Dashy comes with 25+ built-in themes, which can be applied from the dropwodwn menu in the UI.
 
 ![Built-in Themes](https://i.ibb.co/GV3wRss/Dashy-Themes.png)
 
@@ -33,6 +33,32 @@ Finally, from the UI use the theme dropdown menu to select your new theme, and y
 
 You can also set `appConfig.theme` to pre-select a default theme, which will be applied immediately after deployment.
 
+### Modifying Theme Colors
+
+Themes can be modified either through the UI, using the color picker menu (to the right of the theme dropdown), or directly in the config file, under `appConfig.customColors`. Here you can specify the value for any of the [available CSS variables](#css-variables).
+
+<p align="center">
+  <a href="https://i.ibb.co/cLDXj1R/dashy-theme-configurator.gif">
+    <img alt="Example Themes" src="https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/theme-config-demo.gif" width="400" />
+  </a>
+</p>
+
+By default, any color modifications made to the current theme through the UI will only be applied locally. If you need these settings to be set globally, then click the 'Export' button, to get the color codes and variable names, which can then be backed up, or saved in your config file.
+
+Custom colors are saved relative the the base theme selected. So if you switch themes after setting custom colors, then you're settings will no longer be applied. You're changes are not lost though, and switching back to the original theme will see your styles reapplied.
+
+If these values are specified in your `conf.yml` file, then it will look something like the below example. Note that in YAML, values or keys which contain special characters, must be wrapped in quotes.
+
+```yaml
+appConfig:
+  customColors:
+    oblivion:
+      primary: '#75efff'
+      background: '#2a3647'
+    dracula:
+      primary: '#8be9fd'
+```
+
 ### Adding your own Theme
 
 User-defined styles and custom themes should be defined in `./src/styles/user-defined-themes.scss`. If you're using Docker, you can pass your own stylesheet in using the `--volume` flag. E.g. `v ./my-themes.scss:/app/src/styles/user-defined-themes.scss`. Don't forget to pass your theme name into `appConfig.cssThemes` so that it shows up on the theme-switcher dropdown.
@@ -42,6 +68,16 @@ User-defined styles and custom themes should be defined in `./src/styles/user-de
 Custom CSS can be developed, tested and applied directly through the UI. Although you will need to make note of your changes to apply them across instances.
 
 This can be done from the Config menu (spanner icon in the top-right), under the Custom Styles tab. This is then associated with `appConfig.customCss` in local storage. Styles can also be directly applied to this attribute in the config file, but this may get messy very quickly if you have a lot of CSS.
+
+### Page-Specific Styles
+
+If you've got multiple pages within your dashboard, you can choose to target certain styles to specific pages. The top-most element within `<body>` will have a class name specific to the current sub-page. This is usually the page's name, all lowercase, with dashes instead of spaces, but you can easily check this yourself within the dev tools.
+
+For example, if the pages name was "CFT Toolbox", and you wanted to target `.item`s, you would do:
+
+```css
+.cft-toolbox .item { border: 4px solid yellow; }
+```
 
 ### Loading External Stylesheets
 
@@ -83,7 +119,7 @@ CSS variables are simple to use. You define them like: `--background: #fff;` and
 You can determine the variable used by any given element, and visualize changes using the browser developer tools (Usually opened with `F12`, or Options --> More --> Developer Tools). Under the elements tab, click the Element Selector icon (usually top-left corner), you will then be able to select any DOM element on the page by hovering and clicking it. In the CSS panel you will see all styles assigned to that given element, including CSS variables. Click a variable to see it's parent value, and for color attributes, click the color square to modify the color. For more information, see this [getting started guide](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools), and these articles on [selecting elements](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Select_an_element) and [inspecting and modifying colors](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Inspect_and_select_colors).
 
 #### Top-Level Variables
-These are all that are required to create a theme. All other variables inherit their values from these variables.
+These are all that are required to create a theme. All other variables inherit their values from these variables, and can optionally be overridden.
 
 - `--primary` - Application primary color. Used for title, text, accents, and other features
 - `--background` - Application background color
@@ -99,7 +135,7 @@ You can target specific elements on the UI with these variables. All are optiona
 - `--nav-link-text-color` - The text color for links displayed in the navigation bar. Defaults to `--primary`
 - `--nav-link-background-color` - The background color for links displayed in the navigation bar
 - `--nav-link-text-color-hover` - The text color when a navigation bar link is hovered over. Defaults to `--primary`
-- `--nav-link-background-color-hover` - The background color for nav bar links when hovered over 
+- `--nav-link-background-color-hover` - The background color for nav bar links when hovered over
 - `--nav-link-border-color` - The border color for nav bar links. Defaults to `transparent`
 - `--nav-link-border-color-hover` - The border color for nav bar links when hovered over. Defaults to `--primary`
 - `--search-container-background` - Background for the container containing the search bar. Defaults to `--background-darker`

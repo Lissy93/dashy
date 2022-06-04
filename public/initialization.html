@@ -1,0 +1,265 @@
+<!doctype html>
+<!-- Dashy: Licensed under MIT, (C) 2021 Alicia Sykes <https://aliciasykes.com> -->
+<!-- This is the default page, displayed while the app is still building -->
+<html lang="en">
+<head>
+  <title>Dashy</title>
+  <meta name="description" content="Welcome to Dashy">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Dashy Title Wavey Text -->
+  <svg viewbox="0 0 100 20">
+    <defs>
+      <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="5%" stop-color="#00CCB4" />
+        <stop offset="95%" stop-color="#1186cf" />
+      </linearGradient>
+      <pattern id="wave" x="0" y="0" width="120" height="20" patternUnits="userSpaceOnUse">
+        <path id="wavePath" d="M-40 9 Q-30 7 -20 9 T0 9 T20 9 T40 9 T60 9 T80 9 T100 9 T120 9 V20 H-40z"
+          mask="url(#mask)" fill="url(#gradient)">
+          <animateTransform attributeName="transform" begin="0s" dur="3s" type="translate" from="0,0" to="40,0"
+            repeatCount="indefinite" />
+        </path>
+      </pattern>
+    </defs>
+    <text text-anchor="middle" x="50" y="15" font-size="17" fill="url(#wave)" fill-opacity="0.8">Dashy</text>
+    <text text-anchor="middle" x="50" y="15" font-size="17" fill="url(#gradient)" fill-opacity="0.5">Dashy</text>
+  </svg>
+
+  <!-- Progress Bar -->
+  <div class="progress-outer" id="bar-outer">
+    <div class="progress-inner" id="bar"></div>
+  </div>
+
+  <!-- Status label, with animated dots -->
+  <div>
+    <h2 id="status-text">Initializing</h2>
+    <span id="dots" class="dots-cont">
+      <span class="dot dot-1"></span>
+      <span class="dot dot-2"></span>
+      <span class="dot dot-3"></span>
+      <span class="dot dot-4"></span>
+    </span>
+  </div>
+
+  <p class="time-note" id="note">This may take a minute or two</p>
+
+  <style lang="css">
+    /* Page Layout Styles */
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      background: #141b33;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    svg {
+      font-family: 'Fredoka One', 'Cabin Condensed', 'Courier New', Courier, monospace;
+      font-weight: bold;
+      max-width: 80%;
+      height: auto;
+    }
+
+    h2 {
+      color: #fff;
+      font-family: 'Courier New', Courier, monospace;
+      display: inline;
+    }
+
+    /* Animated Dots */
+    .dots-cont {
+      display: inline;
+    }
+
+    .dot {
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      display: inline-block;
+      border-radius: 35%;
+      right: 0px;
+      bottom: 0px;
+      margin: 0px 2.5px;
+      position: relative;
+      animation: jump 1s infinite;
+    }
+    .dots-cont .dot-1 { -webkit-animation-delay: 100ms; animation-delay: 100ms; }
+    .dots-cont .dot-2 { -webkit-animation-delay: 200ms; animation-delay: 200ms; }
+    .dots-cont .dot-3 { -webkit-animation-delay: 300ms; animation-delay: 300ms; }
+    .dots-cont .dot-4 { -webkit-animation-delay: 400ms; animation-delay: 400ms; }
+
+    @keyframes jump {
+      0% { bottom: 0px; }
+      20% { bottom: 5px; }
+      40% { bottom: 0px; }
+    }
+
+    /* Little note */
+    p.time-note, p.time-note a {
+      font-size: 1rem;
+      color: #808080a6;
+      font-family: Tahoma, 'Trebuchet MS', sans-serif;
+    }
+
+    /* Progress Bar */
+    .progress-outer {
+      position: relative;
+      margin: 1rem;
+      height: 0.5rem;
+      width: 20rem;
+      border: 1px solid #fff;
+      border-radius: 6px;
+    }
+
+    .progress-outer .progress-inner {
+      position: absolute;
+      background-color: #fff;
+      width: 0px;
+      height: 0.5rem;
+      border-radius: 15px;
+    }
+    #bar.stage-0 {  animation: progress-0 8s infinite linear; }
+    #bar.stage-1 {  animation: progress-1 8s infinite linear; }
+    #bar.stage-2 {  animation: progress-2 8s infinite linear; }
+    #bar.stage-3 {  animation: progress-3 8s infinite linear; }
+    #bar.stage-4 {  animation: progress-4 8s infinite linear; }
+    #bar.stage-5 {  animation: progress-5 8s infinite linear; }
+    #bar.stage-6 {  animation: progress-6 8s infinite linear; }
+    #bar.stage-7 {  animation: progress-7 8s infinite linear; }
+    #bar.stage-8 {  animation: progress-8 8s infinite linear; }
+
+    @keyframes progress {
+      0% { width: 0%; }
+      25% { width: 50%; }
+      50% { width: 75%; }
+      75% { width: 85%; }
+      100% { width: 100%; }
+    }
+    @keyframes progress-0 {
+      0% { width: 0%; }
+      50% { width: 20%; }
+      100% { width: 30%; }
+    }
+    @keyframes progress-1 {
+      0% { width: 30%; }
+      50% { width: 42%; }
+      100% { width: 50%; }
+    }
+    @keyframes progress-2 {
+      0% { width: 50%; }
+      50% { width: 60%; }
+      100% { width: 65%; }
+    }
+    @keyframes progress-3 {
+      0% { width: 65%; }
+      100% { width: 75%; }
+    }
+    @keyframes progress-4 {
+      0% { width: 75%; }
+      100% { width: 85%; }
+    }
+    @keyframes progress-5 {
+      0% { width: 85%; }
+      100% { width: 90%; }
+    }
+    @keyframes progress-6 {
+      0% { width: 90%; }
+      100% { width: 94%; }
+    }
+    @keyframes progress-7 {
+      0% { width: 94%; }
+      50% { width: 96%; }
+      75% { width: 90%; }
+      100% { width: 96%; }
+    }
+    @keyframes progress-8 {
+      0% { width: 95%; }
+      50% { width: 97%; }
+      75% { width: 94%; }
+      100% { width: 98%; }
+    }
+
+    .hide { display: none; }
+  </style>
+
+  <script>
+    const refreshRate = 8000;
+    // Refresh at interval
+    setTimeout(() => { location.reload(); }, refreshRate);
+
+     // Get current stage
+     let initStage = parseInt(sessionStorage.getItem('initStage') || 0);
+
+    // Check if stage in session storage is old, and if so, reset it
+    const now = Math.round(Date.now()/1000);
+    const buildStarted = sessionStorage.getItem('buildStarted');
+    if (!buildStarted) { // First time build
+      sessionStorage.setItem('buildStarted', now);
+    } else if ((now - parseInt(buildStarted)) > 600) {
+      initStage = 0;
+      sessionStorage.setItem('buildStarted', now);
+    }
+
+    // Grab elements from page
+    const statusTextElem = document.getElementById('status-text');
+    const progressBarElem = document.getElementById('bar');
+    const progressOuterElem = document.getElementById('bar-outer');
+    const loadingDotsElem = document.getElementById('dots');
+    const noteElem = document.getElementById('note');
+
+    // Based on stage, modify element content/ styles
+    if (initStage === 0) {
+      statusTextElem.innerHTML = 'Initializing'
+      progressBarElem.classList.add('stage-0');
+    } else if (initStage === 1) {
+      statusTextElem.innerHTML = 'Running Checks'
+      progressBarElem.classList.add('stage-1');
+    }  else if (initStage === 2) {
+      statusTextElem.innerHTML = 'Building'
+      progressBarElem.classList.add('stage-2');
+    }  else if (initStage === 3) {
+      statusTextElem.innerHTML = 'Building'
+      progressBarElem.classList.add('stage-3');
+    }  else if (initStage === 4) {
+      statusTextElem.innerHTML = 'Finishing Off'
+      progressBarElem.classList.add('stage-4');
+    }  else if (initStage === 5) {
+      statusTextElem.innerHTML = 'Almost Done'
+      progressBarElem.classList.add('stage-5');
+    }  else if (initStage === 6) {
+      statusTextElem.innerHTML = 'Not Long Left'
+      progressBarElem.classList.add('stage-6');
+    }  else if (initStage === 7) {
+      statusTextElem.innerHTML = 'Taking Longer than Expected'
+      progressBarElem.classList.add('stage-7');
+      noteElem.innerHTML = 'See the console for more info';
+    }  else if (initStage >= 8) {
+      const docsLink = '<a href="https://github.com/Lissy93/dashy/tree/master/docs#readme">Documentation</a>';
+      statusTextElem.innerHTML = 'Possible Error, Check Logs'
+      noteElem.innerHTML = 'For troubleshooting, please see the ' + docsLink;
+      progressOuterElem.classList.add('hide');
+      loadingDotsElem.classList.add('hide');
+    } else {
+      statusTextElem.innerHTML = 'Building App'
+      progressOuterElem.classList.add('hide')
+    }
+    // Iterate the stage number
+    sessionStorage.setItem('initStage', initStage + 1)
+  </script>
+</body>
+
+</html>

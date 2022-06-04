@@ -1,0 +1,101 @@
+/* Form elements in the auto-schema form */
+.schema-form {
+  fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    > div {
+      border-bottom: 1px dashed var(--interactive-editor-color);
+      margin: 0.5rem 0;
+      label {
+        font-size: 1rem;
+        text-decoration: underline;
+      }
+    }
+    div[data-fs-wrapper], div[data-fs-kind=object] {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      @include tablet-down {
+        flex-direction: column-reverse;
+      }
+      span {
+        font-style: italic;
+        margin-right: 0.5rem;
+        max-width: 20rem;
+        opacity: var(--dimming-factor);
+      }
+      input {
+        min-width: 15rem;
+        padding: 0.5rem 0.75rem;
+        margin: 0.5rem auto;
+        font-size: 1rem;
+        box-sizing: border-box;
+        color: var(--interactive-editor-color);
+        background: var(--interactive-editor-background);
+        border: 1px solid var(--interactive-editor-color);
+        border-radius: var(--curve-factor);
+        &[type=text]:focus, &[type=number]:focus {
+          box-shadow: 1px 1px 6px var(--interactive-editor-color);
+          outline: none;
+        }
+      }
+      input[type=checkbox] {
+        width: 1.2rem;
+        height: 1.2rem;
+        cursor: pointer;
+      }
+      input[type=radio] {
+        width: 1rem;
+        height: 1rem;
+        cursor: pointer;
+      }
+      div[data-fs-input=object], div[data-fs-input=array] {
+        width: 100%;
+        padding-left: 0.5rem;
+        border-left: 1px dashed var(--interactive-editor-color);
+      }
+      div[data-fs-kind="radio"] {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        label {
+          text-decoration: none;
+          text-transform: capitalize;
+        }
+      }
+      select {
+        width: 15rem;
+        height: 2rem;
+        padding: 0.2rem;
+        font-size: 1rem;
+        color: var(--interactive-editor-color);
+        background: var(--interactive-editor-background);
+        border: 1px solid var(--interactive-editor-color);
+        border-radius: var(--curve-factor);
+        &:focus {
+          box-shadow: 1px 1px 6px var(--interactive-editor-color);
+        }
+      }
+      div[data-fs-input=array] button, div[data-fs-buttons] button {
+        font-size: 1rem;
+        margin: 0.25rem;
+        border-radius: var(--curve-factor);
+        color: var(--interactive-editor-color);
+        background: var(--interactive-editor-background);
+        border: 1px solid var(--interactive-editor-color);
+        &:hover {
+          color: var(--interactive-editor-background);
+          background: var(--interactive-editor-color);
+        }
+        &:focus {
+          box-shadow: 1px 1px 6px var(--interactive-editor-color);
+        }
+      }
+    }
+  }
+}

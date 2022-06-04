@@ -1,0 +1,23 @@
+# When a '/rebase' comment is added to a PR, it will be rebased from the main branch
+name: 🏗️ Automatic PR Rebase
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  rebase:
+    name: Rebase
+    if: >
+      github.event.issue.pull_request != ''
+      && contains(github.event.comment.body, '/rebase')
+      && github.event.comment.author_association == 'MEMBER'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      - name: Rebase
+        uses: cirrus-actions/rebase@1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

@@ -1,33 +1,47 @@
 ---
+# Page meta info, like heading, footer text and nav links
 pageInfo:
   title: Dashy
+  description: Welcome to your new dashboard!
   navLinks:
-  - title: Home
-    path: /
-  - title: About
-    path: /about
-  - title: Source Code
+  - title: GitHub
     path: https://github.com/Lissy93/dashy
+  - title: Documentation
+    path: https://dashy.to/docs
+
+# Optional app settings and configuration
 appConfig:
   theme: colorful
-  fontAwesomeKey: 0821c65656
+
+# Main content - An array of sections, each containing an array of items
 sections:
 - name: Getting Started
+  icon: fas fa-rocket
   items:
-  - title: Source
-    description: Source code and documentation on GitHub
-    icon: fab fa-github
-    url: https://github.com/Lissy93/dashy
-  - title: Issues
-    description: View currently open issues, or raise a new one
-    icon: fas fa-bug
-    url: https://github.com/Lissy93/dashy/issues
-  - title: Demo 1
-    description: 'Live Demo #1'
-    icon: far fa-rocket
-    url: https://dashy-demo-1.netlify.app 
-  - title: Demo 2
-    description: 'Live Demo #2'
-    icon: fad fa-planet-ringed
-    url: https://dashy-demo-2.netlify.app 
+  - title: Dashy Live
+    description: Development a project management links for Dashy
+    icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
+    url: https://live.dashy.to/
+    target: newtab
+  - title: GitHub
+    description: Source Code, Issues and Pull Requests
+    url: https://github.com/lissy93/dashy
+    icon: favicon
+  - title: Docs
+    description: Configuring & Usage Documentation
+    provider: Dashy.to
+    icon: far fa-book
+    url: https://dashy.to/docs
+  - title: Showcase
+    description: See how others are using Dashy
+    url: https://github.com/Lissy93/dashy/blob/master/docs/showcase.md
+    icon: far fa-grin-hearts
+  - title: Config Guide
+    description: See full list of configuration options
+    url: https://github.com/Lissy93/dashy/blob/master/docs/configuring.md
+    icon: fas fa-wrench
+  - title: Support
+    description: Get help with Dashy, raise a bug, or get in contact
+    url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
+    icon: far fa-hands-helping
   

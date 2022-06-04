@@ -1,26 +1,27 @@
 <template>
-  <pre><code>{{ jsonParser(config) }}</code></pre>
+  <pre v-if="allowViewConfig"><code>{{ yamlConfig }}</code></pre>
+  <AccessError v-else />
 </template>
 
 <script>
-import JsonToYaml from '@/utils/JsonToYaml';
+import JsYaml from 'js-yaml';
+import AccessError from '@/components/Configuration/AccessError';
 
 export default {
   name: 'DownloadConfig',
-  props: {
-    sections: Array,
-    appConfig: Object,
-    pageInfo: Object,
+  components: {
+    AccessError,
   },
-  data() {
-    return {
-      config: {
-        appConfig: this.appConfig,
-        pageInfo: this.pageInfo,
-        sections: this.sections,
-      },
-      jsonParser: JsonToYaml,
-    };
+  computed: {
+    config() {
+      return this.$store.state.config;
+    },
+    yamlConfig() {
+      return JsYaml.dump(this.config);
+    },
+    allowViewConfig() {
+      return this.$store.getters.permissions.allowViewConfig;
+    },
   },
 };
 
@@ -28,8 +29,9 @@ export default {
 
 <style scoped lang="scss">
 pre {
-  background: var(--code-editor-background);
-  color: var(--code-editor-color);
+  margin: 0;
   padding: 1rem;
+  color: var(--code-editor-color);
+  background: var(--code-editor-background);
 }
 </style>

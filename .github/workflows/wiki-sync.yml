@@ -1,0 +1,30 @@
+# Uses the contents of the ./docs directory for Dashy's GH Wiki page
+name: 📊 Wiki Sync
+on:
+  workflow_dispatch: # Manual dispatch
+  schedule:
+    - cron: '0 1 * * 0' # At 01:00 on Sunday.
+jobs:
+  update-wiki:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master        
+    - name: Upload Docs to GH Wiki
+      uses: docker://decathlon/wiki-page-creator-action:latest
+      env:
+        GH_PAT: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+        ACTION_MAIL: alicia-gh-bot@mail.as93.net
+        ACTION_NAME: liss-bot
+        OWNER: Lissy93
+        REPO_NAME: Dashy
+        MD_FOLDER: docs/
+#     - name: Sync Wiki
+#       uses: joeizzard/action-wiki-sync@master
+#       with:
+#         username: example
+#         access_token: ${{ secrets.GITHUB_TOKEN }}
+#         wiki_folder: ./docs
+#         commit_username: 'liss-bot'
+#         commit_email: 'liss-bot@d0h.co'
+#         commit_message: '📕 Chore: Sync Wiki'

@@ -1,0 +1,18 @@
+# Will translate any issues opened in foraign language, and add the English translation as a comment 
+name: 🎯 Issue Translator
+on: 
+  issue_comment: 
+    types: [created]
+  issues: 
+    types: [opened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: tomsun28/issues-translate-action@v2.5
+        with:
+          BOT_GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }} 
+          BOT_LOGIN_NAME: liss-bot
+          IS_MODIFY_TITLE: true
+          CUSTOM_BOT_NOTE: It looks like this issue isn't in English - not a problem, here's the translation! 🇬🇧

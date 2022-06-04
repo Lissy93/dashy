@@ -45,6 +45,11 @@ $extra-large: 2800px;
   }
 }
 
+@mixin phone-up {
+  @media (min-width: #{$tiny}) {
+    @content;
+  }
+}
 @mixin tablet-up {
   @media (min-width: #{$small}) {
     @content;
@@ -71,3 +76,10 @@ $extra-large: 2800px;
     @content;
   }
 }
+
+@mixin safari {
+  _::-webkit-full-page-media, _:future, :root .safari_only {
+    @content;
+  }
+}
+

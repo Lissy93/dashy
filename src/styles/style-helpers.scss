@@ -1,3 +1,4 @@
+@import '@/styles/media-queries.scss';
 
 /* Fancy scrollbar */
 .scroll-bar {
@@ -15,6 +16,37 @@
   }
 }
 
+.svg-button {
+    color: var(--primary);
+    svg {
+        path {
+            fill: var(--settings-text-color);
+        }
+        width: 1rem;
+        height: 1rem;
+        margin: 0.2rem;
+        padding: 0.2rem;
+        text-align: center;
+        background: var(--background);
+        border: 1px solid currentColor;
+        border-radius: var(--curve-factor);
+        cursor: pointer;
+        &:hover, &.selected {
+            background: var(--settings-text-color);
+            path { fill: var(--background); }
+        }
+        &.disabled {
+            opacity: var(--dimming-factor);
+            cursor: not-allowed;
+            &:hover {
+                border: 1px solid currentColor;
+                background: var(--background);
+                path { fill: var(--settings-text-color); }
+            }
+        }
+    }
+}
+
 /* Custom highlight color */
 .highlight {
     ::selection {
@@ -26,7 +58,6 @@
         color: var(--highlight-color);
   }
 }
-
 
 /* Single-style helpers */
 .bold { font-weight: bold; }

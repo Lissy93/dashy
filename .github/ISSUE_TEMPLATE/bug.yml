@@ -1,0 +1,64 @@
+name: Bug Report 🐛
+description: Report something that's not working the way it's (probably) intended to
+title: '[BUG] <title>'
+labels: ['🐛 Bug']
+assignees:
+  - lissy93
+body:
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: Where are you running Dashy?
+      options:
+        - Self-Hosted (Docker)
+        - Self-Hosted (Bare Metal)
+        - Cloud Service (Static)
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version of Dashy are you running?
+      placeholder: 1.6.9 ← should look like this (check config menu)
+    validations:
+      required: false
+  - type: textarea
+    id: repro
+    attributes:
+      label: Describe the problem
+      description: Please describe exactly what is not working, include the steps to reproduce, actual result and expected result
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Additional info
+      description: Logs? Screenshots? Yes, please.
+      placeholder: If the issue happens during build-time, include terminal logs. For run-time errors, include browser logs which you can view in the Dev Tools (F12), under the Console tab. Take care to blank out any personal info.
+    validations:
+      required: false
+  - type: checkboxes
+    id: idiot-check
+    attributes:
+      label: Please tick the boxes
+      description: Before submitting, please ensure that
+      options:
+        - label: You are using a [supported](https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md#supported-versions) version of Dashy (check the first two digits of the version number)
+          required: true
+        - label: You've checked that this [issue hasn't already been raised](https://github.com/Lissy93/dashy/issues?q=is%3Aissue)
+          required: true
+        - label: You've checked the [docs](https://github.com/Lissy93/dashy/tree/master/docs#readme) and [troubleshooting](https://github.com/Lissy93/dashy/blob/master/docs/troubleshooting.md#troubleshooting) guide
+          required: true
+        - label: You agree to the [code of conduct](https://github.com/Lissy93/dashy/blob/master/.github/CODE_OF_CONDUCT.md#contributor-covenant-code-of-conduct)
+          required: true
+  - type: markdown
+    attributes:
+      value: |-
+        ## Thanks 🙏
+        Sorry you are having issues with Dashy, and thank you for raising this ticket - in doing so you are helping to make the app better for everyone 💪
+        You should expect a reply within the next 48 hours :)
+        ⭐️ If you are not a bot, please star the repo before submitting your ticket.
+    validations:
+      required: false

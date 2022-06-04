@@ -1,0 +1,18 @@
+# Shows changes to any yarn.lock in PR comment
+# Useful for easily understanding dependency changes and consequences
+name: 💡 Show Dependency Changes
+on: [pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Yarn Lock Changes
+        uses: Simek/yarn-lock-changes@main
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          collapsibleThreshold: '25'
+          failOnDowngrade: 'false'
+          path: 'yarn.lock'
+          updateComment: 'true'

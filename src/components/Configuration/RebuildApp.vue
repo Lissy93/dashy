@@ -2,35 +2,41 @@
   <modal :name="modalName" :resizable="true" width="50%" height="60%" classes="dashy-modal">
     <div class="rebuild-app-container">
       <!-- Title, intro and start button -->
-      <h3 class="rebuild-app-title">Rebuild Application</h3>
+      <h3 class="rebuild-app-title">{{ $t('app-rebuild.title') }}</h3>
       <p>
-        A rebuild is required for changes written to the conf.yml file to take effect.
-        This should happen automatically, but if it hasn't, you can manually trigger it here.<br>
-        This is not required for modifications stored locally.
+        {{ $t('app-rebuild.rebuild-note-l1') }}
+        {{ $t('app-rebuild.rebuild-note-l2') }}<br>
+        {{ $t('app-rebuild.rebuild-note-l3') }}
       </p>
       <Button :click="startBuild" :disabled="loading || !allowRebuild" :disallow="!allowRebuild">
-        <template v-slot:text>{{ loading ? 'Building...' : 'Start Build' }}</template>
+        <template v-slot:text>
+          {{ loading ? $t('app-rebuild.rebuilding-status-1') : $t('app-rebuild.rebuild-button') }}
+        </template>
         <template v-slot:icon><RebuildIcon /></template>
       </Button>
       <div v-if="!allowRebuild">
-        <p class="disallow-rebuild-msg">You do no have permission to trigger this action</p>
+        <p class="disallow-rebuild-msg">{{ $t('app-rebuild.error-permission') }}</p>
       </div>
       <!-- Loading animation and text (shown while build is happening) -->
       <div v-if="loading" class="loader-info">
         <LoadingAnimation class="loader" />
-        <p class="loading-message">This may take a few minutes...</p>
+        <p class="loading-message">{{ $t('app-rebuild.rebuilding-status-2') }}...</p>
       </div>
       <!-- Build response, and next actions (shown after build is done) -->
       <div class="rebuild-response" v-if="success !== undefined">
-        <p v-if="success" class="response-status success">✅ Build completed succesfully</p>
-        <p v-else class="response-status failure">❌ Build operation failed</p>
+        <p v-if="success" class="response-status success">
+          ✅ {{ $t('app-rebuild.success-msg') }}
+        </p>
+        <p v-else class="response-status failure">
+          ❌ {{ $t('app-rebuild.fail-msg') }}
+        </p>
         <pre class="output"><code>{{ output || error }}</code></pre>
         <p class="rebuild-message">{{ message }}</p>
         <p v-if="success" class="rebuild-message">
-          A page reload is now required for changes to take effect
+           {{ $t('app-rebuild.reload-note') }}
         </p>
         <Button :click="refreshPage" v-if="success">
-          <template v-slot:text>Reload Page</template>
+          <template v-slot:text>{{ $t('app-rebuild.reload-button') }}</template>
           <template v-slot:icon><ReloadIcon /></template>
         </Button>
       </div>
@@ -40,15 +46,22 @@
 
 <script>
 import axios from 'axios';
+import { Progress } from 'rsup-progress';
 import Button from '@/components/FormElements/Button';
-import { modalNames } from '@/utils/defaults';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
 import ReloadIcon from '@/assets/interface-icons/application-reload.svg';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
+import ErrorHandler from '@/utils/ErrorHandler';
+import { modalNames, serviceEndpoints } from '@/utils/defaults';
+import { isUserAdmin } from '@/utils/Auth';
 
 export default {
   name: 'RebuildApp',
-  inject: ['config'],
+  computed: {
+    appConfig() {
+      return this.$store.getters.appConfig;
+    },
+  },
   components: {
     Button,
     RebuildIcon,
@@ -63,20 +76,30 @@ export default {
     output: '',
     message: '',
     allowRebuild: true,
+    progress: new Progress({ color: 'var(--progress-bar)' }),
   }),
   methods: {
+    /* Calls to the rebuild endpoint, to kickoff the app build */
     startBuild() {
+      if (!this.allowRebuild) { // Double check user is allowed
+        ErrorHandler('Unable to trigger rebuild, insufficient permission');
+        return;
+      }
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      const endpoint = `${baseUrl}/config-manager/rebuild`;
+      const endpoint = `${baseUrl}${serviceEndpoints.rebuild}`;
       this.loading = true;
+      this.progress.start();
       axios.get(endpoint)
         .then((response) => {
           this.finished(response.data || false);
+          this.progress.end();
         })
         .catch((error) => {
           this.finished({ success: false, error });
+          this.progress.end();
         });
     },
+    /* Called when rebuild is complete, updates UI with either success or fail message */
     finished(responseData) {
       this.loading = false;
       if (responseData) {
@@ -89,7 +112,8 @@ export default {
         this.error = error;
       }
       this.$toasted.show(
-        (this.success ? '✅ Build Completed Succesfully' : '❌ Build Failed'),
+        (this.success
+          ? `✅ ${this.$t('app-rebuild.success-msg')}` : `❌ ${this.$t('app-rebuild.fail-msg')}`),
         { className: `toast-${this.success ? 'success' : 'error'}` },
       );
     },
@@ -98,12 +122,11 @@ export default {
     },
   },
   mounted() {
-    if (this.config) {
-      if (this.config.appConfig) {
-        if (this.config.appConfig.allowConfigEdit === false) {
-          this.allowRebuild = false;
-        }
-      }
+    // Disable rebuild functionality if user not allowed
+    if (this.appConfig.allowConfigEdit === false
+      || this.appConfig.preventWriteToDisk
+      || !isUserAdmin()) {
+      this.allowRebuild = false;
     }
   },
 };

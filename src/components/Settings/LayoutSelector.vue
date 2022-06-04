@@ -1,29 +1,37 @@
 <template>
   <div>
-    <span class="options-label">Layout</span>
+    <span class="options-label">{{ $t('settings.layout-label') }}</span>
     <div class="display-options">
-      <IconDeafault @click="updateDisplayLayout('auto')" v-tooltip="tooltip('Auto')"
-        :class="`layout-icon ${displayLayout === 'auto' ? 'selected' : ''}`" tabindex="-2" />
-      <IconHorizontal @click="updateDisplayLayout('horizontal')" v-tooltip="tooltip('Horizontal')"
-        :class="`layout-icon ${displayLayout === 'horizontal' ? 'selected' : ''}`" tabindex="-2" />
-      <IconVertical @click="updateDisplayLayout('vertical')" v-tooltip="tooltip('Vertical')"
-        :class="`layout-icon ${displayLayout === 'vertical' ? 'selected' : ''}`" tabindex="-2" />
+      <IconDeafault
+        @click="updateDisplayLayout('auto')"
+        v-tooltip="tooltip($t('settings.layout-auto'))"
+        :class="`layout-icon ${displayLayout === 'auto' ? 'selected' : ''}`"
+        tabindex="-2"
+      />
+      <IconHorizontal
+        @click="updateDisplayLayout('horizontal')"
+        v-tooltip="tooltip($t('settings.layout-horizontal'))"
+        :class="`layout-icon ${displayLayout === 'horizontal' ? 'selected' : ''}`"
+        tabindex="-2"
+      />
+      <IconVertical
+        @click="updateDisplayLayout('vertical')"
+        v-tooltip="tooltip($t('settings.layout-vertical'))"
+        :class="`layout-icon ${displayLayout === 'vertical' ? 'selected' : ''}`"
+        tabindex="-2"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import StoreKeys from '@/utils/StoreMutations';
 import IconDeafault from '@/assets/interface-icons/layout-default.svg';
 import IconHorizontal from '@/assets/interface-icons/layout-horizontal.svg';
 import IconVertical from '@/assets/interface-icons/layout-vertical.svg';
 
 export default {
   name: 'LayoutSelector',
-  data() {
-    return {
-      input: '',
-    };
-  },
   props: {
     displayLayout: String,
   },
@@ -34,7 +42,7 @@ export default {
   },
   methods: {
     updateDisplayLayout(layout) {
-      this.$emit('layoutUpdated', layout);
+      this.$store.commit(StoreKeys.SET_ITEM_LAYOUT, layout);
     },
     tooltip(content) {
       return { content, trigger: 'hover focus', delay: 250 };

@@ -1,6 +1,6 @@
 <template>
-  <div class="web-content">
-    <iframe :src="url" />
+  <div class="web-content" :id="id">
+    <iframe :src="url" allow="fullscreen" />
   </div>
 </template>
 
@@ -10,13 +10,15 @@ export default {
   name: 'WebContent',
   props: {
     url: String,
+    id: {
+      type: String,
+      default: 'web-app-view',
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/media-queries.scss';
-@import '@/styles/style-helpers.scss';
 
 iframe {
   position: absolute;
@@ -24,7 +26,11 @@ iframe {
   height: calc(100% - var(--header-height));
   width: calc(100% - var(--side-bar-width));
   border: none;
-  background: white;
+  background: var(--workspace-web-content-background);
+}
+
+.web-content.hide {
+  display: none;
 }
 
 </style>

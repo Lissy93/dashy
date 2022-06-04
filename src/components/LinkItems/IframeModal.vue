@@ -3,12 +3,14 @@
     classes="dashy-modal">
     <div slot="top-right" @click="hide()">Close</div>
     <a @click="hide()" class="close-button" title="Close">x</a>
-    <iframe v-if="url" :src="url" @keydown.esc="close" class="frame"/>
+    <iframe v-if="url" :src="url" @keydown.esc="close" class="frame" allow="fullscreen" />
     <div v-else class="no-url">No URL Specified</div>
   </modal>
 </template>
 
 <script>
+import Keys from '@/utils/StoreMutations';
+
 export default {
   name: 'IframeModal',
   props: {
@@ -21,13 +23,13 @@ export default {
     show(url) {
       this.url = url;
       this.$modal.show(this.name);
-      this.$emit('modalChanged', true);
+      this.$store.commit(Keys.SET_MODAL_OPEN, true);
     },
     hide() {
       this.$modal.hide(this.name);
     },
     modalClosed() {
-      this.$emit('modalChanged', false);
+      this.$store.commit(Keys.SET_MODAL_OPEN, false);
     },
   },
 };

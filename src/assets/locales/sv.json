@@ -1,0 +1,284 @@
+{
+  "home":{
+    "no-results":"Inga sökresultat",
+    "no-data":"Ingen data konfigurerad",
+    "no-items-section":"Inga objekt att visa än"
+  },
+  "search":{
+    "search-label":"Sök",
+    "search-placeholder":"Börja skriva för att filtrera",
+    "clear-search-tooltip":"Rensa sök",
+    "enter-to-search-web":"Tryck på Retur för att söka på webben"
+  },
+  "login":{
+    "title":"Dashy",
+    "username-label":"Användarnamn",
+    "password-label":"Lösenord",
+    "login-button":"Logga in",
+    "remember-me-label":"Kom ihåg mig",
+    "remember-me-never":"Aldrig",
+    "remember-me-hour":"4 Timmar",
+    "remember-me-day":"1 Dag",
+    "remember-me-week":"1 Vecka",
+    "remember-me-long-time":"Länge",
+    "error-missing-username":"Användarnamn saknas",
+    "error-missing-password":"Lösenord saknas",
+    "error-incorrect-username":"Användaren hittas inte",
+    "error-incorrect-password":"Fel lösenord",
+    "success-message":"Loggar in...",
+    "logout-message":"Utloggad",
+    "already-logged-in-title":"Redan inloggad",
+    "already-logged-in-text":"Du är inloggad som",
+    "proceed-to-dashboard":"Fortsätt till Dashboard",
+    "log-out-button":"Logga ut",
+    "proceed-guest-button":"Fortsätt som Gäst"
+  },
+  "config":{
+    "main-tab":"Huvudmeny",
+    "view-config-tab":"Visa konfiguration",
+    "edit-config-tab":"Redigera konfiguration",
+    "custom-css-tab":"Egna stilmallar",
+    "heading":"Konfigurationsalternativ",
+    "download-config-button":"Visa / Exportera konfiguration",
+    "edit-config-button":"Redigera konfiguration",
+    "edit-css-button":"Redigera Custom CSS",
+    "cloud-sync-button":"Aktivera molnsynk",
+    "edit-cloud-sync-button":"Redigera molnsynk",
+    "rebuild-app-button":"Återuppbygga appen",
+    "change-language-button":"Ändra appspråk",
+    "reset-settings-button":"Återställ lokala inställningar",
+    "app-info-button":"Appinfo",
+    "backup-note":"Det rekommenderas att du gör en säkerhetskopia av din konfiguration innan du gör ändringar.",
+    "reset-config-msg-l1":"Detta tar bort alla användarinställningar från lokal lagring, men påverkar inte din 'conf.yml'-fil",
+    "reset-config-msg-l2":"Du bör först göra en säkerhetskopia av alla ändringar du har gjort lokalt, om du vill använda dem i framtiden.",
+    "reset-config-msg-l3":"Är du säker på att du vill fortsätta?",
+    "data-cleared-msg":"Datarensning har lyckats",
+    "actions-label":"Åtgärder",
+    "copy-config-label":"Kopiera konfiguration",
+    "data-copied-msg":"Konfiguration har kopierats till urklipp",
+    "reset-config-label":"Återställ konfiguration",
+    "css-save-btn":"Spara ändringar",
+    "css-note-label":"Not",
+    "css-note-l1":"Du måste uppdatera sidan för att dina ändringar ska gälla.",
+    "css-note-l2":"Styles overrides lagras bara lokalt, så det rekommenderas att du gör en kopia av din CSS.",
+    "css-note-l3":"För att ta bort alla egna stilmallar, radera innehållet och tryck på Spara ändringar"
+  },
+  "alternate-views":{
+    "alternate-view-heading":"Ändra vy",
+    "default":"Standard",
+    "workspace":"Workspace",
+    "minimal":"Minimal"
+  },
+  "settings":{
+    "theme-label":"Tema",
+    "layout-label":"Layout",
+    "layout-auto":"Auto",
+    "layout-horizontal":"Vågrät",
+    "layout-vertical":"Lodrät",
+    "item-size-label":"Storlek",
+    "item-size-small":"Liten",
+    "item-size-medium":"Mellan",
+    "item-size-large":"Stor",
+    "config-launcher-label":"Konfig",
+    "config-launcher-tooltip":"Uppdatera konfiguration",
+    "sign-out-tooltip":"Logga ut",
+    "sign-in-tooltip":"Logga in",
+    "sign-in-welcome":"Hej {username}!"
+  },
+  "updates":{
+    "app-version-note":"Dashy-version",
+    "up-to-date":"Uppdaterat",
+    "out-of-date":"Uppdatering finns",
+    "unsupported-version-l1":"Du använder en icke-stödd version av Dashy",
+    "unsupported-version-l2":"För den bästa upplevelsen och de senaste säkerhetskorrigeringarna, uppdatera till"
+  },
+  "language-switcher":{
+    "title":"Ändra appspråk",
+    "dropdown-label":"Välj språk",
+    "save-button":"Spara",
+    "success-msg":"Språket har ändrats till"
+  },
+  "theme-maker":{
+    "title":"Temakonfigurator",
+    "export-button":"Exportera egendefinierade variabler",
+    "reset-button":"Återställ stilmallar för",
+    "show-all-button":"Vissa alla variabler",
+    "change-fonts-button":"Ändra typsnitt",
+    "save-button":"Spara",
+    "cancel-button":"Avbryt",
+    "saved-toast":"{theme} har uppdaterats",
+    "copied-toast":"Temadatan för {theme} har kopierats till urklipp",
+    "reset-toast":"Egna färger för {theme} har tagits bort"
+  },
+  "config-editor":{
+    "save-location-label":"Sparningsplats",
+    "location-local-label":"Tillämpa lokalt",
+    "location-disk-label":"Skriv ändringar till konfigurationsfil",
+    "save-button":"Spara ändringar",
+    "preview-button":"Förhandsgranska ändringar",
+    "valid-label":"Konfigurationen är giltig",
+    "status-success-msg":"Åtgärden slutförts",
+    "status-fail-msg":"Åtgärden misslyckats",
+    "success-msg-disk":"Konfigurationsfil har skrivits till disk utan problem",
+    "success-msg-local":"Lokala ändringar har sparats utan problem",
+    "success-note-l1":"Återskapa",
+    "success-note-l2":"Detta kan ta upp till en minut.",
+    "success-note-l3":"Du måste uppdatera sidan för att ändringar ska gälla",
+    "error-msg-save-mode":"Välj Lagringsläge: Lokalt eller Fil",
+    "error-msg-cannot-save":"Ett fel uppstod när konfigurationen skulle sparas",
+    "error-msg-bad-json":"Fel i JSON, möjligen felformaterat",
+    "warning-msg-validation":"Valideringsvarning",
+    "not-admin-note":"Du kan inte skriva ändringar till disk, eftersom du inte är inloggad som admin"
+  },
+  "app-rebuild":{
+    "title":"Återskapa appen",
+    "rebuild-note-l1":"Appen måste återskapas för att ändringar som skrivits till filen conf.yml ska gälla.",
+    "rebuild-note-l2":"Detta bör ske automatiskt, men om det inte har gjort det kan du aktivera det manuellt här.",
+    "rebuild-note-l3":"Detta krävs inte för ändringar som lagras lokalt.",
+    "rebuild-button":"Återskapa",
+    "rebuilding-status-1":"Återskapar...",
+    "rebuilding-status-2":"Detta kan ta några minuter",
+    "error-permission":"Du har inte behörighet att utföra denna åtgärd",
+    "success-msg":"Återskapning lyckats",
+    "fail-msg":"Återskapning misslyckats",
+    "reload-note":"En omladdning av sidan krävs nu för att ändringarna ska gälla",
+    "reload-button":"Ladda om sidan"
+  },
+  "cloud-sync":{
+    "title":"Molnsäkerhetskopiering och återställning",
+    "intro-l1":"Molnsäkerhetskopiering och återställning är en valfri funktion som gör att du kan ladda upp din konfiguration till internet och sedan återställa den på någon annan enhet eller instans av Dashy.",
+    "intro-l2":"All data är fullständigt end-to-end krypterad med AES, med ditt lösenord som nyckel.",
+    "intro-l3":"För mer information, vänligen se",
+    "backup-title-setup":"Gör en säkerhetskopia",
+    "backup-title-update":"Uppdatera säkerhetskopia",
+    "password-label-setup":"Välj lösenord",
+    "password-label-update":"Ange ditt lösenord",
+    "backup-button-setup":"Säkerhetskopiering",
+    "backup-button-update":"Uppdatera säkerhetskopia",
+    "backup-id-label":"Ditt säkerhetskopierings-ID",
+    "backup-id-note":"Detta används för att återställa från säkerhetskopior senare. Så förvara det tillsammans med ditt lösenord någonstans säkert.",
+    "restore-title":"Återställ en säkerhetskopia",
+    "restore-id-label":"Återställ ID",
+    "restore-password-label":"Lösenord",
+    "restore-button":"Återställ",
+    "backup-missing-password":"Lösenord saknas",
+    "backup-error-unknown":"Begäran kan inte behandlas",
+    "backup-error-password":"Fel lösenord. Vänligen ange ditt aktuella lösenord.",
+    "backup-success-msg":"Slutfört utan problem",
+    "restore-success-msg":"Konfigurationen har återställts utan problem"
+  },
+  "menu":{
+    "open-section-title":"Öppna i",
+    "sametab":"Denna flik",
+    "newtab":"Ny flik",
+    "modal":"Pop-Up Modal",
+    "workspace":"Workspace-vy",
+    "options-section-title":"Alternativ",
+    "edit-item":"Redigera",
+    "move-item":"Kopiera eller flytta",
+    "remove-item":"Ta bort"
+  },
+  "context-menus":{
+    "item":{
+      "open-section-title":"Öppna i",
+      "sametab":"Denna flik",
+      "newtab":"Ny flik",
+      "modal":"Pop-Up Modal",
+      "workspace":"Workspace View",
+      "options-section-title":"Alternativ",
+      "edit-item":"Redigera",
+      "move-item":"Kopiera eller flytta",
+      "remove-item":"Ta bort"
+    },
+    "section":{
+      "open-section":"Öppna sektion",
+      "edit-section":"Redigera",
+      "move-section":"Flytta till",
+      "remove-section":"Ta bort"
+    }
+  },
+  "interactive-editor":{
+    "menu":{
+      "start-editing-tooltip":"Öppna den interaktiva redigeraren",
+      "edit-site-data-subheading":"Redigera webbplatsinformation",
+      "edit-page-info-btn":"Redigera sidinformation",
+      "edit-page-info-tooltip":"Appnamn, beskrivning, navigeringslänkar, sidfotstext, etc",
+      "edit-app-config-btn":"Redigera appkonfiguration",
+      "edit-app-config-tooltip":"Övriga appkonfigurationsalternativ",
+      "config-save-methods-subheading":"Alternativ för konfigurationssparande",
+      "save-locally-btn":"Spara lokalt",
+      "save-locally-tooltip":"Spara konfigurationen lokalt, till webbläsarens lagring. Detta påverkar inte din konfigurationsfil, men ändringarna sparas bara på denna enhet",
+      "save-disk-btn":"Spara till disk",
+      "save-disk-tooltip":"Spara konfiguration to conf.yml-filen på disk. Detta kommer att säkerhetskopiera och sedan skriva över din befintliga konfiguration",
+      "export-config-btn":"Exportera konfiguration",
+      "export-config-tooltip":"Visa och exportera den nya konfigurationen, antingen till fil eller urklipp",
+      "cloud-backup-btn":"Säkerhetskopiera till molnet",
+      "cloud-backup-tooltip":"Spara krypterad säkerhetskopia av konfigurationen i molnet",
+      "edit-raw-config-btn":"Redigera raw-konfiguration",
+      "edit-raw-config-tooltip":"Visa och redigera raw-konfiguration via JSON-redigeraren",
+      "cancel-changes-btn":"Avbryt redigering",
+      "cancel-changes-tooltip":"Radera nuvarande ändringar och lämna Redigeringsläge. Detta kommer in påverka din sparade konfiguration.",
+      "edit-mode-name":"Redigeringsläge",
+      "edit-mode-subtitle":"Du är i Redigeringsläge",
+      "edit-mode-description":"Detta innebär att du kan göra ändringar i din konfiguration och förhandsgranska resultaten, men tills du sparar kommer inga av dina ändringar att bevaras.",
+      "save-stage-btn":"Spara",
+      "cancel-stage-btn":"Avbryt"
+    },
+    "edit-item":{
+      "missing-title-err":"Objektet måste ha en titel"
+    },
+    "edit-section":{
+      "edit-section-title":"Redigera sektion",
+      "add-section-title":"Lägg till ny sektion",
+      "edit-tooltip":"Tryck för att redigera, eller högerklicka för fler alternativ",
+      "remove-confirm":"Är du säker på att du vill ta bort denna sektion? Denna åtgärd kan ångras senare."
+    },
+    "edit-app-config":{
+      "warning-msg-title":"Fortsätt med försiktighet",
+      "warning-msg-l1":"Följande alternativ är för avancerade appkonfigurationer.",
+      "warning-msg-l2":"Om du är osäker på något av fälten, vänligen kolla",
+      "warning-msg-docs":"dokumentationen",
+      "warning-msg-l3":"för att undvika oavsiktliga konsekvenser."
+    },
+    "export":{
+      "export-title":"Exportera konfiguration",
+      "copy-clipboard-btn":"Kopiera till urklipp",
+      "copy-clipboard-tooltip":"Kopiera alla appkonfigurationer till systemets urklipp i YAML-format",
+      "download-file-btn":"Ladda ned som fil",
+      "download-file-tooltip":"Ladda ner alla appkonfigurationer till din enhet som en YAML-fil",
+      "view-title":"Visa konfiguration"
+    }
+  },
+  "widgets":{
+    "general":{
+      "loading":"Laddar...",
+      "show-more":"Visa mer info",
+      "show-less":"Visa mindre",
+      "open-link":"Läs mer"
+    },
+    "pi-hole":{
+      "status-heading":"Status"
+    },
+    "stat-ping":{
+      "up":"Online",
+      "down":"Offline"
+    },
+    "net-data":{
+      "cpu-chart-title":"CPU History",
+      "mem-chart-title":"Memory Usage",
+      "mem-breakdown-title":"Memory Breakdown",
+      "load-chart-title":"System Load"
+    },
+    "system-info":{
+      "uptime":"Uptime"
+    },
+    "flight-data":{
+      "arrivals":"Ankomster",
+      "departures":"Avgångar"
+    },
+    "tfl-status":{
+      "good-service-all":"Good Service på alla linjer",
+      "good-service-rest":"Good Service på alla övriga linjer"
+    }
+  }
+}
