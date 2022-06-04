@@ -17,6 +17,7 @@ import ru from '@/assets/locales/ru.json';
 import nb from '@/assets/locales/nb.json';
 import pirate from '@/assets/locales/zz-pirate.json';
 import sv from '@/assets/locales/sv.json';
+import bg from '@/assets/locales/bg.json';
 
 // Language data - Next register your language by adding it to this list
 export const languages = [
@@ -127,6 +128,12 @@ export const languages = [
     code: 'sv',
     locale: sv,
     flag: '🇸🇪',
+  },
+  { // Bulgarian
+    name: 'Български',
+    code: 'bg',
+    locale: bg,
+    flag: '🇧🇬',
   },
 ];
 
