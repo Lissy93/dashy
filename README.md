@@ -557,7 +557,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td>
     <td align="center">
         <a href="https://github.com/kitl000">
-            <img src="https://avatars.githubusercontent.com/u/19974513?v=4" width="80;" alt="kitl000"/>
+            <img src="https://avatars.githubusercontent.com/u/19974513?u=6b426af87e6a57781e9b819a37393543db6d68ec&v=4" width="80;" alt="kitl000"/>
             <br />
             <sub><b>Kit L.</b></sub>
         </a>
@@ -606,6 +606,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td></tr>
 <tr>
+    <td align="center">
+        <a href="https://github.com/ced4568">
+            <img src="https://avatars.githubusercontent.com/u/60725859?v=4" width="80;" alt="ced4568"/>
+            <br />
+            <sub><b>Kyforker148</b></sub>
+        </a>
+    </td>
     <td align="center">
         <a href="https://github.com/ratty222">
             <img src="https://avatars.githubusercontent.com/u/92832598?u=137b65530cbd5f5af9c24cde51baa6cc77cc934b&v=4" width="80;" alt="ratty222"/>
