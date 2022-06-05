@@ -1,7 +1,8 @@
 {
   "home": {
     "no-results": "找不到结果",
-    "no-data": "没有配置数据"
+    "no-data": "没有配置数据",
+    "no-items-section": "没有内容"
   },
   "search": {
     "search-label": "搜索",
@@ -19,10 +20,11 @@
     "remember-me-hour": "4 小时",
     "remember-me-day": "1 天",
     "remember-me-week": "1 周",
+    "remember-me-long-time": "长期",
     "error-missing-username": "用户名空缺",
     "error-missing-password": "密码空缺",
-    "error-incorrect-username": "用户名不存在",
-    "error-incorrect-password": "密码不存在",
+    "error-incorrect-username": "用户不存在",
+    "error-incorrect-password": "密码不正确",
     "success-message": "登陆成功。。。",
     "logout-message": "注销",
     "already-logged-in-title": "已经成功登陆",
@@ -46,9 +48,9 @@
     "change-language-button": "更改语言",
     "reset-settings-button": "恢复本地设置",
     "app-info-button": "应用详情",
-    "backup-note": "建议在进行更改之前备份您的配置。",
+    "backup-note": "建议在进行更改之前备份你的配置。",
     "reset-config-msg-l1": "这将从本地存储中删除所有用户设置，但不会影响‘conf.yml’文件。",
-    "reset-config-msg-l2": "如果想在以后使用它们，应该首先备份您所做的任何更改。",
+    "reset-config-msg-l2": "如果想在以后使用它们，应该首先备份你所做的任何更改。",
     "reset-config-msg-l3": "确定执行吗？",
     "data-cleared-msg": "成功清空数据",
     "actions-label": "行为",
@@ -57,11 +59,12 @@
     "reset-config-label": "重置设置",
     "css-save-btn": "保存更改",
     "css-note-label": "注意",
-    "css-note-l1": "您需要刷新页面才能使更改生效。",
-    "css-note-l2": "样式覆盖仅存储在本地，因此建议复制您的 CSS。",
+    "css-note-l1": "你需要刷新页面才能使更改生效。",
+    "css-note-l2": "样式覆盖仅存储在本地，因此建议复制你的 CSS。",
     "css-note-l3": "要删除所有自定义样式，请删除内容并点击保存更改"
   },
   "alternate-views": {
+    "alternate-view-heading": "切换视图",
     "default": "默认",
     "workspace": "工作空间",
     "minimal": "最小化"
@@ -80,13 +83,13 @@
     "config-launcher-tooltip": "更新设置",
     "sign-out-tooltip": "注销",
     "sign-in-tooltip": "登陆",
-    "sign-in-welcome": "您好 {username}！"
+    "sign-in-welcome": "你好 {username}！"
   },
   "updates": {
     "app-version-note": "Dashy 版本",
     "up-to-date": "已经是最新版了",
     "out-of-date": "存在可用更新",
-    "unsupported-version-l1": "您使用的是不受支持的 Dashy 版本",
+    "unsupported-version-l1": "你使用的是不受支持的 Dashy 版本",
     "unsupported-version-l2": "为获得最佳体验和最近的安全补丁，请更新至"
   },
   "language-switcher": {
@@ -100,6 +103,7 @@
     "export-button": "导出自定义变量",
     "reset-button": "重置样式",
     "show-all-button": "显示所有变量",
+    "change-fonts-button": "更改字体",
     "save-button": "保存",
     "cancel-button": "取消",
     "saved-toast": "{theme} 更新成功",
@@ -108,9 +112,10 @@
   },
   "config-editor": {
     "save-location-label": "保存位置",
-    "location-local-label": "本地保存",
+    "location-local-label": "应用到本地",
     "location-disk-label": "将保存写入文件",
     "save-button": "保存变更",
+    "preview-button": "预览更改",
     "valid-label": "设置有效",
     "status-success-msg": "任务完成",
     "status-fail-msg": "任务失败",
@@ -123,17 +128,17 @@
     "error-msg-cannot-save": "保存配置时出错",
     "error-msg-bad-json": "JSON 错误，可能格式错误",
     "warning-msg-validation": "验证警告",
-    "not-admin-note": "您不能将更改写入磁盘，因为您没有以管理员身份登录"
+    "not-admin-note": "你不能将更改写入磁盘，因为你没有以管理员身份登录"
   },
   "app-rebuild": {
     "title": "重建应用",
     "rebuild-note-l1": "写入 conf.yml 文件的更改需要重建应用才能生效。",
-    "rebuild-note-l2": "这应该是自动运行的，但如果没有生效，您可以在此处手动执行。",
+    "rebuild-note-l2": "这应该是自动运行的，但如果没有生效，你可以在此处手动执行。",
     "rebuild-note-l3": "这对于本地存储的修改不是必需的。",
     "rebuild-button": "开始重建",
     "rebuilding-status-1": "重建中...",
     "rebuilding-status-2": "这将持续一段时间",
-    "error-permission": "您没有权限执行此操作",
+    "error-permission": "你没有权限执行此操作",
     "success-msg": "重建成功",
     "fail-msg": "重建失败",
     "reload-note": "你需要刷新页面以使变更生效",
@@ -141,8 +146,8 @@
   },
   "cloud-sync": {
     "title": "云备份 & 云恢复",
-    "intro-l1": "云备份和云恢复是一项试验性功能，您将配置上传到网络，然后在其他设备或 Dashy 实例上恢复。",
-    "intro-l2": "所有数据都使用 AES 端到端加密，使用您的密码作为密钥。",
+    "intro-l1": "云备份和云恢复是一项试验性功能，你将配置上传到网络，然后在其他设备或 Dashy 实例上恢复。",
+    "intro-l2": "所有数据都使用 AES 端到端加密，使用你的密码作为密钥。",
     "intro-l3": "有关更多信息，请参阅",
     "backup-title-setup": "创建备份",
     "backup-title-update": "更新备份",
@@ -163,9 +168,141 @@
     "restore-success-msg": "恢复完成"
   },
   "menu": {
+    "open-section-title": "打开方式",
     "sametab": "在当前页打开",
     "newtab": "在新标签页打开",
     "modal": "在弹出窗口打开",
-    "workspace": "在工作空间打开"
+    "workspace": "在工作空间打开",
+    "options-section-title": "选项",
+    "edit-item": "编辑",
+    "move-item": "复制或移动",
+    "remove-item": "删除"
+  },
+  "context-menus": {
+    "item": {
+      "open-section-title": "打开方式",
+      "sametab": "在当前页打开",
+      "newtab": "在新标签页打开",
+      "modal": "在弹出窗口打开",
+      "workspace": "在工作空间打开",
+      "clipboard": "复制到剪切板",
+      "options-section-title": "选项",
+      "edit-item": "编辑",
+      "move-item": "复制或移动",
+      "remove-item": "删除",
+      "copied-toast": "链接已复制到剪贴板"
+    },
+    "section": {
+      "open-section": "打开 Section",
+      "edit-section": "编辑",
+      "expand-collapse": "展开 / 折叠",
+      "move-section": "移动到",
+      "remove-section": "删除"
+    }
+},
+  "interactive-editor": {
+    "menu": {
+      "start-editing-tooltip": "进入交互编辑器",
+      "edit-site-data-subheading": "修改网站数据",
+      "edit-page-info-btn": "修改页面信息",
+      "edit-page-info-tooltip": "应用标题、描述、导航链接、页尾文本等等。",
+      "edit-app-config-btn": "修改应用设置",
+      "edit-app-config-tooltip": "所有应用程序的其他设置选项",
+      "edit-pages-btn": "修改页面",
+      "edit-pages-tooltip": "添加或删除其他的视图",
+      "config-save-methods-subheading": "配置保存选项",
+      "save-locally-btn": "保存到本地",
+      "save-locally-tooltip": "将配置保存到本地浏览器。 这不会影响你的配置文件，但更改只会保存在当前设备上",
+      "save-disk-btn": "保存到硬盘",
+      "save-disk-tooltip": "保存配置到本地 conf.yml 文件. 它会备份 并覆盖已存在的文件",
+      "export-config-btn": "导出配置",
+      "export-config-tooltip": "查看并导出新的配置 到 文件 或 剪贴板",
+      "cloud-backup-btn": "备份到云端",
+      "cloud-backup-tooltip": "以加密的方式保存到云端",
+      "edit-raw-config-btn": "编辑原始配置",
+      "edit-raw-config-tooltip": "通过 JSON 编辑器查看和修改原始配置",
+      "cancel-changes-btn": "放弃修改",
+      "cancel-changes-tooltip": "放弃当前修改，并退出编辑模式。这不会影响你已保存的配置。",
+      "edit-mode-name": "编辑模式",
+      "edit-mode-subtitle": "你已进入编辑模式",
+      "edit-mode-description": "你可以对配置进行修改并预览，在保存之前，你的任何更改都不会被保留。",
+      "save-stage-btn": "保存",
+      "cancel-stage-btn": "取消",
+      "save-locally-warning": "如果你继续，更改将仅保存在你的浏览器中。 你应该导出配置的副本以在其他机器上使用。 你想继续吗？"
+    },
+    "edit-item": {
+      "missing-title-err": "项目标题是必需的"
+    },
+    "edit-section": {
+      "edit-section-title": "编辑 Section",
+      "add-section-title": "添加新的 Section",
+      "edit-tooltip": "单击以修改，或右键点击以获取更多选项",
+      "remove-confirm": "确定要删除此部分吗？ 此操作可以稍后撤消。"
+    },
+    "edit-app-config": {
+      "warning-msg-title": "谨慎处理",
+      "warning-msg-l1": "以下选项用于高级应用配置。",
+      "warning-msg-l2": "如果你对任何字段不确定，请参考",
+      "warning-msg-docs": "文档",
+      "warning-msg-l3": "以避免意外的结果。"
+    },
+    "export": {
+      "export-title": "导出配置",
+      "copy-clipboard-btn": "复制到剪切板",
+      "copy-clipboard-tooltip": "以YAML格式，将所有配置复制到剪切板 ",
+      "download-file-btn": "下载配置文件",
+      "download-file-tooltip": "以YAML文件格式，保存所有配置到本地",
+      "view-title": "查看配置"
+    }
+  },
+  "widgets": {
+    "general": {
+      "loading": "加载。。。",
+      "show-more": "展开详情",
+      "show-less": "显示更少信息",
+      "open-link": "继续读取"
+    },
+    "pi-hole": {
+      "status-heading": "状态"
+    },
+    "stat-ping": {
+      "up": "在线",
+      "down": "离线"
+    },
+    "net-data": {
+      "cpu-chart-title": "CPU使用记录",
+      "mem-chart-title": "内存使用",
+      "mem-breakdown-title": "内存崩溃",
+      "load-chart-title": "系统负载"
+    },
+    "glances": {
+      "disk-space-free": "可用",
+      "disk-space-used": "已用",
+      "disk-mount-point": "挂载点",
+      "disk-file-system": "文件系统",
+      "disk-io-read": "读取",
+      "disk-io-write": "写入",
+      "system-load-desc": "队列中等待的进程数 及所有内核的平均值"
+    },
+    "system-info": {
+      "uptime": "运行时间"
+    },
+    "flight-data": {
+      "arrivals": "抵达",
+      "departures": "起飞"
+    },
+    "tfl-status": {
+      "good-service-all": "所有线路正常",
+      "good-service-rest": "所有其他线路正常"
+    },
+    "synology-download": {
+      "download": "下载",
+      "upload": "上传",
+      "downloaded": "已下载",
+      "uploaded": "已上传",
+      "remaining": "剩余",
+      "up": "上行",
+      "down": "下行"
+    }
   }
 }
