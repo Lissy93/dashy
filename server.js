@@ -27,6 +27,12 @@ const rebuild = require('./services/rebuild-app'); // A script to programmatical
 const systemInfo = require('./services/system-info'); // Basic system info, for resource widget
 const sslServer = require('./services/ssl-server'); // TLS-enabled web server
 const corsProxy = require('./services/cors-proxy'); // Enables API requests to CORS-blocked services
+const statusCheck = require('./services/status-check'); // Used by the status check feature, uses GET
+const saveConfig = require('./services/save-config'); // Saves users new conf.yml to file-system
+const rebuild = require('./services/rebuild-app'); // A script to programmatically trigger a build
+const systemInfo = require('./services/system-info'); // Basic system info, for resource widget
+const sslServer = require('./services/ssl-server'); // TLS-enabled web server
+const corsProxy = require('./services/cors-proxy'); // Enables API requests to CORS-blocked services
 
 /* Helper functions, and default config */
 const printMessage = require('./services/print-message'); // Function to print welcome msg on start
