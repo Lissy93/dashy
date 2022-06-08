@@ -15,9 +15,13 @@
       <span v-else class="status-offline">
         {{ $t('widgets.stat-ping.down') }}
       </span>
+      <Button v-on:click="service.infoHidden = !service.infoHidden"
+              class="far fa-info"></Button>
+      <Button v-on:click="service.chartHidden = !service.chartHidden"
+              class="far fa-chart-line"></button>
     </p>
     <!-- Charts -->
-    <div class="charts">
+    <div v-if="!service.chartHidden" class="charts">
       <img
         class="uptime-pie-chart" alt="24 Hour Uptime Chart"
         :src="makeChartUrl(service.uptime24, '24 Hours')" />
@@ -25,7 +29,7 @@
         :src="makeChartUrl(service.uptime7, '7 Days')" />
     </div>
     <!-- Info -->
-    <div class="info">
+    <div v-if="!service.infoHidden" class="info">
       <div class="info-row">
         <span class="lbl">Failed Pings</span>
         <span class="val">{{ service.totalFailure }}/{{ service.totalSuccess }}</span>
@@ -73,6 +77,15 @@ export default {
     endpoint() {
       return `${this.hostname}/api/services`;
     },
+    groupId() {
+      return this.options.groupId || 0;
+    },
+    showChart() {
+      return typeof this.options.showChart !== 'boolean' ? true : this.options.showChart;
+    },
+    showInfo() {
+      return typeof this.options.showInfo !== 'boolean' ? true : this.options.showInfo;
+    },
   },
   methods: {
     fetchData() {
@@ -99,6 +112,7 @@ export default {
     processData(data) {
       let services = [];
       data.forEach((service) => {
+        if (this.groupId && this.groupId !== service.group_id) return;
         services.push({
           name: service.name,
           online: service.online,
@@ -109,6 +123,8 @@ export default {
           totalFailure: showNumAsThousand(service.stats.failures),
           lastSuccess: getTimeAgo(service.last_success),
           lastFailure: getTimeAgo(service.last_error),
+          chartHidden: this.showChart ? 0 : 1,
+          infoHidden: this.showInfo ? 0 : 1,
         });
       });
       if (this.limit) services = services.slice(0, this.limit);
@@ -134,6 +150,18 @@ export default {
         &.status-online { color: var(--success); }
         &.status-offline { color: var(--danger); }
       }
+    }
+    button {
+      float: right;
+      color: var(--widget-text-color);
+      top: 4px;
+      background: none;
+      border: none;
+      position: relative;
+      opacity: .4;
+    }
+    button:hover {
+      opacity: .75;
     }
     .charts {
       display: flex;
