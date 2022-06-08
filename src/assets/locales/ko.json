@@ -1,0 +1,308 @@
+{
+  "home": {
+    "no-results": "No Search Results",
+    "no-data": "No Data Configured",
+    "no-items-section": "No Items to Show Yet"
+  },
+  "search": {
+    "search-label": "Search",
+    "search-placeholder": "Start typing to filter",
+    "clear-search-tooltip": "Clear Search",
+    "enter-to-search-web": "Press enter to search the web"
+  },
+  "login": {
+    "title": "Dashy",
+    "username-label": "Username",
+    "password-label": "Password",
+    "login-button": "Login",
+    "remember-me-label": "Remember me for",
+    "remember-me-never": "Never",
+    "remember-me-hour": "4 Hours",
+    "remember-me-day": "1 Day",
+    "remember-me-week": "1 Week",
+    "remember-me-long-time": "A long time",
+    "error-missing-username": "Missing Username",
+    "error-missing-password": "Missing Password",
+    "error-incorrect-username": "User not found",
+    "error-incorrect-password": "Incorrect Password",
+    "success-message": "Logging in...",
+    "logout-message": "Logged Out",
+    "already-logged-in-title": "Already Logged In",
+    "already-logged-in-text": "You're logged in as",
+    "proceed-to-dashboard": "Proceed to Dashboard",
+    "log-out-button": "Logout",
+    "proceed-guest-button": "Proceed as Guest"
+  },
+  "config": {
+    "main-tab": "Main Menu",
+    "view-config-tab": "View Config",
+    "edit-config-tab": "Edit Config",
+    "custom-css-tab": "Custom Styles",
+    "heading": "Configuration Options",
+    "download-config-button": "View / Export Config",
+    "edit-config-button": "Edit Config",
+    "edit-css-button": "Edit Custom CSS",
+    "cloud-sync-button": "Enable Cloud Sync",
+    "edit-cloud-sync-button": "Edit Cloud Sync",
+    "rebuild-app-button": "Rebuild Application",
+    "change-language-button": "Change App Language",
+    "reset-settings-button": "Reset Local Settings",
+    "app-info-button": "App Info",
+    "backup-note": "It is recommended to make a backup of your configuration before making changes.",
+    "reset-config-msg-l1": "This will remove all user settings from local storage, but won't effect your 'conf.yml' file.",
+    "reset-config-msg-l2": "You should first backup any changes you've made locally, if you want to use them in the future.",
+    "reset-config-msg-l3": "Are you sure you want to proceed?",
+    "data-cleared-msg": "Data cleared successfully",
+    "actions-label": "Actions",
+    "copy-config-label": "Copy Config",
+    "data-copied-msg": "Config has been copied to clipboard",
+    "reset-config-label": "Reset Config",
+    "css-save-btn": "Save Changes",
+    "css-note-label": "Note",
+    "css-note-l1": "You will need to refresh the page for your changes to take effect.",
+    "css-note-l2": "Styles overrides are only stored locally, so it is recommended to make a copy of your CSS.",
+    "css-note-l3": "To remove all custom styles, delete the contents and hit Save Changes"
+  },
+  "alternate-views": {
+    "alternate-view-heading": "Switch View",
+    "default": "Default",
+    "workspace": "Workspace",
+    "minimal": "Minimal"
+  },
+  "settings": {
+    "theme-label": "Theme",
+    "layout-label": "Layout",
+    "layout-auto": "Auto",
+    "layout-horizontal": "Horizontal",
+    "layout-vertical": "Vertical",
+    "item-size-label": "Item Size",
+    "item-size-small": "Small",
+    "item-size-medium": "Medium",
+    "item-size-large": "Large",
+    "config-launcher-label": "Config",
+    "config-launcher-tooltip": "Update Configuration",
+    "sign-out-tooltip": "Sign Out",
+    "sign-in-tooltip": "Log In",
+    "sign-in-welcome": "Hello {username}!"
+  },
+  "updates": {
+    "app-version-note": "Dashy version",
+    "up-to-date": "Up-to-Date",
+    "out-of-date": "Update Available",
+    "unsupported-version-l1": "You are using an unsupported version of Dashy",
+    "unsupported-version-l2": "For the best experience, and recent security patches, please update to"
+  },
+  "language-switcher": {
+    "title": "Change Application Language",
+    "dropdown-label": "Select a Language",
+    "save-button": "Save",
+    "success-msg": "Language Updated to"
+  },
+  "theme-maker": {
+    "title": "Theme Configurator",
+    "export-button": "Export Custom Variables",
+    "reset-button": "Reset Styles for",
+    "show-all-button": "Show All Variables",
+    "change-fonts-button": "Change Fonts",
+    "save-button": "Save",
+    "cancel-button": "Cancel",
+    "saved-toast": "{theme} Updated Successfully",
+    "copied-toast": "Theme data for {theme} copied to clipboard",
+    "reset-toast": "Custom Colors for {theme} Removed"
+  },
+  "config-editor": {
+    "save-location-label": "Save Location",
+    "location-local-label": "Apply Locally",
+    "location-disk-label": "Write Changes to Config File",
+    "save-button": "Save Changes",
+    "preview-button": "Preview Changes",
+    "valid-label": "Config is Valid",
+    "status-success-msg": "Task Complete",
+    "status-fail-msg": "Task Failed",
+    "success-msg-disk": "Config file written to disk successfully",
+    "success-msg-local": "Local changes saved successfully",
+    "success-note-l1": "The app should rebuild automatically.",
+    "success-note-l2": "This may take up to a minute.",
+    "success-note-l3": "You will need to refresh the page for changes to take effect.",
+    "error-msg-save-mode": "Please select a Save Mode: Local or File",
+    "error-msg-cannot-save": "An error occurred saving config",
+    "error-msg-bad-json": "Error in JSON, possibly malformed",
+    "warning-msg-validation": "Validation Warning",
+    "not-admin-note": "You cannot write changed to disk, because you are not logged in as an admin"
+  },
+  "app-rebuild": {
+    "title": "Rebuild Application",
+    "rebuild-note-l1": "A rebuild is required for changes written to the conf.yml file to take effect.",
+    "rebuild-note-l2": "This should happen automatically, but if it hasn't, you can manually trigger it here.",
+    "rebuild-note-l3": "This is not required for modifications stored locally.",
+    "rebuild-button": "Start Build",
+    "rebuilding-status-1": "Building...",
+    "rebuilding-status-2": "This may take a few minutes",
+    "error-permission": "You don't have permission to trigger this action",
+    "success-msg": "Build completed successfully",
+    "fail-msg": "Build operation failed",
+    "reload-note": "A page reload is now required for changes to take effect",
+    "reload-button": "Reload Page"
+  },
+  "cloud-sync": {
+    "title": "Cloud Backup & Restore",
+    "intro-l1": "Cloud backup and restore is an optional feature, that enables you to upload your config to the internet, and then restore it on any other device or instance of Dashy.",
+    "intro-l2": "All data is fully end-to-end encrypted with AES, using your password as the key.",
+    "intro-l3": "For more info, please see the",
+    "backup-title-setup": "Make a Backup",
+    "backup-title-update": "Update Backup",
+    "password-label-setup": "Choose a Password",
+    "password-label-update": "Enter your Password",
+    "backup-button-setup": "Backup",
+    "backup-button-update": "Update Backup",
+    "backup-id-label": "Your Backup ID",
+    "backup-id-note": "This is used to restore from backups later. So keep it, along with your password somewhere safe.",
+    "restore-title": "Restore a Backup",
+    "restore-id-label": "Restore ID",
+    "restore-password-label": "Password",
+    "restore-button": "Restore",
+    "backup-missing-password": "Missing Password",
+    "backup-error-unknown": "Unable to process request",
+    "backup-error-password": "Incorrect password. Please enter your current password.",
+    "backup-success-msg": "Completed Successfully",
+    "restore-success-msg": "Config Restored Successfully"
+  },
+  "menu": {
+    "open-section-title": "Open In",
+    "sametab": "Current Tab",
+    "newtab": "New Tab",
+    "modal": "Pop-Up Modal",
+    "workspace": "Workspace View",
+    "options-section-title": "Options",
+    "edit-item": "Edit",
+    "move-item": "Copy or Move",
+    "remove-item": "Remove"
+  },
+  "context-menus": {
+    "item": {
+      "open-section-title": "Open In",
+      "sametab": "Current Tab",
+      "newtab": "New Tab",
+      "modal": "Pop-Up Modal",
+      "workspace": "Workspace View",
+      "clipboard": "Copy to Clipboard",
+      "options-section-title": "Options",
+      "edit-item": "Edit",
+      "move-item": "Copy or Move",
+      "remove-item": "Remove",
+      "copied-toast": "URL has been copied to clipboard"
+    },
+    "section": {
+      "open-section": "Open Section",
+      "edit-section": "Edit",
+      "expand-collapse": "Expand / Collapse",
+      "move-section": "Move To",
+      "remove-section": "Remove"
+    }
+  },
+  "interactive-editor": {
+    "menu": {
+      "start-editing-tooltip": "Enter the Interactive Editor",
+      "edit-site-data-subheading": "Edit Site Data",
+      "edit-page-info-btn": "Edit Page Info",
+      "edit-page-info-tooltip": "App title, description, nav links, footer text, etc.",
+      "edit-app-config-btn": "Edit App Config",
+      "edit-app-config-tooltip": "All other app configuration options",
+      "edit-pages-btn": "Edit Pages",
+      "edit-pages-tooltip": "Add or remove additional views",
+      "config-save-methods-subheading": "Config Saving Options",
+      "save-locally-btn": "Save Locally",
+      "save-locally-tooltip": "Save config locally, to browser storage. This will not affect your config file, but changes will only be saved on this device",
+      "save-disk-btn": "Save to Disk",
+      "save-disk-tooltip": "Save config to the conf.yml file on disk. This will backup, and then over-write your existing config",
+      "export-config-btn": "Export Config",
+      "export-config-tooltip": "View and export new config, either to a file, or to clipboard",
+      "cloud-backup-btn": "Backup to Cloud",
+      "cloud-backup-tooltip": "Save encrypted backup of configuration to cloud",
+      "edit-raw-config-btn": "Edit Raw Config",
+      "edit-raw-config-tooltip": "View and modify raw config via JSON editor",
+      "cancel-changes-btn": "Cancel Edit",
+      "cancel-changes-tooltip": "Reset current modifications, and exit Edit Mode. This will not affect your saved config",
+      "edit-mode-name": "Edit Mode",
+      "edit-mode-subtitle": "You are in Edit Mode",
+      "edit-mode-description": "This means you can make modifications to your config, and preview the results, but until you save, none of your changes will be preserved.",
+      "save-stage-btn": "Save",
+      "cancel-stage-btn": "Cancel",
+      "save-locally-warning": "If you proceed, changes will be saved only in your browser. You should export a copy of your config for use on other machines. Would you like to continue?"
+    },
+    "edit-item": {
+      "missing-title-err": "An item title is required"
+    },
+    "edit-section": {
+      "edit-section-title": "Edit Section",
+      "add-section-title": "Add New Section",
+      "edit-tooltip": "Click to Edit, or right-click for more options",
+      "remove-confirm": "Are you sure you want to remove this section? This action can be undone later."
+    },
+    "edit-app-config": {
+      "warning-msg-title": "Proceed with Caution",
+      "warning-msg-l1": "The following options are for advanced app configuration.",
+      "warning-msg-l2": "If you are unsure about any of the fields, please reference the",
+      "warning-msg-docs": "documentation",
+      "warning-msg-l3": "to avoid unintended consequences."
+    },
+    "export": {
+      "export-title": "Export Config",
+      "copy-clipboard-btn": "Copy to Clipboard",
+      "copy-clipboard-tooltip": "Copy all app config to system clipboard, in YAML format",
+      "download-file-btn": "Download as File",
+      "download-file-tooltip": "Download all app config to your device, in a YAML file",
+      "view-title": "View Config"
+    }
+  },
+  "widgets": {
+    "general": {
+      "loading": "Loading...",
+      "show-more": "Expand Details",
+      "show-less": "Show Less",
+      "open-link": "Continue Reading"
+    },
+    "pi-hole": {
+      "status-heading": "Status"
+    },
+    "stat-ping": {
+      "up": "Online",
+      "down": "Offline"
+    },
+    "net-data": {
+      "cpu-chart-title": "CPU History",
+      "mem-chart-title": "Memory Usage",
+      "mem-breakdown-title": "Memory Breakdown",
+      "load-chart-title": "System Load"
+    },
+    "glances": {
+      "disk-space-free": "Free",
+      "disk-space-used": "Used",
+      "disk-mount-point": "Mount Point",
+      "disk-file-system": "File System",
+      "disk-io-read": "Read",
+      "disk-io-write": "Write",
+      "system-load-desc": "Number of processes waiting in the run-queue, averaged across all cores"
+    },
+    "system-info": {
+      "uptime": "Uptime"
+    },
+    "flight-data": {
+      "arrivals": "Arrivals",
+      "departures": "Departures"
+    },
+    "tfl-status": {
+      "good-service-all": "Good Service on all Lines",
+      "good-service-rest": "Good Service on all other Lines"
+    },
+    "synology-download": {
+      "download": "Download",
+      "upload": "Upload",
+      "downloaded": "Downloaded",
+      "uploaded": "Uploaded",
+      "remaining": "Remaining",
+      "up": "Up",
+      "down": "Down"
+    }
+  }
+}

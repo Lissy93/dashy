@@ -135,6 +135,12 @@ export const languages = [
     locale: bg,
     flag: '🇧🇬',
   },
+  { // Bulgarian
+    name: '한국어',
+    code: 'ko',
+    locale: ko,
+    flag: '🇰🇷',
+  },
 ];
 
 /**
