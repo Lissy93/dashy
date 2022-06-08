@@ -16,12 +16,10 @@ const { pwa } = require('./src/utils/defaults');
 // Get base URL
 const publicPath = process.env.BASE_URL || '/';
 
-// Should enable Subresource Integrity (SRI) on link and script tags
-const integrity = process.env.INTEGRITY === 'true';
 
-// Format for progress bar, shown while app building
-const progressFormat = '\x1b[1m\x1b[36mBuilding Dashy\x1b[0m '
-  + '[\x1b[1m\x1b[32m:bar\x1b[0m] :percent (:elapsed seconds)';
+
+
+
 
 // Webpack Config
 const configureWebpack = {
