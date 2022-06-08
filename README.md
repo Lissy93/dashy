@@ -420,6 +420,7 @@ Dashy supports multiple languages and locales. When available, your language sho
 - 🇦🇪 **Arabic**: `ar`
 - 🇮🇳 **Hindi**: `hi`
 - 🇯🇵 **Japanese**: `ja`
+- 🇰🇷 **Korean**: `ko` - Contributed by **[@boggy-cs](https://github.com/boggy-cs)**
 
 #### Add your Language
 I would love Dashy to be available to everyone without language being a barrier to entry. If you've got a few minutes to spare, consider adding translations for your language. It's a quick task, and all text is in [a single JSON file](https://github.com/Lissy93/dashy/tree/master/src/assets/locales). Since any missing text will fall back to English, you don't need to translate it all.
