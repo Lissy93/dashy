@@ -1350,6 +1350,9 @@ Displays the current and recent uptime of your running services, via a self-host
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`hostname`** | `string` |  Required | The URL to your StatPing instance, without a trailing slash
+**`groupId`** | `number` | Optional | If provided, only Services in the given group are displayed. Defaults to `0` in which case all services are displayed.
+**`showChart`** | `boolean`| Optional | If provided and `false` then charts are not displayed. Defaults to `true`.
+**`showInfo`** | `boolean`| Optional | If provided and `false` then information summaries are not displayed. Defaults to `true`.
 
 ##### Example 
 
@@ -1358,6 +1361,18 @@ Displays the current and recent uptime of your running services, via a self-host
   options:
     hostname: http://192.168.130.1:8080
 ```
+or
+```yaml
+- type: stat-ping
+  options:
+    hostname: http://192.168.130.1:8080
+    groupId: 3
+    showChart: false
+    showInfo: false
+```
+You can use multiple StatPing widgets with different `groupId`s.
+
+Note, the Group Id is not directly visible in SttatPing UI, you can inspect the group select HTML element or the API response to find out.
 
 ##### Info
 - **CORS**: 🟠 Proxied
