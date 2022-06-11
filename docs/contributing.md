@@ -23,6 +23,7 @@ Don't feel any pressure to donate anything, as Dashy and my other projects will 
 
 Sponsoring will give you several perks - for $1 / £0.75 per month, you'll get a sponsor badge on your profile, be credited on the Dashy's readme, with a link to your website/ profile/ socials, get priority support,  have your feature ideas implemented, plus lots more. For more info, see [@Lissy93's Sponsor Page](https://github.com/sponsors/Lissy93).
 
+
 ## Enable Anonymous Bug Reports
 
 Bug reports helps me to discover bugs I was unaware of, and then fix them, in order to make Dashy more reliable long term. This is a simple, yet really helpful step you can take to help improve Dashy. [Sentry](https://github.com/getsentry/sentry) is an open source error tracking and performance monitoring tool, which enables the identification any errors which occur in the production app (only if you enable it). 
@@ -39,7 +40,7 @@ All reporting is **disabled** by default, and no data will ever be sent to any e
 If you speak another language, then adding translations will help make Dashy available to non-native English speakers. This is a very quick and easy task, as all application text is located in [`locales/en.json`](https://github.com/Lissy93/dashy/blob/master/src/assets/locales/en.json), so adding a new language is as simple as copying this file and translating the values. You don't have to translate it all, as any missing attributes will just fallback to English. For a full tutorial, see the [Multi-Language Support Docs](https://github.com/Lissy93/dashy/blob/master/docs/multi-language-support.md).
 
 ## Submit a PR
-Contributing to the code or docs is super helpful. You can fix a bug, add a new feature or improve an existing one. If you've built your own custom widget, theme or view, consider sharing it in a PR. I've written [several guides](/docs/development-guides) to help you get started, and the steps for setting up the development environment are outlined in the [Development Docs](/docs/development). Feel free to ask if you have any questions.
+Contributing to the code or docs is super helpful. You can fix a bug, add a new feature or improve an existing one. If you've built your own custom widget, theme or view, consider sharing it in a PR. I've written [several guides](/docs/development-guides) to help you get started, and the steps for setting up the development environment are outlined in the [Development Docs](/docs/developing). Feel free to ask if you have any questions.
 
 ## Improve the Docs
 Found a typo, or something that isn't as clear as it could be? Maybe I've missed something off altogether, or you hit a roadblock that took you a while to figure out. Submitting a pull request to add to or improve the documentation will help future users get Dashy up and running more easily.

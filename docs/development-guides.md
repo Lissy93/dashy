@@ -35,7 +35,7 @@ Then you can go ahead and write you're own custom CSS. Although all CSS is suppo
 
 For a full guide on styling, see [Theming Docs](./theming).
 
-Note that if you're theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#adding-your-own-theme).
+Note that if you're theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](https://github.com/Lissy93/dashy/blob/master/docs/theming#adding-your-own-theme).
 
 ## Writing Translations
 
@@ -97,7 +97,7 @@ If you are not comfortable with making pull requests, or do not want to modify t
 
 This section is for, adding a new setting to the config file.
 
-All of the users config is specified in `./public/conf.yml` - see [Configuring Docs](./configuring.md) for info.
+All of the users config is specified in `./public/conf.yml` - see [Configuring Docs](./configuring) for info.
 It's important to first ensure that there isn't a similar option already available, the new option is definitely necessary, and most importantly that it is fully backwards compatible.
 
 Next choose the appropriate section to place it under

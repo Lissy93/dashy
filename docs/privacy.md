@@ -111,6 +111,8 @@ Dashy supports [Widgets](/docs/widgets) for displaying dynamic content. Below is
     - [IP-API Privacy Policy](https://ip-api.com/docs/legal)
 - **[IP Blacklist](/docs/widgets#ip-blacklist)**: `https://api.blacklistchecker.com`
     - [Blacklist Checker Privacy Policy](https://blacklistchecker.com/privacy)
+- **[Domain Monitor](/docs/widgets#domain-monitor)**: `http://api.whoapi.com`
+    - [WhoAPI Privacy Policy](https://whoapi.com/privacy-policy/)
 - **[Crypto Watch List](/docs/widgets#crypto-watch-list)** and **[Token Price History](/docs/widgets#crypto-token-price-history)**: `https://api.coingecko.com`
     - [CoinGecko Privacy Policy](https://www.coingecko.com/en/privacy)
 - **[Wallet Balance](/docs/widgets#wallet-balance)**: `https://api.blockcypher.com/`
@@ -207,7 +209,7 @@ Note that packages listed under `devDependencies` section are only used for buil
 ## Securing your Environment
 Running your self-hosted applications in individual, containerized environments (such as containers or VMs) helps keep them isolated, and prevent an exploit in one service effecting another.
 
-If you're running Dashy in a container, see [Management Docs --> Container Security](https://github.com/Lissy93/dashy/blob/master/docs/management#container-security) for step-by-step security guide.
+If you're running Dashy in a container, see [Management Docs --> Container Security](https://github.com/Lissy93/dashy/blob/master/docs/management.md#container-security) for step-by-step security guide.
 
 There is very little complexity involved with Dashy, and therefore the attack surface is reasonably small, but it is still important to follow best practices and employ monitoring for all your self-hosted apps. A couple of things that you should look at include:
 - Use SSL for securing traffic in transit

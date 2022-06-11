@@ -1,4 +1,4 @@
-# Showcase 🌟
+# *Dashy Showcase* 🌟
 
 | 💗 Got a sweet dashboard? Submit it to the showcase! 👉 [See How](#submitting-your-dashboard) |
 |-|
@@ -10,16 +10,71 @@
 ---
 
 ### Ratty222
-> By [@ratty222](https://github.com/ratty222) <sup>[#384](https://github.com/Lissy93/dashy/discussions/384)</sup>
+> By [@ratty222](https://github.com/ratty222) <sup>Re: [#384](https://github.com/Lissy93/dashy/discussions/384)</sup>
 
 ![screenshot-ratty222-dashy](https://user-images.githubusercontent.com/1862727/147582551-4c655d37-8bcc-4f95-ab41-164a9d0d6a07.png)
 
 ---
 
 ### Hugalafutro Dashy
-> By [@hugalafutro](https://github.com/hugalafutro) <sup>[#505](https://github.com/Lissy93/dashy/discussions/505)</sup>
+> By [@hugalafutro](https://github.com/hugalafutro) <sup>Re: [#505](https://github.com/Lissy93/dashy/discussions/505)</sup>
 
 [![hugalafutro-dashy-screenshot](https://i.ibb.co/PDpLDKS/hugalafutro-dashy.gif)](https://i.ibb.co/PDpLDKS/hugalafutro-dashy.gif)
+
+---
+
+### NAS Home Dashboard
+> By [@cerealconyogurt](https://github.com/cerealconyogurt) <sup>Re: [#74](https://github.com/Lissy93/dashy/issues/74)</sup>
+
+![screenshot-networking-services](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/6-nas-home-dashboard.png)
+
+---
+
+### Brewhack
+
+> By [@brpeterso](https://github.com/brpeterso) <sup>Re: [#680](https://github.com/Lissy93/dashy/issues/680)</sup>
+
+![screenshot-brewhack-dashboard](https://i.ibb.co/cNjzPT4/brewhack.png)
+
+---
+
+### The Private Dashboard
+
+> By [@DylanBeMe](https://github.com/DylanBeMe) <sup>Re: [#419](https://github.com/Lissy93/dashy/issues/419)</sup>
+
+![screenshot-private-dashboard](https://i.ibb.co/hKS483T/private-dashboard-Dylan-Be-Me.png)
+
+---
+
+### Homelab & VPS dashboard
+> By [@shadowking001](https://github.com/shadowking001) <sup>Re: [#86](https://github.com/Lissy93/dashy/issues/86)</sup>
+
+![screenshot-shadowking001-dashy](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/8-shadowking001s-dashy.png)
+
+---
+
+### Raspberry PI Docker Dashboard
+
+> By [@henkiewie](https://github.com/henkiewie) <sup>Re: [#622](https://github.com/Lissy93/dashy/issues/622)</sup>
+
+> I use this dashboard every day. It now even includes a player for a radio stream which I configured with Logitech media server and icecast. I made an smaller version of the grafana dashboard to fit an iframe in kiosk mode, so it monitors the most important values of my RPI. The PI is in Argon m2 case and used as a NAS. The dashboard is a copy of the adventure theme with some changes saved in `/app/src/styles/user-defined-themes.scss`
+
+![screenshot-henkiewie-dashy](https://i.ibb.co/jGzPm6b/henkiewie-dashy-showcase.png)
+
+---
+
+### First Week of Self-Hosting
+> By [u//RickyCZ](https://www.reddit.com/user/RickyCZ) <sup>via [Reddit](https://www.reddit.com/r/selfhosted/comments/pose15/just_got_started_a_week_ago_selfhosting_is_very/)</sup>
+
+![screenshot-week-of-self-hosting](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/11-ricky-cz.png)
+
+---
+
+### EVO Dashboard
+
+> By [@EVOTk](https://github.com/EVOTk) <sup>Re: [#316](https://github.com/Lissy93/dashy/pull/316)</sup>
+
+![screenshot-evo-dashboard](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/12-evo-dashboard.png)
 
 ---
 
@@ -27,36 +82,6 @@
 > By [@Lissy93](https://github.com/lissy93)
 
 ![screenshot-networking-services](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/2-networking-services-minimal-dark.png)
-
----
-
-### Homelab & VPS dashboard
-> By [@shadowking001](https://github.com/shadowking001)
-
-![screenshot-shadowking001-dashy](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/8-shadowking001s-dashy.png)
-
----
-
-### EVO Dashboard
-
-> By [@EVOTk](https://github.com/EVOTk)
-
-![screenshot-evo-dashboard](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/12-evo-dashboard.png)
-
----
-
-### The Private Dashboard
-
-> By [@DylanBeMe](https://github.com/DylanBeMe) <sup>[#419](https://github.com/Lissy93/dashy/issues/419)</sup>
-
-![screenshot-evo-dashboard](https://i.ibb.co/hKS483T/private-dashboard-Dylan-Be-Me.png)
-
----
-
-### NAS Home Dashboard
-> By [@cerealconyogurt](https://github.com/cerealconyogurt)
-
-![screenshot-networking-services](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/6-nas-home-dashboard.png)
 
 ---
 
@@ -108,16 +133,9 @@
 
 ---
 
-### First Week of Self-Hosting
-> By [u//RickyCZ](https://www.reddit.com/user/RickyCZ)
-
-![screenshot-week-of-self-hosting](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/11-ricky-cz.png)
-
----
-
 ### HomeLAb 3.0
 
-> By [@skoogee](https://github.com/skoogee) (http://zhrn.cc)
+> By [@skoogee](https://github.com/skoogee) (http://zhrn.cc) <sup>[#279](https://github.com/Lissy93/dashy/issues/279)</sup>
 
 > Dashy, is the most complete dashboard I ever tried, has all the features, and it sets itself apart from the rest. It is my default homepage now. I am thankful to the developer @Lissy93 for sharing such a wonderful creation.
 
@@ -126,16 +144,9 @@
 ---
 
 ### Ground Control
-> By [@dtctek](https://github.com/dtctek)
+> By [@dtctek](https://github.com/dtctek) <sup>Re: [#83](https://github.com/Lissy93/dashy/issues/83)</sup>
 
 ![screenshot-ground-control](https://user-images.githubusercontent.com/1862727/149821995-e9b41dab-186c-42e6-b5b3-e233259b241d.png)
-
----
-
-### Morning Dashboard
-> Displayed on my smart screen between 05:00 - 08:00, and includes all the info that I usually check before leaving for work
-
-![screenshot-morning-dash](https://i.ibb.co/4Wx8zb7/morning-dashboard.png)
 
 ---
 
@@ -161,9 +172,25 @@
 
 ---
 
+### Morning Dashboard
+> Displayed on my smart screen between 05:00 - 08:00, and includes all the info that I usually check before leaving for work
+
+![screenshot-morning-dash](https://i.ibb.co/4Wx8zb7/morning-dashboard.png)
+
+---
+
 ### Yet Another Homelab
 
 ![screenshot-yet-another-homelab](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/9-home-lab-oblivion.png)
+
+---
+
+### The Dragons Lair
+> By [dr460nf1r3](https://github.com/dr460nf1r3) <sup>via [#684](https://github.com/Lissy93/dashy/issues/684)</sup>
+
+> My new startpage featuring the stuff I use most. And of course dragons! 
+
+![screenshot-dragons-lair](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/13-dragons-lair.png)
 
 ---
 

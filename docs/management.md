@@ -196,7 +196,7 @@ I recommend combining this with [healthchecks](https://github.com/healthchecks/h
 
 ## SSL Certificates
 
-Enabling HTTPS with an SSL certificate is recommended, especially if you hare hosting Dashy anywhere other than your home. This will ensure that all traffic is encrypted in transit.
+Enabling HTTPS with an SSL certificate is recommended, especially if you are hosting Dashy anywhere other than your home. This will ensure that all traffic is encrypted in transit.
 
 ### Auto-SSL
 If you are using [NGINX Proxy Manager](https://nginxproxymanager.com/), then SSL is supported out of the box. Once you've added your proxy host and web address, then set the scheme to HTTPS, then under the SSL Tab select "Request a new SSL certificate" and follow the on-screen instructions.
