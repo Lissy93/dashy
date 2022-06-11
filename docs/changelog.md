@@ -1,5 +1,191 @@
 # Changelog
 
+## ✨ 2.1.0 Adds AdGuard Widget [PR #685](https://github.com/Lissy93/dashy/pull/685)
+- Adds Widgets for AdGuard
+
+## 🐛 2.0.9 Bug Fixes [PR #663](https://github.com/Lissy93/dashy/pull/663)
+- Fix KeyCloak API URL (#564)
+- Fix guest has config access (#590)
+- Fix collapsible content in multi-page support (#626)
+- Fix layout and item size buttons ( #629)
+- Refactor make request in RSS widget (#632)
+- Fix material-design-icons header in schema (#640)
+- Add option to hide seconds in clock widget (#644)
+- Fix pageInfo not being read in router (#645)
+- Fix startingView not honored (#646)
+- Fix Status Check default (#651)
+- Add option to hide image in SportsScores Widget (#654)
+- Add Adventure-basic theme (#655)
+- Write docs for sub-items (#657)
+- Add Font-Awesome displaying as square to troubleshooting guide (#659)
+- Show expand / collapse in context menu (#660)
+- Only deploy new release when relevant files have changed
+
+## ✨ 2.0.8 Adds Multi-Page Support [PR #617](https://github.com/Lissy93/dashy/pull/617)
+- Adds support for multiple pages per-dashboard
+- Adds new attribute at root of main config file: `pages`
+- Updates router and nav-bar to automatically create paths for both local and remote configs
+
+## ⚡️ 2.0.7 Improves handling of Sections and Items [PR #595](https://github.com/Lissy93/dashy/pull/595)
+- Adds functionality for sub-items / item-groups
+- Creates an item mixin, for reusing functionality
+- Item width calculated based on parent section width
+- Improved mobile support, long-press for right-click
+- Adds 2 new themes (`lissy` and `charry-blossom`)
+- Adds 2 new widgets (`mullvad-status`, and `blacklist-check`)
+
+## 🐛 2.0.6 Fixes user requested issues [PR #557](https://github.com/Lissy93/dashy/pull/557)
+- Allows middle click open new tab, Re: #492
+- Implements Max redirects for status checks, Re: #494
+- Adds Gitpod config for cloud-ready IDE, Re: #497
+- Adss new screenshots to showcase, Re: #505
+- Fixes excess space below footer, Re: #522
+- Allows iframe content to be viewed full-screen, Re: #524
+- Fixes Glances widgets with Authorization headers, Re: #546
+- Adds target attribute to nav links, Re: #552
+- Removes fixed max-width on wide-screens, Re: #554
+- Adds missing type attribute to external CSS, Re: #560
+- Updates path to Keycloak API, Re: #564
+- Fixes link to @walkxhub homelab icons, Re #568
+- Fixes local image path on sub-page, Re: #570
+- Adds typecheck on edit item tags, Re: #575
+- Fixes item size in config not honored, Re: #576
+
+## ✨ 2.0.5 - Bug Fixes and a few New Features
+
+#### Partially revert 2.0.4, fixing several issues caused by `conf.yml` not being loaded at startup.
+This change requires a rebuild of the application when several options under `appConfig` are changed.
+Fixes #544 #555
+
+#### Several other changes since 2.0.4, including:
+The `Add New Section` button on the UI editor now displays if no sections are present. #536
+When using SSL, the server can now redirect from HTTP to HTTPS. This is enabled by default when using SSL. #538
+Section context menus are now accessible on mobile, and will no longer clip off the screen. #541
+Italian translations have been added. #556
+
+## ✨ 2.0.4 - Dynamic Config Loading [PR #528](https://github.com/Lissy93/dashy/pull/528)
+- `conf.yml` is now loaded dynamically and the app now only needs a browser refresh on config change, not a full rebuild!
+
+## 🐛 2.0.3 - Bug Fixes [PR #488](https://github.com/Lissy93/dashy/pull/488)
+- Press enter to submit login form (Re: #483)
+- Allow disabling write to local storage and disk (Re: #485)
+- Fix malformed YAML from export config (Re: #482)
+- Allow global option for useProxy (Re: #486)
+- Look into arrow key navigation error (Re: #463)
+- Disallow displaying config (Re: #455)
+- Round values in Glances Alerts widget (Re: #454)
+- Create a CPU temp widget (Re: #452)
+- Add to docs: Keycloak in Kubernetes (Re: #479)
+- Add a widget for displaying images (Re: #487)
+
+## ⬆️ 2.0.2 - Dependency Updates [PR #471](https://github.com/Lissy93/dashy/pull/471)
+- Updates Alpine version for main Dockerfile
+- Updates node_modules to latest stable versions
+
+## 🐛 2.0.1 - Fixes Section Height [PR #462](https://github.com/Lissy93/dashy/pull/462)
+- Adds `cutToHeight` to config schema (Re: #461)
+- Removes the full-height CSS from colorful theme
+- Improved config validation warnings in JSON editor
+- Removes empty Keycloak block from appConfig editor
+- Adds typechecking to search and clear search for Safari
+
+## ⚡️ 2.0.0 - Small Fixes and Docker Multi-Arch Build [PR #451](https://github.com/Lissy93/dashy/pull/451)
+- Fixes full-height sections for mobile and Safari (Re: #432, #442)
+- Fixes empty section visible in search (Re: #447)
+- Fixes numbers omited from tag names (Re: #430)
+- Option for custom status code in status check (Re: #456, #448)
+- Adds @stuu3k's dashboard to showcase (Re: #446)
+- Switches recover and death count in Covid widget (Re: #148)
+- Improved contrast in light material theme
+- Adds new script to lint, test, build and publish a multi-architecture Docker image to various registries
+
+## 💄 1.9.9 - Minor UI + Docs Updates [PR #431](https://github.com/Lissy93/dashy/pull/431)
+- Improved theme support for widgets
+- Better widget layout in Workspace and Minimal views
+- Updates lots of the docs
+
+## ✨ 1.9.8 - More Widgets and Widget Improvements [PR #425](https://github.com/Lissy93/dashy/pull/425)
+- Fixes several minor widget issues raised by users
+- Adds several new widgets, for monitoring system
+- Better widget data requests and error handling
+- Implements widget support into Workspace view
+
+## 🐛 1.9.7 - Minor UI Editor Bug fixes [PR #416](https://github.com/Lissy93/dashy/pull/416)
+- Fixes unable to edit item bug (#415)
+- Fixes unable to add new app bug (#390)
+- Fixes nav links visibility (#389)
+
+## ⚡️ 1.9.6 - Adds Proxy Support for Widget Requests [PR #392](https://github.com/Lissy93/dashy/pull/392)
+- Refactors widget mixin to include data requests, so that code can be shared between widgets
+- Adds a Node endpoint for proxying requests server-side, used for APIs that are not CORS enabled
+- Adds option to config file for user to force proxying of requests
+- Writes a Netlify cloud function to support proxying when the app is hosted on Netlify
+
+## 🐛 1.9.5 - Bug fixes and Minor Improvements [PR #388](https://github.com/Lissy93/dashy/pull/388)
+- Adds icon.horse to supported favicon APIs
+- Fixes tile move bug, Re: #366
+- Fixes save items without title bug, Re: #377
+
+## ✨ 1.9.4 - Widget Support [PR #382](https://github.com/Lissy93/dashy/pull/382)
+- Adds support for dynamic content, through widgets
+- Adds 30+ pre-built widgets for general info and self-hosted services
+- Writes docs on widget usage
+
+## ⚡️ 1.9.2 - Native SSL Support + Performance Improvements [PR #326](https://github.com/Lissy93/dashy/pull/326)
+- Updates the server to use Express, removing serve-static, connect and body-parser
+- Adds native support for passing in self-signed SSL certificates and updates docs
+- Updates router to lazy-load additional pages (minimal, workspace, etc)
+- Changes default favicon API to allesedv, since faviconkit is down, and adds basic fallback
+- Updates GH action build scripts to fallback on context token when running on fork
+
+## 💄 1.9.1 - Editor and Theming Fixes and Improvements [PR #319](https://github.com/Lissy93/dashy/pull/319)
+- Bug fixes for interactive editor: #310, #311, #312
+- Adds option to modify text font through the UI
+- Adds two new themes: One Dark and Adventure
+- Theming stylesheet refactor, better inheritance
+
+## 🐳 1.9.0 - Alpha of Dashy-Lite Docker Container [PR #306](https://github.com/Lissy93/dashy/pull/306)
+- Create an Alpine-based container, that serves the built app up with plain NGINX, instead of Node.
+- This is much lighter, but doesn't currently support any of the server-side actions (like status-checks, and writing changes to disk)
+
+## ✨ 1.8.9 - All New Interactive Config Editor [PR #298](https://github.com/Lissy93/dashy/pull/298)
+- Builds a new UI-based config editor
+- Support for sections, items, app config and page info
+- Live preview, and undoing of local changes
+- Export config or write changes to disk through UI
+
+## ✨ 1.8.8 - Improved Item Targets [PR #292](https://github.com/Lissy93/dashy/pull/292)
+- Adds support for `_top` and `_parent` anchor targets on items, Re: #289
+- Adds `appConfig.defaultOpeningMethod` option to specify default target
+- Adds new icons to show items opening method on hover
+- Refactors target checking, updates item target docs and schema
+
+## ⚡️ 1.8.7 - Bug Fixes and Improvements [PR #273](https://github.com/Lissy93/dashy/pull/273)
+- Clean URLs without the hash, now using history-mode routing
+- New initial main example conf.yml
+- Minor UI style updates and fixes
+- Support for single section view
+- A new theme, soft-glow
+- Container security in management docs, and other things
+- Bug fixes, including missing Firefox favicon and fix custom icon paths with base_url
+
+## ⚡️ 1.8.6 - Implementation of VueX [PR: #271](https://github.com/Lissy93/dashy/pull/271)
+- New state management pattern, which should lead to a more organized code base long term, and will also make building out the new UI editor significantly easier to do in a clean and reliable way
+
+## 💄 1.8.5 - Lots of Requested UI Improvements [PR #261](https://github.com/Lissy93/dashy/pull/261)
+- Adds an option for landing URL in workspace, Re: #255
+- Switches to a new API for generative icons, Re: #163
+- Adds new tab functionality to Workspace, Re: #254
+- Remove CSS validation in style editor, Re: #259
+- Cap item description at 2 lines, Re: #250
+- Adds native support for common homelab icons, using dashboard-icons
+- Improves general responsiveness of home page sections positioning
+- Updates, fixes and adds a bunch of actions for easier repo management
+
+## ✨ 1.8.4 - Custom Error Pages [PR #257](https://github.com/Lissy93/dashy/pull/257)
+- Creates a 404 Not Found page
+- Routes any missing views to the 404 page
+
 ## ⚡️ 1.8.3 - Improved UX for Initial Load [PR #238](https://github.com/Lissy93/dashy/pull/238)
 - Removes the old splash screen
 - Adds placeholder in the HTML index, which will usually be visible on initial load
@@ -257,7 +443,7 @@
 ## 🐛 1.2.5 - Small Fixes, and Efficiency Improvements [PR #57](https://github.com/Lissy93/dashy/pull/57)
 - Adds correct license
 - Improves service workers, and adds serviceWorkerStatus local storage item
-- Adds missing statusCheck and statusCheckInterval docs into Configuring
+- Adds missing statusCheck and statusCheckInterval docs into Configuring.md
 - Adds an About App page, containing info needed to raise a bug report
 - Adds TDLR license into main readme
 - Introduces app versioning

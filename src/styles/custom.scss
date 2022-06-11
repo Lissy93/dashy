@@ -93,6 +93,7 @@ article div.markdown {
   h3 { font-size: var(--ifm-h3-font-size); }
   p img {
     border-radius: 4px;
+    box-shadow: var(--feature-img-shadow);
   }
   table > tr > td > a > img {
     border-radius: 6px;

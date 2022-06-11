@@ -20,17 +20,17 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Community',
-      items: ['showcase', 'contributing', 'developing', 'development-guides'],
+      label: 'Feature Docs',
+      items: [
+        'icons', 'widgets', 'theming', 'status-indicators',
+        'authentication', 'searching', 'alternate-views',
+        'multi-language-support', 'backup-restore', 'pages-and-sections',
+      ],
     },
     {
       type: 'category',
-      label: 'Feature Docs',
-      items: [
-        'icons', 'theming', 'status-indicators',
-        'authentication', 'searching', 'alternate-views',
-        'multi-language-support', 'backup-restore',
-      ],
+      label: 'Community',
+      items: ['showcase', 'contributing', 'developing', 'development-guides'],
     },
     {
       type: 'category',

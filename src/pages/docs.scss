@@ -11,6 +11,25 @@ main.docs {
     font-size: 5rem;
   }
 
+  p.see-repo-note {
+    background: #ffffaad6;
+    width: fit-content;
+    padding: 0.25rem 1rem;
+    border-radius: 3px;
+    
+    a, b, span {
+      color: #000;
+      font-size: 1rem;
+      font-style: italic;
+    }
+    a {
+      font-size: 1rem;
+      color: #000;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+
   div.row1 {
     display: flex;
     flex-direction: row;
