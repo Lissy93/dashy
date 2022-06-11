@@ -10,7 +10,7 @@ jobs:
     if: github.ref == 'refs/heads/WEBSITE/docs-site-source'
     steps:
       - uses: actions/checkout@master
-      - uses: redkubes/docusaurus-deploy-action@master
+      - uses: redkubes/docusaurus-deploy-action@v1
         with:
           source-folder: ./
           git-user: ${{ github.actor }}
