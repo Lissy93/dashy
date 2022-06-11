@@ -14,8 +14,7 @@
     "build-and-start": "npm-run-all --parallel build-watch start",
     "validate-config": "node services/config-validator",
     "health-check": "node services/healthcheck",
-    "dependency-audit": "npx improved-yarn-audit --ignore-dev-deps",
-    "heroku-start": "NODE_OPTIONS=--openssl-legacy-provider; npm run build-and-start"
+    "dependency-audit": "npx improved-yarn-audit --ignore-dev-deps"
   },
   "dependencies": {
     "@formschema/native": "^2.0.0-beta.6",
