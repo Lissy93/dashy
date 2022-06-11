@@ -321,6 +321,13 @@
         @error="handleError"
         :ref="widgetRef"
       />
+      <NextcloudInfo
+        v-else-if="widgetType === 'nextcloud-info'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
       <PiHoleStats
         v-else-if="widgetType === 'pi-hole-stats'"
         :options="widgetOptions"
@@ -499,6 +506,7 @@ export default {
     NdLoadHistory: () => import('@/components/Widgets/NdLoadHistory.vue'),
     NdRamHistory: () => import('@/components/Widgets/NdRamHistory.vue'),
     NewsHeadlines: () => import('@/components/Widgets/NewsHeadlines.vue'),
+    NextcloudInfo: () => import('@/components/Widgets/NextcloudInfo.vue'),
     PiHoleStats: () => import('@/components/Widgets/PiHoleStats.vue'),
     PiHoleTopQueries: () => import('@/components/Widgets/PiHoleTopQueries.vue'),
     PiHoleTraffic: () => import('@/components/Widgets/PiHoleTraffic.vue'),

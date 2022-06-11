@@ -303,6 +303,10 @@
       "remaining": "Remaining",
       "up": "Up",
       "down": "Down"
+    },
+    "nextcloud-info": {
+      "label-version": "Nextcloud version",
+      "label-last-login": "Last login"
     }
   }
 }
