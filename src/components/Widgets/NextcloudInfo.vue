@@ -11,11 +11,11 @@
     <div class="info">
       <p class="brand">{{ branding.name }}</p>
       <p class="version" v-if="version.string">
-        {{ $t('widgets.nextcloud-info.label-version') }} {{ version.string }}
+        <small>{{ $t('widgets.nextcloud-info.label-version') }} {{ version.string }}</small>
       </p>
       <p class="username">{{ user.displayName }} <em v-if="user.id">({{ user.id }})</em></p>
       <p class="login" v-tooltip="lastLoginTooltip()">
-        {{ $t('widgets.nextcloud-info.label-last-login') }}&nbsp;
+        <span>{{ $t('widgets.nextcloud-info.label-last-login') }}</span>&nbsp;
         <small>{{ getTimeAgo(user.lastLogin) }}</small>
       </p>
     </div>
@@ -76,10 +76,10 @@
       <p v-tooltip="sharesTooltip()">
         <i class="fal fa-share"></i>
         <em>{{ formatNumber(server.nextcloud.shares.num_shares) }}</em>
-        <strong>{{ $t('shares') }}</strong> <small> {{ $t('and') }}</small>
+        <strong>{{ $t('autonomous') }}</strong> <small> {{ $t('and') }}</small>
         <em>
-          {{ formatNumber(server.nextcloud.shares.num_fed_shares_sent) }}
-          / {{ formatNumber(server.nextcloud.shares.num_fed_shares_received) }}
+          {{ formatNumber(server.nextcloud.shares.num_fed_shares_sent +
+          server.nextcloud.shares.num_fed_shares_received) }}
         </em>
         <strong>{{ $t('federated shares') }}</strong>
       </p>
@@ -109,7 +109,7 @@
 import WidgetMixin from '@/mixins/WidgetMixin';
 import NextcloudMixin from '@/mixins/NextcloudMixin';
 import { convertBytes } from '@/utils/MiscHelpers';
-// //import { NcdUsr, NcdServer } from '@/utils/ncd';
+// //import { NcdServer } from '@/utils/ncd';
 
 const NextcloudSchema = {
   branding: {
@@ -121,19 +121,6 @@ const NextcloudSchema = {
   version: {
     string: null,
     edition: null,
-  },
-  user: {
-    id: null,
-    isAdmin: false,
-    displayName: null,
-    email: null,
-    quota: {
-      relative: null,
-      total: null,
-      used: null,
-      free: null,
-      quota: null,
-    },
   },
   server: {
     server: {
@@ -213,33 +200,15 @@ export default {
   },
   methods: {
     async fetchData() {
-      const promise = this.fetchCapabilities()
-        .then(() => this.makeRequest(this.endpoint('user'), this.headers))
-        // //.then(() => NcdUsr)
-        .then(this.processUser);
-
-      await promise;
-
+      await this.loadCapabilities();
+      await this.loadUser();
       if (this.user.isAdmin) {
-        promise.then(() => this.makeRequest(this.endpoint('serverinfo'), this.headers))
-        // //promise.then(() => NcdServer)
-          .then(this.processServerInfo);
+        this.processServerInfo(
+          await this.makeRequest(this.endpoint('serverinfo'), this.headers),
+          // //NcdServer,
+        );
       }
-
-      promise.finally(() => this.finishLoading());
-    },
-    processUser(userData) {
-      const user = userData?.ocs?.data;
-      if (!user) {
-        this.error('Invalid response');
-        return;
-      }
-      this.user.id = user.id;
-      this.user.email = user.email;
-      this.user.quota = user.quota;
-      this.user.displayName = user.displayname;
-      this.user.lastLogin = user.lastLogin;
-      this.user.isAdmin = user.groups && user.groups.includes('admin');
+      this.finishLoading();
     },
     processServerInfo(serverData) {
       const data = serverData?.ocs?.data;
@@ -278,10 +247,10 @@ export default {
       };
     },
     appUpdatesTooltip() {
-      const content = 'Updates are available for: '
-                    + ` ${Object.keys(this.server.nextcloud.system.apps.app_updates).join(', ')}`;
+      const content = 'Updates are available for:<br><br>'
+                    + ` ${Object.entries(this.server.nextcloud.system.apps.app_updates).join('<br>')}`;
       return {
-        content, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
       };
     },
     storagesTooltip() {
@@ -302,7 +271,9 @@ export default {
                     + `${this.server.nextcloud.shares.num_shares_room} chat room<br>`
                     + `${this.server.nextcloud.shares.num_shares_link} private link<br>`
                     + `${this.server.nextcloud.shares.num_shares_link_no_password} public link<br>`
-                    + '<br><sup>*</sup>Federated shares: sent/received';
+                    + '<br>Federated shares:<br><br>'
+                    + `${this.server.nextcloud.shares.num_fed_shares_sent} sent<br>`
+                    + `${this.server.nextcloud.shares.num_fed_shares_received} received<br>`;
       return {
         content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
       };
@@ -351,6 +322,9 @@ export default {
     font-size: 105%;
     margin-left: .25rem;
   }
+  small {
+    opacity: .66;
+  }
   hr {
     color: var(--widget-text-color);
     border: none;
@@ -376,14 +350,13 @@ export default {
       margin: 0 0 1rem 0;
     }
     p.brand {
-      margin: 0 0 .23rem 0;
+      margin: 0;
       font-size: 135%;
       font-weight: 800;
       letter-spacing: 3px;
     }
-    p.version {
-      font-size: 80%;
-      opacity: .66;
+    p.version small {
+      font-size: 75%;
     }
     p.username {
       font-size: 110%;
@@ -392,17 +365,16 @@ export default {
       }
     }
     p.login {
-      font-size: 90%;
-      small {
-        opacity: .75;
-        margin-left: .25rem;
+      span {
+        font-size: 90%;
+        margin-right: .25rem;
       }
     }
   }
   div.server-info {
     span[data-has-updates] {
       color: var(--success);
-      padding-left: .75rem;
+      margin-left: 0.5rem;
     }
   }
 }
