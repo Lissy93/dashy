@@ -1,5 +1,6 @@
 <template>
 <div class="nextcloud-info-wrapper">
+  <!-- logo, branding, user info -->
   <div>
     <div class="logo">
       <a :href="branding.url" target="_blank">
@@ -19,6 +20,7 @@
       </p>
     </div>
   </div>
+  <!-- disk quota -->
   <div v-if="user.quota.quota > 0" v-tooltip="quotaTooltip()">
     <p>
       <i class="fal fa-disc-drive"></i>
@@ -28,6 +30,7 @@
     </p>
   </div>
   <div v-if="user.isAdmin" class="server-info">
+    <!-- server info: users -->
     <div>
       <p v-tooltip="activeUsersTooltip()">
         <i class="fal fa-user"></i>
@@ -39,6 +42,7 @@
     </div>
     <hr />
     <div>
+      <!-- server info: apps -->
       <p>
         <i class="fal fa-browser"></i>
         <em>{{ formatNumber(server.nextcloud.system.apps.num_installed) }}</em>
@@ -57,6 +61,7 @@
         </span>
       </p>
       <hr />
+      <!-- server info: storage -->
       <p v-tooltip="storagesTooltip()">
         <i class="fal fa-file"></i>
         <em>{{ formatNumber(server.nextcloud.storage.num_files) }}</em>
@@ -67,6 +72,7 @@
         <small>{{ $t('free') }}</small>
       </p>
       <hr />
+      <!-- server info: shares -->
       <p v-tooltip="sharesTooltip()">
         <i class="fal fa-share"></i>
         <em>{{ formatNumber(server.nextcloud.shares.num_shares) }}</em>
@@ -78,6 +84,7 @@
         <strong>{{ $t('federated shares') }}</strong>
       </p>
       <hr />
+      <!-- server info: server -->
       <p>
         <i class="fal fa-server"></i>
         <strong>{{ $t('Nextcloud') }}</strong>
@@ -86,6 +93,7 @@
         <em>{{ server.server.php.version }}</em>
       </p>
       <hr />
+      <!-- server info: database -->
       <p>
         <i class="fal fa-database"></i>
         <strong>{{ server.server.database.type }}</strong>
