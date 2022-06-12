@@ -306,7 +306,8 @@
     },
     "nextcloud-info": {
       "label-version": "Nextcloud version",
-      "label-last-login": "Last login"
+      "label-last-login": "Last login",
+      "updates-available": "update{plural} available"
     }
   }
 }

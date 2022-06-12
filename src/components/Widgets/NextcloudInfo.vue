@@ -47,7 +47,10 @@
               data-has-updates v-tooltip="appUpdatesTooltip()">
           <i class="fal fa-download"></i>
           <em>{{ server.nextcloud.system.apps.num_updates_available }}</em>
-          <strong>{{ $t('updates available') }}</strong>
+          <strong>
+            {{ $t('widgets.nextcloud-info.updates-available',
+            {plural: server.nextcloud.system.apps.num_updates_available > 1 ? 's' : ''}) }}
+          </strong>
         </span>
         <span v-else >
           {{ $t('no pending updates') }}
