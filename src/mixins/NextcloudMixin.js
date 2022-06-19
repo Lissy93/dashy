@@ -59,10 +59,11 @@ export default {
     },
     /* HTTP headers for Nextcloud API requests */
     headers() {
+      const authBase = `${this.username}:${this.password}`;
       return {
         'OCS-APIREQUEST': true,
         Accept: 'application/json',
-        Authorization: `Basic ${window.btoa(`${this.username}:${this.password}`)}`,
+        Authorization: `Basic ${window.btoa(authBase)}`,
       };
     },
     /* TTL for data delivered by the capabilities endpoint, ms */
@@ -78,9 +79,6 @@ export default {
     /* Nextcloud API endpoints */
     endpoint(id) {
       switch (id) {
-        case 'capabilities':
-        default:
-          return `${this.hostname}/ocs/v1.php/cloud/capabilities`;
         case 'user':
           return `${this.hostname}/ocs/v1.php/cloud/users/${this.username}`;
         case 'userstatus':
@@ -89,6 +87,9 @@ export default {
           return `${this.hostname}/ocs/v2.php/apps/serverinfo/api/v1/info`;
         case 'notifications':
           return `${this.hostname}/ocs/v2.php/apps/notifications/api/v2/notifications`;
+        case 'capabilities':
+        default:
+          return `${this.hostname}/ocs/v1.php/cloud/capabilities`;
       }
     },
     /* Helper for widgets to terminate {fetchData} early */
@@ -172,14 +173,14 @@ export default {
     convertBytes(bytes, decimals = 2, formatHtml = true) {
       const formatted = convertBytes(bytes, decimals).toString();
       if (!formatHtml) return formatted;
-      const m = formatted.match(/(-?[0-9]+)((\.[0-9]+)?\s(([KMGTPEZY]B|Bytes)))/);
+      const m = formatted.match(/(-?\d+)((\.\d+)?\s(([KMGTPEZY]B|Bytes)))/);
       return `${m[1]}<span class="decimals">${m[2]}</span>`;
     },
     /* Add additional formatting to {MiscHelpers.formatNumber()} */
     formatNumber(number, decimals = 1, formatHtml = true) {
       const formatted = formatNumber(number, decimals).toString();
       if (!formatHtml) return formatted;
-      const m = formatted.match(/([0-9]+)((\.[0-9]+)?([KMBT]?))/);
+      const m = formatted.match(/(\d+)((\.\d+)?([KMBT]?))/);
       return `${m[1]}<span class="decimals">${m[2]}</span>`;
     },
     /* Format a number as percentage value */
