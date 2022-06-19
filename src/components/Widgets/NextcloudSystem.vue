@@ -182,7 +182,7 @@ export default {
     this.overrideUpdateInterval = 30;
   },
   updated() {
-    const load = this?.server?.nextcloud?.system?.cpuload;
+    const load = this.server?.nextcloud?.system?.cpuload;
     if (load) this.updateCpuLoad(load);
     const sys = this.server.nextcloud.system;
     if (sys) this.updateMemoryGauge(sys);
