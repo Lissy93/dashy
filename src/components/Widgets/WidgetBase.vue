@@ -321,8 +321,43 @@
         @error="handleError"
         :ref="widgetRef"
       />
-      <NextcloudInfo
-        v-else-if="widgetType === 'nextcloud-info'"
+      <NextcloudNotifications
+        v-else-if="widgetType === 'nextcloud-notifications'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <NextcloudPhpOpcache
+        v-else-if="widgetType === 'nextcloud-php-opcache'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <NextcloudStats
+        v-else-if="widgetType === 'nextcloud-stats'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <NextcloudSystem
+        v-else-if="widgetType === 'nextcloud-system'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <NextcloudUser
+        v-else-if="widgetType === 'nextcloud-user'"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
+      <NextcloudUserStatus
+        v-else-if="widgetType === 'nextcloud-user-status'"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
@@ -506,7 +541,12 @@ export default {
     NdLoadHistory: () => import('@/components/Widgets/NdLoadHistory.vue'),
     NdRamHistory: () => import('@/components/Widgets/NdRamHistory.vue'),
     NewsHeadlines: () => import('@/components/Widgets/NewsHeadlines.vue'),
-    NextcloudInfo: () => import('@/components/Widgets/NextcloudInfo.vue'),
+    NextcloudNotifications: () => import('@/components/Widgets/NextcloudNotifications.vue'),
+    NextcloudPhpOpcache: () => import('@/components/Widgets/NextcloudPhpOpcache.vue'),
+    NextcloudStats: () => import('@/components/Widgets/NextcloudStats.vue'),
+    NextcloudSystem: () => import('@/components/Widgets/NextcloudSystem.vue'),
+    NextcloudUser: () => import('@/components/Widgets/NextcloudUser.vue'),
+    NextcloudUserStatus: () => import('@/components/Widgets/NextcloudUserStatus.vue'),
     PiHoleStats: () => import('@/components/Widgets/PiHoleStats.vue'),
     PiHoleTopQueries: () => import('@/components/Widgets/PiHoleTopQueries.vue'),
     PiHoleTraffic: () => import('@/components/Widgets/PiHoleTraffic.vue'),

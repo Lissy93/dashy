@@ -105,14 +105,17 @@ export const convertBytes = (bytes, decimals = 2) => {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return `${parseFloat((bytes / (k ** i)).toFixed(decimals))} ${sizes[i]}`;
 };
-/* Returns a numbers shortened version with suffixes for thousand, million, billion
-   and trillion, e.g. 105_411 => 105.4K, 4_294_967_295 => 4.3B */
-export const formatNumber = (number) => {
+
+/* Round a number to thousands, millions, billions or trillions and suffix
+ * with K, M, B or T respectively, e.g. 4_294_967_295 => 4.3B */
+export const formatNumber = (number, decimals = 1) => {
   if (number > -1000 && number < 1000) return number;
-  const k = 1000;
   const units = ['', 'K', 'M', 'B', 'T'];
+  const k = 1000;
   const i = Math.floor(Math.log(number) / Math.log(k));
-  return `${(number / (k ** i)).toFixed(1)}${units[i]}`;
+  const f = number / (k ** i);
+  const d = f.toFixed(decimals) % 1.0 === 0 ? 0 : decimals; // number of decimals, omit .0
+  return `${f.toFixed(d)}${units[i]}`;
 };
 
 /* Round price to appropriate number of decimals */
