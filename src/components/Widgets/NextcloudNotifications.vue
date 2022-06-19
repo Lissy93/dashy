@@ -91,11 +91,9 @@ export default {
       this.notifications = [];
       notifications.forEach((notification) => {
         if (limitCount && this.notifications.length === limitCount) return; // count limit
-        const notiDate = Date.parse(notification.datetime);
-        const now = new Date().getTime();
-        if (limitTime && notiDate && now - notiDate > limitTime) { // time limit
-          return;
-        }
+        const notiTime = Date.parse(notification.datetime);
+        const nowTime = new Date().getTime();
+        if (limitTime && notiTime && nowTime - notiTime > limitTime) return; // time limit
         this.notifications.push(notification);
       });
     },
