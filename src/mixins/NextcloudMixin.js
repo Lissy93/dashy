@@ -2,7 +2,6 @@ import { serviceEndpoints } from '@/utils/defaults';
 import {
   convertBytes, formatNumber, getTimeAgo, timestampToDateTime,
 } from '@/utils/MiscHelpers';
-// //import { NcdCap } from '@/utils/ncd';
 
 /**
  * Reusable mixin for Nextcloud widgets
@@ -146,7 +145,6 @@ export default {
     loadCapabilities() {
       if ((new Date().getTime()) - this.capabilitiesLastUpdated > this.capabilitiesTtl) {
         return this.makeRequest(this.endpoint('capabilities'), this.headers)
-        // //return Promise.resolve(NcdCap)
           .then(this.processCapabilities);
       }
       return Promise.resolve();

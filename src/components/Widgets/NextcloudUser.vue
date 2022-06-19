@@ -45,7 +45,6 @@ import WidgetMixin from '@/mixins/WidgetMixin';
 import NextcloudMixin from '@/mixins/NextcloudMixin';
 import PercentageChart from '@/components/Charts/PercentageChart';
 import { convertBytes } from '@/utils/MiscHelpers';
-// //import { NcdUsr } from '@/utils/ncd';
 
 /**
  * NextcloudUser widget - Displays branding and user information
@@ -85,7 +84,6 @@ export default {
     },
     loadUser() {
       return this.makeRequest(this.endpoint('user'), this.headers)
-      // //return Promise.resolve(NcdUsr)
         .then(this.processUser);
     },
     processUser(userResponse) {

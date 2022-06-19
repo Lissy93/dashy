@@ -38,7 +38,6 @@
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
 import NextcloudMixin from '@/mixins/NextcloudMixin';
-// //import { NcdNotif } from '@/utils/ncd';
 
 /**
  * NextcloudNotifications widget - Displays the user's notifications
@@ -83,7 +82,6 @@ export default {
         return;
       }
       this.makeRequest(this.endpoint('notifications'), this.headers)
-      // //Promise.resolve(NcdNotif)
         .then(this.processNotifications)
         .finally(this.finishLoading);
     },
@@ -117,14 +115,12 @@ export default {
     },
     deleteNotifications() {
       this.makeRequest(this.endpoint('notifications'), this.headers, 'DELETE')
-      // //Promise.resolve()
         .then(() => {
           this.notifications = [];
         });
     },
     deleteNotification(id) {
       this.makeRequest(`${this.endpoint('notifications')}/${id}`, this.headers, 'DELETE')
-      // //Promise.resolve()
         .then(this.fetchData);
     },
     /* Tooltip generators */

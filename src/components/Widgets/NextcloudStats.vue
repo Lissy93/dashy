@@ -58,7 +58,6 @@
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
 import NextcloudMixin from '@/mixins/NextcloudMixin';
-// //import { NcdServer } from '@/utils/ncd';
 
 /**
  * NextcloudStats widget - Shows statistics about Nextcloud usage
@@ -130,7 +129,6 @@ export default {
     fetchData() {
       if (!this.hasValidCredentials()) return;
       this.makeRequest(this.endpoint('serverinfo'), this.headers)
-      // //Promise.resolve(NcdServer)
         .then(this.processServerInfo)
         .finally(this.finishLoading);
     },

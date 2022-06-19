@@ -38,7 +38,6 @@
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
 import NextcloudMixin from '@/mixins/NextcloudMixin';
-// //import { NcdStatusAll, NcdStatusSingle } from '@/utils/ncd';
 
 // Nextcloud User Status API supports getting all user statuses at once
 // or a single user's status. {fetchStrategy} determines which of these methods to use.
@@ -96,7 +95,6 @@ export default {
       }
       if (this.fetchStrategy === fetchStrategies.allAtOnce) {
         this.makeRequest(this.endpoint('userstatus'), this.headers)
-        // //Promise.resolve(NcdStatusAll)
           .then(this.processStatuses)
           .finally(this.finishLoading);
       } else {
@@ -105,7 +103,6 @@ export default {
         this.users.forEach((user) => {
           promises.push(
             this.makeRequest(`${this.endpoint('userstatus')}/${user}`, this.headers)
-            // //Promise.resolve(NcdStatusSingle)
               .then(this.processStatus),
           );
         });

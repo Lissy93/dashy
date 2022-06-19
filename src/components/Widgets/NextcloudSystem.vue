@@ -46,7 +46,6 @@ import WidgetMixin from '@/mixins/WidgetMixin';
 import NextcloudMixin from '@/mixins/NextcloudMixin';
 import GaugeChart from '@/components/Charts/Gauge';
 import ChartingMixin from '@/mixins/ChartingMixin';
-// //import { NcdServer } from '@/utils/ncd';
 
 const NextcloudSystemSchema = {
   server: {
@@ -107,7 +106,6 @@ export default {
     async fetchData() {
       if (!this.hasValidCredentials()) return;
       this.makeRequest(this.endpoint('serverinfo'), this.headers)
-      // //Promise.resolve(NcdServer)
         .then(this.processServerInfo)
         .finally(() => this.finishLoading());
     },
