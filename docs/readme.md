@@ -1,7 +1,7 @@
 ![Dashy Docs](https://i.ibb.co/4mdNf7M/heading-docs.png)
 
 ### Running Dashy
-- [Quick Start](/docs/quick-start.md) - TDLR guide on getting Dashy up and running
+- [Quick Start](/docs/quick-start.md) - TLDR guide on getting Dashy up and running
 - [Deployment](/docs/deployment.md) - Full guide on deploying Dashy either locally or online
 - [Configuring](/docs/configuring.md) - Complete list of all available options in the config file
 - [App Management](/docs/management.md) - Managing your app, updating, security, web server configuration, etc
