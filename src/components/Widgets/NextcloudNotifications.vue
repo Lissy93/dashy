@@ -54,6 +54,23 @@ export default {
       notifications: [],
     };
   },
+  computed: {
+    /* Parse the limit user option to either an integer or to an integer + 'm', 'h' or 'd' */
+    limit() {
+      const lim = this.options.limit;
+      const defaultLimit = [0, false];
+      if (typeof lim === 'string') {
+        const k = { m: 60, h: 60 * 60, d: 60 * 60 * 24 };
+        const m = lim.match(/(\d+)([hmd])/);
+        if (m.length !== 3) return defaultLimit;
+        return [false, m[1] * k[m[2]] * 1000];
+      }
+      if (typeof lim === 'number') {
+        return [parseInt(this.options.limit, 10) || 0, false];
+      }
+      return defaultLimit;
+    },
+  },
   methods: {
     allowedStatuscodes() {
       return [100, 200];
@@ -72,8 +89,15 @@ export default {
     },
     processNotifications(response) {
       const notifications = this.validateResponse(response);
+      const [limitCount, limitTime] = this.limit;
       this.notifications = [];
       notifications.forEach((notification) => {
+        if (limitCount && this.notifications.length === limitCount) return; // count limit
+        const notiDate = Date.parse(notification.datetime);
+        const now = new Date().getTime();
+        if (limitTime && notiDate && now - notiDate > limitTime) { // time limit
+          return;
+        }
         this.notifications.push(notification);
       });
     },
