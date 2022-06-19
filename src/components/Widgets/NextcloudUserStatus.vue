@@ -74,6 +74,9 @@ export default {
       if (this.options.users.length > 100) return this.options.users.slice(0, 100);
       return this.options.users;
     },
+    showEmpty() {
+      return !!this.options.showEmpty;
+    },
   },
   data() {
     return {
@@ -119,6 +122,7 @@ export default {
       const newStatuses = {};
       Object.values(statuses).forEach((status) => {
         if (!this.users.includes(status.userId)) return;
+        if (!status.message && !this.showEmpty) return;
         newStatuses[status.userId] = status;
       });
       this.statuses = newStatuses;
@@ -126,7 +130,7 @@ export default {
     processStatus(response) {
       const raw = this.validateResponse(response);
       const status = Array.isArray(raw) && raw.length ? raw[0] : raw;
-      if (status) {
+      if (status && (status.message || this.showEmpty)) {
         this.newStatuses[status.userId] = status;
       }
     },
