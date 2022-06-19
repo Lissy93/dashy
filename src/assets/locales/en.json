@@ -339,7 +339,7 @@
       "local-shares": "Local shares",
       "local": "local",
       "max-keys": "max keys",
-      "memory-used": "memory-used",
+      "memory-used": "memory used",
       "memory-utilisation": "memory utilisation",
       "memory": "memory",
       "misses": "misses",
