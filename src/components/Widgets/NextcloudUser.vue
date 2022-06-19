@@ -44,7 +44,6 @@
 import WidgetMixin from '@/mixins/WidgetMixin';
 import NextcloudMixin from '@/mixins/NextcloudMixin';
 import PercentageChart from '@/components/Charts/PercentageChart';
-import { convertBytes } from '@/utils/MiscHelpers';
 
 /**
  * NextcloudUser widget - Displays branding and user information
@@ -110,9 +109,9 @@ export default {
     quotaTooltip() {
       const quotaEnabled = this.user.quota.quota > 0;
       const content = `${this.tt('quota-enabled', { not: quotaEnabled ? '' : 'not ' })}`
-                    + `<br><br>${convertBytes(this.user.quota.used)} ${this.tt('used')}<br>`
-                    + `${convertBytes(this.user.quota.free)} ${this.tt('free')}<br>`
-                    + `${convertBytes(this.user.quota.total)} ${this.tt('total')}`;
+                    + `<br><br>${this.convertBytes(this.user.quota.used)} ${this.tt('used')}<br>`
+                    + `${this.convertBytes(this.user.quota.free)} ${this.tt('free')}<br>`
+                    + `${this.convertBytes(this.user.quota.total)} ${this.tt('total')}`;
       return {
         content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
       };
