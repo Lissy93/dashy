@@ -55,39 +55,6 @@
 import WidgetMixin from '@/mixins/WidgetMixin';
 import NextcloudMixin from '@/mixins/NextcloudMixin';
 
-const NextcloudSystemSchema = {
-  opcache: {
-    opcache_enabled: null,
-    full: null,
-    opcache_statistics: {
-      num_cached_scripts: null,
-      num_cached_keys: null,
-      max_cached_keys: null,
-      hits: null,
-      start_time: null,
-      last_restart_time: null,
-      misses: null,
-      opcache_hit_rate: null,
-    },
-    memory_usage: {
-      used_memory: null,
-      free_memory: null,
-      total_memory: null,
-      wasted_memory: null,
-      used_memory_percentage: null,
-      current_wasted_percentage: null,
-    },
-    interned_strings_usage: {
-      buffer_size: null,
-      used_memory: null,
-      total_memory: null,
-      free_memory: null,
-      number_of_strings: null,
-      used_memory_percentage: null,
-    },
-  },
-};
-
 /**
  * NextcloudPhpOpcache widget - Shows statistics about PHP opcache performance
  * Used endpoints
@@ -97,7 +64,38 @@ export default {
   mixins: [WidgetMixin, NextcloudMixin],
   components: {},
   data() {
-    return NextcloudSystemSchema;
+    return {
+      opcache: {
+        opcache_enabled: null,
+        full: null,
+        opcache_statistics: {
+          num_cached_scripts: null,
+          num_cached_keys: null,
+          max_cached_keys: null,
+          hits: null,
+          start_time: null,
+          last_restart_time: null,
+          misses: null,
+          opcache_hit_rate: null,
+        },
+        memory_usage: {
+          used_memory: null,
+          free_memory: null,
+          total_memory: null,
+          wasted_memory: null,
+          used_memory_percentage: null,
+          current_wasted_percentage: null,
+        },
+        interned_strings_usage: {
+          buffer_size: null,
+          used_memory: null,
+          total_memory: null,
+          free_memory: null,
+          number_of_strings: null,
+          used_memory_percentage: null,
+        },
+      },
+    };
   },
   computed: {
     didLoadData() {
@@ -123,7 +121,7 @@ export default {
     },
     processServerInfo(serverData) {
       const data = this.validateResponse(serverData);
-      this.opcache = data?.server?.php?.opcache;
+      this.opcache = data.server?.php?.opcache;
       if (!this.opcache) return;
       this.updateOpcacheMemory();
       this.updateOpcacheInterned();

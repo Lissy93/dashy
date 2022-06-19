@@ -47,39 +47,6 @@ import NextcloudMixin from '@/mixins/NextcloudMixin';
 import GaugeChart from '@/components/Charts/Gauge';
 import ChartingMixin from '@/mixins/ChartingMixin';
 
-const NextcloudSystemSchema = {
-  server: {
-    server: {
-      database: {
-        type: null,
-        version: null,
-        size: null,
-      },
-      webserver: null,
-      php: {
-        version: null,
-      },
-    },
-    nextcloud: {
-      system: {
-        version: null,
-        freespace: null,
-        cpuload: [],
-        mem_total: null,
-        mem_free: null,
-        mem_percent: null,
-      },
-    },
-  },
-  memoryGauge: {
-    value: 0,
-    color: '#272f4d',
-    showMoreInfo: false,
-    moreInfo: null,
-    background: '#16161d',
-  },
-};
-
 /**
  * NextcloudSystem widget - Visualises CPU load and memory utilisation and shows server versions
  * Used endpoints
@@ -89,14 +56,45 @@ export default {
   mixins: [WidgetMixin, NextcloudMixin, ChartingMixin],
   components: { GaugeChart },
   data() {
-    return NextcloudSystemSchema;
+    return {
+      server: {
+        server: {
+          database: {
+            type: null,
+            version: null,
+            size: null,
+          },
+          webserver: null,
+          php: {
+            version: null,
+          },
+        },
+        nextcloud: {
+          system: {
+            version: null,
+            freespace: null,
+            cpuload: [],
+            mem_total: null,
+            mem_free: null,
+            mem_percent: null,
+          },
+        },
+      },
+      memoryGauge: {
+        value: 0,
+        color: '#272f4d',
+        showMoreInfo: false,
+        moreInfo: null,
+        background: '#16161d',
+      },
+    };
   },
   computed: {
     cpuLoadChartId() {
       return `nextcloud-cpu-load-chart-${Math.random().toString().slice(-4)}`;
     },
     didLoadData() {
-      return !!(this?.server?.nextcloud?.system?.version);
+      return !!(this.server?.nextcloud?.system?.version);
     },
   },
   methods: {
@@ -112,11 +110,10 @@ export default {
     processServerInfo(serverData) {
       const data = this.validateResponse(serverData);
       if (!data || data.length === 0) return;
-      this.server.nextcloud.system = data?.nextcloud?.system;
-      this.$nextTick();
-      this.server.server.php.version = data?.server?.php?.version;
-      this.server.server.database = data?.server?.database;
-      this.server.server.webserver = data?.server?.webserver;
+      this.server.nextcloud.system = data.nextcloud?.system;
+      this.server.server.php.version = data.server?.php?.version;
+      this.server.server.database = data.server?.database;
+      this.server.server.webserver = data.server?.webserver;
     },
     updateMemoryGauge(sys) {
       this.memoryGauge.value = parseFloat(

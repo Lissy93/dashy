@@ -64,45 +64,44 @@ import NextcloudMixin from '@/mixins/NextcloudMixin';
  * Used endpoints
  *  - serverinfo: requires Nextcloud admin user
  */
-const NextcloudStatsSchema = {
-  nextcloud: {
-    system: {
-      freespace: null,
-      apps: {
-        num_installed: null,
-        num_updates_available: 0,
-        app_updates: [],
-      },
-    },
-    storage: {
-      num_users: null,
-      num_files: null,
-      num_storages: null,
-    },
-    shares: {
-      num_shares: null,
-      num_shares_user: null,
-      num_shares_groups: null,
-      num_shares_link: null,
-      num_shares_mail: null,
-      num_shares_room: null,
-      num_shares_link_no_password: null,
-      num_fed_shares_sent: null,
-      num_fed_shares_received: null,
-    },
-  },
-  activeUsers: {
-    last5minutes: null,
-    last1hour: null,
-    last24hours: null,
-  },
-};
 
 export default {
   mixins: [WidgetMixin, NextcloudMixin],
   components: {},
   data() {
-    return NextcloudStatsSchema;
+    return {
+      nextcloud: {
+        system: {
+          freespace: null,
+          apps: {
+            num_installed: null,
+            num_updates_available: 0,
+            app_updates: [],
+          },
+        },
+        storage: {
+          num_users: null,
+          num_files: null,
+          num_storages: null,
+        },
+        shares: {
+          num_shares: null,
+          num_shares_user: null,
+          num_shares_groups: null,
+          num_shares_link: null,
+          num_shares_mail: null,
+          num_shares_room: null,
+          num_shares_link_no_password: null,
+          num_fed_shares_sent: null,
+          num_fed_shares_received: null,
+        },
+      },
+      activeUsers: {
+        last5minutes: null,
+        last1hour: null,
+        last24hours: null,
+      },
+    };
   },
   computed: {
     didLoadData() {
@@ -134,8 +133,8 @@ export default {
     },
     processServerInfo(serverResponse) {
       const data = this.validateResponse(serverResponse);
-      this.nextcloud = data?.nextcloud;
-      this.activeUsers = data?.activeUsers;
+      this.nextcloud = data.nextcloud;
+      this.activeUsers = data.activeUsers;
     },
     /* Tooltip generators */
     activeUsersTooltip() {

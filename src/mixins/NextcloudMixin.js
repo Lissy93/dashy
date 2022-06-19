@@ -152,13 +152,13 @@ export default {
     /* Update the sate based on the capabilites response */
     processCapabilities(capResponse) {
       const ocdata = this.validateResponse(capResponse);
-      const capNotif = ocdata?.capabilities?.notifications?.['ocs-endpoints'];
-      this.branding = ocdata?.capabilities?.theming;
+      const capNotif = ocdata.capabilities?.notifications?.['ocs-endpoints'];
+      this.branding = ocdata.capabilities?.theming;
       this.capabilities.notifications.enabled = !!(capNotif?.length);
       this.capabilities.notifications.features = capNotif || [];
-      this.capabilities.userStatus = !!(ocdata?.capabilities?.user_status?.enabled);
-      this.version.string = ocdata?.version?.string;
-      this.version.edition = ocdata?.version?.edition;
+      this.capabilities.userStatus = !!(ocdata.capabilities?.user_status?.enabled);
+      this.version.string = ocdata.version?.string;
+      this.version.edition = ocdata.version?.edition;
       this.capabilitiesLastUpdated = new Date().getTime();
     },
     /* Shared template helpers */
