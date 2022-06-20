@@ -1,9 +1,9 @@
 <template>
 <div class="nextcloud-widget nextcloud-status-wrapper">
-  <div v-if="notifications.length" class="sep">
+  <div v-if="notifications.length">
     <!-- group actions: delete all -->
-    <p v-if="canDeleteNotification('delete-all')">
-      <span class="action group-action" @click="deleteNotifications">{{ tt('delete-all') }}</span>
+    <p v-if="canDeleteNotification('delete-all')" class="group-action">
+      <span class="action secondary" @click="deleteNotifications">{{ tt('delete-all') }}</span>
     </p>
     <hr/>
     <!-- notifications list -->
@@ -147,26 +147,25 @@ export default {
 
   div p small i {
     position: relative;
-    top: .25rem;
+    top: .25em;
   }
   small.date {
     background: var(--widget-text-color);
     color: var(--widget-accent-color);
-    border-radius: 4px;
-    padding: .15rem .3rem;
-    margin: .25rem .25rem .25rem 0;
+    border-radius: .25em;
+    padding: .15em .3em;
+    margin: .25em .25em .25em 0;
     display: inline-block;
     font-weight: bold;
-    opacity: .66;
   }
-  span.group-action {
-    float: right;
+  p.group-action {
+    margin-top: 0;
   }
   span.action, span a.action {
     cursor: pointer;
-    margin: .1rem 0 .1rem .5rem;
-    padding: .15rem;
-    border-radius: 4px;
+    margin: .1em .5em .1em 0;
+    padding: .15em;
+    border-radius: .25em;
     white-space: nowrap;
   }
   span.action:hover, span a.action:hover {
@@ -197,13 +196,13 @@ export default {
         width: 16px;
         height: 16px;
         position: relative;
-        top: 1rem;
+        top: 1em;
         opacity: .75;
       }
     }
   }
   div hr {
-    margin-top: 0.3rem;
+    margin-top: .3em;
     margin-bottom: 0;
   }
 }

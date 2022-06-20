@@ -1,5 +1,5 @@
 <template>
-<div v-if="user.id" class="nextcloud-widget nextcloud-info-wrapper">
+<div v-if="didLoadData" class="nextcloud-widget nextcloud-info-wrapper">
   <!-- logo, branding, user info -->
   <div>
     <div class="logo">
@@ -13,7 +13,7 @@
       <p class="version" v-if="version.string">
         <small>Nextcloud {{ tt('version') }} {{ version.string }}</small>
       </p>
-      <p class="username">{{ user.displayName }} <em v-if="user.id">({{ user.id }})</em></p>
+      <p class="username">{{ user.displayName }} <em>({{ user.id }})</em></p>
       <p class="login" v-tooltip="lastLoginTooltip()">
         <span>{{ tt('last-login') }}</span>&nbsp;
         <small>{{ getTimeAgo(user.lastLogin) }}</small>
@@ -30,8 +30,8 @@
         <strong v-else>{{ tt('disk-space') }}</strong>
         <em v-html="formatPercent(user.quota.relative)"></em>
         <small>{{ tt('of') }}</small><strong v-html="convertBytes(user.quota.total)"></strong>
-        <span v-if="quotaChartData">
-          <PercentageChart :values="quotaChartData" :showLegend="false" />
+        <span v-if="quotaChart.dataLoaded">
+          <PercentageChart :values="quotaChart.data" :showLegend="false" />
         </span>
       </p>
       <hr/>
@@ -68,8 +68,19 @@ export default {
           quota: null,
         },
       },
-      quotaChartData: null,
+      quotaChart: {
+        dataLoaded: false,
+        data: [
+          { label: null, size: null, color: null },
+          { label: null, size: null, color: null },
+        ],
+      },
     };
+  },
+  computed: {
+    didLoadData() {
+      return !!this.user.id;
+    },
   },
   methods: {
     allowedStatuscodes() {
@@ -92,18 +103,20 @@ export default {
       this.user.quota = user.quota;
       this.user.displayName = user.displayname;
       this.user.lastLogin = user.lastLogin;
+    },
+    getQuotaChartColorUsed(percent) {
+      if (percent < 0.75) return this.getValueFromCss('widget-text-color');
+      if (percent < 0.85) return this.getValueFromCss('warning');
+      if (percent < 0.95) return this.getValueFromCss('error');
+      return this.getValueFromCss('danger');
+    },
+    updateQuotaChart() {
       const used = parseFloat(this.user.quota.used / this.user.quota.total);
       const free = parseFloat(this.user.quota.free / this.user.quota.total);
-      this.quotaChartData = [
-        { label: this.tt('used'), size: used, color: this.getQuotaChartColor(used) },
-        { label: this.tt('available'), size: free, color: '#20e253' },
-      ];
-    },
-    getQuotaChartColor(percent) {
-      if (percent < 0.75) return '#272f4d';
-      if (percent < 0.85) return '#fce216';
-      if (percent < 0.95) return '#ff9000';
-      return '#f80363';
+      const d = this.quotaChart.data;
+      d[0] = { label: this.tt('used'), size: used, color: this.getQuotaChartColorUsed(used) };
+      d[1] = { label: this.tt('available'), size: free, color: this.getValueFromCss('success') };
+      this.quotaChart.dataLoaded = true;
     },
     /* Tooltip generators */
     quotaTooltip() {
@@ -126,6 +139,9 @@ export default {
   created() {
     this.overrideUpdateInterval = 120;
   },
+  updated() {
+    this.updateQuotaChart();
+  },
 };
 </script>
 
@@ -139,20 +155,20 @@ export default {
     border-top: none;
   }
   div.percentage-chart-wrapper {
-    margin: 0 0.75rem;
+    margin: 0 .75em;
     width: 5em;
     position: relative;
-    top: 0.2rem;
+    top: .2em;
     float: right;
   }
   div.logo {
     width: 40%;
     text-align: center;
     img {
-      width: 8rem;
+      width: 8em;
     }
     p {
-      font-size: 90%;
+      font-size: .9em;
       opacity: .85;
     }
   }
@@ -166,23 +182,23 @@ export default {
     }
     p.brand {
       margin: 0;
-      font-size: 135%;
+      font-size: 1.35em;
       font-weight: 800;
       letter-spacing: 3px;
     }
     p.version small {
-      font-size: 75%;
+      font-size: .75em;
     }
     p.username {
-      font-size: 110%;
+      font-size: 1.1em;
       em {
-        font-size: 90%;
+        font-size: .9em;
       }
     }
     p.login {
       span {
-        font-size: 90%;
-        margin-right: .25rem;
+        font-size: .9em;
+        margin-right: .25em;
       }
     }
   }

@@ -144,10 +144,10 @@ export default {
     },
     getMemoryGaugeColor(memPercent) {
       if (memPercent < 50) return this.getColorRgba('widget-text-color', 0.6);
-      if (memPercent < 60) return '#f6f000';
-      if (memPercent < 80) return '#fca016';
-      if (memPercent < 100) return '#f80363';
-      return '#272f4d';
+      if (memPercent < 60) return this.getColorRgba('warning', 0.75);
+      if (memPercent < 80) return this.getColorRgba('error', 0.9);
+      if (memPercent < 100) return this.getColorRgba('danger');
+      return this.getColorRgba('background');
     },
     getMemoryGaugeLabel() {
       const sys = this.server.nextcloud.system;
@@ -201,14 +201,15 @@ export default {
       max-width: 44%;
       small {
         font-size: 12px;
-        color: #999999;
+        color: #666666;
         display: inline-block;
         width: 100%;
         text-align: center;
-        margin: .69rem 0 1rem 0;
+        margin: .9em 0 1.4em 0;
+        opacity: 1;
       }
       small:last-child {
-        margin-top: 16px;
+        margin-top: 2em;
         font-size: 10px;
       }
     }
@@ -219,8 +220,8 @@ export default {
       color: var(--widget-text-color);
       text-align: center;
       position: absolute;
-      font-size: 1.3rem;
-      margin: 0.5rem 0;
+      font-size: 1.3em;
+      margin: .5em 0;
       width: 100%;
       bottom: 0;
     }

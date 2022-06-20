@@ -18,7 +18,7 @@
         <i class="fal fa-browser"></i>
         <em v-html="formatNumber(apps.num_installed)"></em>
         <strong>{{ tt('applications') }}</strong>
-        <span v-if="apps.num_updates_available" data-nc-updates class="success">
+        <span v-if="apps.num_updates_available" class="success has-updates">
           <i class="fal fa-download"></i><em>{{ apps.num_updates_available }}</em>
           <strong>
             {{ tt('updates-available',
@@ -191,10 +191,8 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/widgets/nextcloud-shared.scss';
 .nextcloud-stats-wrapper {
-  div.server-info {
-    [data-nc-updates] {
-      margin-left: 0.5rem;
-    }
+  div.server-info .nc-updates {
+    margin-left: .5em;
   }
 }
 </style>

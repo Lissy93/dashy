@@ -19,7 +19,7 @@
         <!-- user status: status -->
         <div>
           <p>
-            <small :class="'status ' + getStatusClass(status.status)">
+            <small :class="`status ${status.status}`">
               <i v-if="status.status === 'online' || status.status === 'dnd'"
                 class="fas fa-circle" v-tooltip="tt(status.status)"></i>
               <i v-else class="far fa-circle" v-tooltip="tt(status.status)"></i>
@@ -131,14 +131,6 @@ export default {
         this.newStatuses[status.userId] = status;
       }
     },
-    getStatusClass(status) {
-      switch (status) {
-        case 'online': return 'success';
-        case 'away': return 'warning';
-        case 'dnd': return 'danger';
-        case 'offline': default: return 'disabled';
-      }
-    },
     /* Tooltip generators */
     clearAtTooltip(clearAtTime) {
       const content = clearAtTime ? `${this.tt('until')}`
@@ -165,6 +157,18 @@ export default {
       margin: 0;
     }
   }
+  .online {
+    color: var(--success);
+  }
+  .offline {
+    color: var(--medium-grey);
+  }
+  .away {
+    color: var(--error);
+  }
+  .dnd {
+    color: var(--danger);
+  }
   div.user > div {
     display: table;
     width: 100%;
@@ -177,7 +181,7 @@ export default {
     }
     > div:nth-child(2) {
       p small i {
-        color: #aaaaaa;
+        color: var(--medium-grey);
         top: 0;
         opacity: .5;
         margin: 0;
@@ -189,8 +193,11 @@ export default {
     }
   }
   div.user hr {
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
+    margin-top: .3em;
+    margin-bottom: .3em;
+  }
+  div.user hr:last-child {
+    margin-bottom: 0;
   }
 }
 </style>

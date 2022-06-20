@@ -1,7 +1,7 @@
 .nextcloud-widget {
   p {
     color: var(--widget-text-color);
-    margin: 0.5rem 0;
+    margin: .5em 0;
   }
 
   a {
@@ -9,21 +9,21 @@
   }
 
   p i {
-    font-size: 110%;
+    font-size: 1.1em;
     min-width: 22px;
     text-align: center;
   }
 
   p em {
-    font-size: 110%;
-    margin: 0 4px;
+    font-size: 1.1em;
+    margin: 0 .24em;
     font-weight: 800;
   }
 
   strong {
     font-weight: 800;
-    font-size: 105%;
-    margin-left: .25rem;
+    font-size: 1.05em;
+    margin-left: .25em;
   }
 
   small {
@@ -34,37 +34,24 @@
     color: var(--widget-text-color);
     border: none;
     border-top: 1px solid;
-    margin-top: 0.8rem;
-    margin-bottom: 0.8rem;
+    margin-top: .8em;
+    margin-bottom: .8em;
     opacity: .25;
     clear: both;
+  }
+  hr:last-child {
+    margin-bottom: 0;
   }
 
   div.sep {
     border-top: 1px dashed var(--widget-text-color);
     width: 100%;
-    padding: .4rem 0;
+    padding: .4em 0 0 0;
     margin: .85em 0 0 0;
     > div:not(:first-child) {
       width: 100%;
       position: relative;
     }
-  }
-
-  .success {
-    color: var(--success);
-  }
-
-  .warning {
-    color: #ff9000;
-  }
-
-  .danger {
-    color: var(--danger);
-  }
-
-  .disabled {
-    color: #818181;
   }
 
   ::v-deep span.decimals {
