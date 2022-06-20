@@ -193,8 +193,7 @@ export default {
       text-align: left;
       > img {
         float: right;
-        width: 16px;
-        height: 16px;
+        width: 1em;
         position: relative;
         top: 1em;
         opacity: .75;
