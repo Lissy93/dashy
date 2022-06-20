@@ -1,0 +1,64 @@
+.nextcloud-widget {
+  p {
+    color: var(--widget-text-color);
+    margin: .5em 0;
+  }
+
+  a {
+    color: var(--widget-text-color);
+  }
+
+  p i {
+    font-size: 1.1em;
+    min-width: 22px;
+    text-align: center;
+  }
+
+  p em {
+    font-size: 1.1em;
+    margin: 0 .24em;
+    font-weight: 800;
+  }
+
+  strong {
+    font-weight: 800;
+    font-size: 1.05em;
+    margin-left: .25em;
+  }
+
+  small {
+    opacity: .66;
+  }
+
+  hr {
+    color: var(--widget-text-color);
+    border: none;
+    border-top: 1px solid;
+    margin-top: .8em;
+    margin-bottom: .8em;
+    opacity: .25;
+    clear: both;
+  }
+  hr:last-child {
+    margin-bottom: 0;
+  }
+
+  div.sep {
+    border-top: 1px dashed var(--widget-text-color);
+    width: 100%;
+    padding: .4em 0 0 0;
+    margin: .85em 0 0 0;
+    > div:not(:first-child) {
+      width: 100%;
+      position: relative;
+    }
+  }
+
+  ::v-deep span.decimals {
+    font-size: 85%;
+  }
+
+  ::v-deep div.percentage-chart {
+    margin: 0;
+  }
+}

@@ -48,6 +48,12 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [AdGuard Home Filters](#adguard-home-filters)
   - [AdGuard Home DNS Info](#adguard-home-dns-info)
   - [AdGuard Home Top Domains](#adguard-home-top-domains)
+  - [Nextcloud User](#nextcloud-user)
+  - [Nextcloud User Statuses](#nextcloud-user-statuses)
+  - [Nextcloud Notifications](#nextcloud-notifications)
+  - [Nextcloud System](#nextcloud-system)
+  - [Nextcloud Stats](#nextcloud-stats)
+  - [Nextcloud PHP Opcache](#nextcloud-php-opcache-stats)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -1561,6 +1567,224 @@ Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overvi
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [AdGuard Home](https://adguard.com/en/adguard-home/overview.html))
 - **Privacy**: _See [AdGuard Privacy Policy](https://adguard.com/en/privacy.html)_
+
+---
+
+### Nextcloud User
+
+Nextcloud is a [self hosted](https://nextcloud.com/install/#instructions-server) productivity platform, it can also be used free of charge with [hundreds of existing hosting providers](https://nextcloud.com/sign-up/) that offer a free Nextcloud account.
+
+Displays branding information of a Nextcloud server (logo, url, slogan) and some user details (name, login name, last login, disk space or quota). Use with regular or admin user.
+
+Shows quota usage when quota is enabled for the user or disk usage when not enabled.
+
+Known issues: the User API incorrectly reports available disk space as total for admin users when quota is not enabled (which usually is the case for admins).
+
+<p align="center"><img width="450" src="https://i.ibb.co/F8Fdm3t/nextcloud-user.png" alt="nextcloud-user" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL of the Nextcloud server
+**`username`** | `string` |  Required | Nextcloud username
+**`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
+
+
+##### Example 
+
+```yaml
+- type: nextcloud-user
+  useProxy: true
+  options:
+    hostname: https://nextcloud.example.com
+    username: alice
+    password: xxxxx-xxxxx-xxxxx-xxxxx
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Nextcloud](https://nextcloud.com))
+- **Privacy**: _See [Nextcloud Privacy Policy](https://nextcloud.com/privacy)_
+
+---
+
+### Nextcloud User Statuses
+
+Show user statuses for selected users.
+
+<p align="center"><img width="450" src="https://i.ibb.co/Lk4DFT5/nextcloud-userstatus.png" alt="nextcloud-userstatus" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL of the Nextcloud server
+**`username`** | `string` |  Required | Nextcloud username
+**`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
+**`users`** | `array` |  Required | Nextcloud User IDs to show statuses for, list size between `1` and `100`
+**`showEmpty`** | `boolean` |  _Optional_ | Show statuses without a message, defaults to `true`
+
+
+##### Example 
+
+```yaml
+- type: nextcloud-userstatus
+  useProxy: true
+  options:
+    hostname: https://nextcloud.example.com
+    username: alice
+    password: xxxxx-xxxxx-xxxxx-xxxxx
+    users: ['bob', 'alice']
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Nextcloud](https://nextcloud.com))
+- **Privacy**: _See [Nextcloud Privacy Policy](https://nextcloud.com/privacy)_
+
+---
+
+### Nextcloud Notifications
+
+Displays your notifications and allows deleting them.
+
+<p align="center"><img width="450" src="https://i.ibb.co/yQCS51k/nextcloud-notifications.png" alt="nextcloud-notifications" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL of the Nextcloud server
+**`username`** | `string` |  Required | Nextcloud username
+**`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
+**`limit`** | `number\|string` |  _Optional_ | Limit displayed notifications either by count, e.g. `5` to show the 5 most recent, or by age, e.g. `1d` to only show notifications not older than a day. Accepted suffixes for age limit are `m`, `h` and `d`. 
+
+
+##### Example 
+
+```yaml
+- type: nextcloud-userstatus
+  useProxy: true
+  options:
+    hostname: https://nextcloud.example.com
+    username: alice
+    password: xxxxx-xxxxx-xxxxx-xxxxx
+    limit: 6h
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Nextcloud](https://nextcloud.com))
+- **Privacy**: _See [Nextcloud Privacy Policy](https://nextcloud.com/privacy)_
+
+---
+
+### Nextcloud System
+
+Visualises overall memory utilisation and CPU load averages, shows server versions.
+
+<p align="center"><img width="450" src="https://i.ibb.co/KW4t6nG/nextcloud-system.png" alt="nextcloud-system" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL of the Nextcloud server
+**`username`** | `string` |  Required | Must be a Nextcloud admin user
+**`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
+
+##### Example 
+
+```yaml
+- type: nextcloud-system
+  useProxy: true
+  options:
+    hostname: https://nextcloud.example.com
+    username: alice
+    password: xxxxx-xxxxx-xxxxx-xxxxx
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Nextcloud](https://nextcloud.com))
+- **Privacy**: _See [Nextcloud Privacy Policy](https://nextcloud.com/privacy)_
+
+---
+
+### Nextcloud Stats
+
+Shows key usage statistics about your Nextcloud server.
+
+<p align="center"><img width="450" src="https://i.ibb.co/pPXPQFB/nextcloud-stats.png" alt="nextcloud-stats" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL of the Nextcloud server
+**`username`** | `string` |  Required | Must be a Nextcloud admin user
+**`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
+
+##### Example 
+
+```yaml
+- type: nextcloud-stats
+  useProxy: true
+  options:
+    hostname: https://nextcloud.example.com
+    username: alice
+    password: xxxxx-xxxxx-xxxxx-xxxxx
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Nextcloud](https://nextcloud.com))
+- **Privacy**: _See [Nextcloud Privacy Policy](https://nextcloud.com/privacy)_
+
+---
+
+### Nextcloud PHP Opcache Stats
+
+Shows statistics about PHP Opcache perforamnce on your Nextcloud server.
+
+<p align="center"><img width="450" src="https://i.ibb.co/xf6M4J2/nextcloud-phpopcache.png" alt="nextcloud-phpopcache" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL of the Nextcloud server
+**`username`** | `string` |  Required | Must be a Nextcloud admin user
+**`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
+
+##### Example 
+
+```yaml
+- type: nextcloud-stats
+  useProxy: true
+  options:
+    hostname: https://nextcloud.example.com
+    username: alice
+    password: xxxxx-xxxxx-xxxxx-xxxxx
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Nextcloud](https://nextcloud.com))
+- **Privacy**: _See [Nextcloud Privacy Policy](https://nextcloud.com/privacy)_
 
 ---
 
