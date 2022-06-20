@@ -113,7 +113,7 @@ export const formatNumber = (number, decimals = 1) => {
   const units = ['', 'K', 'M', 'B', 'T'];
   const k = 1000;
   const i = Math.floor(Math.log(number) / Math.log(k));
-  const f = number / (k ** i);
+  const f = parseFloat(number / (k ** i));
   const d = f.toFixed(decimals) % 1.0 === 0 ? 0 : decimals; // number of decimals, omit .0
   return `${f.toFixed(d)}${units[i]}`;
 };
