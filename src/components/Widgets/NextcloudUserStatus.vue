@@ -153,7 +153,7 @@ export default {
     float: right;
     i {
       position: relative;
-      top: .25rem;
+      top: .15rem;
       margin: 0;
     }
   }
@@ -181,7 +181,6 @@ export default {
     }
     > div:nth-child(2) {
       p small i {
-        color: var(--medium-grey);
         top: 0;
         opacity: .5;
         margin: 0;
@@ -196,7 +195,7 @@ export default {
     margin-top: .3em;
     margin-bottom: .3em;
   }
-  div.user hr:last-child {
+  div.user > div > div:last-child hr {
     margin-bottom: 0;
   }
 }
