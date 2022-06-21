@@ -698,7 +698,10 @@ html[data-theme='material'], html[data-theme='material-dark'] {
 html[data-theme='material'] {
   --primary: #363636;
   --background: #eee;
-  --background-darker: #5c90eb;
+  --white2: #f5f5f5;
+  --grey2: #473f3f;
+  --background-darker: #4285f4;
+  --background-darker2: #0c4eba;
   --item-group-outer-background: none;
   --item-group-shadow: none;
   --item-group-background: none;
@@ -709,31 +712,31 @@ html[data-theme='material'] {
   --item-text-color: var(--primary);
   --item-group-heading-text-color-hover: var(--primary);
   --item-icon-transform-hover: none;
-  --nav-link-background-color: #0c4eba;
+  --nav-link-background-color: var(--background-darker2);
   --nav-link-text-color: var(--white);
-  --nav-link-border-color: #0c4eba;
+  --nav-link-border-color: var(--background-darker2);
   --settings-text-color: var(--primary);
   --config-code-color: var(--primary);
-  --config-settings-background: #f5f5f5;
-  --config-settings-color: #473f3f;
-  --interactive-editor-color: #473f3f;
-  --interactive-editor-background: #f5f5f5;
+  --config-settings-background: var(--white2);
+  --config-settings-color: var(--grey2);
+  --interactive-editor-color: var(--grey2);
+  --interactive-editor-background: var(--white2);
   --interactive-editor-background-darker: var(--white);
   --heading-text-color: var(--white);
   --curve-factor: 3px;
   --curve-factor-navbar: 8px;
-  --search-container-background: #4285f4;
-  --welcome-popup-text-color: #f5f5f5;
-  --footer-text-color: #f5f5f5cc;
-  // --login-form-background-secondary: #f5f5f5cc;
+  --search-container-background: var(--background-darker);
+  --welcome-popup-text-color: var(--white2);
+  --footer-text-color: var(--white2);
+  // --login-form-background-secondary: var(--white2);
   --context-menu-background: var(--white);
-  --context-menu-secondary-color: #f5f5f5;
+  --context-menu-secondary-color: var(--white2);
   --transparent-white-50: #00000080;
   --status-check-tooltip-background: var(--white);
   --description-tooltip-background: var(--white);
-  --description-tooltip-color: #473f3f;
-  --side-bar-background-lighter: #0c4eba;
-  --side-bar-item-background: #f5f5f5;
+  --description-tooltip-color: var(--grey2);
+  --side-bar-background-lighter: var(--background-darker2);
+  --side-bar-item-background: var(--white2);
 
   --minimal-view-background-color: var(--background);
   --minimal-view-title-color: var(--background-darker);
@@ -757,19 +760,15 @@ html[data-theme='material'] {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   }
   div.minimal-section-heading.selected {
-    background: #5c90eb;
-  }
-  div.minimal-section-inner {
-    background: #ffffff80;
+    background: var(--background-darker);
   }
 
   div.jsoneditor div.jsoneditor-menu {
-    background: #5c90eb !important;
+    background: var(--background-darker) !important;
   }
 
   header {
-    background: #4285f4;
-    color: var(--white);
+    color: var(--primary);
     .page-titles span.subtitle {
       text-shadow: none;
     }
@@ -782,13 +781,13 @@ html[data-theme='material'] {
     color: var(--white);
   }
   .prism-editor-wrapper {
-    background: #f5f5f5;
+    background: var(--white2);
   }
   .item:focus {
-    outline-color: #4285f4cc;
+    outline-color: var(--background-darker);
   }
   .widget-base {
-    background: #f5f5f5;
+    background: var(--white2);
     box-shadow: var(--item-shadow);
     padding: 0.5rem;
     margin: 0.25rem 0;
