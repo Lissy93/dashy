@@ -1,15 +1,15 @@
 <template>
-<div class="apod-wrapper" v-if="image">
+<div class="apod-wrapper" v-if="url">
   <a :href="link" class="title" target="__blank" title="View Article">
     {{ title }}
   </a>
-  <a :href="hdImage" title="View HD Image" class="picture" target="__blank">
-    <img :src="image" :alt="title" />
+  <a :href="hdurl" title="View HD Image" class="picture" target="__blank">
+    <img :src="url" :alt="title" />
   </a>
   <p class="copyright">{{ copyright }}</p>
-  <p class="description">{{ truncatedDescription }}</p>
+  <p class="explanation">{{ truncatedExplanation }}</p>
   <p @click="toggleShowFull" class="expend-details-btn">
-    {{ showFullDesc ? $t('widgets.general.show-less') : $t('widgets.general.show-more') }}
+    {{ showFullExp ? $t('widgets.general.show-less') : $t('widgets.general.show-more') }}
   </p>
 </div>
 </template>
@@ -24,17 +24,17 @@ export default {
   data() {
     return {
       title: null,
-      image: null,
-      hdImage: null,
-      link: null,
-      description: null,
+      url: null,
+      hdurl: null,
+      link: 'https://apod.nasa.gov/apod/astropix.html',
+      explanation: null,
       copyright: null,
-      showFullDesc: false,
+      showFullExp: false,
     };
   },
   computed: {
-    truncatedDescription() {
-      return this.showFullDesc ? this.description : `${this.description.substring(0, 100)}...`;
+    truncatedExplanation() {
+      return this.showFullExp ? this.explanation : `${this.explanation.substring(0, 100)}...`;
     },
   },
   methods: {
@@ -52,14 +52,14 @@ export default {
     },
     processData(data) {
       this.title = data.title;
-      this.image = data.url;
-      this.hdImage = data.hdurl;
-      this.link = data.apod_site;
-      this.description = data.description;
+      this.url = data.url;
+      this.hdurl = data.hdurl;
+      this.link = data.link;
+      this.explanation = data.explanation;
       this.copyright = data.copyright;
     },
     toggleShowFull() {
-      this.showFullDesc = !this.showFullDesc;
+      this.showFullExp = !this.showFullExp;
     },
   },
 };
@@ -85,7 +85,7 @@ export default {
     opacity: var(--dimming-factor);
     color: var(--widget-text-color);
   }
-  p.description {
+  p.explanation {
     color: var(--widget-text-color);
     font-size: 1rem;
     margin: 0.5rem 0;
