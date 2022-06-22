@@ -120,6 +120,7 @@ module.exports = {
     COLLAPSE_STATE: 'collapseState',
     ICON_SIZE: 'iconSize',
     THEME: 'theme',
+    PRIMARY_THEME: 'primaryTheme',
     CUSTOM_COLORS: 'customColors',
     CONF_SECTIONS: 'confSections',
     CONF_WIDGETS: 'confSections',
