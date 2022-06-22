@@ -5,11 +5,11 @@
     <p v-tooltip="opcacheStartTimeTooltip()">
       <i class="fal fa-microchip"></i>
       <strong>PHP opcache</strong>&nbsp;
-      <em v-if="opcache.opcache_enabled" class="success">
+      <em v-if="opcache.opcache_enabled" class="oc-enabled">
         {{ tt('enabled') }}
       </em>
-      <em v-else class="disabled">{{ tt('disabled') }}</em>&nbsp;
-      <strong v-if="opcache.cache_full" class="danger">
+      <em v-else class="oc-disabled">{{ tt('disabled') }}</em>&nbsp;
+      <strong v-if="opcache.cache_full" class="oc-full">
         <i class="far fa-siren-on"></i>{{ tt('cache-full') }}
       </strong>
     </p>
@@ -200,4 +200,15 @@ export default {
 
 <style scoped lang="scss">
 @import '@/styles/widgets/nextcloud-shared.scss';
+.nextcloud-phpopcache-wrapper {
+  .oc-enabled {
+    color: var(--success);
+  }
+  .oc-disabled {
+    color: var(--neutral);
+  }
+  .oc-full {
+    color: var(--danger);
+  }
+}
 </style>
