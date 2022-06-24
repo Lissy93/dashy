@@ -162,7 +162,7 @@ export default {
         return null;
       }
       // eslint-disable-next-line prefer-template
-      return () => import('@/components/Widgets/' + type + '.vue');
+      return () => import('@/components/Widgets/' + type + '.vue').catch(() => import('@/components/Widgets/Blank.vue'));
     },
   },
   methods: {
