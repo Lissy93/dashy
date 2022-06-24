@@ -32,7 +32,6 @@
 </template>
 
 <script>
-// Import form elements, icons and utils
 import ErrorHandler from '@/utils/ErrorHandler';
 import Button from '@/components/FormElements/Button';
 import UpdateIcon from '@/assets/interface-icons/widget-update.svg';
@@ -110,7 +109,6 @@ const COMPAT = {
 export default {
   name: 'Widget',
   components: {
-    // Register form elements
     Button,
     UpdateIcon,
     OpenIcon,
@@ -156,6 +154,7 @@ export default {
       return this.widget.hideControls;
     },
     component() {
+      this.appendUserCustomComponents();
       const type = COMPAT[this.widgetType] || this.widget.type;
       if (!type) {
         ErrorHandler('Widget type was not found');
@@ -183,6 +182,15 @@ export default {
     /* Toggles loading state */
     setLoaderState(loading) {
       this.loading = loading;
+    },
+    /* If user has specified custom widgets, append them to list */
+    appendUserCustomComponents() {
+      const customWidgets = this.appConfig?.customWidgets;
+      if (customWidgets && Array.isArray(customWidgets)) {
+        customWidgets.forEach((widget) => {
+          COMPAT[widget.identifier] = widget.component;
+        });
+      }
     },
   },
 };
