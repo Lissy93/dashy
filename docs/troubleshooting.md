@@ -1,8 +1,9 @@
 # Troubleshooting
 
-> _**This document contains common problems and their solutions.**_
+> _**This document contains common problems and their solutions.**_<br>
+> Please ensure your issue isn't listed here, before opening a new ticket.
 >
-> _If you came across an issue where the solution was not immediately obvious, consider adding it to this list to help other users._
+> _If you come across an issue not listed below, consider adding it, to help other users._
 
 ### Contents
 - [Refused to Connect in Web Content View](#refused-to-connect-in-modal-or-workspace-view)
@@ -94,10 +95,18 @@ If this works, but you wish to continue using HTML5 history mode, then a bit of 
 
 ## 404 after Launch from Mobile Home Screen
 
-Similar to the above issue, if you get a 404 after using iOS's “add to Home Screen” feature, then this is caused by Vue router.
+Similar to the above issue, if you get a 404 after using iOS and Android's “Add to Home Screen” feature, then this is caused by Vue router.
 It can be fixed by setting `appConfig.routingMode` to `hash`
 
-See also: [#628](https://github.com/Lissy93/dashy/issues/628)
+See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://github.com/Lissy93/dashy/issues/762)
+
+---
+
+## 404 On Multi-Page Apps
+
+Similar to above, if you get a 404 error when visiting a page directly on multi-page apps, then this can be fixed under `appConfig`, by setting `routingMode` to `hash`. Then rebuilding, and refreshing the page.
+
+See also: [#670](https://github.com/Lissy93/dashy/issues/670), [#763](https://github.com/Lissy93/dashy/issues/763)
 
 ---
 
