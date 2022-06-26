@@ -175,8 +175,12 @@ export default {
     if (this.enableStatusCheck) this.checkWebsiteStatus();
     // If continious status checking is enabled, then start ever-lasting loop
     if (this.statusCheckInterval > 0) {
-      setInterval(this.checkWebsiteStatus, this.statusCheckInterval * 1000);
+      this.intervalId = setInterval(this.checkWebsiteStatus, this.statusCheckInterval * 1000);
     }
+  },
+  beforeDestroy() {
+    // Stop periodic status-check when item is destroyed (e.g. navigating in multi-page setup)
+    if (this.intervalId) clearInterval(this.intervalId);
   },
 };
 </script>
