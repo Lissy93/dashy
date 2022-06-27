@@ -1,13 +1,17 @@
 /**
- * Checks that conf.yml is present + parsable, then validates it against the schema
+ * Checks that the config file is present + parsable, then validates it against the schema
  * Prints detailed info about any errors or warnings to help the user fix the issue
  */
+
 
 const fs = require('fs'); // For opening + reading files
 const yaml = require('js-yaml'); // For parsing YAML
 const Ajv = require('ajv'); // For validating with schema
 
 const schema = require('../src/utils/ConfigSchema.json');
+
+const path = require('path');
+const configFile = process.env.CONFIG_FILE || '/app/public/conf.yml';
 
 /* Tell AJV to use strict mode, and report all errors */
 const validatorOptions = {
@@ -62,9 +66,11 @@ const validate = (config) => {
 
 /* Error message printed when the file could not be opened */
 const bigError = () => {
+
   const formatting = '\x1b[30m\x1b[43m';
+  const filename = path.basename(configFile);
   const line = `${formatting}${new Array(38).fill('━').join('')}\x1b[0m\n`;
-  const msg = `${formatting} Error, unable to validate 'conf.yml' \x1b[0m\n`;
+  const msg = `${formatting} Error, unable to validate '${filename}' \x1b[0m\n`;
   return `\n${line}${msg}${line}`;
 };
 
@@ -99,7 +105,7 @@ const printFileReadError = (e) => {
 };
 
 try { // Try to open and parse the YAML file
-  const config = yaml.load(fs.readFileSync('./public/conf.yml', 'utf8'));
+  const config = yaml.load(fs.readFileSync(configFile, 'utf8'));
   validate(config);
 } catch (e) { // Something went very wrong...
   setIsValidVariable(false);

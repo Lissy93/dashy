@@ -3,6 +3,7 @@ import yaml from 'js-yaml';
 import { register } from 'register-service-worker';
 import { sessionStorageKeys } from '@/utils/defaults';
 import { statusMsg, statusErrorMsg } from '@/utils/CoolConsole';
+import { getConfigFile } from '@/utils/ConfigHelpers';
 
 /* Sets a local storage item with the state from the SW lifecycle */
 const setSwStatus = (swStateToSet) => {
@@ -33,7 +34,7 @@ const setSwStatus = (swStateToSet) => {
  * Or disable if user specified to disable
  */
 const shouldEnableServiceWorker = async () => {
-  const conf = yaml.load((await axios.get('/conf.yml')).data);
+  const conf = yaml.load((await axios.get(`/${getConfigFile().FILENAME}`)).data);
   if (conf && conf.appConfig && conf.appConfig.enableServiceWorker) {
     setSwStatus({ disabledByUser: false });
     return true;

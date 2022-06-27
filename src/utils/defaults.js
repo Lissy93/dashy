@@ -157,7 +157,7 @@ module.exports = {
     EXPORT_CONFIG_MENU: 'EXPORT_CONFIG_MENU',
     MOVE_ITEM_TO: 'MOVE_ITEM_TO',
   },
-  /* Key names for the top-level objects in conf.yml */
+  /* Key names for the top-level objects in the config file */
   topLevelConfKeys: {
     PAGE_INFO: 'pageInfo',
     APP_CONFIG: 'appConfig',

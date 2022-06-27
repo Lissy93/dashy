@@ -10,6 +10,19 @@ import {
 import ErrorHandler from '@/utils/ErrorHandler';
 import ConfigSchema from '@/utils/ConfigSchema.json';
 
+const path = require('path');
+
+export const getConfigFile = () => {
+  const configFile = process.env.CONFIG_FILE || '/app/public/conf.yml';
+  return {
+    NAME: path.parse(configFile).name,
+    EXTENSION: path.extname(configFile),
+    BASE_DIR: path.dirname(configFile),
+    FILENAME: path.basename(configFile),
+    FULL: configFile,
+  };
+};
+
 /* Given a page name, converts to lowercase, removes special characters and extension */
 export const makePageName = (pageName) => {
   if (!pageName) return 'unnamed-page';

@@ -86,7 +86,7 @@ export default {
     sectionSelected(index) {
       this.selectedSection = index;
     },
-    /* Returns sections from local storage if available, otherwise uses the conf.yml */
+    /* Returns sections from local storage if available, otherwise uses the config file */
     getSections(sections) {
       // If the user has stored sections in local storage, return those
       const localSections = localStorage[localStorageKeys.CONF_SECTIONS];
@@ -94,7 +94,7 @@ export default {
         const json = JSON.parse(localSections);
         if (json.length >= 1) return json;
       }
-      // Otherwise, return the usuall data from conf.yml
+      // Otherwise, return the usual data from the config file
       return sections;
     },
     /* Clears input field, once a searched item is opened */

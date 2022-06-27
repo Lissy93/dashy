@@ -513,7 +513,7 @@
           "title": "Allow Config Editing",
           "type": "boolean",
           "default": true,
-          "description": "Can user write changes to conf.yml file from the UI. If set to false, preferences are only stored locally"
+          "description": "Can user write changes to the config file from the UI. If set to false, preferences are only stored locally"
         },
         "enableServiceWorker": {
           "title": "Enable Service Worker",
