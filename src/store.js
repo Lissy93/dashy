@@ -5,7 +5,7 @@ import axios from 'axios';
 import yaml from 'js-yaml';
 import Keys from '@/utils/StoreMutations';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
-import { getConfigFile, componentVisibility } from '@/utils/ConfigHelpers';
+import { componentVisibility } from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
@@ -315,7 +315,7 @@ const store = new Vuex.Store({
     /* Called when app first loaded. Reads config and sets state */
     async [INITIALIZE_CONFIG]({ commit }) {
       // Get the config file from the server and store it for use by the accumulator
-      commit(SET_REMOTE_CONFIG, yaml.load((await axios.get(`/${getConfigFile().FILENAME}`)).data));
+      commit(SET_REMOTE_CONFIG, yaml.load((await axios.get('/conf.yml')).data));
       const deepCopy = (json) => JSON.parse(JSON.stringify(json));
       const config = deepCopy(new ConfigAccumulator().config());
       if (config.appConfig?.theme) {
