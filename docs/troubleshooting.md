@@ -33,6 +33,7 @@
 - [Weather Forecast Widget 401](#weather-forecast-widget-401)
 - [Font Awesome Icons not Displaying](#font-awesome-icons-not-displaying)
 - [Copy to Clipboard not Working](#copy-to-clipboard-not-working)
+- [How to Reset Local Settings](#how-to-reset-local-settings)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
 
@@ -454,6 +455,21 @@ The most common reason for this, is if you not running the app over HTTPS. Copyi
 As a workaround, you could either:
 - Highlight the text and copy / <kbd>Ctrl</kbd> + <kbd>C</kbd>
 - Or setup SSL - [here's a guide](https://github.com/Lissy93/dashy/blob/master/docs/management.md#ssl-certificates) on doing so
+
+---
+
+## How to Reset Local Settings
+
+Some settings are stored locally, in the browser's storage.
+
+In some instances cached assets can prevent your settings from being updated, in which case you may wish to reset local data.
+
+To clear all local data from the UI, head to the Config Menu, then click "Reset Local Settings", and Confirm when prompted.
+This will not affect your config file. But be sure that you keep a backup of your config, if you've not written changes it to disk.
+
+You can also view any and all data that Dashy is storing, using the developer tools. Open your browser's dev tools (usually <kbd>F12</kbd>), in Chromium head to the Application tab, or in Firefox go to the Storage tab. Select Local Storage, then scroll down the the URL Dashy is running on. You should now see all data being stored, and you can select and delete any fields you wish. 
+
+For a full list of all data that may be cached, see the [Privacy Docs](/docs/privacy.md#browser-storage).
 
 ---
 
