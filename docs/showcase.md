@@ -38,11 +38,13 @@
 
 ---
 
-### The Private Dashboard
 
-> By [@DylanBeMe](https://github.com/DylanBeMe) <sup>Re: [#419](https://github.com/Lissy93/dashy/issues/419)</sup>
+### The Dragons Lair
+> By [dr460nf1r3](https://github.com/dr460nf1r3) <sup>via [#684](https://github.com/Lissy93/dashy/issues/684)</sup>
 
-![screenshot-private-dashboard](https://i.ibb.co/hKS483T/private-dashboard-Dylan-Be-Me.png)
+> My new startpage featuring the stuff I use most. And of course dragons! 
+
+![screenshot-dragons-lair](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/13-dragons-lair.png)
 
 ---
 
@@ -75,6 +77,14 @@
 > By [@EVOTk](https://github.com/EVOTk) <sup>Re: [#316](https://github.com/Lissy93/dashy/pull/316)</sup>
 
 ![screenshot-evo-dashboard](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/12-evo-dashboard.png)
+
+---
+
+### The Private Dashboard
+
+> By [@DylanBeMe](https://github.com/DylanBeMe) <sup>Re: [#419](https://github.com/Lissy93/dashy/issues/419)</sup>
+
+![screenshot-private-dashboard](https://i.ibb.co/hKS483T/private-dashboard-Dylan-Be-Me.png)
 
 ---
 
@@ -182,15 +192,6 @@
 ### Yet Another Homelab
 
 ![screenshot-yet-another-homelab](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/9-home-lab-oblivion.png)
-
----
-
-### The Dragons Lair
-> By [dr460nf1r3](https://github.com/dr460nf1r3) <sup>via [#684](https://github.com/Lissy93/dashy/issues/684)</sup>
-
-> My new startpage featuring the stuff I use most. And of course dragons! 
-
-![screenshot-dragons-lair](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/13-dragons-lair.png)
 
 ---
 
