@@ -24,21 +24,23 @@ const printSuccess = () => {
 
 // Check if the SSL certs are present and SSL should be enabled
 let enableSSL = false;
-stat(httpsCerts.public).then(() => {
-  stat(httpsCerts.private).then(() => {
+const checkCertificateFiles = stat(httpsCerts.public).then(() => {
+  return stat(httpsCerts.private).then(() => {
     enableSSL = true;
   }).catch(() => { printNotSoGood('Private key not present'); });
 }).catch(() => { printNotSoGood('Public key not present'); });
 
 const startSSLServer = (app) => {
-  // If SSL should be enabled, create a secured server and start it
-  if (enableSSL) {
-    const httpsServer = https.createServer({
-      key: fs.readFileSync(httpsCerts.private),
-      cert: fs.readFileSync(httpsCerts.public),
-    }, app);
-    httpsServer.listen(SSLPort, () => { printSuccess(); });
-  }
+  checkCertificateFiles.then(() => {
+    // If SSL should be enabled, create a secured server and start it
+    if (enableSSL) {
+      const httpsServer = https.createServer({
+        key: fs.readFileSync(httpsCerts.private),
+        cert: fs.readFileSync(httpsCerts.public),
+      }, app);
+      httpsServer.listen(SSLPort, () => { printSuccess(); });
+    }
+  });
 };
 
 const middleware = (req, res, next) => {

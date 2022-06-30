@@ -120,6 +120,7 @@ module.exports = {
     COLLAPSE_STATE: 'collapseState',
     ICON_SIZE: 'iconSize',
     THEME: 'theme',
+    PRIMARY_THEME: 'primaryTheme',
     CUSTOM_COLORS: 'customColors',
     CONF_SECTIONS: 'confSections',
     CONF_WIDGETS: 'confSections',
@@ -217,7 +218,7 @@ module.exports = {
   /* API endpoints for widgets that need to fetch external data */
   widgetApiEndpoints: {
     anonAddy: 'https://app.anonaddy.com',
-    astronomyPictureOfTheDay: 'https://apodapi.herokuapp.com/api',
+    astronomyPictureOfTheDay: 'https://go-apod.herokuapp.com/apod',
     blacklistCheck: 'https://api.blacklistchecker.com/check',
     codeStats: 'https://codestats.net/',
     covidStats: 'https://disease.sh/v3/covid-19',
@@ -242,7 +243,7 @@ module.exports = {
     rssToJson: 'https://api.rss2json.com/v1/api.json',
     sportsScores: 'https://www.thesportsdb.com/api/v1/json',
     stockPriceChart: 'https://www.alphavantage.co/query',
-    tflStatus: 'https://api.tfl.gov.uk/line/mode/tube/status',
+    tflStatus: 'https://api.tfl.gov.uk/line/mode/dlr,elizabeth-line,overground,tram,tube/status',
     walletBalance: 'https://api.blockcypher.com/v1',
     walletQrCode: 'https://www.bitcoinqrcodemaker.com/api',
     weather: 'https://api.openweathermap.org/data/2.5/weather',

@@ -1,5 +1,6 @@
 {
   "name": "Dashy",
+  "website": "https://dashy.to/",
   "description": "A Dashboard for your Homelab 🚀",
   "repository": "https://github.com/lissy93/dashy",
   "logo": "https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/logo.png",

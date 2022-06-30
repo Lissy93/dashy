@@ -22,6 +22,7 @@ export default {
     return {
       statusResponse: undefined,
       contextMenuOpen: false,
+      intervalId: undefined, // status-check setInterval() id
       contextPos: {
         posX: undefined,
         posY: undefined,

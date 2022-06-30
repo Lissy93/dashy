@@ -20,421 +20,13 @@
     </div>
     <!-- Widget -->
     <div :class="`widget-wrap ${ error ? 'has-error' : '' }`">
-      <AdGuardDnsInfo
-        v-if="widgetType === 'adguard-dns-info'"
+      <component
+        v-bind:is="component"
         :options="widgetOptions"
         @loading="setLoaderState"
         @error="handleError"
         :ref="widgetRef"
       />
-      <AdGuardFilterStatus
-        v-else-if="widgetType === 'adguard-filter-status'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <AdGuardStats
-        v-else-if="widgetType === 'adguard-stats'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <AdGuardTopDomains
-        v-else-if="widgetType === 'adguard-top-domains'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <AnonAddy
-        v-else-if="widgetType === 'anonaddy'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <Apod
-        v-else-if="widgetType === 'apod'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <BlacklistCheck
-        v-else-if="widgetType === 'blacklist-check'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <Clock
-        v-else-if="widgetType === 'clock'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <CryptoPriceChart
-        v-else-if="widgetType === 'crypto-price-chart'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <CryptoWatchList
-        v-else-if="widgetType === 'crypto-watch-list'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <CveVulnerabilities
-        v-else-if="widgetType === 'cve-vulnerabilities'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <DomainMonitor
-        v-else-if="widgetType === 'domain-monitor'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <CodeStats
-        v-else-if="widgetType === 'code-stats'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <CovidStats
-        v-else-if="widgetType === 'covid-stats'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <EmbedWidget
-        v-else-if="widgetType === 'embed'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <EthGasPrices
-        v-else-if="widgetType === 'eth-gas-prices'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <ExchangeRates
-        v-else-if="widgetType === 'exchange-rates'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <Flights
-        v-else-if="widgetType === 'flight-data'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GitHubProfile
-        v-else-if="widgetType === 'github-profile-stats'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GitHubTrending
-        v-else-if="widgetType === 'github-trending-repos'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlAlerts
-        v-else-if="widgetType === 'gl-alerts'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlCpuCores
-        v-else-if="widgetType === 'gl-current-cores'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlCpuGauge
-        v-else-if="widgetType === 'gl-current-cpu'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlCpuHistory
-        v-else-if="widgetType === 'gl-cpu-history'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlDiskIo
-        v-else-if="widgetType === 'gl-disk-io'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlDiskSpace
-        v-else-if="widgetType === 'gl-disk-space'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlIpAddress
-        v-else-if="widgetType === 'gl-ip-address'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlLoadHistory
-        v-else-if="widgetType === 'gl-load-history'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlMemGauge
-        v-else-if="widgetType === 'gl-current-mem'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlMemHistory
-        v-else-if="widgetType === 'gl-mem-history'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlNetworkInterfaces
-        v-else-if="widgetType === 'gl-network-interfaces'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlNetworkTraffic
-        v-else-if="widgetType === 'gl-network-traffic'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlSystemLoad
-        v-else-if="widgetType === 'gl-system-load'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <GlCpuTemp
-        v-else-if="widgetType === 'gl-cpu-temp'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <HealthChecks
-        v-else-if="widgetType === 'health-checks'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <IframeWidget
-        v-else-if="widgetType === 'iframe'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <ImageWidget
-        v-else-if="widgetType === 'image'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <Jokes
-        v-else-if="widgetType === 'joke'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <MullvadStatus
-        v-else-if="widgetType === 'mullvad-status'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <NdCpuHistory
-        v-else-if="widgetType === 'nd-cpu-history'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <NdLoadHistory
-        v-else-if="widgetType === 'nd-load-history'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <NdRamHistory
-        v-else-if="widgetType === 'nd-ram-history'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <NewsHeadlines
-        v-else-if="widgetType === 'news-headlines'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <PiHoleStats
-        v-else-if="widgetType === 'pi-hole-stats'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <PiHoleTopQueries
-        v-else-if="widgetType === 'pi-hole-top-queries'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <PiHoleTraffic
-        v-else-if="widgetType === 'pi-hole-traffic'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <PublicHolidays
-        v-else-if="widgetType === 'public-holidays'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <PublicIp
-        v-else-if="widgetType === 'public-ip'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <RssFeed
-        v-else-if="widgetType === 'rss-feed'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <SportsScores
-        v-else-if="widgetType === 'sports-scores'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <StatPing
-        v-else-if="widgetType === 'stat-ping'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <StockPriceChart
-        v-else-if="widgetType === 'stock-price-chart'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <SynologyDownload
-        v-else-if="widgetType === 'synology-download'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <SystemInfo
-        v-else-if="widgetType === 'system-info'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <TflStatus
-        v-else-if="widgetType === 'tfl-status'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <WalletBalance
-        v-else-if="widgetType === 'wallet-balance'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <Weather
-        v-else-if="widgetType === 'weather'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <WeatherForecast
-        v-else-if="widgetType === 'weather-forecast'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <XkcdComic
-        v-else-if="widgetType === 'xkcd-comic'"
-        :options="widgetOptions"
-        @loading="setLoaderState"
-        @error="handleError"
-        :ref="widgetRef"
-      />
-      <!-- No widget type specified -->
-      <div v-else>{{ handleError('Widget type was not found') }}</div>
     </div>
   </div>
 </template>
@@ -447,6 +39,74 @@ import UpdateIcon from '@/assets/interface-icons/widget-update.svg';
 import OpenIcon from '@/assets/interface-icons/open-new-tab.svg';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
 
+const COMPAT = {
+  'adguard-dns-info': 'AdGuardDnsInfo',
+  'adguard-filter-status': 'AdGuardFilterStatus',
+  'adguard-stats': 'AdGuardStats',
+  'adguard-top-domains': 'AdGuardTopDomains',
+  anonaddy: 'AnonAddy',
+  apod: 'Apod',
+  'blacklist-check': 'BlacklistCheck',
+  clock: 'Clock',
+  'crypto-price-chart': 'CryptoPriceChart',
+  'crypto-watch-list': 'CryptoWatchList',
+  'cve-vulnerabilities': 'CveVulnerabilities',
+  'domain-monitor': 'DomainMonitor',
+  'code-stats': 'CodeStats',
+  'covid-stats': 'CovidStats',
+  embed: 'EmbedWidget',
+  'eth-gas-prices': 'EthGasPrices',
+  'exchange-rates': 'ExchangeRates',
+  'flight-data': 'Flights',
+  'github-profile-stats': 'GitHubProfile',
+  'github-trending-repos': 'GitHubTrending',
+  'gl-alerts': 'GlAlerts',
+  'gl-current-cores': 'GlCpuCores',
+  'gl-current-cpu': 'GlCpuGauge',
+  'gl-cpu-history': 'GlCpuHistory',
+  'gl-disk-io': 'GlDiskIo',
+  'gl-disk-space': 'GlDiskSpace',
+  'gl-ip-address': 'GlIpAddress',
+  'gl-load-history': 'GlLoadHistory',
+  'gl-current-mem': 'GlMemGauge',
+  'gl-mem-history': 'GlMemHistory',
+  'gl-network-interfaces': 'GlNetworkInterfaces',
+  'gl-network-traffic': 'GlNetworkTraffic',
+  'gl-system-load': 'GlSystemLoad',
+  'gl-cpu-temp': 'GlCpuTemp',
+  'health-checks': 'HealthChecks',
+  iframe: 'IframeWidget',
+  image: 'ImageWidget',
+  joke: 'Jokes',
+  'mullvad-status': 'MullvadStatus',
+  'nd-cpu-history': 'NdCpuHistory',
+  'nd-load-history': 'NdLoadHistory',
+  'nd-ram-history': 'NdRamHistory',
+  'news-headlines': 'NewsHeadlines',
+  'nextcloud-notifications': 'NextcloudNotifications',
+  'nextcloud-php-opcache': 'NextcloudPhpOpcache',
+  'nextcloud-stats': 'NextcloudStats',
+  'nextcloud-system': 'NextcloudSystem',
+  'nextcloud-user': 'NextcloudUser',
+  'nextcloud-user-status': 'NextcloudUserStatus',
+  'pi-hole-stats': 'PiHoleStats',
+  'pi-hole-top-queries': 'PiHoleTopQueries',
+  'pi-hole-traffic': 'PiHoleTraffic',
+  'public-holidays': 'PublicHolidays',
+  'public-ip': 'PublicIp',
+  'rss-feed': 'RssFeed',
+  'sports-scores': 'SportsScores',
+  'stat-ping': 'StatPing',
+  'stock-price-chart': 'StockPriceChart',
+  'synology-download': 'SynologyDownload',
+  'system-info': 'SystemInfo',
+  'tfl-status': 'TflStatus',
+  'wallet-balance': 'WalletBalance',
+  weather: 'Weather',
+  'weather-forecast': 'WeatherForecast',
+  'xkcd-comic': 'XkcdComic',
+};
+
 export default {
   name: 'Widget',
   components: {
@@ -455,66 +115,6 @@ export default {
     UpdateIcon,
     OpenIcon,
     LoadingAnimation,
-    // Register widget components
-    AdGuardDnsInfo: () => import('@/components/Widgets/AdGuardDnsInfo.vue'),
-    AdGuardFilterStatus: () => import('@/components/Widgets/AdGuardFilterStatus.vue'),
-    AdGuardStats: () => import('@/components/Widgets/AdGuardStats.vue'),
-    AdGuardTopDomains: () => import('@/components/Widgets/AdGuardTopDomains.vue'),
-    AnonAddy: () => import('@/components/Widgets/AnonAddy.vue'),
-    Apod: () => import('@/components/Widgets/Apod.vue'),
-    BlacklistCheck: () => import('@/components/Widgets/BlacklistCheck.vue'),
-    Clock: () => import('@/components/Widgets/Clock.vue'),
-    CodeStats: () => import('@/components/Widgets/CodeStats.vue'),
-    CovidStats: () => import('@/components/Widgets/CovidStats.vue'),
-    CryptoPriceChart: () => import('@/components/Widgets/CryptoPriceChart.vue'),
-    CryptoWatchList: () => import('@/components/Widgets/CryptoWatchList.vue'),
-    CveVulnerabilities: () => import('@/components/Widgets/CveVulnerabilities.vue'),
-    DomainMonitor: () => import('@/components/Widgets/DomainMonitor.vue'),
-    EmbedWidget: () => import('@/components/Widgets/EmbedWidget.vue'),
-    EthGasPrices: () => import('@/components/Widgets/EthGasPrices.vue'),
-    ExchangeRates: () => import('@/components/Widgets/ExchangeRates.vue'),
-    Flights: () => import('@/components/Widgets/Flights.vue'),
-    GitHubTrending: () => import('@/components/Widgets/GitHubTrending.vue'),
-    GitHubProfile: () => import('@/components/Widgets/GitHubProfile.vue'),
-    GlAlerts: () => import('@/components/Widgets/GlAlerts.vue'),
-    GlCpuCores: () => import('@/components/Widgets/GlCpuCores.vue'),
-    GlCpuGauge: () => import('@/components/Widgets/GlCpuGauge.vue'),
-    GlCpuHistory: () => import('@/components/Widgets/GlCpuHistory.vue'),
-    GlDiskIo: () => import('@/components/Widgets/GlDiskIo.vue'),
-    GlDiskSpace: () => import('@/components/Widgets/GlDiskSpace.vue'),
-    GlIpAddress: () => import('@/components/Widgets/GlIpAddress.vue'),
-    GlLoadHistory: () => import('@/components/Widgets/GlLoadHistory.vue'),
-    GlMemGauge: () => import('@/components/Widgets/GlMemGauge.vue'),
-    GlMemHistory: () => import('@/components/Widgets/GlMemHistory.vue'),
-    GlNetworkInterfaces: () => import('@/components/Widgets/GlNetworkInterfaces.vue'),
-    GlNetworkTraffic: () => import('@/components/Widgets/GlNetworkTraffic.vue'),
-    GlSystemLoad: () => import('@/components/Widgets/GlSystemLoad.vue'),
-    GlCpuTemp: () => import('@/components/Widgets/GlCpuTemp.vue'),
-    HealthChecks: () => import('@/components/Widgets/HealthChecks.vue'),
-    IframeWidget: () => import('@/components/Widgets/IframeWidget.vue'),
-    ImageWidget: () => import('@/components/Widgets/ImageWidget.vue'),
-    Jokes: () => import('@/components/Widgets/Jokes.vue'),
-    MullvadStatus: () => import('@/components/Widgets/MullvadStatus.vue'),
-    NdCpuHistory: () => import('@/components/Widgets/NdCpuHistory.vue'),
-    NdLoadHistory: () => import('@/components/Widgets/NdLoadHistory.vue'),
-    NdRamHistory: () => import('@/components/Widgets/NdRamHistory.vue'),
-    NewsHeadlines: () => import('@/components/Widgets/NewsHeadlines.vue'),
-    PiHoleStats: () => import('@/components/Widgets/PiHoleStats.vue'),
-    PiHoleTopQueries: () => import('@/components/Widgets/PiHoleTopQueries.vue'),
-    PiHoleTraffic: () => import('@/components/Widgets/PiHoleTraffic.vue'),
-    PublicHolidays: () => import('@/components/Widgets/PublicHolidays.vue'),
-    PublicIp: () => import('@/components/Widgets/PublicIp.vue'),
-    RssFeed: () => import('@/components/Widgets/RssFeed.vue'),
-    SportsScores: () => import('@/components/Widgets/SportsScores.vue'),
-    StatPing: () => import('@/components/Widgets/StatPing.vue'),
-    StockPriceChart: () => import('@/components/Widgets/StockPriceChart.vue'),
-    SynologyDownload: () => import('@/components/Widgets/SynologyDownload.vue'),
-    SystemInfo: () => import('@/components/Widgets/SystemInfo.vue'),
-    TflStatus: () => import('@/components/Widgets/TflStatus.vue'),
-    WalletBalance: () => import('@/components/Widgets/WalletBalance.vue'),
-    Weather: () => import('@/components/Widgets/Weather.vue'),
-    WeatherForecast: () => import('@/components/Widgets/WeatherForecast.vue'),
-    XkcdComic: () => import('@/components/Widgets/XkcdComic.vue'),
   },
   props: {
     widget: Object,
@@ -555,6 +155,15 @@ export default {
     },
     hideControls() {
       return this.widget.hideControls;
+    },
+    component() {
+      const type = COMPAT[this.widgetType] || this.widget.type;
+      if (!type) {
+        ErrorHandler('Widget type was not found');
+        return null;
+      }
+      // eslint-disable-next-line prefer-template
+      return () => import('@/components/Widgets/' + type + '.vue').catch(() => import('@/components/Widgets/Blank.vue'));
     },
   },
   methods: {

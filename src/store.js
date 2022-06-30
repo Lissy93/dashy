@@ -10,6 +10,7 @@ import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import { isUserAdmin } from '@/utils/Auth';
+import { localStorageKeys } from './utils/defaults';
 
 Vue.use(Vuex);
 
@@ -295,6 +296,11 @@ const store = new Vuex.Store({
       state.navigateConfToTab = index;
     },
     [SET_CURRENT_SUB_PAGE](state, subPageObject) {
+      if (!subPageObject) {
+        // Set theme back to primary when navigating to index page
+        const defaulTheme = localStorage.getItem(localStorageKeys.PRIMARY_THEME);
+        if (defaulTheme) state.config.appConfig.theme = defaulTheme;
+      }
       state.currentConfigInfo = subPageObject;
     },
     [USE_MAIN_CONFIG](state) {
@@ -312,13 +318,22 @@ const store = new Vuex.Store({
       commit(SET_REMOTE_CONFIG, yaml.load((await axios.get('/conf.yml')).data));
       const deepCopy = (json) => JSON.parse(JSON.stringify(json));
       const config = deepCopy(new ConfigAccumulator().config());
+      if (config.appConfig?.theme) {
+        // Save theme defined in conf.yml as primary
+        localStorage.setItem(localStorageKeys.PRIMARY_THEME, config.appConfig.theme);
+        // This will set theme back to primary in case we were on a themed page
+        // and the index page is loaded w/o navigation (e.g. modifying browser location)
+        localStorage.setItem(localStorageKeys.THEME, config.appConfig.theme);
+      }
       commit(SET_CONFIG, config);
     },
     /* Fetch config for a sub-page (sections and pageInfo only) */
     async [INITIALIZE_MULTI_PAGE_CONFIG]({ commit, state }, configPath) {
       axios.get(configPath).then((response) => {
         const subConfig = yaml.load(response.data);
+        const pageTheme = subConfig.appConfig?.theme;
         subConfig.appConfig = state.config.appConfig; // Always use parent appConfig
+        if (pageTheme) subConfig.appConfig.theme = pageTheme; // Apply page theme override
         commit(SET_CONFIG, subConfig);
       }).catch((err) => {
         ErrorHandler(`Unable to load config from '${configPath}'`, err);

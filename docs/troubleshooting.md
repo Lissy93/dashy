@@ -1,8 +1,9 @@
 # Troubleshooting
 
-> _**This document contains common problems and their solutions.**_
+> _**This document contains common problems and their solutions.**_<br>
+> Please ensure your issue isn't listed here, before opening a new ticket.
 >
-> _If you came across an issue where the solution was not immediately obvious, consider adding it to this list to help other users._
+> _If you come across an issue not listed below, consider adding it, to help other users._
 
 ### Contents
 - [Refused to Connect in Web Content View](#refused-to-connect-in-modal-or-workspace-view)
@@ -32,6 +33,7 @@
 - [Weather Forecast Widget 401](#weather-forecast-widget-401)
 - [Font Awesome Icons not Displaying](#font-awesome-icons-not-displaying)
 - [Copy to Clipboard not Working](#copy-to-clipboard-not-working)
+- [How to Reset Local Settings](#how-to-reset-local-settings)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
 
@@ -94,10 +96,18 @@ If this works, but you wish to continue using HTML5 history mode, then a bit of 
 
 ## 404 after Launch from Mobile Home Screen
 
-Similar to the above issue, if you get a 404 after using iOS's “add to Home Screen” feature, then this is caused by Vue router.
+Similar to the above issue, if you get a 404 after using iOS and Android's “Add to Home Screen” feature, then this is caused by Vue router.
 It can be fixed by setting `appConfig.routingMode` to `hash`
 
-See also: [#628](https://github.com/Lissy93/dashy/issues/628)
+See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://github.com/Lissy93/dashy/issues/762)
+
+---
+
+## 404 On Multi-Page Apps
+
+Similar to above, if you get a 404 error when visiting a page directly on multi-page apps, then this can be fixed under `appConfig`, by setting `routingMode` to `hash`. Then rebuilding, and refreshing the page.
+
+See also: [#670](https://github.com/Lissy93/dashy/issues/670), [#763](https://github.com/Lissy93/dashy/issues/763)
 
 ---
 
@@ -445,6 +455,21 @@ The most common reason for this, is if you not running the app over HTTPS. Copyi
 As a workaround, you could either:
 - Highlight the text and copy / <kbd>Ctrl</kbd> + <kbd>C</kbd>
 - Or setup SSL - [here's a guide](https://github.com/Lissy93/dashy/blob/master/docs/management.md#ssl-certificates) on doing so
+
+---
+
+## How to Reset Local Settings
+
+Some settings are stored locally, in the browser's storage.
+
+In some instances cached assets can prevent your settings from being updated, in which case you may wish to reset local data.
+
+To clear all local data from the UI, head to the Config Menu, then click "Reset Local Settings", and Confirm when prompted.
+This will not affect your config file. But be sure that you keep a backup of your config, if you've not written changes it to disk.
+
+You can also view any and all data that Dashy is storing, using the developer tools. Open your browser's dev tools (usually <kbd>F12</kbd>), in Chromium head to the Application tab, or in Firefox go to the Storage tab. Select Local Storage, then scroll down the the URL Dashy is running on. You should now see all data being stored, and you can select and delete any fields you wish. 
+
+For a full list of all data that may be cached, see the [Privacy Docs](/docs/privacy.md#browser-storage).
 
 ---
 
