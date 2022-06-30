@@ -71,7 +71,14 @@ const store = new Vuex.Store({
       return state.remoteConfig.pages || [];
     },
     theme(state) {
-      return localStorage[localStorageKeys.THEME] || state.config.appConfig.theme;
+      let localTheme = null;
+      if (state.currentConfigInfo?.pageId) {
+        const themeStoreKey = `${localStorageKeys.THEME}-${state.currentConfigInfo?.pageId}`;
+        localTheme = localStorage[themeStoreKey];
+      } else {
+        localTheme = localStorage[localStorageKeys.THEME];
+      }
+      return localTheme || state.config.appConfig.theme;
     },
     webSearch(state, getters) {
       return getters.appConfig.webSearch || {};
@@ -268,11 +275,13 @@ const store = new Vuex.Store({
       config.sections = applyItemId(config.sections);
       state.config = config;
     },
-    [SET_THEME](state, theme) {
+    [SET_THEME](state, themOps) {
+      const { theme, pageId } = themOps;
       const newConfig = { ...state.config };
       newConfig.appConfig.theme = theme;
       state.config = newConfig;
-      localStorage.setItem(localStorageKeys.THEME, theme);
+      const themeStoreKey = pageId ? `${localStorageKeys.THEME}-${pageId}` : localStorageKeys.THEME;
+      localStorage.setItem(themeStoreKey, theme);
       InfoHandler('Theme updated', InfoKeys.VISUAL);
     },
     [SET_CUSTOM_COLORS](state, customColors) {

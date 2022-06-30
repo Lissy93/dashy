@@ -41,6 +41,7 @@ const HomeMixin = {
   watch: {
     async $route() {
       await this.getConfigForRoute();
+      this.setTheme();
     },
   },
   methods: {
@@ -52,8 +53,17 @@ const HomeMixin = {
         this.$store.commit(Keys.USE_MAIN_CONFIG);
       }
     },
+    /* TEMPORARY: If on sub-page, check if custom theme is set and return it */
+    getSubPageTheme() {
+      if (!this.pageId || this.pageId === 'home') {
+        return null;
+      } else {
+        const themeStoreKey = `${localStorageKeys.THEME}-${this.pageId}`;
+        return localStorage[themeStoreKey] || null;
+      }
+    },
     setTheme() {
-      const theme = GetTheme();
+      const theme = this.getSubPageTheme() || GetTheme();
       ApplyLocalTheme(theme);
       ApplyCustomVariables(theme);
     },
