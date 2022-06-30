@@ -6,6 +6,7 @@ import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 import Keys from '@/utils/StoreMutations';
 import { searchTiles } from '@/utils/Search';
 import { checkItemVisibility } from '@/utils/CheckItemVisibility';
+import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
 
 const HomeMixin = {
   props: {
@@ -50,6 +51,11 @@ const HomeMixin = {
       } else { // Otherwise, use main config
         this.$store.commit(Keys.USE_MAIN_CONFIG);
       }
+    },
+    setTheme() {
+      const theme = GetTheme();
+      ApplyLocalTheme(theme);
+      ApplyCustomVariables(theme);
     },
     updateModalVisibility(modalState) {
       this.$store.commit('SET_MODAL_OPEN', modalState);

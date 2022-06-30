@@ -57,7 +57,6 @@ import HomeMixin from '@/mixins/HomeMixin';
 import MinimalSection from '@/components/MinimalView/MinimalSection.vue';
 import MinimalHeading from '@/components/MinimalView/MinimalHeading.vue';
 import MinimalSearch from '@/components/MinimalView/MinimalSearch.vue';
-import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
 import { localStorageKeys } from '@/utils/defaults';
 import ConfigLauncher from '@/components/Settings/ConfigLauncher';
 
@@ -74,10 +73,8 @@ export default {
     layout: '',
     selectedSection: 0, // The index of currently selected section
     tabbedView: true, // By default use tabs, when searching then show all instead
-    theme: GetTheme(),
   }),
   watch: {
-    /* When the theme changes, then call the update method */
     searchValue() {
       this.tabbedView = !this.searchValue || this.searchValue.length === 0;
     },
@@ -125,18 +122,11 @@ export default {
       }
       return '';
     },
-    /* If theme present, then call helper to apply it, and any custom colors */
-    applyTheme() {
-      if (this.theme) {
-        ApplyLocalTheme(this.theme);
-        ApplyCustomVariables(this.theme);
-      }
-    },
   },
   mounted() {
     this.initiateFontAwesome();
     this.initiateMaterialDesignIcons();
-    this.applyTheme();
+    this.setTheme();
   },
 };
 </script>

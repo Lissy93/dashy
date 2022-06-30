@@ -61,11 +61,6 @@ export default {
       this.url = '';
       this.widgets = widgets;
     },
-    setTheme() {
-      const theme = this.GetTheme();
-      this.ApplyLocalTheme(theme);
-      this.ApplyCustomVariables(theme);
-    },
     initiateFontAwesome() {
       const fontAwesomeScript = document.createElement('script');
       const faKey = this.appConfig.fontAwesomeKey || Defaults.fontAwesomeKey;
