@@ -9,6 +9,17 @@
 
 ---
 
+### Dipan's Dash
+
+> By [@Dipanghosh](https://github.com/dipanghosh) - [dipan.de](https://dipan.de/) <sup>Re: [#777](https://github.com/Lissy93/dashy/discussions/777)</sup>
+
+> With the option of embedding iframes, it becomes possible to combine and conquer. I have set up Dashy to include graphs from grafana, and set them so that they update automatically. I also have uptime monitors from uptime Kuma, panels from homeasistant are also possible to be included.<br>
+> Dashy is awesome!
+
+![screenshot-dipanghosh-dashboard](https://i.ibb.co/bPC6w2n/dipanghosh-dashboard.png)
+
+---
+
 ### Ratty222
 > By [@ratty222](https://github.com/ratty222) <sup>Re: [#384](https://github.com/Lissy93/dashy/discussions/384)</sup>
 
@@ -38,11 +49,13 @@
 
 ---
 
-### The Private Dashboard
 
-> By [@DylanBeMe](https://github.com/DylanBeMe) <sup>Re: [#419](https://github.com/Lissy93/dashy/issues/419)</sup>
+### The Dragons Lair
+> By [dr460nf1r3](https://github.com/dr460nf1r3) <sup>via [#684](https://github.com/Lissy93/dashy/issues/684)</sup>
 
-![screenshot-private-dashboard](https://i.ibb.co/hKS483T/private-dashboard-Dylan-Be-Me.png)
+> My new startpage featuring the stuff I use most. And of course dragons! 
+
+![screenshot-dragons-lair](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/13-dragons-lair.png)
 
 ---
 
@@ -75,6 +88,14 @@
 > By [@EVOTk](https://github.com/EVOTk) <sup>Re: [#316](https://github.com/Lissy93/dashy/pull/316)</sup>
 
 ![screenshot-evo-dashboard](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/12-evo-dashboard.png)
+
+---
+
+### The Private Dashboard
+
+> By [@DylanBeMe](https://github.com/DylanBeMe) <sup>Re: [#419](https://github.com/Lissy93/dashy/issues/419)</sup>
+
+![screenshot-private-dashboard](https://i.ibb.co/hKS483T/private-dashboard-Dylan-Be-Me.png)
 
 ---
 
@@ -182,15 +203,6 @@
 ### Yet Another Homelab
 
 ![screenshot-yet-another-homelab](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/9-home-lab-oblivion.png)
-
----
-
-### The Dragons Lair
-> By [dr460nf1r3](https://github.com/dr460nf1r3) <sup>via [#684](https://github.com/Lissy93/dashy/issues/684)</sup>
-
-> My new startpage featuring the stuff I use most. And of course dragons! 
-
-![screenshot-dragons-lair](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/13-dragons-lair.png)
 
 ---
 

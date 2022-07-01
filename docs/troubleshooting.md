@@ -3,7 +3,7 @@
 > _**This document contains common problems and their solutions.**_<br>
 > Please ensure your issue isn't listed here, before opening a new ticket.
 >
-> _If you come across an issue not listed below, consider adding it, to help other users._
+> _Found something not listed here? Consider adding it, to help other users._
 
 ### Contents
 - [Refused to Connect in Web Content View](#refused-to-connect-in-modal-or-workspace-view)
@@ -30,10 +30,12 @@
 - [Status Checks Failing](#status-checks-failing)
 - [Diagnosing Widget Errors](#widget-errors)
 - [Fixing Widget CORS Errors](#widget-cors-errors)
+- [Widget Shows Error Incorrectly](#widget-shows-error-incorrectly)
 - [Weather Forecast Widget 401](#weather-forecast-widget-401)
 - [Font Awesome Icons not Displaying](#font-awesome-icons-not-displaying)
 - [Copy to Clipboard not Working](#copy-to-clipboard-not-working)
 - [How to Reset Local Settings](#how-to-reset-local-settings)
+- [How to make a bug report](#how-to-make-a-bug-report)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
 
@@ -421,6 +423,15 @@ For testing purposes, you can use an addon, which will disable the CORS checks. 
 
 ---
 
+## Widget Shows Error Incorrectly
+
+When there's an error fetching or displaying a widgets data, then it will be highlighted in yellow, and a message displayed on the UI.
+
+In some instances, this is a false positive, and the widget is actually functioning correctly.
+If this is the case, you can disable the UI error message of a given widget by setting: `ignoreErrors: true`
+
+---
+
 ## Weather Forecast Widget 401
 
 [Weather widget](/docs/widgets.md#weather-forecast) is working fine, but you are getting a `401` for the [Weather Forecast widget](/docs/widgets.md#weather-forecast), then this is most likely an OWM API key issue.
@@ -470,6 +481,47 @@ This will not affect your config file. But be sure that you keep a backup of you
 You can also view any and all data that Dashy is storing, using the developer tools. Open your browser's dev tools (usually <kbd>F12</kbd>), in Chromium head to the Application tab, or in Firefox go to the Storage tab. Select Local Storage, then scroll down the the URL Dashy is running on. You should now see all data being stored, and you can select and delete any fields you wish. 
 
 For a full list of all data that may be cached, see the [Privacy Docs](/docs/privacy.md#browser-storage).
+
+---
+
+## How to make a bug report
+
+#### Step 1 - Where to open issues
+
+You will need a GitHub account in order to raise a ticket. You can then [click here](https://github.com/Lissy93/dashy/issues/new?assignees=lissy93&labels=%F0%9F%90%9B+Bug&template=bug.yml&title=%5BBUG%5D+%3Ctitle%3E) to open a new bug report.
+
+#### Step 2 - Checking it's not already covered
+
+Before submitting, please check that:
+- A similar ticket has not previously been opened
+- The issue is not covered in the [troubleshooting guide](https://github.com/Lissy93/dashy/blob/master/docs/troubleshooting.md) or [docs](https://github.com/Lissy93/dashy/tree/master/docs#readme)
+
+#### Step 3 - Describe the Issue
+
+Your ticket will likely be dealt with more effectively if you can explain the issue clearly, and provide all relevant supporting material.
+
+Complete the fields, asking for your environment info and version of Dashy.
+Then describe the issue, briefly explaining the steps to reproduce, expected outcome and actual outcome.
+
+#### Step 4 - Provide Supporting Info
+
+Where relevant please also include:
+
+- A screenshot of the issue
+- The relevant parts of your config file
+- Logs
+  - If client-side issue, then include the browser logs ([see how](#how-to-open-browser-console))
+  - If server-side / during deployment, include the terminal output
+
+_Take care to redact any personal info, (like IP addresses, auth hashes or API keys)_
+
+#### Step 5 - Fix Released
+
+A maintainer will aim to respond within 48 hours.
+The timeframe for resolving your issue, will vary depending on severity of the bug and the complexity of the fix.
+You will be notified on your ticket, when a fix has been released.
+
+Finally, be sure to remain respectful to other users and project maintainers, in line with the [Contributor Covenant Code of Conduct](https://github.com/Lissy93/dashy/blob/master/.github/CODE_OF_CONDUCT.md#contributor-covenant-code-of-conduct).
 
 ---
 

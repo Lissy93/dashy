@@ -71,7 +71,14 @@ const store = new Vuex.Store({
       return state.remoteConfig.pages || [];
     },
     theme(state) {
-      return state.config.appConfig.theme;
+      let localTheme = null;
+      if (state.currentConfigInfo?.pageId) {
+        const themeStoreKey = `${localStorageKeys.THEME}-${state.currentConfigInfo?.pageId}`;
+        localTheme = localStorage[themeStoreKey];
+      } else {
+        localTheme = localStorage[localStorageKeys.THEME];
+      }
+      return localTheme || state.config.appConfig.theme;
     },
     webSearch(state, getters) {
       return getters.appConfig.webSearch || {};
@@ -268,10 +275,13 @@ const store = new Vuex.Store({
       config.sections = applyItemId(config.sections);
       state.config = config;
     },
-    [SET_THEME](state, theme) {
+    [SET_THEME](state, themOps) {
+      const { theme, pageId } = themOps;
       const newConfig = { ...state.config };
       newConfig.appConfig.theme = theme;
       state.config = newConfig;
+      const themeStoreKey = pageId ? `${localStorageKeys.THEME}-${pageId}` : localStorageKeys.THEME;
+      localStorage.setItem(themeStoreKey, theme);
       InfoHandler('Theme updated', InfoKeys.VISUAL);
     },
     [SET_CUSTOM_COLORS](state, customColors) {
@@ -318,13 +328,6 @@ const store = new Vuex.Store({
       commit(SET_REMOTE_CONFIG, yaml.load((await axios.get('/conf.yml')).data));
       const deepCopy = (json) => JSON.parse(JSON.stringify(json));
       const config = deepCopy(new ConfigAccumulator().config());
-      if (config.appConfig?.theme) {
-        // Save theme defined in conf.yml as primary
-        localStorage.setItem(localStorageKeys.PRIMARY_THEME, config.appConfig.theme);
-        // This will set theme back to primary in case we were on a themed page
-        // and the index page is loaded w/o navigation (e.g. modifying browser location)
-        localStorage.setItem(localStorageKeys.THEME, config.appConfig.theme);
-      }
       commit(SET_CONFIG, config);
     },
     /* Fetch config for a sub-page (sections and pageInfo only) */

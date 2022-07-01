@@ -6,6 +6,7 @@ import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 import Keys from '@/utils/StoreMutations';
 import { searchTiles } from '@/utils/Search';
 import { checkItemVisibility } from '@/utils/CheckItemVisibility';
+import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
 
 const HomeMixin = {
   props: {
@@ -40,6 +41,7 @@ const HomeMixin = {
   watch: {
     async $route() {
       await this.getConfigForRoute();
+      this.setTheme();
     },
   },
   methods: {
@@ -50,6 +52,20 @@ const HomeMixin = {
       } else { // Otherwise, use main config
         this.$store.commit(Keys.USE_MAIN_CONFIG);
       }
+    },
+    /* TEMPORARY: If on sub-page, check if custom theme is set and return it */
+    getSubPageTheme() {
+      if (!this.pageId || this.pageId === 'home') {
+        return null;
+      } else {
+        const themeStoreKey = `${localStorageKeys.THEME}-${this.pageId}`;
+        return localStorage[themeStoreKey] || null;
+      }
+    },
+    setTheme() {
+      const theme = this.getSubPageTheme() || GetTheme();
+      ApplyLocalTheme(theme);
+      ApplyCustomVariables(theme);
     },
     updateModalVisibility(modalState) {
       this.$store.commit('SET_MODAL_OPEN', modalState);

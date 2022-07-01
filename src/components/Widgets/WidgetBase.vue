@@ -141,11 +141,12 @@ export default {
     widgetOptions() {
       const options = this.widget.options || {};
       const timeout = this.widget.timeout || null;
+      const ignoreErrors = this.widget.ignoreErrors || false;
       const useProxy = this.appConfig.widgetsAlwaysUseProxy || !!this.widget.useProxy;
       const updateInterval = this.widget.updateInterval !== undefined
         ? this.widget.updateInterval : null;
       return {
-        timeout, useProxy, updateInterval, ...options,
+        timeout, ignoreErrors, useProxy, updateInterval, ...options,
       };
     },
     /* A unique string to reference the widget by */
