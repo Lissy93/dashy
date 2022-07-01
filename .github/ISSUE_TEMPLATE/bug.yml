@@ -14,14 +14,25 @@ body:
         - Self-Hosted (Docker)
         - Self-Hosted (Bare Metal)
         - Cloud Service (Static)
+        - Other (Specify below)
     validations:
       required: true
+  - type: input
+    id: system
+    attributes:
+      label: System
+      description: >-
+        For deployment issues, specify your [distro / OS](https://whatsmyos.com/) and/ or Docker version.
+        For client-side issues, include your [browser version](https://www.whatsmybrowser.org/)
+      placeholder: e.g. Firefox 101, Manjaro Linux 21.3.0, Docker 20.10.16
+    validations:
+      required: false
   - type: input
     id: version
     attributes:
       label: Version
       description: What version of Dashy are you running?
-      placeholder: 1.6.9 ← should look like this (check config menu)
+      placeholder: 4.2.0 ← should look like this (check config menu)
     validations:
       required: false
   - type: textarea
@@ -45,7 +56,9 @@ body:
       label: Please tick the boxes
       description: Before submitting, please ensure that
       options:
-        - label: You are using a [supported](https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md#supported-versions) version of Dashy (check the first two digits of the version number)
+        - label: You have explained the issue clearly, and included all relevant info
+          required: true
+        - label: You are using a [supported](https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md#supported-versions) version of Dashy
           required: true
         - label: You've checked that this [issue hasn't already been raised](https://github.com/Lissy93/dashy/issues?q=is%3Aissue)
           required: true
@@ -57,8 +70,9 @@ body:
     attributes:
       value: |-
         ## Thanks 🙏
-        Sorry you are having issues with Dashy, and thank you for raising this ticket - in doing so you are helping to make the app better for everyone 💪
+        <img align="right" width="250" src="https://i.ibb.co/S5vCnhL/gh-thanks.gif" alt="🐙" />
+        Thank you for raising this ticket - in doing so you are helping to make the app better for everyone 💪
         You should expect a reply within the next 48 hours :)
-        ⭐️ If you are not a bot, please star the repo before submitting your ticket.
+        ⭐️ Consider dropping the repo a star if you're enjoying Dashy!
     validations:
       required: false
