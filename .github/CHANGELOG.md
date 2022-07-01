@@ -1,5 +1,27 @@
 # Changelog
 
+## ✨ 2.1.1 Improvements [PR #775](https://github.com/Lissy93/dashy/pull/775)
+- Stop status checks when item destroyed
+  - #767 by @marekful
+- Add Elizabeth + non-underground lines to TFL widget
+  - #766 by @dougaldhub
+- Ensure first SSL certificate check finished before second
+  - #760 by @marekful
+- Huge improvment to the way widgets are defined
+  - #758 by @patrickheeney
+- Update APOD widget to use https://apod.as93.net
+  - #745 by @k073l 
+- Small docs update
+  - #741 by @markusdd 
+- A set of awesome NextCloud widgets
+  - #740 by @marekful
+- Option to show / hide detailed info for StatPing widget
+  - #714 by @marekful
+- Korean translations
+  - #711 by @boggy-cs
+- Small docs update
+  - #705 by @pablomalo
+
 ## ✨ 2.0.9 Adds Multi-Page Support [PR #685](https://github.com/Lissy93/dashy/pull/685)
 - Adds Widgets for AdGuard
 
