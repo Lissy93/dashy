@@ -49,7 +49,7 @@ export default {
   padding: 5px;
   transition: all .2s ease-in-out;
   cursor: help;
-  z-index: 5;
+  z-index: 4;
   &:hover {
     transform: scale(1.25);
     filter: saturate(2);
