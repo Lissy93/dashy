@@ -22,7 +22,7 @@ body:
     attributes:
       label: System
       description: >-
-        For deployment issues, specify your [distro / OS](https://whatsmyos.com/) and/ or Docker version.
+        For deployment issues, specify your [distro or OS](https://whatsmyos.com/) and/ or Docker version.
         For client-side issues, include your [browser version](https://www.whatsmybrowser.org/)
       placeholder: e.g. Firefox 101, Manjaro Linux 21.3.0, Docker 20.10.16
     validations:
@@ -40,6 +40,7 @@ body:
     attributes:
       label: Describe the problem
       description: Please describe exactly what is not working, include the steps to reproduce, actual result and expected result
+      placeholder: When doing ABC then DEF, I expect to see XYZ, but I actually see ZYX
     validations:
       required: true
   - type: textarea
@@ -70,9 +71,9 @@ body:
     attributes:
       value: |-
         ## Thanks 🙏
-        <img align="right" width="250" src="https://i.ibb.co/S5vCnhL/gh-thanks.gif" alt="🐙" />
-        Thank you for raising this ticket - in doing so you are helping to make the app better for everyone 💪
-        You should expect a reply within the next 48 hours :)
-        ⭐️ Consider dropping the repo a star if you're enjoying Dashy!
+        <img align="left" width="160" src="https://i.ibb.co/S5vCnhL/gh-thanks.gif" alt="🐙" />
+        Thank you for raising this ticket - in doing so you are helping to make the app better for everyone 💪<br>
+        You should expect a reply within the next 48 hours :)<br>
+        ⭐️ Consider dropping the repo a star if you're enjoying Dashy!<br>
     validations:
       required: false
