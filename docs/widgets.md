@@ -80,6 +80,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Continuous Updates](#continuous-updates)
   - [Proxying Requests](#proxying-requests)
   - [Setting Timeout](#setting-timeout)
+  - [Adding Labels](#adding-labels)
   - [Ignoring Errors](#ignoring-errors)
   - [Custom CSS Styling](#widget-styling)
   - [Customizing Charts](#customizing-charts)
@@ -2261,6 +2262,32 @@ For example:
   timeout: 8000
   options:
     hostname: https://glances.dns-device.local
+```
+
+---
+
+### Adding Labels
+
+If you have multiple widgets of the same type in a single section, it may not be clear what each one is. To overcome this, you can add a custom label to any given widget, using the `label` property.
+
+For example:
+
+```yaml
+- name: CPU Usage
+  icon: fas fa-tachometer
+  widgets:
+  - type: gl-current-cpu
+    label: Meida Server
+    options:
+      hostname: http://media-server.lan:61208
+  - type: gl-current-cpu
+    label: Firewall
+    options:
+      hostname: http://firewall.lan:61208
+  - type: gl-current-cpu
+    label: File Sync Server
+    options:
+      hostname: http://file-sync.lan:61208
 ```
 
 ---

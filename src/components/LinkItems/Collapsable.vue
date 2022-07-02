@@ -2,7 +2,7 @@
   <div
     v-bind:class="[
     { 'is-open': isExpanded, 'full-height': cutToHeight },
-    `collapsable ${rowColSpanClass}`
+    `collapsable ${rowColSpanClass}`, sectionClassName
     ]"
     :style="`${color ? 'background: '+color : ''}; ${sanitizeCustomStyles(customStyles)};`"
   >
@@ -73,6 +73,10 @@ export default {
     rowColSpanClass() {
       const { rows, cols, checkSpanNum } = this;
       return `${checkSpanNum(cols, 'col')} ${checkSpanNum(rows, 'row')}`;
+    },
+    sectionClassName() {
+      if (!this.title) return 'unnamed-section';
+      return `section_${this.title.replaceAll(' ', '-').toLowerCase()}`;
     },
     /* Used to fetch initial collapse state, and set new collapse state on change */
     isExpanded: {

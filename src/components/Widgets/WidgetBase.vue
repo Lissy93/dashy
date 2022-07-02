@@ -18,6 +18,8 @@
       <p class="error-output">{{ errorMsg }}</p>
       <p class="retry-link" @click="update">Retry</p>
     </div>
+    <!-- Widget Label -->
+    <div class="widget-label" v-if="widgetOptions.label">{{ widgetOptions.label }}</div>
     <!-- Widget -->
     <div :class="`widget-wrap ${ error ? 'has-error' : '' }`">
       <component
@@ -142,11 +144,12 @@ export default {
       const options = this.widget.options || {};
       const timeout = this.widget.timeout || null;
       const ignoreErrors = this.widget.ignoreErrors || false;
+      const label = this.widget.label || null;
       const useProxy = this.appConfig.widgetsAlwaysUseProxy || !!this.widget.useProxy;
       const updateInterval = this.widget.updateInterval !== undefined
         ? this.widget.updateInterval : null;
       return {
-        timeout, ignoreErrors, useProxy, updateInterval, ...options,
+        timeout, ignoreErrors, label, useProxy, updateInterval, ...options,
       };
     },
     /* A unique string to reference the widget by */
@@ -219,7 +222,11 @@ export default {
       right: 1.75rem;
     }
   }
-
+  // Optional widget label
+  .widget-label {
+    color: var(--widget-text-color);
+  }
+  // Actual widget container
   .widget-wrap {
     &.has-error {
       cursor: not-allowed;

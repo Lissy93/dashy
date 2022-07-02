@@ -123,7 +123,7 @@ export default {
       if (emojiLookup[emojiCode]) {
         return emojiLookup[emojiCode];
       } else {
-        this.imageNotFound(`No emoji found with name '${emojiCode}'`);
+        // this.imageNotFound(`No emoji found with name '${emojiCode}'`);
         return null;
       }
     },
