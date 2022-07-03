@@ -622,13 +622,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/Antiz96">
-            <img src="https://avatars.githubusercontent.com/u/53110319?u=a4fad84fed8fb2fd9ca7c507d303fd6048b3e497&v=4" width="80;" alt="Antiz96"/>
-            <br />
-            <sub><b>Robin Candau</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/ced4568">
             <img src="https://avatars.githubusercontent.com/u/60725859?v=4" width="80;" alt="ced4568"/>
             <br />
@@ -648,13 +641,20 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Undefined</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/jtfinley72">
             <img src="https://avatars.githubusercontent.com/u/96497997?v=4" width="80;" alt="jtfinley72"/>
             <br />
             <sub><b>Jtfinley72</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/zacharyraber">
+            <img src="https://avatars.githubusercontent.com/u/105998568?v=4" width="80;" alt="zacharyraber"/>
+            <br />
+            <sub><b>Zachary Raber</b></sub>
         </a>
     </td></tr>
 </table>
