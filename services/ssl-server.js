@@ -5,6 +5,8 @@ const https = require('https');
 const promise = util.promisify;
 const stat = promise(fs.stat);
 
+const host = process.env.HOST || '0.0.0.0';
+
 const httpsCerts = {
   private: process.env.SSL_PRIV_KEY_PATH || '/etc/ssl/certs/dashy-priv.key',
   public: process.env.SSL_PUB_KEY_PATH || '/etc/ssl/certs/dashy-pub.pem',
@@ -38,7 +40,7 @@ const startSSLServer = (app) => {
         key: fs.readFileSync(httpsCerts.private),
         cert: fs.readFileSync(httpsCerts.public),
       }, app);
-      httpsServer.listen(SSLPort, () => { printSuccess(); });
+      httpsServer.listen(SSLPort, host, () => { printSuccess(); });
     }
   });
 };
