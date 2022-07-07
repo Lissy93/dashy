@@ -1,11 +1,11 @@
-const host = process.env.HOST || '0.0.0.0';
-
 const fs = require('fs');
 const util = require('util');
 const https = require('https');
 
 const promise = util.promisify;
 const stat = promise(fs.stat);
+
+const host = process.env.HOST || '0.0.0.0';
 
 const httpsCerts = {
   private: process.env.SSL_PRIV_KEY_PATH || '/etc/ssl/certs/dashy-priv.key',
