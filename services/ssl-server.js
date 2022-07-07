@@ -1,3 +1,5 @@
+const host = process.env.HOST || '0.0.0.0';
+
 const fs = require('fs');
 const util = require('util');
 const https = require('https');
@@ -38,7 +40,7 @@ const startSSLServer = (app) => {
         key: fs.readFileSync(httpsCerts.private),
         cert: fs.readFileSync(httpsCerts.public),
       }, app);
-      httpsServer.listen(SSLPort, () => { printSuccess(); });
+      httpsServer.listen(SSLPort, host, () => { printSuccess(); });
     }
   });
 };
