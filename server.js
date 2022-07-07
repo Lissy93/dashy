@@ -41,6 +41,9 @@ const port = process.env.PORT || (isDocker ? 80 : 4000);
 /* Checks env var for host. If undefined, will use 0.0.0.0 */
 const host = process.env.HOST || '0.0.0.0';
 
+/* Allow SSL only server by disabing HTTP server. Defaults to false. */
+const sslOnly = process.env.SSL_ONLY || false;
+
 /* Attempts to get the users local IP, used as part of welcome message */
 const getLocalIp = () => {
   const dnsLookup = util.promisify(dns.lookup);
@@ -124,13 +127,15 @@ const app = express()
   });
 
 /* Create HTTP server from app on port, and print welcome message */
-http.createServer(app)
-  .listen(port, host, () => {
-    printWelcomeMessage();
-  })
-  .on('error', (err) => {
-    printWarning('Unable to start Dashy\'s Node server', err);
-  });
+if (sslOnly === false) {
+  http.createServer(app)
+    .listen(port, host, () => {
+      printWelcomeMessage();
+    })
+    .on('error', (err) => {
+      printWarning('Unable to start Dashy\'s Node server', err);
+    });
+}
 
 /* Check, and if possible start SSL server too */
 sslServer.startSSLServer(app);
