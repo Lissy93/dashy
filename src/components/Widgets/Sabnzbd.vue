@@ -3,7 +3,7 @@
   <!-- Sabznbd Header -->
   <div class="intro">
     <p class="download">{{ download_speed }}</p>
-    <i :class="`fas fa-${status}`"></i>
+    <em :class="`fas fa-${status}`"></em>
   </div>
   <!-- Sabnzbd Details, If hideDetails set False -->
   <div class="details" v-if="sabnzbdDetails.length > 0">
@@ -18,7 +18,7 @@
   <div class="details" v-if="showQueue && sabnzbdQueue.length > 0">
     <div class="info-wrap">
       <p class="info-line" v-for="sabznbd in sabnzbdQueue" :key="sabznbd.label">
-        <i :class="`fas fa-${sabznbd.status}`"></i>
+        <em :class="`fas fa-${sabznbd.status}`"></em>
         <span class="lbl">{{ sabznbd.filename }}</span>
         <span class="lbl">{{ sabznbd.percentage }}%</span>
       </p>
