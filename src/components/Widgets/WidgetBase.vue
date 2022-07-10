@@ -97,6 +97,7 @@ const COMPAT = {
   'public-holidays': 'PublicHolidays',
   'public-ip': 'PublicIp',
   'rss-feed': 'RssFeed',
+  sabnzbd: 'Sabnzbd',
   'sports-scores': 'SportsScores',
   'stat-ping': 'StatPing',
   'stock-price-chart': 'StockPriceChart',

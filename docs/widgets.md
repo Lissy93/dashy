@@ -54,6 +54,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Nextcloud System](#nextcloud-system)
   - [Nextcloud Stats](#nextcloud-stats)
   - [Nextcloud PHP Opcache](#nextcloud-php-opcache-stats)
+  - [Sabnzbd](#sabnzbd)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -1787,6 +1788,42 @@ Shows statistics about PHP Opcache perforamnce on your Nextcloud server.
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Nextcloud](https://nextcloud.com))
 - **Privacy**: _See [Nextcloud Privacy Policy](https://nextcloud.com/privacy)_
+
+---
+
+### Sabnzbd
+
+Shows queue information regarding your self hosted Sabnzbd server.
+
+<p align="center"><img width="450" src="https://i.ibb.co/5TTSRyM/sabnzbd.png" alt="Sabnzbd" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`sabnzbdUrl`** | `string` |  Required | The URL of the Sabnzbd server. No trailing `/`.
+**`apiKey`** | `string` |  Required | API key for Sabnzbd access. Located under `Config` -> `General` -> `Security` -> `API Key`. 
+**`hideDetails`** | `boolean` |  _Optional_ | Hides extra server queue details.
+**`hideQueue`** | `boolean` |  _Optional_ | Hides the queue list in an expandable dropdown.
+
+
+##### Example 
+
+```yaml
+  - type: sabnzbd
+    options:
+      sabnzbdUrl: 'https://sabnzbd.example.com'
+      apiKey: XXXXXXXXXXXXXXXXXX
+      hideDetails: false
+      hideQueue: false
+```
+
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Sabnzbd](https://sabnzbd.org/))
+- **Privacy**: _See [Sabnzbd Privacy Policy](https://forums.sabnzbd.org/ucp.php?mode=privacy)_
 
 ---
 
