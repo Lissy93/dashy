@@ -105,13 +105,6 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/ced4568">
-            <img src="https://avatars.githubusercontent.com/u/60725859?v=4" width="80;" alt="ced4568"/>
-            <br />
-            <sub><b>Kyforker148</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/ratty222">
             <img src="https://avatars.githubusercontent.com/u/92832598?u=137b65530cbd5f5af9c24cde51baa6cc77cc934b&v=4" width="80;" alt="ratty222"/>
             <br />
@@ -131,8 +124,7 @@
             <br />
             <sub><b>Jtfinley72</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/zacharyraber">
             <img src="https://avatars.githubusercontent.com/u/105998568?v=4" width="80;" alt="zacharyraber"/>
@@ -294,7 +286,7 @@
         <a href="https://github.com/k073l">
             <img src="https://avatars.githubusercontent.com/u/21180271?v=4" width="80;" alt="k073l"/>
             <br />
-            <sub><b>k073l</b></sub>
+            <sub><b>K073l</b></sub>
         </a>
     </td>
     <td align="center">
@@ -319,6 +311,13 @@
         </a>
     </td></tr>
 <tr>
+    <td align="center">
+        <a href="https://github.com/BRAVO68WEB">
+            <img src="https://avatars.githubusercontent.com/u/41448663?v=4" width="80;" alt="BRAVO68WEB"/>
+            <br />
+            <sub><b>Jyotirmoy Bandyopadhyaya [Bravo68]</b></sub>
+        </a>
+    </td>
     <td align="center">
         <a href="https://github.com/BeginCI">
             <img src="https://avatars.githubusercontent.com/u/57495754?v=4" width="80;" alt="BeginCI"/>
@@ -345,13 +344,6 @@
             <img src="https://avatars.githubusercontent.com/u/25713235?v=4" width="80;" alt="dougaldhub"/>
             <br />
             <sub><b>Doug Lock</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/emiran-orange">
-            <img src="https://avatars.githubusercontent.com/u/71817149?v=4" width="80;" alt="emiran-orange"/>
-            <br />
-            <sub><b>Emiran-orange</b></sub>
         </a>
     </td></tr>
 </table>
