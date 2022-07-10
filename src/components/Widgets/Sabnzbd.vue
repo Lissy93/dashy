@@ -98,7 +98,7 @@ export default {
       this.sabnzbdDetails = [
         [
           { label: 'Time Left', value: data.queue.timeleft },
-          { label: 'Queue', value: data.queue.noofslots_total },
+          { label: 'Queue', value: data.queue.noofslots },
 
         ],
         [
