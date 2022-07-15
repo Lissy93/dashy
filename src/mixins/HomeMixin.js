@@ -36,7 +36,7 @@ const HomeMixin = {
     searchValue: '',
   }),
   async mounted() {
-    await this.getConfigForRoute();
+    // await this.getConfigForRoute();
   },
   watch: {
     async $route() {
@@ -44,15 +44,27 @@ const HomeMixin = {
       this.setTheme();
     },
   },
+  async created() {
+    // console.log(this.$router.currentRoute.path);
+    const subPage = this.determineConfigFile();
+    await this.$store.dispatch(Keys.INITIALIZE_CONFIG, subPage);
+  },
   methods: {
-    async getConfigForRoute() {
-      this.$store.commit(Keys.SET_CURRENT_SUB_PAGE, this.subPageInfo);
-      if (this.subPageInfo && this.subPageInfo.confPath) { // Get config for sub-page
-        await this.$store.dispatch(Keys.INITIALIZE_MULTI_PAGE_CONFIG, this.subPageInfo.confPath);
-      } else { // Otherwise, use main config
-        this.$store.commit(Keys.USE_MAIN_CONFIG);
-      }
+    /* Based on the current route, get which config to display, null will use default */
+    determineConfigFile() {
+      const pagePath = this.$router.currentRoute.path;
+      const isSubPage = new RegExp((/(home|workspace|minimal)\/[a-zA-Z0-9-]+/g)).test(pagePath);
+      const subPageName = isSubPage ? pagePath.split('/').pop() : null;
+      return subPageName;
     },
+    // async getConfigForRoute() {
+    //   this.$store.commit(Keys.SET_CURRENT_SUB_PAGE, this.subPageInfo);
+    //   if (this.subPageInfo && this.subPageInfo.confPath) { // Get config for sub-page
+    // await this.$store.dispatch(Keys.INITIALIZE_MULTI_PAGE_CONFIG, this.subPageInfo.confPath);
+    //   } else { // Otherwise, use main config
+    //     this.$store.commit(Keys.USE_MAIN_CONFIG);
+    //   }
+    // },
     /* TEMPORARY: If on sub-page, check if custom theme is set and return it */
     getSubPageTheme() {
       if (!this.pageId || this.pageId === 'home') {

@@ -20,7 +20,7 @@ import buildConf from '../../public/conf.yml';
 
 export default class ConfigAccumulator {
   constructor() {
-    this.conf = $store.state.remoteConfig;
+    this.conf = $store.state.config;
   }
 
   pages() {

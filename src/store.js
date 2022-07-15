@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import yaml from 'js-yaml';
 import Keys from '@/utils/StoreMutations';
-import ConfigAccumulator from '@/utils/ConfigAccumalator';
+// import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { componentVisibility } from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
@@ -16,8 +16,10 @@ Vue.use(Vuex);
 
 const {
   INITIALIZE_CONFIG,
-  INITIALIZE_MULTI_PAGE_CONFIG,
+  INITIALIZE_ROOT_CONFIG,
+  // INITIALIZE_MULTI_PAGE_CONFIG,
   SET_CONFIG,
+  SET_ROOT_CONFIG,
   SET_REMOTE_CONFIG,
   SET_CURRENT_SUB_PAGE,
   SET_MODAL_OPEN,
@@ -46,7 +48,8 @@ const {
 const store = new Vuex.Store({
   state: {
     config: {}, // The current config, rendered to the UI
-    remoteConfig: {}, // The configuration stored on the server
+    rootConfig: null, // The config from the main config file
+    // remoteConfig: {}, // The configuration stored on the server
     editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
     currentConfigInfo: undefined, // For multi-page support, will store info about config file
@@ -68,7 +71,7 @@ const store = new Vuex.Store({
       return filterUserSections(state.config.sections || []);
     },
     pages(state) {
-      return state.remoteConfig.pages || [];
+      return state.config.pages || [];
     },
     theme(state) {
       let localTheme = null;
@@ -145,6 +148,10 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
+    [SET_ROOT_CONFIG](state, config) {
+      if (!config.appConfig) config.appConfig = {};
+      state.config = config;
+    },
     [SET_CONFIG](state, config) {
       if (!config.appConfig) config.appConfig = {};
       state.config = config;
@@ -323,24 +330,43 @@ const store = new Vuex.Store({
   },
   actions: {
     /* Called when app first loaded. Reads config and sets state */
-    async [INITIALIZE_CONFIG]({ commit }) {
-      // Get the config file from the server and store it for use by the accumulator
-      commit(SET_REMOTE_CONFIG, yaml.load((await axios.get('/conf.yml')).data));
-      const deepCopy = (json) => JSON.parse(JSON.stringify(json));
-      const config = deepCopy(new ConfigAccumulator().config());
-      commit(SET_CONFIG, config);
+    // async [INITIALIZE_CONFIG]({ commit }) {
+    //   // Get the config file from the server and store it for use by the accumulator
+    //   commit(SET_REMOTE_CONFIG, yaml.load((await axios.get('/conf.yml')).data));
+    //   const deepCopy = (json) => JSON.parse(JSON.stringify(json));
+    //   const config = deepCopy(new ConfigAccumulator().config());
+    //   commit(SET_CONFIG, config);
+    // },
+    /* Fetches the root config file, only ever called by INITIALIZE_CONFIG */
+    async [INITIALIZE_ROOT_CONFIG]({ commit }) {
+      console.log('Initializing root config....');
+      commit(SET_ROOT_CONFIG, yaml.load((await axios.get('/conf.yml')).data));
     },
-    /* Fetch config for a sub-page (sections and pageInfo only) */
-    async [INITIALIZE_MULTI_PAGE_CONFIG]({ commit, state }, configPath) {
-      axios.get(configPath).then((response) => {
-        const subConfig = yaml.load(response.data);
-        const pageTheme = subConfig.appConfig?.theme;
-        subConfig.appConfig = state.config.appConfig; // Always use parent appConfig
-        if (pageTheme) subConfig.appConfig.theme = pageTheme; // Apply page theme override
-        commit(SET_CONFIG, subConfig);
-      }).catch((err) => {
-        ErrorHandler(`Unable to load config from '${configPath}'`, err);
-      });
+    /**
+     * Fetches config and updates state
+     * If not on sub-page, will trigger the fetch of main config, then use that
+     * If using sub-page config, then fetch that sub-config, then
+     * override certain fields (appConfig, pages) and update config
+     */
+    async [INITIALIZE_CONFIG]({ commit, state }, subConfigPath) {
+      const fetchPath = subConfigPath || '/conf.yml'; // The path to fetch config from
+      if (!state.rootConfig) {
+        await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
+      }
+      console.log('rootConfig', state.rootConfig);
+      if (!subConfigPath) { // Use root config as config
+        commit(SET_CONFIG, state.rootConfig);
+      } else { // Fetch sub-config, and use as config
+        axios.get(fetchPath).then((response) => {
+          const configContent = yaml.load(response.data);
+          // Certain values must be inherited from root config
+          configContent.appConfig = state.rootConfig.appConfig;
+          configContent.pages = state.rootConfig.pages;
+          commit(SET_CONFIG, configContent);
+        }).catch((err) => {
+          ErrorHandler(`Unable to load config from '${fetchPath}'`, err);
+        });
+      }
     },
   },
   modules: {},

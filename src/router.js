@@ -14,7 +14,7 @@ import Home from '@/views/Home.vue';
 
 // Import helper functions, config data and defaults
 import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/Auth';
-import { makePageSlug, makePageName } from '@/utils/ConfigHelpers';
+// import { makePageSlug, makePageName } from '@/utils/ConfigHelpers';
 import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 
@@ -27,7 +27,7 @@ if (!conf) {
 
 // Assign top-level config fields, check not null
 const config = conf || {};
-const pages = config.pages || [];
+// const pages = config.pages || [];
 const pageInfo = config.pageInfo || {};
 const appConfig = config.appConfig || {};
 
@@ -64,54 +64,54 @@ const makeMetaTags = (defaultTitle) => ({
   metaTags: metaTagData,
 });
 
-const makeSubConfigPath = (rawPath) => {
-  if (!rawPath) return '';
-  if (rawPath.startsWith('/') || rawPath.startsWith('http')) return rawPath;
-  else return `/${rawPath}`;
-};
+// const makeSubConfigPath = (rawPath) => {
+//   if (!rawPath) return '';
+//   if (rawPath.startsWith('/') || rawPath.startsWith('http')) return rawPath;
+//   else return `/${rawPath}`;
+// };
 
 /* For each additional config file, create routes for home, minimal and workspace views */
-const makeMultiPageRoutes = (userPages) => {
-  // If no multi pages specified, or is not array, then return nothing
-  if (!userPages || !Array.isArray(userPages)) return [];
-  const multiPageRoutes = [];
-  // For each user page, create an additional route
-  userPages.forEach((page) => {
-    if (!page.name || !page.path) { // Sumin not right, show warning
-      ErrorHandler('Additional pages must have both a `name` and `path`');
-    }
-    // Props to be passed to home mixin
-    const subPageInfo = {
-      subPageInfo: {
-        confPath: makeSubConfigPath(page.path),
-        pageId: makePageName(page.name),
-        pageTitle: page.name,
-      },
-    };
-    // Create route for default homepage
-    multiPageRoutes.push({
-      path: makePageSlug(page.name, 'home'),
-      name: `${subPageInfo.subPageInfo.pageId}-home`,
-      component: Home,
-      props: subPageInfo,
-    });
-    // Create route for the workspace view
-    multiPageRoutes.push({
-      path: makePageSlug(page.name, 'workspace'),
-      name: `${subPageInfo.subPageInfo.pageId}-workspace`,
-      component: () => import('./views/Workspace.vue'),
-      props: subPageInfo,
-    });
-    // Create route for the minimal view
-    multiPageRoutes.push({
-      path: makePageSlug(page.name, 'minimal'),
-      name: `${subPageInfo.subPageInfo.pageId}-minimal`,
-      component: () => import('./views/Minimal.vue'),
-      props: subPageInfo,
-    });
-  });
-  return multiPageRoutes;
-};
+// const makeMultiPageRoutes = (userPages) => {
+//   // If no multi pages specified, or is not array, then return nothing
+//   if (!userPages || !Array.isArray(userPages)) return [];
+//   const multiPageRoutes = [];
+//   // For each user page, create an additional route
+//   userPages.forEach((page) => {
+//     if (!page.name || !page.path) { // Sumin not right, show warning
+//       ErrorHandler('Additional pages must have both a `name` and `path`');
+//     }
+//     // Props to be passed to home mixin
+//     const subPageInfo = {
+//       subPageInfo: {
+//         confPath: makeSubConfigPath(page.path),
+//         pageId: makePageName(page.name),
+//         pageTitle: page.name,
+//       },
+//     };
+//     // Create route for default homepage
+//     multiPageRoutes.push({
+//       path: makePageSlug(page.name, 'home'),
+//       name: `${subPageInfo.subPageInfo.pageId}-home`,
+//       component: Home,
+//       props: subPageInfo,
+//     });
+//     // Create route for the workspace view
+//     multiPageRoutes.push({
+//       path: makePageSlug(page.name, 'workspace'),
+//       name: `${subPageInfo.subPageInfo.pageId}-workspace`,
+//       component: () => import('./views/Workspace.vue'),
+//       props: subPageInfo,
+//     });
+//     // Create route for the minimal view
+//     multiPageRoutes.push({
+//       path: makePageSlug(page.name, 'minimal'),
+//       name: `${subPageInfo.subPageInfo.pageId}-minimal`,
+//       component: () => import('./views/Minimal.vue'),
+//       props: subPageInfo,
+//     });
+//   });
+//   return multiPageRoutes;
+// };
 
 /* Routing mode, can be either 'hash', 'history' or 'abstract' */
 const mode = appConfig.routingMode || 'history';
@@ -120,7 +120,7 @@ const mode = appConfig.routingMode || 'history';
 const router = new Router({
   mode,
   routes: [
-    ...makeMultiPageRoutes(pages),
+    // ...makeMultiPageRoutes(pages),
     { // The default view can be customized by the user
       path: '/',
       name: `landing-page-${getStartingView()}`,

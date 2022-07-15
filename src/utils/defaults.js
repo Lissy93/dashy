@@ -28,9 +28,9 @@ module.exports = {
   openingMethod: 'newtab',
   /* The page paths for each route within the app for the router */
   routePaths: {
-    home: '/home',
-    minimal: '/minimal',
-    workspace: '/workspace',
+    home: '/home/:config?/',
+    minimal: '/minimal/:config?/',
+    workspace: '/workspace/:config?/',
     about: '/about',
     login: '/login',
     download: '/download',
