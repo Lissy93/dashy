@@ -47,9 +47,9 @@ const {
 
 const store = new Vuex.Store({
   state: {
-    config: {}, // The current config, rendered to the UI
-    rootConfig: null, // The config from the main config file
-    // remoteConfig: {}, // The configuration stored on the server
+    config: {}, // The current config being used, and rendered to the UI
+    rootConfig: null, // Always the content of main config file, never used directly
+    currentConfigId: null, // When on sub-page, this will be page ID / name. null = root config
     editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
     currentConfigInfo: undefined, // For multi-page support, will store info about config file
@@ -75,8 +75,8 @@ const store = new Vuex.Store({
     },
     theme(state) {
       let localTheme = null;
-      if (state.currentConfigInfo?.pageId) {
-        const themeStoreKey = `${localStorageKeys.THEME}-${state.currentConfigInfo?.pageId}`;
+      if (state.currentConfigId) {
+        const themeStoreKey = `${localStorageKeys.THEME}-${state.currentConfigId}`;
         localTheme = localStorage[themeStoreKey];
       } else {
         localTheme = localStorage[localStorageKeys.THEME];
@@ -315,32 +315,28 @@ const store = new Vuex.Store({
     [SET_CURRENT_SUB_PAGE](state, subPageObject) {
       if (!subPageObject) {
         // Set theme back to primary when navigating to index page
-        const defaulTheme = localStorage.getItem(localStorageKeys.PRIMARY_THEME);
-        if (defaulTheme) state.config.appConfig.theme = defaulTheme;
+        const defaultTheme = localStorage.getItem(localStorageKeys.PRIMARY_THEME);
+        if (defaultTheme) state.config.appConfig.theme = defaultTheme;
       }
       state.currentConfigInfo = subPageObject;
     },
-    [USE_MAIN_CONFIG](state) {
-      if (state.remoteConfig) {
-        state.config = state.remoteConfig;
-      } else {
-        this.dispatch(Keys.INITIALIZE_CONFIG);
-      }
+    /* Set config to rootConfig, by calling initialize with no params */
+    async [USE_MAIN_CONFIG]() {
+      this.dispatch(Keys.INITIALIZE_CONFIG);
     },
   },
   actions: {
-    /* Called when app first loaded. Reads config and sets state */
-    // async [INITIALIZE_CONFIG]({ commit }) {
-    //   // Get the config file from the server and store it for use by the accumulator
-    //   commit(SET_REMOTE_CONFIG, yaml.load((await axios.get('/conf.yml')).data));
-    //   const deepCopy = (json) => JSON.parse(JSON.stringify(json));
-    //   const config = deepCopy(new ConfigAccumulator().config());
-    //   commit(SET_CONFIG, config);
-    // },
     /* Fetches the root config file, only ever called by INITIALIZE_CONFIG */
     async [INITIALIZE_ROOT_CONFIG]({ commit }) {
-      console.log('Initializing root config....');
-      commit(SET_ROOT_CONFIG, yaml.load((await axios.get('/conf.yml')).data));
+      // Load and parse config from root config file
+      const data = await yaml.load((await axios.get('/conf.yml')).data);
+      // Replace missing root properties with empty objects
+      if (!data.appConfig) data.appConfig = {};
+      if (!data.pageInfo) data.pageInfo = {};
+      if (!data.sections) data.sections = [];
+      // Set the state, and return data
+      commit(SET_ROOT_CONFIG, data);
+      return data;
     },
     /**
      * Fetches config and updates state
@@ -350,18 +346,15 @@ const store = new Vuex.Store({
      */
     async [INITIALIZE_CONFIG]({ commit, state }, subConfigPath) {
       const fetchPath = subConfigPath || '/conf.yml'; // The path to fetch config from
-      if (!state.rootConfig) {
-        await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
-      }
-      console.log('rootConfig', state.rootConfig);
+      const rootConfig = state.rootConfig || await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
       if (!subConfigPath) { // Use root config as config
-        commit(SET_CONFIG, state.rootConfig);
+        commit(SET_CONFIG, rootConfig);
       } else { // Fetch sub-config, and use as config
         axios.get(fetchPath).then((response) => {
           const configContent = yaml.load(response.data);
           // Certain values must be inherited from root config
-          configContent.appConfig = state.rootConfig.appConfig;
-          configContent.pages = state.rootConfig.pages;
+          configContent.appConfig = rootConfig.appConfig;
+          configContent.pages = rootConfig.pages;
           commit(SET_CONFIG, configContent);
         }).catch((err) => {
           ErrorHandler(`Unable to load config from '${fetchPath}'`, err);
