@@ -1013,7 +1013,7 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 
 ### Astronomy Picture of the Day
 
-Show the NASA Astronomy Pictore of the Day. Data is fetched from [APOD](https://apod.nasa.gov/apod/) using [PawelPleskaczynski/apod_api](https://github.com/PawelPleskaczynski/apod_api).
+Show the NASA Astronomy Pictore of the Day. Data is fetched from [APOD](https://apod.nasa.gov/apod/) using [@Lissy93/go-apod](https://github.com/lissy93/go-apod) / hosted at [apod.as93.net](https://apod.as93.net/).
 
 <p align="center"><img width="400" src="https://i.ibb.co/ZMkgLFK/apod.png" /></p>
 
@@ -1031,7 +1031,7 @@ _No config options._
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟢 Not Required
 - **Price**: 🟢 Free
-- **Host**: Managed Instance or Self-Hosted (see [PawelPleskaczynski/apod_api](https://github.com/PawelPleskaczynski/apod_api))
+- **Host**: Managed Instance or Self-Hosted (see [@Lissy93/go-apod](https://github.com/lissy93/go-apod))
 - **Privacy**: _See [NASA's Privacy Policy](https://www.nasa.gov/about/highlights/HP_Privacy.html)_
 
 ---
