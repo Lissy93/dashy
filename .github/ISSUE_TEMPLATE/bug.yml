@@ -63,7 +63,7 @@ body:
           required: true
         - label: You've checked that this [issue hasn't already been raised](https://github.com/Lissy93/dashy/issues?q=is%3Aissue)
           required: true
-        - label: You've checked the [docs](https://github.com/Lissy93/dashy/tree/master/docs#readme) and [troubleshooting](https://github.com/Lissy93/dashy/blob/master/docs/troubleshooting.md#troubleshooting) guide
+        - label: You've checked the [docs](https://github.com/Lissy93/dashy/tree/master/docs#readme) and [troubleshooting](https://github.com/Lissy93/dashy/blob/master/docs/troubleshooting.md#troubleshooting) guide ![important](https://img.shields.io/badge/Important!-F6094E)
           required: true
         - label: You agree to the [code of conduct](https://github.com/Lissy93/dashy/blob/master/.github/CODE_OF_CONDUCT.md#contributor-covenant-code-of-conduct)
           required: true

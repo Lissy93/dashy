@@ -434,11 +434,20 @@ If this is the case, you can disable the UI error message of a given widget by s
 
 ## Weather Forecast Widget 401
 
-[Weather widget](/docs/widgets.md#weather-forecast) is working fine, but you are getting a `401` for the [Weather Forecast widget](/docs/widgets.md#weather-forecast), then this is most likely an OWM API key issue.
+A 401 error means your API key is invalid, it is not an issue with Dashy.
 
-The forecasting API requires an upgraded plan. ULPT: You can get a free, premium API key by filling in [this form](https://home.openweathermap.org/students). It's a student plan, but there's no verification to check that you are still a student.
+Usually this happens due to an error in your config. If you're unsure, copy and paste the [example](/docs/widgets.md#weather) config, replacing the API key with your own.
+
+Check that `apiKey` is correctly specified, and nested within `options`. Ensure your input city is valid.
+
+To test your API key, try making a request to `https://api.openweathermap.org/data/2.5/weather?q=London&appid=[your-api-key]`
+
+If [Weather widget](/docs/widgets.md#weather-forecast) is working fine, but you are getting a `401` for the [Weather Forecast widget](/docs/widgets.md#weather-forecast), then this is also an OWM API key issue.
+Since the forecasting API requires an upgraded plan. ULPT: You can get a free, premium API key by filling in [this form](https://home.openweathermap.org/students). It's a student plan, but there's no verification to check that you are still a student.
 
 A future update will be pushed out, to use a free weather forecasting API.
+
+See also: [#803](https://github.com/Lissy93/dashy/issues/803), [#789](https://github.com/Lissy93/dashy/issues/789), [#577](https://github.com/Lissy93/dashy/issues/577), [#621](https://github.com/Lissy93/dashy/issues/621), [#578](https://github.com/Lissy93/dashy/issues/578)
 
 ---
 
