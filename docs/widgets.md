@@ -1832,7 +1832,7 @@ Shows queue information regarding your self hosted Sabnzbd server.
 
 Display info from the Gluetun VPN container public IP API. This can show the IP and location data for the exit VPN node.
 
-<p align="center"><img width="380" src="https://imgur.com/TOtYZ7k" /></p>
+<p align="center"><img width="380" src="https://ibb.co/C7myLHL" /></p>
 
 ##### Options
 
