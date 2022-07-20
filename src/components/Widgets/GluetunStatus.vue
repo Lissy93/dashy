@@ -37,8 +37,6 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
-import { getCountryFlag, getMapUrl } from '@/utils/MiscHelpers';
 
 export default {
   mixins: [WidgetMixin],
