@@ -55,6 +55,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Nextcloud Stats](#nextcloud-stats)
   - [Nextcloud PHP Opcache](#nextcloud-php-opcache-stats)
   - [Sabnzbd](#sabnzbd)
+  - [Gluetun VPN Info](#gluetun-vpn-info)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -1824,6 +1825,39 @@ Shows queue information regarding your self hosted Sabnzbd server.
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Sabnzbd](https://sabnzbd.org/))
 - **Privacy**: _See [Sabnzbd Privacy Policy](https://forums.sabnzbd.org/ucp.php?mode=privacy)_
+
+---
+
+### Gluetun VPN Info
+
+Display info from the Gluetun VPN container public IP API. This can show the IP and location data for the exit VPN node.
+
+<p align="center"><img width="380" src="https://i.ibb.co/xjXbZ7Z/Screenshot-from-2022-07-20-21-42-34.png" /></p>
+
+##### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`visibleFields`** | `string` |  Required | A comma separated list of the fields you want visible in the widget. You can have any number of the following : `public_ip`, `region`, `country`, `city`, `location`, `organisation`, `postal_code`, `timezone` 
+**`host`** | `string` |  Required | The url to the gluetun HTTP control server. E.g. `http://gluetun:8000`
+
+
+##### Example 
+
+
+```yaml
+- type: gluetun-status
+  useProxy: true
+  options:
+    hostname: http://server-or-conatiner-hostname:8000
+    visibleFields: public_ip,region,country,city,location,organisation,postal_code,timezone
+```
+##### Info
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Gluetun](https://github.com/qdm12/gluetun))
+- **Privacy**: _See [Gluetun Wiki](https://github.com/qdm12/gluetun/wiki)_
 
 ---
 
