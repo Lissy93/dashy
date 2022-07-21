@@ -1,34 +1,34 @@
 <template>
   <div class="vpn-ip-addr-wrapper">
-  <div class="ip-row public-ip" v-if="public_ipT">
+  <div class="ip-row public-ip" v-if="public_ip">
     <span class="lbl">VPN IP</span>
     <span class="val">{{ public_ip }}</span>
   </div>
-  <div class="ip-row" v-if="regionT">
-    <span class="lbl">Region</span>
-    <span class="val">{{ region }}</span>
-  </div>
-  <div class="ip-row" v-if="countryT">
+  <div class="ip-row" v-if="country">
     <span class="lbl">Country</span>
     <span class="val">{{ country }}</span>
   </div>
-  <div class="ip-row" v-if="cityT">
+  <div class="ip-row" v-if="region">
+    <span class="lbl">Region</span>
+    <span class="val">{{ region }}</span>
+  </div>
+  <div class="ip-row" v-if="city">
     <span class="lbl">City</span>
     <span class="val">{{ city }}</span>
   </div>
-  <div class="ip-row" v-if="postal_codeT">
+  <div class="ip-row" v-if="postal_code">
     <span class="lbl">Post Code</span>
     <span class="val">{{ postal_code }}</span>
   </div>
-  <div class="ip-row" v-if="locationT">
+  <div class="ip-row" v-if="location">
     <span class="lbl">Location</span>
     <span class="val">{{ location }}</span>
   </div>
-  <div class="ip-row" v-if="timezoneT">
+  <div class="ip-row" v-if="timezone">
     <span class="lbl">Timezone</span>
     <span class="val">{{ timezone }}</span>
   </div>
-  <div class="ip-row" v-if="organizationT">
+  <div class="ip-row" v-if="organization">
     <span class="lbl">Organization</span>
     <span class="val">{{ organization }}</span>
   </div>
@@ -43,50 +43,31 @@ export default {
   data() {
     return {
       public_ip: null,
-      region: null,
       country: null,
+      region: null,
       city: null,
       location: null,
       organization: null,
       postal_code: null,
       timezone: null,
-      public_ipT: null,
-      regionT: null,
-      countryT: null,
-      cityT: null,
-      locationT: null,
-      organizationT: null,
-      postal_codeT: null,
-      timezoneT: null,
     };
   },
   methods: {
     /* Make GET request to Gluetun publicip API endpoint */
     fetchData() {
-      this.processToggles(this.options.visibleFields);
       this.makeRequest(this.options.hostname + "/v1/publicip/ip").then(this.processData);
     },
     /* Assign data variables to the returned data */
     processData(ipInfo) {
-      this.public_ip = ipInfo.public_ip;
-      this.region = ipInfo.region;
-      this.country = ipInfo.country;
-      this.city = ipInfo.city;
-      this.location = ipInfo.location;
-      this.organization = ipInfo.organization;
-      this.postal_code = ipInfo.postal_code;
-      this.timezone = ipInfo.timezone;
-    },
-    processToggles(toggles) {
-      var fields = toggles.split(",");
-      this.public_ipT = fields.includes("public_ip");
-      this.regionT = fields.includes("region");
-      this.countryT = fields.includes("country");
-      this.cityT = fields.includes("city");
-      this.locationT = fields.includes("location");
-      this.organizationT = fields.includes("organization");
-      this.postal_codeT = fields.includes("postal_code");
-      this.timezoneT = fields.includes("timezone");
+      var fields = this.options.visibleFields.split(",");
+      this.public_ip = fields.includes("public_ip") ? ipInfo.public_ip : null;
+      this.country = fields.includes("country") ?  ipInfo.country : null;
+      this.region = fields.includes("region") ? ipInfo.region : null;
+      this.city = fields.includes("city") ?  ipInfo.city : null;
+      this.location = fields.includes("location") ?  ipInfo.location : null;
+      this.organization = fields.includes("organization") ?  ipInfo.organization : null;
+      this.postal_code = fields.includes("postal_code") ?  ipInfo.postal_code : null;
+      this.timezone = fields.includes("timezone") ?  ipInfo.timezone : null;
     }
   },
 };
