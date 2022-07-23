@@ -52,14 +52,23 @@ export default {
       timezone: null,
     };
   },
+  computed: {
+    visibleFields() {
+      return this.options.visibleFields || 'public_ip';
+    },
+    hostname() {
+      if (!this.options.hostname) this.error('`hostname` is required');
+      return this.options.hostname;
+    },
+  },
   methods: {
     /* Make GET request to Gluetun publicip API endpoint */
     fetchData() {
-      this.makeRequest(`${this.options.hostname}/v1/publicip/ip`).then(this.processData);
+      this.makeRequest(`${this.hostname}/v1/publicip/ip`).then(this.processData);
     },
     /* Assign data variables to the returned data */
     processData(ipInfo) {
-      const fields = this.options.visibleFields.split(',');
+      const fields = this.visibleFields.split(',');
       this.public_ip = fields.includes('public_ip') ? ipInfo.public_ip : null;
       this.country = fields.includes('country') ? ipInfo.country : null;
       this.region = fields.includes('region') ? ipInfo.region : null;
