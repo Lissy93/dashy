@@ -304,6 +304,16 @@
       "up": "Up",
       "down": "Down"
     },
+    "gluetun-status": {
+      "vpn-ip": "VPN IP",
+      "country": "Country",
+      "region": "Region",
+      "city": "City",
+      "post-code": "Post Code",
+      "location": "Location",
+      "timezone": "Timezone",
+      "organization": "Organization"
+    },
     "nextcloud": {
       "active": "active",
       "and": "and",
