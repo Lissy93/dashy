@@ -55,20 +55,20 @@ export default {
   methods: {
     /* Make GET request to Gluetun publicip API endpoint */
     fetchData() {
-      this.makeRequest(this.options.hostname + "/v1/publicip/ip").then(this.processData);
+      this.makeRequest(`${this.options.hostname}/v1/publicip/ip`).then(this.processData);
     },
     /* Assign data variables to the returned data */
     processData(ipInfo) {
-      var fields = this.options.visibleFields.split(",");
-      this.public_ip = fields.includes("public_ip") ? ipInfo.public_ip : null;
-      this.country = fields.includes("country") ?  ipInfo.country : null;
-      this.region = fields.includes("region") ? ipInfo.region : null;
-      this.city = fields.includes("city") ?  ipInfo.city : null;
-      this.location = fields.includes("location") ?  ipInfo.location : null;
-      this.organization = fields.includes("organization") ?  ipInfo.organization : null;
-      this.postal_code = fields.includes("postal_code") ?  ipInfo.postal_code : null;
-      this.timezone = fields.includes("timezone") ?  ipInfo.timezone : null;
-    }
+      const fields = this.options.visibleFields.split(',');
+      this.public_ip = fields.includes('public_ip') ? ipInfo.public_ip : null;
+      this.country = fields.includes('country') ? ipInfo.country : null;
+      this.region = fields.includes('region') ? ipInfo.region : null;
+      this.city = fields.includes('city') ? ipInfo.city : null;
+      this.location = fields.includes('location') ? ipInfo.location : null;
+      this.organization = fields.includes('organization') ? ipInfo.organization : null;
+      this.postal_code = fields.includes('postal_code') ? ipInfo.postal_code : null;
+      this.timezone = fields.includes('timezone') ? ipInfo.timezone : null;
+    },
   },
 };
 </script>
