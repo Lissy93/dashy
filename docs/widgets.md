@@ -1838,7 +1838,7 @@ Display info from the Gluetun VPN container public IP API. This can show the IP 
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`visibleFields`** | `string` |  Required | A comma separated list of the fields you want visible in the widget. You can have any number of the following : `public_ip`, `region`, `country`, `city`, `location`, `organisation`, `postal_code`, `timezone` 
+**`visibleFields`** | `string` |  Required | A comma separated list of the fields you want visible in the widget. You can have any number of the following : `public_ip`, `region`, `country`, `city`, `location`, `organisation`, `postal_code`, `timezone`. Defaults to just `public_ip` 
 **`host`** | `string` |  Required | The url to the gluetun HTTP control server. E.g. `http://gluetun:8000`
 
 
