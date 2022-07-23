@@ -32,6 +32,7 @@
 - [Fixing Widget CORS Errors](#widget-cors-errors)
 - [Widget Shows Error Incorrectly](#widget-shows-error-incorrectly)
 - [Weather Forecast Widget 401](#weather-forecast-widget-401)
+- [Widget Displaying Inaccurate Data](#widget-displaying-inaccurate-data)
 - [Font Awesome Icons not Displaying](#font-awesome-icons-not-displaying)
 - [Copy to Clipboard not Working](#copy-to-clipboard-not-working)
 - [How to Reset Local Settings](#how-to-reset-local-settings)
@@ -447,7 +448,19 @@ Since the forecasting API requires an upgraded plan. ULPT: You can get a free, p
 
 A future update will be pushed out, to use a free weather forecasting API.
 
-See also: [#803](https://github.com/Lissy93/dashy/issues/803), [#789](https://github.com/Lissy93/dashy/issues/789), [#577](https://github.com/Lissy93/dashy/issues/577), [#621](https://github.com/Lissy93/dashy/issues/621), [#578](https://github.com/Lissy93/dashy/issues/578)
+See also: [#803](https://github.com/Lissy93/dashy/issues/803), [#789](https://github.com/Lissy93/dashy/issues/789), [#577](https://github.com/Lissy93/dashy/issues/577), [#621](https://github.com/Lissy93/dashy/issues/621), [#578](https://github.com/Lissy93/dashy/issues/578), [#806](https://github.com/Lissy93/dashy/discussions/806)
+
+---
+
+## Widget Displaying Inaccurate Data
+
+If any widget is not displaying the data you expect, first confirm that your config is correct, then try manually calling the API endpoint.
+
+If the raw API output is correct, yet the widget is rendering incorrect results, then it is likely a bug, and a ticket should be raised. You can start to debug the issue, by looking at the widget's code ([here](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets)), and the browser console + networking tab.
+
+If the API itself is returning incorrect, incomplete or inaccurate data then an issue needs to be raised **with the API provider** (not Dashy!). You can find the API provider included within the widget docs, or for a full list see the [Privacy Docs](https://github.com/Lissy93/dashy/blob/master/docs/privacy.md#widgets).
+
+See also: [#807](https://github.com/Lissy93/dashy/issues/807) (re, domain monitor)
 
 ---
 
