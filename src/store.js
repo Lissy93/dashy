@@ -4,24 +4,21 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import yaml from 'js-yaml';
 import Keys from '@/utils/StoreMutations';
-// import ConfigAccumulator from '@/utils/ConfigAccumalator';
-import { componentVisibility } from '@/utils/ConfigHelpers';
+import { makePageName, formatConfigPath, componentVisibility } from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import { isUserAdmin } from '@/utils/Auth';
-import { localStorageKeys } from './utils/defaults';
+import { localStorageKeys, theme as defaultTheme } from './utils/defaults';
 
 Vue.use(Vuex);
 
 const {
   INITIALIZE_CONFIG,
   INITIALIZE_ROOT_CONFIG,
-  // INITIALIZE_MULTI_PAGE_CONFIG,
   SET_CONFIG,
   SET_ROOT_CONFIG,
-  SET_REMOTE_CONFIG,
-  SET_CURRENT_SUB_PAGE,
+  SET_CONFIG_ID,
   SET_MODAL_OPEN,
   SET_LANGUAGE,
   SET_ITEM_LAYOUT,
@@ -74,14 +71,11 @@ const store = new Vuex.Store({
       return state.config.pages || [];
     },
     theme(state) {
-      let localTheme = null;
-      if (state.currentConfigId) {
-        const themeStoreKey = `${localStorageKeys.THEME}-${state.currentConfigId}`;
-        localTheme = localStorage[themeStoreKey];
-      } else {
-        localTheme = localStorage[localStorageKeys.THEME];
-      }
-      return localTheme || state.config.appConfig.theme;
+      const localStorageKey = state.currentConfigId
+        ? `${localStorageKeys.THEME}-${state.currentConfigId}` : localStorageKeys.THEME;
+      const localTheme = localStorage[localStorageKey];
+      // Return either theme from local storage, or from appConfig
+      return localTheme || state.config.appConfig.theme || defaultTheme;
     },
     webSearch(state, getters) {
       return getters.appConfig.webSearch || {};
@@ -148,18 +142,19 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
+    /* Set the master config */
     [SET_ROOT_CONFIG](state, config) {
       if (!config.appConfig) config.appConfig = {};
       state.config = config;
     },
+    /* The config to display and edit. Will differ from ROOT_CONFIG when using multi-page */
     [SET_CONFIG](state, config) {
       if (!config.appConfig) config.appConfig = {};
       state.config = config;
     },
-    [SET_REMOTE_CONFIG](state, config) {
-      const notNullConfig = config || {};
-      if (!notNullConfig.appConfig) notNullConfig.appConfig = {};
-      state.remoteConfig = notNullConfig;
+    /* When using multi-page, this is the ID of currently displayed config */
+    [SET_CONFIG_ID](state, subConfigId) {
+      state.currentConfigId = subConfigId;
     },
     [SET_LANGUAGE](state, lang) {
       const newConfig = state.config;
@@ -282,12 +277,13 @@ const store = new Vuex.Store({
       config.sections = applyItemId(config.sections);
       state.config = config;
     },
-    [SET_THEME](state, themOps) {
-      const { theme, pageId } = themOps;
+    [SET_THEME](state, theme) {
       const newConfig = { ...state.config };
       newConfig.appConfig.theme = theme;
       state.config = newConfig;
-      const themeStoreKey = pageId ? `${localStorageKeys.THEME}-${pageId}` : localStorageKeys.THEME;
+      const pageId = state.currentConfigId;
+      const themeStoreKey = pageId
+        ? `${localStorageKeys.THEME}-${pageId}` : localStorageKeys.THEME;
       localStorage.setItem(themeStoreKey, theme);
       InfoHandler('Theme updated', InfoKeys.VISUAL);
     },
@@ -311,14 +307,6 @@ const store = new Vuex.Store({
     },
     [CONF_MENU_INDEX](state, index) {
       state.navigateConfToTab = index;
-    },
-    [SET_CURRENT_SUB_PAGE](state, subPageObject) {
-      if (!subPageObject) {
-        // Set theme back to primary when navigating to index page
-        const defaultTheme = localStorage.getItem(localStorageKeys.PRIMARY_THEME);
-        if (defaultTheme) state.config.appConfig.theme = defaultTheme;
-      }
-      state.currentConfigInfo = subPageObject;
     },
     /* Set config to rootConfig, by calling initialize with no params */
     async [USE_MAIN_CONFIG]() {
@@ -344,20 +332,31 @@ const store = new Vuex.Store({
      * If using sub-page config, then fetch that sub-config, then
      * override certain fields (appConfig, pages) and update config
      */
-    async [INITIALIZE_CONFIG]({ commit, state }, subConfigPath) {
-      const fetchPath = subConfigPath || '/conf.yml'; // The path to fetch config from
+    async [INITIALIZE_CONFIG]({ commit, state }, subConfigId) {
       const rootConfig = state.rootConfig || await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
-      if (!subConfigPath) { // Use root config as config
+      if (!subConfigId) { // Use root config as config
         commit(SET_CONFIG, rootConfig);
-      } else { // Fetch sub-config, and use as config
-        axios.get(fetchPath).then((response) => {
+        commit(SET_CONFIG_ID, null);
+      } else {
+        // Find and format path to fetch sub-config from
+        const subConfigPath = formatConfigPath(rootConfig?.pages?.find(
+          (page) => makePageName(page.name) === subConfigId,
+        )?.path);
+
+        if (!subConfigPath) ErrorHandler(`Unable to find config for '${subConfigId}'`);
+
+        axios.get(subConfigPath).then((response) => {
           const configContent = yaml.load(response.data);
           // Certain values must be inherited from root config
+          const theme = configContent?.appConfig?.theme || rootConfig?.appConfig?.theme;
+          console.log(theme);
           configContent.appConfig = rootConfig.appConfig;
           configContent.pages = rootConfig.pages;
+          configContent.appConfig.theme = theme;
           commit(SET_CONFIG, configContent);
+          commit(SET_CONFIG_ID, subConfigId);
         }).catch((err) => {
-          ErrorHandler(`Unable to load config from '${fetchPath}'`, err);
+          ErrorHandler(`Unable to load config from '${subConfigPath}'`, err);
         });
       }
     },
