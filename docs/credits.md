@@ -5,6 +5,13 @@
 <table>
 <tr>
     <td align="center">
+        <a href="https://github.com/Keloran">
+            <img src="https://avatars.githubusercontent.com/u/200350?v=4" width="80;" alt="Keloran"/>
+            <br />
+            <sub><b>Max Hooton</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/peng1can">
             <img src="https://avatars.githubusercontent.com/u/225854?v=4" width="80;" alt="peng1can"/>
             <br />
@@ -38,15 +45,15 @@
             <br />
             <sub><b>Stephen Rigney</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/AdamXweb">
             <img src="https://avatars.githubusercontent.com/u/6800453?u=45aa0c5c9733a003717eb73840081fdfd5e43b71&v=4" width="80;" alt="AdamXweb"/>
             <br />
             <sub><b>Adam Kostarelas</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/bmcgonag">
             <img src="https://avatars.githubusercontent.com/u/7346620?u=2a0f9284f3e12ac1cc15288c254d1ec68a5081e8&v=4" width="80;" alt="bmcgonag"/>
@@ -81,15 +88,15 @@
             <br />
             <sub><b>Byolock</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/PAPAMICA">
             <img src="https://avatars.githubusercontent.com/u/29079741?v=4" width="80;" alt="PAPAMICA"/>
             <br />
             <sub><b>Mickael Asseline</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/hugalafutro">
             <img src="https://avatars.githubusercontent.com/u/30209689?v=4" width="80;" alt="hugalafutro"/>
@@ -124,15 +131,15 @@
             <br />
             <sub><b>Undefined</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/jtfinley72">
             <img src="https://avatars.githubusercontent.com/u/96497997?v=4" width="80;" alt="jtfinley72"/>
             <br />
             <sub><b>Jtfinley72</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/CynegeticIO">
             <img src="https://avatars.githubusercontent.com/u/103884082?u=8cc7ce0f78edf630fc8a6ea560a62c6ed249ca41&v=4" width="80;" alt="CynegeticIO"/>
@@ -222,7 +229,7 @@
         <a href="https://github.com/jammo2k5">
             <img src="https://avatars.githubusercontent.com/u/8106602?v=4" width="80;" alt="jammo2k5"/>
             <br />
-            <sub><b>jammo2k5</b></sub>
+            <sub><b>Jammo2k5</b></sub>
         </a>
     </td>
     <td align="center">
