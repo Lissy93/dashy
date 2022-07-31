@@ -23,6 +23,7 @@
 - [DockerHub toomanyrequests](#dockerhub-toomanyrequests)
 - [Config Validation Errors](#config-validation-errors)
 - [Node Sass unsupported environment](#node-sass-does-not-yet-support-your-current-environment)
+- [Unreachable Code Error](#unreachable-code-error)
 - [Cannot find module './_baseValues'](#error-cannot-find-module-_basevalues)
 - [Ngrok Invalid Host Headers](#invalid-host-header-while-running-through-ngrok)
 - [Warnings in the Console during deploy](#warnings-in-the-console-during-deploy)
@@ -314,6 +315,17 @@ If the issue still persists, you should raise an issue.
 ## Node Sass does not yet support your current environment
 Caused by node-sass's binaries being built for a for a different architecture
 To fix this, just run: `yarn rebuild node-sass`
+
+---
+
+## Unreachable Code Error
+
+An error similar to: `Fatal error in , line 0. Unreachable code, FailureMessage Object: 0xffe6c8ac. Illegal instruction (core dumped)`
+Is related to a bug in a downstream package, see [nodejs/docker-node#1477](https://github.com/nodejs/docker-node/issues/1477).
+Usually, updating your system and packages will resolve the issue.
+
+See also: [#776](https://github.com/Lissy93/dashy/issues/776)
+
 
 ---
 
