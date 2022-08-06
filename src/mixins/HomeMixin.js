@@ -6,7 +6,6 @@ import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 import Keys from '@/utils/StoreMutations';
 import { searchTiles } from '@/utils/Search';
 import { checkItemVisibility } from '@/utils/CheckItemVisibility';
-import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
 
 const HomeMixin = {
   props: {
@@ -40,16 +39,18 @@ const HomeMixin = {
   },
   watch: {
     async $route() {
-      await this.getConfigForRoute();
-      this.setTheme();
+      this.loadUpConfig();
     },
   },
   async created() {
-    // console.log(this.$router.currentRoute.path);
-    const subPage = this.determineConfigFile();
-    await this.$store.dispatch(Keys.INITIALIZE_CONFIG, subPage);
+    this.loadUpConfig();
   },
   methods: {
+    /* When page loaded / sub-page changed, initiate config fetch */
+    async loadUpConfig() {
+      const subPage = this.determineConfigFile();
+      await this.$store.dispatch(Keys.INITIALIZE_CONFIG, subPage);
+    },
     /* Based on the current route, get which config to display, null will use default */
     determineConfigFile() {
       const pagePath = this.$router.currentRoute.path;
@@ -75,9 +76,9 @@ const HomeMixin = {
       }
     },
     setTheme() {
-      const theme = this.getSubPageTheme() || GetTheme();
-      ApplyLocalTheme(theme);
-      ApplyCustomVariables(theme);
+      // const theme = this.getSubPageTheme() || GetTheme();
+      // ApplyLocalTheme(theme);
+      // ApplyCustomVariables(theme);
     },
     updateModalVisibility(modalState) {
       this.$store.commit('SET_MODAL_OPEN', modalState);

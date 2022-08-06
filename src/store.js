@@ -349,7 +349,6 @@ const store = new Vuex.Store({
           const configContent = yaml.load(response.data);
           // Certain values must be inherited from root config
           const theme = configContent?.appConfig?.theme || rootConfig?.appConfig?.theme;
-          console.log(theme);
           configContent.appConfig = rootConfig.appConfig;
           configContent.pages = rootConfig.pages;
           configContent.appConfig.theme = theme;

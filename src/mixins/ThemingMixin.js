@@ -1,24 +1,26 @@
-// import {
-//   LoadExternalTheme,
-//   ApplyLocalTheme,
-//   ApplyCustomVariables,
-// } from '@/utils/ThemeHelper';
-import { builtInThemes, localStorageKeys, mainCssVars } from '@/utils/defaults';
+/**
+ * This mixin can be extended by any component or view which needs to manage themes
+ * It handles fetching and applying themes from the store, updating themes,
+ * applying custom CSS variables and loading external stylesheets.
+ * */
+
 import Keys from '@/utils/StoreMutations';
 import ErrorHandler from '@/utils/ErrorHandler';
+import { builtInThemes, localStorageKeys, mainCssVars } from '@/utils/defaults';
 
 const ThemingMixin = {
   data: () => ({
-    selectedTheme: '',
-    // themeHelper: new LoadExternalTheme(),
+    selectedTheme: '', // Used only to bind current them to theme dropdown
   }),
   computed: {
+    /* This is the theme from the central store. When it changes, the UI will update */
     themeFromStore() {
       return this.$store.getters.theme;
     },
     appConfig() {
       return this.$store.getters.appConfig;
     },
+    /* Any extra user-defined themes, to add to dropdown */
     extraThemeNames() {
       const userThemes = this.appConfig?.cssThemes || [];
       if (typeof userThemes === 'string') return [userThemes];
@@ -26,22 +28,22 @@ const ThemingMixin = {
     },
     /* If user specified external stylesheet(s), format and return */
     externalThemes() {
-      const availibleThemes = {};
+      const availableThemes = {};
       if (this.appConfig?.externalStyleSheet) {
         const externals = this.appConfig.externalStyleSheet;
         if (Array.isArray(externals)) {
           externals.forEach((ext, i) => {
-            availibleThemes[`External Stylesheet ${i + 1}`] = ext;
+            availableThemes[`External Stylesheet ${i + 1}`] = ext;
           });
         } else if (typeof externals === 'string') {
-          availibleThemes['External Stylesheet'] = this.appConfig.externalStyleSheet;
+          availableThemes['External Stylesheet'] = this.appConfig.externalStyleSheet;
         } else {
           ErrorHandler('External stylesheets must be of type string or string[]');
         }
       }
-      return availibleThemes;
+      return availableThemes;
     },
-    /* Combines all theme names (builtin and user defined) together */
+    /* Combines all theme names for dropdown (built-in, user-defined and stylesheets) */
     themeNames() {
       const externalThemeNames = Object.keys(this.externalThemes);
       return [...this.extraThemeNames, ...externalThemeNames, ...builtInThemes];
@@ -50,6 +52,7 @@ const ThemingMixin = {
   watch: {
     /* When theme in VueX store changes, then update theme */
     themeFromStore(newTheme) {
+      this.resetToDefault();
       this.selectedTheme = newTheme;
       this.updateTheme(newTheme);
     },
@@ -58,9 +61,9 @@ const ThemingMixin = {
     /* Called when user changes theme through the UI
      * Updates store, which will in turn update theme through watcher
      */
-    themeChanged() {
-      this.$store.commit(Keys.SET_THEME, this.selectedTheme);
-      this.updateTheme(this.selectedTheme);
+    themeChangedInUI() {
+      this.$store.commit(Keys.SET_THEME, this.selectedTheme); // Update store
+      this.updateTheme(this.selectedTheme); // Apply theme to UI
     },
     /**
      * Gets any custom styles the user has applied, wither from local storage, or from the config
@@ -87,26 +90,40 @@ const ThemingMixin = {
       if (htmlTag.hasAttribute('data-theme')) htmlTag.removeAttribute('data-theme');
       htmlTag.setAttribute('data-theme', newTheme);
     },
+    /* If using an external stylesheet, load it in */
+    applyRemoteTheme(href) {
+      this.resetToDefault();
+      const element = document.createElement('link');
+      element.setAttribute('rel', 'stylesheet');
+      element.setAttribute('type', 'text/css');
+      element.setAttribute('id', 'user-defined-stylesheet');
+      element.setAttribute('href', href);
+      document.getElementsByTagName('head')[0].appendChild(element);
+    },
     /* Determines if a given theme is local / not a custom user stylesheet */
     isThemeLocal(themeToCheck) {
       const localThemes = [...builtInThemes, ...this.extraThemeNames];
       return localThemes.includes(themeToCheck);
     },
     /* Updates theme. Checks if the new theme is local or external,
-    and calls appropirate updating function. Updates local storage */
+    and calls appropriate updating function. Updates local storage */
     updateTheme(newTheme) {
-      // this.themeHelper.theme = newTheme;
       if (newTheme.toLowerCase() === 'default') {
         this.resetToDefault();
       } else if (this.isThemeLocal(newTheme)) {
         this.applyLocalTheme(newTheme);
+      } else if (this.externalThemes[newTheme]) {
+        this.applyRemoteTheme(this.externalThemes[newTheme]);
       }
       this.applyCustomVariables(newTheme);
     },
-    /* Removes any applied themes */
+    /* Removes any applied themes, and deletes any externally loaded stylesheets */
     resetToDefault() {
+      const externalStyles = document.getElementById('user-defined-stylesheet');
+      if (externalStyles) document.getElementsByTagName('head')[0].removeChild(externalStyles);
       document.getElementsByTagName('html')[0].removeAttribute('data-theme');
     },
+    /* Call within mounted hook within a page to apply the correct theme */
     initializeTheme() {
       const initialTheme = this.themeFromStore;
       this.selectedTheme = initialTheme;
@@ -115,13 +132,7 @@ const ThemingMixin = {
       if (this.isThemeLocal(initialTheme)) {
         this.updateTheme(initialTheme);
       } else if (hasExternal) {
-        const added = Object.keys(this.externalThemes).map(
-          name => this.themeHelper.add(name, this.externalThemes[name]),
-        );
-        // Once, added, then apply users initial theme
-        Promise.all(added).then(() => {
-          this.updateTheme(initialTheme);
-        });
+        this.applyRemoteTheme(this.externalThemes[initialTheme]);
       }
     },
   },

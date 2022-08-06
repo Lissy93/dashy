@@ -4,7 +4,6 @@ import { languages } from '@/utils/languages';
 import {
   visibleComponents,
   localStorageKeys,
-  theme as defaultTheme,
   language as defaultLanguage,
 } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
@@ -24,6 +23,13 @@ export const makePageName = (pageName) => {
 export const makePageSlug = (pageName, pageType) => {
   const formattedName = makePageName(pageName);
   return `/${pageType}/${formattedName}`;
+};
+
+/* Put fetch path for additional configs in correct format */
+export const formatConfigPath = (configPath) => {
+  if (configPath.includes('http')) return configPath;
+  if (configPath.substring(0, 1) !== '/') return `/${configPath}`;
+  return configPath;
 };
 
 /**
@@ -65,27 +71,6 @@ export const componentVisibility = (appConfig) => {
     footer: isThere(usersChoice.hideFooter)
       ? !usersChoice.hideFooter : visibleComponents.footer,
   };
-};
-
-/**
- * Gets the users saved theme, first looks for local storage theme,
- * then looks at user's appConfig, and finally checks the defaults
- * @returns {string} Name of theme to apply
- */
-export const getTheme = () => {
-  const localTheme = localStorage[localStorageKeys.THEME];
-  const appConfigTheme = config.appConfig.theme;
-  return localTheme || appConfigTheme || defaultTheme;
-};
-
-/**
- * Gets any custom styles the user has applied, wither from local storage, or from the config
- * @returns {object} An array of objects, one for each theme, containing kvps for variables
- */
-export const getCustomColors = () => {
-  const localColors = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
-  const configColors = config.appConfig.customColors || {};
-  return Object.assign(configColors, localColors);
 };
 
 /**
