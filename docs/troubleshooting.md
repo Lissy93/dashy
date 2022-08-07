@@ -11,7 +11,7 @@
 - [404 from Mobile Home Screen](#404-after-launch-from-mobile-home-screen)
 - [Yarn Build or Run Error](#yarn-error)
 - [Remote Config Not Loading](#remote-config-not-loading)
-- [Heap limit Allocation failed](ineffective-mark-compacts-near-heap-limit-allocation-failed)
+- [Heap limit Allocation failed](#ineffective-mark-compacts-near-heap-limit-allocation-failed)
 - [Command failed with signal "SIGKILL"](#command-failed-with-signal-sigkill)
 - [Auth Validation Error: "should be object"](#auth-validation-error-should-be-object)
 - [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
@@ -165,7 +165,7 @@ FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memor
 
 This is likely caused by insufficient memory allocation to the container. When the container first starts up, or has to rebuild, the memory usage spikes, and if there isn't enough memory, it may terminate. This can be specified with, for example: `--memory=1024m`. For more info, see [Docker: Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/).
 
-See also: [#380](https://github.com/Lissy93/dashy/issues/380), [#350](https://github.com/Lissy93/dashy/issues/350), [#297](https://github.com/Lissy93/dashy/issues/297), [#349](https://github.com/Lissy93/dashy/issues/349), [#510](https://github.com/Lissy93/dashy/issues/510) and [#511](https://github.com/Lissy93/dashy/issues/511)
+See also: [#380](https://github.com/Lissy93/dashy/issues/380), [#350](https://github.com/Lissy93/dashy/issues/350), [#297](https://github.com/Lissy93/dashy/issues/297), [#349](https://github.com/Lissy93/dashy/issues/349), [#510](https://github.com/Lissy93/dashy/issues/510), [#511](https://github.com/Lissy93/dashy/issues/511) and [#834](https://github.com/Lissy93/dashy/issues/834)
 
 ---
 
