@@ -48,8 +48,15 @@
     </td></tr>
 <tr>
     <td align="center">
+        <a href="https://github.com/digibucc">
+            <img src="https://avatars.githubusercontent.com/u/6216652?v=4" width="80;" alt="digibucc"/>
+            <br />
+            <sub><b>digibucc</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/AdamXweb">
-            <img src="https://avatars.githubusercontent.com/u/6800453?u=45aa0c5c9733a003717eb73840081fdfd5e43b71&v=4" width="80;" alt="AdamXweb"/>
+            <img src="https://avatars.githubusercontent.com/u/6800453?u=98926c2361662df840d2b105873c680e56890052&v=4" width="80;" alt="AdamXweb"/>
             <br />
             <sub><b>Adam Kostarelas</b></sub>
         </a>
@@ -76,20 +83,20 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/mDafox">
-            <img src="https://avatars.githubusercontent.com/u/21359974?v=4" width="80;" alt="mDafox"/>
+        <a href="https://github.com/devosm">
+            <img src="https://avatars.githubusercontent.com/u/21359974?v=4" width="80;" alt="devosm"/>
             <br />
             <sub><b>Manu Devos</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/Byolock">
             <img src="https://avatars.githubusercontent.com/u/25748003?v=4" width="80;" alt="Byolock"/>
             <br />
             <sub><b>Byolock</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/PAPAMICA">
             <img src="https://avatars.githubusercontent.com/u/29079741?v=4" width="80;" alt="PAPAMICA"/>
@@ -109,13 +116,6 @@
             <img src="https://avatars.githubusercontent.com/u/43928955?u=a00b44f22e5a82234d9b406ac048def1fbc16e31&v=4" width="80;" alt="shadowking001"/>
             <br />
             <sub><b>LawrenceP.</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/KierenConnell">
-            <img src="https://avatars.githubusercontent.com/u/46445781?u=5502f8fb780938e2825735d7bbb9236642d212c0&v=4" width="80;" alt="KierenConnell"/>
-            <br />
-            <sub><b>Kieren Connell</b></sub>
         </a>
     </td>
     <td align="center">
