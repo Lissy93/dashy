@@ -16,6 +16,7 @@ Kieren <onnel> - 1 commits
 Leonardo <olma> - 1 commits
 M <seno> - 1 commits
 Markus <raus> - 1 commits
+Michael <michaellavaire@gmail.com> - 1 commits
 PlusaN <61884717+PlusaN@users.noreply.github.com> - 1 commits
 Prince <ar> - 1 commits
 Rune <jørnerå> - 1 commits
@@ -69,12 +70,12 @@ aterox <church.kennetha@gmail.com> - 19 commits
 EVOTk <45015615+EVOTk@users.noreply.github.com> - 22 commits
 Marcell <ülö> - 24 commits
 Alicia <yke> - 28 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 47 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 48 commits
 snyk-bot <snyk-bot@snyk.io> - 48 commits
 Lissy93 <gh@d0h.co> - 78 commits
-Alicia <o> - 92 commits
-liss-bot <liss-bot@d0h.co> - 103 commits
-Alicia <yke> - 188 commits
+Alicia <o> - 94 commits
+liss-bot <liss-bot@d0h.co> - 105 commits
+Alicia <yke> - 198 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 208 commits
 Alicia <yke> - 440 commits
 Alicia <yke> - 1488 commits
