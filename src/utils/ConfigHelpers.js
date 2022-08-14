@@ -1,4 +1,5 @@
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
+// import $store from '@/store';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import { languages } from '@/utils/languages';
 import {
@@ -77,9 +78,8 @@ export const componentVisibility = (appConfig) => {
  * Returns a list of items which the user has assigned a hotkey to
  * So that when the hotkey is pressed, the app/ service can be launched
  */
-export const getCustomKeyShortcuts = () => {
+export const getCustomKeyShortcuts = (sections) => {
   const results = [];
-  const sections = config.sections || [];
   sections.forEach((section) => {
     const itemsWithHotKeys = section.items.filter(item => item.hotkey);
     results.push(itemsWithHotKeys.map(item => ({ hotkey: item.hotkey, url: item.url })));

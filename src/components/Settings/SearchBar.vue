@@ -95,7 +95,8 @@ export default {
     },
     /* If configured, launch specific app when hotkey pressed */
     handleHotKey(key) {
-      const usersHotKeys = this.getCustomKeyShortcuts();
+      const sections = this.$store.getters.sections || [];
+      const usersHotKeys = this.getCustomKeyShortcuts(sections);
       usersHotKeys.forEach((hotkey) => {
         if (hotkey.hotkey === parseInt(key, 10)) {
           if (hotkey.url) window.open(hotkey.url, '_blank');
