@@ -568,7 +568,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
         <a href="https://github.com/digibucc">
             <img src="https://avatars.githubusercontent.com/u/6216652?v=4" width="80;" alt="digibucc"/>
             <br />
-            <sub><b>digibucc</b></sub>
+            <sub><b>Digibucc</b></sub>
         </a>
     </td>
     <td align="center">
@@ -600,20 +600,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/devosm">
-            <img src="https://avatars.githubusercontent.com/u/21359974?v=4" width="80;" alt="devosm"/>
-            <br />
-            <sub><b>Manu Devos</b></sub>
-        </a>
-    </td></tr>
-<tr>
-    <td align="center">
         <a href="https://github.com/Byolock">
             <img src="https://avatars.githubusercontent.com/u/25748003?v=4" width="80;" alt="Byolock"/>
             <br />
             <sub><b>Byolock</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/PAPAMICA">
             <img src="https://avatars.githubusercontent.com/u/29079741?v=4" width="80;" alt="PAPAMICA"/>
@@ -648,15 +641,15 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Undefined</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/jtfinley72">
             <img src="https://avatars.githubusercontent.com/u/96497997?v=4" width="80;" alt="jtfinley72"/>
             <br />
             <sub><b>Jtfinley72</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/CynegeticIO">
             <img src="https://avatars.githubusercontent.com/u/103884082?u=8cc7ce0f78edf630fc8a6ea560a62c6ed249ca41&v=4" width="80;" alt="CynegeticIO"/>
