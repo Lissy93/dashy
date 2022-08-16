@@ -212,7 +212,7 @@ module.exports = {
     generativeFallback: 'https://evatar.io/{icon}',
     localPath: './item-icons',
     faviconName: 'favicon.ico',
-    homeLabIcons: 'https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/{icon}.png',
+    homeLabIcons: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/{icon}.png',
     homeLabIconsFallback: 'https://raw.githubusercontent.com/NX211/homer-icons/master/png/{icon}.png',
   },
   /* API endpoints for widgets that need to fetch external data */
