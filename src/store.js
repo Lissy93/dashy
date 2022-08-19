@@ -337,13 +337,17 @@ const store = new Vuex.Store({
       if (!subConfigId) { // Use root config as config
         commit(SET_CONFIG, rootConfig);
         commit(SET_CONFIG_ID, null);
+        return rootConfig;
       } else {
         // Find and format path to fetch sub-config from
         const subConfigPath = formatConfigPath(rootConfig?.pages?.find(
           (page) => makePageName(page.name) === subConfigId,
         )?.path);
 
-        if (!subConfigPath) ErrorHandler(`Unable to find config for '${subConfigId}'`);
+        if (!subConfigPath) {
+          ErrorHandler(`Unable to find config for '${subConfigId}'`);
+          return null;
+        }
 
         axios.get(subConfigPath).then((response) => {
           const configContent = yaml.load(response.data);
@@ -354,10 +358,12 @@ const store = new Vuex.Store({
           configContent.appConfig.theme = theme;
           commit(SET_CONFIG, configContent);
           commit(SET_CONFIG_ID, subConfigId);
+          return configContent;
         }).catch((err) => {
           ErrorHandler(`Unable to load config from '${subConfigPath}'`, err);
         });
       }
+      return null;
     },
   },
   modules: {},

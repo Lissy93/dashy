@@ -11,6 +11,8 @@ const getAppConfig = () => {
   return config.appConfig || {};
 };
 
+// const appConfig = $store.getters.appConfig || {};
+
 /**
  * Called when the user is still using array for users, prints warning
  * This was a breaking change, implemented in V 1.6.5

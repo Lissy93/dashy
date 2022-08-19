@@ -13,14 +13,15 @@ import TreeView from 'vue-json-tree-view';
 
 // Import base Dashy components and utils
 import Dashy from '@/App.vue';          // Main Dashy Vue app
-import router from '@/router';          // Router, for navigation
 import store from '@/store';            // Store, for local state management
+import router from '@/router';          // Router, for navigation
 import serviceWorker from '@/utils/InitServiceWorker'; // Service worker initialization
 import { messages } from '@/utils/languages';         // Language texts
 import ErrorReporting from '@/utils/ErrorReporting';  // Error reporting initializer (off)
 import clickOutside from '@/directives/ClickOutside'; // Directive for closing popups, modals, etc
 import { toastedOptions, tooltipOptions, language as defaultLanguage } from '@/utils/defaults';
 import { initKeycloakAuth, isKeycloakEnabled } from '@/utils/KeycloakAuth';
+import Keys from '@/utils/StoreMutations';
 
 // Initialize global Vue components
 Vue.use(VueI18n);
@@ -52,6 +53,8 @@ ErrorReporting(Vue, router);
 
 // Render function
 const render = (awesome) => awesome(Dashy);
+
+store.dispatch(Keys.INITIALIZE_CONFIG).then((thing) => console.log('main', thing));
 
 // Mount the app, with router, store i18n and render func
 const mount = () => new Vue({
