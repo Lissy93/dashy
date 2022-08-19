@@ -27,13 +27,15 @@ const setSwStatus = (swStateToSet) => {
   }
 };
 
+const confUrl = `${process.env.BASE_URL || '/'}conf.yml`;
+
 /**
  * Checks if service workers should be enabled
  * Disable if not running in production
  * Or disable if user specified to disable
  */
 const shouldEnableServiceWorker = async () => {
-  const conf = yaml.load((await axios.get('/conf.yml')).data);
+  const conf = yaml.load((await axios.get(confUrl)).data);
   if (conf && conf.appConfig && conf.appConfig.enableServiceWorker) {
     setSwStatus({ disabledByUser: false });
     return true;
