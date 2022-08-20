@@ -34,6 +34,8 @@ const appConfig = config.appConfig || {};
 Vue.use(Router);
 const progress = new Progress({ color: 'var(--progress-bar)' });
 
+const publicPath = `${process.env.BASE_URL || '/'}`
+
 /* Returns true if user is already authenticated, or if auth is not enabled */
 const isAuthenticated = () => {
   const authEnabled = isAuthEnabled();
