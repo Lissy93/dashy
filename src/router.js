@@ -67,7 +67,7 @@ const makeMetaTags = (defaultTitle) => ({
 const makeSubConfigPath = (rawPath) => {
   if (!rawPath) return '';
   if (rawPath.startsWith('/') || rawPath.startsWith('http')) return rawPath;
-  else return `/${rawPath}`;
+  else return `${publicPath}${rawPath}`;
 };
 
 /* For each additional config file, create routes for home, minimal and workspace views */
@@ -122,7 +122,7 @@ const router = new Router({
   routes: [
     ...makeMultiPageRoutes(pages),
     { // The default view can be customized by the user
-      path: '/',
+      path: publicPath,
       name: `landing-page-${getStartingView()}`,
       component: getStartingComponent(),
       meta: makeMetaTags('Home Page'),
@@ -157,7 +157,7 @@ const router = new Router({
       component: () => import('./views/Login.vue'),
       beforeEnter: (to, from, next) => {
         // If the user already logged in + guest mode not enabled, then redirect home
-        if (isAuthenticated() && !isGuestAccessEnabled()) router.push({ path: '/' });
+        if (isAuthenticated() && !isGuestAccessEnabled()) router.push({ path: publicPath });
         next();
       },
     },
