@@ -257,7 +257,7 @@ services:
     ports:
       - 4000:80
     environment:
-      - BASE_URL=/my-dashboard
+      - BASE_URL=/my-dashboard/
     restart: unless-stopped
     healthcheck:
       test: ['CMD', 'node', '/app/services/healthcheck']
@@ -275,11 +275,11 @@ services:
 
 With Docker, you can define environmental variables under the `environment` section of your Docker compose file. Environmental variables are used to configure high-level settings, usually before the config file has been read. For a list of all supported env vars in Dashy, see [the developing docs](/docs/developing.md#environmental-variables), or the default [`.env`](https://github.com/Lissy93/dashy/blob/master/.env) file.
 
-A common use case, is to run Dashy under a sub-page, instead of at the root of a URL (e.g. `https://my-homelab.local/dashy` instead of `https://dashy.my-homelab.local`). In this use-case, you'd specify the `BASE_URL` variable in your compose file.
+A common use case is to run Dashy under a sub-page, instead of at the root of a URL (e.g. `https://my-homelab.local/dashy` instead of `https://dashy.my-homelab.local`). In this use-case, you'd specify the `BASE_URL` variable in your compose file.
 
 ```yaml
 environment:
-  - BASE_URL=/dashy
+  - BASE_URL=/dashy/
 ```
 
 You can also do the same thing with the docker run command, using the [`--env`](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file) flag.
@@ -710,7 +710,7 @@ _The following section only applies if you are not using Docker, and would like 
 
 Dashy ships with a pre-configured Node.js server, in [`server.js`](https://github.com/Lissy93/dashy/blob/master/server.js) which serves up the contents of the `./dist` directory on a given port. You can start the server by running `node server`. Note that the app must have been build (run `yarn build`), and you need [Node.js](https://nodejs.org) installed.
 
-If you wish to run Dashy from a sub page (e.g. `example.com/dashy`), then just set the `BASE_URL` environmental variable to that page name (in this example, `/dashy`), before building the app, and the path to all assets will then resolve to the new path, instead of `./`.
+If you wish to run Dashy from a sub page (e.g. `example.com/dashy`), then just set the `BASE_URL` environmental variable to that page name (in this example, `/dashy/`), before building the app, and the path to all assets will then resolve to the new path, instead of `./`.
 
 However, since Dashy is just a static web application, it can be served with whatever server you like. The following section outlines how you can configure a web server.
 
