@@ -57,7 +57,11 @@ export default {
     /* Get and format the date */
     setDate() {
       this.date = new Date().toLocaleDateString(this.timeFormat, {
-        weekday: 'long', day: 'numeric', year: 'numeric', month: 'short',
+        weekday: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        month: 'short',
+        timeZone: this.timeZone,
       });
     },
   },
