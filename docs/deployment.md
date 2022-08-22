@@ -66,7 +66,7 @@ For all available options, and to learn more, see the [Docker Run Docs](https://
 
 Dashy is also available through GHCR: `docker pull ghcr.io/lissy93/dashy:latest`
 
-If you're deploying Dashy on a modern ARM-based board, such as a Raspberry Pi (2+), then you'll need to use one of Dashy's ARM images. Set the base image + tag to either `lissy93/dashy:arm64v8` or `lissy93/dashy:arm32v7`, depending on your system architecture. You can also use the `multi-arch` image, which should work on all system architectures. 
+If you're deploying Dashy on a modern ARM-based board, such as a Raspberry Pi (2+), then you'll need to use one of Dashy's ARM images. Set the base image + tag to either `lissy93/dashy:arm64v8` or `lissy93/dashy:arm32v7`, depending on your system architecture. You can also use the `multi-arch` image, which should work on all system architectures.
 
 The image defaults to `:latest`, but you can instead specify a specific version, e.g. `docker pull lissy93/dashy:release-1.5.0`
 
@@ -128,11 +128,11 @@ Installing dashy is really simply and fast:
 2. Go to ```File Station``` and open the ```docker``` folder. Inside the docker folder, create one new folder and name it ```dashy```.
  > Note: Be careful to enter only lowercase, not uppercase letters.
 3. Go to Control Panel / Task Scheduler / Create / Scheduled Task / User-defined script.
-4. Once you click on ```User-defined``` script a new window will open. 
+4. Once you click on ```User-defined``` script a new window will open.
 5. Follow the instructions below:
-6. General: In the Task field type in Install dashy. Uncheck “Enabled” option. Select root User.
-7. Schedule: Select Run on the following date then select “Do not repeat“.
-8. Task Settings: Check “Send run details by email“, add your email then copy paste the code below in the Run command area. After that click OK.
+6. General: In the Task field type in Install dashy. Uncheck "Enabled" option. Select root User.
+7. Schedule: Select Run on the following date then select "Do not repeat".
+8. Task Settings: Check "Send run details by email", add your email then copy paste the code below in the Run command area. After that click OK.
 
 ```
 docker run -d \
@@ -247,7 +247,7 @@ https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_rend
 #### Scalingo
 [![Deploy on Scalingo](https://i.ibb.co/nj0KxyH/deploy-scalingo-button.png)](https://my.scalingo.com/deploy?source=https://github.com/lissy93/dashy#master)
 
-[Scalingo](https://scalingo.com/) is a scalable container-based cloud platform as a service. It's focus is on compliance and uptime, and is geared towards enterprise users. Scalingo is also not free, although they do have a 3-day free trial that does not require a payment method 
+[Scalingo](https://scalingo.com/) is a scalable container-based cloud platform as a service. It's focus is on compliance and uptime, and is geared towards enterprise users. Scalingo is also not free, although they do have a 3-day free trial that does not require a payment method.
 
 To deploy Dashy to Scalingo, use the following link
 ```
@@ -295,13 +295,13 @@ However without Dashy's node server, there are a couple of features that will be
 Dashy works well on a Raspberry Pi (tested on Pi 3 and later), but should also run well on any system.
 
 ### Docker
-Initial app build causes a spike in resource usage, but once the built app is running it is fairly steady. For this reason, Dashy works best with a minimum of 1GB of memory, and 1GB of disk space. 
+Initial app build causes a spike in resource usage, but once the built app is running it is fairly steady. For this reason, Dashy works best with a minimum of 1GB of memory, and 1GB of disk space.
 
 ### Bare Metal
-Minimum 526mb mem, 2GB disk space, 
+Minimum 526mb mem, 2GB disk space.
 
 ### CDN / Cloud Deploy
-No specific requirements. The built application alone (without the Node server) is very light-weight, and can be handled smoothly by pretty much any CDN or cloud deployment service (see [this list](/docs/deployment.md#deploy-to-cloud-service) or natively supported cloud providers). 
+No specific requirements. The built application alone (without the Node server) is very light-weight, and can be handled smoothly by pretty much any CDN or cloud deployment service (see [this list](/docs/deployment.md#deploy-to-cloud-service) or natively supported cloud providers).
 
 If you're using your own icons, or other assets, additional disk space will be required for those resources.
 

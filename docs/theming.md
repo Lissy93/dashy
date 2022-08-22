@@ -193,5 +193,3 @@ These colors represent intent, and so are not often changed, but you can do so i
 - `--neutral` - Neutral color, usually grey / `#272f4d`
 - `--white` - Just white / `#fff`
 - `--black` - Just black / `#000`
-
-

@@ -4,7 +4,7 @@
 
 You can have additional pages within your dashboard, with each having it's own config file. The config files for sub-pages can either be stored locally, or hosted separately. A link to each additional page will be displayed in the navigation bar.
 
-You can edit additional pages using the interactive editor, exactly the same was as your primary page (so long as it's local). But please save changes to one page, before you start editing the next. 
+You can edit additional pages using the interactive editor, exactly the same was as your primary page (so long as it's local). But please save changes to one page, before you start editing the next.
 
 ### Using Local Sub-Pages
 

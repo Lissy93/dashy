@@ -83,7 +83,7 @@ Dashy has a primitive [web search feature](https://github.com/Lissy93/dashy/blob
 This feature can be disabled under appConfig, with `webSearch: { disableWebSearch: true }`
 
 #### Anonymous Error Reporting
-Error reporting is disabled by default, and no data will ever be sent without your explicit consent. In fact, the error tracking code isn't even imported unless you have actively enabled it. [Sentry](https://github.com/getsentry/sentry) is used for this, it's an open source error tracking and performance monitoring tool, used to identify any issues which occur in the production app (if you enable it). 
+Error reporting is disabled by default, and no data will ever be sent without your explicit consent. In fact, the error tracking code isn't even imported unless you have actively enabled it. [Sentry](https://github.com/getsentry/sentry) is used for this, it's an open source error tracking and performance monitoring tool, used to identify any issues which occur in the production app (if you enable it).
 
 The crash report includes the file or line of code that triggered the error, and a 2-layer deep stack trace. Reoccurring errors will also include the following user information: OS type (Mac, Windows, Linux, Android or iOS) and browser type (Firefox, Chrome, IE, Safari). Data scrubbing is enabled. IP address will not be stored. If any potentially identifiable data ever finds its way into a crash report, it will be automatically and permanently erased. All statistics collected are anonomized and stored securely, and ae automatically deleted after 14 days. For more about privacy and security, see the [Sentry Docs](https://sentry.io/security/).
 
@@ -164,7 +164,7 @@ The following section outlines all data that is stored in the browsers, as cooki
 #### Cookies
 > [Cookies](https://en.wikipedia.org/wiki/HTTP_cookie) will expire after their pre-defined lifetime
 
-- `AUTH_TOKEN` - A unique token, generated from a hash of users credentials, to verify they are authenticated. Only used when auth is enabled 
+- `AUTH_TOKEN` - A unique token, generated from a hash of users credentials, to verify they are authenticated. Only used when auth is enabled.
 
 #### Session Storage
 > [Session storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) is deleted when the current session ends (tab / window is closed)
@@ -229,7 +229,7 @@ This is covered in more detail in [App Management](/docs/management.md).
 ## Security Features
 
 #### Subresource Integrity
-[Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) or SRI is a security feature that enables browsers to verify that resources they fetch are delivered without unexpected manipulation. It works by allowing you to provide a cryptographic hash that a fetched resource must match. This prevents the app from loading any resources that have been manipulated, by verifying the files hashes. It safeguards against the risk of an attacker injecting arbitrary malicious content into any files served up via a CDN. 
+[Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) or SRI is a security feature that enables browsers to verify that resources they fetch are delivered without unexpected manipulation. It works by allowing you to provide a cryptographic hash that a fetched resource must match. This prevents the app from loading any resources that have been manipulated, by verifying the files hashes. It safeguards against the risk of an attacker injecting arbitrary malicious content into any files served up via a CDN.
 
 Dashy supports SRI, and it is recommended to enable this if you are hosting your dashboard via a public CDN. To enable SRI, set the `INTEGRITY` environmental variable to `true`.
 

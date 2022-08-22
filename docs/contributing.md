@@ -40,7 +40,7 @@ Sponsoring will give you several perks - for $1 / £0.75 per month, you'll get a
 
 ## Enable Anonymous Bug Reports
 
-Bug reports helps me to discover bugs I was unaware of, and then fix them, in order to make Dashy more reliable long term. This is a simple, yet really helpful step you can take to help improve Dashy. [Sentry](https://github.com/getsentry/sentry) is an open source error tracking and performance monitoring tool, which enables the identification any errors which occur in the production app (only if you enable it). 
+Bug reports helps me to discover bugs I was unaware of, and then fix them, in order to make Dashy more reliable long term. This is a simple, yet really helpful step you can take to help improve Dashy. [Sentry](https://github.com/getsentry/sentry) is an open source error tracking and performance monitoring tool, which enables the identification any errors which occur in the production app (only if you enable it).
 
 To enable error reporting:
 ```yaml
@@ -122,4 +122,3 @@ For a full list of Dashy's contributors, see the [Credits Page](/docs/credits.md
 ### Star-Gazers Over Time
 
 [![Stargazers](https://starchart.cc/Lissy93/dashy.svg)](https://seladb.github.io/StarTrack-js/#/preload?r=Lissy93,dashy)
-

@@ -10,7 +10,7 @@ You can navigate through your items or search results using the keyboard. You ca
 You can launch a elected app by hitting <kbd>Enter</kbd>. This will open the app using your default opening method, specified in `target` (either `newtab`, `sametab`, `modal`, `top` or `workspace`). You can also use <kbd>Alt</kbd> + <kbd>Enter</kbd> to open the app in a pop-up modal, or <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to open it in a new tab. For all available opening methods, just right-click on an item, to bring up the context menu.
 
 ## Tags
-By default, items are filtered by the `title` attribute, as well as the hostname (extracted from `url`), the `provider` and `description`. If you need to find results based on text which isn't included in these attributes, then you can add `tags` to a given item. 
+By default, items are filtered by the `title` attribute, as well as the hostname (extracted from `url`), the `provider` and `description`. If you need to find results based on text which isn't included in these attributes, then you can add `tags` to a given item.
 
 ```yaml
   items:
@@ -59,7 +59,7 @@ Set your default search engine using the `webSearch.searchEngine` property. This
 ### Using Custom Search Engine
 You can also use a custom search engine, that isn't included in the above list (like a self-hosted instance of [Whoogle](https://github.com/benbusby/whoogle-search) or [Searx](https://searx.github.io/searx/)). Set `searchEngine: custom`, and then specify the URL (plus query params) to you're search engine under `customSearchEngine`.
 
-For example: 
+For example:
 ```yaml
 appConfig:
   webSearch:
@@ -73,7 +73,7 @@ In a similar way to opening apps, you can specify where you would like search re
 ### Using Bangs
 An insanely useful feature of DDG is [Bangs](https://duckduckgo.com/bang), where you type a specific character combination at the start of your search query, and it will be redirected the that website, such as '!w Docker' will display the Docker wikipedia page. Dashy has a similar feature, enabling you to define your own custom bangs to redirect search results to a specific app, website or search engine.
 
-This is done under the `searchBangs` property, with a list of key value pairs. The key is what you will type, and the value is the destination, either as an identifier or a URL with query parameters.  
+This is done under the `searchBangs` property, with a list of key value pairs. The key is what you will type, and the value is the destination, either as an identifier or a URL with query parameters.
 
 For example:
 

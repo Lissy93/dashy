@@ -7,7 +7,7 @@
 - [App Management](/docs/management.md) - Managing your app, updating, security, web server configuration, etc
 - [Troubleshooting](/docs/troubleshooting.md) - Common errors and problems, and how to fix them
 
-### Development and Contributing 
+### Development and Contributing
 - [Developing](/docs/developing.md) - Running Dashy development server locally, and general workflow
 - [Development Guides](/docs/development-guides.md) - Common development tasks, to help new contributors
 - [Contributing](/docs/contributing.md) - How you can help keep Dashy alive

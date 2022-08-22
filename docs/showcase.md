@@ -53,7 +53,7 @@
 ### The Dragons Lair
 > By [dr460nf1r3](https://github.com/dr460nf1r3) <sup>via [#684](https://github.com/Lissy93/dashy/issues/684)</sup>
 
-> My new startpage featuring the stuff I use most. And of course dragons! 
+> My new startpage featuring the stuff I use most. And of course dragons!
 
 ![screenshot-dragons-lair](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/13-dragons-lair.png)
 
@@ -178,8 +178,8 @@
 
 ---
 
-### Crypto Dash	
-> Example usage of widgets to monitor cryptocurrencies news, prices and data. Config is [available here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10#file-example-8-dashy-crypto-widgets-conf-yml)	
+### Crypto Dash
+> Example usage of widgets to monitor cryptocurrencies news, prices and data. Config is [available here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10#file-example-8-dashy-crypto-widgets-conf-yml)
 
 
 ![screenshot-crypto-dash](https://user-images.githubusercontent.com/1862727/147394584-352fe3bf-740d-4624-a01b-9003a97bc832.png)

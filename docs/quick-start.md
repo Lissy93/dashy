@@ -101,7 +101,7 @@ If you need any help or support in getting Dashy running, head over to the [Disc
 
 If you're enjoying Dashy, and have a few minutes to spare, please do take a moment to look at the [Contributing Page](https://github.com/Lissy93/dashy/blob/master/docs/contributing.md). Huge thanks to [everyone](https://github.com/Lissy93/dashy/blob/master/docs/credits.md) who has already helped out!
 
-Enjoy your dashboard :) 
+Enjoy your dashboard :)
 
 ---
 

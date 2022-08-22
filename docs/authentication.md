@@ -22,7 +22,7 @@
 Dashy has a basic login page included, and frontend authentication. You can enable this by adding users to the `auth` section under `appConfig` in your `conf.yml`. If this section is not specified, then no authentication will be required to access the app, and it the homepage will resolve to your dashboard.
 
 ### Setting Up Authentication
-The `auth` property takes an array of users. Each user needs to include a username, hash and optional user type (`admin` or `normal`). The hash property is a [SHA-256 Hash](https://en.wikipedia.org/wiki/SHA-2) of your desired password. 
+The `auth` property takes an array of users. Each user needs to include a username, hash and optional user type (`admin` or `normal`). The hash property is a [SHA-256 Hash](https://en.wikipedia.org/wiki/SHA-2) of your desired password.
 
 For example:
 ```yaml
@@ -118,7 +118,7 @@ You should now be able to access the Keycloak web interface, using the port spec
 
 ### 2. Setup Keycloak Users
 
-Before we can use Keycloak, we must first set it up with some users. Keycloak uses Realms (similar to tenants) to create isolated groups of users. You must create a Realm before you will be able to add your first user. 
+Before we can use Keycloak, we must first set it up with some users. Keycloak uses Realms (similar to tenants) to create isolated groups of users. You must create a Realm before you will be able to add your first user.
 1. Head over to the admin console
 2. In the top-left corner there is a dropdown called 'Master', hover over it and then click 'Add Realm'
 3. Give your realm a name, and hit 'Create'
@@ -189,8 +189,8 @@ If you are self-hosting Dashy, and require secure authentication to prevent unau
 - [Password Protection (for cloud providers)](#static-site-hosting-providers) - Enable password-protection on your site
 
 ### Authentication Server
-##### Authelia 
-[Authelia](https://www.authelia.com/) is an open-source full-featured authentication server, which can be self-hosted and either on bare metal, in a Docker container or in a Kubernetes cluster. It allows for fine-grained access control rules based on IP, path, users etc, and supports 2FA, simple password access or bypass policies for your domains. 
+##### Authelia
+[Authelia](https://www.authelia.com/) is an open-source full-featured authentication server, which can be self-hosted and either on bare metal, in a Docker container or in a Kubernetes cluster. It allows for fine-grained access control rules based on IP, path, users etc, and supports 2FA, simple password access or bypass policies for your domains.
 
 - `git clone https://github.com/authelia/authelia.git`
 - `cd authelia/examples/compose/lite`
@@ -230,7 +230,7 @@ server {
 ```
 
 ##### Caddy
-In Caddy, [Request Matchers](https://caddyserver.com/docs/caddyfile/matchers) can be used to filter requests 
+In Caddy, [Request Matchers](https://caddyserver.com/docs/caddyfile/matchers) can be used to filter requests
 ```
 dashy.site {
 	@public_networks not remote_ip [your-ip]
@@ -244,9 +244,9 @@ Most web servers make password protecting certain apps very easy. Note that you 
 ##### Apache
 First crate a `.htaccess` file in Dashy's route directory. Specify the auth type and path to where you want to store the password file (usually the same folder). For example:
 ```
-AuthType Basic  
-AuthName "Please Sign into Dashy"  
-AuthUserFile /path/dashy/.htpasswd  
+AuthType Basic
+AuthName "Please Sign into Dashy"
+AuthUserFile /path/dashy/.htpasswd
 require valid-user
 ```
 

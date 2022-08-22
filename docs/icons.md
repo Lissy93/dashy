@@ -58,7 +58,7 @@ Font-Awesome has a wide variety of free icons, but you can also use their pro ic
 ---
 
 ## Simple Icons
-[SimpleIcons.org](https://simpleicons.org/) is a collection of 2000+ high quality, free and open source brand and logo SVG icons. Usage of which is very similar to font-awesome icons. First find the glyph you want to use on the [website](https://simpleicons.org/), then just set your icon the the simple icon slug, prefixed with `si-`. 
+[SimpleIcons.org](https://simpleicons.org/) is a collection of 2000+ high quality, free and open source brand and logo SVG icons. Usage of which is very similar to font-awesome icons. First find the glyph you want to use on the [website](https://simpleicons.org/), then just set your icon the the simple icon slug, prefixed with `si-`.
 
 <p align="center">
   <img width="580" src="https://i.ibb.co/MVhkXfC/simple-icons-example.png" />
@@ -136,11 +136,11 @@ sections:
 - name: Material Design Icons Example
   items:
   - title: Alien Icon
-    icon: mdi-alien 
+    icon: mdi-alien
   - title: Fire Icon
-    icon: mdi-fire 
+    icon: mdi-fire
   - title: Dino Icon
-    icon: mdi-google-downasaur 
+    icon: mdi-google-downasaur
 ```
 
 <p align="center">

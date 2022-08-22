@@ -58,7 +58,7 @@ Dashy should now be being served on http://localhost:8080/. Hot reload is enable
 #### Notes
 - If you are using NPM, replace `yarn` with `npm run`
 - If you are using Docker, precede each command with `docker exec -it [container-id]`. Container ID can be found by running `docker ps`
-- You can manage the app using the [Vue-CLI Service](https://cli.vuejs.org/guide/cli-service.html), with `npx vue-cli-service [command]`. Or to start the Vue Management UI, run `npx vue ui`, and open `http://localhost:8000` 
+- You can manage the app using the [Vue-CLI Service](https://cli.vuejs.org/guide/cli-service.html), with `npx vue-cli-service [command]`. Or to start the Vue Management UI, run `npx vue ui`, and open `http://localhost:8000`
 
 ### Environmental Variables
 All environmental variables are optional. Currently there are not many environmental variables used, as most of the user preferences are stored under `appConfig` in the `conf.yml` file.
@@ -158,7 +158,7 @@ New to Web Development? Glad you're here! Dashy is a pretty simple app, so it sh
 - [Git cheat sheet](http://git-cheatsheet.com/)
 - [Basics of using NPM](https://www.freecodecamp.org/news/what-is-npm-a-node-package-manager-tutorial-for-beginners/)
 
-As well as Node, Git and Docker- you'll also need an IDE (e.g. [VS Code](https://code.visualstudio.com/) or [Vim](https://www.vim.org/)) and a terminal (Windows users may find [WSL](https://docs.microsoft.com/en-us/windows/wsl/) more convenient). 
+As well as Node, Git and Docker- you'll also need an IDE (e.g. [VS Code](https://code.visualstudio.com/) or [Vim](https://www.vim.org/)) and a terminal (Windows users may find [WSL](https://docs.microsoft.com/en-us/windows/wsl/) more convenient).
 
 ---
 
@@ -175,13 +175,13 @@ The most significant things to note are:
 - The final element in all objects must be preceded with a comma
 - Maximum line length is 100
 - There must be exactly one blank line between sections, before function names, and at the end of the file
-- With conditionals, put else on the same line as your if block’s closing brace
+- With conditionals, put else on the same line as your if block's closing brace
 - All multiline blocks must use braces
 - Avoid console statements in the frontend
 
 Styleguides:
 - Vue: [Vue styleguide](https://vuejs.org/v2/style-guide/)
-- JavaScript: [github.com/airbnb/javascript](https://github.com/airbnb/javascript) 
+- JavaScript: [github.com/airbnb/javascript](https://github.com/airbnb/javascript)
 
 ---
 
@@ -213,7 +213,7 @@ Styleguides:
 ├── assets                        # Static non-compiled assets
 │  ├── fonts                      # .ttf font files
 │  ├── locales                    # All app text, each language in a separate JSON file
-│  ╰── interface-icons            # SVG icons used in the app 
+│  ╰── interface-icons            # SVG icons used in the app
 ├── components                    # All front-end Vue web components
 │  ├── Charts                     # Charting components for dynamically displaying widget data
 │  │  ├── Gauge.vue               # A speed-dial style chart for showing 0 - 100 values
@@ -250,7 +250,7 @@ Styleguides:
 │  │  ├── Item.vue                # Main link item, which is displayed within an item group
 │  │  ├── ItemGroup.vue           # Item group is a section containing icons
 │  │  ├── ItemIcon.vue            # The icon used by both items and sections
-│  │  ├── ItemOpenMethodIcon.vue  # A small icon, visible on hover, indicating opening method 
+│  │  ├── ItemOpenMethodIcon.vue  # A small icon, visible on hover, indicating opening method
 │  │  ├── ItemContextMenu.vue     # The right-click menu, for showing Item opening methods and info
 │  │  ├── SectionContextMenu.vue  # The right-click menu, for showing Section edit/ open options
 │  │  ╰── StatusIndicator.vue     # Traffic light dot, showing if app is online or down
@@ -356,4 +356,3 @@ When running the build command, several warnings appear. These are not errors, a
 `WARN  A new version of sass-loader is available. Please upgrade for best experience.` - Currently we're using an older version of SASS loader, since the more recent releases do not seem to be compatible with the Vue CLI's webpack configuration.
 
 `WARN asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).` - For the PWA to support Windows 10, a splash screen asset is required, and is quite large. This throws a warning, however PWA assets are not loaded until needed, so shouldn't have any impact on application performance. A similar warning is thrown for the Raleway font, and that is looking to be addressed.
-

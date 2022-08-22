@@ -46,7 +46,7 @@
 
 ## `Refused to Connect` in Modal or Workspace View
 
-This is not an issue with Dashy, but instead caused by the target app preventing direct access through embedded elements. 
+This is not an issue with Dashy, but instead caused by the target app preventing direct access through embedded elements.
 
 As defined in [RFC-7034](https://datatracker.ietf.org/doc/html/rfc7034), for any web content to be accessed through an embedded element, it must have the [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) HTTP header set to `ALLOW`. If you are getting a `Refused to Connect` error then this header is set to `DENY` (or `SAMEORIGIN` and it's on a different host). Thankfully, for self-hosted services, it is easy to set these headers.
 
@@ -77,7 +77,7 @@ header {
 In Apache, you can use the [`mod_headers`](https://httpd.apache.org/docs/current/mod/mod_headers.html) module to set the `X-Frame-Options` in your config file. This file is usually located somewhere like `/etc/apache2/httpd.conf
 
 ```
-Header set X-Frame-Options: "ALLOW-FROM http://[dashy-location]/" 
+Header set X-Frame-Options: "ALLOW-FROM http://[dashy-location]/"
 ```
 
 ### LightHttpd
@@ -90,7 +90,7 @@ Content-Security-Policy: frame-ancestors 'self' https://[dashy-location]/
 
 ## 404 On Static Hosting
 
-If you're seeing Dashy's 404 page on initial load/ refresh, and then the main app when you go back to Home, then this is likely caused by the Vue router, and if so can be fixed in one of two ways. 
+If you're seeing Dashy's 404 page on initial load/ refresh, and then the main app when you go back to Home, then this is likely caused by the Vue router, and if so can be fixed in one of two ways.
 
 The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by setting `appConfig.routingMode` to `hash`.
 
@@ -100,7 +100,7 @@ If this works, but you wish to continue using HTML5 history mode, then a bit of 
 
 ## 404 after Launch from Mobile Home Screen
 
-Similar to the above issue, if you get a 404 after using iOS and Android's “Add to Home Screen” feature, then this is caused by Vue router.
+Similar to the above issue, if you get a 404 after using iOS and Android's "Add to Home Screen" feature, then this is caused by Vue router.
 It can be fixed by setting `appConfig.routingMode` to `hash`
 
 See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://github.com/Lissy93/dashy/issues/762)
@@ -246,13 +246,13 @@ See also: #479, #409, #507, #491, #341, #520
 ```
 Error response from daemon: OCI runtime create failed: container_linux.go:380:
 starting container process caused: process_linux.go:545: container init caused:
-rootfs_linux.go:76: mounting "/home/ubuntu/my-conf.yml" to rootfs at 
-"/app/public/conf.yml" caused: mount through procfd: not a directory: 
+rootfs_linux.go:76: mounting "/home/ubuntu/my-conf.yml" to rootfs at
+"/app/public/conf.yml" caused: mount through procfd: not a directory:
 unknown: Are you trying to mount a directory onto a file (or vice-versa)?
 Check if the specified host path exists and is the expected type.
 ```
 
-If you get an error similar to the one above, you are mounting a directory to the config file's location, when a plain file is expected. Create a YAML file, (`touch my-conf.yml`), populate it with a sample config, then pass it as a volume: `-v ./my-local-conf.yml:/app/public/conf.yml` 
+If you get an error similar to the one above, you are mounting a directory to the config file's location, when a plain file is expected. Create a YAML file, (`touch my-conf.yml`), populate it with a sample config, then pass it as a volume: `-v ./my-local-conf.yml:/app/public/conf.yml`
 
 ---
 
@@ -279,7 +279,7 @@ If you find that your styles and other visual assets work when visiting `ip:port
 This situation relates to error messages similar to one of the following, returned when pulling, updating or running the Docker container from Docker Hub.
 
 ```
-Continuing execution. Pulling image lissy93/dashy:release-1.6.0 
+Continuing execution. Pulling image lissy93/dashy:release-1.6.0
 error pulling image configuration: toomanyrequests
 ```
 or
@@ -288,7 +288,7 @@ You have reached your pull rate limit. You may increase the limit by authenticat
 ```
 
 When DockerHub returns one of these errors, or a `429` status, that means you've hit your rate limit. This was [introduced](https://www.docker.com/blog/scaling-docker-to-serve-millions-more-developers-network-egress/) last year, and prevents unauthenticated or free users from running docker pull more than 100 times per 6 hours.
-You can [check your rate limit status](https://www.docker.com/blog/checking-your-current-docker-pull-rate-limits-and-status/) by looking for the `ratelimit-remaining` header in any DockerHub responses. 
+You can [check your rate limit status](https://www.docker.com/blog/checking-your-current-docker-pull-rate-limits-and-status/) by looking for the `ratelimit-remaining` header in any DockerHub responses.
 
 #### Solution 1 - Use an alternate container registry
 - Dashy is also availible through GHCR, which at present does not have any hard limits. Just use `docker pull ghcr.io/lissy93/dashy:latest` to fetch the image
@@ -375,7 +375,7 @@ Currently, the status check needs a page to be rendered, so if this URL in your 
 
 For further troubleshooting, use an application like [Postman](https://postman.com) to diagnose the issue. Set the parameter to `GET`, and then make a call to: `https://[url-of-dashy]/status-check/?&url=[service-url]`. Where the service URL must have first been encoded (e.g. with `encodeURIComponent()` or [urlencoder.io](https://www.urlencoder.io/))
 
-If you're serving Dashy though a CDN, instead of using the Node server or Docker image, then the Node endpoint that makes requests will not be available to you, and all requests will fail. A workaround for this may be implemented in the future, but in the meantime, your only option is to use the Docker or Node deployment method. 
+If you're serving Dashy though a CDN, instead of using the Node server or Docker image, then the Node endpoint that makes requests will not be available to you, and all requests will fail. A workaround for this may be implemented in the future, but in the meantime, your only option is to use the Docker or Node deployment method.
 
 ---
 
@@ -494,7 +494,7 @@ Finally, check the [browser console](#how-to-open-browser-console) for any error
 
 ## Copy to Clipboard not Working
 
-If the copy to clipboard feature (either under Config --> Export, or Item --> Copy URL) isn't functioning as expected, first check the browser console. If you see `TypeError: Cannot read properties of undefined (reading 'writeText')` then this feature is not supported by your browser. 
+If the copy to clipboard feature (either under Config --> Export, or Item --> Copy URL) isn't functioning as expected, first check the browser console. If you see `TypeError: Cannot read properties of undefined (reading 'writeText')` then this feature is not supported by your browser.
 The most common reason for this, is if you not running the app over HTTPS. Copying to the clipboard requires the app to be running in a secure origin / aka have valid HTTPS cert. You can read more about this [here](https://stackoverflow.com/a/71876238/979052).
 
 As a workaround, you could either:
@@ -512,7 +512,7 @@ In some instances cached assets can prevent your settings from being updated, in
 To clear all local data from the UI, head to the Config Menu, then click "Reset Local Settings", and Confirm when prompted.
 This will not affect your config file. But be sure that you keep a backup of your config, if you've not written changes it to disk.
 
-You can also view any and all data that Dashy is storing, using the developer tools. Open your browser's dev tools (usually <kbd>F12</kbd>), in Chromium head to the Application tab, or in Firefox go to the Storage tab. Select Local Storage, then scroll down the the URL Dashy is running on. You should now see all data being stored, and you can select and delete any fields you wish. 
+You can also view any and all data that Dashy is storing, using the developer tools. Open your browser's dev tools (usually <kbd>F12</kbd>), in Chromium head to the Application tab, or in Firefox go to the Storage tab. Select Local Storage, then scroll down the the URL Dashy is running on. You should now see all data being stored, and you can select and delete any fields you wish.
 
 For a full list of all data that may be cached, see the [Privacy Docs](/docs/privacy.md#browser-storage).
 

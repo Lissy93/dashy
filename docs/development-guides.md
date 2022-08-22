@@ -1,6 +1,6 @@
 # Development Guides
 
-A series of short tutorials, to guide you through the most common development tasks. 
+A series of short tutorials, to guide you through the most common development tasks.
 
 Sections:
 - [Creating a new theme](#creating-a-new-theme)
@@ -18,10 +18,10 @@ Sections:
 Adding a new theme is really easy.  There's two things you need to do: Pass the theme name to Dashy, so that it can be added to the theme selector dropdown menu, and then write some styles!
 
 ##### 1. Add Theme Name
-Choose a snappy name for you're theme, and add it to the `builtInThemes` array inside [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L27). 
+Choose a snappy name for you're theme, and add it to the `builtInThemes` array inside [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L27).
 
 ##### 2. Write some Styles!
-Put your theme's styles inside [`color-themes.scss`](https://github.com/Lissy93/dashy/blob/master/src/styles/color-themes.scss). 
+Put your theme's styles inside [`color-themes.scss`](https://github.com/Lissy93/dashy/blob/master/src/styles/color-themes.scss).
 Create a new block, and make sure that `data-theme` matches the theme name you chose above. For example:
 
 ```css
@@ -91,7 +91,7 @@ export const languages = [
 ```
 You can also add your new language to the readme, under the [Language Switching](https://github.com/Lissy93/dashy#language-switching-) section, and optionally include your name/ username if you'd like to be credited for your work. Done!
 
-If you are not comfortable with making pull requests, or do not want to modify the code, then feel free to instead send the translated file to me, and I can add it into the application. I will be sure to credit you appropriately. 
+If you are not comfortable with making pull requests, or do not want to modify the code, then feel free to instead send the translated file to me, and I can add it into the application. I will be sure to credit you appropriately.
 
 # Adding a new option in the config file
 
@@ -144,7 +144,7 @@ or
 Finally, add your new property to the [`configuring.md`](./configuring.md) API docs. Put it under the relevant section, and be sure to include field name, data type, a description and mention that it is optional.  If your new feature needs more explaining, then you can also document it under the relevant section elsewhere in the documentation.
 
 Checklist:
-- [ ] Ensure the new attribute is actually necessary, and nothing similar already exists 
+- [ ] Ensure the new attribute is actually necessary, and nothing similar already exists
 - [ ] Update the [Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js) with the parameters for your new option
 - [ ] If required, set a default or fallback value (usually in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js))
 - [ ] Document the new value in [`configuring.md`](./configuring.md), and if required under the relevant section in the docs
@@ -219,7 +219,7 @@ export default {
   },
 };
 ```
-  
+
 Finally, in the markup of your component, just add a `v-if` statement, referencing your computed value
 ```vue
 <header v-if="isVisible">

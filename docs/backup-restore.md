@@ -17,7 +17,7 @@ All data is encrypted before being sent to the backend. In Dashy, this is done i
 Once you've got Dashy configured to your preference, open the Backup & Restore menu (click the Cloud icon in the top-right corner). Here you will be prompted to choose a password, which will be used to encrypt your data. If you forget this password, there will be no way to recover your config. After clicking 'Backup' your data will be encrypted, compressed and sent to the hosted cloud service. A backup ID will be returned (in the format of xxxx-xxxx-xxxx-xxxx), this is what you use, along with your password to restore the backup on another system, so take note of it. To update a backup, return to this menu, enter your password, and click 'Update Backup'.
 
 ### Restoring a Backup
-To restore a backup, navigate to the Backup & Restore menu, and under restore, enter your backup ID, and the password you chose. Your config file will be downloaded, decrypted and applied to local storage. 
+To restore a backup, navigate to the Backup & Restore menu, and under restore, enter your backup ID, and the password you chose. Your config file will be downloaded, decrypted and applied to local storage.
 
 ### Privacy & Security
 

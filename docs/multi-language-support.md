@@ -36,7 +36,7 @@ Dashy is using [vue-i18n](https://vue-i18n.intlify.dev/guide/) to manage multi-l
 Adding a new language is pretty straightforward, with just three steps:
 
 ##### 1. Create a new Language File
-Create a new JSON file in `./src/assets/locales` for your language. 
+Create a new JSON file in `./src/assets/locales` for your language.
 
 You should name it with the 2-digit [ISO-639 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your locale (e.g. for German `de.json`, French `fr.json` or Spanish `es.json`) - You can find a list of all ISO codes at [iso.org](https://www.iso.org/obp/ui).
 If your language is a specific dialect or regional translation, then use the Posfix [CLDR](http://cldr.unicode.org/) format, where, e.g. `en-GB.json` (British English), `es-MX.json` (Spanish, in Mexico) or `zh-CN.json` (Chinese, simplified) - A list of which can be found [here](https://github.com/unicode-org/cldr-json/blob/master/cldr-json/cldr-core/availableLocales.json)
@@ -84,7 +84,7 @@ export const languages = [
 ```
 You can also add your new language to the readme, under the [Language Switching](https://github.com/Lissy93/dashy#language-switching-) section and optionally include your name/ username if you'd like to be credited for your work. Done!
 
-If you are not comfortable with making pull requests, or do not want to modify the code, then feel free to instead send the translated file to me, and I can add it into the application. I will be sure to credit you appropriately. 
+If you are not comfortable with making pull requests, or do not want to modify the code, then feel free to instead send the translated file to me, and I can add it into the application. I will be sure to credit you appropriately.
 
 ---
 

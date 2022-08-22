@@ -161,7 +161,7 @@ A simple, live-updating local weather component, showing temperature, conditions
 
 ### Weather Forecast
 
-Displays the weather (temperature and conditions) for the next few days for a given location. Note that this requires either the free [OpenWeatherMap Student Plan](https://home.openweathermap.org/students), or the Premium Plan. 
+Displays the weather (temperature and conditions) for the next few days for a given location. Note that this requires either the free [OpenWeatherMap Student Plan](https://home.openweathermap.org/students), or the Premium Plan.
 
 <p align="center"><img width="400" src="https://i.ibb.co/vshwgZB/weather-forecast.png" /></p>
 
@@ -249,7 +249,7 @@ Or what about showing a photo of the day? Try `https://source.unsplash.com/rando
 --- | --- | --- | ---
 **`imagePath`** | `string` |  Required | The path (local or remote) of the image to display
 
-##### Example 
+##### Example
 
 ```yaml
 - type: image
@@ -276,7 +276,7 @@ _All fields are optional_
 **`provider`** | `string` |  _Optional_ | The name of the service to fetch IP address from. Can be either `ipapi.co`, `ip-api` or `ipgeolocation`. Defaults to `ipapi.co`. Note, `ip-api` doesn't work on HTTPS, and if you set to `ipgeolocation` then you must also provide an API key
 **`apiKey`** | `string` |  _Optional_ | Only required if provider is set to `ipgeolocation`. You can get a free API key [here](https://ipgeolocation.io/signup.html)
 
-##### Example 
+##### Example
 
 ```yaml
 - type: public-ip
@@ -313,7 +313,7 @@ Notice certain web pages aren't loading? This widget quickly shows which blackli
 **`ipAddress`** | `string` |  _Optional_ | The IP to check. This can also be a domain/ host name or even an email address. If left blank, Dashy will use your current public IP address.
 **`apiKey`** | `string` |  Required | You can get your free API key from [blacklistchecker.com](https://blacklistchecker.com/keys)
 
-##### Example 
+##### Example
 
 ```yaml
 - type: blacklist-check
@@ -345,7 +345,7 @@ Keep an eye on the expiry dates of your domain names, using public whois records
 **`apiKey`** | `string` |  Required | You can get your free API key from [my.whoapi.com](https://my.whoapi.com/user/signup)
 **`showFullInfo`** | `boolean` |  _Optional_ | If set to true, the toggle-full-info panel will be open by default
 
-##### Example 
+##### Example
 
 ```yaml
   - type: domain-monitor
@@ -470,7 +470,7 @@ Keep track of your crypto balances and see recent transactions. Data is fetched 
 - type: wallet-balance
   options:
     coin: btc
-    address: 3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC	
+    address: 3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC
 ```
 
 ##### Info
@@ -644,7 +644,7 @@ Display current FX rates in your native currency. Hover over a row to view more 
 **`outputCurrencies`** | `array` |  Required | List or currencies to show results for. Specified as a 3-letter ISO-4217 code, see [here](https://www.exchangerate-api.com/docs/supported-currencies) for the full list of supported currencies, and their symbols
 **`apiKey`** | `string` |  Required | API key for [exchangerate-api.com](https://www.exchangerate-api.com/), usually a 24-digit alpha-numeric string. You can sign up for a free account [here](https://app.exchangerate-api.com/sign-up)
 
-##### Example 
+##### Example
 
 ```yaml
 - type: exchange-rates
@@ -717,7 +717,7 @@ Keep track of the current COVID-19 status. Optionally also show cases by country
 **`limit`** | `number` | _Optional_ | If showing all countries, set a limit for number of results to return. Defaults to `10`, no maximum
 
 
-##### Example 
+##### Example
 
 ```yaml
 - type: covid-stats
@@ -799,7 +799,7 @@ Displays the latest news, click to read full article. Date is fetched from vario
 **`keywords`** | `string` |  _Optional_ | Only return articles that contain an exact match within their title or description
 **`hideImages`** | `boolean` |  _Optional_ | If set to `true`, then article image thumbnails will not be displayed
 
-##### Example 
+##### Example
 
 ```yaml
 - type: news-headlines
@@ -831,7 +831,7 @@ Shows real-time tube status of the London Underground. All fields are optional.
 **`sortAlphabetically`** | `boolean` | _Optional_ | By default lines are sorted by current status, set this option to `true` to instead sort them alphabetically
 **`linesToShow`** | `array` | _Optional_ | By default all lines are shown. If you're only interested in the status of a few lines, then pass in an array of lines to show, specified by name
 
-##### Example 
+##### Example
 
 ```yaml
 - type: tfl-status
@@ -873,7 +873,7 @@ Shows recent price history for a given publicly-traded stock or share
 **`chartColor`** | `string` | _Optional_ | Color of the chart value. Defaults to `--widget-text-color` which inherits dashboard primary color
 **`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
 
-##### Example 
+##### Example
 
 ```yaml
 - type: stock-price-chart
@@ -901,7 +901,7 @@ Renders the current Gas cost of transactions on the Ethereum network (in both GW
 
 _No config options._
 
-##### Example 
+##### Example
 
 ```yaml
 - type: eth-gas-prices
@@ -930,7 +930,7 @@ Renders a programming or generic joke. Data is fetched from the [JokesAPI](https
 **`safeMode`** | `boolean` | _Optional_ | Set to `true`, to prevent the fetching of any NSFW jokes. Defaults to `false`
 **`language`** | `string` |  _Optional_ | Specify the language for returned jokes. The following languages are supported: `en`, `cs`, `de`, `es`, `fr` and `pt`, and an up-to-date list of supported languages can be found [here](https://v2.jokeapi.dev/languages). By default, your system language will be used, if it's supported, otherwise English
 
-##### Example 
+##### Example
 
 ```yaml
 - type: joke
@@ -992,7 +992,7 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 **`limit`** | `number` | _Optional_ | For busy airports, you may wish to limit the number of results visible
 **`direction`** | `string` | _Optional_ | By default, both departure and arrival flights will be fetched, if you would like to only show flights in one direction, set this to wither `departure` or `arrival`
 
-##### Example 
+##### Example
 
 ```yaml
 - type: flight-data
@@ -1022,7 +1022,7 @@ Show the NASA Astronomy Pictore of the Day. Data is fetched from [APOD](https://
 
 _No config options._
 
-##### Example 
+##### Example
 
 ```yaml
 - type: apod
@@ -1051,7 +1051,7 @@ Displays currently trending projects on GitHub. Optionally specify a language an
 **`since`** | `string` |  _Optional_ | The timeframe to use when calculating trends. Can be either `daily`, `weekly` or `monthly`. Defaults to `daily`
 **`limit`** | `number` |  _Optional_ | Optionally limit the number of results. Max `25`, default is `10`
 
-##### Example 
+##### Example
 
 ```yaml
 - type: github-trending-repos
@@ -1085,7 +1085,7 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
 **`repos`** | `array` |  _Optional_ | If you'd like to also display stats for some GitHub reposotories, then add an array or repo names here. Specified as `[username]/[repo-name]`, e.g. `lissy93/dashy`
 
 
-##### Example 
+##### Example
 
 
 ```yaml
@@ -1121,7 +1121,7 @@ Displays info about the server which Dashy is hosted on. Includes user + host, o
 
 _No config options._
 
-##### Example 
+##### Example
 
 ```yaml
 - type: system-info
@@ -1147,7 +1147,7 @@ Cron job monitoring using [Health Checks](https://github.com/healthchecks/health
 **`apiKey`** | `string` |  Required | A read-only API key for the project to monitor. You can generate this by selecting a Project --> Settings --> API Access. Note that you must generate a separate key for each project
 **`host`** | `string` | _Optional_ | If you're self-hosting, or using any instance other than the official (healthchecks.io), you will need to specify the host address. E.g. `https://healthchecks.example.com` or `http://cron-monitoing.local`
 
-##### Example 
+##### Example
 
 ```yaml
 - type: health-checks
@@ -1178,7 +1178,7 @@ Pull recent CPU usage history from NetData.
 **`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
 **`chartColor`** / **`chartColors`** | `string` / `array`| _Optional_ | Color of the chart value(s) as hex codes. `chartColor` is a single value (defaults to `--widget-text-color`), whereas `chartColors` is an array of colors
 
-##### Example 
+##### Example
 
 ```yaml
 - type: nd-cpu-history
@@ -1210,7 +1210,7 @@ Pull recent system RAM usage from NetData, and show as a breakdown of different 
 **`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
 **`chartColor`** / **`chartColors`** | `string` / `array`| _Optional_ | Color of the chart value(s) as hex codes. `chartColor` is a single value (defaults to `--widget-text-color`), whereas `chartColors` is an array of colors
 
-##### Example 
+##### Example
 
 ```yaml
 - type: nd-ram-history
@@ -1241,7 +1241,7 @@ Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
 **`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
 **`chartColor`** / **`chartColors`** | `string` / `array`| _Optional_ | Color of the chart value(s) as hex codes. `chartColor` is a single value (defaults to `--widget-text-color`), whereas `chartColors` is an array of colors
 
-##### Example 
+##### Example
 
 ```yaml
 - type: nd-load-history
@@ -1271,7 +1271,7 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 **`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
 **`hideStatus`** / **`hideChart`** / **`hideInfo`** | `boolean` |  _Optional_ | Optionally hide any of the three parts of the widget
 
-##### Example 
+##### Example
 
 ```yaml
 - type: pi-hole-stats
@@ -1302,7 +1302,7 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
 **`apiKey`** | `string` |  Required | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD`
 **`count`** | `number` |  _Optional_ | The number of queries to display. Defaults to `10`
 
-##### Example 
+##### Example
 
 ```yaml
 - type: pi-hole-top-queries
@@ -1332,7 +1332,7 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 --- | --- | --- | ---
 **`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
 
-##### Example 
+##### Example
 
 ```yaml
 - type: pi-hole-traffic
@@ -1364,7 +1364,7 @@ Displays the current and recent uptime of your running services, via a self-host
 **`showChart`** | `boolean`| Optional | If provided and `false` then charts are not displayed. Defaults to `true`.
 **`showInfo`** | `boolean`| Optional | If provided and `false` then information summaries are not displayed. Defaults to `true`.
 
-##### Example 
+##### Example
 
 ```yaml
 - type: stat-ping
@@ -1407,7 +1407,7 @@ Displays the current downloads/torrents tasks of your Synology NAS
 **`username`** | `string` |  Required | The username of a user on your synology NAS. You will see only this user download station tasks if he is not part of the administrator group. Currently don't support OTP protected accounts.
 **`password`** | `string` |  Required | The password of the account specified above.
 
-##### Example 
+##### Example
 
 ```yaml
 - type: synology-download
@@ -1443,7 +1443,7 @@ displays total number of allowed and blocked queries, plus a pie chart showing b
 **`username`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your username here
 **`password`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your password here
 
-##### Example 
+##### Example
 
 ```yaml
 - type: adguard-stats
@@ -1479,7 +1479,7 @@ Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overvi
 **`password`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your password here
 **`showOnOffStatusOnly`** | `boolean` |  _Optional_ | If set to `true`, will only show aggregated AdGuard filter status (on/off), instead of a list of filters
 
-##### Example 
+##### Example
 
 ```yaml
 - type: adguard-filter-status
@@ -1515,7 +1515,7 @@ Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overvi
 **`password`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your password here
 **`showFullInfo`** | `boolean` |  _Optional_ | If set to `true`, the full DNS info will be shown by default, without having to click "Show Info"
 
-##### Example 
+##### Example
 
 ```yaml
 - type: adguard-dns-info
@@ -1553,7 +1553,7 @@ Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overvi
 **`hideBlockedDomains`** | `boolean` |  _Optional_ | Don't show the blocked domains list (queried domains only)
 **`hideQueriedDomains`** | `boolean` |  _Optional_ | Don't show the queried domains list (blocked domains only)
 
-##### Example 
+##### Example
 
 ```yaml
 - type: adguard-top-domains
@@ -1595,7 +1595,7 @@ Known issues: the User API incorrectly reports available disk space as total for
 **`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
 
 
-##### Example 
+##### Example
 
 ```yaml
 - type: nextcloud-user
@@ -1632,7 +1632,7 @@ Show user statuses for selected users.
 **`showEmpty`** | `boolean` |  _Optional_ | Show statuses without a message, defaults to `true`
 
 
-##### Example 
+##### Example
 
 ```yaml
 - type: nextcloud-userstatus
@@ -1666,10 +1666,10 @@ Displays your notifications and allows deleting them.
 **`hostname`** | `string` |  Required | The URL of the Nextcloud server
 **`username`** | `string` |  Required | Nextcloud username
 **`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
-**`limit`** | `number\|string` |  _Optional_ | Limit displayed notifications either by count, e.g. `5` to show the 5 most recent, or by age, e.g. `1d` to only show notifications not older than a day. Accepted suffixes for age limit are `m`, `h` and `d`. 
+**`limit`** | `number\|string` |  _Optional_ | Limit displayed notifications either by count, e.g. `5` to show the 5 most recent, or by age, e.g. `1d` to only show notifications not older than a day. Accepted suffixes for age limit are `m`, `h` and `d`.
 
 
-##### Example 
+##### Example
 
 ```yaml
 - type: nextcloud-userstatus
@@ -1704,7 +1704,7 @@ Visualises overall memory utilisation and CPU load averages, shows server versio
 **`username`** | `string` |  Required | Must be a Nextcloud admin user
 **`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
 
-##### Example 
+##### Example
 
 ```yaml
 - type: nextcloud-system
@@ -1738,7 +1738,7 @@ Shows key usage statistics about your Nextcloud server.
 **`username`** | `string` |  Required | Must be a Nextcloud admin user
 **`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
 
-##### Example 
+##### Example
 
 ```yaml
 - type: nextcloud-stats
@@ -1772,7 +1772,7 @@ Shows statistics about PHP Opcache perforamnce on your Nextcloud server.
 **`username`** | `string` |  Required | Must be a Nextcloud admin user
 **`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
 
-##### Example 
+##### Example
 
 ```yaml
 - type: nextcloud-stats
@@ -1803,12 +1803,12 @@ Shows queue information regarding your self hosted Sabnzbd server.
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`sabnzbdUrl`** | `string` |  Required | The URL of the Sabnzbd server. No trailing `/`.
-**`apiKey`** | `string` |  Required | API key for Sabnzbd access. Located under `Config` -> `General` -> `Security` -> `API Key`. 
+**`apiKey`** | `string` |  Required | API key for Sabnzbd access. Located under `Config` -> `General` -> `Security` -> `API Key`.
 **`hideDetails`** | `boolean` |  _Optional_ | Hides extra server queue details.
 **`hideQueue`** | `boolean` |  _Optional_ | Hides the queue list in an expandable dropdown.
 
 
-##### Example 
+##### Example
 
 ```yaml
   - type: sabnzbd
@@ -1838,11 +1838,11 @@ Display info from the Gluetun VPN container public IP API. This can show the IP 
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`visibleFields`** | `string` |  Required | A comma separated list of the fields you want visible in the widget. You can have any number of the following : `public_ip`, `region`, `country`, `city`, `location`, `organisation`, `postal_code`, `timezone`. Defaults to just `public_ip` 
+**`visibleFields`** | `string` |  Required | A comma separated list of the fields you want visible in the widget. You can have any number of the following : `public_ip`, `region`, `country`, `city`, `location`, `organisation`, `postal_code`, `timezone`. Defaults to just `public_ip`
 **`host`** | `string` |  Required | The url to the gluetun HTTP control server. E.g. `http://gluetun:8000`
 
 
-##### Example 
+##### Example
 
 
 ```yaml
@@ -1903,7 +1903,7 @@ Live-updating current CPU usage, as a combined average across alll cores
 
 <p align="center"><img width="400" src="https://i.ibb.co/qkLgxLp/gl-cpu-usage.png" /></p>
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-current-cpu
@@ -1919,7 +1919,7 @@ Live-updating CPU usage breakdown per core
 
 <p align="center"><img width="400" src="https://i.ibb.co/512MYhT/gl-cpu-cores.png" /></p>
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-current-cores
@@ -1941,7 +1941,7 @@ Recent CPU usage history, across all cores, and displayed by user and system
 --- | --- | --- | ---
 **`limit`** | `number` |  _Optional_ | Limit the number of results returned, rendering more data points will take longer to load. Defaults to `100`
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-cpu-history
@@ -1958,7 +1958,7 @@ Real-time memory usage gauge, with more info visible on click
 
 <p align="center"><img width="400" src="https://i.ibb.co/rynp52J/gl-mem-usage.png" /></p>
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-current-mem
@@ -1981,7 +1981,7 @@ Recent memory usage chart
 **`limit`** | `number` |  _Optional_ | Limit the number of results returned, rendering more data points will take longer to load. Defaults to `100`
 
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-mem-history
@@ -1998,7 +1998,7 @@ List connected disks, showing free / used space and other info (file system, mou
 
 <p align="center"><img width="400" src="https://i.ibb.co/25y94bB/gl-disk-usage.png" /></p>
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-disk-space
@@ -2010,11 +2010,11 @@ List connected disks, showing free / used space and other info (file system, mou
 
 ### Disk IO
 
-Shows real-time read and write speeds and operations per sec for each disk 
+Shows real-time read and write speeds and operations per sec for each disk
 
 <p align="center"><img width="400" src="https://i.ibb.co/JdgjCjG/gl-disk-io.png" /></p>
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-disk-io
@@ -2030,7 +2030,7 @@ Shows the number of processes waiting in the run-queue, averaged across all core
 
 <p align="center"><img width="400" src="https://i.ibb.co/090FfNy/gl-system-load.png" /></p>
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-system-load
@@ -2046,7 +2046,7 @@ Shows recent historical system load, calculated from the number of processes wai
 
 <p align="center"><img width="500" src="https://i.ibb.co/C2rGMLg/system-load-history.png" /></p>
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-load-history
@@ -2062,7 +2062,7 @@ Lists visible network interfaces, including real-time upload/ download stats
 
 <p align="center"><img width="400" src="https://i.ibb.co/FnhgHfG/gl-network-interfaces.png" /></p>
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-network-interfaces
@@ -2078,7 +2078,7 @@ Shows amount of data recently uploaded/ downloaded across all network interfaces
 
 <p align="center"><img width="400" src="https://i.ibb.co/12RN6KT/gl-network-traffic.png" /></p>
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-network-traffic
@@ -2095,7 +2095,7 @@ Lists recent high resource usage alerts (e.g. CPU, mem, IO, load, temp)
 
 <p align="center"><img width="400" src="https://i.ibb.co/w01NX5R/gl-alerts.png" /></p>
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-alerts
@@ -2111,7 +2111,7 @@ Shows public and private IP address. Note that the ip plugin is not available on
 
 <p align="center"><img width="400" src="https://i.ibb.co/ZhXBxZr/gl-ip-address.png" /></p>
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-ip-address
@@ -2130,7 +2130,7 @@ You'll need to enable the sensors plugin to use this widget, using: `--enable-pl
 
 <p align="center"><img width="400" src="https://i.ibb.co/xSs4Gqd/gl-cpu-temp.png" /></p>
 
-##### Example 
+##### Example
 
 ```yaml
 - type: gl-cpu-temp
@@ -2155,7 +2155,7 @@ Embed any webpage into your dashboard as a widget.
 **`url`** | `string` |  Required | The URL to the webpage to embed
 **`frameHeight`** | `number` | _Optional_ | If needed, specify height of iframe in `px`. E.g. `400`, defaults to auto
 
-##### Example 
+##### Example
 
 ```yaml
 - type: iframe
@@ -2182,13 +2182,13 @@ Many websites and apps provide their own embeddable widgets. These can be used w
 **`scriptSrc`** | `string` |  _Optional_ | A URL to JavaScript content (caution)
 **`css`** | `string` |  _Optional_ | Any stylings for widget contents
 
-##### Example 
+##### Example
 
 ```yaml
 - type: embed
   options:
     scriptSrc: https://cdn.speedcheck.org/basic/scbjs.min.js
-    html: | 
+    html: |
       <div id="sc-container">
       <div id="sc-branding" class="sc-bb">
       <a target="_blank" href="https://www.speedcheck.org/">
@@ -2380,7 +2380,7 @@ In some instances, this is a false positive, and the widget is actually function
 
 ### Widget Styling
 
-Like elsewhere in Dashy, all colours can be easily modified with CSS variables. 
+Like elsewhere in Dashy, all colours can be easily modified with CSS variables.
 
 Widgets use the following color variables, which can be overridden if desired:
 - `--widget-text-color` - Text color, defaults to `--primary`
@@ -2433,7 +2433,7 @@ Widgets cannot currently be edited through the UI. This feature is in developmen
 
 Widgets are built in a modular fashion, making it easy for anyone to create their own custom components.
 
-For a full tutorial on creating your own widget, you can follow [this guide](/docs/development-guides.md#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example. 
+For a full tutorial on creating your own widget, you can follow [this guide](/docs/development-guides.md#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example.
 
 Alternatively, for displaying simple data, you could also just use the either the [iframe](#iframe-widget), [embed](#html-embedded-widget), [data feed](#data-feed) or [API response](#api-response) widgets.
 

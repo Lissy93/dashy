@@ -49,7 +49,7 @@ Dashy supports several different ways to launch your apps. The primary opening m
 
 You can also set a default opening method, which will be applied to all items that don't have a specified target, using `appConfig.defaultOpeningMethod`, to one of the above values.
 
-Even if the target is not set (or is set to `sametab`), you can still launch any given app in an alternative method. Either right-click to see all options, or use one of the keyboard shortcuts: Alt + Click will open the modal, and Ctrl + Click will open in a new tab. 
+Even if the target is not set (or is set to `sametab`), you can still launch any given app in an alternative method. Either right-click to see all options, or use one of the keyboard shortcuts: Alt + Click will open the modal, and Ctrl + Click will open in a new tab.
 
 <p align="center">
   <img width="500" src="https://i.ibb.co/vmZdSRt/dashy-context-menu-2.png" />
