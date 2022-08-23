@@ -2,7 +2,8 @@
 
 All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format. If you're using Docker, this file can be passed in as a volume. Changes can either be made directly to this file, or done [through the UI](#editing-config-through-the-ui). From the UI you can also export, backup, reset, validate and download your configuration file.
 
-#### There are three ways to edit the config
+## There are three ways to edit the config
+
 - **Directly in the YAML file** _(5/5 reliability, 3/5 usability)_
   - Write changes directly to the conf.yml file, optionally using one of the templates provided. This can be done in your favorite editor and uploading to your server, or directly editing the file via SSH, but the easiest method would be to use [Code Server](https://github.com/coder/code-server)
 - **UI JSON Editor** _(4/5 reliability, 4/5 usability)_
@@ -12,7 +13,8 @@ All app configuration is specified in [`/public/conf.yml`](https://github.com/Li
 - **REST API** _(Coming soon)_
   - Programmatically edit config either through the command line, using a script or a third-party application
 
-#### Tips
+## Tips
+
 - You may find it helpful to look at some sample config files to get you started, a collection of which can be found [here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
 - You can check that your config file fits the schema, by running `yarn validate-config`
 - After modifying your config, the app needs to be recompiled, by running `yarn build`  - this happens automatically if you're using Docker
@@ -23,7 +25,7 @@ All app configuration is specified in [`/public/conf.yml`](https://github.com/Li
 
 The following file provides a reference of all supported configuration options.
 
-#### Contents
+## Contents
 
 - [**`pageInfo`**](#pageinfo) - Header text, footer, title, navigation, etc
   - [`navLinks`](#pageinfonavlinks-optional) - Links to display in the navigation bar
@@ -52,7 +54,7 @@ The following file provides a reference of all supported configuration options.
 
 ---
 
-### Top-Level Fields
+## Top-Level Fields
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -63,7 +65,7 @@ The following file provides a reference of all supported configuration options.
 
 **[⬆️ Back to Top](#configuring)**
 
-### `PageInfo`
+## `PageInfo`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -75,7 +77,7 @@ The following file provides a reference of all supported configuration options.
 
 **[⬆️ Back to Top](#configuring)**
 
-### `pageInfo.navLinks` _(optional)_
+## `pageInfo.navLinks` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -85,7 +87,7 @@ The following file provides a reference of all supported configuration options.
 
 **[⬆️ Back to Top](#configuring)**
 
-### `pages[]` _(optional)_
+## `pages[]` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -94,7 +96,7 @@ The following file provides a reference of all supported configuration options.
 
 **[⬆️ Back to Top](#configuring)**
 
-### `appConfig` _(optional)_
+## `appConfig` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -136,7 +138,8 @@ The following file provides a reference of all supported configuration options.
 
 **[⬆️ Back to Top](#configuring)**
 
-### `appConfig.auth` _(optional)_
+## `appConfig.auth` _(optional)_
+
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`users`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. See [`appConfig.auth.users`](#appconfigauthusers-optional). <br>**Note** this method of authentication is handled on the client side, so for security critical situations, it is recommended to use an [alternate authentication method](/docs/authentication.md#alternative-authentication-methods).
@@ -148,7 +151,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-### `appConfig.auth.users` _(optional)_
+## `appConfig.auth.users` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -158,7 +161,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-### `appConfig.auth.keycloak` _(optional)_
+## `appConfig.auth.keycloak` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -169,7 +172,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-### `appConfig.webSearch` _(optional)_
+## `appConfig.webSearch` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -179,10 +182,9 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`openingMethod`** | `string` | _Optional_ | Set your preferred opening method for search results: `newtab`, `sametab`, `workspace`. Defaults to `newtab`
 **`searchBangs`** | `object` | _Optional_ | A key-value-pair set of custom search _bangs_ for redirecting query to a specific app or search engine. The key of each should be the bang you will type (typically starting with `/`, `!` or `:`), and value is the destination, either as a search engine key (e.g. `reddit`) or a URL with search parameters (e.g. `https://en.wikipedia.org/w/?search=`)
 
-
 **[⬆️ Back to Top](#configuring)**
 
-### `appConfig.hideComponents` _(optional)_
+## `appConfig.hideComponents` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -194,7 +196,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-### `section`
+## `section`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -206,7 +208,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-### `section.item`
+## `section.item`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -230,8 +232,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-
-### `item.displayData` _(optional)_
+## `item.displayData` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -243,8 +244,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-
-### `section.widget` _(optional)_
+## `section.widget` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -258,8 +258,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-
-### `section.displayData` _(optional)_
+## `section.displayData` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -282,7 +281,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-### `section.icon` and `section.item.icon`
+## `section.icon` and `section.item.icon`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -290,7 +289,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-### `section.displayData.hideForKeycloakUsers`, `section.displayData.showForKeycloakUsers`, `item.displayData.hideForKeycloakUsers` and `item.displayData.showForKeycloakUsers`
+## `section.displayData.hideForKeycloakUsers`, `section.displayData.showForKeycloakUsers`, `item.displayData.hideForKeycloakUsers` and `item.displayData.showForKeycloakUsers`
 
 **Field** | **Type**   | **Required**| **Description**
 --- |------------| --- | ---
@@ -320,10 +319,13 @@ Config can be modified directly through the UI, and then written to disk, or app
 </p>
 
 ### About YAML
+
 If you're new to YAML, it's pretty straight-forward. The format is exactly the same as that of JSON, but instead of using curly braces, structure is denoted using whitespace. This [quick guide](https://linuxhandbook.com/yaml-basics/) should get you up to speed in a few minutes, for more advanced topics take a look at this [Wikipedia article](https://en.wikipedia.org/wiki/YAML).
 
 ### Config Saving Methods
+
 When updating the config through the JSON editor in the UI, you have two save options: **Local** or **Write to Disk**.
+
 - Changes saved locally will only be applied to the current user through the browser, and will not apply to other instances - you either need to use the cloud sync feature, or manually update the conf.yml file.
 - On the other-hand, if you choose to write changes to disk, then your main `conf.yml` file will be updated, and changes will be applied to all users, and visible across all devices. For this functionality to work, you must be running Dashy with using the Docker container, or the Node server.  A backup of your current configuration will also be saved in the same directory.
 

@@ -7,15 +7,18 @@ Dashy has an optional feature that can display a small icon next to each of your
 </p>
 
 ## Enabling Status Indicators
+
 By default, this feature is off. If you do not want this feature, just don't add the `statusCheck` to your conf.yml file, then no requests will be made.
 
 To enable status checks, you can either turn it on for all items, by setting `appConfig.statusCheck: true`, like:
+
 ```yaml
 appConfig:
   statusCheck: true
 ```
 
 Or you can enable/ disable it on a per-item basis, with the `item[n].statusCheck` attribute
+
 ```yaml
 sections:
 - name: Firewall
@@ -38,41 +41,49 @@ sections:
 ```
 
 ## Continuous Checking
+
 By default, with status indicators enabled Dashy will check an applications status on page load, and will not keep indicators updated. This is usually desirable behavior. However, if you do want the status indicators to continue to poll your running services, this can be enabled by setting the `statusCheckInterval` attribute. Here you define an interval as an integer in seconds, and Dashy will poll your apps every x seconds. Note that if this number is very low (below 5 seconds), you may notice the app running slightly slower.
 
 The following example, will instruct Dashy to continuously check the status of your services every 20 seconds.
 
-```
+```text
 appConfig:
   statusCheck: true
   statusCheckInterval: 20
 ```
 
 ## Using a Different Endpoint
+
 By default, the status checker will use the URL of each application being checked. In some situations, you may want to use a different endpoint for status checking. Similarly, some services provide a dedicated path for uptime monitoring.
 
 You can set the `statusCheckUrl` property on any given item in order to do this. The status checker will then ping that endpoint, instead of the apps main `url` property.
 
 ## Setting Custom Headers
+
 If your service is responding with an error, despite being up and running, it is most likely because custom headers for authentication, authorization or encoding are required. You can define these headers under the `statusCheckHeaders` property for any service. It should be defined as an object format, with the name of header as the key, and header content as the value.
 For example, `statusCheckHeaders: { 'X-Custom-Header': 'foobar' }`
 
 ## Disabling Security
+
 By default, (if you're using HTTPS) any requests to insecure or non-HTTPS content will be blocked. This will cause the status check to fail. If you trust the endpoint (e.g. you're self-hosting it), then you can disable this security measure for an individual item. This is done by setting `statusCheckAllowInsecure: true`
 
 ## Allowing Alternative Status Codes
+
 If you expect your service to return a status code that is not in the 2XX range, and still want the indicator to be green, then you can specify an expected status code under `statusCheckAcceptCodes` for a given item. For example, `statusCheckAcceptCodes: '403,418'`
 
 ## Troubleshooting Failing Status Checks
+
 If you're using status checks, and despite a given service being online, the check is displaying an error, there are a couple of things you can look at:
 
 If your service requires requests to include any authorization in the headers, then use the  `statusCheckHeaders` property, as described  [above](#setting-custom-headers).
 
 If you are still having issues, it may be because your target application is blocking requests from Dashy's IP. This is a [CORS error](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), and can be fixed by setting the headers on your target app, to include:
-```
+
+```text
 Access-Control-Allow-Origin: https://location-of-dashy/
 Vary: Origin
 ```
+
 If the URL you are checking has an unsigned certificate, or is not using HTTPS, then you may need to disable the rejection of insecure requests. This can be done by setting `statusCheckAllowInsecure` to true for a given item.
 
 If your service is online, but responds with a status code that is not in the 2xx range, then you can use `statusCheckAcceptCodes` to set an accepted status code.

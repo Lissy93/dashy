@@ -57,7 +57,6 @@ Only top-level fields supported by sub-pages are `pageInfo` and `sections`. The 
 
 Note that since page paths are required by the router, they are set at build-time, not run-time, and so a rebuild (happens automatically) is required for changes to page paths to take effect (this only applies to changes to the `pages` array, rebuild isn't required for editing page content).
 
-
 ## Sub-Items
 
 A normal section will contain zero or more items, for example:
