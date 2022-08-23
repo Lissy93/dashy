@@ -427,7 +427,7 @@ Using a VPN is one of the easiest ways to provide secure, full access to your lo
   - `Endpoint` - The hostname or IP + Port where your WG server is running (you may need to forward this in your firewall's settings)
 - **Done** - Your clients should now be able to connect to your WG server :) Depending on your networks firewall rules, you may need to port forward the address of your WG server
 
-#### Example Server Config
+#### **Example Server Config**
 
 ```ini
 # Server file
@@ -452,7 +452,7 @@ PublicKey = xxx
 AllowedIps = 10.5.0.25/32,10.21.10.0/24,10.21.20.0/24,10.21.30.0/24,10.31.0.0/24,2001:470:xxxx:xxxx::ca:571e/128
 ```
 
-#### Example Client Config
+#### **Example Client Config**
 
 ```ini
 [Interface]
