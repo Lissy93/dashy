@@ -323,7 +323,7 @@ All widgets extend from the [Widget](https://github.com/Lissy93/dashy/blob/maste
 
 ### Step 2 - Adding Functionality
 
-**Accessing User Options**
+#### **Accessing User Options**
 
 If your widget is going to accept any parameters from the user, then we can access these with `this.options.[parmName]`. It's best to put these as computed properties, which will enable us to check it exists, is valid, and if needed format it. For example, if we have an optional property called `count` (to determine number of results), we can do the following, and then reference it within our component with `this.count`
 
@@ -339,7 +339,7 @@ computed: {
 },
 ```
 
-**Adding an API Endpoint**
+#### **Adding an API Endpoint**
 
 If your widget makes a data request, then add the URL for the API under point to the `widgetApiEndpoints` array in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L207)
 
@@ -364,7 +364,7 @@ endpoint() {
 },
 ```
 
-**Making an API Request**
+#### **Making an API Request**
 
 Axios is used for making data requests, so import it into your component: `import axios from 'axios';`
 
@@ -382,7 +382,7 @@ There are three things happening here:
 - If there's an error, then we call `this.error()`, which will show a message to the user
 - Whatever the result, once the request has completed, we call `this.finishLoading()`, which will hide the loader
 
-**Processing Response**
+#### **Processing Response**
 
 In the above example, we call the `processData()` method with the result from the API, so we need to create that under the `methods` section. How you handle this data will vary depending on what's returned by the API, and what you want to render to the user. But however you do it, you will likely need to create a data variable to store the response, so that it can be easily displayed in the HTML.
 
@@ -400,7 +400,7 @@ And then, inside your `processData()` method, you can set the value of this, wit
 `this.myResults = 'whatever'`
 ```
 
-**Rendering Response**
+#### **Rendering Response**
 
 Now that the results are in the correct format, and stored as data variables, we can use them within the `<template>` to render results to the user. Again, how you do this will depend on the structure of your data, and what you want to display, but at it's simplest, it might look something like this:
 
@@ -408,11 +408,11 @@ Now that the results are in the correct format, and stored as data variables, we
 <p class="results">{{ myResults }}</p>
 ```
 
-**Styling**
+#### **Styling**
 
 Styles can be written your your widget within the `<style>` block.
 
-There are several color variables used by widgets, which extend from the base pallete. Using these enables users to override colors to theme their dashboard, if they wish. The variables are: `--widget-text-color`, `--widget-background-color` and `--widget-accent-color`
+There are several color variables used by widgets, which extend from the base palette. Using these enables users to override colors to theme their dashboard, if they wish. The variables are: `--widget-text-color`, `--widget-background-color` and `--widget-accent-color`
 
 ```vue
 <style scoped lang="scss">

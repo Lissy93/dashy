@@ -13,7 +13,7 @@
 
 > By [@Dipanghosh](https://github.com/dipanghosh) - [dipan.de](https://dipan.de/) <sup>Re: [#777](https://github.com/Lissy93/dashy/discussions/777)</sup>
 
-> With the option of embedding iframes, it becomes possible to combine and conquer. I have set up Dashy to include graphs from grafana, and set them so that they update automatically. I also have uptime monitors from uptime Kuma, panels from homeasistant are also possible to be included.<br>
+> With the option of embedding iframes, it becomes possible to combine and conquer. I have set up Dashy to include graphs from grafana, and set them so that they update automatically. I also have uptime monitors from uptime Kuma, panels from homeassistant are also possible to be included.<br>
 > Dashy is awesome!
 
 ![screenshot-dipanghosh-dashboard](https://i.ibb.co/bPC6w2n/dipanghosh-dashboard.png)
@@ -150,7 +150,7 @@
 
 ## Project Management
 
-![screenshot-project-managment](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/5-project-managment.png)
+![screenshot-project-management](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/5-project-management.png)
 
 ---
 

@@ -54,7 +54,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Nextcloud Notifications](#nextcloud-notifications)
   - [Nextcloud System](#nextcloud-system)
   - [Nextcloud Stats](#nextcloud-stats)
-  - [Nextcloud PHP Opcache](#nextcloud-php-opcache-stats)
+  - [Nextcloud PHP OPcache](#nextcloud-php-opcache-stats)
   - [Sabnzbd](#sabnzbd)
   - [Gluetun VPN Info](#gluetun-vpn-info)
 - **[System Resource Monitoring](#system-resource-monitoring)**
@@ -560,7 +560,7 @@ _No Options._
 
 [AnonAddy](https://anonaddy.com/) is a free and open source mail forwarding service. Use it to protect your real email address, by using a different alias for each of your online accounts, and have all emails land in your normal inbox(es). Supports custom domains, email replies, PGP-encryption, multiple recipients and more
 
-This widget display email addresses / aliases from AnonAddy. Click an email address to copy to clipboard, or use the toggle switch to enable/ disable it. Shows usage stats (bandwidth, used aliases etc), as well as total messages recieved, blocked and sent. Works with both self-hosted and managed instances of AnonAddy.
+This widget display email addresses / aliases from AnonAddy. Click an email address to copy to clipboard, or use the toggle switch to enable/ disable it. Shows usage stats (bandwidth, used aliases etc), as well as total messages received, blocked and sent. Works with both self-hosted and managed instances of AnonAddy.
 
 <p align="center"><img width="400" src="https://i.ibb.co/ZhfyRdV/anonaddy.png" /></p>
 
@@ -678,7 +678,7 @@ Display current FX rates in your native currency. Hover over a row to view more 
 
 - **CORS**: 🟢 Enabled
 - **Auth**: 🔴 Required
-- **Price**: 🟠 Free plan (upto 100,000 requests/ month)
+- **Price**: 🟠 Free plan (up to 100,000 requests/ month)
 - **Host**: Managed Instance Only
 - **Privacy**: _See [ExchangeRateAPI Privacy Policy](https://www.exchangerate-api.com/terms)_
 
@@ -794,7 +794,7 @@ Show recent scores and upcoming matches from your favourite sports team. Data is
 
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟠 Optional
-- **Price**: 🟠 Free plan (upto 30 requests / minute, limited endpoints)
+- **Price**: 🟠 Free plan (up to 30 requests / minute, limited endpoints)
 - **Host**: Managed Instance Only
 - **Privacy**: ⚫ No Policy Available
 
@@ -831,7 +831,7 @@ Displays the latest news, click to read full article. Date is fetched from vario
 
 - **CORS**: 🟢 Enabled
 - **Auth**: 🔴 Required
-- **Price**: 🟠 Free plan (upto 600 requests / day)
+- **Price**: 🟠 Free plan (up to 600 requests / day)
 - **Host**: Managed Instance Only
 - **Privacy**: _See [CurrentsAPI Privacy Policy](https://currentsapi.services/privacy)_
 
@@ -907,7 +907,7 @@ Shows recent price history for a given publicly-traded stock or share
 
 - **CORS**: 🟢 Enabled
 - **Auth**: 🔴 Required
-- **Price**: 🟠 Free plan (upto 500 requests/day)
+- **Price**: 🟠 Free plan (up to 500 requests/day)
 - **Host**: Managed Instance Only
 - **Privacy**: _See [AlphaVantage Privacy Policy](https://www.alphavantage.co/privacy/)_
 
@@ -1032,7 +1032,7 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 
 - **CORS**: 🟢 Enabled
 - **Auth**: 🔴 Required
-- **Price**: 🟠 Free plan (upto 150 requests / month)
+- **Price**: 🟠 Free plan (up to 150 requests / month)
 - **Host**: Managed Instance Only
 - **Privacy**: _See [AeroDataBox](https://www.aerodatabox.com/#h.p_CXtIYZWF_WQd) and [RapidAPI Policy](https://rapidapi.com/privacy/)_
 
@@ -1040,7 +1040,7 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 
 ### Astronomy Picture of the Day
 
-Show the NASA Astronomy Pictore of the Day. Data is fetched from [APOD](https://apod.nasa.gov/apod/) using [@Lissy93/go-apod](https://github.com/lissy93/go-apod) / hosted at [apod.as93.net](https://apod.as93.net/).
+Show the NASA Astronomy Picture of the Day. Data is fetched from [APOD](https://apod.nasa.gov/apod/) using [@Lissy93/go-apod](https://github.com/lissy93/go-apod) / hosted at [apod.as93.net](https://apod.as93.net/).
 
 <p align="center"><img width="400" src="https://i.ibb.co/ZMkgLFK/apod.png" /></p>
 
@@ -1110,7 +1110,7 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
 **`username`** | `string` |  Required | The GitHub username to fetch info for. E.g. `lissy93`. (Not required if `hideProfileCard` and `hideLanguagesCard` are both set to `true`)
 **`hideProfileCard`** | `boolean` |  _Optional_ | If set to `true`, the users profile card will not be shown. Defaults to `false`
 **`hideLanguagesCard`** | `boolean` |  _Optional_ | If set to `true`, the users top languages card will not be shown. Defaults to `false`
-**`repos`** | `array` |  _Optional_ | If you'd like to also display stats for some GitHub reposotories, then add an array or repo names here. Specified as `[username]/[repo-name]`, e.g. `lissy93/dashy`
+**`repos`** | `array` |  _Optional_ | If you'd like to also display stats for some GitHub repositories, then add an array or repo names here. Specified as `[username]/[repo-name]`, e.g. `lissy93/dashy`
 
 #### Example
 
@@ -1186,7 +1186,7 @@ Cron job monitoring using [Health Checks](https://github.com/healthchecks/health
 
 - **CORS**: 🟢 Enabled
 - **Auth**: 🔴 Required
-- **Price**: 🟠 Free plan (upto 20 services, or self-host for unlimited)
+- **Price**: 🟠 Free plan (up to 20 services, or self-host for unlimited)
 - **Host**: Managed Instance or Self-Hosted (see [GitHub - HealthChecks](https://github.com/healthchecks/healthchecks))
 - **Privacy**: _See [Health-Checks Privacy Policy](https://healthchecks.io/privacy/)_
 
@@ -1418,7 +1418,7 @@ or
 
 You can use multiple StatPing widgets with different `groupId`s.
 
-Note, the Group Id is not directly visible in SttatPing UI, you can inspect the group select HTML element or the API response to find out.
+Note, the Group Id is not directly visible in StatPing UI, you can inspect the group select HTML element or the API response to find out.
 
 #### Info
 
@@ -1801,9 +1801,9 @@ Shows key usage statistics about your Nextcloud server.
 
 ---
 
-### Nextcloud PHP Opcache Stats
+### Nextcloud PHP OPcache Stats
 
-Shows statistics about PHP Opcache perforamnce on your Nextcloud server.
+Shows statistics about PHP OPcache performance on your Nextcloud server.
 
 <p align="center"><img width="450" src="https://i.ibb.co/xf6M4J2/nextcloud-phpopcache.png" alt="nextcloud-phpopcache" /></p>
 
@@ -1947,7 +1947,7 @@ Note that if auth is configured, requests must be proxied with `useProxy: true`
 
 ### Current CPU Usage
 
-Live-updating current CPU usage, as a combined average across alll cores
+Live-updating current CPU usage, as a combined average across all cores
 
 <p align="center"><img width="400" src="https://i.ibb.co/qkLgxLp/gl-cpu-usage.png" /></p>
 
@@ -2360,7 +2360,7 @@ widgets:
     hostname: http://pi-hole.local
 ```
 
-Alternativley, and more securley, you can set the auth headers on your service to accept requests from Dashy. For example:
+Alternatively, and more securely, you can set the auth headers on your service to accept requests from Dashy. For example:
 
 ```text
 Access-Control-Allow-Origin: https://location-of-dashy/
@@ -2507,7 +2507,7 @@ For services that are not officially supported, it is likely still possible to d
 
 ### Troubleshooting Widget Errors
 
-If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't addequatley explain the problem, then you can [open the browser console](/docs/troubleshooting.md#how-to-open-browser-console) to see more details.
+If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't adequately explain the problem, then you can [open the browser console](/docs/troubleshooting.md#how-to-open-browser-console) to see more details.
 
 Before proceeding, ensure that if the widget requires auth your API is correct, and for custom widgets, double check that the URL and protocol is correct.
 

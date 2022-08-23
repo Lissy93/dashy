@@ -46,7 +46,7 @@ If either any of your sections, items or themes are mdi icons, then it will be a
 
 #### Favicon Fetching
 
-If an item's icon is set to `favicon`, then it will be auto-fetched from the corresponding URL. Since not all websites have their icon located at `/favicon.ico`, and if they do, it's often very low resolution (like `16 x 16 px`). Therefore, the default behavior is for Dashy to check if the URL is public, and if so will use an API to fetch the favicon. For self-hosted services, the favion will be fetched from the default path, and no external requests will be made.
+If an item's icon is set to `favicon`, then it will be auto-fetched from the corresponding URL. Since not all websites have their icon located at `/favicon.ico`, and if they do, it's often very low resolution (like `16 x 16 px`). Therefore, the default behavior is for Dashy to check if the URL is public, and if so will use an API to fetch the favicon. For self-hosted services, the favicon will be fetched from the default path, and no external requests will be made.
 
 The default favicon API is [allesedv.com](https://favicon.allesedv.com/), but this can be changed by setting `appConfig.faviconApi` to an alternate source (`iconhorse`, `clearbit`, `faviconkit`, `besticon`, `duckduckgo`, `google` and `allesedv` are supported). If you do not want to use any API, then you can set this property to `local`, and the favicon will be fetched from the default path. For hosted services, this will still incur an external request.
 
@@ -80,7 +80,7 @@ When the application loads, it checks for updates. The results of which are disp
 
 #### Cloud Backup
 
-Dashy has an optional End-to-End encrypted [cloud backup feature](https://github.com/Lissy93/dashy/blob/master/docs/backup-restore.md). No data is ever transimtted unless you actively enable this feature through the UI.
+Dashy has an optional End-to-End encrypted [cloud backup feature](https://github.com/Lissy93/dashy/blob/master/docs/backup-restore.md). No data is ever transmitted unless you actively enable this feature through the UI.
 
 All data is encrypted before being sent to the backend. This is done in [`CloudBackup.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/CloudBackup.js), using [crypto.js](https://github.com/brix/crypto-js)'s AES method, using the users chosen password as the key. The data is then sent to a [Cloudflare worker](https://developers.cloudflare.com/workers/learning/how-workers-works) (a platform for running serverless functions), and stored in a [KV](https://developers.cloudflare.com/workers/learning/how-kv-works) data store.
 
@@ -96,7 +96,7 @@ This feature can be disabled under appConfig, with `webSearch: { disableWebSearc
 
 Error reporting is disabled by default, and no data will ever be sent without your explicit consent. In fact, the error tracking code isn't even imported unless you have actively enabled it. [Sentry](https://github.com/getsentry/sentry) is used for this, it's an open source error tracking and performance monitoring tool, used to identify any issues which occur in the production app (if you enable it).
 
-The crash report includes the file or line of code that triggered the error, and a 2-layer deep stack trace. Reoccurring errors will also include the following user information: OS type (Mac, Windows, Linux, Android or iOS) and browser type (Firefox, Chrome, IE, Safari). Data scrubbing is enabled. IP address will not be stored. If any potentially identifiable data ever finds its way into a crash report, it will be automatically and permanently erased. All statistics collected are anonomized and stored securely, and ae automatically deleted after 14 days. For more about privacy and security, see the [Sentry Docs](https://sentry.io/security/).
+The crash report includes the file or line of code that triggered the error, and a 2-layer deep stack trace. Reoccurring errors will also include the following user information: OS type (Mac, Windows, Linux, Android or iOS) and browser type (Firefox, Chrome, IE, Safari). Data scrubbing is enabled. IP address will not be stored. If any potentially identifiable data ever finds its way into a crash report, it will be automatically and permanently erased. All statistics collected are anonymized and stored securely, and ae automatically deleted after 14 days. For more about privacy and security, see the [Sentry Docs](https://sentry.io/security/).
 
 Enabling anonymous error reporting helps me to discover bugs I was unaware of, and then fix them, in order to make Dashy more reliable long term. Error reporting is activated by setting `appConfig.enableErrorReporting: true`.
 
@@ -142,7 +142,7 @@ Dashy supports [Widgets](/docs/widgets.md) for displaying dynamic content. Below
 - **[Covid-19 Status](/docs/widgets.md#covid-19-status)**: `https://codestats.net`
   - [disease-sh/api](https://github.com/disease-sh/api)
 - **[Sports Scores](/docs/widgets.md#sports-scores)**: `https://thesportsdb.com`
-  - No Policy Availible
+  - No Policy Available
 - **[News Headlines](/docs/widgets.md#news-headlines)**: `https://api.currentsapi.services`
   - [CurrentsAPI Privacy Policy](https://currentsapi.services/privacy)
 - **[Mullvad Status](/docs/widgets.md#mullvad-status)**: `https://am.i.mullvad.net`
@@ -218,7 +218,7 @@ You can manually view and delete session storage, local storage and cookies at a
 
 As with most web projects, Dashy relies on several [dependencies](https://github.com/Lissy93/dashy/blob/master/docs/credits.md#dependencies-). For links to each, and a breakdown of their licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md).
 
-Dependencies can introduce security vulnerabilities, but since all these packages are open source any issues are usually very quickly spotted. Dashy is using Snyk for dependency security monitoring, and you can see [the latest report here](https://snyk.io/test/github/lissy93/dashy). If any issue is detected by Snyk, a note about it will appear at the top of the Reamde, and will usually be fixed within 48 hours.
+Dependencies can introduce security vulnerabilities, but since all these packages are open source any issues are usually very quickly spotted. Dashy is using Snyk for dependency security monitoring, and you can see [the latest report here](https://snyk.io/test/github/lissy93/dashy). If any issue is detected by Snyk, a note about it will appear at the top of the Readme, and will usually be fixed within 48 hours.
 
 Note that packages listed under `devDependencies` section are only used for building the project, and are not included in the production environment.
 

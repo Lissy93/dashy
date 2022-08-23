@@ -49,7 +49,7 @@ When a new major version is released:
 
 Like most Git repos, we are following the [Github Flow](https://guides.github.com/introduction/flow) standard.
 
-1. Create a branch (or fork if you don'd have write acces)
+1. Create a branch (or fork if you don'd have write access)
 2. Code some awesome stuff, then add and commit your changes
 3. Create a Pull Request, complete the checklist and ensure the build succeeds
 4. Follow up with any reviews on your code

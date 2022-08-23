@@ -52,7 +52,7 @@ appConfig:
   enableErrorReporting: true
 ```
 
-All reporting is **disabled** by default, and no data will ever be sent to any external endpoint without your explicit consent. All statistics are anonomized and stored securely. For more about privacy and security, see the [Sentry Security Docs](https://sentry.io/security/).
+All reporting is **disabled** by default, and no data will ever be sent to any external endpoint without your explicit consent. All statistics are anonymized and stored securely. For more about privacy and security, see the [Sentry Security Docs](https://sentry.io/security/).
 
 ## Add Translations
 

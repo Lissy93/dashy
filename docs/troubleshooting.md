@@ -298,7 +298,7 @@ You can [check your rate limit status](https://www.docker.com/blog/checking-your
 
 ### Solution 1 - Use an alternate container registry
 
-- Dashy is also availible through GHCR, which at present does not have any hard limits. Just use `docker pull ghcr.io/lissy93/dashy:latest` to fetch the image
+- Dashy is also available through GHCR, which at present does not have any hard limits. Just use `docker pull ghcr.io/lissy93/dashy:latest` to fetch the image
 - You can also build the image from source, by cloning the repo, and running `docker build -t dashy .` or use the pre-made docker compose
 
 ### Solution 2 - Increase your rate limits
@@ -398,7 +398,7 @@ If you're serving Dashy though a CDN, instead of using the Node server or Docker
 
 ### Find Error Message
 
-If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't addequatley explain the problem, then you can [open the browser console](/docs/troubleshooting.md#how-to-open-browser-console) to see more details.
+If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't adequately explain the problem, then you can [open the browser console](/docs/troubleshooting.md#how-to-open-browser-console) to see more details.
 
 ### Check Config
 

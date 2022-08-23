@@ -332,7 +332,7 @@ These examples are using:
 
 - `Access-Control-Allow-Origin` header, but depending on what type of content you are enabling, this will vary. For example, to allow a site to be loaded in an iframe (for the modal or workspace views) you would use `X-Frame-Options`.
 - The domain root (`/`), if your're hosting from a sub-page, replace that with your path.
-- A wildcard (`*`), which would allow access from traffic on any domain, this is discorouaged, and you should replace it with the URL where you are hosting Dashy. Note that for requests that transport sensitive info, like credentials (e.g. Keycloak login), the wildcard is [disallowed all together](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#requests_with_credentials) and will be blocked.
+- A wildcard (`*`), which would allow access from traffic on any domain, this is discouraged, and you should replace it with the URL where you are hosting Dashy. Note that for requests that transport sensitive info, like credentials (e.g. Keycloak login), the wildcard is [disallowed all together](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#requests_with_credentials) and will be blocked.
 
 #### Caddy
 
@@ -594,7 +594,7 @@ For more info, [this guide](https://thehomelab.wiki/books/dns-reverse-proxy/page
 - [Don't Run as Root](#dont-run-as-root)
 - [Specify a User](#specify-a-user)
 - [Limit Capabilities](#limit-capabilities)
-- [Prevent new Privilages being Added](#prevent-new-privilages-being-added)
+- [Prevent new Privileges being Added](#prevent-new-privileges-being-added)
 - [Disable Inter-Container Communication](#disable-inter-container-communication)
 - [Don't Expose the Docker Daemon Socket](#dont-expose-the-docker-daemon-socket)
 - [Use Read-Only Volumes](#use-read-only-volumes)
@@ -670,7 +670,7 @@ services:
     - NET_BIND_SERVICE
 ```
 
-### Prevent new Privilages being Added
+### Prevent new Privileges being Added
 
 To prevent processes inside the container from getting additional privileges, pass in the `--security-opt=no-new-privileges:true` option to the Docker run command (see [docs](https://docs.docker.com/engine/reference/run/#security-configuration)).
 

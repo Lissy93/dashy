@@ -1,6 +1,6 @@
 # Theming
 
-By default Dashy comes with 25+ built-in themes, which can be applied from the dropwodwn menu in the UI.
+By default Dashy comes with 25+ built-in themes, which can be applied from the dropdown menu in the UI.
 
 ![Built-in Themes](https://i.ibb.co/GV3wRss/Dashy-Themes.png)
 
