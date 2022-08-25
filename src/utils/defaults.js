@@ -206,8 +206,8 @@ module.exports = {
   /* The URL to CDNs used for external icons. These are only loaded when required */
   iconCdns: {
     fa: 'https://kit.fontawesome.com',
-    mdi: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css',
-    si: 'https://unpkg.com/simple-icons@v5/icons',
+    mdi: 'https://cdn.jsdelivr.net/npm/@mdi/font@7.0.96/css/materialdesignicons.min.css',
+    si: 'https://unpkg.com/simple-icons@v7/icons',
     generative: 'https://avatars.dicebear.com/api/identicon/{icon}.svg',
     generativeFallback: 'https://evatar.io/{icon}',
     localPath: './item-icons',
