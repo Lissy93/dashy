@@ -57,7 +57,8 @@ export default {
     endpoint() {
       return `${widgetApiEndpoints.holidays}`
       + `&fromDate=${this.startDate}&toDate=${this.endDate}`
-      + `&country=${this.country}&holidayType=${this.holidayType}`;
+      + `&country=${this.country}&holidayType=${this.holidayType}`
+      + `${this.options?.state ? `&region=${this.options.state}` : ''}`;
     },
   },
   methods: {
