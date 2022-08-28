@@ -27,7 +27,7 @@
     </td>
     <td align="center">
         <a href="https://github.com/Geolim4">
-            <img src="https://avatars.githubusercontent.com/u/1332071?v=4" width="80;" alt="Geolim4"/>
+            <img src="https://avatars.githubusercontent.com/u/1332071?u=5d84984897f094932c4829583fee19b121f3aab8&v=4" width="80;" alt="Geolim4"/>
             <br />
             <sub><b>Georges.L</b></sub>
         </a>
@@ -134,10 +134,10 @@
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/CynegeticIO">
-            <img src="https://avatars.githubusercontent.com/u/103884082?u=8cc7ce0f78edf630fc8a6ea560a62c6ed249ca41&v=4" width="80;" alt="CynegeticIO"/>
+        <a href="https://github.com/CY0xZ">
+            <img src="https://avatars.githubusercontent.com/u/103884082?v=4" width="80;" alt="CY0xZ"/>
             <br />
-            <sub><b>CynegeticIO</b></sub>
+            <sub><b>CY0xZ</b></sub>
         </a>
     </td></tr>
 </table>
@@ -234,6 +234,13 @@
     </td></tr>
 <tr>
     <td align="center">
+        <a href="https://github.com/Tracreed">
+            <img src="https://avatars.githubusercontent.com/u/6306365?v=4" width="80;" alt="Tracreed"/>
+            <br />
+            <sub><b>David Alasow</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/remygrandin">
             <img src="https://avatars.githubusercontent.com/u/1934515?v=4" width="80;" alt="remygrandin"/>
             <br />
@@ -267,15 +274,15 @@
             <br />
             <sub><b>ᗪєνιη ᗷυнʟ</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/alexdelprete">
             <img src="https://avatars.githubusercontent.com/u/7027842?v=4" width="80;" alt="alexdelprete"/>
             <br />
             <sub><b>Alessandro Del Prete</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/BOZG">
             <img src="https://avatars.githubusercontent.com/u/6022344?v=4" width="80;" alt="BOZG"/>
@@ -310,15 +317,15 @@
             <br />
             <sub><b>K073l</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/patrickheeney">
             <img src="https://avatars.githubusercontent.com/u/1407228?v=4" width="80;" alt="patrickheeney"/>
             <br />
             <sub><b>Patrick Heeney</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/Singebob">
             <img src="https://avatars.githubusercontent.com/u/24290044?v=4" width="80;" alt="Singebob"/>
@@ -345,13 +352,6 @@
             <img src="https://avatars.githubusercontent.com/u/57495754?v=4" width="80;" alt="BeginCI"/>
             <br />
             <sub><b>Begin</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/skaarj1989">
-            <img src="https://avatars.githubusercontent.com/u/34756939?v=4" width="80;" alt="skaarj1989"/>
-            <br />
-            <sub><b>David</b></sub>
         </a>
     </td></tr>
 </table>
