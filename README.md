@@ -544,7 +544,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td>
     <td align="center">
         <a href="https://github.com/Geolim4">
-            <img src="https://avatars.githubusercontent.com/u/1332071?v=4" width="80;" alt="Geolim4"/>
+            <img src="https://avatars.githubusercontent.com/u/1332071?u=5d84984897f094932c4829583fee19b121f3aab8&v=4" width="80;" alt="Geolim4"/>
             <br />
             <sub><b>Georges.L</b></sub>
         </a>
@@ -651,10 +651,10 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/CynegeticIO">
-            <img src="https://avatars.githubusercontent.com/u/103884082?u=8cc7ce0f78edf630fc8a6ea560a62c6ed249ca41&v=4" width="80;" alt="CynegeticIO"/>
+        <a href="https://github.com/CY0xZ">
+            <img src="https://avatars.githubusercontent.com/u/103884082?v=4" width="80;" alt="CY0xZ"/>
             <br />
-            <sub><b>CynegeticIO</b></sub>
+            <sub><b>CY0xZ</b></sub>
         </a>
     </td></tr>
 </table>
