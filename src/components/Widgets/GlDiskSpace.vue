@@ -43,9 +43,6 @@ export default {
     },
   },
   methods: {
-    fetchData() {
-      this.makeRequest(this.endpoint).then(this.processData);
-    },
     processData(diskData) {
       this.disks = diskData;
     },
