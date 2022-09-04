@@ -55,13 +55,6 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/digibucc">
-            <img src="https://avatars.githubusercontent.com/u/6216652?v=4" width="80;" alt="digibucc"/>
-            <br />
-            <sub><b>Digibucc</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/AdamXweb">
             <img src="https://avatars.githubusercontent.com/u/6800453?u=3be969c9df11fa94351c42da8134ce3eaf33d6f1&v=4" width="80;" alt="AdamXweb"/>
             <br />
@@ -88,15 +81,15 @@
             <br />
             <sub><b>Byolock</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/PAPAMICA">
             <img src="https://avatars.githubusercontent.com/u/29079741?v=4" width="80;" alt="PAPAMICA"/>
             <br />
             <sub><b>Mickael Asseline</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/hugalafutro">
             <img src="https://avatars.githubusercontent.com/u/30209689?v=4" width="80;" alt="hugalafutro"/>
@@ -109,6 +102,13 @@
             <img src="https://avatars.githubusercontent.com/u/43928955?u=a00b44f22e5a82234d9b406ac048def1fbc16e31&v=4" width="80;" alt="shadowking001"/>
             <br />
             <sub><b>LawrenceP.</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Hue899">
+            <img src="https://avatars.githubusercontent.com/u/67720949?v=4" width="80;" alt="Hue899"/>
+            <br />
+            <sub><b>NKA</b></sub>
         </a>
     </td>
     <td align="center">
@@ -135,7 +135,7 @@
 <tr>
     <td align="center">
         <a href="https://github.com/CY0xZ">
-            <img src="https://avatars.githubusercontent.com/u/103884082?v=4" width="80;" alt="CY0xZ"/>
+            <img src="https://avatars.githubusercontent.com/u/103884082?u=0b3260c6a1af6268492f69264dbb75989afb155f&v=4" width="80;" alt="CY0xZ"/>
             <br />
             <sub><b>CY0xZ</b></sub>
         </a>
