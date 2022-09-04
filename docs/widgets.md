@@ -694,7 +694,8 @@ Counting down to the next day off work? This widget displays upcoming public hol
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`country`** | `string` |  Required | The region to fetch holiday data for, specified as a country code, e.g. `GB` or `US`
+**`country`** | `string` |  Required | The country to fetch holiday data for, specified as a country code, e.g. `GB` or `US`
+**`state`** | `string` |  **Optional** | restrict a country to a specific state defined by [ISO_3166-2](https://en.wikipedia.org/wiki/ISO_3166-2), e.g. `LND`.
 **`holidayType`** | `string` |  **Optional** | The type of holidays to fetch. Can be: `all`, `public_holiday`, `observance`, `school_holiday`, `other_day` or `extra_working_day`. Defaults to `public_holiday`
 **`monthsToShow`** | `number` |  **Optional** | The number of months in advance to show. Min: `1`, max: `24`. Defaults to `12`
 
@@ -704,6 +705,7 @@ Counting down to the next day off work? This widget displays upcoming public hol
 - type: public-holidays
   options:
     country: GB
+    region: LND
     holidayType: all
     monthsToShow: 12
 ```

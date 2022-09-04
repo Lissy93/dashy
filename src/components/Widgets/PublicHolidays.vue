@@ -54,10 +54,17 @@ export default {
       const then = new Date((now.setMonth(now.getMonth() + this.monthsToShow)));
       return `${then.getDate()}-${then.getMonth() + 1}-${then.getFullYear()}`;
     },
+    region() {
+      if (this.options?.state) {
+        return `&region=${this.options.state}`;
+      }
+      return '';
+    },
     endpoint() {
       return `${widgetApiEndpoints.holidays}`
       + `&fromDate=${this.startDate}&toDate=${this.endDate}`
-      + `&country=${this.country}&holidayType=${this.holidayType}`;
+      + `&country=${this.country}&holidayType=${this.holidayType}`
+      + `${this.region}`;
     },
   },
   methods: {
