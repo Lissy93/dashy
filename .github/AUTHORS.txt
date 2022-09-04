@@ -72,11 +72,11 @@ aterox <church.kennetha@gmail.com> - 19 commits
 EVOTk <45015615+EVOTk@users.noreply.github.com> - 22 commits
 Marcell <ülö> - 24 commits
 Alicia <yke> - 28 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 51 commits
-snyk-bot <snyk-bot@snyk.io> - 53 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 52 commits
+snyk-bot <snyk-bot@snyk.io> - 55 commits
 Lissy93 <gh@d0h.co> - 78 commits
-Alicia <o> - 98 commits
-liss-bot <liss-bot@d0h.co> - 111 commits
+Alicia <o> - 100 commits
+liss-bot <liss-bot@d0h.co> - 113 commits
 Alicia <yke> - 204 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 208 commits
 Alicia <yke> - 440 commits
