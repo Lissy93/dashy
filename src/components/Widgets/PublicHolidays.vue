@@ -61,10 +61,10 @@ export default {
       return '';
     },
     endpoint() {
-      return `${`${widgetApiEndpoints.holidays}`
+      return `${widgetApiEndpoints.holidays}`
       + `&fromDate=${this.startDate}&toDate=${this.endDate}`
-      + `&country=${this.country}&holidayType=${this.holidayType}`}${
-        this.region}`;
+      + `&country=${this.country}&holidayType=${this.holidayType}`
+      + `${this.region}`;
     },
   },
   methods: {
