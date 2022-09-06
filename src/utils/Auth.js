@@ -150,7 +150,7 @@ export const getCurrentUser = () => {
   let foundUserObject = false; // Value to return
   getUsers().forEach((user) => {
     // If current logged-in user found, then return that user
-    if (user.user === username) foundUserObject = user;
+    if (user.user.toLowerCase() === username.toLowerCase()) foundUserObject = user;
   });
   return foundUserObject;
 };
@@ -180,7 +180,7 @@ export const isUserAdmin = () => {
   const currentUser = localStorage[localStorageKeys.USERNAME];
   let isAdmin = false;
   users.forEach((user) => {
-    if (user.user === currentUser) {
+    if (user.user.toLowerCase() === currentUser.toLowerCase()) {
       if (user.type === 'admin') isAdmin = true;
     }
   });
