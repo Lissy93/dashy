@@ -136,7 +136,7 @@ module.exports = {
   },
   /* Key names for cookie identifiers */
   cookieKeys: {
-    AUTH_TOKEN: 'authenticationToken',
+    AUTH_TOKEN: 'dashyAuthToken',
   },
   /* Key names for session storage identifiers */
   sessionStorageKeys: {
