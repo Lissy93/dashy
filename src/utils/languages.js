@@ -19,6 +19,7 @@ import pirate from '@/assets/locales/zz-pirate.json';
 import sv from '@/assets/locales/sv.json';
 import bg from '@/assets/locales/bg.json';
 import ko from '@/assets/locales/ko.json';
+import sk from '@/assets/locales/sk.json';
 
 // Language data - Next register your language by adding it to this list
 export const languages = [
@@ -141,6 +142,12 @@ export const languages = [
     code: 'ko',
     locale: ko,
     flag: '🇰🇷',
+  },
+  { // Slovak
+    name: 'Slovenčina',
+    code: 'sk',
+    locale: sk,
+    flag: '🇸🇰',
   },
 ];
 
