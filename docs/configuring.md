@@ -127,6 +127,7 @@ The following file provides a reference of all supported configuration options.
 **`preventWriteToDisk`** | `boolean` | _Optional_ | If set to `true`, users will be prevented from saving config changes to disk through the UI
 **`preventLocalSave`** | `boolean` | _Optional_ | If set to `true`, users will be prevented from applying config changes to local storage
 **`disableConfiguration`** | `boolean` | _Optional_ | If set to true, no users will be able to view or edit the config through the UI
+**`disableConfigurationForNonAdmin`** | `boolean` | _Optional_ | If set to true, only admin users will be able to view or edit the config through the UI. disableConfiguration must not be set to true.
 **`widgetsAlwaysUseProxy`** | `boolean` | _Optional_ | If set to `true`, requests made by widgets will always be proxied, same as setting `useProxy: true` on each widget. Note that this may break some widgets.
 **`showSplashScreen`** | `boolean` | _Optional_ | If set to `true`, a loading screen will be shown. Defaults to `false`.
 **`enableErrorReporting`** | `boolean` | _Optional_ | Enable reporting of unexpected errors and crashes. This is off by default, and **no data will ever be captured unless you explicitly enable it**. Turning on error reporting helps previously unknown bugs get discovered and fixed. Dashy uses [Sentry](https://github.com/getsentry/sentry) for error reporting. Defaults to `false`.
@@ -335,7 +336,7 @@ If you have authentication set up, then any user who is not an admin (with `type
 
 You can also prevent changes from any user being written to disk, using `preventWriteToDisk`. Or prevent any changes from being saved locally in browser storage, using `preventLocalSave`.
 
-To disable all UI config features, set `disableConfiguration`.
+To disable all UI config features, set `disableConfiguration`. Alternatively you can disable UI config features for all non Admin users by setting `disableConfigurationForNonAdmin` to true.
 
 ### Example
 

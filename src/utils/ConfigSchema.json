@@ -509,6 +509,12 @@
           "default": false,
           "description": "If set to true, no users will be able to view or edit the config through the UI"
         },
+        "disableConfigurationForNonAdmin": {
+          "title": "Disable all UI Config for non admin users.",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, only admin users will be able to view or edit the config through the UI. disableConfiguration must not be set to true."
+        },
         "allowConfigEdit": {
           "title": "Allow Config Editing",
           "type": "boolean",

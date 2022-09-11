@@ -90,7 +90,7 @@ Any user who is not an admin (with `type: admin`) will not be able to write chan
 
 You can also prevent any user from writing changes to disk, using `preventWriteToDisk`. Or prevent any changes from being saved locally in browser storage, using `preventLocalSave`. Both properties can be found under [`appConfig`](./docs/configuring.md#appconfig-optional).
 
-To disable all UI config features, including View Config, set `disableConfiguration`.
+To disable all UI config features, including View Config, set `disableConfiguration`. Alternatively you can disable UI config features for all non admin users by setting `disableConfigurationForNonAdmin` to true.
 
 ### Security
 
