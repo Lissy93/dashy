@@ -6,6 +6,7 @@
 
 // Import helper functions from auth, to get current user, and check if guest
 import { localStorageKeys } from '@/utils/defaults';
+import { isLoggedInAsGuest } from '@/utils/Auth';
 
 /* Helper function, checks if a given testValue is found in the visibility list */
 const determineVisibility = (visibilityList, testValue) => {
@@ -25,7 +26,9 @@ const determineIntersection = (source = [], target = []) => {
 
 /* Returns false if the displayData of a section/item
     should not be rendered for the current user/ guest */
-export const isVisibleToUser = (displayData, currentUser, isGuest) => {
+export const isVisibleToUser = (displayData, currentUser) => {
+  const isGuest = isLoggedInAsGuest(currentUser); // Check if current user is a guest
+
   // Checks if user explicitly has access to a certain section
   const checkVisibility = () => {
     if (!currentUser) return true;

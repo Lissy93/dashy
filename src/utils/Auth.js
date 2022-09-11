@@ -54,16 +54,18 @@ const generateUserToken = (user) => {
  */
 export const isLoggedIn = () => {
   const users = getUsers();
-  const validTokens = users.map((user) => generateUserToken(user));
   let userAuthenticated = false;
   document.cookie.split(';').forEach((cookie) => {
     if (cookie && cookie.split('=').length > 1) {
       const cookieKey = cookie.split('=')[0].trim();
       const cookieValue = cookie.split('=')[1].trim();
       if (cookieKey === cookieKeys.AUTH_TOKEN) {
-        if (validTokens.includes(cookieValue)) {
-          userAuthenticated = true;
-        }
+        users.forEach((user) => {
+          if (generateUserToken(user) === cookieValue) {
+            userAuthenticated = true;
+            localStorage.setItem(localStorageKeys.USERNAME, user.user);
+          }
+        });
       }
     }
   });
@@ -159,10 +161,10 @@ export const getCurrentUser = () => {
  * Checks if the user is viewing the dashboard as a guest
  * Returns true if guest mode enabled, and user not logged in
  * */
-export const isLoggedInAsGuest = () => {
+export const isLoggedInAsGuest = (currentUser) => {
   const guestEnabled = isGuestAccessEnabled();
-  const notLoggedIn = !isLoggedIn();
-  return guestEnabled && notLoggedIn;
+  const loggedIn = isLoggedIn() && currentUser;
+  return guestEnabled && !loggedIn;
 };
 
 /**
