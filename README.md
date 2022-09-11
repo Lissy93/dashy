@@ -623,7 +623,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td>
     <td align="center">
         <a href="https://github.com/Hue899">
-            <img src="https://avatars.githubusercontent.com/u/67720949?v=4" width="80;" alt="Hue899"/>
+            <img src="https://avatars.githubusercontent.com/u/67720949?u=3138b65cb48b5434f4c5a248152a1de66d30b13c&v=4" width="80;" alt="Hue899"/>
             <br />
             <sub><b>NKA</b></sub>
         </a>
