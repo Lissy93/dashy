@@ -54,20 +54,20 @@ const generateUserToken = (user) => {
  */
 export const isLoggedIn = () => {
   const users = getUsers();
-  let userAuthenticated = false;
-  document.cookie.split(';').forEach((cookie) => {
+  let userAuthenticated = document.cookie.split(';').some((cookie) => {
     if (cookie && cookie.split('=').length > 1) {
       const cookieKey = cookie.split('=')[0].trim();
       const cookieValue = cookie.split('=')[1].trim();
       if (cookieKey === cookieKeys.AUTH_TOKEN) {
-        users.forEach((user) => {
+        userAuthenticated = users.some((user) => {
           if (generateUserToken(user) === cookieValue) {
-            userAuthenticated = true;
             localStorage.setItem(localStorageKeys.USERNAME, user.user);
-          }
+            return true;
+          } else return false;
         });
-      }
-    }
+        return userAuthenticated;
+      } else return false;
+    } else return false;
   });
   return userAuthenticated;
 };
