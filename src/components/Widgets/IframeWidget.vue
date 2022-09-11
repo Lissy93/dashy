@@ -48,7 +48,7 @@ export default {
 .iframe-widget {
   iframe {
     width: 100%;
-    min-height: 240px;
+    min-height: 80px;
     border: 0;
   }
 }
