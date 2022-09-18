@@ -107,7 +107,8 @@ const store = new Vuex.Store({
         perms.allowWriteToDisk = false;
       }
       // Disable everything
-      if (appConfig.disableConfiguration) {
+      if (appConfig.disableConfiguration
+        || (appConfig.disableConfigurationForNonAdmin && !isUserAdmin())) {
         perms.allowWriteToDisk = false;
         perms.allowSaveLocally = false;
         perms.allowViewConfig = false;
