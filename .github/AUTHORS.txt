@@ -1,5 +1,6 @@
 0n1cOn3 <0n1cOn3@gmx.ch> - 1 commits
 Alicia <liss-bot@d0h.co> - 1 commits
+Artyom <32810520+AaronPorts@users.noreply.github.com> - 1 commits
 BRAVO68WEB <jbandyopadhayaya@gmail.com> - 1 commits
 Begin <support@begin.com> - 1 commits
 Bjorn <ammer> - 1 commits
@@ -27,6 +28,7 @@ Ryan <urne> - 1 commits
 Rúben <ilv> - 1 commits
 Shreya <o> - 1 commits
 Singebob <jeremy.chauvin@systeme-u.fr> - 1 commits
+Smexhy <roman.bartik@icloud.com> - 1 commits
 Steffen <chmid> - 1 commits
 Steven <as> - 1 commits
 Xert <xertdev@gmail.com> - 1 commits
@@ -41,6 +43,7 @@ pablomalo <paul.gouin50@gmail.com> - 1 commits
 sur1v <gsuriv@gmail.com> - 1 commits
 tazboyz16 <tazboyz_16@yahoo.com> - 1 commits
 zcq100 <m@zcq100.com> - 1 commits
+Ángel <ernánde> - 1 commits
 Alejandro <ina> - 2 commits
 Alessandro <e> - 2 commits
 BOZG <sr@bozg.se> - 2 commits
@@ -50,7 +53,6 @@ Dan <ilber> - 2 commits
 Ruben <ilv> - 2 commits
 cauterize <cauterize@programmer.net> - 2 commits
 k073l <21180271+k073l@users.noreply.github.com> - 2 commits
-kristian <kristianbrasel@gmail.com> - 2 commits
 liss-bot <87835202+liss-bot@users.noreply.github.com> - 2 commits
 patrickheeney <patrickheeney@gmail.com> - 2 commits
 ᗪєνιη <υн> - 2 commits
@@ -64,6 +66,7 @@ Lissy93 <alicia@omg.lol> - 4 commits
 Niklas <abe> - 4 commits
 Rémy <RANDI> - 4 commits
 Walkx <walkxnl@gmail.com> - 4 commits
+kristian <kristianbrasel@gmail.com> - 4 commits
 Alicie <gh@d0h.co> - 5 commits
 Benjamin <ontgomer> - 5 commits
 UrekD <urek.denis@gmail.com> - 5 commits
@@ -80,12 +83,12 @@ aterox <church.kennetha@gmail.com> - 19 commits
 EVOTk <45015615+EVOTk@users.noreply.github.com> - 22 commits
 Marcell <ülö> - 24 commits
 Alicia <yke> - 28 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 53 commits
-snyk-bot <snyk-bot@snyk.io> - 55 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 55 commits
+snyk-bot <snyk-bot@snyk.io> - 57 commits
 Lissy93 <gh@d0h.co> - 78 commits
-Alicia <o> - 101 commits
-liss-bot <liss-bot@d0h.co> - 115 commits
+Alicia <o> - 103 commits
+liss-bot <liss-bot@d0h.co> - 117 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 208 commits
-Alicia <yke> - 214 commits
+Alicia <yke> - 218 commits
 Alicia <yke> - 440 commits
 Alicia <yke> - 1488 commits
