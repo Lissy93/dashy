@@ -132,14 +132,6 @@
             <sub><b>Jtfinley72</b></sub>
         </a>
     </td></tr>
-<tr>
-    <td align="center">
-        <a href="https://github.com/CY0xZ">
-            <img src="https://avatars.githubusercontent.com/u/103884082?u=0b3260c6a1af6268492f69264dbb75989afb155f&v=4" width="80;" alt="CY0xZ"/>
-            <br />
-            <sub><b>CY0xZ</b></sub>
-        </a>
-    </td></tr>
 </table>
 <!-- readme: sponsors -end -->
 
@@ -248,6 +240,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/Cereal916">
+            <img src="https://avatars.githubusercontent.com/u/7526937?v=4" width="80;" alt="Cereal916"/>
+            <br />
+            <sub><b>Kristian Brasel</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/alucarddelta">
             <img src="https://avatars.githubusercontent.com/u/20882097?v=4" width="80;" alt="alucarddelta"/>
             <br />
@@ -255,8 +254,8 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/boggy-cs">
-            <img src="https://avatars.githubusercontent.com/u/82003678?v=4" width="80;" alt="boggy-cs"/>
+        <a href="https://github.com/bog-y">
+            <img src="https://avatars.githubusercontent.com/u/82003678?v=4" width="80;" alt="bog-y"/>
             <br />
             <sub><b>Bogyeong Kim</b></sub>
         </a>
@@ -267,15 +266,15 @@
             <br />
             <sub><b>Stanly0726</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/rubenandre">
             <img src="https://avatars.githubusercontent.com/u/9402773?v=4" width="80;" alt="rubenandre"/>
             <br />
             <sub><b>Rúben Silva</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/onedr0p">
             <img src="https://avatars.githubusercontent.com/u/213795?v=4" width="80;" alt="onedr0p"/>
@@ -310,20 +309,13 @@
             <br />
             <sub><b>Dan Gilbert</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/k073l">
             <img src="https://avatars.githubusercontent.com/u/21180271?v=4" width="80;" alt="k073l"/>
             <br />
             <sub><b>K073l</b></sub>
-        </a>
-    </td></tr>
-<tr>
-    <td align="center">
-        <a href="https://github.com/Cereal916">
-            <img src="https://avatars.githubusercontent.com/u/7526937?v=4" width="80;" alt="Cereal916"/>
-            <br />
-            <sub><b>Kristian Brasel</b></sub>
         </a>
     </td>
     <td align="center">
@@ -348,10 +340,10 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/BRAVO68WEB">
-            <img src="https://avatars.githubusercontent.com/u/41448663?v=4" width="80;" alt="BRAVO68WEB"/>
+        <a href="https://github.com/AaronPorts">
+            <img src="https://avatars.githubusercontent.com/u/32810520?v=4" width="80;" alt="AaronPorts"/>
             <br />
-            <sub><b>Jyotirmoy Bandyopadhyaya [Bravo68]</b></sub>
+            <sub><b>Artyom</b></sub>
         </a>
     </td></tr>
 </table>
