@@ -650,14 +650,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <sub><b>Jtfinley72</b></sub>
         </a>
     </td></tr>
-<tr>
-    <td align="center">
-        <a href="https://github.com/CY0xZ">
-            <img src="https://avatars.githubusercontent.com/u/103884082?u=0b3260c6a1af6268492f69264dbb75989afb155f&v=4" width="80;" alt="CY0xZ"/>
-            <br />
-            <sub><b>CY0xZ</b></sub>
-        </a>
-    </td></tr>
 </table>
 <!-- readme: sponsors -end -->
 
