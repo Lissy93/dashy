@@ -8600,10 +8600,10 @@ router@~1.3.6:
     setprototypeof "1.2.0"
     utils-merge "1.0.1"
 
-rsup-progress@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/rsup-progress/-/rsup-progress-3.0.0.tgz#e5eab5c1e75794cc288d567aa765b50faaf0cc89"
-  integrity sha512-Gmm9Vv8Ti8CqpzWBv0V5cM9q6MsjA4rVsKQBYTRyCClwbnCBWYnHPBos0G3hsAXtcf4odQgw9dZfa+q9W4xVtA==
+rsup-progress@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/rsup-progress/-/rsup-progress-3.1.1.tgz#b943d12f24ffa773730c74a236cd411f2c85af65"
+  integrity sha512-x2mAS0C9jVEzlxi6ZaHLimRDydCAUbZatp3DnvPzmZt6/atE9xxy8mR4bvPAP6yKDt9Z636HeyJkRTSviUgMrQ==
 
 run-async@^2.4.0:
   version "2.4.1"
