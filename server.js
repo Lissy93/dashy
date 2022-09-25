@@ -72,6 +72,7 @@ const app = express()
   // Load SSL redirection middleware
   .use(sslServer.middleware)
   // Serves up static files
+  .use(express.static(path.join(__dirname, 'user-data')))
   .use(express.static(path.join(__dirname, 'dist')))
   .use(express.static(path.join(__dirname, 'user-data')))
   .use(express.static(path.join(__dirname, 'public'), { index: 'initialization.html' }))
@@ -88,7 +89,7 @@ const app = express()
       printWarning(`Error running status check for ${req.url}\n`, e);
     }
   })
-  // POST Endpoint used to save config, by writing conf.yml to disk
+  // POST Endpoint used to save config, by writing config file to disk
   .use(ENDPOINTS.save, method('POST', (req, res) => {
     try {
       saveConfig(req.body, (results) => { res.end(results); });
