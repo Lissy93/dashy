@@ -39,6 +39,9 @@ export default {
     showSeconds() {
       return !this.options.hideSeconds;
     },
+    use12Hour() {
+      return !this.options.use12Hour;
+    },
   },
   methods: {
     update() {
@@ -52,6 +55,7 @@ export default {
         hour: 'numeric',
         minute: 'numeric',
         ...(this.showSeconds && { second: 'numeric' }),
+        ...(this.use12Hour && { hourCycle: 'h12' }),
       }).format();
     },
     /* Get and format the date */
