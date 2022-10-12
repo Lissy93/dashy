@@ -420,7 +420,7 @@ Dashy supports multiple languages and locales. When available, your language sho
 - 🇦🇪 **Arabic**: `ar`
 - 🇮🇳 **Hindi**: `hi`
 - 🇯🇵 **Japanese**: `ja`
-- 🇰🇷 **Korean**: `ko` - Contributed by **[@boggy-cs](https://github.com/boggy-cs)**
+- 🇰🇷 **Korean**: `ko` - Contributed by **[Bogyie](https://github.com/Bogyei)**
 - 🇸🇰 **Slovak**: `sk` - Contributed by **[@Smexhy](https://github.com/Smexhy)**
 
 #### Add your Language
