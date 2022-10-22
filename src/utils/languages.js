@@ -20,6 +20,7 @@ import sv from '@/assets/locales/sv.json';
 import bg from '@/assets/locales/bg.json';
 import ko from '@/assets/locales/ko.json';
 import sk from '@/assets/locales/sk.json';
+import da from '@/assets/locales/da.json';
 
 // Language data - Next register your language by adding it to this list
 export const languages = [
@@ -148,6 +149,12 @@ export const languages = [
     code: 'sk',
     locale: sk,
     flag: '🇸🇰',
+  },
+  { // Danish
+    name: 'Dansk',
+    code: 'da',
+    locale: da,
+    flag: '🇩🇰',
   },
 ];
 
