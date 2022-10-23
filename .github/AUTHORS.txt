@@ -64,6 +64,7 @@ bogyeong <boggyhint@gmail.com> - 3 commits
 stanly0726 <37040069+stanly0726@users.noreply.github.com> - 3 commits
 David <laso> - 4 commits
 Lissy93 <alicia@omg.lol> - 4 commits
+Magnus <undströ> - 4 commits
 Niklas <abe> - 4 commits
 Rémy <RANDI> - 4 commits
 Walkx <walkxnl@gmail.com> - 4 commits
@@ -84,12 +85,12 @@ aterox <church.kennetha@gmail.com> - 19 commits
 EVOTk <45015615+EVOTk@users.noreply.github.com> - 22 commits
 Marcell <ülö> - 24 commits
 Alicia <yke> - 28 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 58 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 59 commits
 snyk-bot <snyk-bot@snyk.io> - 61 commits
 Lissy93 <gh@d0h.co> - 78 commits
-Alicia <o> - 109 commits
-liss-bot <liss-bot@d0h.co> - 121 commits
+Alicia <o> - 110 commits
+liss-bot <liss-bot@d0h.co> - 123 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 208 commits
-Alicia <yke> - 222 commits
+Alicia <yke> - 223 commits
 Alicia <yke> - 440 commits
 Alicia <yke> - 1488 commits
