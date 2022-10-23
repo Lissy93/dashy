@@ -240,6 +240,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/lordpansar">
+            <img src="https://avatars.githubusercontent.com/u/14231148?v=4" width="80;" alt="lordpansar"/>
+            <br />
+            <sub><b>Magnus Sundström</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/remygrandin">
             <img src="https://avatars.githubusercontent.com/u/1934515?v=4" width="80;" alt="remygrandin"/>
             <br />
@@ -259,15 +266,15 @@
             <br />
             <sub><b>Bogyeong Kim</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/stanly0726">
             <img src="https://avatars.githubusercontent.com/u/37040069?v=4" width="80;" alt="stanly0726"/>
             <br />
             <sub><b>Stanly0726</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/rubenandre">
             <img src="https://avatars.githubusercontent.com/u/9402773?v=4" width="80;" alt="rubenandre"/>
@@ -302,15 +309,15 @@
             <br />
             <sub><b>CHAIYEON CHO</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/daentech">
             <img src="https://avatars.githubusercontent.com/u/358678?v=4" width="80;" alt="daentech"/>
             <br />
             <sub><b>Dan Gilbert</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/k073l">
             <img src="https://avatars.githubusercontent.com/u/21180271?v=4" width="80;" alt="k073l"/>
@@ -337,13 +344,6 @@
             <img src="https://avatars.githubusercontent.com/u/27576311?v=4" width="80;" alt="0n1cOn3"/>
             <br />
             <sub><b>0n1cOn3</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/AaronPorts">
-            <img src="https://avatars.githubusercontent.com/u/32810520?v=4" width="80;" alt="AaronPorts"/>
-            <br />
-            <sub><b>Artyom</b></sub>
         </a>
     </td></tr>
 </table>
