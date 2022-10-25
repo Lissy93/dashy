@@ -390,6 +390,8 @@ export default {
     .widget-base  {
       min-width: 10rem;
       width: -webkit-fill-available;
+      width: -moz-available;
+      width: fill-available;
     }
   }
 }
