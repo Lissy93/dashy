@@ -31,7 +31,7 @@
     "register-service-worker": "^1.7.2",
     "remedial": "^1.0.8",
     "rsup-progress": "^3.0.0",
-    "simple-icons": "^7.10.0",
+    "simple-icons": "^7.14.0",
     "v-jsoneditor": "^1.4.5",
     "v-tooltip": "^2.1.3",
     "vue": "^2.7.0",
