@@ -17,7 +17,7 @@ const startTime = new Date(); // Initialize timestamp to calculate time taken
 
 console.log(`[${startTime}] Running health check...`);
 
-/* Starts quick HTTP server, attempts to send GET to app, then exists with appropriate exit code */
+/* Creates an HTTP Request to attempt to send GET to app, then exits with appropriate exit code */
 const healthCheck = http.request(requestOptions, (response) => {
   const totalTime = (new Date() - startTime) / 1000;
   const status = response.statusCode;
