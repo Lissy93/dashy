@@ -14,16 +14,16 @@
       :style="customStyle"
     >
       <!-- Item Text -->
-      <div :class="`tile-title  ${!item.icon? 'bounce no-icon': ''}`" :id="`tile-${item.id}`" >
+      <div :class="`tile-title  ${!itemIcon? 'bounce no-icon': ''}`" :id="`tile-${item.id}`" >
         <span class="text">{{ item.title }}</span>
         <p class="description">{{ item.description }}</p>
       </div>
       <!-- Item Icon -->
-      <Icon :icon="item.icon" :url="item.url" :size="size" :color="item.color"
+      <Icon :icon="itemIcon" :url="item.url" :size="size" :color="item.color"
         v-bind:style="customStyles" class="bounce" />
       <!-- Small icon, showing opening method on hover -->
       <ItemOpenMethodIcon class="opening-method-icon"
-        :isSmall="!item.icon || size === 'small'"
+        :isSmall="!itemIcon || size === 'small'"
         :openingMethod="accumulatedTarget"  position="bottom right"
         :hotkey="item.hotkey" />
       <!-- Status indicator dot (if enabled) showing weather service is available -->
@@ -65,7 +65,6 @@ import MoveItemTo from '@/components/InteractiveEditor/MoveItemTo';
 import ContextMenu from '@/components/LinkItems/ItemContextMenu';
 import StoreKeys from '@/utils/StoreMutations';
 import ItemMixin from '@/mixins/ItemMixin';
-// import { targetValidator } from '@/utils/ConfigHelpers';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 import { modalNames } from '@/utils/defaults';
 
@@ -89,6 +88,10 @@ export default {
     EditModeIcon,
   },
   computed: {
+    /* Returns either item.icon, or appConfig.defaultIcon, or null */
+    itemIcon() {
+      return this.item.icon || this.$store.getters.appConfig?.defaultIcon;
+    },
     makeColumnCount() {
       if ((this.sectionDisplayData || {}).itemCountX) return this.sectionDisplayData.itemCountX;
       if (this.sectionWidth < 380) return 1;
@@ -101,8 +104,7 @@ export default {
     /* Based on item props, adjust class names */
     makeClassList() {
       const { isAddNew, isEditMode, size } = this;
-      const { icon } = this.item;
-      return `size-${size} ${!icon ? 'short' : ''} `
+      return `size-${size} ${!this.itemIcon ? 'short' : ''} `
         + `${isAddNew ? 'add-new' : ''} ${isEditMode ? 'is-edit-mode' : ''}`;
     },
     /* Used by certain themes (material), to show animated CSS icon */
