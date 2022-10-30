@@ -193,6 +193,11 @@
           "default": "allesedv",
           "description": "Which service to use to resolve favicons. Set to local to do this locally instead"
         },
+        "defaultIcon": {
+          "title": "Default Icon",
+          "type": "string",
+          "description": "An icon to apply to any items which don't yet have the icon set"
+        },
         "layout": {
           "title": "Default Layout",
           "type": "string",
