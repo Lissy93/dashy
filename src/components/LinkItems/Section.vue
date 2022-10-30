@@ -389,9 +389,9 @@ export default {
     justify-content: space-around;
     .widget-base  {
       min-width: 10rem;
+      width: stretch;
       width: -webkit-fill-available;
       width: -moz-available;
-      width: fill-available;
     }
   }
 }
