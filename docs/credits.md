@@ -319,6 +319,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/thomasdissert">
+            <img src="https://avatars.githubusercontent.com/u/11446531?v=4" width="80;" alt="thomasdissert"/>
+            <br />
+            <sub><b>Thomas Dissert</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/k073l">
             <img src="https://avatars.githubusercontent.com/u/21180271?v=4" width="80;" alt="k073l"/>
             <br />
@@ -337,13 +344,6 @@
             <img src="https://avatars.githubusercontent.com/u/24290044?v=4" width="80;" alt="Singebob"/>
             <br />
             <sub><b>Jeremy Chauvin</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/0n1cOn3">
-            <img src="https://avatars.githubusercontent.com/u/27576311?v=4" width="80;" alt="0n1cOn3"/>
-            <br />
-            <sub><b>0n1cOn3</b></sub>
         </a>
     </td></tr>
 </table>
