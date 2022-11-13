@@ -523,6 +523,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
 <table>
 <tr>
     <td align="center">
+        <a href="https://github.com/koconder">
+            <img src="https://avatars.githubusercontent.com/u/25068?v=4" width="80;" alt="koconder"/>
+            <br />
+            <sub><b>Vincent Koc</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/Keloran">
             <img src="https://avatars.githubusercontent.com/u/200350?v=4" width="80;" alt="Keloran"/>
             <br />
@@ -551,6 +558,14 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/AnandChowdhary">
+            <img src="https://avatars.githubusercontent.com/u/2841780?v=4" width="80;" alt="AnandChowdhary"/>
+            <br />
+            <sub><b>Anand Chowdhary</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
         <a href="https://github.com/davidpaulyoung">
             <img src="https://avatars.githubusercontent.com/u/3418369?v=4" width="80;" alt="davidpaulyoung"/>
             <br />
@@ -563,8 +578,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Carol Ouellet</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/UlisesGascon">
             <img src="https://avatars.githubusercontent.com/u/5110813?u=3c41facd8aa26154b9451de237c34b0f78d672a5&v=4" width="80;" alt="UlisesGascon"/>
@@ -592,7 +606,8 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Brian McGonagill</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/vlad-timofeev">
             <img src="https://avatars.githubusercontent.com/u/11474041?v=4" width="80;" alt="vlad-timofeev"/>
@@ -606,8 +621,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Byolock</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/PAPAMICA">
             <img src="https://avatars.githubusercontent.com/u/29079741?v=4" width="80;" alt="PAPAMICA"/>
@@ -635,7 +649,8 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Ratty222</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/jtfinley72">
             <img src="https://avatars.githubusercontent.com/u/96497997?v=4" width="80;" alt="jtfinley72"/>
