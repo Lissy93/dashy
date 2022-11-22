@@ -37,10 +37,14 @@ export default {
       return this.timeZone.split('/')[1].replaceAll('_', ' ');
     },
     showSeconds() {
-      return !this.options.hideSeconds;
+      if (this.options.hideSeconds) return this.options.hideSeconds;
+      // this is the default
+      return true;
     },
     use12Hour() {
-      return !this.options.use12Hour;
+      if (this.options.use12Hour) return this.options.use12Hour;
+      // this is the default, it gets computed by the DateTimeFormat implementation
+      return Intl.DateTimeFormat(this.timeFormat, { timeZone: this.timeZone, hour: 'numeric' }).resolvedOptions().hour12 ?? false;
     },
   },
   methods: {
