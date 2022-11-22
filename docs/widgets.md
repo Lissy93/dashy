@@ -110,7 +110,7 @@ A simple, live-updating time and date widget with time-zone support. All fields 
 **`customCityName`** | `string` |  _Optional_ | By default the city from the time-zone is shown, but setting this value will override that text
 **`hideDate`** | `boolean` |  _Optional_ | If set to `true`, the date and city will not be shown. Defaults to `false`
 **`hideSeconds`** | `boolean` |  _Optional_ | If set to `true`, seconds will not be shown. Defaults to `false`
-**`use12Hour`** | `boolean` |  _Optional_ | If set to `true`, 12 hour time will be displayed. Defaults to `false`
+**`use12Hour`** | `boolean` |  _Optional_ | If set to `true`, 12 hour time will be displayed. Defaults to the settings suggested by the current `format` and `timeZone`
 
 #### Example
 
