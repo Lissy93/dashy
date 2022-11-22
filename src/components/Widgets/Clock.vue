@@ -37,7 +37,7 @@ export default {
       return this.timeZone.split('/')[1].replaceAll('_', ' ');
     },
     showSeconds() {
-      if (this.options.hideSeconds) return this.options.hideSeconds;
+      if (this.options.hideSeconds) return !this.options.hideSeconds;
       // this is the default
       return true;
     },
