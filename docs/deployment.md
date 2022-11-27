@@ -188,7 +188,7 @@ https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy
 
 [![Deploy to Heroku](https://i.ibb.co/GdMFzBP/deploy-heroku-button.png)](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
 
-[Heroku](https://www.heroku.com/) is a fully managed cloud platform as a service. You define app settings in a Procfile and app.json, which specifying how the app should be build and how the server should be started. Heroku is free to use for unlimited, non-commercial, single dyno apps, and supports custom domains. Heroku's single-dyno service is not as quite performant as some other providers, and the app will have a short wake-up time when not visited for a while
+[Heroku](https://www.heroku.com/) is a fully managed cloud platform as a service. You define app settings in a Procfile and app.json, which specifying how the app should be build and how the server should be started. Heroku costs a minimum of $5 for 1,000 dyno hours per month (there are around 720 hours in a  month), and supports custom domains. Heroku's single-dyno service is not as quite performant as some other providers, and the app will have a short wake-up time when not visited for a while
 
 To deploy Dashy to Heroku, use the following link
 
