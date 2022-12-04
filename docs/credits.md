@@ -98,13 +98,6 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/Byolock">
-            <img src="https://avatars.githubusercontent.com/u/25748003?v=4" width="80;" alt="Byolock"/>
-            <br />
-            <sub><b>Byolock</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/PAPAMICA">
             <img src="https://avatars.githubusercontent.com/u/29079741?v=4" width="80;" alt="PAPAMICA"/>
             <br />
@@ -119,20 +112,12 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/Hue899">
-            <img src="https://avatars.githubusercontent.com/u/67720949?u=3138b65cb48b5434f4c5a248152a1de66d30b13c&v=4" width="80;" alt="Hue899"/>
-            <br />
-            <sub><b>NKA</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/ratty222">
             <img src="https://avatars.githubusercontent.com/u/92832598?u=137b65530cbd5f5af9c24cde51baa6cc77cc934b&v=4" width="80;" alt="ratty222"/>
             <br />
             <sub><b>Ratty222</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/jtfinley72">
             <img src="https://avatars.githubusercontent.com/u/96497997?v=4" width="80;" alt="jtfinley72"/>
