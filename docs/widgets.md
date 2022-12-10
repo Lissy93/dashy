@@ -254,6 +254,8 @@ Or what about showing a photo of the day? Try `https://source.unsplash.com/rando
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`imagePath`** | `string` |  Required | The path (local or remote) of the image to display
+**`imageWidth`** | `string` |  _Optional_ | Specify a fixed width for rendered image. Accepts either integer value in `px`, or any string value with units (e.g. `420`, `100px`, `6.9rem`) (defaults to `auto`)
+**`imageHeight`** | `string` |  _Optional_ | Specify a fixed height for rendered image. Accepts either integer value in `px`, or any string value with units (e.g. `420`, `100px`, `6.9rem`) (defaults to `auto`)
 
 #### Example
 
