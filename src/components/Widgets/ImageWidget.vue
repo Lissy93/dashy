@@ -1,6 +1,6 @@
 <template>
 <div class="image-widget">
-  <img :src="imagePath" class="embedded-image" />
+  <img :src="imagePath" :style="imageDimensions" class="embedded-image" />
 </div>
 </template>
 
@@ -17,6 +17,30 @@ export default {
     imagePath() {
       if (!this.options.imagePath) this.error('You must specify an imagePath');
       return `${this.options.imagePath}${this.updatePathParam}`;
+    },
+    /* If set, apply users specified image dimensions */
+    imageDimensions() {
+      // Skip if neither set
+      if (!this.options.imageWidth && !this.options.imageHeight) return null;
+      // Apply correct units to input val, if needed
+      const makeDimensionsUnit = (userVal) => {
+        if (!userVal) { // Nothing set, use auto
+          return 'auto';
+        } else if (!Number.isNaN(Number(userVal))) { // Number set, add px
+          return `${userVal}px`;
+        } else { // Value is string, likely already includes units
+          return userVal;
+        }
+      };
+      console.log(`
+        width: ${makeDimensionsUnit(this.options.imageWidth)};
+        height: ${makeDimensionsUnit(this.options.imageHeight)};
+      `);
+      // Return CSS values for width and height
+      return `
+        width: ${makeDimensionsUnit(this.options.imageWidth)};
+        height: ${makeDimensionsUnit(this.options.imageHeight)};
+      `;
     },
     /* Generate a URL param, to be updated in order to re-fetch image */
     updatePathParam() {
