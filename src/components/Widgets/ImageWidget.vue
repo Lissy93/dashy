@@ -32,10 +32,6 @@ export default {
           return userVal;
         }
       };
-      console.log(`
-        width: ${makeDimensionsUnit(this.options.imageWidth)};
-        height: ${makeDimensionsUnit(this.options.imageHeight)};
-      `);
       // Return CSS values for width and height
       return `
         width: ${makeDimensionsUnit(this.options.imageWidth)};
@@ -50,7 +46,9 @@ export default {
   methods: {
     /* In order to re-fetch the image, we much update the URL with an arbitrary hash */
     update() {
+      this.startLoading();
       this.updateCount += 1;
+      this.finishLoading();
     },
   },
 };
