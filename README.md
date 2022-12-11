@@ -581,6 +581,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/bile0026">
+            <img src="https://avatars.githubusercontent.com/u/5022496?v=4" width="80;" alt="bile0026"/>
+            <br />
+            <sub><b>Zach Biles</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/UlisesGascon">
             <img src="https://avatars.githubusercontent.com/u/5110813?u=3c41facd8aa26154b9451de237c34b0f78d672a5&v=4" width="80;" alt="UlisesGascon"/>
             <br />
@@ -600,15 +607,15 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Adam Kostarelas</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/bmcgonag">
             <img src="https://avatars.githubusercontent.com/u/7346620?u=2a0f9284f3e12ac1cc15288c254d1ec68a5081e8&v=4" width="80;" alt="bmcgonag"/>
             <br />
             <sub><b>Brian McGonagill</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/vlad-timofeev">
             <img src="https://avatars.githubusercontent.com/u/11474041?v=4" width="80;" alt="vlad-timofeev"/>
@@ -624,6 +631,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/svenniuwe">
+            <img src="https://avatars.githubusercontent.com/u/30127271?v=4" width="80;" alt="svenniuwe"/>
+            <br />
+            <sub><b>Sven</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/shadowking001">
             <img src="https://avatars.githubusercontent.com/u/43928955?u=a00b44f22e5a82234d9b406ac048def1fbc16e31&v=4" width="80;" alt="shadowking001"/>
             <br />
@@ -636,7 +650,8 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Ratty222</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/jtfinley72">
             <img src="https://avatars.githubusercontent.com/u/96497997?v=4" width="80;" alt="jtfinley72"/>
