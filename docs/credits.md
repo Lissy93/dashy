@@ -63,7 +63,7 @@
     </td>
     <td align="center">
         <a href="https://github.com/bile0026">
-            <img src="https://avatars.githubusercontent.com/u/5022496?v=4" width="80;" alt="bile0026"/>
+            <img src="https://avatars.githubusercontent.com/u/5022496?u=aec96ad173c0ea9baaba93807efa8a848af6595c&v=4" width="80;" alt="bile0026"/>
             <br />
             <sub><b>Zach Biles</b></sub>
         </a>
@@ -113,7 +113,7 @@
     </td>
     <td align="center">
         <a href="https://github.com/svenniuwe">
-            <img src="https://avatars.githubusercontent.com/u/30127271?v=4" width="80;" alt="svenniuwe"/>
+            <img src="https://avatars.githubusercontent.com/u/30127271?u=4902a9bc5b6765db2dbadcc0a098faebc506e4ac&v=4" width="80;" alt="svenniuwe"/>
             <br />
             <sub><b>Sven</b></sub>
         </a>
@@ -176,8 +176,8 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/Ateroz">
-            <img src="https://avatars.githubusercontent.com/u/5369885?v=4" width="80;" alt="Ateroz"/>
+        <a href="https://github.com/Azerioxal">
+            <img src="https://avatars.githubusercontent.com/u/5369885?v=4" width="80;" alt="Azerioxal"/>
             <br />
             <sub><b>Kenneth Church</b></sub>
         </a>
