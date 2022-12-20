@@ -21,6 +21,7 @@ import bg from '@/assets/locales/bg.json';
 import ko from '@/assets/locales/ko.json';
 import sk from '@/assets/locales/sk.json';
 import da from '@/assets/locales/da.json';
+import cs from '@/assets/locales/cs.json';
 
 // Language data - Next register your language by adding it to this list
 export const languages = [
@@ -155,6 +156,12 @@ export const languages = [
     code: 'da',
     locale: da,
     flag: '🇩🇰',
+  },
+  { // Czech
+    name: 'Čeština',
+    code: 'cs',
+    locale: cs,
+    flag: '🇨🇿',
   },
 ];
 
