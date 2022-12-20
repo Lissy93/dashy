@@ -156,6 +156,12 @@ export const languages = [
     locale: da,
     flag: '🇩🇰',
   },
+  { // Czech
+    name: 'Čeština',
+    code: 'cs',
+    locale: cs,
+    flag: '🇨🇿',
+  },
 ];
 
 /**
