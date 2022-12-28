@@ -3,7 +3,7 @@
   "short_name": "Dashy",
   "description": "A Dashboard for your Homelab",
   "scope": "/",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0b1021",
   "theme_color": "#4DBA87",
