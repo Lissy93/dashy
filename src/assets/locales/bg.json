@@ -303,6 +303,15 @@
       "remaining": "Оставащо",
       "up": "Нагоре",
       "down": "Надолу"
+    },
+    "gluetun-status": {
+      "country": "Държава",
+      "region": "Регион",
+      "city": "Град",
+      "post-code": "Пощенски код",
+      "location": "Локация",
+      "timezone": "Часова зона",
+      "organization": "Организация"
     }
   }
 }
