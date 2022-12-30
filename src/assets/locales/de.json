@@ -2,13 +2,15 @@
     "home":
     {
         "no-results": "keine Suchergebnisse",
-        "no-data": "keine Daten konfiguriert"
+        "no-data": "keine Daten konfiguriert",
+        "no-items-section": "Noch keine Elemente zum Anzeigen"
     },
     "search":
     {
         "search-label": "Suche",
         "search-placeholder": "Tippen um zu filtern",
-        "clear-search-tooltip": "Suchfeld leeren"
+        "clear-search-tooltip": "Suchfeld leeren",
+        "enter-to-search-web": "Drücke Enter um das Internet zu durchsuchen"
     },
     "login":
     {
@@ -20,7 +22,19 @@
         "remember-me-never": "Niemals",
         "remember-me-hour": "4 Stunden",
         "remember-me-day": "1 Tag",
-        "remember-me-week": "1 Woche"
+        "remember-me-week": "1 Woche",
+        "remember-me-long-time": "Eine lange Zeit",
+        "error-missing-username": "Benutzername fehlt",
+        "error-missing-password": "Passwort fehlt",
+        "error-incorrect-username": "Benutzer nicht gefunden",
+        "error-incorrect-password": "Falsches Passwort",
+        "success-message": "Anmeldung läuft...",
+        "logout-message": "Abgemeldet",
+        "already-logged-in-title": "Bereits angemeldet",
+        "already-logged-in-text": "Angemeldet als",
+        "proceed-to-dashboard": "Zum Dashboard fortfahren",
+        "log-out-button": "Abmelden",
+        "proceed-guest-button": "Als Gast fortfahren"
     },
     "config":
     {
@@ -32,11 +46,11 @@
         "download-config-button": "Konfigurationsdownload",
         "edit-config-button": "Konfiguration bearbeiten",
         "edit-css-button": "CSS bearbeiten",
-        "cloud-sync-button": "Cloud-Synchronisation aktiveren",
+        "cloud-sync-button": "Cloud-Synchronisation aktivieren",
         "edit-cloud-sync-button": "Cloud-Synchronisation bearbeiten",
         "rebuild-app-button": "Anwendung neu kompilieren",
         "change-language-button": "App-Sprache ändern",
-        "reset-settings-button": "Einstellungen zurücksetzen",
+        "reset-settings-button": "lokale Einstellungen zurücksetzen",
         "app-info-button": "App Informationen",
         "backup-note": "Es wird empfohlen ein Backup der Konfiguration zu erstellen bevor Änderungen durchgeführt werden.",
         "reset-config-msg-l1": "Dadurch werden alle Benutzereinstellungen aus dem lokalen Speicher entfernt, dies hat jedoch keine Auswirkungen auf Ihre Datei 'conf.yml'.",
@@ -46,12 +60,18 @@
         "actions-label": "Aktionen",
         "copy-config-label": "Konfiguration kopieren",
         "data-copied-msg": "Konfiguration wurde in die Zwischenablage kopiert",
-        "reset-config-label": "Konfiguration zurücksetzten",
+        "reset-config-label": "Konfiguration zurücksetzen",
         "css-save-btn": "Änderungen speichern",
         "css-note-label": "Bemerkung",
         "css-note-l1": "Sie müssen die Seite aktualisieren, damit Ihre Änderungen wirksam werden.",
         "css-note-l2": "Stilüberschreibungen werden nur lokal gespeichert, daher wird empfohlen vorher eine Kopie Ihres CSS zu erstellen.",
         "css-note-l3": "Um alle benutzerdefinierten Stile zu entfernen löschen Sie den Inhalt und klicken Sie auf Änderungen speichern."
+    },
+    "alternate-views": {
+        "alternate-view-heading": "Ansicht wechseln",
+        "default": "Standard",
+        "workspace": "Arbeitsplatz",
+        "minimal": "Minimal"
     },
     "settings":
     {
@@ -64,7 +84,11 @@
         "item-size-small": "klein",
         "item-size-medium": "mittel",
         "item-size-large": "groß",
-        "config-launcher-label": "Konfiguration"
+        "config-launcher-label": "Konfiguration",
+        "config-launcher-tooltip": "Konfiguration aktualisieren",
+        "sign-out-tooltip": "Abmelden",
+        "sign-in-tooltip": "Anmelden",
+        "sign-in-welcome": "Hallo {username}!"
     },
     "updates":
     {
@@ -87,6 +111,7 @@
         "export-button": "Benutzerdefinierte Variablen exportieren",
         "reset-button": "CSS zurücksetzen für",
         "show-all-button": "Alle Variablen anzeigen",
+        "change-fonts-button": "Schriftart ändern",
         "save-button": "Speichern",
         "cancel-button": "Abbrechen",
         "saved-toast": "{theme} wurde erfolgreich aktualisiert",
@@ -96,9 +121,10 @@
     "config-editor":
     {
         "save-location-label": "Speicherort",
-        "location-local-label": "Lokal",
+        "location-local-label": "Lokal anwenden",
         "location-disk-label": "Änderungen in die Konfigurationsdatei schreiben",
         "save-button": "Änderungen speichern",
+        "preview-button": "Vorschau der Änderungen",
         "valid-label": "Syntax ist gültig",
         "status-success-msg": "Aufgabe abgeschlossen",
         "status-fail-msg": "Aufgabe fehlgeschlagen",
@@ -108,9 +134,10 @@
         "success-note-l2": "Dies kann bis zu einer Minute dauern.",
         "success-note-l3": "Sie müssen die Seite aktualisieren damit die Änderungen wirksam werden.",
         "error-msg-save-mode": "Bitte wählen Sie einen Speichermodus: Lokal oder Datei",
-        "error-msg-cannot-save": "Beim speichern der Konfiguration ist ein Fehler aufgetreten",
+        "error-msg-cannot-save": "Beim Speichern der Konfiguration ist ein Fehler aufgetreten",
         "error-msg-bad-json": "Fehler in JSON-Daten, möglicherweise fehlerhafter Syntax",
-        "warning-msg-validation": "Validierungswarnung"
+        "warning-msg-validation": "Validierungswarnung",
+        "not-admin-note": "Änderungen können nicht auf die Festplatte gespeichert werden, da Sie nicht als Administrator angemeldet sind"
     },
     "app-rebuild":
     {
@@ -124,14 +151,14 @@
         "error-permission": "Sie sind nicht berechtigt diese Aktion auszulösen",
         "success-msg": "Kompilierung erfolgreich abgeschlossen",
         "fail-msg": "Kompilierung fehlgeschlagen",
-        "reload-note": "Ein neu laden der Seite ist erforderlich damit die Änderungen wirksam werden.",
+        "reload-note": "Ein neu Laden der Seite ist erforderlich, damit die Änderungen wirksam werden.",
         "reload-button": "Seite neu laden"
     },
     "cloud-sync":
     {
         "title": "Cloud Backup & Wiederherstellung",
         "intro-l1": "Cloud-Backup und Wiederherstellung ist eine optionale Funktion mit der Sie Ihre Konfiguration in das Internet hochladen und dann auf einem anderen Gerät oder einer anderen Dashy-Instanz wiederherstellen können.",
-        "intro-l2": "Alle Daten sind vollständig Ende-zu-Ende mit AES verschlüsselt. Ihr Passwort wird als Schlüssel verwendet wird.",
+        "intro-l2": "Alle Daten sind vollständig Ende-zu-Ende mit AES verschlüsselt. Ihr Passwort wird als Schlüssel verwendet.",
         "intro-l3": "Weitere Informationen finden Sie im",
         "backup-title-setup": "Backup erstellen",
         "backup-title-update": "Backup aktualisieren",
@@ -139,7 +166,7 @@
         "password-label-update": "Passwort eingeben",
         "backup-button-setup": "Backup",
         "backup-button-update": "Backup aktualisieren",
-        "backup-id-label": "Deine Backup ID",
+        "backup-id-label": "Ihre Backup ID",
         "backup-id-note": "Diese wird zusammen mit dem Passwort benötigt um Ihr Backup wiederherzustellen. Bewahren Sie sie zusammen mit Ihrem Passwort an einem sicheren Ort auf.",
         "restore-title": "Backup wiederherstellen",
         "restore-id-label": "ID wiederherstellen",
@@ -147,7 +174,7 @@
         "restore-button": "Wiederherstellen",
         "backup-error-unknown": "Anfrage kann nicht verarbeitet werden",
         "backup-error-password": "Falsches Passwort. Bitte geben Sie Ihr aktuelles Passwort ein.",
-        "backup-success-msg": "Erfolgreich beendet",
+        "backup-success-msg": "Erfolgreich abgeschlossen",
         "restore-success-msg": "Konfiguration erfolgreich wiederhergestellt"
     },
     "menu":
@@ -195,29 +222,29 @@
             "edit-site-data-subheading": "Seiteninformationen bearbeiten",
             "edit-page-info-btn": "Seiteninformationen bearbeiten",
             "edit-page-info-tooltip": "Applikationstitel, Beschreibung, Nav. links, Fußzeile, etc.",
-            "edit-app-config-btn": "Applikatioonskonfiguration bearbeiten",
+            "edit-app-config-btn": "Applikationskonfiguration bearbeiten",
             "edit-app-config-tooltip": "Alle anderen Konfigurationsoptionen",
             "edit-pages-btn": "Seiten bearbeiten",
             "edit-pages-tooltip": "Hinzufügen oder entfernen von zusätzlichen Ansichten",
             "config-save-methods-subheading": "Speicheroptionen der Konfiguration",
             "save-locally-btn": "Lokal speichern",
-            "save-locally-tooltip": "Konfiguration lokal im Browser speichern. Dies hat keinen Einfluß auf di Konfigurationsdatei, aber Änderungen werden nur in diesem Browser gespeichert",
+            "save-locally-tooltip": "Konfiguration lokal im Browser speichern. Dies hat keinen Einfluss auf die Konfigurationsdatei, aber Änderungen werden nur in diesem Browser gespeichert",
             "save-disk-btn": "Auf Festplatte speichern",
             "save-disk-tooltip": "Konfigurationsdatei conf.yml speichern. Dies erzeugt ein Backup und überschreibt dann die existierende Konfigurationsdatei",
             "export-config-btn": "Konfiguration exportieren",
             "export-config-tooltip": "Konfiguration anzeigen und exportieren, entweder in eine Datei oder in die Zwischenablage",
             "cloud-backup-btn": "Cloud-Backup starten",
-            "cloud-backup-tooltip": "Speichert ein verrscglüsseltes Backup in die Cloud",
+            "cloud-backup-tooltip": "Speichert ein verrschlüsseltes Backup in die Cloud",
             "edit-raw-config-btn": "Konfiguration als Rohdaten bearbeiten",
             "edit-raw-config-tooltip": "Anzeigen und bearbeiten der Konfiguration als Rohdaten im JSON-Editor",
             "cancel-changes-btn": "Verwerfen",
-            "cancel-changes-tooltip": "Modifikationen zurücksetzen und Beenden. Dies hat keinen Einfluß auf die Konfigurationsdatei",
+            "cancel-changes-tooltip": "Modifikationen zurücksetzen und Bearbeitungsmodus schließen. Dies hat keinen Einfluss auf die Konfigurationsdatei",
             "edit-mode-name": "Bearbeitung",
-            "edit-mode-subtitle": "Du bist im Bearbeitungsmodus",
-            "edit-mode-description": "Das bedeutet es Änderungen an der Konfigurationsdatei durchgeführt werden. Änderungen können vor dem Speichern betrachtet werden.",
+            "edit-mode-subtitle": "Sie sind im Bearbeitungsmodus",
+            "edit-mode-description": "Das bedeutet, dass Änderungen an der Konfigurationsdatei vorgenommen werden können. Änderungen können vor dem Speichern betrachtet werden.",
             "save-stage-btn": "Speichern",
             "cancel-stage-btn": "Abbrechen",
-            "save-locally-warning": "Wenn du fortfährst werden die Änderungen nur in deinem Browser gespeichert. Um die Konfiguration auf anderen Geräten zu nutzen solltest du sie exportieren. Möchtest du fortfahren?"
+            "save-locally-warning": "Wenn Sie fortfahren werden die Änderungen nur in Ihrem Browser gespeichert. Um die Konfiguration auf anderen Geräten zu nutzen sollten Sie sie exportieren. Möchten Sie fortfahren?"
         },
         "edit-item":
         {
@@ -228,21 +255,21 @@
             "edit-section-title": "Sektion bearbeiten",
             "add-section-title": "Neue Sektion hinzufügen",
             "edit-tooltip": "Klicken zum Bearbeiten oder Rechtsklick für weitere Optionen",
-            "remove-confirm": "Sind Sie sicher das sie diese Sektion entfernen möchten? Diese Aktion kann nicht rückgänging gemacht werden."
+            "remove-confirm": "Sind Sie sicher, dass sie diese Sektion entfernen möchten? Diese Aktion kann nicht rückgänging gemacht werden."
         },
         "edit-app-config":
         {
             "warning-msg-title": "Ab hier ist Vorsicht geboten",
             "warning-msg-l1": "Die folgenden Optionen sind für fortgeschrittene Konfigurationen.",
-            "warning-msg-l2": "Sollten Felder unklar sein konultieren Sie die",
+            "warning-msg-l2": "Sollten Felder unklar sein, konsultieren Sie die",
             "warning-msg-docs": "Dokumentation",
-            "warning-msg-l3": "um unerwartetes größtmöglich zu vermeiden."
+            "warning-msg-l3": "um unbeabsichtigte Folgen zu vermeiden."
         },
         "export":
         {
             "export-title": "Konfiguration exportieren",
             "copy-clipboard-btn": "In Zwischenablage kopieren",
-            "copy-clipboard-tooltip": "Applikationskonfiguration, als YAML, in Zwischenablage kopieren",
+            "copy-clipboard-tooltip": "Applikationskonfiguration als YAML in Zwischenablage kopieren",
             "download-file-btn": "Datei herunterladen",
             "download-file-tooltip": "Applikationskonfiguration auf Ihr Gerät herunterladen",
             "view-title": "Konfiguration anzeigen"
@@ -270,7 +297,7 @@
         {
             "cpu-chart-title": "CPU Historie",
             "mem-chart-title": "Speichernutzung",
-            "mem-breakdown-title": "Speichernutzunbg",
+            "mem-breakdown-title": "Speichernutzung",
             "load-chart-title": "Systemlast"
         },
         "glances":
@@ -278,7 +305,7 @@
             "disk-space-free": "Frei",
             "disk-space-used": "Genutzt",
             "disk-mount-point": "Mount Punkt",
-            "disk-file-system": "Dateisyste,",
+            "disk-file-system": "Dateisystem,",
             "disk-io-read": "Lesen",
             "disk-io-write": "Schreiben",
             "system-load-desc": "Prozesse in Warteschlange. (Durchschnitt aller Kerne)"
@@ -301,11 +328,22 @@
         {
             "download": "Download",
             "upload": "Upload",
-            "downloaded": "Downloaded",
-            "uploaded": "Uploaded",
+            "downloaded": "Heruntergeladen",
+            "uploaded": "Hochgeladen",
             "remaining": "Verbleibend",
             "up": "Hoch",
             "down": "Runter"
+        },
+        "gluetun-status": 
+        {
+            "vpn-ip": "VPN IP",
+            "country": "Land",
+            "region": "Bundesland",
+            "city": "Stadt",
+            "post-code": "Postleitzahl",
+            "location": "Standort",
+            "timezone": "Zeitzone",
+            "organization": "Organisation"
         },
         "nextcloud":
         {
@@ -335,7 +373,7 @@
             "in": "in",
             "keys": "Schlüssel",
             "last-24-hours": "Letzte 24 Stunden",
-            "last-5-minutes": "in den letzte 5 Minuten",
+            "last-5-minutes": "in den letzten 5 Minuten",
             "last-hour": "in der letzten Stunde",
             "last-login": "Letzte Anmeldung",
             "last-restart": "Letzter Neustart",
@@ -368,7 +406,7 @@
             "strings-use": "Strings benutzen",
             "tasks": "Aufgaben",
             "total-files": "Dateien gesamt",
-            "total-users": "Bneutzer gesamt",
+            "total-users": "Benutzer gesamt",
             "total": "Insgesamt",
             "until": "Bis",
             "updates-available-for": "Aktualisierungen sind verfügbar für",
