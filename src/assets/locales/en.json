@@ -12,6 +12,7 @@
   },
   "login": {
     "title": "Dashy",
+    "guest-label": "Guest Access",
     "username-label": "Username",
     "password-label": "Password",
     "login-button": "Login",
@@ -31,7 +32,14 @@
     "already-logged-in-text": "You're logged in as",
     "proceed-to-dashboard": "Proceed to Dashboard",
     "log-out-button": "Logout",
-    "proceed-guest-button": "Proceed as Guest"
+    "proceed-guest-button": "Proceed as Guest",
+    "guest-intro-1": "This instance has guest access enabled.",
+    "guest-intro-2": "Guests have view-only access to dashboards, so cannot write any changes to disk.",
+    "error": "Error",
+    "error-no-user-configured": "Authentication is not enabled, or no users have been configured",
+    "error-go-home-button": "Go Home",
+    "logged-in-guest": "Logged in as Guest, Redirecting...",
+    "error-guest-access": "Guest Access Not Allowed"
   },
   "config": {
     "main-tab": "Main Menu",

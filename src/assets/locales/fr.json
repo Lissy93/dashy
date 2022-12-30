@@ -11,6 +11,7 @@
   },
   "login": {
     "title": "Dashy",
+    "guest-label": "Accès invité",
     "username-label": "Nom d'utilisateur",
     "password-label": "Mot de passe",
     "login-button": "Connexion",
@@ -30,7 +31,14 @@
     "already-logged-in-text": "Vous êtes connecté en tant que",
     "proceed-to-dashboard": "Accéder au Tableau de bord",
     "log-out-button": "Déconnexion",
-    "proceed-guest-button": "Continuer en tant qu'invité"
+    "proceed-guest-button": "Continuer en tant qu'invité",
+    "guest-intro-1": "L'accès invité est activé pour cette instance.",
+    "guest-intro-2": "Les invités n'ont qu'un accès en mode lecture aux tableaux de bord, et ne peuvent donc pas écrire de modifications sur le disque.",
+    "error": "Erreur",
+    "error-no-user-configured": "L'authentification n'est pas activée ou aucun utilisateur n'a été configuré.",
+    "error-go-home-button": "Retour à l'accueil",
+    "logged-in-guest": "Connecté en tant qu'invité, redirection...",
+    "error-guest-access": "L'accès invité n'est pas autorisé"
   },
   "config": {
     "main-tab": "Menu principal",

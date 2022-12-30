@@ -51,22 +51,21 @@
     <!-- Guest login form -->
     <form class="guest-form"
       v-if="isGuestAccessEnabled && !isUserAlreadyLoggedIn && isAuthenticationEnabled">
-      <h2 class="login-title">Guest Access</h2>
+      <h2 class="login-title">{{ $t('login.guest-label') }}</h2>
       <Button class="login-button" :click="guestLogin">
         {{ $t('login.proceed-guest-button') }}
       </Button>
       <p class="guest-intro">
-        This instance has guest access enabled.<br>
-        Guests have view-only access to dashboards,
-        so cannot write any changes to disk.
+        {{ $t('login.guest-intro-1') }}<br>
+        {{ $t('login.guest-intro-2') }}
       </p>
     </form>
     <!-- Edge case - guest mode enabled, but no users configured -->
     <div class="not-configured" v-if="!isAuthenticationEnabled">
-      <h2>Error</h2>
-      <p>Authentication is not enabled, or no users have been configured</p>
+      <h2>{{ $t('login.error') }}</h2>
+      <p>{{ $t('login.error-no-user-configured') }}</p>
       <Button class="login-button" :click="guestLogin">
-        Go Home
+        {{ $t('login.error-go-home-button') }}
       </Button>
     </div>
   </div>
@@ -169,11 +168,11 @@ export default {
     guestLogin() {
       const isAllowed = this.isGuestAccessEnabled;
       if (isAllowed) {
-        this.$toasted.show('Logged in as Guest, Redirecting...', { className: 'toast-success' });
+        this.$toasted.show(this.$t('login.logged-in-guest'), { className: 'toast-success' });
         InfoHandler('Logged in as Guest', InfoKeys.AUTH);
         this.goHome();
       } else {
-        this.$toasted.show('Guest Access Not Allowed', { className: 'toast-error' });
+        this.$toasted.show(this.$t('login.error-guest-access'), { className: 'toast-error' });
         WarningInfoHandler('Guest Access Not Allowed', InfoKeys.AUTH);
       }
     },
