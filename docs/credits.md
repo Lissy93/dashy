@@ -83,20 +83,13 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/AdamXweb">
-            <img src="https://avatars.githubusercontent.com/u/6800453?u=3be969c9df11fa94351c42da8134ce3eaf33d6f1&v=4" width="80;" alt="AdamXweb"/>
-            <br />
-            <sub><b>Adam Kostarelas</b></sub>
-        </a>
-    </td></tr>
-<tr>
-    <td align="center">
         <a href="https://github.com/bmcgonag">
             <img src="https://avatars.githubusercontent.com/u/7346620?u=2a0f9284f3e12ac1cc15288c254d1ec68a5081e8&v=4" width="80;" alt="bmcgonag"/>
             <br />
             <sub><b>Brian McGonagill</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/vlad-timofeev">
             <img src="https://avatars.githubusercontent.com/u/11474041?v=4" width="80;" alt="vlad-timofeev"/>
@@ -131,8 +124,7 @@
             <br />
             <sub><b>Ratty222</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/jtfinley72">
             <img src="https://avatars.githubusercontent.com/u/96497997?v=4" width="80;" alt="jtfinley72"/>
