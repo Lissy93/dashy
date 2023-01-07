@@ -10,6 +10,9 @@
     "clear-search-tooltip": "Clear Search",
     "enter-to-search-web": "Press enter to search the web"
   },
+  "splash-screen": {
+    "loading": "Loading"
+  },
   "login": {
     "title": "Dashy",
     "guest-label": "Guest Access",
@@ -86,6 +89,8 @@
     "rebuild-app-button": "Rebuild Application",
     "change-language-button": "Change App Language",
     "reset-settings-button": "Reset Local Settings",
+    "disabled-note": "Some configuration features have been disabled by your administrator",
+    "small-screen-note": "You are using a very small screen, and some screens in this menu may not be optimal",
     "app-info-button": "App Info",
     "backup-note": "It is recommended to make a backup of your configuration before making changes.",
     "reset-config-msg-l1": "This will remove all user settings from local storage, but won't affect your 'conf.yml' file.",

@@ -10,6 +10,9 @@
     "clear-search-tooltip": "Effacer la recherche",
     "enter-to-search-web": "Appuyez sur entrée pour rechercher sur le Web"
   },
+  "splash-screen": {
+    "loading": "Chargement"
+  },
   "footer": {
     "dev-by": "Développé par",
     "licensed-under": "Sous licence",
@@ -92,6 +95,8 @@
     "rebuild-app-button": "Reconstruire l'application",
     "change-language-button": "Changer la langue",
     "reset-settings-button": "Réinitialiser les paramètres locaux",
+    "disabled-note": "Certaines fonctionnalités de configuration ont été désactivées par votre administrateur",
+    "small-screen-note": "Vous utilisez un très petit écran, et certains menus peuvent ne pas apparaître de manière optimale",
     "app-info-button": "Informations sur l'application",
     "backup-note": "Il est recommandé de faire une sauvegarde de votre configuration avant d'apporter des modifications.",
     "reset-config-msg-l1": "Cela supprimera tous les paramètres utilisateur du stockage local, mais n'affectera pas votre fichier 'conf.yml'.",
