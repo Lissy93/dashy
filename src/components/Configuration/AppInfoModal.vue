@@ -1,41 +1,40 @@
 <template>
   <modal :name="modalName" :resizable="true" width="55%" height="80%" classes="dashy-modal">
     <div class="about-modal">
-      <router-link to="/about" class="title"><h2>App Info</h2></router-link>
+      <router-link to="/about" class="title"><h2>{{ $t('app-info.title') }}</h2></router-link>
       <!-- Error Log -->
-      <h3>Error Log</h3>
+      <h3>{{ $t('app-info.error-log') }}</h3>
       <pre v-if="errorLog" class="logs"><code>{{ errorLog }}</code></pre>
-      <p v-else>No recent errors detected :)</p>
+      <p v-else>{{ $t('app-info.no-errors') }} :)</p>
       <hr />
       <!-- Getting Help -->
-      <h3>Help & Support</h3>
-      For getting support with running or configuring Dashy, see the <a href="https://github.com/Lissy93/dashy/discussions">Discussions</a>
+      <h3>{{ $t('app-info.help-support') }}</h3>
+      {{ $t('app-info.help-support-description') }} <a href="https://github.com/Lissy93/dashy/discussions">{{ $t('app-info.help-support-discussions') }}</a>
       <!-- Please help out :) -->
-      <h3>Supporting Dashy</h3>
-      For ways that you can get involved, check out the <a href="https://github.com/Lissy93/dashy/blob/master/docs/contributing.md">Contributing</a> page.
+      <h3>{{ $t('app-info.support-dashy') }}</h3>
+      {{ $t('app-info.support-dashy-description') }} <a href="https://github.com/Lissy93/dashy/blob/master/docs/contributing.md">{{ $t('app-info.support-dashy-link') }}</a>.
       <!-- Bug Reports -->
-      <h3>Report a Bug</h3>
-      If you think you've found a bug, then please <a href="https://github.com/Lissy93/dashy/issues/new/choose">raise an Issue</a>.
+      <h3>{{ $t('app-info.report-bug') }}</h3>
+      {{ $t('app-info.report-bug-description') }} <a href="https://github.com/Lissy93/dashy/issues/new/choose">{{ $t('app-info.report-bug-link') }}</a>.
       <!-- Source and Docs Links -->
-      <h3>More Info</h3>
-      Source: <a href="https://github.com/lissy93/dashy">github.com/lissy93/dashy</a><br>
-      Documentation: <a href="https://dashy.to/docs">dashy.to/docs</a>
+      <h3>{{ $t('app-info.more-info') }}</h3>
+      {{ $t('app-info.source') }}: <a href="https://github.com/lissy93/dashy">github.com/lissy93/dashy</a><br>
+      {{ $t('app-info.documentation') }}: <a href="https://dashy.to/docs">dashy.to/docs</a>
       <!-- Privacy & Security -->
-      <h3>Privacy & Security</h3>
-      For a break-down of how your data is managed by Dashy, see
-      the <a href="https://github.com/Lissy93/dashy/blob/master/docs/privacy.md">Privacy Policy</a>.<br>
-      For advise in securing your dashboard, you can reference the
-      <a href="https://github.com/Lissy93/dashy/blob/master/docs/management.md">Management Docs</a>.<br>
-      If you've found a potential security issue, report it following our
-      <a href="https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md">Security Policy</a>
+      <h3>{{ $t('app-info.privacy-and-security') }}</h3>
+      {{ $t('app-info.privacy-and-security-l1') }} <a href="https://github.com/Lissy93/dashy/blob/master/docs/privacy.md">{{ $t('app-info.privacy-and-security-privacy-policy') }}</a>.<br>
+      {{ $t('app-info.privacy-and-security-advice') }}
+      <a href="https://github.com/Lissy93/dashy/blob/master/docs/management.md">{{ $t('app-info.privacy-and-security-advice-link') }}</a>.<br>
+      {{ $t('app-info.privacy-and-security-security-issue') }}
+      <a href="https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md">{{ $t('app-info.privacy-and-security-security-policy') }}</a>
       <!-- License -->
-      <h3>License</h3>
-      Licensed under <a href="https://github.com/Lissy93/dashy/blob/master/LICENSE">MIT X11</a>.
+      <h3>{{ $t('app-info.licence') }}</h3>
+      {{ $t('app-info.licence-under') }} <a href="https://github.com/Lissy93/dashy/blob/master/LICENSE">MIT X11</a>.
       Copyright <a href="https://aliciasykes.com">Alicia Sykes</a> © 2021.<br>
-      For licenses for third-party modules, please see <a href="https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md">Legal</a>.<br>
-      For the full list of contributors and thanks, see <a href="https://github.com/Lissy93/dashy/blob/master/docs/credits.md">Credits</a>.
+      {{ $t('app-info.licence-third-party') }} <a href="https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md">{{ $t('app-info.licence-third-party-link') }}</a>.<br>
+      {{ $t('app-info.list-contributors') }} <a href="https://github.com/Lissy93/dashy/blob/master/docs/credits.md">{{ $t('app-info.list-contributors-link') }}</a>.
       <!-- App Version -->
-      <h3>Version</h3>
+      <h3>{{ $t('app-info.version') }}</h3>
       <AppVersion class="app-version" />
     </div>
   </modal>
