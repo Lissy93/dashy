@@ -57,6 +57,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Nextcloud PHP OPcache](#nextcloud-php-opcache-stats)
   - [Sabnzbd](#sabnzbd)
   - [Gluetun VPN Info](#gluetun-vpn-info)
+  - [Drone.io](#drone-io-builds)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -1907,6 +1908,40 @@ Display info from the Gluetun VPN container public IP API. This can show the IP 
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Gluetun](https://github.com/qdm12/gluetun))
 - **Privacy**: _See [Gluetun Wiki](https://github.com/qdm12/gluetun/wiki)_
+
+---
+
+### Drone.io Builds
+
+Display the last builds from a (drone.io)(https://www.drone.io] instance. 
+
+<p align="center"><img width="380" src="https://i.ibb.co/nQM3BXj/Bildschirm-foto-2023-01-07-um-01-31-45.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The histname of the drone.io instance
+**`apiKey`** | `string` |  Required | The API key (https://<drone-instance>/account)
+**`limit`** | `integer` |  Optional | Limit the amounts of listed builds.
+
+#### Example
+
+```yaml
+- type: DroneIo
+  options:
+    host: https://drone.somedomain.com
+    apiKey: my-very-secret-api-key
+    limit: 10
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Drone](https://www.drone.io))
+- **Privacy**: _See [Drone](https://www.drone.io)_
 
 ---
 

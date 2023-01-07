@@ -18,8 +18,7 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
-import { capitalize, timestampToDateTime } from '@/utils/MiscHelpers';
+import { timestampToDateTime } from '@/utils/MiscHelpers';
 
 export default {
   mixins: [WidgetMixin],
