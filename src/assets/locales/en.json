@@ -208,6 +208,12 @@
       "remove-section": "Remove"
     }
   },
+  "footer": {
+    "dev-by": "Developed by",
+    "licensed-under": "Licensed under",
+    "get-the": "Get the",
+    "source-code:": "Source code"
+  },
   "interactive-editor": {
     "menu": {
       "start-editing-tooltip": "Enter the Interactive Editor",
