@@ -9,8 +9,8 @@
       <p :class="build.build.status">{{ build.build.status | formatStatus }}</p>
     </div>
     <div class="info">
-      <p class="build-name"><a :href="build.git_http_url">{{ build.name }}</a></p>
-      <p class="build-desc"><a :href="build.link + '/' + build.build.number">{{ build.build.number }}</a></p>
+      <p class="build-name"><a :href="build.git_http_url" target="_blank">{{ build.name }}</a></p>
+      <p class="build-desc"><a :href="build.baseurl + '/' + build.slug + '/' +build.build.number" target="_blank">{{ build.build.number }}</a></p>
     </div>
   </div>
 </div>
@@ -54,6 +54,11 @@ export default {
     },
   },
   methods: {
+    update() {
+      this.startLoading();
+      this.fetchData();
+      this.finishLoading();
+    },
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       this.overrideProxyChoice = true;
@@ -64,7 +69,10 @@ export default {
     },
     /* Assign data variables to the returned data */
     processData(data) {
-      this.builds = data.slice(0, this.options.limit);
+      const results = data.slice(0, this.options.limit).map(obj => {
+        return {...obj, baseurl: this.options.host};
+      });
+      this.builds = results;
     },
     infoTooltip(build) {
       const content = `<b>Trigger:</b> ${build.build.event} by ${build.build.trigger}<br>`
