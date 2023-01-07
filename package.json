@@ -40,7 +40,7 @@
     "vue-json-tree-view": "^2.1.6",
     "vue-material-tabs": "0.1.5",
     "vue-router": "^3.5.3",
-    "vue-select": "^3.16.0",
+    "vue-select": "^3.20.1",
     "vue-swatches": "^2.1.1",
     "vue-toasted": "^1.1.28",
     "vuex": "^3.6.2"
