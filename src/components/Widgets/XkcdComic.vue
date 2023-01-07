@@ -1,8 +1,8 @@
 <template>
-<div class="xkcd-wrapper">
+<div class="xkcd-wrapper" v-tooltip="toolTip(alt)">
   <h3 class="xkcd-title">{{ title }}</h3>
   <a :href="`https://xkcd.com/${comicNum}/`">
-    <img :src="image" :alt="alt" class="xkcd-comic" />
+    <img :src="image" :alt="alt" class="xkcd-comic"/>
   </a>
 </div>
 </template>
@@ -59,6 +59,12 @@ export default {
       this.alt = data.alt;
       this.comicNum = data.num;
     },
+    toolTip(alt) {
+      const content = alt;
+      return {
+        content, html: false, trigger: 'hover focus', delay: 250, classes: 'xkcd-alt-tt',
+      };
+    },
   },
 };
 </script>
@@ -79,4 +85,9 @@ export default {
   }
 }
 
+</style>
+<style lang="scss">
+.xkcd-alt-tt {
+  min-width: 20rem;
+}
 </style>
