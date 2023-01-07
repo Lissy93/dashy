@@ -1,18 +1,19 @@
 <template>
 <div class="health-checks-wrapper" v-if="crons">
-  <div
-    class="cron-row"
+  <template
     v-for="cron in crons" :key="cron.id"
-    v-tooltip="pingTimeTooltip(cron)"
   >
     <div class="status">
       <p :class="cron.status">{{ cron.status | formatStatus }}</p>
     </div>
-    <div class="info">
+    <div 
+      class="info"
+      v-tooltip="pingTimeTooltip(cron)"
+    >
       <p class="cron-name">{{ cron.name }}</p>
       <p class="cron-desc">{{ cron.desc }}</p>
     </div>
-  </div>
+  </template>
 </div>
 </template>
 
@@ -35,6 +36,8 @@ export default {
       if (status === 'up') symbol = '✔';
       if (status === 'down') symbol = '✘';
       if (status === 'new') symbol = '❖';
+      if (status === 'paused') symbol = '⏸';
+      if (status === 'running') symbol = '▶'
       return `${symbol} ${capitalize(status)}`;
     },
     formatDate(timestamp) {
@@ -51,6 +54,9 @@ export default {
       if (!this.options.apiKey) {
         this.error('An API key is required, please see the docs for more info');
       }
+      if (typeof(this.options.apiKey) === "string") {
+        return [ this.options.apiKey ];
+      }
       return this.options.apiKey;
     },
   },
@@ -58,14 +64,18 @@ export default {
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       this.overrideProxyChoice = true;
-      const authHeaders = { 'X-Api-Key': this.apiKey };
-      this.makeRequest(this.endpoint, authHeaders).then(
-        (response) => { this.processData(response); },
-      );
+      const results = [];
+      this.apiKey.forEach((key) => {
+        const authHeaders = { 'X-Api-Key': key };
+        this.makeRequest(this.endpoint, authHeaders).then(
+          (response) => { this.processData(response, results); },
+        );
+      });
+      results.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+      this.crons = results;
     },
     /* Assign data variables to the returned data */
-    processData(data) {
-      const results = [];
+    processData(data, results) {
       data.checks.forEach((cron) => {
         results.push({
           id: cron.slug,
@@ -78,7 +88,7 @@ export default {
           url: this.makeUrl(cron.unique_key),
         });
       });
-      this.crons = results;
+      return results;
     },
     makeUrl(cronId) {
       const base = this.options.host || 'https://healthchecks.io';
@@ -99,39 +109,39 @@ export default {
 
 <style scoped lang="scss">
 .health-checks-wrapper {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr 2fr;
   color: var(--widget-text-color);
-  .cron-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.25rem 0;
-    .status {
-      min-width: 5rem;
-      font-size: 1.2rem;
+  padding: 0.25rem 0;
+  .status {
+    min-width: 5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    p {
+      margin: 0;
+      color: var(--info);
+      &.up { color: var(--success); }
+      &.down { color: var(--danger); }
+      &.new { color: var(--widget-text-color); }
+      &.running { color: var(--warning); }
+      &.paused { color: var(--info); }
+    }
+  }
+  .info {
+    p.cron-name {
+      margin: 0.25rem 0;
       font-weight: bold;
-      p {
-        margin: 0;
-        color: var(--info);
-        &.up { color: var(--success); }
-        &.down { color: var(--danger); }
-        &.new { color: var(--neutral); }
-      }
+      color: var(--widget-text-color);
     }
-    .info {
-      p.cron-name {
-        margin: 0.25rem 0;
-        font-weight: bold;
-        color: var(--widget-text-color);
-      }
-      p.cron-desc {
-        margin: 0;
-        color: var(--widget-text-color);
-        opacity: var(--dimming-factor);
-      }
+    p.cron-desc {
+      margin: 0;
+      color: var(--widget-text-color);
+      opacity: var(--dimming-factor);
     }
-    &:not(:last-child) {
-      border-bottom: 1px dashed var(--widget-text-color);
-    }
+  }
+  &:not(:last-child) {
+    border-bottom: 1px dashed var(--widget-text-color);
   }
 }
 
