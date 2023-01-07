@@ -34,6 +34,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [NASA APOD](#astronomy-picture-of-the-day)
   - [GitHub Trending](#github-trending)
   - [GitHub Profile Stats](#github-profile-stats)
+  - [Healthchecks Status](#healthchecks status)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
@@ -1137,6 +1138,38 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
 - **Price**: 🟢 Free
 - **Host**: Managed Instance or Self-Hosted (see [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats))
 - **Privacy**: _See [GitHub's Privacy Policy](https://docs.github.com/en/github/site-policy/github-privacy-statement)_
+
+---
+
+### HealthChecks Status
+
+Display status of one or more HealthChecks project(s). Works with healthcheck.io and your selfhosted instance.
+
+<p align="center"><img width="380" src="https://i.ibb.co/W5dP6VN/Bildschirm-foto-2023-01-07-um-11-07-11.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Optional | The base url of your instance, default is `https://healthchecks.io`
+**`apiKey`** | `string` or `array` |  Required | One or more API keys for your healthcheck projects. (Read-only works fine)
+
+```yaml
+- type: HealthChecks
+  options:
+    host: https://healthcheck.your-domain.de
+    apiKey: 
+      - abcdefg...
+      - zxywvu...
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free / Paid / Self-hosted 
+- **Host**: Managed Instance or Self-Hosted (see [healthchecks/healthchecks](https://github.com/healthchecks/healthchecks))
+- **Privacy**: _See [Healthchecks.io Privacy Policy](https://healthchecks.io/privacy/)_
 
 ---
 
