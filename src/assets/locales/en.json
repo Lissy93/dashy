@@ -41,13 +41,6 @@
     "logged-in-guest": "Logged in as Guest, Redirecting...",
     "error-guest-access": "Guest Access Not Allowed"
   },
-  "splash-screen": {
-    "loading": "Loading"
-  },
-  "site-meta": {
-    "title": "Title",
-    "description": "Description"
-  },
   "app-info": {
     "title": "App Info",
     "error-log": "Error Log",

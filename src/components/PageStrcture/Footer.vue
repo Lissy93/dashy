@@ -7,10 +7,10 @@
       Using: {{ $store.state.currentConfigInfo.confPath }}
     </span>
     <span>
-      Developed by <a :href="authorUrl">{{authorName}}</a>.
-      Licensed under <a :href="licenseUrl">{{license}}</a>
+      {{ $t('footer.dev-by') }} <a :href="authorUrl">{{authorName}}</a>.
+      {{ $t('footer.licensed-under') }} <a :href="licenseUrl">{{license}}</a>
       {{ showCopyright? '©': '' }} {{date}}.
-      Get the <a :href="repoUrl">Source Code</a>.
+      {{ $t('footer.get-the') }} <a :href="repoUrl">{{ $t('footer.source-code') }}</a>.
     </span>
   </footer>
 </template>

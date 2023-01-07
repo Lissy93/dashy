@@ -47,13 +47,6 @@
     "logged-in-guest": "Connecté en tant qu'invité, redirection...",
     "error-guest-access": "L'accès invité n'est pas autorisé"
   },
-  "splash-screen": {
-    "loading": "Chargement"
-  },
-  "site-meta": {
-    "title": "Titre",
-    "description": "Description"
-  },
   "app-info": {
     "title": "Informations sur l'application",
     "error-log": "Journal des erreurs",
@@ -61,9 +54,9 @@
     "help-support": "Aide & Support",
     "help-support-description" : "Pour obtenir de l'aide pour faire tourner ou configurer Dashy, voir les",
     "help-support-discussions": "discussions",
-    "support-dashy": "Soutenir financièrement Dashy",
-    "support-dashy-description": "Pour savoir comment vous pouvez vous impliquer, consultez",
-    "support-dashy-link": "la page « Contributions »",
+    "support-dashy": "Soutenir Dashy",
+    "support-dashy-description": "Pour savoir comment vous pouvez vous impliquer, consultez la page",
+    "support-dashy-link": "« Contributions »",
     "report-bug": "Signaler un bug",
     "report-bug-description": "Si vous pensez avoir trouvé un bug, alors s'il vous plaît, ",
     "report-bug-link": "signalez-le",
@@ -73,8 +66,8 @@
     "privacy-and-security": "Vie privée & Sécurité",
     "privacy-and-security-l1": "Pour connaître la manière dont vos données sont gérées par Dashy, consultez la",
     "privacy-and-security-privacy-policy": "politique de confidentialité",
-    "app-info.privacy-and-security-advice": "Pour obtenir des conseils sur la sécurisation de votre tableau de bord, vous pouvez vous référer à la",
-    "app-info.privacy-and-security-advice-link": "documentation",
+    "privacy-and-security-advice": "Pour obtenir des conseils sur la sécurisation de votre tableau de bord, vous pouvez vous référer à la",
+    "privacy-and-security-advice-link": "documentation",
     "privacy-and-security-security-issue": "Si vous avez trouvé une potentielle faille de sécurité, signalez-la en suivant notre",
     "privacy-and-security-security-policy": "politique en matière de sécurité",
     "license": "Licence",
