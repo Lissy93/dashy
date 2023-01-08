@@ -7,10 +7,10 @@
   >
     <div class="status">
       <p :class="build.build.status">{{ build.build.status | formatStatus }}</p>
-      <span v-if="build.status == 'running'">
+      <span v-if="build.build.status == 'running'">
         {{ build.build.started*1000 | formatTimeAgo }} ago
       </span>
-      <span v-else-if="build.status != 'pending' ">
+      <span v-else-if="build.build.status != 'pending' ">
         {{ formatBuildDuration(build) }}
       </span>
       <span v-else>
@@ -72,7 +72,7 @@ export default {
     formatStatus(status) {
       let symbol = '';
       if (status === 'success') symbol = '✔';
-      if (status === 'failure' || status === 'error') symbol = '✘';
+      if (status === 'failure' || status === 'error' || status === 'killed') symbol = '✘';
       if (status === 'running') symbol = '❖';
       if (status === 'skipped') symbol = '↠';
       return `${symbol}`;
