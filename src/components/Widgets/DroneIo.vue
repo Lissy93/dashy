@@ -10,7 +10,21 @@
     </div>
     <div class="info">
       <p class="build-name"><a :href="build.git_http_url" target="_blank">{{ build.name }}</a></p>
-      <p class="build-desc"><a :href="build.baseurl + '/' + build.slug + '/' +build.build.number" target="_blank">{{ build.build.number }}</a></p>
+      <p class="build-desc">
+        <a :href="build.baseurl + '/' + build.slug + '/' +build.build.number" target="_blank">{{ build.build.number }}</a>
+        <template v-if="build.event == 'pull_request'">
+          <a :href="build.build.link" target="_blank" class="droneio-extra-info">#{{ formatPrId(build.build.link) }}</a> to <span class="droneio-info-link">{{ build.build.target }}</span>
+        </template>
+        <template v-if="build.event == 'push'">
+          <a :href="build.build.link" target="_blank" class="droneio-extra-info">push</a> to <span class="droneio-extra-info">{{ build.build.target }}</span>
+        </template>
+        <template v-else>
+          <span class="droneio-extra-info">{{ build.build.target }}</span>
+        </template>
+        <span v-if="build.status == 'running'">{{ build.build.started*1000 | formatTimeAgo }}</span>
+        <span v-else-if="build.status != 'running' || build.status != 'pending' ">{{ formatBuildDuration(build) }}</span>
+        <span v-else>Missing Time</span>
+      </p>
     </div>
   </div>
 </div>
@@ -18,7 +32,7 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { timestampToDateTime } from '@/utils/MiscHelpers';
+import { getTimeAgo, getTimeDifference, timestampToDateTime } from '@/utils/MiscHelpers';
 
 export default {
   mixins: [WidgetMixin],
@@ -34,10 +48,14 @@ export default {
       if (status === 'success') symbol = '✔';
       if (status === 'failure' || status === 'error') symbol = '✘';
       if (status === 'running') symbol = '❖';
+      if (status === 'skipped') symbol = '↠';
       return `${symbol}`;
     },
     formatDate(timestamp) {
       return timestampToDateTime(timestamp);
+    },
+    formatTimeAgo(timestamp) {
+      return getTimeAgo(timestamp);
     },
   },
   computed: {
@@ -54,11 +72,6 @@ export default {
     },
   },
   methods: {
-    update() {
-      this.startLoading();
-      this.fetchData();
-      this.finishLoading();
-    },
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       this.overrideProxyChoice = true;
@@ -81,6 +94,12 @@ export default {
       return {
         content, html: true, trigger: 'hover focus', delay: 250, classes: 'build-info-tt',
       };
+    },
+    formatPrId(link) {
+      return link.split('/').pop();
+    },
+    formatBuildDuration(build){
+      return getTimeDifference(build.build.started*1000, build.build.finished*1000);
     },
   },
 };
@@ -124,6 +143,13 @@ export default {
         a, a:hover, a:visited, a:active {
           color: inherit;
           text-decoration: none;
+        }
+        .droneio-extra-info {
+          margin: 0.25em;
+          padding: 0.25em;
+          background: var(--item-background);
+          border: 1px solid var(--primary);
+          border-radius: 5px;
         }
       }
       p.build-desc::before {
