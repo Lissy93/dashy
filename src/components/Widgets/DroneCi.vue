@@ -72,6 +72,12 @@ export default {
     },
   },
   methods: {
+    /* Fetch new data, configured by updateInterval */
+    update() {
+      this.startLoading();
+      this.fetchData();
+      this.finishLoading();
+    },
     /* Make GET request to Drone CI API endpoint */
     fetchData() {
       this.overrideProxyChoice = true;
