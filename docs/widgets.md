@@ -57,7 +57,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Nextcloud PHP OPcache](#nextcloud-php-opcache-stats)
   - [Sabnzbd](#sabnzbd)
   - [Gluetun VPN Info](#gluetun-vpn-info)
-  - [Drone.io](#drone-io-builds)
+  - [Drone.io](#droneio-builds)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -1913,7 +1913,7 @@ Display info from the Gluetun VPN container public IP API. This can show the IP 
 
 ### Drone.io Builds
 
-Display the last builds from a (drone.io)(https://www.drone.io] instance. 
+Display the last builds from a [drone.io](https://www.drone.io) instance. 
 
 <p align="center"><img width="380" src="https://i.ibb.co/nQM3BXj/Bildschirm-foto-2023-01-07-um-01-31-45.png" /></p>
 
@@ -1928,7 +1928,7 @@ Display the last builds from a (drone.io)(https://www.drone.io] instance.
 #### Example
 
 ```yaml
-- type: DroneIo
+- type: drone-io
   options:
     host: https://drone.somedomain.com
     apiKey: my-very-secret-api-key
