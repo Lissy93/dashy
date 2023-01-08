@@ -105,13 +105,6 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/svenniuwe">
-            <img src="https://avatars.githubusercontent.com/u/30127271?u=4902a9bc5b6765db2dbadcc0a098faebc506e4ac&v=4" width="80;" alt="svenniuwe"/>
-            <br />
-            <sub><b>Sven</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/shadowking001">
             <img src="https://avatars.githubusercontent.com/u/43928955?u=a00b44f22e5a82234d9b406ac048def1fbc16e31&v=4" width="80;" alt="shadowking001"/>
             <br />
@@ -168,17 +161,17 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/Azerioxal">
-            <img src="https://avatars.githubusercontent.com/u/5369885?v=4" width="80;" alt="Azerioxal"/>
-            <br />
-            <sub><b>Kenneth Church</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/snyk-bot">
             <img src="https://avatars.githubusercontent.com/u/19733683?v=4" width="80;" alt="snyk-bot"/>
             <br />
             <sub><b>Snyk Bot</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Azerioxal">
+            <img src="https://avatars.githubusercontent.com/u/5369885?v=4" width="80;" alt="Azerioxal"/>
+            <br />
+            <sub><b>Kenneth Church</b></sub>
         </a>
     </td></tr>
 <tr>
@@ -326,6 +319,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/m42e">
+            <img src="https://avatars.githubusercontent.com/u/2410802?v=4" width="80;" alt="m42e"/>
+            <br />
+            <sub><b>Matthias Bilger</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/thomasdissert">
             <img src="https://avatars.githubusercontent.com/u/11446531?v=4" width="80;" alt="thomasdissert"/>
             <br />
@@ -337,13 +337,6 @@
             <img src="https://avatars.githubusercontent.com/u/21180271?v=4" width="80;" alt="k073l"/>
             <br />
             <sub><b>K073l</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/patrickheeney">
-            <img src="https://avatars.githubusercontent.com/u/1407228?v=4" width="80;" alt="patrickheeney"/>
-            <br />
-            <sub><b>Patrick Heeney</b></sub>
         </a>
     </td></tr>
 </table>
