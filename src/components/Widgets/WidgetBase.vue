@@ -82,6 +82,7 @@ const COMPAT = {
   image: 'ImageWidget',
   joke: 'Jokes',
   'mullvad-status': 'MullvadStatus',
+  mvg: 'Mvg',
   'nd-cpu-history': 'NdCpuHistory',
   'nd-load-history': 'NdLoadHistory',
   'nd-ram-history': 'NdRamHistory',

@@ -236,6 +236,7 @@ module.exports = {
     jokes: 'https://v2.jokeapi.dev/joke/',
     news: 'https://api.currentsapi.services/v1/latest-news',
     mullvad: 'https://am.i.mullvad.net/json',
+    mvg: 'https://www.mvg.de/api/fib/v2/',
     publicIp: 'https://ipapi.co/json',
     publicIp2: 'https://api.ipgeolocation.io/ipgeo',
     publicIp3: 'http://ip-api.com/json',

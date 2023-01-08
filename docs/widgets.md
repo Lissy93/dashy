@@ -35,6 +35,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [GitHub Trending](#github-trending)
   - [GitHub Profile Stats](#github-profile-stats)
   - [Healthchecks Status](#healthchecks status)
+  - [Mvg Departure](#mvg-departure)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
@@ -1172,6 +1173,41 @@ Display status of one or more HealthChecks project(s). Works with healthcheck.io
 - **Privacy**: _See [Healthchecks.io Privacy Policy](https://healthchecks.io/privacy/)_
 
 ---
+
+### MVG Departure
+
+Display departure time of a MVG (Münchner Verkehrs Gesellschaft) station.
+
+From https://www.mvg.de/impressum.html:
+
+> [...] Die Verarbeitung unserer Inhalte oder Daten durch Dritte erfordert unsere ausdrückliche Zustimmung. Für private, nicht-kommerzielle Zwecke, wird eine gemäßigte Nutzung ohne unsere ausdrückliche Zustimmung geduldet. Jegliche Form von Data-Mining stellt keine gemäßigte Nutzung dar.[...]
+
+In other words: Private, noncomercial, moderate use of the API is tolerated. They don’t consider data mining as moderate use.
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`location`** | `string` |  Required | The name of the location (exact) or the location id, startin with `de:09162:`
+**`limit`** | `integer` |  _Optional_ | Limit number of entries, defaults to 10.
+
+```yaml
+- type: mvg
+  options:
+    location: Marienplatz
+    limit: 5
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free / Paid / Self-hosted 
+- **Host**: Managed Instance or Self-Hosted (see [healthchecks/healthchecks](https://github.com/healthchecks/healthchecks))
+- **Privacy**: _See [Healthchecks.io Privacy Policy](https://healthchecks.io/privacy/)_
+
+---
+
 
 ## Self-Hosted Services Widgets
 
