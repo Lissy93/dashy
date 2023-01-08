@@ -7,24 +7,50 @@
   >
     <div class="status">
       <p :class="build.build.status">{{ build.build.status | formatStatus }}</p>
+      <span v-if="build.status == 'running'">
+        {{ build.build.started*1000 | formatTimeAgo }} ago
+      </span>
+      <span v-else-if="build.status != 'pending' ">
+        {{ formatBuildDuration(build) }}
+      </span>
+      <span v-else>
+        {{ build.build.created*1000 | formatTimeAgo }} ago
+      </span>
     </div>
     <div class="info">
-      <p class="build-name"><a :href="build.git_http_url" target="_blank">{{ build.name }}</a></p>
-      <p class="build-desc">
-        <a :href="build.baseurl + '/' + build.slug + '/' +build.build.number" target="_blank">{{ build.build.number }}</a>
-        <template v-if="build.event == 'pull_request'">
-          <a :href="build.build.link" target="_blank" class="droneci-extra-info">#{{ formatPrId(build.build.link) }}</a> to <span class="droneci-info-link">{{ build.build.target }}</span>
-        </template>
-        <template v-if="build.event == 'push'">
-          <a :href="build.build.link" target="_blank" class="droneci-extra-info">push</a> to <span class="droneci-extra-info">{{ build.build.target }}</span>
-        </template>
-        <template v-else>
-          <span class="droneci-extra-info">{{ build.build.target }}</span>
-        </template>
-        <span v-if="build.status == 'running'">{{ build.build.started*1000 | formatTimeAgo }}</span>
-        <span v-else-if="build.status != 'running' || build.status != 'pending' ">{{ formatBuildDuration(build) }}</span>
-        <span v-else>Missing Time</span>
-      </p>
+      <div class="build-name">
+        {{ build.name }}
+        <a
+          class="droneci-build-number"
+          :href="build.baseurl + '/' + build.slug + '/' +build.build.number"
+          target="_blank"
+        >{{ build.build.number }}</a>
+      </div>
+      <div class="build-desc">
+        <span class="droneci-extra">
+          <template v-if="build.build.event == 'pull_request'">
+            <a
+              :href="build.build.link"
+              target="_blank"
+              class="droneci-extra-info"
+            >#{{ formatPrId(build.build.link) }}</a> to
+          </template>
+          <template v-else-if="build.build.event == 'push'">
+            <a
+              :href="build.build.link"
+              target="_blank"
+              class="droneci-extra-info"
+            >push</a> to
+          </template>
+          <a
+            :href="build.git_http_url"
+            target="_blank"
+            class="droneci-extra-info"
+          >
+            {{ build.build.target }}
+          </a>
+        </span>
+      </div>
     </div>
   </div>
 </div>
@@ -60,9 +86,21 @@ export default {
   },
   computed: {
     /* API endpoint, either for self-hosted or managed instance */
-    endpoint() {
-      if (this.options.host) return `${this.options.host}/api/user/builds`;
-      this.error('Drone CI Host is required');
+    endpointBuilds() {
+      if (!this.options.host) this.error('drone.ci Host is required');
+      return `${this.options.host}/api/user/builds`;
+    },
+    endpointRepoInfo() {
+      if (!this.options.host) this.error('drone.ci Host is required');
+      return `${this.options.host}/api/repos/${this.options.repo}`;
+    },
+    endpointRepoBuilds() {
+      if (!this.options.host) this.error('drone.ci Host is required');
+      return `${this.options.host}/api/repos/${this.options.repo}/builds`;
+    },
+    repo() {
+      if (this.options.repo) return this.options.repo;
+      return false;
     },
     apiKey() {
       if (!this.options.apiKey) {
@@ -80,23 +118,38 @@ export default {
     },
     /* Make GET request to Drone CI API endpoint */
     fetchData() {
-      this.overrideProxyChoice = true;
-      const authHeaders = { 'Authorization': `Bearer ${this.apiKey}` };
-      this.makeRequest(this.endpoint, authHeaders).then(
-        (response) => { this.processData(response); },
-      );
+      const authHeaders = { Authorization: `Bearer ${this.apiKey}` };
+      if (this.repo !== false) {
+        this.makeRequest(this.endpointRepoInfo, authHeaders).then(
+          (repoInfo) => {
+            this.makeRequest(this.endpointRepoBuilds, authHeaders).then(
+              (buildInfo) => {
+                this.processRepoBuilds(repoInfo, buildInfo);
+              },
+            );
+          },
+        );
+      } else {
+        this.makeRequest(this.endpointBuilds, authHeaders).then(
+          (response) => { this.processBuilds(response); },
+        );
+      }
     },
     /* Assign data variables to the returned data */
-    processData(data) {
-      const results = data.slice(0, this.options.limit).map(obj => {
-        return {...obj, baseurl: this.options.host};
-      });
+    processBuilds(data) {
+      const results = data.slice(0, this.options.limit)
+        .map((obj) => ({ ...obj, baseurl: this.options.host }));
+      this.builds = results;
+    },
+    processRepoBuilds(repo, builds) {
+      const results = builds.slice(0, this.options.limit)
+        .map((obj) => ({ build: { ...obj }, baseurl: this.options.host, ...repo }));
       this.builds = results;
     },
     infoTooltip(build) {
       const content = `<b>Trigger:</b> ${build.build.event} by ${build.build.trigger}<br>`
         + `<b>Repo:</b> ${build.slug}<br>`
-        + `<b>Branch:</b> ${build.build.target}<br>`
+        + `<b>Branch:</b> ${build.build.target}<br>`;
       return {
         content, html: true, trigger: 'hover focus', delay: 250, classes: 'build-info-tt',
       };
@@ -104,8 +157,8 @@ export default {
     formatPrId(link) {
       return link.split('/').pop();
     },
-    formatBuildDuration(build){
-      return getTimeDifference(build.build.started*1000, build.build.finished*1000);
+    formatBuildDuration(build) {
+      return getTimeDifference(build.build.started * 1000, build.build.finished * 1000);
     },
   },
 };
@@ -115,12 +168,12 @@ export default {
 .droneci-builds-wrapper {
   color: var(--widget-text-color);
   .build-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
     justify-content: left;
     align-items: center;
     padding: 0.25rem 0;
     .status {
-      min-width: 5rem;
       font-size: 1rem;
       font-weight: bold;
       p {
@@ -131,9 +184,13 @@ export default {
         &.error { color: var(--danger); }
         &.running { color: var(--neutral); }
       }
+      span {
+        font-size: 0.75rem;
+        color: var(--secondary);
+      }
     }
     .info {
-      p.build-name {
+      div.build-name {
         margin: 0.25rem 0;
         font-weight: bold;
         color: var(--widget-text-color);
@@ -141,25 +198,29 @@ export default {
           color: inherit;
           text-decoration: none;
         }
+        .droneci-build-number::before {
+          content: "#";
+        }
       }
-      p.build-desc {
+      div.build-desc {
         margin: 0;
+        font-size: 0.85rem;
         color: var(--widget-text-color);
         opacity: var(--dimming-factor);
         a, a:hover, a:visited, a:active {
           color: inherit;
           text-decoration: none;
         }
-        .droneci-extra-info {
-          margin: 0.25em;
-          padding: 0.25em;
-          background: var(--item-background);
-          border: 1px solid var(--primary);
-          border-radius: 5px;
+        .droneci-extra {
+          .droneci-extra-info {
+            margin: 0.25em;
+            padding: 0em 0.25em;
+            background: var(--item-background);
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+          }
         }
-      }
-      p.build-desc::before {
-        content: "#";
+
       }
     }
     &:not(:last-child) {

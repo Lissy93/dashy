@@ -1923,7 +1923,8 @@ Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self
 --- | --- | --- | ---
 **`host`** | `string` |  Required | The histname of the Drone CI instance.
 **`apiKey`** | `string` |  Required | The API key (https://<your-drone-instance>/account).
-**`limit`** | `integer` |  Optional | Limit the amounts of listed builds.
+**`limit`** | `integer` | _Optional_ | Limit the amounts of listed builds.
+**`repo`** | `string` | _Optional_ | Show only builds of the specified repo
 
 #### Example
 
