@@ -56,7 +56,7 @@ const COMPAT = {
   'domain-monitor': 'DomainMonitor',
   'code-stats': 'CodeStats',
   'covid-stats': 'CovidStats',
-  'drone-io': 'DroneIo',
+  'drone-ci': 'DroneCi',
   embed: 'EmbedWidget',
   'eth-gas-prices': 'EthGasPrices',
   'exchange-rates': 'ExchangeRates',

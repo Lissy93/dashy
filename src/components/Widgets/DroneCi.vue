@@ -1,5 +1,5 @@
 <template>
-<div class="droneio-builds-wrapper" v-if="builds">
+<div class="droneci-builds-wrapper" v-if="builds">
   <div
     class="build-row"
     v-for="build in builds" :key="build.id"
@@ -13,13 +13,13 @@
       <p class="build-desc">
         <a :href="build.baseurl + '/' + build.slug + '/' +build.build.number" target="_blank">{{ build.build.number }}</a>
         <template v-if="build.event == 'pull_request'">
-          <a :href="build.build.link" target="_blank" class="droneio-extra-info">#{{ formatPrId(build.build.link) }}</a> to <span class="droneio-info-link">{{ build.build.target }}</span>
+          <a :href="build.build.link" target="_blank" class="droneci-extra-info">#{{ formatPrId(build.build.link) }}</a> to <span class="droneci-info-link">{{ build.build.target }}</span>
         </template>
         <template v-if="build.event == 'push'">
-          <a :href="build.build.link" target="_blank" class="droneio-extra-info">push</a> to <span class="droneio-extra-info">{{ build.build.target }}</span>
+          <a :href="build.build.link" target="_blank" class="droneci-extra-info">push</a> to <span class="droneci-extra-info">{{ build.build.target }}</span>
         </template>
         <template v-else>
-          <span class="droneio-extra-info">{{ build.build.target }}</span>
+          <span class="droneci-extra-info">{{ build.build.target }}</span>
         </template>
         <span v-if="build.status == 'running'">{{ build.build.started*1000 | formatTimeAgo }}</span>
         <span v-else-if="build.status != 'running' || build.status != 'pending' ">{{ formatBuildDuration(build) }}</span>
@@ -62,7 +62,7 @@ export default {
     /* API endpoint, either for self-hosted or managed instance */
     endpoint() {
       if (this.options.host) return `${this.options.host}/api/user/builds`;
-      this.error('Drone.io Host is required');
+      this.error('Drone CI Host is required');
     },
     apiKey() {
       if (!this.options.apiKey) {
@@ -72,7 +72,7 @@ export default {
     },
   },
   methods: {
-    /* Make GET request to CoinGecko API endpoint */
+    /* Make GET request to Drone CI API endpoint */
     fetchData() {
       this.overrideProxyChoice = true;
       const authHeaders = { 'Authorization': `Bearer ${this.apiKey}` };
@@ -106,7 +106,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.droneio-builds-wrapper {
+.droneci-builds-wrapper {
   color: var(--widget-text-color);
   .build-row {
     display: flex;
@@ -144,7 +144,7 @@ export default {
           color: inherit;
           text-decoration: none;
         }
-        .droneio-extra-info {
+        .droneci-extra-info {
           margin: 0.25em;
           padding: 0.25em;
           background: var(--item-background);
