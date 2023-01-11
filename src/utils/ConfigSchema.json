@@ -292,7 +292,8 @@
             "customSearchEngine": {
               "title": "Custom Search Engine",
               "type": "string",
-              "description": "Set the URL of a self-hosted or custom search engine, including GET query params. You must also set searchEngine: custom"
+              "description": "Set the URL of a self-hosted or custom search engine, including GET query params. You must also set searchEngine: custom",
+              "POST": "Use a POST body instead of GET. Specify the body parameter that holds the query. startpage uses 'query'. searxng uses 'q'"
             },
             "openingMethod": {
               "title": "Search Opening Method",

@@ -18,6 +18,9 @@
         :title="$t('search.clear-search-tooltip')"
         @click="clearFilterInput">x</i>
   </form>
+  <form id="customPostSearchForm" method="post" action="" target="">
+    <input id="customPOSTSearchInput" type="hidden" name="" value="" />
+  </form>
 </template>
 
 <script>
@@ -119,6 +122,33 @@ export default {
           window.open(url, '_blank');
       }
     },
+    /* Launch search results, with users desired opening method with POST form*/
+    launchWebSearchPOST(url, method, bodyParam, bodyValue) {
+      let customPostSearchForm = document.getElementById('customPostSearchForm');
+      document.setAttribute('action', url);
+
+      let customPOSTSearchInput = document.getElementById('customPOSTSearchInput');
+      customPOSTSearchInput.setAttribute('name', bodyParam);
+      customPOSTSearchInput.setAttribute('value', bodyValue);
+
+      switch (method) {
+        case 'newtab':
+          document.setAttribute('target', '_blank');
+          break;
+        case 'sametab':
+          document.setAttribute('target', '_self');
+          break;
+        // I don't know how to handle this
+        /*case 'workspace':
+          router.push({ name: 'workspace', query: { url } });
+          break;*/
+        default:
+          ErrorHandler(`Unknown opening method: ${method}`);
+          document.setAttribute('target', '_blank');
+      }
+
+      customPostSearchForm.submit();
+    },
 
     /* Launch web search, to correct search engine, passing in users query */
     searchSubmitted() {
@@ -136,8 +166,12 @@ export default {
           ? searchPrefs.customSearchEngine
           : findUrlForSearchEngine(desiredSearchEngine, searchEngineUrls);
         if (searchUrl) { // Append search query to URL, and launch
-          searchUrl += encodeURIComponent(stripBangs(this.input, bangList));
-          this.launchWebSearch(searchUrl, openingMethod);
+          if (isCustomSearch && searchPrefs.POST) {
+            this.launchWebSearchPOST(searchUrl, openingMethod, searchPrefs.POST, encodeURIComponent(stripBangs(this.input, bangList)));
+          } else {
+            searchUrl += encodeURIComponent(stripBangs(this.input, bangList));
+            this.launchWebSearch(searchUrl, openingMethod);
+          }
           this.clearFilterInput();
         }
       }
