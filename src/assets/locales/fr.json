@@ -122,7 +122,7 @@
     "location-local-label": "Appliquer localement",
     "location-disk-label": "Appliquer dans le fichier de configuration",
     "save-button": "Enregistrer",
-    "preview-button": "Prévisuliser les modifications",
+    "preview-button": "Prévisualiser les modifications",
     "valid-label": "La configuration est valide",
     "status-success-msg": "Tâche terminée",
     "status-fail-msg": "Échec de la tâche",
