@@ -43,7 +43,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [System Load History](#load-history-netdata)
   - [Pi Hole Stats](#pi-hole-stats)
   - [Pi Hole Queries](#pi-hole-queries)
-  - [Recent Traffic](#recent-traffic)
+  - [Pi Hole Recent Traffic](#pi-hole-recent-traffic)
   - [Stat Ping Statuses](#stat-ping-statuses)
   - [Synology Download Station](#synology-download-station)
   - [AdGuard Home Block Stats](#adguard-home-block-stats)
@@ -1338,6 +1338,7 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 --- | --- | --- | ---
 **`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
 **`hideStatus`** / **`hideChart`** / **`hideInfo`** | `boolean` |  _Optional_ | Optionally hide any of the three parts of the widget
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD`
 
 #### Example
 
@@ -1345,12 +1346,13 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 - type: pi-hole-stats
   options:
     hostname: http://192.168.130.1
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 #### Info
 
 - **CORS**: 🟢 Enabled
-- **Auth**: 🟢 Not Required
+- **Auth**: 🔴 Required
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [GitHub - Pi-hole](https://github.com/pi-hole/pi-hole))
 - **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
@@ -1390,7 +1392,7 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
 
 ---
 
-### Recent Traffic
+### Pi Hole Recent Traffic
 
 Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole](https://pi-hole.net/)
 
@@ -1401,6 +1403,7 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD`
 
 #### Example
 
@@ -1408,12 +1411,13 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 - type: pi-hole-traffic
   options:
     hostname: https://pi-hole.local
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 #### Info
 
 - **CORS**: 🟢 Enabled
-- **Auth**: 🟢 Not Required
+- **Auth**: 🔴 Required
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [GitHub - Pi-hole](https://github.com/pi-hole/pi-hole))
 - **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_

@@ -23,8 +23,12 @@ export default {
       if (!usersChoice) this.error('You must specify the hostname for your Pi-Hole server');
       return usersChoice || 'http://pi.hole';
     },
+    apiKey() {
+      if (!this.options.apiKey) this.error('API Key is required, please see the docs');
+      return this.options.apiKey;
+    },
     endpoint() {
-      return `${this.hostname}/admin/api.php?overTimeData10mins`;
+      return `${this.hostname}/admin/api.php?overTimeData10mins&auth=${this.apiKey}`;
     },
   },
   methods: {
@@ -38,7 +42,9 @@ export default {
         });
     },
     validate(response) {
-      if (!response.ads_over_time || !response.domains_over_time) {
+      if (Array.isArray(response)) { 
+        this.error('Got success, but found no results, possible authorization error');
+      } else if (!response.ads_over_time || !response.domains_over_time) {
         this.error('Expected data was not returned from Pi-Hole');
         return false;
       } else if (response.ads_over_time.length < 1) {
