@@ -58,6 +58,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Nextcloud PHP OPcache](#nextcloud-php-opcache-stats)
   - [Sabnzbd](#sabnzbd)
   - [Gluetun VPN Info](#gluetun-vpn-info)
+  - [Drone CI Build](#drone-ci-builds)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -1944,6 +1945,42 @@ Display info from the Gluetun VPN container public IP API. This can show the IP 
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Gluetun](https://github.com/qdm12/gluetun))
 - **Privacy**: _See [Gluetun Wiki](https://github.com/qdm12/gluetun/wiki)_
+
+---
+
+### Drone CI Builds
+
+Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self-hosted CI system that uses docker.
+
+<p align="center"><img width="380" src="https://i.ibb.co/nQM3BXj/Bildschirm-foto-2023-01-07-um-01-31-45.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The histname of the Drone CI instance.
+**`apiKey`** | `string` |  Required | The API key (https://<your-drone-instance>/account).
+**`limit`** | `integer` | _Optional_ | Limit the amounts of listed builds.
+**`repo`** | `string` | _Optional_ | Show only builds of the specified repo
+
+#### Example
+
+```yaml
+- type: drone-io
+  updateInterval: 30
+  options:
+    host: https://drone.somedomain.com
+    apiKey: my-very-secret-api-key
+    limit: 10
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Drone](https://www.drone.io))
+- **Privacy**: _See [Drone](https://www.drone.io)_
 
 ---
 
