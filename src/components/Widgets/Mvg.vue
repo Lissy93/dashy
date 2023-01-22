@@ -72,12 +72,8 @@ export default {
       const diff = Math.max(0, Math.round(msDifference / 60000));
       return diff;
     },
-    limitLength(str) {
-      return str;
-    },
   },
   computed: {
-    /* API endpoint, either for self-hosted or managed instance */
     isLocationId() {
       if (!this.options.location) {
         this.error('Location is required');
@@ -91,8 +87,7 @@ export default {
       return 0;
     },
     limit() {
-      if (this.options.limit) return this.options.limit;
-      return 10;
+      return this.options.limit || 10;
     },
     endpointDeparture() {
       return `${widgetApiEndpoints.mvg}/departure?globalId=${this.location}&limit=30&offsetInMinutes=${this.offset}&transportTypes=UBAHN,TRAM,BUS,SBAHN`;

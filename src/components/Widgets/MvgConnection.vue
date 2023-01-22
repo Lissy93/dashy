@@ -90,9 +90,6 @@ export default {
       const diff = Math.max(0, Math.round(msDifference / 60000));
       return diff;
     },
-    limitLength(str) {
-      return str;
-    },
     formatTime(str) {
       const d = new Date(Date.parse(str));
       function ii(i) {
@@ -155,7 +152,7 @@ export default {
       return `${widgetApiEndpoints.mvg}/location?query=${encodeURIComponent(loc)}`;
     },
     endpointConnection() {
-      return `${widgetApiEndpoints.mvg}/connection?${this.formatPoint(this.locations.origin, 'origin')}&${this.formatPoint(this.locations.destination, 'destination')}&routingDateTime=${(new Date()).toISOString()}&limit=30&offsetInMinutes=${this.offset}&transportTypes=${this.transportTypes}`;
+      return `${widgetApiEndpoints.mvg}/connection?${this.formatPoint(this.locations.origin, 'origin')}&${this.formatPoint(this.locations.destination, 'destination')}&routingDateTime=${(new Date()).toISOString()}&offsetInMinutes=${this.offset}&transportTypes=${this.transportTypes}`;
     },
     update() {
       this.startLoading();
