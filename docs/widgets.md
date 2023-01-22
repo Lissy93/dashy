@@ -36,6 +36,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [GitHub Profile Stats](#github-profile-stats)
   - [Healthchecks Status](#healthchecks status)
   - [Mvg Departure](#mvg-departure)
+  - [Mvg Connection](#mvg-connection)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
@@ -1182,7 +1183,7 @@ From https://www.mvg.de/impressum.html:
 
 > [...] Die Verarbeitung unserer Inhalte oder Daten durch Dritte erfordert unsere ausdrückliche Zustimmung. Für private, nicht-kommerzielle Zwecke, wird eine gemäßigte Nutzung ohne unsere ausdrückliche Zustimmung geduldet. Jegliche Form von Data-Mining stellt keine gemäßigte Nutzung dar.[...]
 
-In other words: Private, noncomercial, moderate use of the API is tolerated. They don’t consider data mining as moderate use.
+In other words: Private, noncomercial, moderate use of the API is tolerated. They don’t consider data mining as moderate use. (This is not a legal advice)
 
 #### Options
 
@@ -1190,6 +1191,12 @@ In other words: Private, noncomercial, moderate use of the API is tolerated. The
 --- | --- | --- | ---
 **`location`** | `string` |  Required | The name of the location (exact) or the location id, startin with `de:09162:`
 **`limit`** | `integer` |  _Optional_ | Limit number of entries, defaults to 10.
+**`title`** | `string` |  _Optional_ | A custom title to be displayed.
+**`header`** | `bool` |  _Optional_ | Shall the title be shown?
+**`filters`** | `object` |  _Optional_ | Filter results
+**`filters.line`** | `string/array` |  _Optional_ | Filter results for given line(s).
+**`filters.product`** | `string/array` |  _Optional_ | Filter results for specific product (TRAM, UBAHN, SBAHN, BUS).
+**`filters.destination`** | `string/object` |  _Optional_ | Filter results for specific destination(s)
 
 ```yaml
 - type: mvg
@@ -1201,10 +1208,55 @@ In other words: Private, noncomercial, moderate use of the API is tolerated. The
 #### Info
 
 - **CORS**: 🟢 Enabled
-- **Auth**: 🟢 Required
-- **Price**: 🟢 Free / Paid / Self-hosted 
-- **Host**: Managed Instance or Self-Hosted (see [healthchecks/healthchecks](https://github.com/healthchecks/healthchecks))
-- **Privacy**: _See [Healthchecks.io Privacy Policy](https://healthchecks.io/privacy/)_
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free / Private use only
+- **Host**: [MVG](https://mvg.de)
+- **Privacy**: _See [MVG Datenschutz](https://www.mvg.de/datenschutz-mvg.html)_
+
+---
+
+### MVG Connection
+
+Display the next connection for two addresses/coordinates, stations or POI within Munich using MVG MVG (Münchner Verkehrs Gesellschaft).
+
+From https://www.mvg.de/impressum.html:
+
+> [...] Die Verarbeitung unserer Inhalte oder Daten durch Dritte erfordert unsere ausdrückliche Zustimmung. Für private, nicht-kommerzielle Zwecke, wird eine gemäßigte Nutzung ohne unsere ausdrückliche Zustimmung geduldet. Jegliche Form von Data-Mining stellt keine gemäßigte Nutzung dar.[...]
+
+In other words: Private, noncomercial, moderate use of the API is tolerated. They don’t consider data mining as moderate use. (This is not a legal advice)
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`origin`** | `string` |  Required | Origin of the connection.
+**`destination`** | `string` |  Required | Destination of the connection.
+**`title`** | `string` |  _Optional_ | A custom title to be displayed.
+**`header`** | `bool` |  _Optional_ | Shall the title be shown?
+**`filters`** | `object` |  _Optional_ | Filter results
+**`filters.line`** | `string/array` |  _Optional_ | Filter results for given line(s).
+**`filters.product`** | `string/array` |  _Optional_ | Filter results for specific product (TRAM, UBAHN, SBAHN, BUS).
+**`filters.destination`** | `string/object` |  _Optional_ | Filter results for specific destination(s)
+
+```yaml
+- type: mvg-connection
+  options:
+    from: Marienplatz
+    from: Dachauer Straße 123
+    header: true
+    filters:
+      product: [UBAHN]
+      line: [U1,U2,U4,U5]
+
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free / Private use only
+- **Host**: [MVG](https://mvg.de)
+- **Privacy**: _See [MVG Datenschutz](https://www.mvg.de/datenschutz-mvg.html)_
 
 ---
 
