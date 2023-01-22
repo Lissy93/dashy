@@ -250,7 +250,6 @@ export default {
       margin-right: 0.40em;
       margin-left: 0.40em;
       text-align: center;
-      over
       span {
         min-width: 2em;
         display: inline-block;
