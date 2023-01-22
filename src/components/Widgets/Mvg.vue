@@ -135,9 +135,7 @@ export default {
     },
     filter_results(value) {
       if (!this.options.filters) return true;
-      let useEntry = true;
-      useEntry = useEntry
-        && (
+      let useEntry = (
           (!this.options.filters.line)
             || this.ensure_array(this.options.filters.line).includes(value.label)
         );

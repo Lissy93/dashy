@@ -108,7 +108,7 @@ export default {
         if (s.length < 2) s = `0${s}`;
         return s;
       }
-      return `${Math.floor(val / 3600000, 0)}:${ii(Math.floor(val / 60000, 0))}`;
+      return `${Math.floor(val / 3600000)}:${ii(Math.floor(val / 60000))}`;
     },
   },
   computed: {
