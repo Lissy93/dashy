@@ -70,7 +70,7 @@ export default {
       const filename = 'dashy_conf.yml';
       const config = this.convertJsonToYaml();
       const element = document.createElement('a');
-      element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(config)}`);
+      element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(config)}`);
       element.setAttribute('download', filename);
       element.style.display = 'none';
       document.body.appendChild(element);
