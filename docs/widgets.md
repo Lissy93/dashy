@@ -35,6 +35,8 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [GitHub Trending](#github-trending)
   - [GitHub Profile Stats](#github-profile-stats)
   - [Healthchecks Status](#healthchecks status)
+  - [Mvg Departure](#mvg-departure)
+  - [Mvg Connection](#mvg-connection)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
@@ -58,6 +60,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Nextcloud PHP OPcache](#nextcloud-php-opcache-stats)
   - [Sabnzbd](#sabnzbd)
   - [Gluetun VPN Info](#gluetun-vpn-info)
+  - [Drone CI Build](#drone-ci-builds)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -1173,6 +1176,92 @@ Display status of one or more HealthChecks project(s). Works with healthcheck.io
 
 ---
 
+### MVG Departure
+
+Display departure time of a MVG (Münchner Verkehrs Gesellschaft) station.
+
+From https://www.mvg.de/impressum.html:
+
+> [...] Die Verarbeitung unserer Inhalte oder Daten durch Dritte erfordert unsere ausdrückliche Zustimmung. Für private, nicht-kommerzielle Zwecke, wird eine gemäßigte Nutzung ohne unsere ausdrückliche Zustimmung geduldet. Jegliche Form von Data-Mining stellt keine gemäßigte Nutzung dar.[...]
+
+In other words: Private, noncomercial, moderate use of the API is tolerated. They don’t consider data mining as moderate use. (This is not a legal advice)
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`location`** | `string` |  Required | The name of the location (exact) or the location id, startin with `de:09162:`
+**`limit`** | `integer` |  _Optional_ | Limit number of entries, defaults to 10.
+**`title`** | `string` |  _Optional_ | A custom title to be displayed.
+**`header`** | `bool` |  _Optional_ | Shall the title be shown?
+**`filters`** | `object` |  _Optional_ | Filter results
+**`filters.line`** | `string/array` |  _Optional_ | Filter results for given line(s).
+**`filters.product`** | `string/array` |  _Optional_ | Filter results for specific product (TRAM, UBAHN, SBAHN, BUS).
+**`filters.destination`** | `string/object` |  _Optional_ | Filter results for specific destination(s)
+
+```yaml
+- type: mvg
+  options:
+    location: Marienplatz
+    limit: 5
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free / Private use only
+- **Host**: [MVG](https://mvg.de)
+- **Privacy**: _See [MVG Datenschutz](https://www.mvg.de/datenschutz-mvg.html)_
+
+---
+
+### MVG Connection
+
+Display the next connection for two addresses/coordinates, stations or POI within Munich using MVG MVG (Münchner Verkehrs Gesellschaft).
+
+From https://www.mvg.de/impressum.html:
+
+> [...] Die Verarbeitung unserer Inhalte oder Daten durch Dritte erfordert unsere ausdrückliche Zustimmung. Für private, nicht-kommerzielle Zwecke, wird eine gemäßigte Nutzung ohne unsere ausdrückliche Zustimmung geduldet. Jegliche Form von Data-Mining stellt keine gemäßigte Nutzung dar.[...]
+
+In other words: Private, noncomercial, moderate use of the API is tolerated. They don’t consider data mining as moderate use. (This is not a legal advice)
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`origin`** | `string` |  Required | Origin of the connection.
+**`destination`** | `string` |  Required | Destination of the connection.
+**`title`** | `string` |  _Optional_ | A custom title to be displayed.
+**`header`** | `bool` |  _Optional_ | Shall the title be shown?
+**`filters`** | `object` |  _Optional_ | Filter results
+**`filters.line`** | `string/array` |  _Optional_ | Filter results for given line(s).
+**`filters.product`** | `string/array` |  _Optional_ | Filter results for specific product (TRAM, UBAHN, SBAHN, BUS).
+**`filters.destination`** | `string/object` |  _Optional_ | Filter results for specific destination(s)
+
+```yaml
+- type: mvg-connection
+  options:
+    from: Marienplatz
+    from: Dachauer Straße 123
+    header: true
+    filters:
+      product: [UBAHN]
+      line: [U1,U2,U4,U5]
+
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free / Private use only
+- **Host**: [MVG](https://mvg.de)
+- **Privacy**: _See [MVG Datenschutz](https://www.mvg.de/datenschutz-mvg.html)_
+
+---
+
+
 ## Self-Hosted Services Widgets
 
 ### System Info
@@ -1944,6 +2033,42 @@ Display info from the Gluetun VPN container public IP API. This can show the IP 
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Gluetun](https://github.com/qdm12/gluetun))
 - **Privacy**: _See [Gluetun Wiki](https://github.com/qdm12/gluetun/wiki)_
+
+---
+
+### Drone CI Builds
+
+Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self-hosted CI system that uses docker.
+
+<p align="center"><img width="380" src="https://i.ibb.co/nQM3BXj/Bildschirm-foto-2023-01-07-um-01-31-45.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The histname of the Drone CI instance.
+**`apiKey`** | `string` |  Required | The API key (https://<your-drone-instance>/account).
+**`limit`** | `integer` | _Optional_ | Limit the amounts of listed builds.
+**`repo`** | `string` | _Optional_ | Show only builds of the specified repo
+
+#### Example
+
+```yaml
+- type: drone-io
+  updateInterval: 30
+  options:
+    host: https://drone.somedomain.com
+    apiKey: my-very-secret-api-key
+    limit: 10
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Drone](https://www.drone.io))
+- **Privacy**: _See [Drone](https://www.drone.io)_
 
 ---
 

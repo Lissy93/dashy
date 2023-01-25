@@ -33,27 +33,20 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/Geolim4">
-            <img src="https://avatars.githubusercontent.com/u/1332071?u=5d84984897f094932c4829583fee19b121f3aab8&v=4" width="80;" alt="Geolim4"/>
-            <br />
-            <sub><b>Georges.L</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/AnandChowdhary">
             <img src="https://avatars.githubusercontent.com/u/2841780?u=ca8e292b15abcc6cddaeae0abded0115c51b4789&v=4" width="80;" alt="AnandChowdhary"/>
             <br />
             <sub><b>Anand Chowdhary</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/davidpaulyoung">
             <img src="https://avatars.githubusercontent.com/u/3418369?v=4" width="80;" alt="davidpaulyoung"/>
             <br />
             <sub><b>David Young</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/k-rol">
             <img src="https://avatars.githubusercontent.com/u/4050412?u=1162510eec7b7aeb31d4c7c65d51d4f773d823b0&v=4" width="80;" alt="k-rol"/>
@@ -88,15 +81,15 @@
             <br />
             <sub><b>Brian McGonagill</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/vlad-timofeev">
             <img src="https://avatars.githubusercontent.com/u/11474041?v=4" width="80;" alt="vlad-timofeev"/>
             <br />
             <sub><b>Vlad Timofeev</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/PAPAMICA">
             <img src="https://avatars.githubusercontent.com/u/29079741?v=4" width="80;" alt="PAPAMICA"/>
@@ -233,6 +226,13 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/albcp">
+            <img src="https://avatars.githubusercontent.com/u/3170731?v=4" width="80;" alt="albcp"/>
+            <br />
+            <sub><b>Alberto</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/Tracreed">
             <img src="https://avatars.githubusercontent.com/u/6306365?v=4" width="80;" alt="Tracreed"/>
             <br />
@@ -252,15 +252,15 @@
             <br />
             <sub><b>Totto16</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/alucarddelta">
             <img src="https://avatars.githubusercontent.com/u/20882097?v=4" width="80;" alt="alucarddelta"/>
             <br />
             <sub><b>Brent</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/Bogyie">
             <img src="https://avatars.githubusercontent.com/u/82003678?v=4" width="80;" alt="Bogyie"/>
@@ -283,12 +283,20 @@
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/rtm516">
+            <img src="https://avatars.githubusercontent.com/u/5401186?v=4" width="80;" alt="rtm516"/>
+            <br />
+            <sub><b>rtm516</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/onedr0p">
             <img src="https://avatars.githubusercontent.com/u/213795?v=4" width="80;" alt="onedr0p"/>
             <br />
             <sub><b>ᗪєνιη ᗷυнʟ</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/alexdelprete">
             <img src="https://avatars.githubusercontent.com/u/7027842?v=4" width="80;" alt="alexdelprete"/>
@@ -302,8 +310,7 @@
             <br />
             <sub><b>Stephen Rigney</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/moemoeq">
             <img src="https://avatars.githubusercontent.com/u/1808434?v=4" width="80;" alt="moemoeq"/>
@@ -323,20 +330,6 @@
             <img src="https://avatars.githubusercontent.com/u/2410802?v=4" width="80;" alt="m42e"/>
             <br />
             <sub><b>Matthias Bilger</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/thomasdissert">
-            <img src="https://avatars.githubusercontent.com/u/11446531?v=4" width="80;" alt="thomasdissert"/>
-            <br />
-            <sub><b>Thomas Dissert</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/k073l">
-            <img src="https://avatars.githubusercontent.com/u/21180271?v=4" width="80;" alt="k073l"/>
-            <br />
-            <sub><b>K073l</b></sub>
         </a>
     </td></tr>
 </table>

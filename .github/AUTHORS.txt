@@ -64,6 +64,7 @@ cauterize <cauterize@programmer.net> - 2 commits
 k073l <21180271+k073l@users.noreply.github.com> - 2 commits
 liss-bot <87835202+liss-bot@users.noreply.github.com> - 2 commits
 patrickheeney <patrickheeney@gmail.com> - 2 commits
+rtm516 <rtm516@users.noreply.github.com> - 2 commits
 ᗪєνιη <υн> - 2 commits
 Alucarddelta <dreyer.brent@gmail.com> - 3 commits
 Tuzi555 <jakub.tuzar@gmail.com> - 3 commits
@@ -71,6 +72,7 @@ Walkx <71191962+walkxcode@users.noreply.github.com> - 3 commits
 aterox <kenneth@kenneth.church> - 3 commits
 bogyeong <boggyhint@gmail.com> - 3 commits
 stanly0726 <37040069+stanly0726@users.noreply.github.com> - 3 commits
+Alberto <aravac> - 4 commits
 David <laso> - 4 commits
 Lissy93 <alicia@omg.lol> - 4 commits
 Niklas <abe> - 4 commits
@@ -98,9 +100,9 @@ Alicia <yke> - 28 commits
 repo-visualizer <repo-visualizer@users.noreply.github.com> - 71 commits
 snyk-bot <snyk-bot@snyk.io> - 74 commits
 Lissy93 <gh@d0h.co> - 78 commits
-Alicia <o> - 130 commits
+Alicia <o> - 132 commits
 liss-bot <liss-bot@d0h.co> - 142 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 208 commits
-Alicia <yke> - 250 commits
+Alicia <yke> - 253 commits
 Alicia <yke> - 440 commits
 Alicia <yke> - 1488 commits
