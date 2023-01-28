@@ -1,14 +1,15 @@
 <template>
 <div class="health-checks-wrapper" v-if="crons">
   <template
-    v-for="cron in crons" :key="cron.id"
+    v-for="cron in crons"
   >
-    <div class="status">
+    <div class="status" v-bind:key="cron.id + 'status'">
       <p :class="cron.status">{{ cron.status | formatStatus }}</p>
     </div>
-    <div 
+    <div
       class="info"
       v-tooltip="pingTimeTooltip(cron)"
+      v-bind:key="cron.id + 'info'"
     >
       <p class="cron-name">{{ cron.name }}</p>
       <p class="cron-desc">{{ cron.desc }}</p>
@@ -37,7 +38,7 @@ export default {
       if (status === 'down') symbol = '✘';
       if (status === 'new') symbol = '❖';
       if (status === 'paused') symbol = '⏸';
-      if (status === 'running') symbol = '▶'
+      if (status === 'running') symbol = '▶';
       return `${symbol} ${capitalize(status)}`;
     },
     formatDate(timestamp) {
@@ -54,8 +55,8 @@ export default {
       if (!this.options.apiKey) {
         this.error('An API key is required, please see the docs for more info');
       }
-      if (typeof(this.options.apiKey) === "string") {
-        return [ this.options.apiKey ];
+      if (typeof this.options.apiKey === 'string') {
+        return [this.options.apiKey];
       }
       return this.options.apiKey;
     },
@@ -71,7 +72,7 @@ export default {
           (response) => { this.processData(response, results); },
         );
       });
-      results.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+      results.sort((a, b) => ((a.name > b.name) ? 1 : -1));
       this.crons = results;
     },
     /* Assign data variables to the returned data */

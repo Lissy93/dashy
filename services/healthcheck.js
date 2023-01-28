@@ -4,14 +4,21 @@
  * Note that exiting with code 1 indicates failure, and 0 is success
  */
 
-const http = require('http');
+const isSsl = !!process.env.SSL_PRIV_KEY_PATH && !!process.env.SSL_PUB_KEY_PATH;
+
+const http = require(isSsl ? 'https' : 'http');
 
 /* Location of the server to test */
-const port = process.env.PORT || !!process.env.IS_DOCKER ? 80 : 4000;
+const isDocker = !!process.env.IS_DOCKER;
+const port = isSsl ? (process.env.SSL_PORT || (isDocker ? 443 : 4001)) : (process.env.PORT || isDocker ? 80 : 4000);
 const host = process.env.HOST || '0.0.0.0';
 const timeout = 2000;
 
-const requestOptions = { host, port, timeout };
+const agent = new http.Agent({
+  rejectUnauthorized: false, // Allow self-signed certificates
+});
+
+const requestOptions = { host, port, timeout, agent };
 
 const startTime = new Date(); // Initialize timestamp to calculate time taken
 

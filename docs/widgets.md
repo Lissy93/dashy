@@ -35,6 +35,8 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [GitHub Trending](#github-trending)
   - [GitHub Profile Stats](#github-profile-stats)
   - [Healthchecks Status](#healthchecks status)
+  - [Mvg Departure](#mvg-departure)
+  - [Mvg Connection](#mvg-connection)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
@@ -43,7 +45,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [System Load History](#load-history-netdata)
   - [Pi Hole Stats](#pi-hole-stats)
   - [Pi Hole Queries](#pi-hole-queries)
-  - [Recent Traffic](#recent-traffic)
+  - [Pi Hole Recent Traffic](#pi-hole-recent-traffic)
   - [Stat Ping Statuses](#stat-ping-statuses)
   - [Synology Download Station](#synology-download-station)
   - [AdGuard Home Block Stats](#adguard-home-block-stats)
@@ -58,6 +60,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Nextcloud PHP OPcache](#nextcloud-php-opcache-stats)
   - [Sabnzbd](#sabnzbd)
   - [Gluetun VPN Info](#gluetun-vpn-info)
+  - [Drone CI Build](#drone-ci-builds)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -620,7 +623,7 @@ Keep track of recent security advisories and vulnerabilities, with optional filt
 **`minScore`** | `number` |  _Optional_ | If set, will only display results with a CVE score higher than the number specified. Can be a number between `0` and `9.9`. By default, vulnerabilities of all CVE scores are shown
 **`hasExploit`** | `boolean` |  _Optional_ | If set to `true`, will only show results with active exploits. Defaults to `false`
 **`vendorId`** | `number` |  _Optional_ | Only show results from a specific vendor, specified by ID. See [Vendor Search](https://www.cvedetails.com/vendor-search.php) for list of vendors. E.g. `23` (Debian), `26` (Microsoft), `23682` (CloudFlare)
-**`productId`** | `number` |  _Optional_ | Only show results from a specific app or product, specified by ID. See [Product Search](https://www.cvedetails.com/product-search.php) for list of products. E.g. `13534` (Docker), `15913` (NextCloud), `19294` (Portainer), `17908` (ProtonMail)
+**`productId`** | `number` |  _Optional_ | Only show results from a specific app or product, specified by ID. See [Product Search](https://www.cvedetails.com/product-search.php) for list of products. E.g. `28125` (Docker), `34622` (NextCloud), `50211` (Portainer), `95391` (ProtonMail)
 
 #### Example
 
@@ -635,7 +638,7 @@ or
   options:
     sortBy: publish-date
     productId: 28125
-    hasExploit: true
+    hasExploit: false
     minScore: 5
     limit: 30
 ```
@@ -1173,6 +1176,92 @@ Display status of one or more HealthChecks project(s). Works with healthcheck.io
 
 ---
 
+### MVG Departure
+
+Display departure time of a MVG (Münchner Verkehrs Gesellschaft) station.
+
+From https://www.mvg.de/impressum.html:
+
+> [...] Die Verarbeitung unserer Inhalte oder Daten durch Dritte erfordert unsere ausdrückliche Zustimmung. Für private, nicht-kommerzielle Zwecke, wird eine gemäßigte Nutzung ohne unsere ausdrückliche Zustimmung geduldet. Jegliche Form von Data-Mining stellt keine gemäßigte Nutzung dar.[...]
+
+In other words: Private, noncomercial, moderate use of the API is tolerated. They don’t consider data mining as moderate use. (This is not a legal advice)
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`location`** | `string` |  Required | The name of the location (exact) or the location id, startin with `de:09162:`
+**`limit`** | `integer` |  _Optional_ | Limit number of entries, defaults to 10.
+**`title`** | `string` |  _Optional_ | A custom title to be displayed.
+**`header`** | `bool` |  _Optional_ | Shall the title be shown?
+**`filters`** | `object` |  _Optional_ | Filter results
+**`filters.line`** | `string/array` |  _Optional_ | Filter results for given line(s).
+**`filters.product`** | `string/array` |  _Optional_ | Filter results for specific product (TRAM, UBAHN, SBAHN, BUS).
+**`filters.destination`** | `string/object` |  _Optional_ | Filter results for specific destination(s)
+
+```yaml
+- type: mvg
+  options:
+    location: Marienplatz
+    limit: 5
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free / Private use only
+- **Host**: [MVG](https://mvg.de)
+- **Privacy**: _See [MVG Datenschutz](https://www.mvg.de/datenschutz-mvg.html)_
+
+---
+
+### MVG Connection
+
+Display the next connection for two addresses/coordinates, stations or POI within Munich using MVG MVG (Münchner Verkehrs Gesellschaft).
+
+From https://www.mvg.de/impressum.html:
+
+> [...] Die Verarbeitung unserer Inhalte oder Daten durch Dritte erfordert unsere ausdrückliche Zustimmung. Für private, nicht-kommerzielle Zwecke, wird eine gemäßigte Nutzung ohne unsere ausdrückliche Zustimmung geduldet. Jegliche Form von Data-Mining stellt keine gemäßigte Nutzung dar.[...]
+
+In other words: Private, noncomercial, moderate use of the API is tolerated. They don’t consider data mining as moderate use. (This is not a legal advice)
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`origin`** | `string` |  Required | Origin of the connection.
+**`destination`** | `string` |  Required | Destination of the connection.
+**`title`** | `string` |  _Optional_ | A custom title to be displayed.
+**`header`** | `bool` |  _Optional_ | Shall the title be shown?
+**`filters`** | `object` |  _Optional_ | Filter results
+**`filters.line`** | `string/array` |  _Optional_ | Filter results for given line(s).
+**`filters.product`** | `string/array` |  _Optional_ | Filter results for specific product (TRAM, UBAHN, SBAHN, BUS).
+**`filters.destination`** | `string/object` |  _Optional_ | Filter results for specific destination(s)
+
+```yaml
+- type: mvg-connection
+  options:
+    from: Marienplatz
+    from: Dachauer Straße 123
+    header: true
+    filters:
+      product: [UBAHN]
+      line: [U1,U2,U4,U5]
+
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free / Private use only
+- **Host**: [MVG](https://mvg.de)
+- **Privacy**: _See [MVG Datenschutz](https://www.mvg.de/datenschutz-mvg.html)_
+
+---
+
+
 ## Self-Hosted Services Widgets
 
 ### System Info
@@ -1338,6 +1427,7 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 --- | --- | --- | ---
 **`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
 **`hideStatus`** / **`hideChart`** / **`hideInfo`** | `boolean` |  _Optional_ | Optionally hide any of the three parts of the widget
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD`
 
 #### Example
 
@@ -1345,12 +1435,13 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 - type: pi-hole-stats
   options:
     hostname: http://192.168.130.1
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 #### Info
 
 - **CORS**: 🟢 Enabled
-- **Auth**: 🟢 Not Required
+- **Auth**: 🔴 Required
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [GitHub - Pi-hole](https://github.com/pi-hole/pi-hole))
 - **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
@@ -1390,7 +1481,7 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
 
 ---
 
-### Recent Traffic
+### Pi Hole Recent Traffic
 
 Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole](https://pi-hole.net/)
 
@@ -1401,6 +1492,7 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD`
 
 #### Example
 
@@ -1408,12 +1500,13 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 - type: pi-hole-traffic
   options:
     hostname: https://pi-hole.local
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 #### Info
 
 - **CORS**: 🟢 Enabled
-- **Auth**: 🟢 Not Required
+- **Auth**: 🔴 Required
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [GitHub - Pi-hole](https://github.com/pi-hole/pi-hole))
 - **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
@@ -1940,6 +2033,42 @@ Display info from the Gluetun VPN container public IP API. This can show the IP 
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Gluetun](https://github.com/qdm12/gluetun))
 - **Privacy**: _See [Gluetun Wiki](https://github.com/qdm12/gluetun/wiki)_
+
+---
+
+### Drone CI Builds
+
+Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self-hosted CI system that uses docker.
+
+<p align="center"><img width="380" src="https://i.ibb.co/nQM3BXj/Bildschirm-foto-2023-01-07-um-01-31-45.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The histname of the Drone CI instance.
+**`apiKey`** | `string` |  Required | The API key (https://<your-drone-instance>/account).
+**`limit`** | `integer` | _Optional_ | Limit the amounts of listed builds.
+**`repo`** | `string` | _Optional_ | Show only builds of the specified repo
+
+#### Example
+
+```yaml
+- type: drone-io
+  updateInterval: 30
+  options:
+    host: https://drone.somedomain.com
+    apiKey: my-very-secret-api-key
+    limit: 10
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Drone](https://www.drone.io))
+- **Privacy**: _See [Drone](https://www.drone.io)_
 
 ---
 
