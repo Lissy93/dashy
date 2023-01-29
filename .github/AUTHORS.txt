@@ -100,8 +100,8 @@ Alicia <yke> - 28 commits
 repo-visualizer <repo-visualizer@users.noreply.github.com> - 72 commits
 snyk-bot <snyk-bot@snyk.io> - 75 commits
 Lissy93 <gh@d0h.co> - 78 commits
-Alicia <o> - 134 commits
-liss-bot <liss-bot@d0h.co> - 144 commits
+Alicia <o> - 136 commits
+liss-bot <liss-bot@d0h.co> - 146 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 208 commits
 Alicia <yke> - 257 commits
 Alicia <yke> - 440 commits
