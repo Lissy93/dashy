@@ -20,10 +20,10 @@
     </div>
     <!-- Show links for switching back to Home / Minimal views -->
     <div class="switch-view-buttons">
-      <router-link to="/home">
+      <router-link to="/home/">
         <IconHome class="view-icon" v-tooltip="$t('alternate-views.default')" />
       </router-link>
-      <router-link to="/minimal">
+      <router-link to="/minimal/">
         <IconMinimalView class="view-icon" v-tooltip="$t('alternate-views.minimal')" />
       </router-link>
     </div>
