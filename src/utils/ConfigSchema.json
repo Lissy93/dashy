@@ -481,6 +481,11 @@
                   "type": "string",
                   "description": "The Client ID of the client you created for use with Dashy"
                 },
+                "idpHint": {
+                  "title" : "IdP hint",
+                  "type": "string",
+                  "description": "Set to the 'Alias' of an existing Identity Provider in the specified realm to skip the Keycloak login page and redirect straight to the external IdP for authentication"
+                },
                 "legacySupport": {
                   "title": "Legacy Support",
                   "type": "boolean",
