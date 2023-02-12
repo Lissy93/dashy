@@ -164,6 +164,8 @@ appConfig:
 
 Note that if you are using Keycloak V 17 or older, you will also need to set `legacySupport: true` (also under `appConfig.auth.keycloak`). This is because the API endpoint was updated in later versions.
 
+If you use Keycloak with an external Identity Provier, you can set the `idpHint: 'alias-of-kc-idp'` option to allow the IdP Hint to be passed to Keycloak. This will cause Keycloak to skip its login page and redirect the user directly to the specified IdP's login page. Set to the value of the 'Alias' field of the desired IdP as defined in Keycloak under 'Identity Providers'.
+
 ### 4. Add groups and roles (Optional)
 
 Keycloak allows you to assign users roles and groups. You can use these values to configure who can access various sections or items in Dashy.
