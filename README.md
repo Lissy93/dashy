@@ -625,13 +625,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/shadowking001">
-            <img src="https://avatars.githubusercontent.com/u/43928955?u=a00b44f22e5a82234d9b406ac048def1fbc16e31&v=4" width="80;" alt="shadowking001"/>
-            <br />
-            <sub><b>LawrenceP.</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/ratty222">
             <img src="https://avatars.githubusercontent.com/u/92832598?u=137b65530cbd5f5af9c24cde51baa6cc77cc934b&v=4" width="80;" alt="ratty222"/>
             <br />
