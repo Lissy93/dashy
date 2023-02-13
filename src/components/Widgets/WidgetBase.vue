@@ -84,6 +84,7 @@ const COMPAT = {
   joke: 'Jokes',
   'mullvad-status': 'MullvadStatus',
   mvg: 'Mvg',
+  linkding: 'Linkding',
   'mvg-connection': 'MvgConnection',
   'nd-cpu-history': 'NdCpuHistory',
   'nd-load-history': 'NdLoadHistory',
