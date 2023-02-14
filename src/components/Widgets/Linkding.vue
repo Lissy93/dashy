@@ -36,6 +36,9 @@ export default {
       if (!this.options.apiKey) this.error('linkgding apiKey is required');
       return this.options.apiKey;
     },
+    filtertags() {
+      return this.options.tags;
+    },
   },
   methods: {
     update() {
@@ -50,7 +53,17 @@ export default {
       );
     },
     processData(data) {
-      this.links = data.results;
+      const self = this;
+      const fltr = function (entry) {
+        if (self.filtertags === null) return true;
+        for (let i = 0; i < self.filtertags.length; i += 1) {
+          if (entry.tag_names.includes(self.filtertags[i])) return true;
+        }
+        return false;
+      };
+      this.links = data.results.filter(
+        entry => fltr(entry),
+      );
     },
   },
 };
