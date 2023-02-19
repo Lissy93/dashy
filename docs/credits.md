@@ -147,17 +147,17 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/EVOTk">
-            <img src="https://avatars.githubusercontent.com/u/45015615?v=4" width="80;" alt="EVOTk"/>
-            <br />
-            <sub><b>EVOTk</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/snyk-bot">
             <img src="https://avatars.githubusercontent.com/u/19733683?v=4" width="80;" alt="snyk-bot"/>
             <br />
             <sub><b>Snyk Bot</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/EVOTk">
+            <img src="https://avatars.githubusercontent.com/u/45015615?v=4" width="80;" alt="EVOTk"/>
+            <br />
+            <sub><b>EVOTk</b></sub>
         </a>
     </td>
     <td align="center">
@@ -348,10 +348,10 @@
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/thomasdissert">
-            <img src="https://avatars.githubusercontent.com/u/11446531?v=4" width="80;" alt="thomasdissert"/>
+        <a href="https://github.com/thomaswienecke">
+            <img src="https://avatars.githubusercontent.com/u/11446531?v=4" width="80;" alt="thomaswienecke"/>
             <br />
-            <sub><b>Thomas Dissert</b></sub>
+            <sub><b>Thomas Wienecke</b></sub>
         </a>
     </td>
     <td align="center">
