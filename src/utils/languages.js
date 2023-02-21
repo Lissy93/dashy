@@ -2,6 +2,7 @@
 import en from '@/assets/locales/en.json';
 import ar from '@/assets/locales/ar.json';
 import bg from '@/assets/locales/bg.json';
+import bn from '@/assets/locales/bn.json';
 import cs from '@/assets/locales/cs.json';
 import da from '@/assets/locales/da.json';
 import de from '@/assets/locales/de.json';
@@ -43,6 +44,12 @@ export const languages = [
     code: 'bg',
     locale: bg,
     flag: '🇧🇬',
+  },
+  { // Bengali
+    name: 'বাংলা',
+    code: 'bn',
+    locale: bn,
+    flag: '🇧🇩',
   },
   { // Czech
     name: 'Čeština',
