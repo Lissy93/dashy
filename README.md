@@ -529,6 +529,9 @@ Huge thanks to the sponsors helping to support Dashy's development!
 #### Contributors
 [![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)](./docs/credits.md)
 
+#### Stats
+[![Stats](https://repobeats.axiom.co/api/embed/48546e3c768d38c450ba136e32c0992bcf58ad73.svg "Repobeats analytics image")](https://github.com/Lissy93/dashy/blob/master/docs/credits.md)
+
 **[⬆️ Back to Top](#dashy)**
 
 ---
