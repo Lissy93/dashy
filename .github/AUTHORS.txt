@@ -41,7 +41,6 @@ Steffen Schmidt <service.github@nocer.net> - 1 commits
 Steven Kast <steven.m.kast@gmail.com> - 1 commits
 Xert <xertdev@gmail.com> - 1 commits
 deepsource-io[bot] <deepsource-io[bot]@users.noreply.github.com> - 1 commits
-dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> - 1 commits
 dr460nf1r3 <njcrypted@protonmail.com> - 1 commits
 flechaig <flechaig@users.noreply.github.com> - 1 commits
 icy-comet <50461557+icy-comet@users.noreply.github.com> - 1 commits
@@ -55,7 +54,6 @@ pablomalo <paul.gouin50@gmail.com> - 1 commits
 rtm516 <ryantmilner@hotmail.co.uk> - 1 commits
 sur1v <gsuriv@gmail.com> - 1 commits
 tazboyz16 <tazboyz_16@yahoo.com> - 1 commits
-zcq100 <m@zcq100.com> - 1 commits
 Ángel Fernández Sánchez <angelfx19@gmail.com> - 1 commits
 Alejandro Pinar Ruiz <37040888+pinarruiz@users.noreply.github.com> - 2 commits
 Alessandro Del Prete <alessandro.delprete@gmail.com> - 2 commits
@@ -71,6 +69,7 @@ k073l <21180271+k073l@users.noreply.github.com> - 2 commits
 liss-bot <87835202+liss-bot@users.noreply.github.com> - 2 commits
 patrickheeney <patrickheeney@gmail.com> - 2 commits
 rtm516 <rtm516@users.noreply.github.com> - 2 commits
+zcq100 <m@zcq100.com> - 2 commits
 ᗪєνιη ᗷυнʟ <onedr0p@users.noreply.github.com> - 2 commits
 Alucarddelta <dreyer.brent@gmail.com> - 3 commits
 Tuzi555 <jakub.tuzar@gmail.com> - 3 commits
