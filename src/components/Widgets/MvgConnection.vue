@@ -66,7 +66,7 @@ export default {
       connections: null,
       locationSearch: null,
       connectionName: null,
-      defaultTitle: "Connection",
+      defaultTitle: 'Connection',
       locations: {
         origin: undefined,
         destination: undefined,
