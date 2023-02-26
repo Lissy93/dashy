@@ -23,7 +23,7 @@
       :class="{cancelled: departure.cancelled}">{{ departure.destination }}</div>
       <span class="delay"
         :class="{'has-delay': departure.realtimeDepartureTime > departure.plannedDepartureTime}"
-      >{{ Math.max(0, 
+      >{{ Math.max(0,
           (departure.realtimeDepartureTime - departure.plannedDepartureTime)/60000) }}</span>
       <span class="occupancy"
       :class="'occupancy-' + departure.occupancy"
@@ -131,9 +131,9 @@ export default {
     filter_results(value) {
       if (!this.options.filters) return true;
       let useEntry = (
-          (!this.options.filters.line)
+        (!this.options.filters.line)
             || this.ensure_array(this.options.filters.line).includes(value.label)
-        );
+      );
       useEntry = useEntry
         && (
           (!this.options.filters.product)
