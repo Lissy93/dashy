@@ -40,7 +40,7 @@ export default {
       return !this.options.hideSeconds;
     },
     use12Hour() {
-      if (typeof this.options.use12Hour === "boolean") return this.options.use12Hour;
+      if (typeof this.options.use12Hour === 'boolean') return this.options.use12Hour;
       // this is the default, it gets computed by the DateTimeFormat implementation
       return Intl.DateTimeFormat(this.timeFormat, { timeZone: this.timeZone, hour: 'numeric' }).resolvedOptions().hour12 ?? false;
     },
