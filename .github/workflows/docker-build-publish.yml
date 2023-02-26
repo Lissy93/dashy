@@ -42,8 +42,8 @@ jobs:
       with:
         images: |
           ${{ env.DH_IMAGE }}
-          ghcr.io/${{ env.GH_IMAGE }}
-          ${{ secrets.ACR_SERVER }}/${{ secrets.ACR_USERNAME }}
+#          ghcr.io/${{ env.GH_IMAGE }}
+#          ${{ secrets.ACR_SERVER }}/${{ secrets.ACR_USERNAME }}
         tags: |
           type=ref,event=tag,prefix=release-,suffix={{tag}}
           type=semver,pattern={{raw}},value=${{ steps.package-version.outputs.version }}
