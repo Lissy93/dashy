@@ -61,6 +61,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Sabnzbd](#sabnzbd)
   - [Gluetun VPN Info](#gluetun-vpn-info)
   - [Drone CI Build](#drone-ci-builds)
+  - [Linkding](#linkding)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -2046,7 +2047,7 @@ Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`host`** | `string` |  Required | The histname of the Drone CI instance.
+**`host`** | `string` |  Required | The hostname of the Drone CI instance.
 **`apiKey`** | `string` |  Required | The API key (https://<your-drone-instance>/account).
 **`limit`** | `integer` | _Optional_ | Limit the amounts of listed builds.
 **`repo`** | `string` | _Optional_ | Show only builds of the specified repo
@@ -2072,10 +2073,44 @@ Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self
 
 ---
 
+### Linkding
+
+Linkding is a self-hosted bookmarking service, which has a clean interface and is simple to set up. This lists the links, filterable by tags.
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The hostname of the Drone CI instance.
+**`apiKey`** | `string` |  Required | The API key (https://<your-linkding-instance>/settings/integrations).
+**`tags`** | `list of string` | _Optional_ | Filter the links by tag.
+
+#### Example
+
+```yaml
+- type: linkding
+  updateInterval: 30
+  options:
+    host: https://lingding.somedomain.com
+    apiKey: my-very-secret-api-key
+    tags: 
+      - rpg
+      - markdown
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Linkding](https://github.com/sissbruecker/linkding))
+- **Privacy**: _See [Linkding](https://github.com/sissbruecker/linkding)_
+
+---
+
 ## System Resource Monitoring
 
 ### Glances
-
 The easiest method for displaying system info and resource usage in Dashy is with [Glances](https://nicolargo.github.io/glances/).
 
 Glances is a cross-platform monitoring tool developed by [@nicolargo](https://github.com/nicolargo). It's similar to top/htop but with a [Rest API](https://glances.readthedocs.io/en/latest/api.html) and many [data exporters](https://glances.readthedocs.io/en/latest/gw/index.html) available. Under the hood, it uses [psutil](https://github.com/giampaolo/psutil) for retrieving system info.
