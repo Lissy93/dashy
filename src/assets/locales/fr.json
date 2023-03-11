@@ -13,12 +13,6 @@
   "splash-screen": {
     "loading": "Chargement"
   },
-  "footer": {
-    "dev-by": "Développé par",
-    "licensed-under": "Sous licence",
-    "get-the": "Obtenir le",
-    "source-code": "code source"
-  },
   "login": {
     "title": "Dashy",
     "guest-label": "Accès invité",
@@ -257,6 +251,12 @@
       "remove-section": "Supprimer"
     }
   },
+  "footer": {
+    "dev-by": "Développé par",
+    "licensed-under": "Sous licence",
+    "get-the": "Obtenir le",
+    "source-code": "code source"
+  },
   "interactive-editor": {
     "menu": {
       "start-editing-tooltip": "Entrer dans l'éditeur interactif",
@@ -274,6 +274,8 @@
       "save-disk-tooltip": "Enregistre la configuration dans le fichier conf.yml sur le disque. Cela sauvegardera, puis écrasera votre configuration existante",
       "export-config-btn": "Exporter la configuration",
       "export-config-tooltip": "Affiche et exporte la nouvelle configuration, soit dans un fichier, soit dans le presse-papiers",
+      "cloud-backup-btn": "Sauvegarde sur le cloud",
+      "cloud-backup-tooltip": "Sauvegarde chiffrée de la configuration dans le cloud",
       "edit-raw-config-btn": "Éditer la configuration brute",
       "edit-raw-config-tooltip": "Voir et modifier la configuration brute via l'éditeur JSON",
       "cancel-changes-btn": "Annuler",
@@ -312,10 +314,10 @@
   },
   "widgets": {
     "general": {
-      "loading": "Chargement...",
-      "show-more": "Davantage de détails",
-      "show-less": "En afficher moins",
-      "open-link": "Continuer la lecture"
+      "loading": "Chargement ...",
+      "show-more": "Développer les détails",
+      "show-less": "Montrer moins",
+      "open-link": "Lire la suite"
     },
     "pi-hole": {
       "status-heading": "Statut"
@@ -323,6 +325,122 @@
     "stat-ping": {
       "up": "En ligne",
       "down": "Hors ligne"
+    },
+    "net-data": {
+      "cpu-chart-title": "Historique CPU",
+      "mem-chart-title": "Utilisation de la mémoire",
+      "mem-breakdown-title": "Rupture mémoire",
+      "load-chart-title": "Charge du système"
+    },
+    "glances": {
+      "disk-space-free": "Libre",
+      "disk-space-used": "Utilisé",
+      "disk-mount-point": "Point de montage",
+      "disk-file-system": "Système de fichiers",
+      "disk-io-read": "Lecture",
+      "disk-io-write": "Écriture",
+      "system-load-desc": "Nombre de processus en attente dans la file d'attente, moyenne sur tous les cœurs"
+    },
+    "system-info": {
+      "uptime": "Temps de fonctionnement"
+    },
+    "flight-data": {
+      "arrivals": "Arrivées",
+      "departures": "Départs"
+    },
+    "tfl-status": {
+      "good-service-all": "Bon service sur toutes les lignes",
+      "good-service-rest": "Bon service sur toutes les autres lignes"
+    },
+    "synology-download": {
+      "download": "Téléchargement",
+      "upload": "Envoi",
+      "downloaded": "Téléchargé",
+      "uploaded": "Envoyer",
+      "remaining": "Restant",
+      "up": "Up",
+      "down": "Down"
+    },
+    "gluetun-status": {
+      "vpn-ip": "VPN IP",
+      "country": "Pays",
+      "region": "Région",
+      "city": "Ville",
+      "post-code": "Code Postal",
+      "location": "Localisation",
+      "timezone": "Fuseau horaire",
+      "organization": "Organisation"
+    },
+    "nextcloud": {
+      "active": "actif",
+      "and": "et",
+      "applications": "applications",
+      "available": "disponible",
+      "away": "Away",
+      "cache-full": "CACHE PLEIN",
+      "chat-room": "salon de discussion",
+      "delete-all": "Supprimer tout",
+      "delete-notification": "Supprimer la notification",
+      "disabled": "désactivé",
+      "disk-quota": "Quota",
+      "disk-space": "Espace disque",
+      "dnd": "Ne pas déranger",
+      "email": "email",
+      "enabled": "activé",
+      "federated-shares-ucfirst": "Partages Fédérés",
+      "federated-shares": "partage fédéré",
+      "files": "fichier{plural}",
+      "free": "libre",
+      "groups": "groupes",
+      "hit-rate": "hit rate",
+      "hits": "hits",
+      "home": "home",
+      "in": "in",
+      "keys": "keys",
+      "last-24-hours": "24 dernières heures",
+      "last-5-minutes": "dans les 5 dernières minutes",
+      "last-hour": "dans la dernière heure",
+      "last-login": "Dernière connexion",
+      "last-restart": "Dernier redémarrage",
+      "load-averages": "Charge moyenne sur l'ensemble des coeurs du CPU",
+      "local-shares": "Partage locaux",
+      "local": "local",
+      "max-keys": "max keys",
+      "memory-used": "mémoire utilisée",
+      "memory-utilisation": "utilisation de la mémoire",
+      "memory": "mémoire",
+      "misses": "misses",
+      "no-notifications": "Aucune notification",
+      "no-pending-updates": "aucune mise à jour en attente",
+      "nothing-to-show": "Rien à afficher pour l'instant",
+      "of-which": "of which",
+      "of": "of",
+      "offline": "Hors ligne",
+      "online": "En ligne",
+      "other": "autre",
+      "overall": "Overall",
+      "private-link": "lien privé",
+      "public-link": "lien public",
+      "quota-enabled": "Disk Quota is {not}enabled for this user",
+      "received": "received",
+      "scripts": "scripts",
+      "sent": "sent",
+      "started": "Started",
+      "storages-by-type": "Storages by type",
+      "storages": "stockage{plural}",
+      "strings-use": "strings use",
+      "tasks": "Tâches",
+      "total-files": "total files",
+      "total-users": "total users",
+      "total": "total",
+      "until": "Until",
+      "updates-available-for": "Des mises à jour sont disponibles pour",
+      "updates-available": "mise{plural} à jour disponible",
+      "used": "used",
+      "user": "user",
+      "using": "using",
+      "version": "version",
+      "wasted": "wasted"
     }
   }
 }
