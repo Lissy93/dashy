@@ -529,20 +529,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
 <table>
 <tr>
     <td align="center">
-        <a href="https://github.com/koconder">
-            <img src="https://avatars.githubusercontent.com/u/25068?u=582657b23622aaa3dfe68bd028a780f272f456fa&v=4" width="80;" alt="koconder"/>
-            <br />
-            <sub><b>Vincent Koc</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/Keloran">
-            <img src="https://avatars.githubusercontent.com/u/200350?v=4" width="80;" alt="Keloran"/>
-            <br />
-            <sub><b>Max Hooton</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/peng1can">
             <img src="https://avatars.githubusercontent.com/u/225854?v=4" width="80;" alt="peng1can"/>
             <br />
@@ -569,8 +555,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>David Young</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/k-rol">
             <img src="https://avatars.githubusercontent.com/u/4050412?u=1162510eec7b7aeb31d4c7c65d51d4f773d823b0&v=4" width="80;" alt="k-rol"/>
@@ -584,19 +569,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Zach Biles</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/UlisesGascon">
             <img src="https://avatars.githubusercontent.com/u/5110813?u=3c41facd8aa26154b9451de237c34b0f78d672a5&v=4" width="80;" alt="UlisesGascon"/>
             <br />
             <sub><b>Ulises Gascón</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/BOZG">
-            <img src="https://avatars.githubusercontent.com/u/6022344?u=a52f42b946a1e1156f7bb9d7f65e9e28bb2da89f&v=4" width="80;" alt="BOZG"/>
-            <br />
-            <sub><b>Stephen Rigney</b></sub>
         </a>
     </td>
     <td align="center">
@@ -612,20 +591,12 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Vlad Timofeev</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/iJasonWade">
             <img src="https://avatars.githubusercontent.com/u/12824479?u=8fa860e47bed4f84c8ff70cb2691d77edbb43d8f&v=4" width="80;" alt="iJasonWade"/>
             <br />
             <sub><b>Jason Ash</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/PAPAMICA">
-            <img src="https://avatars.githubusercontent.com/u/29079741?v=4" width="80;" alt="PAPAMICA"/>
-            <br />
-            <sub><b>Mickael Asseline</b></sub>
         </a>
     </td>
     <td align="center">
@@ -635,6 +606,14 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <sub><b>DRXAquosus</b></sub>
         </a>
     </td>
+    <td align="center">
+        <a href="https://github.com/YoungC0DE">
+            <img src="https://avatars.githubusercontent.com/u/68437256?v=4" width="80;" alt="YoungC0DE"/>
+            <br />
+            <sub><b>Rafael Anjos</b></sub>
+        </a>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/ratty222">
             <img src="https://avatars.githubusercontent.com/u/92832598?u=137b65530cbd5f5af9c24cde51baa6cc77cc934b&v=4" width="80;" alt="ratty222"/>
