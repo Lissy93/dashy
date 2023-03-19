@@ -65,7 +65,7 @@ export const getCountryFlag = (countryCode, dimens) => {
 /* Given a currency code, return path to corresponding countries flag icon */
 export const getCurrencyFlag = (currency) => {
   const cdn = 'https://raw.githubusercontent.com/Lissy93/currency-flags';
-  return `${cdn}/master/flags_png_rectangle/${currency.toLowerCase()}.png`;
+  return `${cdn}/master/assets/flags_png_rectangle/${currency.toLowerCase()}.png`;
 };
 
 /* Given a Latitude & Longitude object, and optional zoom level, return link to OSM */
