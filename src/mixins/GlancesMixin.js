@@ -3,7 +3,7 @@ export default {
   computed: {
     /* Required, hostname (e.g. IP + port) for Glances instance */
     hostname() {
-      if (!this.options.hostname) this.error('You must specify a \'hostname\' for Glaces');
+      if (!this.options.hostname) this.error('You must specify a \'hostname\' for Glances');
       return this.options.hostname;
     },
     /* Optionally specify the API version, defaults to V 3 */
