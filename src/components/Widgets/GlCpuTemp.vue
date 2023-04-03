@@ -2,7 +2,7 @@
 <div class="glances-temp-wrapper" v-if="tempData">
   <div class="temp-row" v-for="sensor in tempData" :key="sensor.label">
     <p class="label">{{ sensor.label | formatLbl }}</p>
-    <p :class="`temp range-${sensor.color}`">{{ sensor.value | formatVal }}</p>
+    <p :class="`temp range-${sensor.color}`">{{ sensor.value | formatVal(sensor.sensorType) }}</p>
   </div>
 </div>
 </template>
@@ -29,8 +29,15 @@ export default {
     formatLbl(lbl) {
       return capitalize(lbl);
     },
-    formatVal(val) {
-      return `${Math.round(val)}°C`;
+    formatVal(val, sensorType) {
+      switch (sensorType) {
+        case 'rpm':
+          return `${Math.round(val)} rpm`;
+        case 'percentage':
+          return `${Math.round(val)}%`;
+        default:
+          return `${Math.round(val)}°C`;
+      }
     },
   },
   methods: {
@@ -40,14 +47,49 @@ export default {
       if (temp >= 75) return 'red';
       return 'grey';
     },
+    getPercentageColor(percentage) {
+      if (percentage < 20) return 'red';
+      if (percentage < 50) return 'orange';
+      if (percentage < 75) return 'yellow';
+      return 'green';
+    },
     processData(sensorData) {
       const results = [];
       sensorData.forEach((sensor) => {
-        const tempC = sensor.unit === 'F' ? fahrenheitToCelsius(sensor.value) : sensor.value;
+        // Start by assuming the sensor's unit is degrees Celsius
+        let sensorValue = sensor.value;
+        let color = this.getTempColor(sensorValue);
+        let sensorType = 'temperature';
+
+        // Now, override above if sensor unit is actually of a different type
+        switch (sensor.unit) {
+          case 'F':
+            sensorValue = fahrenheitToCelsius(sensorValue);
+            color = fahrenheitToCelsius(sensorValue);
+            break;
+
+          // R is for RPM and is typically for fans
+          case 'R':
+            color = 'grey';
+            sensorType = 'rpm';
+            break;
+
+          // For instance, battery levels
+          case '%':
+            sensorType = 'percentage';
+            color = this.getPercentageColor(sensorValue);
+            break;
+
+          // Nothing to do here, already covered by default values
+          default:
+            break;
+        }
+
         results.push({
           label: sensor.label,
-          value: tempC,
-          color: this.getTempColor(tempC),
+          value: sensorValue,
+          color,
+          sensorType,
         });
       });
       this.tempData = results;
