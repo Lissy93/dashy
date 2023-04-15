@@ -143,4 +143,6 @@ module.exports = {
       },
     ],
   ],
+  // Analytics (no tracking, just hit counter, using self-hosted Plausible)
+  scripts: [{src: 'https://no-track.as93.net/js/script.js', defer: true, 'data-domain': 'dashy.to'}],
 };
