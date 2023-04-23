@@ -63,7 +63,7 @@
     </td>
     <td align="center">
         <a href="https://github.com/vlad-timofeev">
-            <img src="https://avatars.githubusercontent.com/u/11474041?v=4" width="80;" alt="vlad-timofeev"/>
+            <img src="https://avatars.githubusercontent.com/u/11474041?u=eee43705b54d2ec9f51fc4fcce5ad18dd17c87e4&v=4" width="80;" alt="vlad-timofeev"/>
             <br />
             <sub><b>Vlad Timofeev</b></sub>
         </a>
