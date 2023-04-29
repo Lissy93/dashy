@@ -34,7 +34,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [NASA APOD](#astronomy-picture-of-the-day)
   - [GitHub Trending](#github-trending)
   - [GitHub Profile Stats](#github-profile-stats)
-  - [Healthchecks Status](#healthchecks status)
+  - [Healthchecks Status](#healthchecks-status)
   - [Mvg Departure](#mvg-departure)
   - [Mvg Connection](#mvg-connection)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
