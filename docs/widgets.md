@@ -219,6 +219,7 @@ Display news and updates from any RSS-enabled service.
 **`limit`** | `number` |  _Optional_ | The number of posts to return. If you haven't specified an API key, this will be limited to 10
 **`orderBy`** | `string` |  _Optional_ | How results should be sorted. Can be either `pubDate`, `author` or `title`. Defaults to `pubDate`
 **`orderDirection`** | `string` |  _Optional_ | Order direction of feed items to return. Can be either `asc` or `desc`. Defaults to `desc`
+**`parseLocally`** | `boolean`     |  _Optional_ | If true parse the rss feed locally instead of using the rss2json API.
 
 #### Example
 
