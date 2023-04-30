@@ -70,6 +70,7 @@ Dan Gilbert <ddg@daentech.co.uk> - 2 commits
 Ruben Silva <rubensilva945@gmail.com> - 2 commits
 Thomas Dissert <dissertthomas@gmail.com> - 2 commits
 cauterize <cauterize@programmer.net> - 2 commits
+hockeymikey <hockeymikey@hockeymikey.com> - 2 commits
 itsmejoeeey <9375730+itsmejoeeey@users.noreply.github.com> - 2 commits
 k073l <21180271+k073l@users.noreply.github.com> - 2 commits
 liss-bot <87835202+liss-bot@users.noreply.github.com> - 2 commits
@@ -111,10 +112,10 @@ Marcell Fülöp <marekful@protonmail.com> - 27 commits
 Alicia Sykes <alicia@futr.ai> - 28 commits
 Lissy93 <gh@d0h.co> - 78 commits
 snyk-bot <snyk-bot@snyk.io> - 79 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 83 commits
-Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 156 commits
-liss-bot <liss-bot@d0h.co> - 161 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 84 commits
+Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 158 commits
+liss-bot <liss-bot@d0h.co> - 163 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 209 commits
-Alicia Sykes <alicia@omg.lol> - 297 commits
+Alicia Sykes <alicia@omg.lol> - 301 commits
 Alicia Sykes <gh@d0h.co> - 440 commits
 Alicia Sykes <sykes.alicia@gmail.com> - 1488 commits
