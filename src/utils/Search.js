@@ -11,7 +11,7 @@ import ErrorHandler from '@/utils/ErrorHandler';
 const getDomainFromUrl = (url) => {
   if (!url) return '';
   const urlPattern = /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d.-]+)\.(?:[a-z.]{2,10})(?:[/\w.-]*)*/;
-  const domainPattern = url.match(urlPattern);
+  const domainPattern = urlPattern.exec(url);
   return domainPattern ? domainPattern[1] : '';
 };
 
@@ -24,7 +24,7 @@ const getDomainFromUrl = (url) => {
  */
 const filterHelper = (compareStr, searchStr) => {
   if (!compareStr) return false;
-  const process = (input) => input && input.toString().toLowerCase().replace(/[^\w\s]/gi, '');
+  const process = (input) => input?.toString().toLowerCase().replace(/[^\w\s]/gi, '');
   return process(searchStr).split(/\s/).every(word => process(compareStr).includes(word));
 };
 
