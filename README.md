@@ -615,13 +615,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/Just-Moh-it">
-            <img src="https://avatars.githubusercontent.com/u/48997634?v=4" width="80;" alt="Just-Moh-it"/>
-            <br />
-            <sub><b>Mohit Yadav</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/ratty222">
             <img src="https://avatars.githubusercontent.com/u/92832598?u=137b65530cbd5f5af9c24cde51baa6cc77cc934b&v=4" width="80;" alt="ratty222"/>
             <br />
