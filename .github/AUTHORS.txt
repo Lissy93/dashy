@@ -16,6 +16,7 @@ Doug Lock <doug@douglock.co.uk> - 1 commits
 Dylan-Bs <35694107+Dylan-Bs@users.noreply.github.com> - 1 commits
 Erwan Miran <emiran.ext@orange.com> - 1 commits
 FormatToday <616099456@qq.com> - 1 commits
+Garrett Brown <gdbrown09@gmail.com> - 1 commits
 Ian Neal <wopr@wopr.tech> - 1 commits
 Iaroslav Dronskii <iaroslav@dronskii.ru> - 1 commits
 Ishan Jain <ishan@jain.se> - 1 commits
@@ -55,6 +56,8 @@ pablomalo <paul.gouin50@gmail.com> - 1 commits
 poisonadder7 <github.com@loginz.uk> - 1 commits
 rtm516 <ryantmilner@hotmail.co.uk> - 1 commits
 soaibsafi <soaib.safi@gmail.com> - 1 commits
+ssrangisetti <46807508+ssrangisetti@users.noreply.github.com> - 1 commits
+ssrangisetti <ssrangisetti@protonmail.com> - 1 commits
 sur1v <gsuriv@gmail.com> - 1 commits
 tazboyz16 <tazboyz_16@yahoo.com> - 1 commits
 zcq100 <m@zcq100.com> - 1 commits
@@ -112,10 +115,10 @@ Marcell Fülöp <marekful@protonmail.com> - 27 commits
 Alicia Sykes <alicia@futr.ai> - 28 commits
 Lissy93 <gh@d0h.co> - 78 commits
 snyk-bot <snyk-bot@snyk.io> - 79 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 84 commits
-Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 158 commits
-liss-bot <liss-bot@d0h.co> - 163 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 85 commits
+Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 160 commits
+liss-bot <liss-bot@d0h.co> - 165 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 209 commits
-Alicia Sykes <alicia@omg.lol> - 301 commits
+Alicia Sykes <alicia@omg.lol> - 303 commits
 Alicia Sykes <gh@d0h.co> - 440 commits
 Alicia Sykes <sykes.alicia@gmail.com> - 1488 commits
