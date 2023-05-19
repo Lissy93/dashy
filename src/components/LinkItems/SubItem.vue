@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     subItemTooltip() {
-      return this.title;
+      return this.item.title;
     },
   },
   data() {
