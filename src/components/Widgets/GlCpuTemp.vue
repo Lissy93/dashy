@@ -2,7 +2,7 @@
 <div class="glances-temp-wrapper" v-if="tempData">
   <div class="temp-row" v-for="sensor in tempData" :key="sensor.label">
     <p class="label">{{ sensor.label | formatLbl }}</p>
-    <p :class="`temp range-${sensor.color}`">{{ sensor.value | formatVal(sensor.sensorType) }}</p>
+    <p :class="`temp range-${sensor.color}`">{{ sensor.value | formatVal(sensor.unit) }}</p>
   </div>
 </div>
 </template>
@@ -10,7 +10,7 @@
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
 import GlancesMixin from '@/mixins/GlancesMixin';
-import { capitalize, fahrenheitToCelsius } from '@/utils/MiscHelpers';
+import { capitalize, celsiusToFahrenheit, fahrenheitToCelsius } from '@/utils/MiscHelpers';
 
 export default {
   mixins: [WidgetMixin, GlancesMixin],
@@ -29,18 +29,45 @@ export default {
     formatLbl(lbl) {
       return capitalize(lbl);
     },
-    formatVal(val, sensorType) {
-      switch (sensorType) {
-        case 'rpm':
+    formatVal(val, unit) {
+      switch (unit) {
+        case 'R':
           return `${Math.round(val)} rpm`;
-        case 'percentage':
+        case '%':
           return `${Math.round(val)}%`;
         default:
-          return `${Math.round(val)}°C`;
+          return `${Math.round(val)}°${unit}`;
       }
     },
   },
   methods: {
+    getDesiredUnits() {
+      return this.options.units ?? 'C';
+    },
+    getDisplayValue(rawValue, units) {
+      const desiredUnits = this.getDesiredUnits();
+      if (units === desiredUnits) {
+        return rawValue;
+      }
+
+      return desiredUnits === 'C'
+        ? fahrenheitToCelsius(rawValue)
+        : celsiusToFahrenheit(rawValue);
+    },
+    getCelsiusValue(rawValue, units) {
+      if (units !== 'F' && units !== 'C') {
+        return Number.NaN;
+      }
+
+      return units === 'C' ? rawValue : fahrenheitToCelsius(rawValue);
+    },
+    getFahrenheitValue(rawValue, units) {
+      if (units !== 'F' && units !== 'C') {
+        return Number.NaN;
+      }
+
+      return units === 'F' ? rawValue : celsiusToFahrenheit(rawValue);
+    },
     getTempColor(temp) {
       if (temp <= 50) return 'green';
       if (temp > 50 && temp < 75) return 'yellow';
@@ -54,45 +81,53 @@ export default {
       return 'green';
     },
     processData(sensorData) {
-      const results = [];
-      sensorData.forEach((sensor) => {
-        // Start by assuming the sensor's unit is degrees Celsius
-        let sensorValue = sensor.value;
-        let color = this.getTempColor(sensorValue);
-        let sensorType = 'temperature';
-
-        // Now, override above if sensor unit is actually of a different type
+      this.tempData = sensorData.map(sensor => {
         switch (sensor.unit) {
           case 'F':
-            sensorValue = fahrenheitToCelsius(sensorValue);
-            color = fahrenheitToCelsius(sensorValue);
-            break;
-
-          // R is for RPM and is typically for fans
+          case 'C':
+            return this.processTemperatureSensor(sensor);
           case 'R':
-            color = 'grey';
-            sensorType = 'rpm';
-            break;
-
-          // For instance, battery levels
+            return this.processFanSensor(sensor);
           case '%':
-            sensorType = 'percentage';
-            color = this.getPercentageColor(sensorValue);
-            break;
-
-          // Nothing to do here, already covered by default values
+            return this.processBatterySensor(sensor);
           default:
-            break;
+            // Justification: This is a recoverable error that developers
+            // should nevertheless be warned about.
+            // eslint-disable-next-line
+            console.warn('Unrecognized unit', sensor.unit);
+            return null;
         }
+      }).filter(Boolean);
+    },
+    processBatterySensor({ label, unit, value }) {
+      const color = this.getPercentageColor(value);
+      return {
+        color,
+        label,
+        unit,
+        value,
+      };
+    },
+    processFanSensor({ label, unit, value }) {
+      return {
+        color: 'grey',
+        label,
+        unit,
+        value,
+      };
+    },
+    processTemperatureSensor({ label, unit, value: originalValue }) {
+      const celsiusValue = this.getCelsiusValue(originalValue, unit);
+      const color = this.getTempColor(celsiusValue);
+      const displayValue = this.getDisplayValue(originalValue, unit);
+      const displayUnits = this.getDesiredUnits();
 
-        results.push({
-          label: sensor.label,
-          value: sensorValue,
-          color,
-          sensorType,
-        });
-      });
-      this.tempData = results;
+      return {
+        color,
+        label,
+        unit: displayUnits,
+        value: displayValue,
+      };
     },
   },
 };

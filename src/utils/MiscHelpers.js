@@ -165,6 +165,11 @@ export const getValueFromCss = (colorVar) => {
   return cssProps.getPropertyValue(`--${colorVar}`).trim();
 };
 
+/* Given a temperature in Celsius, returns value in Fahrenheit */
+export const celsiusToFahrenheit = (celsius) => {
+  return Math.round((celsius * 1.8) + 32);
+};
+
 /* Given a temperature in Fahrenheit, returns value in Celsius */
 export const fahrenheitToCelsius = (fahrenheit) => {
   return Math.round(((fahrenheit - 32) * 5) / 9);

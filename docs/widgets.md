@@ -2380,12 +2380,19 @@ You'll need to enable the sensors plugin to use this widget, using: `--enable-pl
 
 <p align="center"><img width="400" src="https://i.ibb.co/xSs4Gqd/gl-cpu-temp.png" /></p>
 
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`units`** | `string` |  _Optional_ | Use `C` to display temperatures in Celsius or `F` to use Fahrenheit. Defaults to `C`.
+
 #### Example
 
 ```yaml
 - type: gl-cpu-temp
   options:
     hostname: http://192.168.130.2:61208
+    units: C
 ```
 
 ---
