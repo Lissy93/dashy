@@ -7,6 +7,7 @@ Begin <support@begin.com> - 1 commits
 Bjorn Lammers <walkxnl@gmail.com> - 1 commits
 Bumsoo Kim <bskim45@gmail.com> - 1 commits
 BySempron <barquin_rkz@hotmail.com> - 1 commits
+Chris Nielsen <nielsen.chris@gmail.com> - 1 commits
 David <skaarj1989@gmail.com> - 1 commits
 Dawid Pietrykowski <d.pietrykowski16@gmail.com> - 1 commits
 DeepSource Bot <bot@deepsource.io> - 1 commits
@@ -43,9 +44,11 @@ Smexhy <roman.bartik@icloud.com> - 1 commits
 Steffen Schmidt <service.github@nocer.net> - 1 commits
 Steven Kast <steven.m.kast@gmail.com> - 1 commits
 Xert <xertdev@gmail.com> - 1 commits
+baifengheixi <98794233+baifengheixi@users.noreply.github.com> - 1 commits
 deepsource-io[bot] <deepsource-io[bot]@users.noreply.github.com> - 1 commits
 dr460nf1r3 <njcrypted@protonmail.com> - 1 commits
 flechaig <flechaig@users.noreply.github.com> - 1 commits
+huangshaohuai <huangshaohuai@163.com> - 1 commits
 icy-comet <50461557+icy-comet@users.noreply.github.com> - 1 commits
 imlonghao <github@esd.cc> - 1 commits
 jnach <33467747+jnach@users.noreply.github.com> - 1 commits
@@ -115,10 +118,10 @@ Marcell Fülöp <marekful@protonmail.com> - 27 commits
 Alicia Sykes <alicia@futr.ai> - 28 commits
 Lissy93 <gh@d0h.co> - 78 commits
 snyk-bot <snyk-bot@snyk.io> - 79 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 86 commits
-Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 161 commits
-liss-bot <liss-bot@d0h.co> - 167 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 87 commits
+Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 163 commits
+liss-bot <liss-bot@d0h.co> - 169 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 209 commits
-Alicia Sykes <alicia@omg.lol> - 303 commits
+Alicia Sykes <alicia@omg.lol> - 307 commits
 Alicia Sykes <gh@d0h.co> - 440 commits
 Alicia Sykes <sykes.alicia@gmail.com> - 1488 commits
