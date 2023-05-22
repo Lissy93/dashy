@@ -107,11 +107,7 @@ module.exports = {
     footer: true,
   },
   /* A list of route names that page furniture (header, footer, etc) should be hidden on */
-  hideFurnitureOn: [
-    'minimal',
-    'login',
-    'download',
-  ],
+  hideFurnitureOn: ['minimal', 'login', 'download'],
   /* Key names for local storage identifiers */
   localStorageKeys: {
     LANGUAGE: 'language',
@@ -166,9 +162,7 @@ module.exports = {
   /* Amount of time to show splash screen, when enabled, in milliseconds */
   splashScreenTime: 1000,
   /* Page meta-data, rendered in the header of each view */
-  metaTagData: [
-    { name: 'description', content: 'A simple static homepage for you\'re server' },
-  ],
+  metaTagData: [{ name: 'description', content: "A simple static homepage for you're server" }],
   /* Default option for Toast messages */
   toastedOptions: {
     position: 'bottom-center',
@@ -212,8 +206,10 @@ module.exports = {
     generativeFallback: 'https://evatar.io/{icon}',
     localPath: './item-icons',
     faviconName: 'favicon.ico',
-    homeLabIcons: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/{icon}.png',
-    homeLabIconsFallback: 'https://raw.githubusercontent.com/NX211/homer-icons/master/png/{icon}.png',
+    homeLabIcons:
+      'https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/{icon}.png',
+    homeLabIconsFallback:
+      'https://raw.githubusercontent.com/NX211/homer-icons/master/png/{icon}.png',
   },
   /* API endpoints for widgets that need to fetch external data */
   widgetApiEndpoints: {
@@ -231,6 +227,7 @@ module.exports = {
     exchangeRates: 'https://v6.exchangerate-api.com/v6/',
     flights: 'https://aerodatabox.p.rapidapi.com/flights/airports/icao/',
     githubTrending: 'https://gh-trending-repos.herokuapp.com/',
+    hackernewsTrending: 'https://hacker-news.firebaseio.com/v0',
     healthChecks: 'https://healthchecks.io/api/v1/checks',
     holidays: 'https://kayaposoft.com/enrico/json/v2.0/?action=getHolidaysForDateRange',
     jokes: 'https://v2.jokeapi.dev/joke/',

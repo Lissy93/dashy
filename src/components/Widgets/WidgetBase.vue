@@ -78,6 +78,7 @@ const COMPAT = {
   'gl-system-load': 'GlSystemLoad',
   'gl-cpu-temp': 'GlCpuTemp',
   'health-checks': 'HealthChecks',
+  'hackernews-trending': 'HackernewsTrending',
   'gluetun-status': 'GluetunStatus',
   iframe: 'IframeWidget',
   image: 'ImageWidget',
