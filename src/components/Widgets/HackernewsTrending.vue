@@ -32,7 +32,7 @@ export default {
     };
   },
   computed: {
-    storyType() {
+    stories() {
       // This can be `beststories`, `topstories` or newstories
       // TODO: display error message if another string not matching the keywords was insert
       return this.options.stories || 'topstories';
@@ -41,7 +41,7 @@ export default {
       return this.options.limit || 10;
     },
     endpoint() {
-      return `${widgetApiEndpoints.hackernewsTrending}/${this.storyType}.json`;
+      return `${widgetApiEndpoints.hackernewsTrending}/${this.stories}.json`;
     },
   },
   methods: {
