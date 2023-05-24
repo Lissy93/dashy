@@ -1187,6 +1187,7 @@ Display new and trending Posts from Hackernews
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`stories`** | `string` |  _Optional_ | HN Stories to display defaults to `topstories`. Options are: `beststories`, `topstories` or `newstories`
+**`limit`** | `int` |  _Optional_ | The size of the list of Posts to show.
 
 ##### Example
 
@@ -1194,6 +1195,7 @@ Display new and trending Posts from Hackernews
 - type: hackernews-trending
   options:
     stories: newstories
+    limit: 10
 ```
 
 ---
