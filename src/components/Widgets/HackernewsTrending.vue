@@ -75,24 +75,6 @@ export default {
     align-items: center;
     text-decoration: none;
     margin: 0.25rem 0 0.5rem 0;
-    p.feed-title {
-      margin: 0;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--widget-text-color);
-    }
-    p.feed-author {
-      margin: 0;
-      font-size: 0.8rem;
-      opacity: var(--dimming-factor);
-      color: var(--widget-text-color);
-    }
-    img.feed-icon {
-      border-radius: var(--curve-factor);
-      width: 2rem;
-      height: 2rem;
-      margin-right: 0.5rem;
-    }
   }
 
   .post-row {
