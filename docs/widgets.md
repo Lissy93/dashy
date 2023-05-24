@@ -35,6 +35,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [GitHub Trending](#github-trending)
   - [GitHub Profile Stats](#github-profile-stats)
   - [Healthchecks Status](#healthchecks-status)
+  - [Hackernews Trending](#hackernews-trending)
   - [Mvg Departure](#mvg-departure)
   - [Mvg Connection](#mvg-connection)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
@@ -1175,6 +1176,25 @@ Display status of one or more HealthChecks project(s). Works with healthcheck.io
 - **Price**: 🟢 Free / Paid / Self-hosted 
 - **Host**: Managed Instance or Self-Hosted (see [healthchecks/healthchecks](https://github.com/healthchecks/healthchecks))
 - **Privacy**: _See [Healthchecks.io Privacy Policy](https://healthchecks.io/privacy/)_
+
+---
+
+### Hackernews Trending
+
+Display new and trending Posts from Hackernews
+
+#### Options
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`stories`** | `string` |  _Optional_ | HN Stories to display defaults to `topstories`. Options are: `beststories`, `topstories` or `newstories`
+
+##### Example
+
+```yaml
+- type: hackernews-trending
+  options:
+    stories: newstories
+```
 
 ---
 
