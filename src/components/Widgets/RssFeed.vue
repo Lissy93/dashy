@@ -104,7 +104,9 @@ export default {
     async processData(data) {
       if (this.parseLocally) {
         const parser = new Parser();
-        const { link, title, items, author, description, image } = await parser.parseString(data);
+        const {
+          link, title, items, author, description, image,
+        } = await parser.parseString(data);
         this.meta = {
           title,
           link,
