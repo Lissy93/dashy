@@ -37,6 +37,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Healthchecks Status](#healthchecks-status)
   - [Mvg Departure](#mvg-departure)
   - [Mvg Connection](#mvg-connection)
+  - [Custom search](#custom-search)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
@@ -1264,11 +1265,61 @@ In other words: Private, noncomercial, moderate use of the API is tolerated. The
 
 ---
 
+### Custom search
+
+Allows web search using multiple user-defined search engines and other websites.
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`engines`** | `array` |  required | An array of search engine objects. Each search engine object should have two required properties: **title** and **url**. See the example below.
+**`placeholder`** | `string` |  optional | Placeholder text in the search box.
+
+#### Notes
+- The first search engine in the engines array will be treated as the default search engine, and used when the user presses `Enter` in the search box.
+- Popup blockers can interfere with opening a new search window.
+
+#### Example
+
+This widget allows searching multiple search engines from dashy.
+```yaml
+  - type: 'custom-search'
+    options:
+      placeholder: Search for something using the buttons below
+      engines:
+      - title: SearXNG
+        url: https://searx.lan/?q=
+      - title: Quant
+        url: https://www.qwant.com/?q=
+      - title: Bing Web
+        url: http://www.bing.com/search?q=
+      - title: Bing Images
+        url: http://www.bing.com/images/search?q=
+      - title: Bing Maps
+        url: http://www.bing.com/maps/search?q=
+      - title: Yandex
+        url: https://www.yandex.com/search/?text=
+      - title: Passmark
+        url: https://www.passmark.com/search/zoomsearch.php?zoom_query=
+      - title: IMDB
+        url: http://www.imdb.com/find?q=
+```
+#### Info
+
+- **CORS**: 🟢 Not needed
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free 
+- **Host**: user defined
+- **Privacy**: depends on the user defined search engines.
+
+---
+
 
 ## Self-Hosted Services Widgets
 
 ### System Info
-
+_See [MVG Datenschutz](https://www.mvg.de/datenschutz-mvg.html)_
 Displays info about the server which Dashy is hosted on. Includes user + host, operating system, uptime and basic memory & load data.
 
 <p align="center"><img width="400" src="https://i.ibb.co/rvDPBDF/system-info.png" /></p>
