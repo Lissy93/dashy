@@ -58,6 +58,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Nextcloud System](#nextcloud-system)
   - [Nextcloud Stats](#nextcloud-stats)
   - [Nextcloud PHP OPcache](#nextcloud-php-opcache-stats)
+  - [Proxmox lists](#proxmox-lists)
   - [Sabnzbd](#sabnzbd)
   - [Gluetun VPN Info](#gluetun-vpn-info)
   - [Drone CI Build](#drone-ci-builds)
@@ -1966,6 +1967,64 @@ Shows statistics about PHP OPcache performance on your Nextcloud server.
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Nextcloud](https://nextcloud.com))
 - **Privacy**: _See [Nextcloud Privacy Policy](https://nextcloud.com/privacy)_
+
+
+---
+
+### Proxmox lists
+
+Shows lists of nodes, containers, and VMs in a Proxmox virtual environment cluster, with a status indicator.
+
+#### Options
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`cluster_url`** | `string` |  Required | The URL of the proxmox cluster server. No trailing `/`. for example: `https://proxmox.lan:8006`
+**`user_name`** | `string` |  Required | A Proxmox API Username, for example `root@pam` or `dashy@pve`.
+**`token_name`** | `string` |  Required | A Proxmox API token name. You can get a token in the API section of the cluster management interface.
+**`token_uuid`** | `string` |  Required | The value of the token entered above. This is normally a UUID. 
+**`node`** | `string` |  optional | A Proxmox node name. If empty or not supplied, a list of nodes will be shown.
+**`node_data`** | `string` |  optional | This is required if a node is selected, Currently this accepts two values, either `lxc` or `qemu` but the widget can be improved to get other types of data from the Proxmox API.
+**`title`** | `string` |  optional | A widget title.
+**`title_as_link`** | `boolean` |  optional | When this is set to anything other than 0 or false, the title will be linked to the value entered in the `cluster_url` option.
+**`footer`** | `string` |  optional | A widget footer.
+**`footer_as_link`** | `boolean` |  optional | When this is set to anything other than 0 or false, the title will be linked to the value entered in the `cluster_url` option.
+**`hide_templates`** | `boolean` |  optional | When this is set to anything other than 0 or false, templates will be filtered out of the result list.
+
+#### Example
+This will show the list of nodes.
+```yaml
+  - type: proxmox-lists
+    useProxy: true 
+    options:
+      cluster_url: https://proxmox.lan:8006
+      user_name: root@pam
+      token_name: dashy
+      token_uuid: bfb152df-abcd-abcd-abcd-ccb95a472d01
+```
+This will show the list of VMs, with a title and a linked fotter, hiding VM templates.
+```yaml
+  - type: proxmox-lists
+    useProxy: true 
+    options:
+      cluster_url: https://proxmox.lan:8006
+      user_name: root@pam
+      token_name: dashy
+      token_uuid: bfb152df-abcd-abcd-abcd-ccb95a472d01
+      node: proxmox
+      node_data: qemu
+      title: Proxmox VMs
+      title_as_link: false
+      footer: Proxmox
+      footer_as_link: true
+      hide_templates: 1
+```
+#### Info
+
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Proxmox Virtual Environment](https://proxmox.com/en/proxmox-ve))
+- **Privacy**: _See [Proxmox's Privacy Policy](https://proxmox.com/en/privacy-policy)_
 
 ---
 
