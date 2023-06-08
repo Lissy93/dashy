@@ -426,34 +426,16 @@ For examples of finished widget components, see the [Widgets](https://github.com
 
 ### Step 3 - Register
 
-Next, import and register your new widget, in [`WidgetBase.vue`](https://github.com/Lissy93/dashy/blob/master/src/components/Widgets/WidgetBase.vue). In this file, you'll need to add the following:
-
-Import your widget file
+Next, register your new widget in [`WidgetBase.vue`](https://github.com/Lissy93/dashy/blob/master/src/components/Widgets/WidgetBase.vue). In this file, you'll need to add the following:
 
 ```javascript
-import ExampleWidget from '@/components/Widgets/ExampleWidget.vue';
-```
-
-Then register the component
-
-```javascript
-components: {
+const COMPAT = {
   ...
-  ExampleWidget,
-},
+  'example-widget': 'ExampleWidget',
+};
 ```
 
-Finally, add the markup to render it. The only attribute you need to change here is, setting `widgetType === 'example'` to your widget's name.
-
-```vue
-<ExampleWidget
-  v-else-if="widgetType === 'example'"
-  :options="widgetOptions"
-  @loading="setLoaderState"
-  @error="handleError"
-  :ref="widgetRef"
-/>
-```
+Here, the `example-widget` property name will be used to identify the widget when parsing the `type` property in a configuration file. The `ExampleWidget` string is used to dynamically import the widget, and therefore must match the widget's filename as it exists in the `components/widgets` folder.
 
 ### Step 4 - Docs
 
