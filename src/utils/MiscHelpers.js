@@ -141,12 +141,26 @@ export const getTimeDifference = (startTime, endTime) => {
   const msDifference = new Date(endTime).getTime() - new Date(startTime).getTime();
   const diff = Math.abs(Math.round(msDifference / 1000));
   const divide = (time, round) => Math.round(time / round);
-  if (diff < 60) return `${divide(diff, 1)} seconds`;
-  if (diff < 3600) return `${divide(diff, 60)} minutes`;
-  if (diff < 86400) return `${divide(diff, 3600)} hours`;
-  if (diff < 604800) return `${divide(diff, 86400)} days`;
-  if (diff < 31557600) return `${divide(diff, 604800)} weeks`;
-  if (diff >= 31557600) return `${divide(diff, 31557600)} years`;
+
+  const periods = [
+    { noun: 'second', value: 1 },
+    { noun: 'minute', value: 60 },
+    { noun: 'hour', value: 3600 },
+    { noun: 'day', value: 86400 },
+    { noun: 'week', value: 604800 },
+    { noun: 'fortnight', value: 1209600 },
+    { noun: 'year', value: 31557600 },
+  ];
+
+  for (let idx = 0; idx < periods.length; idx += 1) {
+    if (diff < periods[idx + 1]?.value ?? Infinity) {
+      const period = periods[idx];
+      const value = divide(diff, period.value);
+      const noun = value === 1 ? period.noun : `${period.noun}s`;
+      return `${value} ${noun}`;
+    }
+  }
+
   return 'unknown';
 };
 
