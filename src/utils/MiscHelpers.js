@@ -149,6 +149,7 @@ export const getTimeDifference = (startTime, endTime) => {
     { noun: 'day', value: 86400 },
     { noun: 'week', value: 604800 },
     { noun: 'fortnight', value: 1209600 },
+    { noun: 'month', value: 2628000 },
     { noun: 'year', value: 31557600 },
   ];
 
