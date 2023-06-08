@@ -153,7 +153,7 @@ export const getTimeDifference = (startTime, endTime) => {
   ];
 
   for (let idx = 0; idx < periods.length; idx += 1) {
-    if (diff < periods[idx + 1]?.value ?? Infinity) {
+    if (diff < (periods[idx + 1]?.value ?? Infinity)) {
       const period = periods[idx];
       const value = divide(diff, period.value);
       const noun = value === 1 ? period.noun : `${period.noun}s`;
