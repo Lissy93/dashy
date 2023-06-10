@@ -6,6 +6,7 @@ import bn from '@/assets/locales/bn.json';
 import cs from '@/assets/locales/cs.json';
 import da from '@/assets/locales/da.json';
 import de from '@/assets/locales/de.json';
+import el from '@/assets/locales/el.json';
 import es from '@/assets/locales/es.json';
 import fr from '@/assets/locales/fr.json';
 import hi from '@/assets/locales/hi.json';
@@ -69,6 +70,12 @@ export const languages = [
     code: 'de',
     locale: de,
     flag: '🇩🇪',
+  },
+  { // Greek
+    name: 'Ελληνικά',
+    code: 'el',
+    locale: el,
+    flag: '🇬🇷',
   },
   { // Spanish
     name: 'Español',
