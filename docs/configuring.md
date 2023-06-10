@@ -2,7 +2,8 @@
 
 All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format. If you're using Docker, this file can be passed in as a volume. Changes can either be made directly to this file, or done [through the UI](#editing-config-through-the-ui). From the UI you can also export, backup, reset, validate and download your configuration file.
 
-#### There are three ways to edit the config
+## There are three ways to edit the config
+
 - **Directly in the YAML file** _(5/5 reliability, 3/5 usability)_
   - Write changes directly to the conf.yml file, optionally using one of the templates provided. This can be done in your favorite editor and uploading to your server, or directly editing the file via SSH, but the easiest method would be to use [Code Server](https://github.com/coder/code-server)
 - **UI JSON Editor** _(4/5 reliability, 4/5 usability)_
@@ -12,7 +13,8 @@ All app configuration is specified in [`/public/conf.yml`](https://github.com/Li
 - **REST API** _(Coming soon)_
   - Programmatically edit config either through the command line, using a script or a third-party application
 
-#### Tips
+## Tips
+
 - You may find it helpful to look at some sample config files to get you started, a collection of which can be found [here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
 - You can check that your config file fits the schema, by running `yarn validate-config`
 - After modifying your config, the app needs to be recompiled, by running `yarn build`  - this happens automatically if you're using Docker
@@ -23,7 +25,7 @@ All app configuration is specified in [`/public/conf.yml`](https://github.com/Li
 
 The following file provides a reference of all supported configuration options.
 
-#### Contents
+## Contents
 
 - [**`pageInfo`**](#pageinfo) - Header text, footer, title, navigation, etc
   - [`navLinks`](#pageinfonavlinks-optional) - Links to display in the navigation bar
@@ -52,7 +54,7 @@ The following file provides a reference of all supported configuration options.
 
 ---
 
-### Top-Level Fields
+## Top-Level Fields
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -63,7 +65,7 @@ The following file provides a reference of all supported configuration options.
 
 **[⬆️ Back to Top](#)**
 
-### `PageInfo`
+## `PageInfo`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -75,7 +77,7 @@ The following file provides a reference of all supported configuration options.
 
 **[⬆️ Back to Top](#)**
 
-### `pageInfo.navLinks` _(optional)_
+## `pageInfo.navLinks` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -85,7 +87,7 @@ The following file provides a reference of all supported configuration options.
 
 **[⬆️ Back to Top](#)**
 
-### `pages[]` _(optional)_
+## `pages[]` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -94,7 +96,7 @@ The following file provides a reference of all supported configuration options.
 
 **[⬆️ Back to Top](#)**
 
-### `appConfig` _(optional)_
+## `appConfig` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -108,14 +110,15 @@ The following file provides a reference of all supported configuration options.
 **`enableFontAwesome`** | `boolean` | _Optional_ | If set to `true` font-awesome will be loaded, if set to `false` they will not be. if left blank font-awesome will be enabled only if required by 1 or more icons
 **`enableMaterialDesignIcons`** | `boolean` | _Optional_ | If set to `true` mdi icons will be loaded, if set to `false` they will not be. Where `true` is enabled, if left blank material design icons will be enabled only if required by 1 or more icons
 **`fontAwesomeKey`** | `string` | _Optional_ | If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
-**`faviconApi`** | `enum` | _Optional_ | Only applicable if you are using favicons for item icons. Specifies which service to use to resolve favicons. Set to `local` to do this locally, without using an API. Services running locally will use this option always. Available options are: `local`, `faviconkit`, `iconhorse`, `google`, `clearbit`, `webmasterapi` and `allesedv`. Defaults to `faviconkit`. See [Icons](/docs/icons#favicons) for more info
+**`faviconApi`** | `enum` | _Optional_ | Only applicable if you are using favicons for item icons. Specifies which service to use to resolve favicons. Set to `local` to do this locally, without using an API. Services running locally will use this option always. Available options are: `local`, `faviconkit`, `iconhorse`, `google`, `clearbit`, `webmasterapi` and `allesedv`. Defaults to `faviconkit`. See [Icons](/docs/iconsfavicons) for more info
 **`auth`** | `object` | _Optional_ | All settings relating to user authentication. See [`auth`](#appconfigauth-optional)
+**`defaultIcon`** | `string` | _Optional_ | An icon to be applied to any items, which don't already have an icon set. See [Icon Docs](/docs/iconsdefault-icon) for more info
 **`layout`** | `enum` | _Optional_ | Layout for homepage, either `horizontal`, `vertical` or `auto`. Defaults to `auto`. This specifies the layout and direction of how sections are positioned on the home screen. This can also be modified and overridden from the UI.
 **`iconSize`** | `enum` | _Optional_ | The size of link items / icons. Can be either `small`, `medium,` or `large`. Defaults to `medium`. This can also be set directly from the UI.
 **`colCount`** | `number` | _Optional_ | The number of columns of sections displayed on the homepage, using the default view. Should be in integer between `1` and `8`. Note that by default this is applied responsively, based on current screen size, and specifying a value here will override this behavior, which may not be desirable.
 **`theme`** | `string` | _Optional_ | The default theme for first load (you can change this later from the UI)
 **`cssThemes`** | `string[]` | _Optional_ | An array of custom theme names which can be used in the theme switcher dropdown
-**`customColors`** | `object`| _Optional_ | Enables you to apply a custom color palette to any given theme. Use the theme name (lowercase) as the key, for an object including key-value-pairs, with the color variable name as keys, and 6-digit hex code as value. See [Theming](/docs/theming#modifying-theme-colors) for more info
+**`customColors`** | `object`| _Optional_ | Enables you to apply a custom color palette to any given theme. Use the theme name (lowercase) as the key, for an object including key-value-pairs, with the color variable name as keys, and 6-digit hex code as value. See [Theming](/docs/themingmodifying-theme-colors) for more info
 **`externalStyleSheet`** | `string`  or `string[]` | _Optional_ | Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
 **`customCss`** | `string` | _Optional_ | Raw CSS that will be applied to the page. This can also be set from the UI. Please minify it first.
 **`hideComponents`** | `object` | _Optional_ | A list of key page components (header, footer, search, settings, etc) that are present by default, but can be removed using this option. See [`appConfig.hideComponents`](#appconfighideComponents-optional)
@@ -125,22 +128,24 @@ The following file provides a reference of all supported configuration options.
 **`preventWriteToDisk`** | `boolean` | _Optional_ | If set to `true`, users will be prevented from saving config changes to disk through the UI
 **`preventLocalSave`** | `boolean` | _Optional_ | If set to `true`, users will be prevented from applying config changes to local storage
 **`disableConfiguration`** | `boolean` | _Optional_ | If set to true, no users will be able to view or edit the config through the UI
+**`disableConfigurationForNonAdmin`** | `boolean` | _Optional_ | If set to true, only admin users will be able to view or edit the config through the UI. disableConfiguration must not be set to true.
 **`widgetsAlwaysUseProxy`** | `boolean` | _Optional_ | If set to `true`, requests made by widgets will always be proxied, same as setting `useProxy: true` on each widget. Note that this may break some widgets.
 **`showSplashScreen`** | `boolean` | _Optional_ | If set to `true`, a loading screen will be shown. Defaults to `false`.
 **`enableErrorReporting`** | `boolean` | _Optional_ | Enable reporting of unexpected errors and crashes. This is off by default, and **no data will ever be captured unless you explicitly enable it**. Turning on error reporting helps previously unknown bugs get discovered and fixed. Dashy uses [Sentry](https://github.com/getsentry/sentry) for error reporting. Defaults to `false`.
 **`sentryDsn`** | `boolean` | _Optional_ | If you need to monitor errors in your instance, then you can use Sentry to collect and process bug reports. Sentry can be self-hosted, or used as SaaS, once your instance is setup, then all you need to do is pass in the DSN here, and enable error reporting. You can learn more on the [Sentry DSN Docs](https://docs.sentry.io/product/sentry-basics/dsn-explainer/). Note that this will only ever be used if `enableErrorReporting` is explicitly enabled.
 **`disableSmartSort`** | `boolean` | _Optional_ | For the most-used and last-used app sort functions to work, a basic open-count is stored in local storage. If you do not want this to happen, then disable smart sort here, but you wil no longer be able to use these sort options. Defaults to `false`.
 **`disableUpdateChecks`** | `boolean` | _Optional_ | If set to true, Dashy will not check for updates. Defaults to `false`.
-**`enableServiceWorker`** | `boolean` | _Optional_ | Service workers cache web applications to improve load times and offer basic offline functionality, and are enabled by default in Dashy. The service worker can sometimes cause older content to be cached, requiring the app to be hard-refreshed. If you do not want SW functionality, or are having issues with caching, set this property to `true` to disable all service workers.
+**`enableServiceWorker`** | `boolean` | _Optional_ | Service workers cache web applications to improve load times and offer basic offline functionality, and are enabled by default in Dashy. The service worker can sometimes cause older content to be cached, requiring the app to be hard-refreshed. If you do not want SW functionality, or are having issues with caching, set this property to `false` to disable all service workers.
 **`disableContextMenu`** | `boolean` | _Optional_ | If set to `true`, the custom right-click context menu will be disabled. Defaults to `false`.
 
 **[⬆️ Back to Top](#)**
 
-### `appConfig.auth` _(optional)_
+## `appConfig.auth` _(optional)_
+
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
-**`users`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. See [`appConfig.auth.users`](#appconfigauthusers-optional). <br />**Note** this method of authentication is handled on the client side, so for security critical situations, it is recommended to use an [alternate authentication method](/docs/authentication#alternative-authentication-methods).
-**`enableKeycloak`** | `boolean` | _Optional_ | If set to `true`, then authentication using Keycloak will be anabled. Note that you need to have an instance running, and have also configured `auth.keycloak`. Defaults to `false`
+**`users`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. See [`appConfig.auth.users`](#appconfigauthusers-optional). <br />**Note** this method of authentication is handled on the client side, so for security critical situations, it is recommended to use an [alternate authentication method](/docs/authenticationalternative-authentication-methods).
+**`enableKeycloak`** | `boolean` | _Optional_ | If set to `true`, then authentication using Keycloak will be enabled. Note that you need to have an instance running, and have also configured `auth.keycloak`. Defaults to `false`
 **`keycloak`** | `object` | _Optional_ | Config options to point Dashy to your Keycloak server. Requires `enableKeycloak: true`. See  [`auth.keycloak`](#appconfigauthkeycloak-optional) for more info
 **`enableGuestAccess`** | `boolean` | _Optional_ | When set to `true`, an unauthenticated user will be able to access the dashboard, with read-only access, without having to login. Requires `auth.users` to be configured. Defaults to `false`.
 
@@ -148,7 +153,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 
 **[⬆️ Back to Top](#)**
 
-### `appConfig.auth.users` _(optional)_
+## `appConfig.auth.users` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -158,7 +163,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 
 **[⬆️ Back to Top](#)**
 
-### `appConfig.auth.keycloak` _(optional)_
+## `appConfig.auth.keycloak` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -169,7 +174,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 
 **[⬆️ Back to Top](#)**
 
-### `appConfig.webSearch` _(optional)_
+## `appConfig.webSearch` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -179,10 +184,9 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`openingMethod`** | `string` | _Optional_ | Set your preferred opening method for search results: `newtab`, `sametab`, `workspace`. Defaults to `newtab`
 **`searchBangs`** | `object` | _Optional_ | A key-value-pair set of custom search _bangs_ for redirecting query to a specific app or search engine. The key of each should be the bang you will type (typically starting with `/`, `!` or `:`), and value is the destination, either as a search engine key (e.g. `reddit`) or a URL with search parameters (e.g. `https://en.wikipedia.org/w/?search=`)
 
-
 **[⬆️ Back to Top](#)**
 
-### `appConfig.hideComponents` _(optional)_
+## `appConfig.hideComponents` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -194,7 +198,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 
 **[⬆️ Back to Top](#)**
 
-### `section`
+## `section`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -202,11 +206,11 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`icon`** | `string` | _Optional_ | An single icon to be displayed next to the title. See [`section.icon`](#sectionicon-and-sectionitemicon)
 **`items`** | `array` | _Optional_ | An array of items to be displayed within the section. See [`item`](#sectionitem). Sections must include either 1 or more items, or 1 or more widgets.
 **`widgets`** | `array` | _Optional_ | An array of widgets to be displayed within the section. See [`widget`](#sectionwidget-optional)
-**`displayData`** | `object` | _Optional_ | Meta-data to optionally overide display settings for a given section. See [`displayData`](#sectiondisplaydata-optional)
+**`displayData`** | `object` | _Optional_ | Meta-data to optionally override display settings for a given section. See [`displayData`](#sectiondisplaydata-optional)
 
 **[⬆️ Back to Top](#)**
 
-### `section.item`
+## `section.item`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -219,19 +223,18 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`tags`** | `string[]` | _Optional_ | A list of tags, which can be used for improved search
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping the URL associated with the current service, and display its status as a dot next to the item. The value here will override `appConfig.statusCheck` so you can turn off or on checks for a given service. Defaults to `appConfig.statusCheck`, falls back to `false`
 **`statusCheckUrl`** | `string` | _Optional_ | If you've enabled `statusCheck`, and want to use a different URL to what is defined under the item, then specify it here
-**`statusCheckHeaders`** | `object` | _Optional_ | If you're endpoint requires any specific headers for the status checking, then define them here 
+**`statusCheckHeaders`** | `object` | _Optional_ | If you're endpoint requires any specific headers for the status checking, then define them here
 **`statusCheckAllowInsecure`** | `boolean` | _Optional_ | By default, any request to insecure content will be blocked. Setting this option to `true` will disable the `rejectUnauthorized` option, enabling you to ping non-HTTPS services for the current item. Defaults to `false`
 **`statusCheckAcceptCodes`** | `string` | _Optional_ | If your service's response code is anything other than 2xx, then you can opt to specify an alternative success code. E.g. if you expect your server to return 403, but still want the status indicator to be green, set this value to `403`
 **`statusCheckMaxRedirects`** | `number` | _Optional_ | If your service redirects to another page, and you would like status checks to follow redirects, then specify the maximum number of redirects here. Defaults to `0` / will not follow redirects
 **`color`** | `string` | _Optional_ | An optional color for the text and font-awesome icon to be displayed in. Note that this will override the current theme and so may not display well
 **`backgroundColor`** | `string` | _Optional_ | An optional background fill color for the that given item. Again, this will override the current theme and so might not display well against the background
 **`provider`** | `string` | _Optional_ | The name of the provider for a given service, useful for when including hosted apps. In some themes, this is visible under the item name
-**`displayData`** | `object` | _Optional_ | Meta-data to optionally overide display settings for a given item. See [`displayData`](#itemdisplaydata-optional)
+**`displayData`** | `object` | _Optional_ | Meta-data to optionally override display settings for a given item. See [`displayData`](#itemdisplaydata-optional)
 
 **[⬆️ Back to Top](#)**
 
-
-### `item.displayData` _(optional)_
+## `item.displayData` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -243,21 +246,21 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 
 **[⬆️ Back to Top](#)**
 
-
-### `section.widget` _(optional)_
+## `section.widget` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`type`** | `string` | Required | The widget type. See [Widget Docs](/docs/widgets) for full list of supported widgets
 **`options`** | `object` | _Optional_ | Some widgets accept either optional or required additional options. Again, see the [Widget Docs](/docs/widgets) for full list of options
-**`updateInterval`** | `number` | _Optional_ | You can keep a widget constantly updated by specifying an update interval, in seconds. See [Continuous Updates Docs](/docs/widgets#continuous-updates) for more info
-**`useProxy`** | `boolean` | _Optional_ | Some widgets make API requests to services that are not CORS-enabled. For these instances, you will need to route requests through a proxy, Dashy has a built in CORS-proxy, which you can use by setting this option to `true`. Defaults to `false`. See the [Proxying Requests Docs](/docs/widgets#proxying-requests) for more info
+**`updateInterval`** | `number` | _Optional_ | You can keep a widget constantly updated by specifying an update interval, in seconds. See [Continuous Updates Docs](/docs/widgetscontinuous-updates) for more info
+**`useProxy`** | `boolean` | _Optional_ | Some widgets make API requests to services that are not CORS-enabled. For these instances, you will need to route requests through a proxy, Dashy has a built in CORS-proxy, which you can use by setting this option to `true`. Defaults to `false`. See the [Proxying Requests Docs](/docs/widgetsproxying-requests) for more info
 **`timeout`** | `number` | _Optional_ | Request timeout in milliseconds, defaults to ½ a second (`500`)
+**`ignoreErrors`** | `boolean` | _Optional_ | Prevent an error message being displayed, if a network request or something else fails. Useful for false-positives
+**`label`** | `string` | _Optional_ | Add custom label to a given widget. Useful for identification, if there are multiple of the same type of widget in a single section
 
 **[⬆️ Back to Top](#)**
 
-
-### `section.displayData` _(optional)_
+## `section.displayData` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -266,10 +269,10 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`cutToHeight`** | `boolean` | _Optional_ | By default, sections will fill available space. Set this option to true to match section height with content height
 **`rows`** | `number` | _Optional_ | Height of the section, specified as the number of rows it should span vertically, e.g. `2`. Defaults to `1`. Max is `5`.
 **`cols`** | `number` | _Optional_ | Width of the section, specified as the number of columns the section should span horizontally, e.g. `2`. Defaults to `1`. Max is `5`.
-**`itemSize`** | `string` | _Optional_ | Specify the size for items within this group, either `small`, `medium` or `large`. Note that this will overide any settings specified through the UI
+**`itemSize`** | `string` | _Optional_ | Specify the size for items within this group, either `small`, `medium` or `large`. Note that this will override any settings specified through the UI
 **`color`** | `string` | _Optional_ | A custom accent color for the section, as a hex code or HTML color (e.g. `#fff`)
 **`customStyles`** | `string` | _Optional_ | Custom CSS properties that should be applied to that section, e.g. `border: 2px dashed #ff0000;`
-**`sectionLayout`** | `string` | _Optional_ | Specify which CSS layout will be used to responsivley place items. Can be either `auto` (which uses flex layout), or `grid`. If `grid` is selected, then `itemCountX` and `itemCountY` may also be set. Defaults to `auto`
+**`sectionLayout`** | `string` | _Optional_ | Specify which CSS layout will be used to responsively place items. Can be either `auto` (which uses flex layout), or `grid`. If `grid` is selected, then `itemCountX` and `itemCountY` may also be set. Defaults to `auto`
 **`itemCountX`** | `number` | _Optional_ | The number of items to display per row / horizontally. If not set, it will be calculated automatically based on available space. Can only be set if `sectionLayout` is set to `grid`. Must be a whole number between `1` and `12`
 **`itemCountY`** | `number` | _Optional_ | The number of items to display per column / vertically. If not set, it will be calculated automatically based on available space. If `itemCountX` is set, then `itemCountY` can be calculated automatically. Can only be set if `sectionLayout` is set to `grid`. Must be a whole number between `1` and `12`
 **`hideForUsers`** | `string[]` | _Optional_ | Current section will be visible to all users, except for those specified in this list
@@ -280,7 +283,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 
 **[⬆️ Back to Top](#)**
 
-### `section.icon` and `section.item.icon`
+## `section.icon` and `section.item.icon`
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
@@ -288,7 +291,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 
 **[⬆️ Back to Top](#)**
 
-### `section.displayData.hideForKeycloakUsers`, `section.displayData.showForKeycloakUsers`, `item.displayData.hideForKeycloakUsers` and `item.displayData.showForKeycloakUsers`
+## `section.displayData.hideForKeycloakUsers`, `section.displayData.showForKeycloakUsers`, `item.displayData.hideForKeycloakUsers` and `item.displayData.showForKeycloakUsers`
 
 **Field** | **Type**   | **Required**| **Description**
 --- |------------| --- | ---
@@ -318,12 +321,15 @@ Config can be modified directly through the UI, and then written to disk, or app
 </p>
 
 ### About YAML
+
 If you're new to YAML, it's pretty straight-forward. The format is exactly the same as that of JSON, but instead of using curly braces, structure is denoted using whitespace. This [quick guide](https://linuxhandbook.com/yaml-basics/) should get you up to speed in a few minutes, for more advanced topics take a look at this [Wikipedia article](https://en.wikipedia.org/wiki/YAML).
 
 ### Config Saving Methods
+
 When updating the config through the JSON editor in the UI, you have two save options: **Local** or **Write to Disk**.
+
 - Changes saved locally will only be applied to the current user through the browser, and will not apply to other instances - you either need to use the cloud sync feature, or manually update the conf.yml file.
-- On the other-hand, if you choose to write changes to disk, then your main `conf.yml` file will be updated, and changes will be applied to all users, and visible across all devices. For this functionality to work, you must be running Dashy with using the Docker container, or the Node server.  A backup of your current configuration will also be saved in the same directory. 
+- On the other-hand, if you choose to write changes to disk, then your main `conf.yml` file will be updated, and changes will be applied to all users, and visible across all devices. For this functionality to work, you must be running Dashy with using the Docker container, or the Node server.  A backup of your current configuration will also be saved in the same directory.
 
 ### Preventing Changes
 
@@ -331,7 +337,7 @@ If you have authentication set up, then any user who is not an admin (with `type
 
 You can also prevent changes from any user being written to disk, using `preventWriteToDisk`. Or prevent any changes from being saved locally in browser storage, using `preventLocalSave`.
 
-To disable all UI config features, set `disableConfiguration`.
+To disable all UI config features, set `disableConfiguration`. Alternatively you can disable UI config features for all non Admin users by setting `disableConfigurationForNonAdmin` to true.
 
 ### Example
 
@@ -353,7 +359,7 @@ sections: # An array of sections
   - title: Demo
     description: A live demo
     icon: far fa-rocket
-    url: https://dashy-demo-1.netlify.app 
+    url: https://dashy-demo-1.netlify.app
 - name: Section 2 - Local Services
   items:
   - title: Firewall
@@ -371,4 +377,3 @@ If you need any help, feel free to [Raise an Issue](https://github.com/Lissy93/d
 Happy Configuring 🤓🔧
 
 **[⬆️ Back to Top](#)**
-
