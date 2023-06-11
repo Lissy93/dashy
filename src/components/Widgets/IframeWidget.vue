@@ -5,6 +5,7 @@
     :src="frameUrl"
     :id="frameId"
     title="Iframe Widget"
+    allow="fullscreen; clipboard-write"
     :style="frameHeight ? `height: ${frameHeight}px` : ''"
   />
 </div>

@@ -3,7 +3,8 @@
     classes="dashy-modal">
     <div slot="top-right" @click="hide()">Close</div>
     <a @click="hide()" class="close-button" title="Close">x</a>
-    <iframe v-if="url" :src="url" @keydown.esc="close" class="frame" allow="fullscreen" />
+    <iframe v-if="url" :src="url" @keydown.esc="close" class="frame"
+      allow="fullscreen; clipboard-write" />
     <div v-else class="no-url">No URL Specified</div>
   </modal>
 </template>
