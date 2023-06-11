@@ -3,7 +3,7 @@
   <div id="loading" v-if="isLoading" :class="c" @click="c = 'hide'">
     <h2>Dashy</h2>
     <div class="inner-container">
-      <p>Loading</p>
+      <p>{{ $t('splash-screen.loading')}}</p>
       <span class="dots-cont">
         <span class="dot dot-1"></span>
         <span class="dot dot-2"></span>

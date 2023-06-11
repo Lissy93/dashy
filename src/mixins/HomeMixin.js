@@ -162,7 +162,7 @@ const HomeMixin = {
     /* If user has a background image, then generate CSS attributes */
     getBackgroundImage() {
       if (this.appConfig && this.appConfig.backgroundImg) {
-        return `background: url('${this.appConfig.backgroundImg}');background-size:cover;`;
+        return `background: url('${this.appConfig.backgroundImg}') no-repeat center fixed;background-size:cover;`;
       }
       return '';
     },

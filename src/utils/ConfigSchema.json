@@ -193,6 +193,11 @@
           "default": "allesedv",
           "description": "Which service to use to resolve favicons. Set to local to do this locally instead"
         },
+        "defaultIcon": {
+          "title": "Default Icon",
+          "type": "string",
+          "description": "An icon to apply to any items which don't yet have the icon set"
+        },
         "layout": {
           "title": "Default Layout",
           "type": "string",
@@ -476,6 +481,11 @@
                   "type": "string",
                   "description": "The Client ID of the client you created for use with Dashy"
                 },
+                "idpHint": {
+                  "title" : "IdP hint",
+                  "type": "string",
+                  "description": "Set to the 'Alias' of an existing Identity Provider in the specified realm to skip the Keycloak login page and redirect straight to the external IdP for authentication"
+                },
                 "legacySupport": {
                   "title": "Legacy Support",
                   "type": "boolean",
@@ -508,6 +518,12 @@
           "type": "boolean",
           "default": false,
           "description": "If set to true, no users will be able to view or edit the config through the UI"
+        },
+        "disableConfigurationForNonAdmin": {
+          "title": "Disable all UI Config for non admin users.",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, only admin users will be able to view or edit the config through the UI. disableConfiguration must not be set to true."
         },
         "allowConfigEdit": {
           "title": "Allow Config Editing",

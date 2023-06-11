@@ -13,13 +13,13 @@ jobs:
         uses: actions/stale@v4
         with:
           repo-token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
-          days-before-stale: 30
+          days-before-stale: 90
           days-before-close: 5
           operations-per-run: 30
           remove-stale-when-updated: true
           enable-statistics: true
           stale-issue-message: > 
-            This issue has gone 6 weeks without an update. To keep the ticket open, please indicate that it is still relevant in a comment below.
+            This issue has gone 3 months without an update. To keep the ticket open, please indicate that it is still relevant in a comment below.
             Otherwise it will be closed in 5 working days.
           stale-pr-message: >
             This PR is stale because it has been open 6 weeks with no activity. Either remove the stale label or comment below with a short update,

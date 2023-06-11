@@ -56,18 +56,20 @@ const generateUserToken = (user) => {
  */
 export const isLoggedIn = () => {
   const users = getUsers();
-  const validTokens = users.map((user) => generateUserToken(user));
-  let userAuthenticated = false;
-  document.cookie.split(';').forEach((cookie) => {
+  let userAuthenticated = document.cookie.split(';').some((cookie) => {
     if (cookie && cookie.split('=').length > 1) {
       const cookieKey = cookie.split('=')[0].trim();
       const cookieValue = cookie.split('=')[1].trim();
       if (cookieKey === cookieKeys.AUTH_TOKEN) {
-        if (validTokens.includes(cookieValue)) {
-          userAuthenticated = true;
-        }
-      }
-    }
+        userAuthenticated = users.some((user) => {
+          if (generateUserToken(user) === cookieValue) {
+            localStorage.setItem(localStorageKeys.USERNAME, user.user);
+            return true;
+          } else return false;
+        });
+        return userAuthenticated;
+      } else return false;
+    } else return false;
   });
   return userAuthenticated;
 };
@@ -127,7 +129,7 @@ export const login = (username, pass, timeout) => {
   const now = new Date();
   const expiry = new Date(now.setTime(now.getTime() + timeout)).toGMTString();
   const userObject = { user: username, hash: sha256(pass).toString().toLowerCase() };
-  document.cookie = `authenticationToken=${generateUserToken(userObject)};`
+  document.cookie = `${cookieKeys.AUTH_TOKEN}=${generateUserToken(userObject)};`
     + `${timeout > 0 ? `expires=${expiry}` : ''}`;
   localStorage.setItem(localStorageKeys.USERNAME, username);
 };
@@ -136,7 +138,7 @@ export const login = (username, pass, timeout) => {
  * Removed the browsers' cookie, causing user to be logged out
  */
 export const logout = () => {
-  document.cookie = 'authenticationToken=null';
+  document.cookie = `${cookieKeys.AUTH_TOKEN}=null`;
   localStorage.removeItem(localStorageKeys.USERNAME);
 };
 
@@ -152,7 +154,7 @@ export const getCurrentUser = () => {
   let foundUserObject = false; // Value to return
   getUsers().forEach((user) => {
     // If current logged-in user found, then return that user
-    if (user.user === username) foundUserObject = user;
+    if (user.user.toLowerCase() === username.toLowerCase()) foundUserObject = user;
   });
   return foundUserObject;
 };
@@ -161,10 +163,10 @@ export const getCurrentUser = () => {
  * Checks if the user is viewing the dashboard as a guest
  * Returns true if guest mode enabled, and user not logged in
  * */
-export const isLoggedInAsGuest = () => {
+export const isLoggedInAsGuest = (currentUser) => {
   const guestEnabled = isGuestAccessEnabled();
-  const notLoggedIn = !isLoggedIn();
-  return guestEnabled && notLoggedIn;
+  const loggedIn = isLoggedIn() && currentUser;
+  return guestEnabled && !loggedIn;
 };
 
 /**
@@ -182,7 +184,7 @@ export const isUserAdmin = () => {
   const currentUser = localStorage[localStorageKeys.USERNAME];
   let isAdmin = false;
   users.forEach((user) => {
-    if (user.user === currentUser) {
+    if (user.user.toLowerCase() === currentUser.toLowerCase()) {
       if (user.type === 'admin') isAdmin = true;
     }
   });

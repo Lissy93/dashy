@@ -10,8 +10,12 @@
     "clear-search-tooltip": "Clear Search",
     "enter-to-search-web": "Press enter to search the web"
   },
+  "splash-screen": {
+    "loading": "Loading"
+  },
   "login": {
     "title": "Dashy",
+    "guest-label": "Guest Access",
     "username-label": "Username",
     "password-label": "Password",
     "login-button": "Login",
@@ -31,7 +35,45 @@
     "already-logged-in-text": "You're logged in as",
     "proceed-to-dashboard": "Proceed to Dashboard",
     "log-out-button": "Logout",
-    "proceed-guest-button": "Proceed as Guest"
+    "proceed-guest-button": "Proceed as Guest",
+    "guest-intro-1": "This instance has guest access enabled.",
+    "guest-intro-2": "Guests have view-only access to dashboards, so cannot write any changes to disk.",
+    "error": "Error",
+    "error-no-user-configured": "Authentication is not enabled, or no users have been configured",
+    "error-go-home-button": "Go Home",
+    "logged-in-guest": "Logged in as Guest, Redirecting...",
+    "error-guest-access": "Guest Access Not Allowed"
+  },
+  "app-info": {
+    "title": "App Info",
+    "error-log": "Error Log",
+    "no-errors": "No recent errors detected",
+    "help-support": "Help & Support",
+    "help-support-description" : "For getting support with running or configuring Dashy, see the",
+    "help-support-discussions": "Discussions",
+    "support-dashy": "Supporting Dashy",
+    "support-dashy-description": "For ways that you can get involved, check out the",
+    "support-dashy-link": "Contributions page",
+    "report-bug": "Report a Bug",
+    "report-bug-description": "If you think you've found a bug, then please",
+    "report-bug-link": "raise an Issue",
+    "more-info": "More Info",
+    "source": "Source",
+    "documentation": "Documentation",
+    "privacy-and-security": "Privacy & Security",
+    "privacy-and-security-l1": "For a break-down of how your data is managed by Dashy, see the",
+    "privacy-and-security-privacy-policy": "Privacy Policy",
+    "app-info.privacy-and-security-advice": "For advise in securing your dashboard, you can reference the",
+    "app-info.privacy-and-security-advice-link": "Management Docs",
+    "privacy-and-security-security-issue": "If you've found a potential security issue, report it following our",
+    "privacy-and-security-security-policy": "Security Policy",
+    "license": "License",
+    "license-under": "Licensed under",
+    "licence-third-party": "For licenses for third-party modules, please see",
+    "licence-third-party-link": "Legal",
+    "list-contributors": "For the full list of contributors and thanks, see",
+    "list-contributors-link": "Credits", 
+    "version": "Version"
   },
   "config": {
     "main-tab": "Main Menu",
@@ -47,9 +89,11 @@
     "rebuild-app-button": "Rebuild Application",
     "change-language-button": "Change App Language",
     "reset-settings-button": "Reset Local Settings",
+    "disabled-note": "Some configuration features have been disabled by your administrator",
+    "small-screen-note": "You are using a very small screen, and some screens in this menu may not be optimal",
     "app-info-button": "App Info",
     "backup-note": "It is recommended to make a backup of your configuration before making changes.",
-    "reset-config-msg-l1": "This will remove all user settings from local storage, but won't effect your 'conf.yml' file.",
+    "reset-config-msg-l1": "This will remove all user settings from local storage, but won't affect your 'conf.yml' file.",
     "reset-config-msg-l2": "You should first backup any changes you've made locally, if you want to use them in the future.",
     "reset-config-msg-l3": "Are you sure you want to proceed?",
     "data-cleared-msg": "Data cleared successfully",
@@ -61,7 +105,11 @@
     "css-note-label": "Note",
     "css-note-l1": "You will need to refresh the page for your changes to take effect.",
     "css-note-l2": "Styles overrides are only stored locally, so it is recommended to make a copy of your CSS.",
-    "css-note-l3": "To remove all custom styles, delete the contents and hit Save Changes"
+    "css-note-l3": "To remove all custom styles, delete the contents and hit Save Changes",
+    "custom-css": {
+      "title": "Custom CSS",
+      "base-theme": "Base Theme"
+    }
   },
   "alternate-views": {
     "alternate-view-heading": "Switch View",
@@ -83,7 +131,9 @@
     "config-launcher-tooltip": "Update Configuration",
     "sign-out-tooltip": "Sign Out",
     "sign-in-tooltip": "Log In",
-    "sign-in-welcome": "Hello {username}!"
+    "sign-in-welcome": "Hello {username}!",
+    "hide": "Hide",
+    "open": "Open"
   },
   "updates": {
     "app-version-note": "Dashy version",
@@ -128,7 +178,7 @@
     "error-msg-cannot-save": "An error occurred saving config",
     "error-msg-bad-json": "Error in JSON, possibly malformed",
     "warning-msg-validation": "Validation Warning",
-    "not-admin-note": "You cannot write changed to disk, because you are not logged in as an admin"
+    "not-admin-note": "You cannot write changes to disk because you are not logged in as an administrator"
   },
   "app-rebuild": {
     "title": "Rebuild Application",
@@ -149,6 +199,7 @@
     "intro-l1": "Cloud backup and restore is an optional feature, that enables you to upload your config to the internet, and then restore it on any other device or instance of Dashy.",
     "intro-l2": "All data is fully end-to-end encrypted with AES, using your password as the key.",
     "intro-l3": "For more info, please see the",
+    "intro-docs": "docs",
     "backup-title-setup": "Make a Backup",
     "backup-title-update": "Update Backup",
     "password-label-setup": "Choose a Password",
@@ -199,6 +250,12 @@
       "move-section": "Move To",
       "remove-section": "Remove"
     }
+  },
+  "footer": {
+    "dev-by": "Developed by",
+    "licensed-under": "Licensed under",
+    "get-the": "Get the",
+    "source-code": "Source Code"
   },
   "interactive-editor": {
     "menu": {
@@ -322,12 +379,12 @@
       "away": "Away",
       "cache-full": "CACHE FULL",
       "chat-room": "chat room",
-      "delete-all": "Deleta all",
+      "delete-all": "Delete all",
       "delete-notification": "Delete notification",
       "disabled": "disabled",
       "disk-quota": "Disk Quota",
       "disk-space": "Disk Space",
-      "dnd": "Do Not Distrub",
+      "dnd": "Do Not Disturb",
       "email": "email",
       "enabled": "enabled",
       "federated-shares-ucfirst": "Federated shares",
@@ -350,7 +407,7 @@
       "local": "local",
       "max-keys": "max keys",
       "memory-used": "memory used",
-      "memory-utilisation": "memory utilisation",
+      "memory-utilisation": "memory utilization",
       "memory": "memory",
       "misses": "misses",
       "no-notifications": "No notifications",
@@ -361,7 +418,7 @@
       "offline": "Offline",
       "online": "Online",
       "other": "other",
-      "overall": "Ovarall",
+      "overall": "Overall",
       "private-link": "private link",
       "public-link": "public link",
       "quota-enabled": "Disk Quota is {not}enabled for this user",

@@ -22,7 +22,7 @@ RUN yarn install --frozen-lockfile --network-timeout 1000000
 COPY . ./
 
 # Build initial app for production
-RUN yarn build
+RUN yarn build --mode production
 
 # Production stage
 FROM node:16.13.2-alpine
@@ -35,8 +35,8 @@ ENV PORT=80 \
 # Create and set the working directory
 WORKDIR ${DIRECTORY}
 
-# Install tini for initialization and tzdata for setting timezone
-RUN apk add --no-cache tzdata tini
+# Update tzdata for setting timezone
+RUN apk add --no-cache tzdata
 
 # Copy built application from build phase
 COPY --from=BUILD_IMAGE /app ./
@@ -44,11 +44,10 @@ COPY --from=BUILD_IMAGE /app ./
 RUN rm dist/conf.yml
 
 # Finally, run start command to serve up the built application
-ENTRYPOINT [ "/sbin/tini", "--" ]
-CMD [ "yarn", "build-and-start" ]
+CMD [ "yarn", "start" ]
 
 # Expose the port
 EXPOSE ${PORT}
 
 # Run simple healthchecks every 5 mins, to check that everythings still great
-HEALTHCHECK --interval=5m --timeout=2s --start-period=30s CMD yarn health-check
+HEALTHCHECK --interval=5m --timeout=5s --start-period=30s CMD yarn health-check

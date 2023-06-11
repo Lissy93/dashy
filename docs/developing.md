@@ -24,6 +24,7 @@ If you're adding new features, you may want to check out the [Development Guides
 ## Setting up the Dev Environment
 
 ### Prerequisites
+
 You will need either the latest or LTS version of **[Node.js](https://nodejs.org/)** to build and serve the application and **[Git](https://git-scm.com/downloads)** to easily fetch the code, and push any changes. If you plan on running or deploying the container, you'll also need **[Docker](https://docs.docker.com/get-docker/)**. To avoid any unexpected issues, ensure you've got at least **[NPM](https://www.npmjs.com/get-npm)** V 7.5 or **[Yarn](https://classic.yarnpkg.com/en/docs/install/#windows-stable)** 1.22 (you may find [NVM](https://github.com/nvm-sh/nvm) helpful for switching/ managing versions).
 
 ### Running the Project
@@ -33,34 +34,40 @@ You will need either the latest or LTS version of **[Node.js](https://nodejs.org
 3. Install dependencies: `yarn`
 4. Start dev server: `yarn dev`
 
-Dashy should now be being served on http://localhost:8080/. Hot reload is enabled, so making changes to any of the files will trigger them to be rebuilt and the page refreshed.
+Dashy should now be being served on <http://localhost:8080/>. Hot reload is enabled, so making changes to any of the files will trigger them to be rebuilt and the page refreshed.
 
 ### Project Commands
 
 #### Basics
+
 - **`yarn build`** - In the interest of speed, the application is pre-compiled, this means that the config file is read during build-time, and therefore the app needs to rebuilt for any new changes to take effect. Luckily this is very straight forward. Just run `yarn build` or `docker exec -it [container-id] yarn build`
 - **`yarn start`** - Starts a web server, and serves up the production site from `./dist` (must run build command first)
 
 #### Development
+
 - **`yarn dev`** - Starts the development server with hot reloading
 - **`yarn lint`** - Lints code to ensure it follows a consistent, neat style
 - **`yarn test`** - Runs tests, and outputs results
 
 #### Utils and Checks
+
 - **`yarn validate-config`** - If you have quite a long configuration file, you may wish to check that it's all good to go, before deploying the app. This can be done with `yarn validate-config` or `docker exec -it [container-id] yarn validate-config`. Your config file needs to be in `/public/conf.yml` (or within your Docker container at `/app/public/conf.yml`). This will first check that your YAML is valid, and then validates it against Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js).
 - **`yarn health-check`** - Checks that the application is up and running on it's specified port, and outputs current status and response times. Useful for integrating into your monitoring service, if you need to maintain high system availability
 
 #### Alternate Start Commands
+
 - **`yarn build-and-start`** - Builds the app, runs checks and starts the production server. Commands are run in parallel, and so is faster than running them in independently. Uses the `yarn build` and `yarn start` commands
 - **`yarn build-watch`** - If you find yourself making frequent changes to your configuration, and do not want to have to keep manually rebuilding, then this option is for you. It will watch for changes to any files within the projects root, and then trigger a rebuild. Note that if you are developing new features, then `yarn dev` would be more appropriate, as it's significantly faster at recompiling (under 1 second), and has hot reloading, linting and testing integrated
 - **`yarn pm2-start`** - Starts the Node server using [PM2](https://pm2.keymetrics.io/), a process manager for Node.js applications, that helps them stay alive. PM2 has some built-in basic monitoring features, and an optional [management solution](https://pm2.io/). If you are running the app on bare metal, it is recommended to use this start command
 
 #### Notes
+
 - If you are using NPM, replace `yarn` with `npm run`
 - If you are using Docker, precede each command with `docker exec -it [container-id]`. Container ID can be found by running `docker ps`
-- You can manage the app using the [Vue-CLI Service](https://cli.vuejs.org/guide/cli-service.html), with `npx vue-cli-service [command]`. Or to start the Vue Management UI, run `npx vue ui`, and open `http://localhost:8000` 
+- You can manage the app using the [Vue-CLI Service](https://cli.vuejs.org/guide/cli-service.html), with `npx vue-cli-service [command]`. Or to start the Vue Management UI, run `npx vue ui`, and open `http://localhost:8000`
 
 ### Environmental Variables
+
 All environmental variables are optional. Currently there are not many environmental variables used, as most of the user preferences are stored under `appConfig` in the `conf.yml` file.
 
 You can set variables either in your environment, or using the [`.env`](https://github.com/Lissy93/dashy/blob/master/.env) file.
@@ -75,6 +82,7 @@ You can set variables either in your environment, or using the [`.env`](https://
 - `VUE_APP_VERSION` - Again, set automatically using package.json during build time
 
 ### Environment Modes
+
 You can set the environment using the `NODE_ENV` variable. By default, the correct environment should be selected based on the script you run to start the app. The following environments are supported: `production`, `development` and `test`. For more info, see [Vue CLI Environment Modes](https://cli.vuejs.org/guide/mode-and-env.html#modes).
 
 ---
@@ -82,6 +90,7 @@ You can set the environment using the `NODE_ENV` variable. By default, the corre
 ## Git Strategy
 
 ### Git Flow
+
 Like most Git repos, we are following the [Github Flow](https://guides.github.com/introduction/flow) standard.
 
 1. Create a branch (or fork if you don'd have write access)
@@ -93,10 +102,12 @@ Like most Git repos, we are following the [Github Flow](https://guides.github.co
 7. Merge 🎉
 
 ### Git Branch Naming
+
 The format of your branch name should be something similar to: `[TYPE]/[TICKET]_[TITLE]`
 For example, `FEATURE/420_Awesome-feature` or `FIX/690_login-server-error`
 
 ### Commit Emojis
+
 Using a single emoji at the start of each commit message, to indicate the type task, makes the commit ledger easier to understand, plus it looks cool.
 
 - 🎨 `:art:` - Improve structure / format of the code.
@@ -127,14 +138,17 @@ Using a single emoji at the start of each commit message, to indicate the type t
 For a full list of options, see [gitmoji.dev](https://gitmoji.dev/)
 
 ### PR Guidelines
+
 Once you've made your changes, and pushed them to your fork or branch, you're ready to open a pull request!
 
 For a pull request to be merged, it must:
+
 - Must be backwards compatible
 - The build, lint and tests (run by GH actions) must pass
 - There must not be any merge conflicts
 
 When you submit your PR, include the required info, by filling out the PR template. Including:
+
 - A brief description of your changes
 - The issue, ticket or discussion number (if applicable)
 - For UI relate updates include a screenshot
@@ -144,7 +158,9 @@ When you submit your PR, include the required info, by filling out the PR templa
 ---
 
 ## Resources for Beginners
+
 New to Web Development? Glad you're here! Dashy is a pretty simple app, so it should make a good candidate for your first PR. Presuming that you already have a basic knowledge of JavaScript, the following articles should point you in the right direction for getting up to speed with the technologies used in this project:
+
 - [Open Source for Beginners](https://opensource.guide/how-to-contribute/)
 - [Introduction to Vue.js](https://v3.vuejs.org/guide/introduction.html)
 - [Vue.js Walkthrough](https://www.taniarascia.com/getting-started-with-vue/)
@@ -158,37 +174,40 @@ New to Web Development? Glad you're here! Dashy is a pretty simple app, so it sh
 - [Git cheat sheet](http://git-cheatsheet.com/)
 - [Basics of using NPM](https://www.freecodecamp.org/news/what-is-npm-a-node-package-manager-tutorial-for-beginners/)
 
-As well as Node, Git and Docker- you'll also need an IDE (e.g. [VS Code](https://code.visualstudio.com/) or [Vim](https://www.vim.org/)) and a terminal (Windows users may find [WSL](https://docs.microsoft.com/en-us/windows/wsl/) more convenient). 
+As well as Node, Git and Docker- you'll also need an IDE (e.g. [VS Code](https://code.visualstudio.com/) or [Vim](https://www.vim.org/)) and a terminal (Windows users may find [WSL](https://docs.microsoft.com/en-us/windows/wsl/) more convenient).
 
 ---
 
 ## App Info
 
-## Style Guide
+### Style Guide
 
-Linting is done using [ESLint](https://eslint.org/), and using the [Vue.js Styleguide](https://github.com/vuejs/eslint-config-standard), which is very similar to the [AirBnB Stylguide](https://github.com/airbnb/javascript). You can run `yarn lint` to report and fix issues. While the dev server is running, issues will be reported to the console automatically, and any lint errors will trigger the build to fail. Note that all lint checks must pass before any PR can be merged. Linting is also run as a git pre-commit hook
+Linting is done using [ESLint](https://eslint.org/), and using the [Vue.js Styleguide](https://github.com/vuejs/eslint-config-standard), which is very similar to the [AirBnB Styleguide](https://github.com/airbnb/javascript). You can run `yarn lint` to report and fix issues. While the dev server is running, issues will be reported to the console automatically, and any lint errors will trigger the build to fail. Note that all lint checks must pass before any PR can be merged. Linting is also run as a git pre-commit hook
 
 The most significant things to note are:
+
 - Indentation should be done with two spaces
 - Strings should use single quotes
 - All statements must end in a semi-colon
 - The final element in all objects must be preceded with a comma
 - Maximum line length is 100
 - There must be exactly one blank line between sections, before function names, and at the end of the file
-- With conditionals, put else on the same line as your if block’s closing brace
+- With conditionals, put else on the same line as your if block's closing brace
 - All multiline blocks must use braces
 - Avoid console statements in the frontend
 
 Styleguides:
+
 - Vue: [Vue styleguide](https://vuejs.org/v2/style-guide/)
-- JavaScript: [github.com/airbnb/javascript](https://github.com/airbnb/javascript) 
+- JavaScript: [github.com/airbnb/javascript](https://github.com/airbnb/javascript)
 
 ---
 
-## Application Structure
+### Application Structure
 
 #### Files in the Root: `./`
-```
+
+```text
 ╮
 ├── package.json        # Project meta-data, dependencies and paths to scripts
 ├── src/                # Project front-end source code
@@ -207,13 +226,13 @@ Styleguides:
 
 #### Frontend Source: `./src/`
 
-```
+```text
 ./src
 ├── App.vue                       # Vue.js starting file
 ├── assets                        # Static non-compiled assets
 │  ├── fonts                      # .ttf font files
 │  ├── locales                    # All app text, each language in a separate JSON file
-│  ╰── interface-icons            # SVG icons used in the app 
+│  ╰── interface-icons            # SVG icons used in the app
 ├── components                    # All front-end Vue web components
 │  ├── Charts                     # Charting components for dynamically displaying widget data
 │  │  ├── Gauge.vue               # A speed-dial style chart for showing 0 - 100 values
@@ -250,7 +269,7 @@ Styleguides:
 │  │  ├── Item.vue                # Main link item, which is displayed within an item group
 │  │  ├── ItemGroup.vue           # Item group is a section containing icons
 │  │  ├── ItemIcon.vue            # The icon used by both items and sections
-│  │  ├── ItemOpenMethodIcon.vue  # A small icon, visible on hover, indicating opening method 
+│  │  ├── ItemOpenMethodIcon.vue  # A small icon, visible on hover, indicating opening method
 │  │  ├── ItemContextMenu.vue     # The right-click menu, for showing Item opening methods and info
 │  │  ├── SectionContextMenu.vue  # The right-click menu, for showing Section edit/ open options
 │  │  ╰── StatusIndicator.vue     # Traffic light dot, showing if app is online or down
@@ -340,9 +359,11 @@ Styleguides:
 ## Development Tools
 
 ### Performance - Lighthouse
+
 The easiest method of checking performance is to use Chromium's build in auditing tool, Lighthouse. To run the test, open Developer Tools (usually F12) --> Lighthouse and click on the 'Generate Report' button at the bottom.
 
 ### Dependencies - BundlePhobia
+
 [BundlePhobia](https://bundlephobia.com/) is a really useful app that lets you analyze the cost of adding any particular dependency to an application
 
 ---
@@ -356,4 +377,3 @@ When running the build command, several warnings appear. These are not errors, a
 `WARN  A new version of sass-loader is available. Please upgrade for best experience.` - Currently we're using an older version of SASS loader, since the more recent releases do not seem to be compatible with the Vue CLI's webpack configuration.
 
 `WARN asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).` - For the PWA to support Windows 10, a splash screen asset is required, and is quite large. This throws a warning, however PWA assets are not loaded until needed, so shouldn't have any impact on application performance. A similar warning is thrown for the Raleway font, and that is looking to be addressed.
-

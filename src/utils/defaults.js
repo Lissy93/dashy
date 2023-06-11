@@ -136,7 +136,7 @@ module.exports = {
   },
   /* Key names for cookie identifiers */
   cookieKeys: {
-    AUTH_TOKEN: 'authenticationToken',
+    AUTH_TOKEN: 'dashyAuthToken',
   },
   /* Key names for session storage identifiers */
   sessionStorageKeys: {
@@ -206,13 +206,13 @@ module.exports = {
   /* The URL to CDNs used for external icons. These are only loaded when required */
   iconCdns: {
     fa: 'https://kit.fontawesome.com',
-    mdi: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css',
-    si: 'https://unpkg.com/simple-icons@v5/icons',
+    mdi: 'https://cdn.jsdelivr.net/npm/@mdi/font@7.0.96/css/materialdesignicons.min.css',
+    si: 'https://unpkg.com/simple-icons@v7/icons',
     generative: 'https://avatars.dicebear.com/api/identicon/{icon}.svg',
     generativeFallback: 'https://evatar.io/{icon}',
     localPath: './item-icons',
     faviconName: 'favicon.ico',
-    homeLabIcons: 'https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/{icon}.png',
+    homeLabIcons: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/{icon}.png',
     homeLabIconsFallback: 'https://raw.githubusercontent.com/NX211/homer-icons/master/png/{icon}.png',
   },
   /* API endpoints for widgets that need to fetch external data */
@@ -236,6 +236,7 @@ module.exports = {
     jokes: 'https://v2.jokeapi.dev/joke/',
     news: 'https://api.currentsapi.services/v1/latest-news',
     mullvad: 'https://am.i.mullvad.net/json',
+    mvg: 'https://www.mvg.de/api/fib/v2/',
     publicIp: 'https://ipapi.co/json',
     publicIp2: 'https://api.ipgeolocation.io/ipgeo',
     publicIp3: 'http://ip-api.com/json',

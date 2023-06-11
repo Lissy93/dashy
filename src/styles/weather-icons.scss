@@ -21,10 +21,10 @@ i.owi {
   -webkit-font-smoothing: antialiased;
   color: var(--primary);
 
-  &.owi-01d::before { content: "\ea01"; }
-  &.owi-01n::before { content: "\ea02"; }
-  &.owi-02d::before { content: "\ea04"; }
-  &.owi-02n::before { content: "\ea03"; }
+  &.owi-01d::before { content: "\ea02"; }
+  &.owi-01n::before { content: "\ea01"; }
+  &.owi-02d::before { content: "\ea03"; }
+  &.owi-02n::before { content: "\ea04"; }
   &.owi-03d::before { content: "\ea05"; }
   &.owi-03n::before { content: "\ea06"; }
   &.owi-04d::before { content: "\ea07"; }
@@ -36,8 +36,8 @@ i.owi {
   &.owi-11d::before { content: "\ea0d"; }
   &.owi-11n::before { content: "\ea0e"; }
   &.owi-13d::before { content: "\ea10"; }
-  &.owi-13n::before { content: "\ea12"; }
-  &.owi-50d::before { content: "\ea11"; }
+  &.owi-13n::before { content: "\ea11"; }
+  &.owi-50d::before { content: "\ea12"; }
   &.owi-50n::before { content: "\ea13"; }
   &.owi-1232n::before { content: "\ea0f"; }
 }

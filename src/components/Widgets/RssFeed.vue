@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import * as Parser from 'rss-parser';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
@@ -47,10 +48,13 @@ export default {
     /* The URL to users atom-format RSS feed */
     rssUrl() {
       if (!this.options.rssUrl) this.error('Missing feed URL');
-      return encodeURIComponent(this.options.rssUrl || '');
+      return this.options.rssUrl || '';
     },
     apiKey() {
       return this.options.apiKey;
+    },
+    parseLocally() {
+      return this.options.parseLocally;
     },
     limit() {
       const usersChoice = this.options.limit;
@@ -73,8 +77,12 @@ export default {
       const limit = this.limit && this.apiKey ? `&count=${this.limit}` : '';
       const orderBy = this.orderBy && this.apiKey ? `&order_by=${this.orderBy}` : '';
       const direction = this.orderDirection ? `&order_dir=${this.orderDirection}` : '';
-      return `${widgetApiEndpoints.rssToJson}?rss_url=${this.rssUrl}`
-        + `${apiKey}${limit}${orderBy}${direction}`;
+      if (this.parseLocally) {
+        return this.rssUrl;
+      } else {
+        return `${widgetApiEndpoints.rssToJson}?rss_url=${encodeURIComponent(this.rssUrl)}`
+          + `${apiKey}${limit}${orderBy}${direction}`;
+      }
     },
   },
   filters: {
@@ -88,31 +96,53 @@ export default {
     },
   },
   methods: {
-    /* Make GET request to Rss2Json */
+    /* Make GET request to whatever endpoint we are using */
     fetchData() {
       this.makeRequest(this.endpoint).then(this.processData);
     },
     /* Assign data variables to the returned data */
-    processData(data) {
-      const { feed, items } = data;
-      this.meta = {
-        title: feed.title,
-        link: feed.link,
-        author: feed.author,
-        description: feed.description,
-        image: feed.image,
-      };
+    async processData(data) {
+      if (this.parseLocally) {
+        const parser = new Parser();
+        const {
+          link, title, items, author, description, image,
+        } = await parser.parseString(data);
+        this.meta = {
+          title,
+          link,
+          author,
+          description,
+          image,
+        };
+        this.processItems(items);
+      } else {
+        const { feed, items } = data;
+        this.meta = {
+          title: feed.title,
+          link: feed.link,
+          author: feed.author,
+          description: feed.description,
+          image: feed.image,
+        };
+        this.processItems(items);
+      }
+    },
+    processItems(items) {
       const posts = [];
-      items.forEach((post) => {
+      let { length } = items;
+      if (this.limit) {
+        length = this.limit;
+      }
+      for (let i = 0; length > i; i += 1) {
         posts.push({
-          title: post.title,
-          description: post.description,
-          image: post.thumbnail,
-          author: post.author,
-          date: post.pubDate,
-          link: post.link,
+          title: items[i].title,
+          description: items[i].description,
+          image: items[i].thumbnail,
+          author: items[i].author,
+          date: items[i].pubDate,
+          link: items[i].link,
         });
-      });
+      }
       this.posts = posts;
     },
   },

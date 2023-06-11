@@ -21,17 +21,20 @@ For a full breakdown of each change, you can view the [Changelog](https://github
 All changes and new features are submitted as pull requests, which can then be tested, reviewed and (hopefully) merged into the master branch. Every time there is a change in the major version number, a new release is published. This usually happens every 2 weeks, on a Sunday.
 
 When a PR is opened:
+
 - The feature branch is built, and deployed as a Netlify instance. This can be accessed at: `https://deploy-preview-[pr-number]--dashy-dev.netlify.app`, and this URL as well as a link to the build logs are added as a comment on the PR by Netlify bot
 - Depending on what files were modified, the bot may also add a comment to remind the author of useful info
 - A series of checks will run on the new code, using GH Actions, and prevent merging if they fail. This includes: linting, testing, code quality and complexity checking, security scanning and a spell check
 - If a new dependency was added, liss-bot will comment with a summary of those changes, as well as the cost of the module, version, and any security concerns. If the bundle size has increased, this will also be added as a comment
 
 After the PR is merged:
-- The app is build, and deployed to: https://dev.dashy.to
+
+- The app is build, and deployed to: <https://dev.dashy.to>
 - A new tag in GitHub is created, using the apps version number (from the package.json)
 - The Docker container is built, and published under the `:latest` tag on DockerHub and GHCR
 
 When a new major version is released:
+
 - A new GitHub release is created and published, under new versions tag, with info from the changelog
 - The container is built and published under a new tag will be created on DockerHub, called `:release-[version]`
 - An announcement is opened in GitHub discussions, outlining the main changes, where users can comment and ask questions
@@ -43,19 +46,22 @@ When a new major version is released:
 ## Git Strategy
 
 ### Git Flow
+
 Like most Git repos, we are following the [Github Flow](https://guides.github.com/introduction/flow) standard.
 
-1. Create a branch (or fork if you don'd have write acces)
+1. Create a branch (or fork if you don'd have write access)
 2. Code some awesome stuff, then add and commit your changes
 3. Create a Pull Request, complete the checklist and ensure the build succeeds
 4. Follow up with any reviews on your code
 5. Merge 🎉
 
 ### Git Branch Naming
+
 The format of your branch name should be something similar to: `[TYPE]/[TICKET]_[TITLE]`
 For example, `FEATURE/420_Awesome-feature` or `FIX/690_login-server-error`
 
 ### Commit Emojis
+
 Using a single emoji at the start of each commit message, to indicate the type task, makes the commit ledger easier to understand, plus it looks cool.
 
 - 🎨 `:art:` - Improve structure / format of the code.
@@ -86,14 +92,17 @@ Using a single emoji at the start of each commit message, to indicate the type t
 For a full list of options, see [gitmoji.dev](https://gitmoji.dev/)
 
 ### PR Guidelines
+
 Once you've made your changes, and pushed them to your fork or branch, you're ready to open a pull request!
 
 For a pull request to be merged, it must:
+
 - Must be backwards compatible
 - The build, lint and tests (run by GH actions) must pass
 - There must not be any merge conflicts
 
 When you submit your PR, include the required info, by filling out the PR template. Including:
+
 - A brief description of your changes
 - The issue, ticket or discussion number (if applicable)
 - For UI relate updates include a screenshot
@@ -104,8 +113,7 @@ When you submit your PR, include the required info, by filling out the PR templa
 
 ## Automated Workflows
 
-Dashy makes heavy use of [GitHub Actions](https://github.com/features/actions) to fully automate the checking, testing, building, deploying of the project, as well as administration tasks like management of issues, tags, releases and documentation. The following section outlines each workflow, along with a link the the action file, current status and short description. A lot of these automations were made possible using community actions contributed to GH marketplace by some amazing people.   
-
+Dashy makes heavy use of [GitHub Actions](https://github.com/features/actions) to fully automate the checking, testing, building, deploying of the project, as well as administration tasks like management of issues, tags, releases and documentation. The following section outlines each workflow, along with a link the the action file, current status and short description. A lot of these automations were made possible using community actions contributed to GH marketplace by some amazing people.
 
 ### Code Processing
 

@@ -11,6 +11,7 @@ Both sections and items can have an icon, which is specified using the `icon` at
 - [Material Icons](#material-design-icons)
 - [Icons by URL](#icons-by-url)
 - [Local Icons](#local-icons)
+- [Using a Default Icon](#default-icon)
 - [No Icon](#no-icon)
 
 <p align="center">
@@ -20,6 +21,7 @@ Both sections and items can have an icon, which is specified using the `icon` at
 ---
 
 ## Favicons
+
 Dashy can auto-fetch an icon for a given service, using it's favicon. Just set `icon: favicon` to use this feature.
 
 <p align="center">
@@ -31,6 +33,7 @@ Since different websites host their favicons at different paths, for the best re
 The default favicon API is  [allesedv.com](https://favicon.allesedv.com/), but you can change this under `appConfig.faviconApi`. If you'd prefer not to use an API, just set this value to `local`. You can also use different APIs for individual items, by setting `icon: favicon-[api]`, e.g. `favicon-clearbit`.
 
 The following favicon APIs are supported:
+
 - `allesedv` - [allesedv.com](https://favicon.allesedv.com/) is a highly efficient IPv6-enabled service
 - `iconhorse` - [Icon.Horse](https://icon.horse/) returns quality icons for any site, with caching for speed and fallbacks for sites without an icon
 - `clearbit` - [Clearbit](https://clearbit.com/logo) returns high-quality square logos from mainstream websites
@@ -47,6 +50,7 @@ If for a given service none of the APIs work in your situation, and nor does loc
 ---
 
 ## Font Awesome
+
 You can use any [Font Awesome Icon](https://fontawesome.com/icons) simply by specifying it's identifier. This is in the format of `[category] [name]` and can be found on the page for that icon on the Font Awesome site. For example: `fas fa-rocket`, `fab fa-monero` or `fas fa-unicorn`.
 
 Font-Awesome has a wide variety of free icons, but you can also use their pro icons if you have a membership. To do so, you need to specify your license key under: `appConfig.fontAwesomeKey`. This is usually a 10-digit string, for example `13014ae648`.
@@ -58,13 +62,15 @@ Font-Awesome has a wide variety of free icons, but you can also use their pro ic
 ---
 
 ## Simple Icons
-[SimpleIcons.org](https://simpleicons.org/) is a collection of 2000+ high quality, free and open source brand and logo SVG icons. Usage of which is very similar to font-awesome icons. First find the glyph you want to use on the [website](https://simpleicons.org/), then just set your icon the the simple icon slug, prefixed with `si-`. 
+
+[SimpleIcons.org](https://simpleicons.org/) is a collection of 2000+ high quality, free and open source brand and logo SVG icons. Usage of which is very similar to font-awesome icons. First find the glyph you want to use on the [website](https://simpleicons.org/), then just set your icon the the simple icon slug, prefixed with `si-`.
 
 <p align="center">
   <img width="580" src="https://i.ibb.co/MVhkXfC/simple-icons-example.png" />
 </p>
 
 For example:
+
 ```yaml
 sections:
 - name: Simple Icons Example
@@ -82,6 +88,7 @@ sections:
 ---
 
 ## Generative Icons
+
 To uses a unique and programmatically generated icon for a given service just set `icon: generative`. This is particularly useful when you have a lot of similar services with a different IP or port, and no specific icon. These icons are generated with [DiceBear](https://avatars.dicebear.com/) (or [Evatar](https://evatar.io/) for fallback), and use a hash of the services domain/ ip for entropy, so each domain will have a unique icon.
 
 <p align="center">
@@ -91,6 +98,7 @@ To uses a unique and programmatically generated icon for a given service just se
 ---
 
 ## Emoji Icons
+
 You can use almost any emoji as an icon for items or sections. You can specify the emoji either by pasting it directly, using it's unicode ( e.g. `'U+1F680'`) or shortcode (e.g. `':rocket:'`). You can find these codes for any emoji using [Emojipedia](https://emojipedia.org/) (near the bottom of emoji each page), or for a quick reference to emoji shortcodes, check out [emojis.ninja](https://emojis.ninja/) by @nomanoff.
 
 <p align="center">
@@ -103,9 +111,10 @@ For example, these will all render the same rocket (🚀) emoji: `icon: ':rocket
 
 ## Home-Lab Icons
 
-The [dashboard-icons](https://github.com/WalkxHub/dashboard-icons) repo by [@WalkxCode](https://github.com/WalkxCode) provides a comprehensive collection of 360+ high-quality PNG icons for commonly self-hosted services. Dashy natively supports these icons, and you can use them just by specifying the icon name (without extension) preceded by `hl-`. See [here](https://github.com/WalkxCode/dashboard-icons/tree/master/png) for a full list of all available icons. Note that these are fetched and cached strait from GitHub, so if you require offline access, the [Local Icons](#local-icons) method may be a better option for you.
+The [dashboard-icons](https://github.com/walkxcode/Dashboard-Icons) repo by [@WalkxCode](https://github.com/WalkxCode) provides a comprehensive collection of 360+ high-quality PNG icons for commonly self-hosted services. Dashy natively supports these icons, and you can use them just by specifying the icon name (without extension) preceded by `hl-`. See [here](https://github.com/walkxcode/Dashboard-Icons/tree/main/png) for a full list of all available icons. Note that these are fetched and cached strait from GitHub, so if you require offline access, the [Local Icons](#local-icons) method may be a better option for you.
 
 For example:
+
 ```yaml
 sections:
 - name: Home Lab Icons Example
@@ -120,7 +129,6 @@ sections:
     icon: hl-whooglesearch
 ```
 
-
 <p align="center">
   <img width="580" src="https://i.ibb.co/PQzYHmD/homelab-icons-2.png" />
 </p>
@@ -128,19 +136,21 @@ sections:
 ---
 
 ## Material Design Icons
+
 Dashy also supports 5000+ [material-design-icons](https://github.com/Templarian/MaterialDesign). To use these, first find the name/ slug for your icon [here](https://dev.materialdesignicons.com/icons), and then prefix is with `mdi-`.
 
 For example:
+
 ```yaml
 sections:
 - name: Material Design Icons Example
   items:
   - title: Alien Icon
-    icon: mdi-alien 
+    icon: mdi-alien
   - title: Fire Icon
-    icon: mdi-fire 
+    icon: mdi-fire
   - title: Dino Icon
-    icon: mdi-google-downasaur 
+    icon: mdi-google-downasaur
 ```
 
 <p align="center">
@@ -150,18 +160,27 @@ sections:
 ---
 
 ## Icons by URL
+
 You can also set an icon by passing in a valid URL pointing to the icons location. For example `icon: https://i.ibb.co/710B3Yc/space-invader-x256.png`, this can be in .png, .jpg or .svg format, and hosted anywhere (local or remote) - so long as it's accessible from where you are hosting Dashy. The icon will be automatically scaled to fit, however loading in a lot of large icons may have a negative impact on performance, especially if you visit Dashy from new devices often.
 
 ---
 
 ## Local Icons
+
 You may also want to store your icons locally, bundled within Dashy so that there is no reliance on outside services. This can be done by putting the icons within Dashy's `./public/item-icons/` directory. If you are using Docker, then the easiest option is to map a volume from your host system, for example: `-v /local/image/directory:/app/public/item-icons/`. To reference an icon stored locally, just specify it's name and extension. For example, if my icon was stored in `/app/public/item-icons/maltrail.png`, then I would just set `icon: maltrail.png`.
 
 You can also use sub-folders within the `item-icons` directory to keep things organized. You would then specify an icon with it's folder name slash image name. For example: `networking/monit.png`
 
 ---
 
+## Default Icon
+
+If you'd like to set a default icon, to be applied to any items which don't have an icon already set, then this can be done under `appConfig.defaultIcon`.
+
+---
+
 ## No Icon
+
 If you don't wish for a given item or section to have an icon, just leave out the `icon` attribute.
 
 ---

@@ -43,7 +43,7 @@ jobs:
         images: |
           ${{ env.DH_IMAGE }}
           ghcr.io/${{ env.GH_IMAGE }}
-          ${{ secrets.ACR_SERVER }}/${{ secrets.ACR_USERNAME }}
+#          ${{ secrets.ACR_SERVER }}/${{ secrets.ACR_USERNAME }}
         tags: |
           type=ref,event=tag,prefix=release-,suffix={{tag}}
           type=semver,pattern={{raw}},value=${{ steps.package-version.outputs.version }}
@@ -74,12 +74,12 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: 🔑 Login to Azure Container Registry
-      uses: docker/login-action@v1
-      with:
-        registry: ${{ secrets.ACR_SERVER }}
-        username: ${{ secrets.ACR_USERNAME }}
-        password: ${{ secrets.ACR_PASSWORD }}
+#    - name: 🔑 Login to Azure Container Registry
+#      uses: docker/login-action@v1
+#      with:
+#        registry: ${{ secrets.ACR_SERVER }}
+#        username: ${{ secrets.ACR_USERNAME }}
+#        password: ${{ secrets.ACR_PASSWORD }}
 
     - name: 🚦 Check Registry Status
       uses: crazy-max/ghaction-docker-status@v1

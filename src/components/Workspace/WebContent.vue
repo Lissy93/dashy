@@ -1,6 +1,6 @@
 <template>
   <div class="web-content" :id="id">
-    <iframe :src="url" allow="fullscreen" />
+    <iframe :src="url" allow="fullscreen; clipboard-write" />
   </div>
 </template>
 

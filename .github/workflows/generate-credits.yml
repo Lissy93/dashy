@@ -42,8 +42,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Inserts contributors into credits.md
     steps:
-    - name: Contribute List - Credits Page
-      uses: akhilmhdh/contributors-readme-action@v2.2
+    - name: Contributer List - Credits Page
+      uses: akhilmhdh/contributors-readme-action@v2.3.6
       env:
           GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
       with:
@@ -51,6 +51,7 @@ jobs:
         readme_path: docs/credits.md
         columns_per_row: 6
         commit_message: ':purple_heart: Updates contributors list'
+        collaborators: all
         committer_username: liss-bot
         committer_email: liss-bot@d0h.co
     - name: Sponsors List - Readme
@@ -72,7 +73,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: wow-actions/update-authors@v1
+      - uses: wow-actions/update-authors@v1.1.4
         with:
           GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           sort: commits

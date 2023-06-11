@@ -118,7 +118,7 @@ export default {
     /* Make CSS styles to apply the users custom background image */
     getBackgroundImage() {
       if (this.appConfig && this.appConfig.backgroundImg) {
-        return `background: url('${this.appConfig.backgroundImg}');background-size:cover;`;
+        return `background: url('${this.appConfig.backgroundImg}') no-repeat center fixed;background-size:cover;`;
       }
       return '';
     },
