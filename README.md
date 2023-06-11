@@ -621,13 +621,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Jtfinley72</b></sub>
         </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/baifengheixi">
-            <img src="https://avatars.githubusercontent.com/u/98794233?u=73763035da00be68ea05f3a577b96e47784bd748&v=4" width="80;" alt="baifengheixi"/>
-            <br />
-            <sub><b>Baifengheixi</b></sub>
-        </a>
     </td></tr>
 </table>
 <!-- readme: sponsors -end -->
