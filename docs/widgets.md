@@ -1150,7 +1150,7 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
 
 ### HealthChecks Status
 
-Display status of one or more HealthChecks project(s). Works with healthcheck.io and your selfhosted instance.
+Display status of one or more HealthChecks project(s). Works with healthchecks.io and your selfhosted instance.
 
 <p align="center"><img width="380" src="https://i.ibb.co/W5dP6VN/Bildschirm-foto-2023-01-07-um-11-07-11.png" /></p>
 
