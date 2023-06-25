@@ -329,7 +329,7 @@ surge ./dist
 
 [Easypanel](https://easypanel.io) it's a modern server control panel. You can use it to deploy Dashy on your own server.
 
-To run Dashy in PWD, use the following URL:
+To deploy Dashy to Easypanel, use the following link
 
 ```text
 https://easypanel.io/docs/templates/dashy
