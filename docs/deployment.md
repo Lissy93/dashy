@@ -327,7 +327,7 @@ surge ./dist
 
 [![Deploy to Easypanel](https://i.ibb.co/ZNPwQX3/deploy-easypanel-button.png)](https://easypanel.io/docs/templates/dashy)
 
-[Easypanel](https://easypanel.io) it's a modern server control panel. You can use it to deploy Coral on your own server.
+[Easypanel](https://easypanel.io) it's a modern server control panel. You can use it to deploy Dashy on your own server.
 
 To run Dashy in PWD, use the following URL:
 
