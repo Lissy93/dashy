@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dashy.fullname" . }}
+  labels:
+    {{- include "dashy.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "dashy.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        rollMe: {{ randAlphaNum 5 | quote }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "dashy.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "dashy.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          {{- if and .Values.dashy .Values.dashy.probes }}
+          {{- if .Values.dashy.probes.livenessProbe }}
+          livenessProbe:
+            {{- .Values.dashy.probes.livenessProbe | toYaml | nindent 12 }}
+          {{- end }}
+          {{- if .Values.dashy.probes.readinessProbe }}
+          readinessProbe:
+            {{- .Values.dashy.probes.readinessProbe | toYaml | nindent 12 }}
+          {{- end }}
+          {{- if .Values.dashy.probes.startupProbe }}
+          startupProbe:
+            {{- .Values.dashy.probes.startupProbe | toYaml | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: /app/public/conf.yml
+              subPath: conf.yml
+              readOnly: true
+            {{- if and .Values.extraVolumes .Values.extraVolumes.volumeMounts }}
+            {{- toYaml .Values.extraVolumes.volumeMounts | nindent 12 }}
+            {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: config
+          secret:
+            secretName: {{ include "dashy.fullname" . }}
+        {{- if and .Values.extraVolumes .Values.extraVolumes.volumes }}
+        {{- toYaml .Values.extraVolumes.volumes | nindent 8 }}
+        {{- end }}
