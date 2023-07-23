@@ -48,7 +48,6 @@ Steven Kast <steven.m.kast@gmail.com> - 1 commits
 Xert <xertdev@gmail.com> - 1 commits
 baifengheixi <98794233+baifengheixi@users.noreply.github.com> - 1 commits
 deepsource-io[bot] <deepsource-io[bot]@users.noreply.github.com> - 1 commits
-dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> - 1 commits
 dr460nf1r3 <njcrypted@protonmail.com> - 1 commits
 flechaig <flechaig@users.noreply.github.com> - 1 commits
 huangshaohuai <huangshaohuai@163.com> - 1 commits
@@ -79,6 +78,7 @@ Dan Gilbert <ddg@daentech.co.uk> - 2 commits
 Ruben Silva <rubensilva945@gmail.com> - 2 commits
 Thomas Dissert <dissertthomas@gmail.com> - 2 commits
 cauterize <cauterize@programmer.net> - 2 commits
+dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> - 2 commits
 hockeymikey <hockeymikey@hockeymikey.com> - 2 commits
 itsmejoeeey <9375730+itsmejoeeey@users.noreply.github.com> - 2 commits
 k073l <21180271+k073l@users.noreply.github.com> - 2 commits
@@ -126,9 +126,9 @@ Marcell Fülöp <marekful@protonmail.com> - 27 commits
 Alicia Sykes <alicia@futr.ai> - 28 commits
 Lissy93 <gh@d0h.co> - 78 commits
 snyk-bot <snyk-bot@snyk.io> - 81 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 94 commits
-Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 175 commits
-liss-bot <liss-bot@d0h.co> - 176 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 95 commits
+Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 177 commits
+liss-bot <liss-bot@d0h.co> - 177 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 210 commits
 Alicia Sykes <alicia@omg.lol> - 325 commits
 Alicia Sykes <gh@d0h.co> - 440 commits
