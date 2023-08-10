@@ -104,6 +104,7 @@ const COMPAT = {
   'proxmox-lists': 'Proxmox',
   'public-holidays': 'PublicHolidays',
   'public-ip': 'PublicIp',
+  'rescue-time': 'RescueTime',
   'rss-feed': 'RssFeed',
   sabnzbd: 'Sabnzbd',
   'sports-scores': 'SportsScores',

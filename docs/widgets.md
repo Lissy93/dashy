@@ -39,6 +39,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Mvg Departure](#mvg-departure)
   - [Mvg Connection](#mvg-connection)
   - [Custom search](#custom-search)
+  - [Rescuetime overview] (#rescuetime-overview)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
@@ -1338,6 +1339,38 @@ This widget allows searching multiple search engines from dashy.
 - **Privacy**: depends on the user defined search engines.
 
 ---
+
+### RescueTime Overview
+
+Show an overview of how you have spent your time for the current day.
+
+<p align="center"><img width="400" src="https://i.ibb.co/bvx3PQM/rescuetime.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  required | The API-Key generated in the RescueTime UI.
+
+
+#### Example
+
+```yaml
+  - type: rescue-time
+    useProxy: true
+    options:
+      apiKey: abcdefghijkl_mnop
+```
+#### Info
+
+- **CORS**: 🟢 Required
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Depends on user subscription 
+- **Host**: [RescueTime](https://www.rescuetime.com)
+- **Privacy**: _See [RescueTime Privacy](https://www.rescuetime.com/privacy)_
+
+---
+
 
 
 ## Self-Hosted Services Widgets
