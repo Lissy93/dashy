@@ -84,7 +84,7 @@
     </td>
     <td align="center">
         <a href="https://github.com/MikaPST">
-            <img src="https://avatars.githubusercontent.com/u/56961056?v=4" width="80;" alt="MikaPST"/>
+            <img src="https://avatars.githubusercontent.com/u/56961056?u=3da81a03cbe66a03bbb4afbf2751d71b7a94e28f&v=4" width="80;" alt="MikaPST"/>
             <br />
             <sub><b>Michaël</b></sub>
         </a>
