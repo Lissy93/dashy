@@ -18,7 +18,6 @@
     </template>
 <script>
 
-// import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
@@ -65,7 +64,6 @@ export default {
     },
     calculateTimeCategories(timeArray) {
       const results = {};
-      // console.log(timeArray.rows[0]);
       for (let i = 0; i < timeArray.rows.length; i += 1) {
         const [rank, seconds, persons, category] = timeArray.rows[i];
         const minutes = (parseInt(seconds, 10) / 60).toFixed(2);
