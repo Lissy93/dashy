@@ -39,7 +39,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Mvg Departure](#mvg-departure)
   - [Mvg Connection](#mvg-connection)
   - [Custom search](#custom-search)
-  - [Rescuetime overview] (#rescuetime-overview)
+  - [Rescuetime overview](#rescuetime-overview)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
