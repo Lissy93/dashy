@@ -238,6 +238,7 @@ module.exports = {
     publicIp2: 'https://api.ipgeolocation.io/ipgeo',
     publicIp3: 'http://ip-api.com/json',
     readMeStats: 'https://github-readme-stats.vercel.app/api',
+    rescueTime: 'https://www.rescuetime.com/anapi/data',
     rssToJson: 'https://api.rss2json.com/v1/api.json',
     sportsScores: 'https://www.thesportsdb.com/api/v1/json',
     stockPriceChart: 'https://www.alphavantage.co/query',
