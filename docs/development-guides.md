@@ -313,7 +313,7 @@ export default {
 All widgets extend from the [Widget](https://github.com/Lissy93/dashy/blob/master/src/mixins/WidgetMixin.js) mixin. This provides some basic functionality that is shared by all widgets. The mixin includes the following `options`, `startLoading()`, `finishLoading()`, `error()` and `update()`.
 
 - **Getting user options: `options`**
-  - Any user-specific config can be accessed with `this.options.something` (where something is the data key your accessing)
+  - Any user-specific config can be accessed with `this.options.something` (where something is the data key you're accessing)
 - **Loading state: `startLoading()` and `finishLoading()`**
   - You can show the loader with `this.startLoading()`, then when your data request completes, hide it again with `this.finishLoading()`
 - **Error handling: `error()`**
@@ -341,7 +341,7 @@ computed: {
 
 #### **Adding an API Endpoint**
 
-If your widget makes a data request, then add the URL for the API under point to the `widgetApiEndpoints` array in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L207)
+If your widget makes a data request, then add the URL for the API endpoint to the `widgetApiEndpoints` array in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L207)
 
 ```javascript
 widgetApiEndpoints: {
@@ -410,7 +410,7 @@ Now that the results are in the correct format, and stored as data variables, we
 
 #### **Styling**
 
-Styles can be written your your widget within the `<style>` block.
+Styles can be written for your widget within the `<style>` block.
 
 There are several color variables used by widgets, which extend from the base palette. Using these enables users to override colors to theme their dashboard, if they wish. The variables are: `--widget-text-color`, `--widget-background-color` and `--widget-accent-color`
 
