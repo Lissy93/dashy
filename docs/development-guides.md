@@ -439,7 +439,7 @@ Here, the `example-widget` property name will be used to identify the widget whe
 
 ### Step 4 - Docs
 
-Finally, add some documentation for your widget in the [Widget Docs](https://github.com/Lissy93/dashy/blob/master/docs/widgets.md), so that others know hoe to use it. Include the following information: Title, short description, screenshot, config options and some example YAML.
+Finally, add some documentation for your widget in the [Widget Docs](https://github.com/Lissy93/dashy/blob/master/docs/widgets.md), so that others know how to use it. Include the following information: Title, short description, screenshot, config options and some example YAML.
 
 **Summary**: For a complete example of everything discussed here, see: [`3da76ce`](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e)
 
