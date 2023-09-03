@@ -56,7 +56,7 @@
     </td>
     <td align="center">
         <a href="https://github.com/digitalarche">
-            <img src="https://avatars.githubusercontent.com/u/6546135?v=4" width="80;" alt="digitalarche"/>
+            <img src="https://avatars.githubusercontent.com/u/6546135?u=a1a724d38ee1eba2d2d315495d482256312affe8&v=4" width="80;" alt="digitalarche"/>
             <br />
             <sub><b>Digital Archeology</b></sub>
         </a>
@@ -721,6 +721,13 @@
     </td></tr>
 <tr>
     <td align="center">
+        <a href="https://github.com/allozavrr">
+            <img src="https://avatars.githubusercontent.com/u/63748214?v=4" width="80;" alt="allozavrr"/>
+            <br />
+            <sub><b>Null</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/baifengheixi">
             <img src="https://avatars.githubusercontent.com/u/98794233?v=4" width="80;" alt="baifengheixi"/>
             <br />
@@ -754,15 +761,15 @@
             <br />
             <sub><b>Aniket Teredesai</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/imlonghao">
             <img src="https://avatars.githubusercontent.com/u/4951333?v=4" width="80;" alt="imlonghao"/>
             <br />
             <sub><b>Imlonghao</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/jnach">
             <img src="https://avatars.githubusercontent.com/u/33467747?v=4" width="80;" alt="jnach"/>
@@ -797,15 +804,15 @@
             <br />
             <sub><b>Null</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/poisonadder7">
             <img src="https://avatars.githubusercontent.com/u/29179009?v=4" width="80;" alt="poisonadder7"/>
             <br />
             <sub><b>Null</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/soaibsafi">
             <img src="https://avatars.githubusercontent.com/u/11424812?v=4" width="80;" alt="soaibsafi"/>
