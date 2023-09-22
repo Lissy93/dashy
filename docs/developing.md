@@ -80,6 +80,7 @@ You can set variables either in your environment, or using the [`.env`](https://
 - `INTEGRITY` - Should enable SRI for build script and link resources
 - `IS_DOCKER` - Computed automatically on build. Indicates if running in container
 - `VUE_APP_VERSION` - Again, set automatically using package.json during build time
+- `BACKUP_DIR` - Directory for conf.yml backups
 
 ### Environment Modes
 

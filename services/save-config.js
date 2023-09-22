@@ -5,6 +5,7 @@
  * Finally, it will call a function with the status message
  */
 const fsPromises = require('fs').promises;
+const path = require('path');
 
 module.exports = async (newConfig, render) => {
   /* Either returns nothing (if using default path), or strips navigational characters from path */
@@ -24,7 +25,8 @@ module.exports = async (newConfig, render) => {
   };
 
   // Make the full file name and path to save the backup config file
-  const backupFilePath = `${settings.defaultLocation}${usersFileName || settings.filename}-`
+  const backupFilePath = path.normalize(process.env.BACKUP_DIR || settings.defaultLocation) 
+    + `/${usersFileName || settings.filename}-`
     + `${Math.round(new Date() / 1000)}${settings.backupDenominator}`;
 
   // The path where the main conf.yml should be read and saved to
