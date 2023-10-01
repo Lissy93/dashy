@@ -61,6 +61,7 @@ kxenox <floriandel@msn.com> - 1 commits
 laker j.v <la@laker.gay> - 1 commits
 pablomalo <paul.gouin50@gmail.com> - 1 commits
 poisonadder7 <github.com@loginz.uk> - 1 commits
+rokiden <cheto@bk.ru> - 1 commits
 rtm516 <ryantmilner@hotmail.co.uk> - 1 commits
 soaibsafi <soaib.safi@gmail.com> - 1 commits
 ssrangisetti <46807508+ssrangisetti@users.noreply.github.com> - 1 commits
@@ -129,10 +130,10 @@ Marcell Fülöp <marekful@protonmail.com> - 27 commits
 Alicia Sykes <alicia@futr.ai> - 28 commits
 Lissy93 <gh@d0h.co> - 78 commits
 snyk-bot <snyk-bot@snyk.io> - 82 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 104 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 105 commits
 liss-bot <liss-bot@d0h.co> - 191 commits
-Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 193 commits
+Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 195 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 210 commits
-Alicia Sykes <alicia@omg.lol> - 334 commits
+Alicia Sykes <alicia@omg.lol> - 335 commits
 Alicia Sykes <gh@d0h.co> - 440 commits
 Alicia Sykes <sykes.alicia@gmail.com> - 1488 commits
