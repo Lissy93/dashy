@@ -1,0 +1,284 @@
+{
+  "home":{
+    "no-results":"Inga Ei hakutuloksia",
+    "no-data":"Tietoja ei ole määritetty",
+    "no-items-section":"Ei vielä näytettäviä kohteita"
+  },
+  "search":{
+    "search-label":"Hae",
+    "search-placeholder":"Aloita kirjoittaminen suodattaaksesi",
+    "clear-search-tooltip":"Tyhjennä haku",
+    "enter-to-search-web":"Hae verkosta painamalla palautuspainiketta"
+  },
+  "login":{
+    "title":"Dashy",
+    "username-label":"Käyttäjänimi",
+    "password-label":"Salasana",
+    "login-button":"Kirjaudu sisään",
+    "remember-me-label":"Muista minut",
+    "remember-me-never":"Ei koskaan",
+    "remember-me-hour":"4 tuntia",
+    "remember-me-day":"1 Päivä",
+    "remember-me-week":"1 Viikko",
+    "remember-me-long-time":"Pitkä",
+    "error-missing-username":"Käyttäjätunnus puuttuu",
+    "error-missing-password":"Salasana puuttuu",
+    "error-incorrect-username":"Käyttäjää ei löytynyt",
+    "error-incorrect-password":"Väärä salasana",
+    "success-message":"Kirjautua sisään...",
+    "logout-message":"Kirjautunut ulos",
+    "already-logged-in-title":"Jo kirjautunut sisään",
+    "already-logged-in-text":"Olet kirjautunut sisään nimellä",
+    "proceed-to-dashboard":"Jatkaa Dashboard",
+    "log-out-button":"Kirjautua ulos",
+    "proceed-guest-button":"Jatka vieraana"
+  },
+  "config":{
+    "main-tab":"Päävalikko",
+    "view-config-tab":"Näytä asetukset",
+    "edit-config-tab":"Muokkaa määritystä",
+    "custom-css-tab":"Omat tyylimallit",
+    "heading":"Asetusvaihtoehdot",
+    "download-config-button":"Näytä/viedä asetukset",
+    "edit-config-button":"Muokkaa määritystä",
+    "edit-css-button":"Muokata Custom CSS",
+    "cloud-sync-button":"Aktivoida pilvisynkronointi",
+    "edit-cloud-sync-button":"Muokata pilvisynkronointi",
+    "rebuild-app-button":"Rakenna sovellus uudelleen",
+    "change-language-button":"Vaihda sovelluksen kieli",
+    "reset-settings-button":"Palauta paikalliset asetukset",
+    "app-info-button":"Sovellustiedot",
+    "backup-note":"On suositeltavaa tehdä varmuuskopio määrityksistä ennen muutosten tekemistä.",
+    "reset-config-msg-l1":"Tämä poistaa kaikki käyttäjäasetukset paikallisesta tallennustilasta, mutta ei vaikuta sinun 'conf.yml'-file",
+    "reset-config-msg-l2":"Varmuuskopioi ensin kaikki paikallisesti tekemäsi muutokset, jos haluat käyttää niitä tulevaisuudessa.",
+    "reset-config-msg-l3":"Oletko varma, että haluat jatkaa?",
+    "data-cleared-msg":"Tietojen puhdistus on onnistunut",
+    "actions-label":"Toiminnot",
+    "copy-config-label":"Kopioi asetukset",
+    "data-copied-msg":"Määritykset on kopioitu leikepöydälle",
+    "reset-config-label":"Palauta määritykset",
+    "css-save-btn":"Tallenna muutokset",
+    "css-note-label":"Huomautus",
+    "css-note-l1":"Sinun on päivitettävä sivu, jotta muutokset tulevat voimaan.",
+    "css-note-l2":"Styles overrides tallennetaan vain paikallisesti, joten on suositeltavaa tehdä kopio omastasi CSS.",
+    "css-note-l3":"Voit poistaa kaikki mukautetut tyylit poistamalla sisällön ja painamalla Tallenna muutokset"
+  },
+  "alternate-views":{
+    "alternate-view-heading":"Muuttaa näkemystä",
+    "default":"Vakio",
+    "workspace":"Workspace",
+    "minimal":"Minimal"
+  },
+  "settings":{
+    "theme-label":"Teema",
+    "layout-label":"Layout",
+    "layout-auto":"Auto",
+    "layout-horizontal":"Vaakasuora",
+    "layout-vertical":"Pystysuora",
+    "item-size-label":"Koko",
+    "item-size-small":"Pieni",
+    "item-size-medium":"Välillä",
+    "item-size-large":"Iso",
+    "config-launcher-label":"Kokoonpano",
+    "config-launcher-tooltip":"Päivitä kokoonpano",
+    "sign-out-tooltip":"Kirjautua ulos",
+    "sign-in-tooltip":"Kirjaudu sisään",
+    "sign-in-welcome":"Moi {username}!"
+  },
+  "updates":{
+    "app-version-note":"Dashy-version",
+    "up-to-date":"Päivitetty",
+    "out-of-date":"Päivitys saatavilla",
+    "unsupported-version-l1":"Käytät Dashyn versiota, jota ei tueta",
+    "unsupported-version-l2":"Saat parhaan kokemuksen ja viimeisimmät tietoturvakorjaukset päivittämällä versioon"
+  },
+  "language-switcher":{
+    "title":"Vaihda sovelluksen kieli",
+    "dropdown-label":"Valitse kieli",
+    "save-button":"Tallentaa",
+    "success-msg":"Kieleksi on vaihdettu"
+  },
+  "theme-maker":{
+    "title":"Teeman konfiguraattori",
+    "export-button":"Vie mukautettuja muuttujia",
+    "reset-button":"Palauta tyylisivut kohteelle",
+    "show-all-button":"Näytä kaikki muuttujat",
+    "change-fonts-button":"Vaihda fonttia",
+    "save-button":"Tallentaa",
+    "cancel-button":"Peruuttaa",
+    "saved-toast":"{theme} on päivitetty",
+    "copied-toast":"Teeman tiedot kohteelle {theme} on kopioitu leikepöydälle",
+    "reset-toast":"Omat värit {theme} on poistettu"
+  },
+  "config-editor":{
+    "save-location-label":"Säästöpaikka",
+    "location-local-label":"Käytä paikallisesti",
+    "location-disk-label":"Kirjoita muutokset asetustiedostoon",
+    "save-button":"Tallenna muutokset",
+    "preview-button":"Esikatsele muutokset",
+    "valid-label":"Kokoonpano on kelvollinen",
+    "status-success-msg":"Toimenpide suoritettu",
+    "status-fail-msg":"Operaatio epäonnistui",
+    "success-msg-disk":"Asetustiedosto on kirjoitettu levylle ilman ongelmia",
+    "success-msg-local":"Paikalliset muutokset on tallennettu ilman ongelmia",
+    "success-note-l1":"Luo uudelleen",
+    "success-note-l2":"Tämä voi kestää minuutin.",
+    "success-note-l3":"Sinun on päivitettävä sivu, jotta muutokset tulevat voimaan",
+    "error-msg-save-mode":"Valitse Tallennustila: Paikallinen tai Tiedosto",
+    "error-msg-cannot-save":"Virhe yritettäessä tallentaa määritystä",
+    "error-msg-bad-json":"JSON-virhe, mahdollisesti väärin muotoiltu",
+    "warning-msg-validation":"Vahvistusvaroitus",
+    "not-admin-note":"Et voi kirjoittaa muutoksia levylle, koska et ole kirjautunut sisään järjestelmänvalvojana"
+  },
+  "app-rebuild":{
+    "title":"Rakenna sovellus uudelleen",
+    "rebuild-note-l1":"Sovellus on rakennettava uudelleen, jotta conf.yml-tiedostoon kirjoitetut muutokset tulevat voimaan.",
+    "rebuild-note-l2":"Tämän pitäisi tapahtua automaattisesti, mutta jos näin ei ole, voit ottaa sen käyttöön manuaalisesti täällä.",
+    "rebuild-note-l3":"Tätä ei vaadita paikallisesti tallennetuille muutoksille.",
+    "rebuild-button":"Luo uudelleen",
+    "rebuilding-status-1":"Luo uudelleen...",
+    "rebuilding-status-2":"Tämä saattaa kestää muutaman minuutin",
+    "error-permission":"Sinulla ei ole lupaa suorittaa tätä toimintoa",
+    "success-msg":"Toipuminen onnistui",
+    "fail-msg":"Uudelleenluominen epäonnistui",
+    "reload-note":"Sivu on nyt ladattava uudelleen, jotta muutokset tulevat voimaan",
+    "reload-button":"Lataa sivu uudelleen"
+  },
+  "cloud-sync":{
+    "title":"Varmuuskopiointi ja palautus pilveen",
+    "intro-l1":"Varmuuskopiointi ja palautus pilveen on valinnainen ominaisuus, jonka avulla voit ladata kokoonpanosi Internetiin ja palauttaa sen sitten toiselle Dashylaitteelle tai -esiintymälle.",
+    "intro-l2":"All data är fullständigt end-to-end krypterad med AES, med ditt lösenord som nyckel.",
+    "intro-l3":"Katso lisätietoja",
+    "backup-title-setup":"Tee varmuuskopio",
+    "backup-title-update":"Päivitä varmuuskopio",
+    "password-label-setup":"Valitse salasana",
+    "password-label-update":"Syötä salasanasi",
+    "backup-button-setup":"Varmuuskopioida",
+    "backup-button-update":"Päivitä varmuuskopio",
+    "backup-id-label":"Varatunnuksesi",
+    "backup-id-note":"Tätä käytetään palauttamiseen varmuuskopioista myöhemmin. Pidä se siis yhdessä salasanasi kanssa turvallisessa paikassa.",
+    "restore-title":"Palauta varmuuskopio",
+    "restore-id-label":"Palauta ID",
+    "restore-password-label":"Salasana",
+    "restore-button":"Nollaa",
+    "backup-missing-password":"Salasana puuttuu",
+    "backup-error-unknown":"Pyyntöä ei voida käsitellä",
+    "backup-error-password":"Väärä salasana. Anna nykyinen salasanasi.",
+    "backup-success-msg":"Valmistettu ilman ongelmia",
+    "restore-success-msg":"Kokoonpano on palautettu ilman ongelmia"
+  },
+  "menu":{
+    "open-section-title":"Avaa",
+    "sametab":"Tämä välilehti",
+    "newtab":"Uusi välilehti",
+    "modal":"Pop-Up Modal",
+    "workspace":"Workspace-näkymä",
+    "options-section-title":"Vaihtoehtoinen",
+    "edit-item":"Muokata",
+    "move-item":"Kopioi tai siirrä",
+    "remove-item":"Poista"
+  },
+  "context-menus":{
+    "item":{
+      "open-section-title":"Avaa",
+      "sametab":"Tämä välilehti",
+      "newtab":"Uusi välilehti",
+      "modal":"Pop-Up Modal",
+      "workspace":"Workspace View",
+      "options-section-title":"Vaihtoehtoinen",
+      "edit-item":"Muokata",
+      "move-item":"Kopioi tai siirrä",
+      "remove-item":"Poista"
+    },
+    "section":{
+      "open-section":"Avaa osio",
+      "edit-section":"Muokata",
+      "move-section":"Muuttaa",
+      "remove-section":"Poista"
+    }
+  },
+  "interactive-editor":{
+    "menu":{
+      "start-editing-tooltip":"Avaa interaktiivinen editori",
+      "edit-site-data-subheading":"Muokkaa sivuston tietoja",
+      "edit-page-info-btn":"Muokkaa sivun tietoja",
+      "edit-page-info-tooltip":"Sovelluksen nimi, kuvaus, navigointilinkit, alatunnisteen teksti jne",
+      "edit-app-config-btn":"Muokkaa sovelluksen asetuksia",
+      "edit-app-config-tooltip":"Muut sovelluksen määritysvaihtoehdot",
+      "config-save-methods-subheading":"Kokoonpanon tallennusvaihtoehto",
+      "save-locally-btn":"Tallenna paikallisesti",
+      "save-locally-tooltip":"Tallenna asetukset paikallisesti selaimen tallennustilaan. Tämä ei vaikuta asetustiedostoosi, mutta muutokset tallennetaan vain tälle laitteelle",
+      "save-disk-btn":"Tallenna levylle",
+      "save-disk-tooltip":"Tallenna kokoonpano levyllä olevaan conf.yml-tiedostoon. Tämä varmuuskopioi ja korvaa nykyiset määritykset",
+      "export-config-btn":"Vie kokoonpano",
+      "export-config-tooltip":"Tarkastele ja vie uutta kokoonpanoa joko tiedostoon tai leikepöydälle",
+      "cloud-backup-btn":"Varmuuskopio pilveen",
+      "cloud-backup-tooltip":"Tallenna määritysten salattu varmuuskopio pilveen",
+      "edit-raw-config-btn":"Muokkaa raw-määritystä",
+      "edit-raw-config-tooltip":"Tarkastele ja muokkaa raw-määritystä JSON-editorin kautta",
+      "cancel-changes-btn":"Peruuta muokkaus",
+      "cancel-changes-tooltip":"Poista nykyiset muutokset ja poistu muokkaustilasta. Tämä ei vaikuta tallennettuihin määrityksiin.",
+      "edit-mode-name":"Muokkaustila",
+      "edit-mode-subtitle":"Olet muokkaustilassa",
+      "edit-mode-description":"Tämä tarkoittaa, että voit tehdä muutoksia asetuksiin ja esikatsella tuloksia, mutta mitään muutoksia ei säilytetä, ennen kuin tallennat.",
+      "save-stage-btn":"Tallentaa",
+      "cancel-stage-btn":"Peruuttaa"
+    },
+    "edit-item":{
+      "missing-title-err":"Objektilla on oltava otsikko"
+    },
+    "edit-section":{
+      "edit-section-title":"Muokkaa osiota",
+      "add-section-title":"Lisää uusi osio",
+      "edit-tooltip":"Napauta muokataksesi tai napsauta hiiren kakkospainikkeella nähdäksesi lisää vaihtoehtoja",
+      "remove-confirm":"Haluatko varmasti poistaa tämän osion? Tämä toiminto voidaan kumota myöhemmin."
+    },
+    "edit-app-config":{
+      "warning-msg-title":"Etene varovaisesti",
+      "warning-msg-l1":"Seuraavat vaihtoehdot koskevat edistyneitä sovellusmäärityksiä.",
+      "warning-msg-l2":"Jos olet epävarma jostakin kentästä, tarkista",
+      "warning-msg-docs":"dokumentaatiota",
+      "warning-msg-l3":"ei-toivottujen seurausten välttämiseksi."
+    },
+    "export":{
+      "export-title":"Vie kokoonpano",
+      "copy-clipboard-btn":"Kopioi leikepöydälle",
+      "copy-clipboard-tooltip":"Kopioi kaikki sovellusmääritykset järjestelmän leikepöydälle YAML-muodossa",
+      "download-file-btn":"Lataa tiedostona",
+      "download-file-tooltip":"Lataa kaikki sovellusmääritykset laitteellesi YAML-tiedostona",
+      "view-title":"Näytä asetukset"
+    }
+  },
+  "widgets":{
+    "general":{
+      "loading":"Ladataan...",
+      "show-more":"Näytä lisätietoja",
+      "show-less":"Näytä vähemmän",
+      "open-link":"Lue lisää"
+    },
+    "pi-hole":{
+      "status-heading":"Tila"
+    },
+    "stat-ping":{
+      "up":"Online",
+      "down":"Offline"
+    },
+    "net-data":{
+      "cpu-chart-title":"CPU History",
+      "mem-chart-title":"Memory Usage",
+      "mem-breakdown-title":"Memory Breakdown",
+      "load-chart-title":"System Load"
+    },
+    "system-info":{
+      "uptime":"Uptime"
+    },
+    "flight-data":{
+      "arrivals":"Saapuvat",
+      "departures":"Lähdöt"
+    },
+    "tfl-status":{
+      "good-service-all":"Hyvä palvelu kaikilla linjoilla",
+      "good-service-rest":"Hyvä palvelu muilla linjoilla"
+    }
+  }
+}
