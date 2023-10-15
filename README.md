@@ -404,32 +404,35 @@ All data is fully E2E encrypted before being sent to the backend (done in [`Clou
 Dashy supports multiple languages and locales. When available, your language should be automatically detected and applied on load. But you can also select a language through the UI (under config --> Switch Language) or set `appConfig.language` to your language (specified as a 2-digit [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)), as seen below, e.g. `language: de`.
 
 #### Supported Languages
-- 🇬🇧 **English**: `en` - _Default_
-- 🇦🇪 **Arabic**: `ar` - _Auto-generated_
-- 🇧🇩 **Bengali**: `bn` - Contributed by **[@soaibsafi](https://github.com/soaibsafi)**
-- 🇧🇬 **Bulgarian**: `bg` - Contributed by **[@asenov](https://github.com/asenov)**
-- 🇨🇳 **Chinese**: `cn` - Contributed by **[@FormatToday](https://github.com/FormatToday)**
-- 🇨🇿 **Czech**: `cs` - Contributed by **[@Tuzi555](https://github.com/Tuzi555)**
-- 🇩🇰 **Danish**: `da` - Contributed by **[@lordpansar](https://github.com/lordpansar)**
-- 🇳🇱 **Dutch**: `nl` - Contributed by **[@evroon](https://github.com/evroon)**
-- 🇫🇷 **French**: `fr` - Contributed by **[@EVOTk](https://github.com/EVOTk)**
-- 🇩🇪 **German**: `de` - Contributed by **[@Niklashere](https://github.com/Niklashere)**
-- 🇬🇷 **Greek**: `el` - Contributed by **[@aviolaris](https://github.com/aviolaris)**
-- 🇮🇳 **Hindi**: `hi` - _Auto-generated_
-- 🇮🇹 **Italian**: `it` - Contributed by **[@alexdelprete](https://github.com/alexdelprete)**
-- 🇯🇵 **Japanese**: `ja` - _Auto-generated_
-- 🇰🇷 **Korean**: `ko` - Contributed by **[@boggy-cs](https://github.com/boggy-cs)**
-- 🇳🇴 **Norwegian Bokmål**: `nb` - Contributed by **[@rubjo](https://github.com/rubjo)**
-- 🇵🇱 **Polish**: `pl` - Contributed by **[@skaarj1989](https://github.com/skaarj1989)**
-- 🇵🇹 **Portuguese**: `pt` - Contributed by **[@LeoColman](https://github.com/LeoColman)**
-- 🇷🇺 **Russian**: `ru` - _Auto-generated_
-- 🇸🇰 **Slovak**: `sk` - Contributed by **[@Smexhy](https://github.com/Smexhy)**
-- 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
-- 🇪🇸 **Spanish**: `es` - Contributed by **[@lu4t](https://github.com/lu4t)**
-- 🇸🇪 **Swedish**: `sv` - Contributed by **[@BOZG](https://github.com/BOZG)**
-- 🇹🇼 **Traditional Chinese**: `zh-TW` - Contributed by **[@stanly0726](https://github.com/stanly0726)**
-- 🇹🇷 **Turkish**: `tr` - Contributed by **[@imsakg](https://github.com/imsakg)**
-- 🏴‍☠️ **Pirate**: `pirate` - Contributed by **[@Lissy93](https://github.com/lissy93)**
+| Flag and Language      | Description                                            |
+|------------------------|--------------------------------------------------------|
+| 🇬🇧 English `en`       | Default                                                |
+| 🇦🇪 Arabic `ar`        | Auto-generated                                         |
+| 🇧🇩 Bengali `bn`       | Contributed by [**@soaibsafi**](https://github.com/soaibsafi)   |
+| 🇧🇬 Bulgarian `bg`     | Contributed by [**@asenov**](https://github.com/asenov)       |
+| 🇨🇳 Chinese `cn`       | Contributed by [**@FormatToday**](https://github.com/FormatToday)   |
+| 🇨🇿 Czech `cs`         | Contributed by [**@Tuzi555**](https://github.com/Tuzi555)       |
+| 🇩🇰 Danish `da`        | Contributed by [**@lordpansar**](https://github.com/lordpansar)   |
+| 🇳🇱 Dutch `nl`         | Contributed by [**@evroon**](https://github.com/evroon)         |
+| 🇫🇷 French `fr`       | Contributed by [**@EVOTk**](https://github.com/EVOTk)           |
+| 🇩🇪 German `de`       | Contributed by [**@Niklashere**](https://github.com/Niklashere)   |
+| 🇬🇷 Greek `el`        | Contributed by [**@aviolaris**](https://github.com/aviolaris)     |
+| 🇮🇳 Hindi `hi`        | Auto-generated                                         |
+| 🇮🇹 Italian `it`     | Contributed by [**@alexdelprete**](https://github.com/alexdelprete) |
+| 🇯🇵 Japanese `ja`    | Auto-generated                                         |
+| 🇰🇷 Korean `ko`      | Contributed by [**@boggy-cs**](https://github.com/boggy-cs)         |
+| 🇳🇴 Norwegian Bokmål `nb` | Contributed by [**@rubjo**](https://github.com/rubjo)             |
+| 🇵🇱 Polish `pl`      | Contributed by [**@skaarj1989**](https://github.com/skaarj1989)     |
+| 🇵🇹 Portuguese `pt` | Contributed by [**@LeoColman**](https://github.com/LeoColman)       |
+| 🇷🇺 Russian `ru`    | Auto-generated                                         |
+| 🇸🇰 Slovak `sk`      | Contributed by [**@Smexhy**](https://github.com/Smexhy)           |
+| 🇸🇮 Slovenian `sl`  | Contributed by [**@UrekD**](https://github.com/UrekD)             |
+| 🇪🇸 Spanish `es`    | Contributed by [**@lu4t**](https://github.com/lu4t)               |
+| 🇸🇪 Swedish `sv`    | Contributed by [**@BOZG**](https://github.com/BOZG)               |
+| 🇹🇼 Traditional Chinese `zh-TW` | Contributed by [**@stanly0726**](https://github.com/stanly0726)  |
+| 🇹🇷 Turkish `tr`    | Contributed by [**@imsakg**](https://github.com/imsakg)           |
+| 🏴‍☠️ Pirate `pirate` | Contributed by [**@Lissy93**](https://github.com/lissy93)         |
+
 
 #### Add your Language
 I would love Dashy to be available to everyone without language being a barrier to entry. If you've got a few minutes to spare, consider adding translations for your language. It's a quick task, and all text is in [a single JSON file](https://github.com/Lissy93/dashy/tree/master/src/assets/locales). Since any missing text will fall back to English, you don't need to translate it all.
