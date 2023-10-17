@@ -316,6 +316,8 @@
     "general": {
       "loading": "Loading...",
       "show-more": "Expand Details",
+      "cpu-details": "CPU Details",
+      "mem-details": "Memory Details",
       "show-less": "Show Less",
       "open-link": "Continue Reading"
     },
