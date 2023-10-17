@@ -84,6 +84,7 @@ module.exports = {
     'high-contrast-light',
     'adventure-basic',
     'basic',
+    'tama',
   ],
   /* Default color options for the theme configurator swatches */
   swatches: [
