@@ -27,7 +27,6 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
   - [Deploy to cloud service](#deploy-to-cloud-service)
     - [Netlify](#netlify)
     - [Heroku](#heroku)
-    - [Cloudflare Workers](#cloudflare-workers)
     - [Vercel](#vercel)
     - [DigitalOcean](#digitalocean)
     - [Google Cloud Platform](#google-cloud-platform)
@@ -212,18 +211,6 @@ To deploy Dashy to Heroku, use the following link
 
 ```text
 https://heroku.com/deploy?template=https://github.com/Lissy93/dashy
-```
-
-### Cloudflare Workers
-
-[![Deploy to Cloudflare Workers](https://i.ibb.co/jf9xVdm/deploy-cloudflare-button.png)](https://deploy.workers.cloudflare.com/?url=https://github.com/lissy93/dashy/tree/deploy_cloudflare)
-
-[Cloudflare Workers](https://workers.cloudflare.com/) is a simple yet powerful service for running cloud functions and hosting web content. It requires a Cloudflare account, but is completely free for smaller projects, and very reasonably priced ($0.15/million requests per month) for large applications. You can use your own domain, and applications are protected with Cloudflare's state of the art DDoS protection. For more info, see the docs on [Worker Sites](https://developers.cloudflare.com/workers/platform/sites)
-
-To deploy Dashy to Cloudflare, use the following link
-
-```text
-https://deploy.workers.cloudflare.com/?url=https://github.com/lissy93/dashy/tree/deploy_cloudflare
 ```
 
 ### Vercel
