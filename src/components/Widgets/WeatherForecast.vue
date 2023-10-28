@@ -99,7 +99,7 @@ export default {
           icon: day.weather[0].icon,
           main: day.weather[0].main,
           description: day.weather[0].description,
-          temp: this.processTemp(day.temp.day),
+          temp: this.processTemp(day.main.temp),
           info: this.makeWeatherData(day),
         });
       });
@@ -109,15 +109,15 @@ export default {
     makeWeatherData(data) {
       return [
         [
-          { label: 'Min Temp', value: this.processTemp(data.temp.min) },
-          { label: 'Max Temp', value: this.processTemp(data.temp.max) },
-          { label: 'Feels Like', value: this.processTemp(data.feels_like.day) },
+          { label: 'Min Temp', value: this.processTemp(data.main.temp_min) },
+          { label: 'Max Temp', value: this.processTemp(data.main.temp_max) },
+          { label: 'Feels Like', value: this.processTemp(data.main.feels_like) },
         ],
         [
-          { label: 'Pressure', value: `${data.pressure}hPa` },
-          { label: 'Humidity', value: `${data.humidity}%` },
-          { label: 'wind', value: `${data.speed}${this.speedDisplayUnits}` },
-          { label: 'clouds', value: `${data.clouds}%` },
+          { label: 'Pressure', value: `${data.main.pressure}hPa` },
+          { label: 'Humidity', value: `${data.main.humidity}%` },
+          { label: 'wind', value: `${data.wind.speed}${this.speedDisplayUnits}` },
+          { label: 'clouds', value: `${data.clouds.all}%` },
         ],
       ];
     },

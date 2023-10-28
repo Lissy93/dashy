@@ -247,7 +247,7 @@ module.exports = {
     walletBalance: 'https://api.blockcypher.com/v1',
     walletQrCode: 'https://www.bitcoinqrcodemaker.com/api',
     weather: 'https://api.openweathermap.org/data/2.5/weather',
-    weatherForecast: 'https://api.openweathermap.org/data/2.5/forecast/daily',
+    weatherForecast: 'https://api.openweathermap.org/data/2.5/forecast',
     xkcdComic: 'https://xkcd.vercel.app/',
   },
   /* URLs for web search engines */
