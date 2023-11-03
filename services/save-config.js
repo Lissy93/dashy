@@ -18,7 +18,7 @@ module.exports = async (newConfig, render) => {
 
   // Define constants for the config file
   const settings = {
-    defaultLocation: './public/',
+    defaultLocation: './public/config/',
     defaultFile: 'conf.yml',
     filename: 'conf',
     backupDenominator: '.backup.yml',

@@ -33,7 +33,7 @@ const setSwStatus = (swStateToSet) => {
  * Or disable if user specified to disable
  */
 const shouldEnableServiceWorker = async () => {
-  const conf = yaml.load((await axios.get('/conf.yml')).data);
+  const conf = yaml.load((await axios.get('/config/conf.yml')).data);
   if (conf && conf.appConfig && conf.appConfig.enableServiceWorker) {
     setSwStatus({ disabledByUser: false });
     return true;
