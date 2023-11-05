@@ -44,6 +44,7 @@ Ryan Turner <ryan.e.t@gmail.com> - 1 commits
 Rúben Silva <rubensilva945@gmail.com> - 1 commits
 Sacha FROMENT <sacha@sacha.house> - 1 commits
 Sergio <15928132+BySempron@users.noreply.github.com> - 1 commits
+Shawn Salat <31082405+ThinkSalat@users.noreply.github.com> - 1 commits
 Shreya Roy <shreyaroy.2604@gmail.com> - 1 commits
 Singebob <jeremy.chauvin@systeme-u.fr> - 1 commits
 Smexhy <roman.bartik@icloud.com> - 1 commits
@@ -134,10 +135,10 @@ Marcell Fülöp <marekful@protonmail.com> - 27 commits
 Alicia Sykes <alicia@futr.ai> - 28 commits
 Lissy93 <gh@d0h.co> - 78 commits
 snyk-bot <snyk-bot@snyk.io> - 83 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 109 commits
-liss-bot <liss-bot@d0h.co> - 197 commits
-Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 202 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 110 commits
+liss-bot <liss-bot@d0h.co> - 198 commits
+Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 204 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 210 commits
-Alicia Sykes <alicia@omg.lol> - 340 commits
+Alicia Sykes <alicia@omg.lol> - 341 commits
 Alicia Sykes <gh@d0h.co> - 440 commits
 Alicia Sykes <sykes.alicia@gmail.com> - 1488 commits
