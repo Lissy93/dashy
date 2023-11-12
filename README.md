@@ -603,7 +603,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td>
     <td align="center">
         <a href="https://github.com/mrmosssir">
-            <img src="https://avatars.githubusercontent.com/u/13149494?v=4" width="80;" alt="mrmosssir"/>
+            <img src="https://avatars.githubusercontent.com/u/13149494?u=335d2aa6da35e44a332c13aaec8502b676f50ac6&v=4" width="80;" alt="mrmosssir"/>
             <br />
             <sub><b>SuTo</b></sub>
         </a>
