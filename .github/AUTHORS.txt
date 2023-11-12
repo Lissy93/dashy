@@ -100,7 +100,6 @@ Tuzi555 <jakub.tuzar@gmail.com> - 3 commits
 Walkx <71191962+walkxcode@users.noreply.github.com> - 3 commits
 aterox <kenneth@kenneth.church> - 3 commits
 bogyeong <boggyhint@gmail.com> - 3 commits
-dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> - 3 commits
 stanly0726 <37040069+stanly0726@users.noreply.github.com> - 3 commits
 Andreas Violaris <48277853+aviolaris@users.noreply.github.com> - 4 commits
 David Alasow <davidalasow@gmail.com> - 4 commits
@@ -110,6 +109,7 @@ Niklas Zabel <nzabel@Mini-von-Niklas.fritz.box> - 4 commits
 Rémy GRANDIN <remy.gr@ndin.fr> - 4 commits
 Totto16 <tobiausgais@gmail.com> - 4 commits
 Walkx <walkxnl@gmail.com> - 4 commits
+dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> - 4 commits
 wozboz <philip@iuno.tech> - 4 commits
 Alberto Caravaca <3170731+albcp@users.noreply.github.com> - 5 commits
 Alicie <gh@d0h.co> - 5 commits
@@ -135,9 +135,9 @@ Marcell Fülöp <marekful@protonmail.com> - 27 commits
 Alicia Sykes <alicia@futr.ai> - 28 commits
 Lissy93 <gh@d0h.co> - 78 commits
 snyk-bot <snyk-bot@snyk.io> - 83 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 110 commits
-liss-bot <liss-bot@d0h.co> - 198 commits
-Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 204 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 111 commits
+liss-bot <liss-bot@d0h.co> - 200 commits
+Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 206 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 210 commits
 Alicia Sykes <alicia@omg.lol> - 341 commits
 Alicia Sykes <gh@d0h.co> - 440 commits
