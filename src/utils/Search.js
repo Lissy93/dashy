@@ -24,7 +24,7 @@ const getDomainFromUrl = (url) => {
  */
 const filterHelper = (compareStr, searchStr) => {
   if (!compareStr) return false;
-  const process = (input) => input?.toString().toLowerCase().replace(/[^\w\s]/gi, '');
+  const process = (input) => input?.toString().toLowerCase().replace(/[^\w\s\p{Alpha}]/giu, '');
   return process(searchStr).split(/\s/).every(word => process(compareStr).includes(word));
 };
 
