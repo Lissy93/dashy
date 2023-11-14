@@ -10,7 +10,7 @@ const http = require(isSsl ? 'https' : 'http');
 
 /* Location of the server to test */
 const isDocker = !!process.env.IS_DOCKER;
-const port = isSsl ? (process.env.SSL_PORT || (isDocker ? 443 : 4001)) : (process.env.PORT || isDocker ? 80 : 4000);
+const port = isSsl ? (process.env.SSL_PORT || (isDocker ? 443 : 4001)) : (process.env.PORT || (isDocker ? 80 : 4000));
 const host = process.env.HOST || '0.0.0.0';
 const timeout = 2000;
 
