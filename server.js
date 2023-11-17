@@ -27,6 +27,7 @@ const rebuild = require('./services/rebuild-app'); // A script to programmatical
 const systemInfo = require('./services/system-info'); // Basic system info, for resource widget
 const sslServer = require('./services/ssl-server'); // TLS-enabled web server
 const corsProxy = require('./services/cors-proxy'); // Enables API requests to CORS-blocked services
+const getUser = require('./services/get-user'); // Enables server side user lookup
 
 /* Helper functions, and default config */
 const printMessage = require('./services/print-message'); // Function to print welcome msg on start
@@ -120,6 +121,15 @@ const app = express()
   .use(ENDPOINTS.corsProxy, (req, res) => {
     try {
       corsProxy(req, res);
+    } catch (e) {
+      res.end(JSON.stringify({ success: false, message: e }));
+    }
+  })
+  // GET endpoint to return user info
+  .use(ENDPOINTS.getUser, (req, res) => {
+    try {
+      const user = getUser(req);
+      res.end(JSON.stringify(user));
     } catch (e) {
       res.end(JSON.stringify({ success: false, message: e }));
     }

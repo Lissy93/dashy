@@ -21,6 +21,7 @@ import ErrorReporting from '@/utils/ErrorReporting';  // Error reporting initial
 import clickOutside from '@/directives/ClickOutside'; // Directive for closing popups, modals, etc
 import { toastedOptions, tooltipOptions, language as defaultLanguage } from '@/utils/defaults';
 import { initKeycloakAuth, isKeycloakEnabled } from '@/utils/KeycloakAuth';
+import { initHeaderAuth, isHeaderAuthEnabled } from '@/utils/HeaderAuth';
 import Keys from '@/utils/StoreMutations';
 
 // Initialize global Vue components
@@ -54,18 +55,24 @@ ErrorReporting(Vue, router);
 // Render function
 const render = (awesome) => awesome(Dashy);
 
-store.dispatch(Keys.INITIALIZE_CONFIG).then((thing) => console.log('main', thing));
-
 // Mount the app, with router, store i18n and render func
 const mount = () => new Vue({
   store, router, render, i18n,
 }).$mount('#app');
 
-// If Keycloak not enabled, then proceed straight to the app
-if (!isKeycloakEnabled()) {
-  mount();
-} else { // Keycloak is enabled, redirect to KC login page
-  initKeycloakAuth()
-    .then(() => mount())
-    .catch(() => window.location.reload());
-}
+store.dispatch(Keys.INITIALIZE_CONFIG).then((thing) => {
+  console.log('main', thing);
+
+  // Keycloak is enabled, redirect to KC login page
+  if (isKeycloakEnabled()) {
+    initKeycloakAuth()
+      .then(() => mount())
+      .catch(() => window.location.reload());
+  } else if (isHeaderAuthEnabled()) {
+    initHeaderAuth()
+      .then(() => mount())
+      .catch(() => window.location.reload());
+  } else { // If Keycloak not enabled, then proceed straight to the app
+    mount();
+  }
+});
