@@ -6,7 +6,7 @@
 <tr>
     <td align="center">
         <a href="https://github.com/tbjers">
-            <img src="https://avatars.githubusercontent.com/u/1117052?v=4" width="80;" alt="tbjers"/>
+            <img src="https://avatars.githubusercontent.com/u/1117052?u=539d96d5e581b3139c75713ce35b89a36626404c&v=4" width="80;" alt="tbjers"/>
             <br />
             <sub><b>Torgny Bjers</b></sub>
         </a>
