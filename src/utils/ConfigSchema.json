@@ -505,13 +505,13 @@
           "title": "Prevent saving config to disk",
           "type": "boolean",
           "default": false,
-          "description": "If set to true, no users will not be able to save config changes to disk through the UI"
+          "description": "If set to true, users will be prevented from saving config changes to disk through the UI"
         },
         "preventLocalSave": {
           "title": "Prevent saving config to local storage",
           "type": "boolean",
           "default": false,
-          "description": "If set to true, no users will not be able to save config changes to the browser's local storage"
+          "description": "If set to true, users will be prevented from applying config changes to local storage"
         },
         "disableConfiguration": {
           "title": "Disable all UI Config",
