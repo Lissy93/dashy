@@ -23,6 +23,7 @@ Harald Töpfer <62364169+hubortje@users.noreply.github.com> - 1 commits
 Ian Neal <wopr@wopr.tech> - 1 commits
 Iaroslav Dronskii <iaroslav@dronskii.ru> - 1 commits
 Ishan Jain <ishan@jain.se> - 1 commits
+JJ Munguia <jj@jjmung.dev> - 1 commits
 Jemy SCHNEPP <dev@leethium.fr> - 1 commits
 Jeremy Chauvin <jeremychauvin10@gmail.com> - 1 commits
 Julian <julian.thanner@gmx.de> - 1 commits
@@ -137,10 +138,10 @@ Marcell Fülöp <marekful@protonmail.com> - 27 commits
 Alicia Sykes <alicia@futr.ai> - 28 commits
 Lissy93 <gh@d0h.co> - 78 commits
 snyk-bot <snyk-bot@snyk.io> - 83 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 113 commits
-liss-bot <liss-bot@d0h.co> - 204 commits
-Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 209 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 114 commits
+liss-bot <liss-bot@d0h.co> - 206 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 210 commits
-Alicia Sykes <alicia@omg.lol> - 344 commits
+Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 211 commits
+Alicia Sykes <alicia@omg.lol> - 345 commits
 Alicia Sykes <gh@d0h.co> - 440 commits
 Alicia Sykes <sykes.alicia@gmail.com> - 1488 commits
