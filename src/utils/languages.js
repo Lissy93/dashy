@@ -17,6 +17,7 @@ import nb from '@/assets/locales/nb.json';
 import nl from '@/assets/locales/nl.json';
 import pl from '@/assets/locales/pl.json';
 import pt from '@/assets/locales/pt.json';
+import gl from '@/assets/locales/gl.json';
 import ru from '@/assets/locales/ru.json';
 import sk from '@/assets/locales/sk.json';
 import sl from '@/assets/locales/sl.json';
@@ -137,6 +138,12 @@ export const languages = [
     code: 'pt',
     locale: pt,
     flag: '🇵🇹',
+  },
+  { // Galician
+    name: 'Galego',
+    code: 'gl',
+    locale: gl,
+    flag: '🛰️',
   },
   { // Russian
     name: 'Русский',
