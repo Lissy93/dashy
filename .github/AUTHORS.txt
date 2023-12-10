@@ -17,6 +17,7 @@ Doug Lock <doug@douglock.co.uk> - 1 commits
 Dylan-Bs <35694107+Dylan-Bs@users.noreply.github.com> - 1 commits
 Erwan Miran <emiran.ext@orange.com> - 1 commits
 Ethan Hann <github.q2oay@slmail.me> - 1 commits
+FedelloKirfed <fedellokirfed@proton.me> - 1 commits
 FormatToday <616099456@qq.com> - 1 commits
 Garrett Brown <gdbrown09@gmail.com> - 1 commits
 Harald Töpfer <62364169+hubortje@users.noreply.github.com> - 1 commits
@@ -138,10 +139,10 @@ Marcell Fülöp <marekful@protonmail.com> - 27 commits
 Alicia Sykes <alicia@futr.ai> - 28 commits
 Lissy93 <gh@d0h.co> - 78 commits
 snyk-bot <snyk-bot@snyk.io> - 83 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 114 commits
-liss-bot <liss-bot@d0h.co> - 206 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 115 commits
+liss-bot <liss-bot@d0h.co> - 208 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 210 commits
-Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 211 commits
-Alicia Sykes <alicia@omg.lol> - 345 commits
+Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 213 commits
+Alicia Sykes <alicia@omg.lol> - 346 commits
 Alicia Sykes <gh@d0h.co> - 440 commits
 Alicia Sykes <sykes.alicia@gmail.com> - 1488 commits
