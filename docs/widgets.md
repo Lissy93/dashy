@@ -1954,7 +1954,7 @@ Displays your notifications and allows deleting them.
 #### Example
 
 ```yaml
-- type: nextcloud-userstatus
+- type: nextcloud-notifications
   useProxy: true
   options:
     hostname: https://nextcloud.example.com
@@ -2060,7 +2060,7 @@ Shows statistics about PHP OPcache performance on your Nextcloud server.
 #### Example
 
 ```yaml
-- type: nextcloud-stats
+- type: nextcloud-php-opcache
   useProxy: true
   options:
     hostname: https://nextcloud.example.com
