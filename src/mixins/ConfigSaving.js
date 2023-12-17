@@ -68,9 +68,10 @@ export default {
       const yamlOptions = {};
       const configFileYaml = jsYaml.dump(jsonConfig, yamlOptions);
 
-      const accessToken = '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';
+      const accessToken = '<YOUR_ACCESS_TOKEN>';
       const repoName = 'Musubi42/dashy-commit-config-from-ui';
       const filePath = 'public/conf.yml';
+
       // 3. Prepare the request
       const baseUrl = `https://api.github.com/repos/${repoName}`;
       // const endpoint = `${baseUrl}${serviceEndpoints.save}`;
