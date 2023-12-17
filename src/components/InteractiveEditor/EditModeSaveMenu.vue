@@ -27,11 +27,12 @@
         <SaveLocallyIcon />
       </Button>
       <Button
-        :click="writeToDisk"
+        :click="CommitToGithub"
         :disallow="!permissions.allowWriteToDisk"
         v-tooltip="tooltip($t('interactive-editor.menu.save-disk-tooltip'))"
       >
-        {{ $t('interactive-editor.menu.save-disk-btn') }}
+        Commit to Github
+        <!-- {{ $t('interactive-editor.menu.save-disk-btn') }} -->
         <SaveToDiskIcon />
       </Button>
       <Button
@@ -173,6 +174,9 @@ export default {
     },
     writeToDisk() {
       this.writeConfigToDisk(this.config);
+    },
+    CommitToGithub() {
+      this.CommitConfigToGithub(this.config);
     },
   },
 };
