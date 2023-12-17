@@ -99,10 +99,11 @@ const printFileReadError = (e) => {
 };
 
 try { // Try to open and parse the YAML file
-  const config = yaml.load(fs.readFileSync('./public/conf.yml', 'utf8'));
+  config = yaml.load(fs.readFileSync('./public/conf.yml', 'utf8'));
   validate(config);
 } catch (e) { // Something went very wrong...
   setIsValidVariable(false);
   logToConsole(bigError());
   printFileReadError(e);
 }
+module.exports = config;

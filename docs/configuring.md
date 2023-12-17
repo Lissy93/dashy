@@ -36,6 +36,7 @@ The following file provides a reference of all supported configuration options.
   - [`auth`](#appconfigauth-optional) - Built-in authentication setup
     - [`users`](#appconfigauthusers-optional) - List or users (for simple auth)
     - [`keycloak`](#appconfigauthkeycloak-optional) - Auth config for Keycloak
+    - [`headerAuth`](#appconfigauthheaderauth-optional) - Auth config for HeaderAuth
 - [**`sections`**](#section) - List of sections
   - [`displayData`](#sectiondisplaydata-optional) - Section display settings
     - [`show/hideForKeycloakUsers`](#sectiondisplaydatahideforkeycloakusers-sectiondisplaydatashowforkeycloakusers-itemdisplaydatahideforkeycloakusers-and-itemdisplaydatashowforkeycloakusers) - Set user controls
@@ -147,6 +148,8 @@ The following file provides a reference of all supported configuration options.
 **`users`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. See [`appConfig.auth.users`](#appconfigauthusers-optional). <br>**Note** this method of authentication is handled on the client side, so for security critical situations, it is recommended to use an [alternate authentication method](/docs/authentication.md#alternative-authentication-methods).
 **`enableKeycloak`** | `boolean` | _Optional_ | If set to `true`, then authentication using Keycloak will be enabled. Note that you need to have an instance running, and have also configured `auth.keycloak`. Defaults to `false`
 **`keycloak`** | `object` | _Optional_ | Config options to point Dashy to your Keycloak server. Requires `enableKeycloak: true`. See  [`auth.keycloak`](#appconfigauthkeycloak-optional) for more info
+**`enableHeaderAuth`** | `boolean` | _Optional_ | If set to `true`, then authentication using HeaderAuth will be enabled. Note that you need to have your web server/reverse proxy running, and have also configured `auth.headerAuth`. Defaults to `false`
+**`headerAuth`** | `object` | _Optional_ | Config options to point Dashy to your headers for authentication. Requires `enableHeaderAuth: true`. See  [`auth.headerAuth`](#appconfigauthheaderauth-optional) for more info
 **`enableGuestAccess`** | `boolean` | _Optional_ | When set to `true`, an unauthenticated user will be able to access the dashboard, with read-only access, without having to login. Requires `auth.users` to be configured. Defaults to `false`.
 
 For more info, see the **[Authentication Docs](/docs/authentication.md)**
@@ -171,6 +174,15 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`realm`** | `string` | Required | The name of the realm (must already be created) that you want to use
 **`clientId`** | `string` | Required | The Client ID of the client you created for use with Dashy
 **`legacySupport`** | `boolean` | _Optional_ | If using Keycloak 17 or older, then set this to `true`
+
+**[⬆️ Back to Top](#configuring)**
+
+## `appConfig.auth.headerAuth` _(optional)_
+
+**Field** | **Type** | **Required**| **Description**
+--- | --- | --- | ---
+**`userHeader`** | `string` | _Optional_ | The Header name which contains username (default: REMOTE_USER). Case insensitive
+**`proxyWhitelist`** | `array` | Required | An array of Upstream proxy servers to expect authencticated requests from
 
 **[⬆️ Back to Top](#configuring)**
 

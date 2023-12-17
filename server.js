@@ -18,7 +18,8 @@ const history = require('connect-history-api-fallback');
 
 /* Kick of some basic checks */
 require('./services/update-checker'); // Checks if there are any updates available, prints message
-require('./services/config-validator'); // Include and kicks off the config file validation script
+let config = {}; // setup the config
+config = require('./services/config-validator'); // Include and kicks off the config file validation script
 
 /* Include route handlers for API endpoints */
 const statusCheck = require('./services/status-check'); // Used by the status check feature, uses GET
@@ -27,6 +28,7 @@ const rebuild = require('./services/rebuild-app'); // A script to programmatical
 const systemInfo = require('./services/system-info'); // Basic system info, for resource widget
 const sslServer = require('./services/ssl-server'); // TLS-enabled web server
 const corsProxy = require('./services/cors-proxy'); // Enables API requests to CORS-blocked services
+const getUser = require('./services/get-user'); // Enables server side user lookup
 
 /* Helper functions, and default config */
 const printMessage = require('./services/print-message'); // Function to print welcome msg on start
@@ -93,6 +95,7 @@ const app = express()
   .use(ENDPOINTS.save, method('POST', (req, res) => {
     try {
       saveConfig(req.body, (results) => { res.end(results); });
+      config = req.body.config; // update the config
     } catch (e) {
       printWarning('Error writing config file to disk', e);
       res.end(JSON.stringify({ success: false, message: e }));
@@ -120,6 +123,15 @@ const app = express()
   .use(ENDPOINTS.corsProxy, (req, res) => {
     try {
       corsProxy(req, res);
+    } catch (e) {
+      res.end(JSON.stringify({ success: false, message: e }));
+    }
+  })
+  // GET endpoint to return user info
+  .use(ENDPOINTS.getUser, (req, res) => {
+    try {
+      const user = getUser(config, req);
+      res.end(JSON.stringify(user));
     } catch (e) {
       res.end(JSON.stringify({ success: false, message: e }));
     }
