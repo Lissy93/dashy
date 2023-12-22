@@ -55,13 +55,25 @@ With authentication set up, by default no access is allowed to your dashboard wi
 
 ### Granular Access
 
-You can use the following properties to make certain sections or items only visible to some users, or hide sections and items from guests.
+You can use the following properties to make certain pages, sections or items only visible to some users, or hide pages, sections and items from guests.
 
-- `hideForUsers` - Section or Item will be visible to all users, except for those specified in this list
-- `showForUsers` - Section or Item will be hidden from all users, except for those specified in this list
-- `hideForGuests` - Section or Item will be visible for logged in users, but not for guests
+- `hideForUsers` - Page, Section or Item will be visible to all users, except for those specified in this list
+- `showForUsers` - Page, Section or Item will be hidden from all users, except for those specified in this list
+- `hideForGuests` - Page, Section or Item will be visible for logged in users, but not for guests
 
 For Example:
+```yaml
+pages:
+  - name: Home Lab
+    path: home-lab.yml
+    displayData:
+      showForUsers: [admin]
+  - name: Intranet
+    path: intranet.yml
+    displayData:
+      hideForGuests: true
+      hideForUsers: [alicia, bob]
+```    
 
 ```yaml
 - name: Code Analysis & Monitoring
