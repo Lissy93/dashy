@@ -7,7 +7,7 @@
   <div class="edit-multi-pages-inner" v-if="allowViewConfig">
   <h3>{{ $t('interactive-editor.menu.edit-page-info-btn') }}</h3>
   <FormSchema
-    :schema="schema"
+    :schema="customSchema"
     v-model="formData"
     @submit.prevent="saveToState"
     class="multi-page-form"
@@ -48,6 +48,32 @@ export default {
   computed: {
     pages() {
       return this.$store.getters.pages;
+    },
+    /* Make a custom schema object, using fields from ConfigSchema */
+    customSchema() {
+      return {
+        type: 'array',
+        title: this.schema.title,
+        description: this.schema.description,
+        items: {
+          title: this.schema.items.title,
+          type: this.schema.items.type,
+          additionalProperties: this.schema.items.additionalProperties,
+          required: this.schema.items.required,
+          properties: {
+            name: this.schema.items.properties.name,
+            path: this.schema.items.properties.path,
+            displayData: {
+              title: 'Display (see documentation for more options)',
+              description: '',
+              type: 'object',
+              properties: {
+                hideForGuests: this.schema.items.properties.displayData.properties.hideForGuests,
+              },
+            },
+          },
+        },
+      };
     },
     allowViewConfig() {
       return this.$store.getters.permissions.allowViewConfig;

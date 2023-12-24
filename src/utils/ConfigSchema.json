@@ -10,7 +10,7 @@
       "type": "array",
       "description": "List of additional config files to load as extra pages",
       "items": {
-        "title": "Pages",
+        "title": "Page",
         "type": "object",
         "required": ["name", "path"],
         "additionalProperties": false,
@@ -24,6 +24,90 @@
             "title": "Path",
             "type": "string",
             "description": "The file name, or path. If in public directory, use just `file-name.yml`"
+          },
+          "displayData": {
+            "title": "Display Data",
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Optional meta data for customizing a page",
+            "properties": {
+              "hideForUsers": {
+                "title": "Hide for Users",
+                "type": "array",
+                "description": "Page will be visible to all users, except for those specified in this list",
+                "items": {
+                  "type": "string",
+                  "description": "Username for the user that will not be able to view this page"
+                }
+              },
+              "showForUsers": {
+                "title": "Show for Users",
+                "type": "array",
+                "description": "Page will be hidden from all users, except for those specified in this list",
+                "items": {
+                  "type": "string",
+                  "description": "Username for the user that will have access to this page"
+                }
+              },
+              "hideForGuests": {
+                "title": "Hide for Guests?",
+                "type": "boolean",
+                "default": false,
+                "description": "If set to true, page will be visible for logged in users, but not for guests"
+              },
+              "showForKeycloakUsers": {
+                "title": "Show for select Keycloak groups or roles",
+                "type": "object",
+                "description": "Configure the Keycloak groups or roles that will have access to this page",
+                "additionalProperties": false,
+                "properties": {
+                  "groups": {
+                    "title": "Show for Groups",
+                    "type": "array",
+                    "description": "Page will be hidden from all users except those with one or more of these groups",
+                    "items": {
+                      "type": "string",
+                      "description": "Name of the group that will be able to view this page"
+                    }
+                  },
+                  "roles": {
+                    "title": "Show for Roles",
+                    "type": "array",
+                    "description": "Page will be hidden from all users except those with one or more of these roles",
+                    "items": {
+                      "type": "string",
+                      "description": "Name of the role that will be able to view this page"
+                    }
+                  }
+                }
+              },
+              "hideForKeycloakUsers": {
+                "title": "Hide for select Keycloak groups or roles",
+                "type": "object",
+                "description": "Configure the Keycloak groups or roles that will not have access to this page",
+                "additionalProperties": false,
+                "properties": {
+                  "groups": {
+                    "title": "Hide for Groups",
+                    "type": "array",
+                    "description": "Page will be hidden from users with any of these groups",
+                    "items": {
+                      "type": "string",
+                      "description": "name of the group that will not be able to view this page"
+                    }
+                  },
+                  "roles": {
+                    "title": "Hide for Roles",
+                    "type": "array",
+                    "description": "Page will be hidden from users with any of roles",
+                    "items": {
+                      "type": "string",
+                      "description": "name of the role that will not be able to view this page"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

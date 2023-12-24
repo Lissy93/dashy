@@ -29,6 +29,7 @@
 <script>
 import IconBurger from '@/assets/interface-icons/burger-menu.svg';
 import { makePageSlug } from '@/utils/ConfigHelpers';
+import { checkPageVisibility } from '@/utils/CheckPageVisibility';
 
 export default {
   name: 'Nav',
@@ -45,10 +46,11 @@ export default {
   computed: {
     /* Get links to sub-pages, and combine with nav-links */
     allLinks() {
-      const subPages = this.$store.getters.pages.map((subPage) => ({
-        path: makePageSlug(subPage.name, 'home'),
-        title: subPage.name,
-      }));
+      const subPages = this.$store.getters.pages.filter((page) => checkPageVisibility(page))
+        .map((subPage) => ({
+          path: makePageSlug(subPage.name, 'home'),
+          title: subPage.name,
+        }));
       const navLinks = this.links || [];
       return [...navLinks, ...subPages];
     },
