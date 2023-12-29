@@ -21,13 +21,14 @@
 </template>
 
 <script>
-import simpleIcons from 'simple-icons';
 import BrokenImage from '@/assets/interface-icons/broken-icon.svg';
 import ErrorHandler from '@/utils/ErrorHandler';
 import EmojiUnicodeRegex from '@/utils/EmojiUnicodeRegex';
 import emojiLookup from '@/utils/emojis.json';
 import { asciiHash } from '@/utils/MiscHelpers';
 import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/defaults';
+
+const simpleicons = require('simple-icons');
 
 export default {
   name: 'Icon',
@@ -186,8 +187,8 @@ export default {
     },
     /* Returns the SVG path content  */
     getSimpleIcon(img) {
-      const imageName = img.replace('si-', '');
-      const icon = simpleIcons.Get(imageName);
+      const imageName = img.charAt(3).toUpperCase() + img.slice(4);
+      const icon = simpleicons[`si${imageName}`];
       if (!icon) {
         this.imageNotFound(`No icon was found for '${imageName}' in Simple Icons`);
         return null;
