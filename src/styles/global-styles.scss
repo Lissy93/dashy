@@ -103,6 +103,7 @@ html {
     border-radius: var(--curve-factor-small);
     color: var(--description-tooltip-color);
     padding: var(--tooltip-padding);
+    overflow: hidden;
   }
   .tooltip-arrow {
     width: 0;

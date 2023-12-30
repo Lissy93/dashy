@@ -1777,7 +1777,7 @@ html[data-theme="tama"] {
 
   // large tile spacing adjustment
   .there-are-items:has(.item-wrapper.wrap-size-large) { padding-top: .25rem; }
-  .item-wrapper.wrap-size-large { margin: 0rem .5rem .5rem 0rem; }
+  .item-wrapper.wrap-size-large { margin: 0rem .5rem .5rem 0rem; overflow: hidden; }
   .item.size-large .tile-title { padding: 0rem 0rem 0rem .7rem; }
 
   // Hide open method icon
