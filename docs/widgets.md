@@ -2333,6 +2333,22 @@ Live-updating current CPU usage, as a combined average across all cores
 
 ---
 
+### Current CPU Usage Speedometer
+
+Speedometer styled version of the Current CPU Usage widget
+
+<p align="center"><img width="400" src="https://i.ibb.co/7RHTRNq/gl-cpu-speedometer.png" /></p>
+
+#### Example
+
+```yaml
+- type: gl-cpu-speedometer
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
 ### CPU Usage Per Core
 
 Live-updating CPU usage breakdown per core
@@ -2382,6 +2398,22 @@ Real-time memory usage gauge, with more info visible on click
 
 ```yaml
 - type: gl-current-mem
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### Current Memory Usage Speedometer
+
+Speedometer styled version of the Current Memory Usage widget
+
+<p align="center"><img width="400" src="https://i.ibb.co/wsNW7Xr/gl-mem-speedometer.png" /></p>
+
+#### Example
+
+```yaml
+- type: gl-mem-speedometer
   options:
     hostname: http://192.168.130.2:61208
 ```
