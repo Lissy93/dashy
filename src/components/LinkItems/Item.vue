@@ -255,6 +255,7 @@ export default {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   word-break: keep-all;
+  overflow: hidden;
   span.text {
     white-space: nowrap;
   }
@@ -385,6 +386,7 @@ p.description {
         font-size: .9em;
         line-height: 1rem;
         height: 2rem;
+        overflow: hidden;
       }
     }
   }

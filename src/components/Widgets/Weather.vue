@@ -46,7 +46,12 @@ export default {
       return this.options.units || 'metric';
     },
     endpoint() {
-      const { apiKey, city } = this.options;
+      const {
+        apiKey, city, lat, lon,
+      } = this.options;
+      if (lat && lon) {
+        return `${widgetApiEndpoints.weather}?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${this.units}`;
+      }
       return `${widgetApiEndpoints.weather}?q=${city}&appid=${apiKey}&units=${this.units}`;
     },
     tempDisplayUnits() {
@@ -106,7 +111,11 @@ export default {
     checkProps() {
       const ops = this.options;
       if (!ops.apiKey) this.error('Missing API key for OpenWeatherMap');
-      if (!ops.city) this.error('A city name is required to fetch weather');
+
+      if ((!ops.lat || !ops.lon) && !ops.city) {
+        this.error('A city name or lat + lon is required to fetch weather');
+      }
+
       if (ops.units && ops.units !== 'metric' && ops.units !== 'imperial') {
         this.error('Invalid units specified, must be either \'metric\' or \'imperial\'');
       }
