@@ -23,7 +23,7 @@
     "ajv": "^8.10.0",
     "axios": "^0.27.2",
     "connect-history-api-fallback": "^1.6.0",
-    "crypto-js": "^4.1.1",
+    "crypto-js": "^4.2.0",
     "express": "^4.17.2",
     "frappe-charts": "^1.6.2",
     "js-yaml": "^4.1.0",
