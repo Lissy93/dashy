@@ -151,6 +151,8 @@ A simple, live-updating local weather component, showing temperature, conditions
 **`city`** | `string` | Required | A city name to use for fetching weather. This can also be a state code or country code, following the ISO-3166 format
 **`units`** | `string` |  _Optional_ | The units to use for displaying data, can be either `metric` or `imperial`. Defaults to `metric`
 **`hideDetails`** | `boolean` |  _Optional_ | If set to `true`, the additional details (wind, humidity, pressure, etc) will not be shown. Defaults to `false`
+**`lat`** | `number` |  _Optional_ | To show weather for a specific location, you can provide the latitude and longitude coordinates. If provided, this will override the `city` option
+**`lon`** | `number` |  _Optional_ | To show weather for a specific location, you can provide the latitude and longitude coordinates. If provided, this will override the `city` option
 
 #### Example
 
@@ -160,7 +162,7 @@ A simple, live-updating local weather component, showing temperature, conditions
     apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     city: London
     units: metric
-    hideDetails: false
+    hideDetails: true
 ```
 
 #### Info
