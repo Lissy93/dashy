@@ -215,7 +215,7 @@ module.exports = {
   /* API endpoints for widgets that need to fetch external data */
   widgetApiEndpoints: {
     anonAddy: 'https://app.anonaddy.com',
-    astronomyPictureOfTheDay: 'https://go-apod.herokuapp.com/apod',
+    astronomyPictureOfTheDay: 'https://apod.as93.net/apod',
     blacklistCheck: 'https://api.blacklistchecker.com/check',
     codeStats: 'https://codestats.net/',
     covidStats: 'https://disease.sh/v3/covid-19',
