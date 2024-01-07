@@ -44,8 +44,8 @@ export default function HomepageHeader() {
         <span className={styles.keepReading} onClick={() => setShowMore(!showMore)}>
           {!showMore ? 'Keep Reading...' : 'Show Less'}
         </span>
-        <CarbonAd />
       </div>
+      <CarbonAd />
       {(!showMore) &&
         <a onClick={scrollToFeatures} className={styles.scrollDown} id="go-down">
           <IconDownArrow className={styles.scrollDownIcon} />
