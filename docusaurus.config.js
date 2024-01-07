@@ -143,6 +143,10 @@ module.exports = {
       },
     ],
   ],
-  // Analytics (no tracking, just hit counter, using self-hosted Plausible)
-  scripts: [{src: 'https://no-track.as93.net/js/script.js', defer: true, 'data-domain': 'dashy.to'}],
+  scripts: [
+    // Plausible Analytics (no tracking, just hit counter, using self-hosted Plausible)
+    {src: 'https://no-track.as93.net/js/script.js', defer: true, 'data-domain': 'dashy.to'},
+    // Carbon Ads
+    { src: '//cdn.carbonads.com/carbon.js?serve=CWYIC53L&placement=dashyto', async: true, id: '_carbonads_js' },
+  ],
 };
