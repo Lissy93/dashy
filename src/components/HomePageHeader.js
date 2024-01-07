@@ -3,6 +3,8 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from '../styles/Header.module.scss';
 
 import Button from '../components/Button';
+import CarbonAd from '../components/CarbonAd';
+
 // Icons
 import IconBannerDemo from '../../static/icons/banner_demo.svg';
 import IconBannerGetStarted from '../../static/icons/banner_get-started.svg';
@@ -42,6 +44,7 @@ export default function HomepageHeader() {
         <span className={styles.keepReading} onClick={() => setShowMore(!showMore)}>
           {!showMore ? 'Keep Reading...' : 'Show Less'}
         </span>
+        <CarbonAd />
       </div>
       {(!showMore) &&
         <a onClick={scrollToFeatures} className={styles.scrollDown} id="go-down">
