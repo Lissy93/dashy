@@ -244,3 +244,29 @@ html[data-theme='light'] {
     --carbon-text-color: hsl(0, 0%, 90%);
   }
 }
+
+.sidebar-ad {
+  --carbon-bg-primary: var(--background, #18191a);
+  --carbon-bg-secondary: #282a36;
+  --carbon-text-color: #e6e6e6;
+
+  #carbonads {
+    margin: 0.5rem;
+  }
+  #carbonads .carbon-img img, .avatar__photo-link {
+    border-radius: 5px;
+  }
+  #carbonads .carbon-wrap {
+    justify-content: center;
+  }
+  #carbonads .carbon-text {
+    font-size: 1rem;
+  }
+  #carbonads > span {
+    box-shadow: none;
+  }
+  #carbonads .carbon-poweredby {
+  border-radius: 5px;
+  font-size: 0.7rem;
+  }
+}
