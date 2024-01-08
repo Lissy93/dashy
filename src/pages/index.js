@@ -13,11 +13,10 @@ export default function Home() {
   return (
     <Layout
       title={siteConfig.title}
-      description="Description will go into a meta tag in <head />">
-        <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CWYIC53L&placement=dashyto" id="_carbonads_js"></script>
+      description="Dashy, the self-hosted dashboard app for your homelab">
       <HomePageHeader />
       <HomePageFeatures />
-      <main>
+      <main>  
       </main>
     </Layout>
   );
