@@ -27,15 +27,25 @@ sections:
     options:
       apiKey: efdbade728b37086877a5e83442004db
       city: Bucharest
- 
-- name: Money
-  icon: far fa-briefcase
-   widgets:
-    - type: stock-price-chart
-  options:
-    stock: NET
-    apiKey: 223TAV47RB8QG01D    
-   
+  - type: crypto-watch-list
+    options:
+      currency: USD
+      sortBy: marketCap
+      assets:
+      - bitcoin
+      - ethereum
+  - type: exchange-rates
+    options:
+      apiKey: 00fee8a2d9492a7f2ad5f1b9
+      inputCurrency: RON
+      outputCurrencies:
+        - EUR
+        - USD
+        - GBP
+  - type: stock-price-chart  # Ensure correct indentation here
+    options:
+      stock: NET
+      apiKey: WU6QQXMALBL5ETKJ
 
 - name: Productivity
   icon: far fa-briefcase
