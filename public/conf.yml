@@ -34,7 +34,10 @@ sections:
       assets:
       - bitcoin
       - ethereum
-     
+  - type: stock-price-chart
+  options:
+    stock: NET
+    apiKey: 223TAV47RB8QG01D    
 
 - name: Productivity
   icon: far fa-briefcase
