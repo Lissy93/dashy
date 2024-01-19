@@ -39,7 +39,7 @@ sections:
 - name: Productivity
   icon: far fa-briefcase
   items:
-  - title: ProtonMail
+  - title: Mail
     icon: favicon
     url: https://outlook.office365.com/
     description: Primary email account
