@@ -100,20 +100,17 @@ sections:
   items:
   - title: GitHub
     icon: favicon
-    url: https://github.com/
+    url: https://github.com/tathagata1428
   - title: StackOverflow
     icon: favicon
     url: http://stackoverflow.com/
-  - title: CloudFlare
+  - title: Oracle Cloud
     icon: favicon
-    url: https://dash.cloudflare.com/
+    url: https://www.oracle.com/cloud/sign-in.html
     statusCheckAcceptCodes: '403'
-  - title: DigitalOcean
+  - title: Vercel deploy
     icon: favicon
-    url: https://cloud.digitalocean.com/
-  - title: Netlify
-    icon: favicon
-    url: https://app.netlify.com/
+    url: https://vercel.com/bogdans-projects-061aab75/dashydefault/FbqafKDTAYPhUfZ346ExTiXqnLn2
   - title: CodeSandbox
     icon: favicon
     url: https://codesandbox.io/dashboard
