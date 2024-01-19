@@ -29,7 +29,7 @@ sections:
       city: Bucharest
   - type: crypto-watch-list
     options:
-      currency: USD
+      currency: RON
       sortBy: marketCap
       assets:
       - bitcoin
@@ -37,14 +37,14 @@ sections:
   - type: exchange-rates
     options:
       apiKey: 00fee8a2d9492a7f2ad5f1b9
-      inputCurrency: RON
+      inputCurrency: EUR
       outputCurrencies:
-        - EUR
+        - RON
         - USD
         - GBP
   - type: stock-price-chart  # Ensure correct indentation here
     options:
-      stock: NET
+      stock: VOO
       apiKey: WU6QQXMALBL5ETKJ
 
 - name: Productivity
@@ -122,9 +122,9 @@ sections:
   - title: Vercel deploy
     icon: favicon
     url: https://vercel.com/bogdans-projects-061aab75/dashydefault/FbqafKDTAYPhUfZ346ExTiXqnLn2
-  - title: CodeSandbox
+  - title: Domain
     icon: favicon
-    url: https://codesandbox.io/dashboard
+    url: https://id.gandi.net/en/login
   - title: Hack the Box
     icon: favicon
     url: https://www.hackthebox.com/home
