@@ -87,16 +87,16 @@ sections:
     description: Todo list and tasks from CalDAV
     tags: [hosted, personal, caldav, tasks, planning]
     hotkey: 6
-  - title: Tresorit
+  - title: SharePoint
     icon: favicon
-    url: https://web.tresorit.com/
+    url: https://tralaa12-my.sharepoint.com/personal/bogdan_radu_b4it_ro/_layouts/15/onedrive.aspx?view=1
     description: Off-site encrypted file sync + backup
     tags: [hosted, personal, files, backup, sync, storage ]
     hotkey: 7
-  - title: StandardNotes
+  - title: Microsoft Todo
     icon: favicon
-    url: https://app.standardnotes.com/
-    description: Notes, and my second brain
+    url: https://outlook.office.com/host/0d5c91ee-5be2-4b79-81ed-23e6c4580427/ToDoId
+    description: Notes
     tags: [hosted, personal, notes ]
     hotkey: 8
   - title: Nextcloud
