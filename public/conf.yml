@@ -34,8 +34,10 @@ appConfig:
           assets:
             - bitcoin
             - ethereum
-     
-     
+      - type: stock-price-chart
+        options:
+          stock: VOO
+          apiKey: YQULROD0PSF8RAGS
 
 - name: Productivity
   icon: far fa-briefcase
