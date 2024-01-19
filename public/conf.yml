@@ -29,7 +29,7 @@ sections:
       city: Bucharest
   - type: crypto-watch-list
     options:
-      currency: RON
+      currency: EUR
       sortBy: marketCap
       assets:
       - bitcoin
