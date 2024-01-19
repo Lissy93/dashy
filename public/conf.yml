@@ -36,8 +36,8 @@ sections:
             - ethereum
       - type: stock-price-chart
         options:
-          stock: VOO
-          apiKey: YQULROD0PSF8RAGS
+          stock: O
+          apiKey: 223TAV47RB8QG01D
 
 
 - name: Productivity
