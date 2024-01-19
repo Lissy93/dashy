@@ -36,7 +36,7 @@ appConfig:
             - ethereum
       - type: stock-price-chart
         options:
-          stock: VOO
+          stock: SPX
           apiKey: YQULROD0PSF8RAGS
 
  
