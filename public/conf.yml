@@ -27,10 +27,15 @@ sections:
     options:
       apiKey: efdbade728b37086877a5e83442004db
       city: Bucharest
-  - type: stock-price-chart
+ 
+- name: Money
+  icon: far fa-briefcase
+   widgets:
+    - type: stock-price-chart
   options:
     stock: NET
     apiKey: 223TAV47RB8QG01D    
+   
 
 - name: Productivity
   icon: far fa-briefcase
