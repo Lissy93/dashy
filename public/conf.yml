@@ -34,9 +34,6 @@ sections:
           assets:
             - bitcoin
             - ethereum
-      
-
-
 - name: Productivity
   icon: far fa-briefcase
   items:
