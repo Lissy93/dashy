@@ -34,14 +34,7 @@ appConfig:
           assets:
             - bitcoin
             - ethereum
-      - type: stock-price-chart
-        options:
-          stock: SPX
-          apiKey: YQULROD0PSF8RAGS
-
- 
-
-  
+     
      
 
 - name: Productivity
@@ -116,9 +109,9 @@ appConfig:
     icon: favicon
     url: https://dash.cloudflare.com/
     statusCheckAcceptCodes: '403'
-  - title: DigitalOcean
+  - title: Oracle Cloud
     icon: favicon
-    url: https://cloud.digitalocean.com/
+    url: https://cloud.oracle.com/dashboard/default
   - title: Vercel deployments
     icon: favicon
     url: https://vercel.com/bogdans-projects-061aab75
