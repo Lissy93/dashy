@@ -16,7 +16,7 @@ appConfig:
 
 # Main content - An array of sections, each containing an array of items
 sections:
-- name: Today
+   - name: Today
   icon: far fa-smile-beam
   displayData:
     collapsed: false
@@ -35,9 +35,10 @@ sections:
       - bitcoin
       - ethereum
   - type: stock-price-chart
-  options:
-    stock: VOO
-    apiKey: YQULROD0PSF8RAGS    
+    options:
+      stock: VOO
+      apiKey: YQULROD0PSF8RAGS
+
   
      
 
