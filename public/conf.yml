@@ -43,9 +43,9 @@ sections:
 - name: Productivity
   icon: far fa-briefcase
   items:
-  - title: ProtonMail
+  - title: Email
     icon: favicon
-    url: https://mail.protonmail.com/
+    url: https://outlook.office365.com/
     description: Primary email account
     tags: [hosted, personal, email, mail]
     hotkey: 1
