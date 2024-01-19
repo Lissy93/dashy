@@ -83,7 +83,7 @@ sections:
     hotkey: 5
   - title: Tasks
     icon: https://i.ibb.co/v4jznK0/todo-list.png
-    url: https://pim.etesync.com/pim/tasks
+    url: https://cloud.b4it.ro/index.php/apps/tasks/#/calendars/tasks
     description: Todo list and tasks from CalDAV
     tags: [hosted, personal, caldav, tasks, planning]
     hotkey: 6
