@@ -88,11 +88,11 @@ sections:
     description: Notes, and my second brain
     tags: [hosted, personal, notes ]
     hotkey: 8
-  - title: 1Password
+  - title: Nextcloud
     icon: favicon
-    url: https://my.1password.com/
-    description: Password Manager
-    tags: [hosted, personal, passwords ]
+    url: https://Cloud.b4it.ro
+    description: Selfhosted cloud storage
+    tags: [hosted, personal, storage ]
     hotkey: 9
 
 - name: Dev & Cloud
@@ -111,9 +111,9 @@ sections:
   - title: DigitalOcean
     icon: favicon
     url: https://cloud.digitalocean.com/
-  - title: Netlify
+  - title: Vercel deployments
     icon: favicon
-    url: https://app.netlify.com/
+    url: https://vercel.com/bogdans-projects-061aab75
   - title: CodeSandbox
     icon: favicon
     url: https://codesandbox.io/dashboard
