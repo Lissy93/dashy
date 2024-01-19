@@ -16,28 +16,30 @@ appConfig:
 
 # Main content - An array of sections, each containing an array of items
 sections:
-  - name: Today
-    icon: far fa-smile-beam
-    displayData:
-      collapsed: false
-      hideForGuests: false
-    widgets:
-      - type: clock
-      - type: weather
-        options:
-          apiKey: efdbade728b37086877a5e83442004db
-          city: Bucharest
-      - type: crypto-watch-list
-        options:
-          currency: EUR
-          sortBy: marketCap
-          assets:
-            - bitcoin
-            - ethereum
+- name: Today
+  icon: far fa-smile-beam
+  displayData:
+    collapsed: false
+    hideForGuests: false
+  widgets:
+  - type: clock
+  - type: weather
+    options:
+      apiKey: efdbade728b37086877a5e83442004db
+      city: Bucharest
+  - type: crypto-watch-list
+    options:
+      currency: RON
+      sortBy: marketCap
+      assets:
+      - bitcoin
+      - ethereum
+     
+
 - name: Productivity
   icon: far fa-briefcase
   items:
-  - title: Email
+  - title: ProtonMail
     icon: favicon
     url: https://outlook.office365.com/
     description: Primary email account
@@ -56,7 +58,7 @@ sections:
     tags: [hosted, personal, forwarder, aliases, email]
     hotkey: 3
     statusCheckAcceptCodes: '401'
-  - title: PassBolt
+  - title: Passbolt
     icon: favicon
     url: https://password.b4it.ro
     description: Deterministic password generator
@@ -88,8 +90,8 @@ sections:
     hotkey: 8
   - title: Nextcloud
     icon: favicon
-    url: https://Cloud.b4it.ro
-    description: Selfhosted cloud storage
+    url: https://cloud.b4it.ro
+    description: Personal storage
     tags: [hosted, personal, storage ]
     hotkey: 9
 
@@ -98,7 +100,7 @@ sections:
   items:
   - title: GitHub
     icon: favicon
-    url: https://github.com/tathagata1428
+    url: https://github.com/
   - title: StackOverflow
     icon: favicon
     url: http://stackoverflow.com/
@@ -106,12 +108,12 @@ sections:
     icon: favicon
     url: https://dash.cloudflare.com/
     statusCheckAcceptCodes: '403'
-  - title: Oracle Cloud
+  - title: DigitalOcean
     icon: favicon
-    url: https://cloud.oracle.com/dashboard/default
-  - title: Vercel deployments
+    url: https://cloud.digitalocean.com/
+  - title: Netlify
     icon: favicon
-    url: https://vercel.com/bogdans-projects-061aab75
+    url: https://app.netlify.com/
   - title: CodeSandbox
     icon: favicon
     url: https://codesandbox.io/dashboard
