@@ -58,7 +58,7 @@ sections:
   icon: far fa-briefcase
   items:
   - title: Mail
-    icon: favicon
+    icon: https://cdn.iconscout.com/icon/premium/png-512-thumb/email-link-7313977-6705073.png?f=webp
     url: https://outlook.office365.com/
     description: Primary email account
     tags: [hosted, personal, email, mail]
