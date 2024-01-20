@@ -34,6 +34,14 @@ sections:
       assets:
       - bitcoin
       - ethereum
+    - type: stock-price-chart  # Ensure correct indentation here
+    options:
+      stock: VOO
+      apiKey: WU6QQXMALBL5ETKJ
+
+- name: Financial
+  icon: far fa-money
+  items:
   - type: exchange-rates
     options:
       apiKey: 8d2ae271c8b5775f4eb7fe59
@@ -42,10 +50,7 @@ sections:
         - RON
         - USD
         - GBP
-  - type: stock-price-chart  # Ensure correct indentation here
-    options:
-      stock: VOO
-      apiKey: WU6QQXMALBL5ETKJ
+      
 
 - name: Productivity
   icon: far fa-briefcase
