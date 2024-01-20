@@ -27,12 +27,13 @@ sections:
     options:
       apiKey: efdbade728b37086877a5e83442004db
       city: Bucharest
-  
-
-- name: Financial
-  icon: far fa-money
-  widgets:
-  items:
+  - type: crypto-watch-list
+    options:
+      currency: EUR
+      sortBy: marketCap
+      assets:
+      - bitcoin
+      - ethereum
   - type: exchange-rates
     options:- type: crypto-watch-list
     options:
