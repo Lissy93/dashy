@@ -36,7 +36,7 @@ sections:
       - ethereum
   - type: exchange-rates
     options:
-      apiKey: 00fee8a2d9492a7f2ad5f1b9
+      apiKey: 8d2ae271c8b5775f4eb7fe59
       inputCurrency: EUR
       outputCurrencies:
         - RON
