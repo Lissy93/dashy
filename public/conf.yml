@@ -57,9 +57,9 @@ sections:
     description: Primary email account
     tags: [hosted, personal, email, mail]
     hotkey: 1
-  - title: CTemplar
+  - title: Proton Mail
     icon: favicon
-    url: https://mail.ctemplar.com/
+    url: https://account.proton.me/mail
     description: Secondary email account
     tags: [hosted, personal, email, mail]
     hotkey: 2
@@ -76,11 +76,11 @@ sections:
     description: Deterministic password generator
     tags: [hosted, personal, password, generate, deterministic]
     hotkey: 4
-  - title: EteSync
+  - title: Music for work
     icon: favicon
-    url: https://pim.etesync.com/
-    description: Calendar + Contacts, CalDAV sync
-    tags: [hosted, personal, caldav, calendar, contacts, tasks, planning]
+    url: https://www.youtube.com/watch?v=4kLviL8XwAI
+    description: Music For work
+    tags: [Music,Work]
     hotkey: 5
   - title: Tasks
     icon: https://i.ibb.co/v4jznK0/todo-list.png
