@@ -141,7 +141,7 @@ sections:
       color: '#3178C6'
     - title: Groovy
       url: https://groovy-lang.org/documentation.html
-      icon: si-groovy
+      icon: https://assets-global.website-files.com/6047a9e35e5dc54ac86ddd90/6301873066c662cd9642d8b1_c9fca092.png
       color: '#FF3E00'
     - title: Go
       url: https://go.dev/doc
