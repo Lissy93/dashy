@@ -1,0 +1,14 @@
+# Ignore list, for automated broken link checking
+
+https://fonts.gstatic.com/**
+https://metager.org/meta/**
+https://developers.cloudflare.com/**
+
+http://localhost**
+https://localhost**
+http://192.168**
+https://192.168**
+file:///github/**
+http://[dashy-location]**
+https://[dashy-location]**
+**.local/**

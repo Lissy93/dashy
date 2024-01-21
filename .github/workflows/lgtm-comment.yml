@@ -1,0 +1,27 @@
+# Replies with a random looks-good GIF, when a PR is reviewed with a LGTM comment
+name: 💡 Random LGTM GIF
+on:
+  issue_comment: { types: [created] }
+  pull_request_review: { types: [submitted] }
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    if: (!contains(github.actor, '[bot]')) # Exclude bot comment
+    steps:
+      - uses: ddradar/choose-random-action@v1
+        id: act
+        with:
+          contents: |
+            https://media4.giphy.com/media/11ISwbgCxEzMyY/giphy.gif
+            https://media4.giphy.com/media/SgwPtMD47PV04/giphy.gif
+            https://media1.giphy.com/media/3orifdxwbvVLfS3CrS/giphy.gif
+            https://media4.giphy.com/media/RPwrO4b46mOdy/giphy.gif
+            https://media2.giphy.com/media/3o7abGQa0aRJUurpII/giphy.gif
+            https://media3.giphy.com/media/ZZrDTGSJXlHW9Y2khu/giphy.gif
+            https://media3.giphy.com/media/5DQdk5oZzNgGc/giphy.gif
+            https://media4.giphy.com/media/3o7abB06u9bNzA8lu8/giphy.gif
+            https://media4.giphy.com/media/l2JJrEx9aRsjNruhi/giphy.gif
+      - uses: ddradar/lgtm-action@v1
+        with:
+          image-url: ${{ steps.act.outputs.selected }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

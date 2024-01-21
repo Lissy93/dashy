@@ -1,0 +1,47 @@
+---
+# Welcome to Dashy! To get started, run `docker compose up -d`
+# You can configure your container here, by modifying this file
+version: "3.8"
+services:
+  dashy:
+    container_name: Dashy
+
+    # Pull latest image from DockerHub
+    image: lissy93/dashy
+
+    # To build from source, replace 'image: lissy93/dashy' with 'build: .'
+    # build: .
+
+    # Or, to use a Dockerfile for your archtecture, uncomment the following
+    # context: .
+    # dockerfile: ./docker/Dockerfile-arm32v7
+
+    # You can also use an image with a different tag, or pull from a different registry, e.g:
+    # image: ghcr.io/lissy93/dashy or image: lissy93/dashy:arm64v8
+
+    # Pass in your config file below, by specifying the path on your host machine
+    # volumes:
+      # - /path/to/my-config.yml:/app/public/conf.yml
+      # - /path/to/item-icons:/app/public/item-icons
+
+    # Set port that web service will be served on. Keep container port as 80
+    ports:
+      - 4000:80
+
+    # Set any environmental variables
+    environment:
+      - NODE_ENV=production
+    # Specify your user ID and group ID. You can find this by running `id -u` and `id -g`
+    #  - UID=1000
+    #  - GID=1000
+
+    # Specify restart policy
+    restart: unless-stopped
+
+    # Configure healthchecks
+    healthcheck:
+      test: ['CMD', 'node', '/app/services/healthcheck']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

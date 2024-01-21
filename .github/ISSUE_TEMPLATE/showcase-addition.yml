@@ -1,0 +1,58 @@
+name: Add your Dashboard to the Showcase 🌟
+description: Share a screenshot of your dashboard to the Readme showcase!
+title: '[SHOWCASE] <title>'
+labels: ['💯 Showcase']
+
+body:
+# 1 - Title
+- type: input
+  id: title
+  attributes:
+    label: Title
+    description: Pick a title for your addition
+    placeholder: My Awesome Dashboard
+  validations:
+    required: false
+# 2 - Link to Screenshot
+- type: textarea
+  id: screenshot
+  attributes:
+    label: Screenshot
+    description: Either upload your screenshot here, or include a link to a png/jpg on a CDN / image hosting service
+  validations:
+    required: true
+# 3 - Credit user
+- type: dropdown
+  id: attribution
+  attributes:
+    label: Would you like your name/ username included?
+    description: This will be displayed above the screenshot to your dashboard in the showcase page
+    options:
+      - 'Yes'
+      - 'No'
+  validations:
+    required: true
+# 4 - Social links
+- type: input
+  id: links
+  attributes:
+    label: Link to your Website/ Profile/ Twitter (optional)
+    description: You can optionally have your name link to your profile or website. If you'd like this, include the URL to your site below
+  validations:
+    required: false
+# 5 - Description
+- type: textarea
+  id: description
+  attributes:
+    label: Description (Optional)
+    description: You can optionally also include a short description. If there's anything else you'd like to include, then put it here
+  validations:
+    required: false
+# 6 - All done
+- type: markdown
+  attributes:
+    value: |-
+      ## That's It!
+      Thanks for sharing your dashboard :) You will receive an update to this ticket once it's added to the showcase
+  validations:
+    required: false

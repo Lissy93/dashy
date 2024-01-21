@@ -1,0 +1,24 @@
+root = true
+
+# Basics - All Files
+[*]
+end_of_line = lf
+charset = utf-8
+insert_final_newline = true
+
+# JS, TS and Vue
+[*.{js,jsx,ts,tsx,vue}]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# YAML, for config file
+[*.{yml,yaml}]
+indent_size = 2
+
+# Markdown for docs
+[*.md]
+trim_trailing_whitespace = false
+
+# Licensed under MIT, (C) 2021 Alicia Sykes <https://aliciasykes.com>

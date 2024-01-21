@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Encoding and Viewport -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <!-- Favicon, App Icon -->
+  <link rel="icon" type="image/png" sizes="64x64" href="<%= BASE_URL %>/web-icons/favicon-64x64.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="web-icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" href="/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="/loading-screen.css" />
+  <!-- Default Page Title -->
+  <title>Dashy</title>
+</head>
+
+<body>
+  <!-- built files will be auto injected -->
+  <div id="app">
+    <!-- Loading screen, will be replaced when app loaded -->
+    <div class="loading-placeholder" id="loader">
+      <h1>Dashy</h1>
+      <p class="loading">Loading... </p>
+      <!-- Error message, only visible if app not mounted within 5 secs -->
+      <div class="catastrophic-error" id="err-wrap" style="display:none;">
+        <p class="err-l1">It looks like something's gone wrong...</p>
+        <p class="err-l2">
+          This is likely caused by the app source not being found at the current domain
+        </p>
+        <p class="err-l2">
+          If you need additional support, check the browser console then 
+          <a href="https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md">
+            raise a ticket
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- Devices without JS enabled -->
+  <noscript>
+    <strong>Sorry, JavaScript needs to be enabled to run Dashy 😥</strong>
+  </noscript>
+  
+  <!-- Show error message if app not mounted within reasonable time frame -->
+  <script>
+    setTimeout(() => {
+      const loaderElem = document.getElementById('loader');
+      if (loaderElem) loaderElem.classList.add('still-not-loaded');
+    }, 7500);
+  </script>
+</body>
+</html>

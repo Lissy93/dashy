@@ -1,0 +1,104 @@
+{
+  "home": {
+    "no-results": "Nay Search Results",
+    "no-data": "Nay Data Configured"
+  },
+  "search": {
+    "search-placeholder": "Start typin' t' filter",
+    "enter-to-search-web": "Press enter t' search th' web"
+  },
+  "login": {
+    "remember-me-label": "Remember me fer",
+    "error-missing-username": "Missin' Username",
+    "error-missing-password": "Missin' Password",
+    "success-message": "Loggin' in...",
+    "already-logged-in-text": "ye're logged in as",
+    "proceed-to-dashboard": "Proceed t' Dashboard",
+    "log-out-button": "Logout Ye All",
+    "proceed-guest-button": "Proceed as Ye Guest"
+  },
+  "config": {
+    "main-tab": "Ya Main Menu",
+    "heading": "Ye Configuration Options",
+    "download-config-button": "Download Config",
+    "reset-settings-button": "Reset Ship Settin's",
+    "change-language-button": "Change Ye Language",
+    "cloud-sync-button": "Enable Ship Sync",
+    "app-info-button": "Th' Ship Info",
+    "backup-note": "It be recommend t' make a backup o' yer configuration before makin' changes.",
+    "reset-config-msg-l1": "This will remove all user settin's from local storage, but won't effect yer 'conf.yml' file.",
+    "reset-config-msg-l2": "ye should first backup any changes ye've made locally, if ye want t' use them in th' future.",
+    "reset-config-msg-l3": "be ye sure ye want t' proceed?",
+    "data-copied-msg": "Config has been copied t' clipboardd",
+    "css-note-l1": "ye will need t' refresh th' page fer yer changes t' take effect.",
+    "css-note-l2": "Styles overrides be only stored locally, so it be recommended t' make a copy o' yer CSS.",
+    "css-note-l3": "To remove all custom styles, delete th' contents and hit Save Changes"
+  },
+  "settings": {
+    "sign-in-welcome": "Ahoy {username}!"
+  },
+  "updates": {
+    "app-version-note": "Dashy version",
+    "up-to-date": "Up-to-Date",
+    "out-of-date": "Update Available",
+    "unsupported-version-l1": "You are using a ye' old version of Dashy",
+    "unsupported-version-l2": "For th' best experience, and recent security patches, please update to"
+  },
+  "language-switcher": {
+    "success-msg": "Language Updated t'"
+  },
+  "theme-maker": {
+    "copied-toast": "Theme data for {theme} copied t' ye clipboard"
+  },
+  "config-editor": {
+    "save-location-label": "Save Location",
+    "location-local-label": "Apply Locally",
+    "location-disk-label": "Write Changes to Config File",
+    "save-button": "Save Changes",
+    "valid-label": "Config is Valid",
+    "status-success-msg": "Task Complete",
+    "status-fail-msg": "Task Failed",
+    "success-msg-disk": "Th' config file written to disk successfully",
+    "success-msg-local": "Ye local changes were successfully saved",
+    "success-note-l1": "th' app should rebuild automatically.",
+    "success-note-l2": "This may take up t' a minute.",
+    "success-note-l3": "ye will need t' refresh th' page fer changes t' take effect.",
+    "error-msg-cannot-save": "An error occurred savin' config",
+    "error-msg-bad-json": "Error in ye JSON, possibly malformed",
+    "warning-msg-validation": "Validation Warnin' Ahead",
+    "not-admin-note": "ye cannot write changed t' disk, because ye be not logged in as an admin"
+  },
+  "app-rebuild": {
+    "title": "Rebuild Application",
+    "rebuild-note-l1": "A rebuild be required fer changes written t' th' conf.yml file t' take effect.",
+    "rebuild-note-l2": "This should happen automatically, but if it hasn't, ye can manually trigger it here.",
+    "rebuild-note-l3": "This be not required fer modifications stored locally.",
+    "rebuild-button": "Start Build",
+    "rebuilding-status-1": "Buildin...",
+    "error-permission": "ye dern't have permission t' trigger this action",
+    "success-msg": "Ayhyo, build did complete successfully!",
+    "fail-msg": "Build operation did fail",
+    "reload-note": "A page reload be now required fer changes t' take effect",
+    "reload-button": "Reload Ye Page"
+  },
+  "cloud-sync": {
+    "intro-l1": "Cloud backup and restore be an optional feature, that enables ye t' upload yer config t' th' internet, and then restore it on any other device or instance o' Dashy.",
+    "intro-l2": "All data be fully end-t'-end encrypted with AES, usin' yer password as th' key.",
+    "intro-l3": "For more info, please see th'",
+    "backup-title-setup": "Make ye Backup",
+    "backup-title-update": "Update ye Backup",
+    "password-label-setup": "Choose ye Password",
+    "password-label-update": "Enter yer Password",
+    "backup-id-label": "Yer Backup ID",
+    "backup-id-note": "This be used t' restore from backups later. So keep it, along with yer password somewhere safe.",
+    "backup-missing-password": "Missin'g' Password",
+    "backup-error-unknown": "Unable t' process request",
+    "backup-error-password": "Incorrect password. Walk the plank! Please enter yer current password."
+  },
+  "menu": {
+    "sametab": "Stay Aboard",
+    "newtab": "Walk the Plank",
+    "modal": "Open in ye Pop-Up Ship",
+    "workspace": "Open on Workspace Deck"
+  }
+}

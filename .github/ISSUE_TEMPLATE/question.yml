@@ -1,0 +1,64 @@
+name: Question 🤷‍♂️
+description: Got a question about Dashy, deployment, development or usage?
+title: '[QUESTION] <title>'
+labels: ['🤷‍♂️ Question']
+
+body:
+  # Filed 1 - Intro Text
+  - type: markdown
+    attributes:
+      value: >
+        Thanks for using Dashy! Questions are welcome, but in the future will be moving over to
+        [Discussions](https://github.com/Lissy93/dashy/discussions) page.
+        Quick questions should be asked [here](https://github.com/Lissy93/dashy/discussions/148) instead.
+    validations:
+      required: false
+
+  # Field 2 - The actual question
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: Outline your question in a clear and concise manner
+    validations:
+      required: true
+
+  # Field 3 - Category
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: What part of the application does this relate to?
+      options:
+        - Setup and Deployment
+        - Configuration
+        - App Usage
+        - Development
+        - Documentation
+        - Alternate Views
+        - Authentication
+        - Using Icons
+        - Widgets
+        - Actions
+        - Language Support
+        - Search & Shortcuts
+        - Status Checking
+        - Theming & Layout
+    validations:
+      required: true
+
+  # Field 4 - User has RTFM first, and agrees to code of conduct, etc
+  - type: checkboxes
+    id: idiot-check
+    attributes:
+      label: Please tick the boxes
+      description: Before submitting, please ensure that
+      options:
+        - label: You are using a [supported](https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md#supported-versions) version of Dashy (check the first two digits of the version number)
+          required: true
+        - label: You've checked that this [question hasn't already been raised](https://github.com/Lissy93/dashy/issues?q=is%3Aissue)
+          required: true
+        - label: You've checked the [docs](https://github.com/Lissy93/dashy/tree/master/docs#readme) and [troubleshooting](https://github.com/Lissy93/dashy/blob/master/docs/troubleshooting.md#troubleshooting) guide
+          required: true
+        - label: You agree to the [code of conduct](https://github.com/Lissy93/dashy/blob/master/.github/CODE_OF_CONDUCT.md#contributor-covenant-code-of-conduct)
+          required: true

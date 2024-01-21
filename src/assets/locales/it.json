@@ -1,0 +1,295 @@
+{
+  "home": {
+    "no-results": "Nessun risultato trovato",
+    "no-data": "Nessun dato configurato",
+    "no-items-section": "Nessun elemento"
+  },
+  "search": {
+    "search-label": "Ricerca",
+    "search-placeholder": "Inizia a digitare per filtrare",
+    "clear-search-tooltip": "Cancella ricerca",
+    "enter-to-search-web": "Premi invio per cercare nel web"
+  },
+  "login": {
+    "title": "Dashy",
+    "username-label": "Nome utente",
+    "password-label": "Password",
+    "login-button": "Login",
+    "remember-me-label": "Ricordami per",
+    "remember-me-never": "Mai",
+    "remember-me-hour": "4 ore",
+    "remember-me-day": "1 giorno",
+    "remember-me-week": "1 settimana",
+    "remember-me-long-time": "Molto tempo",
+    "error-missing-username": "Nome utente mancante",
+    "error-missing-password": "Password mancante",
+    "error-incorrect-username": "Utente non trovato",
+    "error-incorrect-password": "Password errata",
+    "success-message": "Login in corso...",
+    "logout-message": "Disconnesso",
+    "already-logged-in-title": "Ha già effettuato il login",
+    "already-logged-in-text": "Hai effettuato il login come",
+    "proceed-to-dashboard": "Vai alla dashboard",
+    "log-out-button": "Disconnessione",
+    "proceed-guest-button": "Procedi come Ospite"
+  },
+  "config": {
+    "main-tab": "Menu principale",
+    "view-config-tab": "Visualizza configurazione",
+    "edit-config-tab": "Modifica configurazione",
+    "custom-css-tab": "Stili personalizzati",
+    "heading": "Opzioni di configurazione",
+    "download-config-button": "Scarica configurazione",
+    "edit-config-button": "Modifica configurazione",
+    "edit-css-button": "Modifica CSS personalizzato",
+    "cloud-sync-button": "Abilita sincronizzazione cloud",
+    "edit-cloud-sync-button": "Modifica sincronizzazione cloud",
+    "rebuild-app-button": "Ricompila l'applicazione",
+    "change-language-button": "Cambia la lingua dell'app",
+    "reset-settings-button": "Ripristina impostazioni locali",
+    "app-info-button": "Informazioni sull'app",
+    "backup-note": "Si consiglia di eseguire un backup della configurazione prima di apportare modifiche.",
+    "reset-config-msg-l1": "Questo rimuoverà tutte le impostazioni utente dalla memoria locale, ma non modificherà il tuo file 'conf.yml'.",
+    "reset-config-msg-l2": "Dovresti prima eseguire il backup di tutte le modifiche apportate localmente, se desideri utilizzarle in futuro.",
+    "reset-config-msg-l3": "Sei sicuro di voler procedere?",
+    "data-cleared-msg": "Dati cancellati con successo",
+    "actions-label": "Azioni",
+    "copy-config-label": "Copia configurazione",
+    "data-copied-msg": "La configurazione è stata copiata negli appunti",
+    "reset-config-label": "Ripristina configurazione",
+    "css-save-btn": "Salvare le modifiche",
+    "css-note-label": "Nota",
+    "css-note-l1": "Sarà necessario aggiornare la pagina affinché le modifiche abbiano effetto.",
+    "css-note-l2": "Le personalizzazioni degli stili sono memorizzate solo localmente, quindi si consiglia di fare una copia del proprio CSS.",
+    "css-note-l3": "Per rimuovere tutti gli stili personalizzati, elimina i contenuti e premi Salva modifiche"
+  },
+  "alternate-views": {
+    "alternate-view-heading": "Cambia vista",
+    "default": "Predefinita",
+    "workspace": "Area di lavoro",
+    "minimal": "Minima"
+  },
+  "settings": {
+    "theme-label": "Tema",
+    "layout-label": "Disposizione",
+    "layout-auto": "Auto",
+    "layout-horizontal": "Orizzontale",
+    "layout-vertical": "Verticale",
+    "item-size-label": "Dimensione Elemento",
+    "item-size-small": "Piccolo",
+    "item-size-medium": "Medio",
+    "item-size-large": "Grande",
+    "config-launcher-label": "Configurazione",
+    "config-launcher-tooltip": "Aggiorna Configurazione",
+    "sign-out-tooltip": "Disconnessione",
+    "sign-in-tooltip": "Accesso",
+    "sign-in-welcome": "Ciao {username}!"
+  },
+  "updates": {
+    "app-version-note": "Versione Dashy",
+    "up-to-date": "Aggiornata",
+    "out-of-date": "Aggiornamento disponibile",
+    "unsupported-version-l1": "Stai utilizzando una versione non supportata di Dashy",
+    "unsupported-version-l2": "Per un miglior utilizzo e una maggior sicurezza, si consiglia l'aggiornamento alla versione"
+  },
+  "language-switcher": {
+    "title": "Cambia lingua applicazione",
+    "dropdown-label": "Seleziona una lingua",
+    "save-button": "Salva",
+    "success-msg": "Lingua aggiornata a"
+  },
+  "theme-maker": {
+    "title": "Configurazione dei Temi",
+    "export-button": "Esporta variabili personalizzate",
+    "reset-button": "Reset degli Stili per",
+    "show-all-button": "Mostra tutte le variabili",
+    "change-fonts-button": "Change Fonts",
+    "save-button": "Salva",
+    "cancel-button": "Annulla",
+    "saved-toast": "{theme} aggiornato con successo",
+    "copied-toast": "Dati del tema {theme} copiati negli appunti",
+    "reset-toast": "Rimossi Colori personalizzati per {theme}"
+  },
+  "config-editor": {
+    "save-location-label": "Posizione del salvataggio",
+    "location-local-label": "Salvataggio Locale",
+    "location-disk-label": "Salva le modifiche nel file di configurazione",
+    "save-button": "Salvare le modifiche",
+    "preview-button": "Preview Changes",
+    "valid-label": "La configurazione è valida",
+    "status-success-msg": "Attività completata",
+    "status-fail-msg": "Attività fallita",
+    "success-msg-disk": "File di configurazione scritto correttamente su disco",
+    "success-msg-local": "Modifiche locali salvate correttamente",
+    "success-note-l1": "L'app dovrebbe ricompilarsi automaticamente.",
+    "success-note-l2": "Questa operazione potrebbe richiedere fino a un minuto.",
+    "success-note-l3": "Sarà necessario aggiornare la pagina affinché le modifiche abbiano effetto.",
+    "error-msg-save-mode": "Seleziona una modalità di salvataggio: Localmente o in un File",
+    "error-msg-cannot-save": "Si è verificato un errore durante il salvataggio della configurazione",
+    "error-msg-bad-json": "Errore nella struttura JSON, probabilmente non formattata correttamente",
+    "warning-msg-validation": "Avviso di convalida",
+    "not-admin-note": "Non puoi scrivere le modifiche su disco, perché non sei autenticato come amministratore"
+  },
+  "app-rebuild": {
+    "title": "Ricompila l'applicazione",
+    "rebuild-note-l1": "È necessaria una ricompilazione affinché le modifiche scritte nel file conf.yml abbiano effetto.",
+    "rebuild-note-l2": "La ricompilazione dovrebbe avvenire automaticamente, in caso contrario, può essere avviata manualmente.",
+    "rebuild-note-l3": "Questo non è richiesto per le modifiche memorizzate localmente.",
+    "rebuild-button": "Inizia la ricompilazione",
+    "rebuilding-status-1": "Ricompilazione...",
+    "rebuilding-status-2": "Questo potrebbe richiedere alcuni minuti",
+    "error-permission": "Non hai l'autorizzazione per avviare questa azione",
+    "success-msg": "Build completata con successo",
+    "fail-msg": "Operazione di ricompilazione non riuscita",
+    "reload-note": "È necessario ricaricare la pagina affinché le modifiche abbiano effetto",
+    "reload-button": "Ricarica la pagina"
+  },
+  "cloud-sync": {
+    "title": "Backup e Restore su Cloud",
+    "intro-l1": "Il backup e il restore su cloud consentono di salvare la tua configurazione su un server internet e quindi ripristinarla su qualsiasi altro dispositivo o istanza Dashy.",
+    "intro-l2": "Tutti i dati sono completamente crittografati end-to-end con AES, utilizzando la tua password come chiave.",
+    "intro-l3": "Per maggiori informazioni, vedere il",
+    "backup-title-setup": "Fai un backup",
+    "backup-title-update": "Aggiorna backup",
+    "password-label-setup": "Scegli una password",
+    "password-label-update": "Inserisci la tua password",
+    "backup-button-setup": "Backup",
+    "backup-button-update": "Aggiorna backup",
+    "backup-id-label": "Il tuo ID di backup",
+    "backup-id-note": "ID utilizzato per il restore dal cloud. Conservarlo, insieme alla password, in un posto sicuro.",
+    "restore-title": "Ripristina un backup",
+    "restore-id-label": "Ripristina ID",
+    "restore-password-label": "Password",
+    "restore-button": "Restore",
+    "backup-missing-password": "Password mancante",
+    "backup-error-unknown": "Impossibile elaborare la richiesta",
+    "backup-error-password": "Password errata. Inserisci la tua password attuale.",
+    "backup-success-msg": "Completato con successo",
+    "restore-success-msg": "Configurazione ripristinata con successo"
+  },
+  "menu": {
+    "open-section-title": "Open In",
+    "sametab": "Tab Attuale",
+    "newtab": "Nuovo Tab",
+    "modal": "Pop-Up",
+    "workspace": "Workspace",
+    "options-section-title": "Opzioni",
+    "edit-item": "Edita",
+    "move-item": "Copia/Sposta",
+    "remove-item": "Rimuovi"
+  },
+  "context-menus": {
+    "item": {
+      "open-section-title": "Apri In",
+      "sametab": "Tab Attuale",
+      "newtab": "Nuovo Tab",
+      "modal": "Pop-Up",
+      "workspace": "Workspace",
+      "clipboard": "Copia negli Appunti",
+      "options-section-title": "Opzioni",
+      "edit-item": "Edita",
+      "move-item": "Copia/Sposta",
+      "remove-item": "Rimuovi",
+      "copied-toast": "URL copiata negli appunti"
+    },
+    "section": {
+      "open-section": "Apri Sezione",
+      "edit-section": "Edita",
+      "move-section": "Sposta in",
+      "remove-section": "Rimuovi"
+    }
+  },
+  "interactive-editor": {
+    "menu": {
+      "start-editing-tooltip": "Apri l'Editor Interattivo",
+      "edit-site-data-subheading": "Modifica i dati del sito",
+      "edit-page-info-btn": "Modifica le informazioni della pagina",
+      "edit-page-info-tooltip": "Titolo App, descrizione, link navigazione, piè di pagina, etc.",
+      "edit-app-config-btn": "Modifica Configurazione App",
+      "edit-app-config-tooltip": "Altre opzioni di configurazione",
+      "config-save-methods-subheading": "Opzioni di salvataggio della configurazione",
+      "save-locally-btn": "Salva Localmente",
+      "save-locally-tooltip": "Save localmente, nell'area dati del browser. Il file di configurazione non verrà modificato, le modifiche sono salvate solo su questo dispositivo",
+      "save-disk-btn": "Salva su Disco",
+      "save-disk-tooltip": "Salva la configurazione su disco, nel file conf.yml. Verrà effettuato un backup, la configurazione attuale verrà sovrascritta",
+      "export-config-btn": "Esporta la Configurazione",
+      "export-config-tooltip": "Visualizza ed esporta la configurazione, in un file o negli appunti",
+      "cloud-backup-btn": "Backup nel Cloud",
+      "cloud-backup-tooltip": "Salva il backup criptato della configurazione nel cloud",
+      "edit-raw-config-btn": "Modifica la configurazione nativa",
+      "edit-raw-config-tooltip": "Visualizza e modifica la configurazione nativa con l'editor JSON",
+      "cancel-changes-btn": "Annulla le Modifiche",
+      "cancel-changes-tooltip": "Annulla le modifiche ed esci dalla modalità modifica. La configurazione attuale non verrà modificata",
+      "edit-mode-name": "Modalità Modifica",
+      "edit-mode-subtitle": "Sei in modalità modifica",
+      "edit-mode-description": "Puoi modificare la configurazione e verificare il risultato, ma prima del salvataggio, nessun cambiamento verrà preservato",
+      "save-stage-btn": "Salva",
+      "cancel-stage-btn": "Annulla"
+    },
+    "edit-item": {
+      "missing-title-err": "Il titolo è obbligatorio"
+    },
+    "edit-section": {
+      "edit-section-title": "Modifica Sezione",
+      "add-section-title": "Aggiungi Nuova Sezione",
+      "edit-tooltip": "Seleziona per modificare, tasto destro per altre opzioni",
+      "remove-confirm": "Sei sicuro di voler rimuovere questa sezione? Questa scelta può essere rivista successivamente."
+    },
+    "edit-app-config": {
+      "warning-msg-title": "Procedi con cautela",
+      "warning-msg-l1": "Queste opzioni sono necessarie per la configurazione avanzata dell'app",
+      "warning-msg-l2": "Se non sei sicuro di qualche opzione, controlla la",
+      "warning-msg-docs": "documentazione",
+      "warning-msg-l3": "per evitare spiacevoli conseguenze."
+    },
+    "export": {
+      "export-title": "Esporta Configurazione",
+      "copy-clipboard-btn": "Copia negli Appunti",
+      "copy-clipboard-tooltip": "Copia la configurazione negli appunti, in formato YAML",
+      "download-file-btn": "Salva file",
+      "download-file-tooltip": "Salva la configurazione dell'app in un file YAML",
+      "view-title": "View Config"
+    }
+  },
+  "widgets": {
+    "general": {
+      "loading": "Caricamento...",
+      "show-more": "Dettagli",
+      "show-less": "Minori dettagli",
+      "open-link": "Continua Lettura"
+    },
+    "pi-hole": {
+      "status-heading": "Stato"
+    },
+    "stat-ping": {
+      "up": "Online",
+      "down": "Offline"
+    },
+    "net-data": {
+      "cpu-chart-title": "Utilizzo CPU",
+      "mem-chart-title": "Utilizzo Memoria",
+      "mem-breakdown-title": "Dettaglio Utilizzo Memoria",
+      "load-chart-title": "Carico del Sistema"
+    },
+    "glances": {
+      "disk-space-free": "Utilizzabile",
+      "disk-space-used": "Utilizzato",
+      "disk-mount-point": "Mount Point",
+      "disk-file-system": "File System",
+      "disk-io-read": "Lettura",
+      "disk-io-write": "Scrittura",
+      "system-load-desc": "Numero di processi in attesa nella coda di esecuzione, calcolati sulla media di tutti i core"
+    },
+    "system-info": {
+      "uptime": "Uptime"
+    },
+    "flight-data": {
+      "arrivals": "Arrivi",
+      "departures": "Partenze"
+    },
+    "tfl-status": {
+      "good-service-all": "Buon servizio su tutte le Linee",
+      "good-service-rest": "Buon servizio su tutte le altre Linee"
+    }
+  }
+}		

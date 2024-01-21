@@ -1,0 +1,70 @@
+@import '@/styles/media-queries.scss';
+
+/* Fancy scrollbar */
+.scroll-bar {
+  &::-webkit-scrollbar {
+      width: var(--scroll-bar-width);
+      height: var(--scroll-bar-width);
+  }
+  &::-webkit-scrollbar-track {
+      border-radius: var(--curve-factor);
+      background-color: var(--scroll-bar-background);
+  }
+  &::-webkit-scrollbar-thumb {
+      background: var(--scroll-bar-color);
+      border-radius: var(--curve-factor);
+  }
+}
+
+.svg-button {
+    color: var(--primary);
+    svg {
+        path {
+            fill: var(--settings-text-color);
+        }
+        width: 1rem;
+        height: 1rem;
+        margin: 0.2rem;
+        padding: 0.2rem;
+        text-align: center;
+        background: var(--background);
+        border: 1px solid currentColor;
+        border-radius: var(--curve-factor);
+        cursor: pointer;
+        &:hover, &.selected {
+            background: var(--settings-text-color);
+            path { fill: var(--background); }
+        }
+        &.disabled {
+            opacity: var(--dimming-factor);
+            cursor: not-allowed;
+            &:hover {
+                border: 1px solid currentColor;
+                background: var(--background);
+                path { fill: var(--settings-text-color); }
+            }
+        }
+    }
+}
+
+/* Custom highlight color */
+.highlight {
+    ::selection {
+        background-color: var(--highlight-background);
+        color: var(--highlight-color);
+    }
+    ::-moz-selection, ::-o-selection, ::-ms-selection, ::-webkit-selection {
+        background-color: var(--highlight-background);
+        color: var(--highlight-color);
+  }
+}
+
+/* Single-style helpers */
+.bold { font-weight: bold; }
+.light { font-weight: lighter; }
+.text-left { text-align: left;}
+.text-right { text-align: right;}
+.text-center { text-align: center;}
+.horizontal-center { margin: 0 auto; }
+.border-box { box-sizing: border-box; }
+

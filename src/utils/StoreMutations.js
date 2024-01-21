@@ -1,0 +1,34 @@
+// A list of mutation names
+const KEY_NAMES = [
+  'INITIALIZE_CONFIG',
+  'INITIALIZE_MULTI_PAGE_CONFIG',
+  'SET_CONFIG',
+  'SET_REMOTE_CONFIG',
+  'SET_CURRENT_SUB_PAGE',
+  'SET_MODAL_OPEN',
+  'SET_LANGUAGE',
+  'SET_EDIT_MODE',
+  'SET_ITEM_LAYOUT',
+  'SET_ITEM_SIZE',
+  'SET_THEME',
+  'SET_CUSTOM_COLORS',
+  'USE_MAIN_CONFIG',
+  'UPDATE_ITEM',
+  'SET_PAGE_INFO',
+  'SET_APP_CONFIG',
+  'SET_PAGES',
+  'SET_SECTIONS',
+  'UPDATE_SECTION',
+  'INSERT_SECTION',
+  'REMOVE_SECTION',
+  'COPY_ITEM',
+  'REMOVE_ITEM',
+  'INSERT_ITEM',
+  'UPDATE_CUSTOM_CSS',
+  'CONF_MENU_INDEX',
+];
+
+// Convert array of key names into an object, and export
+const MUTATIONS = {};
+KEY_NAMES.forEach((key) => { MUTATIONS[key] = key; });
+export default MUTATIONS;

@@ -1,0 +1,14 @@
+# Updates multiple issues with a certain tag, with a comment containing a given message
+name: 🎯 Broadcast Message across Issues
+on: 
+  workflow_dispatch:
+    inputs:
+      message: { required: false }
+      labels: { required: false }
+jobs:
+  broadcast:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: jenschelkopf/broadcast-action@master
+      with:
+        token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

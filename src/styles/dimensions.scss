@@ -1,0 +1,34 @@
+
+:root {
+  /* General Variables */
+  --outline-color: none;
+  --curve-factor: 5px; // Border radius for most components
+  --curve-factor-navbar: 16px; // Border radius for header
+  --curve-factor-small: 2px; // Subtle border radius for util components
+  --dimming-factor: 0.7; // Opacity for semi-transparent components
+
+  /* Basic Page Components */
+  --scroll-bar-width: 8px;
+  --header-height: 6.3rem;
+  --footer-height: 128px;
+
+  /* Section & Item dimensions */
+  --item-group-padding: 5px; // Determines width of item-group outline
+  --item-shadow: 1px 1px 2px #130f23;
+  --item-hover-shadow: 1px 2px 4px #373737;
+  --item-icon-transform: drop-shadow(2px 4px 6px var(--transparent-50)) saturate(0.95);
+  --item-icon-transform-hover: drop-shadow(4px 8px 3px var(--transparent-50)) saturate(2);
+  --item-group-shadow: var(--item-shadow);
+  --context-menu-shadow: var(--item-shadow);
+  --section-max-height: 3000px;
+
+  /* Settings and config menu */
+  --settings-container-shadow: none;
+
+  /* Workspace View */
+  --side-bar-width: 3.5rem; // The width of the sidebar
+
+  --tooltip-arrow-size: 6px;
+  --tooltip-width: 250px;
+  --tooltip-padding: 0.2rem;
+}

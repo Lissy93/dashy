@@ -1,0 +1,83 @@
+# Inserts list of contributors and community members into ./docs/credits.md
+# Also generates an SVG showing all contributors, which is embedded into readme
+name: 📊 Generate Contributor Credits
+on:
+  workflow_dispatch: # Manual dispatch
+  schedule:
+    - cron: '0 1 * * 0' # At 01:00 on Sunday.
+jobs:
+  # Job #1 - Generate an embedded SVG asset, showing all contributors
+  generate-contributors:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: bubkoo/contributors-list@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          svgPath: docs/assets/CONTRIBUTORS.svg
+          affiliation: all
+          includeBots: false
+          excludeUsers: BeginCI snyk-bot
+          avatarSize: 96
+          userNameHeight: 20
+          svgWidth: 830
+          commitMessage: ':blue_heart: Updates contributor SVG'
+  # Job #2 - Fetches sponsors and inserts into readme and credits page
+  insert-sponsors:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+      - name: Generate Sponsors in Readme 💖
+        uses: JamesIves/github-sponsors-readme-action@1.0.5
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          file: 'README.md'
+      - name: Generate Sponsors in Credits 💖
+        uses: JamesIves/github-sponsors-readme-action@1.0.5
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          file: 'docs/credits.md'
+  # Job #3 - Update the Credits page
+  insert-credits:
+    runs-on: ubuntu-latest
+    name: Inserts contributors into credits.md
+    steps:
+    - name: Contributer List - Credits Page
+      uses: akhilmhdh/contributors-readme-action@v2.3.6
+      env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+      with:
+        image_size: 80
+        readme_path: docs/credits.md
+        columns_per_row: 6
+        commit_message: ':purple_heart: Updates contributors list'
+        collaborators: all
+        committer_username: liss-bot
+        committer_email: liss-bot@d0h.co
+    - name: Sponsors List - Readme
+      uses: akhilmhdh/contributors-readme-action@v2.2
+      env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+      with:
+        image_size: 80
+        readme_path: README.md
+        columns_per_row: 6
+        commit_message: ':yellow_heart: Updates sponsors table'
+        committer_username: liss-bot
+        committer_email: liss-bot@d0h.co
+
+  make-author-list:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wow-actions/update-authors@v1.1.4
+        with:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          sort: commits
+          bots: true
+          path: .github/AUTHORS.txt
+          commit: ':blue_heart: Makes author list'
+          template: '{{name}} <{{email}}> - {{commits}} commits'

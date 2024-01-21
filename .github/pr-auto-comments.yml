@@ -1,0 +1,135 @@
+comment:
+  on-update: edit
+  header: |
+    Hi {{ prAuthor }}! Thank you for contributing to Dashy! ✨
+  footer: |
+    ---
+    > I'm a bot, and this is an automated comment 🤖
+  snippets:
+    - id: docs-changes
+      files:
+      - docs/**.md
+      body: |
+        When making changes to the documentation, be sure to double check that:
+        - Link and images URLs properly resolve
+        - Your spelling and grammar is correct
+        - Any markdown formatting is valid 
+
+    - id: vue-config
+      files:
+      - vue.config.js
+      body: >
+        You're making changes to the main Vue app config. Please test the app thoroughly,
+        as any misconfigurations here may cause the app to stop functioning.
+
+    - id: server-entry
+      files:
+      - server.js
+      body: >
+        You're making changes to the main server entry point. Please test the app thoroughly,
+        as any misconfigurations here may cause the app to stop functioning.
+
+    - id: dependency-changes
+      files:
+      - yarn.lock
+      body: >
+        When updating dependencies, take a moment to verify that there are not security
+        issues associated with any added or modified packages. If adding a new dependency,
+        ensure that it is totally necessary, and check the packages size is not too large,
+        as this will increase overall bundle size.
+
+    - id: environmental-vars
+      files: [ '.env', '*.env', '.env*' ]
+      body: >
+        You're making changes to the main server entry point. Please test the app thoroughly,
+        as any misconfigurations here may cause the app to stop functioning.
+    
+    - id: license
+      files: [ 'LICENSE', '**/**/LICENSE*' ]
+      body: >
+        Dashy is licensed under MIT. Your modifying the license file, which shouldn't usually
+        need to be changed. Please ensure that you intended to make this update before continuing.
+    
+    - id: cname-file
+      files:
+      - CNAME
+      body: >
+        Are you sure you want to modify the CNAME file? This may stop the documentation
+        website hosted on GitHub pages from working.
+    
+    - id: git-ignore
+      files:
+      - .gitignore
+      body: >
+        When modifying the .gitignore, please do not remove any of the existing paths,
+        as this may cause files and directories to be unintentionally committed to git
+
+    - id: netlify-file
+      files:
+      - netlify.toml
+      body: >
+        Please ensure you've tested the app on Netlify, so that the 1-Click deployment
+        does not break, before merging these changes
+    
+    - id: heroku-ignore
+      files:
+      - Procfile
+      body: >
+        Please ensure you've tested the app on Heroku, so that the 1-Click deployment
+        does not break, before merging these changes
+
+    - id: ignored-dist
+      files:
+      - dist/**/*
+      body: >
+        Please do not commit the built application to git. The contents of the dist
+        directory will be generated after the app is compiled
+
+    - id: ignored-dependencies
+      files:
+      - node_modules/**/*
+      body: >
+        Please do not commit dependencies to git. Node modules will be pulled down
+        when yarn is run, prior to building the app
+    
+    - id: user-themes
+      files:
+      - src/styles/user-defined-themes.scss
+      body: >
+        Please do not commit changes to this file, as it is intended to be overridden with Docker.
+        You can instead add your styles to the color-themes file, or for element-specific styles
+        put it within the appropriate component. Thank you
+
+    - id: code-owners
+      files:
+      - .github/CODEOWNERS
+      body: >
+        Are you adding yourself as a code owner? Please specify the file path as specific
+        as possible, and only assign yourself to files that you created and wish to help
+        maintain (such as a language file, specific feature or widget).
+        If the above is not met, your PR will be declined or modified.
+
+    - id: config-schema
+      files:
+      - src/utils/ConfigSchema.json
+      body: >
+        Don't forget to verify they the config validator script responds correctly to
+        your new attribute.
+
+    - id: showcase
+      files:
+      - docs/showcase.md
+      body: >
+        Thank you for adding your dashboard to the showcase! 🌟
+    
+    - id: translations
+      files:
+      - src/assets/locales/**.json
+      body: >
+        Thank you for contributing to Dashy's translations 💖
+    
+    - id: themes
+      files:
+      - src/styles/color-themes.scss
+      body: >
+        Thank you for contributing to Dashy's themes 🎨

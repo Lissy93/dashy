@@ -1,0 +1,38 @@
+{
+  "name": "Dashy Web",
+  "short_name": "Dashy",
+  "description": "A Dashboard for your Homelab",
+  "scope": "/",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1021",
+  "theme_color": "#4DBA87",
+  "lang": "en-GB",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./web-icons/dashy-pwa_512x512.png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "./web-icons/dashy-pwa_192x192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./web-icons/dashy-pwa_144x144.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "./web-icons/dashy-pwa_96x96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./web-icons/dashy-pwa_72x72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "./web-icons/dashy-pwa_48x48.png",
+      "sizes": "48x48"
+    }
+  ]
+}

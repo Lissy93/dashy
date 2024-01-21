@@ -1,0 +1,145 @@
+# Config file for pull-request-badge. See: https://pullrequestbadge.com/ by @stefanbuck
+# Dynamically inserts status badges into PR description, based on certain conditions
+
+# Show submitting user's username and profile link
+- label: 💕 Submitted by
+  message: $payload.pull_request.user.login
+  color: '#f73ae6'
+  when: $payload.pull_request.author_association !== 'OWNER'
+  url: 'https://github.com/$payload.pull_request.user.login'
+
+# Show a badge indicating the PR category, based on tag
+- label: Type
+  message: ✨ Feature
+  color: '#39b0fd'
+  when: $labels.includes('✨ New Feature')
+- label: Type
+  message: 🐛 Fix
+  color: '#39b0fd'
+  when: $labels.includes('🦋 Bug Fix')
+- label: Type
+  message: 📕 Docs
+  color: '#39b0fd'
+  when: $labels.includes('📕 Docs')
+- label: Type
+  message: 🛠️ Build Changes
+  color: '#39b0fd'
+  when: $labels.includes('🛠️ Build Changes')
+- label: Type
+  message: 🛠️ Build Changes
+  color: '#39b0fd'
+  when: $labels.includes('🛠️ Build Changes')
+- label: Type
+  message: 🚚 Refactor
+  color: '#39b0fd'
+  when: $labels.includes('🚚 Refactor')
+- label: Type
+  message: 💄 Stylistic Changes
+  color: '#39b0fd'
+  when: $labels.includes('💄 Stylistic Changes')
+- label: Type
+  message: 🌟 Showcase Addition
+  color: '#39b0fd'
+  when: $labels.includes('💯 Showcase')
+- label: Type
+  message: 🏗️ Architecture
+  color: '#39b0fd'
+  when: $labels.includes('🏗️ Architectural Changes')
+- label: Type
+  message: 🤖 Auto Submission
+  color: '#39b0fd'
+  when: $labels.includes('🤖 Auto')
+- label: Type
+  message: 🌐 Language Update
+  color: '#39b0fd'
+  when: $labels.includes('🌐 Language')
+
+# Add size label based on very large or tiny PRs
+- label: PR Size
+  message: Extra Large
+  color: '#f9833e'
+  when: '$additions > 1000'
+- label: PR Size
+  message: Large
+  color: '#f4b546'
+  when: '$additions > 500 && $additions < 1000'
+- label: PR Size
+  message: Medium
+  color: '#f3ff59'
+  when: '$additions > 10 && $additions < 500'
+- label: PR Size
+  message: Quick
+  color: '#3eef8b'
+  when: '$additions < 10'
+
+# Show badge indicating PR status
+- label: Status
+  message: ✏️ Draft
+  when: $isDraft
+  color: '#ffa933'
+- label: Status
+  message: 🧱 Work in Progress
+  when: $payload.pull_request.title.includes('WIP')
+  color: '#29e3f4'
+- label: Status
+  message: ✅ Ready
+  color: '#3ef963'
+  when: $labels.includes('🔀 Ready for Merge')
+
+# Show PR number, to destination and from destination
+- label: '#$prNumber'
+  message: '$payload.pull_request.user.login /$payload.pull_request.head.ref → $payload.repository.full_name'
+  color: '#ab5afc'
+  url: 'https://github.com/$slug/tree/$branchName'
+
+# Show total code added minus deleted
+- label: New Code
+  message: 'Commits: $payload.pull_request.commits | Files Changed: $payload.pull_request.changed_files | Additions: $payload.pull_request.additions-$payload.pull_request.deletions'
+  color: '#dddd00'
+  
+# Checks if the required sections are missing
+- label: ⚠️Missing
+  message: Category
+  color: '#f25265'
+  when: $payload.pull_request.body.includes('Category') === false
+- label: ⚠️Missing
+  message: Overview
+  color: '#f25265'
+  when: $payload.pull_request.body.includes('Overview') === false
+- label: ⚠️Missing
+  message: Quality Checklist
+  color: '#f25265'
+  when: $payload.pull_request.body.includes('Code Quality Checklist') === false
+- label: ⚠️Description
+  message: Incomplete
+  color: '#f25265'
+  when: $payload.pull_request.body.length < 25
+- label: ⚠️Missing
+  message: Label
+  color: '#f25265'
+  when: $labels.length == 0
+
+# Show note when task list has unfinished items
+- label: ⚠️Notice
+  message: Unchecked Tasks
+  when: $payload.pull_request.body.includes('- [ ] ')
+  color: '#f25265'
+
+# Show warning, when certain tags are applied
+- label: Warning
+  message: ⛔ Do Not Merge
+  color: '#f25265'
+  when: $labels.includes("⛔ Don't Merge")
+- label: Warning
+  message: 🚫 Merge Conflicts
+  color: '#f25265'
+  when: $labels.includes('🚫 Merge Conflicts')
+- label: Warning
+  message: 🕸️ Inactive
+  color: '#f25265'
+  when: $labels.includes('🕸️ Inactive')
+- label: Warning
+  message: 💀 Spam
+  color: '#f25265'
+  when: $labels.includes('💀 Spam')
+

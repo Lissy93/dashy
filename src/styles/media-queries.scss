@@ -1,0 +1,85 @@
+
+/* Widths in px */
+$very-very-tiny: 400px;
+$tiny: 600px;
+$small: 780px;
+$medium: 1150px;
+$large: 1780px;
+$extra-large: 2800px;
+
+/* Usage @include tablet { ... } */
+
+@mixin very-tiny-phone {
+  @media (max-width: #{$very-very-tiny - 1px}) {
+    @content;
+  }
+}
+
+@mixin phone {
+  @media (max-width: #{$tiny - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tiny}) and (max-width: #{$small - 1px}) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (min-width: #{$small}) and (max-width: #{$medium - 1px}) {
+    @content;
+  }
+}
+
+@mixin monitor {
+  @media (min-width: #{$medium}) and (max-width: #{$large - 1px}) {
+    @content;
+  }
+}
+
+@mixin big-screen {
+  @media (min-width: #{$large}) {
+    @content;
+  }
+}
+
+@mixin phone-up {
+  @media (min-width: #{$tiny}) {
+    @content;
+  }
+}
+@mixin tablet-up {
+  @media (min-width: #{$small}) {
+    @content;
+  }
+}
+@mixin laptop-up {
+  @media (min-width: #{$medium}) {
+    @content;
+  }
+}
+@mixin monitor-up {
+  @media (min-width: #{$large}) {
+    @content;
+  }
+}
+@mixin big-screen-up {
+  @media (min-width: #{$extra-large}) {
+    @content;
+  }
+}
+
+@mixin tablet-down {
+  @media (max-width: #{$small - 1px}) {
+    @content;
+  }
+}
+
+@mixin safari {
+  _::-webkit-full-page-media, _:future, :root .safari_only {
+    @content;
+  }
+}
+

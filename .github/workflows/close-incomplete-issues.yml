@@ -1,0 +1,21 @@
+# Close any issue that does not match any of the issue templates
+name: 🎯 Close Incomplete Issues
+on:
+  issues:
+    types: [opened, edited]
+jobs:
+  auto_close_issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Automatically close issues that don't follow the issue template
+        uses: lucasbento/auto-close-issues@v1.0.2
+        with:
+          github-token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          closed-issues-label: '🙁 Auto-Closed'
+          issue-close-message: |
+            Hello @${issue.user.login} 👋
+            Unfortunately your issue does not follow the format outlined in the template, and has therefore been auto-closed.
+            To ensure that all relevant info is included, please either update or recreate your issue, and complete the sub-headings provided.
+            Thank you :)

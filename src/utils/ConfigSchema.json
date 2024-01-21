@@ -1,0 +1,1094 @@
+{
+  "type": "object",
+  "required": [
+    "sections"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "pages": {
+      "title": "Page List",
+      "type": "array",
+      "description": "List of additional config files to load as extra pages",
+      "items": {
+        "title": "Page",
+        "type": "object",
+        "required": ["name", "path"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Unique page identifier"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string",
+            "description": "The file name, or path. If in public directory, use just `file-name.yml`"
+          },
+          "displayData": {
+            "title": "Display Data",
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Optional meta data for customizing a page",
+            "properties": {
+              "hideForUsers": {
+                "title": "Hide for Users",
+                "type": "array",
+                "description": "Page will be visible to all users, except for those specified in this list",
+                "items": {
+                  "type": "string",
+                  "description": "Username for the user that will not be able to view this page"
+                }
+              },
+              "showForUsers": {
+                "title": "Show for Users",
+                "type": "array",
+                "description": "Page will be hidden from all users, except for those specified in this list",
+                "items": {
+                  "type": "string",
+                  "description": "Username for the user that will have access to this page"
+                }
+              },
+              "hideForGuests": {
+                "title": "Hide for Guests?",
+                "type": "boolean",
+                "default": false,
+                "description": "If set to true, page will be visible for logged in users, but not for guests"
+              },
+              "showForKeycloakUsers": {
+                "title": "Show for select Keycloak groups or roles",
+                "type": "object",
+                "description": "Configure the Keycloak groups or roles that will have access to this page",
+                "additionalProperties": false,
+                "properties": {
+                  "groups": {
+                    "title": "Show for Groups",
+                    "type": "array",
+                    "description": "Page will be hidden from all users except those with one or more of these groups",
+                    "items": {
+                      "type": "string",
+                      "description": "Name of the group that will be able to view this page"
+                    }
+                  },
+                  "roles": {
+                    "title": "Show for Roles",
+                    "type": "array",
+                    "description": "Page will be hidden from all users except those with one or more of these roles",
+                    "items": {
+                      "type": "string",
+                      "description": "Name of the role that will be able to view this page"
+                    }
+                  }
+                }
+              },
+              "hideForKeycloakUsers": {
+                "title": "Hide for select Keycloak groups or roles",
+                "type": "object",
+                "description": "Configure the Keycloak groups or roles that will not have access to this page",
+                "additionalProperties": false,
+                "properties": {
+                  "groups": {
+                    "title": "Hide for Groups",
+                    "type": "array",
+                    "description": "Page will be hidden from users with any of these groups",
+                    "items": {
+                      "type": "string",
+                      "description": "name of the group that will not be able to view this page"
+                    }
+                  },
+                  "roles": {
+                    "title": "Hide for Roles",
+                    "type": "array",
+                    "description": "Page will be hidden from users with any of roles",
+                    "items": {
+                      "type": "string",
+                      "description": "name of the role that will not be able to view this page"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "pageInfo": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "description": "Title and heading for the app"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "description": "Sub-title, displayed in header"
+        },
+        "navLinks": {
+          "type": "array",
+          "maxItems": 6,
+          "title": "Navigation Links",
+          "description": "Quick access links, displayed in header",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "path"
+            ],
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "target": {
+                "title": "Opening Method",
+                "type": "string",
+                "enum": [
+                  "newtab",
+                  "sametab",
+                  "parent",
+                  "top"
+                ],
+                "default": "newtab",
+                "description": "Where / how the item is opened when it's clicked"
+              }
+            }
+          }
+        },
+        "footerText": {
+          "title": "Footer Text",
+          "description": "Content to display within the global page footer",
+          "type": "string"
+        },
+        "logo": {
+          "title": "App Logo",
+          "type": "string",
+          "description": "Path to an optional image asset, to be displayed in the header",
+          "pattern": "^(http|/)(.*?)",
+          "examples": [
+            "/web-icons/dashy-logo.png",
+            "https://i.ibb.co/yhbt6CY/dashy.png"
+          ]
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "additionalProperties": false
+    },
+    "appConfig": {
+      "type": "object",
+      "properties": {
+        "startingView": {
+          "title": "Starting View",
+          "type": "string",
+          "enum": [
+            "default",
+            "minimal",
+            "workspace"
+          ],
+          "default": "default",
+          "description": "Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI"
+        },
+        "defaultOpeningMethod": {
+          "title": "Default Opening Method",
+          "type": "string",
+          "enum": [
+            "newtab",
+            "sametab",
+            "parent",
+            "top",
+            "modal",
+            "workspace",
+            "clipboard"
+          ],
+          "default": "newtab",
+          "description": "The default opening method for items. Only used if no item.target is specified"
+        },
+        "statusCheck": {
+          "title": "Enable Status Checks",
+          "type": "boolean",
+          "default": false,
+          "description": "Displays an online/ offline status for each of your services"
+        },
+        "statusCheckInterval": {
+          "title": "Status Check Interval",
+          "type": "number",
+          "default": 0,
+          "description": "How often to recheck statuses. If set to 0, status will only be checked on page load"
+        },
+        "language": {
+          "title": "Language",
+          "type": "string",
+          "description": "The ISO code of your desired language, must have translations present, check docs for more info"
+        },
+        "theme": {
+          "title": "Theme",
+          "type": "string",
+          "default": "callisto",
+          "description": "A theme to be applied by default on first load",
+          "examples": [
+            "callisto",
+            "thebe",
+            "dracula",
+            "material",
+            "material-dark",
+            "colorful",
+            "nord",
+            "nord-frost",
+            "minimal-dark",
+            "minimal-light",
+            "matrix",
+            "matrix-red",
+            "hacker-girl",
+            "raspberry-jam",
+            "bee",
+            "tiger",
+            "material-original",
+            "material-dark-original",
+            "vaporware",
+            "high-contrast-dark",
+            "high-contrast-light"
+          ]
+        },
+        "backgroundImg": {
+          "title": "Background Image",
+          "type": "string",
+          "description": "A URL to an image asset to be displayed as background"
+        },
+        "faviconApi": {
+          "title": "Favicon API",
+          "type": "string",
+          "enum": [
+            "local",
+            "allesedv",
+            "clearbit",
+            "iconhorse",
+            "faviconkit",
+            "duckduckgo",
+            "yandex",
+            "google",
+            "besticon"
+          ],
+          "default": "allesedv",
+          "description": "Which service to use to resolve favicons. Set to local to do this locally instead"
+        },
+        "defaultIcon": {
+          "title": "Default Icon",
+          "type": "string",
+          "description": "An icon to apply to any items which don't yet have the icon set"
+        },
+        "layout": {
+          "title": "Default Layout",
+          "type": "string",
+          "enum": [
+            "horizontal",
+            "vertical",
+            "auto",
+            "sidebar"
+          ],
+          "default": "auto",
+          "description": "Specifies sections layout orientation on the home screen"
+        },
+        "iconSize": {
+          "title": "Default Icon Size",
+          "type": "string",
+          "enum": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "default": "medium",
+          "description": "The size of each link item / icon"
+        },
+        "colCount": {
+          "title": "Column Count",
+          "type": "number",
+          "minimum": 1,
+          "maximum": 8,
+          "description": "Number of section columns for homepage. Leave blank for column count to be responsively calculated based on screen size"
+        },
+        "routingMode": {
+          "title": "Routing Mode",
+          "type": "string",
+          "enum": [
+            "hash",
+            "history"
+          ],
+          "default": "history",
+          "description": "The Vue routing mode to use, history mode will remove the annoying hash from the URL, but requires some extra config on some systems"
+        },
+        "workspaceLandingUrl": {
+          "title": "Workspace Landing URL",
+          "type": "string",
+          "description": "The URL of an app, service or website to render when the Workspace view is opened"
+        },
+        "enableMultiTasking": {
+          "title": "Enable Multi-Tasking",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, will keep apps opened in the workspace open in the background. Useful for switching between sites, but comes at the cost of performance"
+        },
+        "widgetsAlwaysUseProxy": {
+          "title": "Widgets always use proxy",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, the useProxy option for widgets will always be applied without having to specify it for each widget"
+        },
+        "webSearch": {
+          "title": "Web Search",
+          "type": "object",
+          "description": "Configure options for web search",
+          "additionalProperties": false,
+          "properties": {
+            "disableWebSearch": {
+              "title": "Disable Web Search?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, web search will be disabled all together"
+            },
+            "searchEngine": {
+              "title": "Search Engine",
+              "type": "string",
+              "default": "duckduckgo",
+              "description": "Set your default search engine. Reference provider by key, see docs for all supported search engines, or set to custom to use your own",
+              "examples": [
+                "duckduckgo",
+                "google",
+                "whoogle",
+                "qwant",
+                "startpage",
+                "searx-bar",
+                "searx-info",
+                "ecosia",
+                "metager",
+                "wikipedia",
+                "wolframalpha",
+                "stackoverflow",
+                "bbc",
+                "custom"
+              ]
+            },
+            "customSearchEngine": {
+              "title": "Custom Search Engine",
+              "type": "string",
+              "description": "Set the URL of a self-hosted or custom search engine, including GET query params. You must also set searchEngine: custom"
+            },
+            "openingMethod": {
+              "title": "Search Opening Method",
+              "type": "string",
+              "enum": [
+                "newtab",
+                "sametab",
+                "modal",
+                "workspace"
+              ],
+              "default": "newtab",
+              "description": "Set where you would like search results to open to"
+            },
+            "searchBangs": {
+              "title": "Search Bangs",
+              "type": "object",
+              "additionalProperties": true,
+              "examples": [
+                {
+                  "/r": "reddit",
+                  "!w": "https://whoogle.local/search?q="
+                }
+              ],
+              "description": "A KV-pair of custom search bangs. The key should be the shortcut to type, and the value is the search engine, specified either by key or full URL"
+            }
+          }
+        },
+        "enableFontAwesome": {
+          "title": "Enable Font-Awesome?",
+          "type": "boolean",
+          "default": true,
+          "description": "If true, font-awesome will be loaded, if false they will not be. If left empty, icons will only be loaded if needed"
+        },
+        "enableMaterialDesignIcons": {
+          "title": "Enable Material Design Icons?",
+          "type": "boolean",
+          "default": false,
+          "description": "If true, material-design-icons will be loaded, if false they will not be. If left empty, icons will only be loaded if needed"
+        },
+        "fontAwesomeKey": {
+          "title": "Font-Awesome API Key",
+          "type": "string",
+          "pattern": "^[a-z0-9]{10}$",
+          "description": "API key for font-awesome"
+        },
+        "cssThemes": {
+          "title": "Additional CSS Themes",
+          "type": "array",
+          "description": "Theme names to be added to the dropdown, once added you can then add custom CSS to style your theme",
+          "items": {
+            "type": "string"
+          }
+        },
+        "customColors": {
+          "title": "Custom Colors",
+          "type": "object",
+          "description": "Set a custom color palette for any theme, see docs for more info"
+        },
+        "externalStyleSheet": {
+          "title": "External Stylesheets",
+          "description": "List of URLs of external stylesheets to add to dropdown/ load",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "customCss": {
+          "title": "Custom CSS",
+          "type": "string",
+          "description": "Any custom CSS overides to be applied globally, should be minified"
+        },
+        "hideComponents": {
+          "title": "Hidden Components",
+          "type": "object",
+          "description": "Hide individual parts of the page. If not set, all components are visible by default",
+          "properties": {
+            "hideHeading": {
+              "title": "Hide Heading?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the page heading & subtitle will be hidden"
+            },
+            "hideNav": {
+              "title": "Hide Nav Bar?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the navigation menu will be hidden"
+            },
+            "hideSearch": {
+              "title": "Hide Search Bar?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the search bar will be hidden"
+            },
+            "hideSettings": {
+              "title": "Hide Settings?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the settings buttons will be hidden"
+            },
+            "hideFooter": {
+              "title": "Hide Footer?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, the page footer will be hidden"
+            }
+          }
+        },
+        "auth": {
+          "title": "Authentication",
+          "type": "object",
+          "description": "Settings for enabling authentication",
+          "additionalProperties": false,
+          "properties": {
+            "enableGuestAccess": {
+              "title": "Enable Guest Mode?",
+              "type": "boolean",
+              "default": false,
+              "description": "If set to true, an unauthenticated user will be able to have read-only access to dashboard, without needing to login. Requires auth to be configured."
+            },
+            "users": {
+              "title": "Users",
+              "type": "array",
+              "description": "Usernames and hashed credentials for frontend authentication",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "user",
+                  "hash"
+                ],
+                "properties": {
+                  "user": {
+                    "title": "Username",
+                    "type": "string",
+                    "description": "The username for a user"
+                  },
+                  "hash": {
+                    "title": "Hashed Pass",
+                    "type": "string",
+                    "description": "A SHA-256 hashed password for that user",
+                    "minLength": 64,
+                    "maxLength": 64
+                  },
+                  "type": {
+                    "title": "Privileges",
+                    "type": "string",
+                    "enum": [
+                      "admin",
+                      "normal"
+                    ],
+                    "description": "User type, denoting privilege level, either admin or normal",
+                    "default": "normal"
+                  }
+                }
+              }
+            },
+            "enableKeycloak": {
+              "title": "Enable Keycloak?",
+              "type": "boolean",
+              "default": false,
+              "description": "If set to true, and auth.keycloak is also configured, then Keycloak will be used for app auth"
+            },
+            "keycloak": {
+              "type": "object",
+              "description": "Configuration for Keycloak server",
+              "additionalProperties": false,
+              "required": [
+                "serverUrl",
+                "realm",
+                "clientId"
+              ],
+              "properties": {
+                "serverUrl": {
+                  "title": "Server URL",
+                  "type": "string",
+                  "description": "The URL (or URL/ IP + Port) where your keycloak server is running"
+                },
+                "realm": {
+                  "title": "Realm",
+                  "type": "string",
+                  "description": "The name of the realm (must already be created) that you want to use"
+                },
+                "clientId": {
+                  "title": "Client ID",
+                  "type": "string",
+                  "description": "The Client ID of the client you created for use with Dashy"
+                },
+                "idpHint": {
+                  "title" : "IdP hint",
+                  "type": "string",
+                  "description": "Set to the 'Alias' of an existing Identity Provider in the specified realm to skip the Keycloak login page and redirect straight to the external IdP for authentication"
+                },
+                "legacySupport": {
+                  "title": "Legacy Support",
+                  "type": "boolean",
+                  "description": "If using Keycloak 17 or older, then set this to true"
+                }
+              }
+            }
+          }
+        },
+        "showSplashScreen": {
+          "title": "Show splash screen",
+          "type": "boolean",
+          "default": "false",
+          "description": "If set to true, a loading screen will be shown"
+        },
+        "preventWriteToDisk": {
+          "title": "Prevent saving config to disk",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, users will be prevented from saving config changes to disk through the UI"
+        },
+        "preventLocalSave": {
+          "title": "Prevent saving config to local storage",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, users will be prevented from applying config changes to local storage"
+        },
+        "disableConfiguration": {
+          "title": "Disable all UI Config",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, no users will be able to view or edit the config through the UI"
+        },
+        "disableConfigurationForNonAdmin": {
+          "title": "Disable all UI Config for non admin users.",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, only admin users will be able to view or edit the config through the UI. disableConfiguration must not be set to true."
+        },
+        "allowConfigEdit": {
+          "title": "Allow Config Editing",
+          "type": "boolean",
+          "default": true,
+          "description": "Can user write changes to conf.yml file from the UI. If set to false, preferences are only stored locally"
+        },
+        "enableServiceWorker": {
+          "title": "Enable Service Worker",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, then service workers will be used to cache page contents"
+        },
+        "disableContextMenu": {
+          "title": "Disable Context Menus",
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true, custom right-click context menu will be disabled"
+        },
+        "disableUpdateChecks": {
+          "title": "Disable Update Checks",
+          "type": "boolean",
+          "default": false,
+          "description": "Prevents Dashy from checking for updates"
+        },
+        "disableSmartSort": {
+          "title": "Disable Smart-Sort",
+          "type": "boolean",
+          "default": false,
+          "description": "Prevents the app storing local click count, required for the last-used and most-used sort orders"
+        },
+        "enableErrorReporting": {
+          "title": "Enable Error Reporting",
+          "type": "boolean",
+          "default": false,
+          "description": "Enable anonymous crash reports. This helps bugs be found and fixed, in order to make Dashy more stable. Reporting is off by default, and no data will EVER be collected without your explicit and active concent."
+        },
+        "sentryDsn": {
+          "title": "Custom Sentry DSN",
+          "type": "string",
+          "description": "The DSN to your self-hosted Sentry server, if you need to collect bug reports. Only used if enableErrorReporting is enabled"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sections": {
+      "type": "array",
+      "description": "Array of sections, containing items",
+      "items": {
+        "title": "Items",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "title": "Section Name",
+            "type": "string",
+            "description": "Title/ heading for a section"
+          },
+          "icon": {
+            "title": "Section Icon",
+            "type": "string",
+            "description": "Icon will be displayed next to title"
+          },
+          "displayData": {
+            "title": "Display Data",
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Optional meta data for customizing a section",
+            "properties": {
+              "sortBy": {
+                "title": "Sort By",
+                "type": "string",
+                "enum": [
+                  "default",
+                  "most-used",
+                  "last-used",
+                  "alphabetical",
+                  "reverse-alphabetical",
+                  "random"
+                ],
+                "default": "default",
+                "description": "How to sort items within the section. By default items are displayed in the order in which they are listed in within the config"
+              },
+              "collapsed": {
+                "title": "Is Collapsed?",
+                "type": "boolean",
+                "default": false,
+                "description": "If true, section needs to be clicked to open"
+              },
+              "cutToHeight": {
+                "title": "Cut to Height",
+                "type": "boolean",
+                "default": false,
+                "description": "By default, sections will fill available space. Set this option to true to match section height with content height"
+              },
+              "color": {
+                "title": "Color",
+                "type": "string",
+                "description": "Hex code, or HTML color for section fill"
+              },
+              "customStyles": {
+                "title": "Custom Styles",
+                "type": "string",
+                "description": "CSS overides for section container"
+              },
+              "itemSize": {
+                "title": "Item Size",
+                "type": "string",
+                "enum": [
+                  "small",
+                  "medium",
+                  "large"
+                ],
+                "default": "medium",
+                "description": "Size of items within the section"
+              },
+              "rows": {
+                "title": "Num Rows",
+                "type": "number",
+                "minimum": 1,
+                "maximum": 5,
+                "default": 1,
+                "description": "The amount of space that the section spans vertically"
+              },
+              "cols": {
+                "title": "Num Cols",
+                "type": "number",
+                "minimum": 1,
+                "maximum": 5,
+                "default": 1,
+                "description": "The amount of space that the section spans horizontally"
+              },
+              "sectionLayout": {
+                "title": "Layout Type",
+                "type": "string",
+                "enum": [
+                  "grid",
+                  "auto"
+                ],
+                "default": "auto",
+                "description": "If set to grid, items have uniform width, and itemCount can be set"
+              },
+              "itemCountX": {
+                "title": "Item Count X",
+                "type": "number",
+                "minimum": 1,
+                "maximum": 12,
+                "description": "Number of items per column"
+              },
+              "itemCountY": {
+                "title": "Item Count Y",
+                "type": "number",
+                "minimum": 1,
+                "maximum": 12,
+                "description": "Number of items per row"
+              },
+              "hideForUsers": {
+                "title": "Hide for Users",
+                "type": "array",
+                "description": "Section will be visible to all users, except for those specified in this list",
+                "items": {
+                  "type": "string",
+                  "description": "Username for the user that will not be able to view this section"
+                }
+              },
+              "showForUsers": {
+                "title": "Show for Users",
+                "type": "array",
+                "description": "Section will be hidden from all users, except for those specified in this list",
+                "items": {
+                  "type": "string",
+                  "description": "Username for the user that will have access to this section"
+                }
+              },
+              "hideForGuests": {
+                "title": "Hide for Guests?",
+                "type": "boolean",
+                "default": false,
+                "description": "If set to true, section will be visible for logged in users, but not for guests"
+              },
+              "showForKeycloakUsers": {
+                "title": "Show for select Keycloak groups or roles",
+                "type": "object",
+                "description": "Configure the Keycloak groups or roles that will have access to this section",
+                "additionalProperties": false,
+                "properties": {
+                  "groups": {
+                    "title": "Show for Groups",
+                    "type": "array",
+                    "description": "Section will be hidden from all users except those with one or more of these groups",
+                    "items": {
+                      "type": "string",
+                      "description": "Name of the group that will be able to view this section"
+                    }
+                  },
+                  "roles": {
+                    "title": "Show for Roles",
+                    "type": "array",
+                    "description": "Section will be hidden from all users except those with one or more of these roles",
+                    "items": {
+                      "type": "string",
+                      "description": "Name of the role that will be able to view this section"
+                    }
+                  }
+                }
+              },
+              "hideForKeycloakUsers": {
+                "title": "Hide for select Keycloak groups or roles",
+                "type": "object",
+                "description": "Configure the Keycloak groups or roles that will not have access to this section",
+                "additionalProperties": false,
+                "properties": {
+                  "groups": {
+                    "title": "Hide for Groups",
+                    "type": "array",
+                    "description": "Section will be hidden from users with any of these groups",
+                    "items": {
+                      "type": "string",
+                      "description": "name of the group that will not be able to view this section"
+                    }
+                  },
+                  "roles": {
+                    "title": "Hide for Roles",
+                    "type": "array",
+                    "description": "Section will be hidden from users with any of roles",
+                    "items": {
+                      "type": "string",
+                      "description": "name of the role that will not be able to view this section"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "items": {
+            "title": "Items",
+            "type": "array",
+            "description": "Array of items to display with a section",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "title"
+              ],
+              "properties": {
+                "title": {
+                  "title": "Item Text",
+                  "type": "string",
+                  "description": "Title of the item"
+                },
+                "description": {
+                  "title": "Description",
+                  "type": "string",
+                  "nullable": true,
+                  "description": "Short description, shown on hover or in a tooltip"
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "nullable": true,
+                  "description": "An icon, either as a font-awesome, simple-icon or mdi identifier, emoji, favicon, generative or the URL/ path to a local or remote icon asset"
+                },
+                "url": {
+                  "title": "Service URL",
+                  "type": "string",
+                  "description": "The destination to navigate to when item is clicked, expressed as a valid URL, IP or hostname"
+                },
+                "displayData": {
+                  "title": "Display Data",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "description": "Optional meta data for customizing an item",
+                  "properties": {
+                    "hideForUsers": {
+                      "title": "Hide for Users",
+                      "type": "array",
+                      "description": "Item will be visible to all users, except for those specified in this list",
+                      "items": {
+                        "type": "string",
+                        "description": "Username for the user that will not be able to view this item"
+                      }
+                    },
+                    "showForUsers": {
+                      "title": "Show for Users",
+                      "type": "array",
+                      "description": "Item will be hidden from all users, except for those specified in this list",
+                      "items": {
+                        "type": "string",
+                        "description": "Username for the user that will have access to this item"
+                      }
+                    },
+                    "hideForGuests": {
+                      "title": "Hide for Guests?",
+                      "type": "boolean",
+                      "default": false,
+                      "description": "If set to true, item will be visible for logged in users, but not for guests"
+                    },
+                    "showForKeycloakUsers": {
+                      "title": "Show for select Keycloak groups or roles",
+                      "type": "object",
+                      "description": "Configure the Keycloak groups or roles that will have access to this item",
+                      "additionalProperties": false,
+                      "properties": {
+                        "groups": {
+                          "title": "Show for Groups",
+                          "type": "array",
+                          "description": "Item will be hidden from all users except those with one or more of these groups",
+                          "items": {
+                            "type": "string",
+                            "description": "Name of the group that will be able to view this item"
+                          }
+                        },
+                        "roles": {
+                          "title": "Show for Roles",
+                          "type": "array",
+                          "description": "Item will be hidden from all users except those with one or more of these roles",
+                          "items": {
+                            "type": "string",
+                            "description": "Name of the role that will be able to view this item"
+                          }
+                        }
+                      }
+                    },
+                    "hideForKeycloakUsers": {
+                      "title": "Hide for select Keycloak groups or roles",
+                      "type": "object",
+                      "description": "Configure the Keycloak groups or roles that will not have access to this item",
+                      "additionalProperties": false,
+                      "properties": {
+                        "groups": {
+                          "title": "Hide for Groups",
+                          "type": "array",
+                          "description": "Item will be hidden from users with any of these groups",
+                          "items": {
+                            "type": "string",
+                            "description": "name of the group that will not be able to view this item"
+                          }
+                        },
+                        "roles": {
+                          "title": "Hide for Roles",
+                          "type": "array",
+                          "description": "Item will be hidden from users with any of roles",
+                          "items": {
+                            "type": "string",
+                            "description": "name of the role that will not be able to view this item"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "target": {
+                  "title": "Opening Method",
+                  "type": "string",
+                  "enum": [
+                    "newtab",
+                    "sametab",
+                    "parent",
+                    "top",
+                    "modal",
+                    "workspace",
+                    "clipboard"
+                  ],
+                  "default": "newtab",
+                  "description": "Where / how the item is opened when it's clicked"
+                },
+                "hotkey": {
+                  "title": "Hot Key",
+                  "type": "number",
+                  "description": "A numeric shortcut key, between 0 and 9. Useful for quickly launching frequently used applications"
+                },
+                "tags": {
+                  "title": "Tags",
+                  "type": "array",
+                  "description": "A list of tags for improved search. Separate using a comma",
+                  "maxItems": 12,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "provider": {
+                  "title": "Provider",
+                  "type": "string",
+                  "description": "Provider name, e.g. Microsoft, Nebucasa, DigitalOcean, etc"
+                },
+                "statusCheck": {
+                  "title": "Enable Status Check",
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Whether or not to display online/ offline status for this service. Will override appConfig.statusCheck"
+                },
+                "statusCheckUrl": {
+                  "title": "Status Check URL",
+                  "type": "string",
+                  "description": "Custom status check endpoint for this item. Useful if the default URL doesn't return 200, or if your service has a dedicated status check endpoint"
+                },
+                "statusCheckHeaders": {
+                  "title": "Status Check Headers",
+                  "type": "object",
+                  "description": " Custom headers for status checking, useful if your service requires authorization headers to return a 200"
+                },
+                "statusCheckAllowInsecure": {
+                  "title": "Status Check Disable SSL",
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Allows for running status checks on insecure content/ non-HTTPS apps. Prevents checks failing for non-SSL sites"
+                },
+                "statusCheckAcceptCodes": {
+                  "title": "Status Check - Accepted HTTP Codes",
+                  "type": "string",
+                  "description": "If your service's response code is anything other than 2xx, then you can opt to specify an alternative success code"
+                },
+                "statusCheckMaxRedirects": {
+                  "title": "Status Check - Max Redirects",
+                  "type": "number",
+                  "default": "0",
+                  "description": "If your service redirects to another page, and you would like status checks to follow redirects, then specify the maximum number of redirects here"
+                },
+                "color": {
+                  "title": "Custom Color",
+                  "type": "string",
+                  "description": "A custom fill color of the item, expressed either as hex code or color name"
+                },
+                "id": {
+                  "title": "Item ID",
+                  "type": "string",
+                  "description": "Unique ID for each item. Generated automatically, shouldn't need to be set manually."
+                },
+                "subItems": {
+                  "title": "Sub-Items",
+                  "type": "array",
+                  "description": "List of sub-items",
+                  "items": {
+                    "type": "object",
+                    "properties": {}
+                  }
+                }
+              }
+            }
+          },
+          "widgets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "title": "Widget Type",
+                  "type": "string",
+                  "description": "The type of widget to use, see docs for supported options"
+                },
+                "updateInterval": {
+                  "title": "Update Interval",
+                  "type": "number",
+                  "description": "Specified in seconds. If set, widget data will be re-retched at this interval to display up-to-date data"
+                },
+                "timeout": {
+                  "title": "Timeout",
+                  "type": "number",
+                  "description": "Specified in milliseconds. If set, request will timeout after the specified interval. Defaults to 500/ half a sec"
+                },
+                "useProxy": {
+                  "title": "Use Proxy?",
+                  "type": "boolean",
+                  "description": "If set to true, request will be proxied through the backend. Requires the Node server to be running"
+                },
+                "options": {
+                  "title": "Widget Options",
+                  "type": "object",
+                  "description": "Configuration options for widget. Varies depending on widget type, see docs for all options"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

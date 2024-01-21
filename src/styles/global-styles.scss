@@ -1,0 +1,169 @@
+
+@import '@/styles/style-helpers.scss';
+@import '@/styles/media-queries.scss';
+
+/* Essential global page layout styles */
+html {
+  padding: 0;
+  margin: -3px 0 0 0;
+  transition: all 1s;
+  @extend .scroll-bar;
+  @extend .highlight;
+  box-sizing: border-box;
+  /* Essential body styles */
+  body {
+    background: var(--background);
+    margin: 0;
+    padding: 0;
+  }
+  /* Make links have pointy cursor */
+  input[type=button], button, a {
+    cursor: pointer;
+  }
+}
+
+/* Hide text, and show 'Loading...' while Vue is initializing tags */
+[v-cloak] > * { display:none }
+[v-cloak]::before { content: "loading…" }
+
+/* Overriding styles for the modal component */
+.vm--modal, .dashy-modal {
+  box-shadow: 0 40px 70px -2px hsl(0deg 0% 0% / 60%), 1px 1px 6px var(--primary) !important;
+  min-width: 350px;
+  min-height: 200px;
+  background: var(--background-darker);
+  @include phone {
+    left: 0.5rem !important;
+    right: 0.5rem !important;
+    width: 95% !important;
+    top: 2rem !important;
+  }
+}
+.vm--overlay {
+  background: #00000080;
+}
+
+/* Overiding styles for the global toast component */
+.toast-message {
+  background: var(--toast-background) !important;
+  color: var(--toast-color) !important;
+  border: 1px solid var(--toast-color) !important;
+  border-radius: var(--curve-factor) !important;
+  font-size: 1.25rem !important;
+}
+.toast-error {
+  background: var(--danger) !important;
+  color: var(--white) !important;
+  font-size: 1.25rem !important;
+}
+.toast-success {
+  background: var(--success) !important;
+  color: var(--white) !important;
+  font-size: 1.25rem !important;
+}
+
+/* v-select, dropdown styles */
+.v-select {
+  .vs__dropdown-toggle {
+    border-color: var(--primary);
+    background: var(--background);
+    cursor: pointer;
+    span.vs__selected {
+      color: var(--primary);
+    }
+    .vs__actions svg path { fill: var(--primary); }
+  }
+  ul.vs__dropdown-menu {
+    background: var(--background);
+    border-color: var(--primary);
+    li {
+      color: var(--primary);
+      &:hover {
+        color: var(--background);
+        background: var(--primary);
+      }
+      &.vs__dropdown-option--highlight {
+        color: var(--background);
+        background: var(--primary);
+      }
+    }
+  }
+}
+
+/* Overriding styles for tooltip component */
+.tooltip {
+  display: block;
+  z-index: 5;
+  max-width: var(--tooltip-width);
+  border: none;
+  padding: 0;
+  .tooltip-inner {
+    background: var(--description-tooltip-background);
+    border: 1px solid var(--description-tooltip-color);
+    border-radius: var(--curve-factor-small);
+    color: var(--description-tooltip-color);
+    padding: var(--tooltip-padding);
+    overflow: hidden;
+  }
+  .tooltip-arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: var(--tooltip-arrow-size);
+    border-color: transparent;
+    border-width: var(--tooltip-arrow-size);
+    z-index: 1;
+  }
+  &[x-placement^="top"] {
+    margin-bottom: var(--tooltip-arrow-size);
+    .tooltip-arrow {
+      border-bottom-width: 0;
+      border-top-color: var(--description-tooltip-color);
+      bottom: calc(-1 * var(--tooltip-arrow-size));
+      left: calc(50% - var(--tooltip-arrow-size));
+      margin: 0 var(--tooltip-arrow-size);
+    }
+  }
+  &[x-placement^="bottom"] {
+    margin-top: var(--tooltip-arrow-size);
+    .tooltip-arrow {
+      border-top-width: 0;
+      border-bottom-color: var(--description-tooltip-color);
+      top: calc(-1 * var(--tooltip-arrow-size));
+      left: calc(50% - var(--tooltip-arrow-size));
+      margin: 0 var(--tooltip-arrow-size);
+    }
+  }
+  &[x-placement^="right"] {
+    margin-left: var(--tooltip-arrow-size);
+    .tooltip-arrow {
+      border-left-width: 0;
+      border-right-color: var(--description-tooltip-color);
+      left: calc(-1 * var(--tooltip-arrow-size));
+      top: calc(50% - var(--tooltip-arrow-size));
+      margin: var(--tooltip-arrow-size) 0;
+    }
+  }
+  &[x-placement^="left"] {
+    margin-right: var(--tooltip-arrow-size);
+    .tooltip-arrow {
+      border-right-width: 0;
+      border-left-color: var(--description-tooltip-color);
+      right: calc(-1 * var(--tooltip-arrow-size));
+      top: calc(50% - var(--tooltip-arrow-size));
+      margin: var(--tooltip-arrow-size) 0;
+    }
+  }
+  &[aria-hidden='true'] {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .15s, visibility .15s;
+  }
+  &[aria-hidden='false'] {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .15s;
+  }
+  &.in-modal-tt { z-index: 999; }
+}

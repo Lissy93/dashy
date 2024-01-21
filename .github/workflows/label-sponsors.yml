@@ -1,0 +1,16 @@
+# Adds a label to any issues raised by a sponsor of Lissy93/Dashy
+# In order to allow their request can be prioritized
+name: 🎯 Label sponsors
+on:
+  issues:
+    types: [opened]
+jobs:
+  build:
+    name: is-sponsor-label
+    runs-on: ubuntu-latest
+    steps:
+      - uses: JasonEtco/is-sponsor-label-action@v1
+        with:
+          label: Priority Request - Sponsor 💖
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,318 @@
+{
+  "home": {
+    "no-results": "검색 결과 없음",
+    "no-data": "설정된 데이터 없음",
+    "no-items-section": "아직 표시할 항목이 없습니다"
+  },
+  "search": {
+    "search-label": "검색",
+    "search-placeholder": "검색어를 입력하여 필터링",
+    "clear-search-tooltip": "초기화",
+    "enter-to-search-web": "웹에서 검색하려면 Enter 키를 누르세요"
+  },
+  "login": {
+    "title": "Dashy",
+    "username-label": "사용자 이름",
+    "password-label": "비밀번호",
+    "login-button": "로그인",
+    "remember-me-label": "로그인 상태 유지하기",
+    "remember-me-never": "안함",
+    "remember-me-hour": "4 시간",
+    "remember-me-day": "하루",
+    "remember-me-week": "일주일",
+    "remember-me-long-time": "영원히",
+    "error-missing-username": "사용자 이름 누락",
+    "error-missing-password": "비밀번호 누락",
+    "error-incorrect-username": "계정을 찾을 수 없습니다",
+    "error-incorrect-password": "비밀번호가 틀렸습니다",
+    "success-message": "로그인 중...",
+    "logout-message": "로그아웃",
+    "already-logged-in-title": "로그인 됨",
+    "already-logged-in-text": "이미 로그인되어 있습니다",
+    "proceed-to-dashboard": "대시보드로 이동",
+    "log-out-button": "로그아웃",
+    "proceed-guest-button": "게스트로 계속"
+  },
+  "config": {
+    "main-tab": "메인 메뉴",
+    "view-config-tab": "설정창 보기",
+    "edit-config-tab": "설정 수정",
+    "custom-css-tab": "사용자 지정 스타일",
+    "heading": "설정 옵션",
+    "download-config-button": "현재 설정 다운로드",
+    "edit-config-button": "설정 수정하기",
+    "edit-css-button": "사용자 정의 스타일 수정하기",
+    "cloud-sync-button": "클라우드 동기화 활성화",
+    "edit-cloud-sync-button": "클라우드 동기화 수정",
+    "rebuild-app-button": "애플리케이션 재구축",
+    "change-language-button": "언어 변경",
+    "reset-settings-button": "설정 초기화",
+    "app-info-button": "앱 정보",
+    "backup-note": "변경하기 전에 설정을 백업하는 것이 좋습니다.",
+    "reset-config-msg-l1": "로컬 저장소에서 모든 사용자 설정이 제거되지만 'conf.yml' 파일에는 영향을 미치지 않습니다.",
+    "reset-config-msg-l2": "나중에 사용하려면 먼저 로컬에서 변경한 내용을 백업해야 합니다.",
+    "reset-config-msg-l3": "계속하시겠습니까?",
+    "data-cleared-msg": "데이터 삭제 성공",
+    "actions-label": "동작",
+    "copy-config-label": "설정 복사",
+    "data-copied-msg": "설정이 클립보드에 복사되었습니다.",
+    "reset-config-label": "설정 초기화",
+    "css-save-btn": "변경 사항을 저장",
+    "css-note-label": "노트",
+    "css-note-l1": "변경 사항을 적용하려면 페이지 새로고침이 필요합니다.",
+    "css-note-l2": "스타일 재정의는 로컬에만 저장되므로 CSS 사본을 만드는 것이 좋습니다.",
+    "css-note-l3": "모든 사용자 정의 스타일을 제거하려면 내용을 삭제하고 변경 사항 저장을 누르십시오."
+  },
+  "alternate-views": {
+    "alternate-view-heading": "뷰 전환",
+    "default": "기본",
+    "workspace": "워크스페이스",
+    "minimal": "미니멀"
+  },
+  "settings": {
+    "theme-label": "테마",
+    "layout-label": "레이아웃",
+    "layout-auto": "자동",
+    "layout-horizontal": "수평 배치",
+    "layout-vertical": "수직 배치",
+    "item-size-label": "항목 크기",
+    "item-size-small": "작게",
+    "item-size-medium": "중간",
+    "item-size-large": "크게",
+    "config-launcher-label": "설정",
+    "config-launcher-tooltip": "설정 업데이트",
+    "sign-out-tooltip": "로그아웃",
+    "sign-in-tooltip": "로그인",
+    "sign-in-welcome": "{username}님 환영합니다!"
+  },
+  "updates": {
+    "app-version-note": "Dashy 버전",
+    "up-to-date": "최신 버전",
+    "out-of-date": "업데이트 가능",
+    "unsupported-version-l1": "지원되지 않는 버전의 Dashy를 사용하고 있습니다.",
+    "unsupported-version-l2": "최상의 경험과 최신 보안 패치를 위해 다음 버전으로 업데이트하세요."
+  },
+  "language-switcher": {
+    "title": "애플리케이션 언어 변경",
+    "dropdown-label": "언어 선택",
+    "save-button": "저장",
+    "success-msg": "언어가 업데이트 되었습니다."
+  },
+  "theme-maker": {
+    "title": "테마 설정",
+    "export-button": "시용자 정의 변수 저장",
+    "reset-button": "테마 초기화",
+    "show-all-button": "모든 변수 표시",
+    "change-fonts-button": "글꼴 변경",
+    "save-button": "저장",
+    "cancel-button": "취소",
+    "saved-toast": "{theme} 업데이트 완료",
+    "copied-toast": "클립보드에 복사된 {theme} 테마 데이터",
+    "reset-toast": "C{theme}에 대한 사용자 정의 색상이 제거되었습니다."
+  },
+  "config-editor": {
+    "save-location-label": "저장 위치",
+    "location-local-label": "로컬로 적용",
+    "location-disk-label": "설정 파일에 변경 사항 쓰기",
+    "save-button": "변경 사항 저장",
+    "preview-button": "변경 사항 미리보기",
+    "valid-label": "유효한 설정",
+    "status-success-msg": "작업 완료",
+    "status-fail-msg": "작업 실패",
+    "success-msg-disk": "설정 파일이 디스크에 성공적으로 저장되었습니다.",
+    "success-msg-local": "로컬 변경 사항이 성공적으로 저장되었습니다.",
+    "success-note-l1": "앱이 자동으로 다시 빌드됩니다.",
+    "success-note-l2": "이 작업은 최대 몇 분이 걸릴 수 있습니다.",
+    "success-note-l3": "변경 사항을 적용하려면 페이지를 새로고침해야 합니다.",
+    "error-msg-save-mode": "저장 모드를 선택하세요: 로컬 또는 파일",
+    "error-msg-cannot-save": "설정을 저장하는 동안 오류가 발생했습니다.",
+    "error-msg-bad-json": "JSON 오류, 형식이 잘못되었을 수 있습니다.",
+    "warning-msg-validation": "유효성 검증 경고",
+    "not-admin-note": "관리자로 로그인하지 않았기 때문에 디스크에 변경 사항을 저장할 수 없습니다."
+  },
+  "app-rebuild": {
+    "title": "애플리케이션 다시 빌드",
+    "rebuild-note-l1": "conf.yml 파일에 기록된 변경 사항을 적용하려면 다시 빌드해야 합니다.",
+    "rebuild-note-l2": "이것은 자동으로 수행되어야 하지만 그렇지 않은 경우 여기에서 수동으로 실행할 수 있습니다.",
+    "rebuild-note-l3": "로컬에 저장된 수정 사항에는 필요하지 않습니다..",
+    "rebuild-button": "빌드 시작",
+    "rebuilding-status-1": "빌드중...",
+    "rebuilding-status-2": "이 작업은 최대 몇 분이 걸릴 수 있습니다.",
+    "error-permission": "이 작업을 실행할 권한이 없습니다.",
+    "success-msg": "빌드가 성공적으로 완료되었습니다.",
+    "fail-msg": "빌드 작업 실패",
+    "reload-note": "변경 사항을 적용하려면 페이지를 새로고침해야 합니다.",
+    "reload-button": "페이지 새로고침"
+  },
+  "cloud-sync": {
+    "title": "클라우드 백업 및 복원",
+    "intro-l1": "클라우드 백업 및 복원은 옵션 기능으로 설정을 인터넷에 업로드한 다음 다른 기기나 Dashy 인스턴스에서 복원할 수 있습니다.",
+    "intro-l2": "모든 데이터는 암호를 키로 사용하여 AES로 종단 간 암호화됩니다..",
+    "intro-l3": "자세한 내용은",
+    "backup-title-setup": "백업 생성하기",
+    "backup-title-update": "백업 업데이트",
+    "password-label-setup": "비밀번호 선택",
+    "password-label-update": "비밀번호를 입력하세요",
+    "backup-button-setup": "백업",
+    "backup-button-update": "백업 업데이트",
+    "backup-id-label": "백업 ID",
+    "backup-id-note": "이것은 나중에 백업에서 복원하는 데 사용됩니다. 따라서 비밀번호와 함께 안전한 곳에 보관하세요.",
+    "restore-title": "백업 복원",
+    "restore-id-label": "복원 ID",
+    "restore-password-label": "비밀번호",
+    "restore-button": "복원",
+    "backup-missing-password": "비밀번호 누락",
+    "backup-error-unknown": "요청을 처리할 수 없습니다",
+    "backup-error-password": "잘못된 비밀번호. 비밀번호를 다시 입력하세요.",
+    "backup-success-msg": "성공적으로 완료됨",
+    "restore-success-msg": "설정이 성공적으로 복원되었습니다."
+  },
+  "menu": {
+    "open-section-title": "열기",
+    "sametab": "현재 탭",
+    "newtab": "새로운 탭",
+    "modal": "팝업 모달",
+    "workspace": "작업 공간 보기",
+    "options-section-title": "옵션",
+    "edit-item": "수정",
+    "move-item": "복사 또는 이동",
+    "remove-item": "제거"
+  },
+  "context-menus": {
+    "item": {
+      "open-section-title": "열기",
+      "sametab": "현재 탭",
+      "newtab": "새로운 탭",
+      "modal": "팝업 모달",
+      "workspace": "작업 공간 보기",
+      "clipboard": "클립보드에 복사",
+      "options-section-title": "옵션",
+      "edit-item": "수정",
+      "move-item": "복사 또는 이동",
+      "remove-item": "제거",
+      "copied-toast": "URL이 클립보드에 복사되었습니다."
+    },
+    "section": {
+      "open-section": "섹션 열기",
+      "edit-section": "수정",
+      "expand-collapse": "펼치기 / 접기",
+      "move-section": "이동",
+      "remove-section": "제거"
+    }
+  },
+  "interactive-editor": {
+    "menu": {
+      "start-editing-tooltip": "대화형 편집기 시작",
+      "edit-site-data-subheading": "사이트 데이터 수정",
+      "edit-page-info-btn": "페이지 정보 수정",
+      "edit-page-info-tooltip": "앱 제목, 설명, 탐색 링크, 바닥글 텍스트 등",
+      "edit-app-config-btn": "앱 설정 수정",
+      "edit-app-config-tooltip": "기타 모든 앱 설정 옵션",
+      "edit-pages-btn": "페이지 편집",
+      "edit-pages-tooltip": "보기 추가 또는 제거",
+      "config-save-methods-subheading": "설정 저장 옵션",
+      "save-locally-btn": "로컬에 저장",
+      "save-locally-tooltip": "설정을 브라우저 저장소에 로컬로 저장합니다. 이것은 설정 파일에 영향을 미치지 않지만 변경 사항은 이 장치에만 저장됩니다.",
+      "save-disk-btn": "디스크에 저장",
+      "save-disk-tooltip": "디스크의 conf.yml 파일에 설정을 저장합니다. 백업한 다음 기존 설정을 덮어씁니다.",
+      "export-config-btn": "설정 내보내기",
+      "export-config-tooltip": "파일 또는 클립보드로 새 설정 보기 및 내보내기",
+      "cloud-backup-btn": "클라우드에 백업",
+      "cloud-backup-tooltip": "설정의 암호화된 백업을 클라우드에 저장",
+      "edit-raw-config-btn": "설정 파일 편집",
+      "edit-raw-config-tooltip": "JSON 편집기를 통해 설정 파일 보기 및 수정",
+      "cancel-changes-btn": "편집 취소",
+      "cancel-changes-tooltip": "현재 수정 사항을 재설정하고 편집 모드를 종료합니다. 이것은 저장된 설정에 영향을 주지 않습니다",
+      "edit-mode-name": "편집 모드",
+      "edit-mode-subtitle": "편집 모드에 있습니다.",
+      "edit-mode-description": "설정을 수정하고 결과를 미리 볼 수 있지만 저장할 때까지 변경 사항은 보존되지 않습니다.",
+      "save-stage-btn": "저장",
+      "cancel-stage-btn": "취소",
+      "save-locally-warning": "계속하면 변경 사항이 브라우저에만 저장됩니다. 다른 컴퓨터에서 사용하기 위해 설정 사본을 내보내야 합니다. 계속하시겠습니까?"
+    },
+    "edit-item": {
+      "missing-title-err": "제목은 반드시 입력해야 합니다"
+    },
+    "edit-section": {
+      "edit-section-title": "섹션 편집",
+      "add-section-title": "새 섹션 추가",
+      "edit-tooltip": "편집하려면 클릭하거나 더 많은 옵션을 보려면 마우스 오른쪽 버튼을 클릭하십시오.",
+      "remove-confirm": "이 섹션을 삭제하시겠습니까? 이 작업은 나중에 취소할 수 있습니다."
+    },
+    "edit-app-config": {
+      "warning-msg-title": "변경에 주의가 필요함",
+      "warning-msg-l1": "다음 옵션은 고급 앱 설정을 위한 것입니다.",
+      "warning-msg-l2": "필드에 대해 확실하지 않은 경우 다음을 참조하십시오.",
+      "warning-msg-docs": "도움말",
+      "warning-msg-l3": "의도하지 않은 결과를 피하기 위해."
+    },
+    "export": {
+      "export-title": "설정 내보내기",
+      "copy-clipboard-btn": "클립보드에 복사",
+      "copy-clipboard-tooltip": "모든 앱 설정을 YAML 형식으로 시스템 클립보드에 복사",
+      "download-file-btn": "파일로 다운로드",
+      "download-file-tooltip": "모든 앱 설정을 YAML 파일로 기기에 다운로드합니다.",
+      "view-title": "설정 보기"
+    }
+  },
+  "widgets": {
+    "general": {
+      "loading": "로딩중...",
+      "show-more": "더보기",
+      "show-less": "줄이기",
+      "open-link": "계속 읽기"
+    },
+    "pi-hole": {
+      "status-heading": "상태"
+    },
+    "stat-ping": {
+      "up": "온라인",
+      "down": "오프라인"
+    },
+    "net-data": {
+      "cpu-chart-title": "CPU 히스토리",
+      "mem-chart-title": "메모리 사용량",
+      "mem-breakdown-title": "메모리 고장",
+      "load-chart-title": "시스템 부하"
+    },
+    "glances": {
+      "disk-space-free": "여유",
+      "disk-space-used": "사용중",
+      "disk-mount-point": "마운트 위치",
+      "disk-file-system": "파일 시스템",
+      "disk-io-read": "읽기",
+      "disk-io-write": "쓰기",
+      "system-load-desc": "모든 코어에서 평균을 낸 실행 대기열에서 대기 중인 프로세스 수"
+    },
+    "system-info": {
+      "uptime": "가동 시간"
+    },
+    "flight-data": {
+      "arrivals": "도착",
+      "departures": "출발"
+    },
+    "tfl-status": {
+      "good-service-all": "모든 노선 원활히 운행 중",
+      "good-service-rest": "다른 모든 노선 원활히 운행 중"
+    },
+    "synology-download": {
+      "download": "다운로드",
+      "upload": "업로드",
+      "downloaded": "다운로드됨",
+      "uploaded": "업로드됨",
+      "remaining": "남은 작업",
+      "up": "위로",
+      "down": "아래로"
+    },
+    "gluetun-status": {
+      "vpn-ip": "VPN IP",
+      "country": "국가",
+      "region": "지역",
+      "city": "도시",
+      "post-code": "우편번호",
+      "location": "위경도",
+      "timezone": "타임존",
+      "organization": "조직"
+    }
+  }
+}
