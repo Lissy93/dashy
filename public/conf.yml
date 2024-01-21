@@ -167,7 +167,7 @@ sections:
     url: https://mastodon.social/
   - title: Reddit
     icon: si-reddit
-    url: https://www.reddit.com/
+    url: https://www.reddit.com/r/romania
   - title: HackerNews
     icon: si-ycombinator
     url: https://news.ycombinator.com/
