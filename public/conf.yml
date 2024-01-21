@@ -106,6 +106,12 @@ sections:
     description: Personal storage
     tags: [hosted, personal, storage ]
     hotkey: 9
+  - title: ChatGPT
+    icon: favicon
+    url: https://chat.openai.com/?model=gpt-4
+    description: AI
+    tags: [Generative AI ]
+    hotkey: 10
 
 - name: Dev & Cloud
   icon: far fa-code
