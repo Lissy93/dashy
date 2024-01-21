@@ -184,7 +184,7 @@ sections:
     icon: si-bbc
     url: https://bbc.co.uk/news
   - title: News Romania
-    icon: https://www.w3.org/2000/svg
+    icon: fa fa-newspaper-o
     url: www.digi24.ro
     description: News
     provider: Digi
