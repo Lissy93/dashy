@@ -35,24 +35,18 @@ sections:
       - bitcoin
       - ethereum
   - type: exchange-rates
-    options:- type: crypto-watch-list
     options:
-      currency: EUR
-      sortBy: marketCap
-      assets:
-      - bitcoin
-      - ethereum
-  - type: stock-price-chart  # Ensure correct indentation here
-    options:
-      stock: VOO
-      apiKey: WU6QQXMALBL5ETKJ
       apiKey: 8d2ae271c8b5775f4eb7fe59
       inputCurrency: EUR
       outputCurrencies:
         - RON
         - USD
         - GBP
-      
+  - type: stock-price-chart
+    options:
+      stock: VOO
+      apiKey: WU6QQXMALBL5ETKJ
+
 
 - name: Productivity
   icon: far fa-briefcase
