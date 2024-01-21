@@ -139,9 +139,9 @@ sections:
       url: https://www.typescriptlang.org/docs
       icon: si-typescript
       color: '#3178C6'
-    - title: Svelt
-      url: https://svelte.dev/docs
-      icon: si-svelte
+    - title: Groovy
+      url: https://groovy-lang.org/documentation.html
+      icon: si-groovy
       color: '#FF3E00'
     - title: Go
       url: https://go.dev/doc
