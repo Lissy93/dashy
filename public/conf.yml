@@ -191,11 +191,11 @@ sections:
     url: https://bbc.co.uk/news
   - title: News Romania
     icon: fa fa-newspaper-o
-    url: www.digi24.ro
+    url: https://www.digi24.ro
     description: News
     provider: Digi
     widgets:
-    - type: news-headlines
-      options:
-      apiKey: 1b60uMncJNegPFcc0EY6Fe_VCLjuFSKzhTY3kxkQLS00aZKK
-      country: RO
+      - type: news-headlines
+        options:
+          apiKey: 1b60uMncJNegPFcc0EY6Fe_VCLjuFSKzhTY3kxkQLS00aZKK
+          country: RO
