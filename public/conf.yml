@@ -84,7 +84,7 @@ sections:
     hotkey: 5
   - title: Tasks
     icon: https://i.ibb.co/v4jznK0/todo-list.png
-    url: https://cloud.b4it.ro/index.php/apps/tasks/#/calendars/tasks
+    url: https://cloud.b4it.ro/index.php/apps/deck/#/board/1
     description: Todo list and tasks from CalDAV
     tags: [hosted, personal, caldav, tasks, planning]
     hotkey: 6
@@ -183,8 +183,8 @@ sections:
   - title: News
     icon: si-bbc
     url: https://bbc.co.uk/news
-  - title: Crypto Prices
-    icon: fab fa-bitcoin
-    url: https://www.livecoinwatch.com/
-    description: Real-time crypto prices and read-only portfolio
-    provider: Live Coin Watch
+  - title: News Romania
+    icon: https://www.w3.org/2000/svg
+    url: www.digi24.ro
+    description: News
+    provider: Digi
