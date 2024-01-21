@@ -164,38 +164,38 @@ sections:
 
 - name: Social & News
   icon: far fa-thumbs-up
+  widgets:  # Ensure that the widgets key is used here
+    - type: news-headlines
+      options:
+        apiKey: 1b60uMncJNegPFcc0EY6Fe_VCLjuFSKzhTY3kxkQLS00aZKK
+        country: RO
   items:
-  - title: Discord
-    icon: si-discord
-    url: https://discord.com/channels/
-  - title: Mastodon
-    icon: si-mastodon
-    url: https://mastodon.social/
-  - title: Reddit
-    icon: si-reddit
-    url: https://www.reddit.com/r/romania
-  - title: HackerNews
-    icon: si-ycombinator
-    url: https://news.ycombinator.com/
-  - title: Twitter
-    icon: si-twitter
-    url: https://twitter.com/
-  - title: YouTube
-    icon: si-youtube
-    url: https://youtube.com/
-  - title: Instagram
-    icon: si-instagram
-    url: https://www.instagram.com/
-  - title: News
-    icon: si-bbc
-    url: https://bbc.co.uk/news
-  - title: News Romania
-    icon: fa fa-newspaper-o
-    url: https://www.digi24.ro
-    description: News
-    provider: Digi
-    widgets:
-      - type: news-headlines
-        options:
-          apiKey: 1b60uMncJNegPFcc0EY6Fe_VCLjuFSKzhTY3kxkQLS00aZKK
-          country: RO
+    - title: Discord
+      icon: si-discord
+      url: https://discord.com/channels/
+    - title: Mastodon
+      icon: si-mastodon
+      url: https://mastodon.social/
+    - title: Reddit
+      icon: si-reddit
+      url: https://www.reddit.com/r/romania
+    - title: HackerNews
+      icon: si-ycombinator
+      url: https://news.ycombinator.com/
+    - title: Twitter
+      icon: si-twitter
+      url: https://twitter.com/
+    - title: YouTube
+      icon: si-youtube
+      url: https://youtube.com/
+    - title: Instagram
+      icon: si-instagram
+      url: https://www.instagram.com/
+    - title: News
+      icon: si-bbc
+      url: https://bbc.co.uk/news
+    - title: News Romania
+      icon: fa fa-newspaper-o
+      url: https://www.digi24.ro
+      description: News
+      provider: Digi
