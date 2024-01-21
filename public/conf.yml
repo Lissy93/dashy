@@ -188,7 +188,8 @@ sections:
     url: www.digi24.ro
     description: News
     provider: Digi
-  - type: news-headlines
-    options:
+    widgets:
+    - type: news-headlines
+      options:
       apiKey: 1b60uMncJNegPFcc0EY6Fe_VCLjuFSKzhTY3kxkQLS00aZKK
       country: RO
