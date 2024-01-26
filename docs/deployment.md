@@ -21,6 +21,7 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
   - [Deployment Methods](#deployment-methods)
   - [Deploy with Docker](#deploy-with-docker)
   - [Using Docker Compose](#using-docker-compose)
+  - [Kubernetes](#kubernetes)
   - [Unraid](#unraid)
   - [Synology NAS](#synology-nas)
   - [Build from Source](#build-from-source)
@@ -131,6 +132,12 @@ services:
 You can use a different tag, by for example setting `image: lissy93/dashy:arm64v8`, or pull from GHCR instead by setting `image: ghcr.io/lissy93/dashy`.
 
 If you are building from source, and would like to use one of the [other Dockerfiles](https://github.com/Lissy93/dashy/tree/master/docker), then under `services.dashy` first set `context: .`, then specify the the path to the dockerfile, e.g. `dockerfile: ./docker/Dockerfile-arm32v7`
+
+---
+
+## Kubernetes
+
+@vyrtualsynthese has written a Helm Chart for deploying with Kubernetes, available [here](https://github.com/vyrtualsynthese/selfhosted-helmcharts/tree/main/charts/dashy)
 
 ---
 
