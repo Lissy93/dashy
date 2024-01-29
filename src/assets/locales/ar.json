@@ -1,7 +1,7 @@
 {
   "home": {
     "no-results": "لا نتائج للبحث",
-    "no-data": "لم يتم تكوين بيانات"
+    "no-data": "لا يوجد بيانات"
   },
   "search": {
     "search-label": "بحث",
@@ -33,11 +33,11 @@
   },
   "config": {
     "main-tab": "القائمة الرئيسية",
-    "view-config-tab": "مشاهدة ملف Config",
-    "edit-config-tab": "تحرير التكوين",
+    "view-config-tab": "مشاهده ملف الإعدادات",
+    "edit-config-tab": "تغير ملف الاع",
     "custom-css-tab": "الأنماط المخصصة",
     "heading": "خيارات الإعداد",
-    "download-config-button": "تنزيل Config",
+    "download-config-button": "تنزيل ملف الإعدادات",
     "edit-config-button": "تحرير التكوين",
     "edit-css-button": "تحرير CSS مخصص",
     "cloud-sync-button": "قم بتمكين Cloud Sync",
@@ -84,7 +84,7 @@
     "sign-in-welcome": "مرحبًا {username}!"
   },
   "updates": {
-    "app-version-note": "نسخة متهورة",
+    "app-version-note": "ملاحظة نسخة التطبيق",
     "up-to-date": "حتى الآن",
     "out-of-date": "التحديث متاح",
     "unsupported-version-l1": "أنت تستخدم إصدارًا غير مدعوم من Dashy",
