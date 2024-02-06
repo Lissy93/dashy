@@ -94,7 +94,7 @@ export default {
       }
     },
     processData(data) {
-      this.data = data.data.sort((a, b) => a.vmid > b.vmid);
+      this.data = data.data.sort((a, b) => Number(a.vmid) > Number(b.vmid));
       if (this.hideTemplates) {
         this.data = this.data.filter(item => item.template !== 1);
       }
