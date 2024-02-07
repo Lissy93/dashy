@@ -2128,6 +2128,11 @@ This will show the list of VMs, with a title and a linked fotter, hiding VM temp
       footer_as_link: true
       hide_templates: 1
 ```
+#### Troubleshooting
+- **404 Error in development mode**: The error might disappear in production mode `yarn start`
+- **500 Error in production mode**: Try adding the certificate authority (CA) certificate of your Proxmox host to Node.js. 
+  - Download the Proxmox CA certificate to your Dashy host.
+  - Export environment variable `NODE_EXTRA_CA_CERTS` and set its value to the path of the downloaded CA certificate. Example:  `export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/devlab_ca.pem`
 #### Info
 
 - **CORS**: 🟠 Proxied
