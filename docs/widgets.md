@@ -703,6 +703,8 @@ Display current FX rates in your native currency. Hover over a row to view more 
 
 Counting down to the next day off work? This widget displays upcoming public holidays for your country. Data is fetched from [Enrico](http://kayaposoft.com/enrico/)
 
+Note, config for this widget is case-sensetive (see [#1268](https://github.com/Lissy93/dashy/issues/1268))
+
 <p align="center"><img width="400" src="https://i.ibb.co/VC6fZqn/public-holidays.png" /></p>
 
 #### Options
