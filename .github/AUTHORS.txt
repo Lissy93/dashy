@@ -57,7 +57,6 @@ Smexhy <roman.bartik@icloud.com> - 1 commits
 Stavros Kois <47820033+stavros-k@users.noreply.github.com> - 1 commits
 Steffen Schmidt <service.github@nocer.net> - 1 commits
 Steven Kast <steven.m.kast@gmail.com> - 1 commits
-Tobias <96661824+CrazyWolf13@users.noreply.github.com> - 1 commits
 Xert <xertdev@gmail.com> - 1 commits
 allozavrr <razviyarrr@gmail.com> - 1 commits
 baifengheixi <98794233+baifengheixi@users.noreply.github.com> - 1 commits
@@ -91,6 +90,7 @@ Dan Gilbert <ddg@daentech.co.uk> - 2 commits
 Denis Savosin <dsavosin@at-consulting.ru> - 2 commits
 Ruben Silva <rubensilva945@gmail.com> - 2 commits
 Thomas Dissert <dissertthomas@gmail.com> - 2 commits
+Tobias <96661824+CrazyWolf13@users.noreply.github.com> - 2 commits
 cauterize <cauterize@programmer.net> - 2 commits
 hockeymikey <hockeymikey@hockeymikey.com> - 2 commits
 itsmejoeeey <9375730+itsmejoeeey@users.noreply.github.com> - 2 commits
@@ -146,10 +146,10 @@ Marcell Fülöp <marekful@protonmail.com> - 27 commits
 Alicia Sykes <alicia@futr.ai> - 28 commits
 Lissy93 <gh@d0h.co> - 78 commits
 snyk-bot <snyk-bot@snyk.io> - 83 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 123 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 124 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 217 commits
-Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 224 commits
-liss-bot <liss-bot@d0h.co> - 224 commits
-Alicia Sykes <alicia@omg.lol> - 376 commits
+Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 226 commits
+liss-bot <liss-bot@d0h.co> - 226 commits
+Alicia Sykes <alicia@omg.lol> - 377 commits
 Alicia Sykes <gh@d0h.co> - 440 commits
 Alicia Sykes <sykes.alicia@gmail.com> - 1488 commits
