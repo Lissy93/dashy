@@ -26,7 +26,9 @@ export default {
       if (isSubPag) delete jsonConfig.appConfig;
       // 2. Convert JSON into YAML
       const yamlOptions = {};
-      const yaml = jsYaml.dump(jsonConfig, yamlOptions);
+      const strjsonConfig = JSON.stringify(jsonConfig);
+      const jsonObj = JSON.parse(strjsonConfig);
+      const yaml = jsYaml.dump(jsonObj, yamlOptions);
       // 3. Prepare the request
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
       const endpoint = `${baseUrl}${serviceEndpoints.save}`;
