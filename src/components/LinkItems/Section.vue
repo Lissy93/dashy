@@ -74,8 +74,8 @@
     </div>
     <!-- Modal for opening in modal view -->
     <IframeModal
-      :ref="`iframeModal`"
-      :name="`iframeModal`"
+      :ref="`iframeModal-${groupId}`"
+      :name="`iframeModal-${groupId}`"
       @closed="$emit('itemClicked')"
     />
     <!-- Edit item menu -->
@@ -213,7 +213,7 @@ export default {
   methods: {
     /* Opens the iframe modal */
     triggerModal(url) {
-      this.$refs.iframeModal.show(url);
+      this.$refs[`iframeModal-${this.groupId}`].show(url);
     },
     /* Sorts items alphabetically using the title attribute */
     sortAlphabetically(items) {
