@@ -1,4 +1,4 @@
-/* Dashy: Licensed under MIT, (C) Alicia Sykes 2021 <https://aliciasykes.com> */
+/* Dashy: Licensed under MIT, (C) Alicia Sykes 2024 <https://aliciasykes.com> */
 
 /* Tile filtering utility */
 import ErrorHandler from '@/utils/ErrorHandler';

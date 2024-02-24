@@ -21,4 +21,4 @@ indent_size = 2
 [*.md]
 trim_trailing_whitespace = false
 
-# Licensed under MIT, (C) 2021 Alicia Sykes <https://aliciasykes.com>
+# Licensed under MIT, (C) 2024 Alicia Sykes <https://aliciasykes.com>

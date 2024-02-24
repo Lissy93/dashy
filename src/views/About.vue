@@ -54,7 +54,7 @@
     <section class="license">
       <h2>License</h2>
       <code>
-        Copyright © 2021 Alicia Sykes (https://aliciasykes.com)
+        Copyright © 2024 Alicia Sykes (https://aliciasykes.com)
       </code>
       <br><br>
       <code>
