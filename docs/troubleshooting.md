@@ -49,7 +49,7 @@
 ## Config not saving
 
 Possible Issue 1: Unable to call save endpoint from CDN/static server
-If you're running Dashy on a static host, like Vercel, then there's no server-side code to actually save the config, re: #1465 (this is outlined bit more in the docs)
+If you're running Dashy on a static host, like Vercel, then there's no server-side code to actually save the config. Look here for more information: https://dashy.to/docs/deployment#deploy-to-cloud-service
 
 Possible Issue 2: Unable to save
 In Docker, double check that the file isn't read-only, and that the container actually has permissions to modify it. You shouldn't really be running it as a root user, and I'm not sure if it will work if you do-
