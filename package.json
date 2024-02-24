@@ -30,6 +30,7 @@
     "keycloak-js": "^20.0.3",
     "register-service-worker": "^1.7.2",
     "remedial": "^1.0.8",
+    "rss-parser": "3.13.0",
     "rsup-progress": "^3.2.0",
     "simple-icons": "^7.19.0",
     "v-jsoneditor": "^1.4.5",
@@ -43,8 +44,7 @@
     "vue-select": "^3.20.2",
     "vue-swatches": "^2.1.1",
     "vue-toasted": "^1.1.28",
-    "vuex": "^3.6.2",
-    "rss-parser": "3.13.0"
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@architect/sandbox": "^4.5.2",
