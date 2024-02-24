@@ -7,6 +7,7 @@
 
 ## Contents
 
+- [Config not saving](#config-not-saving)
 - [Refused to Connect in Web Content View](#refused-to-connect-in-modal-or-workspace-view)
 - [404 On Static Hosting](#404-on-static-hosting)
 - [404 from Mobile Home Screen](#404-after-launch-from-mobile-home-screen)
@@ -44,6 +45,18 @@
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
 
 ---
+
+## Config not saving
+
+Possible Issue 1: Unable to call save endpoint from CDN/static server
+If you're running Dashy on a static host, like Vercel, then there's no server-side code to actually save the config, re: #1465 (this is outlined bit more in the docs)
+
+Possible Issue 2: Unable to save
+In Docker, double check that the file isn't read-only, and that the container actually has permissions to modify it. You shouldn't really be running it as a root user, and I'm not sure if it will work if you do-
+
+Possible Issue 3: Saved but not updating
+After saving, the frontend will recompile, which may take a couple seconds (or a bit longer on a Pi or low-powered device). If it doesn't recompile, you can manually trigger a re-build.
+
 
 ## `Refused to Connect` in Modal or Workspace View
 
