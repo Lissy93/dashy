@@ -30,7 +30,7 @@
       <!-- License -->
       <h3>{{ $t('app-info.license') }}</h3>
       {{ $t('app-info.license-under') }} <a href="https://github.com/Lissy93/dashy/blob/master/LICENSE">MIT X11</a>.
-      Copyright <a href="https://aliciasykes.com">Alicia Sykes</a> © 2024.<br>
+      Copyright <a href="https://aliciasykes.com">Alicia Sykes</a> © {{new Date().getFullYear()}}.<br>
       {{ $t('app-info.licence-third-party') }} <a href="https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md">{{ $t('app-info.licence-third-party-link') }}</a>.<br>
       {{ $t('app-info.list-contributors') }} <a href="https://github.com/Lissy93/dashy/blob/master/docs/credits.md">{{ $t('app-info.list-contributors-link') }}</a>.
       <!-- App Version -->
