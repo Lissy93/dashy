@@ -33,6 +33,7 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
     - [Google Cloud Platform](#google-cloud-platform)
     - [Platform.sh](#platformsh)
     - [Render](#render)
+    - [Railway](#railway)
     - [Scalingo](#scalingo)
     - [Play-with-Docker](#play-with-docker)
     - [Surge.sh](#surgesh)
@@ -276,6 +277,16 @@ To deploy Dashy to Render, use the following link
 
 ```text
 https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render
+```
+
+### Railway
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/MtdjAQ?referralCode=app)
+
+[Railway](https://railway.app/) is a Platform as a Service (PaaS) that offers a complete platform for building and delivering programs to the backend of the cloud. You bring your code and Railway does the rest. Railway offers an extremely good developer experience and makes it effortless to deploy apps. Railway offers a free Trial Plan, and paid plans start at $5/month. Railway has 4 server locations: US-west, US-east, EU-west and ASIA-South-East.
+
+```text
+https://railway.app/template/MtdjAQ
 ```
 
 ### Scalingo
