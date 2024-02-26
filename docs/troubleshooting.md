@@ -7,6 +7,7 @@
 
 ## Contents
 
+- [Config not saving](#config-not-saving)
 - [Refused to Connect in Web Content View](#refused-to-connect-in-modal-or-workspace-view)
 - [404 On Static Hosting](#404-on-static-hosting)
 - [404 from Mobile Home Screen](#404-after-launch-from-mobile-home-screen)
@@ -43,6 +44,25 @@
 - [How to make a bug report](#how-to-make-a-bug-report)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
+
+---
+
+## Config not saving
+
+### Possible Issue 1: Unable to call save endpoint from CDN/static server
+If you're running Dashy using a static hosting provider (like Vercel), then there is no Node server, and so the save config action will not work via the UI.
+You'll instead need to copy the YAML after making your changes, and paste that into your `conf.yml` directly. If you've connected Vercel to git, then these changes will take effect automatically, once you commit your changes. 
+Look here for more information: [https://dashy.to/docs/deployment#deploy-to-cloud-service](https://dashy.to/docs/deployment#deploy-to-cloud-service)
+
+If you're running on Netlify, there are some cloud functions which take care of all the server endpoints (like status checking), so these will work as expected.
+
+See also [#1465](https://github.com/Lissy93/dashy/issues/1465)
+
+### Possible Issue 2: Unable to save
+In Docker, double check that the file isn't read-only, and that the container actually has permissions to modify it. You shouldn't really be running it as a root user, and I'm not sure if it will work if you do-
+
+### Possible Issue 3: Saved but not updating
+After saving, the frontend will recompile, which may take a couple seconds (or a bit longer on a Pi or low-powered device). If it doesn't recompile, you can manually trigger a re-build.
 
 ---
 
@@ -549,8 +569,7 @@ For example:
 export NODE_OPTIONS=--openssl-legacy-provider
 ```
 
-For more info, see [webpack/webpack#14532](https://github.com/webpack/webpack/issues/14532) and [nodejs/node#40455](https://github.com/nodejs/node/issues/40455). 
-This occurs because [Node 17+](https://medium.com/the-node-js-collection/node-js-17-is-here-8dba1e14e382) no longer supports MD4 as hash function, we're in the process of upgrading Dashy dependencies to all use SHA1 for hashing bundle IDs.
+This will be fixed once [webpack/webpack#17659](https://github.com/webpack/webpack/pull/17659) is merged.
 
 ---
 

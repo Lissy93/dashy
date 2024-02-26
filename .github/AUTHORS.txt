@@ -23,6 +23,7 @@ FedelloKirfed <fedellokirfed@proton.me> - 1 commits
 FormatToday <616099456@qq.com> - 1 commits
 Garrett Brown <gdbrown09@gmail.com> - 1 commits
 Harald Töpfer <62364169+hubortje@users.noreply.github.com> - 1 commits
+Hendrik Strydom <56320839+FraglyG@users.noreply.github.com> - 1 commits
 Ian Neal <wopr@wopr.tech> - 1 commits
 Iaroslav Dronskii <iaroslav@dronskii.ru> - 1 commits
 Ishan Jain <ishan@jain.se> - 1 commits
@@ -70,6 +71,7 @@ jnach <33467747+jnach@users.noreply.github.com> - 1 commits
 jrobles98 <jose98_21@hotmail.com> - 1 commits
 kxenox <floriandel@msn.com> - 1 commits
 laker j.v <la@laker.gay> - 1 commits
+markxoe <mark@oude-elberink.de> - 1 commits
 pablomalo <paul.gouin50@gmail.com> - 1 commits
 poisonadder7 <github.com@loginz.uk> - 1 commits
 rtm516 <ryantmilner@hotmail.co.uk> - 1 commits
@@ -80,6 +82,7 @@ sur1v <gsuriv@gmail.com> - 1 commits
 tazboyz16 <tazboyz_16@yahoo.com> - 1 commits
 zcq100 <zcq100@gmail.com> - 1 commits
 Ángel Fernández Sánchez <angelfx19@gmail.com> - 1 commits
+Al Saleh <alayham@alayham.com> - 2 commits
 Alejandro Pinar Ruiz <37040888+pinarruiz@users.noreply.github.com> - 2 commits
 Alessandro Del Prete <alessandro.delprete@gmail.com> - 2 commits
 Alexander Mnich <56564725+a-mnich@users.noreply.github.com> - 2 commits
@@ -90,7 +93,6 @@ Dan Gilbert <ddg@daentech.co.uk> - 2 commits
 Denis Savosin <dsavosin@at-consulting.ru> - 2 commits
 Ruben Silva <rubensilva945@gmail.com> - 2 commits
 Thomas Dissert <dissertthomas@gmail.com> - 2 commits
-Tobias <96661824+CrazyWolf13@users.noreply.github.com> - 2 commits
 cauterize <cauterize@programmer.net> - 2 commits
 hockeymikey <hockeymikey@hockeymikey.com> - 2 commits
 itsmejoeeey <9375730+itsmejoeeey@users.noreply.github.com> - 2 commits
@@ -120,19 +122,21 @@ Rémy GRANDIN <remy.gr@ndin.fr> - 4 commits
 Todd E Johnson <todd@toddejohnson.net> - 4 commits
 Totto16 <tobiausgais@gmail.com> - 4 commits
 Walkx <walkxnl@gmail.com> - 4 commits
-dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> - 4 commits
 wozboz <philip@iuno.tech> - 4 commits
 Alberto Caravaca <3170731+albcp@users.noreply.github.com> - 5 commits
 Alicie <gh@d0h.co> - 5 commits
 Benjamin Montgomery <bmontgom@montynet.org> - 5 commits
 Chris Nielsen <nielsen.chris@gmail.com> - 5 commits
 UrekD <urek.denis@gmail.com> - 5 commits
+dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> - 5 commits
 Erik Vroon <erik.vroon22@gmail.com> - 6 commits
 Jammo2k5 <jammo2k5@hotmail.co.uk> - 6 commits
 Leonardo Covarrubias <leos@leocov.com> - 6 commits
 Magnus Sundström <kmvsundstrom@gmail.com> - 6 commits
 kristian <kristianbrasel@gmail.com> - 6 commits
 liss-bot <liss-bot@users.noreply.github.com> - 6 commits
+Tobias <96661824+CrazyWolf13@users.noreply.github.com> - 7 commits
+Tobias <tobias.meier109@gmail.com> - 7 commits
 Josua Blejeru <josua@blejeru.com> - 8 commits
 Kashif Sohail <kashif.ezone@gmail.com> - 9 commits
 Alejandro Pinar Ruiz <alejandropinarruiz@gmail.com> - 14 commits
@@ -146,10 +150,10 @@ Marcell Fülöp <marekful@protonmail.com> - 27 commits
 Alicia Sykes <alicia@futr.ai> - 28 commits
 Lissy93 <gh@d0h.co> - 78 commits
 snyk-bot <snyk-bot@snyk.io> - 83 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 125 commits
-Lissy93 <Lissy93@users.noreply.github.com> - 217 commits
-Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 227 commits
-liss-bot <liss-bot@d0h.co> - 228 commits
-Alicia Sykes <alicia@omg.lol> - 379 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 126 commits
+Lissy93 <Lissy93@users.noreply.github.com> - 219 commits
+Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 229 commits
+liss-bot <liss-bot@d0h.co> - 230 commits
+Alicia Sykes <alicia@omg.lol> - 396 commits
 Alicia Sykes <gh@d0h.co> - 440 commits
 Alicia Sykes <sykes.alicia@gmail.com> - 1488 commits
