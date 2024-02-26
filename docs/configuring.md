@@ -104,9 +104,9 @@ The following file provides a reference of all supported configuration options.
 **`startingView`** | `enum` | _Optional_ | Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI. Can be either `default`, `minimal` or `workspace`. Defaults to `default`
 **`defaultOpeningMethod`** | `enum` | _Optional_ | The default opening method for items, if no `target` is specified for a given item. Can be either `newtab`, `sametab`, `modal`, `workspace`, `clipboard`, `top` or `parent`. Defaults to `newtab`
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping each of your services and display their status as a dot next to each item. This can be overridden by setting `statusCheck` under each item. Defaults to `false`
-**`statusCheckInterval`** | `boolean` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
+**`statusCheckInterval`** | `number` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
 **`webSearch`** | `object` | _Optional_ | Configuration options for the web search feature, set your default search engine, opening method or disable web search. See [`webSearch`](#appconfigwebsearch-optional)
-**`backgroundImg`** | `string` | _Optional_ | Path to an optional full-screen app background image. This can be either remote (http) or local (/). Note that this will slow down initial load
+**`backgroundImg`** | `string` | _Optional_ | Path to an optional full-screen app background image. This can be either remote (http) or local (relative to /app/public/item-icons/ inside the container). Note that this will slow down initial load
 **`enableFontAwesome`** | `boolean` | _Optional_ | If set to `true` font-awesome will be loaded, if set to `false` they will not be. if left blank font-awesome will be enabled only if required by 1 or more icons
 **`enableMaterialDesignIcons`** | `boolean` | _Optional_ | If set to `true` mdi icons will be loaded, if set to `false` they will not be. Where `true` is enabled, if left blank material design icons will be enabled only if required by 1 or more icons
 **`fontAwesomeKey`** | `string` | _Optional_ | If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
@@ -246,7 +246,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-## `section.widget` _(optional)_
+## `section.widgets` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
