@@ -258,6 +258,9 @@ export default {
   overflow: hidden;
   span.text {
     white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
   }
 }
 
