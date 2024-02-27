@@ -24,6 +24,8 @@ export default {
       const isSubPag = !!this.$store.state.currentConfigInfo;
       const jsonConfig = config;
       if (isSubPag) delete jsonConfig.appConfig;
+      jsonConfig.sections = jsonConfig.sections.map(({ filteredItems, ...section }) => section);
+
       // 2. Convert JSON into YAML
       const yamlOptions = {};
       const strjsonConfig = JSON.stringify(jsonConfig);
