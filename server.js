@@ -122,8 +122,10 @@ const app = express()
       res.end(JSON.stringify({ success: false, message: e }));
     }
   })
-  // GET fallback endpoint
-  .get('*', (req, res) => res.sendFile(path.join(__dirname, 'dist', 'index.html')));
+  // If no other route is matched, serve up the index.html with a 404 status
+  .use((req, res) => {
+    res.status(404).sendFile(path.join(__dirname, 'dist', 'index.html'));
+  });
 
 /* Create HTTP server from app on port, and print welcome message */
 http.createServer(app)
