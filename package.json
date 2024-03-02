@@ -5,7 +5,7 @@
   "main": "server",
   "author": "Alicia Sykes <alicia@omg.lol> (https://aliciasykes.com)",
   "scripts": {
-    "start": "node server",
+    "start": "npm-run-all --parallel build-watch start",
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
@@ -14,7 +14,8 @@
     "build-and-start": "npm-run-all --parallel build-watch start",
     "validate-config": "node services/config-validator",
     "health-check": "node services/healthcheck",
-    "dependency-audit": "npx improved-yarn-audit --ignore-dev-deps"
+    "dependency-audit": "npx improved-yarn-audit --ignore-dev-deps",
+    "static-start": " node server"
   },
   "dependencies": {
     "@babel/core": "^7.0.0",
