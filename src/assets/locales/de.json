@@ -1,20 +1,21 @@
 {
-    "home":
-    {
+    "home": {
         "no-results": "keine Suchergebnisse",
         "no-data": "keine Daten konfiguriert",
         "no-items-section": "Noch keine Elemente zum Anzeigen"
     },
-    "search":
-    {
+    "search": {
         "search-label": "Suche",
-        "search-placeholder": "Tippen um zu filtern",
+        "search-placeholder": "Tippe um zu filtern",
         "clear-search-tooltip": "Suchfeld leeren",
         "enter-to-search-web": "Drücke Enter um das Internet zu durchsuchen"
     },
-    "login":
-    {
+  "splash-screen": {
+    "loading": "Lädt"
+  },
+    "login": {
         "title": "Dashy",
+        "guest-label": "Gastzugriff",
         "username-label": "Benutzername",
         "password-label": "Passwort",
         "login-button": "Anmelden",
@@ -34,10 +35,47 @@
         "already-logged-in-text": "Angemeldet als",
         "proceed-to-dashboard": "Zum Dashboard fortfahren",
         "log-out-button": "Abmelden",
-        "proceed-guest-button": "Als Gast fortfahren"
+        "proceed-guest-button": "Als Gast fortfahren",
+    "guest-intro-1": "Diese Instanz hat Gastzugriffe aktiviert",
+    "guest-intro-2": "Gäste haben lesenden Zugriff auf Dashboards, können also keine Veränderungen auf die Festplatte schreiben.",
+    "error": "Error",
+    "error-no-user-configured": "Authentifizierung ist nicht aktiviert, oder es sind keine Benutzer konfiguriert",
+    "error-go-home-button": "Geh nach Hause",
+    "logged-in-guest": "Als Gast eingeloggt, Umleitung...",
+    "error-guest-access": "Gastzugriff nicht erlaubt"
     },
-    "config":
-    {
+  "app-info": {
+    "title": "App Info",
+    "error-log": "Fehlerprotokoll",
+    "no-errors": "Keine kürzlichen Fehler erkannt",
+    "help-support": "Hilfe & Support",
+    "help-support-description" : "Um beim Betrieb oder der Konfiguration von Dashy Hilfe zu bekommen, siehe die",
+    "help-support-discussions": "Diskussionen",
+    "support-dashy": "Dashy unterstützen",
+    "support-dashy-description": "Für Wege, sich zu beteiligen, besuchen Sie die",
+    "support-dashy-link": "Contributions Seite",
+    "report-bug": "Melde einen Fehler",
+    "report-bug-description": "Wenn Sie glauben, einen Fehler gefunden zu haben, dann bitte",
+    "report-bug-link": "öffne ein Issue",
+    "more-info": "Mehr Informationen",
+    "source": "Quellcode",
+    "documentation": "Dokumentation",
+    "privacy-and-security": "Datenschutz & Sicherheit",
+    "privacy-and-security-l1": "Für eine Übersicht, wie Dashy mit Ihren Daten umgeht, siehe die",
+    "privacy-and-security-privacy-policy": "Datenschutzerklärung",
+    "privacy-and-security-advice": "Für Anleitung, um Ihr Dashboard zu sichern, konsultieren Sie die",
+    "privacy-and-security-advice-link": "Management Dokumentation",
+    "privacy-and-security-security-issue": "Wenn Sie glauben, eine mögliche Sicherheitslücke gefunden zu haben, melde sie wie beschrieben in unserer",
+    "privacy-and-security-security-policy": "Security Policy",
+    "license": "Lizenz",
+    "license-under": "Lizensiert unter",
+    "licence-third-party": "Für Lizenzen von Drittanbietermodulen, siehe",
+    "licence-third-party-link": "Legal",
+    "list-contributors": "Für eine vollstandige Liste aller Beteiligten und Dank, siehe",
+    "list-contributors-link": "Credits", 
+    "version": "Version"
+  },
+    "config": {
         "main-tab": "Hauptmenü",
         "view-config-tab": "Konfiguration",
         "edit-config-tab": "Konfiguration bearbeiten",
@@ -51,6 +89,8 @@
         "rebuild-app-button": "Anwendung neu kompilieren",
         "change-language-button": "App-Sprache ändern",
         "reset-settings-button": "lokale Einstellungen zurücksetzen",
+    "disabled-note": "Einige Konfigurationsoptionen wurden vom Administrator deaktivert",
+    "small-screen-note": "Sie benutzen einen sehr kleinen Bildschirm. Einige Seiten in diesem Menü sind dafür möglicherweise nicht ideal.",
         "app-info-button": "App Informationen",
         "backup-note": "Es wird empfohlen ein Backup der Konfiguration zu erstellen bevor Änderungen durchgeführt werden.",
         "reset-config-msg-l1": "Dadurch werden alle Benutzereinstellungen aus dem lokalen Speicher entfernt, dies hat jedoch keine Auswirkungen auf Ihre Datei 'conf.yml'.",
@@ -65,7 +105,11 @@
         "css-note-label": "Bemerkung",
         "css-note-l1": "Sie müssen die Seite aktualisieren, damit Ihre Änderungen wirksam werden.",
         "css-note-l2": "Stilüberschreibungen werden nur lokal gespeichert, daher wird empfohlen vorher eine Kopie Ihres CSS zu erstellen.",
-        "css-note-l3": "Um alle benutzerdefinierten Stile zu entfernen löschen Sie den Inhalt und klicken Sie auf Änderungen speichern."
+        "css-note-l3": "Um alle benutzerdefinierten Stile zu entfernen löschen Sie den Inhalt und klicken Sie auf Änderungen speichern.",
+    "custom-css": {
+      "title": "Eigenes CSS",
+      "base-theme": "Basisdesign"
+    }
     },
     "alternate-views": {
         "alternate-view-heading": "Ansicht wechseln",
@@ -73,8 +117,7 @@
         "workspace": "Arbeitsplatz",
         "minimal": "Minimal"
     },
-    "settings":
-    {
+    "settings": {
         "theme-label": "Design",
         "layout-label": "Layout",
         "layout-auto": "Auto",
@@ -88,25 +131,24 @@
         "config-launcher-tooltip": "Konfiguration aktualisieren",
         "sign-out-tooltip": "Abmelden",
         "sign-in-tooltip": "Anmelden",
-        "sign-in-welcome": "Hallo {username}!"
+        "sign-in-welcome": "Hallo {username}!",
+    "hide": "Verstecke",
+    "open": "Öffne"
     },
-    "updates":
-    {
+    "updates": {
         "app-version-note": "Dashy Version",
         "up-to-date": "Aktuell",
         "out-of-date": "Update verfügbar",
         "unsupported-version-l1": "Sie verwenden eine nicht unterstützte Version von Dashy",
         "unsupported-version-l2": "Für die beste Erfahrung und aktuelle Sicherheitspatches aktualisieren Sie bitte auf"
     },
-    "language-switcher":
-    {
+    "language-switcher": {
         "title": "Applikationssprache ändern",
         "dropdown-label": "Sprache auswählen",
         "save-button": "Speichern",
         "success-msg": "Sprache geändert auf"
     },
-    "theme-maker":
-    {
+    "theme-maker": {
         "title": "Design Konfigurator",
         "export-button": "Benutzerdefinierte Variablen exportieren",
         "reset-button": "CSS zurücksetzen für",
@@ -118,8 +160,7 @@
         "copied-toast": "Designdaten für {theme} wurden in die Zwischenablage kopiert.",
         "reset-toast": "Benutzerdefinierte Farben für {theme} wurden entfernt"
     },
-    "config-editor":
-    {
+    "config-editor": {
         "save-location-label": "Speicherort",
         "location-local-label": "Lokal anwenden",
         "location-disk-label": "Änderungen in die Konfigurationsdatei schreiben",
@@ -139,13 +180,12 @@
         "warning-msg-validation": "Validierungswarnung",
         "not-admin-note": "Änderungen können nicht auf die Festplatte gespeichert werden, da Sie nicht als Administrator angemeldet sind"
     },
-    "app-rebuild":
-    {
-        "title": "Applikation re-kompilieren",
-        "rebuild-note-l1": "Damit die in die Datei conf.yml geschriebenen Änderungen wirksam werden ist ein re-kompilieren erforderlich.",
+    "app-rebuild": {
+        "title": "Applikation neu kompilieren",
+        "rebuild-note-l1": "Damit die in die Datei conf.yml geschriebenen Änderungen wirksam werden ist ein Neukompilieren erforderlich.",
         "rebuild-note-l2": "Dies sollte automatisch passieren, aber falls nicht können Sie es hier manuell starten.",
         "rebuild-note-l3": "Dies ist bei lokal gespeicherten Änderungen nicht erforderlich.",
-        "rebuild-button": "Start Kompilierung",
+        "rebuild-button": "Starte Kompilierung",
         "rebuilding-status-1": "Baue...",
         "rebuilding-status-2": "Das kann ein paar Minuten dauern",
         "error-permission": "Sie sind nicht berechtigt diese Aktion auszulösen",
@@ -154,12 +194,12 @@
         "reload-note": "Ein neu Laden der Seite ist erforderlich, damit die Änderungen wirksam werden.",
         "reload-button": "Seite neu laden"
     },
-    "cloud-sync":
-    {
+    "cloud-sync": {
         "title": "Cloud Backup & Wiederherstellung",
         "intro-l1": "Cloud-Backup und Wiederherstellung ist eine optionale Funktion mit der Sie Ihre Konfiguration in das Internet hochladen und dann auf einem anderen Gerät oder einer anderen Dashy-Instanz wiederherstellen können.",
         "intro-l2": "Alle Daten sind vollständig Ende-zu-Ende mit AES verschlüsselt. Ihr Passwort wird als Schlüssel verwendet.",
-        "intro-l3": "Weitere Informationen finden Sie im",
+        "intro-l3": "Weitere Informationen finden Sie in der",
+    "intro-docs": "Dokumentation",
         "backup-title-setup": "Backup erstellen",
         "backup-title-update": "Backup aktualisieren",
         "password-label-setup": "Passwort auswählen",
@@ -172,14 +212,14 @@
         "restore-id-label": "ID wiederherstellen",
         "restore-password-label": "Passwort",
         "restore-button": "Wiederherstellen",
+    "backup-missing-password": "Passwort fehlt",
         "backup-error-unknown": "Anfrage kann nicht verarbeitet werden",
         "backup-error-password": "Falsches Passwort. Bitte geben Sie Ihr aktuelles Passwort ein.",
         "backup-success-msg": "Erfolgreich abgeschlossen",
         "restore-success-msg": "Konfiguration erfolgreich wiederhergestellt"
     },
-    "menu":
-    {
-        "open-section-title": "Öffnen in",
+    "menu": {
+        "open-section-title": "Öffne in",
         "sametab": "Aktueller Tab",
         "newtab": "Neuer Tab",
         "modal": "Popup Modal",
@@ -189,10 +229,8 @@
         "move-item": "Kopieren oder Verschieben",
         "remove-item": "Entfernen"
     },
-    "context-menus":
-    {
-        "item":
-        {
+    "context-menus": {
+        "item": {
             "open-section-title": "Öffnen in",
             "sametab": "Aktueller Tab",
             "newtab": "Neuer Tab",
@@ -205,8 +243,7 @@
             "remove-item": "Entfernen",
             "copied-toast": "URL wurde in die Zwischenablage kopiert"
         },
-        "section":
-        {
+        "section": {
             "open-section": "Sektion öffnen",
             "edit-section": "Bearbeiten",
             "expand-collapse": "Aus- / Einklappen",
@@ -214,10 +251,14 @@
             "remove-section": "Entfernen"
         }
     },
-    "interactive-editor":
-    {
-        "menu":
-        {
+  "footer": {
+    "dev-by": "Entwickelt von",
+    "licensed-under": "Lizensiert unter",
+    "get-the": "Hole dir den",
+    "source-code": "Quellcode"
+  },
+    "interactive-editor": {
+        "menu": {
             "start-editing-tooltip": "Interaktiven Editor starten",
             "edit-site-data-subheading": "Seiteninformationen bearbeiten",
             "edit-page-info-btn": "Seiteninformationen bearbeiten",
@@ -246,27 +287,23 @@
             "cancel-stage-btn": "Abbrechen",
             "save-locally-warning": "Wenn Sie fortfahren werden die Änderungen nur in Ihrem Browser gespeichert. Um die Konfiguration auf anderen Geräten zu nutzen sollten Sie sie exportieren. Möchten Sie fortfahren?"
         },
-        "edit-item":
-        {
+        "edit-item": {
             "missing-title-err": "Ein Titel is zwingend notwendig"
         },
-        "edit-section":
-        {
+        "edit-section": {
             "edit-section-title": "Sektion bearbeiten",
             "add-section-title": "Neue Sektion hinzufügen",
             "edit-tooltip": "Klicken zum Bearbeiten oder Rechtsklick für weitere Optionen",
             "remove-confirm": "Sind Sie sicher, dass sie diese Sektion entfernen möchten? Diese Aktion kann nicht rückgänging gemacht werden."
         },
-        "edit-app-config":
-        {
+        "edit-app-config": {
             "warning-msg-title": "Ab hier ist Vorsicht geboten",
             "warning-msg-l1": "Die folgenden Optionen sind für fortgeschrittene Konfigurationen.",
             "warning-msg-l2": "Sollten Felder unklar sein, konsultieren Sie die",
             "warning-msg-docs": "Dokumentation",
             "warning-msg-l3": "um unbeabsichtigte Folgen zu vermeiden."
         },
-        "export":
-        {
+        "export": {
             "export-title": "Konfiguration exportieren",
             "copy-clipboard-btn": "In Zwischenablage kopieren",
             "copy-clipboard-tooltip": "Applikationskonfiguration als YAML in Zwischenablage kopieren",
@@ -275,57 +312,49 @@
             "view-title": "Konfiguration anzeigen"
         }
     },
-    "widgets":
-    {
-        "general":
-        {
+    "widgets": {
+        "general": {
             "loading": "Lade...",
             "show-more": "Details",
+      "cpu-details": "Details CPU",
+      "mem-details": "Details Arbeitsspeicher",
             "show-less": "Weniger anzeigen",
             "open-link": "Weiterlesen"
         },
-        "pi-hole":
-        {
+        "pi-hole": {
             "status-heading": "Status"
         },
-        "stat-ping":
-        {
+        "stat-ping": {
             "up": "Online",
             "down": "Offline"
         },
-        "net-data":
-        {
+        "net-data": {
             "cpu-chart-title": "CPU Historie",
             "mem-chart-title": "Speichernutzung",
             "mem-breakdown-title": "Speichernutzung",
             "load-chart-title": "Systemlast"
         },
-        "glances":
-        {
+        "glances": {
             "disk-space-free": "Frei",
             "disk-space-used": "Genutzt",
-            "disk-mount-point": "Mount Punkt",
+            "disk-mount-point": "Mountpunkt",
             "disk-file-system": "Dateisystem,",
             "disk-io-read": "Lesen",
             "disk-io-write": "Schreiben",
-            "system-load-desc": "Prozesse in Warteschlange. (Durchschnitt aller Kerne)"
+            "system-load-desc": "Prozesse in der Warteschlange, Durchschnitt aller Kerne"
         },
-        "system-info":
-        {
+        "system-info": {
             "uptime": "Uptime"
         },
-        "flight-data":
-        {
+        "flight-data": {
             "arrivals": "Ankünfte",
             "departures": "Abflüge"
         },
-        "tfl-status":
-        {
+        "tfl-status": {
             "good-service-all": "Guter Service auf allen Leitungen",
             "good-service-rest": "Guter Service auf allen anderen Leitungen"
         },
-        "synology-download":
-        {
+        "synology-download": {
             "download": "Download",
             "upload": "Upload",
             "downloaded": "Heruntergeladen",
@@ -334,8 +363,7 @@
             "up": "Hoch",
             "down": "Runter"
         },
-        "gluetun-status": 
-        {
+        "gluetun-status": {
             "vpn-ip": "VPN IP",
             "country": "Land",
             "region": "Bundesland",
@@ -345,8 +373,7 @@
             "timezone": "Zeitzone",
             "organization": "Organisation"
         },
-        "nextcloud":
-        {
+        "nextcloud": {
             "active": "Aktiv",
             "and": "und",
             "applications": "Anwendungen",
@@ -356,61 +383,61 @@
             "chat-room": "Chatraum",
             "delete-all": "Alle löschen",
             "delete-notification": "Benachrichtigung löschen",
-            "disabled": "Deaktivert",
+            "disabled": "deaktivert",
             "disk-quota": "Disk Quota",
             "disk-space": "Disk Speicherplatz",
             "dnd": "Nicht stören",
-            "email": "EMail",
-            "enabled": "Aktiviert",
-            "federated-shares-ucfirst": "Verbundsfreigaben",
-            "federated-shares": "Verbundsfreigaben",
-            "files": "Dateien{plural}",
-            "free": "Frei",
+            "email": "E-Mail",
+            "enabled": "aktiviert",
+            "federated-shares-ucfirst": "Föderierte Freigaben",
+            "federated-shares": "föderierte Freigaben",
+            "files": "Dateien",
+            "free": "frei",
             "groups": "Gruppen",
             "hit-rate": "Trefferrate",
             "hits": "Treffer",
             "home": "Zuhause",
             "in": "in",
             "keys": "Schlüssel",
-            "last-24-hours": "Letzte 24 Stunden",
+            "last-24-hours": "letzte 24 Stunden",
             "last-5-minutes": "in den letzten 5 Minuten",
             "last-hour": "in der letzten Stunde",
             "last-login": "Letzte Anmeldung",
             "last-restart": "Letzter Neustart",
             "load-averages": "Systemlast aller CPU-Kerne",
             "local-shares": "Lokale Freigaben",
-            "local": "Lokal",
+            "local": "lokal",
             "max-keys": "Maximale Schlüssel",
-            "memory-used": "Speuchernutzung",
-            "memory-utilisation": "Speuchernutzung",
+            "memory-used": "Speichernutzung",
+            "memory-utilisation": "Speichernutzung",
             "memory": "Speicher",
             "misses": "Fehlschläge",
             "no-notifications": "Keine Benachrichtigungen",
-            "no-pending-updates": "Keine ausstehenden Aktualisierungen",
+            "no-pending-updates": "keine ausstehenden Aktualisierungen",
             "nothing-to-show": "Momentan gibt es hier nichts zu zeigen",
             "of-which": "welche",
             "of": "von",
             "offline": "Offline",
             "online": "Online",
-            "other": "Andere",
+            "other": "andere",
             "overall": "Insgesamt",
             "private-link": "privater Link",
             "public-link": "öffentlicher Link",
             "quota-enabled": "Disk Quota ist {nicht}aktiviert für diesen Benutzer",
-            "received": "Empfangen",
+            "received": "empfangen",
             "scripts": "Skripte",
-            "sent": "Gesendet",
-            "started": "Gestartet",
+            "sent": "gesendet",
+            "started": "gestartet",
             "storages-by-type": "Speicher nach Typ",
-            "storages": "Speicher{plural}",
+            "storages": "Speicher",
             "strings-use": "Strings benutzen",
             "tasks": "Aufgaben",
             "total-files": "Dateien gesamt",
             "total-users": "Benutzer gesamt",
-            "total": "Insgesamt",
+            "total": "insgesamt",
             "until": "Bis",
             "updates-available-for": "Aktualisierungen sind verfügbar für",
-            "updates-available": "Aktualisierungen{plural} verfügbar",
+            "updates-available": "Aktualisierungen verfügbar",
             "used": "benutzt",
             "user": "Benutzer",
             "using": "nutzt",
