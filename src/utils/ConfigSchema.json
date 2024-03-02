@@ -1091,6 +1091,11 @@
                 }
               }
             }
+          },
+          "filteredItems": {
+            "title": "Filtered Items - temp",
+            "type": "array",
+            "description": "This attribute will be deprecated in the next release - do not use!"
           }
         }
       }
