@@ -2,6 +2,7 @@
 5idereal <nelson22768384@gmail.com> - 1 commits
 Alberto <3170731+albcp@users.noreply.github.com> - 1 commits
 Alicia <liss-bot@d0h.co> - 1 commits
+Aly Mohamed <alydemah@gmail.com> - 1 commits
 Artyom <32810520+AaronPorts@users.noreply.github.com> - 1 commits
 BRAVO68WEB <jbandyopadhayaya@gmail.com> - 1 commits
 Begin <support@begin.com> - 1 commits
@@ -9,6 +10,8 @@ Bhasher <github.it@bhasher.com> - 1 commits
 Bjorn Lammers <walkxnl@gmail.com> - 1 commits
 Bumsoo Kim <bskim45@gmail.com> - 1 commits
 BySempron <barquin_rkz@hotmail.com> - 1 commits
+Celestial.y <celestial.y@outlook.com> - 1 commits
+CrazyWolf13 <CrazyWolf13@users.noreply.github.com> - 1 commits
 David <skaarj1989@gmail.com> - 1 commits
 Dawid Pietrykowski <d.pietrykowski16@gmail.com> - 1 commits
 DeepSource Bot <bot@deepsource.io> - 1 commits
@@ -92,6 +95,7 @@ CHAIYEON CHO <stoutcho21@gmail.com> - 2 commits
 Dan Gilbert <ddg@daentech.co.uk> - 2 commits
 Denis Savosin <dsavosin@at-consulting.ru> - 2 commits
 Ruben Silva <rubensilva945@gmail.com> - 2 commits
+Tammes Burghard <kde@kuchenmampfer.de> - 2 commits
 Thomas Dissert <dissertthomas@gmail.com> - 2 commits
 cauterize <cauterize@programmer.net> - 2 commits
 hockeymikey <hockeymikey@hockeymikey.com> - 2 commits
@@ -135,9 +139,9 @@ Leonardo Covarrubias <leos@leocov.com> - 6 commits
 Magnus Sundström <kmvsundstrom@gmail.com> - 6 commits
 kristian <kristianbrasel@gmail.com> - 6 commits
 liss-bot <liss-bot@users.noreply.github.com> - 6 commits
-Tobias <96661824+CrazyWolf13@users.noreply.github.com> - 7 commits
-Tobias <tobias.meier109@gmail.com> - 7 commits
 Josua Blejeru <josua@blejeru.com> - 8 commits
+Tobias <96661824+CrazyWolf13@users.noreply.github.com> - 8 commits
+Tobias <tobias.meier109@gmail.com> - 8 commits
 Kashif Sohail <kashif.ezone@gmail.com> - 9 commits
 Alejandro Pinar Ruiz <alejandropinarruiz@gmail.com> - 14 commits
 Alicia Sykes <&#x3D;> - 16 commits
@@ -150,10 +154,10 @@ Marcell Fülöp <marekful@protonmail.com> - 27 commits
 Alicia Sykes <alicia@futr.ai> - 28 commits
 Lissy93 <gh@d0h.co> - 78 commits
 snyk-bot <snyk-bot@snyk.io> - 83 commits
-repo-visualizer <repo-visualizer@users.noreply.github.com> - 126 commits
+repo-visualizer <repo-visualizer@users.noreply.github.com> - 127 commits
 Lissy93 <Lissy93@users.noreply.github.com> - 219 commits
-Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 229 commits
-liss-bot <liss-bot@d0h.co> - 230 commits
-Alicia Sykes <alicia@omg.lol> - 396 commits
+Alicia Bot <87835202+liss-bot@users.noreply.github.com> - 231 commits
+liss-bot <liss-bot@d0h.co> - 232 commits
+Alicia Sykes <alicia@omg.lol> - 412 commits
 Alicia Sykes <gh@d0h.co> - 440 commits
 Alicia Sykes <sykes.alicia@gmail.com> - 1488 commits
