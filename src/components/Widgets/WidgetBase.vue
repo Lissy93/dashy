@@ -1,11 +1,18 @@
 <template>
-  <div :class="`widget-base ${ loading ? 'is-loading' : '' }`">
+  <div :class="`widget-base ${loading ? 'is-loading' : ''}`">
     <!-- Update and Full-Page Action Buttons  -->
-    <Button :click="update" class="action-btn update-btn" v-if="!hideControls && !loading">
+    <Button
+      :click="update"
+      class="action-btn update-btn"
+      v-if="!hideControls && !loading"
+    >
       <UpdateIcon />
     </Button>
-    <Button :click="fullScreenWidget"
-      class="action-btn open-btn" v-if="!hideControls && !error && !loading">
+    <Button
+      :click="fullScreenWidget"
+      class="action-btn open-btn"
+      v-if="!hideControls && !error && !loading"
+    >
       <OpenIcon />
     </Button>
     <!-- Loading Spinner -->
@@ -19,9 +26,11 @@
       <p class="retry-link" @click="update">Retry</p>
     </div>
     <!-- Widget Label -->
-    <div class="widget-label" v-if="widgetOptions.label">{{ widgetOptions.label }}</div>
+    <div class="widget-label" v-if="widgetOptions.label">
+      {{ widgetOptions.label }}
+    </div>
     <!-- Widget -->
-    <div :class="`widget-wrap ${ error ? 'has-error' : '' }`">
+    <div :class="`widget-wrap ${error ? 'has-error' : ''}`">
       <component
         v-bind:is="component"
         :options="widgetOptions"
@@ -115,6 +124,7 @@ const COMPAT = {
   'synology-download': 'SynologyDownload',
   'system-info': 'SystemInfo',
   'tfl-status': 'TflStatus',
+  'uptime-kuma':'UptimeKuma',
   'wallet-balance': 'WalletBalance',
   weather: 'Weather',
   'weather-forecast': 'WeatherForecast',
@@ -205,14 +215,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/media-queries.scss';
+@import "@/styles/media-queries.scss";
 .widget-base {
   position: relative;
   padding: 0.75rem 0.5rem 0.5rem 0.5rem;
   background: var(--widget-base-background);
   box-shadow: var(--widget-base-shadow, none);
   // Refresh and full-page action buttons
-  button.action-btn  {
+  button.action-btn {
     height: 1rem;
     min-width: auto;
     width: 1.75rem;
@@ -245,7 +255,9 @@ export default {
       opacity: 0.5;
       border-radius: var(--curve-factor);
       background: #ffff0040;
-      &:hover { background: none; }
+      &:hover {
+        background: none;
+      }
     }
   }
   // Error message output
@@ -285,5 +297,4 @@ export default {
     }
   }
 }
-
 </style>
