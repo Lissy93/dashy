@@ -16,7 +16,7 @@ WORKDIR /app
 
 # Install app dependencies
 COPY package.json yarn.lock ./
-RUN yarn install --ignore-engines --immutable --no-cache --network-timeout 300000 --network-concurrency 1 --verbose
+RUN yarn install --ignore-engines --immutable --no-cache --network-timeout 300000 --network-concurrency 1
 
 # Copy over all project files and folders to the working directory
 COPY . ./
