@@ -131,6 +131,11 @@ const WidgetMixin = {
           });
       });
     },
+    /* Check if a value is an environment variable, return its value if so. */
+    parseAsEnvVar(str) {
+      if (str.includes('VUE_APP_')) return process.env[str];
+      return str;
+    },
   },
 };
 
