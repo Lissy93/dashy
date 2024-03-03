@@ -29,7 +29,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
-          platforms: linux/amd64, linux/arm64, linux/386, linux/ppc64le, linux/s390x
+          platforms: all
 
         # Login into GH container registry
       - name: Log in to registry
@@ -37,7 +37,7 @@ jobs:
 
         # Build the image from default Dockerfile
       - name: Build image
-        run: DOCKER_BUILDKIT=0 docker build . --file docker/Dockerfile-multi-arch --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+        run: docker build . --file docker/Dockerfile-multi-arch --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
 
         # Push build image
       - name: Push image
