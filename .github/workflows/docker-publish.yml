@@ -37,7 +37,7 @@ jobs:
 
         # Build the image from default Dockerfile
       - name: Build image
-        run: docker build . --file docker/Dockerfile-multi-arch --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+        run: docker build . --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
 
         # Push build image
       - name: Push image
