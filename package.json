@@ -15,7 +15,7 @@
     "validate-config": "node services/config-validator",
     "health-check": "node services/healthcheck",
     "dependency-audit": "npx improved-yarn-audit --ignore-dev-deps",
-    "static-start": " node server"
+    "static-start": "node server"
   },
   "dependencies": {
     "@babel/core": "^7.0.0",
