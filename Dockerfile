@@ -15,8 +15,8 @@ RUN \
 WORKDIR /app
 
 # Install app dependencies
-COPY package.json package-lock.json ./
-RUN npm install
+COPY package.json yarn.lock ./
+RUN yarn install --ignore-engines --frozen-lockfile --no-cache --network-timeout 600000
 
 # Copy over all project files and folders to the working directory
 COPY . ./
