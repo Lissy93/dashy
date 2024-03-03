@@ -19,7 +19,7 @@ import { metaTagData, startingView, routePaths } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 
 // Import data from users conf file. Note that rebuild is required for this to update.
-import conf from '../public/conf.yml';
+import conf from '../public/config/conf.yml';
 
 if (!conf) {
   ErrorHandler('You\'ve not got any data in your config file yet.');
