@@ -1,4 +1,4 @@
-FROM node:16.13.2-alpine AS BUILD_IMAGE
+FROM node:20.11.1-alpine AS BUILD_IMAGE
 
 # Set the platform to build image for
 ARG TARGETPLATFORM
@@ -16,16 +16,16 @@ WORKDIR /app
 
 # Install app dependencies
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --network-timeout 1000000
+RUN yarn install --ignore-engines --frozen-lockfile --network-timeout 1000000
 
 # Copy over all project files and folders to the working directory
 COPY . ./
 
 # Build initial app for production
-RUN yarn build --mode production
+RUN NODE_OPTIONS=--openssl-legacy-provider yarn build --mode production
 
 # Production stage
-FROM node:16.13.2-alpine
+FROM node:20.11.1-alpine
 
 # Define some ENV Vars
 ENV PORT=80 \
@@ -44,7 +44,7 @@ COPY --from=BUILD_IMAGE /app ./
 RUN rm dist/conf.yml
 
 # Finally, run start command to serve up the built application
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "build-and-start" ]
 
 # Expose the port
 EXPOSE ${PORT}

@@ -9,7 +9,8 @@
       :target="anchorTarget"
       :class="`item ${makeClassList}`"
       v-tooltip="getTooltipOptions()"
-      rel="noopener noreferrer" tabindex="0"
+      :rel="`${item.rel || 'noopener noreferrer'}`"
+      tabindex="0"
       :id="`link-${item.id}`"
       :style="customStyle"
     >
@@ -258,6 +259,9 @@ export default {
   overflow: hidden;
   span.text {
     white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
   }
 }
 

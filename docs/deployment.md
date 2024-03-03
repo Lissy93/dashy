@@ -198,7 +198,6 @@ Some hosting providers required a bit of extra configuration, which was why I've
 > [!NOTE]
 > If you use a static hosting provider, then status checks, writing new config changes to disk from the UI, and triggering a rebuild through the UI will not be available. This is because these features need endpoints provided by Dashy's local Node server. Everything else should work just the same though.
 
-
 ### Netlify
 
 [![Deploy to Netlify](https://i.ibb.co/GtKMysT/deploy-netlify-button.png)](https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy)

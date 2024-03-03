@@ -982,6 +982,11 @@
                   "type": "number",
                   "description": "A numeric shortcut key, between 0 and 9. Useful for quickly launching frequently used applications"
                 },
+                "rel": {
+                  "title": "rel",
+                  "type": "string",
+                  "description": "The rel attribute for the link. For specifying the relationship between the current document and the linked document"
+                },
                 "tags": {
                   "title": "Tags",
                   "type": "array",
@@ -1086,6 +1091,11 @@
                 }
               }
             }
+          },
+          "filteredItems": {
+            "title": "Filtered Items - temp",
+            "type": "array",
+            "description": "This attribute will be deprecated in the next release - do not use!"
           }
         }
       }

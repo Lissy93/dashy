@@ -94,6 +94,7 @@ export default {
       const raw = rawAppConfig;
       const isEmptyObject = (obj) => (typeof obj === 'object' && Object.keys(obj).length === 0);
       const isEmpty = (value) => (value === undefined || isEmptyObject(value));
+
       // Delete empty values
       Object.keys(raw).forEach(key => {
         if (isEmpty(raw[key])) delete raw[key];

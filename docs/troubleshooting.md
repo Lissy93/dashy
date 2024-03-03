@@ -19,6 +19,7 @@
 - [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
 - [Keycloak Redirect Error](#keycloak-redirect-error)
 - [Docker Directory Error](#docker-directory)
+- [Config not Saving on Vercel / Netlify / CDN](#user-content-config-not-saving-on-vercel--netlify--cdn)
 - [Config Not Updating](#config-not-updating)
 - [Config Still not Updating](#config-still-not-updating)
 - [Styles and Assets not Updating](#styles-and-assets-not-updating)
@@ -278,6 +279,17 @@ Check if the specified host path exists and is the expected type.
 ```
 
 If you get an error similar to the one above, you are mounting a directory to the config file's location, when a plain file is expected. Create a YAML file, (`touch my-conf.yml`), populate it with a sample config, then pass it as a volume: `-v ./my-local-conf.yml:/app/public/conf.yml`
+
+---
+
+## Config not Saving on Vercel / Netlify / CDN
+
+If you're running Dashy using a static hosting provider (like Vercel), then there is no Node server, and so the save config action will not work via the UI.
+You'll instead need to copy the YAML after making your changes, and paste that into your `conf.yml` directly. If you've connected Vercel to git, then these changes will take effect automatically, once you commit your changes.
+
+If you're running on Netlify, there are some cloud functions which take care of all the server endpoints (like status checking), so these will work as expected.
+
+See also [#1465](https://github.com/Lissy93/dashy/issues/1465)
 
 ---
 
@@ -557,8 +569,7 @@ For example:
 export NODE_OPTIONS=--openssl-legacy-provider
 ```
 
-For more info, see [webpack/webpack#14532](https://github.com/webpack/webpack/issues/14532) and [nodejs/node#40455](https://github.com/nodejs/node/issues/40455). 
-This occurs because [Node 17+](https://medium.com/the-node-js-collection/node-js-17-is-here-8dba1e14e382) no longer supports MD4 as hash function, we're in the process of upgrading Dashy dependencies to all use SHA1 for hashing bundle IDs.
+This will be fixed once [webpack/webpack#17659](https://github.com/webpack/webpack/pull/17659) is merged.
 
 ---
 
