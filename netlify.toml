@@ -8,14 +8,12 @@
   command = "yarn build"
   publish = "dist"
   functions = "services/serverless-functions"
-  environment = { NODE_VERSION = "16.13.2" }
 
-# Site info, used for the 1-Click deploy page
-[template.environment]
-  STATUSKIT_PAGE_TITLE = "Dashy"
-  STATUSKIT_COMPANY_LOGO = "https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/logo.png"
-  STATUSKIT_SUPPORT_CONTACT_LINK = "https://github.com/lissy93/dashy"
-  STATUSKIT_RESOURCES_LINK = "https://dashy.to/docs"
+# Environmental variables for build command
+[build.environment]
+  NODE_VERSION = "20.11.1"
+  NODE_OPTIONS = "--openssl-legacy-provider"
+  YARN_FLAGS = "--ignore-engines"
 
 # Redirect the Node endpoints to serverless functions
 [[redirects]]

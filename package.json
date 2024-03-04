@@ -1,5 +1,5 @@
 {
-  "name": "Dashy",
+  "name": "dashy",
   "version": "2.1.2",
   "license": "MIT",
   "main": "server",
@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server",
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
     "lint": "vue-cli-service lint",
     "pm2-start": "npx pm2 start server.js",
     "build-watch": "vue-cli-service build --watch --mode production",

@@ -14,6 +14,13 @@ on:
       - '.github/workflows/docker-build-publish.yml'
       - 'Dockerfile'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  packages: write
+
 env:
   DH_IMAGE: ${{ secrets.DOCKER_REPO }}
   GH_IMAGE: ${{ github.repository_owner }}/${{ github.event.repository.name }}
@@ -52,9 +59,22 @@ jobs:
 
     - name: 🔧 Set up QEMU
       uses: docker/setup-qemu-action@v1
+      with:
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
 
     - name: 🔧 Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
+      id: buildx
+      with:
+        driver-opts: image=moby/buildkit:v0.10.6
+
+    - name: 👀 Inspect builder
+      run: |
+        echo "Name:      ${{ steps.buildx.outputs.name }}"
+        echo "Endpoint:  ${{ steps.buildx.outputs.endpoint }}"
+        echo "Status:    ${{ steps.buildx.outputs.status }}"
+        echo "Flags:     ${{ steps.buildx.outputs.flags }}"
+        echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
 
     - name: 🔑 Login to DockerHub
       uses: docker/login-action@v1 
