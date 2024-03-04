@@ -8,7 +8,7 @@
   command = "yarn build"
   publish = "dist"
   functions = "services/serverless-functions"
-  environment = { NODE_VERSION = "16.13.2" }
+  environment = { NODE_VERSION = "20.11.1", NODE_OPTIONS = "--openssl-legacy-provider" }
 
 # Site info, used for the 1-Click deploy page
 [template.environment]
