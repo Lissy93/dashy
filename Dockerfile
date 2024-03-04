@@ -22,7 +22,7 @@ RUN yarn install --ignore-engines --immutable --no-cache --network-timeout 30000
 COPY . ./
 
 # Build initial app for production
-RUN yarn build --mode production
+RUN NODE_OPTIONS=--openssl-legacy-provider yarn build --mode production
 
 # Production stage
 FROM node:20.11.1-alpine3.19
