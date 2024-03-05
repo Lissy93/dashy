@@ -1,5 +1,5 @@
 <template>
-  <div class="example-wrapper">
+  <div>
     <template v-if="monitors">
       <div v-for="(monitor, index) in monitors" :key="index" class="">
         <div class="title-title"><span class="text">{{ monitor.name }}</span></div>
@@ -13,11 +13,17 @@
           <div class="status-container">
             <span class="status-pill">{{ monitor.responseTime }}ms</span>
           </div>
-          <div class="status-container">
+          <div class="status-container" v-if="monitor.certValid !== undefined">
             <span class="status-pill" :class="{ up: monitor.certValid == 1, down: monitor.certValid != 1 }">{{
       monitor.certValid }}</span>
           </div>
         </div>
+      </div>
+    </template>
+
+    <template v-if="errorMessage">
+      <div class="error-message">
+        <span class="text">{{ errorMessage }}</span>
       </div>
     </template>
   </div>
@@ -36,9 +42,15 @@ export default {
   components: {},
   data() {
     return {
-      monitors: null, // Will store our results from the API
+      monitors: null,
+      errorMessage: null,
+      errorMessageConstants: {
+        missingApiKey: 'No API key set',
+        missingUrl: 'No URL set'
+      }
     };
   },
+
   mounted() {
     this.fetchData();
   },
@@ -49,7 +61,10 @@ export default {
     apiKey() {
       const { apiKey } = this.options;
 
-      if (!apiKey) throw new Error('No API key set');
+      if (!apiKey) {
+        this.errorMessage = this.errorMessageConstants.missingApiKey;
+        throw new Error(this.errorMessageConstants.missingApiKey);
+      }
 
       return apiKey;
     },
@@ -57,7 +72,10 @@ export default {
     url() {
       const { url } = this.options;
 
-      if (!url) throw new Error('No URL set');
+      if (!url) {
+        this.errorMessage = this.errorMessageConstants.missingUrl;
+        throw new Error(this.errorMessageConstants.missingUrl);
+      }
 
       return url;
     },
@@ -84,30 +102,40 @@ export default {
     },
     /* Convert API response data into a format to be consumed by the UI */
     processData(response) {
-      const rows = response.split('\n').filter(row => row.startsWith('monitor_'));
+      const monitorRows = this.getMonitorRows(response);
 
       const monitors = new Map();
 
-      const regex = /monitor_name='([^']+)'/;
-
-      const getValue = (row) => row.match(/\b\d+\b$/)[0];
-
-      for (let index = 0; index < rows.length; index++) {
-        const row = rows[x];
-
-        const key = row.match(/^(.*?)\{/)[1];
-        const monitorName = row.match(regex)[1];
-
-        if (!monitors.has(monitorName)) {
-          monitors.set(monitorName, { name: monitorName });
-        }
-
-        const monitor = monitors.get(monitorName);
-        const value = getValue(row);
-
-        this.setMonitorValue(key, monitor, value);
-        this.monitors = Array.from(monitors.values());
+      for (let index = 0; index < monitorRows.length; index++) {
+        const row = monitorRows[index];
+        this.processRow(row, monitors);
       }
+
+      this.monitors = Array.from(monitors.values());
+    },
+    getMonitorRows(response) {
+      return response.split('\n').filter(row => row.startsWith('monitor_'));
+    },
+    processRow(row, monitors) {
+      console.log(monitors);
+      const dataType = this.getRowDataType(row);
+      const monitorName = this.getRowMonitorName(row);
+
+      if (!monitors.has(monitorName)) {
+        monitors.set(monitorName, { name: monitorName });
+      }
+
+      const monitor = monitors.get(monitorName);
+      console.log('monitor', monitor);
+      const value = this.getRowValue(row);
+
+      console.log('monitorname', monitorName);
+      console.log('datatype', dataType);
+      console.log('value', value);
+      console.log('row', row);
+
+      this.setMonitorValue(dataType, monitor, value);
+      monitors.set(monitorName, monitor);
     },
     setMonitorValue(key, monitor, value) {
       switch (key) {
@@ -131,6 +159,28 @@ export default {
           break;
       }
     },
+    getRowValue(row) {
+      return this.getValueWithRegex(row, /\b\d+\b$/);
+    },
+    getRowMonitorName(row) {
+      return this.getValueWithRegex(row, /monitor_name="([^"]+)"/);
+    },
+    getRowDataType(row) {
+      return this.getValueWithRegex(row, /^(.*?)\{/);
+    },
+    getValueWithRegex(string, regex) {
+      const result = string.match(regex);
+
+      const isArray = Array.isArray(result);
+
+      console.log(isArray, result);
+
+      if (!isArray) {
+        return result;
+      }
+
+      return result.length > 1 ? result[1] : result[0];
+    }
   },
 };
 </script>
@@ -147,6 +197,7 @@ export default {
   vertical-align: baseline;
   padding: .35em .65em;
   margin: 1em 0.5em;
+  min-width: 64px;
 }
 
 .up {
@@ -160,6 +211,6 @@ export default {
 .monitors-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
 }
 </style>
