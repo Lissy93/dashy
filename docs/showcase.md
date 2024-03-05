@@ -3,6 +3,13 @@
 | 💗 Got a sweet dashboard? Submit it to the showcase! 👉 [See How](#submitting-your-dashboard) |
 |-|
 
+## MNDashboard 
+
+> By [@mahrnet](https://github.com/mahrnet) <sup>Re: [#1491](https://github.com/Lissy93/dashy/issues/1491)</sup>
+
+![screenshot-MNDashboard](https://i.ibb.co/QXkfBYM/image.png)
+
+
 ## Home Lab 2.0
 
 ![screenshot-homelab](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/showcase/1-home-lab-material.png)
