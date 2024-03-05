@@ -1,12 +1,24 @@
 <template>
   <div class="example-wrapper">
     <template v-if="monitors">
-    <div v-for="(monitor, index) in monitors" :key="index" class="">
-      <p>{{monitor.name}}</p>
-      <p>{{monitor.status }}</p>
-      <p>{{monitor.responseTime }}</p>
-
-    </div>
+      <div v-for="(monitor, index) in monitors" :key="index" class="">
+        <div class="title-title"><span class="text">{{ monitor.name }}</span></div>
+        <div class="monitors-container">
+          <div class="status-container">
+            <span class="status-pill" :class="{ up: monitor.status == 1, down: monitor.status != 1 }">{{ monitor.status
+      ==
+      1
+      ? "Up" : "Down" }}</span>
+          </div>
+          <div class="status-container">
+            <span class="status-pill">{{ monitor.responseTime }}ms</span>
+          </div>
+          <div class="status-container">
+            <span class="status-pill" :class="{ up: monitor.certValid == 1, down: monitor.certValid != 1 }">{{
+      monitor.certValid }}</span>
+          </div>
+        </div>
+      </div>
     </template>
   </div>
 </template>
@@ -17,8 +29,7 @@
  * Takes two optional parameters (`text` and `count`), and fetches a list of images
  * from dummyapis.com, then renders the results to the UI.
  */
-import axios from "axios";
-import WidgetMixin from "@/mixins/WidgetMixin";
+import WidgetMixin from '@/mixins/WidgetMixin';
 
 export default {
   mixins: [WidgetMixin],
@@ -36,26 +47,26 @@ export default {
      * If not present, or not a number, then return the default (5)
      */
     apiKey() {
-      const apiKey = this.options.apiKey;
+      const { apiKey } = this.options;
 
-      if (!apiKey) throw "No API key set";
+      if (!apiKey) throw new Error('No API key set');
 
       return apiKey;
     },
     /* Get users desired image text, or return `Dashy` */
     url() {
-      const apiUrl = this.options.url;
+      const { url } = this.options;
 
-      if (!apiUrl) throw "No URL set";
+      if (!url) throw new Error('No URL set');
 
-      return apiUrl;
+      return url;
     },
     authHeaders() {
       if (!this.options.apiKey) {
         return {};
       }
       const encoded = window.btoa(`:${this.options.apiKey}`);
-        return { Authorization: `Basic ${encoded}` };
+      return { Authorization: `Basic ${encoded}` };
     },
   },
   methods: {
@@ -73,73 +84,82 @@ export default {
     },
     /* Convert API response data into a format to be consumed by the UI */
     processData(response) {
-      const rows = response.split('\n').filter(row => row.startsWith("monitor_"));
+      const rows = response.split('\n').filter(row => row.startsWith('monitor_'));
 
       const monitors = new Map();
 
-      const regex = /monitor_name="([^"]+)"/;
+      const regex = /monitor_name='([^']+)'/;
 
-      const getValue = (row) => row.match(/\b\d+\b$/);
+      const getValue = (row) => row.match(/\b\d+\b$/)[0];
 
-      for (const row of rows) {
-        const key = row.match(/^(.*?)\{/);
-        const monitorName = row.match(regex);
+      for (let index = 0; index < rows.length; index++) {
+        const row = rows[x];
+
+        const key = row.match(/^(.*?)\{/)[1];
+        const monitorName = row.match(regex)[1];
 
         if (!monitors.has(monitorName)) {
-          monitors.set(monitorName, {name: monitorName});
+          monitors.set(monitorName, { name: monitorName });
         }
 
-        const existingMonitor = monitors.get(monitorName);
-
+        const monitor = monitors.get(monitorName);
         const value = getValue(row);
-        switch (key) {
-          case "monitor_cert_days_remaining": {
-            existingMonitor.certDaysRemaining = value;
-            break;
-          }
-          case "monitor_cert_is_valid": {
-            existingMonitor.certValid = value;
-            break;
-          }
-          case "monitor_response_time": {
-            existingMonitor.responseTime = value;
-            break;
-          }
-          case "monitor_status": {
-            existingMonitor.status= value;
-            break;
-          }
-          default:
-            console.log("not matched", key);
-            break;
-        }
 
+        this.setMonitorValue(key, monitor, value);
+        this.monitors = Array.from(monitors.values());
       }
-
-      console.log(monitors);
-      this.monitors = Array.from(monitors.values());
+    },
+    setMonitorValue(key, monitor, value) {
+      switch (key) {
+        case 'monitor_cert_days_remaining': {
+          monitor.certDaysRemaining = value;
+          break;
+        }
+        case 'monitor_cert_is_valid': {
+          monitor.certValid = value;
+          break;
+        }
+        case 'monitor_response_time': {
+          monitor.responseTime = value;
+          break;
+        }
+        case 'monitor_status': {
+          monitor.status = value;
+          break;
+        }
+        default:
+          break;
+      }
     },
   },
 };
 </script>
+
 <style scoped lang="scss">
-.example-wrapper {
-  .image-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    p.picture-title {
-      font-size: 1.2rem;
-      color: var(--widget-text-color);
-    }
-    img.picture-result {
-      width: 4rem;
-      margin: 0.5rem 0;
-      border-radius: var(--curve-factor);
-    }
-    &:not(:last-child) {
-      border-bottom: 1px dashed var(--widget-text-color);
-    }
-  }
+.status-pill {
+  border-radius: 50em;
+  box-sizing: border-box;
+  font-size: 0.75em;
+  display: inline-block;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  padding: .35em .65em;
+  margin: 1em 0.5em;
+}
+
+.up {
+  background-color: rgb(92, 221, 139);
+}
+
+.down {
+  background-color: rgb(220, 53, 69);
+}
+
+.monitors-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
