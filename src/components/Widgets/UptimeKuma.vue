@@ -119,7 +119,6 @@ export default {
 
       const updated = this.setMonitorValue(dataType, monitor, value);
 
-      console.log(monitor, updated);
       monitors.set(monitorName, updated);
     },
     setMonitorValue(key, monitor, value) {
@@ -178,11 +177,11 @@ export default {
         errors.push(this.errorMessageConstants.missingApiKey);
       }
 
-      if (errors.length == 0) { return true; }
+      if (errors.length === 0) { return true; }
 
       this.errorMessage = errors.join('\n');
       return false;
-    }
+    },
   },
 };
 </script>
