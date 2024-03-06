@@ -7,7 +7,7 @@
 
 > By [@mahrnet](https://github.com/mahrnet) <sup>Re: [#1491](https://github.com/Lissy93/dashy/issues/1491)</sup>
 
-![screenshot-MNDashboard](https://i.ibb.co/QXkfBYM/image.png)
+![screenshot-MNDashboard](https://i.ibb.co/mCJRZgp/d2-At-QO4c-PT4u.png)
 
 ---
 
