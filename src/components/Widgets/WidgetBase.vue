@@ -1,10 +1,11 @@
 <template>
-  <div :class="`widget-base ${loading ? 'is-loading' : ''}`">
+  <div :class="`widget-base ${ loading ? 'is-loading' : '' }`">
     <!-- Update and Full-Page Action Buttons  -->
     <Button :click="update" class="action-btn update-btn" v-if="!hideControls && !loading">
       <UpdateIcon />
     </Button>
-    <Button :click="fullScreenWidget" class="action-btn open-btn" v-if="!hideControls && !error && !loading">
+    <Button :click="fullScreenWidget"
+      class="action-btn open-btn" v-if="!hideControls && !error && !loading">
       <OpenIcon />
     </Button>
     <!-- Loading Spinner -->
@@ -18,13 +19,16 @@
       <p class="retry-link" @click="update">Retry</p>
     </div>
     <!-- Widget Label -->
-    <div class="widget-label" v-if="widgetOptions.label">
-      {{ widgetOptions.label }}
-    </div>
+    <div class="widget-label" v-if="widgetOptions.label">{{ widgetOptions.label }}</div>
     <!-- Widget -->
-    <div :class="`widget-wrap ${error ? 'has-error' : ''}`">
-      <component v-bind:is="component" :options="widgetOptions" @loading="setLoaderState" @error="handleError"
-        :ref="widgetRef" />
+    <div :class="`widget-wrap ${ error ? 'has-error' : '' }`">
+      <component
+        v-bind:is="component"
+        :options="widgetOptions"
+        @loading="setLoaderState"
+        @error="handleError"
+        :ref="widgetRef"
+      />
     </div>
   </div>
 </template>
@@ -250,9 +254,7 @@ export default {
       border-radius: var(--curve-factor);
       background: #ffff0040;
 
-      &:hover {
-        background: none;
-      }
+      &:hover { background: none; }
     }
   }
 
