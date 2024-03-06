@@ -124,7 +124,7 @@ Then edit `./public/conf.yml` and rebuild the app with `yarn build`
 
 ## Alternative Deployment Method 2 - Netlify
 
-Don't have a server? No problem! You can run Dashy for free on Netlify (as well as many [other cloud providers](/docs/deployment.md#deploy-to-cloud-service)). All you need it a GitHub account.
+Don't have a server? No problem! You can run Dashy for free on Netlify (as well as many [other cloud providers](/docs/deployment#deploy-to-cloud-service)). All you need it a GitHub account.
 
 1. Fork Dashy's repository on GitHub
 2. [Log in](app.netlify.com/login/) to Netlify with GitHub
@@ -143,3 +143,4 @@ Dashy supports 1-Click deployments on several popular cloud platforms. To spin u
 - [<img src="https://i.ibb.co/xCHtzgh/render.png" width="18"/> Deploy to Render](https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render)
 - [<img src="https://i.ibb.co/J7MGymY/googlecloud.png" width="18"/> Deploy to GCP](https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git)
 - [<img src="https://i.ibb.co/HVWVYF7/docker.png" width="18"/> Deploy to PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+- [<img src="https://i.ibb.co/7NxnM2P/easypanel.png" width="18"/> Deploy to Easypanel](https://easypanel.io/docs/templates/dashy)

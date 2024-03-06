@@ -35,9 +35,11 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [GitHub Trending](#github-trending)
   - [GitHub Profile Stats](#github-profile-stats)
   - [Healthchecks Status](#healthchecks-status)
+  - [Hackernews Trending](#hackernews-trending)
   - [Mvg Departure](#mvg-departure)
   - [Mvg Connection](#mvg-connection)
   - [Custom search](#custom-search)
+  - [Rescuetime overview](#rescuetime-overview)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
@@ -149,6 +151,8 @@ A simple, live-updating local weather component, showing temperature, conditions
 **`city`** | `string` | Required | A city name to use for fetching weather. This can also be a state code or country code, following the ISO-3166 format
 **`units`** | `string` |  _Optional_ | The units to use for displaying data, can be either `metric` or `imperial`. Defaults to `metric`
 **`hideDetails`** | `boolean` |  _Optional_ | If set to `true`, the additional details (wind, humidity, pressure, etc) will not be shown. Defaults to `false`
+**`lat`** | `number` |  _Optional_ | To show weather for a specific location, you can provide the latitude and longitude coordinates. If provided, this will override the `city` option
+**`lon`** | `number` |  _Optional_ | To show weather for a specific location, you can provide the latitude and longitude coordinates. If provided, this will override the `city` option
 
 #### Example
 
@@ -158,7 +162,7 @@ A simple, live-updating local weather component, showing temperature, conditions
     apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     city: London
     units: metric
-    hideDetails: false
+    hideDetails: true
 ```
 
 #### Info
@@ -699,6 +703,8 @@ Display current FX rates in your native currency. Hover over a row to view more 
 
 Counting down to the next day off work? This widget displays upcoming public holidays for your country. Data is fetched from [Enrico](http://kayaposoft.com/enrico/)
 
+Note, config for this widget is case-sensetive (see [#1268](https://github.com/Lissy93/dashy/issues/1268))
+
 <p align="center"><img width="400" src="https://i.ibb.co/VC6fZqn/public-holidays.png" /></p>
 
 #### Options
@@ -709,6 +715,7 @@ Counting down to the next day off work? This widget displays upcoming public hol
 **`state`** | `string` |  **Optional** | restrict a country to a specific state defined by [ISO_3166-2](https://en.wikipedia.org/wiki/ISO_3166-2), e.g. `LND`.
 **`holidayType`** | `string` |  **Optional** | The type of holidays to fetch. Can be: `all`, `public_holiday`, `observance`, `school_holiday`, `other_day` or `extra_working_day`. Defaults to `public_holiday`
 **`monthsToShow`** | `number` |  **Optional** | The number of months in advance to show. Min: `1`, max: `24`. Defaults to `12`
+**`lang`** | `string` |  **Optional** | The language in which the events should be. Usually local languages and english are available. Default to first available in the country. e.g. `en` or `fr`.
 
 #### Example
 
@@ -719,6 +726,7 @@ Counting down to the next day off work? This widget displays upcoming public hol
     region: LND
     holidayType: all
     monthsToShow: 12
+    lang: en
 ```
 
 #### Info
@@ -1150,7 +1158,7 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
 
 ### HealthChecks Status
 
-Display status of one or more HealthChecks project(s). Works with healthcheck.io and your selfhosted instance.
+Display status of one or more HealthChecks project(s). Works with healthchecks.io and your selfhosted instance.
 
 <p align="center"><img width="380" src="https://i.ibb.co/W5dP6VN/Bildschirm-foto-2023-01-07-um-11-07-11.png" /></p>
 
@@ -1177,6 +1185,27 @@ Display status of one or more HealthChecks project(s). Works with healthcheck.io
 - **Price**: 🟢 Free / Paid / Self-hosted 
 - **Host**: Managed Instance or Self-Hosted (see [healthchecks/healthchecks](https://github.com/healthchecks/healthchecks))
 - **Privacy**: _See [Healthchecks.io Privacy Policy](https://healthchecks.io/privacy/)_
+
+---
+
+### Hackernews Trending
+
+Display new and trending Posts from Hackernews
+
+#### Options
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`stories`** | `string` |  _Optional_ | HN Stories to display defaults to `topstories`. Options are: `beststories`, `topstories` or `newstories`
+**`limit`** | `int` |  _Optional_ | The size of the list of Posts to show.
+
+##### Example
+
+```yaml
+- type: hackernews-trending
+  options:
+    stories: newstories
+    limit: 10
+```
 
 ---
 
@@ -1314,6 +1343,38 @@ This widget allows searching multiple search engines from dashy.
 - **Privacy**: depends on the user defined search engines.
 
 ---
+
+### RescueTime Overview
+
+Show an overview of how you have spent your time for the current day.
+
+<p align="center"><img width="400" src="https://i.ibb.co/bvx3PQM/rescuetime.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  required | The API-Key generated in the RescueTime UI.
+
+
+#### Example
+
+```yaml
+  - type: rescue-time
+    useProxy: true
+    options:
+      apiKey: abcdefghijkl_mnop
+```
+#### Info
+
+- **CORS**: 🟢 Required
+- **Auth**: 🔴 Required
+- **Price**: 🟠 Depends on user subscription 
+- **Host**: [RescueTime](https://www.rescuetime.com)
+- **Privacy**: _See [RescueTime Privacy](https://www.rescuetime.com/privacy)_
+
+---
+
 
 
 ## Self-Hosted Services Widgets
@@ -1897,7 +1958,7 @@ Displays your notifications and allows deleting them.
 #### Example
 
 ```yaml
-- type: nextcloud-userstatus
+- type: nextcloud-notifications
   useProxy: true
   options:
     hostname: https://nextcloud.example.com
@@ -2003,7 +2064,7 @@ Shows statistics about PHP OPcache performance on your Nextcloud server.
 #### Example
 
 ```yaml
-- type: nextcloud-stats
+- type: nextcloud-php-opcache
   useProxy: true
   options:
     hostname: https://nextcloud.example.com
@@ -2069,6 +2130,11 @@ This will show the list of VMs, with a title and a linked fotter, hiding VM temp
       footer_as_link: true
       hide_templates: 1
 ```
+#### Troubleshooting
+- **404 Error in development mode**: The error might disappear in production mode `yarn start`
+- **500 Error in production mode**: Try adding the certificate authority (CA) certificate of your Proxmox host to Node.js. 
+  - Download the Proxmox CA certificate to your Dashy host.
+  - Export environment variable `NODE_EXTRA_CA_CERTS` and set its value to the path of the downloaded CA certificate. Example:  `export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/devlab_ca.pem`
 #### Info
 
 - **CORS**: 🟠 Proxied
@@ -2193,7 +2259,7 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`host`** | `string` |  Required | The hostname of the Drone CI instance.
-**`apiKey`** | `string` |  Required | The API key (https://[your-linkding-instance]/settings/integrations).
+**`apiKey`** | `string` |  Required | The API key (https://your-linkding-instance/settings/integrations).
 **`tags`** | `list of string` | _Optional_ | Filter the links by tag.
 
 #### Example
@@ -2228,7 +2294,27 @@ Glances is a cross-platform monitoring tool developed by [@nicolargo](https://gi
 
 If you don't already have it installed, either follow the [Installation Guide](https://github.com/nicolargo/glances/blob/master/README.rst) for your system, or setup [with Docker](https://glances.readthedocs.io/en/latest/docker.html), or use the one-line install script: `curl -L https://bit.ly/glances | /bin/bash`.
 
+If you are using Docker to run glances make sure to add the enviroment variable `-e TZ = {YourTimeZone}`. You can get a list of valid timezones by running `timedatectl list-timezones` on any linux system. This is needed so the graphs show the currect time.
+
+Here an example for Docker
+```
+ docker run -d \
+    --name glances \
+    --restart unless-stopped \
+    -v /var/run/docker.sock:/var/run/docker.sock:ro \
+    -p 61208:61208 \
+    --pid host \
+    --privileged \
+    -e GLANCES_OPT=-w \
+    -e PUID=1000 \
+    -e PGID=1000 \
+    -e TZ=Europe/Zurich \
+    nicolargo/glances:latest
+```
+
 Glances can be launched with the `glances` command. You'll need to run it in web server mode, using the `-w` option for the API to be reachable. If you don't plan on using the Web UI, then you can disable it using `--disable-webui`. See the [command reference docs](https://glances.readthedocs.io/en/latest/cmds.html) for more info.
+
+If Glaces is running on a Windows system it is recommanded to add the following arguments ```--disable-plugin all --enable-plugin cpu,mem,diskio,ip,network,containers,quicklook,load,fs,alert -w``` This is due to Glances not being that stable on windows, so disabling all plugins that aren't used by Dashy widgets can save on ressources.
 
 #### Options
 
@@ -2268,6 +2354,22 @@ Live-updating current CPU usage, as a combined average across all cores
 
 ```yaml
 - type: gl-current-cpu
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### Current CPU Usage Speedometer
+
+Speedometer styled version of the Current CPU Usage widget
+
+<p align="center"><img width="400" src="https://i.ibb.co/7RHTRNq/gl-cpu-speedometer.png" /></p>
+
+#### Example
+
+```yaml
+- type: gl-cpu-speedometer
   options:
     hostname: http://192.168.130.2:61208
 ```
@@ -2323,6 +2425,22 @@ Real-time memory usage gauge, with more info visible on click
 
 ```yaml
 - type: gl-current-mem
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### Current Memory Usage Speedometer
+
+Speedometer styled version of the Current Memory Usage widget
+
+<p align="center"><img width="400" src="https://i.ibb.co/wsNW7Xr/gl-mem-speedometer.png" /></p>
+
+#### Example
+
+```yaml
+- type: gl-mem-speedometer
   options:
     hostname: http://192.168.130.2:61208
 ```
@@ -2755,7 +2873,7 @@ Widgets use the following color variables, which can be overridden if desired:
 - `--widget-background-color` - Background color, defaults to `--background-darker`
 - `--widget-accent-color` - Accent color, defaults to `--background`
 
-For more info on how to apply custom variables, see the [Theming Docs](/docs/themingsetting-custom-css-in-the-ui)
+For more info on how to apply custom variables, see the [Theming Docs](/docs/theming#setting-custom-css-in-the-ui)
 
 ---
 
@@ -2791,7 +2909,7 @@ Widgets can be opened in full-page view, by clicking the Arrow icon (top-right).
 
 You can reload the data of any widget, by clicking the Refresh Data icon (also in top-right). This will only affect the widget where the action was triggered from.
 
-All [config options](/docs/configuringsection) that can be applied to sections, can also be applied to widget sections. For example, to make a widget section double the width, set `displayData.cols: 2` within the parent section. You can collapse a widget (by clicking the section title), and collapse state will be saved locally.
+All [config options](/docs/configuring#section) that can be applied to sections, can also be applied to widget sections. For example, to make a widget section double the width, set `displayData.cols: 2` within the parent section. You can collapse a widget (by clicking the section title), and collapse state will be saved locally.
 
 Widgets cannot currently be edited through the UI. This feature is in development, and will be released soon.  In the meantime, you can either use the JSON config editor, or use [VS Code Server](https://github.com/coder/code-server), or just SSH into your box and edit the conf.yml file directly.
 
@@ -2801,7 +2919,7 @@ Widgets cannot currently be edited through the UI. This feature is in developmen
 
 Widgets are built in a modular fashion, making it easy for anyone to create their own custom components.
 
-For a full tutorial on creating your own widget, you can follow [this guide](/docs/development-guidesbuilding-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example.
+For a full tutorial on creating your own widget, you can follow [this guide](/docs/development-guides/#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example.
 
 Alternatively, for displaying simple data, you could also just use the either the [iframe](#iframe-widget), [embed](#html-embedded-widget), [data feed](#data-feed) or [API response](#api-response) widgets.
 
@@ -2819,15 +2937,15 @@ Please only request widgets for services that:
 - Allow for use in their Terms of Service
 - Would be useful for other users
 
-You can suggest a widget [here](https://git.io/Jygo3), please star the repo before submitting a ticket. If you are a monthly GitHub sponsor, I will happily build out a custom widget for any service that meets the above criteria, usually 2 within weeks of initial request.
+You can suggest a widget [here](https://git.io/Jygo3), please star the repo before submitting a ticket. If you are a monthly GitHub sponsor, I will happily build out a custom widget for any service that meets the above criteria, usually within 2 weeks of initial request.
 
-For services that are not officially supported, it is likely still possible to display data using either the [iframe](#iframe-widget), [embed](#html-embedded-widget) or [API response](#api-response) widgets. For more advanced features, like charts and action buttons, you could also build your own widget, using [this tutorial](/docs/development-guidesbuilding-a-widget), it's fairly straight forward, and you can use an [existing widget](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets) (or [this example](https://git.io/JygKI)) as a template.
+For services that are not officially supported, it is likely still possible to display data using either the [iframe](#iframe-widget), [embed](#html-embedded-widget) or [API response](#api-response) widgets. For more advanced features, like charts and action buttons, you could also build your own widget, using [this tutorial](/docs/development-guides/#building-a-widget), it's fairly straight forward, and you can use an [existing widget](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets) (or [this example](https://git.io/JygKI)) as a template.
 
 ---
 
 ### Troubleshooting Widget Errors
 
-If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't adequately explain the problem, then you can [open the browser console](/docs/troubleshootinghow-to-open-browser-console) to see more details.
+If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't adequately explain the problem, then you can [open the browser console](/docs/troubleshooting#how-to-open-browser-console) to see more details.
 
 Before proceeding, ensure that if the widget requires auth your API is correct, and for custom widgets, double check that the URL and protocol is correct.
 
@@ -2872,4 +2990,4 @@ For testing purposes, you can use an addon, which will disable the CORS checks. 
 
 ### Raising an Issue
 
-If you need to submit a bug report for a failing widget, then please include the full console output (see [how](/docs/troubleshootinghow-to-open-browser-console)) as well as the relevant parts of your config file. Before sending the request, ensure you've read the docs. If you're new to GitHub, an haven't previously contributed to the project, then please fist star the repo to avoid your ticket being closed by the anti-spam bot.
+If you need to submit a bug report for a failing widget, then please include the full console output (see [how](/docs/troubleshooting#how-to-open-browser-console)) as well as the relevant parts of your config file. Before sending the request, ensure you've read the docs. If you're new to GitHub, an haven't previously contributed to the project, then please fist star the repo to avoid your ticket being closed by the anti-spam bot.

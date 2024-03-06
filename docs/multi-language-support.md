@@ -22,7 +22,7 @@ You can also set your language in the config file. Specify the ISO code of one o
 
 ```yaml
 appConfig:
-  lang: de
+  language: de
 ```
 
 ### Available Languages

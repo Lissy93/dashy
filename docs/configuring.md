@@ -63,7 +63,7 @@ The following file provides a reference of all supported configuration options.
 **`sections`** | `array` | Required | An array of sections, each containing an array of items, which will be displayed as links. See [`section`](#section)
 **`pages`** | `array` | _Optional_ | An array additional config files, used for multi-page dashboards. See [`pages`](#pages-optional)
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `PageInfo`
 
@@ -75,7 +75,7 @@ The following file provides a reference of all supported configuration options.
 **`footerText`** | `string` | _Optional_ | Text to display in the footer (note that this will override the default footer content). This can also include HTML and inline CSS
 **`logo`** | `string` | _Optional_ | The path to an image to display in the header (to the right of the title). This can be either local, where `/` is the root of `./public`, or any remote image, such as `https://i.ibb.co/yhbt6CY/dashy.png`. It's recommended to scale your image down, so that it doesn't impact load times
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `pageInfo.navLinks` _(optional)_
 
@@ -85,7 +85,7 @@ The following file provides a reference of all supported configuration options.
 **`path`** | `string` | Required | The URL to navigate to when clicked. Can be relative (e.g. `/about`) or absolute (e.g. `https://example.com` or `http://192.168.1.1`)
 **`target`** | `string` |  _Optional_ | The opening method (external links only). Can be either `newtab`, `sametab`, `top` or `parent`. Defaults to `newtab`
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `pages[]` _(optional)_
 
@@ -94,7 +94,7 @@ The following file provides a reference of all supported configuration options.
 **`name`** | `string` |  Required | A unique name for that page
 **`path`** | `string` |  Required | The path (local or remote) to the config file to use.<br />For files located within `/public`, you only need to specify filename, for externally hosted files you must include the full URL
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `appConfig` _(optional)_
 
@@ -104,21 +104,21 @@ The following file provides a reference of all supported configuration options.
 **`startingView`** | `enum` | _Optional_ | Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI. Can be either `default`, `minimal` or `workspace`. Defaults to `default`
 **`defaultOpeningMethod`** | `enum` | _Optional_ | The default opening method for items, if no `target` is specified for a given item. Can be either `newtab`, `sametab`, `modal`, `workspace`, `clipboard`, `top` or `parent`. Defaults to `newtab`
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping each of your services and display their status as a dot next to each item. This can be overridden by setting `statusCheck` under each item. Defaults to `false`
-**`statusCheckInterval`** | `boolean` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
+**`statusCheckInterval`** | `number` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
 **`webSearch`** | `object` | _Optional_ | Configuration options for the web search feature, set your default search engine, opening method or disable web search. See [`webSearch`](#appconfigwebsearch-optional)
-**`backgroundImg`** | `string` | _Optional_ | Path to an optional full-screen app background image. This can be either remote (http) or local (/). Note that this will slow down initial load
+**`backgroundImg`** | `string` | _Optional_ | Path to an optional full-screen app background image. This can be either remote (http) or local (relative to /app/public/item-icons/ inside the container). Note that this will slow down initial load
 **`enableFontAwesome`** | `boolean` | _Optional_ | If set to `true` font-awesome will be loaded, if set to `false` they will not be. if left blank font-awesome will be enabled only if required by 1 or more icons
 **`enableMaterialDesignIcons`** | `boolean` | _Optional_ | If set to `true` mdi icons will be loaded, if set to `false` they will not be. Where `true` is enabled, if left blank material design icons will be enabled only if required by 1 or more icons
 **`fontAwesomeKey`** | `string` | _Optional_ | If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
-**`faviconApi`** | `enum` | _Optional_ | Only applicable if you are using favicons for item icons. Specifies which service to use to resolve favicons. Set to `local` to do this locally, without using an API. Services running locally will use this option always. Available options are: `local`, `faviconkit`, `iconhorse`, `google`, `clearbit`, `webmasterapi` and `allesedv`. Defaults to `faviconkit`. See [Icons](/docs/iconsfavicons) for more info
+**`faviconApi`** | `enum` | _Optional_ | Only applicable if you are using favicons for item icons. Specifies which service to use to resolve favicons. Set to `local` to do this locally, without using an API. Services running locally will use this option always. Available options are: `local`, `faviconkit`, `iconhorse`, `google`, `clearbit`, `webmasterapi` and `allesedv`. Defaults to `faviconkit`. See [Icons](/docs/icons#favicons) for more info
 **`auth`** | `object` | _Optional_ | All settings relating to user authentication. See [`auth`](#appconfigauth-optional)
-**`defaultIcon`** | `string` | _Optional_ | An icon to be applied to any items, which don't already have an icon set. See [Icon Docs](/docs/iconsdefault-icon) for more info
+**`defaultIcon`** | `string` | _Optional_ | An icon to be applied to any items, which don't already have an icon set. See [Icon Docs](/docs/icons#default-icon) for more info
 **`layout`** | `enum` | _Optional_ | Layout for homepage, either `horizontal`, `vertical` or `auto`. Defaults to `auto`. This specifies the layout and direction of how sections are positioned on the home screen. This can also be modified and overridden from the UI.
 **`iconSize`** | `enum` | _Optional_ | The size of link items / icons. Can be either `small`, `medium,` or `large`. Defaults to `medium`. This can also be set directly from the UI.
 **`colCount`** | `number` | _Optional_ | The number of columns of sections displayed on the homepage, using the default view. Should be in integer between `1` and `8`. Note that by default this is applied responsively, based on current screen size, and specifying a value here will override this behavior, which may not be desirable.
 **`theme`** | `string` | _Optional_ | The default theme for first load (you can change this later from the UI)
 **`cssThemes`** | `string[]` | _Optional_ | An array of custom theme names which can be used in the theme switcher dropdown
-**`customColors`** | `object`| _Optional_ | Enables you to apply a custom color palette to any given theme. Use the theme name (lowercase) as the key, for an object including key-value-pairs, with the color variable name as keys, and 6-digit hex code as value. See [Theming](/docs/themingmodifying-theme-colors) for more info
+**`customColors`** | `object`| _Optional_ | Enables you to apply a custom color palette to any given theme. Use the theme name (lowercase) as the key, for an object including key-value-pairs, with the color variable name as keys, and 6-digit hex code as value. See [Theming](/docs/theming#modifying-theme-colors) for more info
 **`externalStyleSheet`** | `string`  or `string[]` | _Optional_ | Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
 **`customCss`** | `string` | _Optional_ | Raw CSS that will be applied to the page. This can also be set from the UI. Please minify it first.
 **`hideComponents`** | `object` | _Optional_ | A list of key page components (header, footer, search, settings, etc) that are present by default, but can be removed using this option. See [`appConfig.hideComponents`](#appconfighideComponents-optional)
@@ -138,20 +138,20 @@ The following file provides a reference of all supported configuration options.
 **`enableServiceWorker`** | `boolean` | _Optional_ | Service workers cache web applications to improve load times and offer basic offline functionality, and are enabled by default in Dashy. The service worker can sometimes cause older content to be cached, requiring the app to be hard-refreshed. If you do not want SW functionality, or are having issues with caching, set this property to `false` to disable all service workers.
 **`disableContextMenu`** | `boolean` | _Optional_ | If set to `true`, the custom right-click context menu will be disabled. Defaults to `false`.
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `appConfig.auth` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
-**`users`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. See [`appConfig.auth.users`](#appconfigauthusers-optional). <br />**Note** this method of authentication is handled on the client side, so for security critical situations, it is recommended to use an [alternate authentication method](/docs/authenticationalternative-authentication-methods).
+**`users`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. See [`appConfig.auth.users`](#appconfigauthusers-optional). <br />**Note** this method of authentication is handled on the client side, so for security critical situations, it is recommended to use an [alternate authentication method](/docs/authentication#alternative-authentication-methods).
 **`enableKeycloak`** | `boolean` | _Optional_ | If set to `true`, then authentication using Keycloak will be enabled. Note that you need to have an instance running, and have also configured `auth.keycloak`. Defaults to `false`
 **`keycloak`** | `object` | _Optional_ | Config options to point Dashy to your Keycloak server. Requires `enableKeycloak: true`. See  [`auth.keycloak`](#appconfigauthkeycloak-optional) for more info
 **`enableGuestAccess`** | `boolean` | _Optional_ | When set to `true`, an unauthenticated user will be able to access the dashboard, with read-only access, without having to login. Requires `auth.users` to be configured. Defaults to `false`.
 
 For more info, see the **[Authentication Docs](/docs/authentication)**
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `appConfig.auth.users` _(optional)_
 
@@ -161,7 +161,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`hash`** | `string` | Required | A SHA-256 hashed password
 **`type`** | `string` | _Optional_ | The user type, either admin or normal
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `appConfig.auth.keycloak` _(optional)_
 
@@ -172,7 +172,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`clientId`** | `string` | Required | The Client ID of the client you created for use with Dashy
 **`legacySupport`** | `boolean` | _Optional_ | If using Keycloak 17 or older, then set this to `true`
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `appConfig.webSearch` _(optional)_
 
@@ -184,7 +184,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`openingMethod`** | `string` | _Optional_ | Set your preferred opening method for search results: `newtab`, `sametab`, `workspace`. Defaults to `newtab`
 **`searchBangs`** | `object` | _Optional_ | A key-value-pair set of custom search _bangs_ for redirecting query to a specific app or search engine. The key of each should be the bang you will type (typically starting with `/`, `!` or `:`), and value is the destination, either as a search engine key (e.g. `reddit`) or a URL with search parameters (e.g. `https://en.wikipedia.org/w/?search=`)
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `appConfig.hideComponents` _(optional)_
 
@@ -196,7 +196,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`hideSettings`** | `boolean` | _Optional_ | If set to `true`, the settings menu will be initially collapsed. Defaults to `false`
 **`hideFooter`** | `boolean` | _Optional_ | If set to `true`, the footer will not be visible. Defaults to `false`
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `section`
 
@@ -208,7 +208,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`widgets`** | `array` | _Optional_ | An array of widgets to be displayed within the section. See [`widget`](#sectionwidget-optional)
 **`displayData`** | `object` | _Optional_ | Meta-data to optionally override display settings for a given section. See [`displayData`](#sectiondisplaydata-optional)
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `section.item`
 
@@ -228,11 +228,12 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`statusCheckAcceptCodes`** | `string` | _Optional_ | If your service's response code is anything other than 2xx, then you can opt to specify an alternative success code. E.g. if you expect your server to return 403, but still want the status indicator to be green, set this value to `403`
 **`statusCheckMaxRedirects`** | `number` | _Optional_ | If your service redirects to another page, and you would like status checks to follow redirects, then specify the maximum number of redirects here. Defaults to `0` / will not follow redirects
 **`color`** | `string` | _Optional_ | An optional color for the text and font-awesome icon to be displayed in. Note that this will override the current theme and so may not display well
+**`rel`** | `string` | _Optional_ | The value of the `rel` attribute for the link. Useful for specifying the relationship between the target link/document and Dashy. Defaults to `noopener noreferrer`
 **`backgroundColor`** | `string` | _Optional_ | An optional background fill color for the that given item. Again, this will override the current theme and so might not display well against the background
 **`provider`** | `string` | _Optional_ | The name of the provider for a given service, useful for when including hosted apps. In some themes, this is visible under the item name
 **`displayData`** | `object` | _Optional_ | Meta-data to optionally override display settings for a given item. See [`displayData`](#itemdisplaydata-optional)
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `item.displayData` _(optional)_
 
@@ -244,21 +245,21 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`hideForKeycloakUsers`** | `object`  | _Optional_ | Current item will be visible to all keycloak users, except for those configured via these groups and roles. See `hideForKeycloakUsers`
 **`showForKeycloakUsers`** | `object`  | _Optional_ | Current item will be hidden from all keycloak users, except for those configured via these groups and roles. See `showForKeycloakUsers`
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
-## `section.widget` _(optional)_
+## `section.widgets` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`type`** | `string` | Required | The widget type. See [Widget Docs](/docs/widgets) for full list of supported widgets
 **`options`** | `object` | _Optional_ | Some widgets accept either optional or required additional options. Again, see the [Widget Docs](/docs/widgets) for full list of options
-**`updateInterval`** | `number` | _Optional_ | You can keep a widget constantly updated by specifying an update interval, in seconds. See [Continuous Updates Docs](/docs/widgetscontinuous-updates) for more info
-**`useProxy`** | `boolean` | _Optional_ | Some widgets make API requests to services that are not CORS-enabled. For these instances, you will need to route requests through a proxy, Dashy has a built in CORS-proxy, which you can use by setting this option to `true`. Defaults to `false`. See the [Proxying Requests Docs](/docs/widgetsproxying-requests) for more info
+**`updateInterval`** | `number` | _Optional_ | You can keep a widget constantly updated by specifying an update interval, in seconds. See [Continuous Updates Docs](/docs/widgets#continuous-updates) for more info
+**`useProxy`** | `boolean` | _Optional_ | Some widgets make API requests to services that are not CORS-enabled. For these instances, you will need to route requests through a proxy, Dashy has a built in CORS-proxy, which you can use by setting this option to `true`. Defaults to `false`. See the [Proxying Requests Docs](/docs/widgets#proxying-requests) for more info
 **`timeout`** | `number` | _Optional_ | Request timeout in milliseconds, defaults to ½ a second (`500`)
 **`ignoreErrors`** | `boolean` | _Optional_ | Prevent an error message being displayed, if a network request or something else fails. Useful for false-positives
 **`label`** | `string` | _Optional_ | Add custom label to a given widget. Useful for identification, if there are multiple of the same type of widget in a single section
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `section.displayData` _(optional)_
 
@@ -281,7 +282,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`hideForKeycloakUsers`** | `object`  | _Optional_ | Current section will be visible to all keycloak users, except for those configured via these groups and roles. See `hideForKeycloakUsers`
 **`showForKeycloakUsers`** | `object`  | _Optional_ | Current section will be hidden from all keycloak users, except for those configured via these groups and roles. See `showForKeycloakUsers`
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `section.icon` and `section.item.icon`
 
@@ -289,7 +290,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 --- | --- | --- | ---
 **`icon`** | `string` | _Optional_ | The icon for a given item or section. <br />See [Icon Docs](/docs/icons) for all available supported icon types, including: auto-fetched favicons, generative icons, emoji icons, home-lab service logos, font-awesome, simple-icons, material icons, and icons specified by URL
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ## `section.displayData.hideForKeycloakUsers`, `section.displayData.showForKeycloakUsers`, `item.displayData.hideForKeycloakUsers` and `item.displayData.showForKeycloakUsers`
 
@@ -298,7 +299,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`groups`** | `string[]` | _Optional_ | Current Section or Item will be hidden or shown based on the user having any of the groups in this list
 **`roles`** | `string[]` | _Optional_ | Current Section or Item will be hidden or shown based on the user having any of the roles in this list
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**
 
 ---
 
@@ -376,4 +377,4 @@ If you need any help, feel free to [Raise an Issue](https://github.com/Lissy93/d
 
 Happy Configuring 🤓🔧
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#configuring)**

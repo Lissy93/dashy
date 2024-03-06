@@ -47,7 +47,7 @@ Dashy supports several different ways to launch your apps. The primary opening m
 
 - `sametab` - The app will be launched in the current tab
 - `newtab` - The app will be launched in a new tab
-- `top` - Opens in the top-most browsing context, useful if your accessing Dashy through an iframe
+- `top` - Opens in the top-most browsing context, useful if you're accessing Dashy through an iframe
 - `modal` - Launch app in a resizable/ movable popup modal on the current page
 - `workspace` - Changes to Workspace view, and launches app
 
@@ -61,4 +61,4 @@ Even if the target is not set (or is set to `sametab`), you can still launch any
 
 If you don't like the custom context menu, it can be disabled by setting `appConfig.disableContextMenu: true`.
 
-If you get a 'Refused to Connect' error in the modal or workspace views, then the target app has it's X-Frame-Options HTTP set to block requests from embedded content. You can easily fix this by setting this header to ALLOW, for instructions on how to do so, see the [Troubleshooting Docs](/docs/troubleshootingrefused-to-connect-in-modal-or-workspace-view).
+If you get a 'Refused to Connect' error in the modal or workspace views, then the target app has it's X-Frame-Options HTTP set to block requests from embedded content. You can easily fix this by setting this header to ALLOW, for instructions on how to do so, see the [Troubleshooting Docs](/docs/troubleshooting#refused-to-connect-in-modal-or-workspace-view).

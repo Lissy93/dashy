@@ -7,6 +7,7 @@
 
 ## Contents
 
+- [Config not saving](#config-not-saving)
 - [Refused to Connect in Web Content View](#refused-to-connect-in-modal-or-workspace-view)
 - [404 On Static Hosting](#404-on-static-hosting)
 - [404 from Mobile Home Screen](#404-after-launch-from-mobile-home-screen)
@@ -18,6 +19,7 @@
 - [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
 - [Keycloak Redirect Error](#keycloak-redirect-error)
 - [Docker Directory Error](#docker-directory)
+- [Config not Saving on Vercel / Netlify / CDN](#user-content-config-not-saving-on-vercel--netlify--cdn)
 - [Config Not Updating](#config-not-updating)
 - [Config Still not Updating](#config-still-not-updating)
 - [Styles and Assets not Updating](#styles-and-assets-not-updating)
@@ -37,10 +39,30 @@
 - [Widget Displaying Inaccurate Data](#widget-displaying-inaccurate-data)
 - [Font Awesome Icons not Displaying](#font-awesome-icons-not-displaying)
 - [Copy to Clipboard not Working](#copy-to-clipboard-not-working)
+- [Unsupported Digital Envelope Routines](#unsupported-digital-envelope-routines)
 - [How to Reset Local Settings](#how-to-reset-local-settings)
 - [How to make a bug report](#how-to-make-a-bug-report)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
+
+---
+
+## Config not saving
+
+### Possible Issue 1: Unable to call save endpoint from CDN/static server
+If you're running Dashy using a static hosting provider (like Vercel), then there is no Node server, and so the save config action will not work via the UI.
+You'll instead need to copy the YAML after making your changes, and paste that into your `conf.yml` directly. If you've connected Vercel to git, then these changes will take effect automatically, once you commit your changes. 
+Look here for more information: [https://dashy.to/docs/deployment#deploy-to-cloud-service](https://dashy.to/docs/deployment#deploy-to-cloud-service)
+
+If you're running on Netlify, there are some cloud functions which take care of all the server endpoints (like status checking), so these will work as expected.
+
+See also [#1465](https://github.com/Lissy93/dashy/issues/1465)
+
+### Possible Issue 2: Unable to save
+In Docker, double check that the file isn't read-only, and that the container actually has permissions to modify it. You shouldn't really be running it as a root user, and I'm not sure if it will work if you do-
+
+### Possible Issue 3: Saved but not updating
+After saving, the frontend will recompile, which may take a couple seconds (or a bit longer on a Pi or low-powered device). If it doesn't recompile, you can manually trigger a re-build.
 
 ---
 
@@ -97,7 +119,7 @@ If you're seeing Dashy's 404 page on initial load/ refresh, and then the main ap
 
 The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by setting `appConfig.routingMode` to `hash`.
 
-If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/managementweb-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `routingMode: history` again, for neater URLs.
+If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `routingMode: history` again, for neater URLs.
 
 ---
 
@@ -222,7 +244,7 @@ volumes:
 
 Check the [browser's console output](#how-to-open-browser-console), if you've not set any headers, you will likely see a CORS error here, which would be the source of the issue.
 
-You need to allow Dashy to make requests to Keycloak, and Keycloak to redirect to Dashy. The way you do this depends on how you're hosting these applications / which proxy you are using, and examples can be found in the [Management Docs](/docs/managementsetting-headers).
+You need to allow Dashy to make requests to Keycloak, and Keycloak to redirect to Dashy. The way you do this depends on how you're hosting these applications / which proxy you are using, and examples can be found in the [Management Docs](/docs/management#setting-headers).
 
 For example, add the access control header to Keycloak, like:
 
@@ -232,7 +254,7 @@ Note that for requests that transport sensitive info like credentials, setting t
 
 You should also ensure that Keycloak is correctly configured, with a user, realm and application, and be sure that you have set a valid redirect URL in Keycloak ([screenshot](https://user-images.githubusercontent.com/1862727/148599768-db4ee4f8-72c5-402d-8f00-051d999e6267.png)).
 
-For more details on how to set headers, see the [Example Headers](/docs/managementsetting-headers) in the management docs, or reference the documentation for your proxy.
+For more details on how to set headers, see the [Example Headers](/docs/management#setting-headers) in the management docs, or reference the documentation for your proxy.
 
 If you're running in Kubernetes, you will need to enable CORS ingress rules, see [docs](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#enable-cors), e.g:
 
@@ -257,6 +279,17 @@ Check if the specified host path exists and is the expected type.
 ```
 
 If you get an error similar to the one above, you are mounting a directory to the config file's location, when a plain file is expected. Create a YAML file, (`touch my-conf.yml`), populate it with a sample config, then pass it as a volume: `-v ./my-local-conf.yml:/app/public/conf.yml`
+
+---
+
+## Config not Saving on Vercel / Netlify / CDN
+
+If you're running Dashy using a static hosting provider (like Vercel), then there is no Node server, and so the save config action will not work via the UI.
+You'll instead need to copy the YAML after making your changes, and paste that into your `conf.yml` directly. If you've connected Vercel to git, then these changes will take effect automatically, once you commit your changes.
+
+If you're running on Netlify, there are some cloud functions which take care of all the server endpoints (like status checking), so these will work as expected.
+
+See also [#1465](https://github.com/Lissy93/dashy/issues/1465)
 
 ---
 
@@ -367,7 +400,7 @@ Run `sudo apt install gnupg2 pass && gpg2 -k`
 
 If you're using status checks, and despite a given service being online, the check is displaying an error, there are a couple of things you can look at:
 
-If your service requires requests to include any authorization in the headers, then use the  `statusCheckHeaders` property, as described in the [docs](/docs/status-indicatorssetting-custom-headers).
+If your service requires requests to include any authorization in the headers, then use the  `statusCheckHeaders` property, as described in the [docs](/docs/status-indicators#setting-custom-headers).
 
 If you are still having issues, it may be because your target application is blocking requests from Dashy's IP. This is a [CORS error](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), and can be fixed by setting the headers on your target app, to include:
 
@@ -398,7 +431,7 @@ If you're serving Dashy though a CDN, instead of using the Node server or Docker
 
 ### Find Error Message
 
-If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't adequately explain the problem, then you can [open the browser console](/docs/troubleshootinghow-to-open-browser-console) to see more details.
+If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't adequately explain the problem, then you can [open the browser console](/docs/troubleshooting#how-to-open-browser-console) to see more details.
 
 ### Check Config
 
@@ -443,11 +476,11 @@ or
 Access-Control-Allow-Origin: *
 ```
 
-For more info on how to set headers, see: [Setting Headers](/docs/managementsetting-headers) in the management docs
+For more info on how to set headers, see: [Setting Headers](/docs/management#setting-headers) in the management docs
 
 ### Option 3 - Proxying Request
 
-You can route requests through Dashy's built-in CORS proxy. Instructions and more details can be found [here](/docs/widgetsproxying-requests). If you don't have control over the target origin, and you are running Dashy either through Docker, with the Node server or on Netlify, then this solution will work for you.
+You can route requests through Dashy's built-in CORS proxy. Instructions and more details can be found [here](/docs/widgets#proxying-requests). If you don't have control over the target origin, and you are running Dashy either through Docker, with the Node server or on Netlify, then this solution will work for you.
 
 Just add the `useProxy: true` option to the failing widget.
 
@@ -470,13 +503,13 @@ If this is the case, you can disable the UI error message of a given widget by s
 
 A 401 error means your API key is invalid, it is not an issue with Dashy.
 
-Usually this happens due to an error in your config. If you're unsure, copy and paste the [example](/docs/widgetsweather) config, replacing the API key with your own.
+Usually this happens due to an error in your config. If you're unsure, copy and paste the [example](/docs/widgets#weather) config, replacing the API key with your own.
 
 Check that `apiKey` is correctly specified, and nested within `options`. Ensure your input city is valid.
 
 To test your API key, try making a request to `https://api.openweathermap.org/data/2.5/weather?q=London&appid=[your-api-key]`
 
-If [Weather widget](/docs/widgetsweather-forecast) is working fine, but you are getting a `401` for the [Weather Forecast widget](/docs/widgetsweather-forecast), then this is also an OWM API key issue.
+If [Weather widget](/docs/widgets#weather-forecast) is working fine, but you are getting a `401` for the [Weather Forecast widget](/docs/widgets#weather-forecast), then this is also an OWM API key issue.
 Since the forecasting API requires an upgraded plan. ULPT: You can get a free, premium API key by filling in [this form](https://home.openweathermap.org/students). It's a student plan, but there's no verification to check that you are still a student.
 
 A future update will be pushed out, to use a free weather forecasting API.
@@ -499,13 +532,15 @@ See also: [#807](https://github.com/Lissy93/dashy/issues/807) (re, domain monito
 
 ## Font Awesome Icons not Displaying
 
-Usually, Font Awesome will be automatically enabled if one or more of your icons are using Font-Awesome. If this is not happening, then you can always manually enable (or disable) Font Awesome by setting: [`appConfig`](/docs/configuringappconfig-optional).`enableFontAwesome` to `true`.
+Usually, Font Awesome will be automatically enabled if one or more of your icons are using Font-Awesome. If this is not happening, then you can always manually enable (or disable) Font Awesome by setting: [`appConfig`](/docs/configuring#appconfig-optional).`enableFontAwesome` to `true`.
 
 If you are trying to use a premium icon, then you must have a [Pro License](https://fontawesome.com/plans). You'll then need to specify your Pro plan API key under `appConfig.fontAwesomeKey`. You can find this key, by logging into your FA account, navigate to Account → [Kits](https://fontawesome.com/kits) → New Kit → Copy Kit Code. The code is a 10-digit alpha-numeric code, and is also visible within the new kit's URL, for example: `81e48ce079`.
 
+<p align="center"><img src="https://i.ibb.co/hZ0D9vs/where-do-i-find-my-font-awesome-key.png" width="600" /></p>
+
 Be sure that you're specifying the icon category and name correctly. You're icon should look be `[category] fa-[icon-name]`. The following categories are supported: `far` _(regular)_, `fas` _(solid)_, `fal`_(light)_, `fad` _(duo-tone)_ and `fab`_(brands)_. With the exception of brands, you'll usually want all your icons to be in from same category, so they look uniform.
 
-Ensure the icon you are trying to use, is available within [FontAwesome Version 5](https://fontawesome.com/v5/search).
+Ensure the icon you are trying to use, is available within [FontAwesome Version 5](https://fontawesome.com/v5/search) (we've not yet upgraded to V6, as it works a little differently).
 
 Examples: `fab fa-raspberry-pi`, `fas fa-database`, `fas fa-server`, `fas fa-ethernet`
 
@@ -525,6 +560,19 @@ As a workaround, you could either:
 
 ---
 
+## Unsupported Digital Envelope Routines
+
+If you're running on GitHub Codespaces, and seeing: `Error: error:0308010C:digital envelope routines::unsupported` when using Node 17+, it can be resolved  by adding the `--openssl-legacy-provider` flag to your `NODE_OPTIONS` environmental variable.
+For example:
+
+```
+export NODE_OPTIONS=--openssl-legacy-provider
+```
+
+This will be fixed once [webpack/webpack#17659](https://github.com/webpack/webpack/pull/17659) is merged.
+
+---
+
 ## How to Reset Local Settings
 
 Some settings are stored locally, in the browser's storage.
@@ -536,7 +584,7 @@ This will not affect your config file. But be sure that you keep a backup of you
 
 You can also view any and all data that Dashy is storing, using the developer tools. Open your browser's dev tools (usually <kbd>F12</kbd>), in Chromium head to the Application tab, or in Firefox go to the Storage tab. Select Local Storage, then scroll down the the URL Dashy is running on. You should now see all data being stored, and you can select and delete any fields you wish.
 
-For a full list of all data that may be cached, see the [Privacy Docs](/docs/privacybrowser-storage).
+For a full list of all data that may be cached, see the [Privacy Docs](/docs/privacy#browser-storage).
 
 ---
 

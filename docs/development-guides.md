@@ -16,15 +16,15 @@ Sections:
 
 ## Creating a new theme
 
-Adding a new theme is really easy.  There's two things you need to do: Pass the theme name to Dashy, so that it can be added to the theme selector dropdown menu, and then write some styles!
+Adding a new theme is really easy. There're two things you need to do: Pass the theme name to Dashy, so that it can be added to the theme selector dropdown menu, and then write some styles!
 
 ### 1. Add Theme Name
 
-Choose a snappy name for you're theme, and add it to the `builtInThemes` array inside [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L27).
+Choose a snappy name for your theme, and add it to the `builtInThemes` array inside [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L27).
 
 ### 2. Write some Styles
 
-Put your theme's styles inside [`color-themes.scss`](https://github.com/Lissy93/dashy/blob/master/src/styles/color-themes.scss).
+Put your theme styles inside [`color-themes.scss`](https://github.com/Lissy93/dashy/blob/master/src/styles/color-themes.scss).
 Create a new block, and make sure that `data-theme` matches the theme name you chose above. For example:
 
 ```css
@@ -34,11 +34,11 @@ html[data-theme='tiger'] {
 }
 ```
 
-Then you can go ahead and write you're own custom CSS. Although all CSS is supported here, the best way to define you're theme is by setting the CSS variables. You can find a [list of all CSS variables, here](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#css-variables).
+Then you can go ahead and write your own custom CSS. Although all CSS is supported here, the best way to define your theme is by setting the CSS variables. You can find a [list of all CSS variables, here](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#css-variables).
 
 For a full guide on styling, see [Theming Docs](./theming).
 
-Note that if you're theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#adding-your-own-theme).
+Note that if your theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#adding-your-own-theme).
 
 ## Writing Translations
 
@@ -96,7 +96,7 @@ export const languages = [
 ];
 ```
 
-You can also add your new language to the readme, under the [Language Switching](https://github.com/Lissy93/dashy#language-switching-) section, and optionally include your name/ username if you'd like to be credited for your work. Done!
+You can also add your new language to the readme file, under the [Language Switching](https://github.com/Lissy93/dashy#language-switching-) section, and optionally include your name/ username if you'd like to be credited for your work. Done!
 
 If you are not comfortable with making pull requests, or do not want to modify the code, then feel free to instead send the translated file to me, and I can add it into the application. I will be sure to credit you appropriately.
 
@@ -125,7 +125,7 @@ computed: {
 },
 ```
 
-Then, where you want get the users value within your component, use something like: `this.appConfig.myProperty`. Don't forget to have a fallback or default for then the user hasn't specified it.
+Then, where you want to get the users value within your component, use something like: `this.appConfig.myProperty`. If the user hasn't specified the value, Don't forget to have a fallback or default for it.
 
 If you have a default fallback value, then this would typically be specified in the [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js) file.
 
@@ -151,7 +151,7 @@ or
 }
 ```
 
-Finally, add your new property to the [`configuring.md`](./configuring) API docs. Put it under the relevant section, and be sure to include field name, data type, a description and mention that it is optional.  If your new feature needs more explaining, then you can also document it under the relevant section elsewhere in the documentation.
+Finally, add your new property to the [`configuring.md`](./configuring) API docs. Put it under the relevant section, and be sure to include field name, data type, a description and mention that it is optional.  If your new feature needs more explanation, then you can also document it under the relevant section elsewhere in the documentation.
 
 Checklist:
 
@@ -176,12 +176,12 @@ When Dashy is deployed to Netlify, it is effectively running as a static app, an
 
 ### 1. Run Netlify Dev Server
 
-First off, install the Netlify CLI: `npm install netlify-cli -g`
+First off all, install the Netlify CLI: `npm install netlify-cli -g`
 Then, from within the root of Dashy's directory, start the server, by running: `netlify dev`
 
 ### 2. Create a lambda function
 
-This should be saved it in the [`./services/serverless-functions`](https://github.com/Lissy93/dashy/tree/master/services/serverless-functions) directory
+This should be saved in the [`./services/serverless-functions`](https://github.com/Lissy93/dashy/tree/master/services/serverless-functions) directory
 
 ```javascript
 exports.handler = async () => ({
@@ -313,7 +313,7 @@ export default {
 All widgets extend from the [Widget](https://github.com/Lissy93/dashy/blob/master/src/mixins/WidgetMixin.js) mixin. This provides some basic functionality that is shared by all widgets. The mixin includes the following `options`, `startLoading()`, `finishLoading()`, `error()` and `update()`.
 
 - **Getting user options: `options`**
-  - Any user-specific config can be accessed with `this.options.something` (where something is the data key your accessing)
+  - Any user-specific config can be accessed with `this.options.something` (where something is the data key you're accessing)
 - **Loading state: `startLoading()` and `finishLoading()`**
   - You can show the loader with `this.startLoading()`, then when your data request completes, hide it again with `this.finishLoading()`
 - **Error handling: `error()`**
@@ -341,7 +341,7 @@ computed: {
 
 #### **Adding an API Endpoint**
 
-If your widget makes a data request, then add the URL for the API under point to the `widgetApiEndpoints` array in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L207)
+If your widget makes a data request, then add the URL for the API endpoint to the `widgetApiEndpoints` array in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L207)
 
 ```javascript
 widgetApiEndpoints: {
@@ -410,7 +410,7 @@ Now that the results are in the correct format, and stored as data variables, we
 
 #### **Styling**
 
-Styles can be written your your widget within the `<style>` block.
+Styles can be written for your widget within the `<style>` block.
 
 There are several color variables used by widgets, which extend from the base palette. Using these enables users to override colors to theme their dashboard, if they wish. The variables are: `--widget-text-color`, `--widget-background-color` and `--widget-accent-color`
 
@@ -439,7 +439,7 @@ Here, the `example-widget` property name will be used to identify the widget whe
 
 ### Step 4 - Docs
 
-Finally, add some documentation for your widget in the [Widget Docs](https://github.com/Lissy93/dashy/blob/master/docs/widgets.md), so that others know hoe to use it. Include the following information: Title, short description, screenshot, config options and some example YAML.
+Finally, add some documentation for your widget in the [Widget Docs](https://github.com/Lissy93/dashy/blob/master/docs/widgets.md), so that others know how to use it. Include the following information: Title, short description, screenshot, config options and some example YAML.
 
 **Summary**: For a complete example of everything discussed here, see: [`3da76ce`](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e)
 

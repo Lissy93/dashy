@@ -18,6 +18,12 @@
   - [OAuth Services](#oauth-services)
   - [Auth on Cloud Hosting Services](#static-site-hosting-providers)
 
+
+> [!IMPORTANT]
+> Dashy's built-in auth is not indented to protect a publicly hosted instance against unauthorized access. Instead you should use an auth provider compatible with your reverse proxy, or access Dashy via your VPN. 
+>
+> In cases where Dashy is only accessibly within your home network, and you just want to add a login page, then the built-in auth may be sufficient, but keep in mind that configuration can still be accessed.
+
 ## Built-In Auth
 
 Dashy has a basic login page included, and frontend authentication. You can enable this by adding users to the `auth` section under `appConfig` in your `conf.yml`. If this section is not specified, then no authentication will be required to access the app, and the homepage will resolve to your dashboard.
@@ -55,13 +61,25 @@ With authentication set up, by default no access is allowed to your dashboard wi
 
 ### Granular Access
 
-You can use the following properties to make certain sections or items only visible to some users, or hide sections and items from guests.
+You can use the following properties to make certain pages, sections or items only visible to some users, or hide pages, sections and items from guests.
 
-- `hideForUsers` - Section or Item will be visible to all users, except for those specified in this list
-- `showForUsers` - Section or Item will be hidden from all users, except for those specified in this list
-- `hideForGuests` - Section or Item will be visible for logged in users, but not for guests
+- `hideForUsers` - Page, Section or Item will be visible to all users, except for those specified in this list
+- `showForUsers` - Page, Section or Item will be hidden from all users, except for those specified in this list
+- `hideForGuests` - Page, Section or Item will be visible for logged in users, but not for guests
 
 For Example:
+```yaml
+pages:
+  - name: Home Lab
+    path: home-lab.yml
+    displayData:
+      showForUsers: [admin]
+  - name: Intranet
+    path: intranet.yml
+    displayData:
+      hideForGuests: true
+      hideForUsers: [alicia, bob]
+```    
 
 ```yaml
 - name: Code Analysis & Monitoring
@@ -88,7 +106,7 @@ For Example:
 
 Any user who is not an admin (with `type: admin`) will not be able to write changes to disk.
 
-You can also prevent any user from writing changes to disk, using `preventWriteToDisk`. Or prevent any changes from being saved locally in browser storage, using `preventLocalSave`. Both properties can be found under [`appConfig`](/docs/configuringappconfig-optional).
+You can also prevent any user from writing changes to disk, using `preventWriteToDisk`. Or prevent any changes from being saved locally in browser storage, using `preventLocalSave`. Both properties can be found under [`appConfig`](/docs/configuring#appconfig-optional).
 
 To disable all UI config features, including View Config, set `disableConfiguration`. Alternatively you can disable UI config features for all non admin users by setting `disableConfigurationForNonAdmin` to true.
 
@@ -96,7 +114,7 @@ To disable all UI config features, including View Config, set `disableConfigurat
 
 With basic auth, all logic is happening on the client-side, which could mean a skilled user could manipulate the code to view parts of your configuration, including the hash. If the SHA-256 hash is of a common password, it may be possible to determine it, using a lookup table, in order to find the original password. Which can be used to manually generate the auth token, that can then be inserted into session storage, to become a valid logged in user. Therefore, you should always use a long, strong and unique password, and if you instance contains security-critical info and/ or is exposed directly to the internet, and alternative authentication method may be better. The purpose of the login page is merely to prevent immediate unauthorized access to your homepage.
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#authentication)**
 
 ---
 
@@ -347,4 +365,4 @@ There are also authentication services, such as [Ory.sh](https://www.ory.sh/), [
 
 If you are hosting Dashy on a cloud platform, you will probably find that it has built-in support for password protected access to web apps. For more info, see the relevant docs for your provider, for example: [Netlify Password Protection](https://docs.netlify.com/visitor-access/password-protection/), [Cloudflare Access](https://www.cloudflare.com/teams/access/), [AWS Cognito](https://aws.amazon.com/cognito/), [Azure Authentication](https://docs.microsoft.com/en-us/azure/app-service/scenario-secure-app-authentication-app-service) and [Vercel Password Protection](https://vercel.com/docs/platform/projects#password-protection).
 
-**[⬆️ Back to Top](#)**
+**[⬆️ Back to Top](#authentication)**

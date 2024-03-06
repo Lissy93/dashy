@@ -114,54 +114,54 @@ Certain themes may use external assets (such as fonts or images). Currently, thi
 
 Dashy supports [Widgets](/docs/widgets) for displaying dynamic content. Below is a list of all widgets that make external data requests, along with the endpoint they call and a link to the Privacy Policy of that service.
 
-- **[Weather](/docs/widgetsweather)** and **[Weather Forecast](/docs/widgetsweather-forecast)**: `https://api.openweathermap.org`
+- **[Weather](/docs/widgets#weather)** and **[Weather Forecast](/docs/widgets#weather-forecast)**: `https://api.openweathermap.org`
   - [OWM Privacy Policy](https://openweather.co.uk/privacy-policy)
-- **[RSS Feed](/docs/widgetsrss-feed)**: `https://api.rss2json.com/v1/api.json`
+- **[RSS Feed](/docs/widgets#rss-feed)**: `https://api.rss2json.com/v1/api.json`
   - [Rss2Json Privacy Policy](https://rss2json.com/privacy-policy)
-- **[IP Address](/docs/widgetspublic-ip)**: `https://ipapi.co/json` or `http://ip-api.com/json`
+- **[IP Address](/docs/widgets#public-ip)**: `https://ipapi.co/json` or `http://ip-api.com/json`
   - [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html)
   - [IP-API Privacy Policy](https://ip-api.com/docs/legal)
-- **[IP Blacklist](/docs/widgetsip-blacklist)**: `https://api.blacklistchecker.com`
+- **[IP Blacklist](/docs/widgets#ip-blacklist)**: `https://api.blacklistchecker.com`
   - [Blacklist Checker Privacy Policy](https://blacklistchecker.com/privacy)
-- **[Domain Monitor](/docs/widgetsdomain-monitor)**: `http://api.whoapi.com`
+- **[Domain Monitor](/docs/widgets#domain-monitor)**: `http://api.whoapi.com`
   - [WhoAPI Privacy Policy](https://whoapi.com/privacy-policy/)
-- **[Crypto Watch List](/docs/widgetscrypto-watch-list)** and **[Token Price History](/docs/widgetscrypto-token-price-history)**: `https://api.coingecko.com`
+- **[Crypto Watch List](/docs/widgets#crypto-watch-list)** and **[Token Price History](/docs/widgets#crypto-token-price-history)**: `https://api.coingecko.com`
   - [CoinGecko Privacy Policy](https://www.coingecko.com/en/privacy)
-- **[Wallet Balance](/docs/widgetswallet-balance)**: `https://api.blockcypher.com/`
+- **[Wallet Balance](/docs/widgets#wallet-balance)**: `https://api.blockcypher.com/`
   - [BlockCypher Privacy Policy](https://www.blockcypher.com/privacy.html)
-- **[Code::Stats](/docs/widgetscode-stats)**: `https://codestats.net`
+- **[Code::Stats](/docs/widgets#code-stats)**: `https://codestats.net`
   - [Code::Stats Privacy Policy](https://codestats.net/tos#privacy)
-- **[AnonAddy](/docs/widgetsanonaddy)**: `https://app.anonaddy.com`
+- **[AnonAddy](/docs/widgets#anonaddy)**: `https://app.anonaddy.com`
   - [AnonAddy Privacy Policy](https://anonaddy.com/privacy/)
-- **[Vulnerability Feed](/docs/widgetsvulnerability-feed)**: `https://www.cvedetails.com`
+- **[Vulnerability Feed](/docs/widgets#vulnerability-feed)**: `https://www.cvedetails.com`
   - [CVE Details Privacy Policy](https://www.cvedetails.com/privacy.php)
-- **[Exchange Rate](/docs/widgetsexchange-rates)**: `https://v6.exchangerate-api.com`
+- **[Exchange Rate](/docs/widgets#exchange-rates)**: `https://v6.exchangerate-api.com`
   - [ExchangeRateAPI Privacy Policy](https://www.exchangerate-api.com/terms)
-- **[Public Holidays](/docs/widgetspublic-holidays)**: `https://kayaposoft.com`
+- **[Public Holidays](/docs/widgets#public-holidays)**: `https://kayaposoft.com`
   - [jurajmajer/enrico](https://github.com/jurajmajer/enrico)
-- **[Covid-19 Status](/docs/widgetscovid-19-status)**: `https://codestats.net`
+- **[Covid-19 Status](/docs/widgets#covid-19-status)**: `https://codestats.net`
   - [disease-sh/api](https://github.com/disease-sh/api)
-- **[Sports Scores](/docs/widgetssports-scores)**: `https://thesportsdb.com`
+- **[Sports Scores](/docs/widgets#sports-scores)**: `https://thesportsdb.com`
   - No Policy Available
-- **[News Headlines](/docs/widgetsnews-headlines)**: `https://api.currentsapi.services`
+- **[News Headlines](/docs/widgets#news-headlines)**: `https://api.currentsapi.services`
   - [CurrentsAPI Privacy Policy](https://currentsapi.services/privacy)
-- **[Mullvad Status](/docs/widgetsmullvad-status)**: `https://am.i.mullvad.net`
+- **[Mullvad Status](/docs/widgets#mullvad-status)**: `https://am.i.mullvad.net`
   - [Mullvad Privacy Policy](https://mullvad.net/en/help/privacy-policy/)
-- **[TFL Status](/docs/widgetstfl-status)**: `https://api.tfl.gov.uk`
+- **[TFL Status](/docs/widgets#tfl-status)**: `https://api.tfl.gov.uk`
   - [TFL Privacy Policy](https://tfl.gov.uk/corporate/privacy-and-cookies/)
-- **[Stock Price History](/docs/widgetsstock-price-history)**: `https://alphavantage.co`
+- **[Stock Price History](/docs/widgets#stock-price-history)**: `https://alphavantage.co`
   - [AlphaVantage Privacy Policy](https://www.alphavantage.co/privacy/)
-- **[ETH Gas Prices](/docs/widgetseth-gas-prices)**: `https://ethgas.watch`
+- **[ETH Gas Prices](/docs/widgets#eth-gas-prices)**: `https://ethgas.watch`
   - [wslyvh/ethgaswatch](https://github.com/wslyvh/ethgaswatch)
-- **[Joke](/docs/widgetsjoke)**: `https://v2.jokeapi.dev`
+- **[Joke](/docs/widgets#joke)**: `https://v2.jokeapi.dev`
   - [SV443's Privacy Policy](https://sv443.net/privacypolicy/en)
-- **[Flight Data](/docs/widgetsflight-data)**: `https://aerodatabox.p.rapidapi.com`
+- **[Flight Data](/docs/widgets#flight-data)**: `https://aerodatabox.p.rapidapi.com`
   - [AeroDataBox Privacy Policy](https://www.aerodatabox.com/#h.p_CXtIYZWF_WQd)
-- **[Astronomy Picture of the Day](/docs/widgetsastronomy-picture-of-the-day)**: `https://apodapi.herokuapp.com`
+- **[Astronomy Picture of the Day](/docs/widgets#astronomy-picture-of-the-day)**: `https://apodapi.herokuapp.com`
   - [NASA's Privacy Policy](https://www.nasa.gov/about/highlights/HP_Privacy.html)
-- **[GitHub Trending](/docs/widgetsgithub-trending)** and **[GitHub Profile Stats](/docs/widgetsgithub-profile-stats)**: `https://api.github.com`
+- **[GitHub Trending](/docs/widgets#github-trending)** and **[GitHub Profile Stats](/docs/widgets#github-profile-stats)**: `https://api.github.com`
   - [GitHub's Privacy Policy](https://docs.github.com/en/github/site-policy/github-privacy-statement)
-- **[Cron Monitoring (Health Checks)](/docs/widgetscron-monitoring-health-checks)**: `https://healthchecks.io`
+- **[Cron Monitoring (Health Checks)](/docs/widgets#cron-monitoring-health-checks)**: `https://healthchecks.io`
   - [Health-Checks Privacy Policy](https://healthchecks.io/privacy/)
 
 ---
@@ -210,7 +210,7 @@ The following section outlines all data that is stored in the browsers, as cooki
 
 ### Deleting Stored Data
 
-You can manually view and delete session storage, local storage and cookies at anytime. Fist [open](/docs/troubleshootinghow-to-open-browser-console) your browsers developer tools (usually <kbd>F12</kbd>), then under the Application tab select the storage category. Here you will see a list of stored data, and you can select any item and delete it.
+You can manually view and delete session storage, local storage and cookies at anytime. Fist [open](/docs/troubleshooting#how-to-open-browser-console) your browsers developer tools (usually <kbd>F12</kbd>), then under the Application tab select the storage category. Here you will see a list of stored data, and you can select any item and delete it.
 
 ---
 
@@ -233,7 +233,7 @@ If you're running Dashy in a container, see [Management Docs --> Container Secur
 There is very little complexity involved with Dashy, and therefore the attack surface is reasonably small, but it is still important to follow best practices and employ monitoring for all your self-hosted apps. A couple of things that you should look at include:
 
 - Use SSL for securing traffic in transit
-- Configure [authentication](/docs/authenticationalternative-authentication-methods) to prevent unauthorized access
+- Configure [authentication](/docs/authentication#alternative-authentication-methods) to prevent unauthorized access
 - Keep your system, software and Dashy up-to-date
 - Ensure your server is appropriately secured
 - Manage users and SSH correctly
@@ -256,7 +256,7 @@ Dashy supports SRI, and it is recommended to enable this if you are hosting your
 
 ### SSL
 
-Native SSL support is enabled, for setup instructions, see the [Management Docs](/docs/managementssl-certificates)
+Native SSL support is enabled, for setup instructions, see the [Management Docs](/docs/management#ssl-certificates)
 
 ### Authentication
 

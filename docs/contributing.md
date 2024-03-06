@@ -26,6 +26,7 @@ Don't feel any pressure to donate anything, as Dashy and my other projects will 
 Sponsoring will give you several perks - for $1 / £0.75 per month, you'll get a sponsor badge on your profile, be credited on the Dashy's readme, with a link to your website/ profile/ socials, get priority support,  have your feature ideas implemented, plus lots more. For more info, see [@Lissy93's Sponsor Page](https://github.com/sponsors/Lissy93).
 
 
+
 ## Enable Anonymous Bug Reports
 
 Bug reports helps me to discover bugs I was unaware of, and then fix them, in order to make Dashy more reliable long term. This is a simple, yet really helpful step you can take to help improve Dashy. [Sentry](https://github.com/getsentry/sentry) is an open source error tracking and performance monitoring tool, which enables the identification any errors which occur in the production app (only if you enable it).
@@ -41,7 +42,7 @@ All reporting is **disabled** by default, and no data will ever be sent to any e
 
 ## Add Translations
 
-If you speak another language, then adding translations will help make Dashy available to non-native English speakers. This is a very quick and easy task, as all application text is located in [`locales/en.json`](https://github.com/Lissy93/dashy/blob/master/src/assets/locales/en.json), so adding a new language is as simple as copying this file and translating the values. You don't have to translate it all, as any missing attributes will just fallback to English. For a full tutorial, see the [Multi-Language Support Docs](https://github.com/Lissy93/dashy/blob/master/docs/multi-language-support).
+If you speak another language, then adding translations will help make Dashy available to non-native English speakers. This is a very quick and easy task, as all application text is located in [`locales/en.json`](https://github.com/Lissy93/dashy/blob/master/src/assets/locales/en.json), so adding a new language is as simple as copying this file and translating the values. You don't have to translate it all, as any missing attributes will just fallback to English. For a full tutorial, see the [Multi-Language Support Docs](https://github.com/Lissy93/dashy/blob/master/docs/multi-language-support.md).
 
 ## Submit a PR
 
@@ -115,7 +116,9 @@ If you like, you could also consider [subscribing to my mailing list](https://no
 
 For a full list of Dashy's contributors, see the [Credits Page](/docs/credits)
 
-[![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)](/docs/credits)
+[
+  ![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)
+](credits.md)
 
 ### Star-Gazers Over Time
 

@@ -16,16 +16,35 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
 
 ## Deployment Methods
 
-- [Deploy with Docker](#deploy-with-docker)
-- [Using Docker Compose](#using-docker-compose)
-- [Unraid](#unraid)
-- [Synology NAS](#synology-nas)
-- [Build from Source](#build-from-source)
-- [Hosting with CDN](#hosting-with-cdn)
-- [Run as executable](#run-as-executable)
-- [Install with NPM](#install-with-npm)
-- [Deploy to cloud service](#deploy-to-cloud-service)
-- [Use managed instance](#use-managed-instance)
+- [Deployment](#deployment)
+  - [Quick Start](#quick-start)
+  - [Deployment Methods](#deployment-methods)
+  - [Deploy with Docker](#deploy-with-docker)
+  - [Using Docker Compose](#using-docker-compose)
+  - [Kubernetes](#kubernetes)
+  - [Unraid](#unraid)
+  - [Synology NAS](#synology-nas)
+  - [Build from Source](#build-from-source)
+  - [Deploy to cloud service](#deploy-to-cloud-service)
+    - [Netlify](#netlify)
+    - [Heroku](#heroku)
+    - [Vercel](#vercel)
+    - [DigitalOcean](#digitalocean)
+    - [Google Cloud Platform](#google-cloud-platform)
+    - [Platform.sh](#platformsh)
+    - [Render](#render)
+    - [Railway](#railway)
+    - [Scalingo](#scalingo)
+    - [Play-with-Docker](#play-with-docker)
+    - [Surge.sh](#surgesh)
+    - [Easypanel](#easypanel)
+  - [Hosting with CDN](#hosting-with-cdn)
+  - [Requirements](#requirements)
+    - [System Requirements](#system-requirements)
+    - [Docker](#docker)
+    - [Bare Metal](#bare-metal)
+    - [CDN / Cloud Deploy](#cdn--cloud-deploy)
+    - [Browser Support](#browser-support)
 
 ---
 
@@ -117,6 +136,12 @@ If you are building from source, and would like to use one of the [other Dockerf
 
 ---
 
+## Kubernetes
+
+@vyrtualsynthese has written a Helm Chart for deploying with Kubernetes, available [here](https://github.com/vyrtualsynthese/selfhosted-helmcharts/tree/main/charts/dashy)
+
+---
+
 ## Unraid
 
 // TODO
@@ -170,7 +195,8 @@ If you don't have a home server, then fear not - Dashy can be deployed to pretty
 
 Some hosting providers required a bit of extra configuration, which was why I've made separate branches for deploying to those services (named: [`deploy_cloudflare`](https://github.com/Lissy93/dashy/tree/deploy_cloudflare), [`deploy_digital-ocean`](https://github.com/Lissy93/dashy/tree/deploy_digital-ocean), [`deploy_platform-sh`](https://github.com/Lissy93/dashy/tree/deploy_platform-sh) and [`deploy_render`](https://github.com/Lissy93/dashy/tree/deploy_render)). If there's another cloud service which you'd like 1-click deployment to be supported for, feel free to raise an issue.
 
-**Note** If you use a static hosting provider, then status checks, writing new config changes to disk from the UI, and triggering a rebuild through the UI will not be available. This is because these features need endpoints provided by Dashy's local Node server. Everything else should work just the same though.
+> [!NOTE]
+> If you use a static hosting provider, then status checks, writing new config changes to disk from the UI, and triggering a rebuild through the UI will not be available. This is because these features need endpoints provided by Dashy's local Node server. Everything else should work just the same though.
 
 ### Netlify
 
@@ -194,18 +220,6 @@ To deploy Dashy to Heroku, use the following link
 
 ```text
 https://heroku.com/deploy?template=https://github.com/Lissy93/dashy
-```
-
-### Cloudflare Workers
-
-[![Deploy to Cloudflare Workers](https://i.ibb.co/jf9xVdm/deploy-cloudflare-button.png)](https://deploy.workers.cloudflare.com/?url=https://github.com/lissy93/dashy/tree/deploy_cloudflare)
-
-[Cloudflare Workers](https://workers.cloudflare.com/) is a simple yet powerful service for running cloud functions and hosting web content. It requires a Cloudflare account, but is completely free for smaller projects, and very reasonably priced ($0.15/million requests per month) for large applications. You can use your own domain, and applications are protected with Cloudflare's state of the art DDoS protection. For more info, see the docs on [Worker Sites](https://developers.cloudflare.com/workers/platform/sites)
-
-To deploy Dashy to Cloudflare, use the following link
-
-```text
-https://deploy.workers.cloudflare.com/?url=https://github.com/lissy93/dashy/tree/deploy_cloudflare
 ```
 
 ### Vercel
@@ -266,6 +280,16 @@ To deploy Dashy to Render, use the following link
 https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render
 ```
 
+### Railway
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/MtdjAQ?referralCode=app)
+
+[Railway](https://railway.app/) is a Platform as a Service (PaaS) that offers a complete platform for building and delivering programs to the backend of the cloud. You bring your code and Railway does the rest. Railway offers an extremely good developer experience and makes it effortless to deploy apps. Railway offers a free Trial Plan, and paid plans start at $5/month. Railway has 4 server locations: US-west, US-east, EU-west and ASIA-South-East.
+
+```text
+https://railway.app/template/MtdjAQ
+```
+
 ### Scalingo
 
 [![Deploy on Scalingo](https://i.ibb.co/nj0KxyH/deploy-scalingo-button.png)](https://my.scalingo.com/deploy?source=https://github.com/lissy93/dashy#master)
@@ -305,6 +329,18 @@ yarn build
 surge ./dist
 ```
 
+### Easypanel
+
+[![Deploy to Easypanel](https://i.ibb.co/ZNPwQX3/deploy-easypanel-button.png)](https://easypanel.io/docs/templates/dashy)
+
+[Easypanel](https://easypanel.io) it's a modern server control panel. You can use it to deploy Dashy on your own server.
+
+To deploy Dashy to Easypanel, use the following link
+
+```text
+https://easypanel.io/docs/templates/dashy
+```
+
 ---
 
 ## Hosting with CDN
@@ -331,7 +367,7 @@ Minimum 526mb mem, 2GB disk space.
 
 ### CDN / Cloud Deploy
 
-No specific requirements. The built application alone (without the Node server) is very light-weight, and can be handled smoothly by pretty much any CDN or cloud deployment service (see [this list](/docs/deploymentdeploy-to-cloud-service) or natively supported cloud providers).
+No specific requirements. The built application alone (without the Node server) is very light-weight, and can be handled smoothly by pretty much any CDN or cloud deployment service (see [this list](/docs/deployment#deploy-to-cloud-service) or natively supported cloud providers).
 
 If you're using your own icons, or other assets, additional disk space will be required for those resources.
 
