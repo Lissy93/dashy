@@ -205,19 +205,19 @@ const DocsSections = [
       },
       {
         title: 'License',
-        description: 'Configure login and user control',
+        description: 'Licensing model of Dashy',
         link: '/docs/license',
         icon: (<IconLegal />),
       },
       {
         title: 'Code of Conduct',
-        description: 'Configure login and user control',
+        description: 'Guidelines around Dashy',
         link: '/docs/code-of-conduct',
         icon: (<IconConduct />),
       },
       {
         title: 'Changelog',
-        description: 'Configure login and user control',
+        description: 'View the latest changes and updates',
         link: '/docs/changelog',
         icon: (<IconChangelog />),
       },
