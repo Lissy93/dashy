@@ -17,8 +17,9 @@ on:
 # 1. Checkout master branch
 # 2. Checkout website source code branch
 # 3. Install Python
-# 4. Run the script which processes documentation
-# 5. Commit and push updated docs to the website source code branch
+# 4. Copy /docs from master to website branch
+# 5. Run the script which processes documentation
+# 6. Commit and push updated docs to the website source code branch
 jobs:
   update-docs:
     runs-on: ubuntu-latest
