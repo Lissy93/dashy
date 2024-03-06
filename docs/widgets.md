@@ -2225,7 +2225,7 @@ Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`host`** | `string` |  Required | The hostname of the Drone CI instance.
-**`apiKey`** | `string` |  Required | The API key (https://<your-drone-instance>/account).
+**`apiKey`** | `string` |  Required | The API key (https://[your-drone-instance]/account).
 **`limit`** | `integer` | _Optional_ | Limit the amounts of listed builds.
 **`repo`** | `string` | _Optional_ | Show only builds of the specified repo
 
@@ -2259,7 +2259,7 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`host`** | `string` |  Required | The hostname of the Drone CI instance.
-**`apiKey`** | `string` |  Required | The API key (https://<your-linkding-instance>/settings/integrations).
+**`apiKey`** | `string` |  Required | The API key (https://your-linkding-instance/settings/integrations).
 **`tags`** | `list of string` | _Optional_ | Filter the links by tag.
 
 #### Example
