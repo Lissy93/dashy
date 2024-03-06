@@ -1,21 +1,16 @@
 <template>
   <div>
     <template v-if="monitors">
-      <div v-for="(monitor, index) in monitors" :key="index" class="">
-        <div class="title-title"><span class="text">{{ monitor.name }}</span></div>
-        <div class="monitors-container">
-          <div class="status-container">
-            <span class="status-pill" :class="{ up: monitor.status == 1, down: monitor.status != 1 }">{{ monitor.status
-      ==
-      1
-      ? "Up" : "Down" }}</span>
-          </div>
-          <div class="status-container">
-            <span class="status-pill">{{ monitor.responseTime }}ms</span>
-          </div>
-          <div class="status-container" v-if="monitor.certValid !== undefined">
-            <span class="status-pill" :class="{ up: monitor.certValid == 1, down: monitor.certValid != 1 }">{{
-      monitor.certValid }}</span>
+      <div v-for="(monitor, index) in monitors" :key="index" class="item-wrapper">
+        <div class="item monitor-row">
+          <div class="title-title"><span class="text">{{ monitor.name }}</span></div>
+          <div class="monitors-container">
+            <div class="status-container">
+              <span class="status-pill" :class="[monitor.statusClass]">{{ monitor.status }}</span>
+            </div>
+            <div class="status-container">
+              <span class="response-time">{{ monitor.responseTime }}ms</span>
+            </div>
           </div>
         </div>
       </div>
@@ -46,8 +41,8 @@ export default {
       errorMessage: null,
       errorMessageConstants: {
         missingApiKey: 'No API key set',
-        missingUrl: 'No URL set'
-      }
+        missingUrl: 'No URL set',
+      },
     };
   },
 
@@ -55,30 +50,19 @@ export default {
     this.fetchData();
   },
   computed: {
-    /* Get the users chosen number of results, from this.options.count
-     * If not present, or not a number, then return the default (5)
-     */
+    /* Get API key for access to instance */
     apiKey() {
       const { apiKey } = this.options;
 
-      if (!apiKey) {
-        this.errorMessage = this.errorMessageConstants.missingApiKey;
-        throw new Error(this.errorMessageConstants.missingApiKey);
-      }
-
       return apiKey;
     },
-    /* Get users desired image text, or return `Dashy` */
+    /* Get instance URL */
     url() {
       const { url } = this.options;
 
-      if (!url) {
-        this.errorMessage = this.errorMessageConstants.missingUrl;
-        throw new Error(this.errorMessageConstants.missingUrl);
-      }
-
       return url;
     },
+    /* Create authorisation header for the instance from the apiKey */
     authHeaders() {
       if (!this.options.apiKey) {
         return {};
@@ -97,7 +81,13 @@ export default {
     },
     /* Make the data request to the computed API endpoint */
     fetchData() {
-      this.makeRequest(this.url, this.authHeaders)
+      const { authHeaders, url } = this;
+
+      if (!this.optionsValid({ authHeaders, url })) {
+        return;
+      }
+
+      this.makeRequest(url, authHeaders)
         .then(this.processData);
     },
     /* Convert API response data into a format to be consumed by the UI */
@@ -106,7 +96,7 @@ export default {
 
       const monitors = new Map();
 
-      for (let index = 0; index < monitorRows.length; index++) {
+      for (let index = 0; index < monitorRows.length; index += 1) {
         const row = monitorRows[index];
         this.processRow(row, monitors);
       }
@@ -117,7 +107,6 @@ export default {
       return response.split('\n').filter(row => row.startsWith('monitor_'));
     },
     processRow(row, monitors) {
-      console.log(monitors);
       const dataType = this.getRowDataType(row);
       const monitorName = this.getRowMonitorName(row);
 
@@ -126,38 +115,38 @@ export default {
       }
 
       const monitor = monitors.get(monitorName);
-      console.log('monitor', monitor);
       const value = this.getRowValue(row);
 
-      console.log('monitorname', monitorName);
-      console.log('datatype', dataType);
-      console.log('value', value);
-      console.log('row', row);
+      const updated = this.setMonitorValue(dataType, monitor, value);
 
-      this.setMonitorValue(dataType, monitor, value);
-      monitors.set(monitorName, monitor);
+      console.log(monitor, updated);
+      monitors.set(monitorName, updated);
     },
     setMonitorValue(key, monitor, value) {
+      const copy = { ...monitor };
       switch (key) {
         case 'monitor_cert_days_remaining': {
-          monitor.certDaysRemaining = value;
+          copy.certDaysRemaining = value;
           break;
         }
         case 'monitor_cert_is_valid': {
-          monitor.certValid = value;
+          copy.certValid = value;
           break;
         }
         case 'monitor_response_time': {
-          monitor.responseTime = value;
+          copy.responseTime = value;
           break;
         }
         case 'monitor_status': {
-          monitor.status = value;
+          copy.status = value === '1' ? 'Up' : 'Down';
+          copy.statusClass = copy.status.toLowerCase();
           break;
         }
         default:
           break;
       }
+
+      return copy;
     },
     getRowValue(row) {
       return this.getValueWithRegex(row, /\b\d+\b$/);
@@ -173,13 +162,26 @@ export default {
 
       const isArray = Array.isArray(result);
 
-      console.log(isArray, result);
-
       if (!isArray) {
         return result;
       }
 
       return result.length > 1 ? result[1] : result[0];
+    },
+    optionsValid({ url, authHeaders }) {
+      const errors = [];
+      if (url === undefined) {
+        errors.push(this.errorMessageConstants.missingUrl);
+      }
+
+      if (authHeaders === undefined) {
+        errors.push(this.errorMessageConstants.missingApiKey);
+      }
+
+      if (errors.length == 0) { return true; }
+
+      this.errorMessage = errors.join('\n');
+      return false;
     }
   },
 };
@@ -198,19 +200,44 @@ export default {
   padding: .35em .65em;
   margin: 1em 0.5em;
   min-width: 64px;
+
+  &.up {
+    background-color: rgb(92, 221, 139);
+    color: black;
+  }
+
+  &.down {
+    background-color: rgb(220, 53, 69);
+    color: white;
+  }
 }
 
-.up {
-  background-color: rgb(92, 221, 139);
-}
+div.item.monitor-row:hover {
+  background-color: var(--item-background);
+  color: var(--current-color);
+  opacity: 1;
 
-.down {
-  background-color: rgb(220, 53, 69);
+  div.title-title>span.text {
+    color: var(--current-color);
+  }
 }
 
 .monitors-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-around;
+  width: 50%;
+}
+
+.monitor-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.35em 0.5em;
+  align-items: center;
+}
+
+.title-title {
+  font-weight: bold;
 }
 </style>
