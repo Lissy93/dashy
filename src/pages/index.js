@@ -13,7 +13,7 @@ export default function Home() {
       description="Dashy, the self-hosted dashboard app for your homelab">
       <HomePageHeader />
       <HomePageFeatures />
-      <main>
+      <main id="top">
       </main>
     </Layout>
   );

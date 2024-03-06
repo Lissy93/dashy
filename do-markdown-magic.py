@@ -1,7 +1,13 @@
 import os
 import re
 
+# A script to update each markdown file in the docs directory
+# Used to process the docs from the GitHub repo to be used for dashy.to website
+# Because GH and Docusourus dashy.to expect slightly different markdown features
+# Written by @CrazyWolf13
+
 def process_file(file_path):
+    # Read the file content
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
 
@@ -14,12 +20,11 @@ def process_file(file_path):
     # Make each link relative, so replace ./docs with /docs
     content = content.replace('./docs', '/docs')
 
-    # Remove .md extension from every link while ensuring idempotency
+    # Remove .md extension from every relative link (ignoring http/https links) 
     content = re.sub(r'(\[[^\]]+\]\((?!https?://)[^)#]+?)\.md(/?#?[^)]*?)(\))', r'\1\2\3', content)
 
     # Replace back to top buttons
-    # Assuming this pattern is correct; adjust if necessary
-    content = re.sub(r'\[.*Back to top.*\]', '[⬆️ Back to Top](https://riot.im/app/#)', content)
+    content = re.sub(r'\[\s*⬆️\s*Back to Top\s*\]\(#.*?\)', '[⬆️ Back to Top](#top)', content, flags=re.IGNORECASE)
 
     # Remove any <details> tags
     content = re.sub(r'<details>.*?</details>', '', content, flags=re.DOTALL)
@@ -36,6 +41,5 @@ def process_docs_folder(folder_path):
                 process_file(file_path)
 
 if __name__ == "__main__":
-    # Update this path to the correct relative path where the script will be run in the GitHub Action
     docs_folder_path = "./docs/"
     process_docs_folder(docs_folder_path)
