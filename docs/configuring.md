@@ -63,7 +63,7 @@ The following file provides a reference of all supported configuration options.
 **`sections`** | `array` | Required | An array of sections, each containing an array of items, which will be displayed as links. See [`section`](#section)
 **`pages`** | `array` | _Optional_ | An array additional config files, used for multi-page dashboards. See [`pages`](#pages-optional)
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `PageInfo`
 
@@ -75,7 +75,7 @@ The following file provides a reference of all supported configuration options.
 **`footerText`** | `string` | _Optional_ | Text to display in the footer (note that this will override the default footer content). This can also include HTML and inline CSS
 **`logo`** | `string` | _Optional_ | The path to an image to display in the header (to the right of the title). This can be either local, where `/` is the root of `./public`, or any remote image, such as `https://i.ibb.co/yhbt6CY/dashy.png`. It's recommended to scale your image down, so that it doesn't impact load times
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `pageInfo.navLinks` _(optional)_
 
@@ -85,7 +85,7 @@ The following file provides a reference of all supported configuration options.
 **`path`** | `string` | Required | The URL to navigate to when clicked. Can be relative (e.g. `/about`) or absolute (e.g. `https://example.com` or `http://192.168.1.1`)
 **`target`** | `string` |  _Optional_ | The opening method (external links only). Can be either `newtab`, `sametab`, `top` or `parent`. Defaults to `newtab`
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `pages[]` _(optional)_
 
@@ -94,7 +94,7 @@ The following file provides a reference of all supported configuration options.
 **`name`** | `string` |  Required | A unique name for that page
 **`path`** | `string` |  Required | The path (local or remote) to the config file to use.<br />For files located within `/public`, you only need to specify filename, for externally hosted files you must include the full URL
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `appConfig` _(optional)_
 
@@ -138,7 +138,7 @@ The following file provides a reference of all supported configuration options.
 **`enableServiceWorker`** | `boolean` | _Optional_ | Service workers cache web applications to improve load times and offer basic offline functionality, and are enabled by default in Dashy. The service worker can sometimes cause older content to be cached, requiring the app to be hard-refreshed. If you do not want SW functionality, or are having issues with caching, set this property to `false` to disable all service workers.
 **`disableContextMenu`** | `boolean` | _Optional_ | If set to `true`, the custom right-click context menu will be disabled. Defaults to `false`.
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `appConfig.auth` _(optional)_
 
@@ -151,7 +151,7 @@ The following file provides a reference of all supported configuration options.
 
 For more info, see the **[Authentication Docs](/docs/authentication)**
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `appConfig.auth.users` _(optional)_
 
@@ -161,7 +161,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`hash`** | `string` | Required | A SHA-256 hashed password
 **`type`** | `string` | _Optional_ | The user type, either admin or normal
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `appConfig.auth.keycloak` _(optional)_
 
@@ -172,7 +172,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`clientId`** | `string` | Required | The Client ID of the client you created for use with Dashy
 **`legacySupport`** | `boolean` | _Optional_ | If using Keycloak 17 or older, then set this to `true`
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `appConfig.webSearch` _(optional)_
 
@@ -184,7 +184,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`openingMethod`** | `string` | _Optional_ | Set your preferred opening method for search results: `newtab`, `sametab`, `workspace`. Defaults to `newtab`
 **`searchBangs`** | `object` | _Optional_ | A key-value-pair set of custom search _bangs_ for redirecting query to a specific app or search engine. The key of each should be the bang you will type (typically starting with `/`, `!` or `:`), and value is the destination, either as a search engine key (e.g. `reddit`) or a URL with search parameters (e.g. `https://en.wikipedia.org/w/?search=`)
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `appConfig.hideComponents` _(optional)_
 
@@ -196,7 +196,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`hideSettings`** | `boolean` | _Optional_ | If set to `true`, the settings menu will be initially collapsed. Defaults to `false`
 **`hideFooter`** | `boolean` | _Optional_ | If set to `true`, the footer will not be visible. Defaults to `false`
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `section`
 
@@ -208,7 +208,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`widgets`** | `array` | _Optional_ | An array of widgets to be displayed within the section. See [`widget`](#sectionwidget-optional)
 **`displayData`** | `object` | _Optional_ | Meta-data to optionally override display settings for a given section. See [`displayData`](#sectiondisplaydata-optional)
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `section.item`
 
@@ -233,7 +233,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`provider`** | `string` | _Optional_ | The name of the provider for a given service, useful for when including hosted apps. In some themes, this is visible under the item name
 **`displayData`** | `object` | _Optional_ | Meta-data to optionally override display settings for a given item. See [`displayData`](#itemdisplaydata-optional)
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `item.displayData` _(optional)_
 
@@ -245,7 +245,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`hideForKeycloakUsers`** | `object`  | _Optional_ | Current item will be visible to all keycloak users, except for those configured via these groups and roles. See `hideForKeycloakUsers`
 **`showForKeycloakUsers`** | `object`  | _Optional_ | Current item will be hidden from all keycloak users, except for those configured via these groups and roles. See `showForKeycloakUsers`
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `section.widgets` _(optional)_
 
@@ -259,7 +259,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`ignoreErrors`** | `boolean` | _Optional_ | Prevent an error message being displayed, if a network request or something else fails. Useful for false-positives
 **`label`** | `string` | _Optional_ | Add custom label to a given widget. Useful for identification, if there are multiple of the same type of widget in a single section
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `section.displayData` _(optional)_
 
@@ -282,7 +282,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`hideForKeycloakUsers`** | `object`  | _Optional_ | Current section will be visible to all keycloak users, except for those configured via these groups and roles. See `hideForKeycloakUsers`
 **`showForKeycloakUsers`** | `object`  | _Optional_ | Current section will be hidden from all keycloak users, except for those configured via these groups and roles. See `showForKeycloakUsers`
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `section.icon` and `section.item.icon`
 
@@ -290,7 +290,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 --- | --- | --- | ---
 **`icon`** | `string` | _Optional_ | The icon for a given item or section. <br />See [Icon Docs](/docs/icons) for all available supported icon types, including: auto-fetched favicons, generative icons, emoji icons, home-lab service logos, font-awesome, simple-icons, material icons, and icons specified by URL
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ## `section.displayData.hideForKeycloakUsers`, `section.displayData.showForKeycloakUsers`, `item.displayData.hideForKeycloakUsers` and `item.displayData.showForKeycloakUsers`
 
@@ -299,7 +299,7 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`groups`** | `string[]` | _Optional_ | Current Section or Item will be hidden or shown based on the user having any of the groups in this list
 **`roles`** | `string[]` | _Optional_ | Current Section or Item will be hidden or shown based on the user having any of the roles in this list
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -377,4 +377,4 @@ If you need any help, feel free to [Raise an Issue](https://github.com/Lissy93/d
 
 Happy Configuring 🤓🔧
 
-**[⬆️ Back to Top](#configuring)**
+**[⬆️ Back to Top](#top)**

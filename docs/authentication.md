@@ -114,7 +114,7 @@ To disable all UI config features, including View Config, set `disableConfigurat
 
 With basic auth, all logic is happening on the client-side, which could mean a skilled user could manipulate the code to view parts of your configuration, including the hash. If the SHA-256 hash is of a common password, it may be possible to determine it, using a lookup table, in order to find the original password. Which can be used to manually generate the auth token, that can then be inserted into session storage, to become a valid logged in user. Therefore, you should always use a long, strong and unique password, and if you instance contains security-critical info and/ or is exposed directly to the internet, and alternative authentication method may be better. The purpose of the login page is merely to prevent immediate unauthorized access to your homepage.
 
-**[⬆️ Back to Top](#authentication)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -365,4 +365,4 @@ There are also authentication services, such as [Ory.sh](https://www.ory.sh/), [
 
 If you are hosting Dashy on a cloud platform, you will probably find that it has built-in support for password protected access to web apps. For more info, see the relevant docs for your provider, for example: [Netlify Password Protection](https://docs.netlify.com/visitor-access/password-protection/), [Cloudflare Access](https://www.cloudflare.com/teams/access/), [AWS Cognito](https://aws.amazon.com/cognito/), [Azure Authentication](https://docs.microsoft.com/en-us/azure/app-service/scenario-secure-app-authentication-app-service) and [Vercel Password Protection](https://vercel.com/docs/platform/projects#password-protection).
 
-**[⬆️ Back to Top](#authentication)**
+**[⬆️ Back to Top](#top)**

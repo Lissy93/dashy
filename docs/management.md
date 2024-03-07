@@ -39,7 +39,7 @@ In Dashy, commonly configured resources include:
 - Also within `./public` you'll find standard website assets, including `favicon.ico`, `manifest.json`, `robots.txt`, etc. There's no need to pass these in, but you can do so if you wish
 - `/src/styles/user-defined-themes.scss` - A stylesheet for applying custom CSS to your app. You can also write your own themes here.
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -49,7 +49,7 @@ If you're running an app in Docker, then commands will need to be passed to the 
 
 Dashy has several commands that can be used for various tasks, you can find a list of these either in the [Developing Docs](/docs/developing#project-commands), or by looking at the [`package.json`](https://github.com/Lissy93/dashy/blob/master/package.json#L5). These can be used by running `yarn [command-name]`.
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -68,7 +68,7 @@ docker run -d \
     willfarrell/autoheal
 ```
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -90,7 +90,7 @@ You can also view logs, resource usage and other info as well as manage your ent
 
 Docker supports using [Prometheus](https://prometheus.io/) to collect logs, which can then be visualized using a platform like [Grafana](https://grafana.com/). For more info, see [this guide](https://docs.docker.com/config/daemon/prometheus/). If you need to route your logs to a remote syslog, then consider using [logspout](https://github.com/gliderlabs/logspout). For enterprise-grade instances, there are managed services, that make monitoring container logs and metrics very easy, such as [Sematext](https://sematext.com/blog/docker-container-monitoring-with-sematext/) with [Logagent](https://github.com/sematext/logagent-js).
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -102,7 +102,7 @@ For Podman, you can use `systemd` to create a service that launches your contain
 
 To restart the container after something within it has crashed, consider using [`docker-autoheal`](https://github.com/willfarrell/docker-autoheal) by @willfarrell, a service that monitors and restarts unhealthy containers. For more info, see the [Healthchecks](#healthchecks) section above.
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -139,7 +139,7 @@ For more information, see the [Watchtower Docs](https://containrrr.dev/watchtowe
 
 Stop your current instance of Dashy, then navigate into the source directory. Pull down the latest code, with `git pull origin master`, then update dependencies with `yarn`, rebuild with `yarn build`, and start the server again with `yarn start`.
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -201,7 +201,7 @@ Since Dashy is open source, and freely available, providing you're configuration
 
 Dashy also has a built-in cloud backup feature, which is free for personal users, and will let you make and restore fully encrypted backups of your config directly through the UI. To learn more, see the [Cloud Backup Docs](/docs/backup-restore)
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -210,7 +210,7 @@ Dashy also has a built-in cloud backup feature, which is free for personal users
 If you need to periodically schedule the running of a given command on Dashy (or any other container), then a useful tool for doing so it [ofelia](https://github.com/mcuadros/ofelia). This runs as a Docker container and is really useful for things like backups, logging, updating, notifications, etc. Crons are specified using Go's crontab format, and a useful tool for visualizing this is [crontab.guru](https://crontab.guru/). This can also be done natively with Alpine: `docker run -it alpine ls /etc/periodic`.
 I recommend combining this with [healthchecks](https://github.com/healthchecks/healthchecks) for easy monitoring of jobs, and failure notifications.
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -248,7 +248,7 @@ By default the SSL port is `443` within a Docker container, or `4001` if running
 
 Once everything is setup, you can verify your site is secured using a tool like [SSL Checker](https://www.sslchecker.com/sslchecker).
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -256,7 +256,7 @@ Once everything is setup, you can verify your site is secured using a tool like 
 
 Dashy natively supports secure authentication using KeyCloak. There is also a Simple Auth feature that doesn't require any additional setup. Usage instructions for both, as well as alternative auth methods, has now moved to the **[Authentication Docs](/docs/authentication)** page.
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -290,7 +290,7 @@ services:
       start_period: 40s
 ```
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -308,7 +308,7 @@ environment:
 You can also do the same thing with the docker run command, using the [`--env`](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file) flag.
 If you've got many environmental variables, you might find it useful to put them in a [`.env` file](https://docs.docker.com/compose/env-file/). Similarly, for Docker run you can use [`--env-file`](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file) if you'd like to pass in a file containing all your environmental variables.
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -393,7 +393,7 @@ Header always set Access-Control-Allow-Origin "*"
 request_header_access Authorization allow all
 ```
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -523,7 +523,7 @@ There's so much more you can do with Ngrok, such as exposing a directory as a fi
 
 It's worth noting that Ngrok isn't the only option here, other options include: [FRP](https://github.com/fatedier/frp), [Inlets](https://inlets.dev), [Local Tunnel](https://localtunnel.me/), [TailScale](https://tailscale.com/), etc. Check out [Awesome Tunneling](https://github.com/anderspitman/awesome-tunneling) for a list of alternatives.
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -583,7 +583,7 @@ dashy.example.com {
 
 For more info, [this guide](https://thehomelab.wiki/books/dns-reverse-proxy/page/create-domain-records-to-point-to-your-home-server-on-cloudflare-using-nginx-progy-manager) on Setting up Domains with NGINX Proxy Manager and CloudFlare may be useful.
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -744,7 +744,7 @@ Docker supports several modules that let you write your own security profiles.
 
 [Seccomp](https://en.wikipedia.org/wiki/Seccomp) (Secure Computing Mode) is a sandboxing facility in the Linux kernel that acts like a firewall for system calls (syscalls). It uses Berkeley Packet Filter (BPF) rules to filter syscalls and control how they are handled. These filters can significantly limit a containers access to the Docker Host's Linux kernel - especially for simple containers/applications. It requires a Linux-based Docker host, with secomp enabled, and you can check for this by running `docker info | grep seccomp`. A great resource for learning more about this is [DockerLabs](https://training.play-with-docker.com/security-seccomp/).
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -878,7 +878,7 @@ Create a file names `firebase.json`, and populate it with something similar to:
 8. If you need to change the port, click 'Add environmental variable', give it the name 'PORT', choose a port number and press 'Save'.
 9. Dashy should now be running at your selected path an on a given port
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -888,7 +888,7 @@ If you'd like to make any code changes to the app, and deploy your modified vers
 
 The first step is to fork the project on GitHub, and clone it to your local system. Next, install the dependencies (`yarn`), and start the development server (`yarn dev`) and visit `localhost:8080` in your browser. You can then make changes to the codebase, and see the live app update in real-time. Once you've finished, running `yarn build` will build the app for production, and output the assets into `./dist` which can then be deployed using a web server, CDN or the built-in Node server with `yarn start`. For more info on all of this, take a look at the [Developing Docs](/docs/developing). To build your own Docker container from the modified app, see [Building your Own Container](#building-your-own-container)
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
 
@@ -905,6 +905,6 @@ Your container should now be running, and will appear in the list when you run `
 You may wish to upload your image to a container registry for easier access. Note that if you choose to do this on a public registry, please name your container something other than just 'dashy', to avoid confusion with the official image.
 You can push your build image, by running: `docker push ghcr.io/OWNER/IMAGE_NAME:latest`. You will first need to authenticate, this can be done by running `echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin`, where `CR_PAT` is an environmental variable containing a token generated from your GitHub account. For more info, see the [Container Registry Docs](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
 
-**[⬆️ Back to Top](#management)**
+**[⬆️ Back to Top](#top)**
 
 ---
