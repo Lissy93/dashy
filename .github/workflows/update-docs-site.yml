@@ -41,11 +41,11 @@ jobs:
           python-version: '3.x'
 
       - name: Run script to update documentation 🪄
-        run: |
-          cp -r master-docs/docs website-docs/docs
-          python website-docs/do-markdown-magic.py
         working-directory: website-docs
-
+        run: |
+          cp -r ../master-docs/docs ./
+          python ./do-markdown-magic.py
+        
       - name: Commit changes 🚀
         run: |
           cd website-docs
