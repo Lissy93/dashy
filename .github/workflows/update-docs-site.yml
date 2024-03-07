@@ -47,7 +47,7 @@ jobs:
           else
             pwd
             echo "All master docs:"
-            ls -l master-docs
+            ls -l
             echo "All outer code:"
             ls ../
             echo "No /docs directory found in master branch"
