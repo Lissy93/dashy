@@ -45,6 +45,11 @@ jobs:
           if [ -d master-docs/docs ]; then
             cp -r master-docs/docs website-docs/
           else
+            pwd
+            echo "All master docs:"
+            ls -l master-docs
+            echo "All outer code:"
+            ls ../
             echo "No /docs directory found in master branch"
             exit 1
           fi
