@@ -42,7 +42,12 @@ jobs:
 
       - name: Run script to update documentation 🪄
         run: |
-          cp -r master-docs/docs website-docs/
+          if [ -d master-docs/docs ]; then
+            cp -r master-docs/docs website-docs/
+          else
+            echo "No /docs directory found in master branch"
+            exit 1
+          fi
           python ./do-markdown-magic.py
         working-directory: website-docs
 
