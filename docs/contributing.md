@@ -116,9 +116,7 @@ If you like, you could also consider [subscribing to my mailing list](https://no
 
 For a full list of Dashy's contributors, see the [Credits Page](/docs/credits)
 
-[
-  ![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)
-](credits.md)
+[![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)](https://github.com/Lissy93/dashy/blob/master/docs/credits.md)
 
 ### Star-Gazers Over Time
 
