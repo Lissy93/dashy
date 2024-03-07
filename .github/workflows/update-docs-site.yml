@@ -42,7 +42,15 @@ jobs:
 
       - name: Run script to update documentation 🪄
         run: |
-          cp -r master-docs/docs website-docs/docs
+          if [ -d master-docs/docs ]; then
+            ls -R master-docs/docs  # List files for debugging
+            cp -r master-docs/docs website-docs/
+            echo "Copied docs from master to website"
+          else
+            pwd
+            ls -R
+            echo "master-docs/docs directory does not exist"
+          fi
           python website-docs/do-markdown-magic.py
         working-directory: website-docs
 
