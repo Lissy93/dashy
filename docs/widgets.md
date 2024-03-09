@@ -2114,7 +2114,9 @@ This will show the list of nodes.
       token_name: dashy
       token_uuid: bfb152df-abcd-abcd-abcd-ccb95a472d01
 ```
+
 This will show the list of VMs, with a title and a linked fotter, hiding VM templates.
+
 ```yaml
   - type: proxmox-lists
     useProxy: true 
@@ -2131,6 +2133,7 @@ This will show the list of VMs, with a title and a linked fotter, hiding VM temp
       footer_as_link: true
       hide_templates: 1
 ```
+
 #### Info
 
 - **CORS**: 🟠 Proxied
@@ -2138,6 +2141,12 @@ This will show the list of VMs, with a title and a linked fotter, hiding VM temp
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Proxmox Virtual Environment](https://proxmox.com/en/proxmox-ve))
 - **Privacy**: _See [Proxmox's Privacy Policy](https://proxmox.com/en/privacy-policy)_
+
+#### Troubleshooting
+- **404 Error in development mode**: The error might disappear in production mode `yarn start`
+- **500 Error in production mode**: Try adding the certificate authority (CA) certificate of your Proxmox host to Node.js. 
+  - Download the Proxmox CA certificate to your Dashy host.
+  - Export environment variable `NODE_EXTRA_CA_CERTS` and set its value to the path of the downloaded CA certificate. Example:  `export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/devlab_ca.pem`
 
 ---
 
