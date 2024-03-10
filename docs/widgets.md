@@ -66,7 +66,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Gluetun VPN Info](#gluetun-vpn-info)
   - [Drone CI Build](#drone-ci-builds)
   - [Linkding](#linkding)
-  - [Uptime Kuma](£uptime-kuma)
+  - [Uptime Kuma](#uptime-kuma)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -2316,7 +2316,7 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟢 Required
 - **Price**: 🟢 Free
-- **Host**: Self-Hosted (see [Uptime Kuma](https://github.com/louislam/uptime-kuma) ))
+- **Host**: Self-Hosted (see [Uptime Kuma](https://github.com/louislam/uptime-kuma) )
 - **Privacy**: _See [Uptime Kuma](https://github.com/louislam/uptime-kuma)_
 
 ---
