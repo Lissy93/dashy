@@ -1,5 +1,5 @@
 # Builds and published Dashy's documentation website
-name: Build Docs Site
+name: 📝 Build Docs Site
 on:
   workflow_dispatch:
   push:
