@@ -66,7 +66,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Gluetun VPN Info](#gluetun-vpn-info)
   - [Drone CI Build](#drone-ci-builds)
   - [Linkding](#linkding)
-  - [Uptime Kuma](£uptime-kuma)
+  - [Uptime Kuma](#uptime-kuma)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
