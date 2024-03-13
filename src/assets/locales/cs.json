@@ -1,0 +1,318 @@
+{
+  "home": {
+    "no-results": "Žádné výslekdy vyhledávání",
+    "no-data": "nejsou nakonfigurované žádné údaje",
+    "no-items-section": "Nic k zobrazení"
+  },
+  "search": {
+    "search-label": "Vyhledávání",
+    "search-placeholder": "Pro filtrování začněte psát",
+    "clear-search-tooltip": "Vymazat vyhledávání",
+    "enter-to-search-web": "Stiskněte Enter pro vyhledávání ne webu"
+  },
+  "login": {
+    "title": "Dashy",
+    "username-label": "Uživatelské jméno",
+    "password-label": "Heslo",
+    "login-button": "Prihlásit se",
+    "remember-me-label": "Zapamatuj si mě",
+    "remember-me-never": "Nikdy",
+    "remember-me-hour": "4 hodiny",
+    "remember-me-day": "1 den",
+    "remember-me-week": "1 týden",
+    "remember-me-long-time": "Dlouhý čas",
+    "error-missing-username": "Zadejte uživatelské jméno",
+    "error-missing-password": "Zadejte heslo",
+    "error-incorrect-username": "Uživatel nenalezen",
+    "error-incorrect-password": "Nesprávne heslo",
+    "success-message": "Přihlašování...",
+    "logout-message": "Byli jste odhlášeni",
+    "already-logged-in-title": "Již přihlášen",
+    "already-logged-in-text": "Přihlášen jako",
+    "proceed-to-dashboard": "Pokračujte na Dashboard",
+    "log-out-button": "Odhlásit se",
+    "proceed-guest-button": "Pokračovat jako host"
+  },
+  "config": {
+    "main-tab": "Hlavní menu",
+    "view-config-tab": "Zobrazit konfiguraci",
+    "edit-config-tab": "Upravit konfiguraci",
+    "custom-css-tab": "Vlastní styly",
+    "heading": "Možnosti konfigurace",
+    "download-config-button": "Zobrazit / Exportovat konfiguraci",
+    "edit-config-button": "Upravit konfiguraci",
+    "edit-css-button": "Upravit vlastní CSS",
+    "cloud-sync-button": "Povolit synchronizaci s cloudem",
+    "edit-cloud-sync-button": "Upravit synchronizaci s cloudem",
+    "rebuild-app-button": "Přestavit aplikaci",
+    "change-language-button": "Změnit jazyk aplikacie",
+    "reset-settings-button": "Obnovit místní nastavení",
+    "app-info-button": "Informace o aplikaci",
+    "backup-note": "Před vykonaním změn je doporučeno vytvorit zálohu vaší konfigurace.",
+    "reset-config-msg-l1": "Toto odstraní všechna uživatelská nastavení z lokálního úložiště, ale neovlyvní to váš soubor 'conf.yml'.",
+    "reset-config-msg-l2": "Všechny změny, které jste vykonali lokálně, byste si měli co nejdříve zálohovat, pokud je chcete použít v budoucnosti.",
+    "reset-config-msg-l3": "Opravdu chcete pokračovat?",
+    "data-cleared-msg": "Údaje byly úspěšne vymazány",
+    "actions-label": "Akce",
+    "copy-config-label": "Kopírovat konfiguraci",
+    "data-copied-msg": "Konfigurace byla zkopírována do schránky",
+    "reset-config-label": "Obnovit konfiguraci",
+    "css-save-btn": "Uložit změny",
+    "css-note-label": "Poznámka",
+    "css-note-l1": "Aby se změny projevily, budete muset obnoviť stránku.",
+    "css-note-l2": "Vlastní přepsání stylů se ukladá pouze lokálně, proto se doporučuje vytvorit kopii vašeho CSS.",
+    "css-note-l3": "Pokud chcete odstraniť všechny vlastní styly, odstraňte obsah a stiskněte 'Uložit zmeny'"
+  },
+  "alternate-views": {
+    "alternate-view-heading": "Přepnout zobrazení",
+    "default": "Výchozí",
+    "workspace": "Pracovná prostor",
+    "minimal": "Minimalistické"
+  },
+  "settings": {
+    "theme-label": "Téma",
+    "layout-label": "Rozložení",
+    "layout-auto": "Automaticky",
+    "layout-horizontal": "Horizontální",
+    "layout-vertical": "Vertikální",
+    "item-size-label": "Velikost položky",
+    "item-size-small": "Malá",
+    "item-size-medium": "Střední",
+    "item-size-large": "Velká",
+    "config-launcher-label": "Konfigurace",
+    "config-launcher-tooltip": "Aktualizovať konfiguraci",
+    "sign-out-tooltip": "Odhlásit se",
+    "sign-in-tooltip": "Přihlásit se",
+    "sign-in-welcome": "Dobrý den, {username}!"
+  },
+  "updates": {
+    "app-version-note": "Dashy verze",
+    "up-to-date": "Aktuální",
+    "out-of-date": "Aktualizace k dispozici",
+    "unsupported-version-l1": "Používate nepodporovanou verzi Dashy",
+    "unsupported-version-l2": "Pokud chcete získat nejlepší zážitek a nejnovější opravy zabezpečení, aktualizujte na"
+  },
+  "language-switcher": {
+    "title": "Změnit jazyk aplikace",
+    "dropdown-label": "Vyberte jazyk",
+    "save-button": "Uložit",
+    "success-msg": "Jazyk byl aktualizován na"
+  },
+  "theme-maker": {
+    "title": "Konfigurátor motivů",
+    "export-button": "Exportovať vlastní proměnné",
+    "reset-button": "Obnoviť styly pro",
+    "show-all-button": "Zobrazit všechny proměnné",
+    "change-fonts-button": "Změnit písmo",
+    "save-button": "Uložit",
+    "cancel-button": "Zrušiť",
+    "saved-toast": "{theme} úspěšně aktualizováno",
+    "copied-toast": "Údaje motivu pro {theme} byly zkopírovany do schránky",
+    "reset-toast": "Vlastní barvy pro {theme} byly odstraněny"
+  },
+  "config-editor": {
+    "save-location-label": "Uložit umístění",
+    "location-local-label": "Aplikovať lokálně",
+    "location-disk-label": "Zapsat změny do konfiguračního souboru",
+    "save-button": "Uložit změny",
+    "preview-button": "Ukázka změn",
+    "valid-label": "Konfigurace je platná",
+    "status-success-msg": "Akce dokončena",
+    "status-fail-msg": "Akce selhala",
+    "success-msg-disk": "Konfigurační soubor byl úspěšně zapsán na disk",
+    "success-msg-local": "Místní změny byly úspěšne uloženy",
+    "success-note-l1": "Aplikace by se měla automaticky obnovit.",
+    "success-note-l2": "Můýe to trvat až minutu.",
+    "success-note-l3": "Aby se změny projevily, budete museť obnovit stránku.",
+    "error-msg-save-mode": "Vyberte režim uložení: Místní/Soubor",
+    "error-msg-cannot-save": "Při ukládání konfigurace se vyskytla chyba",
+    "error-msg-bad-json": "Chyba v JSON, možná má nesprávny formát",
+    "warning-msg-validation": "Chyba validace",
+    "not-admin-note": "Nemůžete zapisovat změny na disk, protože  nejste přihlášený/á jako správca"
+  },
+  "app-rebuild": {
+    "title": "Přestavit aplikaci",
+    "rebuild-note-l1": "Aby se změny zapsané do souboru conf.yml projevily, je potřebné přestavení aplikace.",
+    "rebuild-note-l2": "Aplikace by se měla automaticky přestavit, ale pokud se tak nestalo, můžete přestavená spustiť manuálně zde.",
+    "rebuild-note-l3": "Přestavení se nevyžaduje pro lokálně uložené úpravy.",
+    "rebuild-button": "Spustit přestavení",
+    "rebuilding-status-1": "Přestavování...",
+    "rebuilding-status-2": "Může to trvat pár minut",
+    "error-permission": "Na spuštení této akce nemáte oprávnění",
+    "success-msg": "Přestavení bylo úspěšne dokončeno",
+    "fail-msg": "Přestavení selhalo",
+    "reload-note": "Aby se změny projevily, je nutné obnovit stránku",
+    "reload-button": "Obnovit stránku"
+  },
+  "cloud-sync": {
+    "title": "Cloud záloha a obnova",
+    "intro-l1": "Cloudové zálohovaní a obnovení je volitelná funkce, která Vám umožňuje nahrát vaší konfiguraci na cloudové ulžiště a potom ji obnovit na jakémkoliv jiném zařízení anebo instanci Dashy.",
+    "intro-l2": "Všechny údaje jsou end-to-end šifrované pomocí AES, pričemž jako klíč se používá Vaše heslo.",
+    "intro-l3": "Více informací nájdete na",
+    "backup-title-setup": "Vytvořit zálohu",
+    "backup-title-update": "Aktualizovat zálohu",
+    "password-label-setup": "Vytvořte heslo pro cloud",
+    "password-label-update": "Zadajte heslo pro cloud",
+    "backup-button-setup": "Záloha",
+    "backup-button-update": "Aktualizovat zálohu",
+    "backup-id-label": "ID zálohy",
+    "backup-id-note": "Toto ID se používá pro obnovení ze zálohy. ID si spolu s heslem uschovejte na bezpečném místě.",
+    "restore-title": "Obnovit zálohu",
+    "restore-id-label": "Obnovit ID",
+    "restore-password-label": "Heslo",
+    "restore-button": "Obnovit",
+    "backup-missing-password": "Chybý heslo",
+    "backup-error-unknown": "Není možné zpracovat požadavek.",
+    "backup-error-password": "Nesprávne heslo.",
+    "backup-success-msg": "Záloha úspěšně dokončena.",
+    "restore-success-msg": "Záloha byla úspěšně obnovena"
+  },
+  "menu": {
+    "open-section-title": "Otevřít v",
+    "sametab": "Aktuální karta",
+    "newtab": "Nová karta",
+    "modal": "Modální okno",
+    "workspace": "Zobrazení pracovního prostoru",
+    "options-section-title": "Možnosti",
+    "edit-item": "Upravit",
+    "move-item": "Kopírovat nebo přesunout",
+    "remove-item": "Odstranit"
+  },
+  "context-menus": {
+    "item": {
+      "open-section-title": "Otevřít v",
+      "sametab": "Aktuální karta",
+      "newtab": "Nová karta",
+      "modal": "Modální okno",
+      "workspace": "Zobrazení pracovního prostoru",
+      "clipboard": "Kopírovat do schránky",
+      "options-section-title": "Možnosti",
+      "edit-item": "Upravit",
+      "move-item": "Kopírovat nebo přesunout",
+      "remove-item": "Odstranit",
+      "copied-toast": "URL adresa byla zkopírována do schránky"
+    },
+    "section": {
+      "open-section": "Otevřená sekce",
+      "edit-section": "Upravit",
+      "expand-collapse": "Rozbalit / sbaliť",
+      "move-section": "Přesunout do",
+      "remove-section": "Odstranit"
+    }
+  },
+  "interactive-editor": {
+    "menu": {
+      "start-editing-tooltip": "Otevřít interaktivní editor",
+      "edit-site-data-subheading": "Upravit informace o stránkách",
+      "edit-page-info-btn": "Upravit informáce o stránce",
+      "edit-page-info-tooltip": "Název aplikace, popis, navigační odkazy, text patičky atd.",
+      "edit-app-config-btn": "Upravit konfiguraci aplikace",
+      "edit-app-config-tooltip": "Ostatné možnosti konfigurace aplikace",
+      "edit-pages-btn": "Upravit stránky",
+      "edit-pages-tooltip": "Přidat nebo odebrat další zobrazení",
+      "config-save-methods-subheading": "Možnosti uložení konfigurace",
+      "save-locally-btn": "Uložit lokálně",
+      "save-locally-tooltip": "Uložit konfiguraci lokálně do úložiště prohlížeče. Toto neovlivní váš konfigurační soubor, ale změny se uloží poute na tomto zařízení",
+      "save-disk-btn": "Uložit na disk",
+      "save-disk-tooltip": "Uloží konfiguraci do souboru conf.yml na disku. Tím se zálohuje a potom sa přepíše vaše existující konfigurace",
+      "export-config-btn": "Exportovat konfiguraci",
+      "export-config-tooltip": "Zobrazit a exportovat novou konfiguraci, buď do souboru nebo do schránky",
+      "cloud-backup-btn": "Zálohovat do cloudu",
+      "cloud-backup-tooltip": "Uložit šifrovanou zálohu konfigurace do cloudu",
+      "edit-raw-config-btn": "Upravit nezpracovanou konfiguraci",
+      "edit-raw-config-tooltip": "Zobrazit a upravit surovou konfiguraci za pomoci editoru JSON",
+      "cancel-changes-btn": "Zrušit úpravu",
+      "cancel-changes-tooltip": "Resetujte aktuální úpravy a ukončíte režim úprav. Toto neovlivní vaši uloženou konfiguraci",
+      "edit-mode-name": "Režim úprav",
+      "edit-mode-subtitle": "Nacházíte se v režimu úprav",
+      "edit-mode-description": "To znamená, že můžete vykonat úpravy ve své konfiguraci a zobrazit ukázku výsledků, ale pokud neuložíte, žádná z vašich změn se nezachová.",
+      "save-stage-btn": "Uložit",
+      "cancel-stage-btn": "Zrušit",
+      "save-locally-warning": "Když budete pokračovat, změny se uloží pouze ve vašem prohlížeči. Měli by ste exportovat kopii své konfigurace pro použití na jiných zařízeních. Chcete pokračovat?"
+    },
+    "edit-item": {
+      "missing-title-err": "Vyžaduje se název položky"
+    },
+    "edit-section": {
+      "edit-section-title": "Upravit sekci",
+      "add-section-title": "Přidat novou sekci",
+      "edit-tooltip": "Kliknutím levým tlačítkem myši upravíte, kliknutím pravým tlačátkem myši zobrazíte další možnosti",
+      "remove-confirm": "Opravdu chcete odstranit tuto sekci? Tuto akci není možné vrátit."
+    },
+    "edit-app-config": {
+      "warning-msg-title": "Postupujte opatrně",
+      "warning-msg-l1": "Nasledující možnosti jsou pro rozšířenou konfiguraci aplikace.",
+      "warning-msg-l2": "Pokud si nejste jistí některým z polí, uveďte odkaz",
+      "warning-msg-docs": "Dokuemntace",
+      "warning-msg-l3": "Aby se předešlo neúmyslným následkům."
+    },
+    "export": {
+      "export-title": "Exportovat konfiguraci",
+      "copy-clipboard-btn": "Kopírovať do schránky",
+      "copy-clipboard-tooltip": "Kopírovať všechny konfigurace aplikace do systémové schránky ve formátu YAML",
+      "download-file-btn": "Stáhnout jako soubor",
+      "download-file-tooltip": "Stáhnout všechny konfigurace aplikace do svého zažízení v souboru YAML",
+      "view-title": "Zobrazit konfiguraci"
+    }
+  },
+  "widgets": {
+    "general": {
+      "loading": "Načítání...",
+      "show-more": "Rozbalit podrobnosti",
+      "show-less": "Zobrazit méně",
+      "open-link": "Pokračovať ve čtení"
+    },
+    "pi-hole": {
+      "status-heading": "Stav"
+    },
+    "stat-ping": {
+      "up": "Online",
+      "down": "Offline"
+    },
+    "net-data": {
+      "cpu-chart-title": "Historie CPU",
+      "mem-chart-title": "Využití paměti",
+      "mem-breakdown-title": "Selhání paměti",
+      "load-chart-title": "Zatížení systému"
+    },
+    "glances": {
+      "disk-space-free": "Volno",
+      "disk-space-used": "Použito",
+      "disk-mount-point": "Mount Point",
+      "disk-file-system": "Systém souborů",
+      "disk-io-read": "Čtení",
+      "disk-io-write": "Zápis",
+      "system-load-desc": "Počet procesů čekajících ve frontě spuštění, zprůměrovaný ve všech jádrech"
+    },
+    "system-info": {
+      "uptime": "Čas provozu"
+    },
+    "flight-data": {
+      "arrivals": "Přílety",
+      "departures": "Odlety"
+    },
+    "tfl-status": {
+      "good-service-all": "Dobré služby na všech linkách",
+      "good-service-rest": "Dobré služby na všech ostatních linkách"
+    },
+    "synology-download": {
+      "download": "Stáhnout",
+      "upload": "Nahrat",
+      "downloaded": "Stáhnuto",
+      "uploaded": "Nahráno",
+      "remaining": "Zbývající",
+      "up": "Aktivní",
+      "down": "Neaktivní"
+    },
+    "gluetun-status": {
+      "vpn-ip": "IP VPN",
+      "country": "Země",
+      "region": "Region",
+      "city": "Město",
+      "post-code": "PSČ",
+      "location": "Poloha",
+      "timezone": "Časové pásmo",
+      "organization": "Organizace"
+    }
+  }
+}

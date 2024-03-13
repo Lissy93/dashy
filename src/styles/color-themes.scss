@@ -698,7 +698,10 @@ html[data-theme='material'], html[data-theme='material-dark'] {
 html[data-theme='material'] {
   --primary: #363636;
   --background: #eee;
-  --background-darker: #5c90eb;
+  --white2: #f5f5f5;
+  --grey2: #473f3f;
+  --background-darker: #4285f4;
+  --background-darker2: #0c4eba;
   --item-group-outer-background: none;
   --item-group-shadow: none;
   --item-group-background: none;
@@ -709,31 +712,31 @@ html[data-theme='material'] {
   --item-text-color: var(--primary);
   --item-group-heading-text-color-hover: var(--primary);
   --item-icon-transform-hover: none;
-  --nav-link-background-color: #0c4eba;
+  --nav-link-background-color: var(--background-darker2);
   --nav-link-text-color: var(--white);
-  --nav-link-border-color: #0c4eba;
+  --nav-link-border-color: var(--background-darker2);
   --settings-text-color: var(--primary);
   --config-code-color: var(--primary);
-  --config-settings-background: #f5f5f5;
-  --config-settings-color: #473f3f;
-  --interactive-editor-color: #473f3f;
-  --interactive-editor-background: #f5f5f5;
+  --config-settings-background: var(--white2);
+  --config-settings-color: var(--grey2);
+  --interactive-editor-color: var(--grey2);
+  --interactive-editor-background: var(--white2);
   --interactive-editor-background-darker: var(--white);
   --heading-text-color: var(--white);
   --curve-factor: 3px;
   --curve-factor-navbar: 8px;
-  --search-container-background: #4285f4;
-  --welcome-popup-text-color: #f5f5f5;
-  --footer-text-color: #f5f5f5cc;
-  // --login-form-background-secondary: #f5f5f5cc;
+  --search-container-background: var(--background-darker);
+  --welcome-popup-text-color: var(--white2);
+  --footer-text-color: var(--white2);
+  // --login-form-background-secondary: var(--white2);
   --context-menu-background: var(--white);
-  --context-menu-secondary-color: #f5f5f5;
+  --context-menu-secondary-color: var(--white2);
   --transparent-white-50: #00000080;
   --status-check-tooltip-background: var(--white);
   --description-tooltip-background: var(--white);
-  --description-tooltip-color: #473f3f;
-  --side-bar-background-lighter: #0c4eba;
-  --side-bar-item-background: #f5f5f5;
+  --description-tooltip-color: var(--grey2);
+  --side-bar-background-lighter: var(--background-darker2);
+  --side-bar-item-background: var(--white2);
 
   --minimal-view-background-color: var(--background);
   --minimal-view-title-color: var(--background-darker);
@@ -757,19 +760,15 @@ html[data-theme='material'] {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   }
   div.minimal-section-heading.selected {
-    background: #5c90eb;
-  }
-  div.minimal-section-inner {
-    background: #ffffff80;
+    background: var(--background-darker);
   }
 
   div.jsoneditor div.jsoneditor-menu {
-    background: #5c90eb !important;
+    background: var(--background-darker) !important;
   }
 
   header {
-    background: #4285f4;
-    color: var(--white);
+    color: var(--primary);
     .page-titles span.subtitle {
       text-shadow: none;
     }
@@ -782,13 +781,13 @@ html[data-theme='material'] {
     color: var(--white);
   }
   .prism-editor-wrapper {
-    background: #f5f5f5;
+    background: var(--white2);
   }
   .item:focus {
-    outline-color: #4285f4cc;
+    outline-color: var(--background-darker);
   }
   .widget-base {
-    background: #f5f5f5;
+    background: var(--white2);
     box-shadow: var(--item-shadow);
     padding: 0.5rem;
     margin: 0.25rem 0;
@@ -1720,5 +1719,85 @@ html[data-theme='cherry-blossom'] {
         width: 400px;
       }
     }
+  }
+}
+
+html[data-theme="tama"] {
+  // Main colors
+  --primary: #ffffffe6;
+  --background: #0b1021;
+  --background-darker: #181c3a;
+  --background-darker-transparent: #181c3ad4;
+  --background-grey-transparent: #6b6c73c6;
+  
+  // Typography
+  --font-headings: 'Segoe UI', 'Ariel', 'sans-serif';
+  --font-body: 'Segoe UI', 'Ariel', 'sans-serif';
+  
+  // Items
+  --item-background: var(--background-darker-transparent);
+  --item-background-hover: var(--background-grey-transparent);
+  --item-shadow: 1px 1px 2px #130f23;
+  --item-hover-shadow: 2px 2px 4px #130f23;
+  
+  // Sections
+  --item-group-heading-text-color: var(--white);
+  --item-group-heading-text-color-hover: var(--primary);
+  --item-group-shadow: none;
+  --item-group-background: none;
+  --item-group-outer-background: none;
+  
+  // Remove background from certain components
+  div.home, div.options-outer, div.options-container, section.filter-container,
+  section.settings-outer, div.show-hide-container.hide-btn, div.show-hide-container.show-btn  {
+    background: none;
+  }
+  
+  // Style overides
+  label.lbl-toggle h3 { font-size: 1.3rem; font-weight: bold; }
+  .content-inner { border-top: 1px dashed var(--primary); }
+  .item.size-large .tile-title p.description { height: 3rem; }
+  .is-collapsed {
+    background: var(--item-background);
+    box-shadow: var(--item-shadow);
+    &:hover {
+      background: var(--item-background-hover);
+      box-shadow: var(--item-hover-shadow);
+    }
+  }    
+  
+  // Background Image 
+  body {
+    //update the query terms after the '?', to customize for images you want
+    background: url('https://source.unsplash.com/random/1920x1080/?dark,calm,nature,background');
+    background-color: var(--background-darker);
+    background-size: cover;      
+  }
+  header, footer, form.normal { background-color: var(--background-darker-transparent); } 
+
+  // large tile spacing adjustment
+  .there-are-items:has(.item-wrapper.wrap-size-large) { padding-top: .25rem; }
+  .item-wrapper.wrap-size-large { margin: 0rem .5rem .5rem 0rem; overflow: hidden; }
+  .item.size-large .tile-title { padding: 0rem 0rem 0rem .7rem; }
+
+  // Hide open method icon
+  .opening-method-icon { opacity: 0; }
+  
+  // Widget tile style
+  .widget-base {
+    background-color: var(--background-darker-transparent);
+    margin: .5rem .5rem 1rem .5rem;
+    padding: 0;
+    border: 1px solid var(--outline-color);
+    border-radius: var(--curve-factor);
+    box-shadow: var(--item-shadow);
+  }
+  .widget-base button.action-btn { margin-top: .3rem; margin-right: .5rem; }
+  .widget-wrap { padding: 1.4rem .8rem .8rem .8rem; }
+  
+  // Grow effect for tile-icon <img> & <i> on hover over Item tiles
+  .item:hover .item-icon img, .item:hover .item-icon i{
+    transition: all .35s ease-in-out;
+    transform: scale(1.22);  
   }
 }

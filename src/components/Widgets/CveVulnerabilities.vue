@@ -92,7 +92,7 @@ export default {
     },
     endpoint() {
       return `${widgetApiEndpoints.cveVulnerabilities}?${this.sortBy}${this.limit}`
-        + `${this.minScore}${this.vendorId}${this.hasExploit}`;
+        + `${this.minScore}${this.vendorId}${this.productId}${this.hasExploit}`;
     },
     proxyReqEndpoint() {
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;

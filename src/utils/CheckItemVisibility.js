@@ -5,15 +5,14 @@
  */
 
 // Import helper functions from auth, to get current user, and check if guest
-import { getCurrentUser, isLoggedInAsGuest } from '@/utils/Auth';
+import { getCurrentUser } from '@/utils/Auth';
 import { isVisibleToUser } from '@/utils/IsVisibleToUser';
 
 /* Putting it all together, the function to export */
 export const checkItemVisibility = (item) => {
   const currentUser = getCurrentUser(); // Get current user object
-  const isGuest = isLoggedInAsGuest(); // Check if current user is a guest
   const displayData = item.displayData || {};
-  return isVisibleToUser(displayData, currentUser, isGuest);
+  return isVisibleToUser(displayData, currentUser);
 };
 
 export default checkItemVisibility;

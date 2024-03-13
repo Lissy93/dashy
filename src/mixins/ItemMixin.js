@@ -22,6 +22,7 @@ export default {
     return {
       statusResponse: undefined,
       contextMenuOpen: false,
+      intervalId: undefined, // status-check setInterval() id
       contextPos: {
         posX: undefined,
         posY: undefined,
@@ -156,8 +157,8 @@ export default {
       this.$emit('itemClicked');
       // Update the most/ last used ledger, for smart-sorting
       if (!this.appConfig.disableSmartSort) {
-        this.incrementMostUsedCount(this.id);
-        this.incrementLastUsedCount(this.id);
+        this.incrementMostUsedCount(this.item.id);
+        this.incrementLastUsedCount(this.item.id);
       }
     },
     /* Open item, using specified method */

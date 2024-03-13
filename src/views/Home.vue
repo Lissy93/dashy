@@ -27,7 +27,7 @@
         + (singleSectionView ? 'single-section-view ' : '')
         + (this.colCount ? `col-count-${this.colCount} ` : '')"
       >
-      <template v-for="(section, index) in filteredTiles">
+      <template v-for="(section, index) in filteredSections">
         <Section
           :key="index"
           :index="index"
@@ -35,22 +35,21 @@
           :icon="section.icon || undefined"
           :displayData="getDisplayData(section)"
           :groupId="`${pageId}-section-${index}`"
-          :items="filterTiles(section.items, searchValue)"
+          :items="section.filteredItems"
           :widgets="section.widgets"
           :searchTerm="searchValue"
           :itemSize="itemSizeBound"
           @itemClicked="finishedSearching()"
           @change-modal-visibility="updateModalVisibility"
           :isWide="!!singleSectionView || layoutOrientation === 'horizontal'"
-          :class="
-          (searchValue && filterTiles(section.items, searchValue).length === 0) ? 'no-results' : ''"
+          :class="(searchValue && section.filteredItems.length === 0) ? 'no-results' : ''"
         />
       </template>
       <!-- Show add new section button, in edit mode -->
       <AddNewSection v-if="isEditMode && !singleSectionView" />
     </div>
     <!-- Show message when there's no data to show -->
-    <div v-if="checkIfResults() && !isEditMode" class="no-data">
+    <div v-if="checkIfResults(filteredSections) && !isEditMode" class="no-data">
       {{searchValue ? $t('home.no-results') : $t('home.no-data')}}
     </div>
     <!-- Show banner at bottom of screen, for Saving config changes -->
@@ -100,10 +99,14 @@ export default {
       if (colCount > 8) colCount = 8;
       return colCount;
     },
-    /* Return all sections, that match users search term */
-    filteredTiles() {
+    /* Return sections with filtered items, that match users search term */
+    filteredSections() {
       const sections = this.singleSectionView || this.sections;
-      return sections.filter((section) => this.filterTiles(section.items, this.searchValue));
+      return sections.map((_section) => {
+        const section = _section;
+        section.filteredItems = this.filterTiles(section.items, this.searchValue);
+        return section;
+      });
     },
     /* Updates layout (when button clicked), and saves in local storage */
     layoutOrientation() {

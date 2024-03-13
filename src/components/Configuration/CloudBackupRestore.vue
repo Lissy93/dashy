@@ -9,7 +9,7 @@
         {{ $t('cloud-sync.intro-l2') }}
         <br>
         {{ $t('cloud-sync.intro-l3') }}
-        <a href="https://github.com/Lissy93/dashy/blob/master/docs/backup-restore.md">docs</a>
+        <a href="https://github.com/Lissy93/dashy/blob/master/docs/backup-restore.md">{{ $t('cloud-sync.intro-docs') }}</a>.
       </p>
     </div>
     <!-- Create or update a backup form -->

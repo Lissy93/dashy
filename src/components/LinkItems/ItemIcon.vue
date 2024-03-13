@@ -123,7 +123,7 @@ export default {
       if (emojiLookup[emojiCode]) {
         return emojiLookup[emojiCode];
       } else {
-        this.imageNotFound(`No emoji found with name '${emojiCode}'`);
+        // this.imageNotFound(`No emoji found with name '${emojiCode}'`);
         return null;
       }
     },
@@ -202,7 +202,7 @@ export default {
     /* For a given URL, return the hostname only. Used for favicon and generative icons */
     getHostName(url) {
       try {
-        return new URL(url).hostname.split('.').slice(-2).join('.');
+        return new URL(url).hostname;
       } catch (e) {
         ErrorHandler('Unable to format URL');
         return url;

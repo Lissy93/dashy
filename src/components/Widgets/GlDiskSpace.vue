@@ -8,7 +8,7 @@
       ]" />
     <p class="info">
       <b>{{ $t('widgets.glances.disk-space-free') }}</b>:
-      {{ disk.used | formatSize }} out of {{ disk.size | formatSize }}
+      {{ disk.size - disk.used | formatSize }} out of {{ disk.size | formatSize }}
     </p>
     <p class="info"><b>{{ $t('widgets.glances.disk-mount-point') }}</b>: {{ disk.mnt_point }}</p>
     <p class="info"><b>{{ $t('widgets.glances.disk-file-system') }}</b>: {{ disk.fs_type }}</p>
@@ -43,9 +43,6 @@ export default {
     },
   },
   methods: {
-    fetchData() {
-      this.makeRequest(this.endpoint).then(this.processData);
-    },
     processData(diskData) {
       this.disks = diskData;
     },

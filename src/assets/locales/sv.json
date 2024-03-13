@@ -8,7 +8,7 @@
     "search-label":"Sök",
     "search-placeholder":"Börja skriva för att filtrera",
     "clear-search-tooltip":"Rensa sök",
-    "enter-to-search-web":"Tryck på Retur för att söka på webben"
+    "enter-to-search-web":"Tryck på retur för att söka på webben"
   },
   "login":{
     "title":"Dashy",
@@ -44,7 +44,7 @@
     "edit-css-button":"Redigera Custom CSS",
     "cloud-sync-button":"Aktivera molnsynk",
     "edit-cloud-sync-button":"Redigera molnsynk",
-    "rebuild-app-button":"Återuppbygga appen",
+    "rebuild-app-button":"Bygg om appen",
     "change-language-button":"Ändra appspråk",
     "reset-settings-button":"Återställ lokala inställningar",
     "app-info-button":"Appinfo",
@@ -102,7 +102,7 @@
     "title":"Temakonfigurator",
     "export-button":"Exportera egendefinierade variabler",
     "reset-button":"Återställ stilmallar för",
-    "show-all-button":"Vissa alla variabler",
+    "show-all-button":"Visa alla variabler",
     "change-fonts-button":"Ändra typsnitt",
     "save-button":"Spara",
     "cancel-button":"Avbryt",
@@ -117,8 +117,8 @@
     "save-button":"Spara ändringar",
     "preview-button":"Förhandsgranska ändringar",
     "valid-label":"Konfigurationen är giltig",
-    "status-success-msg":"Åtgärden slutförts",
-    "status-fail-msg":"Åtgärden misslyckats",
+    "status-success-msg":"Åtgärden slutfördes",
+    "status-fail-msg":"Åtgärden misslyckades",
     "success-msg-disk":"Konfigurationsfil har skrivits till disk utan problem",
     "success-msg-local":"Lokala ändringar har sparats utan problem",
     "success-note-l1":"Återskapa",
@@ -139,8 +139,8 @@
     "rebuilding-status-1":"Återskapar...",
     "rebuilding-status-2":"Detta kan ta några minuter",
     "error-permission":"Du har inte behörighet att utföra denna åtgärd",
-    "success-msg":"Återskapning lyckats",
-    "fail-msg":"Återskapning misslyckats",
+    "success-msg":"Återskapning lyckades",
+    "fail-msg":"Återskapning misslyckades",
     "reload-note":"En omladdning av sidan krävs nu för att ändringarna ska gälla",
     "reload-button":"Ladda om sidan"
   },
@@ -209,15 +209,15 @@
       "save-locally-btn":"Spara lokalt",
       "save-locally-tooltip":"Spara konfigurationen lokalt, till webbläsarens lagring. Detta påverkar inte din konfigurationsfil, men ändringarna sparas bara på denna enhet",
       "save-disk-btn":"Spara till disk",
-      "save-disk-tooltip":"Spara konfiguration to conf.yml-filen på disk. Detta kommer att säkerhetskopiera och sedan skriva över din befintliga konfiguration",
+      "save-disk-tooltip":"Spara konfiguration till conf.yml-filen på disk. Detta kommer att säkerhetskopiera och sedan skriva över din befintliga konfiguration",
       "export-config-btn":"Exportera konfiguration",
       "export-config-tooltip":"Visa och exportera den nya konfigurationen, antingen till fil eller urklipp",
       "cloud-backup-btn":"Säkerhetskopiera till molnet",
       "cloud-backup-tooltip":"Spara krypterad säkerhetskopia av konfigurationen i molnet",
-      "edit-raw-config-btn":"Redigera raw-konfiguration",
-      "edit-raw-config-tooltip":"Visa och redigera raw-konfiguration via JSON-redigeraren",
+      "edit-raw-config-btn":"Redigera rawkonfiguration",
+      "edit-raw-config-tooltip":"Visa och redigera rawkonfiguration via JSON-redigeraren",
       "cancel-changes-btn":"Avbryt redigering",
-      "cancel-changes-tooltip":"Radera nuvarande ändringar och lämna Redigeringsläge. Detta kommer in påverka din sparade konfiguration.",
+      "cancel-changes-tooltip":"Radera nuvarande ändringar och lämna Redigeringsläge. Detta kommer inte påverka din sparade konfiguration.",
       "edit-mode-name":"Redigeringsläge",
       "edit-mode-subtitle":"Du är i Redigeringsläge",
       "edit-mode-description":"Detta innebär att du kan göra ändringar i din konfiguration och förhandsgranska resultaten, men tills du sparar kommer inga av dina ändringar att bevaras.",
@@ -230,7 +230,7 @@
     "edit-section":{
       "edit-section-title":"Redigera sektion",
       "add-section-title":"Lägg till ny sektion",
-      "edit-tooltip":"Tryck för att redigera, eller högerklicka för fler alternativ",
+      "edit-tooltip":"Tryck för att redigera eller högerklicka för fler alternativ",
       "remove-confirm":"Är du säker på att du vill ta bort denna sektion? Denna åtgärd kan ångras senare."
     },
     "edit-app-config":{
@@ -277,8 +277,8 @@
       "departures":"Avgångar"
     },
     "tfl-status":{
-      "good-service-all":"Good Service på alla linjer",
-      "good-service-rest":"Good Service på alla övriga linjer"
+      "good-service-all":"God service på alla linjer",
+      "good-service-rest":"God Service på övriga linjer"
     }
   }
 }

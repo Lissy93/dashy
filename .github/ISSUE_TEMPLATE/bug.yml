@@ -14,14 +14,25 @@ body:
         - Self-Hosted (Docker)
         - Self-Hosted (Bare Metal)
         - Cloud Service (Static)
+        - Other (Specify below)
     validations:
       required: true
+  - type: input
+    id: system
+    attributes:
+      label: System
+      description: >-
+        For deployment issues, specify your [distro or OS](https://whatsmyos.com/) and/ or Docker version.
+        For client-side issues, include your [browser version](https://www.whatsmybrowser.org/)
+      placeholder: e.g. Firefox 101, Manjaro Linux 21.3.0, Docker 20.10.16
+    validations:
+      required: false
   - type: input
     id: version
     attributes:
       label: Version
       description: What version of Dashy are you running?
-      placeholder: 1.6.9 ← should look like this (check config menu)
+      placeholder: 4.2.0 ← should look like this (check config menu)
     validations:
       required: false
   - type: textarea
@@ -29,6 +40,7 @@ body:
     attributes:
       label: Describe the problem
       description: Please describe exactly what is not working, include the steps to reproduce, actual result and expected result
+      placeholder: When doing ABC then DEF, I expect to see XYZ, but I actually see ZYX
     validations:
       required: true
   - type: textarea
@@ -45,11 +57,13 @@ body:
       label: Please tick the boxes
       description: Before submitting, please ensure that
       options:
-        - label: You are using a [supported](https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md#supported-versions) version of Dashy (check the first two digits of the version number)
+        - label: You have explained the issue clearly, and included all relevant info
+          required: true
+        - label: You are using a [supported](https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md#supported-versions) version of Dashy
           required: true
         - label: You've checked that this [issue hasn't already been raised](https://github.com/Lissy93/dashy/issues?q=is%3Aissue)
           required: true
-        - label: You've checked the [docs](https://github.com/Lissy93/dashy/tree/master/docs#readme) and [troubleshooting](https://github.com/Lissy93/dashy/blob/master/docs/troubleshooting.md#troubleshooting) guide
+        - label: You've checked the [docs](https://github.com/Lissy93/dashy/tree/master/docs#readme) and [troubleshooting](https://github.com/Lissy93/dashy/blob/master/docs/troubleshooting.md#troubleshooting) guide ![important](https://img.shields.io/badge/Important!-F6094E)
           required: true
         - label: You agree to the [code of conduct](https://github.com/Lissy93/dashy/blob/master/.github/CODE_OF_CONDUCT.md#contributor-covenant-code-of-conduct)
           required: true
@@ -57,8 +71,9 @@ body:
     attributes:
       value: |-
         ## Thanks 🙏
-        Sorry you are having issues with Dashy, and thank you for raising this ticket - in doing so you are helping to make the app better for everyone 💪
-        You should expect a reply within the next 48 hours :)
-        ⭐️ If you are not a bot, please star the repo before submitting your ticket.
+        <img align="left" width="160" src="https://i.ibb.co/S5vCnhL/gh-thanks.gif" alt="🐙" />
+        Thank you for raising this ticket - in doing so you are helping to make the app better for everyone 💪<br>
+        You should expect a reply within the next 48 hours :)<br>
+        ⭐️ Consider dropping the repo a star if you're enjoying Dashy!<br>
     validations:
       required: false

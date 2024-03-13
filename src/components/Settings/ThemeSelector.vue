@@ -127,7 +127,9 @@ export default {
      * Updates store, which will in turn update theme through watcher
      */
     themeChanged() {
-      this.$store.commit(Keys.SET_THEME, this.selectedTheme);
+      const pageId = this.$store.state.currentConfigInfo?.pageId || null;
+      this.$store.commit(Keys.SET_THEME, { theme: this.selectedTheme, pageId });
+      this.updateTheme(this.selectedTheme);
     },
     /* Returns the initial theme */
     getInitialTheme() {
@@ -164,7 +166,7 @@ export default {
         this.themeHelper.theme = newTheme;
       }
       this.ApplyCustomVariables(newTheme);
-      localStorage.setItem(localStorageKeys.THEME, newTheme);
+      // localStorage.setItem(localStorageKeys.THEME, newTheme);
     },
     /* Removes any applied themes */
     resetToDefault() {

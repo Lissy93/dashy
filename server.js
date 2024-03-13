@@ -121,6 +121,10 @@ const app = express()
     } catch (e) {
       res.end(JSON.stringify({ success: false, message: e }));
     }
+  })
+  // If no other route is matched, serve up the index.html with a 404 status
+  .use((req, res) => {
+    res.status(404).sendFile(path.join(__dirname, 'dist', 'index.html'));
   });
 
 /* Create HTTP server from app on port, and print welcome message */

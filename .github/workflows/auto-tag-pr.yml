@@ -8,6 +8,8 @@ on:
 jobs:
   tag-pre-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       tag: ${{ steps.autotag.outputs.tagname }}
     steps:
@@ -25,8 +27,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: ncipollo/release-action@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
       with:
-        token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         tag: ${{ needs.tag-pre-release.outputs.tag }}
         bodyFile: ".github/LATEST_CHANGELOG.md"
   mark-issue-fixed:

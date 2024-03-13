@@ -11,6 +11,15 @@ on:
       - 'src/**'
       - 'public/**'
       - 'services/**'
+      - '.github/workflows/docker-build-publish.yml'
+      - 'Dockerfile'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  packages: write
 
 env:
   DH_IMAGE: ${{ secrets.DOCKER_REPO }}
@@ -30,12 +39,6 @@ jobs:
       uses: tyankatsu0105/read-package-version-actions@v1
       id: package-version
 
-    # - name: ✨ Validate Dockerfile
-    #   uses: ghe-actions/dockerfile-validator@v1
-    #   with:
-    #     dockerfile: 'Dockerfile'
-    #     lint: 'hadolint'
-
     - name: 🗂️ Make Docker Meta
       id: meta
       uses: docker/metadata-action@v3
@@ -43,7 +46,6 @@ jobs:
         images: |
           ${{ env.DH_IMAGE }}
           ghcr.io/${{ env.GH_IMAGE }}
-          ${{ secrets.ACR_SERVER }}/${{ secrets.ACR_USERNAME }}
         tags: |
           type=ref,event=tag,prefix=release-,suffix={{tag}}
           type=semver,pattern={{raw}},value=${{ steps.package-version.outputs.version }}
@@ -57,9 +59,22 @@ jobs:
 
     - name: 🔧 Set up QEMU
       uses: docker/setup-qemu-action@v1
+      with:
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
 
     - name: 🔧 Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
+      id: buildx
+      with:
+        driver-opts: image=moby/buildkit:v0.10.6
+
+    - name: 👀 Inspect builder
+      run: |
+        echo "Name:      ${{ steps.buildx.outputs.name }}"
+        echo "Endpoint:  ${{ steps.buildx.outputs.endpoint }}"
+        echo "Status:    ${{ steps.buildx.outputs.status }}"
+        echo "Flags:     ${{ steps.buildx.outputs.flags }}"
+        echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
 
     - name: 🔑 Login to DockerHub
       uses: docker/login-action@v1 
@@ -74,13 +89,6 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: 🔑 Login to Azure Container Registry
-      uses: docker/login-action@v1
-      with:
-        registry: ${{ secrets.ACR_SERVER }}
-        username: ${{ secrets.ACR_USERNAME }}
-        password: ${{ secrets.ACR_PASSWORD }}
-
     - name: 🚦 Check Registry Status
       uses: crazy-max/ghaction-docker-status@v1
 
@@ -93,13 +101,3 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
-          
-#     - name: 💬 Set Docker Hub Description
-#       uses: peter-evans/dockerhub-description@v2
-#       with:
-#         repository: lissy93/dashy
-#         readme-filepath: ./docker/docker-readme.md
-#         short-description: Dashy - A self-hosted start page for your server
-#         username: ${{ secrets.DOCKER_USERNAME }}
-#         password: ${{ secrets.DOCKER_USER_PASS }}
-

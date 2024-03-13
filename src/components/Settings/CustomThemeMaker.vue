@@ -319,6 +319,10 @@ div.action-buttons {
     min-width: 6rem;
     padding: 0.25rem 0.5rem;
     margin: 1rem 0.5rem 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 }
 

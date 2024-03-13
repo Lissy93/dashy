@@ -5,16 +5,15 @@
  */
 
 // Import helper functions from auth, to get current user, and check if guest
-import { getCurrentUser, isLoggedInAsGuest } from '@/utils/Auth';
+import { getCurrentUser } from '@/utils/Auth';
 import { isVisibleToUser } from '@/utils/IsVisibleToUser';
 
 /* Putting it all together, the function to export */
 export const checkSectionVisibility = (sections) => {
   const currentUser = getCurrentUser(); // Get current user object
-  const isGuest = isLoggedInAsGuest(); // Check if current user is a guest
   return sections.filter((currentSection) => {
     const displayData = currentSection.displayData || {};
-    return isVisibleToUser(displayData, currentUser, isGuest);
+    return isVisibleToUser(displayData, currentUser);
   });
 };
 

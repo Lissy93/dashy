@@ -2,7 +2,7 @@
   <div class="css-editor-outer">
     <!-- Add raw custom CSS -->
     <div class="style-section css-wrapper">
-      <h3>Custom CSS</h3>
+      <h3>{{ $t('config.custom-css.title') }}</h3>
       <textarea class="css-editor" v-model="customCss" />
       <Button class="save-button" :click="save">{{ $t('config.css-save-btn') }}</Button>
       <p class="quick-note">
@@ -12,7 +12,7 @@
     </div>
     <!-- Theme Selector -->
     <div class="style-section base-theme-wrapper">
-      <h3>Base Theme</h3>
+      <h3>{{ $t('config.custom-css.base-theme') }}</h3>
       <ThemeSelector :hidePallete="true" />
     </div>
     <!-- UI color configurator -->

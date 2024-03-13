@@ -93,8 +93,9 @@ export const getCustomColors = () => {
  * So that when the hotkey is pressed, the app/ service can be launched
  */
 export const getCustomKeyShortcuts = () => {
+  const Accumulator = new ConfigAccumulator();
   const results = [];
-  const sections = config.sections || [];
+  const sections = filterUserSections(Accumulator.sections()) || [];
   sections.forEach((section) => {
     const itemsWithHotKeys = section.items.filter(item => item.hotkey);
     results.push(itemsWithHotKeys.map(item => ({ hotkey: item.hotkey, url: item.url })));
