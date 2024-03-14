@@ -44,6 +44,11 @@
     "logged-in-guest": "Logado como convidado. Redirecionando...",
     "error-guest-access": "O acesso como convidado não foi permitido"
   },
+
+  "app-info": {
+    "title": "Informação do App"
+  },
+
   "config": {
     "main-tab": "Menu Principal",
     "view-config-tab": "Ver configuração",
