@@ -10,8 +10,12 @@
     "clear-search-tooltip": "Limpar busca",
     "enter-to-search-web": "Tecle enter para buscar na rede"
   },
+  "splash-screen": {
+    "loading": "Carregando"
+  },
   "login": {
     "title": "Dashy",
+    "guest-label": "Entrar como convidado",
     "username-label": "Nome do usuário",
     "password-label": "Senha",
     "login-button": "Conectar",
@@ -31,7 +35,14 @@
     "already-logged-in-text": "Você está logado como",
     "proceed-to-dashboard": "Ir para o Painel",
     "log-out-button": "Sair",
-    "proceed-guest-button": "Seguir como Convidado"
+    "proceed-guest-button": "Seguir como Convidado",
+    "guest-intro-1": "Essa instância possui o acesso como convidado ativado",
+    "guest-intro-2": "Convidados podem apenas visualizar os painéis, logo não podem escrever quaisquer mudanças no disco.",
+    "error": "Erro",
+    "error-no-user-configured": "Autenticação não está habilitada, ou nenhum usuário foi configurado.",
+    "error-go-home-button": "Ir para a página inicial",
+    "logged-in-guest": "Logado como convidado. Redirecionando...",
+    "error-guest-access": "O acesso como convidado não foi permitido"
   },
   "config": {
     "main-tab": "Menu Principal",
