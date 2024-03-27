@@ -299,6 +299,16 @@
       "remaining": "Restante",
       "up": "Up",
       "down": "Down"
+    },
+    "gluetun-status": {
+      "vpn-ip": "IP da VPN",
+      "country": "País",
+      "region": "Região",
+      "city": "Cidade",
+      "post-code": "Código postal",
+      "location": "Localização",
+      "timezone": "Fuso horário",
+      "organization": "Organização"
     }
   }
 }
