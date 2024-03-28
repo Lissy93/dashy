@@ -29,7 +29,7 @@
     "error-missing-password": "密码空缺",
     "error-incorrect-username": "用户不存在",
     "error-incorrect-password": "密码不正确",
-    "success-message": "登陆成功。。。",
+    "success-message": "登陆成功。",
     "logout-message": "注销",
     "already-logged-in-title": "已经成功登陆",
     "already-logged-in-text": "你的登陆身份",
@@ -37,11 +37,11 @@
     "log-out-button": "注销",
     "proceed-guest-button": "以游客身份前往",
     "guest-intro-1": "该实例已启用访客访问.",
-    "guest-intro-2": "访客只有访问权限,无法保存变更",
+    "guest-intro-2": "访客只有访问权限，无法保存变更",
     "error": "错误",
-    "error-no-user-configured": "没有启用验证,或者未配置用户",
+    "error-no-user-configured": "没有启用验证，或者未配置用户",
     "error-go-home-button": "Go Home",
-    "logged-in-guest": "以访客身份登陆,正在跳转...",
+    "logged-in-guest": "以访客身份登陆，正在跳转...",
     "error-guest-access": "不允许访客访问"
   },
   "app-info": {
@@ -78,22 +78,22 @@
   "config": {
     "main-tab": "主菜单",
     "view-config-tab": "视图设置",
-    "edit-config-tab": "编辑设置",
+    "edit-config-tab": "修改设置",
     "custom-css-tab": "自定义样式",
     "heading": "设置选项",
     "download-config-button": "下载配置",
-    "edit-config-button": "编辑设置",
-    "edit-css-button": "编辑自定义 CSS",
-    "cloud-sync-button": "启用云端同步",
-    "edit-cloud-sync-button": "编辑云端同步",
+    "edit-config-button": "修改设置",
+    "edit-css-button": "自定义CSS",
+    "cloud-sync-button": "云端同步",
+    "edit-cloud-sync-button": "修改云端同步",
     "rebuild-app-button": "重建应用",
     "change-language-button": "更改语言",
-    "reset-settings-button": "恢复本地设置",
+    "reset-settings-button": "恢复默认设置",
     "disabled-note": "您的管理员已禁用某些配置功能",
     "small-screen-note": "您正在使用非常小的屏幕，某些菜单屏幕可能不够优化",
     "app-info-button": "应用详情",
     "backup-note": "建议在进行更改之前备份你的配置。",
-    "reset-config-msg-l1": "这将从本地存储中删除所有用户设置，但不会影响‘conf.yml’文件。",
+    "reset-config-msg-l1": "这将从本地存储中删除所有用户设置，但不会影响 conf.yml 文件。",
     "reset-config-msg-l2": "如果想在以后使用它们，应该首先备份你所做的任何更改。",
     "reset-config-msg-l3": "确定执行吗？",
     "data-cleared-msg": "成功清空数据",
@@ -103,9 +103,9 @@
     "reset-config-label": "重置设置",
     "css-save-btn": "保存更改",
     "css-note-label": "注意",
-    "css-note-l1": "你需要刷新页面才能使更改生效。",
-    "css-note-l2": "样式覆盖仅存储在本地，因此建议复制你的 CSS。",
-    "css-note-l3": "要删除所有自定义样式，请删除内容并点击保存更改",
+    "css-note-l1": "需刷新页面使其生效。",
+    "css-note-l2": "自定义样式仅在本地有效，设置储存在当前浏览器，建议做好备份。",
+    "css-note-l3": "如需删除自定义样式，清空上面内容并点击保存。",
     "custom-css": {
       "title": "自定义 CSS",
       "base-theme": "基础主题"
@@ -132,8 +132,8 @@
     "sign-out-tooltip": "注销",
     "sign-in-tooltip": "登陆",
     "sign-in-welcome": "你好 {username}！",
-    "hide": "Hide",
-    "open": "Open"
+    "hide": "隐藏",
+    "open": "打开"
   },
   "updates": {
     "app-version-note": "Dashy 版本",
@@ -195,9 +195,10 @@
     "reload-button": "刷新页面"
   },
   "cloud-sync": {
-    "title": "云备份 & 云恢复",
+    "title": "云备份&恢复",
     "intro-l1": "云备份和云恢复是一项试验性功能，你将配置上传到网络，然后在其他设备或 Dashy 实例上恢复。",
     "intro-l2": "所有数据都使用AES端对端加密，使用你的密码作为密钥。",
+    "intro-docs": "文档",
     "intro-l3": "有关更多信息，请参阅",
     "backup-title-setup": "创建备份",
     "backup-title-update": "更新备份",
@@ -268,11 +269,11 @@
       "edit-pages-tooltip": "添加或删除其他的视图",
       "config-save-methods-subheading": "配置保存选项",
       "save-locally-btn": "暂存本地",
-      "save-locally-tooltip": "将设置保存在本地浏览器上. 这不会影响配置文件,但更改只会保留在当前设备上.",
+      "save-locally-tooltip": "将设置保存在浏览器上。这不会影响配置文件，仅作用于当前的浏览器。",
       "save-disk-btn": "保存",
-      "save-disk-tooltip": "将设置保存到服务端的conf.yml文件.它会备份之前的配置文件.",
+      "save-disk-tooltip": "将设置保存到服务端的conf.yml文件，它会备份之前的配置文件.",
       "export-config-btn": "导出配置",
-      "export-config-tooltip": "查看并导出新的配置 到 文件 或 剪贴板",
+      "export-config-tooltip": "查看并导出新的配置到 文件 或 剪贴板",
       "cloud-backup-btn": "备份到云端",
       "cloud-backup-tooltip": "以加密的方式保存到云端",
       "edit-raw-config-btn": "编辑原始配置",
@@ -284,10 +285,10 @@
       "edit-mode-description": "你可以对配置进行修改并预览，在保存之前，你的任何更改都不会被保留。",
       "save-stage-btn": "保存",
       "cancel-stage-btn": "取消",
-      "save-locally-warning": "如果你继续，更改将仅保存在你的浏览器中。 你应该导出配置的副本以在其他机器上使用。 你想继续吗？"
+      "save-locally-warning": "配置将保存到你当前的浏览器上。你也可以导出配置到其他设备上使用。是否继续？"
     },
     "edit-item": {
-      "missing-title-err": "项目标题是必需的"
+      "missing-title-err": "标题是必需的"
     },
     "edit-section": {
       "edit-section-title": "编辑 Section",
@@ -314,7 +315,9 @@
   "widgets": {
     "general": {
       "loading": "加载中...",
-      "show-more": "展开详情",
+      "show-more": "显示更多",
+      "cpu-details": "CPU 详情",
+      "mem-details": "内存 详情",
       "show-less": "显示更少信息",
       "open-link": "继续读取"
     },
