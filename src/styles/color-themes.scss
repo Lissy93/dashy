@@ -1721,3 +1721,83 @@ html[data-theme='cherry-blossom'] {
     }
   }
 }
+
+html[data-theme="tama"] {
+  // Main colors
+  --primary: #ffffffe6;
+  --background: #0b1021;
+  --background-darker: #181c3a;
+  --background-darker-transparent: #181c3ad4;
+  --background-grey-transparent: #6b6c73c6;
+  
+  // Typography
+  --font-headings: 'Segoe UI', 'Ariel', 'sans-serif';
+  --font-body: 'Segoe UI', 'Ariel', 'sans-serif';
+  
+  // Items
+  --item-background: var(--background-darker-transparent);
+  --item-background-hover: var(--background-grey-transparent);
+  --item-shadow: 1px 1px 2px #130f23;
+  --item-hover-shadow: 2px 2px 4px #130f23;
+  
+  // Sections
+  --item-group-heading-text-color: var(--white);
+  --item-group-heading-text-color-hover: var(--primary);
+  --item-group-shadow: none;
+  --item-group-background: none;
+  --item-group-outer-background: none;
+  
+  // Remove background from certain components
+  div.home, div.options-outer, div.options-container, section.filter-container,
+  section.settings-outer, div.show-hide-container.hide-btn, div.show-hide-container.show-btn  {
+    background: none;
+  }
+  
+  // Style overides
+  label.lbl-toggle h3 { font-size: 1.3rem; font-weight: bold; }
+  .content-inner { border-top: 1px dashed var(--primary); }
+  .item.size-large .tile-title p.description { height: 3rem; }
+  .is-collapsed {
+    background: var(--item-background);
+    box-shadow: var(--item-shadow);
+    &:hover {
+      background: var(--item-background-hover);
+      box-shadow: var(--item-hover-shadow);
+    }
+  }    
+  
+  // Background Image 
+  body {
+    //update the query terms after the '?', to customize for images you want
+    background: url('https://source.unsplash.com/random/1920x1080/?dark,calm,nature,background');
+    background-color: var(--background-darker);
+    background-size: cover;      
+  }
+  header, footer, form.normal { background-color: var(--background-darker-transparent); } 
+
+  // large tile spacing adjustment
+  .there-are-items:has(.item-wrapper.wrap-size-large) { padding-top: .25rem; }
+  .item-wrapper.wrap-size-large { margin: 0rem .5rem .5rem 0rem; overflow: hidden; }
+  .item.size-large .tile-title { padding: 0rem 0rem 0rem .7rem; }
+
+  // Hide open method icon
+  .opening-method-icon { opacity: 0; }
+  
+  // Widget tile style
+  .widget-base {
+    background-color: var(--background-darker-transparent);
+    margin: .5rem .5rem 1rem .5rem;
+    padding: 0;
+    border: 1px solid var(--outline-color);
+    border-radius: var(--curve-factor);
+    box-shadow: var(--item-shadow);
+  }
+  .widget-base button.action-btn { margin-top: .3rem; margin-right: .5rem; }
+  .widget-wrap { padding: 1.4rem .8rem .8rem .8rem; }
+  
+  // Grow effect for tile-icon <img> & <i> on hover over Item tiles
+  .item:hover .item-icon img, .item:hover .item-icon i{
+    transition: all .35s ease-in-out;
+    transform: scale(1.22);  
+  }
+}

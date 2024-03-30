@@ -112,6 +112,7 @@ export default {
     cursor: pointer;
     font-size: 0.9rem;
     text-align: center;
+    width: 100%;
     width: fit-content;
     margin: 0.25rem auto;
     padding: 0.1rem 0.25rem;

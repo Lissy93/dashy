@@ -105,9 +105,9 @@ The following file provides a reference of all supported configuration options.
 **`startingView`** | `enum` | _Optional_ | Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI. Can be either `default`, `minimal` or `workspace`. Defaults to `default`
 **`defaultOpeningMethod`** | `enum` | _Optional_ | The default opening method for items, if no `target` is specified for a given item. Can be either `newtab`, `sametab`, `modal`, `workspace`, `clipboard`, `top` or `parent`. Defaults to `newtab`
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping each of your services and display their status as a dot next to each item. This can be overridden by setting `statusCheck` under each item. Defaults to `false`
-**`statusCheckInterval`** | `boolean` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
+**`statusCheckInterval`** | `number` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
 **`webSearch`** | `object` | _Optional_ | Configuration options for the web search feature, set your default search engine, opening method or disable web search. See [`webSearch`](#appconfigwebsearch-optional)
-**`backgroundImg`** | `string` | _Optional_ | Path to an optional full-screen app background image. This can be either remote (http) or local (/). Note that this will slow down initial load
+**`backgroundImg`** | `string` | _Optional_ | Path to an optional full-screen app background image. This can be either remote (http) or local (relative to /app/public/item-icons/ inside the container). Note that this will slow down initial load
 **`enableFontAwesome`** | `boolean` | _Optional_ | If set to `true` font-awesome will be loaded, if set to `false` they will not be. if left blank font-awesome will be enabled only if required by 1 or more icons
 **`enableMaterialDesignIcons`** | `boolean` | _Optional_ | If set to `true` mdi icons will be loaded, if set to `false` they will not be. Where `true` is enabled, if left blank material design icons will be enabled only if required by 1 or more icons
 **`fontAwesomeKey`** | `string` | _Optional_ | If you have a font-awesome key, then you can use it here and make use of premium icons. It is a 10-digit alpha-numeric string from you're FA kit URL  (e.g. `13014ae648`)
@@ -240,6 +240,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`statusCheckAcceptCodes`** | `string` | _Optional_ | If your service's response code is anything other than 2xx, then you can opt to specify an alternative success code. E.g. if you expect your server to return 403, but still want the status indicator to be green, set this value to `403`
 **`statusCheckMaxRedirects`** | `number` | _Optional_ | If your service redirects to another page, and you would like status checks to follow redirects, then specify the maximum number of redirects here. Defaults to `0` / will not follow redirects
 **`color`** | `string` | _Optional_ | An optional color for the text and font-awesome icon to be displayed in. Note that this will override the current theme and so may not display well
+**`rel`** | `string` | _Optional_ | The value of the `rel` attribute for the link. Useful for specifying the relationship between the target link/document and Dashy. Defaults to `noopener noreferrer`
 **`backgroundColor`** | `string` | _Optional_ | An optional background fill color for the that given item. Again, this will override the current theme and so might not display well against the background
 **`provider`** | `string` | _Optional_ | The name of the provider for a given service, useful for when including hosted apps. In some themes, this is visible under the item name
 **`displayData`** | `object` | _Optional_ | Meta-data to optionally override display settings for a given item. See [`displayData`](#itemdisplaydata-optional)
@@ -258,7 +259,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **[⬆️ Back to Top](#configuring)**
 
-## `section.widget` _(optional)_
+## `section.widgets` _(optional)_
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---

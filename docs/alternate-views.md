@@ -47,7 +47,7 @@ Dashy supports several different ways to launch your apps. The primary opening m
 
 - `sametab` - The app will be launched in the current tab
 - `newtab` - The app will be launched in a new tab
-- `top` - Opens in the top-most browsing context, useful if your accessing Dashy through an iframe
+- `top` - Opens in the top-most browsing context, useful if you're accessing Dashy through an iframe
 - `modal` - Launch app in a resizable/ movable popup modal on the current page
 - `workspace` - Changes to Workspace view, and launches app
 

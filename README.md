@@ -154,8 +154,10 @@ Dashy supports **1-Click deployments** on several popular cloud platforms. To sp
 - [<img src="https://i.ibb.co/d2P1WZ7/heroku.png" width="18"/> Deploy to Heroku](https://heroku.com/deploy?template=https://github.com/Lissy93/dashy)
 - [<img src="https://i.ibb.co/Ld2FZzb/vercel.png" width="18"/> Deploy to Vercel](https://vercel.com/new/project?template=https://github.com/lissy93/dashy)
 - [<img src="https://i.ibb.co/xCHtzgh/render.png" width="18"/> Deploy to Render](https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render)
+- [<img src="https://railway.app/brand/logo-light.png" width="18"/> Deploy to Railway](https://railway.app/template/MtdjAQ?referralCode=app)
 - [<img src="https://i.ibb.co/J7MGymY/googlecloud.png" width="18"/> Deploy to GCP](https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git)
 - [<img src="https://i.ibb.co/HVWVYF7/docker.png" width="18"/> Deploy to PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
+- [<img src="https://i.ibb.co/7NxnM2P/easypanel.png" width="18"/> Deploy to Easypanel](https://easypanel.io/docs/templates/dashy)
 
 > For more 1-click cloud deployments, see [Cloud Deployment](./docs/deployment.md#deploy-to-cloud-service)
 
@@ -421,6 +423,7 @@ Dashy supports multiple languages and locales. When available, your language sho
 - 🇳🇴 **Norwegian Bokmål**: `nb` - Contributed by **[@rubjo](https://github.com/rubjo)**
 - 🇵🇱 **Polish**: `pl` - Contributed by **[@skaarj1989](https://github.com/skaarj1989)**
 - 🇵🇹 **Portuguese**: `pt` - Contributed by **[@LeoColman](https://github.com/LeoColman)**
+- 🛰️ **Galician**: `gl` - Contributed by **[@pvillaverde](https://github.com/pvillaverde)**
 - 🇷🇺 **Russian**: `ru` - _Auto-generated_
 - 🇸🇰 **Slovak**: `sk` - Contributed by **[@Smexhy](https://github.com/Smexhy)**
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
@@ -530,10 +533,10 @@ Huge thanks to the sponsors helping to support Dashy's development!
 <table>
 <tr>
     <td align="center">
-        <a href="https://github.com/Keloran">
-            <img src="https://avatars.githubusercontent.com/u/200350?v=4" width="80;" alt="Keloran"/>
+        <a href="https://github.com/koconder">
+            <img src="https://avatars.githubusercontent.com/u/25068?u=582657b23622aaa3dfe68bd028a780f272f456fa&v=4" width="80;" alt="koconder"/>
             <br />
-            <sub><b>Max Hooton</b></sub>
+            <sub><b>Vincent Koc</b></sub>
         </a>
     </td>
     <td align="center">
@@ -541,6 +544,20 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <img src="https://avatars.githubusercontent.com/u/225854?v=4" width="80;" alt="peng1can"/>
             <br />
             <sub><b>Peng1can</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/bgadrian">
+            <img src="https://avatars.githubusercontent.com/u/830001?u=69f115baad2fcd8c14eb05bdbf5cd80f4649a95a&v=4" width="80;" alt="bgadrian"/>
+            <br />
+            <sub><b>B.G.Adrian</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/tbjers">
+            <img src="https://avatars.githubusercontent.com/u/1117052?u=539d96d5e581b3139c75713ce35b89a36626404c&v=4" width="80;" alt="tbjers"/>
+            <br />
+            <sub><b>Torgny Bjers</b></sub>
         </a>
     </td>
     <td align="center">
@@ -552,23 +569,17 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td>
     <td align="center">
         <a href="https://github.com/AnandChowdhary">
-            <img src="https://avatars.githubusercontent.com/u/2841780?u=ca8e292b15abcc6cddaeae0abded0115c51b4789&v=4" width="80;" alt="AnandChowdhary"/>
+            <img src="https://avatars.githubusercontent.com/u/2841780?u=747e554b3a7f12eb20b7910e1c87d817844f714f&v=4" width="80;" alt="AnandChowdhary"/>
             <br />
             <sub><b>Anand Chowdhary</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
-        <a href="https://github.com/davidpaulyoung">
-            <img src="https://avatars.githubusercontent.com/u/3418369?v=4" width="80;" alt="davidpaulyoung"/>
+        <a href="https://github.com/shrippen">
+            <img src="https://avatars.githubusercontent.com/u/2873570?v=4" width="80;" alt="shrippen"/>
             <br />
-            <sub><b>David Young</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/k-rol">
-            <img src="https://avatars.githubusercontent.com/u/4050412?u=1162510eec7b7aeb31d4c7c65d51d4f773d823b0&v=4" width="80;" alt="k-rol"/>
-            <br />
-            <sub><b>Carol Ouellet</b></sub>
+            <sub><b>Shrippen</b></sub>
         </a>
     </td></tr>
 <tr>
@@ -587,12 +598,27 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/digitalarche">
+            <img src="https://avatars.githubusercontent.com/u/6546135?u=d033c9c16e8367987aec3f9ff5922bc67dd1eedf&v=4" width="80;" alt="digitalarche"/>
+            <br />
+            <sub><b>Digital Archeology</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/InDieTasten">
+            <img src="https://avatars.githubusercontent.com/u/7047377?u=8d8f8017628b38bc46dcbf3620e194b01d3fb2d1&v=4" width="80;" alt="InDieTasten"/>
+            <br />
+            <sub><b>InDieTasten</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/bmcgonag">
             <img src="https://avatars.githubusercontent.com/u/7346620?u=2a0f9284f3e12ac1cc15288c254d1ec68a5081e8&v=4" width="80;" alt="bmcgonag"/>
             <br />
             <sub><b>Brian McGonagill</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/vlad-timofeev">
             <img src="https://avatars.githubusercontent.com/u/11474041?u=eee43705b54d2ec9f51fc4fcce5ad18dd17c87e4&v=4" width="80;" alt="vlad-timofeev"/>
@@ -601,32 +627,67 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/iJasonWade">
-            <img src="https://avatars.githubusercontent.com/u/12824479?u=8fa860e47bed4f84c8ff70cb2691d77edbb43d8f&v=4" width="80;" alt="iJasonWade"/>
+        <a href="https://github.com/helixzz">
+            <img src="https://avatars.githubusercontent.com/u/12218889?u=d06d0c103dfbdb99450623064f7da3c5a3675fb6&v=4" width="80;" alt="helixzz"/>
             <br />
-            <sub><b>Jason Ash</b></sub>
+            <sub><b>HeliXZz</b></sub>
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/DRXAquosus">
-            <img src="https://avatars.githubusercontent.com/u/45409262?v=4" width="80;" alt="DRXAquosus"/>
+        <a href="https://github.com/mryesiller">
+            <img src="https://avatars.githubusercontent.com/u/24632172?u=0d20f2d615158f87cd60a3398d3efb026c32f291&v=4" width="80;" alt="mryesiller"/>
             <br />
-            <sub><b>DRXAquosus</b></sub>
+            <sub><b>Göksel Yeşiller</b></sub>
         </a>
     </td>
+    <td align="center">
+        <a href="https://github.com/undefined">
+            <img src="" width="80;" alt="undefined"/>
+            <br />
+            <sub><b>Undefined</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Bastii717">
+            <img src="https://avatars.githubusercontent.com/u/53431819?u=604977bed6ad6875ada890d0d3765a4cacc2fa14&v=4" width="80;" alt="Bastii717"/>
+            <br />
+            <sub><b>Bastii717</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/frankdez93">
+            <img src="https://avatars.githubusercontent.com/u/87549420?v=4" width="80;" alt="frankdez93"/>
+            <br />
+            <sub><b>Frankdez93</b></sub>
+        </a>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/ratty222">
             <img src="https://avatars.githubusercontent.com/u/92832598?u=137b65530cbd5f5af9c24cde51baa6cc77cc934b&v=4" width="80;" alt="ratty222"/>
             <br />
             <sub><b>Ratty222</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
-        <a href="https://github.com/jtfinley72">
-            <img src="https://avatars.githubusercontent.com/u/96497997?v=4" width="80;" alt="jtfinley72"/>
+        <a href="https://github.com/NixyJuppie">
+            <img src="https://avatars.githubusercontent.com/u/138570196?u=b102c222487905728b858704962d32759df29ebe&v=4" width="80;" alt="NixyJuppie"/>
             <br />
-            <sub><b>Jtfinley72</b></sub>
+            <sub><b>Nixy</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/nrvo">
+            <img src="https://avatars.githubusercontent.com/u/151435968?u=e1dcb307fd0efdc45cddbe9490a7b956e4da6835&v=4" width="80;" alt="nrvo"/>
+            <br />
+            <sub><b>Nrvo</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/mezza93">
+            <img src="https://avatars.githubusercontent.com/u/153599966?v=4" width="80;" alt="mezza93"/>
+            <br />
+            <sub><b>Mezza93</b></sub>
         </a>
     </td></tr>
 </table>
@@ -741,7 +802,7 @@ A few self-hosted web apps serve a similar purpose to Dashy. If you're looking f
 Dashy is Licensed under [MIT X11](https://en.wikipedia.org/wiki/MIT_License)
 
 ```
-Copyright © 2021-2022 Alicia Sykes <https://aliciasykes.com>
+Copyright © 2021-2024 Alicia Sykes <https://aliciasykes.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this
 software and associated documentation files (the "Software"), to deal in the Software

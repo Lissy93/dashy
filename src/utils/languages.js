@@ -17,11 +17,14 @@ import nb from '@/assets/locales/nb.json';
 import nl from '@/assets/locales/nl.json';
 import pl from '@/assets/locales/pl.json';
 import pt from '@/assets/locales/pt.json';
+import gl from '@/assets/locales/gl.json';
 import ru from '@/assets/locales/ru.json';
+import ro from '@/assets/locales/ro.json';
 import sk from '@/assets/locales/sk.json';
 import sl from '@/assets/locales/sl.json';
 import sv from '@/assets/locales/sv.json';
 import tr from '@/assets/locales/tr.json';
+import ua from '@/assets/locales/ua.json';
 import zhCN from '@/assets/locales/zh-CN.json';
 import zhTW from '@/assets/locales/zh-TW.json';
 import pirate from '@/assets/locales/zz-pirate.json';
@@ -137,11 +140,23 @@ export const languages = [
     locale: pt,
     flag: '🇵🇹',
   },
+  { // Galician
+    name: 'Galego',
+    code: 'gl',
+    locale: gl,
+    flag: '🛰️',
+  },
   { // Russian
     name: 'Русский',
     code: 'ru',
     locale: ru,
     flag: '🇷🇺',
+  },
+  { // Romanian
+    name: 'Romana',
+    code: 'ro',
+    locale: ro,
+    flag: '🇷🇴',
   },
   { // Slovak
     name: 'Slovenčina',
@@ -166,6 +181,12 @@ export const languages = [
     code: 'tr',
     locale: tr,
     flag: '🇹🇷',
+  },
+  { // Ukrainian
+    name: 'Ukrainian',
+    code: 'ua',
+    locale: ua,
+    flag: '🇺🇦',
   },
   { // Chinese
     name: '简体中文',

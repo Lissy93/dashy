@@ -85,6 +85,9 @@ export default {
 
 <style scoped lang="scss">
 .work-space {
-  min-height: calc(100vh - var(--footer-height));
+  min-height: fit-content;
+}
+:global(footer) {
+  display: none;
 }
 </style>
