@@ -3,6 +3,8 @@
  * See docs for all config options: https://cli.vuejs.org/config
  */
 
+const path = require('path');
+
 // Get app mode: production, development or test
 const mode = process.env.NODE_ENV || 'production';
 
@@ -28,6 +30,16 @@ const configureWebpack = {
   },
 };
 
+// Development server config
+const devServer = {
+  contentBase: [
+    path.join(__dirname, 'public'),
+    path.join(__dirname, 'user-data'),
+  ],
+  watchContentBase: true,
+  publicPath: '/',
+};
+
 // Application pages
 const pages = {
   dashy: {
@@ -43,6 +55,7 @@ module.exports = {
   integrity,
   configureWebpack,
   pages,
+  devServer,
   chainWebpack: config => {
     config.module.rules.delete('svg');
   },
