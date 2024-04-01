@@ -11,10 +11,6 @@
     </span>
     <span>
       Using: {{ $store.state.currentConfigId || 'Default Config' }}
-      {{ $t('footer.dev-by') }} <a :href="authorUrl">{{authorName}}</a>.
-      {{ $t('footer.licensed-under') }} <a :href="licenseUrl">{{license}}</a>
-      {{ showCopyright? '©': '' }} {{date}}.
-      {{ $t('footer.get-the') }} <a :href="repoUrl">{{ $t('footer.source-code') }}</a>.
     </span>
   </footer>
 </template>
