@@ -22,6 +22,8 @@ pages:
 
 If you're sub-page is located within `/app/public`, then you only need to specify the filename, but if it's anywhere else, then the full path is required.
 
+If you're running Dashy in docker container, then you need to bind mount a local folder to `/app/public` so that Dashy can access the new page config yml file. For example, in docker-compose.yml, define a volume `- ./config:/app/public/pages` to make  local `config/` folder accessible to Dashy at `/app/public/pages/`. You can keep all your config files in this folder where all modifications will be picked up automatically by Dashy. 
+
 ### Using Remote Sub-Pages
 
 Config files don't need to be local, you can store them anywhere, and data will be imported as sub-pages on page load.
