@@ -13,7 +13,7 @@
     </td>
     <td align="center">
         <a href="https://github.com/Admonstrator">
-            <img src="https://avatars.githubusercontent.com/u/69824?v=4" width="80;" alt="Admonstrator"/>
+            <img src="https://avatars.githubusercontent.com/u/69824?u=1e226d7a36cdd661c3e4cd486fea140d045b7d57&v=4" width="80;" alt="Admonstrator"/>
             <br />
             <sub><b>Aaron Viehl</b></sub>
         </a>
@@ -27,7 +27,7 @@
     </td>
     <td align="center">
         <a href="https://github.com/tbjers">
-            <img src="https://avatars.githubusercontent.com/u/1117052?u=539d96d5e581b3139c75713ce35b89a36626404c&v=4" width="80;" alt="tbjers"/>
+            <img src="https://avatars.githubusercontent.com/u/1117052?v=4" width="80;" alt="tbjers"/>
             <br />
             <sub><b>Torgny Bjers</b></sub>
         </a>
@@ -133,13 +133,6 @@
         </a>
     </td></tr>
 <tr>
-    <td align="center">
-        <a href="https://github.com/ratty222">
-            <img src="https://avatars.githubusercontent.com/u/92832598?u=137b65530cbd5f5af9c24cde51baa6cc77cc934b&v=4" width="80;" alt="ratty222"/>
-            <br />
-            <sub><b>Ratty222</b></sub>
-        </a>
-    </td>
     <td align="center">
         <a href="https://github.com/terminaltrove">
             <img src="https://avatars.githubusercontent.com/u/121595180?v=4" width="80;" alt="terminaltrove"/>
