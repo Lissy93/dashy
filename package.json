@@ -1,18 +1,18 @@
 {
   "name": "dashy",
-  "version": "2.1.2",
+  "version": "3.0.0",
   "license": "MIT",
   "main": "server",
   "author": "Alicia Sykes <alicia@omg.lol> (https://aliciasykes.com)",
   "scripts": {
     "start": "node server",
-    "dev": "vue-cli-service serve",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
     "build": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
     "lint": "vue-cli-service lint",
     "pm2-start": "npx pm2 start server.js",
     "build-watch": "vue-cli-service build --watch --mode production",
     "watch-config": "node services/watch-for-changes",
-    "build-and-start": "NODE_OPTIONS=--openssl-legacy-provider npm-run-all --parallel build-watch start",
+    "build-and-start": "NODE_OPTIONS=--openssl-legacy-provider npm-run-all --parallel build start",
     "validate-config": "node services/config-validator",
     "health-check": "node services/healthcheck",
     "dependency-audit": "npx improved-yarn-audit --ignore-dev-deps"
