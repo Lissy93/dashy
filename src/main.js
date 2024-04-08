@@ -60,9 +60,7 @@ const mount = () => new Vue({
   store, router, render, i18n,
 }).$mount('#app');
 
-store.dispatch(Keys.INITIALIZE_CONFIG).then((thing) => {
-  console.log('main', thing);
-
+store.dispatch(Keys.INITIALIZE_CONFIG).then(() => {
   // Keycloak is enabled, redirect to KC login page
   if (isKeycloakEnabled()) {
     initKeycloakAuth()
