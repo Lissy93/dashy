@@ -18,7 +18,7 @@ const {
   INITIALIZE_ROOT_CONFIG,
   SET_CONFIG,
   SET_ROOT_CONFIG,
-  SET_CONFIG_ID,
+  SET_CURRENT_CONFIG_INFO,
   SET_MODAL_OPEN,
   SET_LANGUAGE,
   SET_ITEM_LAYOUT,
@@ -46,10 +46,9 @@ const store = new Vuex.Store({
   state: {
     config: {}, // The current config being used, and rendered to the UI
     rootConfig: null, // Always the content of main config file, never used directly
-    currentConfigId: null, // When on sub-page, this will be page ID / name. null = root config
     editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
-    currentConfigInfo: undefined, // For multi-page support, will store info about config file
+    currentConfigInfo: {}, // For multi-page support, will store info about config file
     navigateConfToTab: undefined, // Used to switch active tab in config modal
   },
   getters: {
@@ -71,8 +70,8 @@ const store = new Vuex.Store({
       return state.config.pages || [];
     },
     theme(state) {
-      const localStorageKey = state.currentConfigId
-        ? `${localStorageKeys.THEME}-${state.currentConfigId}` : localStorageKeys.THEME;
+      const localStorageKey = state.currentConfigInfo.confId
+        ? `${localStorageKeys.THEME}-${state.currentConfigInfo.confId}` : localStorageKeys.THEME;
       const localTheme = localStorage[localStorageKey];
       // Return either theme from local storage, or from appConfig
       return localTheme || state.config.appConfig.theme || defaultTheme;
@@ -153,9 +152,8 @@ const store = new Vuex.Store({
       if (!config.appConfig) config.appConfig = {};
       state.config = config;
     },
-    /* When using multi-page, this is the ID of currently displayed config */
-    [SET_CONFIG_ID](state, subConfigId) {
-      state.currentConfigId = subConfigId;
+    [SET_CURRENT_CONFIG_INFO](state, subConfigInfo) {
+      state.currentConfigInfo = subConfigInfo;
     },
     [SET_LANGUAGE](state, lang) {
       const newConfig = state.config;
@@ -282,7 +280,7 @@ const store = new Vuex.Store({
       const newConfig = { ...state.config };
       newConfig.appConfig.theme = theme;
       state.config = newConfig;
-      const pageId = state.currentConfigId;
+      const pageId = state.currentConfigInfo.confId;
       const themeStoreKey = pageId
         ? `${localStorageKeys.THEME}-${pageId}` : localStorageKeys.THEME;
       localStorage.setItem(themeStoreKey, theme);
@@ -341,7 +339,7 @@ const store = new Vuex.Store({
       const rootConfig = state.rootConfig || await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
       if (!subConfigId) { // Use root config as config
         commit(SET_CONFIG, rootConfig);
-        commit(SET_CONFIG_ID, null);
+        commit(SET_CURRENT_CONFIG_INFO, {});
         return rootConfig;
       } else {
         // Find and format path to fetch sub-config from
@@ -362,7 +360,7 @@ const store = new Vuex.Store({
           configContent.pages = rootConfig.pages;
           configContent.appConfig.theme = theme;
           commit(SET_CONFIG, configContent);
-          commit(SET_CONFIG_ID, subConfigId);
+          commit(SET_CURRENT_CONFIG_INFO, { confPath: subConfigPath, confId: subConfigId });
           return configContent;
         }).catch((err) => {
           ErrorHandler(`Unable to load config from '${subConfigPath}'`, err);
