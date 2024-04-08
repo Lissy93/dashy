@@ -16,8 +16,6 @@ import ErrorHandler from '@/utils/ErrorHandler';
 import { applyItemId } from '@/utils/SectionHelpers';
 import $store from '@/store';
 
-// import buildConf from '../../public/conf.yml';
-
 export default class ConfigAccumulator {
   constructor() {
     this.conf = $store.state.config;

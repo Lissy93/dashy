@@ -14,27 +14,8 @@ import Home from '@/views/Home.vue';
 
 // Import helper functions, config data and defaults
 import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/Auth';
-import { metaTagData, startingView, routePaths } from '@/utils/defaults';
+import { metaTagData, startingView as defaultStartingView, routePaths } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
-import Keys from '@/utils/StoreMutations';
-// import $store from '@/store';
-
-// Import data from users conf file. Note that rebuild is required for this to update.
-// import conf from '../public/conf.yml';
-
-// this.$store.dispatch(Keys.INITIALIZE_CONFIG, undefined);
-// const conf = $store.getters.config;
-
-// if (!conf) {
-//   ErrorHandler('You\'ve not got any data in your config file yet.');
-// }
-
-// console.log($store.state.config);
-
-// Assign top-level config fields, check not null
-// const config = conf || {};
-const pageInfo = {};
-const appConfig = {};
 
 Vue.use(Router);
 const progress = new Progress({ color: 'var(--progress-bar)' });
@@ -47,18 +28,15 @@ const isAuthenticated = () => {
   return (!authEnabled || userLoggedIn || guestEnabled);
 };
 
-// appConfig.auth, appConfig.startingView, appConfig.routingMode, pageInfo.title
-
-/* Get the users chosen starting view from app config, or return default */
-const getStartingView = () => appConfig.startingView || startingView;
+// Get the default starting view from environmental variable
+const startingView = process.env.VUE_APP_STARTING_VIEW || defaultStartingView;
 
 /**
  * Returns the component that should be rendered at the base path,
  * Defaults to Home, but the user can change this to Workspace of Minimal
  */
 const getStartingComponent = () => {
-  const usersPreference = getStartingView();
-  switch (usersPreference) {
+  switch (startingView) {
     case 'minimal': return () => import('./views/Minimal.vue');
     case 'workspace': return () => import('./views/Workspace.vue');
     default: return Home;
@@ -66,13 +44,14 @@ const getStartingComponent = () => {
 };
 
 /* Returns the meta tags for each route */
-const makeMetaTags = (defaultTitle) => ({
-  title: pageInfo.title || defaultTitle,
-  metaTags: metaTagData,
-});
+const makeMetaTags = (defaultTitle) => {
+  const userTitle = process.env.VUE_APP_TITLE || '';
+  const title = userTitle ? `${userTitle} | ${defaultTitle}` : defaultTitle;
+  return { title, metaTags: metaTagData };
+};
 
 /* Routing mode, can be either 'hash', 'history' or 'abstract' */
-const mode = appConfig.routingMode || 'history';
+const mode = process.env.VUE_APP_ROUTING_MODE || 'history';
 
 /* List of all routes, props, components and metadata */
 const router = new Router({
@@ -81,7 +60,7 @@ const router = new Router({
     // ...makeMultiPageRoutes(pages),
     { // The default view can be customized by the user
       path: '/',
-      name: `landing-page-${getStartingView()}`,
+      name: `landing-page-${startingView}`,
       component: getStartingComponent(),
       meta: makeMetaTags('Home Page'),
     },
@@ -157,10 +136,6 @@ const router = new Router({
  * */
 router.beforeEach(async (to, from, next) => {
   progress.start();
-  router.app.$store.dispatch(Keys.INITIALIZE_CONFIG, null).then((finished) => {
-    console.log('Done!', finished);
-  });
-  await console.log('router.app.$store', router.app.$store.getters.config);
   if (to.name !== 'login' && !isAuthenticated()) next({ name: 'login' });
   else next();
 });

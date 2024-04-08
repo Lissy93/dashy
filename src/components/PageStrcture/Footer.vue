@@ -10,7 +10,8 @@
       Get the <a :href="defaultInfo.repoUrl">Source Code</a>.
     </span>
     <span>
-      Using: {{ $store.state.currentConfigId || 'Default Config' }}
+      Using:
+      {{ $store.state.currentConfigInfo? $store.state.currentConfigInfo.confId : 'Default Config' }}
     </span>
   </footer>
 </template>

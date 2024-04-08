@@ -21,7 +21,7 @@ export default {
         return;
       }
       // 1. Get the config, and strip appConfig if is sub-page
-      const isSubPag = !!this.$store.state.currentConfigInfo;
+      const isSubPag = !!this.$store.state.currentConfigInfo.confId;
       const jsonConfig = config;
       if (isSubPag) delete jsonConfig.appConfig;
       jsonConfig.sections = jsonConfig.sections.map(({ filteredItems, ...section }) => section);
