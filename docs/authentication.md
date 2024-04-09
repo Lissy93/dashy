@@ -212,147 +212,6 @@ Your app is now secured :) When you load Dashy, it will redirect to your Keycloa
 
 From within the Keycloak console, you can then configure things like time-outs, password policies, etc. You can also backup your full Keycloak config, and it is recommended to do this, along with your Dashy config. You can spin up both Dashy and Keycloak simultaneously and restore both applications configs using a `docker-compose.yml` file, and this is recommended.
 
-**[⬆️ Back to Top](#authentication)**
-
----
-
-## Header Authentciation
-
-### 1. Web Server/Reverse Proxy
-
-Most web servers make password protecting certain apps very easy. Note that you should also set up HTTPS and have a valid certificate in order for this to be secure.
-
-These are only an example. Please refer to your web server/reverse proxy for how to implement basic auth, set the correct headers, and ensure the headers aren't being forwarded from the client where they could be spoofed. 
-
-#### Authelia
-
-[Authelia](https://www.authelia.com/) is an open-source full-featured authentication server, which can be self-hosted and either on bare metal, in a Docker container or in a Kubernetes cluster. It allows for fine-grained access control rules based on IP, path, users etc, and supports 2FA, simple password access or bypass policies for your domains.
-
-- `git clone https://github.com/authelia/authelia.git`
-- `cd authelia/examples/compose/lite`
-- Modify the `users_database.yml` the default username and password is authelia
-- Modify the `configuration.yml` and `docker-compose.yml` with your respective domains and secrets
-- `docker-compose up -d`
-
-For more information, see the [Authelia docs](https://www.authelia.com/docs/)
-
-#### Apache
-
-First crate a `.htaccess` file in Dashy's route directory. Specify the auth type and path to where you want to store the password file (usually the same folder). For example:
-
-```text
-AuthType Basic
-AuthName "Please Sign into Dashy"
-AuthUserFile /path/dashy/.htpasswd
-require valid-user
-ProxyPreserveHost On
-ProxyPass / http://127.0.0.1:8080/
-ProxyPassReverse / http://127.0.0.1:8080/
-RequestHeader set X-Remote-User expr=%{REMOTE_USER}
-```
-
-Then create a `.htpasswd` file in the same directory. List users and their hashed passwords here, with one user on each line, and a colon between username and password (e.g. `[username]:[hashed-password]`). You will need to generate an MD5 hash of your desired password, this can be done with an [online tool](https://www.web2generators.com/apache-tools/htpasswd-generator).  Your file will look something like:
-
-```text
-alicia:$apr1$jv0spemw$RzOX5/GgY69JMkgV6u16l0
-```
-
-This will use the X-Remote-User header. This can also be expanded by [mod_auth_ldap, mod_auth_digest, mod_auth_mellon, ...](https://httpd.apache.org/docs/2.4/mod/#A)
-
-#### NGINX
-
-NGINX has an [authentication module](https://nginx.org/en/docs/http/ngx_http_auth_basic_module.html) which can be used to add passwords to given sites, and is fairly simple to set up. Similar to above, you will need to create a `.htpasswd` file. Then just enable auth and specify the path to that file, for example:
-
-```text
-location / {
-  auth_basic "closed site";
-  auth_basic_user_file conf/htpasswd;
-  proxy_pass http://127.0.0.1:8080;
-  proxy_set_header X-Forwarded-For $remote_addr;
-  proxy_set_header X-Remote-User $remote_user;
-}
-```
-
-#### Caddy
-
-Caddy has a [basic-auth](https://caddyserver.com/docs/caddyfile/directives/basicauth) directive, where you specify a username and hash. The password hash needs to be base-64 encoded, the [`caddy hash-password`](https://caddyserver.com/docs/command-line#caddy-hash-password) command can help with this. For example:
-
-```text
-reverse_proxy localhost:8080 {
-  header_up -Authorization
-  header_up +X-Remote-User {username}
-}
-basicauth /secret/* {
-	alicia JDJhJDEwJEVCNmdaNEg2Ti5iejRMYkF3MFZhZ3VtV3E1SzBWZEZ5Q3VWc0tzOEJwZE9TaFlZdEVkZDhX
-}
-```
-
-For more info about implementing a single sign on for all your apps with Caddy, see [this tutorial](https://joshstrange.com/securing-your-self-hosted-apps-with-single-signon/)
-
-#### Lighttpd
-
-You can use the [mod_auth](https://doc.lighttpd.net/lighttpd2/mod_auth.html) module to secure your site with Lighttpd. Like with Apache, you need to first create a password file listing your usernames and hashed passwords, but in Lighttpd, it's usually called `.lighttpdpassword`.
-
-Then in your `lighttpd.conf` file (usually in the `/etc/lighttpd/` directory), load in the mod_auth module, and configure it's directives. For example:
-
-```text
-server.modules += ( "mod_auth","mod_proxy" )
-auth.debug = 2
-auth.backend = "plain"
-auth.backend.plain.userfile = "/home/lighttpd/.lighttpdpassword"
-
-$HTTP["host"] == "dashy.my-domain.net" {
-  server.document-root = "/home/lighttpd/dashy.my-domain.net/http"
-  server.errorlog = "/var/log/lighttpd/dashy.my-domain.net/error.log"
-  accesslog.filename = "/var/log/lighttpd/dashy.my-domain.net/access.log"
-  auth.require = (
-    "" => (
-      "method" => "basic",
-      "realm" => "Password protected area",
-      "require" => "user=alicia"
-    )
-  )
-  proxy.server = ("" => (( "host" => "127.0.0.1", "port" => 8080 )))
-  proxy.forwarded = ( "for"          => 1,
-                      "proto"        => 1,
-                      "remote_user" => 1
-  )
-}
-```
-
-Restart your web server for changes to take effect.
-
-
-### 2. Dashy Configuration
-
-With Header Authentication the web server/reverse proxy can add headers that Dashy will trust to be the valid authenticated user. You need to understand how your web server or reverse proxy works and trust it to add these details. 
-
-Even though we are trusting the web server for authentication we still use the Dashy user system for groups and rights. [See Setting Up Authentication](#setting-up-authentication) if you haven't set that up yet. 
-
-Below is the recomended Header Auth Configuration including some users. 
-
-```yaml
-appConfig:
-  ...
-  auth:
-    users:
-    - user: alicia
-      hash: 4D1E58C90B3B94BCAD9848ECCACD6D2A8C9FBC5CA913304BBA5CDEAB36FEEFA3
-      type: admin
-    - user: bob
-      hash: 5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8
-  enableHeaderAuth: true
-    headerAuth:
-      userHeader: X-Remote-User
-      proxyWhitelist:
-        - 127.0.0.1
-        - '::1'
-```
-
-This allows you to use the standard `hideForUsers`, `showForUsers`, `hideForGroup`, and `showForGroup`. The header can not set the group. This must be done by the `auth.users` config. 
-
-
-
 ---
 
 ## Alternative Authentication Methods
@@ -368,6 +227,17 @@ If you are self-hosting Dashy, and require secure authentication to prevent unau
 
 ### Authentication Server
 
+#### Authelia
+
+[Authelia](https://www.authelia.com/) is an open-source full-featured authentication server, which can be self-hosted and either on bare metal, in a Docker container or in a Kubernetes cluster. It allows for fine-grained access control rules based on IP, path, users etc, and supports 2FA, simple password access or bypass policies for your domains.
+
+- `git clone https://github.com/authelia/authelia.git`
+- `cd authelia/examples/compose/lite`
+- Modify the `users_database.yml` the default username and password is authelia
+- Modify the `configuration.yml` and `docker-compose.yml` with your respective domains and secrets
+- `docker-compose up -d`
+
+For more information, see the [Authelia docs](https://www.authelia.com/docs/)
 
 ### VPN
 
@@ -414,6 +284,78 @@ dashy.site {
 	respond @public_networks "Access denied" 403
 }
 ```
+
+### Web Server Authentication
+
+Most web servers make password protecting certain apps very easy. Note that you should also set up HTTPS and have a valid certificate in order for this to be secure.
+
+#### Apache
+
+First crate a `.htaccess` file in Dashy's route directory. Specify the auth type and path to where you want to store the password file (usually the same folder). For example:
+
+```text
+AuthType Basic
+AuthName "Please Sign into Dashy"
+AuthUserFile /path/dashy/.htpasswd
+require valid-user
+```
+
+Then create a `.htpasswd` file in the same directory. List users and their hashed passwords here, with one user on each line, and a colon between username and password (e.g. `[username]:[hashed-password]`). You will need to generate an MD5 hash of your desired password, this can be done with an [online tool](https://www.web2generators.com/apache-tools/htpasswd-generator).  Your file will look something like:
+
+```text
+alicia:$apr1$jv0spemw$RzOX5/GgY69JMkgV6u16l0
+```
+
+#### NGINX
+
+NGINX has an [authentication module](https://nginx.org/en/docs/http/ngx_http_auth_basic_module.html) which can be used to add passwords to given sites, and is fairly simple to set up. Similar to above, you will need to create a `.htpasswd` file. Then just enable auth and specify the path to that file, for example:
+
+```text
+location / {
+  auth_basic "closed site";
+  auth_basic_user_file conf/htpasswd;
+}
+```
+
+#### Caddy
+
+Caddy has a [basic-auth](https://caddyserver.com/docs/caddyfile/directives/basicauth) directive, where you specify a username and hash. The password hash needs to be base-64 encoded, the [`caddy hash-password`](https://caddyserver.com/docs/command-line#caddy-hash-password) command can help with this. For example:
+
+```text
+basicauth /secret/* {
+	alicia JDJhJDEwJEVCNmdaNEg2Ti5iejRMYkF3MFZhZ3VtV3E1SzBWZEZ5Q3VWc0tzOEJwZE9TaFlZdEVkZDhX
+}
+```
+
+For more info about implementing a single sign on for all your apps with Caddy, see [this tutorial](https://joshstrange.com/securing-your-self-hosted-apps-with-single-signon/)
+
+#### Lighttpd
+
+You can use the [mod_auth](https://doc.lighttpd.net/lighttpd2/mod_auth.html) module to secure your site with Lighttpd. Like with Apache, you need to first create a password file listing your usernames and hashed passwords, but in Lighttpd, it's usually called `.lighttpdpassword`.
+
+Then in your `lighttpd.conf` file (usually in the `/etc/lighttpd/` directory), load in the mod_auth module, and configure it's directives. For example:
+
+```text
+server.modules += ( "mod_auth" )
+auth.debug = 2
+auth.backend = "plain"
+auth.backend.plain.userfile = "/home/lighttpd/.lighttpdpassword"
+
+$HTTP["host"] == "dashy.my-domain.net" {
+  server.document-root = "/home/lighttpd/dashy.my-domain.net/http"
+  server.errorlog = "/var/log/lighttpd/dashy.my-domain.net/error.log"
+  accesslog.filename = "/var/log/lighttpd/dashy.my-domain.net/access.log"
+  auth.require = (
+    "/docs/" => (
+      "method" => "basic",
+      "realm" => "Password protected area",
+      "require" => "user=alicia"
+    )
+  )
+}
+```
+
+Restart your web server for changes to take effect.
 
 ### OAuth Services
 

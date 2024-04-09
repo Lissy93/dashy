@@ -369,10 +369,6 @@ Usually, updating your system and packages will resolve the issue.
 
 See also: [#776](https://github.com/Lissy93/dashy/issues/776)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 51a9b4bfbe00600752bb04e7beba9a54a3a37912
 ---
 
 ## Error: Cannot find module './_baseValues'
