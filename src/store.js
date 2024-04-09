@@ -293,15 +293,11 @@ const store = new Vuex.Store({
       InfoHandler('Color palette updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_LAYOUT](state, layout) {
-      const newConfig = { ...state.config };
-      newConfig.appConfig.layout = layout;
-      state.config = newConfig;
+      state.config.appConfig.layout = layout;
       InfoHandler('Layout updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_SIZE](state, iconSize) {
-      const newConfig = { ...state.config };
-      newConfig.appConfig.iconSize = iconSize;
-      state.config = newConfig;
+      state.config.appConfig.iconSize = iconSize;
       InfoHandler('Item size updated', InfoKeys.VISUAL);
     },
     [UPDATE_CUSTOM_CSS](state, customCss) {
@@ -320,7 +316,8 @@ const store = new Vuex.Store({
     /* Fetches the root config file, only ever called by INITIALIZE_CONFIG */
     async [INITIALIZE_ROOT_CONFIG]({ commit }) {
       // Load and parse config from root config file
-      const data = await yaml.load((await axios.get('/conf.yml')).data);
+      const configFilePath = process.env.VUE_APP_CONFIG_PATH || '/conf.yml';
+      const data = await yaml.load((await axios.get(configFilePath)).data);
       // Replace missing root properties with empty objects
       if (!data.appConfig) data.appConfig = {};
       if (!data.pageInfo) data.pageInfo = {};
