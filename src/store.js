@@ -350,9 +350,9 @@ const store = new Vuex.Store({
         }
 
         axios.get(subConfigPath).then((response) => {
-          const configContent = yaml.load(response.data);
+          const configContent = yaml.load(response.data) || {};
           // Certain values must be inherited from root config
-          const theme = configContent?.appConfig?.theme || rootConfig?.appConfig?.theme;
+          const theme = configContent?.appConfig?.theme || rootConfig.appConfig?.theme || 'default';
           configContent.appConfig = rootConfig.appConfig;
           configContent.pages = rootConfig.pages;
           configContent.appConfig.theme = theme;

@@ -27,8 +27,10 @@ class HeaderAuth {
     return new Promise((resolve, reject) => {
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
       axios.get(`${baseUrl}${serviceEndpoints.getUser}`).then((response) => {
-        if (!response.data || response.data.errorMsg) {
-          reject(response.data.errorMsg || 'Error');
+        if (!response.data) {
+          reject(Error('Error, expected data nout returned'));
+        } else if (response.data.errorMsg) {
+          reject(response.data.errorMsg);
         } else {
           try {
             this.users.forEach((user) => {
