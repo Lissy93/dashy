@@ -18,6 +18,7 @@ const history = require('connect-history-api-fallback');
 
 /* Kick of some basic checks */
 require('./services/update-checker'); // Checks if there are any updates available, prints message
+
 let config = {}; // setup the config
 config = require('./services/config-validator'); // Include and kicks off the config file validation script
 
@@ -74,9 +75,8 @@ const app = express()
   // Load SSL redirection middleware
   .use(sslServer.middleware)
   // Serves up static files
-  .use(express.static(path.join(__dirname, 'user-data')))
   .use(express.static(path.join(__dirname, 'dist')))
-  .use(express.static(path.join(__dirname, 'user-data')))
+  .use(express.static(path.join(__dirname, process.env.USER_DATA_DIR || 'user-data')))
   .use(express.static(path.join(__dirname, 'public'), { index: 'initialization.html' }))
   // Load middlewares for parsing JSON, and supporting HTML5 history routing
   .use(express.json({ limit: '1mb' }))

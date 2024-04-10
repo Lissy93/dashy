@@ -101,7 +101,7 @@ const printFileReadError = (e) => {
 let config = {};
 
 try { // Try to open and parse the YAML file
-  config = yaml.load(fs.readFileSync('./user-data/conf.yml', 'utf8'));
+  config = yaml.load(fs.readFileSync(`./${process.env.USER_DATA_DIR || 'user-data'}/conf.yml`, 'utf8'));
   validate(config);
 } catch (e) { // Something went very wrong...
   setIsValidVariable(false);
