@@ -49,6 +49,7 @@ module.exports = {
   /* List of built-in themes, to be displayed within the theme-switcher dropdown */
   builtInThemes: [
     'default',
+    'glass',
     'callisto',
     'material',
     'material-dark',
@@ -86,6 +87,8 @@ module.exports = {
     'adventure-basic',
     'basic',
     'tama',
+    'neomorphic',
+    'glass-2',
   ],
   /* Default color options for the theme configurator swatches */
   swatches: [
