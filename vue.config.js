@@ -26,6 +26,7 @@ const configureWebpack = {
   module: {
     rules: [
       { test: /.svg$/, loader: 'vue-svg-loader' },
+      { test: /\.tsx?$/, loader: 'ts-loader', options: { appendTsSuffixTo: [/\.vue$/] } },
     ],
   },
 };
@@ -34,7 +35,7 @@ const configureWebpack = {
 const devServer = {
   contentBase: [
     path.join(__dirname, 'public'),
-    path.join(__dirname, 'user-data'),
+    path.join(__dirname, process.env.USER_DATA_DIR || 'user-data'),
   ],
   watchContentBase: true,
   publicPath: '/',
