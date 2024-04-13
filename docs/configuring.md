@@ -1,6 +1,6 @@
 # Configuring
 
-All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format. If you're using Docker, this file can be passed in as a volume. Changes can either be made directly to this file, or done [through the UI](#editing-config-through-the-ui). From the UI you can also export, backup, reset, validate and download your configuration file.
+All app configuration is specified in [`/user-data/conf.yml`](https://github.com/Lissy93/dashy/blob/master/user-data/conf.yml) which is in [YAML Format](https://yaml.org/) format. If you're using Docker, this file can be passed in as a volume. Changes can either be made directly to this file, or done [through the UI](#editing-config-through-the-ui). From the UI you can also export, backup, reset, validate and download your configuration file.
 
 ## There are three ways to edit the config
 

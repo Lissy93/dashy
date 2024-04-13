@@ -104,7 +104,7 @@ If you are not comfortable with making pull requests, or do not want to modify t
 
 This section is for, adding a new setting to the config file.
 
-All of the users config is specified in `./public/conf.yml` - see [Configuring Docs](./configuring.md) for info.
+All of the users config is specified in `./user-data/conf.yml` - see [Configuring Docs](./configuring.md) for info.
 It's important to first ensure that there isn't a similar option already available, the new option is definitely necessary, and most importantly that it is fully backwards compatible.
 
 Next choose the appropriate section to place it under

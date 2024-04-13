@@ -263,7 +263,7 @@ In NGINX you can specify [control access](https://docs.nginx.com/nginx/admin-gui
 
 ```text
 server {
-	listen 80;
+	listen 8080;
 	server_name www.dashy.example.com;
 	location / {
 		root /path/to/dashy/;

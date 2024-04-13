@@ -234,7 +234,7 @@ Version 2.0.4 introduced changes to how the config is read, and the app is build
 
 ```yaml
 volumes:
-- /srv/dashy/conf.yml:/app/public/conf.yml
+- /srv/dashy/conf.yml:/app/user-data/conf.yml
 - /srv/dashy/item-icons:/app/public/item-icons
 ```
 
@@ -273,12 +273,12 @@ See also: #479, #409, #507, #491, #341, #520
 Error response from daemon: OCI runtime create failed: container_linux.go:380:
 starting container process caused: process_linux.go:545: container init caused:
 rootfs_linux.go:76: mounting "/home/ubuntu/my-conf.yml" to rootfs at
-"/app/public/conf.yml" caused: mount through procfd: not a directory:
+"/app/user-data/conf.yml" caused: mount through procfd: not a directory:
 unknown: Are you trying to mount a directory onto a file (or vice-versa)?
 Check if the specified host path exists and is the expected type.
 ```
 
-If you get an error similar to the one above, you are mounting a directory to the config file's location, when a plain file is expected. Create a YAML file, (`touch my-conf.yml`), populate it with a sample config, then pass it as a volume: `-v ./my-local-conf.yml:/app/public/conf.yml`
+If you get an error similar to the one above, you are mounting a directory to the config file's location, when a plain file is expected. Create a YAML file, (`touch my-conf.yml`), populate it with a sample config, then pass it as a volume: `-v ./my-local-conf.yml:/app/user-data/conf.yml`
 
 ---
 
