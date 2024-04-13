@@ -26,8 +26,16 @@ const configureWebpack = {
   module: {
     rules: [
       { test: /.svg$/, loader: 'vue-svg-loader' },
-      { test: /\.tsx?$/, loader: 'ts-loader', options: { appendTsSuffixTo: [/\.vue$/] } },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: { appendTsSuffixTo: [/\.vue$/] },
+      },
     ],
+  },
+  performance: {
+    maxEntrypointSize: 10000000,
+    maxAssetSize: 10000000,
   },
 };
 
