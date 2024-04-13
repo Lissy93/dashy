@@ -14,7 +14,7 @@ const isDocker = !!process.env.IS_DOCKER;
 
 /* Get the port to use (depending on, if docker, if SSL) */
 const sslPort = process.env.SSL_PORT || (isDocker ? 443 : 4001);
-const normalPort = process.env.PORT || (isDocker ? 80 : 4000);
+const normalPort = process.env.PORT || (isDocker ? 8080 : 4000);
 const port = isSsl ? sslPort : normalPort;
 
 const host = process.env.HOST || '0.0.0.0';
