@@ -28,7 +28,7 @@ RUN yarn build --mode production
 FROM node:20.11.1-alpine3.19
 
 # Define some ENV Vars
-ENV PORT=80 \
+ENV PORT=8080 \
   DIRECTORY=/app \
   IS_DOCKER=true
 
