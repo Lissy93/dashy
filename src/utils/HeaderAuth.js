@@ -3,7 +3,7 @@ import sha256 from 'crypto-js/sha256';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { cookieKeys, localStorageKeys, serviceEndpoints } from '@/utils/defaults';
 import { InfoHandler, ErrorHandler, InfoKeys } from '@/utils/ErrorHandler';
-import { logout, getUserState } from '@/utils/Auth';
+import { logout } from '@/utils/Auth';
 
 const getAppConfig = () => {
   const Accumulator = new ConfigAccumulator();
@@ -39,8 +39,7 @@ class HeaderAuth {
                 const sha = strAndUpper(sha256(strAndUpper(user.user) + strAndUpper(user.hash)));
                 document.cookie = `${cookieKeys.AUTH_TOKEN}=${sha};`;
                 localStorage.setItem(localStorageKeys.USERNAME, user.user);
-                InfoHandler(`Succesfully signed in as ${response.data.user}`, InfoKeys.AUTH);
-                console.log('I think we\'re good', getUserState());
+                InfoHandler(`Successfully signed in as ${response.data.user}`, InfoKeys.AUTH);
                 resolve(response.data.user);
               }
             });

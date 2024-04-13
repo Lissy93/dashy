@@ -52,9 +52,11 @@ const ThemingMixin = {
   watch: {
     /* When theme in VueX store changes, then update theme */
     themeFromStore(newTheme) {
-      this.resetToDefault();
-      this.selectedTheme = newTheme;
-      this.updateTheme(newTheme);
+      if (newTheme) {
+        this.resetToDefault();
+        this.selectedTheme = newTheme;
+        this.updateTheme(newTheme);
+      }
     },
   },
   methods: {

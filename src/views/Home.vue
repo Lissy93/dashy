@@ -119,12 +119,16 @@ export default {
   },
   watch: {
     layoutOrientation(layout) {
-      localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
-      this.layout = layout;
+      if (layout) {
+        localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
+        this.layout = layout;
+      }
     },
     iconSize(size) {
-      localStorage.setItem(localStorageKeys.ICON_SIZE, size);
-      this.itemSizeBound = size;
+      if (size) {
+        localStorage.setItem(localStorageKeys.ICON_SIZE, size);
+        this.itemSizeBound = size;
+      }
     },
   },
   methods: {
