@@ -66,7 +66,7 @@ export default {
   span.subtitle {
     color: var(--heading-text-color);
     font-style: italic;
-    text-shadow: 1px 1px 2px #130f23;
+    text-shadow: 1px 1px 2px #130f2347;
     opacity: var(--dimming-factor);
   }
   img.site-logo {
