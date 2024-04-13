@@ -38,8 +38,8 @@ const ENDPOINTS = require('./src/utils/defaults').serviceEndpoints; // API endpo
 /* Checks if app is running within a container, from env var */
 const isDocker = !!process.env.IS_DOCKER;
 
-/* Checks env var for port. If undefined, will use Port 80 for Docker, or 4000 for metal */
-const port = process.env.PORT || (isDocker ? 80 : 4000);
+/* Checks env var for port. If undefined, will use Port 8080 for Docker, or 4000 for metal */
+const port = process.env.PORT || (isDocker ? 8080 : 4000);
 
 /* Checks env var for host. If undefined, will use 0.0.0.0 */
 const host = process.env.HOST || '0.0.0.0';

@@ -6,11 +6,17 @@
 
 const isSsl = !!process.env.SSL_PRIV_KEY_PATH && !!process.env.SSL_PUB_KEY_PATH;
 
+// eslint-disable-next-line import/no-dynamic-require
 const http = require(isSsl ? 'https' : 'http');
 
 /* Location of the server to test */
 const isDocker = !!process.env.IS_DOCKER;
-const port = isSsl ? (process.env.SSL_PORT || (isDocker ? 443 : 4001)) : (process.env.PORT || (isDocker ? 80 : 4000));
+
+/* Get the port to use (depending on, if docker, if SSL) */
+const sslPort = process.env.SSL_PORT || (isDocker ? 443 : 4001);
+const normalPort = process.env.PORT || (isDocker ? 80 : 4000);
+const port = isSsl ? sslPort : normalPort;
+
 const host = process.env.HOST || '0.0.0.0';
 const timeout = 2000;
 
@@ -18,7 +24,9 @@ const agent = new http.Agent({
   rejectUnauthorized: false, // Allow self-signed certificates
 });
 
-const requestOptions = { host, port, timeout, agent };
+const requestOptions = {
+  host, port, timeout, agent,
+};
 
 const startTime = new Date(); // Initialize timestamp to calculate time taken
 
