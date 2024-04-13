@@ -337,6 +337,20 @@ const store = new Vuex.Store({
       if (!subConfigId) { // Use root config as config
         commit(SET_CONFIG, rootConfig);
         commit(SET_CURRENT_CONFIG_INFO, {});
+
+        let localSections = [];
+        const localSectionsRaw = localStorage[localStorageKeys.CONF_SECTIONS];
+        if (localSectionsRaw) {
+          try {
+            const json = JSON.parse(localSectionsRaw);
+            if (json.length >= 1) localSections = json;
+          } catch (e) {
+            ErrorHandler('Malformed section data in local storage');
+          }
+        }
+        if (localSections.length > 0) {
+          rootConfig.sections = localSections;
+        }
         return rootConfig;
       } else {
         // Find and format path to fetch sub-config from
@@ -350,15 +364,27 @@ const store = new Vuex.Store({
         }
 
         axios.get(subConfigPath).then((response) => {
+          // Parse the YAML
           const configContent = yaml.load(response.data) || {};
           // Certain values must be inherited from root config
           const theme = configContent?.appConfig?.theme || rootConfig.appConfig?.theme || 'default';
           configContent.appConfig = rootConfig.appConfig;
           configContent.pages = rootConfig.pages;
           configContent.appConfig.theme = theme;
+
+          // Load local sections if they exist
+          const localSectionsRaw = localStorage[`${localStorageKeys.CONF_SECTIONS}-${subConfigId}`];
+          if (localSectionsRaw) {
+            try {
+              const json = JSON.parse(localSectionsRaw);
+              if (json.length >= 1) configContent.sections = json;
+            } catch (e) {
+              ErrorHandler('Malformed section data in local storage for sub-config');
+            }
+          }
+          // Set the config
           commit(SET_CONFIG, configContent);
           commit(SET_CURRENT_CONFIG_INFO, { confPath: subConfigPath, confId: subConfigId });
-          return configContent;
         }).catch((err) => {
           ErrorHandler(`Unable to load config from '${subConfigPath}'`, err);
         });

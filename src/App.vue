@@ -64,7 +64,7 @@ export default {
       return this.$store.getters.pageInfo;
     },
     sections() {
-      return this.$store.getters.pageInfo;
+      return this.$store.getters.sections;
     },
     visibleComponents() {
       return this.$store.getters.visibleComponents;

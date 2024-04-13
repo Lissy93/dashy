@@ -23,9 +23,15 @@ export default {
       // 1. Get the config, and strip appConfig if is sub-page
       const isSubPag = !!this.$store.state.currentConfigInfo.confId;
       const jsonConfig = config;
-      if (isSubPag) delete jsonConfig.appConfig;
       jsonConfig.sections = jsonConfig.sections.map(({ filteredItems, ...section }) => section);
-
+      // If a sub-config, then remove appConfig, and check path isn't an external URL
+      if (isSubPag) {
+        delete jsonConfig.appConfig;
+        if (this.$store.state.currentConfigInfo.confPath.includes('http')) {
+          ErrorHandler('Cannot save to an external URL');
+          return;
+        }
+      }
       // 2. Convert JSON into YAML
       const yamlOptions = {};
       const strjsonConfig = JSON.stringify(jsonConfig);
@@ -67,20 +73,39 @@ export default {
         ErrorHandler('Unable to save changes locally, this feature has been disabled');
         return;
       }
-      localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(config.sections));
-      localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(config.pageInfo));
-      localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(config.appConfig));
+
+      const isSubPag = !!this.$store.state.currentConfigInfo.confId;
+      if (isSubPag) { // Save for sub-page only
+        const configId = this.$store.state.currentConfigInfo.confId;
+        const localStorageKeySections = `${localStorageKeys.CONF_SECTIONS}-${configId}`;
+        const localStorageKeyPageInfo = `${localStorageKeys.PAGE_INFO}-${configId}`;
+        localStorage.setItem(localStorageKeySections, JSON.stringify(config.sections));
+        localStorage.setItem(localStorageKeyPageInfo, JSON.stringify(config.pageInfo));
+      } else { // Or save to main config
+        localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(config.sections));
+        localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(config.pageInfo));
+        localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(config.appConfig));
+      }
+
       if (config.appConfig.theme) {
         localStorage.setItem(localStorageKeys.THEME, config.appConfig.theme);
       }
-      InfoHandler('Config has succesfully been saved in browser storage', 'Config Update');
+      InfoHandler('Config has successfully been saved in browser storage', 'Config Update');
       this.showToast(this.$t('config-editor.success-msg-local'), true);
       this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
     },
     carefullyClearLocalStorage() {
+      // Delete the main keys
       localStorage.removeItem(localStorageKeys.PAGE_INFO);
       localStorage.removeItem(localStorageKeys.APP_CONFIG);
       localStorage.removeItem(localStorageKeys.CONF_SECTIONS);
+      // Then, if we've got any sub-pages, delete those too
+      (this.$store.getters.pages || []).forEach((page) => {
+        const localStorageKeySections = `${localStorageKeys.CONF_SECTIONS}-${page.id}`;
+        const localStorageKeyPageInfo = `${localStorageKeys.PAGE_INFO}-${page.id}`;
+        localStorage.removeItem(localStorageKeySections);
+        localStorage.removeItem(localStorageKeyPageInfo);
+      });
     },
   },
 };

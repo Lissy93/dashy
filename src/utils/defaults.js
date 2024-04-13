@@ -124,6 +124,7 @@ module.exports = {
     PRIMARY_THEME: 'primaryTheme',
     CUSTOM_COLORS: 'customColors',
     CONF_SECTIONS: 'confSections',
+    CONF_PAGES: 'confPages',
     CONF_WIDGETS: 'confSections',
     PAGE_INFO: 'pageInfo',
     APP_CONFIG: 'appConfig',
@@ -188,7 +189,7 @@ module.exports = {
     // delay: { show: 380, hide: 0 },
   },
   /* Server location of the Backup & Sync cloud function */
-  backupEndpoint: 'https://dashy-sync-service.as93.net',
+  backupEndpoint: 'https://sync-service.dashy.to',
   /* Available services for fetching favicon icon for user apps */
   faviconApiEndpoints: {
     allesedv: 'https://f1.allesedv.com/128/$URL',
