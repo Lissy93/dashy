@@ -1554,6 +1554,19 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
     apiKey: xxxxxxxxxxxxxxxxxxxxxxx
 ```
 
+> [!TIP]
+> In order to avoid leaking secret data, both `hostname` and `apiKey` can leverage environment variables. Simply pass the name of the variable, which MUST start with `VUE_APP_`.
+
+```yaml
+- type: pi-hole-stats
+  options:
+    hostname: VUE_APP_pihole_ip
+    apiKey: VUE_APP_pihole_key
+```
+
+> [!IMPORTANT]
+> You will need to restart the server (or the docker image) if adding/editing an env var for this to be refreshed.
+
 #### Info
 
 - **CORS**: 🟢 Enabled
