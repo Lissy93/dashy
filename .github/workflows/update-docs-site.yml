@@ -1,0 +1,58 @@
+name: 📝 Update Documentation
+
+# This will run whenever the /docs directory in master branch is updated,
+# or if the workflow is manually dispatched, plus a sync check on Sun at 03:30 UTC
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 3 * * 0'
+  push:
+    branches:
+      - master
+    paths:
+      - 'docs/**'
+
+
+# Jobs to be run:
+# 1. Checkout master branch
+# 2. Checkout website source code branch
+# 3. Install Python
+# 4. Copy /docs from master to website branch
+# 5. Run the script which processes documentation
+# 6. Commit and push updated docs to the website source code branch
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master branch 🛎️
+        uses: actions/checkout@v2
+        with:
+          path: 'master-docs'
+
+      - name: Checkout WEBSITE/docs-site-source branch 🛎️
+        uses: actions/checkout@v2
+        with:
+          ref: 'WEBSITE/docs-site-source'
+          path: 'website-docs'
+
+      - name: Install Python 🐍
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Run script to update documentation 🪄
+        working-directory: website-docs
+        run: |
+          cp -r ../master-docs/docs ./
+          python ./do-markdown-magic.py
+        
+      - name: Commit changes 🚀
+        run: |
+          cd website-docs
+          git config --local user.email "liss-bot@d0h.co"
+          git config --local user.name "Liss-Bot"
+          git add docs
+          git commit -m "Update documentation" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

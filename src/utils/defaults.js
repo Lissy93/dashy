@@ -28,9 +28,9 @@ module.exports = {
   openingMethod: 'newtab',
   /* The page paths for each route within the app for the router */
   routePaths: {
-    home: '/home',
-    minimal: '/minimal',
-    workspace: '/workspace',
+    home: '/home/:config?/',
+    minimal: '/minimal/:config?/',
+    workspace: '/workspace/:config?/',
     about: '/about',
     login: '/login',
     download: '/download',
@@ -44,10 +44,12 @@ module.exports = {
     rebuild: '/config-manager/rebuild',
     systemInfo: '/system-info',
     corsProxy: '/cors-proxy',
+    getUser: '/get-user',
   },
   /* List of built-in themes, to be displayed within the theme-switcher dropdown */
   builtInThemes: [
     'default',
+    'glass',
     'callisto',
     'material',
     'material-dark',
@@ -85,6 +87,8 @@ module.exports = {
     'adventure-basic',
     'basic',
     'tama',
+    'neomorphic',
+    'glass-2',
   ],
   /* Default color options for the theme configurator swatches */
   swatches: [
@@ -120,6 +124,7 @@ module.exports = {
     PRIMARY_THEME: 'primaryTheme',
     CUSTOM_COLORS: 'customColors',
     CONF_SECTIONS: 'confSections',
+    CONF_PAGES: 'confPages',
     CONF_WIDGETS: 'confSections',
     PAGE_INFO: 'pageInfo',
     APP_CONFIG: 'appConfig',
@@ -184,7 +189,7 @@ module.exports = {
     // delay: { show: 380, hide: 0 },
   },
   /* Server location of the Backup & Sync cloud function */
-  backupEndpoint: 'https://dashy-sync-service.as93.net',
+  backupEndpoint: 'https://sync-service.dashy.to',
   /* Available services for fetching favicon icon for user apps */
   faviconApiEndpoints: {
     allesedv: 'https://f1.allesedv.com/128/$URL',

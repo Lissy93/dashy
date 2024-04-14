@@ -16,11 +16,9 @@ import ErrorHandler from '@/utils/ErrorHandler';
 import { applyItemId } from '@/utils/SectionHelpers';
 import $store from '@/store';
 
-import buildConf from '../../public/conf.yml';
-
 export default class ConfigAccumulator {
   constructor() {
-    this.conf = $store.state.remoteConfig;
+    this.conf = $store.state.config;
   }
 
   pages() {
@@ -33,9 +31,10 @@ export default class ConfigAccumulator {
     // Set app config from file
     if (this.conf && this.conf.appConfig) {
       appConfigFile = this.conf.appConfig;
-    } else if (buildConf && buildConf.appConfig) {
-      appConfigFile = buildConf.appConfig;
     }
+    //  else if (buildConf && buildConf.appConfig) {
+    //   appConfigFile = buildConf.appConfig;
+    // }
     // Fill in defaults if anything missing
     let usersAppConfig = defaultAppConfig;
     if (localStorage[localStorageKeys.APP_CONFIG]) {

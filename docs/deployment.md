@@ -21,6 +21,7 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
   - [Deployment Methods](#deployment-methods)
   - [Deploy with Docker](#deploy-with-docker)
   - [Using Docker Compose](#using-docker-compose)
+  - [Kubernetes](#kubernetes)
   - [Unraid](#unraid)
   - [Synology NAS](#synology-nas)
   - [Build from Source](#build-from-source)
@@ -32,6 +33,7 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
     - [Google Cloud Platform](#google-cloud-platform)
     - [Platform.sh](#platformsh)
     - [Render](#render)
+    - [Railway](#railway)
     - [Scalingo](#scalingo)
     - [Play-with-Docker](#play-with-docker)
     - [Surge.sh](#surgesh)
@@ -65,8 +67,8 @@ Dashy has a built container image hosted on [Docker Hub](https://hub.docker.com/
 
 ```bash
 docker run -d \
-  -p 8080:80 \
-  -v /root/my-local-conf.yml:/app/public/conf.yml \
+  -p 8080:8080 \
+  -v /root/my-local-conf.yml:/app/user-data/conf.yml \
   --name my-dashboard \
   --restart=always \
   lissy93/dashy:latest
@@ -108,9 +110,9 @@ services:
     container_name: Dashy
     # Pass in your config file below, by specifying the path on your host machine
     # volumes:
-      # - /root/my-config.yml:/app/public/conf.yml
+      # - /root/my-config.yml:/app/user-data/conf.yml
     ports:
-      - 4000:80
+      - 4000:8080
     # Set any environmental variables
     environment:
       - NODE_ENV=production
@@ -131,6 +133,12 @@ services:
 You can use a different tag, by for example setting `image: lissy93/dashy:arm64v8`, or pull from GHCR instead by setting `image: ghcr.io/lissy93/dashy`.
 
 If you are building from source, and would like to use one of the [other Dockerfiles](https://github.com/Lissy93/dashy/tree/master/docker), then under `services.dashy` first set `context: .`, then specify the the path to the dockerfile, e.g. `dockerfile: ./docker/Dockerfile-arm32v7`
+
+---
+
+## Kubernetes
+
+@vyrtualsynthese has written a Helm Chart for deploying with Kubernetes, available [here](https://github.com/vyrtualsynthese/selfhosted-helmcharts/tree/main/charts/dashy)
 
 ---
 
@@ -158,8 +166,8 @@ Installing dashy is really simply and fast:
 
 ```bash
 docker run -d \
-  -p 4000:80 \
-  -v /volume1/docker/dashy/my-local-conf.yml:/app/public/conf.yml \
+  -p 4000:8080 \
+  -v /volume1/docker/dashy/my-local-conf.yml:/app/user-data/conf.yml \
   --name dashy \
   --restart=always \
   lissy93/dashy:latest
@@ -174,7 +182,7 @@ dashy should be up within 1-2min after you've started the install task procedure
 If you do not want to use Docker, you can run Dashy directly on your host system. For this, you will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed, and optionally [yarn](https://yarnpkg.com/)
 
 1. Get Code: `git clone https://github.com/Lissy93/dashy.git` and `cd dashy`
-2. Configuration: Fill in you're settings in `./public/conf.yml`
+2. Configuration: Fill in you're settings in `./user-data/conf.yml`
 3. Install dependencies: `yarn`
 4. Build: `yarn build`
 5. Run: `yarn start`
@@ -187,7 +195,8 @@ If you don't have a home server, then fear not - Dashy can be deployed to pretty
 
 Some hosting providers required a bit of extra configuration, which was why I've made separate branches for deploying to those services (named: [`deploy_cloudflare`](https://github.com/Lissy93/dashy/tree/deploy_cloudflare), [`deploy_digital-ocean`](https://github.com/Lissy93/dashy/tree/deploy_digital-ocean), [`deploy_platform-sh`](https://github.com/Lissy93/dashy/tree/deploy_platform-sh) and [`deploy_render`](https://github.com/Lissy93/dashy/tree/deploy_render)). If there's another cloud service which you'd like 1-click deployment to be supported for, feel free to raise an issue.
 
-**Note** If you use a static hosting provider, then status checks, writing new config changes to disk from the UI, and triggering a rebuild through the UI will not be available. This is because these features need endpoints provided by Dashy's local Node server. Everything else should work just the same though.
+> [!NOTE]
+> If you use a static hosting provider, then status checks, writing new config changes to disk from the UI, and triggering a rebuild through the UI will not be available. This is because these features need endpoints provided by Dashy's local Node server. Everything else should work just the same though.
 
 ### Netlify
 
@@ -269,6 +278,16 @@ To deploy Dashy to Render, use the following link
 
 ```text
 https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render
+```
+
+### Railway
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/MtdjAQ?referralCode=app)
+
+[Railway](https://railway.app/) is a Platform as a Service (PaaS) that offers a complete platform for building and delivering programs to the backend of the cloud. You bring your code and Railway does the rest. Railway offers an extremely good developer experience and makes it effortless to deploy apps. Railway offers a free Trial Plan, and paid plans start at $5/month. Railway has 4 server locations: US-west, US-east, EU-west and ASIA-South-East.
+
+```text
+https://railway.app/template/MtdjAQ
 ```
 
 ### Scalingo

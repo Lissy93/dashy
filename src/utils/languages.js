@@ -19,6 +19,7 @@ import pl from '@/assets/locales/pl.json';
 import pt from '@/assets/locales/pt.json';
 import gl from '@/assets/locales/gl.json';
 import ru from '@/assets/locales/ru.json';
+import ro from '@/assets/locales/ro.json';
 import sk from '@/assets/locales/sk.json';
 import sl from '@/assets/locales/sl.json';
 import sv from '@/assets/locales/sv.json';
@@ -150,6 +151,12 @@ export const languages = [
     code: 'ru',
     locale: ru,
     flag: '🇷🇺',
+  },
+  { // Romanian
+    name: 'Romana',
+    code: 'ro',
+    locale: ro,
+    flag: '🇷🇴',
   },
   { // Slovak
     name: 'Slovenčina',

@@ -1,16 +1,13 @@
 <template>
-  <!-- User Footer -->
-  <footer v-if="text && text !== '' && visible" v-html="text"></footer>
-  <!-- Default Footer -->
-  <footer v-else-if="visible">
-    <span v-if="$store.state.currentConfigInfo" class="path-to-config">
-      Using: {{ $store.state.currentConfigInfo.confPath }}
-    </span>
-    <span>
-      {{ $t('footer.dev-by') }} <a :href="authorUrl">{{authorName}}</a>.
-      {{ $t('footer.licensed-under') }} <a :href="licenseUrl">{{license}}</a>
-      {{ showCopyright? '©': '' }} {{date}}.
-      {{ $t('footer.get-the') }} <a :href="repoUrl">{{ $t('footer.source-code') }}</a>.
+  <footer v-if="visible">
+    <!-- User-defined footer -->
+    <span v-if="text" v-html="text"></span>
+    <!-- Default footer -->
+    <span v-else>
+      <a :href="defaultInfo.projectUrl">Dashy</a> is free & open source
+      - licensed under <a :href="defaultInfo.licenseUrl">{{defaultInfo.license}}</a>,
+      © <a :href="defaultInfo.authorUrl">{{defaultInfo.authorName}}</a> {{defaultInfo.date}}.
+      Get support on GitHub, at <a :href="defaultInfo.repoUrl">{{defaultInfo.repoName}}</a>.
     </span>
   </footer>
 </template>
@@ -23,13 +20,20 @@ export default {
   name: 'Footer',
   props: {
     text: String,
-    authorName: { type: String, default: 'Alicia Sykes' },
-    authorUrl: { type: String, default: 'https://aliciasykes.com' },
-    license: { type: String, default: 'MIT' },
-    licenseUrl: { type: String, default: 'https://gist.github.com/Lissy93/143d2ee01ccc5c052a17' },
-    date: { type: String, default: `${new Date().getFullYear()}` },
-    showCopyright: { type: Boolean, default: true },
-    repoUrl: { type: String, default: 'https://github.com/lissy93/dashy' },
+  },
+  data() {
+    return {
+      defaultInfo: {
+        authorName: 'Alicia Sykes',
+        authorUrl: 'https://as93.net',
+        license: 'MIT',
+        licenseUrl: 'https://gist.github.com/Lissy93/143d2ee01ccc5c052a17',
+        date: `${new Date().getFullYear()}`,
+        repoUrl: 'https://github.com/lissy93/dashy',
+        repoName: 'Lissy93/Dashy',
+        projectUrl: 'https://dashy.to',
+      },
+    };
   },
   computed: {
     visible() {
@@ -56,7 +60,7 @@ footer {
     display: none;
   }
   span.path-to-config {
-    float: right;
+    float: left;
     font-size: 0.75rem;
     margin: 0.1rem 0.5rem 0 0;
     opacity: var(--dimming-factor);

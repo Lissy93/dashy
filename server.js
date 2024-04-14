@@ -18,7 +18,9 @@ const history = require('connect-history-api-fallback');
 
 /* Kick of some basic checks */
 require('./services/update-checker'); // Checks if there are any updates available, prints message
-require('./services/config-validator'); // Include and kicks off the config file validation script
+
+let config = {}; // setup the config
+config = require('./services/config-validator'); // Include and kicks off the config file validation script
 
 /* Include route handlers for API endpoints */
 const statusCheck = require('./services/status-check'); // Used by the status check feature, uses GET
@@ -27,6 +29,7 @@ const rebuild = require('./services/rebuild-app'); // A script to programmatical
 const systemInfo = require('./services/system-info'); // Basic system info, for resource widget
 const sslServer = require('./services/ssl-server'); // TLS-enabled web server
 const corsProxy = require('./services/cors-proxy'); // Enables API requests to CORS-blocked services
+const getUser = require('./services/get-user'); // Enables server side user lookup
 
 /* Helper functions, and default config */
 const printMessage = require('./services/print-message'); // Function to print welcome msg on start
@@ -35,8 +38,8 @@ const ENDPOINTS = require('./src/utils/defaults').serviceEndpoints; // API endpo
 /* Checks if app is running within a container, from env var */
 const isDocker = !!process.env.IS_DOCKER;
 
-/* Checks env var for port. If undefined, will use Port 80 for Docker, or 4000 for metal */
-const port = process.env.PORT || (isDocker ? 80 : 4000);
+/* Checks env var for port. If undefined, will use Port 8080 for Docker, or 4000 for metal */
+const port = process.env.PORT || (isDocker ? 8080 : 4000);
 
 /* Checks env var for host. If undefined, will use 0.0.0.0 */
 const host = process.env.HOST || '0.0.0.0';
@@ -73,6 +76,7 @@ const app = express()
   .use(sslServer.middleware)
   // Serves up static files
   .use(express.static(path.join(__dirname, 'dist')))
+  .use(express.static(path.join(__dirname, process.env.USER_DATA_DIR || 'user-data')))
   .use(express.static(path.join(__dirname, 'public'), { index: 'initialization.html' }))
   // Load middlewares for parsing JSON, and supporting HTML5 history routing
   .use(express.json({ limit: '1mb' }))
@@ -87,10 +91,11 @@ const app = express()
       printWarning(`Error running status check for ${req.url}\n`, e);
     }
   })
-  // POST Endpoint used to save config, by writing conf.yml to disk
+  // POST Endpoint used to save config, by writing config file to disk
   .use(ENDPOINTS.save, method('POST', (req, res) => {
     try {
       saveConfig(req.body, (results) => { res.end(results); });
+      config = req.body.config; // update the config
     } catch (e) {
       printWarning('Error writing config file to disk', e);
       res.end(JSON.stringify({ success: false, message: e }));
@@ -122,8 +127,19 @@ const app = express()
       res.end(JSON.stringify({ success: false, message: e }));
     }
   })
-  // GET fallback endpoint
-  .get('*', (req, res) => res.sendFile(path.join(__dirname, 'dist', 'index.html')));
+  // GET endpoint to return user info
+  .use(ENDPOINTS.getUser, (req, res) => {
+    try {
+      const user = getUser(config, req);
+      res.end(JSON.stringify(user));
+    } catch (e) {
+      res.end(JSON.stringify({ success: false, message: e }));
+    }
+  })
+  // If no other route is matched, serve up the index.html with a 404 status
+  .use((req, res) => {
+    res.status(404).sendFile(path.join(__dirname, 'dist', 'index.html'));
+  });
 
 /* Create HTTP server from app on port, and print welcome message */
 http.createServer(app)

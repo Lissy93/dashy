@@ -534,6 +534,37 @@
                 }
               }
             },
+            "enableHeaderAuth": {
+              "title": "Enable HeaderAuth?",
+              "type": "boolean",
+              "default": false,
+              "description": "If set to true, enable Header Authentication. See appConfig.auth.headerAuth"
+            },
+            "headerAuth": {
+              "type": "object",
+              "description": "Configuration for headerAuth",
+              "additionalProperties": false,
+              "required": [
+                "proxyWhitelist"
+              ],
+              "properties": {
+                "userHeader": {
+                  "title": "User Header",
+                  "type": "string",
+                  "description": "Header name which contains username",
+                  "default": "REMOTE_USER"
+                },
+                "proxyWhitelist": {
+                  "title": "Upstream Proxy Auth Trust",
+                  "type": "array",
+                  "description": "Upstream proxy servers to expect authenticated requests from",
+                  "items": {
+                    "type": "string",
+                    "description": "IPs of upstream proxies that will be trusted"
+                  }
+                }
+              }
+            },
             "enableKeycloak": {
               "title": "Enable Keycloak?",
               "type": "boolean",
@@ -982,6 +1013,11 @@
                   "type": "number",
                   "description": "A numeric shortcut key, between 0 and 9. Useful for quickly launching frequently used applications"
                 },
+                "rel": {
+                  "title": "rel",
+                  "type": "string",
+                  "description": "The rel attribute for the link. For specifying the relationship between the current document and the linked document"
+                },
                 "tags": {
                   "title": "Tags",
                   "type": "array",
@@ -1086,6 +1122,11 @@
                 }
               }
             }
+          },
+          "filteredItems": {
+            "title": "Filtered Items - temp",
+            "type": "array",
+            "description": "This attribute will be deprecated in the next release - do not use!"
           }
         }
       }
