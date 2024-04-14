@@ -63,11 +63,11 @@ export default {
   computed: {
     apiKey() {
       if (!this.options.apiKey) this.error('Missing API Key');
-      return this.options.apiKey;
+      return this.parseAsEnvVar(this.options.apiKey);
     },
     domain() {
       if (!this.options.domain) this.error('Missing Domain Name Key');
-      return this.options.domain;
+      return this.parseAsEnvVar(this.options.domain);
     },
     endpoint() {
       return `${widgetApiEndpoints.domainMonitor}/?domain=${this.domain}&r=whois&apikey=${this.apiKey}`;

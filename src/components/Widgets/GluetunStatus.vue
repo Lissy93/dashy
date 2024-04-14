@@ -58,7 +58,7 @@ export default {
     },
     hostname() {
       if (!this.options.hostname) this.error('`hostname` is required');
-      return this.options.hostname;
+      return this.parseAsEnvVar(this.options.hostname);
     },
   },
   methods: {

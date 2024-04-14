@@ -52,15 +52,11 @@ export default {
   computed: {
     /* Get API key for access to instance */
     apiKey() {
-      const { apiKey } = this.options;
-
-      return apiKey;
+      return this.parseAsEnvVar(this.options.apiKey);
     },
     /* Get instance URL */
     url() {
-      const { url } = this.options;
-
-      return url;
+      return this.parseAsEnvVar(this.options.url);
     },
     /* Create authorisation header for the instance from the apiKey */
     authHeaders() {

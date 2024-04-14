@@ -45,7 +45,7 @@ export default {
   computed: {
     /* The users API key for exchangerate-api.com */
     apiKey() {
-      return this.options.apiKey;
+      return this.parseAsEnvVar(this.options.apiKey);
     },
     /* The currency to convert results into */
     inputCurrency() {

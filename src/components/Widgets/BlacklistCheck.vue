@@ -35,7 +35,7 @@ export default {
     },
     apiKey() {
       if (!this.options.apiKey) this.error('Missing API Key');
-      return this.options.apiKey;
+      return this.parseAsEnvVar(this.options.apiKey);
     },
     endpoint() {
       return `${widgetApiEndpoints.blacklistCheck}/${this.ipAddress}`;

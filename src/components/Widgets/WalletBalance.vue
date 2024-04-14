@@ -53,7 +53,7 @@ export default {
     },
     address() {
       if (!this.options.address) this.error('You must specify a public address');
-      return this.options.address;
+      return this.parseAsEnvVar(this.options.address);
     },
     network() {
       return this.options.network || 'main';
