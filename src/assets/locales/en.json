@@ -182,7 +182,7 @@
   },
   "app-rebuild": {
     "title": "Rebuild Application",
-    "rebuild-note-l1": "A rebuild is required for changes written to the conf.yml file to take effect.",
+    "rebuild-note-l1": "A rebuild is no longer required for changes to take effect.",
     "rebuild-note-l2": "This should happen automatically, but if it hasn't, you can manually trigger it here.",
     "rebuild-note-l3": "This is not required for modifications stored locally.",
     "rebuild-button": "Start Build",
