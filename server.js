@@ -74,13 +74,8 @@ const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, n
 const app = express()
   // Load SSL redirection middleware
   .use(sslServer.middleware)
-  // Serves up static files
-  .use(express.static(path.join(__dirname, 'dist')))
-  .use(express.static(path.join(__dirname, process.env.USER_DATA_DIR || 'user-data')))
-  .use(express.static(path.join(__dirname, 'public'), { index: 'initialization.html' }))
   // Load middlewares for parsing JSON, and supporting HTML5 history routing
   .use(express.json({ limit: '1mb' }))
-  .use(history())
   // GET endpoint to run status of a given URL with GET request
   .use(ENDPOINTS.statusCheck, (req, res) => {
     try {
@@ -136,6 +131,11 @@ const app = express()
       res.end(JSON.stringify({ success: false, message: e }));
     }
   })
+  // Serves up static files
+  .use(express.static(path.join(__dirname, 'dist')))
+  .use(express.static(path.join(__dirname, process.env.USER_DATA_DIR || 'user-data')))
+  .use(express.static(path.join(__dirname, 'public'), { index: 'initialization.html' }))
+  .use(history())
   // If no other route is matched, serve up the index.html with a 404 status
   .use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'dist', 'index.html'));
