@@ -32,9 +32,6 @@ export default class ConfigAccumulator {
     if (this.conf && this.conf.appConfig) {
       appConfigFile = this.conf.appConfig;
     }
-    //  else if (buildConf && buildConf.appConfig) {
-    //   appConfigFile = buildConf.appConfig;
-    // }
     // Fill in defaults if anything missing
     let usersAppConfig = defaultAppConfig;
     if (localStorage[localStorageKeys.APP_CONFIG]) {
