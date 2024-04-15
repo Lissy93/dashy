@@ -183,8 +183,8 @@
   "app-rebuild": {
     "title": "Rebuild Application",
     "rebuild-note-l1": "A rebuild is no longer required for changes to take effect.",
-    "rebuild-note-l2": "This should happen automatically, but if it hasn't, you can manually trigger it here.",
-    "rebuild-note-l3": "This is not required for modifications stored locally.",
+    "rebuild-note-l2": "Some changes (entry-point, and auth settings) are read at build-time. So to apply these, you should trigger a rebuild here.",
+    "rebuild-note-l3": "Note that this is only available on Node and Docker installations, not via statically deployed instances.",
     "rebuild-button": "Start Build",
     "rebuilding-status-1": "Building...",
     "rebuilding-status-2": "This may take a few minutes",
