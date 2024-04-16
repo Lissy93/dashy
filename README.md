@@ -95,7 +95,7 @@
 
 **Screenshots**: Checkout the [Showcase](./docs/showcase.md), to see example dashboards from the community
 
-**Spin up your own demo**: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml) or [`docker run -p 8080:80 lissy93/dashy`](./docs/quick-start.md)
+**Spin up your own demo**: [![One-Click Deploy with PWD](https://img.shields.io/badge/Play--with--Docker-Deploy-2496ed?style=flat-square&logo=docker)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml) or [`docker run -p 8080:8080 lissy93/dashy`](./docs/quick-start.md)
 
 
 <p align="center">
@@ -116,14 +116,14 @@
 You will need [Docker](https://docs.docker.com/get-docker/) installed on your system
 
 ```
-docker run -p 8080:80 lissy93/dashy
+docker run -p 8080:8080 lissy93/dashy
 ```
 
 Or
 
 ```docker
 docker run -d \
-  -p 4000:80 \
+  -p 4000:8080 \
   -v /root/my-local-conf.yml:/app/user-data/conf.yml \
   --name my-dashboard \
   --restart=always \

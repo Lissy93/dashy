@@ -7,7 +7,7 @@ Welcome to Dashy, so glad you're here :) Deployment is super easy, and there are
 If you want to skip the fuss, and [get straight down to it](/docs/quick-start.md), then you can spin up a new instance of Dashy by running:
 
 ```bash
-docker run -p 8080:80 lissy93/dashy
+docker run -p 8080:8080 lissy93/dashy
 ```
 
 See [Management Docs](/docs/management.md) for info about securing, monitoring, updating, health checks, auto starting, web server configuration, etc
