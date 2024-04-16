@@ -167,7 +167,7 @@ You can also set an icon by passing in a valid URL pointing to the icons locatio
 
 ## Local Icons
 
-You may also want to store your icons locally, bundled within Dashy so that there is no reliance on outside services. This can be done by putting the icons within Dashy's `./public/item-icons/` directory. If you are using Docker, then the easiest option is to map a volume from your host system, for example: `-v /local/image/directory:/app/public/item-icons/`. To reference an icon stored locally, just specify it's name and extension. For example, if my icon was stored in `/app/public/item-icons/maltrail.png`, then I would just set `icon: maltrail.png`.
+You may also want to store your icons locally, bundled within Dashy so that there is no reliance on outside services. This can be done by putting the icons within Dashy's `./user-data/item-icons/` directory. If you are using Docker, then the easiest option is to map a volume from your host system, for example: `-v /local/image/directory:/app/user-data/item-icons/`. To reference an icon stored locally, just specify it's name and extension. For example, if my icon was stored in `/app/user-data/item-icons/maltrail.png`, then I would just set `icon: maltrail.png`.
 
 You can also use sub-folders within the `item-icons` directory to keep things organized. You would then specify an icon with it's folder name slash image name. For example: `networking/monit.png`
 
@@ -187,7 +187,7 @@ If you don't wish for a given item or section to have an icon, just leave out th
 
 ## Icon Collections and Resources
 
-The following websites provide good-quality, free icon sets. To use any of these icons, either copy the link to the raw icon (it should end in `.svg` or `.png`) and paste it as your `icon`, or download and save the icons in `/public/item-icons` / mapped Docker volume. Full credit to the authors, please see the licenses for each service for usage and copyright information.
+The following websites provide good-quality, free icon sets. To use any of these icons, either copy the link to the raw icon (it should end in `.svg` or `.png`) and paste it as your `icon`, or download and save the icons in `/user-data/item-icons` / mapped Docker volume. Full credit to the authors, please see the licenses for each service for usage and copyright information.
 
 - [Icons for Self-Hosted Apps](https://thehomelab.wiki/books/helpful-tools-resources/page/icons-for-self-hosted-dashboards) - 350+ high-quality icons for commonly self-hosted services
 - [SVG Box](https://svgbox.net/iconsets/) - Cryptocurrency, social media apps and flag icons

@@ -192,7 +192,7 @@ The following section outlines all data that is stored in the browsers, as cooki
 > [Local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) is persisted between sessions, and only deleted when manually removed
 
 - `LANGUAGE` - The locale to show app text in
-- `HIDE_WELCOME_BANNER` - Set to true once user dismissed welcome message, so that it's not shown again
+- `HIDE_INFO_NOTIFICATION` - Set to true once user dismissed welcome message, so that it's not shown again
 - `LAYOUT_ORIENTATION` - Preferred section layout, either horizontal, vertical or auto
 - `COLLAPSE_STATE` - Remembers which sections are collapsed
 - `ICON_SIZE` - Size of items, either small, medium or large
