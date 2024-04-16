@@ -3,7 +3,9 @@
  * See docs for all config options: https://cli.vuejs.org/config
  */
 
+const fs = require('fs');
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Get app mode: production, development or test
 const mode = process.env.NODE_ENV || 'production';
@@ -20,9 +22,33 @@ const publicPath = process.env.BASE_URL || '/';
 // Should enable Subresource Integrity (SRI) on link and script tags
 const integrity = process.env.INTEGRITY === 'true';
 
+// When deploying as a static site, we must ensure user-data is copied over
+class ConditionalCopyPlugin {
+  constructor(options) {
+    this.options = options;
+  }
+
+  apply(compiler) {
+    compiler.hooks.beforeRun.tapAsync('ConditionalCopyPlugin', (_compilation, callback) => {
+      const targetDir = path.resolve(compiler.options.output.path, this.options.to);
+      if (!fs.existsSync(targetDir)) {
+        new CopyWebpackPlugin({
+          patterns: [
+            { from: path.resolve(__dirname, this.options.from), to: targetDir },
+          ],
+        }).apply(compiler);
+      }
+      callback();
+    });
+  }
+}
+
 // Webpack Config
 const configureWebpack = {
   mode,
+  plugins: [
+    new ConditionalCopyPlugin({ from: 'user-data', to: 'user-data' }),
+  ],
   module: {
     rules: [
       { test: /.svg$/, loader: 'vue-svg-loader' },
