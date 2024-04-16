@@ -19,6 +19,7 @@ const {
   SET_CONFIG,
   SET_ROOT_CONFIG,
   SET_CURRENT_CONFIG_INFO,
+  SET_IS_USING_LOCAL_CONFIG,
   SET_MODAL_OPEN,
   SET_LANGUAGE,
   SET_ITEM_LAYOUT,
@@ -49,6 +50,7 @@ const store = new Vuex.Store({
     editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
     currentConfigInfo: {}, // For multi-page support, will store info about config file
+    isUsingLocalConfig: false, // If true, will use local config instead of fetched
     navigateConfToTab: undefined, // Used to switch active tab in config modal
   },
   getters: {
@@ -154,6 +156,9 @@ const store = new Vuex.Store({
     },
     [SET_CURRENT_CONFIG_INFO](state, subConfigInfo) {
       state.currentConfigInfo = subConfigInfo;
+    },
+    [SET_IS_USING_LOCAL_CONFIG](state, isUsingLocalConfig) {
+      state.isUsingLocalConfig = isUsingLocalConfig;
     },
     [SET_LANGUAGE](state, lang) {
       const newConfig = state.config;
@@ -334,6 +339,7 @@ const store = new Vuex.Store({
      */
     async [INITIALIZE_CONFIG]({ commit, state }, subConfigId) {
       const rootConfig = state.rootConfig || await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
+      commit(SET_IS_USING_LOCAL_CONFIG, false);
       if (!subConfigId) { // Use root config as config
         commit(SET_CONFIG, rootConfig);
         commit(SET_CURRENT_CONFIG_INFO, {});
@@ -350,6 +356,7 @@ const store = new Vuex.Store({
         }
         if (localSections.length > 0) {
           rootConfig.sections = localSections;
+          commit(SET_IS_USING_LOCAL_CONFIG, true);
         }
         return rootConfig;
       } else {
@@ -377,7 +384,10 @@ const store = new Vuex.Store({
           if (localSectionsRaw) {
             try {
               const json = JSON.parse(localSectionsRaw);
-              if (json.length >= 1) configContent.sections = json;
+              if (json.length >= 1) {
+                configContent.sections = json;
+                commit(SET_IS_USING_LOCAL_CONFIG, true);
+              }
             } catch (e) {
               ErrorHandler('Malformed section data in local storage for sub-config');
             }

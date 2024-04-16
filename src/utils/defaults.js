@@ -116,7 +116,7 @@ module.exports = {
   /* Key names for local storage identifiers */
   localStorageKeys: {
     LANGUAGE: 'language',
-    HIDE_WELCOME_BANNER: 'hideWelcomeHelpers',
+    HIDE_INFO_NOTIFICATION: 'hideWelcomeHelpers',
     LAYOUT_ORIENTATION: 'layoutOrientation',
     COLLAPSE_STATE: 'collapseState',
     ICON_SIZE: 'iconSize',

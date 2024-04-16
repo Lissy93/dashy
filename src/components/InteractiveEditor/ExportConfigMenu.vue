@@ -22,6 +22,14 @@
         <DownloadConfigIcon />
       </Button>
     </div>
+    <!-- Show path to which config file is being used -->
+    <div class="config-path-info">
+      <h3>Config Location</h3>
+      <p>
+        The base config file you are currently using is
+        <a :href="configPath">{{ configPath }}</a>
+      </p>
+    </div>
     <!-- View Config in Tree Mode Section -->
     <h3>{{ $t('interactive-editor.export.view-title') }}</h3>
     <tree-view :data="config" class="config-tree-view" />
@@ -60,6 +68,11 @@ export default {
     },
     allowViewConfig() {
       return this.$store.getters.permissions.allowViewConfig;
+    },
+    configPath() {
+      return this.$store.state.currentConfigInfo?.confPath
+      || process.env.VUE_APP_CONFIG_PATH
+      || '/conf.yml';
     },
   },
   methods: {
@@ -120,6 +133,13 @@ export default {
     padding: 0 0.5rem 1rem;
     border-bottom: 1px dashed var(--interactive-editor-color);
     button { margin: 0 1rem; }
+  }
+  .config-path-info {
+    p, a {
+      color: var(--interactive-editor-color);
+      font-size: 1.2rem;
+    }
+    border-bottom: 1px dashed var(--interactive-editor-color);
   }
   .config-tree-view {
     padding: 0.5rem;
