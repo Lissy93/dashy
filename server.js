@@ -44,6 +44,9 @@ const port = process.env.PORT || (isDocker ? 8080 : 4000);
 /* Checks env var for host. If undefined, will use 0.0.0.0 */
 const host = process.env.HOST || '0.0.0.0';
 
+/* Indicates for the webpack config, that running as a server */
+process.env.IS_SERVER = 'True';
+
 /* Attempts to get the users local IP, used as part of welcome message */
 const getLocalIp = () => {
   const dnsLookup = util.promisify(dns.lookup);
@@ -132,8 +135,8 @@ const app = express()
     }
   })
   // Serves up static files
-  .use(express.static(path.join(__dirname, 'dist')))
   .use(express.static(path.join(__dirname, process.env.USER_DATA_DIR || 'user-data')))
+  .use(express.static(path.join(__dirname, 'dist')))
   .use(express.static(path.join(__dirname, 'public'), { index: 'initialization.html' }))
   .use(history())
   // If no other route is matched, serve up the index.html with a 404 status
