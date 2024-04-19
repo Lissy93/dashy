@@ -1,13 +1,26 @@
 /**
- * Global config for the main Vue app. ES7 not supported here.
- * See docs for all config options: https://cli.vuejs.org/config
+ * Dashy is built using Vue (2). This is the main Vue and Webpack configuration
+ *
+ * User Configurable Options:
+ * - NODE_ENV: Sets the app mode (production, development, test).
+ * - BASE_URL: Root URL for the app deployment (defaults to '/').
+ * - INTEGRITY: Enables SRI, set to 'true' to activate.
+ * - USER_DATA_DIR: Sets an alternative dir for user data (defaults ./user-data).
+ * - IS_DOCKER: Indicates if running in a Docker container.
+ * - IS_SERVER: Indicates if running as a server (as opposed to static build).
+ *
+ * Documentation:
+ * - Vue CLI Config options: https://cli.vuejs.org/config
+ * - For Dashy docs, see the repo: https://github.com/lissy93/dashy
+ *
+ * Note: ES7 syntax is not supported in this configuration context.
+ * Licensed under the MIT License, (C) Alicia Sykes 2024 (see LICENSE for details).
  */
 
-const fs = require('fs');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-// Get app mode: production, development or test
+// Get app mode: production, development, or test
 const mode = process.env.NODE_ENV || 'production';
 
 // Get current version
@@ -22,33 +35,22 @@ const publicPath = process.env.BASE_URL || '/';
 // Should enable Subresource Integrity (SRI) on link and script tags
 const integrity = process.env.INTEGRITY === 'true';
 
-// When deploying as a static site, we must ensure user-data is copied over
-class ConditionalCopyPlugin {
-  constructor(options) {
-    this.options = options;
-  }
+// If neither env vars are set, then it's a static build
+const isServer = process.env.IS_DOCKER || process.env.IS_SERVER || false;
 
-  apply(compiler) {
-    compiler.hooks.beforeRun.tapAsync('ConditionalCopyPlugin', (_compilation, callback) => {
-      const targetDir = path.resolve(compiler.options.output.path, this.options.to);
-      if (!fs.existsSync(targetDir)) {
-        new CopyWebpackPlugin({
-          patterns: [
-            { from: path.resolve(__dirname, this.options.from), to: targetDir },
-          ],
-        }).apply(compiler);
-      }
-      callback();
-    });
-  }
-}
+// Use copy-webpack-plugin to copy user-data to dist IF not running as a server
+const plugins = !isServer ? [
+  new CopyWebpackPlugin({
+    patterns: [
+      !isServer ? { from: './user-data', to: './' } : {},
+    ],
+  }),
+] : [];
 
 // Webpack Config
 const configureWebpack = {
   mode,
-  plugins: [
-    new ConditionalCopyPlugin({ from: 'user-data', to: 'user-data' }),
-  ],
+  plugins,
   module: {
     rules: [
       { test: /.svg$/, loader: 'vue-svg-loader' },
