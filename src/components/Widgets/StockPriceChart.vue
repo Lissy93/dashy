@@ -29,7 +29,7 @@ export default {
     },
     /* The users API key for AlphaVantage */
     apiKey() {
-      return this.options.apiKey;
+      return this.parseAsEnvVar(this.options.apiKey);
     },
     /* The formatted GET request API endpoint to fetch stock data from */
     endpoint() {

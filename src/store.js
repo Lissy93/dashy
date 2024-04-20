@@ -4,22 +4,22 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import yaml from 'js-yaml';
 import Keys from '@/utils/StoreMutations';
-import ConfigAccumulator from '@/utils/ConfigAccumalator';
-import { componentVisibility } from '@/utils/ConfigHelpers';
+import { makePageName, formatConfigPath, componentVisibility } from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import { isUserAdmin } from '@/utils/Auth';
-import { localStorageKeys } from './utils/defaults';
+import { localStorageKeys, theme as defaultTheme } from './utils/defaults';
 
 Vue.use(Vuex);
 
 const {
   INITIALIZE_CONFIG,
-  INITIALIZE_MULTI_PAGE_CONFIG,
+  INITIALIZE_ROOT_CONFIG,
   SET_CONFIG,
-  SET_REMOTE_CONFIG,
-  SET_CURRENT_SUB_PAGE,
+  SET_ROOT_CONFIG,
+  SET_CURRENT_CONFIG_INFO,
+  SET_IS_USING_LOCAL_CONFIG,
   SET_MODAL_OPEN,
   SET_LANGUAGE,
   SET_ITEM_LAYOUT,
@@ -45,11 +45,12 @@ const {
 
 const store = new Vuex.Store({
   state: {
-    config: {}, // The current config, rendered to the UI
-    remoteConfig: {}, // The configuration stored on the server
+    config: {}, // The current config being used, and rendered to the UI
+    rootConfig: null, // Always the content of main config file, never used directly
     editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
-    currentConfigInfo: undefined, // For multi-page support, will store info about config file
+    currentConfigInfo: {}, // For multi-page support, will store info about config file
+    isUsingLocalConfig: false, // If true, will use local config instead of fetched
     navigateConfToTab: undefined, // Used to switch active tab in config modal
   },
   getters: {
@@ -68,17 +69,14 @@ const store = new Vuex.Store({
       return filterUserSections(state.config.sections || []);
     },
     pages(state) {
-      return state.remoteConfig.pages || [];
+      return state.config.pages || [];
     },
     theme(state) {
-      let localTheme = null;
-      if (state.currentConfigInfo?.pageId) {
-        const themeStoreKey = `${localStorageKeys.THEME}-${state.currentConfigInfo?.pageId}`;
-        localTheme = localStorage[themeStoreKey];
-      } else {
-        localTheme = localStorage[localStorageKeys.THEME];
-      }
-      return localTheme || state.config.appConfig.theme;
+      const localStorageKey = state.currentConfigInfo.confId
+        ? `${localStorageKeys.THEME}-${state.currentConfigInfo.confId}` : localStorageKeys.THEME;
+      const localTheme = localStorage[localStorageKey];
+      // Return either theme from local storage, or from appConfig
+      return localTheme || state.config.appConfig.theme || defaultTheme;
     },
     webSearch(state, getters) {
       return getters.appConfig.webSearch || {};
@@ -146,14 +144,21 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
+    /* Set the master config */
+    [SET_ROOT_CONFIG](state, config) {
+      if (!config.appConfig) config.appConfig = {};
+      state.config = config;
+    },
+    /* The config to display and edit. Will differ from ROOT_CONFIG when using multi-page */
     [SET_CONFIG](state, config) {
       if (!config.appConfig) config.appConfig = {};
       state.config = config;
     },
-    [SET_REMOTE_CONFIG](state, config) {
-      const notNullConfig = config || {};
-      if (!notNullConfig.appConfig) notNullConfig.appConfig = {};
-      state.remoteConfig = notNullConfig;
+    [SET_CURRENT_CONFIG_INFO](state, subConfigInfo) {
+      state.currentConfigInfo = subConfigInfo;
+    },
+    [SET_IS_USING_LOCAL_CONFIG](state, isUsingLocalConfig) {
+      state.isUsingLocalConfig = isUsingLocalConfig;
     },
     [SET_LANGUAGE](state, lang) {
       const newConfig = state.config;
@@ -276,12 +281,13 @@ const store = new Vuex.Store({
       config.sections = applyItemId(config.sections);
       state.config = config;
     },
-    [SET_THEME](state, themOps) {
-      const { theme, pageId } = themOps;
+    [SET_THEME](state, theme) {
       const newConfig = { ...state.config };
       newConfig.appConfig.theme = theme;
       state.config = newConfig;
-      const themeStoreKey = pageId ? `${localStorageKeys.THEME}-${pageId}` : localStorageKeys.THEME;
+      const pageId = state.currentConfigInfo.confId;
+      const themeStoreKey = pageId
+        ? `${localStorageKeys.THEME}-${pageId}` : localStorageKeys.THEME;
       localStorage.setItem(themeStoreKey, theme);
       InfoHandler('Theme updated', InfoKeys.VISUAL);
     },
@@ -292,15 +298,11 @@ const store = new Vuex.Store({
       InfoHandler('Color palette updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_LAYOUT](state, layout) {
-      const newConfig = { ...state.config };
-      newConfig.appConfig.layout = layout;
-      state.config = newConfig;
+      state.config.appConfig.layout = layout;
       InfoHandler('Layout updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_SIZE](state, iconSize) {
-      const newConfig = { ...state.config };
-      newConfig.appConfig.iconSize = iconSize;
-      state.config = newConfig;
+      state.config.appConfig.iconSize = iconSize;
       InfoHandler('Item size updated', InfoKeys.VISUAL);
     },
     [UPDATE_CUSTOM_CSS](state, customCss) {
@@ -310,42 +312,94 @@ const store = new Vuex.Store({
     [CONF_MENU_INDEX](state, index) {
       state.navigateConfToTab = index;
     },
-    [SET_CURRENT_SUB_PAGE](state, subPageObject) {
-      if (!subPageObject) {
-        // Set theme back to primary when navigating to index page
-        const defaulTheme = localStorage.getItem(localStorageKeys.PRIMARY_THEME);
-        if (defaulTheme) state.config.appConfig.theme = defaulTheme;
-      }
-      state.currentConfigInfo = subPageObject;
-    },
-    [USE_MAIN_CONFIG](state) {
-      if (state.remoteConfig) {
-        state.config = state.remoteConfig;
-      } else {
-        this.dispatch(Keys.INITIALIZE_CONFIG);
-      }
+    /* Set config to rootConfig, by calling initialize with no params */
+    async [USE_MAIN_CONFIG]() {
+      this.dispatch(Keys.INITIALIZE_CONFIG);
     },
   },
   actions: {
-    /* Called when app first loaded. Reads config and sets state */
-    async [INITIALIZE_CONFIG]({ commit }) {
-      // Get the config file from the server and store it for use by the accumulator
-      commit(SET_REMOTE_CONFIG, yaml.load((await axios.get('/conf.yml')).data));
-      const deepCopy = (json) => JSON.parse(JSON.stringify(json));
-      const config = deepCopy(new ConfigAccumulator().config());
-      commit(SET_CONFIG, config);
+    /* Fetches the root config file, only ever called by INITIALIZE_CONFIG */
+    async [INITIALIZE_ROOT_CONFIG]({ commit }) {
+      // Load and parse config from root config file
+      const configFilePath = process.env.VUE_APP_CONFIG_PATH || '/conf.yml';
+      const data = await yaml.load((await axios.get(configFilePath)).data);
+      // Replace missing root properties with empty objects
+      if (!data.appConfig) data.appConfig = {};
+      if (!data.pageInfo) data.pageInfo = {};
+      if (!data.sections) data.sections = [];
+      // Set the state, and return data
+      commit(SET_ROOT_CONFIG, data);
+      return data;
     },
-    /* Fetch config for a sub-page (sections and pageInfo only) */
-    async [INITIALIZE_MULTI_PAGE_CONFIG]({ commit, state }, configPath) {
-      axios.get(configPath).then((response) => {
-        const subConfig = yaml.load(response.data);
-        const pageTheme = subConfig.appConfig?.theme;
-        subConfig.appConfig = state.config.appConfig; // Always use parent appConfig
-        if (pageTheme) subConfig.appConfig.theme = pageTheme; // Apply page theme override
-        commit(SET_CONFIG, subConfig);
-      }).catch((err) => {
-        ErrorHandler(`Unable to load config from '${configPath}'`, err);
-      });
+    /**
+     * Fetches config and updates state
+     * If not on sub-page, will trigger the fetch of main config, then use that
+     * If using sub-page config, then fetch that sub-config, then
+     * override certain fields (appConfig, pages) and update config
+     */
+    async [INITIALIZE_CONFIG]({ commit, state }, subConfigId) {
+      const rootConfig = state.rootConfig || await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
+      commit(SET_IS_USING_LOCAL_CONFIG, false);
+      if (!subConfigId) { // Use root config as config
+        commit(SET_CONFIG, rootConfig);
+        commit(SET_CURRENT_CONFIG_INFO, {});
+
+        let localSections = [];
+        const localSectionsRaw = localStorage[localStorageKeys.CONF_SECTIONS];
+        if (localSectionsRaw) {
+          try {
+            const json = JSON.parse(localSectionsRaw);
+            if (json.length >= 1) localSections = json;
+          } catch (e) {
+            ErrorHandler('Malformed section data in local storage');
+          }
+        }
+        if (localSections.length > 0) {
+          rootConfig.sections = localSections;
+          commit(SET_IS_USING_LOCAL_CONFIG, true);
+        }
+        return rootConfig;
+      } else {
+        // Find and format path to fetch sub-config from
+        const subConfigPath = formatConfigPath(rootConfig?.pages?.find(
+          (page) => makePageName(page.name) === subConfigId,
+        )?.path);
+
+        if (!subConfigPath) {
+          ErrorHandler(`Unable to find config for '${subConfigId}'`);
+          return null;
+        }
+
+        axios.get(subConfigPath).then((response) => {
+          // Parse the YAML
+          const configContent = yaml.load(response.data) || {};
+          // Certain values must be inherited from root config
+          const theme = configContent?.appConfig?.theme || rootConfig.appConfig?.theme || 'default';
+          configContent.appConfig = rootConfig.appConfig;
+          configContent.pages = rootConfig.pages;
+          configContent.appConfig.theme = theme;
+
+          // Load local sections if they exist
+          const localSectionsRaw = localStorage[`${localStorageKeys.CONF_SECTIONS}-${subConfigId}`];
+          if (localSectionsRaw) {
+            try {
+              const json = JSON.parse(localSectionsRaw);
+              if (json.length >= 1) {
+                configContent.sections = json;
+                commit(SET_IS_USING_LOCAL_CONFIG, true);
+              }
+            } catch (e) {
+              ErrorHandler('Malformed section data in local storage for sub-config');
+            }
+          }
+          // Set the config
+          commit(SET_CONFIG, configContent);
+          commit(SET_CURRENT_CONFIG_INFO, { confPath: subConfigPath, confId: subConfigId });
+        }).catch((err) => {
+          ErrorHandler(`Unable to load config from '${subConfigPath}'`, err);
+        });
+      }
+      return null;
     },
   },
   modules: {},

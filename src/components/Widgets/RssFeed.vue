@@ -51,7 +51,7 @@ export default {
       return this.options.rssUrl || '';
     },
     apiKey() {
-      return this.options.apiKey;
+      return this.parseAsEnvVar(this.options.apiKey);
     },
     parseLocally() {
       return this.options.parseLocally;

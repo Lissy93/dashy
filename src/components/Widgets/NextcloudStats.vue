@@ -44,7 +44,7 @@
         <em v-html="formatNumber(shares.num_shares)"></em>
         <strong>{{ tt('local') }}</strong> <small> {{ tt('and') }}</small>
         <em v-html="formatNumber(shares.num_fed_shares_sent
-                 + shares.num_fed_shares_received)"></em>
+          + shares.num_fed_shares_received)"></em>
         <strong>
           {{ tt('federated-shares') }}
         </strong>

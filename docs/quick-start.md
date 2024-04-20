@@ -2,7 +2,7 @@
 
 Welcome to Dashy! So glad you're here 😊 In a couple of minutes, you'll have your new dashboard up and running 🚀
 
-**TLDR;** Run `docker run -p 8080:80 lissy93/dashy`, then open `http://localhost:8080`
+**TLDR;** Run `docker run -p 8080:8080 lissy93/dashy`, then open `http://localhost:8080`
 
 ---
 
@@ -19,8 +19,8 @@ To pull the latest image, and build and start the app run:
 
 ```bash
 docker run -d \
-  -p 8080:80 \
-  -v ~/my-conf.yml:/app/public/conf.yml \
+  -p 8080:8080 \
+  -v ~/my-conf.yml:/app/user-data/conf.yml \
   --name my-dashboard \
   --restart=always \
   lissy93/dashy:latest
@@ -35,7 +35,7 @@ Your dashboard should now be up and running at `http://localhost:8080` (or your 
 ## 3. Configure
 
 Now that you've got Dashy running, you are going to want to set it up with your own content.
-Config is written in [YAML Format](https://yaml.org/), and saved in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml).
+Config is written in [YAML Format](https://yaml.org/), and saved in [`/user-data/conf.yml`](https://github.com/Lissy93/dashy/blob/master/user-data/conf.yml).
 The format on the config file is pretty straight forward. There are three root attributes:
 
 - [`pageInfo`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#pageinfo) - Dashboard meta data, like title, description, nav bar links and footer text
@@ -72,7 +72,7 @@ sections: # An array of sections
 Notes:
 
 - You can use a Docker volume to pass a config file from your host system to the container
-  - E.g. `-v ./host-system/my-local-conf.yml:/app/public/conf.yml`
+  - E.g. `-v ./host-system/my-local-conf.yml:/app/user-data/conf.yml`
 - It's also possible to edit your config directly through the UI, and changes will be saved in this file
 - Check your config against Dashy's schema, with `docker exec -it [container-id] yarn validate-config`
 - You might find it helpful to look at some examples, a collection of which can be [found here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
@@ -118,7 +118,7 @@ yarn build # Build the app
 yarn start # Start the app
 ```
 
-Then edit `./public/conf.yml` and rebuild the app with `yarn build`
+Then edit `./user-data/conf.yml` and rebuild the app with `yarn build`
 
 ---
 
@@ -129,7 +129,7 @@ Don't have a server? No problem! You can run Dashy for free on Netlify (as well 
 1. Fork Dashy's repository on GitHub
 2. [Log in](app.netlify.com/login/) to Netlify with GitHub
 3. Click "New site from Git" and select your forked repo, then click **Deploy**!
-4. You can then edit the config in `./public/conf.yml` in your repo, and Netlify will rebuild the app
+4. You can then edit the config in `./user-data/conf.yml` in your repo, and Netlify will rebuild the app
 
 ---
 

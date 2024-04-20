@@ -6,7 +6,6 @@ import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 import Keys from '@/utils/StoreMutations';
 import { searchTiles } from '@/utils/Search';
 import { checkItemVisibility } from '@/utils/CheckItemVisibility';
-import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
 
 const HomeMixin = {
   props: {
@@ -36,22 +35,28 @@ const HomeMixin = {
     searchValue: '',
   }),
   async mounted() {
-    await this.getConfigForRoute();
+    // await this.getConfigForRoute();
   },
   watch: {
     async $route() {
-      await this.getConfigForRoute();
-      this.setTheme();
+      this.loadUpConfig();
     },
   },
+  async created() {
+    this.loadUpConfig();
+  },
   methods: {
-    async getConfigForRoute() {
-      this.$store.commit(Keys.SET_CURRENT_SUB_PAGE, this.subPageInfo);
-      if (this.subPageInfo && this.subPageInfo.confPath) { // Get config for sub-page
-        await this.$store.dispatch(Keys.INITIALIZE_MULTI_PAGE_CONFIG, this.subPageInfo.confPath);
-      } else { // Otherwise, use main config
-        this.$store.commit(Keys.USE_MAIN_CONFIG);
-      }
+    /* When page loaded / sub-page changed, initiate config fetch */
+    async loadUpConfig() {
+      const subPage = this.determineConfigFile();
+      await this.$store.dispatch(Keys.INITIALIZE_CONFIG, subPage);
+    },
+    /* Based on the current route, get which config to display, null will use default */
+    determineConfigFile() {
+      const pagePath = this.$router.currentRoute.path;
+      const isSubPage = new RegExp((/(home|workspace|minimal)\/[a-zA-Z0-9-]+/g)).test(pagePath);
+      const subPageName = isSubPage ? pagePath.split('/').pop() : null;
+      return subPageName;
     },
     /* TEMPORARY: If on sub-page, check if custom theme is set and return it */
     getSubPageTheme() {
@@ -63,9 +68,9 @@ const HomeMixin = {
       }
     },
     setTheme() {
-      const theme = this.getSubPageTheme() || GetTheme();
-      ApplyLocalTheme(theme);
-      ApplyCustomVariables(theme);
+      // const theme = this.getSubPageTheme() || GetTheme();
+      // ApplyLocalTheme(theme);
+      // ApplyCustomVariables(theme);
     },
     updateModalVisibility(modalState) {
       this.$store.commit('SET_MODAL_OPEN', modalState);

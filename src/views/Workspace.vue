@@ -19,7 +19,6 @@ import WebContent from '@/components/Workspace/WebContent';
 import WidgetView from '@/components/Workspace/WidgetView';
 import MultiTaskingWebComtent from '@/components/Workspace/MultiTaskingWebComtent';
 import Defaults from '@/utils/defaults';
-import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
 
 export default {
   name: 'Workspace',
@@ -27,9 +26,6 @@ export default {
   data: () => ({
     url: '',
     widgets: null,
-    GetTheme,
-    ApplyLocalTheme,
-    ApplyCustomVariables,
   }),
   computed: {
     sections() {

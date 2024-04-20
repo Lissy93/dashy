@@ -56,6 +56,8 @@
     <EditModeSaveMenu v-if="isEditMode" />
     <!-- Modal for viewing and exporting configuration file -->
     <ExportConfigMenu />
+    <!-- Shows pertinent info -->
+    <NotificationThing v-if="$store.state.isUsingLocalConfig"/>
   </div>
 </template>
 
@@ -66,6 +68,7 @@ import Section from '@/components/LinkItems/Section.vue';
 import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
 import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vue';
 import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.vue';
+import NotificationThing from '@/components/Settings/LocalConfigWarning.vue';
 import StoreKeys from '@/utils/StoreMutations';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
@@ -79,6 +82,7 @@ export default {
     EditModeSaveMenu,
     ExportConfigMenu,
     AddNewSection,
+    NotificationThing,
     Section,
     BackIcon,
   },
@@ -119,12 +123,16 @@ export default {
   },
   watch: {
     layoutOrientation(layout) {
-      localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
-      this.layout = layout;
+      if (layout) {
+        localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
+        this.layout = layout;
+      }
     },
     iconSize(size) {
-      localStorage.setItem(localStorageKeys.ICON_SIZE, size);
-      this.itemSizeBound = size;
+      if (size) {
+        localStorage.setItem(localStorageKeys.ICON_SIZE, size);
+        this.itemSizeBound = size;
+      }
     },
   },
   methods: {

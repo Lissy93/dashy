@@ -56,7 +56,7 @@ export default {
         this.error('An API key is required, please see the docs for more info');
       }
       if (typeof this.options.apiKey === 'string') {
-        return [this.options.apiKey];
+        return [this.parseAsEnvVar(this.options.apiKey)];
       }
       return this.options.apiKey;
     },

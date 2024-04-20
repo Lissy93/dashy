@@ -32,7 +32,7 @@ module.exports = (ip, port, isDocker) => {
   } else {
     // Prepare message for users running app on bare metal
     msg = `${chars.GREEN}┏${line(75)}┓${chars.BR}`
-      + `┃ ${chars.CYAN}Welcome to Dashy! 🚀${blanks(55)}${chars.GREEN}┃${chars.BR}`
+      + `┃ ${chars.CYAN}Welcome to Dashy! 🚀${blanks(54)}${chars.GREEN}┃${chars.BR}`
       + `┃ ${chars.CYAN}Your new dashboard is now up and running at ${chars.BRIGHT}`
       + `http://${ip}:${port}${chars.RESET}${blanks(18 - ip.length)}${chars.GREEN}┃${chars.BR}`
       + `┗${line(75)}┛${chars.BR}${chars.BR}${chars.RESET}`;

@@ -9,12 +9,12 @@
 
 /* eslint-disable global-require */
 
-import ConfigAccumulator from '@/utils/ConfigAccumalator';
+import $store from '@/store';
 import { sentryDsn } from '@/utils/defaults';
 
 const ErrorReporting = (Vue, router) => {
   // Fetch users config
-  const appConfig = new ConfigAccumulator().appConfig() || {};
+  const appConfig = $store.getters.appConfig || {};
   // Check if error reporting is enabled. Only proceed if user has turned it on.
   if (appConfig.enableErrorReporting) {
     // Get current app version

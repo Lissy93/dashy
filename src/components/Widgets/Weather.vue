@@ -46,13 +46,12 @@ export default {
       return this.options.units || 'metric';
     },
     endpoint() {
-      const {
-        apiKey, city, lat, lon,
-      } = this.options;
-      if (lat && lon) {
-        return `${widgetApiEndpoints.weather}?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${this.units}`;
-      }
-      return `${widgetApiEndpoints.weather}?q=${city}&appid=${apiKey}&units=${this.units}`;
+      const apiKey = this.parseAsEnvVar(this.options.apiKey);
+      const { city, lat, lon } = this.options;
+      const params = (lat && lon)
+        ? `lat=${lat}&lon=${lon}&appid=${apiKey}&units=${this.units}`
+        : `q=${city}&appid=${apiKey}&units=${this.units}`;
+      return `${widgetApiEndpoints.weather}?${params}`;
     },
     tempDisplayUnits() {
       switch (this.units) {

@@ -45,15 +45,15 @@ export default {
   computed: {
     hostname() {
       if (!this.options.hostname) this.error('A hostname is required');
-      return this.options.hostname;
+      return this.parseAsEnvVar(this.options.hostname);
     },
     username() {
       if (!this.options.username) this.error('A username is required');
-      return this.options.username;
+      return this.parseAsEnvVar(this.options.username);
     },
     password() {
       if (!this.options.password) this.error('A password is required');
-      return this.options.password;
+      return this.parseAsEnvVar(this.options.password);
     },
     endpointLogin() {
       return `${this.hostname}/webapi/auth.cgi?api=SYNO.API.Auth&version=3&method=login&account=${this.username}&passwd=${this.password}&session=DownloadStation&format=sid`;

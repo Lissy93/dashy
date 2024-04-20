@@ -534,6 +534,37 @@
                 }
               }
             },
+            "enableHeaderAuth": {
+              "title": "Enable HeaderAuth?",
+              "type": "boolean",
+              "default": false,
+              "description": "If set to true, enable Header Authentication. See appConfig.auth.headerAuth"
+            },
+            "headerAuth": {
+              "type": "object",
+              "description": "Configuration for headerAuth",
+              "additionalProperties": false,
+              "required": [
+                "proxyWhitelist"
+              ],
+              "properties": {
+                "userHeader": {
+                  "title": "User Header",
+                  "type": "string",
+                  "description": "Header name which contains username",
+                  "default": "REMOTE_USER"
+                },
+                "proxyWhitelist": {
+                  "title": "Upstream Proxy Auth Trust",
+                  "type": "array",
+                  "description": "Upstream proxy servers to expect authenticated requests from",
+                  "items": {
+                    "type": "string",
+                    "description": "IPs of upstream proxies that will be trusted"
+                  }
+                }
+              }
+            },
             "enableKeycloak": {
               "title": "Enable Keycloak?",
               "type": "boolean",

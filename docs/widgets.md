@@ -92,6 +92,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Widget Usage Guide](#widget-usage-guide)
   - [Continuous Updates](#continuous-updates)
   - [Proxying Requests](#proxying-requests)
+  - [Handling Secrets](#handling-secrets)
   - [Setting Timeout](#setting-timeout)
   - [Adding Labels](#adding-labels)
   - [Ignoring Errors](#ignoring-errors)
@@ -1554,6 +1555,19 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
     apiKey: xxxxxxxxxxxxxxxxxxxxxxx
 ```
 
+> [!TIP]
+> In order to avoid leaking secret data, both `hostname` and `apiKey` can leverage environment variables. Simply pass the name of the variable, which MUST start with `VUE_APP_`.
+
+```yaml
+- type: pi-hole-stats
+  options:
+    hostname: VUE_APP_pihole_ip
+    apiKey: VUE_APP_pihole_key
+```
+
+> [!IMPORTANT]
+> You will need to restart the server (or the docker image) if adding/editing an env var for this to be refreshed.
+
 #### Info
 
 - **CORS**: 🟢 Enabled
@@ -2840,6 +2854,32 @@ Alternatively, and more securely, you can set the auth headers on your service t
 Access-Control-Allow-Origin: https://location-of-dashy/
 Vary: Origin
 ```
+
+---
+
+### Handling Secrets
+
+Some widgets require you to pass potentially sensetive info such as API keys. The `conf.yml` is not ideal for this, as it's stored in plaintext.
+Instead, for secrets you should use environmental vairables.
+
+You can do this, by setting the environmental variable name as the value, instead of the actual key, and then setting that env var in your container or local environment.
+
+The key can be named whatever you like, but it must start with `VUE_APP_` (to be picked up by Vue). If you need to update any of these values, a rebuild is required (this can be done under the Config menu in the UI, or by running `yarn build` then restarting the container).
+
+For more infomation about setting and managing your environmental variables, see [Management Docs --> Environmental Variables](/docs/management.md#passing-in-environmental-variables).
+
+For example:
+
+```yaml
+- type: weather
+  options:
+    apiKey: VUE_APP_WEATHER_TOKEN
+    city: London
+    units: metric
+    hideDetails: true
+```
+
+Then, set `VUE_APP_WEATHER_TOKEN='xxx'`
 
 ---
 

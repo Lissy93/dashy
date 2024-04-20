@@ -28,7 +28,7 @@ RUN yarn build --mode production
 FROM node:20.11.1-alpine3.19
 
 # Define some ENV Vars
-ENV PORT=80 \
+ENV PORT=8080 \
   DIRECTORY=/app \
   IS_DOCKER=true
 
@@ -40,8 +40,6 @@ RUN apk add --no-cache tzdata
 
 # Copy built application from build phase
 COPY --from=BUILD_IMAGE /app ./
-# Ensure only one version of conf.yml exists
-RUN rm dist/conf.yml
 
 # Finally, run start command to serve up the built application
 CMD [ "yarn", "build-and-start" ]

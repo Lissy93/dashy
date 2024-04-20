@@ -12,21 +12,17 @@ services:
     # To build from source, replace 'image: lissy93/dashy' with 'build: .'
     # build: .
 
-    # Or, to use a Dockerfile for your archtecture, uncomment the following
-    # context: .
-    # dockerfile: ./docker/Dockerfile-arm32v7
-
     # You can also use an image with a different tag, or pull from a different registry, e.g:
-    # image: ghcr.io/lissy93/dashy or image: lissy93/dashy:arm64v8
+    # image: ghcr.io/lissy93/dashy or image: lissy93/dashy:3.0.0
 
     # Pass in your config file below, by specifying the path on your host machine
     # volumes:
-      # - /path/to/my-config.yml:/app/public/conf.yml
-      # - /path/to/item-icons:/app/public/item-icons
+      # - /path/to/my-config.yml:/app/user-data/conf.yml
+      # - /path/to/item-icons:/app/user-data/item-icons/
 
     # Set port that web service will be served on. Keep container port as 80
     ports:
-      - 4000:80
+      - 4000:8080
 
     # Set any environmental variables
     environment:

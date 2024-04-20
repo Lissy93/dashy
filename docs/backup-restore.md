@@ -1,5 +1,7 @@
 # Cloud Backup and Restore
 
+Beyond the cloud backup/restore service, there are several other self-hosted options you can use to backup Dashy, and any other Docker container data. These are outlined in the Management docs, at: [Docker Backup Options](/docs/management.md#backing-up).
+
 Dashy has a built-in feature for securely backing up your config to a hosted cloud service, and then restoring it on another instance. This feature is totally optional, and if you do not enable it, then Dashy will not make any external network requests.
 
 This is useful not only for backing up your configuration off-site, but it also enables Dashy to be used without having write a YAML config file, and makes it possible to use a public hosted instance, without the need to self-host.

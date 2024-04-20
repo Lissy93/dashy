@@ -38,12 +38,12 @@ export default {
     /* The username to fetch data from - REQUIRED */
     username() {
       if (!this.options.username) this.error('You must specify a username');
-      return this.options.username;
+      return this.parseAsEnvVar(this.options.username);
     },
     /* Optionally override hostname, if using a self-hosted instance */
     hostname() {
       if (this.options.hostname) return this.options.hostname;
-      return widgetApiEndpoints.codeStats;
+      return this.parseAsEnvVar(widgetApiEndpoints.codeStats);
     },
     hideMeta() {
       return this.options.hideMeta || false;

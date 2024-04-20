@@ -155,12 +155,23 @@ export default {
     },
     /* When restored data is revieved, then save to local storage, and apply it in state */
     applyRestoredData(config, backupId) {
-      // Store restored data in local storage
-      localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(config.sections));
-      localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(config.appConfig));
-      localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(config.pageInfo));
-      if (config.appConfig.theme) {
-        localStorage.setItem(localStorageKeys.THEME, config.appConfig.theme);
+      const isSubPage = !!this.$store.state.currentConfigInfo.confId;
+      if (isSubPage) { // Apply to sub-page only
+        const subConfigId = this.$store.state.currentConfigInfo.confId;
+        const sectionStorageKey = `${localStorageKeys.CONF_SECTIONS}-${subConfigId}`;
+        const pageInfoStorageKey = `${localStorageKeys.PAGE_INFO}-${subConfigId}`;
+        const themeStoreKey = `${localStorageKeys.THEME}-${subConfigId}`;
+        localStorage.setItem(sectionStorageKey, JSON.stringify(config.sections));
+        localStorage.setItem(pageInfoStorageKey, JSON.stringify(config.pageInfo));
+        localStorage.setItem(themeStoreKey, config.appConfig.theme);
+      } else { // Apply to main config
+        localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(config.sections));
+        localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(config.appConfig));
+        localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(config.pageInfo));
+        localStorage.setItem(localStorageKeys.CONF_PAGES, JSON.stringify(config.pages || []));
+        if (config.appConfig.theme) {
+          localStorage.setItem(localStorageKeys.THEME, config.appConfig.theme);
+        }
       }
       // Save hashed token in local storage
       this.setBackupIdLocally(backupId, this.restorePassword);

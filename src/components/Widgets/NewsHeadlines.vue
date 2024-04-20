@@ -29,7 +29,7 @@ export default {
   computed: {
     apiKey() {
       if (!this.options.apiKey) this.error('An API key is required, see docs for more info');
-      return this.options.apiKey;
+      return this.parseAsEnvVar(this.options.apiKey);
     },
     country() {
       return this.options.country ? `&country=${this.options.country}` : '';

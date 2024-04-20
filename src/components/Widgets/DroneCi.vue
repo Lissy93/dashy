@@ -106,7 +106,7 @@ export default {
       if (!this.options.apiKey) {
         this.error('An API key is required, please see the docs for more info');
       }
-      return this.options.apiKey;
+      return this.parseAsEnvVar(this.options.apiKey);
     },
   },
   methods: {

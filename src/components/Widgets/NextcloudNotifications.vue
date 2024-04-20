@@ -22,7 +22,7 @@
           </span>
           <span v-if="canDeleteNotification('delete')">
             <a @click="deleteNotification(notification.notification_id)"
-               class="action secondary">{{ tt('delete-notification') }}</a>
+              class="action secondary">{{ tt('delete-notification') }}</a>
           </span>
         </p>
       </div>
