@@ -30,11 +30,11 @@ _The following article is a primer on managing self-hosted apps. It covers every
 
 Although not essential, you will most likely want to provide several assets to your running app.
 
-This is easy to do using [Docker Volumes](https://docs.docker.com/storage/volumes/), which lets you share a file or directory between your host system, and the container. Volumes are specified in the Docker run command, or Docker compose file, using the `--volume` or `-v` flags. The value of which consists of the path to the file / directory on your host system, followed by the destination path within the container. Fields are separated by a colon (`:`), and must be in the correct order. For example: `-v ~/alicia/my-local-conf.yml:/app/public/conf.yml`
+This is easy to do using [Docker Volumes](https://docs.docker.com/storage/volumes/), which lets you share a file or directory between your host system, and the container. Volumes are specified in the Docker run command, or Docker compose file, using the `--volume` or `-v` flags. The value of which consists of the path to the file / directory on your host system, followed by the destination path within the container. Fields are separated by a colon (`:`), and must be in the correct order. For example: `-v ~/alicia/my-local-conf.yml:/app/user-data/conf.yml`
 
 In Dashy, commonly configured resources include:
 
-- `./public/conf.yml` - Your main application config file
+- `./user-data/conf.yml` - Your main application config file
 - `./public/item-icons` - A directory containing your own icons. This allows for offline access, and better performance than fetching from a CDN
 - Also within `./public` you'll find standard website assets, including `favicon.ico`, `manifest.json`, `robots.txt`, etc. There's no need to pass these in, but you can do so if you wish
 - `/src/styles/user-defined-themes.scss` - A stylesheet for applying custom CSS to your app. You can also write your own themes here.
@@ -197,7 +197,9 @@ docker run --rm -v some_volume:/volume -v /tmp:/backup alpine sh -c "rm -rf /vol
 
 ### Dashy-Specific Backup
 
-Since Dashy is open source, and freely available, providing you're configuration data is passed in as volumes, there shouldn't be any need to backup the main container. Your main config file, and any assets you're using should be kept backed up, preferably in at least two places, and you should ensure that you can easily restore from backup, if needed.
+All configuration and dashboard settings are stored in your `user-data/conf.yml` file. If you provide additional assets (like icons, fonts, themes, etc), these will also live in the `user-data` directory. So to backup all Dashy data, this is the only directory you need to backup.
+
+Since Dashy is open source, there shouldn't be any need to backup the main container.
 
 Dashy also has a built-in cloud backup feature, which is free for personal users, and will let you make and restore fully encrypted backups of your config directly through the UI. To learn more, see the [Cloud Backup Docs](/docs/backup-restore)
 
@@ -238,7 +240,7 @@ Once you've generated your SSL cert, you'll need to pass it to Dashy. This can b
 
 ```bash
 docker run -d \
-  -p 8080:80 \
+  -p 8080:8080 \
   -v ~/my-private-key.key:/etc/ssl/certs/dashy-priv.key:ro \
   -v ~/my-public-key.pem:/etc/ssl/certs/dashy-pub.pem:ro \
   lissy93/dashy:latest
@@ -276,9 +278,9 @@ services:
     container_name: Dashy
     image: lissy93/dashy
     volumes:
-      - /root/my-config.yml:/app/public/conf.yml
+      - /root/my-config.yml:/app/user-data/conf.yml
     ports:
-      - 4000:80
+      - 4000:8080
     environment:
       - BASE_URL=/my-dashboard
     restart: unless-stopped
@@ -550,7 +552,7 @@ upstream dashy {
 }
 
 server {
-  listen         80;
+  listen         8080;
   server_name    dashy.mydomain.com;
 
   # Setup SSL
@@ -577,7 +579,7 @@ Similarly, a basic `Caddyfile` might look like:
 
 ```text
 dashy.example.com {
-    reverse_proxy / nginx:80
+    reverse_proxy / nginx:8080
 }
 ```
 
@@ -614,7 +616,7 @@ To prevent known container escape vulnerabilities, which typically end in escala
 Docker enables you to limit resource consumption (CPU, memory, disk) on a per-container basis. This not only enhances system performance, but also prevents a compromised container from consuming a large amount of resources, in order to disrupt service or perform malicious activities. To learn more, see the [Resource Constraints Docs](https://docs.docker.com/config/containers/resource_constraints/)
 
 For example, to run Dashy with max of 1GB ram, and max of 50% of 1 CP core:
-`docker run -d -p 8080:80 --cpus=".5" --memory="1024m" lissy93/dashy:latest`
+`docker run -d -p 8080:8080 --cpus=".5" --memory="1024m" lissy93/dashy:latest`
 
 ### Don't Run as Root
 
@@ -629,7 +631,7 @@ One of the best ways to prevent privilege escalation attacks, is to configure th
 You can specify a user, using the [`--user` param](https://docs.docker.com/engine/reference/run/#user), and should include the user ID (`UID`), which can be found by running `id -u`, and the and the group ID (`GID`), using `id -g`.
 
 With Docker run, you specify it like:
-`docker run --user 1000:1000 -p 8080:80 lissy93/dashy`
+`docker run --user 1000:1000 -p 8080:8080 lissy93/dashy`
 
 Of if you're using Docker-compose, you could use an environmental variable
 
@@ -639,7 +641,7 @@ services:
   dashy:
     image: lissy93/dashy
     user: ${CURRENT_UID}
-    ports: [ 4000:80 ]
+    ports: [ 4000:8080 ]
 ```
 
 And then to set the variable, and start the container, run: `CURRENT_UID=$(id -u):$(id -g) docker-compose up`
@@ -659,7 +661,7 @@ version: "3.8"
 services:
   dashy:
     image: lissy93/dashy
-    ports: [ 4000:80 ]
+    ports: [ 4000:8080 ]
     cap_drop:
     - ALL
     cap_add:
@@ -675,7 +677,7 @@ services:
 To prevent processes inside the container from getting additional privileges, pass in the `--security-opt=no-new-privileges:true` option to the Docker run command (see [docs](https://docs.docker.com/engine/reference/run/#security-configuration)).
 
 Run Command:
-`docker run --security-opt=no-new-privileges:true -p 8080:80 lissy93/dashy`
+`docker run --security-opt=no-new-privileges:true -p 8080:8080 lissy93/dashy`
 
 Docker Compose
 
@@ -701,14 +703,14 @@ You can specify that a specific volume should be read-only by appending `:ro` to
 
 ```bash
 docker run -d \
-  -p 8080:80 \
-  -v ~/dashy-conf.yml:/app/public/conf.yml \
+  -p 8080:8080 \
+  -v ~/dashy-conf.yml:/app/user-data/conf.yml \
   -v ~/dashy-icons:/app/public/item-icons:ro \
   -v ~/dashy-theme.scss:/app/src/styles/user-defined-themes.scss:ro \
   lissy93/dashy:latest
 ```
 
-You can also prevent a container from writing any changes to volumes on your host's disk, using the `--read-only` flag. Although, for Dashy, you will not be able to write config changes to disk, when edited through the UI with this method. You could make this work, by specifying the config directory as a temp write location, with `--tmpfs /app/public/conf.yml` - but  that this will not write the volume back to your host.
+You can also prevent a container from writing any changes to volumes on your host's disk, using the `--read-only` flag. Although, for Dashy, you will not be able to write config changes to disk, when edited through the UI with this method. You could make this work, by specifying the config directory as a temp write location, with `--tmpfs /app/user-data/conf.yml` - but  that this will not write the volume back to your host.
 
 ### Set the Logging Level
 
@@ -778,8 +780,8 @@ Create a new file in `/etc/nginx/sites-enabled/dashy`
 
 ```text
 server {
-	listen 80;
-	listen [::]:80;
+	listen 8080;
+	listen [::]:8080;
 
 	root /var/www/dashy/html;
 	index index.html;
@@ -898,7 +900,7 @@ Similar to above, you'll first need to fork and clone Dashy to your local system
 
 Then, either use Dashy's default [`Dockerfile`](https://github.com/Lissy93/dashy/blob/master/Dockerfile) as is, or modify it according to your needs.
 
-To build and deploy locally, first build the app with: `docker build -t dashy .`, and then start the app with `docker run -p 8080:80 --name my-dashboard dashy`.  Or modify the `docker-compose.yml` file, replacing `image: lissy93/dashy` with `build: .` and run `docker compose up`.
+To build and deploy locally, first build the app with: `docker build -t dashy .`, and then start the app with `docker run -p 8080:8080 --name my-dashboard dashy`.  Or modify the `docker-compose.yml` file, replacing `image: lissy93/dashy` with `build: .` and run `docker compose up`.
 
 Your container should now be running, and will appear in the list when you run `docker container ls –a`. If you'd like to enter the container, run `docker exec -it [container-id] /bin/ash`.
 

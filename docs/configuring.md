@@ -1,6 +1,6 @@
 # Configuring
 
-All app configuration is specified in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml) which is in [YAML Format](https://yaml.org/) format. If you're using Docker, this file can be passed in as a volume. Changes can either be made directly to this file, or done [through the UI](#editing-config-through-the-ui). From the UI you can also export, backup, reset, validate and download your configuration file.
+All app configuration is specified in [`/user-data/conf.yml`](https://github.com/Lissy93/dashy/blob/master/user-data/conf.yml) which is in [YAML Format](https://yaml.org/) format. If you're using Docker, this file can be passed in as a volume. Changes can either be made directly to this file, or done [through the UI](#editing-config-through-the-ui). From the UI you can also export, backup, reset, validate and download your configuration file.
 
 ## There are three ways to edit the config
 
@@ -36,6 +36,7 @@ The following file provides a reference of all supported configuration options.
   - [`auth`](#appconfigauth-optional) - Built-in authentication setup
     - [`users`](#appconfigauthusers-optional) - List or users (for simple auth)
     - [`keycloak`](#appconfigauthkeycloak-optional) - Auth config for Keycloak
+    - [`headerAuth`](#appconfigauthheaderauth-optional) - Auth config for HeaderAuth
 - [**`sections`**](#section) - List of sections
   - [`displayData`](#sectiondisplaydata-optional) - Section display settings
     - [`show/hideForKeycloakUsers`](#sectiondisplaydatahideforkeycloakusers-sectiondisplaydatashowforkeycloakusers-itemdisplaydatahideforkeycloakusers-and-itemdisplaydatashowforkeycloakusers) - Set user controls
@@ -101,7 +102,7 @@ The following file provides a reference of all supported configuration options.
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`language`** | `string` | _Optional_ | The 2 (or 4-digit) [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language, e.g. `en` or `en-GB`. This must be a language that the app has already been [translated](https://github.com/Lissy93/dashy/tree/master/src/assets/locales) into. If your language is unavailable, Dashy will fallback to English. By default Dashy will attempt to auto-detect your language, although this may not work on some privacy browsers.
-**`startingView`** | `enum` | _Optional_ | Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI. Can be either `default`, `minimal` or `workspace`. Defaults to `default`
+~~**`startingView`**~~ | `enum` | _Optional_ | Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI. Can be either `default`, `minimal` or `workspace`. Defaults to `default`. NOTE: This has been replaced by an environmental variable: `VUE_APP_STARTING_VIEW` in V3 onwards
 **`defaultOpeningMethod`** | `enum` | _Optional_ | The default opening method for items, if no `target` is specified for a given item. Can be either `newtab`, `sametab`, `modal`, `workspace`, `clipboard`, `top` or `parent`. Defaults to `newtab`
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping each of your services and display their status as a dot next to each item. This can be overridden by setting `statusCheck` under each item. Defaults to `false`
 **`statusCheckInterval`** | `number` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
@@ -142,11 +143,21 @@ The following file provides a reference of all supported configuration options.
 
 ## `appConfig.auth` _(optional)_
 
+> [!NOTE]
+> Since the auth is initiated in the main app entry point (for security), a rebuild is required to apply changes to the auth configuration.
+> You can trigger a rebuild through the UI, under Config --> Rebuild, or by running `yarn build` in the root directory.
+
+> [!WARNING]
+> Built-in auth should **not be used** for security-critical applications, or if your Dashy instance is publicly accessible.
+> For these, it is recommended to use an [alternate authentication method](/docs/authentication#alternative-authentication-methods).
+
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`users`** | `array` | _Optional_ | An array of objects containing usernames and hashed passwords. If this is not provided, then authentication will be off by default, and you will not need any credentials to access the app. See [`appConfig.auth.users`](#appconfigauthusers-optional). <br />**Note** this method of authentication is handled on the client side, so for security critical situations, it is recommended to use an [alternate authentication method](/docs/authentication#alternative-authentication-methods).
 **`enableKeycloak`** | `boolean` | _Optional_ | If set to `true`, then authentication using Keycloak will be enabled. Note that you need to have an instance running, and have also configured `auth.keycloak`. Defaults to `false`
 **`keycloak`** | `object` | _Optional_ | Config options to point Dashy to your Keycloak server. Requires `enableKeycloak: true`. See  [`auth.keycloak`](#appconfigauthkeycloak-optional) for more info
+**`enableHeaderAuth`** | `boolean` | _Optional_ | If set to `true`, then authentication using HeaderAuth will be enabled. Note that you need to have your web server/reverse proxy running, and have also configured `auth.headerAuth`. Defaults to `false`
+**`headerAuth`** | `object` | _Optional_ | Config options to point Dashy to your headers for authentication. Requires `enableHeaderAuth: true`. See  [`auth.headerAuth`](#appconfigauthheaderauth-optional) for more info
 **`enableGuestAccess`** | `boolean` | _Optional_ | When set to `true`, an unauthenticated user will be able to access the dashboard, with read-only access, without having to login. Requires `auth.users` to be configured. Defaults to `false`.
 
 For more info, see the **[Authentication Docs](/docs/authentication)**
@@ -171,6 +182,15 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`realm`** | `string` | Required | The name of the realm (must already be created) that you want to use
 **`clientId`** | `string` | Required | The Client ID of the client you created for use with Dashy
 **`legacySupport`** | `boolean` | _Optional_ | If using Keycloak 17 or older, then set this to `true`
+
+**[⬆️ Back to Top](#top)**
+
+## `appConfig.auth.headerAuth` _(optional)_
+
+**Field** | **Type** | **Required**| **Description**
+--- | --- | --- | ---
+**`userHeader`** | `string` | _Optional_ | The Header name which contains username (default: REMOTE_USER). Case insensitive
+**`proxyWhitelist`** | `array` | Required | An array of Upstream proxy servers to expect authencticated requests from
 
 **[⬆️ Back to Top](#top)**
 

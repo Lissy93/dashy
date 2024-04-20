@@ -20,13 +20,18 @@
 
 
 > [!IMPORTANT]
-> Dashy's built-in auth is not indented to protect a publicly hosted instance against unauthorized access. Instead you should use an auth provider compatible with your reverse proxy, or access Dashy via your VPN. 
+> Dashy's built-in auth is not indented to protect a publicly hosted instance against unauthorized access. Instead you should use an auth provider compatible with your reverse proxy, or access Dashy via your VPN, or implement your own SSO logic. 
 >
 > In cases where Dashy is only accessibly within your home network, and you just want to add a login page, then the built-in auth may be sufficient, but keep in mind that configuration can still be accessed.
 
 ## Built-In Auth
 
 Dashy has a basic login page included, and frontend authentication. You can enable this by adding users to the `auth` section under `appConfig` in your `conf.yml`. If this section is not specified, then no authentication will be required to access the app, and the homepage will resolve to your dashboard.
+
+> [!NOTE]
+> Since the auth is initiated in the main app entry point (for security), a rebuild is required to apply changes to the auth configuration.
+> You can trigger a rebuild through the UI, under Config --> Rebuild, or by running `yarn build` in the root directory.
+
 
 ### Setting Up Authentication
 
@@ -263,7 +268,7 @@ In NGINX you can specify [control access](https://docs.nginx.com/nginx/admin-gui
 
 ```text
 server {
-	listen 80;
+	listen 8080;
 	server_name www.dashy.example.com;
 	location / {
 		root /path/to/dashy/;
