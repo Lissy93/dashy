@@ -34,6 +34,7 @@ jobs:
         bodyFile: ".github/LATEST_CHANGELOG.md"
   mark-issue-fixed:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'issues' }}
     steps:
     - uses: actions/checkout@v2
     - name: Label Fixed Issues
