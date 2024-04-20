@@ -42,7 +42,7 @@ const isServer = process.env.IS_DOCKER || process.env.IS_SERVER || false;
 const plugins = !isServer ? [
   new CopyWebpackPlugin({
     patterns: [
-      !isServer ? { from: './user-data', to: './' } : {},
+      { from: './user-data', to: './' },
     ],
   }),
 ] : [];
