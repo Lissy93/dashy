@@ -1,9 +1,15 @@
 <template>
 <div class="readme-stats">
-  <img class="stats-card" v-if="!hideProfileCard" :src="profileCard" alt="Profile Card" />
-  <img class="stats-card" v-if="!hideLanguagesCard" :src="topLanguagesCard" alt="Languages" />
+  <a v-if="!hideProfileCard" :href="profileCardLink" target="_blank">
+    <img class="stats-card" :src="profileCard" alt="Profile Card" />
+  </a>
+  <a v-if="!hideLanguagesCard" :href="profileCardLink" target="_blank">
+    <img class="stats-card" :src="topLanguagesCard" alt="Languages" />
+  </a>
   <template v-if="repos">
-    <img class="stats-card" v-for="(repo, i) in repoCards" :key="i" :src="repo" :alt="repo" />
+    <a v-for="(repo, i) in repoCards" :key="i" :href="repo.cardHref" target="_blank">
+      <img class="stats-card" :src="repo.cardSrc" :alt="repo" />
+    </a>
   </template>
 </div>
 </template>
@@ -61,6 +67,9 @@ export default {
     profileCard() {
       return `${widgetApiEndpoints.readMeStats}?username=${this.username}${this.cardConfig}`;
     },
+    profileCardLink() {
+      return `https://github.com/${this.username}`;
+    },
     topLanguagesCard() {
       return `${widgetApiEndpoints.readMeStats}/top-langs/?username=${this.username}`
       + `${this.cardConfig}&langs_count=12`;
@@ -70,8 +79,11 @@ export default {
       this.repos.forEach((repo) => {
         const username = repo.split('/')[0];
         const repoName = repo.split('/')[1];
-        cards.push(`${widgetApiEndpoints.readMeStats}/pin/?username=${username}&repo=${repoName}`
-        + `${this.cardConfig}&show_owner=true`);
+        cards.push({
+          cardSrc: `${widgetApiEndpoints.readMeStats}/pin/?username=${username}`
+            + `&repo=${repoName}${this.cardConfig}&show_owner=true`,
+          cardHref: `https://github.com/${username}/${repoName}`,
+        });
       });
       return cards;
     },
