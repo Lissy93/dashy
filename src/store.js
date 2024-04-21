@@ -335,6 +335,7 @@ const store = new Vuex.Store({
           data = yaml.load(response.data);
         } catch (parseError) {
           commit(CRITICAL_ERROR_MSG, `Failed to parse YAML: ${parseError.message}`);
+          return {};
         }
         // Replace missing root properties with empty objects
         if (!data.appConfig) data.appConfig = {};
@@ -417,14 +418,14 @@ const store = new Vuex.Store({
                 commit(SET_IS_USING_LOCAL_CONFIG, true);
               }
             } catch (e) {
-              ErrorHandler('Malformed section data in local storage for sub-config');
+              commit(CRITICAL_ERROR_MSG, 'Malformed section data in local storage for sub-config');
             }
           }
           // Set the config
           commit(SET_CONFIG, configContent);
           commit(SET_CURRENT_CONFIG_INFO, { confPath: subConfigPath, confId: subConfigId });
         }).catch((err) => {
-          ErrorHandler(`Unable to load config from '${subConfigPath}'`, err);
+          commit(CRITICAL_ERROR_MSG, `Unable to load config from '${subConfigPath}'`, err);
         });
       }
       return null;
