@@ -41,6 +41,7 @@ const {
   INSERT_ITEM,
   UPDATE_CUSTOM_CSS,
   CONF_MENU_INDEX,
+  CRITICAL_ERROR_MSG,
 } = Keys;
 
 const store = new Vuex.Store({
@@ -51,6 +52,7 @@ const store = new Vuex.Store({
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
     currentConfigInfo: {}, // For multi-page support, will store info about config file
     isUsingLocalConfig: false, // If true, will use local config instead of fetched
+    criticalError: null, // Will store a message, if a critical error occurs
     navigateConfToTab: undefined, // Used to switch active tab in config modal
   },
   getters: {
@@ -173,6 +175,10 @@ const store = new Vuex.Store({
         InfoHandler(editMode ? 'Edit session started' : 'Edit session ended', InfoKeys.EDITOR);
         state.editMode = editMode;
       }
+    },
+    [CRITICAL_ERROR_MSG](state, message) {
+      if (message) ErrorHandler(message);
+      state.criticalError = message;
     },
     [UPDATE_ITEM](state, payload) {
       const { itemId, newItem } = payload;
@@ -320,16 +326,38 @@ const store = new Vuex.Store({
   actions: {
     /* Fetches the root config file, only ever called by INITIALIZE_CONFIG */
     async [INITIALIZE_ROOT_CONFIG]({ commit }) {
-      // Load and parse config from root config file
       const configFilePath = process.env.VUE_APP_CONFIG_PATH || '/conf.yml';
-      const data = await yaml.load((await axios.get(configFilePath)).data);
-      // Replace missing root properties with empty objects
-      if (!data.appConfig) data.appConfig = {};
-      if (!data.pageInfo) data.pageInfo = {};
-      if (!data.sections) data.sections = [];
-      // Set the state, and return data
-      commit(SET_ROOT_CONFIG, data);
-      return data;
+      try {
+        // Attempt to fetch the YAML file
+        const response = await axios.get(configFilePath);
+        let data;
+        try {
+          data = yaml.load(response.data);
+        } catch (parseError) {
+          commit(CRITICAL_ERROR_MSG, `Failed to parse YAML: ${parseError.message}`);
+        }
+        // Replace missing root properties with empty objects
+        if (!data.appConfig) data.appConfig = {};
+        if (!data.pageInfo) data.pageInfo = {};
+        if (!data.sections) data.sections = [];
+        // Set the state, and return data
+        commit(SET_ROOT_CONFIG, data);
+        commit(CRITICAL_ERROR_MSG, null);
+        return data;
+      } catch (fetchError) {
+        if (fetchError.response) {
+          commit(
+            CRITICAL_ERROR_MSG,
+            'Failed to fetch configuration: Server responded with status '
+            + `${fetchError.response?.status || 'mystery status'}`,
+          );
+        } else if (fetchError.request) {
+          commit(CRITICAL_ERROR_MSG, 'Failed to fetch configuration: No response from server');
+        } else {
+          commit(CRITICAL_ERROR_MSG, `Failed to fetch configuration: ${fetchError.message}`);
+        }
+        return {};
+      }
     },
     /**
      * Fetches config and updates state
@@ -351,7 +379,7 @@ const store = new Vuex.Store({
             const json = JSON.parse(localSectionsRaw);
             if (json.length >= 1) localSections = json;
           } catch (e) {
-            ErrorHandler('Malformed section data in local storage');
+            commit(CRITICAL_ERROR_MSG, 'Malformed section data in local storage');
           }
         }
         if (localSections.length > 0) {
@@ -366,7 +394,7 @@ const store = new Vuex.Store({
         )?.path);
 
         if (!subConfigPath) {
-          ErrorHandler(`Unable to find config for '${subConfigId}'`);
+          commit(CRITICAL_ERROR_MSG, `Unable to find config for '${subConfigId}'`);
           return null;
         }
 

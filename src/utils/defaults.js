@@ -135,6 +135,7 @@ module.exports = {
     MOST_USED: 'mostUsed',
     LAST_USED: 'lastUsed',
     KEYCLOAK_INFO: 'keycloakInfo',
+    DISABLE_CRITICAL_WARNING: 'disableCriticalWarning',
   },
   /* Key names for cookie identifiers */
   cookieKeys: {
