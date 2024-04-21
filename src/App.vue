@@ -3,8 +3,8 @@
     <EditModeTopBanner v-if="isEditMode" />
     <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash" />
     <Header :pageInfo="pageInfo" />
-    <CriticalError />
     <router-view v-if="!isFetching" />
+    <CriticalError v-if="hasCriticalError" />
     <Footer :text="footerText" v-if="visibleComponents.footer && !isFetching" />
   </div>
 </template>
@@ -74,6 +74,9 @@ export default {
     },
     isEditMode() {
       return this.$store.state.editMode;
+    },
+    hasCriticalError() {
+      return this.$store.state.criticalError;
     },
     subPageClassName() {
       const currentSubPage = this.$store.state.currentConfigInfo;
