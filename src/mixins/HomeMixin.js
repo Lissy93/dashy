@@ -34,12 +34,17 @@ const HomeMixin = {
   data: () => ({
     searchValue: '',
   }),
-  async mounted() {
-    // await this.getConfigForRoute();
-  },
   watch: {
     async $route() {
       this.loadUpConfig();
+    },
+    pageInfo: {
+      handler(newPageInfo) {
+        if (newPageInfo && newPageInfo.title) {
+          document.title = newPageInfo.title;
+        }
+      },
+      immediate: true,
     },
   },
   async created() {
