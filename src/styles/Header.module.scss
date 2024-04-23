@@ -73,7 +73,7 @@ header.heroBanner {
   cursor: pointer;
   margin: 2rem auto;
   position: absolute;
-  bottom: 2rem;
+  bottom: 0;
   left: 42%;
   @media (max-width: 966px) {
    display: none;
@@ -90,4 +90,26 @@ header.heroBanner {
 .scrollDownIcon {
   width: 2rem;
   path { fill:  var(--text-color); }
+}
+
+.sponsor {
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.5rem;
+  background: var(--background);
+  padding: 0.5rem;
+  border-radius: 6px;
+  color: var(--text-color);
+  img {
+    border-radius: 6px;
+  }
+  span {
+    font-size: 1rem;
+    text-align: center;
+    a {
+      font-size: 1rem;
+      color: var(--text-color);
+    }
+  }
 }

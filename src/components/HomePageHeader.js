@@ -44,6 +44,15 @@ export default function HomepageHeader() {
         <span className={styles.keepReading} onClick={() => setShowMore(!showMore)}>
           {!showMore ? 'Keep Reading...' : 'Show Less'}
         </span>
+        <div className={styles.sponsor}>
+          <span>
+            Dashy is kindly sponsored by <a href="https://umbrel.com?ref=dashy" target="_blank">Umbrel</a> -
+            the personal home cloud and OS for self-hosting
+          </span>
+          <a href="https://umbrel.com?ref=dashy" target="_blank">
+            <img src="/umbrel-banner.jpg" />
+          </a>
+        </div>
       </div>
       <CarbonAd />
       {(!showMore) &&
