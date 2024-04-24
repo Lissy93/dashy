@@ -12,7 +12,7 @@
 <br>
 <sup>Dashy is kindly sponsored by <a href="https://umbrel.com?ref=dashy">Umbrel</a> - the personal home cloud and OS for self-hosting</sup><br>
 <a href="https://umbrel.com?ref=dashy">
-<img width="400" src="https://github.com/Lissy93/dashy/blob/WEBSITE/docs-site-source/static/umbrel-banner.jpg?raw=true" />
+<img width="460" src="https://github.com/Lissy93/dashy/blob/WEBSITE/docs-site-source/static/umbrel-banner-github.jpg?raw=true" />
 </a>
 </p>
 
