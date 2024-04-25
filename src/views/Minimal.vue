@@ -34,7 +34,7 @@
         :index="index"
         :title="section.name"
         :icon="section.icon || undefined"
-        :groupId="`section-${index}`"
+        :groupId="makeSectionId(section)"
         :items="filterTiles(section.items)"
         :widgets="section.widgets"
         :selected="selectedSection === index"
