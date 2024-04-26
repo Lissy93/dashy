@@ -20,7 +20,7 @@ services:
       # - /path/to/my-config.yml:/app/user-data/conf.yml
       # - /path/to/item-icons:/app/user-data/item-icons/
 
-    # Set port that web service will be served on. Keep container port as 80
+    # Set port that web service will be served on. Keep container port as 8080. Previously this was port 80 and has changed! 
     ports:
       - 4000:8080
 
