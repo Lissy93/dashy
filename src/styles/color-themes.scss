@@ -1717,6 +1717,7 @@ html[data-theme='neomorphic'] {
   .config-buttons > svg,
   .display-options svg,
   form.minimal input,
+  .critical-error-wrap button.user-doesnt-care,
   a.config-button, button.config-button {
     border-radius: 0.35rem;
     box-shadow: var(--glass-button-shadow);
@@ -1724,6 +1725,7 @@ html[data-theme='neomorphic'] {
     border: 1px solid rgba(255, 255, 255, 0.19);
     background: rgba(255, 255, 255, 0.15);
     transition: all 0.2s ease-in-out;
+    text-decoration: none;
     &:hover, &.selected {
       box-shadow: var(--glass-button-hover-shadow);
       border: 1px solid rgba(255, 255, 255, 0.25) !important;
@@ -1790,6 +1792,11 @@ html[data-theme='neomorphic'] {
   div.edit-mode-bottom-banner, .add-new-section {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(50px);
+  }
+
+  .critical-error-wrap {
+    backdrop-filter: blur(15px);
+    background: #0f0528c4;
   }
 }
 

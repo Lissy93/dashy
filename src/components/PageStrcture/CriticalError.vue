@@ -1,19 +1,17 @@
 <template>
   <div class="critical-error-wrap" v-if="shouldShow">
     <button class="close" title="Close Warning" @click="close">🗙</button>
-    <h3>Configuration Load Error</h3>
-    <p>
-      Dashy has failed to load correctly due to a configuration error.
-    </p>
-    <h4>Ensure that</h4>
+    <h3>{{ $t('critical-error.title') }}</h3>
+    <p>{{ $t('critical-error.subtitle') }}</p>
+    <h4>{{ $t('critical-error.sub-ensure-that') }}</h4>
     <ul>
       <li>The configuration file can be found at the specified location</li>
       <li>There are no CORS rules preventing client-side access</li>
       <li>The YAML is valid, parsable and matches the schema</li>
     </ul>
-    <h4>Error Details</h4>
+    <h4>{{ $t('critical-error.sub-error-details') }}</h4>
     <pre>{{ this.$store.state.criticalError }}</pre>
-    <h4>Next Steps</h4>
+    <h4>{{ $t('critical-error.sub-next-steps') }}</h4>
     <ul>
       <li>Check the browser console for more details
         (<a href="https://github.com/Lissy93/dashy/blob/master/docs/troubleshooting.md#how-to-open-browser-console">see how</a>)
@@ -29,7 +27,9 @@
       </li>
       <li>Click 'Ignore Critical Errors' below to not show this warning again</li>
     </ul>
-    <button class="user-doesnt-care" @click="ignoreWarning">Ignore Critical Errors</button>
+    <button class="user-doesnt-care" @click="ignoreWarning">
+      {{ $t('critical-error.ignore-button') }}
+    </button>
   </div>
 </template>
 
@@ -69,6 +69,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
+  max-width: 50rem;
   background: var(--background-darker);
   padding: 1rem;
   border-radius: var(--curve-factor);
