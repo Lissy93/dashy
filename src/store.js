@@ -44,6 +44,12 @@ const {
   CRITICAL_ERROR_MSG,
 } = Keys;
 
+const emptyConfig = {
+  appConfig: {},
+  pageInfo: { title: 'Dashy' },
+  sections: [],
+};
+
 const store = new Vuex.Store({
   state: {
     config: {}, // The current config being used, and rendered to the UI
@@ -335,7 +341,7 @@ const store = new Vuex.Store({
           data = yaml.load(response.data);
         } catch (parseError) {
           commit(CRITICAL_ERROR_MSG, `Failed to parse YAML: ${parseError.message}`);
-          return {};
+          return { ...emptyConfig };
         }
         // Replace missing root properties with empty objects
         if (!data.appConfig) data.appConfig = {};
@@ -357,7 +363,7 @@ const store = new Vuex.Store({
         } else {
           commit(CRITICAL_ERROR_MSG, `Failed to fetch configuration: ${fetchError.message}`);
         }
-        return {};
+        return { ...emptyConfig };
       }
     },
     /**
@@ -368,6 +374,7 @@ const store = new Vuex.Store({
      */
     async [INITIALIZE_CONFIG]({ commit, state }, subConfigId) {
       const rootConfig = state.rootConfig || await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
+
       commit(SET_IS_USING_LOCAL_CONFIG, false);
       if (!subConfigId) { // Use root config as config
         commit(SET_CONFIG, rootConfig);
@@ -396,7 +403,7 @@ const store = new Vuex.Store({
 
         if (!subConfigPath) {
           commit(CRITICAL_ERROR_MSG, `Unable to find config for '${subConfigId}'`);
-          return null;
+          return { ...emptyConfig };
         }
 
         axios.get(subConfigPath).then((response) => {
@@ -428,7 +435,7 @@ const store = new Vuex.Store({
           commit(CRITICAL_ERROR_MSG, `Unable to load config from '${subConfigPath}'`, err);
         });
       }
-      return null;
+      return { ...emptyConfig };
     },
   },
   modules: {},

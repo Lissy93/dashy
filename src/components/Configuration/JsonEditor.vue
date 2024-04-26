@@ -116,7 +116,8 @@ export default {
   },
   mounted() {
     const jsonData = { ...this.config };
-    jsonData.sections = jsonData.sections.map(({ filteredItems, ...section }) => section);
+    jsonData.sections = (jsonData.sections || []).map(({ filteredItems, ...section }) => section);
+    if (!jsonData.pageInfo) jsonData.pageInfo = { title: 'Dashy' };
     this.jsonData = jsonData;
     if (!this.allowWriteToDisk) this.saveMode = 'local';
   },
