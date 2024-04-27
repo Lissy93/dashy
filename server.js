@@ -11,9 +11,13 @@ const path = require('path');
 const util = require('util');
 const dns = require('dns');
 const os = require('os');
+const fs = require('fs');
+const crypto = require('crypto');
+const yaml = require('js-yaml');
 
 /* Import Express + middleware functions */
 const express = require('express');
+const basicAuth = require('express-basic-auth');
 const history = require('connect-history-api-fallback');
 
 /* Kick of some basic checks */
@@ -70,6 +74,56 @@ const printWelcomeMessage = () => {
 const printWarning = (msg, error) => {
   console.warn(`\x1b[103m\x1b[34m${msg}\x1b[0m\n`, error || ''); // eslint-disable-line no-console
 };
+
+function loadUserConfig() {
+  try {
+    const filePath = path.join(__dirname, process.env.USER_DATA_DIR || 'user-data', 'conf.yml');
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const data = yaml.load(fileContents);
+    return data?.appConfig?.auth?.users || null;
+  } catch (e) {
+    return [];
+  }
+}
+
+function customAuthorizer(username, password) {
+  const sha256 = (input) => crypto.createHash('sha256').update(input).digest('hex').toUpperCase();
+  if (password.startsWith('Bearer ')) {
+    const token = password.slice('Bearer '.length);
+    const tokenHash = sha256(token);
+    const users = loadUserConfig();
+    return users.some(user => user.hash.toUpperCase() === tokenHash);
+  } else {
+    const users = loadUserConfig();
+    const userHash = sha256(password);
+    return users.some(user => (
+      user.user.toLowerCase() === username.toLowerCase() && user.hash.toUpperCase() === userHash
+    ));
+  }
+}
+
+/* If a username and password are set, setup auth for config access, otherwise skip */
+function getBasicAuthMiddleware() {
+  const configUsers = process.env.ENABLE_HTTP_AUTH ? loadUserConfig() : null;
+  const { BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD } = process.env;
+  if (BASIC_AUTH_USERNAME && BASIC_AUTH_PASSWORD) {
+    return basicAuth({
+      users: { [BASIC_AUTH_USERNAME]: BASIC_AUTH_PASSWORD },
+      challenge: true,
+      unauthorizedResponse: () => 'Unauthorized - Incorrect username or password',
+    });
+  } else if ((configUsers && configUsers.length > 0)) {
+    return basicAuth({
+      authorizer: customAuthorizer,
+      challenge: true,
+      unauthorizedResponse: () => 'Unauthorized - Incorrect token',
+    });
+  } else {
+    return (req, res, next) => next();
+  }
+}
+
+const protectConfig = getBasicAuthMiddleware();
 
 /* A middleware function for Connect, that filters requests based on method type */
 const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, next) : next());
@@ -133,6 +187,11 @@ const app = express()
     } catch (e) {
       res.end(JSON.stringify({ success: false, message: e }));
     }
+  })
+  // Middleware to serve any .yml files in USER_DATA_DIR with optional protection
+  .get('/*.yml', protectConfig, (req, res) => {
+    const ymlFile = req.path.split('/').pop();
+    res.sendFile(path.join(__dirname, process.env.USER_DATA_DIR || 'user-data', ymlFile));
   })
   // Serves up static files
   .use(express.static(path.join(__dirname, process.env.USER_DATA_DIR || 'user-data')))
