@@ -8,7 +8,7 @@ import { makePageName, formatConfigPath, componentVisibility } from '@/utils/Con
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
-import { isUserAdmin } from '@/utils/Auth';
+import { isUserAdmin, makeBasicAuthHeaders } from '@/utils/Auth';
 import { localStorageKeys, theme as defaultTheme } from './utils/defaults';
 
 Vue.use(Vuex);
@@ -355,7 +355,7 @@ const store = new Vuex.Store({
       const configFilePath = process.env.VUE_APP_CONFIG_PATH || '/conf.yml';
       try {
         // Attempt to fetch the YAML file
-        const response = await axios.get(configFilePath);
+        const response = await axios.get(configFilePath, makeBasicAuthHeaders());
         let data;
         try {
           data = yaml.load(response.data);
@@ -425,8 +425,7 @@ const store = new Vuex.Store({
           commit(CRITICAL_ERROR_MSG, `Unable to find config for '${subConfigId}'`);
           return { ...emptyConfig };
         }
-
-        axios.get(subConfigPath).then((response) => {
+        axios.get(subConfigPath, makeBasicAuthHeaders()).then((response) => {
           // Parse the YAML
           const configContent = yaml.load(response.data) || {};
           // Certain values must be inherited from root config

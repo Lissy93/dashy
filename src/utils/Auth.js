@@ -50,28 +50,39 @@ const generateUserToken = (user) => {
   return strAndUpper(sha);
 };
 
+export const getCookieToken = () => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${cookieKeys.AUTH_TOKEN}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
+};
+
+export const makeBasicAuthHeaders = () => {
+  const token = getCookieToken();
+  const bearerAuth = token ? `Bearer ${token}` : null;
+
+  const username = process.env.VUE_APP_BASIC_AUTH_USERNAME || 'user';
+  const password = process.env.VUE_APP_BASIC_AUTH_PASSWORD || bearerAuth;
+  const basicAuth = `Basic ${btoa(`${username}:${password}`)}`;
+
+  return (token || username)
+    ? { headers: { Authorization: basicAuth, 'WWW-Authenticate': 'true' } }
+    : {};
+};
+
 /**
  * Checks if the user is currently authenticated
  * @returns {Boolean} Will return true if the user is logged in, else false
  */
 export const isLoggedIn = () => {
   const users = getUsers();
-  let userAuthenticated = document.cookie.split(';').some((cookie) => {
-    if (cookie && cookie.split('=').length > 1) {
-      const cookieKey = cookie.split('=')[0].trim();
-      const cookieValue = cookie.split('=')[1].trim();
-      if (cookieKey === cookieKeys.AUTH_TOKEN) {
-        userAuthenticated = users.some((user) => {
-          if (generateUserToken(user) === cookieValue) {
-            localStorage.setItem(localStorageKeys.USERNAME, user.user);
-            return true;
-          } else return false;
-        });
-        return userAuthenticated;
-      } else return false;
+  const cookieToken = getCookieToken();
+  return users.some((user) => {
+    if (generateUserToken(user) === cookieToken) {
+      localStorage.setItem(localStorageKeys.USERNAME, user.user);
+      return true;
     } else return false;
   });
-  return userAuthenticated;
 };
 
 /* Returns true if authentication is enabled */
