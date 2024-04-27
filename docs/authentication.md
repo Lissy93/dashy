@@ -115,11 +115,23 @@ You can also prevent any user from writing changes to disk, using `preventWriteT
 
 To disable all UI config features, including View Config, set `disableConfiguration`. Alternatively you can disable UI config features for all non admin users by setting `disableConfigurationForNonAdmin` to true.
 
+### Adding HTTP Auth to Configuration
+
+If you'd also like to prevent direct visit access to your configuration file, you can set the `ENABLE_HTTP_AUTH` environmental variable.
+
 ### Security
 
 With basic auth, all logic is happening on the client-side, which could mean a skilled user could manipulate the code to view parts of your configuration, including the hash. If the SHA-256 hash is of a common password, it may be possible to determine it, using a lookup table, in order to find the original password. Which can be used to manually generate the auth token, that can then be inserted into session storage, to become a valid logged in user. Therefore, you should always use a long, strong and unique password, and if you instance contains security-critical info and/ or is exposed directly to the internet, and alternative authentication method may be better. The purpose of the login page is merely to prevent immediate unauthorized access to your homepage.
 
 **[⬆️ Back to Top](#authentication)**
+
+---
+
+## HTTP Auth
+
+If you'd like to protect all your config files from direct access, you can set the `BASIC_AUTH_USERNAME` and `BASIC_AUTH_PASSWORD` environmental variables. You'll then be prompted to enter these credentials when visiting Dashy.
+
+Then, if you'd like your frontend to automatically log you in, without prompting you for credentials, then also specify `VUE_APP_BASIC_AUTH_USERNAME` and `VUE_APP_BASIC_AUTH_PASSWORD`. This is useful for when you're hosting Dashy on a private server, and you want to prevent unauthorized access to your config files, while still allowing the frontend to access them. Note that a rebuild is required for these changes to take effect.
 
 ---
 
