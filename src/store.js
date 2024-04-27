@@ -145,10 +145,18 @@ const store = new Vuex.Store({
       return foundSection;
     },
     layout(state) {
-      return state.config.appConfig.layout || 'auto';
+      const pageId = state.currentConfigInfo.confId;
+      const layoutStoreKey = pageId
+        ? `${localStorageKeys.LAYOUT_ORIENTATION}-${pageId}` : localStorageKeys.LAYOUT_ORIENTATION;
+      const appConfigLayout = state.config.appConfig.layout;
+      return localStorage.getItem(layoutStoreKey) || appConfigLayout || 'auto';
     },
     iconSize(state) {
-      return state.config.appConfig.iconSize || 'medium';
+      const pageId = state.currentConfigInfo.confId;
+      const sizeStoreKey = pageId
+        ? `${localStorageKeys.ICON_SIZE}-${pageId}` : localStorageKeys.ICON_SIZE;
+      const appConfigSize = state.config.appConfig.iconSize;
+      return localStorage.getItem(sizeStoreKey) || appConfigSize || 'medium';
     },
   },
   mutations: {
@@ -310,11 +318,23 @@ const store = new Vuex.Store({
       InfoHandler('Color palette updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_LAYOUT](state, layout) {
-      state.config.appConfig.layout = layout;
+      const newConfig = { ...state.config };
+      newConfig.appConfig.layout = layout;
+      state.config = newConfig;
+      const pageId = state.currentConfigInfo.confId;
+      const layoutStoreKey = pageId
+        ? `${localStorageKeys.LAYOUT_ORIENTATION}-${pageId}` : localStorageKeys.LAYOUT_ORIENTATION;
+      localStorage.setItem(layoutStoreKey, layout);
       InfoHandler('Layout updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_SIZE](state, iconSize) {
-      state.config.appConfig.iconSize = iconSize;
+      const newConfig = { ...state.config };
+      newConfig.appConfig.iconSize = iconSize;
+      state.config = newConfig;
+      const pageId = state.currentConfigInfo.confId;
+      const sizeStoreKey = pageId
+        ? `${localStorageKeys.ICON_SIZE}-${pageId}` : localStorageKeys.ICON_SIZE;
+      localStorage.setItem(sizeStoreKey, iconSize);
       InfoHandler('Item size updated', InfoKeys.VISUAL);
     },
     [UPDATE_CUSTOM_CSS](state, customCss) {

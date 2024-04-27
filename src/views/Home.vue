@@ -19,14 +19,7 @@
       </router-link>
     </div>
     <!-- Main content, section for each group of items -->
-    <div v-if="checkTheresData(sections) || isEditMode"
-      :class="`item-group-container `
-        + `orientation-${layout} `
-        + `item-size-${itemSizeBound} `
-        + (isEditMode ? 'edit-mode ' : '')
-        + (singleSectionView ? 'single-section-view ' : '')
-        + (this.colCount ? `col-count-${this.colCount} ` : '')"
-      >
+    <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass">
       <template v-for="(section, index) in filteredSections">
         <Section
           :key="index"
@@ -70,7 +63,7 @@ import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vu
 import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.vue';
 import NotificationThing from '@/components/Settings/LocalConfigWarning.vue';
 import StoreKeys from '@/utils/StoreMutations';
-import { localStorageKeys, modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 import BackIcon from '@/assets/interface-icons/back-arrow.svg';
 
@@ -120,19 +113,13 @@ export default {
     iconSize() {
       return this.$store.getters.iconSize;
     },
-  },
-  watch: {
-    layoutOrientation(layout) {
-      if (layout) {
-        localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
-        this.layout = layout;
-      }
-    },
-    iconSize(size) {
-      if (size) {
-        localStorage.setItem(localStorageKeys.ICON_SIZE, size);
-        this.itemSizeBound = size;
-      }
+    computedClass() {
+      let classes = 'item-group-container '
+      + ` orientation-${this.$store.getters.layout} item-size-${this.itemSizeBound}`;
+      if (this.isEditMode) classes += ' edit-mode';
+      if (this.singleSectionView) classes += ' single-section-view';
+      if (this.colCount) classes += ` col-count-${this.colCount}`;
+      return classes;
     },
   },
   methods: {
