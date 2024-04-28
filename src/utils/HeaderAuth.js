@@ -3,7 +3,7 @@ import sha256 from 'crypto-js/sha256';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { cookieKeys, localStorageKeys, serviceEndpoints } from '@/utils/defaults';
 import { InfoHandler, ErrorHandler, InfoKeys } from '@/utils/ErrorHandler';
-import { logout } from '@/utils/Auth';
+import { logout as authLogout } from '@/utils/Auth';
 
 const getAppConfig = () => {
   const Accumulator = new ConfigAccumulator();
@@ -22,7 +22,6 @@ class HeaderAuth {
     this.users = auth.users;
   }
 
-  /* eslint-disable class-methods-use-this */
   login() {
     return new Promise((resolve, reject) => {
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
@@ -44,6 +43,7 @@ class HeaderAuth {
               }
             });
           } catch (e) {
+            ErrorHandler('Error while trying to login using header authentication', e);
             reject(e);
           }
         }
@@ -51,8 +51,9 @@ class HeaderAuth {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   logout() {
-    logout();
+    authLogout();
   }
 }
 
