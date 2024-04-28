@@ -187,9 +187,9 @@ export const getCurrentUser = () => {
  * Checks if the user is viewing the dashboard as a guest
  * Returns true if guest mode enabled, and user not logged in
  * */
-export const isLoggedInAsGuest = (currentUser) => {
+export const isLoggedInAsGuest = () => {
   const guestEnabled = isGuestAccessEnabled();
-  const loggedIn = isLoggedIn() && currentUser;
+  const loggedIn = isLoggedIn();
   return guestEnabled && !loggedIn;
 };
 

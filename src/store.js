@@ -8,7 +8,7 @@ import { makePageName, formatConfigPath, componentVisibility } from '@/utils/Con
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
-import { isUserAdmin, makeBasicAuthHeaders } from '@/utils/Auth';
+import { isUserAdmin, makeBasicAuthHeaders, isLoggedInAsGuest } from '@/utils/Auth';
 import { localStorageKeys, theme as defaultTheme } from './utils/defaults';
 
 Vue.use(Vuex);
@@ -114,7 +114,8 @@ const store = new Vuex.Store({
       }
       // Disable everything
       if (appConfig.disableConfiguration
-        || (appConfig.disableConfigurationForNonAdmin && !isUserAdmin())) {
+        || (appConfig.disableConfigurationForNonAdmin && !isUserAdmin())
+        || isLoggedInAsGuest()) {
         perms.allowWriteToDisk = false;
         perms.allowSaveLocally = false;
         perms.allowViewConfig = false;
