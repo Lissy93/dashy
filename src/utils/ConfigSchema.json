@@ -500,14 +500,9 @@
             "users": {
               "title": "Users",
               "type": "array",
-              "description": "Usernames and hashed credentials for frontend authentication",
+              "description": "Usernames and hashed credentials for frontend authentication. Needs to be set at build-time.",
               "items": {
                 "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "user",
-                  "hash"
-                ],
                 "properties": {
                   "user": {
                     "title": "Username",
@@ -521,6 +516,12 @@
                     "minLength": 64,
                     "maxLength": 64
                   },
+                  "password": {
+                    "title": "Password",
+                    "type": "string",
+                    "description": "The environmental variable pointing to a plaintext password for that user. Must start with VUE_APP_",
+                    "pattern": "^VUE_APP_.*"
+                  },
                   "type": {
                     "title": "Privileges",
                     "type": "string",
@@ -531,9 +532,15 @@
                     "description": "User type, denoting privilege level, either admin or normal",
                     "default": "normal"
                   }
-                }
+                },
+                "additionalProperties": false,
+                "required": ["user"],
+                "oneOf": [
+                  { "required": ["hash"] },
+                  { "required": ["password"] }
+                ]
               }
-            },
+            },            
             "enableHeaderAuth": {
               "title": "Enable HeaderAuth?",
               "type": "boolean",
