@@ -6,13 +6,15 @@
  * */
 
 /* Import built-in Node server modules */
+const fs = require('fs');
+const os = require('os');
+const dns = require('dns');
 const http = require('http');
 const path = require('path');
 const util = require('util');
-const dns = require('dns');
-const os = require('os');
-const fs = require('fs');
 const crypto = require('crypto');
+
+/* Import NPM dependencies */
 const yaml = require('js-yaml');
 
 /* Import Express + middleware functions */
@@ -65,7 +67,7 @@ const printWelcomeMessage = () => {
       console.log(printMessage(ip, port, isDocker)); // eslint-disable-line no-console
     });
   } catch (e) {
-    // Fetching info for welcome message failed, print simple msg instead
+    // No clue what could of gone wrong here, but print fallback message if above failed
     console.log(`Dashy server has started (${port})`); // eslint-disable-line no-console
   }
 };
@@ -75,6 +77,7 @@ const printWarning = (msg, error) => {
   console.warn(`\x1b[103m\x1b[34m${msg}\x1b[0m\n`, error || ''); // eslint-disable-line no-console
 };
 
+/* Load appConfig.auth.users from config (if present) for authorization purposes */
 function loadUserConfig() {
   try {
     const filePath = path.join(__dirname, process.env.USER_DATA_DIR || 'user-data', 'conf.yml');
@@ -86,13 +89,20 @@ function loadUserConfig() {
   }
 }
 
+/* If HTTP auth is enabled, and no username/password are pre-set, then check passed credentials */
 function customAuthorizer(username, password) {
   const sha256 = (input) => crypto.createHash('sha256').update(input).digest('hex').toUpperCase();
+  const generateUserToken = (user) => {
+    if (!user.user || (!user.hash && !user.password)) return '';
+    const strAndUpper = (input) => input.toString().toUpperCase();
+    const passwordHash = user.hash || sha256(process.env[user.password]);
+    const sha = sha256(strAndUpper(user.user) + strAndUpper(passwordHash));
+    return strAndUpper(sha);
+  };
   if (password.startsWith('Bearer ')) {
     const token = password.slice('Bearer '.length);
-    const tokenHash = sha256(token);
     const users = loadUserConfig();
-    return users.some(user => user.hash.toUpperCase() === tokenHash);
+    return users.some(user => generateUserToken(user) === token);
   } else {
     const users = loadUserConfig();
     const userHash = sha256(password);
