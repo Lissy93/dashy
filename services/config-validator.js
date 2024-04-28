@@ -11,7 +11,7 @@ const schema = require('../src/utils/ConfigSchema.json');
 
 /* Tell AJV to use strict mode, and report all errors */
 const validatorOptions = {
-  strict: true,
+  strict: false,
   allowUnionTypes: true,
   allErrors: true,
 };
