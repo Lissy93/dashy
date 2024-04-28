@@ -50,6 +50,14 @@
 
   <p class="time-note" id="note">This may take a minute or two</p>
 
+  <div class="why-am-i-seeing-this">
+    <h3>Why are you seeing this screen?</h3>
+    <p>
+      The app's built files aren't yet present in the /dist directory,
+      so this page is displayed while we compile the source.
+    </p>
+  </div>
+
   <style lang="css">
     /* Page Layout Styles */
     body,
@@ -60,7 +68,7 @@
     }
 
     body {
-      background: #141b33;
+      background: #0d1220;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -194,15 +202,34 @@
     }
 
     .hide { display: none; }
+
+    .why-am-i-seeing-this {
+      color: #808080a6;
+      font-family: Tahoma, 'Trebuchet MS', sans-serif;
+      max-width: 25rem;
+      border: 2px solid #808080a6;
+      border-radius: 6px;
+      padding: 0.5rem;
+      position: absolute;
+      bottom: 1rem;
+      background: #8080800d;
+      font-size: 0.9rem;
+    }
+    .why-am-i-seeing-this h3 {
+      margin: 0 0 0.5rem 0;
+    }
+    .why-am-i-seeing-this p {
+      margin: 0;
+    }
   </style>
 
   <script>
-    const refreshRate = 8000;
-    // Refresh at interval
+    // Refresh the page every 10 seconds
+    const refreshRate = 10000;
     setTimeout(() => { location.reload(); }, refreshRate);
 
-     // Get current stage
-     let initStage = parseInt(sessionStorage.getItem('initStage') || 0);
+    // Get current stage
+    let initStage = parseInt(sessionStorage.getItem('initStage') || 0);
 
     // Check if stage in session storage is old, and if so, reset it
     const now = Math.round(Date.now()/1000);

@@ -29,6 +29,7 @@ const KEY_NAMES = [
   'INSERT_ITEM',
   'UPDATE_CUSTOM_CSS',
   'CONF_MENU_INDEX',
+  'CRITICAL_ERROR_MSG',
 ];
 
 // Convert array of key names into an object, and export

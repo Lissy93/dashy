@@ -1,6 +1,6 @@
 {
   "name": "dashy",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "license": "MIT",
   "main": "server",
   "author": "Alicia Sykes <alicia@omg.lol> (https://aliciasykes.com)",
@@ -26,6 +26,7 @@
     "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.2.0",
     "express": "^4.17.2",
+    "express-basic-auth": "^1.2.1",
     "frappe-charts": "^1.6.2",
     "js-yaml": "^4.1.0",
     "keycloak-js": "^20.0.3",

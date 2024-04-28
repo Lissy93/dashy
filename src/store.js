@@ -8,7 +8,7 @@ import { makePageName, formatConfigPath, componentVisibility } from '@/utils/Con
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
-import { isUserAdmin } from '@/utils/Auth';
+import { isUserAdmin, makeBasicAuthHeaders, isLoggedInAsGuest } from '@/utils/Auth';
 import { localStorageKeys, theme as defaultTheme } from './utils/defaults';
 
 Vue.use(Vuex);
@@ -41,7 +41,14 @@ const {
   INSERT_ITEM,
   UPDATE_CUSTOM_CSS,
   CONF_MENU_INDEX,
+  CRITICAL_ERROR_MSG,
 } = Keys;
+
+const emptyConfig = {
+  appConfig: {},
+  pageInfo: { title: 'Dashy' },
+  sections: [],
+};
 
 const store = new Vuex.Store({
   state: {
@@ -51,6 +58,7 @@ const store = new Vuex.Store({
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
     currentConfigInfo: {}, // For multi-page support, will store info about config file
     isUsingLocalConfig: false, // If true, will use local config instead of fetched
+    criticalError: null, // Will store a message, if a critical error occurs
     navigateConfToTab: undefined, // Used to switch active tab in config modal
   },
   getters: {
@@ -106,7 +114,8 @@ const store = new Vuex.Store({
       }
       // Disable everything
       if (appConfig.disableConfiguration
-        || (appConfig.disableConfigurationForNonAdmin && !isUserAdmin())) {
+        || (appConfig.disableConfigurationForNonAdmin && !isUserAdmin())
+        || isLoggedInAsGuest()) {
         perms.allowWriteToDisk = false;
         perms.allowSaveLocally = false;
         perms.allowViewConfig = false;
@@ -137,10 +146,18 @@ const store = new Vuex.Store({
       return foundSection;
     },
     layout(state) {
-      return state.config.appConfig.layout || 'auto';
+      const pageId = state.currentConfigInfo.confId;
+      const layoutStoreKey = pageId
+        ? `${localStorageKeys.LAYOUT_ORIENTATION}-${pageId}` : localStorageKeys.LAYOUT_ORIENTATION;
+      const appConfigLayout = state.config.appConfig.layout;
+      return localStorage.getItem(layoutStoreKey) || appConfigLayout || 'auto';
     },
     iconSize(state) {
-      return state.config.appConfig.iconSize || 'medium';
+      const pageId = state.currentConfigInfo.confId;
+      const sizeStoreKey = pageId
+        ? `${localStorageKeys.ICON_SIZE}-${pageId}` : localStorageKeys.ICON_SIZE;
+      const appConfigSize = state.config.appConfig.iconSize;
+      return localStorage.getItem(sizeStoreKey) || appConfigSize || 'medium';
     },
   },
   mutations: {
@@ -173,6 +190,10 @@ const store = new Vuex.Store({
         InfoHandler(editMode ? 'Edit session started' : 'Edit session ended', InfoKeys.EDITOR);
         state.editMode = editMode;
       }
+    },
+    [CRITICAL_ERROR_MSG](state, message) {
+      if (message) ErrorHandler(message);
+      state.criticalError = message;
     },
     [UPDATE_ITEM](state, payload) {
       const { itemId, newItem } = payload;
@@ -298,11 +319,23 @@ const store = new Vuex.Store({
       InfoHandler('Color palette updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_LAYOUT](state, layout) {
-      state.config.appConfig.layout = layout;
+      const newConfig = { ...state.config };
+      newConfig.appConfig.layout = layout;
+      state.config = newConfig;
+      const pageId = state.currentConfigInfo.confId;
+      const layoutStoreKey = pageId
+        ? `${localStorageKeys.LAYOUT_ORIENTATION}-${pageId}` : localStorageKeys.LAYOUT_ORIENTATION;
+      localStorage.setItem(layoutStoreKey, layout);
       InfoHandler('Layout updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_SIZE](state, iconSize) {
-      state.config.appConfig.iconSize = iconSize;
+      const newConfig = { ...state.config };
+      newConfig.appConfig.iconSize = iconSize;
+      state.config = newConfig;
+      const pageId = state.currentConfigInfo.confId;
+      const sizeStoreKey = pageId
+        ? `${localStorageKeys.ICON_SIZE}-${pageId}` : localStorageKeys.ICON_SIZE;
+      localStorage.setItem(sizeStoreKey, iconSize);
       InfoHandler('Item size updated', InfoKeys.VISUAL);
     },
     [UPDATE_CUSTOM_CSS](state, customCss) {
@@ -320,16 +353,39 @@ const store = new Vuex.Store({
   actions: {
     /* Fetches the root config file, only ever called by INITIALIZE_CONFIG */
     async [INITIALIZE_ROOT_CONFIG]({ commit }) {
-      // Load and parse config from root config file
       const configFilePath = process.env.VUE_APP_CONFIG_PATH || '/conf.yml';
-      const data = await yaml.load((await axios.get(configFilePath)).data);
-      // Replace missing root properties with empty objects
-      if (!data.appConfig) data.appConfig = {};
-      if (!data.pageInfo) data.pageInfo = {};
-      if (!data.sections) data.sections = [];
-      // Set the state, and return data
-      commit(SET_ROOT_CONFIG, data);
-      return data;
+      try {
+        // Attempt to fetch the YAML file
+        const response = await axios.get(configFilePath, makeBasicAuthHeaders());
+        let data;
+        try {
+          data = yaml.load(response.data);
+        } catch (parseError) {
+          commit(CRITICAL_ERROR_MSG, `Failed to parse YAML: ${parseError.message}`);
+          return { ...emptyConfig };
+        }
+        // Replace missing root properties with empty objects
+        if (!data.appConfig) data.appConfig = {};
+        if (!data.pageInfo) data.pageInfo = {};
+        if (!data.sections) data.sections = [];
+        // Set the state, and return data
+        commit(SET_ROOT_CONFIG, data);
+        commit(CRITICAL_ERROR_MSG, null);
+        return data;
+      } catch (fetchError) {
+        if (fetchError.response) {
+          commit(
+            CRITICAL_ERROR_MSG,
+            'Failed to fetch configuration: Server responded with status '
+            + `${fetchError.response?.status || 'mystery status'}`,
+          );
+        } else if (fetchError.request) {
+          commit(CRITICAL_ERROR_MSG, 'Failed to fetch configuration: No response from server');
+        } else {
+          commit(CRITICAL_ERROR_MSG, `Failed to fetch configuration: ${fetchError.message}`);
+        }
+        return { ...emptyConfig };
+      }
     },
     /**
      * Fetches config and updates state
@@ -339,6 +395,7 @@ const store = new Vuex.Store({
      */
     async [INITIALIZE_CONFIG]({ commit, state }, subConfigId) {
       const rootConfig = state.rootConfig || await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
+
       commit(SET_IS_USING_LOCAL_CONFIG, false);
       if (!subConfigId) { // Use root config as config
         commit(SET_CONFIG, rootConfig);
@@ -351,7 +408,7 @@ const store = new Vuex.Store({
             const json = JSON.parse(localSectionsRaw);
             if (json.length >= 1) localSections = json;
           } catch (e) {
-            ErrorHandler('Malformed section data in local storage');
+            commit(CRITICAL_ERROR_MSG, 'Malformed section data in local storage');
           }
         }
         if (localSections.length > 0) {
@@ -366,11 +423,10 @@ const store = new Vuex.Store({
         )?.path);
 
         if (!subConfigPath) {
-          ErrorHandler(`Unable to find config for '${subConfigId}'`);
-          return null;
+          commit(CRITICAL_ERROR_MSG, `Unable to find config for '${subConfigId}'`);
+          return { ...emptyConfig };
         }
-
-        axios.get(subConfigPath).then((response) => {
+        axios.get(subConfigPath, makeBasicAuthHeaders()).then((response) => {
           // Parse the YAML
           const configContent = yaml.load(response.data) || {};
           // Certain values must be inherited from root config
@@ -389,17 +445,17 @@ const store = new Vuex.Store({
                 commit(SET_IS_USING_LOCAL_CONFIG, true);
               }
             } catch (e) {
-              ErrorHandler('Malformed section data in local storage for sub-config');
+              commit(CRITICAL_ERROR_MSG, 'Malformed section data in local storage for sub-config');
             }
           }
           // Set the config
           commit(SET_CONFIG, configContent);
           commit(SET_CURRENT_CONFIG_INFO, { confPath: subConfigPath, confId: subConfigId });
         }).catch((err) => {
-          ErrorHandler(`Unable to load config from '${subConfigPath}'`, err);
+          commit(CRITICAL_ERROR_MSG, `Unable to load config from '${subConfigPath}'`, err);
         });
       }
-      return null;
+      return { ...emptyConfig };
     },
   },
   modules: {},

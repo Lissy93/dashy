@@ -28,18 +28,23 @@ const HomeMixin = {
       return this.$store.state.modalOpen;
     },
     pageId() {
-      return (this.subPageInfo && this.subPageInfo.pageId) ? this.subPageInfo.pageId : 'home';
+      return this.$store.state.currentConfigInfo?.confId || 'home';
     },
   },
   data: () => ({
     searchValue: '',
   }),
-  async mounted() {
-    // await this.getConfigForRoute();
-  },
   watch: {
     async $route() {
       this.loadUpConfig();
+    },
+    pageInfo: {
+      handler(newPageInfo) {
+        if (newPageInfo && newPageInfo.title) {
+          document.title = newPageInfo.title;
+        }
+      },
+      immediate: true,
     },
   },
   async created() {
@@ -78,6 +83,14 @@ const HomeMixin = {
     /* Updates local data with search value, triggered from filter comp */
     searching(searchValue) {
       this.searchValue = searchValue || '';
+    },
+    /* Returns a unique ID based on the page and section name */
+    makeSectionId(section) {
+      const normalize = (str) => (
+        str ? str.trim().toLowerCase().replace(/[^a-zA-Z0-9]/g, '-')
+          : `unnamed-${(`000${Math.floor(Math.random() * 1000)}`).slice(-3)}`
+      );
+      return `${this.pageId || 'unknown-page'}-${normalize(section.name)}`;
     },
     /* Returns true if there is one or more sections in the config */
     checkTheresData(sections) {

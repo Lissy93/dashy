@@ -23,6 +23,7 @@ import { toastedOptions, tooltipOptions, language as defaultLanguage } from '@/u
 import { initKeycloakAuth, isKeycloakEnabled } from '@/utils/KeycloakAuth';
 import { initHeaderAuth, isHeaderAuthEnabled } from '@/utils/HeaderAuth';
 import Keys from '@/utils/StoreMutations';
+import ErrorHandler from '@/utils/ErrorHandler';
 
 // Initialize global Vue components
 Vue.use(VueI18n);
@@ -61,16 +62,19 @@ const mount = () => new Vue({
 }).$mount('#app');
 
 store.dispatch(Keys.INITIALIZE_CONFIG).then(() => {
-  // Keycloak is enabled, redirect to KC login page
-  if (isKeycloakEnabled()) {
+  if (isKeycloakEnabled()) { // If Keycloak is enabled, initialize auth
     initKeycloakAuth()
       .then(() => mount())
-      .catch(() => window.location.reload());
-  } else if (isHeaderAuthEnabled()) {
+      .catch((e) => {
+        ErrorHandler('Failed to authenticate with Keycloak', e);
+      });
+  } else if (isHeaderAuthEnabled()) { // If header auth is enabled, initialize auth
     initHeaderAuth()
       .then(() => mount())
-      .catch(() => window.location.reload());
-  } else { // If Keycloak not enabled, then proceed straight to the app
+      .catch((e) => {
+        ErrorHandler('Failed to authenticate with server', e);
+      });
+  } else { // If no third-party auth, just mount the app as normal
     mount();
   }
 });

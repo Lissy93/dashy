@@ -37,8 +37,10 @@ export default {
       input: '',
     };
   },
-  props: {
-    iconSize: String,
+  computed: {
+    iconSize() {
+      return this.$store.getters.iconSize;
+    },
   },
   components: {
     IconSmall,

@@ -6,14 +6,20 @@
  * */
 
 /* Import built-in Node server modules */
+const fs = require('fs');
+const os = require('os');
+const dns = require('dns');
 const http = require('http');
 const path = require('path');
 const util = require('util');
-const dns = require('dns');
-const os = require('os');
+const crypto = require('crypto');
+
+/* Import NPM dependencies */
+const yaml = require('js-yaml');
 
 /* Import Express + middleware functions */
 const express = require('express');
+const basicAuth = require('express-basic-auth');
 const history = require('connect-history-api-fallback');
 
 /* Kick of some basic checks */
@@ -61,7 +67,7 @@ const printWelcomeMessage = () => {
       console.log(printMessage(ip, port, isDocker)); // eslint-disable-line no-console
     });
   } catch (e) {
-    // Fetching info for welcome message failed, print simple msg instead
+    // No clue what could of gone wrong here, but print fallback message if above failed
     console.log(`Dashy server has started (${port})`); // eslint-disable-line no-console
   }
 };
@@ -70,6 +76,64 @@ const printWelcomeMessage = () => {
 const printWarning = (msg, error) => {
   console.warn(`\x1b[103m\x1b[34m${msg}\x1b[0m\n`, error || ''); // eslint-disable-line no-console
 };
+
+/* Load appConfig.auth.users from config (if present) for authorization purposes */
+function loadUserConfig() {
+  try {
+    const filePath = path.join(__dirname, process.env.USER_DATA_DIR || 'user-data', 'conf.yml');
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const data = yaml.load(fileContents);
+    return data?.appConfig?.auth?.users || null;
+  } catch (e) {
+    return [];
+  }
+}
+
+/* If HTTP auth is enabled, and no username/password are pre-set, then check passed credentials */
+function customAuthorizer(username, password) {
+  const sha256 = (input) => crypto.createHash('sha256').update(input).digest('hex').toUpperCase();
+  const generateUserToken = (user) => {
+    if (!user.user || (!user.hash && !user.password)) return '';
+    const strAndUpper = (input) => input.toString().toUpperCase();
+    const passwordHash = user.hash || sha256(process.env[user.password]);
+    const sha = sha256(strAndUpper(user.user) + strAndUpper(passwordHash));
+    return strAndUpper(sha);
+  };
+  if (password.startsWith('Bearer ')) {
+    const token = password.slice('Bearer '.length);
+    const users = loadUserConfig();
+    return users.some(user => generateUserToken(user) === token);
+  } else {
+    const users = loadUserConfig();
+    const userHash = sha256(password);
+    return users.some(user => (
+      user.user.toLowerCase() === username.toLowerCase() && user.hash.toUpperCase() === userHash
+    ));
+  }
+}
+
+/* If a username and password are set, setup auth for config access, otherwise skip */
+function getBasicAuthMiddleware() {
+  const configUsers = process.env.ENABLE_HTTP_AUTH ? loadUserConfig() : null;
+  const { BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD } = process.env;
+  if (BASIC_AUTH_USERNAME && BASIC_AUTH_PASSWORD) {
+    return basicAuth({
+      users: { [BASIC_AUTH_USERNAME]: BASIC_AUTH_PASSWORD },
+      challenge: true,
+      unauthorizedResponse: () => 'Unauthorized - Incorrect username or password',
+    });
+  } else if ((configUsers && configUsers.length > 0)) {
+    return basicAuth({
+      authorizer: customAuthorizer,
+      challenge: true,
+      unauthorizedResponse: () => 'Unauthorized - Incorrect token',
+    });
+  } else {
+    return (req, res, next) => next();
+  }
+}
+
+const protectConfig = getBasicAuthMiddleware();
 
 /* A middleware function for Connect, that filters requests based on method type */
 const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, next) : next());
@@ -133,6 +197,11 @@ const app = express()
     } catch (e) {
       res.end(JSON.stringify({ success: false, message: e }));
     }
+  })
+  // Middleware to serve any .yml files in USER_DATA_DIR with optional protection
+  .get('/*.yml', protectConfig, (req, res) => {
+    const ymlFile = req.path.split('/').pop();
+    res.sendFile(path.join(__dirname, process.env.USER_DATA_DIR || 'user-data', ymlFile));
   })
   // Serves up static files
   .use(express.static(path.join(__dirname, process.env.USER_DATA_DIR || 'user-data')))

@@ -105,10 +105,18 @@ const WidgetMixin = {
       const method = protocol || 'GET';
       const url = this.useProxy ? this.proxyReqEndpoint : endpoint;
       const data = JSON.stringify(body || {});
+
       const CustomHeaders = options || {};
-      const headers = new Headers(this.useProxy
-        ? ({ ...CustomHeaders, 'Target-URL': endpoint })
-        : CustomHeaders);
+      const headers = new Headers();
+
+      // If using a proxy, set the 'Target-URL' header
+      if (this.useProxy) {
+        headers.append('Target-URL', endpoint);
+      }
+      // Apply widget-specific custom headers
+      Object.entries(CustomHeaders).forEach(([key, value]) => {
+        headers.append(key, value);
+      });
 
       // If the request is a GET, delete the body
       const bodyContent = method.toUpperCase() === 'GET' ? undefined : data;

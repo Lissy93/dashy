@@ -312,6 +312,14 @@
       "view-title": "View Config"
     }
   },
+  "critical-error": {
+    "title": "Configuration Load Error",
+    "subtitle": "Dashy has failed to load correctly due to a configuration error.",
+    "sub-ensure-that": "Ensure that",
+    "sub-error-details": "Error Details",
+    "sub-next-steps": "Next Steps",
+    "ignore-button": "Ignore Critical Errors"
+  },
   "widgets": {
     "general": {
       "loading": "Loading...",
