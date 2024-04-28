@@ -11,8 +11,6 @@ const getAppConfig = () => {
   return config.appConfig || {};
 };
 
-// const appConfig = $store.getters.appConfig || {};
-
 /**
  * Called when the user is still using array for users, prints warning
  * This was a breaking change, implemented in V 1.6.5
@@ -41,12 +39,13 @@ const getUsers = () => {
  * @returns {String} The hashed token
  */
 const generateUserToken = (user) => {
-  if (!user.user || !user.hash) {
-    ErrorHandler('Invalid user object. Must have `user` and `hash` parameters');
+  if (!user.user || (!user.hash && !user.password)) {
+    ErrorHandler('Invalid user object. Must have `user` and either a `hash` or `password` param');
     return undefined;
   }
+  const passHash = user.hash || sha256(process.env[user.password]).toString().toUpperCase();
   const strAndUpper = (input) => input.toString().toUpperCase();
-  const sha = sha256(strAndUpper(user.user) + strAndUpper(user.hash));
+  const sha = sha256(strAndUpper(user.user) + strAndUpper(passHash));
   return strAndUpper(sha);
 };
 
@@ -59,15 +58,18 @@ export const getCookieToken = () => {
 
 export const makeBasicAuthHeaders = () => {
   const token = getCookieToken();
-  const bearerAuth = token ? `Bearer ${token}` : null;
+  const bearerAuth = (token && token.length > 5) ? `Bearer ${token}` : null;
 
-  const username = process.env.VUE_APP_BASIC_AUTH_USERNAME || 'user';
+  const username = process.env.VUE_APP_BASIC_AUTH_USERNAME
+    || localStorage[localStorageKeys.USERNAME]
+    || 'user';
   const password = process.env.VUE_APP_BASIC_AUTH_PASSWORD || bearerAuth;
   const basicAuth = `Basic ${btoa(`${username}:${password}`)}`;
 
-  return (token || username)
+  const headers = password
     ? { headers: { Authorization: basicAuth, 'WWW-Authenticate': 'true' } }
     : {};
+  return headers;
 };
 
 /**
@@ -119,7 +121,18 @@ export const checkCredentials = (username, pass, users, messages) => {
   } else {
     users.forEach((user) => {
       if (user.user.toLowerCase() === username.toLowerCase()) { // User found
-        if (user.hash.toLowerCase() === sha256(pass).toString().toLowerCase()) {
+        if (user.password) {
+          if (!user.password.startsWith('VUE_APP_')) {
+            ErrorHandler('Invalid password format. Please use VUE_APP_ prefix');
+            response = { correct: false, msg: messages.incorrectPassword };
+          } else if (!process.env[user.password]) {
+            ErrorHandler(`Missing environmental variable for ${user.password}`);
+          } else if (process.env[user.password] === pass) {
+            response = { correct: true, msg: messages.successMsg };
+          } else {
+            response = { correct: false, msg: messages.incorrectPassword };
+          }
+        } else if (user.hash && user.hash.toLowerCase() === sha256(pass).toString().toLowerCase()) {
           response = { correct: true, msg: messages.successMsg }; // Password is correct
         } else { // User found, but password is not a match
           response = { correct: false, msg: messages.incorrectPassword };

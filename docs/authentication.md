@@ -6,7 +6,10 @@
   - [Logging In and Out](#logging-in-and-out)
   - [Guest Access](#enabling-guest-access)
   - [Per-User Access](#granular-access)
+  - [Using Environment Variables for Passwords](#using-environment-variables-for-passwords)
+  - [Adding HTTP Auth to Configuration](#adding-http-auth-to-configuration)
   - [Security Considerations](#security)
+- [HTTP Auth](#http-auth)
 - [Keycloak Auth](#keycloak)
   - [Deploying Keycloak](#1-deploy-keycloak)
   - [Setting up Keycloak](#2-setup-keycloak-users)
@@ -115,6 +118,23 @@ You can also prevent any user from writing changes to disk, using `preventWriteT
 
 To disable all UI config features, including View Config, set `disableConfiguration`. Alternatively you can disable UI config features for all non admin users by setting `disableConfigurationForNonAdmin` to true.
 
+### Using Environment Variables for Passwords
+
+If you don't want to hash your password, you can instead leave out the `hash` attribute, and replace it with `password` which should have the value of an environmental variable name you wish to use.
+
+Note that env var must begin with `VUE_APP_`, and you must set this variable before building the app.
+
+For example:
+
+```yaml
+  auth:
+    users:
+    - user: bob
+      password: VUE_APP_BOB
+```
+
+Just be sure to set `VUE_APP_BOB='my super secret password'` before build-time.
+
 ### Adding HTTP Auth to Configuration
 
 If you'd also like to prevent direct visit access to your configuration file, you can set the `ENABLE_HTTP_AUTH` environmental variable.
@@ -132,6 +152,8 @@ With basic auth, all logic is happening on the client-side, which could mean a s
 If you'd like to protect all your config files from direct access, you can set the `BASIC_AUTH_USERNAME` and `BASIC_AUTH_PASSWORD` environmental variables. You'll then be prompted to enter these credentials when visiting Dashy.
 
 Then, if you'd like your frontend to automatically log you in, without prompting you for credentials, then also specify `VUE_APP_BASIC_AUTH_USERNAME` and `VUE_APP_BASIC_AUTH_PASSWORD`. This is useful for when you're hosting Dashy on a private server, and you want to prevent unauthorized access to your config files, while still allowing the frontend to access them. Note that a rebuild is required for these changes to take effect.
+
+**[⬆️ Back to Top](#authentication)**
 
 ---
 
