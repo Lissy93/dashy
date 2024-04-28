@@ -60,7 +60,7 @@
     }
 
     body {
-      background: #141b33;
+      background: #0d1220;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -197,12 +197,12 @@
   </style>
 
   <script>
-    const refreshRate = 8000;
-    // Refresh at interval
+    // Refresh the page every 10 seconds
+    const refreshRate = 10000;
     setTimeout(() => { location.reload(); }, refreshRate);
 
-     // Get current stage
-     let initStage = parseInt(sessionStorage.getItem('initStage') || 0);
+    // Get current stage
+    let initStage = parseInt(sessionStorage.getItem('initStage') || 0);
 
     // Check if stage in session storage is old, and if so, reset it
     const now = Math.round(Date.now()/1000);
