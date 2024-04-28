@@ -7,7 +7,7 @@
     <div class="options-outer">
       <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
         <ThemeSelector />
-        <LayoutSelector :displayLayout="displayLayout" />
+        <LayoutSelector :displayLayout="$store.getters.layout" />
         <ItemSizeSelector :iconSize="iconSize" />
         <ConfigLauncher />
         <AuthButtons  v-if="userState !== 0" :userType="userState" />

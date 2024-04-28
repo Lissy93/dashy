@@ -47,16 +47,17 @@
           </Button>
           <!-- Display app version and language -->
           <p class="language">{{ getLanguage() }}</p>
-          <p v-if="$store.state.currentConfigInfo" class="config-location">
-            Using Config From<br>
-            {{ $store.state.currentConfigInfo.confPath }}
+          <!-- Display location of config file -->
+          <p class="config-location">
+            Using config from
+            <a :href="configPath">{{ configPath }}</a>
           </p>
           <AppVersion />
         </div>
         <!-- Display note if Config disabled, or if on mobile -->
         <p v-if="!enableConfig" class="config-disabled-note">{{ $t('config.disabled-note') }}</p>
         <p class="small-screen-note" style="display: none;">{{ $t('config.small-screen-note') }}</p>
-        <div class="config-note">
+        <div class="config-note" @click="openExportConfigModal">
           <span>{{ $t('config.backup-note') }}</span>
         </div>
       </div>
@@ -115,6 +116,11 @@ export default {
     },
     enableConfig() {
       return this.$store.getters.permissions.allowViewConfig;
+    },
+    configPath() {
+      return this.$store.state.currentConfigInfo?.confPath
+      || process.env.VUE_APP_CONFIG_PATH
+      || '/conf.yml';
     },
   },
   components: {
@@ -248,8 +254,12 @@ a.hyperlink-wrapper {
 p.app-version, p.language, p.config-location {
   margin: 0.5rem auto;
   font-size: 1rem;
-  color: var(--transparent-white-50);
+  color: var(--config-settings-color);
   cursor: default;
+  opacity: var(--dimming-factor);
+  a {
+    color: var(--config-settings-color);
+  }
 }
 
 div.code-container {

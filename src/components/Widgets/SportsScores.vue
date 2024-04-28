@@ -93,7 +93,7 @@ export default {
       return this.options.leagueId;
     },
     apiKey() {
-      return this.options.apiKey || '50130162';
+      return this.parseAsEnvVar(this.options.apiKey) || '50130162';
     },
     limit() {
       return this.options.limit || 20;

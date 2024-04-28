@@ -22,6 +22,11 @@ html {
   }
 }
 
+#dashy {
+  position: relative;
+  min-height: 100vh;
+}
+
 /* Hide text, and show 'Loading...' while Vue is initializing tags */
 [v-cloak] > * { display:none }
 [v-cloak]::before { content: "loading…" }
@@ -103,6 +108,7 @@ html {
     border-radius: var(--curve-factor-small);
     color: var(--description-tooltip-color);
     padding: var(--tooltip-padding);
+    overflow: hidden;
   }
   .tooltip-arrow {
     width: 0;

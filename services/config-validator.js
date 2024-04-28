@@ -11,7 +11,7 @@ const schema = require('../src/utils/ConfigSchema.json');
 
 /* Tell AJV to use strict mode, and report all errors */
 const validatorOptions = {
-  strict: true,
+  strict: false,
   allowUnionTypes: true,
   allErrors: true,
 };
@@ -98,11 +98,14 @@ const printFileReadError = (e) => {
   }
 };
 
+let config = {};
+
 try { // Try to open and parse the YAML file
-  const config = yaml.load(fs.readFileSync('./public/conf.yml', 'utf8'));
+  config = yaml.load(fs.readFileSync(`./${process.env.USER_DATA_DIR || 'user-data'}/conf.yml`, 'utf8'));
   validate(config);
 } catch (e) { // Something went very wrong...
   setIsValidVariable(false);
   logToConsole(bigError());
   printFileReadError(e);
 }
+module.exports = config;

@@ -19,14 +19,7 @@
       </router-link>
     </div>
     <!-- Main content, section for each group of items -->
-    <div v-if="checkTheresData(sections) || isEditMode"
-      :class="`item-group-container `
-        + `orientation-${layout} `
-        + `item-size-${itemSizeBound} `
-        + (isEditMode ? 'edit-mode ' : '')
-        + (singleSectionView ? 'single-section-view ' : '')
-        + (this.colCount ? `col-count-${this.colCount} ` : '')"
-      >
+    <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass">
       <template v-for="(section, index) in filteredSections">
         <Section
           :key="index"
@@ -34,7 +27,7 @@
           :title="section.name"
           :icon="section.icon || undefined"
           :displayData="getDisplayData(section)"
-          :groupId="`${pageId}-section-${index}`"
+          :groupId="makeSectionId(section)"
           :items="section.filteredItems"
           :widgets="section.widgets"
           :searchTerm="searchValue"
@@ -56,6 +49,8 @@
     <EditModeSaveMenu v-if="isEditMode" />
     <!-- Modal for viewing and exporting configuration file -->
     <ExportConfigMenu />
+    <!-- Shows pertinent info -->
+    <NotificationThing v-if="$store.state.isUsingLocalConfig"/>
   </div>
 </template>
 
@@ -66,8 +61,9 @@ import Section from '@/components/LinkItems/Section.vue';
 import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
 import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vue';
 import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.vue';
+import NotificationThing from '@/components/Settings/LocalConfigWarning.vue';
 import StoreKeys from '@/utils/StoreMutations';
-import { localStorageKeys, modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 import BackIcon from '@/assets/interface-icons/back-arrow.svg';
 
@@ -79,6 +75,7 @@ export default {
     EditModeSaveMenu,
     ExportConfigMenu,
     AddNewSection,
+    NotificationThing,
     Section,
     BackIcon,
   },
@@ -116,15 +113,13 @@ export default {
     iconSize() {
       return this.$store.getters.iconSize;
     },
-  },
-  watch: {
-    layoutOrientation(layout) {
-      localStorage.setItem(localStorageKeys.LAYOUT_ORIENTATION, layout);
-      this.layout = layout;
-    },
-    iconSize(size) {
-      localStorage.setItem(localStorageKeys.ICON_SIZE, size);
-      this.itemSizeBound = size;
+    computedClass() {
+      let classes = 'item-group-container '
+      + ` orientation-${this.$store.getters.layout} item-size-${this.itemSizeBound}`;
+      if (this.isEditMode) classes += ' edit-mode';
+      if (this.singleSectionView) classes += ' single-section-view';
+      if (this.colCount) classes += ` col-count-${this.colCount}`;
+      return classes;
     },
   },
   methods: {

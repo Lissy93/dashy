@@ -30,11 +30,11 @@ export default {
   computed: {
     endpoint() {
       if (!this.options.host) this.error('linkgding Host is required');
-      return `${this.options.host}/api/bookmarks`;
+      return `${this.parseAsEnvVar(this.options.host)}/api/bookmarks`;
     },
     apiKey() {
       if (!this.options.apiKey) this.error('linkgding apiKey is required');
-      return this.options.apiKey;
+      return this.parseAsEnvVar(this.options.apiKey);
     },
     filtertags() {
       return this.options.tags;

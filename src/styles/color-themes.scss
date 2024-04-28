@@ -1619,6 +1619,236 @@ html[data-theme='lissy'] {
   }
 }
 
+html[data-theme='glass'],
+html[data-theme='glass-2'],
+html[data-theme='neomorphic'] {
+  --primary: #fff;
+  --item-group-outer-background: rgba(0, 0, 0, 0.25);
+  --item-group-background: transparent;
+  --item-group-heading-text-color: #fff;
+  --item-group-heading-text-color-hover: #ffffffd6;
+  --item-group-shadow: 5px 2px 20px rgba(0, 0, 0, 0.5);
+  --background: #190842;
+  --background-darker: #190842;
+  --settings-background: transparent;
+  --search-container-background: transparent;
+  --font-headings: 'Segoe UI', 'Ariel', 'sans-serif';
+  --font-body: 'Roboto', 'Segoe UI', 'Ariel', 'sans-serif';
+  --minimal-view-background-color: transparent;
+  --minimal-view-group-background: rgba(255, 255, 255, 0.15);
+  --minimal-view-section-heading-background: rgba(255, 255, 255, 0.15);
+  --minimal-view-section-heading-color: rgba(255, 255, 255, 0.15);
+  --config-settings-background: #16073de3;
+  --cloud-backup-background: #16073de3;
+
+  @mixin item-transition-styles($bg: transparent, $hover-bg: rgba(255, 255, 255, 0.15), $hover-shadow: rgba(0, 0, 0, 0.75)) {
+    background: $bg;
+    border: 1px solid transparent;
+    box-shadow: none;
+    transition: 0.2s all ease-in-out;
+  
+    &:hover {
+      border-radius: 0.35rem;
+      box-shadow: 0 4px 30px $hover-shadow;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.19);
+      background: $hover-bg;
+    }
+  }
+  
+  @mixin transform-scale($normal-scale: 1, $hover-scale: 1.25) {
+    transition: 0.1s all ease-in-out;
+    transform: scale($normal-scale);
+  
+    &:hover {
+      transform: scale($hover-scale);
+    }
+  }
+
+  body {
+    background-size: cover;
+    background-color: #090317;
+    .home {
+      background: transparent;
+    }
+  }
+
+  .settings-outer, header, .dashy-modal, .dashy-modal .tabs {
+    background: transparent;
+    // backdrop-filter: blur(4px);
+  }
+
+  // Minimal view components
+  .minimal-section-inner, div.minimal-section-heading {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(145, 145, 145, 0.45);
+    border-bottom: none;
+
+    &.selected {
+      border: 1px solid rgba(145, 145, 145, 0.45);
+      background: var(--minimal-view-group-background);
+    }
+  }
+
+  .minimal-section-heading {
+    color: var(--minimal-view-section-heading-background);
+
+    &.selected {
+      .section-icon, .section-title {
+        color: var(--primary) !important;
+      }
+    }
+  }
+
+  --glass-button-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --glass-button-hover-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+
+  // Forms and inputs
+  button.save-button,
+  .action-buttons button,
+  .cloud-backup-restore-wrapper button,
+  .tab__nav__item,
+  div.input-container input.input-field,
+  form.normal input,
+  .nav-outer nav .nav-item,
+  div.edit-mode-bottom-banner .edit-banner-section button,
+  .v-select.theme-dropdown.vs__dropdown-toggle,
+  .theme-dropdown div.vs__dropdown-toggle,
+  .config-buttons > svg,
+  .display-options svg,
+  form.minimal input,
+  .critical-error-wrap button.user-doesnt-care,
+  a.config-button, button.config-button {
+    border-radius: 0.35rem;
+    box-shadow: var(--glass-button-shadow);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.19);
+    background: rgba(255, 255, 255, 0.15);
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    &:hover, &.selected {
+      box-shadow: var(--glass-button-hover-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.25) !important;
+      background: #ffffff42 !important;
+      color: var(--primary) !important;
+      path { fill: var(--primary); }
+    }
+  }
+
+  .tab__nav__items {
+    gap: 1rem;
+    margin: 0.5rem 0 0;
+    .tab__nav__item {
+      padding: 0.5rem 0.5rem;
+      &:hover, .active, .active:hover {
+        background: #ffffff42 !important;
+        span { color: var(--primary) !important; }
+      }
+    }
+  }
+
+  .main-options-container .config-buttons, div.cloud-backup-restore-wrapper {
+    background: none;
+  }
+
+  // Item and collapsable specific styles
+  .item {
+    @include item-transition-styles(transparent, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.75));
+    .item-icon {
+      @include transform-scale(1.1, 1.25);
+    }
+  }
+
+  .collapsable {
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  // Modal specific styles
+  .dashy-modal {
+    box-shadow: 0 20px 40px -2px #000000b8, 1px 1px 6px #000000a6 !important;
+  }
+
+  .tab-item {
+    background: var(--config-settings-background);
+  }
+
+  .theme-configurator-wrapper, .view-switcher {
+    backdrop-filter: blur(10px);
+    background: var(--config-settings-background);
+    border: 1px solid rgba(255, 255, 255, 0.19);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .edit-mode-top-banner {
+    backdrop-filter: blur(10px);
+    background: #ffffff6b;
+    border-bottom: 1px solid black;
+
+    span { color: #eaff9d; }
+  }
+
+  div.edit-mode-bottom-banner, .add-new-section {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(50px);
+  }
+
+  .critical-error-wrap {
+    backdrop-filter: blur(15px);
+    background: #0f0528c4;
+  }
+}
+
+html[data-theme='glass'] {
+  body {
+    background: url('https://zeabur.com/images/bg.png') center center no-repeat;
+    background-size: cover;
+    background-color: #090317;
+    .home {
+      background: transparent;
+    }
+  }
+}
+
+html[data-theme='glass-2'] {
+    body {
+    background: url('https://i.ibb.co/FnLH6bj/dashy-glass.jpg') center center no-repeat;
+    background-size: cover;
+    background-color: #090317;
+  }
+}
+
+html[data-theme='neomorphic'] {
+  --primary: #fff;
+  --item-group-outer-background: rgba(255, 255, 255, 0.15);
+  --item-group-background: transparent;
+  --item-group-heading-text-color: #fff;
+  --item-group-shadow: 5px 2px 20px rgba(0, 0, 0, 0.5);
+  --background: #5b56f7;
+  // --background: #4bdbfd;
+  --background-darker: #12103c;
+  --settings-background: transparent;
+  --search-container-background: transparent;
+  --font-headings: 'Segoe UI', 'Ariel', 'sans-serif';
+  --font-body: 'Roboto', 'Segoe UI', 'Ariel', 'sans-serif';
+  --minimal-view-background-color: transparent;
+  --minimal-view-group-background: rgba(255, 255, 255, 0.15);
+  --minimal-view-section-heading-background: rgba(255, 255, 255, 0.15);
+  --minimal-view-section-heading-color: rgba(255, 255, 255, 0.15);
+  --config-settings-background: #1fb8f4e3;
+  --cloud-backup-background: #16073de3;
+
+  --glass-button-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
+  --glass-button-hover-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  body  {
+    background: var(--background);
+  }
+  .item:hover { box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); }
+  .collapsable { border: 1px solid rgba(255, 255, 255, 0.25) !important; }
+}
+
+
 html[data-theme='cherry-blossom'] {
   --primary: #e1e8ee;
   --background: #11171d;
@@ -1777,7 +2007,7 @@ html[data-theme="tama"] {
 
   // large tile spacing adjustment
   .there-are-items:has(.item-wrapper.wrap-size-large) { padding-top: .25rem; }
-  .item-wrapper.wrap-size-large { margin: 0rem .5rem .5rem 0rem; }
+  .item-wrapper.wrap-size-large { margin: 0rem .5rem .5rem 0rem; overflow: hidden; }
   .item.size-large .tile-title { padding: 0rem 0rem 0rem .7rem; }
 
   // Hide open method icon

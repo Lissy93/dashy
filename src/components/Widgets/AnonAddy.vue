@@ -113,7 +113,7 @@ export default {
   },
   computed: {
     hostname() {
-      return this.options.hostname || widgetApiEndpoints.anonAddy;
+      return this.parseAsEnvVar(this.options.hostname) || widgetApiEndpoints.anonAddy;
     },
     apiVersion() {
       return this.options.apiVersion || 'v1';
@@ -132,7 +132,7 @@ export default {
     },
     apiKey() {
       if (!this.options.apiKey) this.error('An apiKey is required');
-      return this.options.apiKey;
+      return this.parseAsEnvVar(this.options.apiKey);
     },
     hideMeta() {
       return this.options.hideMeta;

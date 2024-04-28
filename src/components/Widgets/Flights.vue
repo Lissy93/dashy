@@ -71,7 +71,7 @@ export default {
         this.error('An API key must be supplied');
         return '';
       }
-      return usersChoice;
+      return this.parseAsEnvVar(usersChoice);
     },
     /* The direction of flights: Arrival, Departure or Both */
     direction() {

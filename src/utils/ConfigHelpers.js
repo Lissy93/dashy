@@ -1,10 +1,10 @@
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
+// import $store from '@/store';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import { languages } from '@/utils/languages';
 import {
   visibleComponents,
   localStorageKeys,
-  theme as defaultTheme,
   language as defaultLanguage,
 } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
@@ -24,6 +24,13 @@ export const makePageName = (pageName) => {
 export const makePageSlug = (pageName, pageType) => {
   const formattedName = makePageName(pageName);
   return `/${pageType}/${formattedName}`;
+};
+
+/* Put fetch path for additional configs in correct format */
+export const formatConfigPath = (configPath) => {
+  if (configPath.includes('http')) return configPath;
+  if (configPath.substring(0, 1) !== '/') return `/${configPath}`;
+  return configPath;
 };
 
 /**
@@ -68,33 +75,11 @@ export const componentVisibility = (appConfig) => {
 };
 
 /**
- * Gets the users saved theme, first looks for local storage theme,
- * then looks at user's appConfig, and finally checks the defaults
- * @returns {string} Name of theme to apply
- */
-export const getTheme = () => {
-  const localTheme = localStorage[localStorageKeys.THEME];
-  const appConfigTheme = config.appConfig.theme;
-  return localTheme || appConfigTheme || defaultTheme;
-};
-
-/**
- * Gets any custom styles the user has applied, wither from local storage, or from the config
- * @returns {object} An array of objects, one for each theme, containing kvps for variables
- */
-export const getCustomColors = () => {
-  const localColors = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
-  const configColors = config.appConfig.customColors || {};
-  return Object.assign(configColors, localColors);
-};
-
-/**
  * Returns a list of items which the user has assigned a hotkey to
  * So that when the hotkey is pressed, the app/ service can be launched
  */
-export const getCustomKeyShortcuts = () => {
+export const getCustomKeyShortcuts = (sections) => {
   const results = [];
-  const sections = config.sections || [];
   sections.forEach((section) => {
     const itemsWithHotKeys = section.items.filter(item => item.hotkey);
     results.push(itemsWithHotKeys.map(item => ({ hotkey: item.hotkey, url: item.url })));

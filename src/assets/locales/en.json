@@ -63,8 +63,8 @@
     "privacy-and-security": "Privacy & Security",
     "privacy-and-security-l1": "For a break-down of how your data is managed by Dashy, see the",
     "privacy-and-security-privacy-policy": "Privacy Policy",
-    "app-info.privacy-and-security-advice": "For advise in securing your dashboard, you can reference the",
-    "app-info.privacy-and-security-advice-link": "Management Docs",
+    "privacy-and-security-advice": "For advise in securing your dashboard, you can reference the",
+    "privacy-and-security-advice-link": "Management Docs",
     "privacy-and-security-security-issue": "If you've found a potential security issue, report it following our",
     "privacy-and-security-security-policy": "Security Policy",
     "license": "License",
@@ -171,9 +171,9 @@
     "status-fail-msg": "Task Failed",
     "success-msg-disk": "Config file written to disk successfully",
     "success-msg-local": "Local changes saved successfully",
-    "success-note-l1": "The app should rebuild automatically.",
-    "success-note-l2": "This may take up to a minute.",
-    "success-note-l3": "You will need to refresh the page for changes to take effect.",
+    "success-note-l1": "You will need to refresh the page for changes to take effect.",
+    "success-note-l2": "",
+    "success-note-l3": "",
     "error-msg-save-mode": "Please select a Save Mode: Local or File",
     "error-msg-cannot-save": "An error occurred saving config",
     "error-msg-bad-json": "Error in JSON, possibly malformed",
@@ -182,9 +182,9 @@
   },
   "app-rebuild": {
     "title": "Rebuild Application",
-    "rebuild-note-l1": "A rebuild is required for changes written to the conf.yml file to take effect.",
-    "rebuild-note-l2": "This should happen automatically, but if it hasn't, you can manually trigger it here.",
-    "rebuild-note-l3": "This is not required for modifications stored locally.",
+    "rebuild-note-l1": "A rebuild is no longer required for changes to take effect.",
+    "rebuild-note-l2": "Some changes (entry-point, and auth settings) are read at build-time. So to apply these, you should trigger a rebuild here.",
+    "rebuild-note-l3": "Note that this is only available on Node and Docker installations, not via statically deployed instances.",
     "rebuild-button": "Start Build",
     "rebuilding-status-1": "Building...",
     "rebuilding-status-2": "This may take a few minutes",
@@ -312,10 +312,20 @@
       "view-title": "View Config"
     }
   },
+  "critical-error": {
+    "title": "Configuration Load Error",
+    "subtitle": "Dashy has failed to load correctly due to a configuration error.",
+    "sub-ensure-that": "Ensure that",
+    "sub-error-details": "Error Details",
+    "sub-next-steps": "Next Steps",
+    "ignore-button": "Ignore Critical Errors"
+  },
   "widgets": {
     "general": {
       "loading": "Loading...",
       "show-more": "Expand Details",
+      "cpu-details": "CPU Details",
+      "mem-details": "Memory Details",
       "show-less": "Show Less",
       "open-link": "Continue Reading"
     },

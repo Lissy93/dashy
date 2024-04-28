@@ -4,6 +4,7 @@
     <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash" />
     <Header :pageInfo="pageInfo" />
     <router-view v-if="!isFetching" />
+    <CriticalError v-if="hasCriticalError" />
     <Footer :text="footerText" v-if="visibleComponents.footer && !isFetching" />
   </div>
 </template>
@@ -12,6 +13,7 @@
 import Header from '@/components/PageStrcture/Header.vue';
 import Footer from '@/components/PageStrcture/Footer.vue';
 import EditModeTopBanner from '@/components/InteractiveEditor/EditModeTopBanner.vue';
+import CriticalError from '@/components/PageStrcture/CriticalError.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
 import { welcomeMsg } from '@/utils/CoolConsole';
 import ErrorHandler from '@/utils/ErrorHandler';
@@ -29,6 +31,7 @@ export default {
     Footer,
     LoadingScreen,
     EditModeTopBanner,
+    CriticalError,
   },
   data() {
     return {
@@ -64,13 +67,16 @@ export default {
       return this.$store.getters.pageInfo;
     },
     sections() {
-      return this.$store.getters.pageInfo;
+      return this.$store.getters.sections;
     },
     visibleComponents() {
       return this.$store.getters.visibleComponents;
     },
     isEditMode() {
       return this.$store.state.editMode;
+    },
+    hasCriticalError() {
+      return this.$store.state.criticalError;
     },
     subPageClassName() {
       const currentSubPage = this.$store.state.currentConfigInfo;

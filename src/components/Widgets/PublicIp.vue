@@ -35,7 +35,7 @@ export default {
     },
     provider() {
       // Can be either `ip-api`, `ipapi.co` or `ipgeolocation`
-      return this.options.provider || 'ipapi.co';
+      return this.parseAsEnvVar(this.options.provider) || 'ipapi.co';
     },
   },
   data() {

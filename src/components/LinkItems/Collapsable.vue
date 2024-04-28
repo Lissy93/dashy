@@ -64,7 +64,6 @@ export default {
       return this.$store.state.editMode;
     },
     sectionKey() {
-      if (this.isEditMode) return undefined;
       return `collapsible-${this.uniqueKey}`;
     },
     collapseClass() {
@@ -104,12 +103,23 @@ export default {
   watch: {
     checkboxState(newState) {
       this.isExpanded = newState;
+      this.updateLocalStorage(); // Save every change immediately
     },
-    uniqueKey() {
-      this.checkboxState = this.isExpanded;
+    uniqueKey(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.refreshCollapseState(); // Refresh state when key changes
+      }
     },
   },
   methods: {
+    refreshCollapseState() {
+      this.checkboxState = this.isExpanded;
+    },
+    updateLocalStorage() {
+      const collapseState = this.locallyStoredCollapseStates();
+      collapseState[this.uniqueKey] = this.checkboxState;
+      localStorage.setItem(localStorageKeys.COLLAPSE_STATE, JSON.stringify(collapseState));
+    },
     /* Either expand or collapse section, based on it's current state */
     toggle() {
       this.checkboxState = !this.checkboxState;

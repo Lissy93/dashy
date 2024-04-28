@@ -7,6 +7,7 @@
 
 ## Contents
 
+- [Config not saving](#config-not-saving)
 - [Refused to Connect in Web Content View](#refused-to-connect-in-modal-or-workspace-view)
 - [404 On Static Hosting](#404-on-static-hosting)
 - [404 from Mobile Home Screen](#404-after-launch-from-mobile-home-screen)
@@ -18,6 +19,7 @@
 - [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
 - [Keycloak Redirect Error](#keycloak-redirect-error)
 - [Docker Directory Error](#docker-directory)
+- [Config not Saving on Vercel / Netlify / CDN](#user-content-config-not-saving-on-vercel--netlify--cdn)
 - [Config Not Updating](#config-not-updating)
 - [Config Still not Updating](#config-still-not-updating)
 - [Styles and Assets not Updating](#styles-and-assets-not-updating)
@@ -42,6 +44,25 @@
 - [How to make a bug report](#how-to-make-a-bug-report)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
+
+---
+
+## Config not saving
+
+### Possible Issue 1: Unable to call save endpoint from CDN/static server
+If you're running Dashy using a static hosting provider (like Vercel), then there is no Node server, and so the save config action will not work via the UI.
+You'll instead need to copy the YAML after making your changes, and paste that into your `conf.yml` directly. If you've connected Vercel to git, then these changes will take effect automatically, once you commit your changes. 
+Look here for more information: [https://dashy.to/docs/deployment#deploy-to-cloud-service](https://dashy.to/docs/deployment#deploy-to-cloud-service)
+
+If you're running on Netlify, there are some cloud functions which take care of all the server endpoints (like status checking), so these will work as expected.
+
+See also [#1465](https://github.com/Lissy93/dashy/issues/1465)
+
+### Possible Issue 2: Unable to save
+In Docker, double check that the file isn't read-only, and that the container actually has permissions to modify it. You shouldn't really be running it as a root user, and I'm not sure if it will work if you do-
+
+### Possible Issue 3: Saved but not updating
+After saving, the frontend will recompile, which may take a couple seconds (or a bit longer on a Pi or low-powered device). If it doesn't recompile, you can manually trigger a re-build.
 
 ---
 
@@ -135,7 +156,7 @@ If you're getting an error about scenarios, then you've likely installed the wro
 Alternatively, as a workaround, you have several options:
 
 - Try using [NPM](https://www.npmjs.com/get-npm) instead: So clone, cd, then run `npm install`, `npm run build` and `npm start`
-- Try using [Docker](https://www.docker.com/get-started) instead, and all of the system setup and dependencies will already be taken care of. So from within the directory, just run `docker build -t lissy93/dashy .` to build, and then use docker start to run the project, e.g: `docker run -it -p 8080:80 lissy93/dashy` (see the [deploying docs](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#deploy-with-docker) for more info)
+- Try using [Docker](https://www.docker.com/get-started) instead, and all of the system setup and dependencies will already be taken care of. So from within the directory, just run `docker build -t lissy93/dashy .` to build, and then use docker start to run the project, e.g: `docker run -it -p 8080:8080 lissy93/dashy` (see the [deploying docs](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#deploy-with-docker) for more info)
 
 ---
 
@@ -213,7 +234,7 @@ Version 2.0.4 introduced changes to how the config is read, and the app is build
 
 ```yaml
 volumes:
-- /srv/dashy/conf.yml:/app/public/conf.yml
+- /srv/dashy/conf.yml:/app/user-data/conf.yml
 - /srv/dashy/item-icons:/app/public/item-icons
 ```
 
@@ -252,12 +273,23 @@ See also: #479, #409, #507, #491, #341, #520
 Error response from daemon: OCI runtime create failed: container_linux.go:380:
 starting container process caused: process_linux.go:545: container init caused:
 rootfs_linux.go:76: mounting "/home/ubuntu/my-conf.yml" to rootfs at
-"/app/public/conf.yml" caused: mount through procfd: not a directory:
+"/app/user-data/conf.yml" caused: mount through procfd: not a directory:
 unknown: Are you trying to mount a directory onto a file (or vice-versa)?
 Check if the specified host path exists and is the expected type.
 ```
 
-If you get an error similar to the one above, you are mounting a directory to the config file's location, when a plain file is expected. Create a YAML file, (`touch my-conf.yml`), populate it with a sample config, then pass it as a volume: `-v ./my-local-conf.yml:/app/public/conf.yml`
+If you get an error similar to the one above, you are mounting a directory to the config file's location, when a plain file is expected. Create a YAML file, (`touch my-conf.yml`), populate it with a sample config, then pass it as a volume: `-v ./my-local-conf.yml:/app/user-data/conf.yml`
+
+---
+
+## Config not Saving on Vercel / Netlify / CDN
+
+If you're running Dashy using a static hosting provider (like Vercel), then there is no Node server, and so the save config action will not work via the UI.
+You'll instead need to copy the YAML after making your changes, and paste that into your `conf.yml` directly. If you've connected Vercel to git, then these changes will take effect automatically, once you commit your changes.
+
+If you're running on Netlify, there are some cloud functions which take care of all the server endpoints (like status checking), so these will work as expected.
+
+See also [#1465](https://github.com/Lissy93/dashy/issues/1465)
 
 ---
 
@@ -504,9 +536,11 @@ Usually, Font Awesome will be automatically enabled if one or more of your icons
 
 If you are trying to use a premium icon, then you must have a [Pro License](https://fontawesome.com/plans). You'll then need to specify your Pro plan API key under `appConfig.fontAwesomeKey`. You can find this key, by logging into your FA account, navigate to Account → [Kits](https://fontawesome.com/kits) → New Kit → Copy Kit Code. The code is a 10-digit alpha-numeric code, and is also visible within the new kit's URL, for example: `81e48ce079`.
 
+<p align="center"><img src="https://i.ibb.co/hZ0D9vs/where-do-i-find-my-font-awesome-key.png" width="600" /></p>
+
 Be sure that you're specifying the icon category and name correctly. You're icon should look be `[category] fa-[icon-name]`. The following categories are supported: `far` _(regular)_, `fas` _(solid)_, `fal`_(light)_, `fad` _(duo-tone)_ and `fab`_(brands)_. With the exception of brands, you'll usually want all your icons to be in from same category, so they look uniform.
 
-Ensure the icon you are trying to use, is available within [FontAwesome Version 5](https://fontawesome.com/v5/search).
+Ensure the icon you are trying to use, is available within [FontAwesome Version 5](https://fontawesome.com/v5/search) (we've not yet upgraded to V6, as it works a little differently).
 
 Examples: `fab fa-raspberry-pi`, `fas fa-database`, `fas fa-server`, `fas fa-ethernet`
 
@@ -535,8 +569,7 @@ For example:
 export NODE_OPTIONS=--openssl-legacy-provider
 ```
 
-For more info, see [webpack/webpack#14532](https://github.com/webpack/webpack/issues/14532) and [nodejs/node#40455](https://github.com/nodejs/node/issues/40455). 
-This occours because [Node 17+](https://medium.com/the-node-js-collection/node-js-17-is-here-8dba1e14e382) no longer supports MD4 as hash function, we're in the process of upgrading Dashy dependencies to all use SHA1 for hashing bundle IDs.
+This will be fixed once [webpack/webpack#17659](https://github.com/webpack/webpack/pull/17659) is merged.
 
 ---
 

@@ -34,22 +34,22 @@ export default {
   computed: {
     clusterUrl() {
       if (!this.options.cluster_url) this.error('The cluster URL is required.');
-      return this.options.cluster_url || '';
+      return this.parseAsEnvVar(this.options.cluster_url) || '';
     },
     userName() {
       if (!this.options.user_name) this.error('The user name is required.');
-      return this.options.user_name || '';
+      return this.parseAsEnvVar(this.options.user_name) || '';
     },
     tokenName() {
       if (!this.options.token_name) this.error('The token name is required.');
-      return this.options.token_name || '';
+      return this.parseAsEnvVar(this.options.token_name) || '';
     },
     tokenUuid() {
       if (!this.options.token_uuid) this.error('The token uuid is required.');
-      return this.options.token_uuid || '';
+      return this.parseAsEnvVar(this.options.token_uuid) || '';
     },
     node() {
-      return this.options.node || '';
+      return this.parseAsEnvVar(this.options.node) || '';
     },
     nodeData() {
       return this.options.node_data || false;
@@ -94,7 +94,7 @@ export default {
       }
     },
     processData(data) {
-      this.data = data.data.sort((a, b) => a.vmid > b.vmid);
+      this.data = data.data.sort((a, b) => Number(a.vmid) > Number(b.vmid));
       if (this.hideTemplates) {
         this.data = this.data.filter(item => item.template !== 1);
       }

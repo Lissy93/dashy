@@ -5,19 +5,19 @@
       <IconDeafault
         @click="updateDisplayLayout('auto')"
         v-tooltip="tooltip($t('settings.layout-auto'))"
-        :class="`layout-icon ${displayLayout === 'auto' ? 'selected' : ''}`"
+        :class="`layout-icon ${layout === 'auto' ? 'selected' : ''}`"
         tabindex="-2"
       />
       <IconHorizontal
         @click="updateDisplayLayout('horizontal')"
         v-tooltip="tooltip($t('settings.layout-horizontal'))"
-        :class="`layout-icon ${displayLayout === 'horizontal' ? 'selected' : ''}`"
+        :class="`layout-icon ${layout === 'horizontal' ? 'selected' : ''}`"
         tabindex="-2"
       />
       <IconVertical
         @click="updateDisplayLayout('vertical')"
         v-tooltip="tooltip($t('settings.layout-vertical'))"
-        :class="`layout-icon ${displayLayout === 'vertical' ? 'selected' : ''}`"
+        :class="`layout-icon ${layout === 'vertical' ? 'selected' : ''}`"
         tabindex="-2"
       />
     </div>
@@ -39,6 +39,11 @@ export default {
     IconDeafault,
     IconHorizontal,
     IconVertical,
+  },
+  computed: {
+    layout() {
+      return this.$store.getters.layout;
+    },
   },
   methods: {
     updateDisplayLayout(layout) {

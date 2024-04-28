@@ -1,9 +1,12 @@
 // A list of mutation names
 const KEY_NAMES = [
   'INITIALIZE_CONFIG',
+  'INITIALIZE_ROOT_CONFIG',
   'INITIALIZE_MULTI_PAGE_CONFIG',
   'SET_CONFIG',
-  'SET_REMOTE_CONFIG',
+  'SET_ROOT_CONFIG',
+  'SET_CURRENT_CONFIG_INFO',
+  'SET_IS_USING_LOCAL_CONFIG',
   'SET_CURRENT_SUB_PAGE',
   'SET_MODAL_OPEN',
   'SET_LANGUAGE',
@@ -26,6 +29,7 @@ const KEY_NAMES = [
   'INSERT_ITEM',
   'UPDATE_CUSTOM_CSS',
   'CONF_MENU_INDEX',
+  'CRITICAL_ERROR_MSG',
 ];
 
 // Convert array of key names into an object, and export

@@ -66,6 +66,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Gluetun VPN Info](#gluetun-vpn-info)
   - [Drone CI Build](#drone-ci-builds)
   - [Linkding](#linkding)
+  - [Uptime Kuma](#uptime-kuma)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -91,6 +92,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Widget Usage Guide](#widget-usage-guide)
   - [Continuous Updates](#continuous-updates)
   - [Proxying Requests](#proxying-requests)
+  - [Handling Secrets](#handling-secrets)
   - [Setting Timeout](#setting-timeout)
   - [Adding Labels](#adding-labels)
   - [Ignoring Errors](#ignoring-errors)
@@ -151,6 +153,8 @@ A simple, live-updating local weather component, showing temperature, conditions
 **`city`** | `string` | Required | A city name to use for fetching weather. This can also be a state code or country code, following the ISO-3166 format
 **`units`** | `string` |  _Optional_ | The units to use for displaying data, can be either `metric` or `imperial`. Defaults to `metric`
 **`hideDetails`** | `boolean` |  _Optional_ | If set to `true`, the additional details (wind, humidity, pressure, etc) will not be shown. Defaults to `false`
+**`lat`** | `number` |  _Optional_ | To show weather for a specific location, you can provide the latitude and longitude coordinates. If provided, this will override the `city` option
+**`lon`** | `number` |  _Optional_ | To show weather for a specific location, you can provide the latitude and longitude coordinates. If provided, this will override the `city` option
 
 #### Example
 
@@ -160,7 +164,7 @@ A simple, live-updating local weather component, showing temperature, conditions
     apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     city: London
     units: metric
-    hideDetails: false
+    hideDetails: true
 ```
 
 #### Info
@@ -700,6 +704,8 @@ Display current FX rates in your native currency. Hover over a row to view more 
 ### Public Holidays
 
 Counting down to the next day off work? This widget displays upcoming public holidays for your country. Data is fetched from [Enrico](http://kayaposoft.com/enrico/)
+
+Note, config for this widget is case-sensetive (see [#1268](https://github.com/Lissy93/dashy/issues/1268))
 
 <p align="center"><img width="400" src="https://i.ibb.co/VC6fZqn/public-holidays.png" /></p>
 
@@ -1549,6 +1555,19 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
     apiKey: xxxxxxxxxxxxxxxxxxxxxxx
 ```
 
+> [!TIP]
+> In order to avoid leaking secret data, both `hostname` and `apiKey` can leverage environment variables. Simply pass the name of the variable, which MUST start with `VUE_APP_`.
+
+```yaml
+- type: pi-hole-stats
+  options:
+    hostname: VUE_APP_pihole_ip
+    apiKey: VUE_APP_pihole_key
+```
+
+> [!IMPORTANT]
+> You will need to restart the server (or the docker image) if adding/editing an env var for this to be refreshed.
+
 #### Info
 
 - **CORS**: 🟢 Enabled
@@ -2109,7 +2128,9 @@ This will show the list of nodes.
       token_name: dashy
       token_uuid: bfb152df-abcd-abcd-abcd-ccb95a472d01
 ```
+
 This will show the list of VMs, with a title and a linked fotter, hiding VM templates.
+
 ```yaml
   - type: proxmox-lists
     useProxy: true 
@@ -2126,6 +2147,7 @@ This will show the list of VMs, with a title and a linked fotter, hiding VM temp
       footer_as_link: true
       hide_templates: 1
 ```
+
 #### Info
 
 - **CORS**: 🟠 Proxied
@@ -2133,6 +2155,12 @@ This will show the list of VMs, with a title and a linked fotter, hiding VM temp
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Proxmox Virtual Environment](https://proxmox.com/en/proxmox-ve))
 - **Privacy**: _See [Proxmox's Privacy Policy](https://proxmox.com/en/privacy-policy)_
+
+#### Troubleshooting
+- **404 Error in development mode**: The error might disappear in production mode `yarn start`
+- **500 Error in production mode**: Try adding the certificate authority (CA) certificate of your Proxmox host to Node.js. 
+  - Download the Proxmox CA certificate to your Dashy host.
+  - Export environment variable `NODE_EXTRA_CA_CERTS` and set its value to the path of the downloaded CA certificate. Example:  `export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/devlab_ca.pem`
 
 ---
 
@@ -2216,7 +2244,7 @@ Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`host`** | `string` |  Required | The hostname of the Drone CI instance.
-**`apiKey`** | `string` |  Required | The API key (https://<your-drone-instance>/account).
+**`apiKey`** | `string` |  Required | The API key (https://[your-drone-instance]/account).
 **`limit`** | `integer` | _Optional_ | Limit the amounts of listed builds.
 **`repo`** | `string` | _Optional_ | Show only builds of the specified repo
 
@@ -2250,7 +2278,7 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
 **`host`** | `string` |  Required | The hostname of the Drone CI instance.
-**`apiKey`** | `string` |  Required | The API key (https://<your-linkding-instance>/settings/integrations).
+**`apiKey`** | `string` |  Required | The API key (https://your-linkding-instance/settings/integrations).
 **`tags`** | `list of string` | _Optional_ | Filter the links by tag.
 
 #### Example
@@ -2276,6 +2304,37 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 
 ---
 
+### Uptime Kuma
+
+[Uptime Kuma](https://github.com/louislam/uptime-kuma) is an easy-to-use self-hosted monitoring tool.
+
+#### Options
+
+| **Field**    | **Type** | **Required** | **Description**                                                          |
+| ------------ | -------- | ------------ | ------------------------------------------------------------------------ |
+| **`url`**    | `string` | Required     | The URL of the Uptime Kuma instance                                      |
+| **`apiKey`** | `string` | Required     | The API key (see https://github.com/louislam/uptime-kuma/wiki/API-Keys). |
+
+#### Example
+
+```yaml
+- type: uptime-kuma
+  useProxy: true
+  options:
+    apiKey: uk2_99H0Yd3I2pPNIRfn0TqBFu4g5q85R1Mh75yZzw6H
+    url: http://192.168.1.106:3691/metrics
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Uptime Kuma](https://github.com/louislam/uptime-kuma) )
+- **Privacy**: _See [Uptime Kuma](https://github.com/louislam/uptime-kuma)_
+
+---
+
 ## System Resource Monitoring
 
 ### Glances
@@ -2285,7 +2344,27 @@ Glances is a cross-platform monitoring tool developed by [@nicolargo](https://gi
 
 If you don't already have it installed, either follow the [Installation Guide](https://github.com/nicolargo/glances/blob/master/README.rst) for your system, or setup [with Docker](https://glances.readthedocs.io/en/latest/docker.html), or use the one-line install script: `curl -L https://bit.ly/glances | /bin/bash`.
 
+If you are using Docker to run glances make sure to add the enviroment variable `-e TZ = {YourTimeZone}`. You can get a list of valid timezones by running `timedatectl list-timezones` on any linux system. This is needed so the graphs show the currect time.
+
+Here an example for Docker
+```
+ docker run -d \
+    --name glances \
+    --restart unless-stopped \
+    -v /var/run/docker.sock:/var/run/docker.sock:ro \
+    -p 61208:61208 \
+    --pid host \
+    --privileged \
+    -e GLANCES_OPT=-w \
+    -e PUID=1000 \
+    -e PGID=1000 \
+    -e TZ=Europe/Zurich \
+    nicolargo/glances:latest
+```
+
 Glances can be launched with the `glances` command. You'll need to run it in web server mode, using the `-w` option for the API to be reachable. If you don't plan on using the Web UI, then you can disable it using `--disable-webui`. See the [command reference docs](https://glances.readthedocs.io/en/latest/cmds.html) for more info.
+
+If Glaces is running on a Windows system it is recommanded to add the following arguments ```--disable-plugin all --enable-plugin cpu,mem,diskio,ip,network,containers,quicklook,load,fs,alert -w``` This is due to Glances not being that stable on windows, so disabling all plugins that aren't used by Dashy widgets can save on ressources.
 
 #### Options
 
@@ -2325,6 +2404,22 @@ Live-updating current CPU usage, as a combined average across all cores
 
 ```yaml
 - type: gl-current-cpu
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### Current CPU Usage Speedometer
+
+Speedometer styled version of the Current CPU Usage widget
+
+<p align="center"><img width="400" src="https://i.ibb.co/7RHTRNq/gl-cpu-speedometer.png" /></p>
+
+#### Example
+
+```yaml
+- type: gl-cpu-speedometer
   options:
     hostname: http://192.168.130.2:61208
 ```
@@ -2380,6 +2475,22 @@ Real-time memory usage gauge, with more info visible on click
 
 ```yaml
 - type: gl-current-mem
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
+### Current Memory Usage Speedometer
+
+Speedometer styled version of the Current Memory Usage widget
+
+<p align="center"><img width="400" src="https://i.ibb.co/wsNW7Xr/gl-mem-speedometer.png" /></p>
+
+#### Example
+
+```yaml
+- type: gl-mem-speedometer
   options:
     hostname: http://192.168.130.2:61208
 ```
@@ -2746,6 +2857,32 @@ Vary: Origin
 
 ---
 
+### Handling Secrets
+
+Some widgets require you to pass potentially sensetive info such as API keys. The `conf.yml` is not ideal for this, as it's stored in plaintext.
+Instead, for secrets you should use environmental vairables.
+
+You can do this, by setting the environmental variable name as the value, instead of the actual key, and then setting that env var in your container or local environment.
+
+The key can be named whatever you like, but it must start with `VUE_APP_` (to be picked up by Vue). If you need to update any of these values, a rebuild is required (this can be done under the Config menu in the UI, or by running `yarn build` then restarting the container).
+
+For more infomation about setting and managing your environmental variables, see [Management Docs --> Environmental Variables](/docs/management.md#passing-in-environmental-variables).
+
+For example:
+
+```yaml
+- type: weather
+  options:
+    apiKey: VUE_APP_WEATHER_TOKEN
+    city: London
+    units: metric
+    hideDetails: true
+```
+
+Then, set `VUE_APP_WEATHER_TOKEN='xxx'`
+
+---
+
 ### Setting Timeout
 
 If the endpoint you are requesting data from is slow to respond, you may see a timeout error in the console. This can easily be fixed by specifying the `timeout` property on the offending widget. This should be an integer value, in milliseconds. By default timeout is `2500` ms (2½ seconds).
@@ -2878,7 +3015,7 @@ Please only request widgets for services that:
 
 You can suggest a widget [here](https://git.io/Jygo3), please star the repo before submitting a ticket. If you are a monthly GitHub sponsor, I will happily build out a custom widget for any service that meets the above criteria, usually within 2 weeks of initial request.
 
-For services that are not officially supported, it is likely still possible to display data using either the [iframe](#iframe-widget), [embed](#html-embedded-widget) or [API response](#api-response) widgets. For more advanced features, like charts and action buttons, you could also build your own widget, using [this tutorial](/docs/development-guides.md#building-a-widget), it's fairly straight forward, and you can use an [existing widget](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets) (or [this example](https://git.io/JygKI)) as a template.
+For services that are not officially supported, it is likely still possible to display data using either the [iframe](#iframe-widget), [embed](#html-embedded-widget) or [API response](#api-response) widgets. For more advanced features, like charts and action buttons, you could also build your own widget, using [this tutorial](/docs/development-guides.md/#building-a-widget), it's fairly straight forward, and you can use an [existing widget](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets) (or [this example](https://git.io/JygKI)) as a template.
 
 ---
 

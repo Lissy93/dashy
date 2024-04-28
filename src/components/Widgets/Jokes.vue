@@ -74,6 +74,7 @@ export default {
         this.jokeLine2 = data.delivery;
       } else if (this.jokeType === 'single') {
         this.jokeLine1 = data.joke;
+        this.jokeLine2 = null;
       }
     },
   },

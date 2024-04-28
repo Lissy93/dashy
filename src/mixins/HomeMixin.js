@@ -6,7 +6,6 @@ import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 import Keys from '@/utils/StoreMutations';
 import { searchTiles } from '@/utils/Search';
 import { checkItemVisibility } from '@/utils/CheckItemVisibility';
-import { GetTheme, ApplyLocalTheme, ApplyCustomVariables } from '@/utils/ThemeHelper';
 
 const HomeMixin = {
   props: {
@@ -29,29 +28,40 @@ const HomeMixin = {
       return this.$store.state.modalOpen;
     },
     pageId() {
-      return (this.subPageInfo && this.subPageInfo.pageId) ? this.subPageInfo.pageId : 'home';
+      return this.$store.state.currentConfigInfo?.confId || 'home';
     },
   },
   data: () => ({
     searchValue: '',
   }),
-  async mounted() {
-    await this.getConfigForRoute();
-  },
   watch: {
     async $route() {
-      await this.getConfigForRoute();
-      this.setTheme();
+      this.loadUpConfig();
+    },
+    pageInfo: {
+      handler(newPageInfo) {
+        if (newPageInfo && newPageInfo.title) {
+          document.title = newPageInfo.title;
+        }
+      },
+      immediate: true,
     },
   },
+  async created() {
+    this.loadUpConfig();
+  },
   methods: {
-    async getConfigForRoute() {
-      this.$store.commit(Keys.SET_CURRENT_SUB_PAGE, this.subPageInfo);
-      if (this.subPageInfo && this.subPageInfo.confPath) { // Get config for sub-page
-        await this.$store.dispatch(Keys.INITIALIZE_MULTI_PAGE_CONFIG, this.subPageInfo.confPath);
-      } else { // Otherwise, use main config
-        this.$store.commit(Keys.USE_MAIN_CONFIG);
-      }
+    /* When page loaded / sub-page changed, initiate config fetch */
+    async loadUpConfig() {
+      const subPage = this.determineConfigFile();
+      await this.$store.dispatch(Keys.INITIALIZE_CONFIG, subPage);
+    },
+    /* Based on the current route, get which config to display, null will use default */
+    determineConfigFile() {
+      const pagePath = this.$router.currentRoute.path;
+      const isSubPage = new RegExp((/(home|workspace|minimal)\/[a-zA-Z0-9-]+/g)).test(pagePath);
+      const subPageName = isSubPage ? pagePath.split('/').pop() : null;
+      return subPageName;
     },
     /* TEMPORARY: If on sub-page, check if custom theme is set and return it */
     getSubPageTheme() {
@@ -63,9 +73,9 @@ const HomeMixin = {
       }
     },
     setTheme() {
-      const theme = this.getSubPageTheme() || GetTheme();
-      ApplyLocalTheme(theme);
-      ApplyCustomVariables(theme);
+      // const theme = this.getSubPageTheme() || GetTheme();
+      // ApplyLocalTheme(theme);
+      // ApplyCustomVariables(theme);
     },
     updateModalVisibility(modalState) {
       this.$store.commit('SET_MODAL_OPEN', modalState);
@@ -73,6 +83,14 @@ const HomeMixin = {
     /* Updates local data with search value, triggered from filter comp */
     searching(searchValue) {
       this.searchValue = searchValue || '';
+    },
+    /* Returns a unique ID based on the page and section name */
+    makeSectionId(section) {
+      const normalize = (str) => (
+        str ? str.trim().toLowerCase().replace(/[^a-zA-Z0-9]/g, '-')
+          : `unnamed-${(`000${Math.floor(Math.random() * 1000)}`).slice(-3)}`
+      );
+      return `${this.pageId || 'unknown-page'}-${normalize(section.name)}`;
     },
     /* Returns true if there is one or more sections in the config */
     checkTheresData(sections) {

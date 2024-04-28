@@ -2,7 +2,7 @@
 
 Welcome to Dashy! So glad you're here 😊 In a couple of minutes, you'll have your new dashboard up and running 🚀
 
-**TLDR;** Run `docker run -p 8080:80 lissy93/dashy`, then open `http://localhost:8080`
+**TLDR;** Run `docker run -p 8080:8080 lissy93/dashy`, then open `http://localhost:8080`
 
 ---
 
@@ -19,8 +19,8 @@ To pull the latest image, and build and start the app run:
 
 ```bash
 docker run -d \
-  -p 8080:80 \
-  -v ~/my-conf.yml:/app/public/conf.yml \
+  -p 8080:8080 \
+  -v ~/my-conf.yml:/app/user-data/conf.yml \
   --name my-dashboard \
   --restart=always \
   lissy93/dashy:latest
@@ -32,15 +32,41 @@ Your dashboard should now be up and running at `http://localhost:8080` (or your 
 
 ---
 
-## 3. Configure
+## 3. User Data Directory
+
+Your config file should be placed inside `user-data/` (in Docker, that's `/app/user-data/`).
+
+This directory can also contain some optional assets you wish to use within your dashboard, like icons, fonts, styles, scripts, etc.
+
+Any files placed here will be served up to the root of the domain, and override the contents of `public/`.
+For example, if you had `user-data/favicon.ico` this would be accessible at `http://my-dashy-instance.local/favicon.ico`
+
+Example Files in `user-data`:
+- `conf.yml` - This is the only file that is compulsary, it's your main Dashy config
+- `**.yml` - Include more config files, if you'd like to have multiple pages, see [Multi-page support](/docs/pages-and-sections.md#multi-page-support) for docs
+- `favicon.ico` - The default favicon, shown in the browser's tab title
+- `initialization.html` - Static HTML page displayed before the app has finished compiling, see [`public/initialization.html`](https://github.com/Lissy93/dashy/blob/master/public/initialization.html)
+- `robots.txt` - Search engine crawl rules, override this if you want your dashboard to be indexable
+- `manifest.json` - PWA configuration file, for installing Dashy on mobile devices
+- `index.html` - The main index page which initializes the client-side app, copy it from [`/public/index.html`](https://github.com/Lissy93/dashy/blob/master/public/index.html)
+- `**.html` - Write your own HTML pages, and access them at `http://my-dashy-instance.local/my-page.html`
+- `fonts/` - Custom fonts (be sure to include the ones already in [`public/fonts`](https://github.com/Lissy93/dashy/tree/master/public/fonts)
+- `item-icons/` - To use your own icons for items on your dashboard, see [Icons --> Local Icons](/docs/icons.md#local-icons)
+- `web-icons/` - Override Dashy logo
+- `widget-resources/` - Fonts, icons and assets for custom widgets
+
+---
+
+## 4. Configure
 
 Now that you've got Dashy running, you are going to want to set it up with your own content.
-Config is written in [YAML Format](https://yaml.org/), and saved in [`/public/conf.yml`](https://github.com/Lissy93/dashy/blob/master/public/conf.yml).
+Config is written in [YAML Format](https://yaml.org/), and saved in [`/user-data/conf.yml`](https://github.com/Lissy93/dashy/blob/master/user-data/conf.yml).
 The format on the config file is pretty straight forward. There are three root attributes:
 
 - [`pageInfo`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#pageinfo) - Dashboard meta data, like title, description, nav bar links and footer text
 - [`appConfig`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#appconfig-optional) - Dashboard settings, like themes, authentication, language and customization
 - [`sections`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#section) - An array of sections, each including an array of items
+- [`pages`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#pages-optional) - Have multiples pages in your dashboard
 
 You can view a full list of all available config options in the [Configuring Docs](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md).
 
@@ -72,15 +98,15 @@ sections: # An array of sections
 Notes:
 
 - You can use a Docker volume to pass a config file from your host system to the container
-  - E.g. `-v ./host-system/my-local-conf.yml:/app/public/conf.yml`
+  - E.g. `-v ./host-system/my-local-conf.yml:/app/user-data/conf.yml`
 - It's also possible to edit your config directly through the UI, and changes will be saved in this file
 - Check your config against Dashy's schema, with `docker exec -it [container-id] yarn validate-config`
 - You might find it helpful to look at some examples, a collection of which can be [found here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)
-- After editing your config, the app will rebuild in the background, which may take a minute
+- It's also possible to load a remote config, e.g. from a GitHub Gist
 
 ---
 
-## 4. Further Customisation
+## 5. Further Customisation
 
 Once you've got Dashy setup, you'll want to ensure the container is properly healthy, secured, backed up and kept up-to-date. All this is covered in the [Management Docs](https://github.com/Lissy93/dashy/blob/master/docs/management.md).
 
@@ -97,7 +123,7 @@ You might also want to check out the docs for specific features you'd like to us
 
 ---
 
-## 5. Final Note
+## 6. Final Note
 
 If you need any help or support in getting Dashy running, head over to the [Discussions](https://github.com/Lissy93/dashy/discussions) page. If you think you've found a bug, please do [raise it](https://github.com/Lissy93/dashy/issues/new/choose) so it can be fixed. For contact options, see the [Support Page](https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md).
 
@@ -118,7 +144,7 @@ yarn build # Build the app
 yarn start # Start the app
 ```
 
-Then edit `./public/conf.yml` and rebuild the app with `yarn build`
+Then edit `./user-data/conf.yml`
 
 ---
 
@@ -129,7 +155,7 @@ Don't have a server? No problem! You can run Dashy for free on Netlify (as well 
 1. Fork Dashy's repository on GitHub
 2. [Log in](app.netlify.com/login/) to Netlify with GitHub
 3. Click "New site from Git" and select your forked repo, then click **Deploy**!
-4. You can then edit the config in `./public/conf.yml` in your repo, and Netlify will rebuild the app
+4. You can then edit the config in `./user-data/conf.yml` in your repo, and Netlify will rebuild the app
 
 ---
 

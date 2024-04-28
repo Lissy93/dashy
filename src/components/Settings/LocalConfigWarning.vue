@@ -1,36 +1,70 @@
 <template>
   <transition name="slide-fade">
     <div class="kb-sc-info" v-if="!shouldHide">
-      <h5>There are keyboard shortcuts! ⌨️🙌</h5>
+      <h5>{{ popupContent.title }}</h5>
       <div class="close" title="Hide forever [Esc]" @click="hideWelcomeHelper()">x</div>
-      <p title="Press [Esc] to hide this tip forever. See there's even a shortcut for that! 🚀">
-        Just start typing to filter. Then use the tab key to cycle through results,
-        and press enter to launch the selected item, or alt + enter to open in a modal.
-        You can hit Esc at anytime to clear the search. Easy 🥳
-      </p>
+      <p :title="popupContent.hoverText">{{ popupContent.message }}</p>
+      <p :title="popupContent.hoverText">{{ popupContent.messageContinued }}</p>
+      <div class="action-buttons">
+        <button @click="exportConfig">Export Local Config</button>
+        <button @click="saveConfig">Save Changes to Disk</button>
+        <button @click="resetLocalConfig">Reset Local Changes</button>
+        <button @click="hideWelcomeHelper">Dismiss this Notification</button>
+      </div>
     </div>
   </transition>
 </template>
 
 <script>
 
-import { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys, modalNames } from '@/utils/defaults';
+import StoreKeys from '@/utils/StoreMutations';
+import configSavingMixin from '@/mixins/ConfigSaving';
 
 export default {
   name: 'KeyboardShortcutInfo',
+  mixins: [configSavingMixin],
   data() {
     return {
       shouldHide: true, // False = show/ true = hide. Intuitive, eh?
-      timeDelay: 3000, // Short delay in ms before popup appears
+      timeDelay: 2000, // Short delay in ms before popup appears
+      popupContent: {
+        title: '⚠️ You\'re using a local config',
+        message: `This means that your settings are saved in this browser only,
+        and won't persist across devices.`,
+        messageContinued: `To ensure you don't loose your changes,
+        it's recommended to download a copy of your config, so you can restore it later.`,
+        hoverText: 'Press [Esc] to hide this warning',
+      },
     };
   },
   methods: {
+    exportConfig() {
+      this.$modal.show(modalNames.EXPORT_CONFIG_MENU);
+      this.shouldHide = true;
+    },
+    saveConfig() {
+      const localConfig = this.$store.state.config;
+      this.writeConfigToDisk(localConfig);
+      this.shouldHide = true;
+    },
+    resetLocalConfig() {
+      const msg = `${this.$t('config.reset-config-msg-l1')} `
+      + `${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
+      const isTheUserSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
+      if (isTheUserSure) {
+        localStorage.clear();
+        this.$toasted.show(this.$t('config.data-cleared-msg'));
+        this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG);
+        this.shouldHide = true;
+      }
+    },
     /**
      * Returns true if the key exists in session storage, otherwise false
      * And the !! just converts 'false' to false, as strings resolve to true
      */
     shouldHideWelcomeMessage() {
-      return !!localStorage[localStorageKeys.HIDE_WELCOME_BANNER];
+      return !!localStorage[localStorageKeys.HIDE_INFO_NOTIFICATION];
     },
     /**
      * Update session storage, so that it won't be shown again
@@ -38,7 +72,7 @@ export default {
      */
     hideWelcomeHelper() {
       this.shouldHide = true;
-      localStorage.setItem(localStorageKeys.HIDE_WELCOME_BANNER, true);
+      localStorage.setItem(localStorageKeys.HIDE_INFO_NOTIFICATION, true);
       window.removeEventListener('keyup', this.keyPressEvent);
     },
     /* Passed to window function, to add/ remove event listener */
@@ -111,6 +145,23 @@ export default {
     &:hover {
       border: 1px solid var(--welcome-popup-text-color);
       opacity: var(--dimming-factor);
+    }
+  }
+}
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1em;
+  button {
+    padding: 0.2rem;
+    background: var(--welcome-popup-background);
+    color: var(--welcome-popup-text-color);
+    border: 1px solid var(--welcome-popup-text-color);
+    border-radius: var(--curve-factor);
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      background: var(--welcome-popup-text-color);
+      color: var(--welcome-popup-background);
     }
   }
 }
