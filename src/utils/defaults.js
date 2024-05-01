@@ -115,6 +115,8 @@ module.exports = {
   hideFurnitureOn: ['minimal', 'login', 'download'],
   /* Key names for local storage identifiers */
   localStorageKeys: {
+    HIDE_COLLAPSE: 'hideCollapse',
+    HIDE_EDITING: 'hideEditing',
     LANGUAGE: 'language',
     HIDE_INFO_NOTIFICATION: 'hideWelcomeHelpers',
     LAYOUT_ORIENTATION: 'layoutOrientation',

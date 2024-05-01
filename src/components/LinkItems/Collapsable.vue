@@ -6,6 +6,7 @@
     ]"
     :style="`${color ? 'background: '+color : ''}; ${sanitizeCustomStyles(customStyles)};`"
   >
+
     <input
       :id="sectionKey"
       class="toggle"
@@ -13,14 +14,17 @@
       v-model="checkboxState"
       tabIndex="-1"
     >
-    <label :for="sectionKey" class="lbl-toggle" tabindex="-1"
-      @mouseup.right="openContextMenu" @contextmenu.prevent
-      @long-press="openContextMenu" v-longPress="500">
+
+    <label :for="hideCollapse() ? sectionKey : null" class="lbl-toggle" tabindex="-1"
+        @mouseup.right="hideEditing() ? null : openContextMenu"
+        @contextmenu.prevent
+        @long-press="hideEditing() ? null : openContextMenu"
+        v-longPress="500">
       <Icon v-if="icon" :icon="icon" size="small" :url="title" class="section-icon" />
       <h3>{{ title }}</h3>
       <EditModeIcon v-if="isEditMode" @click="openEditModal"
         v-tooltip="editTooltip()" class="edit-mode-item" />
-      <OpenIcon @click.prevent.stop="openContextMenu" @contextmenu.prevent
+      <OpenIcon v-if="hideEditing()" @click.prevent.stop="openContextMenu" @contextmenu.prevent
         class="edit-mode-item" />
     </label>
     <div class="collapsible-content">
@@ -154,6 +158,12 @@ export default {
     editTooltip() {
       const content = this.$t('interactive-editor.edit-section.edit-tooltip');
       return { content, trigger: 'hover focus', delay: { show: 100, hide: 0 } };
+    },
+    hideEditing() {
+      return this.$store.getters.visibleComponents.editing;
+    },
+    hideCollapse() {
+      return this.$store.getters.visibleComponents.collapse;
     },
   },
 };
