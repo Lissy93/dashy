@@ -76,7 +76,7 @@ export default {
           slug: repo.repo,
           desc: repo.desc,
           lang: repo.lang,
-          link: "https://github.com" + repo.repo_link,
+          link: "https://github.com" + repo.repo,
           stars: repo.stars,
           forks: repo.forks,
           avatar: repo.build_by[0] || 'https://github.com/fluidicon.png',
