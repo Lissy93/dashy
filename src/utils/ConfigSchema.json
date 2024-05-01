@@ -457,7 +457,7 @@
               "title": "Hide Collapse?",
               "type": "boolean",
               "default": "false",
-              "description": "If set to true, tsections will not be able to collapse"
+              "description": "If set to true, sections will not be able to collapse"
             },
             "hideEditing": {
               "title": "Hide Editing?",
