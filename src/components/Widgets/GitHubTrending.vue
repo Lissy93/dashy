@@ -6,7 +6,6 @@
       <p class="repo-name">{{ repo.name }}</p>
       <div class="star-wrap">
         <p class="all-stars" v-if="repo.stars">{{ repo.stars | formatStars }}</p>
-        <p class="new-stars" v-if="repo.newStars">↑{{ repo.newStars | formatStars }}</p>
       </div>
       <a class="repo-link" :href="repo.link">{{ repo.slug }}</a>
       <p class="repo-desc">{{ repo.desc }}</p>
@@ -77,11 +76,10 @@ export default {
           slug: repo.repo,
           desc: repo.desc,
           lang: repo.lang,
-          link: repo.repo_link,
+          link: "https://github.com" + repo.repo_link,
           stars: repo.stars,
           forks: repo.forks,
-          newStars: parseInt(repo.added_stars, 10),
-          avatar: repo.avatars[0] || 'https://github.com/fluidicon.png',
+          avatar: repo.build_by[0] || 'https://github.com/fluidicon.png',
         });
       });
       if (this.limit && this.limit < results.length) {
@@ -139,11 +137,6 @@ export default {
             color: var(--widget-text-color);
             font-size: 1.2rem;
             font-weight: bold;
-          }
-          &.new-stars {
-            font-size: 0.8rem;
-            color: var(--success);
-            opacity: var(--dimming-factor);
           }
         }
       }
