@@ -6,6 +6,7 @@
       <p class="repo-name">{{ repo.name }}</p>
       <div class="star-wrap">
         <p class="all-stars" v-if="repo.stars">{{ repo.stars | formatStars }}</p>
+        <p class="new-stars" v-if="repo.newStars">↑{{ repo.newStars | formatStars }}</p>
       </div>
       <a class="repo-link" :href="repo.link">{{ repo.slug }}</a>
       <p class="repo-desc">{{ repo.desc }}</p>
@@ -79,6 +80,7 @@ export default {
           link: "https://github.com" + repo.repo,
           stars: repo.stars,
           forks: repo.forks,
+          newStars: repo.change,
           avatar: repo.build_by[0] || 'https://github.com/fluidicon.png',
         });
       });
@@ -137,6 +139,11 @@ export default {
             color: var(--widget-text-color);
             font-size: 1.2rem;
             font-weight: bold;
+          }
+          &.new-stars {
+            font-size: 0.8rem;
+            color: var(--success);
+            opacity: var(--dimming-factor);
           }
         }
       }
