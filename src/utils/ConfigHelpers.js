@@ -61,6 +61,10 @@ export const componentVisibility = (appConfig) => {
   const isThere = (userValue) => typeof userValue === 'boolean';
   // For each option, return users choice (if specified), else use the default
   return {
+    collapse: isThere(usersChoice.hideCollapse)
+      ? !usersChoice.hideCollapse : visibleComponents.hideCollapse,
+    editing: isThere(usersChoice.hideEditing)
+      ? !usersChoice.hideEditing : visibleComponents.hideEditing,
     pageTitle: isThere(usersChoice.hideHeading)
       ? !usersChoice.hideHeading : visibleComponents.pageTitle,
     navigation: isThere(usersChoice.hideNav)

@@ -4,7 +4,7 @@
       @user-is-searchin="userIsTypingSomething"
       v-if="searchVisible"
     />
-    <div class="options-outer">
+    <div class="options-outer" v-if="settingsVisible">
       <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
         <ThemeSelector />
         <LayoutSelector :displayLayout="$store.getters.layout" />

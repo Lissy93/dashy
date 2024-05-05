@@ -453,6 +453,18 @@
           "type": "object",
           "description": "Hide individual parts of the page. If not set, all components are visible by default",
           "properties": {
+            "hideCollapse": {
+              "title": "Hide Collapse?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, sections will not be able to collapse"
+            },
+            "hideEditing": {
+              "title": "Hide Editing?",
+              "type": "boolean",
+              "default": "false",
+              "description": "If set to true, sections will no longer have a options icon"
+            },
             "hideHeading": {
               "title": "Hide Heading?",
               "type": "boolean",
