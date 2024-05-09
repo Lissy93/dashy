@@ -1,0 +1,65 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "msedge",
+        "request": "launch",
+        "name": "dashy: edge",
+        "url": "http://localhost:8080",
+        "webRoot": "${workspaceFolder}",
+        "breakOnLoad": true,
+        "pathMapping": {
+          "/_karma_webpack_": "${workspaceFolder}"
+        },
+        "sourceMapPathOverrides": {
+          "webpack:/*": "${webRoot}/*",
+          "/./*": "${webRoot}/*",
+          "/src/*": "${webRoot}/*",
+          "/*": "*",
+          "/./~/*": "${webRoot}/node_modules/*"
+        },
+        "preLaunchTask": "dashy start"
+      },
+      {
+        "type": "chrome",
+        "request": "launch",
+        "name": "dashy: chrome",
+        "url": "http://localhost:8080",
+        "webRoot": "${workspaceFolder}",
+        "breakOnLoad": true,
+        "pathMapping": {
+          "/_karma_webpack_": "${workspaceFolder}"
+        },
+        "sourceMapPathOverrides": {
+          "webpack:/*": "${webRoot}/*",
+          "/./*": "${webRoot}/*",
+          "/src/*": "${webRoot}/*",
+          "/*": "*",
+          "/./~/*": "${webRoot}/node_modules/*"
+        },
+        "preLaunchTask": "dashy start"
+      },
+      {
+        "type": "firefox",
+        "request": "launch",
+        "name": "dashy: firefox",
+        "url": "http://localhost:8080",
+        "webRoot": "${workspaceFolder}",
+        "breakOnLoad": true,
+        "pathMapping": {
+          "/_karma_webpack_": "${workspaceFolder}"
+        },
+        "sourceMapPathOverrides": {
+          "webpack:/*": "${webRoot}/*",
+          "/./*": "${webRoot}/*",
+          "/src/*": "${webRoot}/*",
+          "/*": "*",
+          "/./~/*": "${webRoot}/node_modules/*"
+        },
+        "preLaunchTask": "dashy start"
+      }
+    ]
+}

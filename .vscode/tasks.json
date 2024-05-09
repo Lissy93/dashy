@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dashy start",
+      "type": "npm",
+      "script": "dev",
+      "isBackground": true,
+      "problemMatcher": [
+        {
+          "base": "$tsc-watch",
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "Starting development server",
+            "endsPattern": "Compiled successfully"
+          }
+        }
+      ],
+    }
+  ]
+}
