@@ -2,6 +2,7 @@
  * Mixin that all pre-built and custom widgets extend from.
  * Manages loading state, error handling, data updates and user options
  */
+import axios from 'axios';
 import { Progress } from 'rsup-progress';
 import ErrorHandler from '@/utils/ErrorHandler';
 import { serviceEndpoints } from '@/utils/defaults';
@@ -105,59 +106,27 @@ const WidgetMixin = {
       const method = protocol || 'GET';
       const url = this.useProxy ? this.proxyReqEndpoint : endpoint;
       const data = JSON.stringify(body || {});
-
-      const CustomHeaders = options || {};
-      const headers = new Headers();
-
-      // If using a proxy, set the 'Target-URL' header
-      if (this.useProxy) {
-        headers.append('Target-URL', endpoint);
-      }
-      // Apply widget-specific custom headers
-      Object.entries(CustomHeaders).forEach(([key, value]) => {
-        headers.append(key, value);
-      });
-
-      // If the request is a GET, delete the body
-      const bodyContent = method.toUpperCase() === 'GET' ? undefined : data;
-
+      const CustomHeaders = options || null;
+      const headers = this.useProxy
+        ? { 'Target-URL': endpoint, CustomHeaders: JSON.stringify(CustomHeaders) } : CustomHeaders;
       const timeout = this.options.timeout || this.defaultTimeout;
-
-      // Setup Fetch request configuration
       const requestConfig = {
-        method,
-        headers,
-        body: bodyContent,
-        signal: undefined, // This will be set below
+        method, url, headers, data, timeout,
       };
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), timeout);
-      requestConfig.signal = controller.signal;
-
-      // Make request using Fetch API
+      // Make request
       return new Promise((resolve, reject) => {
-        fetch(url, requestConfig)
-          .then(async response => {
-            const responseData = await response.json();
-            if (responseData.error) {
-              this.error('Proxy returned error from target server', responseData.error?.message);
+        axios.request(requestConfig)
+          .then((response) => {
+            if (response.data.success === false) {
+              this.error('Proxy returned error from target server', response.data.message);
             }
-            if (responseData.success === false) {
-              this.error('Proxy didn\'t return success from target server', responseData.message);
-            }
-            resolve(responseData);
+            resolve(response.data);
           })
-          .catch(error => {
-            if (error.name === 'AbortError') {
-              this.error('Request timed out', error);
-            } else {
-              this.error('Unable to fetch data', error);
-            }
-            reject(error);
+          .catch((dataFetchError) => {
+            this.error('Unable to fetch data', dataFetchError);
+            reject(dataFetchError);
           })
           .finally(() => {
-            clearTimeout(timeoutId);
             this.finishLoading();
           });
       });
