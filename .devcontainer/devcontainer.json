@@ -1,0 +1,36 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node
+{
+	"name": "Dashy",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-18-bullseye",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"Vue.volar",
+				"dbaeumer.vscode-eslint",
+				"ms-azuretools.vscode-docker",
+				"ms-edgedevtools.vscode-edge-devtools",
+				"firefox-devtools.vscode-firefox-debug",
+				"aaravb.chrome-extension-developer-tools"
+			]
+		}
+	},
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "yarn install --ignore-engines --immutable --no-cache --network-timeout 300000 --network-concurrency 1"
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

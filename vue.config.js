@@ -49,6 +49,7 @@ const plugins = !isServer ? [
 
 // Webpack Config
 const configureWebpack = {
+  devtool: 'source-map',
   mode,
   plugins,
   module: {
