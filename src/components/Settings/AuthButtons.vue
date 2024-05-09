@@ -24,6 +24,13 @@
         v-tooltip="tooltip($t('settings.sign-out-tooltip'))"
         class="layout-icon" tabindex="-2"
       />
+      <!-- If user logged in via oidc, show oidc logout button -->
+      <IconLogout
+        v-if="userType == userStateEnum.oidcEnabled"
+        @click="oidcLogout()"
+        v-tooltip="tooltip($t('settings.sign-out-tooltip'))"
+        class="layout-icon" tabindex="-2"
+      />
     </div>
   </div>
 </template>
@@ -32,6 +39,7 @@
 import router from '@/router';
 import { logout as registerLogout } from '@/utils/Auth';
 import { getKeycloakAuth } from '@/utils/KeycloakAuth';
+import { getOidcAuth } from '@/utils/OidcAuth';
 import { localStorageKeys, userStateEnum } from '@/utils/defaults';
 import IconLogout from '@/assets/interface-icons/user-logout.svg';
 
@@ -54,6 +62,13 @@ export default {
       this.$toasted.show(this.$t('login.logout-message'));
       setTimeout(() => {
         router.push({ path: '/login' });
+      }, 500);
+    },
+    oidcLogout() {
+      const oidc = getOidcAuth();
+      this.$toasted.show(this.$t('login.logout-message'));
+      setTimeout(() => {
+        oidc.logout();
       }, 500);
     },
     keycloakLogout() {

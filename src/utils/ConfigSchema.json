@@ -541,6 +541,33 @@
                 ]
               }
             },            
+            "enableOidc": {
+              "title": "Enable OIDC?",
+              "type": "boolean",
+              "default": false,
+              "description": "If set to true, enable OIDC. See appConfig.auth.oidc"
+            },
+            "oidc": {
+              "type": "object",
+              "description": "Configuration for OIDC",
+              "additionalProperties": false,
+              "required": [
+                "clientId",
+                "endpoint"
+              ],
+              "properties": {
+                "endpoint": {
+                  "title": "OIDC Endpoint",
+                  "type": "string",
+                  "description": "Endpoint of OIDC provider"
+                },
+                "clientId": {
+                  "title": "OIDC Client Id",
+                  "type": "string",
+                  "description": "ClientId from OIDC provider"
+                }
+              }
+            },
             "enableHeaderAuth": {
               "title": "Enable HeaderAuth?",
               "type": "boolean",

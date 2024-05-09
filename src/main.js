@@ -22,6 +22,7 @@ import clickOutside from '@/directives/ClickOutside'; // Directive for closing p
 import { toastedOptions, tooltipOptions, language as defaultLanguage } from '@/utils/defaults';
 import { initKeycloakAuth, isKeycloakEnabled } from '@/utils/KeycloakAuth';
 import { initHeaderAuth, isHeaderAuthEnabled } from '@/utils/HeaderAuth';
+import { initOidcAuth, isOidcEnabled } from '@/utils/OidcAuth';
 import Keys from '@/utils/StoreMutations';
 import ErrorHandler from '@/utils/ErrorHandler';
 
@@ -62,7 +63,13 @@ const mount = () => new Vue({
 }).$mount('#app');
 
 store.dispatch(Keys.INITIALIZE_CONFIG).then(() => {
-  if (isKeycloakEnabled()) { // If Keycloak is enabled, initialize auth
+  if (isOidcEnabled()) {
+    initOidcAuth()
+      .then(() => mount())
+      .catch((e) => {
+        ErrorHandler('Failed to authenticate with OIDC', e);
+      });
+  } else if (isKeycloakEnabled()) { // If Keycloak is enabled, initialize auth
     initKeycloakAuth()
       .then(() => mount())
       .catch((e) => {
