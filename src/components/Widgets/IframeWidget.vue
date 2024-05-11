@@ -45,8 +45,17 @@ export default {
     /* Refreshes iframe contents, called by parent */
     update() {
       this.startLoading();
-      this.updateCount += 1;
-      (document.getElementById(this.frameId) || {}).src = this.frameUrl;
+      const iframe = document.getElementById(this.frameId);
+      if (iframe.contentWindow) {
+        try {
+          iframe.contentWindow.location.href = this.frameUrl;
+          iframe.contentWindow.location.reload(true);
+        } catch (e) {
+          this.error('Failed to refresh iframe', e, true);
+        }
+      } else {
+        this.error('Couldn\'t find iframe', null, true);
+      }
       this.finishLoading();
     },
   },
