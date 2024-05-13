@@ -251,6 +251,47 @@ Your app is now secured :) When you load Dashy, it will redirect to your Keycloa
 
 From within the Keycloak console, you can then configure things like time-outs, password policies, etc. You can also backup your full Keycloak config, and it is recommended to do this, along with your Dashy config. You can spin up both Dashy and Keycloak simultaneously and restore both applications configs using a `docker-compose.yml` file, and this is recommended.
 
+## OIDC
+
+Dashy also supports using a general [OIDC compatible](https://openid.net/connect/) authentication server. In order to use it, the authentication section needs to be configured:
+
+```yaml
+appConfig:
+  auth:
+    enableOidc: true
+    oidc:
+      clientId: [registered client id]
+      endpoint: [OIDC endpoint]
+```
+
+Because Dashy is a SPA, a [public client](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1) registration with PKCE is needed.
+
+An example for Authelia is shared below, but other OIDC systems can be used:
+
+```yaml
+identity_providers:
+  oidc:
+    clients:
+      - client_id: dashy
+        client_name: dashy
+        public: true
+        authorization_policy: 'one_factor'
+        require_pkce: true
+        pkce_challenge_method: 'S256'
+        redirect_uris:
+          - https://dashy.local # should point to your dashy endpoint
+        grant_types:
+          - authorization_code
+        scopes:
+          - 'openid'
+          - 'profile'
+          - 'roles'
+          - 'email'
+          - 'groups'
+```
+
+Groups and roles will be populated and available for controlling display similar to [Keycloak](#Keycloak) abvoe.
+
 ---
 
 ## Alternative Authentication Methods
