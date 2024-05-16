@@ -3,6 +3,7 @@ import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import ErrorHandler from '@/utils/ErrorHandler';
 import { cookieKeys, localStorageKeys, userStateEnum } from '@/utils/defaults';
 import { isKeycloakEnabled } from '@/utils/KeycloakAuth';
+import { isOidcEnabled } from '@/utils/OidcAuth';
 
 /* Uses config accumulator to get and return app config */
 const getAppConfig = () => {
@@ -96,7 +97,7 @@ export const isAuthEnabled = () => {
 /* Returns true if guest access is enabled */
 export const isGuestAccessEnabled = () => {
   const appConfig = getAppConfig();
-  if (appConfig.auth && typeof appConfig.auth === 'object' && !isKeycloakEnabled()) {
+  if (appConfig.auth && typeof appConfig.auth === 'object' && !isKeycloakEnabled() && !isOidcEnabled()) {
     return appConfig.auth.enableGuestAccess || false;
   }
   return false;
@@ -229,8 +230,10 @@ export const getUserState = () => {
     loggedIn,
     guestAccess,
     keycloakEnabled,
+    oidcEnabled,
   } = userStateEnum; // Numeric enum options
   if (isKeycloakEnabled()) return keycloakEnabled; // Keycloak auth configured
+  if (isOidcEnabled()) return oidcEnabled;
   if (!isAuthEnabled()) return notConfigured; // No auth enabled
   if (isLoggedIn()) return loggedIn; // User is logged in
   if (isGuestAccessEnabled()) return guestAccess; // Guest is viewing

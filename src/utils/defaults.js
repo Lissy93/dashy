@@ -305,6 +305,7 @@ module.exports = {
     guestAccess: 2,
     notLoggedIn: 3,
     keycloakEnabled: 4,
+    oidcEnabled: 5,
   },
   /* Progressive Web App settings, used by Vue Config */
   pwa: {
