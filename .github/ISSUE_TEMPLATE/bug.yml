@@ -3,7 +3,8 @@ description: Report something that's not working the way it's (probably) intende
 title: '[BUG] <title>'
 labels: ['🐛 Bug']
 assignees:
-  - lissy93
+  - Lissy93
+  - CrazyWolf13
 body:
   - type: dropdown
     id: environment

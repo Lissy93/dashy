@@ -2,6 +2,8 @@ name: Question 🤷‍♂️
 description: Got a question about Dashy, deployment, development or usage?
 title: '[QUESTION] <title>'
 labels: ['🤷‍♂️ Question']
+assignees:
+  - CrazyWolf13
 
 body:
   # Filed 1 - Intro Text
