@@ -1,0 +1,30 @@
+name: 🏗️ Draft New Release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  create-draft-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code 🛎️
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # We need all history for generating release notes
+
+      - name: Create Draft Release 📝
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN:  ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: true
+          prerelease: false
+          generate_release_notes: true
+
+      - name: Output new release URL ↗️
+        run: 'echo "Draft release URL: ${{ steps.create_release.outputs.html_url }}"'
