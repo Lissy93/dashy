@@ -1,11 +1,10 @@
-# Scans, builds and releases a multi-architecture docker image
 name: 🐳 Build + Publish Multi-Platform Image
 
 on:
   workflow_dispatch:
   push:
     branches: ['master']
-    tags: [v*]
+    tags: ['v*']
     paths:
       - '**.js'
       - 'src/**'
@@ -48,7 +47,7 @@ jobs:
           ghcr.io/${{ env.GH_IMAGE }}
         tags: |
           type=ref,event=tag,prefix=release-,suffix={{tag}}
-          type=semver,pattern={{raw}},value=${{ steps.package-version.outputs.version }}
+          type=semver,pattern={{major}}.x,value=${{ steps.package-version.outputs.version }}
         labels: |
           maintainer=Lissy93
           org.opencontainers.image.title=Dashy
