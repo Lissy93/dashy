@@ -3,7 +3,13 @@ name: 🏗️ Draft New Release
 on:
   push:
     tags:
-      - '*.*.*'
+      - '^[0-9]+\.[0-9]+\.[0-9]+$'
+      - '**'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to draft a release for (must already exist)'
+        required: true
 
 jobs:
   create-draft-release:
@@ -18,10 +24,10 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN:  ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          release_name: Release ${{ github.event.inputs.tag || github.ref_name }}
           draft: true
           prerelease: false
           generate_release_notes: true
