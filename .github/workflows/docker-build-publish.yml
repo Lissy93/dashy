@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: ['master']
-    tags: ['v*']
+    tags: ['*.*']
     paths:
       - '**.js'
       - 'src/**'
@@ -46,8 +46,12 @@ jobs:
           ${{ env.DH_IMAGE }}
           ghcr.io/${{ env.GH_IMAGE }}
         tags: |
-          type=ref,event=tag,prefix=release-,suffix={{tag}}
-          type=semver,pattern={{major}}.x,value=${{ steps.package-version.outputs.version }}
+          type=ref,event=tag
+          type=semver,pattern={{version}},enable=false
+          type=semver,pattern={{major}}.x
+          type=raw,value=latest
+        flavor: |
+          latest=false
         labels: |
           maintainer=Lissy93
           org.opencontainers.image.title=Dashy
