@@ -77,7 +77,7 @@ export default {
           slug: repo.repo,
           desc: repo.desc,
           lang: repo.lang,
-          link: "https://github.com" + repo.repo,
+          link: `https://github.com/${repo.repo}`,
           stars: repo.stars,
           forks: repo.forks,
           newStars: repo.change,
