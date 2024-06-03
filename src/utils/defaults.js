@@ -233,7 +233,7 @@ module.exports = {
     ethGasHistory: 'https://ethgas.watch/api/gas/trend',
     exchangeRates: 'https://v6.exchangerate-api.com/v6/',
     flights: 'https://aerodatabox.p.rapidapi.com/flights/airports/icao/',
-    githubTrending: 'https://gh-trending-repos.herokuapp.com/',
+    githubTrending: 'https://trend.doforce.xyz/',
     hackernewsTrending: 'https://hacker-news.firebaseio.com/v0',
     healthChecks: 'https://healthchecks.io/api/v1/checks',
     holidays: 'https://kayaposoft.com/enrico/json/v2.0/?action=getHolidaysForDateRange',

@@ -77,11 +77,11 @@ export default {
           slug: repo.repo,
           desc: repo.desc,
           lang: repo.lang,
-          link: repo.repo_link,
+          link: `https://github.com/${repo.repo}`,
           stars: repo.stars,
           forks: repo.forks,
-          newStars: parseInt(repo.added_stars, 10),
-          avatar: repo.avatars[0] || 'https://github.com/fluidicon.png',
+          newStars: repo.change,
+          avatar: repo.build_by[0] || 'https://github.com/fluidicon.png',
         });
       });
       if (this.limit && this.limit < results.length) {
