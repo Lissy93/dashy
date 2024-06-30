@@ -39,11 +39,17 @@ export default {
       document.removeEventListener('pointerup', onPointerUp);
     };
 
+    const onPointerMove = () => {
+      clearTimeout(parseInt(el.dataset.longPressTimeout, 10));
+      document.removeEventListener('pointermove', onPointerMove);
+    };
+
     const onPointerDown = (e) => {
       // If event was right-click, then immediately trigger
       if (e.button === 2) return;
       startTime = Date.now();
       document.addEventListener('pointerup', onPointerUp);
+      el.addEventListener('pointermove', onPointerMove);
       el.addEventListener('click', swallowClick);
       const timeoutDuration = LONG_PRESS_DEFAULT_DELAY;
       const timeout = setTimeout(triggerEvent, timeoutDuration);
