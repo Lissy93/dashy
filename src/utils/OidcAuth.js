@@ -13,14 +13,14 @@ const getAppConfig = () => {
 class OidcAuth {
   constructor() {
     const { auth } = getAppConfig();
-    const { clientId, endpoint } = auth.oidc;
+    const { clientId, endpoint, scope } = auth.oidc;
     const settings = {
       userStore: new WebStorageStateStore({ store: window.localStorage }),
       authority: endpoint,
       client_id: clientId,
       redirect_uri: `${window.location.origin}`,
       response_type: 'code',
-      scope: 'openid profile email roles groups',
+      scope,
       response_mode: 'query',
       filterProtocolClaims: true,
     };

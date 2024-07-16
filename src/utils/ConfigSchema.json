@@ -565,7 +565,12 @@
                   "title": "OIDC Client Id",
                   "type": "string",
                   "description": "ClientId from OIDC provider"
-                }
+                },
+                "scope" : {
+                    "title": "OIDC Scope",
+                    "type": "string",
+                    "description": "The scope(s) to request from the OIDC provider"
+                  }
               }
             },
             "enableHeaderAuth": {
