@@ -33,8 +33,8 @@ export default {
       /* eslint-disable prefer-destructuring */
       Object.keys(trafficData).forEach((keyName) => {
         let upOrDown = null;
-        if (keyName.includes('_tx')) upOrDown = 'up';
-        else if (keyName.includes('_rx')) upOrDown = 'down';
+        if (keyName.includes('_sent')) upOrDown = 'up';
+        else if (keyName.includes('_recv')) upOrDown = 'down';
         trafficData[keyName].forEach((dataPoint) => {
           const dataTime = this.getRoundedTime(dataPoint[0]);
           if (upOrDown === 'up') {
