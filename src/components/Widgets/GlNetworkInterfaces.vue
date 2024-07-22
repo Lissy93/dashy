@@ -69,7 +69,7 @@ export default {
           name: network.interface_name,
           speed: network.speed,
           online: network.speed ? 'up' : 'down', //v3 to v4 is_up no longer seems to be a default response field
-          currentDownload: netowkr.bytes_recv,
+          currentDownload: network.bytes_recv,
           currentUpload: network.bytes_sent,
           totalDownload: network.bytes_recv_gauge,
           totalUpload: network.bytes_sent_gauge,
