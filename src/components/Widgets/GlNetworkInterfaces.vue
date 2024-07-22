@@ -68,11 +68,11 @@ export default {
         networks.push({
           name: network.interface_name,
           speed: network.speed,
-          online: network.is_up ? 'up' : 'down',
-          currentDownload: network.rx,
-          currentUpload: network.tx,
-          totalDownload: network.cumulative_rx,
-          totalUpload: network.cumulative_tx,
+          online: network.speed ? 'up' : 'down', //v3 to v4 is_up no longer seems to be a default response field
+          currentDownload: netowkr.bytes_recv,
+          currentUpload: network.bytes_sent,
+          totalDownload: network.bytes_recv_gauge,
+          totalUpload: network.bytes_sent_gauge,
           changeDownload: this.previous && network.rx > this.previous[index].rx,
           changeUpload: this.previous && network.tx > this.previous[index].tx,
         });
