@@ -287,7 +287,7 @@ Unless image fetched from remote source, no external data request is made.
 
 ### Public IP
 
-Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data can be fetched from either [IpApi.co](https://ipapi.co/), [IP-API.com](https://ip-api.com/) or [IpGeolocation.io](https://ipgeolocation.io/).
+Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data can be fetched from either [IpApi.co](https://ipapi.co/), [IP-API.com](https://ip-api.com/), [IpGeolocation.io](https://ipgeolocation.io/) or [IP2Location.io](https://ip2location.io/).
 
 <p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
 
@@ -297,8 +297,8 @@ _All fields are optional._
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`provider`** | `string` |  _Optional_ | The name of the service to fetch IP address from. Can be either `ipapi.co`, `ip-api` or `ipgeolocation`. Defaults to `ipapi.co`. Note, `ip-api` doesn't work on HTTPS, and if you set to `ipgeolocation` then you must also provide an API key
-**`apiKey`** | `string` |  _Optional_ | Only required if provider is set to `ipgeolocation`. You can get a free API key [here](https://ipgeolocation.io/signup.html)
+**`provider`** | `string` |  _Optional_ | The name of the service to fetch IP address from. Can be either `ipapi.co`, `ip-api`, `ipgeolocation` or `ip2location.io`. Defaults to `ipapi.co`. Note, `ip-api` doesn't work on HTTPS, and if you set to `ipgeolocation` or `ip2location.io` then you must also provide an API key
+**`apiKey`** | `string` |  _Optional_ | Only required if provider is set to `ipgeolocation` or `ip2location.io`. You can get a free IPGeolocation API key [here](https://ipgeolocation.io/signup.html) or a free IP2Location.io API key [here](https://ip2location.io/pricing)
 
 #### Example
 
@@ -321,7 +321,7 @@ Or
 - **Auth**: 🟠 Optional
 - **Price**: 🟢 Free
 - **Host**: Managed Instance Only
-- **Privacy**: _See [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html) or [IP-API Privacy Policy](https://ip-api.com/docs/legal)_
+- **Privacy**: _See [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html) or [IP-API Privacy Policy](https://ip-api.com/docs/legal) or [IP2Location.io Privacy Policy](https://ip2location.io/privacy-policy)
 
 ---
 

@@ -244,6 +244,7 @@ module.exports = {
     publicIp: 'https://ipapi.co/json',
     publicIp2: 'https://api.ipgeolocation.io/ipgeo',
     publicIp3: 'http://ip-api.com/json',
+    publicIp4: 'https://api.ip2location.io/',
     readMeStats: 'https://github-readme-stats.vercel.app/api',
     rescueTime: 'https://www.rescuetime.com/anapi/data',
     rssToJson: 'https://api.rss2json.com/v1/api.json',

@@ -24,6 +24,8 @@ export default {
     endpoint() {
       if (this.provider === 'ipgeolocation') {
         return `${widgetApiEndpoints.publicIp2}?apiKey=${this.apiKey}`;
+      } else if (this.provider === 'ip2location.io') {
+        return `${widgetApiEndpoints.publicIp4}?key=${this.apiKey}`;
       } else if (this.provider === 'ipapi') {
         return widgetApiEndpoints.publicIp3;
       }
@@ -31,10 +33,11 @@ export default {
     },
     apiKey() {
       if (this.provider === 'ipgeolocation' && !this.options.apiKey) this.error('Missing API Key');
+      if (this.provider === 'ip2location.io' && !this.options.apiKey) this.error('Missing API Key');
       return this.options.apiKey;
     },
     provider() {
-      // Can be either `ip-api`, `ipapi.co` or `ipgeolocation`
+      // Can be either `ip-api`, `ipapi.co`, `ipgeolocation` or `ip2location.io`
       return this.parseAsEnvVar(this.options.provider) || 'ipapi.co';
     },
   },
@@ -72,6 +75,12 @@ export default {
         this.location = `${ipInfo.city}, ${ipInfo.regionName}`;
         this.flagImg = getCountryFlag(ipInfo.countryCode);
         this.mapsUrl = getMapUrl({ lat: ipInfo.lat, lon: ipInfo.lon });
+      } else if (this.provider === 'ip2location.io') {
+        this.ipAddr = ipInfo.ip;
+        this.ispName = ipInfo.isp || 'IP2Location.io Starter plan or higher required.';
+        this.location = `${ipInfo.city_name}, ${ipInfo.region_name}`;
+        this.flagImg = getCountryFlag(ipInfo.country_code);
+        this.mapsUrl = getMapUrl({ lat: ipInfo.latitude, lon: ipInfo.longitude });
       } else {
         this.error('Unknown API provider fo IP address');
       }
