@@ -626,6 +626,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/sushibait">
+            <img src="https://avatars.githubusercontent.com/u/26634535?v=4" width="80;" alt="sushibait"/>
+            <br />
+            <sub><b>Shiverme Timbers</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/undefined">
             <img src="" width="80;" alt="undefined"/>
             <br />
@@ -645,20 +652,20 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Frankdez93</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/nrvo">
             <img src="https://avatars.githubusercontent.com/u/151435968?u=e1dcb307fd0efdc45cddbe9490a7b956e4da6835&v=4" width="80;" alt="nrvo"/>
             <br />
             <sub><b>Nrvo</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/hudsonrock-partnerships">
-            <img src="https://avatars.githubusercontent.com/u/163282900?v=4" width="80;" alt="hudsonrock-partnerships"/>
+            <img src="https://avatars.githubusercontent.com/u/163282900?u=5f2667f7fe5d284ac7a2da6b0800ea8970b0fcbf&v=4" width="80;" alt="hudsonrock-partnerships"/>
             <br />
-            <sub><b>hudsonrock-partnerships</b></sub>
+            <sub><b>Hudsonrock-partnerships</b></sub>
         </a>
     </td></tr>
 </table>
