@@ -89,6 +89,7 @@ module.exports = {
     'tama',
     'neomorphic',
     'glass-2',
+    'night-bat',
   ],
   /* Default color options for the theme configurator swatches */
   swatches: [
