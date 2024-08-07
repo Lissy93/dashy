@@ -202,6 +202,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 --- | --- | --- | ---
 **`clientId`** | `string` | Required | The client id registered in the OIDC server
 **`endpoint`** | `string` | Required | The URL of the OIDC server that should be used.
+**`scope`** | `string` | Required | The scope(s) to request from the OIDC provider
 
 **[⬆️ Back to Top](#configuring)**
 
