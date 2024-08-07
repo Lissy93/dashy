@@ -5,6 +5,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
 ## Contents
 
 - **[General Widgets](#general-widgets)**
+  - [Bored](#bored)
   - [Clock](#clock)
   - [Weather](#weather)
   - [Weather Forecast](#weather-forecast)
@@ -105,6 +106,79 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Troubleshooting](#troubleshooting-widget-errors)
 
 ## General Widgets
+
+### Bored
+A simple activity suggestion from the [Bored API](https://www.boredapi.com/)
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`title`** | `string` |  _Optional_ | An optional widget title.
+**`type`** | `string` |  _Optional_ | Activity type. Possible values are ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"]
+**`participants`** | `integer` |  _Optional_ | How many suggested participants. Possible values are 0 or a positive integer.
+**`price`** | `decimal` |  _Optional_ | A factor describing the cost of the activity with zero being free, and 1 being the most expensive. When a price is supplied, minprice and maxprice are ignored.
+**`minprice`** | `decimal` |  _Optional_ | A factor describing the minimum cost of the activity with zero being free, and 1 being the most expensive.
+**`minprice`** | `decimal` |  _Optional_ | A factor describing the maximum cost of the activity with zero being free, and 1 being the most expensive.
+**`accessibility`** | `decimal` |  _Optional_ | A factor describing how possible an event is to do with zero being the most accessible. When accessibility is supplied, minaccessibility and maxaccessibility are ignored.
+**`minaccessibility`** | `decimal` |  _Optional_ | Filter for a minimum accessibility.
+**`maxaccessibility`** | `decimal` |  _Optional_ | filter for a maximum accessibility.
+
+
+#### Examples
+
+```yaml
+- type: bored
+```
+
+```yaml
+- type: bored
+  options:
+    title: Want something to do?
+```
+
+```yaml
+- type: bored
+  options:
+    title: Would yo like to
+    type: diy
+    price: 0.0
+```
+
+```yaml
+- type: bored
+  options:
+    title: Help needed
+    type: charity
+    minprice: 0.0
+    maxprice: 0.3
+```
+```yaml
+- type: bored
+  options:
+    title: Enjoy
+    type: music
+    minaccessibility: 0.0
+    maxaccessibility: 0.3
+```
+```yaml
+- type: bored
+  options:
+    title: Take a break
+    metadata: false
+    type: relaxation
+    price: 0
+    accessibility: 0
+```
+
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 NOt Required
+- **Price**: 🟠 Free
+- **Privacy**: _See [The bored API Documentation](https://www.boredapi.com/documentation)_
+
 
 ### Clock
 
