@@ -33,7 +33,7 @@ module.exports = (req, res) => {
   const requestConfig = {
     method: req.method,
     url: targetURL,
-    json: req.body,
+    data: req.body,
     headers,
   };
 
