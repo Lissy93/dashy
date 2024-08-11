@@ -640,20 +640,27 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/semiceau">
+            <img src="https://avatars.githubusercontent.com/u/50425951?v=4" width="80;" alt="semiceau"/>
+            <br />
+            <sub><b>GT</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/Bastii717">
             <img src="https://avatars.githubusercontent.com/u/53431819?u=604977bed6ad6875ada890d0d3765a4cacc2fa14&v=4" width="80;" alt="Bastii717"/>
             <br />
             <sub><b>Bastii717</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/frankdez93">
             <img src="https://avatars.githubusercontent.com/u/87549420?v=4" width="80;" alt="frankdez93"/>
             <br />
             <sub><b>Frankdez93</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/nrvo">
             <img src="https://avatars.githubusercontent.com/u/151435968?u=e1dcb307fd0efdc45cddbe9490a7b956e4da6835&v=4" width="80;" alt="nrvo"/>
