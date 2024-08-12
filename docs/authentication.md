@@ -329,7 +329,6 @@ This guide will only walk through the following:
  * Show quick examples of how to hide/show `pages`, `items`, and `sections` using OIDC groups
 
 This guide assumes the following:
- * You have an already configured and working implementation of `authentik`
  * You have a working instance of `authentik` terminated with SSL
  * You have a working instance of `Dashy` terminated with SSL
  * Users and groups are provisioned
