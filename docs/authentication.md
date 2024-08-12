@@ -421,7 +421,7 @@ Click `Group` for the binding type. Under `Group` select the appropriate group y
 >It is highly recommended to edit your `conf.yml` directly for this change.
 
 >[!CAUTION]
->Do not make the same mistake many have made here by including the fully qualified address for the `OpenID Configuration >URL`. `Dashy` will append the `.well-known` configuration automatically. If the `.well-known` URI is included the app will get redirect loops and `400` errors.
+>Do not make the same mistake many have made here by including the fully qualified address for the `OpenID Configuration URL`. `Dashy` will append the `.well-known` configuration automatically. If the `.well-known` URI is included the app will get redirect loops and `400` errors.
 
 Enter the `Client ID` in the `clientId` field and `OpenID Configuration Issuer` in the `endpoint` field.
 
