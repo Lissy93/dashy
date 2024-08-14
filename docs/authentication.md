@@ -338,7 +338,7 @@ This guide assumes the following:
 >It it recommended that you create groups specific for `Dashy`. Groups will allow you to display content based on group membership as well as limiting user access to `Dashy`. If you do not need this functionality, then you can forgo creating specific groups.
 
 >[!TIP]
->You can use the application wizard to create the provider and application at one time. This is the recommended this route, but only the manual process will be outlined in this guide.
+>You can use the application wizard to create the provider and application at one time. This is the recommended route, but only the manual process will be outlined in this guide.
 
 ![image](https://github.com/user-attachments/assets/72e45162-6c86-4d6f-a1ae-724ac503c00c)
 
@@ -375,7 +375,7 @@ Lastly, toggle `Include claims in id_token` to on. Click `Finish` to complete cr
 
 ![image](https://github.com/user-attachments/assets/25353b3c-3f54-47cf-bd47-b5023f86d7cf)
 
-Grab the generated `Client ID` and `OpenID Configuration Issuer` URL by clicking the newly created provider as this will use this later when `Dashy` is configured to use the OIDC auth mechanism. In this tutorial is what was generated and used below. Obviously adjust to the `Client ID` that was generated and use your domain here for the `issuer`.
+Grab the generated `Client ID` and `OpenID Configuration Issuer` URL by clicking the newly created provider as this will use this later when `Dashy` is configured to use the OIDC auth mechanism. In this tutorial, what was generated is used below. Obviously adjust the `Client ID` that was generated and use your domain here for the `issuer`.
 ```
 Client ID: pzN9DCMLqHTTatgtYFg50cl0jn1NmCyBC3wreX15
 OpenID Configuration Issuer: https://auth.domain.com/application/o/dashy/
@@ -387,12 +387,12 @@ Make sure you are still in the `authentik` admin console then go to `Application
 
 ![image](https://github.com/user-attachments/assets/fd225936-15a1-409f-83c8-e24a43047df0)
 
-Next, it is needed to give a user facing `Name`, `Slug` and assign the newly created provider. Use the example below if you have been following the guide. If you have used your own naming, then adjust accordingly. Click `Create` once you are done.
+Next, it is required to give a user facing `Name`, `Slug` and assign the newly created provider. Use the example below if you have been following the guide. If you have used your own naming, then adjust accordingly. Click `Create` once you are done.
 
 ![image](https://github.com/user-attachments/assets/e6574d7d-6b22-4e7d-b388-45341b98746b)
 
 >[!TIP]
->Open the application in a new tab from the `authentik` user portal and upload a custom icon. You can also enter a user facing `Description` here that the user would see.
+>Open the application in a new tab from the `authentik` user portal and upload a custom icon. You can also enter a user facing `Description` that the user would see.
 
 ![image](https://github.com/user-attachments/assets/20561387-549f-49de-98e6-30330dcdc734)
 
@@ -417,14 +417,14 @@ Click `Group` for the binding type. Under `Group` select the appropriate group y
 #### 4. Configure `Dashy` to use OIDC client
 
 >[!IMPORTANT]
->It is highly recommended to edit your `conf.yml` directly for this change.
+>It is highly recommended to edit your `conf.yml` directly for this step.
 
 >[!CAUTION]
 >Do not make the same mistake many have made here by including the fully qualified address for the `OpenID Configuration URL`. `Dashy` will append the `.well-known` configuration automatically. If the `.well-known` URI is included the app will get redirect loops and `400` errors.
 
 Enter the `Client ID` in the `clientId` field and `OpenID Configuration Issuer` in the `endpoint` field.
 
-Below is how to configure the `auth` section in the yaml syntax. Once this is enabled, when you attempt to login it will redirect you to the `authentik` login page moving forward.
+Below is how to configure the `auth` section in the yaml syntax. Once this is enabled, when an attempt to access `Dashy` is made it will now redirect you to the `authentik` login page moving forward.
 
 ```
 appConfig:
@@ -440,7 +440,7 @@ appConfig:
 
 #### 5. *(OPTIONAL)* Example snippets for dashboard visibility
 
-Using the `hideForKeycloakUsers` configuration option is needed here to use the `authentik` groups that were created previously.
+Using the `hideForKeycloakUsers` configuration option is needed to use the `authentik` groups that were created previously.
 
 Adjusting `pages` visibility:
 ```
