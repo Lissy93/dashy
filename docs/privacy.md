@@ -132,8 +132,8 @@ Dashy supports [Widgets](/docs/widgets) for displaying dynamic content. Below is
   - [BlockCypher Privacy Policy](https://www.blockcypher.com/privacy.html)
 - **[Code::Stats](/docs/widgets#code-stats)**: `https://codestats.net`
   - [Code::Stats Privacy Policy](https://codestats.net/tos#privacy)
-- **[AnonAddy](/docs/widgets#anonaddy)**: `https://app.anonaddy.com`
-  - [AnonAddy Privacy Policy](https://anonaddy.com/privacy/)
+- **[addy.io](/docs/widgets#addyio)**: `https://app.addy.io`
+  - [addy.io Privacy Policy](https://addy.io/privacy/)
 - **[Vulnerability Feed](/docs/widgets#vulnerability-feed)**: `https://www.cvedetails.com`
   - [CVE Details Privacy Policy](https://www.cvedetails.com/privacy.php)
 - **[Exchange Rate](/docs/widgets#exchange-rates)**: `https://v6.exchangerate-api.com`
