@@ -115,6 +115,7 @@ const COMPAT = {
   'synology-download': 'SynologyDownload',
   'system-info': 'SystemInfo',
   'tfl-status': 'TflStatus',
+  trmm: 'TacticalRMM',
   'uptime-kuma': 'UptimeKuma',
   'wallet-balance': 'WalletBalance',
   weather: 'Weather',
