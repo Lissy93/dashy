@@ -67,6 +67,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Drone CI Build](#drone-ci-builds)
   - [Linkding](#linkding)
   - [Uptime Kuma](#uptime-kuma)
+  - [Tactical RMM](#tactical-rmm)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
   - [CPU Usage Per Core](#cpu-usage-per-core)
@@ -2332,6 +2333,41 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Uptime Kuma](https://github.com/louislam/uptime-kuma) )
 - **Privacy**: _See [Uptime Kuma](https://github.com/louislam/uptime-kuma)_
+
+---
+
+### Tactical RMM
+
+[Tactical RMM](https://github.com/amidaware/tacticalrmm) is a self-hosted remote monitoring & management tool.
+
+<p align="center"><a href="https://ibb.co/NVHWpD1"><img src="https://i.ibb.co/ng5Qfd3/Capture.png" alt="Capture" border="0"></a></p>
+
+
+#### Options
+
+| **Field**    | **Type** | **Required** | **Description**                                                          |
+| ------------ | -------- | ------------ | ------------------------------------------------------------------------ |
+| **`url`**    | `string` | Required     | The status endpoint URL (https://api.example.com/core/status/)           |
+| **`token`**  | `string` | Required     | The MON_TOKEN (see https://docs.tacticalrmm.com/tipsntricks/#monitor-your-trmm-instance-via-the-built-in-monitoring-endpoint). |
+
+#### Example
+
+```yaml
+- type: trmm
+  useProxy: true
+  options:
+    token: PkPVKMzbmXgeQDlJWb0WXYvsIk3JvZyadURud2cSTdMia6hUbQ
+    url: https://api.example.com/core/status/
+```
+
+#### Info
+
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Tactical RMM](https://github.com/amidaware/tacticalrmm) )
+- **Privacy**: _See [Tactical RMM](https://github.com/amidaware/tacticalrmm)_
+
 
 ---
 
