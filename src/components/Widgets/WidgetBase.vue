@@ -46,7 +46,7 @@ const COMPAT = {
   'adguard-filter-status': 'AdGuardFilterStatus',
   'adguard-stats': 'AdGuardStats',
   'adguard-top-domains': 'AdGuardTopDomains',
-  anonaddy: 'AnonAddy',
+  anonaddy: 'addy.io',
   apod: 'Apod',
   'blacklist-check': 'BlacklistCheck',
   clock: 'Clock',
