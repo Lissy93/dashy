@@ -20,7 +20,7 @@ class OidcAuth {
       client_id: clientId,
       redirect_uri: `${window.location.origin}`,
       response_type: 'code',
-      scope,
+      scope: scope || 'openid profile email roles groups',
       response_mode: 'query',
       filterProtocolClaims: true,
     };
