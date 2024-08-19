@@ -15,6 +15,8 @@
   - [Setting up Keycloak](#2-setup-keycloak-users)
   - [Configuring Dashy for Keycloak](#3-enable-keycloak-in-dashy-config-file)
   - [Toubleshooting Keycloak](#troubleshooting-keycloak)
+- [OIDC Auth](#oidc)
+  - [authentik](#authentik)
 - [Alternative Authentication Methods](#alternative-authentication-methods)
   - [VPN](#vpn)
   - [IP-Based Access](#ip-based-access)
@@ -283,6 +285,7 @@ appConfig:
     oidc:
       clientId: [registered client id]
       endpoint: [OIDC endpoint]
+      scope: [The scope(s) to request from the OIDC provider]
 ```
 
 Because Dashy is a SPA, a [public client](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1) registration with PKCE is needed.
@@ -311,8 +314,185 @@ identity_providers:
           - 'groups'
 ```
 
-Groups and roles will be populated and available for controlling display similar to [Keycloak](#Keycloak) abvoe.
+Groups and roles will be populated and available for controlling display similar to [Keycloak](#Keycloak) above.
 
+---
+
+### authentik
+
+This documentation is specific to `authentik`, however it may be useful in getting other idP's working with `Dashy`.
+
+This guide will only walk through the following:
+ * Creating and configuring an OIDC provider
+ * Creating and configuring an application
+ * Assigning groups
+ * Configuring `Dashy` to use the OIDC client
+ * Show quick examples of how to hide/show `pages`, `items`, and `sections` using OIDC groups
+
+This guide assumes the following:
+ * You have a working instance of `authentik` terminated with SSL
+ * You have a working instance of `Dashy` terminated with SSL
+ * Users and groups are provisioned
+ * You are familiar with how `authentik` works in case you need to do further troubleshooting that is outside the scope of this guide.
+ 
+>[!TIP]
+>It it recommended that you create groups specific for `Dashy`. Groups will allow you to display content based on group membership as well as limiting user access to `Dashy`. If you do not need this functionality, then you can forgo creating specific groups.
+
+>[!TIP]
+>You can use the application wizard to create the provider and application at one time. This is the recommended route, but only the manual process will be outlined in this guide.
+
+![image](https://github.com/user-attachments/assets/72e45162-6c86-4d6f-a1ae-724ac503c00c)
+
+#### 1. Create an OIDC provider
+
+Login to the admin console for `authentik`. Go to `Applications` > `Providers`. Click `Create`.
+
+![image](https://github.com/user-attachments/assets/c1f7f45d-469c-4bf1-a825-34658341a83e)
+
+A dialog box will pop-up, select the `OAuth2/OpenID Provider`. Click `Next`.
+
+![image](https://github.com/user-attachments/assets/ea84fe57-b813-404d-8dad-5e221b440bdb)
+
+On the next page of the wizard, set the `Name`, `Authentication flow`, and `Authorization flow`. See example below. Using the `default-provider-authorization-implicit-consent` authorization flow on internal services and `default-provider-authorization-explicit-consent` on external services is a common practice. However, it is fully up to you on how you would like to configure this option. `Implicit` will login directly without user consent, `explicit` will ask if the user approves the service being logged into with their user credentials.
+
+![image](https://github.com/user-attachments/assets/e600aeaf-08d1-49aa-b304-11e90e5c89cd)
+
+Scroll down and configure the `Protocol settings`. Set the `Client type` to `Public`. Add the `Redirect URIs/Origins (RegEx)`. If the site is hosted at `dashy.lan.domain.com`, then you would enter as the example below.
+
+>[!NOTE]
+>If you have an internal and external domain for `Dashy`, enter both URI's. Enter each URI on a new line.
+
+![image](https://github.com/user-attachments/assets/4a289d7e-d7b4-4ff6-af5d-3e5202fae84e)
+
+Scroll down to set the `Signing Key`. It is recommended to use the built in `authentik Self-signed Certificate` here unless you have special needs for your own custom cert.
+
+![image](https://github.com/user-attachments/assets/386c0750-9d2b-4482-8938-8b301b489b38)
+
+Expand `Advanced protocol settings` then verify the `Scopes` are set to what is highlighted in `white` below. Set the `Subject mode` to `Based on the Users's Email`.
+
+![image](https://github.com/user-attachments/assets/ae5e87b8-1ad6-41dd-b6e1-9665623f842a)
+
+Lastly, toggle `Include claims in id_token` to on. Click `Finish` to complete creating the provider.
+
+![image](https://github.com/user-attachments/assets/25353b3c-3f54-47cf-bd47-b5023f86d7cf)
+
+Grab the generated `Client ID` and `OpenID Configuration Issuer` URL by clicking the newly created provider as this will use this later when `Dashy` is configured to use the OIDC auth mechanism. In this tutorial, what was generated is used below. Obviously adjust the `Client ID` that was generated and use your domain here for the `issuer`.
+```
+Client ID: pzN9DCMLqHTTatgtYFg50cl0jn1NmCyBC3wreX15
+OpenID Configuration Issuer: https://auth.domain.com/application/o/dashy/
+```
+
+#### 2. Create an application
+
+Make sure you are still in the `authentik` admin console then go to `Applications` > `Applications`. Click `Create`.
+
+![image](https://github.com/user-attachments/assets/fd225936-15a1-409f-83c8-e24a43047df0)
+
+Next, it is required to give a user facing `Name`, `Slug` and assign the newly created provider. Use the example below if you have been following the guide. If you have used your own naming, then adjust accordingly. Click `Create` once you are done.
+
+![image](https://github.com/user-attachments/assets/e6574d7d-6b22-4e7d-b388-45341b98746b)
+
+>[!TIP]
+>Open the application in a new tab from the `authentik` user portal and upload a custom icon. You can also enter a user facing `Description` that the user would see.
+
+![image](https://github.com/user-attachments/assets/20561387-549f-49de-98e6-30330dcdc734)
+
+#### 3. *(Optional)* Limiting access via `authentik` with groups
+
+If you would like to deny `Dashy` access from specific users who are not within `authentik` based groups, you bind them to the application you just created now. `authentik` will deny access to those who are not members of this group or groups. If you want to allow everyone access from your `authentik` instance, skip this step.
+
+Make sure you are still in the `authentik` admin console then go to `Applications` > `Applications`. Click the newly created `Dashy` application.
+
+![image](https://github.com/user-attachments/assets/613fafe7-881f-4664-a903-945854ac65e2)
+
+Click the `Policy/Group/User Bindings` tab at the top, then click `Bind existing policy`. This assumes you have already created the groups you want to use for `Dashy` and populated users in those groups.
+
+![image](https://github.com/user-attachments/assets/10fca15b-e77d-4624-ae03-0ece3910904c)
+
+Click `Group` for the binding type. Under `Group` select the appropriate group you would like to bind. Make sure `Enabled` is toggeled on. Click `Create`.
+
+![image](https://github.com/user-attachments/assets/ebf680ab-696f-4c08-ae89-d73fe92b398f)
+
+`Dashy` will now be scoped only to users within the assigned groups you have bound the application to. Keep adding groups if you would like to adjust the dashboard visibilty based on group membership.
+
+#### 4. Configure `Dashy` to use OIDC client
+
+>[!IMPORTANT]
+>It is highly recommended to edit your `conf.yml` directly for this step.
+
+>[!CAUTION]
+>Do not make the same mistake many have made here by including the fully qualified address for the `OpenID Configuration URL`. `Dashy` will append the `.well-known` configuration automatically. If the `.well-known` URI is included the app will get redirect loops and `400` errors.
+
+Enter the `Client ID` in the `clientId` field and `OpenID Configuration Issuer` in the `endpoint` field.
+
+Below is how to configure the `auth` section in the yaml syntax. Once this is enabled, when an attempt to access `Dashy` is made it will now redirect you to the `authentik` login page moving forward.
+
+```
+appConfig:
+  theme: glass
+  layout: auto
+  iconSize: medium
+  auth:
+    enableOidc: true
+    oidc:
+      clientId: pzN9DCMLqHTTatgtYFg50cl0jn1NmCyBC3wreX15
+      endpoint: https://auth.domain.com/application/o/dashy/
+```
+
+#### 5. *(OPTIONAL)* Example snippets for dashboard visibility
+
+Using the `hideForKeycloakUsers` configuration option is needed to use the `authentik` groups that were created previously.
+
+Adjusting `pages` visibility:
+```
+pages:
+  - name: App Management
+    path: appmgmt.yml
+    displayData:
+      hideForKeycloakUsers:
+        groups:
+          - Dashy Users
+  - name: Network Management
+    path: network.yml
+    displayData:
+      hideForKeycloakUsers:
+        groups:
+          - Dashy Users
+```
+
+Adjusting `items` visibility:
+```
+    items:
+      - title: Authentik Admin
+        icon: authentik.svg
+        url: https://auth.domain.com/if/admin/
+        target: newtab
+        id: 0_1472_authentikadmin
+        displayData:
+          hideForKeycloakUsers:
+            groups:
+              - Dashy Users
+      - title: Authentik User
+        icon: authentik-light.png
+        url: https://auth.domain.com/if/user/
+        target: newtab
+        id: 1_1472_authentikuser
+```
+
+Adjusting `sections` visibility:
+```
+sections:
+  - name: Authentication
+    displayData:
+      sortBy: default
+      rows: 2
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+      hideForKeycloakUsers:
+        groups: 
+          - Dashy Users
+```
 ---
 
 ## Alternative Authentication Methods

@@ -118,9 +118,10 @@ Dashy supports [Widgets](/docs/widgets.md) for displaying dynamic content. Below
   - [OWM Privacy Policy](https://openweather.co.uk/privacy-policy)
 - **[RSS Feed](/docs/widgets.md#rss-feed)**: `https://api.rss2json.com/v1/api.json`
   - [Rss2Json Privacy Policy](https://rss2json.com/privacy-policy)
-- **[IP Address](/docs/widgets.md#public-ip)**: `https://ipapi.co/json` or `http://ip-api.com/json`
+- **[IP Address](/docs/widgets.md#public-ip)**: `https://ipapi.co/json` or `http://ip-api.com/json` or `https://api.ip2location.io/`
   - [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html)
   - [IP-API Privacy Policy](https://ip-api.com/docs/legal)
+  - [IP2Location.io Privacy Policy](https://ip2location.io/privacy-policy)
 - **[IP Blacklist](/docs/widgets.md#ip-blacklist)**: `https://api.blacklistchecker.com`
   - [Blacklist Checker Privacy Policy](https://blacklistchecker.com/privacy)
 - **[Domain Monitor](/docs/widgets.md#domain-monitor)**: `http://api.whoapi.com`
@@ -131,8 +132,8 @@ Dashy supports [Widgets](/docs/widgets.md) for displaying dynamic content. Below
   - [BlockCypher Privacy Policy](https://www.blockcypher.com/privacy.html)
 - **[Code::Stats](/docs/widgets.md#code-stats)**: `https://codestats.net`
   - [Code::Stats Privacy Policy](https://codestats.net/tos#privacy)
-- **[AnonAddy](/docs/widgets.md#anonaddy)**: `https://app.anonaddy.com`
-  - [AnonAddy Privacy Policy](https://anonaddy.com/privacy/)
+- **[addy.io](/docs/widgets.md#addyio)**: `https://app.addy.io`
+  - [addy.io Privacy Policy](https://addy.io/privacy/)
 - **[Vulnerability Feed](/docs/widgets.md#vulnerability-feed)**: `https://www.cvedetails.com`
   - [CVE Details Privacy Policy](https://www.cvedetails.com/privacy.php)
 - **[Exchange Rate](/docs/widgets.md#exchange-rates)**: `https://v6.exchangerate-api.com`
