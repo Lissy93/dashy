@@ -526,8 +526,8 @@ Huge thanks to the sponsors helping to support Dashy's development!
 <table>
 <tr>
     <td align="center">
-        <a href="https://github.com/koconder">
-            <img src="https://avatars.githubusercontent.com/u/25068?u=582657b23622aaa3dfe68bd028a780f272f456fa&v=4" width="80;" alt="koconder"/>
+        <a href="https://github.com/vincentkoc">
+            <img src="https://avatars.githubusercontent.com/u/25068?v=4" width="80;" alt="vincentkoc"/>
             <br />
             <sub><b>Vincent Koc</b></sub>
         </a>
@@ -665,7 +665,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
         <a href="https://github.com/st617">
             <img src="https://avatars.githubusercontent.com/u/128325650?v=4" width="80;" alt="st617"/>
             <br />
-            <sub><b>st617</b></sub>
+            <sub><b>St617</b></sub>
         </a>
     </td>
     <td align="center">
