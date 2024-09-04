@@ -4,7 +4,6 @@ title: '[BUG] <title>'
 labels: ['🐛 Bug']
 assignees:
   - Lissy93
-  - CrazyWolf13
 body:
   - type: dropdown
     id: environment
