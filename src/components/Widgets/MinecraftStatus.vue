@@ -55,7 +55,7 @@ import StatusIndicator from '@/components/LinkItems/StatusIndicator.vue';
 export default {
   mixins: [WidgetMixin],
   components: {
-    StatusIndicator
+    StatusIndicator,
   },
   data() {
     return {
@@ -78,23 +78,23 @@ export default {
   },
   computed: {
     title() {
-      return this.options.title || this.options.server || this.error("options.server not set");
+      return this.options.title || this.options.server || this.error('options.server not set');
     },
     alt() {
-      return this.title
+      return this.title;
     },
     icon() {
-      return `https://api.mcsrvstat.us/icon/${this.server}`
+      return `https://api.mcsrvstat.us/icon/${this.server}`;
     },
     server() {
-      return this.options.server || this.error("options.server not set");
+      return this.options.server || this.error('options.server not set');
     },
     bedrock() {
       return this.options.bedrock === true;
     },
     statusTooltip() {
       if (!this.status) {
-        return "Loading...";
+        return 'Loading...';
       }
       if (!this.online) {
         return `${this.server} Offline`;
@@ -111,11 +111,11 @@ export default {
       return this.options.showPlugins && this.plugins.length > 0;
     },
     endpoint() {
-      return `${widgetApiEndpoints.minecraftStatus}${this.bedrock?'bedrock/':''}3/${this.server}`;
+      return `${widgetApiEndpoints.minecraftStatus}${this.bedrock ? 'bedrock/' : ''}3/${this.server}`;
     },
     serverLinkEndpoint() {
       return `${widgetApiEndpoints.minecraftServerLink}${this.server}`;
-    }
+    },
   },
   methods: {
     playerIconEndpoint(uuid) {
@@ -126,7 +126,7 @@ export default {
     },
     /* Make GET request to McSrvStat.US API endpoint */
     fetchData() {
-      this.startLoading()
+      this.startLoading();
       fetch(this.endpoint)
         .then(response => {
           if (!response.ok) {
@@ -146,26 +146,26 @@ export default {
     },
     /* Assign data variables to the returned data */
     processData(data) {
-      this.online = data.online
-      this.ip = data.ip
-      this.port = data.port
-      this.hostname = data.hostname
+      this.online = data.online;
+      this.ip = data.ip;
+      this.port = data.port;
+      this.hostname = data.hostname;
       if (this.online) {
-        this.version = data.version
-        this.iconData = data.icon
-        this.software = data.software
-        this.gamemode = data.gamemode
-        this.motd = data.motd.clean || []
-        this.players = data.players.list || []
-        this.onlinePlayers = data.players.online
-        this.maxPlayers = data.players.max
-        this.mods = data.mods || []
-        this.plugins = data.plugins || []
+        this.version = data.version;
+        this.iconData = data.icon;
+        this.software = data.software;
+        this.gamemode = data.gamemode;
+        this.motd = data.motd.clean || [];
+        this.players = data.players.list || [];
+        this.onlinePlayers = data.players.online;
+        this.maxPlayers = data.players.max;
+        this.mods = data.mods || [];
+        this.plugins = data.plugins || [];
       }
-      this.status = true
+      this.status = true;
     },
     update() {
-      this.fetchData()
+      this.fetchData();
     },
   },
 };
