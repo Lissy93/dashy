@@ -131,7 +131,7 @@
     "rebuild-note-l1": "En ombygging er nødvendig for at endringer skrevet i conf.yml-filen skal tre i kraft.",
     "rebuild-note-l2": "Dette bør skje automatisk, men hvis det ikke har blitt gjort, kan du manuelt utløse det her.",
     "rebuild-note-l3": "Dette er ikke nødvendig for endringer som er lagret lokalt.",
-    "rebuild-button": "Start Bygg",
+    "rebuild-button": "Start Bygging",
     "rebuilding-status-1": "Bygger ...",
     "rebuilding-status-2": "Dette kan ta noen minutter",
     "error-permission": "Du har ikke tillatelse til å utføre denne handlingen",
