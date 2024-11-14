@@ -1,7 +1,7 @@
 {
   "home": {
     "no-results": "Ingen søkeresultater",
-    "no-data": "Ingen data konfigurert"
+    "no-data": "Ingen data tilgjengelig"
   },
   "search": {
     "search-label": "Søk",
@@ -15,7 +15,7 @@
     "password-label": "Passord",
     "login-button": "Logg inn",
     "remember-me-label": "Husk meg",
-    "remember-me-never": "Aldri",
+    "remember-me-never": "Alltid",
     "remember-me-hour": "4 timer",
     "remember-me-day": "1 dag",
     "remember-me-week": "1 uke",
@@ -43,7 +43,7 @@
     "cloud-sync-button": "Aktiver skysynkronisering",
     "edit-cloud-sync-button": "Rediger skysynkronisering",
     "rebuild-app-button": "Bygg program",
-    "change-language-button": "Endre appspråk",
+    "change-language-button": "Endre språk",
     "reset-settings-button": "Tilbakestill lokale innstillinger",
     "app-info-button": "Appinfo",
     "backup-note": "Det anbefales å ta en sikkerhetskopi av konfigurasjonen din før du gjør endringer.",
@@ -91,7 +91,7 @@
     "unsupported-version-l2": "For den beste opplevelsen og de siste sikkerhetsoppdateringene, vennligst oppdater til"
   },
   "language-switcher": {
-    "title": "Endre applikasjonsspråk",
+    "title": "Endre språk",
     "dropdown-label": "Velg et språk",
     "save-button": "Lagre",
     "success-msg": "Språk oppdatert til"
@@ -115,7 +115,7 @@
     "valid-label": "Konfigurasjon er gyldig",
     "status-success-msg": "Oppgaven fullført",
     "status-fail-msg": "Oppgaven mislyktes",
-    "success-msg-disk": "Konfigurasjonsfil skrevet til disk med hell",
+    "success-msg-disk": "Konfigurasjonsfil skrevet til disk vellykket",
     "success-msg-local": "Lokale endringer er lagret",
     "success-note-l1": "Appen bør bygge om automatisk.",
     "success-note-l2": "Dette kan ta opptil et minutt.",
@@ -131,10 +131,10 @@
     "rebuild-note-l1": "En ombygging er nødvendig for at endringer skrevet i conf.yml-filen skal tre i kraft.",
     "rebuild-note-l2": "Dette bør skje automatisk, men hvis det ikke har blitt gjort, kan du manuelt utløse det her.",
     "rebuild-note-l3": "Dette er ikke nødvendig for endringer som er lagret lokalt.",
-    "rebuild-button": "Start Build",
-    "rebuilding-status-1": "Building ...",
+    "rebuild-button": "Start Bygg",
+    "rebuilding-status-1": "Bygger ...",
     "rebuilding-status-2": "Dette kan ta noen minutter",
-    "error-permission": "Du har ikke tillatelse til å utløse denne handlingen",
+    "error-permission": "Du har ikke tillatelse til å utføre denne handlingen",
     "success-msg": "Byggingen er fullført",
     "fail-msg": "Byggoperasjonen mislyktes",
     "reload-note": "En sideinnlasting er nå nødvendig for at endringer skal tre i kraft",
