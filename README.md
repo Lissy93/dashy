@@ -612,15 +612,8 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/undefined">
-            <img src="" width="80;" alt="undefined"/>
-            <br />
-            <sub><b>Undefined</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/MioOgbeni">
-            <img src="https://avatars.githubusercontent.com/u/24291977?v=4" width="80;" alt="MioOgbeni"/>
+            <img src="https://avatars.githubusercontent.com/u/24291977?u=4178230d1acd14b41ca7f4eaf9b96811045167f0&v=4" width="80;" alt="MioOgbeni"/>
             <br />
             <sub><b>Tomáš Novák</b></sub>
         </a>
@@ -637,6 +630,13 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <img src="https://avatars.githubusercontent.com/u/26634535?v=4" width="80;" alt="sushibait"/>
             <br />
             <sub><b>Shiverme Timbers</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/undefined">
+            <img src="" width="80;" alt="undefined"/>
+            <br />
+            <sub><b>Undefined</b></sub>
         </a>
     </td>
     <td align="center">
