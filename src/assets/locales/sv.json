@@ -279,6 +279,15 @@
       "mem-breakdown-title":"Memory Breakdown",
       "load-chart-title":"System Load"
     },
+    "glances": {
+      "disk-space-free": "Ledigt",
+      "disk-space-used": "Utnyttjat",
+      "disk-mount-point": "Mount Point",
+      "disk-file-system": "Filsystem",
+      "disk-io-read": "Läs",
+      "disk-io-write": "Skriv",
+      "system-load-desc": "Antal processer som väntar i run-queue, i genomsnitt över alla kärnor"
+    },
     "system-info":{
       "uptime":"Uptime"
     },
