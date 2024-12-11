@@ -10,6 +10,9 @@
     "clear-search-tooltip":"Rensa sök",
     "enter-to-search-web":"Tryck på retur för att söka på webben"
   },
+  "splash-screen": {
+    "loading": "Laddar"
+  },
   "login":{
     "title":"Dashy",
     "username-label":"Användarnamn",
