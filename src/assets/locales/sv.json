@@ -190,14 +190,17 @@
       "newtab":"Ny flik",
       "modal":"Pop-Up Modal",
       "workspace":"Workspace View",
+      "clipboard": "Kopiera till urklipp",
       "options-section-title":"Alternativ",
       "edit-item":"Redigera",
       "move-item":"Kopiera eller flytta",
-      "remove-item":"Ta bort"
+      "remove-item":"Ta bort",
+      "copied-toast": "URLen har blivit kopierad till urklipp"
     },
     "section":{
       "open-section":"Öppna sektion",
       "edit-section":"Redigera",
+      "expand-collapse": "Expandera / Minimera",
       "move-section":"Flytta till",
       "remove-section":"Ta bort"
     }
