@@ -86,7 +86,9 @@
     "config-launcher-tooltip":"Uppdatera konfiguration",
     "sign-out-tooltip":"Logga ut",
     "sign-in-tooltip":"Logga in",
-    "sign-in-welcome":"Hej {username}!"
+    "sign-in-welcome":"Hej {username}!",
+    "hide": "Göm",
+    "open": "Öppna"
   },
   "updates":{
     "app-version-note":"Dashy-version",
