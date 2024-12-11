@@ -298,6 +298,16 @@
     "tfl-status":{
       "good-service-all":"God service på alla linjer",
       "good-service-rest":"God Service på övriga linjer"
+    },
+    "gluetun-status": {
+      "vpn-ip": "VPN IP",
+      "country": "Land",
+      "region": "Region",
+      "city": "Stad",
+      "post-code": "Postnummer",
+      "location": "Plats",
+      "timezone": "Tidszon",
+      "organization": "Organisation"
     }
   }
 }
