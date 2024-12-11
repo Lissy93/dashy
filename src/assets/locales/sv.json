@@ -213,6 +213,8 @@
       "edit-page-info-tooltip":"Appnamn, beskrivning, navigeringslänkar, sidfotstext, etc",
       "edit-app-config-btn":"Redigera appkonfiguration",
       "edit-app-config-tooltip":"Övriga appkonfigurationsalternativ",
+      "edit-pages-btn": "Editera sidor",
+      "edit-pages-tooltip": "Lägg till eller ta bort ytterligare vyer",
       "config-save-methods-subheading":"Alternativ för konfigurationssparande",
       "save-locally-btn":"Spara lokalt",
       "save-locally-tooltip":"Spara konfigurationen lokalt, till webbläsarens lagring. Detta påverkar inte din konfigurationsfil, men ändringarna sparas bara på denna enhet",
