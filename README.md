@@ -640,21 +640,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/semiceau">
-            <img src="https://avatars.githubusercontent.com/u/50425951?u=f8c386b966312769f559422adf0dbc7e2f116258&v=4" width="80;" alt="semiceau"/>
-            <br />
-            <sub><b>GT</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/Bastii717">
-            <img src="https://avatars.githubusercontent.com/u/53431819?u=604977bed6ad6875ada890d0d3765a4cacc2fa14&v=4" width="80;" alt="Bastii717"/>
-            <br />
-            <sub><b>Bastii717</b></sub>
-        </a>
-    </td></tr>
-<tr>
-    <td align="center">
         <a href="https://github.com/OlliVHH">
             <img src="https://avatars.githubusercontent.com/u/84959562?v=4" width="80;" alt="OlliVHH"/>
             <br />
@@ -667,7 +652,8 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Frankdez93</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/st617">
             <img src="https://avatars.githubusercontent.com/u/128325650?v=4" width="80;" alt="st617"/>
