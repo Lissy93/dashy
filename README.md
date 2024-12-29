@@ -612,13 +612,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/MioOgbeni">
-            <img src="https://avatars.githubusercontent.com/u/24291977?u=4178230d1acd14b41ca7f4eaf9b96811045167f0&v=4" width="80;" alt="MioOgbeni"/>
-            <br />
-            <sub><b>Tomáš Novák</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/mryesiller">
             <img src="https://avatars.githubusercontent.com/u/24632172?u=0d20f2d615158f87cd60a3398d3efb026c32f291&v=4" width="80;" alt="mryesiller"/>
             <br />
@@ -652,15 +645,15 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Frankdez93</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/st617">
             <img src="https://avatars.githubusercontent.com/u/128325650?v=4" width="80;" alt="st617"/>
             <br />
             <sub><b>St617</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/nrvo">
             <img src="https://avatars.githubusercontent.com/u/151435968?u=e1dcb307fd0efdc45cddbe9490a7b956e4da6835&v=4" width="80;" alt="nrvo"/>
