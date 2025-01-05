@@ -209,7 +209,7 @@ The following icon types are supported:
 [font-awesome]: https://fontawesome.com/icons
 [simple-icons]: https://simpleicons.org/
 [material icons]: https://github.com/Templarian/MaterialDesign
-[dashboard-icons]: https://github.com/WalkxCode/dashboard-icons
+[dashboard-icons]: https://github.com/homarr-labs/dashboard-icons
 
 
 <p align="center">
