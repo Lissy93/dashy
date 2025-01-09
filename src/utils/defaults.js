@@ -210,6 +210,7 @@ module.exports = {
     fa: 'https://kit.fontawesome.com',
     mdi: 'https://cdn.jsdelivr.net/npm/@mdi/font@7.0.96/css/materialdesignicons.min.css',
     si: 'https://unpkg.com/simple-icons@v7/icons',
+    sh: 'https://cdn.jsdelivr.net/gh/selfhst/icons@latest/webp/{icon}.webp',
     generative: 'https://api.dicebear.com/7.x/identicon/svg?seed={icon}',
     generativeFallback: 'https://evatar.io/{icon}',
     localPath: './item-icons',
