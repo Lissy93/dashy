@@ -193,7 +193,7 @@ export default {
   white-space: nowrap;
   vertical-align: baseline;
   padding: .35em .65em;
-  margin: 1em 0.5em;
+  margin: 0.1em 0.5em;
   min-width: 64px;
 
   &.up {
