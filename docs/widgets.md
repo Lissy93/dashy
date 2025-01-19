@@ -40,6 +40,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Mvg Connection](#mvg-connection)
   - [Custom search](#custom-search)
   - [Rescuetime overview](#rescuetime-overview)
+  - [Minecraft Server](#minecraft-server)
 - **[Self-Hosted Services Widgets](#self-hosted-services-widgets)**
   - [System Info](#system-info)
   - [Cron Monitoring](#cron-monitoring-health-checks)
@@ -1375,6 +1376,45 @@ Show an overview of how you have spent your time for the current day.
 - **Price**: 🟠 Depends on user subscription 
 - **Host**: [RescueTime](https://www.rescuetime.com)
 - **Privacy**: _See [RescueTime Privacy](https://www.rescuetime.com/privacy)_
+
+---
+
+### Minecraft Server
+
+Show minecraft server status
+
+<p align="center"><img width="380" src="https://i.ibb.co/hcmd4Wf/minecraft-widget.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`title`**       | `string`  | _Optional_ | Display title for server uses server address if not set.
+**`server`**      | `string`  | Required   | Server hostname or ip(:port) will use srv records.
+**`bedrock`**     | `boolean` | _Optional_ | If server is a bedrock edition server. (default false)
+**`showMods`**    | `boolean` | _Optional_ | Display mod list if available
+**`showPlayers`** | `boolean` | _Optional_ | Display player list if available
+**`showPlugins`** | `boolean` | _Optional_ | Display plugin list if available
+
+#### Example
+
+```yaml
+  - type: minecraft-status
+    options:
+      title: Venity Network
+      server: play.venitymc.com
+      bedrock: true
+      showMods: true
+      showPlayers: true
+      showPlugins: true
+```
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free 
+- **Host**: [Minecraft Server Status](https://mcsrvstat.us/)
+- **Privacy**: _See [Minecraft Server Status FAQ](https://mcsrvstat.us/faq)_
 
 ---
 
