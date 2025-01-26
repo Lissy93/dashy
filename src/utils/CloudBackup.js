@@ -1,4 +1,4 @@
-import sha256 from 'crypto-js/sha256';
+import bcrypt from 'bcrypt';
 import aes from 'crypto-js/aes';
 import Utf8 from 'crypto-js/enc-utf8';
 import axios from 'axios';
@@ -17,7 +17,7 @@ const encryptData = (data, password) => {
 const decryptData = (data, password) => aes.decrypt(data, password).toString(Utf8);
 
 /* Returns a splice of the hash of the users password */
-const makeSubHash = (pass) => sha256(pass).toString().slice(0, 14);
+const makeSubHash = (pass) => bcrypt.hashSync(pass, 10).slice(0, 14);
 
 /* Makes the backup */
 export const backup = (data, password) => axios.post(ENDPOINT, {
