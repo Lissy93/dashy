@@ -527,7 +527,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
 <tr>
     <td align="center">
         <a href="https://github.com/vincentkoc">
-            <img src="https://avatars.githubusercontent.com/u/25068?u=cbf098fc04c0473523d373b0dd2145b4ec99ef93&v=4" width="80;" alt="vincentkoc"/>
+            <img src="https://avatars.githubusercontent.com/u/25068?u=fbd5b2d51142daa4bdbc21e21953a3b8b8188a4a&v=4" width="80;" alt="vincentkoc"/>
             <br />
             <sub><b>Vincent Koc</b></sub>
         </a>
@@ -673,6 +673,20 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <img src="https://avatars.githubusercontent.com/u/163282900?u=5f2667f7fe5d284ac7a2da6b0800ea8970b0fcbf&v=4" width="80;" alt="hudsonrock-partnerships"/>
             <br />
             <sub><b>Hudsonrock-partnerships</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/adamt279">
+            <img src="https://avatars.githubusercontent.com/u/173125775?v=4" width="80;" alt="adamt279"/>
+            <br />
+            <sub><b>adamt279</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/CarterPerez-dev">
+            <img src="https://avatars.githubusercontent.com/u/188120068?v=4" width="80;" alt="CarterPerez-dev"/>
+            <br />
+            <sub><b>Carter Perez</b></sub>
         </a>
     </td></tr>
 </table>
