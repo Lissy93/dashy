@@ -7,12 +7,14 @@
         :logo="pageInfo.logo"
       />
       <Nav v-if="navVisible" :links="pageInfo.navLinks" class="nav" />
+      <VoiceRecognition @voice-command="handleVoiceCommand" />
     </header>
 </template>
 
 <script>
 import PageTitle from '@/components/PageStrcture/PageTitle.vue';
 import Nav from '@/components/PageStrcture/Nav.vue';
+import VoiceRecognition from '@/components/VoiceRecognition.vue';
 import { shouldBeVisible } from '@/utils/SectionHelpers';
 
 export default {
@@ -20,6 +22,7 @@ export default {
   components: {
     PageTitle,
     Nav,
+    VoiceRecognition,
   },
   props: {
     pageInfo: Object,
@@ -36,6 +39,18 @@ export default {
     },
     navVisible() {
       return this.visibleComponents.navigation;
+    },
+  },
+  methods: {
+    handleVoiceCommand(command) {
+      // Map voice commands to actions
+      if (command.includes('open settings')) {
+        this.$router.push({ name: 'settings' });
+      } else if (command.includes('search for')) {
+        const query = command.replace('search for', '').trim();
+        this.$emit('search', query);
+      }
+      // Add more command mappings as needed
     },
   },
 };

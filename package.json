@@ -14,7 +14,8 @@
     "build-and-start": "NODE_OPTIONS=--openssl-legacy-provider npm-run-all --parallel build start",
     "validate-config": "node services/config-validator",
     "health-check": "node services/healthcheck",
-    "dependency-audit": "npx improved-yarn-audit --ignore-dev-deps"
+    "dependency-audit": "npx improved-yarn-audit --ignore-dev-deps",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@babel/core": "^7.0.0",
