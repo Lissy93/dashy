@@ -25,6 +25,7 @@ import { initHeaderAuth, isHeaderAuthEnabled } from '@/utils/HeaderAuth';
 import { initOidcAuth, isOidcEnabled } from '@/utils/OidcAuth';
 import Keys from '@/utils/StoreMutations';
 import ErrorHandler from '@/utils/ErrorHandler';
+import { parseQuery, connectToSearch } from '@/utils/NaturalLanguageSearch';
 
 // Initialize global Vue components
 Vue.use(VueI18n);
@@ -84,4 +85,13 @@ store.dispatch(Keys.INITIALIZE_CONFIG).then(() => {
   } else { // If no third-party auth, just mount the app as normal
     mount();
   }
+});
+
+// Add a global event listener for voice commands
+window.addEventListener('voice-command', (event) => {
+  const command = event.detail;
+  const parsedQuery = parseQuery(command);
+  connectToSearch(parsedQuery, (query) => {
+    store.dispatch(Keys.SEARCH, query);
+  });
 });

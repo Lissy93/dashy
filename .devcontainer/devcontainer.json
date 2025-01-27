@@ -26,7 +26,11 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "yarn install --ignore-engines --immutable --no-cache --network-timeout 300000 --network-concurrency 1"
+  "postCreateCommand": "yarn install --ignore-engines --immutable --no-cache --network-timeout 300000 --network-concurrency 1",
+  "tasks": {
+    "test": "yarn test",
+    "build": "yarn install && yarn build"
+  }
 
 	// Configure tool-specific properties.
 	// "customizations": {},

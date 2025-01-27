@@ -17,6 +17,7 @@
         class="clear-search"
         :title="$t('search.clear-search-tooltip')"
         @click="clearFilterInput">x</i>
+      <VoiceRecognition @voice-command="handleVoiceCommand" />
   </form>
 </template>
 
@@ -32,9 +33,13 @@ import {
   defaultSearchOpeningMethod,
   searchBangs as defaultSearchBangs,
 } from '@/utils/defaults';
+import VoiceRecognition from '@/components/VoiceRecognition.vue';
 
 export default {
   name: 'FilterTile',
+  components: {
+    VoiceRecognition,
+  },
   props: {
     minimalSearch: Boolean, // If true, then keep it simple
   },
@@ -141,6 +146,13 @@ export default {
           this.launchWebSearch(searchUrl, openingMethod);
           this.clearFilterInput();
         }
+      }
+    },
+    handleVoiceCommand(command) {
+      if (command.includes('search for')) {
+        const query = command.replace('search for', '').trim();
+        this.input = query;
+        this.searchSubmitted();
       }
     },
   },
