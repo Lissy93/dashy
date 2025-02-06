@@ -69,7 +69,7 @@ const makeRequest = (url, options, render) => {
 
 
   if (url.startsWith('ping://')) {
-    const ipAddress = url.substring(7); // Remove "ping://" prefix
+    const ipAddress = url.substring(7); // Remove "ping" prefix
     const pinger = new pingFunction(ipAddress, (status, timeTaken, targetIp) => {
       let results = {};
       if (status === 'good') {
