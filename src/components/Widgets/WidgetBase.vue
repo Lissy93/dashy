@@ -86,6 +86,7 @@ const COMPAT = {
   iframe: 'IframeWidget',
   image: 'ImageWidget',
   joke: 'Jokes',
+  'minecraft-status': 'MinecraftStatus',
   'mullvad-status': 'MullvadStatus',
   mvg: 'Mvg',
   linkding: 'Linkding',
