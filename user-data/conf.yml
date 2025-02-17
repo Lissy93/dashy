@@ -11,7 +11,7 @@ pageInfo:
 
 # Optional app settings and configuration
 appConfig:
-  theme: colorful
+  theme: newone
 
 # Main content - An array of sections, each containing an array of items
 sections:
@@ -44,4 +44,21 @@ sections:
     description: Get help with Dashy, raise a bug, or get in contact
     url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
     icon: far fa-hands-helping
-  
+
+- name: Grafana dashboard 3 hours
+  icon: hl-grafana
+  widgets:
+  - type: iframe
+    useProxy: false
+    timeout: 8000
+    options:
+      url: >-
+        https://grafana.rpi-lite.lan/d/Ss3q6hSZk001/docker-and-os-metrics-for-raspberry-pi-16-april2022?orgId=1&refresh=30s&kiosk
+      frameHeight: 400
+    id: 0_2332_iframe
+  displayData:
+    sortBy: default
+    rows: 1
+    cols: 4
+    collapsed: false
+    hideForGuests: false

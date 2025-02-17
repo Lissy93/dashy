@@ -1,12 +1,50 @@
-// Put your custom themes here.
-// Don't forget to also put your theme name into the config
-// E.g: appConfig: cssThemes: [ 'my-theme' ]
+/* Custom theme for Raspberry PI docker dashboard */
+html[data-theme="newone"] {
+  /* Main colors */
+  --primary: #87c2d9;
+  --background: #03586e;
+  --background-darker: #05070e35;
 
-// Example theme:
-// html[data-theme='my-theme'] {
-//   --primary: #00CCB4;
-//   --background: #141b33;
-//   --background-darker: #060913;
-// }
+  /* Typography */
+  --font-headings: 'Roboto', serif;
+  --font-body: 'Roboto', serif;
 
-// For more info, see: https://github.com/Lissy93/dashy/blob/master/docs/theming.md
+  /* Items */
+  --item-background: #181c3a80;
+  --item-background-hover: #181c3a99;
+  --item-shadow: 1px 1px 2px #130f23;
+  --item-hover-shadow: 2px 2px 4px #130f23;
+
+  /* Sections */
+  --item-group-heading-text-color: var(--white);
+  --item-group-heading-text-color-hover: var(--primary);
+  --item-group-shadow: none;
+  --item-group-background: none;
+  --item-group-outer-background: none;
+
+  /* Background Image */
+  body {
+    background: url('https://dashy.rpi-lite.lan/item-icons/icons/background.jpg');
+    background-size: cover;
+  }
+
+  /* Remove background from certain components */
+  div.home, div.options-outer, div.options-container, section.filter-container,
+  section.settings-outer, div.show-hide-container.hide-btn, div.show-hide-container.show-btn {
+    background: none;
+  }
+
+  /* Style overrides */
+  label.lbl-toggle h3 { font-size: 1.3rem; font-weight: bold; }
+  .content-inner { border-top: 1px dashed var(--primary); }
+  a.item.size-large:hover { border-left: 3px solid var(--white); }
+  .item.size-large .tile-title p.description { height: 3rem; }
+  .is-collapsed {
+    background: var(--item-background);
+    box-shadow: var(--item-shadow);
+    &:hover {
+      background: var(--item-background-hover);
+      box-shadow: var(--item-hover-shadow);
+    }
+  }
+}

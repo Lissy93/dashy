@@ -16,9 +16,10 @@ services:
     # image: ghcr.io/lissy93/dashy or image: lissy93/dashy:3.0.0
 
     # Pass in your config file below, by specifying the path on your host machine
-    # volumes:
-      # - /path/to/my-config.yml:/app/user-data/conf.yml
-      # - /path/to/item-icons:/app/user-data/item-icons/
+    volumes:
+      - /path/to/my-config.yml:/app/user-data/conf.yml
+      - /path/to/item-icons:/app/user-data/item-icons/
+      - ./src/styles/user-defined-themes.scss:/app/src/styles/user-defined-themes.scss
 
     # Set port that web service will be served on. Keep container port as 8080
     ports:
@@ -41,3 +42,17 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    restart: unless-stopped
+
+volumes:
+  grafana-storage:
