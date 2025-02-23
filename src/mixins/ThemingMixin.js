@@ -136,6 +136,14 @@ const ThemingMixin = {
       } else if (hasExternal) {
         this.applyRemoteTheme(this.externalThemes[initialTheme]);
       }
+
+      // Detect OS theme preference and apply the corresponding theme
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const osTheme = prefersDark ? this.appConfig.nightTheme : this.appConfig.dayTheme;
+      if (osTheme) {
+        this.$store.commit(Keys.SET_THEME, osTheme);
+        this.updateTheme(osTheme);
+      }
     },
   },
 };
