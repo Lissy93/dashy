@@ -726,7 +726,7 @@ Note, config for this widget is case-sensetive (see [#1268](https://github.com/L
 - type: public-holidays
   options:
     country: GB
-    region: LND
+    state: LND
     holidayType: all
     monthsToShow: 12
     lang: en
