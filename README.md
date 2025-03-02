@@ -241,7 +241,7 @@ Status indicators can be globally enabled by setting `appConfig.statusCheck: tru
 
 > For full widget documentation, see: [**Widgets**](./docs/widgets.md)
 
-You can display dynamic content from services in the form of widgets. There are several pre-built widgets availible for showing useful info, and integrations with commonly self-hosted services, but you can also easily create your own for almost any app.
+You can display dynamic content from services in the form of widgets. There are several pre-built widgets available for showing useful info, and integrations with commonly self-hosted services, but you can also easily create your own for almost any app.
 
 
 <p align="center">
