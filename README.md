@@ -655,13 +655,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/rpvu">
-            <img src="https://avatars.githubusercontent.com/u/90328029?v=4" width="80;" alt="rpvu"/>
-            <br />
-            <sub><b>Rpvu</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/st617">
             <img src="https://avatars.githubusercontent.com/u/128325650?v=4" width="80;" alt="st617"/>
             <br />
