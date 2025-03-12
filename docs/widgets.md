@@ -2340,7 +2340,8 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 
 [Tactical RMM](https://github.com/amidaware/tacticalrmm) is a self-hosted remote monitoring & management tool.
 
-<p align="center"><a href="https://ibb.co/NVHWpD1"><img src="https://i.ibb.co/ng5Qfd3/Capture.png" alt="Capture" border="0"></a></p>
+<p align="center"><a href="https://github.com/user-attachments/assets/152a7205-e5de-401f-bad8-19063ddfaf3c">
+    <img src="https://github.com/user-attachments/assets/5921d46f-d84c-494d-8aaf-6b20cc592640" alt="Capture" border="0"></a></p>
 
 
 #### Options
