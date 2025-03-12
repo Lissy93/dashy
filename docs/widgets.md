@@ -2347,7 +2347,7 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 
 | **Field**    | **Type** | **Required** | **Description**                                                          |
 | ------------ | -------- | ------------ | ------------------------------------------------------------------------ |
-| **`url`**    | `string` | Required     | The status endpoint URL (https://api.example.com/core/status/)           |
+| **`url`**    | `string` | Required     | The status endpoint URL (https://api.example.com/core/v2/status/)           |
 | **`token`**  | `string` | Required     | The MON_TOKEN (see https://docs.tacticalrmm.com/tipsntricks/#monitor-your-trmm-instance-via-the-built-in-monitoring-endpoint). |
 
 #### Example
@@ -2357,7 +2357,7 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
   useProxy: true
   options:
     token: PkPVKMzbmXgeQDlJWb0WXYvsIk3JvZyadURud2cSTdMia6hUbQ
-    url: https://api.example.com/core/status/
+    url: https://api.example.com/core/v2/status/
 ```
 
 #### Info
