@@ -24,7 +24,7 @@ import sk from '@/assets/locales/sk.json';
 import sl from '@/assets/locales/sl.json';
 import sv from '@/assets/locales/sv.json';
 import tr from '@/assets/locales/tr.json';
-import ua from '@/assets/locales/ua.json';
+import uk from '@/assets/locales/uk.json';
 import zhCN from '@/assets/locales/zh-CN.json';
 import zhTW from '@/assets/locales/zh-TW.json';
 import pirate from '@/assets/locales/zz-pirate.json';
@@ -184,8 +184,8 @@ export const languages = [
   },
   { // Ukrainian
     name: 'Ukrainian',
-    code: 'ua',
-    locale: ua,
+    code: 'uk',
+    locale: uk,
     flag: '🇺🇦',
   },
   { // Chinese
