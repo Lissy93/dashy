@@ -612,13 +612,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/patvdv">
-            <img src="https://avatars.githubusercontent.com/u/12430107?u=e8911c2fb91af4d30432f76da8c40927b2830bd7&v=4" width="80;" alt="patvdv"/>
-            <br />
-            <sub><b>Patrick Van Der Veken</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/mryesiller">
             <img src="https://avatars.githubusercontent.com/u/24632172?u=0d20f2d615158f87cd60a3398d3efb026c32f291&v=4" width="80;" alt="mryesiller"/>
             <br />
@@ -652,15 +645,15 @@ Huge thanks to the sponsors helping to support Dashy's development!
             <br />
             <sub><b>Frankdez93</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/st617">
             <img src="https://avatars.githubusercontent.com/u/128325650?v=4" width="80;" alt="st617"/>
             <br />
             <sub><b>St617</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/hudsonrock-partnerships">
             <img src="https://avatars.githubusercontent.com/u/163282900?u=5f2667f7fe5d284ac7a2da6b0800ea8970b0fcbf&v=4" width="80;" alt="hudsonrock-partnerships"/>
