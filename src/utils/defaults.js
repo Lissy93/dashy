@@ -215,7 +215,7 @@ module.exports = {
     localPath: './item-icons',
     faviconName: 'favicon.ico',
     homeLabIcons:
-      'https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/{icon}.png',
+      'https://raw.githubusercontent.com/homarr-labs/dashboard-icons/master/png/{icon}.webp',
     homeLabIconsFallback:
       'https://raw.githubusercontent.com/NX211/homer-icons/master/png/{icon}.png',
   },
