@@ -4,7 +4,15 @@
  * Note that exiting with code 1 indicates failure, and 0 is success
  */
 
-const isSsl = !!process.env.SSL_PRIV_KEY_PATH && !!process.env.SSL_PUB_KEY_PATH;
+const fs = require('fs');
+/* setting default paths for public and pvt keys to match of ssl-server.js */
+const httpsCerts = {
+  private: process.env.SSL_PRIV_KEY_PATH || '/etc/ssl/certs/dashy-priv.key',
+  public: process.env.SSL_PUB_KEY_PATH || '/etc/ssl/certs/dashy-pub.pem',
+};
+
+/* Check if either if simular conditions exist that would of had ssl-server.js to enable ssl */
+const isSsl = !!fs.existsSync(httpsCerts.private) && !!fs.existsSync(httpsCerts.public);
 
 // eslint-disable-next-line import/no-dynamic-require
 const http = require(isSsl ? 'https' : 'http');
