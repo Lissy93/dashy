@@ -47,7 +47,8 @@
     "vue-select": "^3.20.2",
     "vue-swatches": "^2.1.1",
     "vue-toasted": "^1.1.28",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "bcrypt": "^5.1.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.17.10",
