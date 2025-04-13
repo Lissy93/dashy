@@ -131,7 +131,7 @@ export default {
       const posts = [];
       let { length } = items;
       if (this.limit) {
-        length = this.limit;
+        length = Math.min(length, this.limit);
       }
       for (let i = 0; length > i; i += 1) {
         posts.push({
