@@ -144,7 +144,7 @@ export default {
       return copy;
     },
     getRowValue(row) {
-      return this.getValueWithRegex(row, /\b\d+\b$/);
+      return this.getValueWithRegex(row, /\b(\d+)(\.\d+)*\b$/);
     },
     getRowMonitorName(row) {
       return this.getValueWithRegex(row, /monitor_name="([^"]+)"/);
@@ -193,7 +193,7 @@ export default {
   white-space: nowrap;
   vertical-align: baseline;
   padding: .35em .65em;
-  margin: 1em 0.5em;
+  margin: 0.1em 0.5em;
   min-width: 64px;
 
   &.up {
