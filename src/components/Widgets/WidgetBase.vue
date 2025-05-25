@@ -49,6 +49,7 @@ const COMPAT = {
   anonaddy: 'addy.io',
   apod: 'Apod',
   'blacklist-check': 'BlacklistCheck',
+  bored: 'Bored',
   clock: 'Clock',
   'crypto-price-chart': 'CryptoPriceChart',
   'crypto-watch-list': 'CryptoWatchList',
