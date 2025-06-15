@@ -633,13 +633,6 @@ Huge thanks to the sponsors helping to support Dashy's development!
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/st617">
-            <img src="https://avatars.githubusercontent.com/u/128325650?v=4" width="80;" alt="st617"/>
-            <br />
-            <sub><b>St617</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/hudsonrock-partnerships">
             <img src="https://avatars.githubusercontent.com/u/163282900?u=5f2667f7fe5d284ac7a2da6b0800ea8970b0fcbf&v=4" width="80;" alt="hudsonrock-partnerships"/>
             <br />
