@@ -1,0 +1,27 @@
+name: Build for ARMv7
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: yarn install --ignore-engines --immutable
+
+      - name: Build
+        run: |
+          NODE_OPTIONS="--max-old-space-size=512" yarn build --mode production --no-clean
