@@ -61,7 +61,7 @@ Example Files in `user-data`:
 
 Now that you've got Dashy running, you are going to want to set it up with your own content.
 Config is written in [YAML Format](https://yaml.org/), and saved in [`/user-data/conf.yml`](https://github.com/Lissy93/dashy/blob/master/user-data/conf.yml).
-The format on the config file is pretty straight forward. There are three root attributes:
+The format on the config file is pretty straight forward. There are four root attributes:
 
 - [`pageInfo`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#pageinfo) - Dashboard meta data, like title, description, nav bar links and footer text
 - [`appConfig`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#appconfig-optional) - Dashboard settings, like themes, authentication, language and customization
