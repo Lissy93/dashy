@@ -95,6 +95,8 @@ The following file provides a reference of all supported configuration options.
 **`name`** | `string` |  Required | A unique name for that page
 **`path`** | `string` |  Required | The path (local or remote) to the config file to use.<br>For files located within `/user-data`, you only need to specify filename, for externally hosted files you must include the full URL
 
+For more info, see the[Multi-Page docs](/docs/pages-and-sections.md#multi-page-support)
+
 **[⬆️ Back to Top](#configuring)**
 
 ## `appConfig` _(optional)_
