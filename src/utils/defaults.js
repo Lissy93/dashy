@@ -327,5 +327,10 @@ module.exports = {
       maskIcon: './web-icons/dashy-logo.png',
       msTileImage: './web-icons/dashy-logo.png',
     },
+    workboxOptions: {
+      globIgnores: [
+        '**/.*', // Ignore dotfiles
+      ],
+    },
   },
 };
