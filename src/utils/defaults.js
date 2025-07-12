@@ -316,7 +316,6 @@ module.exports = {
   /* Progressive Web App settings, used by Vue Config */
   pwa: {
     name: 'Dashy',
-    manifestPath: './manifest.json',
     themeColor: '#00af87',
     msTileColor: '#0b1021',
     mode: 'production',
