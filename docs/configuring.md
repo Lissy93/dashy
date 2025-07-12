@@ -93,7 +93,7 @@ The following file provides a reference of all supported configuration options.
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`name`** | `string` |  Required | A unique name for that page
-**`path`** | `string` |  Required | The path (local or remote) to the config file to use.<br>For files located within `/public`, you only need to specify filename, for externally hosted files you must include the full URL
+**`path`** | `string` |  Required | The path (local or remote) to the config file to use.<br>For files located within `/user-data`, you only need to specify filename, for externally hosted files you must include the full URL
 
 **[⬆️ Back to Top](#configuring)**
 
