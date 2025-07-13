@@ -328,8 +328,12 @@ module.exports = {
       msTileImage: './web-icons/dashy-logo.png',
     },
     workboxOptions: {
-      globIgnores: [
-        '**/.*', // Ignore dotfiles
+      exclude: [
+        // https://developer.chrome.com/docs/workbox/modules/workbox-build#properties_14
+        /\.map$/,
+        /^manifest.*\.js$/, // default value
+        /\.nojekyll$/,
+        /\.gitignore$/,
       ],
     },
   },
