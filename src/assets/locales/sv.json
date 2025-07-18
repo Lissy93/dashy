@@ -10,6 +10,9 @@
     "clear-search-tooltip":"Rensa sök",
     "enter-to-search-web":"Tryck på retur för att söka på webben"
   },
+  "splash-screen": {
+    "loading": "Laddar"
+  },
   "login":{
     "title":"Dashy",
     "username-label":"Användarnamn",
@@ -83,7 +86,9 @@
     "config-launcher-tooltip":"Uppdatera konfiguration",
     "sign-out-tooltip":"Logga ut",
     "sign-in-tooltip":"Logga in",
-    "sign-in-welcome":"Hej {username}!"
+    "sign-in-welcome":"Hej {username}!",
+    "hide": "Göm",
+    "open": "Öppna"
   },
   "updates":{
     "app-version-note":"Dashy-version",
@@ -185,14 +190,17 @@
       "newtab":"Ny flik",
       "modal":"Pop-Up Modal",
       "workspace":"Workspace View",
+      "clipboard": "Kopiera till urklipp",
       "options-section-title":"Alternativ",
       "edit-item":"Redigera",
       "move-item":"Kopiera eller flytta",
-      "remove-item":"Ta bort"
+      "remove-item":"Ta bort",
+      "copied-toast": "URLen har blivit kopierad till urklipp"
     },
     "section":{
       "open-section":"Öppna sektion",
       "edit-section":"Redigera",
+      "expand-collapse": "Expandera / Minimera",
       "move-section":"Flytta till",
       "remove-section":"Ta bort"
     }
@@ -205,6 +213,8 @@
       "edit-page-info-tooltip":"Appnamn, beskrivning, navigeringslänkar, sidfotstext, etc",
       "edit-app-config-btn":"Redigera appkonfiguration",
       "edit-app-config-tooltip":"Övriga appkonfigurationsalternativ",
+      "edit-pages-btn": "Editera sidor",
+      "edit-pages-tooltip": "Lägg till eller ta bort ytterligare vyer",
       "config-save-methods-subheading":"Alternativ för konfigurationssparande",
       "save-locally-btn":"Spara lokalt",
       "save-locally-tooltip":"Spara konfigurationen lokalt, till webbläsarens lagring. Detta påverkar inte din konfigurationsfil, men ändringarna sparas bara på denna enhet",
@@ -269,6 +279,15 @@
       "mem-breakdown-title":"Memory Breakdown",
       "load-chart-title":"System Load"
     },
+    "glances": {
+      "disk-space-free": "Ledigt",
+      "disk-space-used": "Utnyttjat",
+      "disk-mount-point": "Mount Point",
+      "disk-file-system": "Filsystem",
+      "disk-io-read": "Läs",
+      "disk-io-write": "Skriv",
+      "system-load-desc": "Antal processer som väntar i run-queue, i genomsnitt över alla kärnor"
+    },
     "system-info":{
       "uptime":"Uptime"
     },
@@ -279,6 +298,87 @@
     "tfl-status":{
       "good-service-all":"God service på alla linjer",
       "good-service-rest":"God Service på övriga linjer"
+    },
+    "gluetun-status": {
+      "vpn-ip": "VPN IP",
+      "country": "Land",
+      "region": "Region",
+      "city": "Stad",
+      "post-code": "Postnummer",
+      "location": "Plats",
+      "timezone": "Tidszon",
+      "organization": "Organisation"
+    },
+    "nextcloud": {
+      "active": "aktiv",
+      "and": "och",
+      "applications": "applikationer",
+      "available": "Tillgänglig",
+      "away": "Borta",
+      "cache-full": "CACHE FULL",
+      "chat-room": "chattrum",
+      "delete-all": "Ta bort alla",
+      "delete-notification": "Ta bort notifikationer",
+      "disabled": "Inaktiverad",
+      "disk-quota": "Disk Quota",
+      "disk-space": "Diskutrymme",
+      "dnd": "Stör ej",
+      "email": "mejl",
+      "enabled": "aktiverad",
+      "federated-shares-ucfirst": "Federated shares",
+      "federated-shares": "federated shares",
+      "files": "file{plural}",
+      "free": "ledig",
+      "groups": "grupper",
+      "hit-rate": "hit rate",
+      "hits": "hits",
+      "home": "hem",
+      "in": "in",
+      "keys": "nycklar",
+      "last-24-hours": "senaste 24 timmarna",
+      "last-5-minutes": "under de senaste 5 minuterna",
+      "last-hour": "under den senaste timmen",
+      "last-login": "Senaste inlogg",
+      "last-restart": "Senaste omstart",
+      "load-averages": "Genomsnittlig belastning över alla CPU kärnor",
+      "local-shares": "Local shares",
+      "local": "local",
+      "max-keys": "maximalt antal nycklar",
+      "memory-used": "memory used",
+      "memory-utilisation": "memory utilization",
+      "memory": "minne",
+      "misses": "misses",
+      "no-notifications": "Inga notifieringar",
+      "no-pending-updates": "Inga avvacktande uppdateringar",
+      "nothing-to-show": "Inget att visa för tillfället",
+      "of-which": "av vilket",
+      "of": "av",
+      "offline": "Offline",
+      "online": "Online",
+      "other": "other",
+      "overall": "Totalt",
+      "private-link": "privat länk",
+      "public-link": "publik länk",
+      "quota-enabled": "Disk Quota är {not}aktiverat för denna användare",
+      "received": "mottaget",
+      "scripts": "skript",
+      "sent": "skickat",
+      "started": "Startat",
+      "storages-by-type": "Lagring efter typ",
+      "storages": "lagring{plural}",
+      "strings-use": "strings use",
+      "tasks": "Uppgifter",
+      "total-files": "totalt antal filer",
+      "total-users": "totalt antal användare",
+      "total": "totalt",
+      "until": "Tills",
+      "updates-available-for": "Uppdateringar är tillgängliga för",
+      "updates-available": "uppdatering{plural} tillgänglig",
+      "used": "använt",
+      "user": "användare",
+      "using": "använder",
+      "version": "version",
+      "wasted": "onödig"
     }
   }
 }
