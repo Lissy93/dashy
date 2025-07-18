@@ -2598,7 +2598,8 @@ Recent memory usage chart
 
 ### Disk Space
 
-List connected disks, showing free / used space and other info (file system, mount point and space available)
+List connected disks, showing free / used space and other info (file system, mount point and space available).
+Use "Disks" to filter available disks and give them a friendly name.
 
 <p align="center"><img width="400" src="https://i.ibb.co/25y94bB/gl-disk-usage.png" /></p>
 
@@ -2608,6 +2609,10 @@ List connected disks, showing free / used space and other info (file system, mou
 - type: gl-disk-space
   options:
     hostname: http://192.168.130.2:61208
+    Disks:
+      - /dev/mapper/md1p1: HDD 1
+      - /dev/mapper/md2p1: HDD 2
+      - /dev/mapper/md3p1: HDD 3
 ```
 
 ---
@@ -2662,7 +2667,8 @@ Shows recent historical system load, calculated from the number of processes wai
 
 ### Network Interfaces
 
-Lists visible network interfaces, including real-time upload/ download stats
+Lists visible network interfaces, including real-time upload/ download stats.
+Use "Interfaces" to filter interfaces and give them am friendly name.
 
 <p align="center"><img width="400" src="https://i.ibb.co/FnhgHfG/gl-network-interfaces.png" /></p>
 
@@ -2672,6 +2678,9 @@ Lists visible network interfaces, including real-time upload/ download stats
 - type: gl-network-interfaces
   options:
     hostname: http://192.168.130.2:61208
+    Interfaces:
+      - bond0: LAN
+      - docker0: Docker
 ```
 
 ---
