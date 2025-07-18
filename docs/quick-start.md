@@ -42,7 +42,7 @@ Any files placed here will be served up to the root of the domain, and override 
 For example, if you had `user-data/favicon.ico` this would be accessible at `http://my-dashy-instance.local/favicon.ico`
 
 Example Files in `user-data`:
-- `conf.yml` - This is the only file that is compulsary, it's your main Dashy config
+- `conf.yml` - This is the only file that is compulsory, it's your main Dashy config
 - `**.yml` - Include more config files, if you'd like to have multiple pages, see [Multi-page support](/docs/pages-and-sections.md#multi-page-support) for docs
 - `favicon.ico` - The default favicon, shown in the browser's tab title
 - `initialization.html` - Static HTML page displayed before the app has finished compiling, see [`public/initialization.html`](https://github.com/Lissy93/dashy/blob/master/public/initialization.html)
@@ -61,7 +61,7 @@ Example Files in `user-data`:
 
 Now that you've got Dashy running, you are going to want to set it up with your own content.
 Config is written in [YAML Format](https://yaml.org/), and saved in [`/user-data/conf.yml`](https://github.com/Lissy93/dashy/blob/master/user-data/conf.yml).
-The format on the config file is pretty straight forward. There are three root attributes:
+The format on the config file is pretty straight forward. There are four root attributes:
 
 - [`pageInfo`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#pageinfo) - Dashboard meta data, like title, description, nav bar links and footer text
 - [`appConfig`](https://github.com/Lissy93/dashy/blob/master/docs/configuring.md#appconfig-optional) - Dashboard settings, like themes, authentication, language and customization
