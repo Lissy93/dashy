@@ -68,7 +68,7 @@ export default {
         networks.push({
           name: network.interface_name,
           speed: network.speed,
-          online: network.speed ? 'up' : 'down', //v3 to v4 is_up no longer seems to be a default response field
+          online: network.speed ? 'up' : 'down', // v3 to v4 is_up no longer seems to be a default response field
           currentDownload: network.bytes_recv,
           currentUpload: network.bytes_sent,
           totalDownload: network.bytes_recv_gauge,
