@@ -25,7 +25,7 @@
     "axios": "^1.6.0",
     "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.2.0",
-    "express": "^4.17.2",
+    "express": "^4.20.0",
     "express-basic-auth": "^1.2.1",
     "frappe-charts": "^1.6.2",
     "js-yaml": "^4.1.0",
