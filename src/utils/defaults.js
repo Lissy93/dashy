@@ -317,7 +317,6 @@ module.exports = {
   /* Progressive Web App settings, used by Vue Config */
   pwa: {
     name: 'Dashy',
-    manifestPath: './manifest.json',
     themeColor: '#00af87',
     msTileColor: '#0b1021',
     mode: 'production',
@@ -328,6 +327,15 @@ module.exports = {
       favicon16: './web-icons/favicon-16x16.png',
       maskIcon: './web-icons/dashy-logo.png',
       msTileImage: './web-icons/dashy-logo.png',
+    },
+    workboxOptions: {
+      exclude: [
+        // https://developer.chrome.com/docs/workbox/modules/workbox-build#properties_14
+        /\.map$/,
+        /^manifest.*\.js$/, // default value
+        /\.nojekyll$/,
+        /\.gitignore$/,
+      ],
     },
   },
 };
