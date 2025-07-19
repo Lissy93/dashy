@@ -7,6 +7,7 @@ Both sections and items can have an icon, which is specified using the `icon` at
 - [Simple Icons](#simple-icons)
 - [Generative Icons](#generative-icons)
 - [Emoji Icons](#emoji-icons)
+- [selfh.st Icons](#selfhst-icons)
 - [Home-Lab Icons](#home-lab-icons)
 - [Material Icons](#material-design-icons)
 - [Icons by URL](#icons-by-url)
@@ -106,6 +107,18 @@ You can use almost any emoji as an icon for items or sections. You can specify t
 </p>
 
 For example, these will all render the same rocket (🚀) emoji: `icon: ':rocket:'` or `icon: 'U+1F680'` or `icon: 🚀`
+
+---
+
+## selfh.st Icons
+
+The [selfh.st](https://selfh.st/) project provides a set of icons, originally for self-hosted services, but now expanded to include a wide variety of services. These icons can be used by specifying the icon name (without extension and with all spaces replaced with -) preceded by `sh-`. See https://selfh.st/icons/ for a full list of all available icons. For example, the Home Assistant icon is `sh-home-assistant`.
+
+Note: These icons are fetched from the jsdelivr CDN, so if you require offline access, the [Local Icons](#local-icons) method may be a better option for you.
+
+<p align="center">
+  <img width="580" src="https://i.ibb.co/pfy09LH/Screenshot-from-2025-01-08-22-04-21.png" />
+</p>
 
 ---
 

@@ -941,7 +941,7 @@
                   "title": "Icon",
                   "type": "string",
                   "nullable": true,
-                  "description": "An icon, either as a font-awesome, simple-icon or mdi identifier, emoji, favicon, generative or the URL/ path to a local or remote icon asset"
+                  "description": "An icon, either as a font-awesome, simple-icon, selfh.st, or mdi identifier, emoji, favicon, generative or the URL/path to a local or remote icon asset"
                 },
                 "url": {
                   "title": "Service URL",
