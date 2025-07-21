@@ -147,7 +147,8 @@ const app = express()
   .use(ENDPOINTS.statusCheck, (req, res) => {
     try {
       statusCheck(req.url, async (results) => {
-        await res.json(results).end();
+        res.setHeader('Content-Type', 'application/json');
+        await res.end(results);
       });
     } catch (e) {
       printWarning(`Error running status check for ${req.url}\n`, e);
