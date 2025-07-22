@@ -75,8 +75,9 @@ export default {
     },
   },
   mounted() {
-    this.setTheme();
     this.initiateFontAwesome();
+    this.initiateMaterialDesignIcons();
+    this.setTheme();
     this.url = this.getInitialUrl();
   },
 };
