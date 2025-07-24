@@ -78,6 +78,7 @@ module.exports = {
     'bee',
     'tiger',
     'glow',
+    'glow-dark',
     'vaporware',
     'cyberpunk',
     'material-original',
