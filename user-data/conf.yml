@@ -44,4 +44,9 @@ sections:
     description: Get help with Dashy, raise a bug, or get in contact
     url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
     icon: far fa-hands-helping
+  - title: Godot Game GitHub
+    description: Source Code, Issues and Pull Requests for the Godot Game
+    url: https://github.com/aspenyang/godot_roughlite
+    target: newtab
+    icon: https://i.ibb.co/KjDYYzYD/godot-icon.png
   
