@@ -105,6 +105,7 @@ const COMPAT = {
   'pi-hole-stats': 'PiHoleStats',
   'pi-hole-stats-v6': 'PiHoleStatsV6',
   'pi-hole-top-queries': 'PiHoleTopQueries',
+  'pi-hole-top-queries-v6': 'PiHoleTopQueriesV6',
   'pi-hole-traffic': 'PiHoleTraffic',
   'proxmox-lists': 'Proxmox',
   'public-holidays': 'PublicHolidays',
