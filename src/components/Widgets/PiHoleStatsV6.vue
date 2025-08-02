@@ -193,7 +193,7 @@ export default {
         strokeWidth: 18,
         colors: ['#f80363', '#20e253'],
         tooltipOptions: {
-          formatTooltipY: d => `${Math.round(d)}%`,
+          formatTooltipY: d => `${Math.round(d * 10) / 10}%`,
         },
       });
     },

@@ -1804,7 +1804,53 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 - **CORS**: 🟢 Enabled
 - **Auth**: 🔴 Required
 - **Price**: 🟢 Free
-- **Host**: Self-Hosted (see [GitHub - Pi-hole](https://github.com/pi-hole/pi-hole))
+- **Host**: Self-Hosted (see [GitHub - Pi-Hole](https://github.com/pi-hole/pi-hole))
+- **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
+
+---
+
+### Pi Hole Stats v6
+
+Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/). Use this version of the widget if you have a v6+ Pi-Hole instance.
+
+<p align="center"><img width="400" src="https://i.ibb.co/zftCLJN/pi-hole-stats.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`hideStatus`** / **`hideChart`** / **`hideInfo`** | `boolean` |  _Optional_ | Optionally hide any of the three parts of the widget
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password or application password. It **IS** your Pi-Hole admin interface password **UNLESS** you have 2FA turned on (in contrast to the old widget). If you have 2FA turned on you will need to create an application password. Refer to Pi-Hole documentation for how to create an application password.
+
+#### Example
+
+```yaml
+- type: pi-hole-stats-v6
+  options:
+    hostname: http://192.168.130.1
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxx
+```
+
+> [!TIP]
+> In order to avoid leaking secret data, both `hostname` and `apiKey` can leverage environment variables. Simply pass the name of the variable, which MUST start with `VUE_APP_`.
+
+```yaml
+- type: pi-hole-stats-v6
+  options:
+    hostname: VUE_APP_pihole_ip
+    apiKey: VUE_APP_pihole_key
+```
+
+> [!IMPORTANT]
+> You will need to restart the server (or the docker image) if adding/editing an env var for this to be refreshed.
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - Pi-Hole](https://github.com/pi-hole/pi-hole))
 - **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
 
 ---
