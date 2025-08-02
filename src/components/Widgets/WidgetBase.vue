@@ -103,6 +103,7 @@ const COMPAT = {
   'nextcloud-user': 'NextcloudUser',
   'nextcloud-user-status': 'NextcloudUserStatus',
   'pi-hole-stats': 'PiHoleStats',
+  'pi-hole-stats-v6': 'PiHoleStatsV6',
   'pi-hole-top-queries': 'PiHoleTopQueries',
   'pi-hole-traffic': 'PiHoleTraffic',
   'proxmox-lists': 'Proxmox',
