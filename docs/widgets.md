@@ -1852,7 +1852,7 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
 
 ### Pi Hole Queries v6
 
-Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net/).
+Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net/). Use this version of the widget if you have a v6+ Pi-Hole instance.
 
 <p align="center"><img width="400" src="https://i.ibb.co/pXR0bdQ/pi-hole-queries.png" /></p>
 
@@ -1900,6 +1900,38 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 
 ```yaml
 - type: pi-hole-traffic
+  options:
+    hostname: https://pi-hole.local
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxx
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - Pi-hole](https://github.com/pi-hole/pi-hole))
+- **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
+
+---
+
+### Pi Hole Recent Traffic v6
+
+Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole](https://pi-hole.net/). Use this version of the widget if you have a v6+ Pi-Hole instance.
+
+<p align="center"><img width="500" src="https://i.ibb.co/7kdxxwx/pi-hole-recent-queries.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password or application password. It **IS** your Pi-Hole admin interface password **UNLESS** you have 2FA turned on (in contrast to the old widget). If you have 2FA turned on you will need to create an application password. Refer to Pi-Hole documentation for how to create an application password.
+
+#### Example
+
+```yaml
+- type: pi-hole-traffic-v6
   options:
     hostname: https://pi-hole.local
     apiKey: xxxxxxxxxxxxxxxxxxxxxxx
