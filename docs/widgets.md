@@ -17,6 +17,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Crypto Price History](#crypto-token-price-history)
   - [Crypto Wallet Balance](#wallet-balance)
   - [Code Stats](#code-stats)
+  - [Minecraft Status](#minecraft-status)
   - [Mullvad Status](#mullvad-status)
   - [Email Aliases (addy.io)](#addyio)
   - [Vulnerability Feed](#vulnerability-feed)
@@ -546,6 +547,46 @@ Display your coding summary. [Code::Stats](https://codestats.net/) is a free and
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted or Managed
 - **Privacy**: _See [Code::Stats Privacy Policy](https://codestats.net/tos#privacy)_
+
+---
+
+### Minecraft Status
+
+Shows your Minecraft server status, as well as server info. Fetched from [api.mcsrvstat.us](https://api.mcsrvstat.us)
+
+<p align="center"><img width="387" src="https://i.ibb.co/RTdKDRjT/minecraft-status.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`title`** | `string` |  _Optional_ | The title to show for this server (defaults to the `server` option)
+**`server`** | `string` |  Required | The IP or URL that the server is hosted at including the port (e.g. example.com:19132 or 192.168.1.111:19132)
+**`bedrock`** | `boolean` |  _Optional_ | Indicate whether the server is a bedrock server or not (default false)
+**`showPlayers`** | `boolean` |  _Optional_ | Optionally show the players in the server
+**`showMods`** | `boolean` |  _Optional_ | Optionally show the mods installed on the server
+**`showPlugins`** | `boolean` |  _Optional_ | Optionally show the plugins installed on the server
+
+#### Example
+
+```yaml
+- type: minecraft-status
+  options:
+    title: My Cool Minecraft Server
+    server: 192.168.1.111:19132
+    bedrock: true
+    showPlayers: true
+    showMods: true
+    showPlugins: true
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted or Managed
+- **Privacy**: _See privacy policy of the particular Minecraft server. Note: [mcsrvstat.us](https://mcsrvstat.us) does not have a published privacy policy_
 
 ---
 
