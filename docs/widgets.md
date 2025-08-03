@@ -47,11 +47,12 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [CPU History](#cpu-history-netdata)
   - [Memory History](#memory-history-netdata)
   - [System Load History](#load-history-netdata)
-  - [Pi Hole Stats](#pi-hole-stats)
-  - [Pi Hole Stats v6](#pi-hole-stats-v6)
-  - [Pi Hole Queries](#pi-hole-queries)
-  - [Pi Hole Queries v6](#pi-hole-queries-v6)
-  - [Pi Hole Recent Traffic](#pi-hole-recent-traffic)
+  - [Pi-Hole Stats](#pi-hole-stats)
+  - [Pi-Hole Stats v6](#pi-hole-stats-v6)
+  - [Pi-Hole Queries](#pi-hole-queries)
+  - [Pi-Hole Queries v6](#pi-hole-queries-v6)
+  - [Pi-Hole Recent Traffic](#pi-hole-recent-traffic)
+  - [Pi-Hole Recent Traffic v6](#pi-hole-recent-traffic-v6)
   - [Stat Ping Statuses](#stat-ping-statuses)
   - [Synology Download Station](#synology-download-station)
   - [AdGuard Home Block Stats](#adguard-home-block-stats)
@@ -1724,7 +1725,7 @@ Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
 
 ---
 
-### Pi Hole Stats
+### Pi-Hole Stats
 
 Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 
@@ -1770,7 +1771,7 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 
 ---
 
-### Pi Hole Stats v6
+### Pi-Hole Stats v6
 
 Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/). Use this version of the widget if you have a v6+ Pi-Hole instance.
 
@@ -1816,7 +1817,7 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/). Use t
 
 ---
 
-### Pi Hole Queries
+### Pi-Hole Queries
 
 Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net/).
 
@@ -1849,7 +1850,7 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
 
 ---
 
-### Pi Hole Queries v6
+### Pi-Hole Queries v6
 
 Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net/). Use this version of the widget if you have a v6+ Pi-Hole instance.
 
@@ -1882,7 +1883,7 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
 
 ---
 
-### Pi Hole Recent Traffic
+### Pi-Hole Recent Traffic
 
 Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole](https://pi-hole.net/)
 
@@ -1914,7 +1915,7 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 
 ---
 
-### Pi Hole Recent Traffic v6
+### Pi-Hole Recent Traffic v6
 
 Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole](https://pi-hole.net/). Use this version of the widget if you have a v6+ Pi-Hole instance.
 
