@@ -286,6 +286,7 @@ appConfig:
       clientId: [registered client id]
       endpoint: [OIDC endpoint]
       scope: [The scope(s) to request from the OIDC provider]
+      adminGroup: admin
 ```
 
 Because Dashy is a SPA, a [public client](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1) registration with PKCE is needed.
