@@ -17,7 +17,6 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Crypto Price History](#crypto-token-price-history)
   - [Crypto Wallet Balance](#wallet-balance)
   - [Code Stats](#code-stats)
-  - [Minecraft Status](#minecraft-status)
   - [Mullvad Status](#mullvad-status)
   - [Email Aliases (addy.io)](#addyio)
   - [Vulnerability Feed](#vulnerability-feed)
