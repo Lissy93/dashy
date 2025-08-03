@@ -204,6 +204,8 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 --- | --- | --- | ---
 **`clientId`** | `string` | Required | The client id registered in the OIDC server
 **`endpoint`** | `string` | Required | The URL of the OIDC server that should be used.
+**`adminRole`** | `string` | _Optional_ | The role that will be considered as admin.
+**`adminGroup`** | `string` | _Optional_ | The group that will be considered as admin.
 **`scope`** | `string` | Required | The scope(s) to request from the OIDC provider
 
 **[⬆️ Back to Top](#top)**
