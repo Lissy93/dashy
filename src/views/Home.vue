@@ -36,8 +36,8 @@
           @change-modal-visibility="updateModalVisibility"
           :isWide="!!singleSectionView || layoutOrientation === 'horizontal'"
           :class="(searchValue &&
-            section.filteredItems.length === 0 &&
-            (!section.widgets || section.widgets.length === 0)) ? 'no-results' : ''"
+            (section.filteredItems.length === 0 &&
+            section.filteredWidgets.length === 0)) ? 'no-results' : ''"
         />
       </template>
       <!-- Show add new section button, in edit mode -->
