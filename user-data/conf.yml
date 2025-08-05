@@ -12,6 +12,7 @@ pageInfo:
 # Optional app settings and configuration
 appConfig:
   theme: callisto
+  routingMode: hash
 
 # Main content - An array of sections, each containing an array of items
 sections:
@@ -44,4 +45,3 @@ sections:
     description: Get help with Dashy, raise a bug, or get in contact
     url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
     icon: far fa-hands-helping
-  
