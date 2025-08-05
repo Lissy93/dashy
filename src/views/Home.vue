@@ -29,7 +29,7 @@
           :displayData="getDisplayData(section)"
           :groupId="makeSectionId(section)"
           :items="section.filteredItems"
-          :widgets="section.widgets"
+          :widgets="section.filteredWidgets"
           :searchTerm="searchValue"
           :itemSize="itemSizeBound"
           @itemClicked="finishedSearching()"
@@ -102,6 +102,7 @@ export default {
       return sections.map((_section) => {
         const section = _section;
         section.filteredItems = this.filterTiles(section.items, this.searchValue);
+        section.filteredWidgets = this.filterWidgets(section.widgets, this.searchValue);
         return section;
       });
     },

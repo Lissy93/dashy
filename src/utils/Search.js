@@ -51,6 +51,11 @@ export const searchTiles = (allTiles, searchTerm) => {
   });
 };
 
+export const searchWidgets = (allWidgets, searchTerm) => {
+  if (!searchTerm) return allWidgets;
+  return allWidgets;
+};
+
 /* From a list of search bangs, return the URL associated with it */
 export const getSearchEngineFromBang = (searchQuery, bangList) => {
   const bangNames = Object.keys(bangList);

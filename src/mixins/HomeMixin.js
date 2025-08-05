@@ -4,7 +4,7 @@
 
 import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 import Keys from '@/utils/StoreMutations';
-import { searchTiles } from '@/utils/Search';
+import { searchTiles, searchWidgets } from '@/utils/Search';
 import { checkItemVisibility } from '@/utils/CheckItemVisibility';
 
 const HomeMixin = {
@@ -105,6 +105,11 @@ const HomeMixin = {
       const visibleTiles = allTiles.filter((tile) => checkItemVisibility(tile));
       return searchTiles(visibleTiles, this.searchValue);
     },
+
+    filterWidgets(allWidgets) {
+      return searchWidgets(allWidgets);
+    },
+
     /* Checks if any sections or items use icons from a given CDN */
     checkIfIconLibraryNeeded(prefix) {
       if (!this.sections) return false;

@@ -1,47 +1,76 @@
----
-# Page meta info, like heading, footer text and nav links
 pageInfo:
   title: Dashy
   description: Welcome to your new dashboard!
   navLinks:
-  - title: GitHub
-    path: https://github.com/Lissy93/dashy
-  - title: Documentation
-    path: https://dashy.to/docs
-
-# Optional app settings and configuration
+    - title: GitHub
+      path: https://github.com/Lissy93/dashy
+    - title: Documentation
+      path: https://dashy.to/docs
 appConfig:
-  theme: colorful
-
-# Main content - An array of sections, each containing an array of items
+  theme: dracula
+  layout: auto
+  iconSize: medium
+  auth:
+    users:
+      - user: shumitt
+        hash: 6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090
+        type: admin
+      - user: shumitt2
+        hash: 6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090
 sections:
-- name: Getting Started
-  icon: fas fa-rocket
-  items:
-  - title: Dashy Live
-    description: Development a project management links for Dashy
-    icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
-    url: https://live.dashy.to/
-    target: newtab
-  - title: GitHub
-    description: Source Code, Issues and Pull Requests
-    url: https://github.com/lissy93/dashy
-    icon: favicon
-  - title: Docs
-    description: Configuring & Usage Documentation
-    provider: Dashy.to
-    icon: far fa-book
-    url: https://dashy.to/docs
-  - title: Showcase
-    description: See how others are using Dashy
-    url: https://github.com/Lissy93/dashy/blob/master/docs/showcase.md
-    icon: far fa-grin-hearts
-  - title: Config Guide
-    description: See full list of configuration options
-    url: https://github.com/Lissy93/dashy/blob/master/docs/configuring.md
-    icon: fas fa-wrench
-  - title: Support
-    description: Get help with Dashy, raise a bug, or get in contact
-    url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
-    icon: far fa-hands-helping
-  
+  - name: Getting Started
+    icon: fas fa-rocket
+    items:
+      - title: Dashy Live
+        description: Development a project management links for Dashy
+        icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
+        url: https://live.dashy.to/
+        target: newtab
+        id: 0_1481_dashylive
+      - title: GitHub
+        description: Source Code, Issues and Pull Requests
+        url: https://github.com/lissy93/dashy
+        icon: favicon
+        id: 1_1481_github
+      - title: Docs
+        description: Configuring & Usage Documentation
+        provider: Dashy.to
+        icon: far fa-book
+        url: https://dashy.to/docs
+        id: 2_1481_docs
+      - title: Showcase
+        description: See how others are using Dashy
+        url: https://github.com/Lissy93/dashy/blob/master/docs/showcase.md
+        icon: far fa-grin-hearts
+        id: 3_1481_showcase
+      - title: Config Guide
+        description: See full list of configuration options
+        url: https://github.com/Lissy93/dashy/blob/master/docs/configuring.md
+        icon: fas fa-wrench
+        id: 4_1481_configguide
+      - title: Support
+        description: Get help with Dashy, raise a bug, or get in contact
+        url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
+        icon: far fa-hands-helping
+        id: 5_1481_support
+  - name: Widgets
+    displayData:
+      sortBy: default
+      rows: 2
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    widgets:
+      - type: clock
+        options:
+          timeZone: Pacific/Auckland
+          format: en-NZ
+          hideDate: false
+          label: "Test Label"
+      - type: clock
+        options:
+          timeZone: Pacific/Auckland
+          format: en-NZ
+          hideDate: false
+          label: "Test Label 2"
+
