@@ -53,7 +53,13 @@ export const searchTiles = (allTiles, searchTerm) => {
 
 export const searchWidgets = (allWidgets, searchTerm) => {
   if (!searchTerm) return allWidgets;
-  return allWidgets;
+  if (!allWidgets) return [];
+  return allWidgets.filter((tile) => {
+    const {
+      options,
+    } = tile;
+    return filterHelper(options.category, searchTerm);
+  });
 };
 
 /* From a list of search bangs, return the URL associated with it */

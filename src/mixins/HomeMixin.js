@@ -105,9 +105,8 @@ const HomeMixin = {
       const visibleTiles = allTiles.filter((tile) => checkItemVisibility(tile));
       return searchTiles(visibleTiles, this.searchValue);
     },
-
     filterWidgets(allWidgets) {
-      return searchWidgets(allWidgets);
+      return searchWidgets(allWidgets, this.searchValue);
     },
 
     /* Checks if any sections or items use icons from a given CDN */
