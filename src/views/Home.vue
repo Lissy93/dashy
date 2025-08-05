@@ -104,7 +104,7 @@ export default {
       return sections.map((_section) => {
         const section = _section;
         section.filteredItems = this.filterTiles(section.items, this.searchValue);
-        section.filteredWidgets = this.filterWidgets(section.widgets, this.searchValue);
+        section.filteredWidgets = this.filterTiles(section.widgets, this.searchValue);
         return section;
       });
     },
