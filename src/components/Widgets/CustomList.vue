@@ -37,7 +37,7 @@ export default {
     },
     daysForNew() {
       return parseInt(Number(this.options.daysForNew)) || false;
-    }
+    },
   },
   methods: {
     fetchData() {
@@ -47,10 +47,10 @@ export default {
       }
     },
     processData(data) {
-      let today = new Date();
+      const today = new Date();
       this.data = data.sort((a, b) => new Date(a.date) < new Date(b.date));
       if (this.daysForNew) {
-        let threshold = this.daysForNew * 1000 * 60 * 60 * 24;
+        const threshold = this.daysForNew * 1000 * 60 * 60 * 24;
         this.data = this.data.map((item) => {
           item.isNew = (today - new Date(item.date) < threshold);
           return item;

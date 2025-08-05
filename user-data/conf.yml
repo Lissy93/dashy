@@ -11,7 +11,7 @@ pageInfo:
 
 # Optional app settings and configuration
 appConfig:
-  theme: colorful
+  theme: callisto
 
 # Main content - An array of sections, each containing an array of items
 sections:
@@ -19,7 +19,7 @@ sections:
   icon: fas fa-rocket
   items:
   - title: Dashy Live
-    description: Development a project management links for Dashy
+    description: Developmental project management links for Dashy
     icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
     url: https://live.dashy.to/
     target: newtab

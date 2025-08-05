@@ -3,6 +3,10 @@
 /* Tile filtering utility */
 import ErrorHandler from '@/utils/ErrorHandler';
 
+// 预编译正则表达式，避免每次调用时重新编译
+// write regular expression first, avoidance of repetition.
+const SPECIAL_CHARS_REGEX = /[^\w\s\p{Alpha}]/giu;
+
 /**
  * Extracts the site name from domain
  * @param {string} url The URL to process
@@ -24,7 +28,7 @@ const getDomainFromUrl = (url) => {
  */
 const filterHelper = (compareStr, searchStr) => {
   if (!compareStr) return false;
-  const process = (input) => input?.toString().toLowerCase().replace(/[^\w\s\p{Alpha}]/giu, '');
+  const process = (input) => input?.toString().toLowerCase().replace(SPECIAL_CHARS_REGEX, '');
   return process(searchStr).split(/\s/).every(word => process(compareStr).includes(word));
 };
 
