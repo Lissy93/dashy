@@ -27,7 +27,7 @@ sections:
   - title: GitHub
     description: Source Code, Issues and Pull Requests
     url: https://github.com/lissy93/dashy
-    icon: favicon
+    icon: fab fa-github
   - title: Docs
     description: Configuring & Usage Documentation
     provider: Dashy.to
