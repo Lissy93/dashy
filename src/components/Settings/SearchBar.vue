@@ -1,23 +1,55 @@
 <template>
-  <form @submit.prevent="searchSubmitted" :class="minimalSearch ? 'minimal' : 'normal'">
-    <label for="filter-tiles">{{ $t('search.search-label') }}</label>
-    <div class="search-wrap">
-      <input
-        id="filter-tiles"
-        v-model="input"
-        ref="filter"
-        :placeholder="$t('search.search-placeholder')"
-        v-on:input="userIsTypingSomething"
-        @keydown.esc="clearFilterInput" />
-        <p v-if="(!searchPrefs.disableWebSearch) && input.length > 0" class="web-search-note">
+  <div>
+    <form
+      @submit.prevent="searchSubmitted"
+      :class="minimalSearch ? 'minimal' : 'normal'"
+    >
+      <label for="filter-tiles">
+        {{ $t('search.search-label') }}
+      </label>
+      <div class="search-wrap">
+        <input
+          id="filter-tiles"
+          v-model="input"
+          ref="filter"
+          :placeholder="$t('search.search-placeholder')"
+          v-on:input="userIsTypingSomething"
+          @keydown.esc="clearFilterInput"
+        />
+        <p
+          v-if="(!searchPrefs.disableWebSearch) && input.length > 0"
+          class="web-search-note"
+        >
           {{ $t('search.enter-to-search-web') }}
         </p>
       </div>
-      <i v-if="input.length > 0"
+      <i
+        v-if="input.length > 0"
         class="clear-search"
         :title="$t('search.clear-search-tooltip')"
-        @click="clearFilterInput">x</i>
-  </form>
+        @click="clearFilterInput"
+      >x</i>
+    </form>
+    <div class="settings-block">
+      <button
+        @click="showSearchPanel = !showSearchPanel"
+        class="settings-toggle"
+        type="button"
+      >
+        {{ showSearchPanel ? 'Hide' : 'Show' }} Search Options
+      </button>
+      <div v-show="showSearchPanel" class="settings-row">
+        <label class="theme-label">
+          <input
+            type="checkbox"
+            :checked="searchPrefs.disableWebSearch"
+            @change="toggleDisableWebSearch($event)"
+          />
+          Disable Web Search
+        </label>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -40,9 +72,10 @@ export default {
   },
   data() {
     return {
-      input: '', // Users current search term
-      akn: new ArrowKeyNavigation(), // Class that manages arrow key naviagtion
+      input: '',
+      akn: new ArrowKeyNavigation(),
       getCustomKeyShortcuts,
+      showSearchPanel: false,
     };
   },
   computed: {
@@ -60,6 +93,18 @@ export default {
     window.removeEventListener('keydown', this.handleKeyPress);
   },
   methods: {
+    toggleDisableWebSearch(event) {
+      const value = event.target.checked;
+      const newAppConfig = {
+        ...this.$store.getters.appConfig,
+        webSearch: {
+          ...this.$store.getters.appConfig.webSearch,
+          disableWebSearch: value,
+        },
+      };
+      this.$store.commit('setDisableWebSearch', value);
+      this.$store.commit('SET_APP_CONFIG', newAppConfig);
+    },
     /* Call correct function dependending on which key is pressed */
     handleKeyPress(event) {
       const currentElem = document.activeElement.id;
@@ -277,5 +322,11 @@ export default {
         background: var(--minimal-view-search-color);
       }
     }
+  }
+  .theme-label {
+    color: var(--settings-text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 </style>

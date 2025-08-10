@@ -7,17 +7,6 @@
     <div class="options-outer">
       <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
         <ThemeSelector />
-        <div style="display: flex; align-items: center; margin-left: 1rem;">
-          <label for="disable-web-search-toggle" style="margin-right: 0.5rem;">
-            Disable Web Search
-          </label>
-          <input
-            id="disable-web-search-toggle"
-            type="checkbox"
-            :checked="appConfig.webSearch && appConfig.webSearch.disableWebSearch"
-            @change="toggleDisableWebSearch($event)"
-          />
-        </div>
         <LayoutSelector :displayLayout="$store.getters.layout" />
         <ItemSizeSelector :iconSize="iconSize" />
         <ConfigLauncher />
