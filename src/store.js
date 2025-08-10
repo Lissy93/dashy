@@ -232,6 +232,11 @@ const store = new Vuex.Store({
       state.config = newConfig;
       InfoHandler('Sections updated', InfoKeys.EDITOR);
     },
+    // Dynamically update disableWebSearch in appConfig
+    setDisableWebSearch(state, value) {
+      if (!state.config.appConfig) state.config.appConfig = {};
+      state.config.appConfig.disableWebSearch = value;
+    },
     [UPDATE_SECTION](state, payload) {
       const { sectionIndex, sectionData } = payload;
       const newConfig = { ...state.config };

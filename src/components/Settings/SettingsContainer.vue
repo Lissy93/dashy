@@ -7,6 +7,17 @@
     <div class="options-outer">
       <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
         <ThemeSelector />
+        <div style="display: flex; align-items: center; margin-left: 1rem;">
+          <label for="disable-web-search-toggle" style="margin-right: 0.5rem;">
+            Disable Web Search
+          </label>
+          <input
+            id="disable-web-search-toggle"
+            type="checkbox"
+            :checked="appConfig.webSearch && appConfig.webSearch.disableWebSearch"
+            @change="toggleDisableWebSearch($event)"
+          />
+        </div>
         <LayoutSelector :displayLayout="$store.getters.layout" />
         <ItemSizeSelector :iconSize="iconSize" />
         <ConfigLauncher />
@@ -97,6 +108,21 @@ export default {
     this.settingsVisible = this.getSettingsVisibility();
   },
   methods: {
+    // Toggle the disableWebSearch setting
+    toggleDisableWebSearch(event) {
+      const value = event.target.checked;
+      // Clone appConfig to avoid direct mutation
+      const newAppConfig = {
+        ...this.appConfig,
+        webSearch: {
+          ...this.appConfig.webSearch,
+          disableWebSearch: value,
+        },
+      };
+      this.$store.commit('setDisableWebSearch', value);
+      // Optionally update the full appConfig in store for reactivity
+      this.$store.commit('SET_APP_CONFIG', newAppConfig);
+    },
     /* Emit event to begin/ continue searching */
     userIsTypingSomething(something) {
       this.$emit('user-is-searchin', something);
