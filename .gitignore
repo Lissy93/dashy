@@ -19,4 +19,3 @@ yarn-error.log*
 *.sln
 *.sw?
 
-user-data/conf.yml
