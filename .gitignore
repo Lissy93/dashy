@@ -18,3 +18,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+user-data/conf.yml
