@@ -1,3 +1,7 @@
+// ...existing code...
+  methods: {
+
+    },
 <template>
   <div>
     <form
@@ -168,25 +172,45 @@ export default {
 
     /* Launch web search, to correct search engine, passing in users query */
     searchSubmitted() {
-      // Get search preferences from appConfig
       const { searchPrefs } = this;
-      if (!searchPrefs.disableWebSearch) { // Only proceed if user hasn't disabled web search
+      const input = this.input.trim();
+      // 1. If input is URL-like, always open as link
+      if (this.isUrlLike(input)) {
+        window.open(this.normalizeUrl(input), '_blank');
+        this.clearFilterInput();
+        return;
+      }
+      // 2. If not URL-like, only search if web search is enabled
+      if (!searchPrefs.disableWebSearch) {
         const bangList = { ...defaultSearchBangs, ...(searchPrefs.searchBangs || {}) };
         const openingMethod = searchPrefs.openingMethod || defaultSearchOpeningMethod;
-        const searchBang = getSearchEngineFromBang(this.input, bangList);
+        const searchBang = getSearchEngineFromBang(input, bangList);
         const searchEngine = searchPrefs.searchEngine || defaultSearchEngine;
-        // Use either search bang, or preffered search engine
         const desiredSearchEngine = searchBang || searchEngine;
         const isCustomSearch = (searchPrefs.searchEngine === 'custom' && searchPrefs.customSearchEngine);
         let searchUrl = isCustomSearch
           ? searchPrefs.customSearchEngine
           : findUrlForSearchEngine(desiredSearchEngine, searchEngineUrls);
-        if (searchUrl) { // Append search query to URL, and launch
-          searchUrl += encodeURIComponent(stripBangs(this.input, bangList));
+        if (searchUrl) {
+          searchUrl += encodeURIComponent(stripBangs(input, bangList));
           this.launchWebSearch(searchUrl, openingMethod);
           this.clearFilterInput();
         }
       }
+    },
+    // Utility: Detect if input is a URL or domain-like string
+    isUrlLike(input) {
+      // Matches URLs with protocol, www, or domain.tld (e.g., youtube.com)
+      const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[a-zA-Z]{2,}(\/.*)?$/;
+      return urlPattern.test(input.trim());
+    },
+    // Utility: Normalize input to a full URL (adds https:// if missing)
+    normalizeUrl(input) {
+      let url = input.trim();
+      if (!/^https?:\/\//.test(url)) {
+        url = `https://${url}`;
+      }
+      return url;
     },
   },
 };
