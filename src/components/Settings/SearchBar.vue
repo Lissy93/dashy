@@ -256,6 +256,26 @@ export default {
     }
   }
 
+  .settings-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0.5rem 0;
+    width: 100%;
+    .settings-toggle {
+      background: var(--settings-background);
+      color: var(--settings-text-color);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--curve-factor);
+      cursor: pointer;
+      &:hover {
+        background: var(--settings-text-color);
+        color: var(--settings-background);
+      }
+    }
+  }
+
   @include tablet {
     form.normal {
       display: block;
