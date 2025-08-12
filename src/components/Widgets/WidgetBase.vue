@@ -50,6 +50,7 @@ const COMPAT = {
   apod: 'Apod',
   'blacklist-check': 'BlacklistCheck',
   clock: 'Clock',
+  'compact-glance': 'CompactGlance',
   'crypto-price-chart': 'CryptoPriceChart',
   'crypto-watch-list': 'CryptoWatchList',
   'custom-search': 'CustomSearch',

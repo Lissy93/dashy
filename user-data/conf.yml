@@ -45,3 +45,18 @@ sections:
     description: Get help with Dashy, raise a bug, or get in contact
     url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
     icon: far fa-hands-helping
+
+- name: Service Status Monitoring
+  icon: fas fa-server
+  widgets:
+    - type: compact-glance
+      options:
+        title: "Web Server"
+        icon: "fas fa-globe"
+        status: "up"
+        link: "https://github.com/Lissy93/dashy"
+        metrics:
+          - label: "Latency"
+            value: "23ms"
+
+
