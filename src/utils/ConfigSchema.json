@@ -1180,6 +1180,11 @@
                   "title": "Widget Options",
                   "type": "object",
                   "description": "Configuration options for widget. Varies depending on widget type, see docs for all options"
+                },
+                "category": {
+                  "title": "Category",
+                  "type": "string",
+                  "description": "Single category tag."
                 }
               }
             }
