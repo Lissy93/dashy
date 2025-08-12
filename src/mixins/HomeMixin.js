@@ -103,7 +103,6 @@ const HomeMixin = {
         return [];
       }
       const visibleTiles = allTiles.filter((tile) => checkItemVisibility(tile));
-
       return searchTiles(visibleTiles, this.searchValue, this.areWidgets(allTiles));
     },
     /* Checks if titles are widgets */
