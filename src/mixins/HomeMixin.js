@@ -103,10 +103,12 @@ const HomeMixin = {
         return [];
       }
       const visibleTiles = allTiles.filter((tile) => checkItemVisibility(tile));
-      if ('title' in allTiles[0]) {
-        return searchTiles(visibleTiles, this.searchValue);
-      }
-      return searchTiles(visibleTiles, this.searchValue, true);
+
+      return searchTiles(visibleTiles, this.searchValue, this.areWidgets(allTiles));
+    },
+    /* Checks if titles are widgets */
+    areWidgets(allTiles) {
+      return Array.isArray(allTiles) && allTiles.length > 0 && !('title' in allTiles[0]);
     },
     /* Checks if any sections or items use icons from a given CDN */
     checkIfIconLibraryNeeded(prefix) {

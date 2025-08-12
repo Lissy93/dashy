@@ -35,6 +35,7 @@ const filterHelper = (compareStr, searchStr) => {
  * @param {array} allTiles An array of tiles
  * @param {string} searchTerm The users search term
  * @returns A filtered array of tiles
+ * if widgets are sent as allTiles, then the search is done based on options.category
  */
 export const searchTiles = (allTiles, searchTerm, isWidgets) => {
   if (!searchTerm) return allTiles; // If no search term, then return all
@@ -59,18 +60,6 @@ export const searchTiles = (allTiles, searchTerm, isWidgets) => {
     });
   }
 };
-
-// export const searchWidgets = (allWidgets, searchTerm) => {
-//   if (!searchTerm) return allWidgets;
-//   if (!allWidgets) return [];
-//   return allWidgets.filter((tile) => {
-//     const {
-//       options,
-//     } = tile;
-//     return filterHelper(options.category, searchTerm);
-//   });
-// };
-
 /* From a list of search bangs, return the URL associated with it */
 export const getSearchEngineFromBang = (searchQuery, bangList) => {
   const bangNames = Object.keys(bangList);

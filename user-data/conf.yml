@@ -10,13 +10,6 @@ appConfig:
   theme: dracula
   layout: auto
   iconSize: medium
-  auth:
-    users:
-      - user: shumitt
-        hash: 6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090
-        type: admin
-      - user: shumitt2
-        hash: 6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090
 sections:
   - name: Getting Started
     icon: fas fa-rocket
