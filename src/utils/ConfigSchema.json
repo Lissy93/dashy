@@ -825,6 +825,16 @@
                 "default": 1,
                 "description": "The amount of space that the section spans horizontally"
               },
+              "widgetCategories": {
+                "type": "array",
+                "title": "Widget Categories",
+                "description": "Tags for this section (add/remove text tags).",
+                "items": { 
+                  "type": "string" 
+                },
+                "uniqueItems": true,
+                "default": []
+              },
               "sectionLayout": {
                 "title": "Layout Type",
                 "type": "string",

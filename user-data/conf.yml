@@ -53,20 +53,22 @@ sections:
       cols: 3
       collapsed: false
       hideForGuests: false
+      widgetCategories: [timer, weather]
     widgets:
       - type: crypto-watch-list
         options:
           limit: 10
       - type: clock
+        category: timer
         options:
           timeZone: Pacific/Auckland
           format: en-NZ
           hideDate: false
-          label: Test Label 2
-          category: timer
+          label: Test Label 2  
       - type: weather
+        category: weather
         options:
           apiKey: 622126b2099b1a7007af4b3aff676add
           city: Hamilton, NZ
           units: metric
-          hideDetails: true
+          hideDetails: true  

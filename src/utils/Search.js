@@ -54,9 +54,9 @@ export const searchTiles = (allTiles, searchTerm, isWidgets) => {
   } else {
     return allTiles.filter((tile) => {
       const {
-        options,
+        category,
       } = tile;
-      return filterHelper(options.category, searchTerm);
+      return filterHelper(category, searchTerm);
     });
   }
 };
