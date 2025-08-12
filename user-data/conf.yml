@@ -72,3 +72,9 @@ sections:
           city: Hamilton, NZ
           units: metric
           hideDetails: true  
+      - type: weather
+        options:
+          apiKey: 622126b2099b1a7007af4b3aff676add
+          city: Hamilton, NZ
+          units: metric
+          hideDetails: true  

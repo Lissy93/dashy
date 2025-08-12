@@ -104,7 +104,15 @@ export default {
       return sections.map((_section) => {
         const section = _section;
         section.filteredItems = this.filterTiles(section.items, this.searchValue);
-        section.filteredWidgets = this.filterTiles(section.widgets, this.searchValue);
+
+        const searchedWidgets = this.filterTiles(section.widgets, this.searchValue);
+        const widgetCategoriesArray = this.normalizeWidgetCats(
+          this.getDisplayData(section).widgetCategories,
+        );
+        section.filteredWidgets = this.filterWidgetsByCategories(
+          searchedWidgets, widgetCategoriesArray,
+        );
+
         return section;
       });
     },
@@ -126,6 +134,18 @@ export default {
     },
   },
   methods: {
+    /* returns only widgets that have category that are present in
+    widgetCategories array in section config displayData */
+    filterWidgetsByCategories(widgets, cats) {
+      if (!cats.length) return widgets || [];
+      return (widgets || []).filter(w => (typeof w.category === 'string'
+      && cats.includes(w.category.toLowerCase().trim())));
+    },
+    /* Normalization of widget categories text inputs by user */
+    normalizeWidgetCats(cats) {
+      if (!Array.isArray(cats)) return [];
+      return cats.map(c => String(c).toLowerCase().trim()).filter(Boolean);
+    },
     /* Clears input field, once a searched item is opened */
     finishedSearching() {
       if (this.$refs.filterComp) this.$refs.filterComp.clearFilterInput();
