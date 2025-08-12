@@ -49,7 +49,7 @@ export default {
         'status-up': status === 'up' || status === 'online',
         'status-warn': status === 'warn' || status === 'warning',
         'status-down': status === 'down' || status === 'offline',
-        'status-unknown': true, // 默认类
+        'status-unknown': status === 'unknown' || (!status),
       };
     },
     metrics() {
