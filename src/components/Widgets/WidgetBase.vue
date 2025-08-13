@@ -53,6 +53,7 @@ const COMPAT = {
   'crypto-price-chart': 'CryptoPriceChart',
   'crypto-watch-list': 'CryptoWatchList',
   'custom-search': 'CustomSearch',
+  'custom-list': 'CustomList',
   'cve-vulnerabilities': 'CveVulnerabilities',
   'domain-monitor': 'DomainMonitor',
   'code-stats': 'CodeStats',

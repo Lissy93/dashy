@@ -26,7 +26,7 @@ export default {
         return `${widgetApiEndpoints.publicIp2}?apiKey=${this.apiKey}`;
       } else if (this.provider === 'ip2location.io') {
         return `${widgetApiEndpoints.publicIp4}?key=${this.apiKey}`;
-      } else if (this.provider === 'ipapi') {
+      } else if (this.provider === 'ip-api') {
         return widgetApiEndpoints.publicIp3;
       }
       return widgetApiEndpoints.publicIp;

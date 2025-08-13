@@ -198,7 +198,7 @@ Both sections and items can have an icon associated with them, defined under the
 
 The following icon types are supported:
 - **Favicon** - Automatically fetch an apps icon from its Favicon or logo image
-- **Icon Packs** - Use any icon from [font-awesome], [simple-icons] or [material icons]
+- **Icon Packs** - Use any icon from [font-awesome], [simple-icons], [selfh.st/icons], or [material icons]
 - **Emoji** - Any valid emoji can be used as an icon
 - **Generative** - Unique, auto-generated images for easily identifying services
 - **URL** - Pass the URL of any valid image in to have it fetched and rendered
@@ -209,6 +209,7 @@ The following icon types are supported:
 [font-awesome]: https://fontawesome.com/icons
 [simple-icons]: https://simpleicons.org/
 [material icons]: https://github.com/Templarian/MaterialDesign
+[selfh.st/icons]: https://selfh.st/icons
 [dashboard-icons]: https://github.com/WalkxCode/dashboard-icons
 
 
@@ -417,13 +418,14 @@ Dashy supports multiple languages and locales. When available, your language sho
 - 🇵🇱 **Polish**: `pl` - Contributed by **[@skaarj1989](https://github.com/skaarj1989)**
 - 🇵🇹 **Portuguese**: `pt` - Contributed by **[@LeoColman](https://github.com/LeoColman)**
 - 🛰️ **Galician**: `gl` - Contributed by **[@pvillaverde](https://github.com/pvillaverde)**
-- 🇷🇺 **Russian**: `ru` - _Auto-generated_
+- 🇷🇺 **Russian**: `ru` -Contributed by **[@sasetz](https://github.com/sasetz)**
 - 🇸🇰 **Slovak**: `sk` - Contributed by **[@Smexhy](https://github.com/Smexhy)**
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
 - 🇪🇸 **Spanish**: `es` - Contributed by **[@lu4t](https://github.com/lu4t)**
 - 🇸🇪 **Swedish**: `sv` - Contributed by **[@BOZG](https://github.com/BOZG)**
 - 🇹🇼 **Traditional Chinese**: `zh-TW` - Contributed by **[@stanly0726](https://github.com/stanly0726)**
 - 🇹🇷 **Turkish**: `tr` - Contributed by **[@imsakg](https://github.com/imsakg)**
+- 🇺🇦 **Ukrainian**: `uk` - Contributed by **[@allozavrr](https://github.com/allozavrr)**
 - 🏴‍☠️ **Pirate**: `pirate` - Contributed by **[@Lissy93](https://github.com/lissy93)**
 
 #### Add your Language
@@ -524,7 +526,6 @@ Thank you so much to everyone who has helped with Dashy so far; every contributi
 Huge thanks to the sponsors helping to support Dashy's development!
 
 ![sponsors badge](https://readme-contribs.as93.net/sponsors/lissy93)
-
 
 #### Contributors
 [![contributors badge](https://readme-contribs.as93.net/contributors/lissy93/dashy?perRow=12&limit=96)](./docs/credits.md)

@@ -78,6 +78,7 @@ module.exports = {
     'bee',
     'tiger',
     'glow',
+    'glow-dark',
     'vaporware',
     'cyberpunk',
     'material-original',
@@ -136,6 +137,7 @@ module.exports = {
     MOST_USED: 'mostUsed',
     LAST_USED: 'lastUsed',
     KEYCLOAK_INFO: 'keycloakInfo',
+    ISADMIN: 'isAdmin',
     DISABLE_CRITICAL_WARNING: 'disableCriticalWarning',
   },
   /* Key names for cookie identifiers */
@@ -210,6 +212,7 @@ module.exports = {
     fa: 'https://kit.fontawesome.com',
     mdi: 'https://cdn.jsdelivr.net/npm/@mdi/font@7.0.96/css/materialdesignicons.min.css',
     si: 'https://unpkg.com/simple-icons@v7/icons',
+    sh: 'https://cdn.jsdelivr.net/gh/selfhst/icons@latest/webp/{icon}.webp',
     generative: 'https://api.dicebear.com/7.x/identicon/svg?seed={icon}',
     generativeFallback: 'https://evatar.io/{icon}',
     localPath: './item-icons',
@@ -316,7 +319,6 @@ module.exports = {
   /* Progressive Web App settings, used by Vue Config */
   pwa: {
     name: 'Dashy',
-    manifestPath: './manifest.json',
     themeColor: '#00af87',
     msTileColor: '#0b1021',
     mode: 'production',
@@ -327,6 +329,15 @@ module.exports = {
       favicon16: './web-icons/favicon-16x16.png',
       maskIcon: './web-icons/dashy-logo.png',
       msTileImage: './web-icons/dashy-logo.png',
+    },
+    workboxOptions: {
+      exclude: [
+        // https://developer.chrome.com/docs/workbox/modules/workbox-build#properties_14
+        /\.map$/,
+        /^manifest.*\.js$/, // default value
+        /\.nojekyll$/,
+        /\.gitignore$/,
+      ],
     },
   },
 };

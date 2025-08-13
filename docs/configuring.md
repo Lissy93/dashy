@@ -204,6 +204,8 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 --- | --- | --- | ---
 **`clientId`** | `string` | Required | The client id registered in the OIDC server
 **`endpoint`** | `string` | Required | The URL of the OIDC server that should be used.
+**`adminRole`** | `string` | _Optional_ | The role that will be considered as admin.
+**`adminGroup`** | `string` | _Optional_ | The group that will be considered as admin.
 **`scope`** | `string` | Required | The scope(s) to request from the OIDC provider
 
 **[⬆️ Back to Top](#configuring)**
@@ -322,7 +324,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
-**`icon`** | `string` | _Optional_ | The icon for a given item or section. <br>See [Icon Docs](/docs/icons.md) for all available supported icon types, including: auto-fetched favicons, generative icons, emoji icons, home-lab service logos, font-awesome, simple-icons, material icons, and icons specified by URL
+**`icon`** | `string` | _Optional_ | The icon for a given item or section. <br>See [Icon Docs](/docs/icons.md) for all available supported icon types, including: auto-fetched favicons, generative icons, emoji icons, home-lab service logos, font-awesome, simple-icons, material icons, selfh.st icons, and icons specified by URL
 
 **[⬆️ Back to Top](#configuring)**
 
