@@ -97,21 +97,6 @@ export default {
     this.settingsVisible = this.getSettingsVisibility();
   },
   methods: {
-    // Toggle the disableWebSearch setting
-    toggleDisableWebSearch(event) {
-      const value = event.target.checked;
-      // Clone appConfig to avoid direct mutation
-      const newAppConfig = {
-        ...this.appConfig,
-        webSearch: {
-          ...this.appConfig.webSearch,
-          disableWebSearch: value,
-        },
-      };
-      this.$store.commit('setDisableWebSearch', value);
-      // Optionally update the full appConfig in store for reactivity
-      this.$store.commit('SET_APP_CONFIG', newAppConfig);
-    },
     /* Emit event to begin/ continue searching */
     userIsTypingSomething(something) {
       this.$emit('user-is-searchin', something);
