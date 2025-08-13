@@ -337,6 +337,18 @@ module.exports = {
         /^manifest.*\.js$/, // default value
         /\.nojekyll$/,
         /\.gitignore$/,
+        /conf\.yml$/, // ignore config for runtimeCaching
+      ],
+      // https://developer.chrome.com/docs/workbox/modules/workbox-build#type-RuntimeCaching
+      runtimeCaching: [
+        {
+          urlPattern: /conf\.yml$/,
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'config-cache',
+            networkTimeoutSeconds: 3,
+          },
+        },
       ],
     },
   },
