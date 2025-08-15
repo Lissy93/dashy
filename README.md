@@ -26,7 +26,7 @@
   
 - **Getting Started**
   - [🌈 Features](#features-)
-  - [⚡Demo](#demo-)
+  - [⚡ Demo](#demo-)
   - [🚀 Getting Started](#getting-started-)
   - [🔧 Configuring](#configuring-)
 - **Feature Overview**
