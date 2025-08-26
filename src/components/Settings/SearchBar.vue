@@ -3,7 +3,7 @@
 
     },
 <template>
-  <div>
+  <div class = "search-settings-row">
     <form
       @submit.prevent="searchSubmitted"
       :class="minimalSearch ? 'minimal' : 'normal'"
@@ -220,10 +220,16 @@ export default {
 
 @import '@/styles/media-queries.scss';
 
+  .search-settings-row {
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    // width: 100%;
+  }
   form.normal {
     display: flex;
     align-items: center;
-    border-radius: 0 0 var(--curve-factor-navbar) 0;
+    // border-radius: 0 0 var(--curve-factor-navbar) 0;
     padding: 0 0.2rem 0.2rem 0;
     background: var(--search-container-background);
     .search-wrap {
@@ -286,11 +292,16 @@ export default {
     align-items: center;
     margin: 0.5rem 0;
     width: 100%;
+
+    border-radius: 0 0 var(--curve-factor-navbar) 0;
+    padding: 0 0.2rem 0.2rem 0;
+    background: var(--search-container-background);
     .settings-toggle {
       background: var(--settings-background);
       color: var(--settings-text-color);
       border: none;
       padding: 0.5rem 1rem;
+      margin: 0.5rem;
       border-radius: var(--curve-factor);
       cursor: pointer;
       &:hover {
