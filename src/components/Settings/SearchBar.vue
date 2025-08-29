@@ -52,6 +52,13 @@
           />
           Disable Web Search
         </label>
+        <label class="theme-label">
+          <input
+            type="checkbox"
+            v-model="goToLinkEnabled"
+          />
+          Go to Link (auto-detect links)
+        </label>
       </div>
     </div>
   </div>
@@ -85,6 +92,7 @@ export default {
       akn: new ArrowKeyNavigation(),
       getCustomKeyShortcuts,
       showSearchPanel: false,
+      goToLinkEnabled: true, // default: enabled
     };
   },
   computed: {
@@ -177,15 +185,15 @@ export default {
 
     /* Launch web search, to correct search engine, passing in users query */
     searchSubmitted() {
-      const { searchPrefs } = this;
+      const { searchPrefs, goToLinkEnabled } = this;
       const input = this.input.trim();
-      // 1. If input is URL-like, always open as link
-      if (this.isUrlLike(input)) {
+      // 1. If "Go to Link" is enabled and input is URL-like, always open as link
+      if (goToLinkEnabled && this.isUrlLike(input)) {
         window.open(this.normalizeUrl(input), '_blank');
         this.clearFilterInput();
         return;
       }
-      // 2. If not URL-like, only search if web search is enabled
+      // 2. If not URL-like, or "Go to Link" is disabled, only search if web search is enabled
       if (!searchPrefs.disableWebSearch) {
         const bangList = { ...defaultSearchBangs, ...(searchPrefs.searchBangs || {}) };
         const openingMethod = searchPrefs.openingMethod || defaultSearchOpeningMethod;
