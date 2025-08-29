@@ -1,105 +1,49 @@
+---
+# Page meta info, like heading, footer text and nav links
 pageInfo:
   title: Dashy
   description: Welcome to your new dashboard!
   navLinks:
-    - title: GitHub
-      path: https://github.com/Lissy93/dashy
-    - title: Documentation
-      path: https://dashy.to/docs
+  - title: GitHub
+    path: https://github.com/Lissy93/dashy
+  - title: Documentation
+    path: https://dashy.to/docs
+
+# Optional app settings and configuration
 appConfig:
-  theme: dracula
-  layout: vertical
-  iconSize: medium
+  theme: colorful
   webSearch:
     disableWebSearch: false
+
+# Main content - An array of sections, each containing an array of items
 sections:
-  - name: Getting Started
-    icon: fas fa-rocket
-    items:
-      - title: Dashy Live
-        description: Development a project management links for Dashy
-        icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
-        url: https://live.dashy.to/
-        target: newtab
-        id: 0_1481_dashylive
-      - title: GitHub
-        description: Source Code, Issues and Pull Requests
-        url: https://github.com/lissy93/dashy
-        icon: favicon
-        id: 1_1481_github
-      - title: Docs
-        description: Configuring & Usage Documentation
-        provider: Dashy.to
-        icon: far fa-book
-        url: https://dashy.to/docs
-        id: 2_1481_docs
-      - title: Showcase
-        description: See how others are using Dashy
-        url: https://github.com/Lissy93/dashy/blob/master/docs/showcase.md
-        icon: far fa-grin-hearts
-        id: 3_1481_showcase
-      - title: Config Guide
-        description: See full list of configuration options
-        url: https://github.com/Lissy93/dashy/blob/master/docs/configuring.md
-        icon: fas fa-wrench
-        id: 4_1481_configguide
-      - title: Support
-        description: Get help with Dashy, raise a bug, or get in contact
-        url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
-        icon: far fa-hands-helping
-        id: 5_1481_support
-      - title: Godot Game GitHub
-        description: Source Code, Issues and Pull Requests for the Godot Game
-        icon: https://i.ibb.co/KjDYYzYD/godot-icon.png
-        url: https://github.com/aspenyang/godot_roughlite
-        target: newtab
-        tags:
-          - github
-          - projects
-        id: 6_1481_godotgamegithub
-      - title: moodle
-        url: https://elearn.waikato.ac.nz/my/courses.php
-        target: newtab
-        tags:
-          - uow
-        id: 7_1481_moodle
-      - title: LinkedIn
-        url: https://www.linkedin.com/feed
-        target: newtab
-        tags:
-          - job
-        id: 8_1481_linkedin
-      - title: Seek
-        url: https://www.seek.co.nz/
-        target: newtab
-        tags:
-          - job
-        id: 9_1481_seek
-      - title: University of Waikato Homepage
-        description: Uni Homepage
-        url: https://www.waikato.ac.nz/
-        target: newtab
-        id: 10_1481_universityofwaikatohomepage
-  - name: New Section
-    displayData:
-      sortBy: default
-      rows: 1
-      cols: 1
-      collapsed: false
-      hideForGuests: false
-    items:
-      - title: Uni Key Dates
-        description: Key dates
-        url: https://www.waikato.ac.nz/study/key-university-dates/
-        target: newtab
-        tags:
-          - uow
-          - ad
-          - adc
-          - ab
-          - bc
-          - school
-          - ddd
-          - eee
-          - ggg
-        id: 0_1055_unikeydates
+- name: Getting Started
+  icon: fas fa-rocket
+  items:
+  - title: Dashy Live
+    description: Development a project management links for Dashy
+    icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
+    url: https://live.dashy.to/
+    target: newtab
+  - title: GitHub
+    description: Source Code, Issues and Pull Requests
+    url: https://github.com/lissy93/dashy
+    icon: favicon
+  - title: Docs
+    description: Configuring & Usage Documentation
+    provider: Dashy.to
+    icon: far fa-book
+    url: https://dashy.to/docs
+  - title: Showcase
+    description: See how others are using Dashy
+    url: https://github.com/Lissy93/dashy/blob/master/docs/showcase.md
+    icon: far fa-grin-hearts
+  - title: Config Guide
+    description: See full list of configuration options
+    url: https://github.com/Lissy93/dashy/blob/master/docs/configuring.md
+    icon: fas fa-wrench
+  - title: Support
+    description: Get help with Dashy, raise a bug, or get in contact
+    url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
+    icon: far fa-hands-helping
+  
