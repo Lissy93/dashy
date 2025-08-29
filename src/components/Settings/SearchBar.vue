@@ -43,7 +43,7 @@
       >
         <IconConfigEditor />
       </button>
-      <div v-show="showSearchPanel" class="settings-row">
+      <div v-show="showSearchPanel" class="floating-search-panel">
         <label class="theme-label">
           <input
             type="checkbox"
@@ -297,6 +297,7 @@ export default {
     align-items: center;
     margin: 0.5rem 0;
     width: 100%;
+    position: relative;
 
     border-radius: 0 0 var(--curve-factor-navbar) 0;
     padding: 0 0.2rem 0.2rem 0;
@@ -320,6 +321,19 @@ export default {
       height: 1rem;
       fill: currentColor;
       display: block;
+    }
+
+    .floating-search-panel {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 180px;
+      max-width: max-content;
+      background: var(--settings-background);
+      border: 1px solid var(--settings-text-color);
+      border-radius: var(--curve-factor);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      z-index: 10;
     }
   }
 
