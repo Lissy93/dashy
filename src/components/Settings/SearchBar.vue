@@ -39,8 +39,9 @@
         @click="showSearchPanel = !showSearchPanel"
         class="settings-toggle"
         type="button"
+        v-tooltip="showSearchPanel ? $t('Hide Search Options') : $t('Show Search Options')"
       >
-        {{ showSearchPanel ? 'Hide' : 'Show' }} Search Options
+        <IconConfigEditor />
       </button>
       <div v-show="showSearchPanel" class="settings-row">
         <label class="theme-label">
@@ -60,6 +61,7 @@
 import router from '@/router';
 import ArrowKeyNavigation from '@/utils/ArrowKeyNavigation';
 import ErrorHandler from '@/utils/ErrorHandler';
+import IconConfigEditor from '@/assets/interface-icons/config-editor.svg';
 import { getCustomKeyShortcuts } from '@/utils/ConfigHelpers';
 import { getSearchEngineFromBang, findUrlForSearchEngine, stripBangs } from '@/utils/Search';
 import {
@@ -73,6 +75,9 @@ export default {
   name: 'FilterTile',
   props: {
     minimalSearch: Boolean, // If true, then keep it simple
+  },
+  components: {
+    IconConfigEditor,
   },
   data() {
     return {
@@ -300,14 +305,21 @@ export default {
       background: var(--settings-background);
       color: var(--settings-text-color);
       border: none;
-      padding: 0.5rem 1rem;
-      margin: 0.5rem;
+      padding: 0.5rem;
+      margin: 0.5rem 0.5rem 0.5rem 0;
       border-radius: var(--curve-factor);
       cursor: pointer;
       &:hover {
         background: var(--settings-text-color);
         color: var(--settings-background);
       }
+    }
+
+    .settings-toggle svg {
+      width: 1rem;
+      height: 1rem;
+      fill: currentColor;
+      display: block;
     }
   }
 
