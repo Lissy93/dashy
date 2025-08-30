@@ -38,7 +38,7 @@ export default {
     hostname() {
       const usersChoice = this.parseAsEnvVar(this.options.hostname);
       if (!usersChoice) this.error('You must specify the hostname for your Pi-Hole server');
-      return usersChoice || 'http://pi.hole';
+      return usersChoice;
     },
     apiKey() {
       const usersChoice = this.parseAsEnvVar(this.options.apiKey);
@@ -53,9 +53,7 @@ export default {
     hideInfo() { return this.options.hideInfo; },
   },
   filters: {
-    capitalize(str) {
-      return capitalize(str);
-    },
+    capitalize,
   },
   methods: {
     /* Make GET request to local pi-hole instance */
