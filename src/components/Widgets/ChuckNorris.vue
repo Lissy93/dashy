@@ -29,8 +29,8 @@ export default {
     },
     /* Combine data parameters for the API endpoint */
     endpoint() {
-      if (this.categories != '') return `${widgetApiEndpoints.chuckNorris}`+`?category=${this.categories}`;
-      if (this.categories == '') return `${widgetApiEndpoints.chuckNorris}`;
+      if (this.categories !== '') return `${widgetApiEndpoints.chuckNorris}?category=${this.categories}`;
+      return `${widgetApiEndpoints.chuckNorris}`;
     },
   },
   methods: {
