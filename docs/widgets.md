@@ -29,6 +29,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Stock Price History](#stock-price-history)
   - [ETH Gas Prices](#eth-gas-prices)
   - [Joke of the Day](#joke)
+  - [Chuck Norris quotes](#chucknorris)
   - [XKCD Comics](#xkcd-comics)
   - [Flight Data](#flight-data)
   - [NASA APOD](#astronomy-picture-of-the-day)
@@ -998,6 +999,36 @@ Renders a programming or generic joke. Data is fetched from the [JokesAPI](https
 - **Price**: 🟢 Free
 - **Host**: Managed Instance or Self-Hosted (see [Sv443/JokeAPI](https://github.com/Sv443/JokeAPI))
 - **Privacy**: _See [SV443's Privacy Policy](https://sv443.net/privacypolicy/en)_
+
+---
+
+### Chuck Norris quotes
+
+Renders a Chuck Norris quote. Data is fetched from the [ChuckNorrisAPI](https://api.chucknorris.io/) by @matchilling. All fields are optional.
+
+<p align="center"><img width="400" src="https://tbd" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`categories`** | `string` |  _Optional_ | Set the category of jokes to return. Use a string to specify a single category, or an array to pass in multiple options. Available options are: `animal`,`career`,`celebrity`,`dev`,`explicit`,`fashion`,`food`,`history`,`money`,`movie`,`music`,`political`,`religion`,`science`,`sport` and `travel`. An up-to-date list of supported categories can be found [here](https://api.chucknorris.io/jokes/categories). Defaults to not explicitely set and therefore any of the categories can come up.
+
+#### Example
+
+```yaml
+- type: chucknorris
+  options:
+    categories: history,sport
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed Instance
+- **Privacy**: _See [matchilling's Privacy Policy](https://api.chucknorris.io/privacy)_
 
 ---
 
