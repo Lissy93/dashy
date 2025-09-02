@@ -27,6 +27,7 @@ sections:
     description: Source Code, Issues and Pull Requests
     url: https://github.com/lissy93/dashy
     icon: favicon
+    target: newtab
   - title: Docs
     description: Configuring & Usage Documentation
     provider: Dashy.to
@@ -36,12 +37,14 @@ sections:
     description: See how others are using Dashy
     url: https://github.com/Lissy93/dashy/blob/master/docs/showcase.md
     icon: far fa-grin-hearts
+    target: newtab
   - title: Config Guide
     description: See full list of configuration options
     url: https://github.com/Lissy93/dashy/blob/master/docs/configuring.md
     icon: fas fa-wrench
+    target: newtab
   - title: Support
     description: Get help with Dashy, raise a bug, or get in contact
     url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
     icon: far fa-hands-helping
-  
+    target: newtab
