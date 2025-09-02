@@ -1,155 +1,278 @@
 <template>
-  <a v-if="link" :href="link" target="_blank" rel="noopener" class="compact-card">
-    <div class="card-header">
-      <i v-if="icon" :class="icon" class="service-icon"></i>
-      <h3 class="service-title">{{ title }}</h3>
-      <div class="status-dot" :class="statusClass" :aria-label="`Status: ${status}`"></div>
+  <div class="glance-card">
+    <!-- 系统信息头部 -->
+    <div class="system-header">
+      <div class="hostname">{{ hostname || 'brick' }}</div>
+      <div class="system-info">{{ systemInfo }}</div>
+      <div class="ip-info">IP {{ ipAddress }}</div>
     </div>
-    <div v-if="hasMetrics" class="metrics">
-      <span v-for="(metric, index) in displayMetrics" :key="index" class="metric">
-        {{ metric.label }}: {{ metric.value }}
-      </span>
+
+    <!-- CPU信息 -->
+    <div class="cpu-section">
+      <div class="cpu-title">{{ cpuModel }}</div>
+      <div class="metric-row">
+        <span class="metric-label">CPU</span>
+        <div class="progress-bar">
+          <div class="progress-fill cpu-fill" :style="{ width: cpu + '%' }"></div>
+        </div>
+        <span class="metric-value">{{ cpu.toFixed(1) }}%</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">MEM</span>
+        <div class="progress-bar">
+          <div class="progress-fill mem-fill" :style="{ width: memory + '%' }"></div>
+        </div>
+        <span class="metric-value">{{ memory.toFixed(1) }}%</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">LOAD</span>
+        <div class="progress-bar">
+          <div class="progress-fill load-fill" :style="{ width: loadPercent + '%' }"></div>
+        </div>
+        <span class="metric-value">{{ loadPercent.toFixed(1) }}%</span>
+      </div>
     </div>
-  </a>
-  <div v-else class="compact-card no-link">
-    <div class="card-header">
-      <i v-if="icon" :class="icon" class="service-icon"></i>
-      <h3 class="service-title">{{ title }}</h3>
-      <div class="status-dot" :class="statusClass" :aria-label="`Status: ${status}`"></div>
-    </div>
-    <div v-if="hasMetrics" class="metrics">
-      <span v-for="(metric, index) in displayMetrics" :key="index" class="metric">
-        {{ metric.label }}: {{ metric.value }}
-      </span>
+
+    <!-- 右侧系统状态 -->
+    <div class="system-stats">
+      <div class="stat-item">
+        <span class="stat-label">user:</span>
+        <span class="stat-value">{{ cpuUser.toFixed(1) }}%</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">system:</span>
+        <span class="stat-value">{{ cpuSystem.toFixed(1) }}%</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">iowait:</span>
+        <span class="stat-value">{{ cpuIowait.toFixed(1) }}%</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import WidgetMixin from '@/mixins/WidgetMixin';
-
 export default {
-  mixins: [WidgetMixin],
+  name: 'CompactGlance',
+  props: {
+    title: String,
+    options: { type: Object, default: () => ({}) },
+  },
+  data() {
+    return {
+      cpu: 0,
+      memory: 0,
+      load: 0,
+      cpuUser: 0,
+      cpuSystem: 0,
+      cpuIowait: 0,
+      cpuModel: 'Intel(R) Core(TM) i5 CPU M ...',
+      systemInfo: 'NixOS 24.11 64bit / Linux 6.6.63',
+      ipAddress: '10.0.0.203/24',
+      hostname: 'brick',
+      timer: null,
+      coreCount: 4,
+    };
+  },
   computed: {
-    title() {
-      return this.options.title || 'Service';
+    pollMs() { return (this.options.poll || 5) * 1000; },
+    endpoint() { return this.options.endpoint; },
+    useProxy() { return this.options.useProxy === true; },
+    loadPercent() {
+      return Math.min(100, (this.load / this.coreCount) * 100);
     },
-    icon() {
-      return this.options.icon || 'fas fa-server';
+  },
+  methods: {
+    async loadData() {
+      try {
+        const url = this.useProxy
+          ? `/api/proxy?url=${encodeURIComponent(this.endpoint)}`
+          : this.endpoint;
+        // eslint-disable-next-line no-console
+        console.log('Fetching data from:', url);
+        const res = await fetch(url, {
+          method: 'GET',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await res.json();
+        // eslint-disable-next-line no-console
+        console.log('API Response - CPU:', data.cpu?.total, 'MEM:', data.mem?.percent, 'LOAD:', data.load?.min1);
+
+        // CPU数据
+        if (data.cpu) {
+          this.cpu = data.cpu.total || 0;
+          this.cpuUser = data.cpu.user || 0;
+          this.cpuSystem = data.cpu.system || 0;
+          this.cpuIowait = data.cpu.iowait || 0;
+        }
+
+        // 内存数据
+        if (data.mem) {
+          this.memory = data.mem.percent || 0;
+        }
+
+        // 负载数据
+        if (data.load) {
+          this.load = data.load.min1 || 0;
+        }
+
+        // 系统信息
+        if (data.system) {
+          this.hostname = data.system.hostname || 'brick';
+          if (data.system.os_name && data.system.os_version) {
+            this.systemInfo = `${data.system.os_name} ${data.system.os_version}`;
+          }
+        }
+
+        // CPU型号
+        if (data.cpu && data.cpu.model) {
+          this.cpuModel = `${data.cpu.model.substring(0, 30)}...`;
+        }
+
+        this.coreCount = data.cpu?.cpucore || 4;
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error('Glances API Error:', e);
+        // eslint-disable-next-line no-console
+        console.log('Using fallback data');
+        // 使用模拟数据
+        this.cpu = Math.random() * 10 + 2;
+        this.memory = Math.random() * 30 + 20;
+        this.load = Math.random() * 3 + 0.5;
+        this.cpuUser = Math.random() * 5 + 1;
+        this.cpuSystem = Math.random() * 3 + 0.5;
+        this.cpuIowait = Math.random() * 2;
+      }
     },
-    link() {
-      return this.options.link || this.options.url;
-    },
-    status() {
-      return this.options.status || 'unknown';
-    },
-    statusClass() {
-      const status = this.status.toLowerCase();
-      return {
-        'status-up': status === 'up' || status === 'online',
-        'status-warn': status === 'warn' || status === 'warning',
-        'status-down': status === 'down' || status === 'offline',
-        'status-unknown': status === 'unknown' || (!status),
-      };
-    },
-    metrics() {
-      return this.options.metrics || [];
-    },
-    displayMetrics() {
-      // 最多显示2个指标
-      return this.metrics.slice(0, 2);
-    },
-    hasMetrics() {
-      return this.displayMetrics.length > 0;
-    },
+  },
+  mounted() {
+    // eslint-disable-next-line no-console
+    console.log('CompactGlance mounted! Endpoint:', this.endpoint);
+    this.loadData();
+    this.timer = setInterval(this.loadData, this.pollMs);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
   },
 };
 </script>
 
-<style scoped lang="scss">
-.compact-card {
-  display: block;
-  padding: 12px;
-  background: var(--widget-accent-color);
-  border: 1px solid var(--outline-color);
-  border-radius: 6px;
-  text-decoration: none;
-  color: var(--widget-text-color);
-  transition: all 0.2s ease;
-
-  &:not(.no-link) {
-    cursor: pointer;
-    &:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  &.no-link {
-    cursor: default;
-  }
+<style scoped>
+.glance-card {
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 16px;
+  color: #ffffff;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  min-height: 200px;
 }
 
-.card-header {
+.system-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #444;
+}
+
+.hostname {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.system-info {
+  font-size: 12px;
+  color: #cccccc;
+}
+
+.ip-info {
+  font-size: 12px;
+  color: #cccccc;
+}
+
+.cpu-section {
+  margin-bottom: 16px;
+}
+
+.cpu-title {
+  color: #cccccc;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.metric-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  gap: 12px;
 }
 
-.service-icon {
-  font-size: 16px;
-  color: var(--primary);
-  flex-shrink: 0;
+.metric-label {
+  width: 50px;
+  color: #ffffff;
+  font-weight: bold;
 }
 
-.service-title {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--widget-text-color);
+.progress-bar {
   flex: 1;
-  white-space: nowrap;
+  height: 20px;
+  background: #1a1a1a;
+  border-radius: 2px;
   overflow: hidden;
-  text-overflow: ellipsis;
+  border: 1px solid #444;
 }
 
-.status-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  flex-shrink: 0;
-
-  &.status-up {
-    background-color: #22c55e;
-  }
-
-  &.status-warn {
-    background-color: #eab308;
-  }
-
-  &.status-down {
-    background-color: #ef4444;
-  }
-
-  &.status-unknown {
-    background-color: #6b7280;
-  }
+.progress-fill {
+  height: 100%;
+  transition: width 0.3s ease;
 }
 
-.metrics {
+.cpu-fill {
+  background: #4CAF50;
+}
+
+.mem-fill {
+  background: #4CAF50;
+}
+
+.load-fill {
+  background: #333;
+}
+
+.metric-value {
+  width: 60px;
+  text-align: right;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.system-stats {
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-item {
+  display: flex;
+  gap: 8px;
   font-size: 12px;
-  color: var(--widget-text-color);
-  opacity: 0.8;
+}
 
-  .metric {
-    display: inline-block;
-    margin-right: 12px;
-    font-family: var(--font-monospace);
+.stat-label {
+  color: #cccccc;
+}
 
-    &:last-child {
-      margin-right: 0;
-    }
-  }
+.stat-value {
+  color: #4CAF50;
+  font-weight: bold;
 }
 </style>

@@ -36,7 +36,7 @@ export default {
       return this.options.title || '';
     },
     daysForNew() {
-      return parseInt(Number(this.options.daysForNew)) || false;
+      return parseInt(Number(this.options.daysForNew), 10) || false;
     },
   },
   methods: {
@@ -51,10 +51,10 @@ export default {
       this.data = data.sort((a, b) => new Date(a.date) < new Date(b.date));
       if (this.daysForNew) {
         const threshold = this.daysForNew * 1000 * 60 * 60 * 24;
-        this.data = this.data.map((item) => {
-          item.isNew = (today - new Date(item.date) < threshold);
-          return item;
-        });
+        this.data = this.data.map((item) => ({
+          ...item,
+          isNew: (today - new Date(item.date) < threshold),
+        }));
       }
       this.finishLoading();
     },

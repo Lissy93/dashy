@@ -46,64 +46,17 @@ sections:
     url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
     icon: far fa-hands-helping
 
-- name: Service Status Monitoring
+- name: System Overview
   icon: fas fa-server
   widgets:
     - type: compact-glance
       options:
-        title: "Web Server"
-        icon: "fas fa-globe"
-        status: "up"
-        link: "https://github.com/Lissy93/dashy"
-        metrics:
-          - label: "Latency"
-            value: "23ms"
-    
-    - type: compact-glance
-      options:
-        title: "Database"
-        icon: "fas fa-database"
-        status: "up"
-        link: "https://www.baidu.com"
-        metrics:
-          - label: "Connections"
-            value: "45"
-    
-    - type: compact-glance
-      options:
-        title: "Backup Service"
-        icon: "fas fa-cloud"
-        status: "warn"
-        link: "https://www.google.com"
-        metrics:
-          - label: "Last Backup"
-            value: "2h ago"
-    
-    - type: compact-glance
-      options:
-        title: "Monitoring"
-        icon: "fas fa-chart-line"
-        status: "up"
-        link: "https://github.com"
-        metrics:
-          - label: "Alerts"
-            value: "0"
-    
-    - type: compact-glance
-      options:
-        title: "File Server"
-        icon: "fas fa-folder"
-        status: "down"
-        link: "https://stackoverflow.com"
-        metrics:
-          - label: "Status"
-            value: "Offline"
-    
-    - type: compact-glance
-      options:
-        title: "Mail Server"
-        icon: "fas fa-envelope"
-        status: "up"
-        link: "https://www.bilibili.com"
+        endpoint: http://127.0.0.1:61208/api/4/all
+        useProxy: false
+        poll: 5
+        map:
+          cpu: $.cpu.total
+          mem: $.mem.percent
+          load: $.load.min1
 
 
