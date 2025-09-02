@@ -90,13 +90,7 @@ export default {
           : this.endpoint;
         // eslint-disable-next-line no-console
         console.log('Fetching data from:', url);
-        const res = await fetch(url, {
-          method: 'GET',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        const res = await fetch(url);
         const data = await res.json();
         // eslint-disable-next-line no-console
         console.log('API Response - CPU:', data.cpu?.total, 'MEM:', data.mem?.percent, 'LOAD:', data.load?.min1);
@@ -137,14 +131,14 @@ export default {
         // eslint-disable-next-line no-console
         console.error('Glances API Error:', e);
         // eslint-disable-next-line no-console
-        console.log('Using fallback data');
-        // 使用模拟数据
-        this.cpu = Math.random() * 10 + 2;
-        this.memory = Math.random() * 30 + 20;
-        this.load = Math.random() * 3 + 0.5;
-        this.cpuUser = Math.random() * 5 + 1;
-        this.cpuSystem = Math.random() * 3 + 0.5;
-        this.cpuIowait = Math.random() * 2;
+        console.log('Using fallback data - API connection failed');
+        // API失败时的后备数据
+        this.cpu = 0;
+        this.memory = 0;
+        this.load = 0;
+        this.cpuUser = 0;
+        this.cpuSystem = 0;
+        this.cpuIowait = 0;
       }
     },
   },
