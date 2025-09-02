@@ -4,7 +4,7 @@
     :icon="icon"
     :uniqueKey="groupId"
     :collapsed="displayData.collapsed"
-    :cols="displayData.cols"
+    :cols="effectiveColsSpan"
     :rows="displayData.rows"
     :color="displayData.color"
     :customStyles="displayData.customStyles"
@@ -14,7 +14,6 @@
     :id="sectionRef"
     :ref="sectionRef"
   >
-  {{ activeColCount }}
     <!-- If no items, show message -->
     <div v-if="isEmpty" class="no-items">
       {{ $t('home.no-items-section') }}
@@ -129,7 +128,7 @@ export default {
     widgets: Array,
     index: Number,
     isWide: Boolean,
-    activeColCount: Number,
+    activeColCount: String,
   },
   components: {
     Collapsable,
@@ -210,6 +209,9 @@ export default {
           ? `grid-template-rows: repeat(${this.displayData.itemCountY}, minmax(0, 1fr));` : '';
       }
       return styles;
+    },
+    effectiveColsSpan() {
+      return Math.min(this.activeColCount, this.displayData.cols);
     },
   },
   methods: {

@@ -85,7 +85,7 @@ export default {
     layout: '',
     itemSizeBound: '',
     addNewSectionOpen: false,
-    activeColCount: 1,
+    activeColCount: '1',
   }),
   computed: {
     singleSectionView() {
