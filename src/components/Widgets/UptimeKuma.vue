@@ -24,7 +24,7 @@
               </span>
             </div>
             <div class="status-container response-time">
-              <span v-if="monitor.responseTime || monitor.responseTime === '0'">
+              <span v-if="monitor.responseTime">
                 {{ monitor.responseTime }}ms
               </span>
             </div>
