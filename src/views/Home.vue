@@ -21,7 +21,6 @@
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass"
     ref="sectionsContainer">
-      <span style="position: absolute;">{{readActiveColCount()}}</span>
       <template v-for="(section, index) in filteredSections">
         <Section
           :key="index"
@@ -38,6 +37,7 @@
           @change-modal-visibility="updateModalVisibility"
           :isWide="!!singleSectionView || layoutOrientation === 'horizontal'"
           :class="(searchValue && section.filteredItems.length === 0) ? 'no-results' : ''"
+          :activeColCount="activeColCount"
         />
       </template>
       <!-- Show add new section button, in edit mode -->
@@ -85,6 +85,7 @@ export default {
     layout: '',
     itemSizeBound: '',
     addNewSectionOpen: false,
+    activeColCount: 1,
   }),
   computed: {
     singleSectionView() {
@@ -179,7 +180,7 @@ export default {
       if (!sectionsContainer) return;
       const cs = getComputedStyle(sectionsContainer);
       const varVal = cs.getPropertyValue('--col-count').trim();
-      console.log(varVal);
+      this.activeColCount = varVal;
     },
   },
   mounted() {
@@ -187,6 +188,7 @@ export default {
     this.initiateMaterialDesignIcons();
     this.layout = this.layoutOrientation;
     this.itemSizeBound = this.iconSize;
+    this.readActiveColCount();
   },
 };
 </script>

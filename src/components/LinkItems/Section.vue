@@ -14,6 +14,7 @@
     :id="sectionRef"
     :ref="sectionRef"
   >
+  {{ activeColCount }}
     <!-- If no items, show message -->
     <div v-if="isEmpty" class="no-items">
       {{ $t('home.no-items-section') }}
@@ -128,6 +129,7 @@ export default {
     widgets: Array,
     index: Number,
     isWide: Boolean,
+    activeColCount: Number,
   },
   components: {
     Collapsable,
