@@ -19,7 +19,9 @@
       </router-link>
     </div>
     <!-- Main content, section for each group of items -->
-    <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass">
+    <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass"
+    ref="sectionsContainer">
+      <span style="position: absolute;">{{readActiveColCount()}}</span>
       <template v-for="(section, index) in filteredSections">
         <Section
           :key="index"
@@ -171,6 +173,13 @@ export default {
       }
       availibleThemes.Default = '#';
       return availibleThemes;
+    },
+    readActiveColCount() {
+      const { sectionsContainer } = this.$refs;
+      if (!sectionsContainer) return;
+      const cs = getComputedStyle(sectionsContainer);
+      const varVal = cs.getPropertyValue('--col-count').trim();
+      console.log(varVal);
     },
   },
   mounted() {
