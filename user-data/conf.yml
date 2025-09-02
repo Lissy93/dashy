@@ -17,6 +17,10 @@ appConfig:
 sections:
 - name: Getting Started
   icon: fas fa-rocket
+  displayData:
+    sortBy: default
+    rows: 1
+    cols: 4
   items:
   - title: Dashy Live
     description: Development a project management links for Dashy
