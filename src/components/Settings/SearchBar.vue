@@ -89,7 +89,7 @@ export default {
       akn: new ArrowKeyNavigation(),
       getCustomKeyShortcuts,
       showSearchPanel: false,
-  // goToLinkEnabled is now managed by Vuex/appConfig
+    // goToLinkEnabled is now managed by Vuex/appConfig
     };
   },
   computed: {

@@ -73,10 +73,10 @@ const store = new Vuex.Store({
       if (!state.config) return {};
       return state.config.appConfig || {};
     },
-      goToLinkEnabled(state, getters) {
-        // Default to true if not set
-        return typeof getters.appConfig.goToLinkEnabled === 'boolean' ? getters.appConfig.goToLinkEnabled : true;
-      },
+    goToLinkEnabled(state, getters) {
+      // Default to true if not set
+      return typeof getters.appConfig.goToLinkEnabled === 'boolean' ? getters.appConfig.goToLinkEnabled : true;
+    },
     sections(state) {
       return filterUserSections(state.config.sections || []);
     },
@@ -241,11 +241,11 @@ const store = new Vuex.Store({
       if (!state.config.appConfig) state.config.appConfig = {};
       state.config.appConfig.disableWebSearch = value;
     },
-      // Dynamically update goToLinkEnabled in appConfig
-      setGoToLinkEnabled(state, value) {
-        if (!state.config.appConfig) state.config.appConfig = {};
-        state.config.appConfig.goToLinkEnabled = value;
-      },
+    // Dynamically update goToLinkEnabled in appConfig
+    setGoToLinkEnabled(state, value) {
+      if (!state.config.appConfig) state.config.appConfig = {};
+      state.config.appConfig.goToLinkEnabled = value;
+    },
     [UPDATE_SECTION](state, payload) {
       const { sectionIndex, sectionData } = payload;
       const newConfig = { ...state.config };
