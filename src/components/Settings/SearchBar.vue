@@ -1,7 +1,3 @@
-// ...existing code...
-  methods: {
-
-    },
 <template>
   <div class = "search-settings-row">
     <form
