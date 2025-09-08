@@ -55,7 +55,8 @@
         <label class="theme-label">
           <input
             type="checkbox"
-            v-model="goToLinkEnabled"
+            :checked="goToLinkEnabled"
+            @change="goToLinkEnabled = $event.target.checked"
           />
           Go to Link (auto-detect links)
         </label>
@@ -92,7 +93,7 @@ export default {
       akn: new ArrowKeyNavigation(),
       getCustomKeyShortcuts,
       showSearchPanel: false,
-      goToLinkEnabled: true, // default: enabled
+  // goToLinkEnabled is now managed by Vuex/appConfig
     };
   },
   computed: {
@@ -101,6 +102,20 @@ export default {
     },
     searchPrefs() {
       return this.$store.getters.webSearch || {};
+    },
+    goToLinkEnabled: {
+      get() {
+        return this.$store.getters.goToLinkEnabled;
+      },
+      set(value) {
+        this.$store.commit('setGoToLinkEnabled', value);
+        // Also update appConfig in store for persistence
+        const newAppConfig = {
+          ...this.$store.getters.appConfig,
+          goToLinkEnabled: value,
+        };
+        this.$store.commit('SET_APP_CONFIG', newAppConfig);
+      },
     },
   },
   mounted() {
