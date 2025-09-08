@@ -44,7 +44,7 @@
           <input
             type="checkbox"
             :checked="searchPrefs.disableWebSearch"
-            @change="toggleDisableWebSearch($event)"
+            @change="toggleDisableWebSearch"
           />
           Disable Web Search
         </label>
