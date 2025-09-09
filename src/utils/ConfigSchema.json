@@ -955,6 +955,12 @@
                   "nullable": true,
                   "description": "An icon, either as a font-awesome, simple-icon, selfh.st, or mdi identifier, emoji, favicon, generative or the URL/path to a local or remote icon asset"
                 },
+                "hidden": {
+                  "title": "Hidden from Homepage",
+                  "type": "boolean",
+                  "default": false,
+                  "description": "If true, this item will be hidden from the homepage/dashboard but still searchable."
+                },
                 "url": {
                   "title": "Service URL",
                   "type": "string",
