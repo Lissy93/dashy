@@ -152,6 +152,7 @@ export default {
       sectionWidth: 0,
       resizeObserver: null,
       isCollapsed: false,
+      autoOpenedBySearch: false,
     };
   },
   computed: {
@@ -229,6 +230,11 @@ export default {
         const hasHits = this.items.length > 0;
         if (searchIsActive && hasHits && this.isCollapsed) {
           this.expandCollapseSection();
+          this.autoOpenedBySearch = true;
+        }
+        if (this.autoOpenedBySearch && (!searchIsActive || !hasHits)) {
+          this.expandCollapseSection();
+          this.autoOpenedBySearch = false;
         }
       },
       immediate: true,
