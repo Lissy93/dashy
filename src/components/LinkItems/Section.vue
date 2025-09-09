@@ -151,6 +151,7 @@ export default {
       },
       sectionWidth: 0,
       resizeObserver: null,
+      isCollapsed: false,
     };
   },
   computed: {
@@ -226,7 +227,7 @@ export default {
           searchIsActive = true;
         }
         const hasHits = this.items.length > 0;
-        if (searchIsActive && hasHits) {
+        if (searchIsActive && hasHits && this.isCollapsed) {
           this.expandCollapseSection();
         }
       },
@@ -276,7 +277,12 @@ export default {
     expandCollapseSection() {
       const secElem = this.$refs[this.sectionRef];
       if (secElem) secElem.toggle();
+      this.toggleCollapsedState();
       this.closeContextMenu();
+    },
+    /* Toggle sections collapse state tracking */
+    toggleCollapsedState() {
+      this.isCollapsed = !this.isCollapsed;
     },
     /* Open the Section Edit Menu */
     openEditSection() {
@@ -327,6 +333,9 @@ export default {
     if (this.$refs[this.sectionRef]) {
       this.resizeObserver = new ResizeObserver(this.calculateSectionWidth)
         .observe(this.$refs[this.sectionRef].$el);
+    }
+    if (this.displayData.collapsed) {
+      this.isCollapsed = this.displayData.collapsed;
     }
   },
   beforeDestroy() {
