@@ -51,12 +51,6 @@ sections:
   widgets:
     - type: compact-glance
       options:
-        endpoint: http://127.0.0.1:61208/api/4/all
-        useProxy: false
-        poll: 5
-        map:
-          cpu: $.cpu.total
-          mem: $.mem.percent
-          load: $.load.min1
+        poll: 3
 
 

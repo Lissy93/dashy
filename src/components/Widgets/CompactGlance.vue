@@ -85,54 +85,67 @@ export default {
   methods: {
     async loadData() {
       try {
-        const url = this.useProxy
-          ? `/api/proxy?url=${encodeURIComponent(this.endpoint)}`
-          : this.endpoint;
+        // 连接本地系统API
+        const apiUrl = 'http://127.0.0.1:8888/api/system';
         // eslint-disable-next-line no-console
-        console.log('Fetching data from:', url);
-        const res = await fetch(url);
-        const data = await res.json();
+        console.log('Fetching real system data from:', apiUrl);
+        
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+          },
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
         // eslint-disable-next-line no-console
-        console.log('API Response - CPU:', data.cpu?.total, 'MEM:', data.mem?.percent, 'LOAD:', data.load?.min1);
-
-        // CPU数据
+        console.log('Real system data received:', data);
+        
+        // 更新CPU数据
         if (data.cpu) {
           this.cpu = data.cpu.total || 0;
           this.cpuUser = data.cpu.user || 0;
           this.cpuSystem = data.cpu.system || 0;
           this.cpuIowait = data.cpu.iowait || 0;
+          this.coreCount = data.cpu.count || 4;
+          this.cpuModel = data.cpu.model || 'Unknown CPU';
         }
-
-        // 内存数据
-        if (data.mem) {
-          this.memory = data.mem.percent || 0;
+        
+        // 更新内存数据
+        if (data.memory) {
+          this.memory = data.memory.percent || 0;
         }
-
-        // 负载数据
+        
+        // 更新负载数据
         if (data.load) {
-          this.load = data.load.min1 || 0;
+          this.load = data.load.avg_1 || 0;
         }
-
-        // 系统信息
+        
+        // 更新系统信息
         if (data.system) {
-          this.hostname = data.system.hostname || 'brick';
-          if (data.system.os_name && data.system.os_version) {
-            this.systemInfo = `${data.system.os_name} ${data.system.os_version}`;
-          }
+          this.hostname = data.system.hostname || 'localhost';
+          this.systemInfo = `${data.system.os_name || 'Unknown OS'} ${data.system.architecture || ''}`;
         }
-
-        // CPU型号
-        if (data.cpu && data.cpu.model) {
-          this.cpuModel = `${data.cpu.model.substring(0, 30)}...`;
+        
+        // 更新网络信息
+        if (data.network) {
+          this.ipAddress = `${data.network.ip || '127.0.0.1'}/24`;
         }
-
-        this.coreCount = data.cpu?.cpucore || 4;
-      } catch (e) {
+        
         // eslint-disable-next-line no-console
-        console.error('Glances API Error:', e);
+        console.log(`Real data - CPU: ${this.cpu}%, MEM: ${this.memory}%, LOAD: ${this.load}`);
+        
+      } catch (error) {
         // eslint-disable-next-line no-console
-        console.log('Using fallback data - API connection failed');
-        // API失败时的后备数据
+        console.error('Failed to fetch real system data:', error);
+        // eslint-disable-next-line no-console
+        console.log('Please make sure system-api.py is running on http://127.0.0.1:8888');
+        
+        // 使用默认值
         this.cpu = 0;
         this.memory = 0;
         this.load = 0;
