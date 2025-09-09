@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "/app/.tsbuildinfo",
     "target": "esnext",
     "module": "esnext",
     "strict": false,

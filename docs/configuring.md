@@ -93,7 +93,9 @@ The following file provides a reference of all supported configuration options.
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`name`** | `string` |  Required | A unique name for that page
-**`path`** | `string` |  Required | The path (local or remote) to the config file to use.<br>For files located within `/public`, you only need to specify filename, for externally hosted files you must include the full URL
+**`path`** | `string` |  Required | The path (local or remote) to the config file to use.<br>For files located within `/user-data`, you only need to specify filename, for externally hosted files you must include the full URL
+
+For more info, see the[Multi-Page docs](/docs/pages-and-sections.md#multi-page-support)
 
 **[⬆️ Back to Top](#configuring)**
 
@@ -202,6 +204,8 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 --- | --- | --- | ---
 **`clientId`** | `string` | Required | The client id registered in the OIDC server
 **`endpoint`** | `string` | Required | The URL of the OIDC server that should be used.
+**`adminRole`** | `string` | _Optional_ | The role that will be considered as admin.
+**`adminGroup`** | `string` | _Optional_ | The group that will be considered as admin.
 **`scope`** | `string` | Required | The scope(s) to request from the OIDC provider
 
 **[⬆️ Back to Top](#configuring)**
@@ -320,7 +324,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
-**`icon`** | `string` | _Optional_ | The icon for a given item or section. <br>See [Icon Docs](/docs/icons.md) for all available supported icon types, including: auto-fetched favicons, generative icons, emoji icons, home-lab service logos, font-awesome, simple-icons, material icons, and icons specified by URL
+**`icon`** | `string` | _Optional_ | The icon for a given item or section. <br>See [Icon Docs](/docs/icons.md) for all available supported icon types, including: auto-fetched favicons, generative icons, emoji icons, home-lab service logos, font-awesome, simple-icons, material icons, selfh.st icons, and icons specified by URL
 
 **[⬆️ Back to Top](#configuring)**
 

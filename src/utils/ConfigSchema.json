@@ -566,6 +566,18 @@
                   "type": "string",
                   "description": "ClientId from OIDC provider"
                 },
+                "adminRole" : {
+                  "title": "Admin Role",
+                  "type": "string",
+                  "default": false,
+                  "description": "The role that will be considered as admin. If not set, no roles will be considered as admin"
+                },
+                "adminGroup" : {
+                  "title": "Admin Group",
+                  "type": "string",
+                  "default": false,
+                  "description": "The group that will be considered as admin. If not set, no groups will be considered as admin"
+                },
                 "scope" : {
                     "title": "OIDC Scope",
                     "type": "string",
@@ -941,7 +953,7 @@
                   "title": "Icon",
                   "type": "string",
                   "nullable": true,
-                  "description": "An icon, either as a font-awesome, simple-icon or mdi identifier, emoji, favicon, generative or the URL/ path to a local or remote icon asset"
+                  "description": "An icon, either as a font-awesome, simple-icon, selfh.st, or mdi identifier, emoji, favicon, generative or the URL/path to a local or remote icon asset"
                 },
                 "url": {
                   "title": "Service URL",
