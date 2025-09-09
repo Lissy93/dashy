@@ -130,6 +130,7 @@ export default {
     index: Number,
     isWide: Boolean,
     activeColCount: Number,
+    searchTerm: String,
   },
   components: {
     Collapsable,
@@ -215,6 +216,21 @@ export default {
       const { cols } = this.displayData;
       if (!cols) return cols;
       return Math.min(this.activeColCount, cols);
+    },
+  },
+  watch: {
+    searchTerm: {
+      handler(newSeachTerm) {
+        let searchIsActive = false;
+        if (newSeachTerm && newSeachTerm.trim().length > 0) {
+          searchIsActive = true;
+        }
+        const hasHits = this.items.length > 0;
+        if (searchIsActive && hasHits) {
+          this.expandCollapseSection();
+        }
+      },
+      immediate: true,
     },
   },
   methods: {
