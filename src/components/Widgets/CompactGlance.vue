@@ -89,22 +89,22 @@ export default {
         const apiUrl = 'http://127.0.0.1:8888/api/system';
         // eslint-disable-next-line no-console
         console.log('Fetching real system data from:', apiUrl);
-        
+
         const response = await fetch(apiUrl, {
           method: 'GET',
           headers: {
-            'Accept': 'application/json',
+            Accept: 'application/json',
           },
         });
-        
+
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
-        
+
         const data = await response.json();
         // eslint-disable-next-line no-console
         console.log('Real system data received:', data);
-        
+
         // 更新CPU数据
         if (data.cpu) {
           this.cpu = data.cpu.total || 0;
@@ -114,37 +114,36 @@ export default {
           this.coreCount = data.cpu.count || 4;
           this.cpuModel = data.cpu.model || 'Unknown CPU';
         }
-        
+
         // 更新内存数据
         if (data.memory) {
           this.memory = data.memory.percent || 0;
         }
-        
+
         // 更新负载数据
         if (data.load) {
           this.load = data.load.avg_1 || 0;
         }
-        
+
         // 更新系统信息
         if (data.system) {
           this.hostname = data.system.hostname || 'localhost';
           this.systemInfo = `${data.system.os_name || 'Unknown OS'} ${data.system.architecture || ''}`;
         }
-        
+
         // 更新网络信息
         if (data.network) {
           this.ipAddress = `${data.network.ip || '127.0.0.1'}/24`;
         }
-        
+
         // eslint-disable-next-line no-console
         console.log(`Real data - CPU: ${this.cpu}%, MEM: ${this.memory}%, LOAD: ${this.load}`);
-        
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error('Failed to fetch real system data:', error);
         // eslint-disable-next-line no-console
         console.log('Please make sure system-api.py is running on http://127.0.0.1:8888');
-        
+
         // 使用默认值
         this.cpu = 0;
         this.memory = 0;
