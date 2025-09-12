@@ -13,8 +13,21 @@ RUN \
 
 # Create and set the working directory
 WORKDIR /app
-
+# Install python/pip
+#ENV PYTHONUNBUFFERED=1
+#RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 # Install app dependencies
+#RUN apk add cairo
+RUN apk add --no-cache  python3     g++  make build-base cairo-dev jpeg-dev pango-dev \
+    musl-dev \
+    giflib-dev \
+    pixman-dev \
+    pangomm-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    && npm install canvas@3.1.0
+
+
 COPY package.json yarn.lock ./
 RUN yarn install --ignore-engines --immutable --no-cache --network-timeout 300000 --network-concurrency 1
 
@@ -37,6 +50,15 @@ WORKDIR ${DIRECTORY}
 
 # Update tzdata for setting timezone
 RUN apk add --no-cache tzdata
+
+RUN apk add --no-cache  python3     g++  make build-base cairo-dev jpeg-dev pango-dev \
+    musl-dev \
+    giflib-dev \
+    pixman-dev \
+    pangomm-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    && npm install canvas@3.1.0
 
 # Copy built application from build phase
 COPY --from=BUILD_IMAGE /app ./
