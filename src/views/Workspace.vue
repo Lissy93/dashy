@@ -46,6 +46,16 @@ export default {
   },
   methods: {
     launchApp(options) {
+      const { url, target } = options;
+      if (target === 'clipboard') {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(url);
+          this.$toasted.show('Copied to clipboard!');
+        } else {
+          this.$toasted.show('Clipboard API not supported');
+        }
+        return;
+      }
       if (options.target === 'newtab') {
         window.open(options.url, '_blank');
       } else {
