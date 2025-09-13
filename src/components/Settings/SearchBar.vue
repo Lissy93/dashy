@@ -1,29 +1,71 @@
 <template>
-  <form @submit.prevent="searchSubmitted" :class="minimalSearch ? 'minimal' : 'normal'">
-    <label for="filter-tiles">{{ $t('search.search-label') }}</label>
-    <div class="search-wrap">
-      <input
-        id="filter-tiles"
-        v-model="input"
-        ref="filter"
-        :placeholder="$t('search.search-placeholder')"
-        v-on:input="userIsTypingSomething"
-        @keydown.esc="clearFilterInput" />
-        <p v-if="(!searchPrefs.disableWebSearch) && input.length > 0" class="web-search-note">
+  <div class = "search-settings-row">
+    <form
+      @submit.prevent="searchSubmitted"
+      :class="minimalSearch ? 'minimal' : 'normal'"
+    >
+      <label for="filter-tiles">
+        {{ $t('search.search-label') }}
+      </label>
+      <div class="search-wrap">
+        <input
+          id="filter-tiles"
+          v-model="input"
+          ref="filter"
+          :placeholder="$t('search.search-placeholder')"
+          v-on:input="userIsTypingSomething"
+          @keydown.esc="clearFilterInput"
+        />
+        <p
+          v-if="(!searchPrefs.disableWebSearch) && input.length > 0"
+          class="web-search-note"
+        >
           {{ $t('search.enter-to-search-web') }}
         </p>
       </div>
-      <i v-if="input.length > 0"
+      <i
+        v-if="input.length > 0"
         class="clear-search"
         :title="$t('search.clear-search-tooltip')"
-        @click="clearFilterInput">x</i>
-  </form>
+        @click="clearFilterInput"
+      >x</i>
+    </form>
+    <div class="settings-block">
+      <button
+        @click="showSearchPanel = !showSearchPanel"
+        class="settings-toggle"
+        type="button"
+        v-tooltip="showSearchPanel ? $t('Hide Search Options') : $t('Show Search Options')"
+      >
+        <IconConfigEditor />
+      </button>
+      <div v-show="showSearchPanel" class="floating-search-panel">
+        <label class="theme-label">
+          <input
+            type="checkbox"
+            :checked="searchPrefs.disableWebSearch"
+            @change="toggleDisableWebSearch"
+          />
+          Disable Web Search
+        </label>
+        <label class="theme-label">
+          <input
+            type="checkbox"
+            :checked="goToLinkEnabled"
+            @change="goToLinkEnabled = $event.target.checked"
+          />
+          Go to Link (auto-detect links)
+        </label>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import router from '@/router';
 import ArrowKeyNavigation from '@/utils/ArrowKeyNavigation';
 import ErrorHandler from '@/utils/ErrorHandler';
+import IconConfigEditor from '@/assets/interface-icons/config-editor.svg';
 import { getCustomKeyShortcuts } from '@/utils/ConfigHelpers';
 import { getSearchEngineFromBang, findUrlForSearchEngine, stripBangs } from '@/utils/Search';
 import {
@@ -38,11 +80,16 @@ export default {
   props: {
     minimalSearch: Boolean, // If true, then keep it simple
   },
+  components: {
+    IconConfigEditor,
+  },
   data() {
     return {
-      input: '', // Users current search term
-      akn: new ArrowKeyNavigation(), // Class that manages arrow key naviagtion
+      input: '',
+      akn: new ArrowKeyNavigation(),
       getCustomKeyShortcuts,
+      showSearchPanel: false,
+    // goToLinkEnabled is now managed by Vuex/appConfig
     };
   },
   computed: {
@@ -52,6 +99,20 @@ export default {
     searchPrefs() {
       return this.$store.getters.webSearch || {};
     },
+    goToLinkEnabled: {
+      get() {
+        return this.$store.getters.goToLinkEnabled;
+      },
+      set(value) {
+        this.$store.commit('setGoToLinkEnabled', value);
+        // Also update appConfig in store for persistence
+        const newAppConfig = {
+          ...this.$store.getters.appConfig,
+          goToLinkEnabled: value,
+        };
+        this.$store.commit('SET_APP_CONFIG', newAppConfig);
+      },
+    },
   },
   mounted() {
     window.addEventListener('keydown', this.handleKeyPress);
@@ -60,6 +121,18 @@ export default {
     window.removeEventListener('keydown', this.handleKeyPress);
   },
   methods: {
+    toggleDisableWebSearch(event) {
+      const value = event.target.checked;
+      const newAppConfig = {
+        ...this.$store.getters.appConfig,
+        webSearch: {
+          ...this.$store.getters.appConfig.webSearch,
+          disableWebSearch: value,
+        },
+      };
+      this.$store.commit('setDisableWebSearch', value);
+      this.$store.commit('SET_APP_CONFIG', newAppConfig);
+    },
     /* Call correct function dependending on which key is pressed */
     handleKeyPress(event) {
       const currentElem = document.activeElement.id;
@@ -123,25 +196,45 @@ export default {
 
     /* Launch web search, to correct search engine, passing in users query */
     searchSubmitted() {
-      // Get search preferences from appConfig
-      const { searchPrefs } = this;
-      if (!searchPrefs.disableWebSearch) { // Only proceed if user hasn't disabled web search
+      const { searchPrefs, goToLinkEnabled } = this;
+      const input = this.input.trim();
+      // 1. If "Go to Link" is enabled and input is URL-like, always open as link
+      if (goToLinkEnabled && this.isUrlLike(input)) {
+        window.open(this.normalizeUrl(input), '_blank');
+        this.clearFilterInput();
+        return;
+      }
+      // 2. If not URL-like, or "Go to Link" is disabled, only search if web search is enabled
+      if (!searchPrefs.disableWebSearch) {
         const bangList = { ...defaultSearchBangs, ...(searchPrefs.searchBangs || {}) };
         const openingMethod = searchPrefs.openingMethod || defaultSearchOpeningMethod;
-        const searchBang = getSearchEngineFromBang(this.input, bangList);
+        const searchBang = getSearchEngineFromBang(input, bangList);
         const searchEngine = searchPrefs.searchEngine || defaultSearchEngine;
-        // Use either search bang, or preffered search engine
         const desiredSearchEngine = searchBang || searchEngine;
         const isCustomSearch = (searchPrefs.searchEngine === 'custom' && searchPrefs.customSearchEngine);
         let searchUrl = isCustomSearch
           ? searchPrefs.customSearchEngine
           : findUrlForSearchEngine(desiredSearchEngine, searchEngineUrls);
-        if (searchUrl) { // Append search query to URL, and launch
-          searchUrl += encodeURIComponent(stripBangs(this.input, bangList));
+        if (searchUrl) {
+          searchUrl += encodeURIComponent(stripBangs(input, bangList));
           this.launchWebSearch(searchUrl, openingMethod);
           this.clearFilterInput();
         }
       }
+    },
+    // Utility: Detect if input is a URL or domain-like string
+    isUrlLike(input) {
+      // Matches URLs with protocol, www, or domain.tld (e.g., youtube.com)
+      const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[a-zA-Z]{2,}(\/.*)?$/;
+      return urlPattern.test(input.trim());
+    },
+    // Utility: Normalize input to a full URL (adds https:// if missing)
+    normalizeUrl(input) {
+      let url = input.trim();
+      if (!/^https?:\/\//.test(url)) {
+        url = `https://${url}`;
+      }
+      return url;
     },
   },
 };
@@ -151,10 +244,16 @@ export default {
 
 @import '@/styles/media-queries.scss';
 
+  .search-settings-row {
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    // width: 100%;
+  }
   form.normal {
     display: flex;
     align-items: center;
-    border-radius: 0 0 var(--curve-factor-navbar) 0;
+    // border-radius: 0 0 var(--curve-factor-navbar) 0;
     padding: 0 0.2rem 0.2rem 0;
     background: var(--search-container-background);
     .search-wrap {
@@ -208,6 +307,52 @@ export default {
         opacity: 1;
         background: var(--background-darker);
       }
+    }
+  }
+
+  .settings-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0.5rem 0;
+    width: 100%;
+    position: relative;
+
+    border-radius: 0 0 var(--curve-factor-navbar) 0;
+    padding: 0 0.2rem 0.2rem 0;
+    background: var(--search-container-background);
+    .settings-toggle {
+      background: var(--settings-background);
+      color: var(--settings-text-color);
+      border: none;
+      padding: 0.5rem;
+      margin: 0.5rem 0.5rem 0.5rem 0;
+      border-radius: var(--curve-factor);
+      cursor: pointer;
+      &:hover {
+        background: var(--settings-text-color);
+        color: var(--settings-background);
+      }
+    }
+
+    .settings-toggle svg {
+      width: 1rem;
+      height: 1rem;
+      fill: currentColor;
+      display: block;
+    }
+
+    .floating-search-panel {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 180px;
+      max-width: max-content;
+      background: var(--settings-background);
+      border: 1px solid var(--settings-text-color);
+      border-radius: var(--curve-factor);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      z-index: 10;
     }
   }
 
@@ -277,5 +422,12 @@ export default {
         background: var(--minimal-view-search-color);
       }
     }
+  }
+  .theme-label {
+    color: var(--settings-text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
   }
 </style>

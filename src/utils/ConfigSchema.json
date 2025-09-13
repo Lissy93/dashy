@@ -183,6 +183,12 @@
     "appConfig": {
       "type": "object",
       "properties": {
+        "goToLinkEnabled": {
+          "title": "Go To Link Enabled",
+          "type": "boolean",
+          "default": true,
+          "description": "If true, enables Go to Link (auto-detect links) in the search bar."
+        },
         "startingView": {
           "title": "Starting View",
           "type": "string",
