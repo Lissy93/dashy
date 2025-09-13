@@ -57,7 +57,8 @@ export default {
     },
     endpoint() {
       const { apiKey, city } = this.options;
-      const params = `?q=${city}&cnt=${this.numDays}&units=${this.units}&appid=${apiKey}`;
+      const count = this.numDays * 8;
+      const params = `?q=${city}&cnt=${count}&units=${this.units}&appid=${apiKey}`;
       return `${widgetApiEndpoints.weatherForecast}${params}`;
     },
     tempDisplayUnits() {
@@ -92,9 +93,12 @@ export default {
     /* Process the results from the Axios request */
     processData(dataList) {
       const uiWeatherData = [];
-      dataList.list.forEach((day, index) => {
+
+      const step = 8;
+      for (let i = 1; i < dataList.list.length; i += step) {
+        const day = dataList.list[i];
         uiWeatherData.push({
-          index,
+          index: i,
           date: this.dateFromStamp(day.dt),
           icon: day.weather[0].icon,
           main: day.weather[0].main,
@@ -102,7 +106,7 @@ export default {
           temp: this.processTemp(day.main.temp),
           info: this.makeWeatherData(day),
         });
-      });
+      }
       this.weatherData = uiWeatherData;
     },
     /* Process additional data, needed when user clicks a given day */
