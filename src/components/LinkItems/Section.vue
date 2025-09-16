@@ -11,6 +11,7 @@
     :cutToHeight="displayData.cutToHeight"
     @openEditSection="openEditSection"
     @openContextMenu="openContextMenu"
+    @collapse-change="onCollapseChange"
     :id="sectionRef"
     :ref="sectionRef"
   >
@@ -283,12 +284,11 @@ export default {
     expandCollapseSection() {
       const secElem = this.$refs[this.sectionRef];
       if (secElem) secElem.toggle();
-      this.toggleCollapsedState();
       this.closeContextMenu();
     },
     /* Toggle sections collapse state tracking */
-    toggleCollapsedState() {
-      this.isCollapsed = !this.isCollapsed;
+    onCollapseChange(childExpanded) {
+      this.isCollapsed = !childExpanded;
     },
     /* Open the Section Edit Menu */
     openEditSection() {
