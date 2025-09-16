@@ -155,6 +155,7 @@ export default {
       resizeObserver: null,
       isCollapsed: false,
       autoOpenedBySearch: false,
+      showHiddenMode: false,
     };
   },
   computed: {
@@ -228,7 +229,7 @@ export default {
       if (this.isEditMode) return true;
 
       // If not hidden, render as usual
-      if (!hidden) return true;
+      if (!hidden || this.showHiddenMode) return true;
 
       // If hidden, only show when search is active AND this section has hits
       const searchActive = (this.searchTerm || '').trim().length > 0;
@@ -239,6 +240,8 @@ export default {
   watch: {
     searchTerm: {
       handler(newSeachTerm) {
+        const showHidden = newSeachTerm.trim().toLowerCase() === '<hidden>';
+        this.showHiddenMode = showHidden;
         let searchIsActive = false;
         if (newSeachTerm && newSeachTerm.trim().length > 0) {
           searchIsActive = true;

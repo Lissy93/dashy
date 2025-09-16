@@ -36,7 +36,8 @@
           @itemClicked="finishedSearching()"
           @change-modal-visibility="updateModalVisibility"
           :isWide="!!singleSectionView || layoutOrientation === 'horizontal'"
-          :class="(searchValue && section.filteredItems.length === 0) ? 'no-results' : ''"
+          :class="(searchValue &&
+          !isCodeSearch && section.filteredItems.length === 0) ? 'no-results' : ''"
           :activeColCount="activeColCount"
         />
       </template>
@@ -89,6 +90,11 @@ export default {
     activeColCount: 1,
   }),
   computed: {
+    isCodeSearch() {
+      const term = (this.searchTerm || this.searchValue || '').trim();
+      // true if it starts with "<" and ends with ">", with at least one char inside
+      return /^<[^>]+>$/.test(term);
+    },
     singleSectionView() {
       return this.findSingleSection(this.$store.getters.sections, this.$route.params.section);
     },
