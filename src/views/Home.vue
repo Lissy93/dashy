@@ -109,9 +109,15 @@ export default {
     /* Return sections with filtered items, that match users search term */
     filteredSections() {
       const sections = this.singleSectionView || this.sections;
+      const codeMode = this.isCodeSearch;
+
       return sections.map((_section) => {
         const section = _section;
-        section.filteredItems = this.filterTiles(section.items, this.searchValue);
+        if (codeMode) {
+          section.filteredItems = section.items;
+        } else {
+          section.filteredItems = this.filterTiles(section.items, this.searchValue);
+        }
         return section;
       });
     },
