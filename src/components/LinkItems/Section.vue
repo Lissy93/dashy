@@ -1,5 +1,6 @@
 <template>
   <Collapsable
+    v-if="shouldRenderSection"
     :title="title"
     :icon="icon"
     :uniqueKey="groupId"
@@ -219,6 +220,20 @@ export default {
       const { cols } = this.displayData;
       if (!cols) return cols;
       return Math.min(this.activeColCount, cols);
+    },
+    shouldRenderSection() {
+      const hidden = this.displayData?.hiddenOnPurpose === true;
+
+      // Always show in Edit Mode so the user can unhide it
+      if (this.isEditMode) return true;
+
+      // If not hidden, render as usual
+      if (!hidden) return true;
+
+      // If hidden, only show when search is active AND this section has hits
+      const searchActive = (this.searchTerm || '').trim().length > 0;
+      const hasHits = Array.isArray(this.items) && this.items.length > 0;
+      return searchActive && hasHits;
     },
   },
   watch: {

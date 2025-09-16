@@ -47,7 +47,7 @@ sections:
 - name: Stuff
   icon: fas fa-rocket
   displayData:
-    collapsed: true 
+    hiddenOnPurpose: true 
   items:
   - title: hidden tile 1
     description: Development a project management links for Dashy
