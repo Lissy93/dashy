@@ -6,14 +6,16 @@
       />
       <nav id="nav" v-if="navVisible">
         <!-- Render either router-link or anchor, depending if internal / external link -->
-        <template v-for="(link, index) in allLinks" :key="index">
+        <template v-for="(link, index) in allLinks">
           <router-link
             v-if="!isUrl(link.path)"
+            :key="index"
             :to="link.path"
             :class="['nav-item', link._isHome ? 'home-button' : '']"
           >{{ link.title }}</router-link>
           <a
             v-else
+            :key="index"
             :href="link.path"
             :target="determineTarget(link)"
             :class="['nav-item', link._isHome ? 'home-button' : '']"
@@ -56,7 +58,7 @@ export default {
         subPages = subPages.filter(p => !p.path.endsWith(`/${currentSubPageId}`));
       }
       const navLinks = this.links || [];
-  const homeButton = currentSubPageId ? [{ path: '/home/', title: 'Home', _isHome: true }] : [];
+      const homeButton = currentSubPageId ? [{ path: '/home/', title: 'Home', _isHome: true }] : [];
       return [...navLinks, ...subPages, ...homeButton];
     },
   },
