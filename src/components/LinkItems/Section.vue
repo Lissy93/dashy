@@ -240,17 +240,26 @@ export default {
   watch: {
     searchTerm: {
       handler(newSeachTerm) {
+        // find if special code search is used
         const showHidden = newSeachTerm.trim().toLowerCase() === '<hidden>';
         this.showHiddenMode = showHidden;
+
+        // check if search is active
         let searchIsActive = false;
         if (newSeachTerm && newSeachTerm.trim().length > 0) {
           searchIsActive = true;
         }
+
+        // check if search is hit
         const hasHits = this.items.length > 0;
+
+        // action if search is active and search hits and it was collapsed
         if (searchIsActive && hasHits && this.isCollapsed) {
           this.expandCollapseSection();
           this.autoOpenedBySearch = true;
         }
+
+        // action if that search is not a hit anymore
         if (this.autoOpenedBySearch && (!searchIsActive || !hasHits)) {
           this.expandCollapseSection();
           this.autoOpenedBySearch = false;
