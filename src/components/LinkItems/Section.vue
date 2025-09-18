@@ -128,6 +128,7 @@ export default {
     widgets: Array,
     index: Number,
     isWide: Boolean,
+    searchTerm: String,
   },
   components: {
     Collapsable,
@@ -178,7 +179,14 @@ export default {
     },
     /* If the sortBy attribute is specified, then return sorted data */
     sortedItems() {
-      const items = [...this.items];
+      // Filter out items with hidden: true, unless in edit mode or searching
+      let items = [...this.items];
+      if (!this.isEditMode) {
+        // Include hidden items only when there's an active search term
+        if (!this.searchTerm || this.searchTerm.trim() === '') {
+          items = items.filter(item => !item.hidden);
+        }
+      }
       if (this.appConfig.disableSmartSort) return items;
       if (this.sortOrder === 'alphabetical') {
         return this.sortAlphabetically(items);
