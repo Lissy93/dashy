@@ -93,6 +93,9 @@ const store = new Vuex.Store({
     webSearch(state, getters) {
       return getters.appConfig.webSearch || {};
     },
+    advancedSearch(state, getters) {
+      return getters.appConfig.advancedSearch || {};
+    },
     visibleComponents(state, getters) {
       return componentVisibility(getters.appConfig);
     },
@@ -245,6 +248,12 @@ const store = new Vuex.Store({
     setGoToLinkEnabled(state, value) {
       if (!state.config.appConfig) state.config.appConfig = {};
       state.config.appConfig.goToLinkEnabled = value;
+    },
+    // Update advanced search settings (partial merge)
+    setAdvancedSearch(state, value) {
+      if (!state.config.appConfig) state.config.appConfig = {};
+      const current = state.config.appConfig.advancedSearch || {};
+      state.config.appConfig.advancedSearch = { ...current, ...value };
     },
     [UPDATE_SECTION](state, payload) {
       const { sectionIndex, sectionData } = payload;
