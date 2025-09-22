@@ -410,6 +410,34 @@
             }
           }
         },
+        "advancedSearch": {
+          "title": "Advanced Search",
+          "type": "object",
+          "description": "Enable filtering search by specific fields",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "title": "Advanced Search Enabled",
+              "type": "boolean",
+              "default": false,
+              "description": "If true, only selected fields will be searched"
+            },
+            "fields": {
+              "title": "Advanced Search Fields",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title": { "type": "boolean", "default": false },
+                "description": { "type": "boolean", "default": false },
+                "provider": { "type": "boolean", "default": false },
+                "url": { "type": "boolean", "default": false },
+                "tags": { "type": "boolean", "default": false },
+                "domain": { "type": "boolean", "default": false }
+              },
+              "description": "Which fields to include in advanced search filtering"
+            }
+          }
+        },
         "enableFontAwesome": {
           "title": "Enable Font-Awesome?",
           "type": "boolean",
