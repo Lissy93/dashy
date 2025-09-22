@@ -60,7 +60,7 @@
           <input
             type="checkbox"
             :checked="advancedSearch.enabled"
-            @change="toggleAdvancedEnabled($event)"
+            @change="toggleAdvancedEnabled"
           />
           Advanced Search
         </label>
