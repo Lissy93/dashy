@@ -19,6 +19,26 @@
       </router-link>
     </div>
     <!-- Main content, section for each group of items -->
+    <!-- Exact match block (advanced search only) -->
+    <div v-if="showExactMatchBlock" class="exact-match-block">
+      <div class="exact-match-header">Exact Match</div>
+      <div class="exact-match-items">
+        <Section
+          v-for="(item, idx) in exactMatches"
+          :key="`exact-${item.id || idx}`"
+          :title="item.title"
+          :icon="item.icon || undefined"
+          :displayData="{ collapsed: false, sectionLayout: 'grid', itemSize: itemSizeBound }"
+          :groupId="`exact-match-${idx}`"
+          :items="[item]"
+          :widgets="[]"
+          :searchTerm="searchValue"
+          :itemSize="itemSizeBound"
+          @itemClicked="finishedSearching()"
+          :isWide="false"
+        />
+      </div>
+    </div>
     <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass">
       <template v-for="(section, index) in filteredSections">
         <Section
@@ -105,6 +125,22 @@ export default {
         return section;
       });
     },
+    showExactMatchBlock() {
+      if (!this.searchValue) return false;
+      const adv = this.appConfig?.advancedSearch || {};
+      if (!adv.enabled) return false;
+      return this.exactMatches.length > 0;
+    },
+    exactMatches() {
+      if (!this.searchValue) return [];
+      const term = this.searchValue.trim().toLowerCase();
+      const adv = this.appConfig?.advancedSearch || {};
+      if (!adv.enabled) return [];
+      // Collect all tiles from all sections respecting visibility
+      const tiles = (this.sections || []).flatMap(sec => (sec.items || []));
+      return tiles.filter(t => (t.title || '').trim().toLowerCase() === term)
+        .filter(t => this.filterTiles([t]).length === 1);
+    },
     /* Updates layout (when button clicked), and saves in local storage */
     layoutOrientation() {
       return this.$store.getters.layout;
@@ -185,6 +221,31 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/media-queries.scss';
 @import '@/styles/style-helpers.scss';
+
+.exact-match-block {
+  margin: 1rem auto 0.5rem auto;
+  width: 95%;
+  background: var(--search-container-background);
+  border: 1px solid var(--outline-color);
+  border-radius: var(--curve-factor);
+  padding: 0.5rem 0.75rem 0.75rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  .exact-match-header {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    opacity: 0.7;
+    margin: 0 0 0.5rem 0.25rem;
+    color: var(--settings-text-color);
+  }
+  .exact-match-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    > * { flex: 1 1 140px; }
+  }
+}
 
 .home {
   padding-bottom: 1px;
