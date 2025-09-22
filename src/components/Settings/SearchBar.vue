@@ -56,6 +56,27 @@
           />
           Go to Link (auto-detect links)
         </label>
+        <label class="theme-label">
+          <input
+            type="checkbox"
+            :checked="advancedSearch.enabled"
+            @change="toggleAdvancedEnabled($event)"
+          />
+          Advanced Search
+        </label>
+        <div v-if="advancedSearch.enabled" class="advanced-fields">
+          <p class="adv-hint">Match only in selected fields:</p>
+          <div class="field-grid">
+            <label v-for="f in fieldList" :key="f.key" class="field-check">
+              <input
+                type="checkbox"
+                :checked="advancedSearch.fields[f.key]"
+                @change="toggleField(f.key, $event)"
+              />
+              {{ f.label }}
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -113,6 +134,20 @@ export default {
         this.$store.commit('SET_APP_CONFIG', newAppConfig);
       },
     },
+    advancedSearch() {
+      const adv = this.$store.getters.advancedSearch || {};
+      return { enabled: !!adv.enabled, fields: adv.fields || {} };
+    },
+    fieldList() {
+      return [
+        { key: 'title', label: 'Title' },
+        { key: 'description', label: 'Description' },
+        { key: 'provider', label: 'Provider' },
+        { key: 'url', label: 'URL' },
+        { key: 'tags', label: 'Tags' },
+        { key: 'domain', label: 'Domain' },
+      ];
+    },
   },
   mounted() {
     window.addEventListener('keydown', this.handleKeyPress);
@@ -132,6 +167,40 @@ export default {
       };
       this.$store.commit('setDisableWebSearch', value);
       this.$store.commit('SET_APP_CONFIG', newAppConfig);
+    },
+    toggleAdvancedEnabled(event) {
+      const enabled = event.target.checked;
+      this.$store.commit('setAdvancedSearch', { enabled });
+      // If enabling and no fields chosen yet, default to title + url
+      if (enabled) {
+        const currentFields = (this.advancedSearch.fields || {});
+        const anyChosen = Object.values(currentFields).some(Boolean);
+        if (!anyChosen) {
+          const defaults = { title: true, url: true };
+          this.$store.commit('setAdvancedSearch', { fields: defaults });
+        }
+      }
+      const newAppConfig = {
+        ...this.$store.getters.appConfig,
+        advancedSearch: {
+          ...this.advancedSearch,
+          enabled,
+          fields: (this.$store.getters.advancedSearch.fields || {}),
+        },
+      };
+      this.$store.commit('SET_APP_CONFIG', newAppConfig);
+    },
+    toggleField(fieldKey, event) {
+      const { checked } = event.target;
+      const current = this.advancedSearch.fields || {};
+      const fields = { ...current, [fieldKey]: checked };
+      this.$store.commit('setAdvancedSearch', { fields });
+      const newAppConfig = {
+        ...this.$store.getters.appConfig,
+        advancedSearch: { ...this.advancedSearch, fields },
+      };
+      this.$store.commit('SET_APP_CONFIG', newAppConfig);
+      this.userIsTypingSomething();
     },
     /* Call correct function dependending on which key is pressed */
     handleKeyPress(event) {
@@ -429,5 +498,28 @@ export default {
     align-items: center;
     gap: 0.5rem;
     font-size: 0.9rem;
+  }
+  .advanced-fields {
+    padding: 0.4rem 0.6rem 0.6rem 0.6rem;
+    border-top: 1px solid var(--settings-text-color);
+    .adv-hint {
+      margin: 0.2rem 0 0.4rem 0;
+      font-size: 0.7rem;
+      opacity: 0.7;
+      color: var(--settings-text-color);
+    }
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 0.25rem 0.5rem;
+    }
+    .field-check {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.7rem;
+      color: var(--settings-text-color);
+      input { margin: 0; }
+    }
   }
 </style>
