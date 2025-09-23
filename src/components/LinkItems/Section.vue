@@ -14,63 +14,70 @@
     :id="sectionRef"
     :ref="sectionRef"
   >
-    <!-- If no items, show message -->
-    <div v-if="isEmpty" class="no-items">
-      {{ $t('home.no-items-section') }}
-    </div>
-    <!-- Item Container -->
-    <div v-if="hasItems"
-      :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
-      :style="gridStyle" :id="`section-${groupId}`"
-    > <!-- Show for each item -->
-      <template v-for="(item) in sortedItems">
-        <SubItemGroup
-          v-if="item.subItems"
-          :key="item.id"
-          :itemId="item.id"
-          :title="item.title"
-          :subItems="item.subItems"
-          @triggerModal="triggerModal"
-        />
-        <Item
-          v-else
-          :item="item"
-          :key="item.id"
-          :itemSize="itemSize"
+    <PinInput
+      v-if="showPinRequired"
+      :id = "sectionRef"
+      @unlock_attempt="saveUnlockPins"
+    />
+    <div v-if="!showPinRequired">
+      <!-- If no items, show message -->
+      <div v-if="isEmpty" class="no-items">
+        {{ $t('home.no-items-section') }}
+      </div>
+      <!-- Item Container -->
+      <div v-if="hasItems"
+        :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
+        :style="gridStyle" :id="`section-${groupId}`"
+      > <!-- Show for each item -->
+        <template v-for="(item) in sortedItems">
+          <SubItemGroup
+            v-if="item.subItems"
+            :key="item.id"
+            :itemId="item.id"
+            :title="item.title"
+            :subItems="item.subItems"
+            @triggerModal="triggerModal"
+          />
+          <Item
+            v-else
+            :item="item"
+            :key="item.id"
+            :itemSize="itemSize"
+            :parentSectionTitle="title"
+            @itemClicked="$emit('itemClicked')"
+            @triggerModal="triggerModal"
+            :isAddNew="false"
+            :sectionWidth="sectionWidth"
+            :sectionDisplayData="displayData"
+          />
+        </template>
+        <!-- When in edit mode, show additional item, for Add New item -->
+        <Item v-if="isEditMode"
+          :item="{
+            icon: ':heavy_plus_sign:',
+            title: 'Add New Item',
+            description: 'Click to add new item',
+            id: 'add-new',
+          }"
+          :isAddNew="true"
           :parentSectionTitle="title"
-          @itemClicked="$emit('itemClicked')"
-          @triggerModal="triggerModal"
-          :isAddNew="false"
+          key="add-new"
+          class="add-new-item"
           :sectionWidth="sectionWidth"
-          :sectionDisplayData="displayData"
+          :itemSize="itemSize"
         />
-      </template>
-      <!-- When in edit mode, show additional item, for Add New item -->
-      <Item v-if="isEditMode"
-        :item="{
-          icon: ':heavy_plus_sign:',
-          title: 'Add New Item',
-          description: 'Click to add new item',
-          id: 'add-new',
-        }"
-        :isAddNew="true"
-        :parentSectionTitle="title"
-        key="add-new"
-        class="add-new-item"
-        :sectionWidth="sectionWidth"
-        :itemSize="itemSize"
-      />
-    </div>
-    <div
-      v-if="hasWidgets"
-      :class="`widget-list ${isWide? 'wide' : ''}`">
-      <WidgetBase
-        v-for="(widget, widgetIndx) in widgets"
-        :key="widgetIndx"
-        :widget="widget"
-        :index="index"
-        @navigateToSection="navigateToSection"
-      />
+      </div>
+      <div
+        v-if="hasWidgets"
+        :class="`widget-list ${isWide? 'wide' : ''}`">
+        <WidgetBase
+          v-for="(widget, widgetIndx) in widgets"
+          :key="widgetIndx"
+          :widget="widget"
+          :index="index"
+          @navigateToSection="navigateToSection"
+        />
+      </div>
     </div>
     <!-- Modal for opening in modal view -->
     <IframeModal
@@ -109,6 +116,7 @@ import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import EditSection from '@/components/InteractiveEditor/EditSection.vue';
 import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
+import PinInput from '@/components/InteractiveEditor/PinInput.vue';
 import ErrorHandler from '@/utils/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
 import {
@@ -117,12 +125,16 @@ import {
   modalNames,
 } from '@/utils/defaults';
 
+const SECRET_UNLOCKED_KEY = 'dashy.secret.unlocked';
+const SECRET_PINS_KEY = 'dashy.secret.expectedPins';
+
 export default {
   name: 'Section',
   props: {
     groupId: String,
     title: String,
     icon: String,
+    pin: String,
     displayData: Object,
     items: Array,
     widgets: Array,
@@ -137,6 +149,7 @@ export default {
     WidgetBase,
     IframeModal,
     EditSection,
+    PinInput,
   },
   data() {
     return {
@@ -148,9 +161,11 @@ export default {
       },
       sectionWidth: 0,
       resizeObserver: null,
+      isUnlocked: true,
     };
   },
   computed: {
+
     appConfig() {
       return this.$store.getters.appConfig;
     },
@@ -208,6 +223,55 @@ export default {
           ? `grid-template-rows: repeat(${this.displayData.itemCountY}, minmax(0, 1fr));` : '';
       }
       return styles;
+    },
+    shouldRenderSection() {
+      const hidden = this.displayData?.hiddenOnPurpose === true;
+
+      // Always show in Edit Mode so the user can unhide it
+      if (this.isEditMode) return true;
+
+      // If not hidden, render as usual
+      if (!hidden || this.showHiddenMode) return true;
+
+      // If hidden, only show when search is active AND this section has hits
+      const searchActive = (this.searchTerm || '').trim().length > 0;
+      const hasHits = Array.isArray(this.items) && this.items.length > 0;
+      return searchActive && hasHits;
+    },
+    showPinRequired() {
+      if (this.isEditMode) return false;
+      return this.displayData.secret === true && !this.isUnlocked;
+    },
+  },
+  watch: {
+    searchTerm: {
+      handler(newSeachTerm) {
+        // find if special code search is used
+        const showHidden = newSeachTerm.trim().toLowerCase() === '<hidden>';
+        this.showHiddenMode = showHidden;
+
+        // check if search is active
+        let searchIsActive = false;
+        if (newSeachTerm && newSeachTerm.trim().length > 0) {
+          searchIsActive = true;
+        }
+
+        // check if search is hit
+        const hasHits = this.items.length > 0;
+
+        // action if search is active and search hits and it was collapsed
+        if (searchIsActive && hasHits && this.isCollapsed) {
+          this.expandCollapseSection();
+          this.autoOpenedBySearch = true;
+        }
+
+        // action if that search is not a hit anymore
+        if (this.autoOpenedBySearch && (!searchIsActive || !hasHits)) {
+          this.expandCollapseSection();
+          this.autoOpenedBySearch = false;
+        }
+      },
+      immediate: true,
     },
   },
   methods: {
@@ -300,12 +364,42 @@ export default {
       const secElem = this.$refs[this.sectionRef];
       if (secElem && secElem.$el.clientWidth) this.sectionWidth = secElem.$el.clientWidth;
     },
+    saveUnlockPins({ pin, id }) {
+      const map = JSON.parse(localStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
+      map[id] = pin;
+      localStorage.setItem(SECRET_UNLOCKED_KEY, JSON.stringify(map));
+      this.updateUnlocked();
+    },
+    updateUnlocked() {
+      const unlockPins = JSON.parse(localStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
+      const sectionKey = this.sectionRef;
+      if (unlockPins[sectionKey] === this.pin) {
+        this.isUnlocked = true;
+      } else {
+        this.isUnlocked = false;
+      }
+    },
   },
   mounted() {
     // Set the section width, and recalculate when section resized
     if (this.$refs[this.sectionRef]) {
       this.resizeObserver = new ResizeObserver(this.calculateSectionWidth)
         .observe(this.$refs[this.sectionRef].$el);
+    }
+    if (this.displayData?.collapsed) {
+      this.isCollapsed = this.displayData.collapsed;
+    }
+    if (this.displayData?.secret) {
+      if (this.displayData.secret) this.isUnlocked = false;
+
+      const secretPin = String(this.pin || '0000');
+      const sectionKey = this.sectionRef;
+
+      const pins = JSON.parse(localStorage.getItem(SECRET_PINS_KEY) || '{}');
+      if (pins[sectionKey] !== secretPin) {
+        pins[sectionKey] = secretPin;
+        localStorage.setItem(SECRET_PINS_KEY, JSON.stringify(pins));
+      }
     }
   },
   beforeDestroy() {

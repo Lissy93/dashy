@@ -44,4 +44,19 @@ sections:
     description: Get help with Dashy, raise a bug, or get in contact
     url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
     icon: far fa-hands-helping
-  
+- name: Stuff
+  icon: fas fa-rocket
+  pin: "1111"
+  displayData:
+    secret: true
+  items:
+  - title: hidden tile 1
+    description: Development a project management links for Dashy
+    icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
+    url: https://live.dashy.to/
+    target: newtab
+  - title: hidden tile 2
+    description: Development a project management links for Dashy
+    icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
+    url: https://live.dashy.to/
+    target: newtab
