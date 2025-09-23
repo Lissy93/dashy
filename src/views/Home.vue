@@ -24,13 +24,13 @@
       <div class="exact-match-header">Exact Match</div>
       <div class="exact-match-items">
         <Section
-          v-for="(item, idx) in exactMatches"
-          :key="`exact-${item.id || idx}`"
-          :title="item.title"
-          :icon="item.icon || undefined"
-          :displayData="{ collapsed: false, sectionLayout: 'grid', itemSize: itemSizeBound }"
-          :groupId="`exact-match-${idx}`"
-          :items="[item]"
+          v-for="(group, idx) in exactMatches"
+          :key="`exact-group-${idx}`"
+          :title="group.section.name"
+          :icon="group.section.icon || undefined"
+          :displayData="getDisplayData(group.section)"
+          :groupId="`exact-match-${makeSectionId(group.section)}-${idx}`"
+          :items="group.items"
           :widgets="[]"
           :searchTerm="searchValue"
           :itemSize="itemSizeBound"
@@ -136,10 +136,34 @@ export default {
       const term = this.searchValue.trim().toLowerCase();
       const adv = this.appConfig?.advancedSearch || {};
       if (!adv.enabled) return [];
-      // Collect all tiles from all sections respecting visibility
-      const tiles = (this.sections || []).flatMap(sec => (sec.items || []));
-      return tiles.filter(t => (t.title || '').trim().toLowerCase() === term)
-        .filter(t => this.filterTiles([t]).length === 1);
+      const fields = adv.fields || {};
+      const normalize = (v) => (v || '').toString().trim().toLowerCase();
+      const getDomain = (url) => {
+        if (!url) return '';
+        try {
+          const host = new URL(url).hostname.replace(/^www\./, '').toLowerCase();
+          const parts = host.split('.');
+          if (parts.length >= 2) return parts[parts.length - 2];
+          return host;
+        } catch (e) { return ''; }
+      };
+      const tagList = (tags) => (Array.isArray(tags) ? tags.map(t => normalize(t)) : []);
+      const matchesExactField = (tile) => (
+        (fields.title && normalize(tile.title) === term)
+        || (fields.description && normalize(tile.description) === term)
+        || (fields.provider && normalize(tile.provider) === term)
+        || (fields.url && normalize(tile.url) === term)
+        || (fields.tags && tagList(tile.tags).includes(term))
+        || (fields.domain && getDomain(tile.url) === term)
+      );
+      const groups = [];
+      (this.sections || []).forEach((section) => {
+        const matched = (section.items || [])
+          .filter(item => this.filterTiles([item]).length === 1)
+          .filter(matchesExactField);
+        if (matched.length) groups.push({ section, items: matched });
+      });
+      return groups;
     },
     /* Updates layout (when button clicked), and saves in local storage */
     layoutOrientation() {
