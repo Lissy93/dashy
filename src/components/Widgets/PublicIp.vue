@@ -1,11 +1,11 @@
 <template>
 <div class="ip-info-wrapper">
   <p class="ip-address">{{ ipAddr }}</p>
-  <div class="region-wrapper">
-    <img class="flag-image" :src="flagImg" alt="Flag" />
+  <div v-if="!hideDetails" class="region-wrapper">
+    <img v-if="flagImg" class="flag-image" :src="flagImg" alt="Flag" />
     <div class="info-text">
-      <p class="isp-name">{{ ispName }}</p>
-      <a class="ip-location" :href="mapsUrl" title="🗺️ Open in Maps">
+      <p v-if="ispName" class="isp-name">{{ ispName }}</p>
+      <a v-if="location && mapsUrl" class="ip-location" :href="mapsUrl" title="🗺️ Open in Maps">
         {{ location }}
       </a>
     </div>
@@ -40,6 +40,10 @@ export default {
       // Can be either `ip-api`, `ipapi.co`, `ipgeolocation` or `ip2location.io`
       return this.parseAsEnvVar(this.options.provider) || 'ipapi.co';
     },
+    hideDetails() {
+      // Hide geographical details when hideDetails option is true
+      return this.options.hideDetails === true;
+    },
   },
   data() {
     return {
@@ -57,32 +61,59 @@ export default {
     },
     /* Assign data variables to the returned data */
     processData(ipInfo) {
-      if (this.provider === 'ipapi.co') {
-        this.ipAddr = ipInfo.ip;
-        this.ispName = ipInfo.org;
-        this.location = `${ipInfo.city}, ${ipInfo.region}`;
-        this.flagImg = getCountryFlag(ipInfo.country_code);
-        this.mapsUrl = getMapUrl({ lat: ipInfo.latitude, lon: ipInfo.longitude });
-      } else if (this.provider === 'ipgeolocation') {
-        this.ipAddr = ipInfo.ip;
-        this.ispName = ipInfo.organization || ipInfo.isp;
-        this.location = `${ipInfo.city}, ${ipInfo.country_name}`;
-        this.flagImg = ipInfo.country_flag;
-        this.mapsUrl = getMapUrl({ lat: ipInfo.latitude, lon: ipInfo.longitude });
-      } else if (this.provider === 'ip-api') {
-        this.ipAddr = ipInfo.query;
-        this.ispName = ipInfo.isp;
-        this.location = `${ipInfo.city}, ${ipInfo.regionName}`;
-        this.flagImg = getCountryFlag(ipInfo.countryCode);
-        this.mapsUrl = getMapUrl({ lat: ipInfo.lat, lon: ipInfo.lon });
-      } else if (this.provider === 'ip2location.io') {
-        this.ipAddr = ipInfo.ip;
-        this.ispName = ipInfo.isp || 'IP2Location.io Starter plan or higher required.';
-        this.location = `${ipInfo.city_name}, ${ipInfo.region_name}`;
-        this.flagImg = getCountryFlag(ipInfo.country_code);
-        this.mapsUrl = getMapUrl({ lat: ipInfo.latitude, lon: ipInfo.longitude });
-      } else {
-        this.error('Unknown API provider fo IP address');
+      // Always set IP address (required field)
+      this.ipAddr = ipInfo.ip || ipInfo.query || 'N/A';
+
+      // Only process geographical details if not hiding them
+      if (!this.hideDetails) {
+        try {
+          if (this.provider === 'ipapi.co') {
+            this.ispName = ipInfo.org || null;
+            this.location = this.buildLocation(ipInfo.city, ipInfo.region);
+            this.flagImg = ipInfo.country_code ? getCountryFlag(ipInfo.country_code) : null;
+            this.mapsUrl = this.buildMapsUrl(ipInfo.latitude, ipInfo.longitude);
+          } else if (this.provider === 'ipgeolocation') {
+            this.ispName = ipInfo.organization || ipInfo.isp || null;
+            this.location = this.buildLocation(ipInfo.city, ipInfo.country_name);
+            this.flagImg = ipInfo.country_flag || null;
+            this.mapsUrl = this.buildMapsUrl(ipInfo.latitude, ipInfo.longitude);
+          } else if (this.provider === 'ip-api') {
+            this.ispName = ipInfo.isp || null;
+            this.location = this.buildLocation(ipInfo.city, ipInfo.regionName);
+            this.flagImg = ipInfo.countryCode ? getCountryFlag(ipInfo.countryCode) : null;
+            this.mapsUrl = this.buildMapsUrl(ipInfo.lat, ipInfo.lon);
+          } else if (this.provider === 'ip2location.io') {
+            this.ispName = ipInfo.isp || null;
+            this.location = this.buildLocation(ipInfo.city_name, ipInfo.region_name);
+            this.flagImg = ipInfo.country_code ? getCountryFlag(ipInfo.country_code) : null;
+            this.mapsUrl = this.buildMapsUrl(ipInfo.latitude, ipInfo.longitude);
+          } else {
+            this.error('Unknown API provider for IP address');
+          }
+        } catch (error) {
+          // If geographical data processing fails, just show IP
+          console.warn('Failed to process geographical data:', error);
+          this.location = null;
+          this.ispName = null;
+          this.flagImg = null;
+          this.mapsUrl = null;
+        }
+      }
+    },
+    /* Helper method to safely build location string */
+    buildLocation(city, region) {
+      if (!city && !region) return null;
+      if (city && region) return `${city}, ${region}`;
+      return city || region;
+    },
+    /* Helper method to safely build maps URL */
+    buildMapsUrl(lat, lon) {
+      if (!lat || !lon || isNaN(lat) || isNaN(lon)) return null;
+      try {
+        return getMapUrl({ lat: parseFloat(lat), lon: parseFloat(lon) });
+      } catch (error) {
+        console.warn('Failed to generate maps URL:', error);
+        return null;
       }
     },
   },

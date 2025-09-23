@@ -1,0 +1,37 @@
+# Public IP Widget Configuration Examples
+
+# Example 1: Default behavior (shows IP + geographical details)
+widgets:
+  - type: public-ip
+    options:
+      provider: ipapi.co
+
+# Example 2: Hide geographical details (IP only)
+widgets:
+  - type: public-ip
+    options:
+      provider: ipapi.co
+      hideDetails: true
+
+# Example 3: With custom provider and hidden details
+widgets:
+  - type: public-ip
+    options:
+      provider: ip-api
+      hideDetails: true
+
+# Example 4: Using ipgeolocation provider with API key (full details)
+widgets:
+  - type: public-ip
+    options:
+      provider: ipgeolocation
+      apiKey: VUE_APP_IPGEOLOCATION_API_KEY
+      hideDetails: false
+
+# Example 5: Using ip2location.io with hidden details
+widgets:
+  - type: public-ip
+    options:
+      provider: ip2location.io
+      apiKey: VUE_APP_IP2LOCATION_API_KEY
+      hideDetails: true

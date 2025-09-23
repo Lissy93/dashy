@@ -1,0 +1,9 @@
+# Placeholder for Public IP Widget with Hidden Details Screenshot  
+# This file represents a screenshot showing the public IP widget with hideDetails: true
+# - Only public IP address displayed (e.g., 203.0.113.42)
+# - No ISP name, location, flag, or map link visible
+# - Minimal, clean appearance
+
+# Actual screenshot should be taken after local testing
+# Dimensions: ~400px width, reduced height compared to full version
+# Format: PNG with transparent/widget background

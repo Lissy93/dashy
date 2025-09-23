@@ -293,6 +293,13 @@ Often find yourself searching "What's my IP", just so you can check your VPN is 
 
 <p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
 
+You can optionally hide geographical details (city, region, ISP, flag) and show only the IP address by setting `hideDetails: true`.
+
+<p align="center">
+  <img width="400" src="./assets/public-ip-full-details.png" alt="Public IP with full details" />
+  <img width="400" src="./assets/public-ip-minimal.png" alt="Public IP with hidden details" />
+</p>
+
 #### Options
 
 _All fields are optional._
@@ -301,6 +308,7 @@ _All fields are optional._
 --- | --- | --- | ---
 **`provider`** | `string` |  _Optional_ | The name of the service to fetch IP address from. Can be either `ipapi.co`, `ip-api`, `ipgeolocation` or `ip2location.io`. Defaults to `ipapi.co`. Note, `ip-api` doesn't work on HTTPS, and if you set to `ipgeolocation` or `ip2location.io` then you must also provide an API key
 **`apiKey`** | `string` |  _Optional_ | Only required if provider is set to `ipgeolocation` or `ip2location.io`. You can get a free IPGeolocation API key [here](https://ipgeolocation.io/signup.html) or a free IP2Location.io API key [here](https://ip2location.io/pricing)
+**`hideDetails`** | `boolean` |  _Optional_ | When set to `true`, only displays the public IP address, hiding geographical information like city, region, ISP name, and country flag. Defaults to `false`
 
 #### Example
 
@@ -308,13 +316,21 @@ _All fields are optional._
 - type: public-ip
 ```
 
-Or
+With custom provider:
 
 ```yaml
 - type: public-ip
   options:
     provider: ipgeolocation
     apiKey: xxxxxxxxxxxxxxx
+```
+
+Hide geographical details (IP only):
+
+```yaml
+- type: public-ip
+  options:
+    hideDetails: true
 ```
 
 #### Info
