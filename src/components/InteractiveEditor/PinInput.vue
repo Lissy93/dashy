@@ -13,8 +13,12 @@
     />
 
     <div class="pin-actions">
-      <button class="pin-btn" @click="submit">Unlock</button>
-      <button class="pin-reset" @click="lockAgain" type="button">Lock again</button>
+      <button class="pin-btn" @click="submit">
+        <i class="fas fa-unlock-alt btn-icon" aria-hidden="true"></i>
+        Unlock</button>
+      <button class="pin-reset" @click="lockAgain" type="button">
+        <i class="fas fa-lock btn-icon" aria-hidden="true"></i>
+        Lock</button>
     </div>
   </div>
 </template>
@@ -42,7 +46,6 @@ export default {
               inputmode: 'numeric',
               autocomplete: 'one-time-code',
               placeholder: '••••',
-              class: 'pin-input',
             },
           },
         },
@@ -66,5 +69,61 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+  .pin-gate {
+    padding: .9rem;
+    border-radius: var(--curve-factor);
+    border: 1px solid var(--border);
+    background: var(--item-background);
+    box-shadow: var(--item-shadow);
+    color: var(--primary);
+  }
+
+  .pin-head {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .6rem;
+    font-weight: 600;
+  }
+  .pin-form {
+    margin-bottom: .6rem;
+  }
+  .pin-actions {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+
+  .pin-btn {
+    padding: .5rem .9rem;
+    border-radius: .6rem;
+    border: 1px solid var(--border);
+    background: var(--button-bg);
+    color: var(--primary);
+    cursor: pointer;
+    transition: transform .06s ease;
+
+    &:active { transform: translateY(1px); }
+  }
+
+  .pin-reset {
+    background: transparent;
+    border: none;
+    padding: .3rem .2rem;
+    color: var(--primary);
+    opacity: .8;
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover { opacity: 1; }
+  }
+  .btn-icon {
+    margin-right: .4rem;
+    font-size: .95em;
+    line-height: 0;
+    opacity: .9;
+  }
 </style>

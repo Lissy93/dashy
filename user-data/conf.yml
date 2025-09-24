@@ -46,7 +46,7 @@ sections:
     icon: far fa-hands-helping
 - name: Stuff
   icon: fas fa-rocket
-  pin: "1111"
+  pin: "1112"
   displayData:
     secret: true
   items:
