@@ -29,6 +29,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Stock Price History](#stock-price-history)
   - [ETH Gas Prices](#eth-gas-prices)
   - [Joke of the Day](#joke)
+  - [Chuck Norris quotes](#chucknorris)
   - [XKCD Comics](#xkcd-comics)
   - [Flight Data](#flight-data)
   - [NASA APOD](#astronomy-picture-of-the-day)
@@ -47,9 +48,12 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [CPU History](#cpu-history-netdata)
   - [Memory History](#memory-history-netdata)
   - [System Load History](#load-history-netdata)
-  - [Pi Hole Stats](#pi-hole-stats)
-  - [Pi Hole Queries](#pi-hole-queries)
-  - [Pi Hole Recent Traffic](#pi-hole-recent-traffic)
+  - [Pi-Hole Stats](#pi-hole-stats)
+  - [Pi-Hole Stats v6](#pi-hole-stats-v6)
+  - [Pi-Hole Queries](#pi-hole-queries)
+  - [Pi-Hole Queries v6](#pi-hole-queries-v6)
+  - [Pi-Hole Recent Traffic](#pi-hole-recent-traffic)
+  - [Pi-Hole Recent Traffic v6](#pi-hole-recent-traffic-v6)
   - [Stat Ping Statuses](#stat-ping-statuses)
   - [Synology Download Station](#synology-download-station)
   - [AdGuard Home Block Stats](#adguard-home-block-stats)
@@ -998,6 +1002,36 @@ Renders a programming or generic joke. Data is fetched from the [JokesAPI](https
 
 ---
 
+### Chuck Norris quotes
+
+Renders a Chuck Norris quote. Data is fetched from the [ChuckNorrisAPI](https://api.chucknorris.io/) by @matchilling. All fields are optional.
+
+<p align="center"><img width="400" src="https://tbd" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`categories`** | `string` |  _Optional_ | Set the category of jokes to return. Use a string to specify a single category, or an array to pass in multiple options. Available options are: `animal`,`career`,`celebrity`,`dev`,`explicit`,`fashion`,`food`,`history`,`money`,`movie`,`music`,`political`,`religion`,`science`,`sport` and `travel`. An up-to-date list of supported categories can be found [here](https://api.chucknorris.io/jokes/categories). Defaults to not explicitely set and therefore any of the categories can come up.
+
+#### Example
+
+```yaml
+- type: chucknorris
+  options:
+    categories: history,sport
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Required
+- **Price**: 🟢 Free
+- **Host**: Managed Instance
+- **Privacy**: _See [matchilling's Privacy Policy](https://api.chucknorris.io/privacy)_
+
+---
+
 ### XKCD Comics
 
 Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webcomic website covering everything from Linux, math, romance, science and language. All fields are optional.
@@ -1722,7 +1756,7 @@ Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
 
 ---
 
-### Pi Hole Stats
+### Pi-Hole Stats
 
 Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 
@@ -1763,12 +1797,58 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 - **CORS**: 🟢 Enabled
 - **Auth**: 🔴 Required
 - **Price**: 🟢 Free
-- **Host**: Self-Hosted (see [GitHub - Pi-hole](https://github.com/pi-hole/pi-hole))
+- **Host**: Self-Hosted (see [GitHub - Pi-Hole](https://github.com/pi-hole/pi-hole))
 - **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
 
 ---
 
-### Pi Hole Queries
+### Pi-Hole Stats v6
+
+Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/). Use this version of the widget if you have a v6+ Pi-Hole instance.
+
+<p align="center"><img width="400" src="https://i.ibb.co/zftCLJN/pi-hole-stats.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`hideStatus`** / **`hideChart`** / **`hideInfo`** | `boolean` |  _Optional_ | Optionally hide any of the three parts of the widget
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password or application password. It **IS** your Pi-Hole admin interface password **UNLESS** you have 2FA turned on (in contrast to the old widget). If you have 2FA turned on you will need to create an application password. Refer to Pi-Hole documentation for how to create an application password.
+
+#### Example
+
+```yaml
+- type: pi-hole-stats-v6
+  options:
+    hostname: http://192.168.130.1
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxx
+```
+
+> [!TIP]
+> In order to avoid leaking secret data, both `hostname` and `apiKey` can leverage environment variables. Simply pass the name of the variable, which MUST start with `VUE_APP_`.
+
+```yaml
+- type: pi-hole-stats-v6
+  options:
+    hostname: VUE_APP_pihole_ip
+    apiKey: VUE_APP_pihole_key
+```
+
+> [!IMPORTANT]
+> You will need to restart the server (or the docker image) if adding/editing an env var for this to be refreshed.
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - Pi-Hole](https://github.com/pi-hole/pi-hole))
+- **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
+
+---
+
+### Pi-Hole Queries
 
 Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net/).
 
@@ -1801,7 +1881,40 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
 
 ---
 
-### Pi Hole Recent Traffic
+### Pi-Hole Queries v6
+
+Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net/). Use this version of the widget if you have a v6+ Pi-Hole instance.
+
+<p align="center"><img width="400" src="https://i.ibb.co/pXR0bdQ/pi-hole-queries.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password or application password. It **IS** your Pi-Hole admin interface password **UNLESS** you have 2FA turned on (in contrast to the old widget). If you have 2FA turned on you will need to create an application password. Refer to Pi-Hole documentation for how to create an application password.
+**`count`** | `number` |  _Optional_ | The number of queries to display. Defaults to `10`
+
+#### Example
+
+```yaml
+- type: pi-hole-top-queries-v6
+  options:
+    hostname: https://pi-hole.local
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxx
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - Pi-hole](https://github.com/pi-hole/pi-hole))
+- **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
+
+---
+
+### Pi-Hole Recent Traffic
 
 Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole](https://pi-hole.net/)
 
@@ -1818,6 +1931,38 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 
 ```yaml
 - type: pi-hole-traffic
+  options:
+    hostname: https://pi-hole.local
+    apiKey: xxxxxxxxxxxxxxxxxxxxxxx
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🔴 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [GitHub - Pi-hole](https://github.com/pi-hole/pi-hole))
+- **Privacy**: _See [Pi-Hole Privacy Guide](https://pi-hole.net/privacy/)_
+
+---
+
+### Pi-Hole Recent Traffic v6
+
+Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole](https://pi-hole.net/). Use this version of the widget if you have a v6+ Pi-Hole instance.
+
+<p align="center"><img width="500" src="https://i.ibb.co/7kdxxwx/pi-hole-recent-queries.png" /></p>
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password or application password. It **IS** your Pi-Hole admin interface password **UNLESS** you have 2FA turned on (in contrast to the old widget). If you have 2FA turned on you will need to create an application password. Refer to Pi-Hole documentation for how to create an application password.
+
+#### Example
+
+```yaml
+- type: pi-hole-traffic-v6
   options:
     hostname: https://pi-hole.local
     apiKey: xxxxxxxxxxxxxxxxxxxxxxx

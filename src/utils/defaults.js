@@ -227,6 +227,7 @@ module.exports = {
     anonAddy: 'https://app.addy.io',
     astronomyPictureOfTheDay: 'https://apod.as93.net/apod',
     blacklistCheck: 'https://api.blacklistchecker.com/check',
+    chuckNorris: 'https://api.chucknorris.io/jokes/random',
     codeStats: 'https://codestats.net/',
     covidStats: 'https://disease.sh/v3/covid-19',
     cryptoPrices: 'https://api.coingecko.com/api/v3/coins/',
