@@ -259,6 +259,11 @@ export default {
   }
   &:focus {
     outline: 2px solid var(--primary);
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.05), var(--item-shadow);
+  }
+  &.tile--selected {
+    outline: 2px solid var(--primary);
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.05), var(--item-shadow);
   }
   &.add-new {
     border: 2px dashed var(--primary) !important;
@@ -279,6 +284,7 @@ export default {
   z-index: 2;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3; /* standard property for compatibility */
   -webkit-box-orient: vertical;
   word-break: keep-all;
   overflow: hidden;
