@@ -152,6 +152,12 @@ export default {
       } else if (this.accumulatedTarget === 'clipboard') {
         e.preventDefault();
         this.copyToClipboard(url);
+      } else {
+        // Explicitly navigate to ensure clicks always open even if other handlers interfere
+        // Use anchorTarget mapping for correct behavior (same tab/new tab/parent/top)
+        e.preventDefault();
+        const target = this.anchorTarget || '_self';
+        window.open(url, target);
       }
       // Emit event to clear search field, etc
       this.$emit('itemClicked');
