@@ -16,10 +16,10 @@
           v-on:input="userIsTypingSomething"
           @keydown.esc="clearFilterInput"
         />
-        <p
-          v-if="(!searchPrefs.disableWebSearch) && input.length > 0"
-          class="web-search-note"
-        >
+        <p v-if="showOpenItemNote" class="web-search-note">
+          Press Enter to open the item
+        </p>
+        <p v-else-if="showWebSearchNote" class="web-search-note">
           {{ $t('search.enter-to-search-web') }}
         </p>
       </div>
@@ -120,6 +120,34 @@ export default {
     searchPrefs() {
       return this.$store.getters.webSearch || {};
     },
+    showOpenItemNote() {
+      // Show when Enter will open an exact match item (advanced on + matches)
+      const input = (this.input || '').trim();
+      if (input.length === 0) return false;
+      // If Go-to-Link would intercept, don't show
+      if (this.goToLinkEnabled && this.isUrlLike(input)) return false;
+      const adv = this.$store.getters.advancedSearch || {};
+      if (!adv.enabled) return false;
+      const exactItems = this.getExactMatchItemsList();
+      return !!(exactItems && exactItems.length > 0);
+    },
+    showWebSearchNote() {
+      // Only show hint when pressing Enter will actually search the web
+      const input = (this.input || '').trim();
+      if (input.length === 0) return false;
+      // If Go-to-Link would intercept, then Enter does not search web
+      if (this.goToLinkEnabled && this.isUrlLike(input)) return false;
+      // If web search is disabled, don't show
+      if (this.searchPrefs && this.searchPrefs.disableWebSearch) return false;
+      // If advanced search is enabled and there are exact matches,
+      //   Enter opens tile instead of web search
+      const adv = this.$store.getters.advancedSearch || {};
+      if (adv.enabled) {
+        const exactItems = this.getExactMatchItemsList();
+        if (exactItems && exactItems.length > 0) return false;
+      }
+      return true;
+    },
     goToLinkEnabled: {
       get() {
         return this.$store.getters.goToLinkEnabled;
@@ -156,6 +184,32 @@ export default {
     window.removeEventListener('keydown', this.handleKeyPress);
   },
   methods: {
+    // Selection utilities for Advanced Search tile navigation (Exact Match only)
+    getExactMatchItemsList() {
+      const container = document.querySelector('.exact-match-block');
+      if (!container) return [];
+      return Array.from(container.querySelectorAll('.item'));
+    },
+    setSelectionClass(el) {
+      const items = this.getExactMatchItemsList();
+      items.forEach(i => i.classList.remove('tile--selected'));
+      if (el) el.classList.add('tile--selected');
+    },
+    clearSelectionHighlight() {
+      const items = this.getExactMatchItemsList();
+      items.forEach(i => i.classList.remove('tile--selected'));
+    },
+    updateDefaultSelection() {
+      const adv = this.$store.getters.advancedSearch || {};
+      if (!adv.enabled) return;
+      if (!this.input || this.input.trim().length === 0) { this.clearSelectionHighlight(); return; }
+      const items = this.getExactMatchItemsList();
+      if (!items || items.length === 0) { this.clearSelectionHighlight(); return; }
+      const focused = items.find(i => i === document.activeElement);
+      if (focused) { this.setSelectionClass(focused); return; }
+      const first = items[0];
+      if (first) this.setSelectionClass(first);
+    },
     toggleDisableWebSearch(event) {
       const value = event.target.checked;
       const newAppConfig = {
@@ -217,8 +271,41 @@ export default {
         // Number key pressed, check if user has a custom binding
         this.handleHotKey(key);
       } else if (keyCode >= 37 && keyCode <= 40) {
-      // Arrow key pressed - start navigation
-        this.akn.arrowNavigation(keyCode);
+        // Arrow key pressed
+        const adv = this.$store.getters.advancedSearch || {};
+        if (adv.enabled) {
+          const itemsArr = this.getExactMatchItemsList();
+          if (!itemsArr || itemsArr.length === 0) {
+            // No exact matches -> fall back to default navigation
+            this.akn.arrowNavigation(keyCode);
+            return;
+          }
+          const focusedEl = itemsArr.find(i => i === document.activeElement);
+          let idx = focusedEl ? itemsArr.indexOf(focusedEl) : -1;
+          const move = (delta) => {
+            if (idx === -1) idx = 0; // no focus yet -> first
+            else idx = (idx + delta + itemsArr.length) % itemsArr.length; // wrap
+            const el = itemsArr[idx];
+            if (el) {
+              el.focus();
+              el.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+              this.setSelectionClass(el);
+            }
+          };
+          if (keyCode === 37) { // Left
+            event.preventDefault();
+            move(-1);
+          } else if (keyCode === 39) { // Right
+            event.preventDefault();
+            move(1);
+          } else if (keyCode === 38 || keyCode === 40) {
+            // For now, ignore up/down in advanced mode to keep UX simple
+            event.preventDefault();
+          }
+        } else {
+          // Default navigation behavior
+          this.akn.arrowNavigation(keyCode);
+        }
       } else if (keyCode === 27) {
       // Esc key pressed - reset form
         this.clearFilterInput();
@@ -227,6 +314,7 @@ export default {
     /* Emmits users's search term up to parent */
     userIsTypingSomething() {
       this.$emit('user-is-searchin', this.input);
+      this.$nextTick(() => this.updateDefaultSelection());
     },
     /* Resets everything to initial state, when user is finished */
     clearFilterInput() {
@@ -234,6 +322,7 @@ export default {
       this.userIsTypingSomething(); // Emmit new empty value
       document.activeElement.blur(); // Remove focus
       this.akn.resetIndex(); // Reset current element index
+      this.clearSelectionHighlight();
     },
     /* If configured, launch specific app when hotkey pressed */
     handleHotKey(key) {
@@ -272,6 +361,26 @@ export default {
         window.open(this.normalizeUrl(input), '_blank');
         this.clearFilterInput();
         return;
+      }
+      // 1.5 Advanced Search override: if enabled and user has typed something,
+      // and there are matched tiles on the page, pressing Enter should open the
+      // selected tile (focused) or the first matched tile instead of web search
+      const adv = this.$store.getters.advancedSearch || {};
+      if ((adv.enabled === true) && input.length > 0) {
+        const items = this.getExactMatchItemsList();
+        if (!items || items.length === 0) {
+          // No exact matches -> allow normal web search flow below
+        } else {
+          const focused = items.find(i => i === document.activeElement);
+          const first = items[0];
+          const targetEl = focused || first;
+          if (targetEl) {
+            targetEl.click();
+            this.clearFilterInput();
+            this.clearSelectionHighlight();
+            return;
+          }
+        }
       }
       // 2. If not URL-like, or "Go to Link" is disabled, only search if web search is enabled
       if (!searchPrefs.disableWebSearch) {
