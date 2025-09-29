@@ -832,7 +832,7 @@
                 "items": { 
                   "type": "string" 
                 },
-                "uniqueItems": true,
+                "uniqueItems": false,
                 "default": []
               },
               "sectionLayout": {
