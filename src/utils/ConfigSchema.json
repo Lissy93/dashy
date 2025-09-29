@@ -756,6 +756,11 @@
             "type": "string",
             "description": "Icon will be displayed next to title"
           },
+          "pin":{
+            "title": "Section Pin",
+            "type": "string",
+            "description": "PIN to unlock this section"
+          },
           "displayData": {
             "title": "Display Data",
             "type": "object",
@@ -775,6 +780,12 @@
                 ],
                 "default": "default",
                 "description": "How to sort items within the section. By default items are displayed in the order in which they are listed in within the config"
+              },
+              "secret": {
+                "title": "Pin Locked",
+                "type": "boolean",
+                "default": false,
+                "description": "If true, section will be hidden by default, and can be revealed by inputing pin"
               },
               "collapsed": {
                 "title": "Is Collapsed?",
