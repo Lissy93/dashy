@@ -243,7 +243,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`items`** | `array` | _Optional_ | An array of items to be displayed within the section. See [`item`](#sectionitem). Sections must include either 1 or more items, or 1 or more widgets.
 **`widgets`** | `array` | _Optional_ | An array of widgets to be displayed within the section. See [`widget`](#sectionwidget-optional)
 **`displayData`** | `object` | _Optional_ | Meta-data to optionally override display settings for a given section. See [`displayData`](#sectiondisplaydata-optional)
-**`pin`** | `string` | _Optional_ | The PIN code for unlocking this section if `secret` under `displayData` is true. Provide at the section root (e.g., pin: 2749). Validated client-side and remembered only for the current browser tab/session. Not intended for protecting highly sensitive data. Only for Child-proofing 
+**`pin`** | `string` | _Optional_ | The PIN code for unlocking this section if `secret` under `displayData` is true. Provide at the section root (e.g., pin: 2749). Validated client-side and remembered only for the current browser tab/session. Not intended for protecting highly sensitive data. Only for Child-proofing. if not entered but section is locked then default pin will be 0000 
 
 **[⬆️ Back to Top](#configuring)**
 
