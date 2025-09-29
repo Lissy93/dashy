@@ -63,3 +63,7 @@
   width: 100%;
   justify-content: flex-end;
 }
+
+.pin-error {
+  color: var(--error, #d9534f);
+}

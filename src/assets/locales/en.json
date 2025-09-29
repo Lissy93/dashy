@@ -255,7 +255,8 @@
     "unlock": "Unlock",
     "lock": "Lock",
     "lockedSection": "Locked section",
-    "enter-pin": "Enter PIN"
+    "enter-pin": "Enter PIN",
+    "incorrect-pin": "Incorrect PIN"
   },
   "footer": {
     "dev-by": "Developed by",

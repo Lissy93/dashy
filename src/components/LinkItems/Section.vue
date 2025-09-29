@@ -17,6 +17,7 @@
     <PinInput
       v-if="showPinRequired"
       :id = "sectionRef"
+      :errorMessage="pinError"
       @unlock_attempt="saveUnlockPins"
     />
     <div v-if="!showPinRequired">
@@ -168,6 +169,7 @@ export default {
       sectionWidth: 0,
       resizeObserver: null,
       isUnlocked: true,
+      pinError: '',
     };
   },
   computed: {
@@ -378,14 +380,13 @@ export default {
       const map = JSON.parse(sessionStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
       map[id] = pin;
       sessionStorage.setItem(SECRET_UNLOCKED_KEY, JSON.stringify(map));
-      this.updateUnlocked();
-    },
-    updateUnlocked() {
       const unlockPins = JSON.parse(sessionStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
       const sectionKey = this.sectionRef;
       if (unlockPins[sectionKey] === this.pin) {
+        this.pinError = '';
         this.isUnlocked = true;
       } else {
+        this.pinError = this.$t('pin.incorrect-pin');
         this.isUnlocked = false;
       }
     },
@@ -396,6 +397,7 @@ export default {
         delete unlockPins[sectionKey];
         sessionStorage.setItem(SECRET_UNLOCKED_KEY, JSON.stringify(unlockPins));
       }
+      this.pinError = '';
       this.isUnlocked = false;
     },
   },
