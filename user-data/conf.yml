@@ -62,11 +62,23 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 3_1956_tautulli
+      - &ref_4
+        title: MoonTV
+        description: >-
+          MoonTV 是一个开箱即用的、跨平台的影视聚合播放器。它基于 Next.js 14 + Tailwind CSS + TypeScript
+          构建，支持多资源搜索、在线播放、收藏同步、播放记录、云端存储，让你可以随时随地畅享海量免费影视内容
+        icon: https://github.com/MoonTechLab/LunaTV/raw/main/public/logo.png
+        url: https://moon.mineserver.info/
+        target: newtab
+        statusCheckAcceptCodes: '403'
+        statusCheck: true
+        id: 4_1956_moontv
     filteredItems:
       - *ref_0
       - *ref_1
       - *ref_2
       - *ref_3
+      - *ref_4
   - name: Cloud Service
     displayData:
       sortBy: default
@@ -75,7 +87,7 @@ sections:
       collapsed: false
       hideForGuests: false
     items:
-      - &ref_4
+      - &ref_5
         title: Nextcloud
         description: Online collaboration platform
         icon: >-
@@ -85,7 +97,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 0_1256_nextcloud
-      - &ref_5
+      - &ref_6
         title: Photoprism
         description: PhotoPrism® is an AI-Powered Photos App
         icon: >-
@@ -95,7 +107,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 1_1256_photoprism
-      - &ref_6
+      - &ref_7
         title: talebook
         description: A better online books library management website
         icon: >-
@@ -105,7 +117,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 2_1256_talebook
-      - &ref_7
+      - &ref_8
         title: guacamole
         description: A clientless remote desktop gateway
         icon: >-
@@ -115,7 +127,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 3_1256_guacamole
-      - &ref_8
+      - &ref_9
         title: HAOS
         description: >-
           Home Assistant is free and open-source software for home automation
@@ -128,7 +140,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 4_1256_haos
-      - &ref_9
+      - &ref_10
         title: 'Organizr '
         description: >-
           Organizr allows you to setup "Tabs" that will be loaded all in one
@@ -140,7 +152,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 5_1256_organizr
-      - &ref_10
+      - &ref_11
         title: Trilium
         description: >-
           Trilium Notes is a hierarchical note taking application with focus on
@@ -152,7 +164,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 6_1256_trilium
-      - &ref_11
+      - &ref_12
         title: SunShine
         description: >-
           Sunshine is a self-hosted game stream host for Moonlight. Offering low
@@ -168,7 +180,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 7_1256_sunshine
-      - &ref_12
+      - &ref_13
         title: Nastools
         icon: https://nastools.mineserver.info/static/img/logo/logo-blue.png
         url: https://nastools.mineserver.info
@@ -177,7 +189,6 @@ sections:
         statusCheckAcceptCodes: '403'
         id: 8_1256_nastools
     filteredItems:
-      - *ref_4
       - *ref_5
       - *ref_6
       - *ref_7
@@ -186,6 +197,7 @@ sections:
       - *ref_10
       - *ref_11
       - *ref_12
+      - *ref_13
   - name: Infrastructure
     displayData:
       sortBy: default
@@ -194,7 +206,7 @@ sections:
       collapsed: false
       hideForGuests: false
     items:
-      - &ref_13
+      - &ref_14
         title: VSphere SM
         description: VMware's cloud computing virtualization platform
         icon: >-
@@ -204,7 +216,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 0_1505_vspheresm
-      - &ref_14
+      - &ref_15
         title: VSphere MN
         description: VMware's cloud computing virtualization platform
         icon: >-
@@ -214,7 +226,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 1_1505_vspheremn
-      - &ref_15
+      - &ref_16
         title: VCSA
         description: The vCenter Server Appliance
         icon: >-
@@ -225,7 +237,7 @@ sections:
         statusCheckAcceptCodes: '403'
         statusCheckAllowInsecure: true
         id: 2_1505_vcsa
-      - &ref_16
+      - &ref_17
         title: OMV SM
         description: openmediavault is the next generation network attached storage (NAS)
         icon: >-
@@ -235,7 +247,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 3_1505_omvsm
-      - &ref_17
+      - &ref_18
         title: OMV MN
         description: openmediavault is the next generation network attached storage (NAS)
         icon: >-
@@ -245,7 +257,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 4_1505_omvmn
-      - &ref_18
+      - &ref_19
         title: portainer
         description: a lightweight service delivery platform for containerized applications
         icon: >-
@@ -255,7 +267,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 5_1505_portainer
-      - &ref_19
+      - &ref_20
         title: jumpserver
         description: >-
           JumpServer is an open-source Privileged Access Management (PAM) tool
@@ -267,7 +279,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 6_1505_jumpserver
-      - &ref_20
+      - &ref_21
         title: Nginx-UI JP
         description: Nginx UI Yet another Nginx Web UI Intelligent, powerful, and fast.
         icon: https://nginxui.com/assets/icon.svg
@@ -276,7 +288,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 7_1505_nginxuijp
-      - &ref_21
+      - &ref_22
         title: Nginx-UI DC
         description: Nginx UI Yet another Nginx Web UI Intelligent, powerful, and fast.
         icon: https://nginxui.com/assets/icon.svg
@@ -286,7 +298,6 @@ sections:
         statusCheckAcceptCodes: '403'
         id: 8_1505_nginxuidc
     filteredItems:
-      - *ref_13
       - *ref_14
       - *ref_15
       - *ref_16
@@ -295,6 +306,7 @@ sections:
       - *ref_19
       - *ref_20
       - *ref_21
+      - *ref_22
   - name: Network & Server
     displayData:
       sortBy: default
@@ -303,7 +315,7 @@ sections:
       collapsed: false
       hideForGuests: false
     items:
-      - &ref_22
+      - &ref_23
         title: ROS
         description: >-
           MikroTik RouterOS is the operating system of MikroTik RouterBOARD
@@ -315,7 +327,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 0_1479_ros
-      - &ref_23
+      - &ref_24
         title: TP-Link
         icon: https://assets.ifttt.com/images/channels/1933872977/icons/large.png
         url: https://tplink-router.mineserver.info
@@ -323,7 +335,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 1_1479_tplink
-      - &ref_24
+      - &ref_25
         title: Supermicro
         description: The Intelligent Platform Management Interface (IPMI)
         icon: >-
@@ -333,7 +345,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 2_1479_supermicro
-      - &ref_25
+      - &ref_26
         title: Minenas
         description: The Intelligent Platform Management Interface (IPMI)
         icon: >-
@@ -343,7 +355,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 3_1479_minenas
-      - &ref_26
+      - &ref_27
         title: OpenWrt
         description: >-
           The OpenWrt Project is a Linux operating system targeting embedded
@@ -355,7 +367,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 4_1479_openwrt
-      - &ref_27
+      - &ref_28
         title: Adguard home
         description: Surf the Web ad-free and safely. Shields up!
         icon: >-
@@ -366,12 +378,12 @@ sections:
         statusCheckAcceptCodes: '403'
         id: 5_1479_adguardhome
     filteredItems:
-      - *ref_22
       - *ref_23
       - *ref_24
       - *ref_25
       - *ref_26
       - *ref_27
+      - *ref_28
   - name: Development
     displayData:
       sortBy: default
@@ -380,7 +392,7 @@ sections:
       collapsed: false
       hideForGuests: false
     items:
-      - &ref_28
+      - &ref_29
         title: Code server
         description: Run VS Code on any machine anywhere and access it in the browser.
         icon: >-
@@ -390,7 +402,7 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 0_1155_codeserver
-      - &ref_29
+      - &ref_30
         title: Jupyter
         description: The Jupyter Notebook is a web-based interactive computing platform
         icon: >-
@@ -400,18 +412,6 @@ sections:
         statusCheck: true
         statusCheckAcceptCodes: '403'
         id: 1_1155_jupyter
-      - &ref_30
-        title: Space
-        description: >-
-          Space is an extensible platform and we are committed to providing
-          first-class support for a wide range of extensions and integrations.
-        icon: >-
-          https://seeklogo.com/images/J/jetbrains-space-icon-logo-69559658A8-seeklogo.com.png
-        url: https://space.mineserver.info
-        target: newtab
-        statusCheck: true
-        statusCheckAcceptCodes: '403'
-        id: 2_1155_space
       - &ref_31
         title: LiteLLM
         description: >-
@@ -422,7 +422,7 @@ sections:
         target: newtab
         statusCheck: true
         statusCheckAcceptCodes: '403'
-        id: 3_1155_litellm
+        id: 2_1155_litellm
       - &ref_32
         title: Dify
         description: >-
@@ -436,9 +436,8 @@ sections:
         target: newtab
         statusCheck: true
         statusCheckAcceptCodes: '403'
-        id: 4_1155_dify
+        id: 3_1155_dify
     filteredItems:
-      - *ref_28
       - *ref_29
       - *ref_30
       - *ref_31
