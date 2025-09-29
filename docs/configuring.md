@@ -243,6 +243,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`items`** | `array` | _Optional_ | An array of items to be displayed within the section. See [`item`](#sectionitem). Sections must include either 1 or more items, or 1 or more widgets.
 **`widgets`** | `array` | _Optional_ | An array of widgets to be displayed within the section. See [`widget`](#sectionwidget-optional)
 **`displayData`** | `object` | _Optional_ | Meta-data to optionally override display settings for a given section. See [`displayData`](#sectiondisplaydata-optional)
+**`pin`** | `string` | _Optional_ | The PIN code for unlocking this section if `secret` under `displayData` is true. Provide at the section root (e.g., pin: 2749). Validated client-side and remembered only for the current browser tab/session. Not intended for protecting highly sensitive data. Only for Child-proofing 
 
 **[⬆️ Back to Top](#configuring)**
 
@@ -317,6 +318,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`hideForGuests`** | `boolean` | _Optional_ | Current section will be visible for logged in users, but not for guests (see `appConfig.enableGuestAccess`). Defaults to `false`
 **`hideForKeycloakUsers`** | `object`  | _Optional_ | Current section will be visible to all keycloak users, except for those configured via these groups and roles. See `hideForKeycloakUsers`
 **`showForKeycloakUsers`** | `object`  | _Optional_ | Current section will be hidden from all keycloak users, except for those configured via these groups and roles. See `showForKeycloakUsers`
+**`secret`** | `boolean` | _Optional_ | When true, the section is hidden behind a PIN gate. The PIN must be provided at the section root via `pin`. While locked, the section shows a PIN input instead of its items. On successful entry, the section unlocks for the current browser tab/session (not persisted across tab closes). In Edit Mode the gate is bypassed so you can configure/unhide the section.
 
 **[⬆️ Back to Top](#configuring)**
 
