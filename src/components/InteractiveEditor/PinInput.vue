@@ -2,7 +2,7 @@
   <div class="pin-gate">
     <div class="pin-head">
       <i class="far fa-lock" aria-hidden="true"></i>
-      <span>Locked section</span>
+      <span>{{ $t('pin.lockedSection') }}</span>
     </div>
 
     <FormSchema
@@ -13,12 +13,10 @@
     />
 
     <div class="pin-actions">
-      <button class="pin-btn" @click="submit">
+      <button class="pin-btn" @click="submit" :aria-label="$t('pin.unlock')">
         <i class="fas fa-unlock-alt btn-icon" aria-hidden="true"></i>
-        Unlock</button>
-      <button class="pin-reset" @click="lockAgain" type="button">
-        <i class="fas fa-lock btn-icon" aria-hidden="true"></i>
-        Lock</button>
+        {{ $t('pin.unlock') }}
+      </button>
     </div>
   </div>
 </template>
@@ -39,7 +37,7 @@ export default {
         type: 'object',
         properties: {
           pin: {
-            title: 'Enter PIN',
+            title: this.$t('pin.enter-pin'),
             type: 'string',
             attrs: {
               type: 'password',

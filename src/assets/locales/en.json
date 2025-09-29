@@ -251,6 +251,12 @@
       "remove-section": "Remove"
     }
   },
+  "pin": {
+    "unlock": "Unlock",
+    "lock": "Lock",
+    "lockedSection": "Locked section",
+    "enter-pin": "Enter PIN"
+  },
   "footer": {
     "dev-by": "Developed by",
     "licensed-under": "Licensed under",

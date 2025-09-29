@@ -20,6 +20,10 @@
       @unlock_attempt="saveUnlockPins"
     />
     <div v-if="!showPinRequired">
+      <button v-if="unLockedWithPin" class="pin-reset" @click="lockAgain" type="button">
+        <i class="fas fa-lock btn-icon" aria-hidden="true"></i>
+        {{ $t('pin.lock') }}
+      </button>
       <!-- If no items, show message -->
       <div v-if="isEmpty" class="no-items">
         {{ $t('home.no-items-section') }}
@@ -242,6 +246,10 @@ export default {
       if (this.isEditMode) return false;
       return this.displayData.secret === true && !this.isUnlocked;
     },
+    unLockedWithPin() {
+      if (this.isEditMode) return false;
+      return this.displayData.secret === true && this.isUnlocked;
+    },
   },
   watch: {
     searchTerm: {
@@ -365,19 +373,28 @@ export default {
       if (secElem && secElem.$el.clientWidth) this.sectionWidth = secElem.$el.clientWidth;
     },
     saveUnlockPins({ pin, id }) {
-      const map = JSON.parse(localStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
+      const map = JSON.parse(sessionStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
       map[id] = pin;
-      localStorage.setItem(SECRET_UNLOCKED_KEY, JSON.stringify(map));
+      sessionStorage.setItem(SECRET_UNLOCKED_KEY, JSON.stringify(map));
       this.updateUnlocked();
     },
     updateUnlocked() {
-      const unlockPins = JSON.parse(localStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
+      const unlockPins = JSON.parse(sessionStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
       const sectionKey = this.sectionRef;
       if (unlockPins[sectionKey] === this.pin) {
         this.isUnlocked = true;
       } else {
         this.isUnlocked = false;
       }
+    },
+    lockAgain() {
+      const unlockPins = JSON.parse(sessionStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
+      const sectionKey = this.sectionRef;
+      if (unlockPins[sectionKey]) {
+        delete unlockPins[sectionKey];
+        sessionStorage.setItem(SECRET_UNLOCKED_KEY, JSON.stringify(unlockPins));
+      }
+      this.isUnlocked = false;
     },
   },
   mounted() {
@@ -395,10 +412,10 @@ export default {
       const secretPin = String(this.pin || '0000');
       const sectionKey = this.sectionRef;
 
-      const pins = JSON.parse(localStorage.getItem(SECRET_PINS_KEY) || '{}');
+      const pins = JSON.parse(sessionStorage.getItem(SECRET_PINS_KEY) || '{}');
       if (pins[sectionKey] !== secretPin) {
         pins[sectionKey] = secretPin;
-        localStorage.setItem(SECRET_PINS_KEY, JSON.stringify(pins));
+        sessionStorage.setItem(SECRET_PINS_KEY, JSON.stringify(pins));
       }
     }
   },
