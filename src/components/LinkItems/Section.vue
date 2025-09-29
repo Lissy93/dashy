@@ -232,20 +232,6 @@ export default {
       }
       return styles;
     },
-    shouldRenderSection() {
-      const hidden = this.displayData?.hiddenOnPurpose === true;
-
-      // Always show in Edit Mode so the user can unhide it
-      if (this.isEditMode) return true;
-
-      // If not hidden, render as usual
-      if (!hidden || this.showHiddenMode) return true;
-
-      // If hidden, only show when search is active AND this section has hits
-      const searchActive = (this.searchTerm || '').trim().length > 0;
-      const hasHits = Array.isArray(this.items) && this.items.length > 0;
-      return searchActive && hasHits;
-    },
     showPinRequired() {
       if (this.isEditMode) return false;
       return this.displayData.secret === true && !this.isUnlocked;
@@ -253,37 +239,6 @@ export default {
     unLockedWithPin() {
       if (this.isEditMode) return false;
       return this.displayData.secret === true && this.isUnlocked;
-    },
-  },
-  watch: {
-    searchTerm: {
-      handler(newSeachTerm) {
-        // find if special code search is used
-        const showHidden = newSeachTerm.trim().toLowerCase() === '<hidden>';
-        this.showHiddenMode = showHidden;
-
-        // check if search is active
-        let searchIsActive = false;
-        if (newSeachTerm && newSeachTerm.trim().length > 0) {
-          searchIsActive = true;
-        }
-
-        // check if search is hit
-        const hasHits = this.items.length > 0;
-
-        // action if search is active and search hits and it was collapsed
-        if (searchIsActive && hasHits && this.isCollapsed) {
-          this.expandCollapseSection();
-          this.autoOpenedBySearch = true;
-        }
-
-        // action if that search is not a hit anymore
-        if (this.autoOpenedBySearch && (!searchIsActive || !hasHits)) {
-          this.expandCollapseSection();
-          this.autoOpenedBySearch = false;
-        }
-      },
-      immediate: true,
     },
   },
   methods: {
