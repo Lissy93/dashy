@@ -20,10 +20,6 @@
       @unlock_attempt="saveUnlockPins"
     />
     <div v-if="!showPinRequired">
-      <button v-if="unLockedWithPin" class="pin-reset" @click="lockAgain" type="button">
-        <i class="fas fa-lock btn-icon" aria-hidden="true"></i>
-        {{ $t('pin.lock') }}
-      </button>
       <!-- If no items, show message -->
       <div v-if="isEmpty" class="no-items">
         {{ $t('home.no-items-section') }}
@@ -81,6 +77,12 @@
           :index="index"
           @navigateToSection="navigateToSection"
         />
+      </div>
+      <div v-if="unLockedWithPin" class="pin-unlocked-bar">
+        <button class="pin-reset" @click="lockAgain" type="button">
+          <i class="fas fa-lock btn-icon" aria-hidden="true"></i>
+          {{ $t('pin.lock') }}
+        </button>
       </div>
     </div>
     <!-- Modal for opening in modal view -->
@@ -431,6 +433,7 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/media-queries.scss';
 @import '@/styles/style-helpers.scss';
+@import '@/styles/pin-input.scss';
 
 .no-items {
     width: 100px;
