@@ -159,6 +159,7 @@ Checklist:
 - [ ] Update the [Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js) with the parameters for your new option
 - [ ] If required, set a default or fallback value (usually in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js))
 - [ ] Document the new value in [`configuring.md`](./configuring.md), and if required under the relevant section in the docs
+  - For example, if adding an item-level flag like `hidden: true`, document its purpose, default, and behavior (e.g., hidden on homepage but still searchable)
 - [ ] Ensure your changes are backwards compatible, and that nothing breaks if the attribute isn't specified
 
 ---
