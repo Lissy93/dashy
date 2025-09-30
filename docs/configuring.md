@@ -254,6 +254,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`description`** | `string` | _Optional_ | Additional info about an item, which is shown in the tooltip on hover, or visible on large tiles
 **`url`** | `string` | Required | The URL / location of web address for when the item is clicked
 **`icon`** | `string` | _Optional_ | The icon for a given item. Can be a font-awesome icon, favicon, remote URL or local URL. See [`item.icon`](#sectionicon-and-sectionitemicon)
+**`hidden`** | `boolean` | _Optional_ | If set to `true`, this item will be hidden from the default homepage view. It will still appear in search results, and will remain visible while using the Interactive Edit Mode. Defaults to `false`.
 **`target`** | `string` | _Optional_ | The opening method for when the item is clicked, either `newtab`, `sametab`, `modal`, `workspace`, `clipboard`, `top` or `parent`. Where `newtab` will open the link in a new tab, `sametab` will open it in the current tab, and `modal` will open a pop-up modal, `workspace` will open in the Workspace view and `clipboard` will copy the URL to system clipboard (but not launch app). Defaults to `newtab`
 **`hotkey`** | `number` | _Optional_ | Give frequently opened applications a numeric hotkey, between `0 - 9`. You can then just press that key to launch that application.
 **`tags`** | `string[]` | _Optional_ | A list of tags, which can be used for improved search
@@ -282,6 +283,22 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`showForKeycloakUsers`** | `object`  | _Optional_ | Current item will be hidden from all keycloak users, except for those configured via these groups and roles. See `showForKeycloakUsers`
 
 **[⬆️ Back to Top](#configuring)**
+
+### Example: Hiding an item from the homepage
+
+```yaml
+sections:
+- name: Media
+  items:
+  - title: Admin Panel
+    url: https://example.local/admin
+    icon: fa fa-tools
+    hidden: true   # hidden from the default homepage, but still searchable
+  - title: Plex
+    url: https://plex.local
+    icon: favicon
+```
+
 
 ## `section.widgets` _(optional)_
 
