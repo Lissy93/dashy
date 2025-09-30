@@ -17,9 +17,6 @@ appConfig:
 sections:
 - name: Getting Started
   icon: fas fa-rocket
-  pin: 1245
-  displayData:
-    secret: true
   items:
   - title: Dashy Live
     description: Development a project management links for Dashy
