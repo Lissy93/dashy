@@ -48,6 +48,17 @@
           />
           Disable Web Search
         </label>
+        <label
+          v-if="!searchPrefs.disableWebSearch"
+          class="theme-label"
+        >
+          <input
+            type="checkbox"
+            :checked="!!searchPrefs.enableCtrlEnterWebSearch"
+            @change="toggleCtrlEnterWebSearch"
+          />
+          Enable Ctrl/Cmd + Enter to search web
+        </label>
         <label class="theme-label">
           <input
             type="checkbox"
@@ -263,6 +274,22 @@ export default {
       const notAlreadySearching = currentElem !== 'filter-tiles';
       // If a modal is open, then do nothing
       if (!this.active) return;
+      // Force web search with Ctrl/Cmd + Enter when enabled (and input focused)
+      const isEnter = key === 'Enter' || keyCode === 13;
+      const isCtrlOrCmd = !!(event.ctrlKey || event.metaKey);
+      if (
+        isEnter
+        && isCtrlOrCmd
+        && currentElem === 'filter-tiles'
+        && this.searchPrefs
+        && !this.searchPrefs.disableWebSearch
+        && this.searchPrefs.enableCtrlEnterWebSearch
+      ) {
+        event.preventDefault();
+        // Force web search, ignoring advanced selection and go-to-link
+        this.searchSubmitted(true);
+        return;
+      }
       if (/^[/:!a-zA-Z]$/.test(key) && notAlreadySearching) {
         // Letter or bang key pressed - start searching
         if (this.$refs.filter) this.$refs.filter.focus();
@@ -353,11 +380,12 @@ export default {
     },
 
     /* Launch web search, to correct search engine, passing in users query */
-    searchSubmitted() {
+    searchSubmitted(force = false) {
       const { searchPrefs, goToLinkEnabled } = this;
       const input = this.input.trim();
-      // 1. If "Go to Link" is enabled and input is URL-like, always open as link
-      if (goToLinkEnabled && this.isUrlLike(input)) {
+      // 1. If not forcing web search, and "Go to Link" is enabled
+      //    and input is URL-like, open as link
+      if (!force && goToLinkEnabled && this.isUrlLike(input)) {
         window.open(this.normalizeUrl(input), '_blank');
         this.clearFilterInput();
         return;
@@ -366,7 +394,7 @@ export default {
       // and there are matched tiles on the page, pressing Enter should open the
       // selected tile (focused) or the first matched tile instead of web search
       const adv = this.$store.getters.advancedSearch || {};
-      if ((adv.enabled === true) && input.length > 0) {
+      if (!force && (adv.enabled === true) && input.length > 0) {
         const items = this.getExactMatchItemsList();
         if (!items || items.length === 0) {
           // No exact matches -> allow normal web search flow below
@@ -384,7 +412,10 @@ export default {
       }
       // 2. If not URL-like, or "Go to Link" is disabled, only search if web search is enabled
       if (!searchPrefs.disableWebSearch) {
-        const bangList = { ...defaultSearchBangs, ...(searchPrefs.searchBangs || {}) };
+        const bangList = {
+          ...defaultSearchBangs,
+          ...(searchPrefs.searchBangs || {}),
+        };
         const openingMethod = searchPrefs.openingMethod || defaultSearchOpeningMethod;
         const searchBang = getSearchEngineFromBang(input, bangList);
         const searchEngine = searchPrefs.searchEngine || defaultSearchEngine;
@@ -399,6 +430,18 @@ export default {
           this.clearFilterInput();
         }
       }
+    },
+    toggleCtrlEnterWebSearch(event) {
+      const value = event.target.checked;
+      const currentAppConfig = this.$store.getters.appConfig || {};
+      const newAppConfig = {
+        ...currentAppConfig,
+        webSearch: {
+          ...(currentAppConfig.webSearch || {}),
+          enableCtrlEnterWebSearch: value,
+        },
+      };
+      this.$store.commit('SET_APP_CONFIG', newAppConfig);
     },
     // Utility: Detect if input is a URL or domain-like string
     isUrlLike(input) {
