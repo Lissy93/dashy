@@ -758,7 +758,7 @@
           },
           "pin":{
             "title": "Section Pin",
-            "type": "string",
+            "type": ["number", "string"],
             "description": "PIN to unlock this section"
           },
           "displayData": {

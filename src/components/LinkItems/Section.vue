@@ -126,6 +126,7 @@ import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
 import PinInput from '@/components/InteractiveEditor/PinInput.vue';
 import ErrorHandler from '@/utils/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
+import { pinHash } from '@/utils/SectionHelpers';
 import {
   sortOrder as defaultSortOrder,
   localStorageKeys,
@@ -141,7 +142,7 @@ export default {
     groupId: String,
     title: String,
     icon: String,
-    pin: String,
+    pin: [String, Number],
     displayData: Object,
     items: Array,
     widgets: Array,
@@ -337,7 +338,9 @@ export default {
       sessionStorage.setItem(SECRET_UNLOCKED_KEY, JSON.stringify(map));
       const unlockPins = JSON.parse(sessionStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
       const sectionKey = this.sectionRef;
-      if (unlockPins[sectionKey] === this.pin) {
+      const savedPin = unlockPins[sectionKey];
+
+      if (savedPin === pinHash(pin) || savedPin === pin.toString()) {
         this.pinError = '';
         this.isUnlocked = true;
       } else {

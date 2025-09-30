@@ -46,7 +46,7 @@ sections:
     icon: far fa-hands-helping
 - name: Stuff
   icon: fas fa-rocket
-  pin: "1112"
+  pin: FE91A760983D401D9B679FB092B689488D1F46D92F3AF5E9E93363326F3E8AA4
   displayData:
     secret: true
   items:
@@ -62,7 +62,7 @@ sections:
     target: newtab
 - name: Stuff 2
   icon: fas fa-rocket
-  pin: "1114"
+  pin: 1114
   displayData:
     secret: true
   items:
