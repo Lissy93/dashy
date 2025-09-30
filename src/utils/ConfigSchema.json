@@ -357,6 +357,12 @@
               "default": "false",
               "description": "If set to true, web search will be disabled all together"
             },
+            "enableCtrlEnterWebSearch": {
+              "title": "Enable Ctrl/Cmd+Enter Web Search",
+              "type": "boolean",
+              "default": false,
+              "description": "When true and web search is enabled, pressing Ctrl+Enter (Cmd+Enter on macOS) will force a web search using the configured engine, ignoring advanced selection or link detection"
+            },
             "searchEngine": {
               "title": "Search Engine",
               "type": "string",
