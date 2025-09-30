@@ -240,6 +240,7 @@ export default {
         return str === 'true';
       };
       if (newItem.tags) newItem.tags = strToTags(newItem.tags);
+      if (newItem.hidden !== undefined) newItem.hidden = strToBool(newItem.hidden);
       if (newItem.statusCheck) newItem.statusCheck = strToBool(newItem.statusCheck);
       if (newItem.statusCheckAllowInsecure) {
         newItem.statusCheckAllowInsecure = strToBool(newItem.statusCheckAllowInsecure);
