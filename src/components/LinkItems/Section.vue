@@ -336,7 +336,7 @@ export default {
       const map = JSON.parse(sessionStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
       map[id] = pin;
       sessionStorage.setItem(SECRET_UNLOCKED_KEY, JSON.stringify(map));
-      const unlockPins = JSON.parse(sessionStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
+      const unlockPins = JSON.parse(sessionStorage.getItem(SECRET_PINS_KEY) || '{}');
       const sectionKey = this.sectionRef;
       const savedPin = unlockPins[sectionKey];
 
@@ -373,7 +373,7 @@ export default {
 
       const secretPin = String(this.pin || '0000');
       const sectionKey = this.sectionRef;
-
+      console.log('Section Key', sectionKey, secretPin);
       const pins = JSON.parse(sessionStorage.getItem(SECRET_PINS_KEY) || '{}');
       if (pins[sectionKey] !== secretPin) {
         pins[sectionKey] = secretPin;
