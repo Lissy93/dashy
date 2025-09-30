@@ -293,7 +293,10 @@ Often find yourself searching "What's my IP", just so you can check your VPN is 
 
 <p align="center"><img width="400" src="https://i.ibb.co/vc3c8zN/public-ip.png" /></p>
 
-You can optionally hide geographical details (city, region, ISP, flag) and show only the IP address by setting `hideDetails: true`.
+You can optionally hide geographical details (city, region, ISP, flag) and show only the IP address by setting `hideDetails: true`. This is useful for:
+- **Privacy concerns** - when you don't want to expose location information
+- **Minimal dashboards** - for cleaner, more compact layouts
+- **Quick IP checks** - when you only need to verify your public IP
 
 <p align="center">
   <img width="400" src="./assets/public-ip-full-details.png" alt="Public IP with full details" />
