@@ -41,7 +41,7 @@ export default {
       return this.parseAsEnvVar(this.options.provider) || 'ipapi.co';
     },
     hideDetails() {
-      // Hide geographical details when hideDetails option is true
+      // Hide geographical details when hideDetails option is true (default: false)
       return this.options.hideDetails === true;
     },
   },
