@@ -325,7 +325,7 @@ export default {
     },
 
     formatBytes(bytes) {
-      if (!bytes || bytes === 0 || Number.isNaN(bytes)) return '0 B';
+      if (!bytes || Number.isNaN(bytes)) return '0 B';
       const k = 1024;
       const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
       const i = Math.floor(Math.log(bytes) / Math.log(k));
@@ -333,7 +333,7 @@ export default {
     },
 
     formatUptime(seconds) {
-      if (!seconds || Number.isNaN(seconds) || seconds <= 0) return '-';
+      if (!seconds || seconds <= 0) return '-';
 
       const days = Math.floor(seconds / 86400);
       const hours = Math.floor((seconds % 86400) / 3600);
@@ -360,7 +360,7 @@ export default {
         uptime = this.detailData.uptime;
 
         if (typeof uptime === 'string') {
-          return uptime.replace('days', 'days').replace('day', 'day');
+          return uptime;
         }
       } else if (this.detailData.system && this.detailData.system.uptime) {
         // 3. System object uptime
