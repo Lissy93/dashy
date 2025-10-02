@@ -121,14 +121,14 @@ A simple, live-updating time and date widget with time-zone support. All fields 
 
 #### Options
 
-| **Field**            | **Type**  | **Required** | **Description**                                                                                                                                                                                                                                                              |
-| -------------------- | --------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`timeZone`**       | `string`  | _Optional_   | The time zone to display date and time in.<br> Specified as Region/City, for example: `Australia/Melbourne`. See the [Time Zone DB](https://timezonedb.com/time-zones) for a full list of supported TZs. Defaults to the browser / device's local time                       |
-| **`format`**         | `string`  | _Optional_   | A country code for displaying the date and time in local format.<br>Specified as `[ISO-3166]-[ISO-639]`, for example: `en-AU`. See [here](https://www.fincher.org/Utilities/CountryLanguageList.shtml) for a full list of locales. Defaults to the browser / device's region |
-| **`customCityName`** | `string`  | _Optional_   | By default the city from the time-zone is shown, but setting this value will override that text                                                                                                                                                                              |
-| **`hideDate`**       | `boolean` | _Optional_   | If set to `true`, the date and city will not be shown. Defaults to `false`                                                                                                                                                                                                   |
-| **`hideSeconds`**    | `boolean` | _Optional_   | If set to `true`, seconds will not be shown. Defaults to `false`                                                                                                                                                                                                             |
-| **`use12Hour`**      | `boolean` | _Optional_   | If set to `true`, 12 hour time will be displayed. Defaults to the settings suggested by the current `format` and `timeZone`                                                                                                                                                  |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`timeZone`** | `string` |  _Optional_ | The time zone to display date and time in.<br> Specified as Region/City, for example: `Australia/Melbourne`. See the [Time Zone DB](https://timezonedb.com/time-zones) for a full list of supported TZs. Defaults to the browser / device's local time
+**`format`** | `string` | _Optional_ | A country code for displaying the date and time in local format.<br>Specified as `[ISO-3166]-[ISO-639]`, for example: `en-AU`. See [here](https://www.fincher.org/Utilities/CountryLanguageList.shtml) for a full list of locales. Defaults to the browser / device's region
+**`customCityName`** | `string` |  _Optional_ | By default the city from the time-zone is shown, but setting this value will override that text
+**`hideDate`** | `boolean` |  _Optional_ | If set to `true`, the date and city will not be shown. Defaults to `false`
+**`hideSeconds`** | `boolean` |  _Optional_ | If set to `true`, seconds will not be shown. Defaults to `false`
+**`use12Hour`** | `boolean` |  _Optional_ | If set to `true`, 12 hour time will be displayed. Defaults to the settings suggested by the current `format` and `timeZone`
 
 #### Example
 
@@ -154,14 +154,14 @@ A simple, live-updating local weather component, showing temperature, conditions
 
 #### Options
 
-| **Field**         | **Type**  | **Required** | **Description**                                                                                                                                    |
-| ----------------- | --------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`apiKey`**      | `string`  | Required     | Your OpenWeatherMap API key. You can get one for free at [openweathermap.org](https://openweathermap.org/)                                         |
-| **`city`**        | `string`  | Required     | A city name to use for fetching weather. This can also be a state code or country code, following the ISO-3166 format                              |
-| **`units`**       | `string`  | _Optional_   | The units to use for displaying data, can be either `metric` or `imperial`. Defaults to `metric`                                                   |
-| **`hideDetails`** | `boolean` | _Optional_   | If set to `true`, the additional details (wind, humidity, pressure, etc) will not be shown. Defaults to `false`                                    |
-| **`lat`**         | `number`  | _Optional_   | To show weather for a specific location, you can provide the latitude and longitude coordinates. If provided, this will override the `city` option |
-| **`lon`**         | `number`  | _Optional_   | To show weather for a specific location, you can provide the latitude and longitude coordinates. If provided, this will override the `city` option |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | Your OpenWeatherMap API key. You can get one for free at [openweathermap.org](https://openweathermap.org/)
+**`city`** | `string` | Required | A city name to use for fetching weather. This can also be a state code or country code, following the ISO-3166 format
+**`units`** | `string` |  _Optional_ | The units to use for displaying data, can be either `metric` or `imperial`. Defaults to `metric`
+**`hideDetails`** | `boolean` |  _Optional_ | If set to `true`, the additional details (wind, humidity, pressure, etc) will not be shown. Defaults to `false`
+**`lat`** | `number` |  _Optional_ | To show weather for a specific location, you can provide the latitude and longitude coordinates. If provided, this will override the `city` option
+**`lon`** | `number` |  _Optional_ | To show weather for a specific location, you can provide the latitude and longitude coordinates. If provided, this will override the `city` option
 
 #### Example
 
@@ -191,13 +191,13 @@ Displays the weather (temperature and conditions) for the next few days for a gi
 
 #### Options
 
-| **Field**         | **Type**  | **Required** | **Description**                                                                                                                                                                    |
-| ----------------- | --------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`apiKey`**      | `string`  | Required     | Your OpenWeatherMap API key. You can get one at [openweathermap.org](https://openweathermap.org/) or for free via the [OWM Student Plan](https://home.openweathermap.org/students) |
-| **`city`**        | `string`  | Required     | A city name to use for fetching weather. This can also be a state code or country code, following the ISO-3166 format                                                              |
-| **`numDays`**     | `number`  | _Optional_   | The number of days to display of forecast info to display. Defaults to `4`, max `16` days                                                                                          |
-| **`units`**       | `string`  | _Optional_   | The units to use for displaying data, can be either `metric` or `imperial`. Defaults to `metric`                                                                                   |
-| **`hideDetails`** | `boolean` | _Optional_   | If set to `true`, the additional details (wind, humidity, pressure, etc) will not be shown. Defaults to `false`                                                                    |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | Your OpenWeatherMap API key. You can get one at [openweathermap.org](https://openweathermap.org/) or for free via the [OWM Student Plan](https://home.openweathermap.org/students)
+**`city`** | `string` | Required | A city name to use for fetching weather. This can also be a state code or country code, following the ISO-3166 format
+**`numDays`** | `number` |  _Optional_ | The number of days to display of forecast info to display. Defaults to `4`, max `16` days
+**`units`** | `string` |  _Optional_ | The units to use for displaying data, can be either `metric` or `imperial`. Defaults to `metric`
+**`hideDetails`** | `boolean` |  _Optional_ | If set to `true`, the additional details (wind, humidity, pressure, etc) will not be shown. Defaults to `false`
 
 #### Example
 
@@ -227,14 +227,14 @@ Display news and updates from any RSS-enabled service.
 
 #### Options
 
-| **Field**            | **Type**  | **Required** | **Description**                                                                                                                                                       |
-| -------------------- | --------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`rssUrl`**         | `string`  | Required     | The URL location of your RSS feed                                                                                                                                     |
-| **`apiKey`**         | `string`  | _Optional_   | An API key for [rss2json](https://rss2json.com/). It's free, and will allow you to make 10,000 requests per day, you can sign up [here](https://rss2json.com/sign-up) |
-| **`limit`**          | `number`  | _Optional_   | The number of posts to return. If you haven't specified an API key, this will be limited to 10                                                                        |
-| **`orderBy`**        | `string`  | _Optional_   | How results should be sorted. Can be either `pubDate`, `author` or `title`. Defaults to `pubDate`                                                                     |
-| **`orderDirection`** | `string`  | _Optional_   | Order direction of feed items to return. Can be either `asc` or `desc`. Defaults to `desc`                                                                            |
-| **`parseLocally`**   | `boolean` | _Optional_   | If true parse the rss feed locally instead of using the rss2json API.                                                                                                 |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`rssUrl`** | `string` |  Required | The URL location of your RSS feed
+**`apiKey`** | `string` |  _Optional_ | An API key for [rss2json](https://rss2json.com/). It's free, and will allow you to make 10,000 requests per day, you can sign up [here](https://rss2json.com/sign-up)
+**`limit`** | `number` |  _Optional_ | The number of posts to return. If you haven't specified an API key, this will be limited to 10
+**`orderBy`** | `string` |  _Optional_ | How results should be sorted. Can be either `pubDate`, `author` or `title`. Defaults to `pubDate`
+**`orderDirection`** | `string` |  _Optional_ | Order direction of feed items to return. Can be either `asc` or `desc`. Defaults to `desc`
+**`parseLocally`** | `boolean`     |  _Optional_ | If true parse the rss feed locally instead of using the rss2json API.
 
 #### Example
 
@@ -272,11 +272,11 @@ Or what about showing a photo of the day? Try `https://source.unsplash.com/rando
 
 #### Options
 
-| **Field**         | **Type** | **Required** | **Description**                                                                                                                                                      |
-| ----------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`imagePath`**   | `string` | Required     | The path (local or remote) of the image to display                                                                                                                   |
-| **`imageWidth`**  | `string` | _Optional_   | Specify a fixed width for rendered image. Accepts either integer value in `px`, or any string value with units (e.g. `420`, `100px`, `6.9rem`) (defaults to `auto`)  |
-| **`imageHeight`** | `string` | _Optional_   | Specify a fixed height for rendered image. Accepts either integer value in `px`, or any string value with units (e.g. `420`, `100px`, `6.9rem`) (defaults to `auto`) |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`imagePath`** | `string` |  Required | The path (local or remote) of the image to display
+**`imageWidth`** | `string` |  _Optional_ | Specify a fixed width for rendered image. Accepts either integer value in `px`, or any string value with units (e.g. `420`, `100px`, `6.9rem`) (defaults to `auto`)
+**`imageHeight`** | `string` |  _Optional_ | Specify a fixed height for rendered image. Accepts either integer value in `px`, or any string value with units (e.g. `420`, `100px`, `6.9rem`) (defaults to `auto`)
 
 #### Example
 
@@ -302,10 +302,10 @@ Often find yourself searching "What's my IP", just so you can check your VPN is 
 
 _All fields are optional._
 
-| **Field**      | **Type** | **Required** | **Description**                                                                                                                                                                                                                                                                      |
-| -------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`provider`** | `string` | _Optional_   | The name of the service to fetch IP address from. Can be either `ipapi.co`, `ip-api`, `ipgeolocation` or `ip2location.io`. Defaults to `ipapi.co`. Note, `ip-api` doesn't work on HTTPS, and if you set to `ipgeolocation` or `ip2location.io` then you must also provide an API key |
-| **`apiKey`**   | `string` | _Optional_   | Only required if provider is set to `ipgeolocation` or `ip2location.io`. You can get a free IPGeolocation API key [here](https://ipgeolocation.io/signup.html) or a free IP2Location.io API key [here](https://ip2location.io/pricing)                                               |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`provider`** | `string` |  _Optional_ | The name of the service to fetch IP address from. Can be either `ipapi.co`, `ip-api`, `ipgeolocation` or `ip2location.io`. Defaults to `ipapi.co`. Note, `ip-api` doesn't work on HTTPS, and if you set to `ipgeolocation` or `ip2location.io` then you must also provide an API key
+**`apiKey`** | `string` |  _Optional_ | Only required if provider is set to `ipgeolocation` or `ip2location.io`. You can get a free IPGeolocation API key [here](https://ipgeolocation.io/signup.html) or a free IP2Location.io API key [here](https://ip2location.io/pricing)
 
 #### Example
 
@@ -328,7 +328,7 @@ Or
 - **Auth**: 🟠 Optional
 - **Price**: 🟢 Free
 - **Host**: Managed Instance Only
-- **Privacy**: \_See [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html) or [IP-API Privacy Policy](https://ip-api.com/docs/legal) or [IP2Location.io Privacy Policy](https://ip2location.io/privacy-policy)
+- **Privacy**: _See [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html) or [IP-API Privacy Policy](https://ip-api.com/docs/legal) or [IP2Location.io Privacy Policy](https://ip2location.io/privacy-policy)
 
 ---
 
@@ -340,10 +340,10 @@ Notice certain web pages aren't loading? This widget quickly shows which blackli
 
 #### Options
 
-| **Field**       | **Type** | **Required** | **Description**                                                                                                                               |
-| --------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`ipAddress`** | `string` | _Optional_   | The IP to check. This can also be a domain/ host name or even an email address. If left blank, Dashy will use your current public IP address. |
-| **`apiKey`**    | `string` | Required     | You can get your free API key from [blacklistchecker.com](https://blacklistchecker.com/keys)                                                  |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`ipAddress`** | `string` |  _Optional_ | The IP to check. This can also be a domain/ host name or even an email address. If left blank, Dashy will use your current public IP address.
+**`apiKey`** | `string` |  Required | You can get your free API key from [blacklistchecker.com](https://blacklistchecker.com/keys)
 
 #### Example
 
@@ -372,24 +372,24 @@ Keep an eye on the expiry dates of your domain names, using public whois records
 
 #### Options
 
-| **Field**          | **Type**  | **Required** | **Description**                                                                       |
-| ------------------ | --------- | ------------ | ------------------------------------------------------------------------------------- |
-| **`domain`**       | `string`  | Required     | The domain to check                                                                   |
-| **`apiKey`**       | `string`  | Required     | You can get your free API key from [my.whoapi.com](https://my.whoapi.com/user/signup) |
-| **`showFullInfo`** | `boolean` | _Optional_   | If set to true, the toggle-full-info panel will be open by default                    |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`domain`** | `string` |  Required | The domain to check
+**`apiKey`** | `string` |  Required | You can get your free API key from [my.whoapi.com](https://my.whoapi.com/user/signup)
+**`showFullInfo`** | `boolean` |  _Optional_ | If set to true, the toggle-full-info panel will be open by default
 
 #### Example
 
 ```yaml
-- type: domain-monitor
-  options:
-    domain: example.com
-    apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  - type: domain-monitor
+    options:
+      domain: example.com
+      apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-- type: domain-monitor
-  options:
-    domain: example2.com
-    apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  - type: domain-monitor
+    options:
+      domain: example2.com
+      apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 #### Info
@@ -410,12 +410,12 @@ Keep track of price changes of your favorite crypto assets. Data is fetched from
 
 #### Options
 
-| **Field**      | **Type** | **Required** | **Description**                                                                                                                                                                                                                   |
-| -------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`assets`**   | `string` | _Optional_   | An array of cryptocurrencies, coins and tokens. See [list of supported assets](https://api.coingecko.com/api/v3/asset_platforms). If none are specified, then the top coins by `sortBy` (defaults to market cap) will be returned |
-| **`currency`** | `string` | _Optional_   | The fiat currency to display price in, expressed as an ISO-4217 alpha code (see [list of currencies](https://www.iban.com/currency-codes)). Defaults to `USD`                                                                     |
-| **`sortBy`**   | `string` | _Optional_   | The method of sorting results. Can be `marketCap`, `volume` or `alphabetical`. Defaults to `marketCap`.                                                                                                                           |
-| **`limit`**    | `number` | _Optional_   | Number of results to return, useful when no assets are specified. Defaults to either `all` or `100`                                                                                                                               |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`assets`** | `string` |  _Optional_ | An array of cryptocurrencies, coins and tokens. See [list of supported assets](https://api.coingecko.com/api/v3/asset_platforms). If none are specified, then the top coins by `sortBy` (defaults to market cap) will be returned
+**`currency`** | `string` | _Optional_ | The fiat currency to display price in, expressed as an ISO-4217 alpha code (see [list of currencies](https://www.iban.com/currency-codes)). Defaults to `USD`
+**`sortBy`** | `string` |  _Optional_ | The method of sorting results. Can be `marketCap`, `volume` or `alphabetical`. Defaults to `marketCap`.
+**`limit`** | `number` |  _Optional_ | Number of results to return, useful when no assets are specified. Defaults to either `all` or `100`
 
 #### Example
 
@@ -428,11 +428,11 @@ Keep track of price changes of your favorite crypto assets. Data is fetched from
 Or
 
 ```yaml
-- type: crypto-watch-list
-  options:
-    currency: GBP
-    sortBy: marketCap
-    assets:
+  - type: crypto-watch-list
+    options:
+      currency: GBP
+      sortBy: marketCap
+      assets:
       - bitcoin
       - ethereum
       - monero
@@ -458,13 +458,13 @@ Shows recent price history for a given crypto asset, using price data fetched fr
 
 #### Options
 
-| **Field**         | **Type** | **Required** | **Description**                                                                                                                                                 |
-| ----------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`asset`**       | `string` | Required     | Name of a crypto asset, coin or token to fetch price data for, see [list of supported assets](https://api.coingecko.com/api/v3/asset_platforms)                 |
-| **`currency`**    | `string` | _Optional_   | The fiat currency to display results in, expressed as an ISO-4217 alpha code (see [list of currencies](https://www.iban.com/currency-codes)). Defaults to `USD` |
-| **`numDays`**     | `number` | _Optional_   | The number of days of price history to render. Defaults to `7`, min: `1`, max: `30` days                                                                        |
-| **`chartColor`**  | `string` | _Optional_   | Color of the chart value. Defaults to `--widget-text-color` which inherits dashboard primary color                                                              |
-| **`chartHeight`** | `number` | _Optional_   | The height of rendered chart in px. Defaults to `300`                                                                                                           |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`asset`** | `string` |  Required | Name of a crypto asset, coin or token to fetch price data for, see [list of supported assets](https://api.coingecko.com/api/v3/asset_platforms)
+**`currency`** | `string` | _Optional_ | The fiat currency to display results in, expressed as an ISO-4217 alpha code (see [list of currencies](https://www.iban.com/currency-codes)). Defaults to `USD`
+**`numDays`** | `number` |  _Optional_ | The number of days of price history to render. Defaults to `7`, min: `1`, max: `30` days
+**`chartColor`** | `string` | _Optional_ | Color of the chart value. Defaults to `--widget-text-color` which inherits dashboard primary color
+**`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
 
 #### Example
 
@@ -493,12 +493,12 @@ Keep track of your crypto balances and see recent transactions. Data is fetched 
 
 #### Options
 
-| **Field**     | **Type** | **Required** | **Description**                                                                                |
-| ------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------- |
-| **`coin`**    | `string` | Required     | Symbol of coin or asset, e.g. `btc`, `eth` or `doge`                                           |
-| **`address`** | `string` | Required     | Address to monitor. This is your wallet's **public** / receiving address                       |
-| **`network`** | `string` | _Optional_   | To use a different network, other than mainnet. Defaults to `main`                             |
-| **`limit`**   | `number` | _Optional_   | Limit the number of transactions to display. Defaults to `10`, set to large number to show all |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`coin`** | `string` |  Required | Symbol of coin or asset, e.g. `btc`, `eth` or `doge`
+**`address`** | `string` | Required | Address to monitor. This is your wallet's **public** / receiving address
+**`network`** | `string` |  _Optional_ | To use a different network, other than mainnet. Defaults to `main`
+**`limit`** | `number` | _Optional_ | Limit the number of transactions to display. Defaults to `10`, set to large number to show all
 
 #### Example
 
@@ -526,15 +526,15 @@ Display your coding summary. [Code::Stats](https://codestats.net/) is a free and
 
 #### Options
 
-| **Field**           | **Type**  | **Required** | **Description**                                                                                              |
-| ------------------- | --------- | ------------ | ------------------------------------------------------------------------------------------------------------ |
-| **`username`**      | `string`  | Required     | Your CodeStats username                                                                                      |
-| **`hostname`**      | `string`  | _Optional_   | If your self-hosting CodeStats, then supply the host name. By default it will use the public hosted instance |
-| **`monthsToShow`**  | `number`  | _Optional_   | Specify the number of months to render in the historical data chart. Defaults to `6`                         |
-| **`hideMeta`**      | `boolean` | _Optional_   | Optionally hide the meta section (username, level, all-time and recent XP)                                   |
-| **`hideHistory`**   | `boolean` | _Optional_   | Optionally hide the historical calendar heat map                                                             |
-| **`hideLanguages`** | `boolean` | _Optional_   | Optionally hide the programming languages pie chart                                                          |
-| **`hideMachines`**  | `boolean` | _Optional_   | Optionally hide the machines percentage chart                                                                |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`username`** | `string` |  Required | Your CodeStats username
+**`hostname`** | `string` |  _Optional_ | If your self-hosting CodeStats, then supply the host name. By default it will use the public hosted instance
+**`monthsToShow`** | `number` |  _Optional_ | Specify the number of months to render in the historical data chart. Defaults to `6`
+**`hideMeta`** | `boolean` |  _Optional_ | Optionally hide the meta section (username, level, all-time and recent XP)
+**`hideHistory`** | `boolean` |  _Optional_ | Optionally hide the historical calendar heat map
+**`hideLanguages`** | `boolean` |  _Optional_ | Optionally hide the programming languages pie chart
+**`hideMachines`** | `boolean` |  _Optional_ | Optionally hide the machines percentage chart
 
 #### Example
 
@@ -590,29 +590,29 @@ This widget display email addresses / aliases from addy.io. Click an email addre
 
 #### Options
 
-| **Field**             | **Type**  | **Required** | **Description**                                                                                                                                                                                                                                                                         |
-| --------------------- | --------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`apiKey`**          | `string`  | Required     | Your addy.io API Key / Personal Access Token. You can generate this under [Account Settings](https://app.addy.io/settings)                                                                                                                                                              |
-| **`hostname`**        | `string`  | _Optional_   | If your self-hosting addy.io, then supply the host name. By default it will use the public hosted instance                                                                                                                                                                              |
-| **`apiVersion`**      | `string`  | _Optional_   | If you're using an API version that is not version `v1`, then specify it here                                                                                                                                                                                                           |
-| **`limit`**           | `number`  | _Optional_   | Limit the number of emails shown per page. Defaults to `10`                                                                                                                                                                                                                             |
-| **`sortBy`**          | `string`  | _Optional_   | Specify the sort order for email addresses. Defaults to `updated_at`. Can be either: `local_part`, `domain`, `email`, `emails_forwarded`, `emails_blocked`, `emails_replied`, `emails_sent`, `created_at`, `updated_at` or `deleted_at`. Precede with a `-` character to reverse order. |
-| **`searchTerm`**      | `string`  | _Optional_   | A search term to filter results by, will search the email, description and domain                                                                                                                                                                                                       |
-| **`disableControls`** | `boolean` | _Optional_   | Prevent any changes being made to account through the widget. User will not be able to enable or disable aliases through UI when this option is set                                                                                                                                     |
-| **`hideMeta`**        | `boolean` | _Optional_   | Don't show account meta info (forward/ block count, quota usage etc)                                                                                                                                                                                                                    |
-| **`hideAliases`**     | `boolean` | _Optional_   | Don't show email address / alias list. Will only show account meta info                                                                                                                                                                                                                 |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | Your addy.io API Key / Personal Access Token. You can generate this under [Account Settings](https://app.addy.io/settings)
+**`hostname`** | `string` |  _Optional_ | If your self-hosting addy.io, then supply the host name. By default it will use the public hosted instance
+**`apiVersion`** | `string` |  _Optional_ | If you're using an API version that is not version `v1`, then specify it here
+**`limit`** | `number` |  _Optional_ | Limit the number of emails shown per page. Defaults to `10`
+**`sortBy`** | `string` |  _Optional_ | Specify the sort order for email addresses. Defaults to `updated_at`. Can be either: `local_part`, `domain`, `email`, `emails_forwarded`, `emails_blocked`, `emails_replied`, `emails_sent`, `created_at`, `updated_at` or `deleted_at`. Precede with a `-` character to reverse order.
+**`searchTerm`** | `string` |  _Optional_ | A search term to filter results by, will search the email, description and domain
+**`disableControls`** | `boolean` |  _Optional_ | Prevent any changes being made to account through the widget. User will not be able to enable or disable aliases through UI when this option is set
+**`hideMeta`** | `boolean` |  _Optional_ | Don't show account meta info (forward/ block count, quota usage etc)
+**`hideAliases`** | `boolean` |  _Optional_ | Don't show email address / alias list. Will only show account meta info
 
 #### Example
 
 ```yaml
-- type: anonaddy
-  options:
-    apiKey: "xxxxxxxxxxxxxxxxxxxxxxxx\
-      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\
-      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    limit: 5
-    sortBy: created_at
-    disableControls: true
+  - type: anonaddy
+    options:
+      apiKey: "xxxxxxxxxxxxxxxxxxxxxxxx\
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      limit: 5
+      sortBy: created_at
+      disableControls: true
 ```
 
 #### Info
@@ -633,14 +633,14 @@ Keep track of recent security advisories and vulnerabilities, with optional filt
 
 #### Options
 
-| **Field**        | **Type**  | **Required** | **Description**                                                                                                                                                                                                                                    |
-| ---------------- | --------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`sortBy`**     | `string`  | _Optional_   | The sorting method. Can be either `publish-date`, `last-update` or `cve-code`. Defaults to `publish-date`                                                                                                                                          |
-| **`limit`**      | `number`  | _Optional_   | The number of results to fetch. Can be between `5` and `30`, defaults to `10`                                                                                                                                                                      |
-| **`minScore`**   | `number`  | _Optional_   | If set, will only display results with a CVE score higher than the number specified. Can be a number between `0` and `9.9`. By default, vulnerabilities of all CVE scores are shown                                                                |
-| **`hasExploit`** | `boolean` | _Optional_   | If set to `true`, will only show results with active exploits. Defaults to `false`                                                                                                                                                                 |
-| **`vendorId`**   | `number`  | _Optional_   | Only show results from a specific vendor, specified by ID. See [Vendor Search](https://www.cvedetails.com/vendor-search.php) for list of vendors. E.g. `23` (Debian), `26` (Microsoft), `23682` (CloudFlare)                                       |
-| **`productId`**  | `number`  | _Optional_   | Only show results from a specific app or product, specified by ID. See [Product Search](https://www.cvedetails.com/product-search.php) for list of products. E.g. `28125` (Docker), `34622` (NextCloud), `50211` (Portainer), `95391` (ProtonMail) |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`sortBy`** | `string` |  _Optional_ | The sorting method. Can be either `publish-date`, `last-update` or `cve-code`. Defaults to `publish-date`
+**`limit`** | `number` |  _Optional_ | The number of results to fetch. Can be between `5` and `30`, defaults to `10`
+**`minScore`** | `number` |  _Optional_ | If set, will only display results with a CVE score higher than the number specified. Can be a number between `0` and `9.9`. By default, vulnerabilities of all CVE scores are shown
+**`hasExploit`** | `boolean` |  _Optional_ | If set to `true`, will only show results with active exploits. Defaults to `false`
+**`vendorId`** | `number` |  _Optional_ | Only show results from a specific vendor, specified by ID. See [Vendor Search](https://www.cvedetails.com/vendor-search.php) for list of vendors. E.g. `23` (Debian), `26` (Microsoft), `23682` (CloudFlare)
+**`productId`** | `number` |  _Optional_ | Only show results from a specific app or product, specified by ID. See [Product Search](https://www.cvedetails.com/product-search.php) for list of products. E.g. `28125` (Docker), `34622` (NextCloud), `50211` (Portainer), `95391` (ProtonMail)
 
 #### Example
 
@@ -678,11 +678,11 @@ Display current FX rates in your native currency. Hover over a row to view more 
 
 #### Options
 
-| **Field**              | **Type** | **Required** | **Description**                                                                                                                                                                                                    |
-| ---------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`inputCurrency`**    | `string` | Required     | The base currency to show results in. Specified as a 3-letter ISO-4217 code, see [here](https://www.exchangerate-api.com/docs/supported-currencies) for the full list of supported currencies, and their symbols   |
-| **`outputCurrencies`** | `array`  | Required     | List or currencies to show results for. Specified as a 3-letter ISO-4217 code, see [here](https://www.exchangerate-api.com/docs/supported-currencies) for the full list of supported currencies, and their symbols |
-| **`apiKey`**           | `string` | Required     | API key for [exchangerate-api.com](https://www.exchangerate-api.com/), usually a 24-digit alpha-numeric string. You can sign up for a free account [here](https://app.exchangerate-api.com/sign-up)                |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`inputCurrency`** | `string` | Required | The base currency to show results in. Specified as a 3-letter ISO-4217 code, see [here](https://www.exchangerate-api.com/docs/supported-currencies) for the full list of supported currencies, and their symbols
+**`outputCurrencies`** | `array` |  Required | List or currencies to show results for. Specified as a 3-letter ISO-4217 code, see [here](https://www.exchangerate-api.com/docs/supported-currencies) for the full list of supported currencies, and their symbols
+**`apiKey`** | `string` |  Required | API key for [exchangerate-api.com](https://www.exchangerate-api.com/), usually a 24-digit alpha-numeric string. You can sign up for a free account [here](https://app.exchangerate-api.com/sign-up)
 
 #### Example
 
@@ -718,13 +718,13 @@ Note, config for this widget is case-sensitive (see [#1268](https://github.com/L
 
 #### Options
 
-| **Field**          | **Type** | **Required** | **Description**                                                                                                                                                  |
-| ------------------ | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`country`**      | `string` | Required     | The country to fetch holiday data for, specified as a country code, e.g. `GB` or `US`                                                                            |
-| **`state`**        | `string` | **Optional** | restrict a country to a specific state defined by [ISO_3166-2](https://en.wikipedia.org/wiki/ISO_3166-2), e.g. `LND`.                                            |
-| **`holidayType`**  | `string` | **Optional** | The type of holidays to fetch. Can be: `all`, `public_holiday`, `observance`, `school_holiday`, `other_day` or `extra_working_day`. Defaults to `public_holiday` |
-| **`monthsToShow`** | `number` | **Optional** | The number of months in advance to show. Min: `1`, max: `24`. Defaults to `12`                                                                                   |
-| **`lang`**         | `string` | **Optional** | The language in which the events should be. Usually local languages and english are available. Default to first available in the country. e.g. `en` or `fr`.     |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`country`** | `string` |  Required | The country to fetch holiday data for, specified as a country code, e.g. `GB` or `US`
+**`state`** | `string` |  **Optional** | restrict a country to a specific state defined by [ISO_3166-2](https://en.wikipedia.org/wiki/ISO_3166-2), e.g. `LND`.
+**`holidayType`** | `string` |  **Optional** | The type of holidays to fetch. Can be: `all`, `public_holiday`, `observance`, `school_holiday`, `other_day` or `extra_working_day`. Defaults to `public_holiday`
+**`monthsToShow`** | `number` |  **Optional** | The number of months in advance to show. Min: `1`, max: `24`. Defaults to `12`
+**`lang`** | `string` |  **Optional** | The language in which the events should be. Usually local languages and english are available. Default to first available in the country. e.g. `en` or `fr`.
 
 #### Example
 
@@ -756,13 +756,13 @@ Keep track of the current COVID-19 status. Optionally also show cases by country
 
 #### Options
 
-| **Field**           | **Type**   | **Required** | **Description**                                                                                                                                                                      |
-| ------------------- | ---------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`showChart`**     | `boolean`  | _Optional_   | Also display a time-series chart showing number of recent cases                                                                                                                      |
-| **`showCountries`** | `boolean`  | _Optional_   | Also display a list of cases per country                                                                                                                                             |
-| **`numDays`**       | `number`   | _Optional_   | Specify number of days worth of history to render on the chart                                                                                                                       |
-| **`countries`**     | `string[]` | _Optional_   | An array of countries to display, specified by their [ISO-3 codes](https://www.iso.org/obp/ui). Leave blank to show all, sorted by most cases. `showCountries` must be set to `true` |
-| **`limit`**         | `number`   | _Optional_   | If showing all countries, set a limit for number of results to return. Defaults to `10`, no maximum                                                                                  |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`showChart`** | `boolean` | _Optional_ | Also display a time-series chart showing number of recent cases
+**`showCountries`** | `boolean` |  _Optional_ | Also display a list of cases per country
+**`numDays`** | `number` | _Optional_ | Specify number of days worth of history to render on the chart
+**`countries`** | `string[]` | _Optional_ | An array of countries to display, specified by their [ISO-3 codes](https://www.iso.org/obp/ui). Leave blank to show all, sorted by most cases. `showCountries` must be set to `true`
+**`limit`** | `number` | _Optional_ | If showing all countries, set a limit for number of results to return. Defaults to `10`, no maximum
 
 #### Example
 
@@ -778,10 +778,10 @@ Or
     showChart: true
     showCountries: true
     countries:
-      - GBR
-      - USA
-      - IND
-      - RUS
+    - GBR
+    - USA
+    - IND
+    - RUS
 ```
 
 #### Info
@@ -803,14 +803,14 @@ Show recent scores and upcoming matches from your favorite sports team. Data is 
 
 #### Options
 
-| **Field**          | **Type**  | **Required** | **Description**                                                                                                                                  |
-| ------------------ | --------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`teamId`**       | `string`  | **Optional** | The ID of a team to fetch scores from. You can search for your team on the [Teams Page](https://www.thesportsdb.com/teams_main.php)              |
-| **`leagueId`**     | `string`  | **Optional** | Alternatively, provide a league ID to fetch all games from. You can find the ID on the [Leagues Page](https://www.thesportsdb.com/Sport/Leagues) |
-| **`pastOrFuture`** | `string`  | **Optional** | Set to `past` to show scores for recent games, or `future` to show upcoming games. Defaults to `past`. You can change this within the UI         |
-| **`apiKey`**       | `string`  | **Optional** | Optionally specify your API key, which you can sign up for at [TheSportsDB.com](https://www.thesportsdb.com/)                                    |
-| **`limit`**        | `number`  | **Optional** | To limit output to a certain number of matches, defaults to `15`                                                                                 |
-| **`hideImage`**    | `boolean` | **Optional** | Set to `true` to not render the team / match banner image, defaults to `false`                                                                   |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`teamId`** | `string` |  **Optional** | The ID of a team to fetch scores from. You can search for your team on the [Teams Page](https://www.thesportsdb.com/teams_main.php)
+**`leagueId`** | `string` |  **Optional** | Alternatively, provide a league ID to fetch all games from. You can find the ID on the [Leagues Page](https://www.thesportsdb.com/Sport/Leagues)
+**`pastOrFuture`** | `string` |  **Optional** | Set to `past` to show scores for recent games, or `future` to show upcoming games. Defaults to `past`. You can change this within the UI
+**`apiKey`** | `string` | **Optional** | Optionally specify your API key, which you can sign up for at [TheSportsDB.com](https://www.thesportsdb.com/)
+**`limit`** | `number` | **Optional** | To limit output to a certain number of matches, defaults to `15`
+**`hideImage`** | `boolean` | **Optional** | Set to `true` to not render the team / match banner image, defaults to `false`
 
 #### Example
 
@@ -838,15 +838,15 @@ Displays the latest news, click to read full article. Date is fetched from vario
 
 #### Options
 
-| **Field**        | **Type**  | **Required** | **Description**                                                                                                                                                                                                |
-| ---------------- | --------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`apiKey`**     | `string`  | Required     | Your API key for CurrentsAPI. This is free, and you can [get one here](https://currentsapi.services/en/register)                                                                                               |
-| **`country`**    | `string`  | _Optional_   | Fetch news only from a certain country or region. Specified as a country code, e.g. `GB` or `US`. See [here](https://api.currentsapi.services/v1/available/regions) for a list of supported regions            |
-| **`category`**   | `string`  | _Optional_   | Only return news from within a given category, e.g. `sports`, `programming`, `world`, `science`. The [following categories](https://api.currentsapi.services/v1/available/categories) are supported            |
-| **`lang`**       | `string`  | _Optional_   | Specify the language for returned articles as a 2-digit ISO code (limited article support). The [following languages](https://api.currentsapi.services/v1/available/languages) are supported, defaults to `en` |
-| **`count`**      | `number`  | _Optional_   | Limit the number of results. Can be between `1` and `200`, defaults to `10`                                                                                                                                    |
-| **`keywords`**   | `string`  | _Optional_   | Only return articles that contain an exact match within their title or description                                                                                                                             |
-| **`hideImages`** | `boolean` | _Optional_   | If set to `true`, then article image thumbnails will not be displayed                                                                                                                                          |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | Your API key for CurrentsAPI. This is free, and you can [get one here](https://currentsapi.services/en/register)
+**`country`** | `string` | _Optional_ | Fetch news only from a certain country or region. Specified as a country code, e.g. `GB` or `US`. See [here](https://api.currentsapi.services/v1/available/regions) for a list of supported regions
+**`category`** | `string` | _Optional_ | Only return news from within a given category, e.g. `sports`, `programming`, `world`, `science`. The [following categories](https://api.currentsapi.services/v1/available/categories) are supported
+**`lang`** | `string` |  _Optional_ | Specify the language for returned articles as a 2-digit ISO code (limited article support). The [following languages](https://api.currentsapi.services/v1/available/languages) are supported, defaults to `en`
+**`count`** | `number` |  _Optional_ | Limit the number of results. Can be between `1` and `200`, defaults to `10`
+**`keywords`** | `string` |  _Optional_ | Only return articles that contain an exact match within their title or description
+**`hideImages`** | `boolean` |  _Optional_ | If set to `true`, then article image thumbnails will not be displayed
 
 #### Example
 
@@ -875,11 +875,11 @@ Shows real-time tube status of the London Underground. All fields are optional.
 
 #### Options
 
-| **Field**                | **Type**  | **Required** | **Description**                                                                                                                                                                      |
-| ------------------------ | --------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`showAll`**            | `boolean` | _Optional_   | By default, details for lines with a Good Service are not visible, but you can click More Details to see all. Setting this option to `true` will show all lines on initial page load |
-| **`sortAlphabetically`** | `boolean` | _Optional_   | By default lines are sorted by current status, set this option to `true` to instead sort them alphabetically                                                                         |
-| **`linesToShow`**        | `array`   | _Optional_   | By default all lines are shown. If you're only interested in the status of a few lines, then pass in an array of lines to show, specified by name                                    |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`showAll`** | `boolean` |  _Optional_ | By default, details for lines with a Good Service are not visible, but you can click More Details to see all. Setting this option to `true` will show all lines on initial page load
+**`sortAlphabetically`** | `boolean` | _Optional_ | By default lines are sorted by current status, set this option to `true` to instead sort them alphabetically
+**`linesToShow`** | `array` | _Optional_ | By default all lines are shown. If you're only interested in the status of a few lines, then pass in an array of lines to show, specified by name
 
 #### Example
 
@@ -888,11 +888,11 @@ Shows real-time tube status of the London Underground. All fields are optional.
 ```
 
 ```yaml
-- type: tfl-status
-  options:
-    showAll: true
-    sortAlphabetically: true
-    linesToShow:
+  - type: tfl-status
+    options:
+      showAll: true
+      sortAlphabetically: true
+      linesToShow:
       - District
       - Jubilee
       - Central
@@ -916,13 +916,13 @@ Shows recent price history for a given publicly-traded stock or share
 
 #### Options
 
-| **Field**         | **Type** | **Required** | **Description**                                                                                                                            |
-| ----------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`apiKey`**      | `string` | Required     | API key for [Alpha Vantage](https://www.alphavantage.co/), you can get a free API key [here](https://www.alphavantage.co/support/#api-key) |
-| **`stock`**       | `string` | Required     | The stock symbol for the asset to fetch data for                                                                                           |
-| **`priceTime`**   | `string` | _Optional_   | The time to fetch price for. Can be `high`, `low`, `open` or `close`. Defaults to `high`                                                   |
-| **`chartColor`**  | `string` | _Optional_   | Color of the chart value. Defaults to `--widget-text-color` which inherits dashboard primary color                                         |
-| **`chartHeight`** | `number` | _Optional_   | The height of rendered chart in px. Defaults to `300`                                                                                      |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | API key for [Alpha Vantage](https://www.alphavantage.co/), you can get a free API key [here](https://www.alphavantage.co/support/#api-key)
+**`stock`** | `string` | Required | The stock symbol for the asset to fetch data for
+**`priceTime`** | `string` |  _Optional_ | The time to fetch price for. Can be `high`, `low`, `open` or `close`. Defaults to `high`
+**`chartColor`** | `string` | _Optional_ | Color of the chart value. Defaults to `--widget-text-color` which inherits dashboard primary color
+**`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
 
 #### Example
 
@@ -977,11 +977,11 @@ Renders a programming or generic joke. Data is fetched from the [JokesAPI](https
 
 #### Options
 
-| **Field**      | **Type**  | **Required** | **Description**                                                                                                                                                                                                                                                                                                                             |
-| -------------- | --------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`category`** | `string`  | _Optional_   | Set the category of jokes to return. Use a string to specify a single category, or an array to pass in multiple options. Available options are: `all`, `programming`, `pun`, `dark`, `spooky`, `christmas` and `misc`. An up-to-date list of supported categories can be found [here](https://v2.jokeapi.dev/categories). Defaults to `all` |
-| **`safeMode`** | `boolean` | _Optional_   | Set to `true`, to prevent the fetching of any NSFW jokes. Defaults to `false`                                                                                                                                                                                                                                                               |
-| **`language`** | `string`  | _Optional_   | Specify the language for returned jokes. The following languages are supported: `en`, `cs`, `de`, `es`, `fr` and `pt`, and an up-to-date list of supported languages can be found [here](https://v2.jokeapi.dev/languages). By default, your system language will be used, if it's supported, otherwise English                             |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`category`** | `string` |  _Optional_ | Set the category of jokes to return. Use a string to specify a single category, or an array to pass in multiple options. Available options are: `all`, `programming`, `pun`, `dark`, `spooky`, `christmas` and `misc`. An up-to-date list of supported categories can be found [here](https://v2.jokeapi.dev/categories). Defaults to `all`
+**`safeMode`** | `boolean` | _Optional_ | Set to `true`, to prevent the fetching of any NSFW jokes. Defaults to `false`
+**`language`** | `string` |  _Optional_ | Specify the language for returned jokes. The following languages are supported: `en`, `cs`, `de`, `es`, `fr` and `pt`, and an up-to-date list of supported languages can be found [here](https://v2.jokeapi.dev/languages). By default, your system language will be used, if it's supported, otherwise English
 
 #### Example
 
@@ -1011,9 +1011,9 @@ Renders a Chuck Norris quote. Data is fetched from the [ChuckNorrisAPI](https://
 
 #### Options
 
-| **Field**        | **Type** | **Required** | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| ---------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`categories`** | `string` | _Optional_   | Set the category of jokes to return. Use a string to specify a single category, or an array to pass in multiple options. Available options are: `animal`,`career`,`celebrity`,`dev`,`explicit`,`fashion`,`food`,`history`,`money`,`movie`,`music`,`political`,`religion`,`science`,`sport` and `travel`. An up-to-date list of supported categories can be found [here](https://api.chucknorris.io/jokes/categories). Defaults to not explicitely set and therefore any of the categories can come up. |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`categories`** | `string` |  _Optional_ | Set the category of jokes to return. Use a string to specify a single category, or an array to pass in multiple options. Available options are: `animal`,`career`,`celebrity`,`dev`,`explicit`,`fashion`,`food`,`history`,`money`,`movie`,`music`,`political`,`religion`,`science`,`sport` and `travel`. An up-to-date list of supported categories can be found [here](https://api.chucknorris.io/jokes/categories). Defaults to not explicitely set and therefore any of the categories can come up.
 
 #### Example
 
@@ -1041,9 +1041,9 @@ Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webc
 
 #### Options
 
-| **Field**   | **Type**          | **Required** | **Description**                                                                                                                            |
-| ----------- | ----------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`comic`** | `string / number` | _Optional_   | Choose which comic to display. Set to either `random`, `latest` or the series number of a specific comic, like `627`. Defaults to `latest` |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`comic`** | `string / number` |  _Optional_ | Choose which comic to display. Set to either `random`, `latest` or the series number of a specific comic, like `627`. Defaults to `latest`
 
 #### Example
 
@@ -1070,12 +1070,12 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 
 #### Options
 
-| **Field**       | **Type** | **Required** | **Description**                                                                                                                                                                                                                                                                |
-| --------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`airport`**   | `string` | Required     | The airport to show flight data from. Should be specified as a 4-character ICAO-code, a full list of which can be found [here](https://en.wikipedia.org/wiki/ICAO_airport_code) (example: `KBJC` or `EGKK`)                                                                    |
-| **`apiKey`**    | `string` | Required     | A valid [RapidAPI](https://rapidapi.com/) Key, with [AeroDataBox](https://rapidapi.com/aerodatabox/api/aerodatabox/) enabled (check in your [Subscription Dashboard](https://rapidapi.com/developer/billing/subscriptions-and-usage)). This API is free to sign up for and use |
-| **`limit`**     | `number` | _Optional_   | For busy airports, you may wish to limit the number of results visible                                                                                                                                                                                                         |
-| **`direction`** | `string` | _Optional_   | By default, both departure and arrival flights will be fetched, if you would like to only show flights in one direction, set this to wither `departure` or `arrival`                                                                                                           |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`airport`** | `string` |  Required | The airport to show flight data from. Should be specified as a 4-character ICAO-code, a full list of which can be found [here](https://en.wikipedia.org/wiki/ICAO_airport_code) (example: `KBJC` or `EGKK`)
+**`apiKey`** | `string` | Required | A valid [RapidAPI](https://rapidapi.com/) Key, with [AeroDataBox](https://rapidapi.com/aerodatabox/api/aerodatabox/) enabled (check in your [Subscription Dashboard](https://rapidapi.com/developer/billing/subscriptions-and-usage)). This API is free to sign up for and use
+**`limit`** | `number` | _Optional_ | For busy airports, you may wish to limit the number of results visible
+**`direction`** | `string` | _Optional_ | By default, both departure and arrival flights will be fetched, if you would like to only show flights in one direction, set this to wither `departure` or `arrival`
 
 #### Example
 
@@ -1132,11 +1132,11 @@ Displays currently trending projects on GitHub. Optionally specify a language an
 
 #### Options
 
-| **Field**   | **Type** | **Required** | **Description**                                                                                                 |
-| ----------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------- |
-| **`lang`**  | `string` | _Optional_   | A programming language to fetch trending repos from that category. E.g. `javascript` or `go`                    |
-| **`since`** | `string` | _Optional_   | The timeframe to use when calculating trends. Can be either `daily`, `weekly` or `monthly`. Defaults to `daily` |
-| **`limit`** | `number` | _Optional_   | Optionally limit the number of results. Max `25`, default is `10`                                               |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`lang`** | `string` |  _Optional_ | A programming language to fetch trending repos from that category. E.g. `javascript` or `go`
+**`since`** | `string` |  _Optional_ | The timeframe to use when calculating trends. Can be either `daily`, `weekly` or `monthly`. Defaults to `daily`
+**`limit`** | `number` |  _Optional_ | Optionally limit the number of results. Max `25`, default is `10`
 
 #### Example
 
@@ -1165,12 +1165,12 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
 
 #### Options
 
-| **Field**               | **Type**  | **Required** | **Description**                                                                                                                                                     |
-| ----------------------- | --------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`username`**          | `string`  | Required     | The GitHub username to fetch info for. E.g. `lissy93`. (Not required if `hideProfileCard` and `hideLanguagesCard` are both set to `true`)                           |
-| **`hideProfileCard`**   | `boolean` | _Optional_   | If set to `true`, the users profile card will not be shown. Defaults to `false`                                                                                     |
-| **`hideLanguagesCard`** | `boolean` | _Optional_   | If set to `true`, the users top languages card will not be shown. Defaults to `false`                                                                               |
-| **`repos`**             | `array`   | _Optional_   | If you'd like to also display stats for some GitHub repositories, then add an array or repo names here. Specified as `[username]/[repo-name]`, e.g. `lissy93/dashy` |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`username`** | `string` |  Required | The GitHub username to fetch info for. E.g. `lissy93`. (Not required if `hideProfileCard` and `hideLanguagesCard` are both set to `true`)
+**`hideProfileCard`** | `boolean` |  _Optional_ | If set to `true`, the users profile card will not be shown. Defaults to `false`
+**`hideLanguagesCard`** | `boolean` |  _Optional_ | If set to `true`, the users top languages card will not be shown. Defaults to `false`
+**`repos`** | `array` |  _Optional_ | If you'd like to also display stats for some GitHub repositories, then add an array or repo names here. Specified as `[username]/[repo-name]`, e.g. `lissy93/dashy`
 
 #### Example
 
@@ -1180,9 +1180,9 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
     username: Lissy93
     hideLanguagesCard: true
     repos:
-      - lissy93/dashy
-      - lissy93/personal-security-checklist
-      - lissy93/twitter-sentiment-visualisation
+    - lissy93/dashy
+    - lissy93/personal-security-checklist
+    - lissy93/twitter-sentiment-visualisation
 ```
 
 #### Info
@@ -1203,16 +1203,16 @@ Display status of one or more HealthChecks project(s). Works with healthchecks.i
 
 #### Options
 
-| **Field**    | **Type**            | **Required** | **Description**                                                            |
-| ------------ | ------------------- | ------------ | -------------------------------------------------------------------------- |
-| **`host`**   | `string`            | Optional     | The base url of your instance, default is `https://healthchecks.io`        |
-| **`apiKey`** | `string` or `array` | Required     | One or more API keys for your healthcheck projects. (Read-only works fine) |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Optional | The base url of your instance, default is `https://healthchecks.io`
+**`apiKey`** | `string` or `array` |  Required | One or more API keys for your healthcheck projects. (Read-only works fine)
 
 ```yaml
 - type: HealthChecks
   options:
     host: https://healthcheck.your-domain.de
-    apiKey:
+    apiKey: 
       - abcdefg...
       - zxywvu...
 ```
@@ -1221,7 +1221,7 @@ Display status of one or more HealthChecks project(s). Works with healthchecks.i
 
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟢 Required
-- **Price**: 🟢 Free / Paid / Self-hosted
+- **Price**: 🟢 Free / Paid / Self-hosted 
 - **Host**: Managed Instance or Self-Hosted (see [healthchecks/healthchecks](https://github.com/healthchecks/healthchecks))
 - **Privacy**: _See [Healthchecks.io Privacy Policy](https://healthchecks.io/privacy/)_
 
@@ -1232,11 +1232,10 @@ Display status of one or more HealthChecks project(s). Works with healthchecks.i
 Display new and trending Posts from Hackernews
 
 #### Options
-
-| **Field**     | **Type** | **Required** | **Description**                                                                                          |
-| ------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------- |
-| **`stories`** | `string` | _Optional_   | HN Stories to display defaults to `topstories`. Options are: `beststories`, `topstories` or `newstories` |
-| **`limit`**   | `int`    | _Optional_   | The size of the list of Posts to show.                                                                   |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`stories`** | `string` |  _Optional_ | HN Stories to display defaults to `topstories`. Options are: `beststories`, `topstories` or `newstories`
+**`limit`** | `int` |  _Optional_ | The size of the list of Posts to show.
 
 ##### Example
 
@@ -1261,16 +1260,16 @@ In other words: Private, noncomercial, moderate use of the API is tolerated. The
 
 #### Options
 
-| **Field**                 | **Type**        | **Required** | **Description**                                                               |
-| ------------------------- | --------------- | ------------ | ----------------------------------------------------------------------------- |
-| **`location`**            | `string`        | Required     | The name of the location (exact) or the location id, startin with `de:09162:` |
-| **`limit`**               | `integer`       | _Optional_   | Limit number of entries, defaults to 10.                                      |
-| **`title`**               | `string`        | _Optional_   | A custom title to be displayed.                                               |
-| **`header`**              | `bool`          | _Optional_   | Shall the title be shown?                                                     |
-| **`filters`**             | `object`        | _Optional_   | Filter results                                                                |
-| **`filters.line`**        | `string/array`  | _Optional_   | Filter results for given line(s).                                             |
-| **`filters.product`**     | `string/array`  | _Optional_   | Filter results for specific product (TRAM, UBAHN, SBAHN, BUS).                |
-| **`filters.destination`** | `string/object` | _Optional_   | Filter results for specific destination(s)                                    |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`location`** | `string` |  Required | The name of the location (exact) or the location id, startin with `de:09162:`
+**`limit`** | `integer` |  _Optional_ | Limit number of entries, defaults to 10.
+**`title`** | `string` |  _Optional_ | A custom title to be displayed.
+**`header`** | `bool` |  _Optional_ | Shall the title be shown?
+**`filters`** | `object` |  _Optional_ | Filter results
+**`filters.line`** | `string/array` |  _Optional_ | Filter results for given line(s).
+**`filters.product`** | `string/array` |  _Optional_ | Filter results for specific product (TRAM, UBAHN, SBAHN, BUS).
+**`filters.destination`** | `string/object` |  _Optional_ | Filter results for specific destination(s)
 
 ```yaml
 - type: mvg
@@ -1301,16 +1300,16 @@ In other words: Private, noncomercial, moderate use of the API is tolerated. The
 
 #### Options
 
-| **Field**                 | **Type**        | **Required** | **Description**                                                |
-| ------------------------- | --------------- | ------------ | -------------------------------------------------------------- |
-| **`origin`**              | `string`        | Required     | Origin of the connection.                                      |
-| **`destination`**         | `string`        | Required     | Destination of the connection.                                 |
-| **`title`**               | `string`        | _Optional_   | A custom title to be displayed.                                |
-| **`header`**              | `bool`          | _Optional_   | Shall the title be shown?                                      |
-| **`filters`**             | `object`        | _Optional_   | Filter results                                                 |
-| **`filters.line`**        | `string/array`  | _Optional_   | Filter results for given line(s).                              |
-| **`filters.product`**     | `string/array`  | _Optional_   | Filter results for specific product (TRAM, UBAHN, SBAHN, BUS). |
-| **`filters.destination`** | `string/object` | _Optional_   | Filter results for specific destination(s)                     |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`origin`** | `string` |  Required | Origin of the connection.
+**`destination`** | `string` |  Required | Destination of the connection.
+**`title`** | `string` |  _Optional_ | A custom title to be displayed.
+**`header`** | `bool` |  _Optional_ | Shall the title be shown?
+**`filters`** | `object` |  _Optional_ | Filter results
+**`filters.line`** | `string/array` |  _Optional_ | Filter results for given line(s).
+**`filters.product`** | `string/array` |  _Optional_ | Filter results for specific product (TRAM, UBAHN, SBAHN, BUS).
+**`filters.destination`** | `string/object` |  _Optional_ | Filter results for specific destination(s)
 
 ```yaml
 - type: mvg-connection
@@ -1336,20 +1335,17 @@ In other words: Private, noncomercial, moderate use of the API is tolerated. The
 
 ### Custom List
 
-Renders custom schema-compliant JOSN in a list.
+Renders custom schema-compliant JOSN  in a list.
 
 #### Options
-
-| **Field**        | **Type** | **Required** | **Description**                                                                        |
-| ---------------- | -------- | ------------ | -------------------------------------------------------------------------------------- |
-| **`url`**        | `text`   | Required     | A string containing the url of a json file.                                            |
-| **`title`**      | `text`   | optional     | A title for the widget. Can be helpful if stacking multiple lists in the same section. |
-| **`daysForNew`** | `number` | Optional     | Used to highlight new items.                                                           |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`url`** | `text` |  Required | A string containing the url of a json file.
+**`title`** | `text` |  optional | A title for the widget. Can be helpful if stacking multiple lists in the same section.
+**`daysForNew`** | `number` |  Optional | Used to highlight new items.
 
 #### Json Schema
-
 The input file should comply with the following schema:
-
 ```json
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
@@ -1371,7 +1367,11 @@ The input file should comply with the following schema:
               "type": "string"
             }
           },
-          "required": ["text", "url", "title"]
+          "required": [
+            "text",
+            "url",
+            "title"
+          ]
         },
         "value": {
           "type": "object",
@@ -1383,13 +1383,20 @@ The input file should comply with the following schema:
               "type": "string"
             }
           },
-          "required": ["text", "title"]
+          "required": [
+            "text",
+            "title"
+          ]
         },
         "date": {
           "type": "string"
         }
       },
-      "required": ["link", "value", "date"]
+      "required": [
+        "link",
+        "value",
+        "date"
+      ]
     }
   ]
 }
@@ -1399,80 +1406,77 @@ Example: This json data was generated by a data worflow that gets the new releas
 
 ```json
 [
-  {
-    "link": {
-      "text": "jellyfin/jellyfin",
-      "url": "https://github.com/jellyfin/jellyfin/releases/tag/v10.10.7",
-      "title": ""
+    {
+        "link": {
+            "text": "jellyfin/jellyfin",
+            "url": "https://github.com/jellyfin/jellyfin/releases/tag/v10.10.7",
+            "title": ""
+        },
+        "value": {
+            "text": "v10.10.7",
+            "title": "2025-04-05"
+        },
+        "date": "2025-04-05T19:14:59Z"
     },
-    "value": {
-      "text": "v10.10.7",
-      "title": "2025-04-05"
+    {
+        "link": {
+            "text": "jellyfin/jellyfin-web",
+            "url": "https://github.com/jellyfin/jellyfin-web/releases/tag/v10.10.7",
+            "title": ""
+        },
+        "value": {
+            "text": "v10.10.7",
+            "title": "2025-04-05"
+        },
+        "date": "2025-04-05T19:15:00Z"
     },
-    "date": "2025-04-05T19:14:59Z"
-  },
-  {
-    "link": {
-      "text": "jellyfin/jellyfin-web",
-      "url": "https://github.com/jellyfin/jellyfin-web/releases/tag/v10.10.7",
-      "title": ""
+    {
+        "link": {
+            "text": "lissy93/dashy",
+            "url": "https://github.com/Lissy93/dashy/releases/tag/3.1.1",
+            "title": ""
+        },
+        "value": {
+            "text": "3.1.1",
+            "title": "2024-05-30"
+        },
+        "date": "2024-05-30T17:20:53Z"
     },
-    "value": {
-      "text": "v10.10.7",
-      "title": "2025-04-05"
-    },
-    "date": "2025-04-05T19:15:00Z"
-  },
-  {
-    "link": {
-      "text": "lissy93/dashy",
-      "url": "https://github.com/Lissy93/dashy/releases/tag/3.1.1",
-      "title": ""
-    },
-    "value": {
-      "text": "3.1.1",
-      "title": "2024-05-30"
-    },
-    "date": "2024-05-30T17:20:53Z"
-  },
-  {
-    "link": {
-      "text": "VSCodium/vscodium",
-      "url": "https://github.com/VSCodium/vscodium/releases/tag/1.102.14746",
-      "title": ""
-    },
-    "value": {
-      "text": "1.102.14746",
-      "title": "2025-07-16"
-    },
-    "date": "2025-07-16T18:27:49Z"
-  }
+    {
+        "link": {
+            "text": "VSCodium/vscodium",
+            "url": "https://github.com/VSCodium/vscodium/releases/tag/1.102.14746",
+            "title": ""
+        },
+        "value": {
+            "text": "1.102.14746",
+            "title": "2025-07-16"
+        },
+        "date": "2025-07-16T18:27:49Z"
+    }
 ]
 ```
-
 #### Notes
-
 - This widget is designed to render data generated by another system that complies with the schema. The example JSON data above was generated using a n8n workflow, and other ETL or workflow systems can generate similar results.
 - To avoid requests to a different system in each refresh, you can save the input files locally in the user-data folder inside your Dashy installation.
 - To use json files from a different domain, remember to add `useProxy: true` to the widget configuration. I have not tested this use case because I save all my input data locally on the Dashy server. Please open a ticket if you have an issue in this use case.
-
+ 
 #### Example
 
 This widget renders a json file that from a `json-data` directory inside the `user-data` directory on the Dashy server.
-
 ```yaml
-- type: custom-list
-  options:
-    url: /json-data/github-releases.json
-    title: "Github Releases"
-    daysForNew: 5
+  - type: custom-list
+    options:
+      url: /json-data/github-releases.json
+      title: 'Github Releases'
+      daysForNew: 5
 ```
 
 #### Info
 
 - **CORS**: 🟢 Not needed for files hosted inside the `user-data` directory. Use `useProxy: true` to bypass CORS restrictions when using data from a different server.
 - **Auth**: 🟢 Not Required
-- **Price**: 🟢 Free
+- **Price**: 🟢 Free 
 - **Host**: user defined
 - **Privacy**: depends on the user defined host.
 
@@ -1484,25 +1488,23 @@ Allows web search using multiple user-defined search engines and other websites.
 
 #### Options
 
-| **Field**         | **Type** | **Required** | **Description**                                                                                                                                 |
-| ----------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`engines`**     | `array`  | required     | An array of search engine objects. Each search engine object should have two required properties: **title** and **url**. See the example below. |
-| **`placeholder`** | `string` | optional     | Placeholder text in the search box.                                                                                                             |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`engines`** | `array` |  required | An array of search engine objects. Each search engine object should have two required properties: **title** and **url**. See the example below.
+**`placeholder`** | `string` |  optional | Placeholder text in the search box.
 
 #### Notes
-
 - The first search engine in the engines array will be treated as the default search engine, and used when the user presses `Enter` in the search box.
 - Popup blockers can interfere with opening a new search window.
 
 #### Example
 
 This widget allows searching multiple search engines from dashy.
-
 ```yaml
-- type: "custom-search"
-  options:
-    placeholder: Search for something using the buttons below
-    engines:
+  - type: 'custom-search'
+    options:
+      placeholder: Search for something using the buttons below
+      engines:
       - title: SearXNG
         url: https://searx.lan/?q=
       - title: Quant
@@ -1520,12 +1522,11 @@ This widget allows searching multiple search engines from dashy.
       - title: IMDB
         url: http://www.imdb.com/find?q=
 ```
-
 #### Info
 
 - **CORS**: 🟢 Not needed
 - **Auth**: 🟢 Not Required
-- **Price**: 🟢 Free
+- **Price**: 🟢 Free 
 - **Host**: user defined
 - **Privacy**: depends on the user defined search engines.
 
@@ -1539,24 +1540,24 @@ Show an overview of how you have spent your time for the current day.
 
 #### Options
 
-| **Field**    | **Type** | **Required** | **Description**                             |
-| ------------ | -------- | ------------ | ------------------------------------------- |
-| **`apiKey`** | `string` | required     | The API-Key generated in the RescueTime UI. |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  required | The API-Key generated in the RescueTime UI.
+
 
 #### Example
 
 ```yaml
-- type: rescue-time
-  useProxy: true
-  options:
-    apiKey: abcdefghijkl_mnop
+  - type: rescue-time
+    useProxy: true
+    options:
+      apiKey: abcdefghijkl_mnop
 ```
-
 #### Info
 
 - **CORS**: 🟢 Required
 - **Auth**: 🔴 Required
-- **Price**: 🟠 Depends on user subscription
+- **Price**: 🟠 Depends on user subscription 
 - **Host**: [RescueTime](https://www.rescuetime.com)
 - **Privacy**: _See [RescueTime Privacy](https://www.rescuetime.com/privacy)_
 
@@ -1570,42 +1571,42 @@ Show minecraft server status
 
 #### Options
 
-| **Field**         | **Type**  | **Required** | **Description**                                          |
-| ----------------- | --------- | ------------ | -------------------------------------------------------- |
-| **`title`**       | `string`  | _Optional_   | Display title for server uses server address if not set. |
-| **`server`**      | `string`  | Required     | Server hostname or ip(:port) will use srv records.       |
-| **`bedrock`**     | `boolean` | _Optional_   | If server is a bedrock edition server. (default false)   |
-| **`showMods`**    | `boolean` | _Optional_   | Display mod list if available                            |
-| **`showPlayers`** | `boolean` | _Optional_   | Display player list if available                         |
-| **`showPlugins`** | `boolean` | _Optional_   | Display plugin list if available                         |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`title`**       | `string`  | _Optional_ | Display title for server uses server address if not set.
+**`server`**      | `string`  | Required   | Server hostname or ip(:port) will use srv records.
+**`bedrock`**     | `boolean` | _Optional_ | If server is a bedrock edition server. (default false)
+**`showMods`**    | `boolean` | _Optional_ | Display mod list if available
+**`showPlayers`** | `boolean` | _Optional_ | Display player list if available
+**`showPlugins`** | `boolean` | _Optional_ | Display plugin list if available
 
 #### Example
 
 ```yaml
-- type: minecraft-status
-  options:
-    title: Venity Network
-    server: play.venitymc.com
-    bedrock: true
-    showMods: true
-    showPlayers: true
-    showPlugins: true
+  - type: minecraft-status
+    options:
+      title: Venity Network
+      server: play.venitymc.com
+      bedrock: true
+      showMods: true
+      showPlayers: true
+      showPlugins: true
 ```
-
 #### Info
 
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟢 Not Required
-- **Price**: 🟢 Free
+- **Price**: 🟢 Free 
 - **Host**: [Minecraft Server Status](https://mcsrvstat.us/)
 - **Privacy**: _See [Minecraft Server Status FAQ](https://mcsrvstat.us/faq)_
 
 ---
 
+
+
 ## Self-Hosted Services Widgets
 
 ### System Info
-
 _See [MVG Datenschutz](https://www.mvg.de/datenschutz-mvg.html)_
 Displays info about the server which Dashy is hosted on. Includes user + host, operating system, uptime and basic memory & load data.
 
@@ -1637,10 +1638,10 @@ Cron job monitoring using [Health Checks](https://github.com/healthchecks/health
 
 #### Options
 
-| **Field**    | **Type** | **Required** | **Description**                                                                                                                                                                                              |
-| ------------ | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`apiKey`** | `string` | Required     | A read-only API key for the project to monitor. You can generate this by selecting a Project --> Settings --> API Access. Note that you must generate a separate key for each project                        |
-| **`host`**   | `string` | _Optional_   | If you're self-hosting, or using any instance other than the official (healthchecks.io), you will need to specify the host address. E.g. `https://healthchecks.example.com` or `http://cron-monitoing.local` |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`apiKey`** | `string` |  Required | A read-only API key for the project to monitor. You can generate this by selecting a Project --> Settings --> API Access. Note that you must generate a separate key for each project
+**`host`** | `string` | _Optional_ | If you're self-hosting, or using any instance other than the official (healthchecks.io), you will need to specify the host address. E.g. `https://healthchecks.example.com` or `http://cron-monitoing.local`
 
 #### Example
 
@@ -1668,11 +1669,11 @@ Pull recent CPU usage history from NetData.
 
 #### Options
 
-| **Field**                            | **Type**           | **Required** | **Description**                                                                                                                                           |
-| ------------------------------------ | ------------------ | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`host`**                           | `string`           | Required     | The URL to your NetData instance                                                                                                                          |
-| **`chartHeight`**                    | `number`           | _Optional_   | The height of rendered chart in px. Defaults to `300`                                                                                                     |
-| **`chartColor`** / **`chartColors`** | `string` / `array` | _Optional_   | Color of the chart value(s) as hex codes. `chartColor` is a single value (defaults to `--widget-text-color`), whereas `chartColors` is an array of colors |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The URL to your NetData instance
+**`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
+**`chartColor`** / **`chartColors`** | `string` / `array`| _Optional_ | Color of the chart value(s) as hex codes. `chartColor` is a single value (defaults to `--widget-text-color`), whereas `chartColors` is an array of colors
 
 #### Example
 
@@ -1700,11 +1701,11 @@ Pull recent system RAM usage from NetData, and show as a breakdown of different 
 
 #### Options
 
-| **Field**                            | **Type**           | **Required** | **Description**                                                                                                                                           |
-| ------------------------------------ | ------------------ | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`host`**                           | `string`           | Required     | The URL to your NetData instance                                                                                                                          |
-| **`chartHeight`**                    | `number`           | _Optional_   | The height of rendered chart in px. Defaults to `300`                                                                                                     |
-| **`chartColor`** / **`chartColors`** | `string` / `array` | _Optional_   | Color of the chart value(s) as hex codes. `chartColor` is a single value (defaults to `--widget-text-color`), whereas `chartColors` is an array of colors |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The URL to your NetData instance
+**`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
+**`chartColor`** / **`chartColors`** | `string` / `array`| _Optional_ | Color of the chart value(s) as hex codes. `chartColor` is a single value (defaults to `--widget-text-color`), whereas `chartColors` is an array of colors
 
 #### Example
 
@@ -1732,11 +1733,11 @@ Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
 
 #### Options
 
-| **Field**                            | **Type**           | **Required** | **Description**                                                                                                                                           |
-| ------------------------------------ | ------------------ | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`host`**                           | `string`           | Required     | The URL to your NetData instance                                                                                                                          |
-| **`chartHeight`**                    | `number`           | _Optional_   | The height of rendered chart in px. Defaults to `300`                                                                                                     |
-| **`chartColor`** / **`chartColors`** | `string` / `array` | _Optional_   | Color of the chart value(s) as hex codes. `chartColor` is a single value (defaults to `--widget-text-color`), whereas `chartColors` is an array of colors |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The URL to your NetData instance
+**`chartHeight`** | `number` | _Optional_ | The height of rendered chart in px. Defaults to `300`
+**`chartColor`** / **`chartColors`** | `string` / `array`| _Optional_ | Color of the chart value(s) as hex codes. `chartColor` is a single value (defaults to `--widget-text-color`), whereas `chartColors` is an array of colors
 
 #### Example
 
@@ -1764,11 +1765,11 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 
 #### Options
 
-| **Field**                                           | **Type**  | **Required** | **Description**                                                                                                                                                                                                     |
-| --------------------------------------------------- | --------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`hostname`**                                      | `string`  | Required     | The URL to your Pi-Hole instance                                                                                                                                                                                    |
-| **`hideStatus`** / **`hideChart`** / **`hideInfo`** | `boolean` | _Optional_   | Optionally hide any of the three parts of the widget                                                                                                                                                                |
-| **`apiKey`**                                        | `string`  | Required     | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD` |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`hideStatus`** / **`hideChart`** / **`hideInfo`** | `boolean` |  _Optional_ | Optionally hide any of the three parts of the widget
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD`
 
 #### Example
 
@@ -1810,11 +1811,11 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/). Use t
 
 #### Options
 
-| **Field**                                           | **Type**  | **Required** | **Description**                                                                                                                                                                                                                                                                                                            |
-| --------------------------------------------------- | --------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`hostname`**                                      | `string`  | Required     | The URL to your Pi-Hole instance                                                                                                                                                                                                                                                                                           |
-| **`hideStatus`** / **`hideChart`** / **`hideInfo`** | `boolean` | _Optional_   | Optionally hide any of the three parts of the widget                                                                                                                                                                                                                                                                       |
-| **`apiKey`**                                        | `string`  | Required     | Your Pi-Hole web password or application password. It **IS** your Pi-Hole admin interface password **UNLESS** you have 2FA turned on (in contrast to the old widget). If you have 2FA turned on you will need to create an application password. Refer to Pi-Hole documentation for how to create an application password. |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`hideStatus`** / **`hideChart`** / **`hideInfo`** | `boolean` |  _Optional_ | Optionally hide any of the three parts of the widget
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password or application password. It **IS** your Pi-Hole admin interface password **UNLESS** you have 2FA turned on (in contrast to the old widget). If you have 2FA turned on you will need to create an application password. Refer to Pi-Hole documentation for how to create an application password.
 
 #### Example
 
@@ -1856,11 +1857,11 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
 
 #### Options
 
-| **Field**      | **Type** | **Required** | **Description**                                                                                                                                                                                                     |
-| -------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`hostname`** | `string` | Required     | The URL to your Pi-Hole instance                                                                                                                                                                                    |
-| **`apiKey`**   | `string` | Required     | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD` |
-| **`count`**    | `number` | _Optional_   | The number of queries to display. Defaults to `10`                                                                                                                                                                  |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD`
+**`count`** | `number` |  _Optional_ | The number of queries to display. Defaults to `10`
 
 #### Example
 
@@ -1889,11 +1890,11 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
 
 #### Options
 
-| **Field**      | **Type** | **Required** | **Description**                                                                                                                                                                                                                                                                                                            |
-| -------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`hostname`** | `string` | Required     | The URL to your Pi-Hole instance                                                                                                                                                                                                                                                                                           |
-| **`apiKey`**   | `string` | Required     | Your Pi-Hole web password or application password. It **IS** your Pi-Hole admin interface password **UNLESS** you have 2FA turned on (in contrast to the old widget). If you have 2FA turned on you will need to create an application password. Refer to Pi-Hole documentation for how to create an application password. |
-| **`count`**    | `number` | _Optional_   | The number of queries to display. Defaults to `10`                                                                                                                                                                                                                                                                         |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password or application password. It **IS** your Pi-Hole admin interface password **UNLESS** you have 2FA turned on (in contrast to the old widget). If you have 2FA turned on you will need to create an application password. Refer to Pi-Hole documentation for how to create an application password.
+**`count`** | `number` |  _Optional_ | The number of queries to display. Defaults to `10`
 
 #### Example
 
@@ -1922,10 +1923,10 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 
 #### Options
 
-| **Field**      | **Type** | **Required** | **Description**                                                                                                                                                                                                     |
-| -------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`hostname`** | `string` | Required     | The URL to your Pi-Hole instance                                                                                                                                                                                    |
-| **`apiKey`**   | `string` | Required     | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD` |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password. It is **NOT** your pi-hole admin interface or server password. It can be found in `/etc/pihole/setupVars.conf`, and is a 64-character located on the line that starts with `WEBPASSWORD`
 
 #### Example
 
@@ -1954,10 +1955,10 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 
 #### Options
 
-| **Field**      | **Type** | **Required** | **Description**                                                                                                                                                                                                                                                                                                            |
-| -------------- | -------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`hostname`** | `string` | Required     | The URL to your Pi-Hole instance                                                                                                                                                                                                                                                                                           |
-| **`apiKey`**   | `string` | Required     | Your Pi-Hole web password or application password. It **IS** your Pi-Hole admin interface password **UNLESS** you have 2FA turned on (in contrast to the old widget). If you have 2FA turned on you will need to create an application password. Refer to Pi-Hole documentation for how to create an application password. |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Pi-Hole instance
+**`apiKey`** | `string` |  Required | Your Pi-Hole web password or application password. It **IS** your Pi-Hole admin interface password **UNLESS** you have 2FA turned on (in contrast to the old widget). If you have 2FA turned on you will need to create an application password. Refer to Pi-Hole documentation for how to create an application password.
 
 #### Example
 
@@ -1986,12 +1987,12 @@ Displays the current and recent uptime of your running services, via a self-host
 
 #### Options
 
-| **Field**       | **Type**  | **Required** | **Description**                                                                                                        |
-| --------------- | --------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| **`hostname`**  | `string`  | Required     | The URL to your StatPing instance, without a trailing slash                                                            |
-| **`groupId`**   | `number`  | Optional     | If provided, only Services in the given group are displayed. Defaults to `0` in which case all services are displayed. |
-| **`showChart`** | `boolean` | Optional     | If provided and `false` then charts are not displayed. Defaults to `true`.                                             |
-| **`showInfo`**  | `boolean` | Optional     | If provided and `false` then information summaries are not displayed. Defaults to `true`.                              |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your StatPing instance, without a trailing slash
+**`groupId`** | `number` | Optional | If provided, only Services in the given group are displayed. Defaults to `0` in which case all services are displayed.
+**`showChart`** | `boolean`| Optional | If provided and `false` then charts are not displayed. Defaults to `true`.
+**`showInfo`** | `boolean`| Optional | If provided and `false` then information summaries are not displayed. Defaults to `true`.
 
 #### Example
 
@@ -2034,11 +2035,11 @@ Displays the current downloads/torrents tasks of your Synology NAS
 
 #### Options
 
-| **Field**      | **Type** | **Required** | **Description**                                                                                                                                                                               |
-| -------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`hostname`** | `string` | Required     | The URL to your Synology NAS, without a trailing slash                                                                                                                                        |
-| **`username`** | `string` | Required     | The username of a user on your synology NAS. You will see only this user download station tasks if he is not part of the administrator group. Currently don't support OTP protected accounts. |
-| **`password`** | `string` | Required     | The password of the account specified above.                                                                                                                                                  |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your Synology NAS, without a trailing slash
+**`username`** | `string` |  Required | The username of a user on your synology NAS. You will see only this user download station tasks if he is not part of the administrator group. Currently don't support OTP protected accounts.
+**`password`** | `string` |  Required | The password of the account specified above.
 
 #### Example
 
@@ -2048,6 +2049,8 @@ Displays the current downloads/torrents tasks of your Synology NAS
     hostname: http://192.168.1.1:8080
     username: dashy
     password: totally-secure-password
+
+
 ```
 
 #### Info
@@ -2069,11 +2072,11 @@ displays total number of allowed and blocked queries, plus a pie chart showing b
 
 #### Options
 
-| **Field**      | **Type** | **Required** | **Description**                                                   |
-| -------------- | -------- | ------------ | ----------------------------------------------------------------- |
-| **`hostname`** | `string` | Required     | The URL to your AdGuard Home instance                             |
-| **`username`** | `string` | _Optional_   | If you've got auth enabled on AdGuard, provide your username here |
-| **`password`** | `string` | _Optional_   | If you've got auth enabled on AdGuard, provide your password here |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your AdGuard Home instance
+**`username`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your username here
+**`password`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your password here
 
 #### Example
 
@@ -2104,12 +2107,12 @@ Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overvi
 
 #### Options
 
-| **Field**                 | **Type**  | **Required** | **Description**                                                                                          |
-| ------------------------- | --------- | ------------ | -------------------------------------------------------------------------------------------------------- |
-| **`hostname`**            | `string`  | Required     | The URL to your AdGuard Home instance                                                                    |
-| **`username`**            | `string`  | _Optional_   | If you've got auth enabled on AdGuard, provide your username here                                        |
-| **`password`**            | `string`  | _Optional_   | If you've got auth enabled on AdGuard, provide your password here                                        |
-| **`showOnOffStatusOnly`** | `boolean` | _Optional_   | If set to `true`, will only show aggregated AdGuard filter status (on/off), instead of a list of filters |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your AdGuard Home instance
+**`username`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your username here
+**`password`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your password here
+**`showOnOffStatusOnly`** | `boolean` |  _Optional_ | If set to `true`, will only show aggregated AdGuard filter status (on/off), instead of a list of filters
 
 #### Example
 
@@ -2141,12 +2144,12 @@ Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overvi
 
 #### Options
 
-| **Field**          | **Type**  | **Required** | **Description**                                                                                   |
-| ------------------ | --------- | ------------ | ------------------------------------------------------------------------------------------------- |
-| **`hostname`**     | `string`  | Required     | The URL to your AdGuard Home instance                                                             |
-| **`username`**     | `string`  | _Optional_   | If you've got auth enabled on AdGuard, provide your username here                                 |
-| **`password`**     | `string`  | _Optional_   | If you've got auth enabled on AdGuard, provide your password here                                 |
-| **`showFullInfo`** | `boolean` | _Optional_   | If set to `true`, the full DNS info will be shown by default, without having to click "Show Info" |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your AdGuard Home instance
+**`username`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your username here
+**`password`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your password here
+**`showFullInfo`** | `boolean` |  _Optional_ | If set to `true`, the full DNS info will be shown by default, without having to click "Show Info"
 
 #### Example
 
@@ -2178,14 +2181,14 @@ Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overvi
 
 #### Options
 
-| **Field**                | **Type**  | **Required** | **Description**                                                                |
-| ------------------------ | --------- | ------------ | ------------------------------------------------------------------------------ |
-| **`hostname`**           | `string`  | Required     | The URL to your AdGuard Home instance                                          |
-| **`username`**           | `string`  | _Optional_   | If you've got auth enabled on AdGuard, provide your username here              |
-| **`password`**           | `string`  | _Optional_   | If you've got auth enabled on AdGuard, provide your password here              |
-| **`limit`**              | `number`  | _Optional_   | Specify the number of results to show, between `1` and `100`, defaults to `10` |
-| **`hideBlockedDomains`** | `boolean` | _Optional_   | Don't show the blocked domains list (queried domains only)                     |
-| **`hideQueriedDomains`** | `boolean` | _Optional_   | Don't show the queried domains list (blocked domains only)                     |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL to your AdGuard Home instance
+**`username`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your username here
+**`password`** | `string` |  _Optional_ | If you've got auth enabled on AdGuard, provide your password here
+**`limit`** | `number` |  _Optional_ | Specify the number of results to show, between `1` and `100`, defaults to `10`
+**`hideBlockedDomains`** | `boolean` |  _Optional_ | Don't show the blocked domains list (queried domains only)
+**`hideQueriedDomains`** | `boolean` |  _Optional_ | Don't show the queried domains list (blocked domains only)
 
 #### Example
 
@@ -2223,11 +2226,11 @@ Known issues: the User API incorrectly reports available disk space as total for
 
 #### Options
 
-| **Field**      | **Type** | **Required** | **Description**                                             |
-| -------------- | -------- | ------------ | ----------------------------------------------------------- |
-| **`hostname`** | `string` | Required     | The URL of the Nextcloud server                             |
-| **`username`** | `string` | Required     | Nextcloud username                                          |
-| **`password`** | `string` | Required     | Nextcloud app-password (create one in Settings -> Security) |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL of the Nextcloud server
+**`username`** | `string` |  Required | Nextcloud username
+**`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
 
 #### Example
 
@@ -2258,13 +2261,13 @@ Show user statuses for selected users.
 
 #### Options
 
-| **Field**       | **Type**  | **Required** | **Description**                                                          |
-| --------------- | --------- | ------------ | ------------------------------------------------------------------------ |
-| **`hostname`**  | `string`  | Required     | The URL of the Nextcloud server                                          |
-| **`username`**  | `string`  | Required     | Nextcloud username                                                       |
-| **`password`**  | `string`  | Required     | Nextcloud app-password (create one in Settings -> Security)              |
-| **`users`**     | `array`   | Required     | Nextcloud User IDs to show statuses for, list size between `1` and `100` |
-| **`showEmpty`** | `boolean` | _Optional_   | Show statuses without a message, defaults to `true`                      |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL of the Nextcloud server
+**`username`** | `string` |  Required | Nextcloud username
+**`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
+**`users`** | `array` |  Required | Nextcloud User IDs to show statuses for, list size between `1` and `100`
+**`showEmpty`** | `boolean` |  _Optional_ | Show statuses without a message, defaults to `true`
 
 #### Example
 
@@ -2275,7 +2278,7 @@ Show user statuses for selected users.
     hostname: https://nextcloud.example.com
     username: alice
     password: xxxxx-xxxxx-xxxxx-xxxxx
-    users: ["bob", "alice"]
+    users: ['bob', 'alice']
 ```
 
 #### Info
@@ -2296,12 +2299,12 @@ Displays your notifications and allows deleting them.
 
 #### Options
 
-| **Field**      | **Type**         | **Required** | **Description**                                                                                                                                                                                                |
-| -------------- | ---------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`hostname`** | `string`         | Required     | The URL of the Nextcloud server                                                                                                                                                                                |
-| **`username`** | `string`         | Required     | Nextcloud username                                                                                                                                                                                             |
-| **`password`** | `string`         | Required     | Nextcloud app-password (create one in Settings -> Security)                                                                                                                                                    |
-| **`limit`**    | `number\|string` | _Optional_   | Limit displayed notifications either by count, e.g. `5` to show the 5 most recent, or by age, e.g. `1d` to only show notifications not older than a day. Accepted suffixes for age limit are `m`, `h` and `d`. |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL of the Nextcloud server
+**`username`** | `string` |  Required | Nextcloud username
+**`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
+**`limit`** | `number\|string` |  _Optional_ | Limit displayed notifications either by count, e.g. `5` to show the 5 most recent, or by age, e.g. `1d` to only show notifications not older than a day. Accepted suffixes for age limit are `m`, `h` and `d`.
 
 #### Example
 
@@ -2333,11 +2336,11 @@ Visualises overall memory utilisation and CPU load averages, shows server versio
 
 #### Options
 
-| **Field**      | **Type** | **Required** | **Description**                                             |
-| -------------- | -------- | ------------ | ----------------------------------------------------------- |
-| **`hostname`** | `string` | Required     | The URL of the Nextcloud server                             |
-| **`username`** | `string` | Required     | Must be a Nextcloud admin user                              |
-| **`password`** | `string` | Required     | Nextcloud app-password (create one in Settings -> Security) |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL of the Nextcloud server
+**`username`** | `string` |  Required | Must be a Nextcloud admin user
+**`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
 
 #### Example
 
@@ -2368,11 +2371,11 @@ Shows key usage statistics about your Nextcloud server.
 
 #### Options
 
-| **Field**      | **Type** | **Required** | **Description**                                             |
-| -------------- | -------- | ------------ | ----------------------------------------------------------- |
-| **`hostname`** | `string` | Required     | The URL of the Nextcloud server                             |
-| **`username`** | `string` | Required     | Must be a Nextcloud admin user                              |
-| **`password`** | `string` | Required     | Nextcloud app-password (create one in Settings -> Security) |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL of the Nextcloud server
+**`username`** | `string` |  Required | Must be a Nextcloud admin user
+**`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
 
 #### Example
 
@@ -2403,11 +2406,11 @@ Shows statistics about PHP OPcache performance on your Nextcloud server.
 
 #### Options
 
-| **Field**      | **Type** | **Required** | **Description**                                             |
-| -------------- | -------- | ------------ | ----------------------------------------------------------- |
-| **`hostname`** | `string` | Required     | The URL of the Nextcloud server                             |
-| **`username`** | `string` | Required     | Must be a Nextcloud admin user                              |
-| **`password`** | `string` | Required     | Nextcloud app-password (create one in Settings -> Security) |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL of the Nextcloud server
+**`username`** | `string` |  Required | Must be a Nextcloud admin user
+**`password`** | `string` |  Required | Nextcloud app-password (create one in Settings -> Security)
 
 #### Example
 
@@ -2428,6 +2431,7 @@ Shows statistics about PHP OPcache performance on your Nextcloud server.
 - **Host**: Self-Hosted (see [Nextcloud](https://nextcloud.com))
 - **Privacy**: _See [Nextcloud Privacy Policy](https://nextcloud.com/privacy)_
 
+
 ---
 
 ### Proxmox lists
@@ -2435,52 +2439,49 @@ Shows statistics about PHP OPcache performance on your Nextcloud server.
 Shows lists of nodes, containers, and VMs in a Proxmox virtual environment cluster, with a status indicator.
 
 #### Options
-
-| **Field**            | **Type**  | **Required** | **Description**                                                                                                                                                                   |
-| -------------------- | --------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`cluster_url`**    | `string`  | Required     | The URL of the proxmox cluster server. No trailing `/`. for example: `https://proxmox.lan:8006`                                                                                   |
-| **`user_name`**      | `string`  | Required     | A Proxmox API Username, for example `root@pam` or `dashy@pve`.                                                                                                                    |
-| **`token_name`**     | `string`  | Required     | A Proxmox API token name. You can get a token in the API section of the cluster management interface.                                                                             |
-| **`token_uuid`**     | `string`  | Required     | The value of the token entered above. This is normally a UUID.                                                                                                                    |
-| **`node`**           | `string`  | optional     | A Proxmox node name. If empty or not supplied, a list of nodes will be shown.                                                                                                     |
-| **`node_data`**      | `string`  | optional     | This is required if a node is selected, Currently this accepts two values, either `lxc` or `qemu` but the widget can be improved to get other types of data from the Proxmox API. |
-| **`title`**          | `string`  | optional     | A widget title.                                                                                                                                                                   |
-| **`title_as_link`**  | `boolean` | optional     | When this is set to anything other than 0 or false, the title will be linked to the value entered in the `cluster_url` option.                                                    |
-| **`footer`**         | `string`  | optional     | A widget footer.                                                                                                                                                                  |
-| **`footer_as_link`** | `boolean` | optional     | When this is set to anything other than 0 or false, the title will be linked to the value entered in the `cluster_url` option.                                                    |
-| **`hide_templates`** | `boolean` | optional     | When this is set to anything other than 0 or false, templates will be filtered out of the result list.                                                                            |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`cluster_url`** | `string` |  Required | The URL of the proxmox cluster server. No trailing `/`. for example: `https://proxmox.lan:8006`
+**`user_name`** | `string` |  Required | A Proxmox API Username, for example `root@pam` or `dashy@pve`.
+**`token_name`** | `string` |  Required | A Proxmox API token name. You can get a token in the API section of the cluster management interface.
+**`token_uuid`** | `string` |  Required | The value of the token entered above. This is normally a UUID. 
+**`node`** | `string` |  optional | A Proxmox node name. If empty or not supplied, a list of nodes will be shown.
+**`node_data`** | `string` |  optional | This is required if a node is selected, Currently this accepts two values, either `lxc` or `qemu` but the widget can be improved to get other types of data from the Proxmox API.
+**`title`** | `string` |  optional | A widget title.
+**`title_as_link`** | `boolean` |  optional | When this is set to anything other than 0 or false, the title will be linked to the value entered in the `cluster_url` option.
+**`footer`** | `string` |  optional | A widget footer.
+**`footer_as_link`** | `boolean` |  optional | When this is set to anything other than 0 or false, the title will be linked to the value entered in the `cluster_url` option.
+**`hide_templates`** | `boolean` |  optional | When this is set to anything other than 0 or false, templates will be filtered out of the result list.
 
 #### Example
-
 This will show the list of nodes.
-
 ```yaml
-- type: proxmox-lists
-  useProxy: true
-  options:
-    cluster_url: https://proxmox.lan:8006
-    user_name: root@pam
-    token_name: dashy
-    token_uuid: bfb152df-abcd-abcd-abcd-ccb95a472d01
+  - type: proxmox-lists
+    useProxy: true 
+    options:
+      cluster_url: https://proxmox.lan:8006
+      user_name: root@pam
+      token_name: dashy
+      token_uuid: bfb152df-abcd-abcd-abcd-ccb95a472d01
 ```
 
 This will show the list of VMs, with a title and a linked fotter, hiding VM templates.
 
 ```yaml
-- type: proxmox-lists
-  useProxy: true
-  options:
-    cluster_url: https://proxmox.lan:8006
-    user_name: root@pam
-    token_name: dashy
-    token_uuid: bfb152df-abcd-abcd-abcd-ccb95a472d01
-    node: proxmox
-    node_data: qemu
-    title: Proxmox VMs
-    title_as_link: false
-    footer: Proxmox
-    footer_as_link: true
-    hide_templates: 1
+  - type: proxmox-lists
+    useProxy: true 
+    options:
+      cluster_url: https://proxmox.lan:8006
+      user_name: root@pam
+      token_name: dashy
+      token_uuid: bfb152df-abcd-abcd-abcd-ccb95a472d01
+      node: proxmox
+      node_data: qemu
+      title: Proxmox VMs
+      title_as_link: false
+      footer: Proxmox
+      footer_as_link: true
+      hide_templates: 1
 ```
 
 #### Info
@@ -2492,11 +2493,10 @@ This will show the list of VMs, with a title and a linked fotter, hiding VM temp
 - **Privacy**: _See [Proxmox's Privacy Policy](https://proxmox.com/en/privacy-policy)_
 
 #### Troubleshooting
-
 - **404 Error in development mode**: The error might disappear in production mode `yarn start`
-- **500 Error in production mode**: Try adding the certificate authority (CA) certificate of your Proxmox host to Node.js.
+- **500 Error in production mode**: Try adding the certificate authority (CA) certificate of your Proxmox host to Node.js. 
   - Download the Proxmox CA certificate to your Dashy host.
-  - Export environment variable `NODE_EXTRA_CA_CERTS` and set its value to the path of the downloaded CA certificate. Example: `export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/devlab_ca.pem`
+  - Export environment variable `NODE_EXTRA_CA_CERTS` and set its value to the path of the downloaded CA certificate. Example:  `export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/devlab_ca.pem`
 
 ---
 
@@ -2508,22 +2508,22 @@ Shows queue information regarding your self hosted Sabnzbd server.
 
 #### Options
 
-| **Field**         | **Type**  | **Required** | **Description**                                                                             |
-| ----------------- | --------- | ------------ | ------------------------------------------------------------------------------------------- |
-| **`sabnzbdUrl`**  | `string`  | Required     | The URL of the Sabnzbd server. No trailing `/`.                                             |
-| **`apiKey`**      | `string`  | Required     | API key for Sabnzbd access. Located under `Config` -> `General` -> `Security` -> `API Key`. |
-| **`hideDetails`** | `boolean` | _Optional_   | Hides extra server queue details.                                                           |
-| **`hideQueue`**   | `boolean` | _Optional_   | Hides the queue list in an expandable dropdown.                                             |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`sabnzbdUrl`** | `string` |  Required | The URL of the Sabnzbd server. No trailing `/`.
+**`apiKey`** | `string` |  Required | API key for Sabnzbd access. Located under `Config` -> `General` -> `Security` -> `API Key`.
+**`hideDetails`** | `boolean` |  _Optional_ | Hides extra server queue details.
+**`hideQueue`** | `boolean` |  _Optional_ | Hides the queue list in an expandable dropdown.
 
 #### Example
 
 ```yaml
-- type: sabnzbd
-  options:
-    sabnzbdUrl: "https://sabnzbd.example.com"
-    apiKey: XXXXXXXXXXXXXXXXXX
-    hideDetails: false
-    hideQueue: false
+  - type: sabnzbd
+    options:
+      sabnzbdUrl: 'https://sabnzbd.example.com'
+      apiKey: XXXXXXXXXXXXXXXXXX
+      hideDetails: false
+      hideQueue: false
 ```
 
 #### Info
@@ -2544,10 +2544,10 @@ Display info from the Gluetun VPN container public IP API. This can show the IP 
 
 #### Options
 
-| **Field**           | **Type** | **Required** | **Description**                                                                                                                                                                                                                               |
-| ------------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`visibleFields`** | `string` | Required     | A comma separated list of the fields you want visible in the widget. You can have any number of the following : `public_ip`, `region`, `country`, `city`, `location`, `organisation`, `postal_code`, `timezone`. Defaults to just `public_ip` |
-| **`host`**          | `string` | Required     | The url to the gluetun HTTP control server. E.g. `http://gluetun:8000`                                                                                                                                                                        |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`visibleFields`** | `string` |  Required | A comma separated list of the fields you want visible in the widget. You can have any number of the following : `public_ip`, `region`, `country`, `city`, `location`, `organisation`, `postal_code`, `timezone`. Defaults to just `public_ip`
+**`host`** | `string` |  Required | The url to the gluetun HTTP control server. E.g. `http://gluetun:8000`
 
 #### Example
 
@@ -2577,12 +2577,12 @@ Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self
 
 #### Options
 
-| **Field**    | **Type**  | **Required** | **Description**                                      |
-| ------------ | --------- | ------------ | ---------------------------------------------------- |
-| **`host`**   | `string`  | Required     | The hostname of the Drone CI instance.               |
-| **`apiKey`** | `string`  | Required     | The API key (https://[your-drone-instance]/account). |
-| **`limit`**  | `integer` | _Optional_   | Limit the amounts of listed builds.                  |
-| **`repo`**   | `string`  | _Optional_   | Show only builds of the specified repo               |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The hostname of the Drone CI instance.
+**`apiKey`** | `string` |  Required | The API key (https://[your-drone-instance]/account).
+**`limit`** | `integer` | _Optional_ | Limit the amounts of listed builds.
+**`repo`** | `string` | _Optional_ | Show only builds of the specified repo
 
 #### Example
 
@@ -2611,11 +2611,11 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 
 #### Options
 
-| **Field**    | **Type**         | **Required** | **Description**                                                     |
-| ------------ | ---------------- | ------------ | ------------------------------------------------------------------- |
-| **`host`**   | `string`         | Required     | The hostname of the Drone CI instance.                              |
-| **`apiKey`** | `string`         | Required     | The API key (https://your-linkding-instance/settings/integrations). |
-| **`tags`**   | `list of string` | _Optional_   | Filter the links by tag.                                            |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`host`** | `string` |  Required | The hostname of the Drone CI instance.
+**`apiKey`** | `string` |  Required | The API key (https://your-linkding-instance/settings/integrations).
+**`tags`** | `list of string` | _Optional_ | Filter the links by tag.
 
 #### Example
 
@@ -2625,7 +2625,7 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
   options:
     host: https://lingding.somedomain.com
     apiKey: my-very-secret-api-key
-    tags:
+    tags: 
       - rpg
       - markdown
 ```
@@ -2711,12 +2711,13 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 
 <p align="center"><a href="https://ibb.co/NVHWpD1"><img src="https://storage.googleapis.com/as93-screenshots/dashy/tactical-rmm.png" alt="Capture" border="0"></a></p>
 
+
 #### Options
 
-| **Field**   | **Type** | **Required** | **Description**                                                                                                                |
-| ----------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| **`url`**   | `string` | Required     | The status endpoint URL (https://api.example.com/core/status/)                                                                 |
-| **`token`** | `string` | Required     | The MON_TOKEN (see https://docs.tacticalrmm.com/tipsntricks/#monitor-your-trmm-instance-via-the-built-in-monitoring-endpoint). |
+| **Field**    | **Type** | **Required** | **Description**                                                          |
+| ------------ | -------- | ------------ | ------------------------------------------------------------------------ |
+| **`url`**    | `string` | Required     | The status endpoint URL (https://api.example.com/core/status/)           |
+| **`token`**  | `string` | Required     | The MON_TOKEN (see https://docs.tacticalrmm.com/tipsntricks/#monitor-your-trmm-instance-via-the-built-in-monitoring-endpoint). |
 
 #### Example
 
@@ -2736,12 +2737,12 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 - **Host**: Self-Hosted (see [Tactical RMM](https://github.com/amidaware/tacticalrmm) )
 - **Privacy**: _See [Tactical RMM](https://github.com/amidaware/tacticalrmm)_
 
+
 ---
 
 ## System Resource Monitoring
 
 ### Glances
-
 The easiest method for displaying system info and resource usage in Dashy is with [Glances](https://nicolargo.github.io/glances/).
 
 Glances is a cross-platform monitoring tool developed by [@nicolargo](https://github.com/nicolargo). It's similar to top/htop but with a [Rest API](https://glances.readthedocs.io/en/latest/api.html) and many [data exporters](https://glances.readthedocs.io/en/latest/gw/index.html) available. Under the hood, it uses [psutil](https://github.com/giampaolo/psutil) for retrieving system info.
@@ -2751,7 +2752,6 @@ If you don't already have it installed, either follow the [Installation Guide](h
 If you are using Docker to run glances make sure to add the enviroment variable `-e TZ = {YourTimeZone}`. You can get a list of valid timezones by running `timedatectl list-timezones` on any linux system. This is needed so the graphs show the currect time.
 
 Here an example for Docker
-
 ```
  docker run -d \
     --name glances \
@@ -2769,19 +2769,19 @@ Here an example for Docker
 
 Glances can be launched with the `glances` command. You'll need to run it in web server mode, using the `-w` option for the API to be reachable. If you don't plan on using the Web UI, then you can disable it using `--disable-webui`. See the [command reference docs](https://glances.readthedocs.io/en/latest/cmds.html) for more info.
 
-If Glances is running on a Windows system it is recommended to add the following arguments `--disable-plugin all --enable-plugin cpu,mem,diskio,ip,network,containers,quicklook,load,fs,alert -w` This is due to Glances not being that stable on windows, so disabling all plugins that aren't used by Dashy widgets can save on ressources.
+If Glances is running on a Windows system it is recommended to add the following arguments ```--disable-plugin all --enable-plugin cpu,mem,diskio,ip,network,containers,quicklook,load,fs,alert -w``` This is due to Glances not being that stable on windows, so disabling all plugins that aren't used by Dashy widgets can save on ressources.
 
 #### Options
 
 All Glance's based widgets require a `hostname`. All other parameters are optional.
 
-| **Field**        | **Type** | **Required** | **Description**                                                                                                                                                                                                               |
-| ---------------- | -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`hostname`**   | `string` | Required     | The URL or IP + port to your Glances instance (without a trailing slash)                                                                                                                                                      |
-| **`username`**   | `string` | _Optional_   | If you have setup basic auth on Glances, specify username here (defaults to `glances`)                                                                                                                                        |
-| **`password`**   | `string` | _Optional_   | If you have setup basic auth on Glances, specify password here. **Note**: since this password is in plaintext, it is important not to reuse it anywhere else                                                                  |
-| **`apiVersion`** | `string` | _Optional_   | Specify an API version, defaults to V `3`. Note that support for older versions is limited                                                                                                                                    |
-| **`limit`**      | `number` | _Optional_   | For widgets that show a time-series chart, optionally limit the number of data points returned. A higher number will show more historical results, but will take longer to load. A value between 300 - 800 is usually optimal |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` |  Required | The URL or IP + port to your Glances instance (without a trailing slash)
+**`username`** | `string` |  _Optional_ | If you have setup basic auth on Glances, specify username here (defaults to `glances`)
+**`password`** | `string` |  _Optional_ | If you have setup basic auth on Glances, specify password here. **Note**: since this password is in plaintext, it is important not to reuse it anywhere else
+**`apiVersion`** | `string` |  _Optional_ | Specify an API version, defaults to V `3`. Note that support for older versions is limited
+**`limit`** | `number` |  _Optional_ | For widgets that show a time-series chart, optionally limit the number of data points returned. A higher number will show more historical results, but will take longer to load. A value between 300 - 800 is usually optimal
 
 Note that if auth is configured, requests must be proxied with `useProxy: true`
 
@@ -2855,9 +2855,9 @@ Recent CPU usage history, across all cores, and displayed by user and system
 
 #### Options
 
-| **Field**   | **Type** | **Required** | **Description**                                                                                              |
-| ----------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------ |
-| **`limit`** | `number` | _Optional_   | Limit the number of results returned, rendering more data points will take longer to load. Defaults to `100` |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`limit`** | `number` |  _Optional_ | Limit the number of results returned, rendering more data points will take longer to load. Defaults to `100`
 
 #### Example
 
@@ -2910,9 +2910,9 @@ Recent memory usage chart
 
 #### Options
 
-| **Field**   | **Type** | **Required** | **Description**                                                                                              |
-| ----------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------ |
-| **`limit`** | `number` | _Optional_   | Limit the number of results returned, rendering more data points will take longer to load. Defaults to `100` |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`limit`** | `number` |  _Optional_ | Limit the number of results returned, rendering more data points will take longer to load. Defaults to `100`
 
 #### Example
 
@@ -3065,9 +3065,9 @@ You'll need to enable the sensors plugin to use this widget, using: `--enable-pl
 
 #### Options
 
-| **Field**   | **Type** | **Required** | **Description**                                                                       |
-| ----------- | -------- | ------------ | ------------------------------------------------------------------------------------- |
-| **`units`** | `string` | _Optional_   | Use `C` to display temperatures in Celsius or `F` to use Fahrenheit. Defaults to `C`. |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`units`** | `string` |  _Optional_ | Use `C` to display temperatures in Celsius or `F` to use Fahrenheit. Defaults to `C`.
 
 #### Example
 
@@ -3090,10 +3090,10 @@ Embed any webpage into your dashboard as a widget.
 
 #### Options
 
-| **Field**         | **Type** | **Required** | **Description**                                                           |
-| ----------------- | -------- | ------------ | ------------------------------------------------------------------------- |
-| **`url`**         | `string` | Required     | The URL to the webpage to embed                                           |
-| **`frameHeight`** | `number` | _Optional_   | If needed, specify height of iframe in `px`. E.g. `400`, defaults to auto |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`url`** | `string` |  Required | The URL to the webpage to embed
+**`frameHeight`** | `number` | _Optional_ | If needed, specify height of iframe in `px`. E.g. `400`, defaults to auto
 
 #### Example
 
@@ -3115,12 +3115,12 @@ Many websites and apps provide their own embeddable widgets. These can be used w
 
 #### Options
 
-| **Field**       | **Type** | **Required** | **Description**                          |
-| --------------- | -------- | ------------ | ---------------------------------------- |
-| **`html`**      | `string` | _Optional_   | HTML contents to render in the widget    |
-| **`script`**    | `string` | _Optional_   | Raw JavaScript code to execute (caution) |
-| **`scriptSrc`** | `string` | _Optional_   | A URL to JavaScript content (caution)    |
-| **`css`**       | `string` | _Optional_   | Any stylings for widget contents         |
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`html`** | `string` |  _Optional_ | HTML contents to render in the widget
+**`script`** | `string` |  _Optional_ | Raw JavaScript code to execute (caution)
+**`scriptSrc`** | `string` |  _Optional_ | A URL to JavaScript content (caution)
+**`css`** | `string` |  _Optional_ | Any stylings for widget contents
 
 #### Example
 
@@ -3200,17 +3200,17 @@ In your YAML config file, this will look something like:
 
 ```yaml
 sections:
-  - name: Today
-    icon: far fa-calendar-day
-    widgets:
-      - type: clock
-        options:
-          format: en-GB
-      - type: weather
-        options:
-          apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-          city: London
-          units: metric
+- name: Today
+  icon: far fa-calendar-day
+  widgets:
+  - type: clock
+    options:
+      format: en-GB
+  - type: weather
+    options:
+      apiKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      city: London
+      units: metric
 ```
 
 > In this example, there is a single section, named "Today", using a Calendar icon from Font-Awesome. It has 2 widgets, a clock and the current weather.
@@ -3227,10 +3227,10 @@ For example, the following widget displaying stats from Pi-Hole will update ever
 
 ```yaml
 widgets:
-  - type: pi-hole-stats
-    updateInterval: 20
-    options:
-      hostname: http://192.168.130.2
+- type: pi-hole-stats
+  updateInterval: 20
+  options:
+    hostname: http://192.168.130.2
 ```
 
 Note that if you have many widgets, and set them to continuously update frequently, you will notice a hit to performance. A widget that relies on data from an external API, will also consume your usage quota faster, if set to keep updating.
@@ -3247,10 +3247,10 @@ For example:
 
 ```yaml
 widgets:
-  - type: pi-hole-stats
-    useProxy: true
-    options:
-      hostname: http://pi-hole.local
+- type: pi-hole-stats
+  useProxy: true
+  options:
+    hostname: http://pi-hole.local
 ```
 
 Alternatively, and more securely, you can set the auth headers on your service to accept requests from Dashy. For example:
@@ -3313,18 +3313,18 @@ For example:
 - name: CPU Usage
   icon: fas fa-tachometer
   widgets:
-    - type: gl-current-cpu
-      label: Meida Server
-      options:
-        hostname: http://media-server.lan:61208
-    - type: gl-current-cpu
-      label: Firewall
-      options:
-        hostname: http://firewall.lan:61208
-    - type: gl-current-cpu
-      label: File Sync Server
-      options:
-        hostname: http://file-sync.lan:61208
+  - type: gl-current-cpu
+    label: Meida Server
+    options:
+      hostname: http://media-server.lan:61208
+  - type: gl-current-cpu
+    label: Firewall
+    options:
+      hostname: http://firewall.lan:61208
+  - type: gl-current-cpu
+    label: File Sync Server
+    options:
+      hostname: http://file-sync.lan:61208
 ```
 
 ---
@@ -3368,7 +3368,7 @@ For example:
 - type: gl-load-history
   options:
     hostname: http://192.168.130.2:61208
-    chartColors: ["#9b5de5", "#f15bb5", "#00bbf9", "#00f5d4"]
+    chartColors: ['#9b5de5', '#f15bb5', '#00bbf9', '#00f5d4']
     chartHeight: 450
 ```
 
@@ -3392,7 +3392,7 @@ You can reload the data of any widget, by clicking the Refresh Data icon (also i
 
 All [config options](/docs/configuring.md#section) that can be applied to sections, can also be applied to widget sections. For example, to make a widget section double the width, set `displayData.cols: 2` within the parent section. You can collapse a widget (by clicking the section title), and collapse state will be saved locally.
 
-Widgets cannot currently be edited through the UI. This feature is in development, and will be released soon. In the meantime, you can either use the JSON config editor, or use [VS Code Server](https://github.com/coder/code-server), or just SSH into your box and edit the conf.yml file directly.
+Widgets cannot currently be edited through the UI. This feature is in development, and will be released soon.  In the meantime, you can either use the JSON config editor, or use [VS Code Server](https://github.com/coder/code-server), or just SSH into your box and edit the conf.yml file directly.
 
 ---
 
