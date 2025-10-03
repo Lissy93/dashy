@@ -122,7 +122,7 @@ docker run -d \
   --restart=always \
   lissy93/dashy:latest
 ```
-[![Dashy on Docker Hub](https://dockeri.co/image/lissy93/dashy)](https://hub.docker.com/r/lissy93/dashy)
+[![Dashy on Docker Hub](https://dockerico.blankenship.io/image/lissy93/dashy)](https://hub.docker.com/r/lissy93/dashy)
 
 See also: [examples with Docker Compose](./docs/deployment.md#using-docker-compose). Dashy is also available via GHCR, and tags for other architectures (`arm32v7`, `arm64v8`, etc.) and set versions are supported
 
@@ -543,7 +543,7 @@ Huge thanks to the sponsors helping to support Dashy's development!
 
 [![Open Project in VS Code](https://img.shields.io/badge/Open_in-VS_Code-863cfc?style=flat-square&logo=visualstudiocode)](https://open.vscode.dev/Lissy93/Dashy)
 [![Open in GitPod](https://img.shields.io/badge/Open_in-GitPod-ffae33?style=flat-square&logo=gitpod)](https://gitpod.io/#github.com/lissy93/dashy.git)
-[![Open in GitHub Code Spaces](https://img.shields.io/badge/Open_in-Code%20Spaces-131313?style=flat-square&logo=github)](https://github.dev/Lissy93/dashy)
+[![Open in GitHub Code Spaces](https://img.shields.io/badge/Open_in-Code%20Spaces-008080?style=flat-square&logo=github)](https://github.dev/Lissy93/dashy)
 
 Before getting started, you'll need [Git](https://git-scm.com/downloads), [Node](https://nodejs.org/en/download/) and optionally [Yarn](https://yarnpkg.com/) (run `npm i -g yarn`) installed.
 
