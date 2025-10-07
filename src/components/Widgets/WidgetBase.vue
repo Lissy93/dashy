@@ -51,6 +51,7 @@ const COMPAT = {
   'blacklist-check': 'BlacklistCheck',
   chucknorris: 'ChuckNorris',
   clock: 'Clock',
+  'compact-glance': 'CompactGlance',
   'code-stats': 'CodeStats',
   'covid-stats': 'CovidStats',
   'crypto-price-chart': 'CryptoPriceChart',
