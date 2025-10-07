@@ -1,0 +1,25 @@
+# Test configuration for Public IP widget with hideDetails feature
+
+pageInfo:
+  title: Public IP Widget Test
+  description: Testing hideDetails functionality
+
+sections:
+  - name: Public IP Widgets Test
+    widgets:
+      # Test 1: Default behavior (full details)
+      - type: public-ip
+        options:
+          provider: ipapi.co
+      
+      # Test 2: Hidden details (IP only)  
+      - type: public-ip
+        options:
+          provider: ipapi.co
+          hideDetails: true
+          
+      # Test 3: Different provider with hidden details
+      - type: public-ip
+        options:
+          provider: ip-api
+          hideDetails: true

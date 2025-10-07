@@ -6,7 +6,7 @@
   "author": "Alicia Sykes <alicia@omg.lol> (https://aliciasykes.com)",
   "scripts": {
     "start": "node server",
-    "dev": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
+    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve --no-eslint",
     "build": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
     "lint": "vue-cli-service lint",
     "pm2-start": "npx pm2 start server.js",
@@ -59,6 +59,7 @@
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "copy-webpack-plugin": "6.4.0",
+    "cross-env": "^10.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-vue": "^7.9.0",

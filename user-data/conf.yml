@@ -11,7 +11,8 @@ pageInfo:
 
 # Optional app settings and configuration
 appConfig:
-  theme: colorful
+  theme: callisto
+  routingMode: hash
 
 # Main content - An array of sections, each containing an array of items
 sections:
@@ -19,14 +20,14 @@ sections:
   icon: fas fa-rocket
   items:
   - title: Dashy Live
-    description: Development a project management links for Dashy
+    description: Developmental project management links for Dashy
     icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
     url: https://live.dashy.to/
     target: newtab
   - title: GitHub
     description: Source Code, Issues and Pull Requests
     url: https://github.com/lissy93/dashy
-    icon: favicon
+    icon: fab fa-github
   - title: Docs
     description: Configuring & Usage Documentation
     provider: Dashy.to
@@ -44,4 +45,12 @@ sections:
     description: Get help with Dashy, raise a bug, or get in contact
     url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
     icon: far fa-hands-helping
-  
+
+- name: System Overview
+  icon: fas fa-server
+  widgets:
+    - type: compact-glance
+      options:
+        poll: 3
+
+
