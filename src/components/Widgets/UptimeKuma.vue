@@ -60,10 +60,10 @@ export default {
     },
     /* Create authorisation header for the instance from the apiKey */
     authHeaders() {
-      if (!this.options.apiKey) {
+      if (!this.apiKey) {
         return {};
       }
-      const encoded = window.btoa(`:${this.options.apiKey}`);
+      const encoded = window.btoa(`:${this.apiKey}`);
       return { Authorization: `Basic ${encoded}` };
     },
   },
