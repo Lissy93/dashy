@@ -1,7 +1,7 @@
 <template>
   <div class = "search-settings-row">
     <form
-      @submit.prevent="searchSubmitted"
+      @submit.prevent="searchSubmitted()"
       :class="minimalSearch ? 'minimal' : 'normal'"
     >
       <label for="filter-tiles">
@@ -381,6 +381,10 @@ export default {
 
     /* Launch web search, to correct search engine, passing in users query */
     searchSubmitted(force = false) {
+      // If the first argument is an Event (from accidental binding), treat as not forced
+      if (force && typeof force === 'object' && 'preventDefault' in force) {
+        force = false; // eslint-disable-line no-param-reassign
+      }
       const { searchPrefs, goToLinkEnabled } = this;
       const input = this.input.trim();
       // 1. If not forcing web search, and "Go to Link" is enabled
