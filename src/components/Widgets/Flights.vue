@@ -5,7 +5,7 @@
     Live {{ direction !== 'both' ? direction: 'flight' }} data from {{ airport }}
   </p>
   <!-- Departures -->
-  <div v-if="departures.length > 0" class="flight-group">
+  <div v-if="direction !== 'arrival' && departures.length > 0" class="flight-group">
     <h3 class="flight-type-subtitle" v-if="direction === 'both'">
       {{ $t('widgets.flight-data.departures') }}
     </h3>
@@ -16,7 +16,7 @@
     </div>
   </div>
   <!-- Arrivals -->
-  <div v-if="arrivals.length > 0" class="flight-group">
+  <div v-if="direction !== 'departure' && arrivals.length > 0" class="flight-group">
     <h3 class="flight-type-subtitle" v-if="direction === 'both'">
       {{ $t('widgets.flight-data.arrivals') }}
     </h3>
