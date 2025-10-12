@@ -137,10 +137,12 @@ export default {
       flights.forEach((flight) => {
         results.push({
           number: flight.number,
-          airline: flight.airline.name,
-          aircraft: flight.aircraft.model,
-          airport: flight.movement.airport.name,
-          time: flight.movement.actualTimeUtc,
+          airline: flight.airline?.name ?? "unknown airline",
+          aircraft: flight.aircraft?.model ?? "unknown aircraft",
+          airport: flight.movement?.airport?.name ?? "unknown airport",
+          time: flight.movement
+                ? (flight.movement?.revisedTime?.local ?? flight.movement?.scheduledTime?.local ?? "unknown time")
+                : "unknown time"
         });
       });
       return results;
