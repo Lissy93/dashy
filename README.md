@@ -8,6 +8,16 @@
   <b><a href="./docs/showcase.md">User Showcase</a></b> | <b><a href="https://demo.dashy.to">Live Demo</a></b> | <b><a href="./docs/quick-start.md">Getting Started</a></b> | <b><a href="https://dashy.to/docs">Documentation</a></b> | <b><a href="https://github.com/Lissy93/dashy">GitHub</a></b>
 </p>
 
+---
+
+<p align="center">
+<sup>Dashy is kindly sponsored by <a href="https://www.lambdatest.com/?utm_source=dashy&utm_medium=sponsor">LambdaTest</a> - Browser Testing</sup><br>
+  <a href="https://www.lambdatest.com/?utm_source=dashy&utm_medium=sponsor" target="_blank">
+    <img src="https://www.lambdatest.com/blue-logo.png" width="400" alt="LambdaTest" />
+  </a>
+</p>
+
+
 <p align="center">
 <br>
 <sup>Dashy is kindly sponsored by <a href="https://umbrel.com?ref=dashy">Umbrel</a> - the personal home cloud and OS for self-hosting</sup><br>
@@ -15,6 +25,7 @@
 <img width="400" src="https://github.com/Lissy93/dashy/blob/WEBSITE/docs-site-source/static/umbrel-banner.jpg?raw=true" />
 </a>
 </p>
+
 
 > [!NOTE]
 > Version [3.0.0](https://github.com/Lissy93/dashy/releases/tag/3.0.0) has been released, and requires some changes to your setup, see [#1529](https://github.com/Lissy93/dashy/discussions/1529) for details.
