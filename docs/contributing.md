@@ -2,7 +2,7 @@
 
 First off, thank you for considering contributing towards Dashy! 🙌
 There are several ways that you can help out, and any contributions, however small will always be very much appreciated.
-You will be appropriately credited in the readme - huge thank you to [everyone who has helped](/docs/credits) so far 💞
+You will be appropriately credited in the readme - huge thank you to [everyone who has helped](/credits) so far 💞
 
 ## Take a 2-minute survey
 
@@ -12,7 +12,7 @@ Help improve Dashy by taking a very short, 6-question survey. This will give me 
 
 ## Share your dashboard
 
-Dashy now has a [Showcase](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#dashy-showcase-) where you can show off a screenshot of your dashboard, and get inspiration from other users (and I really love seeing how people are using Dashy). To [submit your dashboard](https://github.com/Lissy93/dashy/blob/master/docs/showcase.md#submitting-your-dashboard), either open a PR or raise an issue.
+Dashy now has a [Showcase](/docs/showcase#dashy-showcase-) where you can show off a screenshot of your dashboard, and get inspiration from other users (and I really love seeing how people are using Dashy). To [submit your dashboard](/docs/showcase#submitting-your-dashboard), either open a PR or raise an issue.
 
 [![Add your Dashboard to the Showcase](https://img.shields.io/badge/Add_your_Dashboard-Showcase-%238616ee?style=for-the-badge&logo=feathub&logoColor=8616ee)](https://github.com/Lissy93/dashy/issues/new?assignees=&labels=%F0%9F%92%AF+Showcase&template=showcase-addition.yml&title=%5BSHOWCASE%5D+%3Ctitle%3E)
 
@@ -25,7 +25,17 @@ Don't feel any pressure to donate anything, as Dashy and my other projects will 
 
 Sponsoring will give you several perks - for $1 / £0.75 per month, you'll get a sponsor badge on your profile, be credited on the Dashy's readme, with a link to your website/ profile/ socials, get priority support,  have your feature ideas implemented, plus lots more. For more info, see [@Lissy93's Sponsor Page](https://github.com/sponsors/Lissy93).
 
+### You can also send a one-off small contribution using crypto
 
+[![Donate with BTC](https://en.cryptobadges.io/badge/big/3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC)](https://en.cryptobadges.io/donate/3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC)[![Donate with Ethereum](https://en.cryptobadges.io/badge/big/0x0fc98cBf8bea932B4470C46C0FbE1ed1f6765017)](https://en.cryptobadges.io/donate/0x0fc98cBf8bea932B4470C46C0FbE1ed1f6765017)
+
+- **BTC**: `3853bSxupMjvxEYfwGDGAaLZhTKxB2vEVC`
+- **ETH**: `0x0fc98cBf8bea932B4470C46C0FbE1ed1f6765017` / `aliciasykes.eth`
+- **XMR**: `471KZdxb6N63aABR4WYwMRjTVkc1p1x7wGsUTEF7AMYzL8L94A5pCuYWkosgJQ5Ze8Y2PscVCGZFJa3hDPg6MaDq47GUm8r`
+- **LTC**: `MAuck6Ea1qaNihwKfXutkR1R6BorMth86H`
+- **ZEC**: `t1bw1SefijsXRDQVxC9w64XsRK8hBhtQohQ`
+
+  
 
 ## Enable Anonymous Bug Reports
 
@@ -42,11 +52,11 @@ All reporting is **disabled** by default, and no data will ever be sent to any e
 
 ## Add Translations
 
-If you speak another language, then adding translations will help make Dashy available to non-native English speakers. This is a very quick and easy task, as all application text is located in [`locales/en.json`](https://github.com/Lissy93/dashy/blob/master/src/assets/locales/en.json), so adding a new language is as simple as copying this file and translating the values. You don't have to translate it all, as any missing attributes will just fallback to English. For a full tutorial, see the [Multi-Language Support Docs](https://github.com/Lissy93/dashy/blob/master/docs/multi-language-support.md).
+If you speak another language, then adding translations will help make Dashy available to non-native English speakers. This is a very quick and easy task, as all application text is located in [`locales/en.json`](https://github.com/Lissy93/dashy/blob/master/src/assets/locales/en.json), so adding a new language is as simple as copying this file and translating the values. You don't have to translate it all, as any missing attributes will just fallback to English. For a full tutorial, see the [Multi-Language Support Docs](/docs/multi-language-support).
 
 ## Submit a PR
 
-Contributing to the code or docs is super helpful. You can fix a bug, add a new feature or improve an existing one. If you've built your own custom widget, theme or view, consider sharing it in a PR. I've written [several guides](/docs/development-guides) to help you get started, and the steps for setting up the development environment are outlined in the [Development Docs](/docs/developing). Feel free to ask if you have any questions.
+Contributing to the code or docs is super helpful. You can fix a bug, add a new feature or improve an existing one. If you've built your own custom widget, theme or view, consider sharing it in a PR. I've written [several guides](/development-guides) to help you get started, and the steps for setting up the development environment are outlined in the [Development Docs](/developing). Feel free to ask if you have any questions.
 
 ## Improve the Docs
 
@@ -114,10 +124,10 @@ If you like, you could also consider [subscribing to my mailing list](https://no
 
 ### Contributors
 
-For a full list of Dashy's contributors, see the [Credits Page](/docs/credits)
+For a full list of Dashy's contributors, see the [Credits Page](/credits)
 
-[![Auto-generated contributors](https://raw.githubusercontent.com/Lissy93/dashy/master/docs/assets/CONTRIBUTORS.svg)](https://github.com/Lissy93/dashy/blob/master/docs/credits.md)
+](/docs/credits)
 
-### Star-Gazers Over Time
 
-[![Stargazers](https://starchart.cc/Lissy93/dashy.svg)](https://seladb.github.io/StarTrack-js/#/preload?r=Lissy93,dashy)
+
+](https://seladb.github.io/StarTrack-js/#/preload?r=Lissy93,dashy)

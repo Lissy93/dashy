@@ -1,2 +1,1 @@
-
-See: [Showcase](/docs/showcase).
+See: [Showcase](/showcase).

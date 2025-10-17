@@ -119,7 +119,7 @@ If you're seeing Dashy's 404 page on initial load/ refresh, and then the main ap
 
 The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by setting `appConfig.routingMode` to `hash`.
 
-If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `routingMode: history` again, for neater URLs.
+If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `routingMode: history` again, for neater URLs.
 
 ---
 
@@ -156,7 +156,7 @@ If you're getting an error about scenarios, then you've likely installed the wro
 Alternatively, as a workaround, you have several options:
 
 - Try using [NPM](https://www.npmjs.com/get-npm) instead: So clone, cd, then run `npm install`, `npm run build` and `npm start`
-- Try using [Docker](https://www.docker.com/get-started) instead, and all of the system setup and dependencies will already be taken care of. So from within the directory, just run `docker build -t lissy93/dashy .` to build, and then use docker start to run the project, e.g: `docker run -it -p 8080:8080 lissy93/dashy` (see the [deploying docs](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#deploy-with-docker) for more info)
+- Try using [Docker](https://www.docker.com/get-started) instead, and all of the system setup and dependencies will already be taken care of. So from within the directory, just run `docker build -t lissy93/dashy .` to build, and then use docker start to run the project, e.g: `docker run -it -p 8080:8080 lissy93/dashy` (see the [deploying docs](/docs/deployment#deploy-with-docker) for more info)
 
 ---
 
@@ -244,7 +244,7 @@ volumes:
 
 Check the [browser's console output](#how-to-open-browser-console), if you've not set any headers, you will likely see a CORS error here, which would be the source of the issue.
 
-You need to allow Dashy to make requests to Keycloak, and Keycloak to redirect to Dashy. The way you do this depends on how you're hosting these applications / which proxy you are using, and examples can be found in the [Management Docs](/docs/management#setting-headers).
+You need to allow Dashy to make requests to Keycloak, and Keycloak to redirect to Dashy. The way you do this depends on how you're hosting these applications / which proxy you are using, and examples can be found in the [Management Docs](/management.md#setting-headers).
 
 For example, add the access control header to Keycloak, like:
 
@@ -254,7 +254,7 @@ Note that for requests that transport sensitive info like credentials, setting t
 
 You should also ensure that Keycloak is correctly configured, with a user, realm and application, and be sure that you have set a valid redirect URL in Keycloak ([screenshot](https://user-images.githubusercontent.com/1862727/148599768-db4ee4f8-72c5-402d-8f00-051d999e6267.png)).
 
-For more details on how to set headers, see the [Example Headers](/docs/management#setting-headers) in the management docs, or reference the documentation for your proxy.
+For more details on how to set headers, see the [Example Headers](/management.md#setting-headers) in the management docs, or reference the documentation for your proxy.
 
 If you're running in Kubernetes, you will need to enable CORS ingress rules, see [docs](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#enable-cors), e.g:
 
@@ -400,7 +400,7 @@ Run `sudo apt install gnupg2 pass && gpg2 -k`
 
 If you're using status checks, and despite a given service being online, the check is displaying an error, there are a couple of things you can look at:
 
-If your service requires requests to include any authorization in the headers, then use the  `statusCheckHeaders` property, as described in the [docs](/docs/status-indicators#setting-custom-headers).
+If your service requires requests to include any authorization in the headers, then use the  `statusCheckHeaders` property, as described in the [docs](/status-indicators.md#setting-custom-headers).
 
 If you are still having issues, it may be because your target application is blocking requests from Dashy's IP. This is a [CORS error](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), and can be fixed by setting the headers on your target app, to include:
 
@@ -431,7 +431,7 @@ If you're serving Dashy though a CDN, instead of using the Node server or Docker
 
 ### Find Error Message
 
-If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't adequately explain the problem, then you can [open the browser console](/docs/troubleshooting#how-to-open-browser-console) to see more details.
+If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't adequately explain the problem, then you can [open the browser console](/troubleshooting.md#how-to-open-browser-console) to see more details.
 
 ### Check Config
 
@@ -439,7 +439,7 @@ Before proceeding, ensure that if the widget requires auth your API is correct, 
 
 ### Timeout Error
 
-If the error message in the console includes: `Error: timeout of 500ms exceeded`, then your Glances endpoint is slower to respond than expected. You can fix this by [setting timeout](https://github.com/Lissy93/dashy/blob/master/docs/widgets.md#setting-timeout) to a larger value. This is done on each widget, with the `timeout` attribute, and is specified in ms. E.g. `timeout: 5000` would only fail if no response is returned within 5 seconds.
+If the error message in the console includes: `Error: timeout of 500ms exceeded`, then your Glances endpoint is slower to respond than expected. You can fix this by [setting timeout](/docs/widgets#setting-timeout) to a larger value. This is done on each widget, with the `timeout` attribute, and is specified in ms. E.g. `timeout: 5000` would only fail if no response is returned within 5 seconds.
 
 ### CORS error
 
@@ -476,11 +476,11 @@ or
 Access-Control-Allow-Origin: *
 ```
 
-For more info on how to set headers, see: [Setting Headers](/docs/management#setting-headers) in the management docs
+For more info on how to set headers, see: [Setting Headers](/management.md#setting-headers) in the management docs
 
 ### Option 3 - Proxying Request
 
-You can route requests through Dashy's built-in CORS proxy. Instructions and more details can be found [here](/docs/widgets#proxying-requests). If you don't have control over the target origin, and you are running Dashy either through Docker, with the Node server or on Netlify, then this solution will work for you.
+You can route requests through Dashy's built-in CORS proxy. Instructions and more details can be found [here](/widgets.md#proxying-requests). If you don't have control over the target origin, and you are running Dashy either through Docker, with the Node server or on Netlify, then this solution will work for you.
 
 Just add the `useProxy: true` option to the failing widget.
 
@@ -503,13 +503,13 @@ If this is the case, you can disable the UI error message of a given widget by s
 
 A 401 error means your API key is invalid, it is not an issue with Dashy.
 
-Usually this happens due to an error in your config. If you're unsure, copy and paste the [example](/docs/widgets#weather) config, replacing the API key with your own.
+Usually this happens due to an error in your config. If you're unsure, copy and paste the [example](/widgets.md#weather) config, replacing the API key with your own.
 
 Check that `apiKey` is correctly specified, and nested within `options`. Ensure your input city is valid.
 
 To test your API key, try making a request to `https://api.openweathermap.org/data/2.5/weather?q=London&appid=[your-api-key]`
 
-If [Weather widget](/docs/widgets#weather-forecast) is working fine, but you are getting a `401` for the [Weather Forecast widget](/docs/widgets#weather-forecast), then this is also an OWM API key issue.
+If [Weather widget](/widgets.md#weather-forecast) is working fine, but you are getting a `401` for the [Weather Forecast widget](/widgets.md#weather-forecast), then this is also an OWM API key issue.
 Since the forecasting API requires an upgraded plan. ULPT: You can get a free, premium API key by filling in [this form](https://home.openweathermap.org/students). It's a student plan, but there's no verification to check that you are still a student.
 
 A future update will be pushed out, to use a free weather forecasting API.
@@ -524,7 +524,7 @@ If any widget is not displaying the data you expect, first confirm that your con
 
 If the raw API output is correct, yet the widget is rendering incorrect results, then it is likely a bug, and a ticket should be raised. You can start to debug the issue, by looking at the widget's code ([here](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets)), and the browser console + networking tab.
 
-If the API itself is returning incorrect, incomplete or inaccurate data then an issue needs to be raised **with the API provider** (not Dashy!). You can find the API provider included within the widget docs, or for a full list see the [Privacy Docs](https://github.com/Lissy93/dashy/blob/master/docs/privacy.md#widgets).
+If the API itself is returning incorrect, incomplete or inaccurate data then an issue needs to be raised **with the API provider** (not Dashy!). You can find the API provider included within the widget docs, or for a full list see the [Privacy Docs](/docs/privacy#widgets).
 
 See also: [#807](https://github.com/Lissy93/dashy/issues/807) (re, domain monitor)
 
@@ -532,7 +532,7 @@ See also: [#807](https://github.com/Lissy93/dashy/issues/807) (re, domain monito
 
 ## Font Awesome Icons not Displaying
 
-Usually, Font Awesome will be automatically enabled if one or more of your icons are using Font-Awesome. If this is not happening, then you can always manually enable (or disable) Font Awesome by setting: [`appConfig`](/docs/configuring#appconfig-optional).`enableFontAwesome` to `true`.
+Usually, Font Awesome will be automatically enabled if one or more of your icons are using Font-Awesome. If this is not happening, then you can always manually enable (or disable) Font Awesome by setting: [`appConfig`](/configuring.md#appconfig-optional).`enableFontAwesome` to `true`.
 
 If you are trying to use a premium icon, then you must have a [Pro License](https://fontawesome.com/plans). You'll then need to specify your Pro plan API key under `appConfig.fontAwesomeKey`. You can find this key, by logging into your FA account, navigate to Account → [Kits](https://fontawesome.com/kits) → New Kit → Copy Kit Code. The code is a 10-digit alpha-numeric code, and is also visible within the new kit's URL, for example: `81e48ce079`.
 
@@ -556,7 +556,7 @@ The most common reason for this, is if you not running the app over HTTPS. Copyi
 As a workaround, you could either:
 
 - Highlight the text and copy / <kbd>Ctrl</kbd> + <kbd>C</kbd>
-- Or setup SSL - [here's a guide](https://github.com/Lissy93/dashy/blob/master/docs/management.md#ssl-certificates) on doing so
+- Or setup SSL - [here's a guide](/docs/management#ssl-certificates) on doing so
 
 ---
 
@@ -584,7 +584,7 @@ This will not affect your config file. But be sure that you keep a backup of you
 
 You can also view any and all data that Dashy is storing, using the developer tools. Open your browser's dev tools (usually <kbd>F12</kbd>), in Chromium head to the Application tab, or in Firefox go to the Storage tab. Select Local Storage, then scroll down the the URL Dashy is running on. You should now see all data being stored, and you can select and delete any fields you wish.
 
-For a full list of all data that may be cached, see the [Privacy Docs](/docs/privacy#browser-storage).
+For a full list of all data that may be cached, see the [Privacy Docs](/privacy.md#browser-storage).
 
 ---
 
@@ -599,7 +599,7 @@ You will need a GitHub account in order to raise a ticket. You can then [click h
 Before submitting, please check that:
 
 - A similar ticket has not previously been opened
-- The issue is not covered in the [troubleshooting guide](https://github.com/Lissy93/dashy/blob/master/docs/troubleshooting.md) or [docs](https://github.com/Lissy93/dashy/tree/master/docs#readme)
+- The issue is not covered in the [troubleshooting guide](/docs/troubleshooting) or [docs](https://github.com/Lissy93/dashy/tree/master/docs#readme)
 
 ### Step 3 - Describe the Issue
 
@@ -647,7 +647,7 @@ For more detailed walk through, see [this article](https://support.shortpoint.co
 
 ## Git Contributions not Displaying
 
-If you've contributed to Dashy (or any other project), but your contributions are not showing up on your GH profile, or in Dashy's [Credits Page](https://github.com/Lissy93/dashy/blob/master/docs/credits.md), then this is likely a git config issue.
+If you've contributed to Dashy (or any other project), but your contributions are not showing up on your GH profile, or in Dashy's [Credits Page](/docs/credits), then this is likely a git config issue.
 
 These statistics are generated using the username / email associated with commits. This info needs to be setup on your local machine using [`git config`](https://git-scm.com/docs/git-config).
 

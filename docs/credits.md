@@ -4,7 +4,6 @@
 
 ![Sponsors](https://readme-contribs.as93.net/sponsors/lissy93)
 
-
 ## Contributors
 
 ![Contributors](https://readme-contribs.as93.net/contributors/lissy93/dashy?perRow=12&limit=96)
@@ -19,7 +18,7 @@
 
 ## Dependencies
 
-This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them. For a full breakdown of dependency licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md)
+This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them. For a full breakdown of dependency licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL)
 
 ### Core
 
@@ -44,9 +43,8 @@ At it's core, the application uses [**Vue.js**](https://github.com/vuejs/vue), a
 - [`vue-toasted`](https://github.com/shakee93/vue-toasted) - Toast notification component by @shakee93 `MIT`
 - [`vue-swatches`](https://github.com/saintplay/vue-swatches) - Color palete picker by @saintplay `MIT`
 
-
 ---
 
 ## You
 
-Would you like to be listed here? Whatever your skill set, Dashy needs people like you to help support future development. Check out the [Contributing Page](/docs/contributing) for ways that you can get involved. Huge thank you to everyone who has already contributed! 💖
+Would you like to be listed here? Whatever your skill set, Dashy needs people like you to help support future development. Check out the [Contributing Page](/contributing) for ways that you can get involved. Huge thank you to everyone who has already contributed! 💖

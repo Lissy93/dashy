@@ -61,4 +61,4 @@ Even if the target is not set (or is set to `sametab`), you can still launch any
 
 If you don't like the custom context menu, it can be disabled by setting `appConfig.disableContextMenu: true`.
 
-If you get a 'Refused to Connect' error in the modal or workspace views, then the target app has it's X-Frame-Options HTTP set to block requests from embedded content. You can easily fix this by setting this header to ALLOW, for instructions on how to do so, see the [Troubleshooting Docs](/docs/troubleshooting#refused-to-connect-in-modal-or-workspace-view).
+If you get a 'Refused to Connect' error in the modal or workspace views, then the target app has it's X-Frame-Options HTTP set to block requests from embedded content. You can easily fix this by setting this header to ALLOW, for instructions on how to do so, see the [Troubleshooting Docs](/troubleshooting.md#refused-to-connect-in-modal-or-workspace-view).

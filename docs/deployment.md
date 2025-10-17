@@ -4,15 +4,15 @@ Welcome to Dashy, so glad you're here :) Deployment is super easy, and there are
 
 ## Quick Start
 
-If you want to skip the fuss, and [get straight down to it](/docs/quick-start), then you can spin up a new instance of Dashy by running:
+If you want to skip the fuss, and [get straight down to it](/quick-start), then you can spin up a new instance of Dashy by running:
 
 ```bash
 docker run -p 8080:8080 lissy93/dashy
 ```
 
-See [Management Docs](/docs/management) for info about securing, monitoring, updating, health checks, auto starting, web server configuration, etc
+See [Management Docs](/management) for info about securing, monitoring, updating, health checks, auto starting, web server configuration, etc
 
-Once you've got Dashy up and running, you'll want to configure it with your own content, for this you can reference the [configuring docs](/docs/configuring).
+Once you've got Dashy up and running, you'll want to configure it with your own content, for this you can reference the [configuring docs](/configuring).
 
 ## Deployment Methods
 
@@ -367,7 +367,7 @@ Minimum 526mb mem, 2GB disk space.
 
 ### CDN / Cloud Deploy
 
-No specific requirements. The built application alone (without the Node server) is very light-weight, and can be handled smoothly by pretty much any CDN or cloud deployment service (see [this list](/docs/deployment#deploy-to-cloud-service) or natively supported cloud providers).
+No specific requirements. The built application alone (without the Node server) is very light-weight, and can be handled smoothly by pretty much any CDN or cloud deployment service (see [this list](/deployment.md#deploy-to-cloud-service) or natively supported cloud providers).
 
 If you're using your own icons, or other assets, additional disk space will be required for those resources.
 

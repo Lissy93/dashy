@@ -35,7 +35,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Misc',
-      items: ['privacy', 'changelog', 'license', 'code-of-conduct'],
+      items: ['privacy', 'credits', 'license', 'release-workflow'],
     },
   ],
 

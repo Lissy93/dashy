@@ -24,7 +24,6 @@
   - [OAuth Services](#oauth-services)
   - [Auth on Cloud Hosting Services](#static-site-hosting-providers)
 
-
 > [!IMPORTANT]
 > Dashy's built-in auth is not indented to protect a publicly hosted instance against unauthorized access. Instead you should use an auth provider compatible with your reverse proxy, or access Dashy via your VPN, or implement your own SSO logic. 
 >
@@ -37,7 +36,6 @@ Dashy has a basic login page included, and frontend authentication. You can enab
 > [!NOTE]
 > Since the auth is initiated in the main app entry point (for security), a rebuild is required to apply changes to the auth configuration.
 > You can trigger a rebuild through the UI, under Config --> Rebuild, or by running `yarn build` in the root directory.
-
 
 ### Setting Up Authentication
 
@@ -117,7 +115,7 @@ pages:
 
 Any user who is not an admin (with `type: admin`) will not be able to write changes to disk.
 
-You can also prevent any user from writing changes to disk, using `preventWriteToDisk`. Or prevent any changes from being saved locally in browser storage, using `preventLocalSave`. Both properties can be found under [`appConfig`](/docs/configuring#appconfig-optional).
+You can also prevent any user from writing changes to disk, using `preventWriteToDisk`. Or prevent any changes from being saved locally in browser storage, using `preventLocalSave`. Both properties can be found under [`appConfig`](/configuring.md#appconfig-optional).
 
 To disable all UI config features, including View Config, set `disableConfiguration`. Alternatively you can disable UI config features for all non admin users by setting `disableConfigurationForNonAdmin` to true.
 
@@ -146,7 +144,7 @@ If you'd also like to prevent direct visit access to your configuration file, yo
 
 With basic auth, all logic is happening on the client-side, which could mean a skilled user could manipulate the code to view parts of your configuration, including the hash. If the SHA-256 hash is of a common password, it may be possible to determine it, using a lookup table, in order to find the original password. Which can be used to manually generate the auth token, that can then be inserted into session storage, to become a valid logged in user. Therefore, you should always use a long, strong and unique password, and if you instance contains security-critical info and/ or is exposed directly to the internet, and alternative authentication method may be better. The purpose of the login page is merely to prevent immediate unauthorized access to your homepage.
 
-**[⬆️ Back to Top](#top)**
+****[⬆️ Back to Top](#)****
 
 ---
 
@@ -156,7 +154,7 @@ If you'd like to protect all your config files from direct access, you can set t
 
 Then, if you'd like your frontend to automatically log you in, without prompting you for credentials (insecure, so only use on a trusted environment), then also specify `VUE_APP_BASIC_AUTH_USERNAME` and `VUE_APP_BASIC_AUTH_PASSWORD`. This is useful for when you're hosting Dashy on a private server, and just want to use auth for user management and to prevent direct access to your config files, while still allowing the frontend to access them. Note that a rebuild is required for these changes to take effect.
 
-**[⬆️ Back to Top](#top)**
+****[⬆️ Back to Top](#)****
 
 ---
 
@@ -248,7 +246,7 @@ sections:
             groups: ['DevelopmentTeam']
 ```
 
-Depending on how you're hosting Dashy and Keycloak, you may also need to set some HTTP headers, to prevent a CORS error. This would typically be the `Access-Control-Allow-Origin [URL-of Dashy]` on your Keycloak instance. See the [Setting Headers](https://github.com/Lissy93/dashy/blob/master/docs/management.md#setting-headers) guide in the management docs for more info.
+Depending on how you're hosting Dashy and Keycloak, you may also need to set some HTTP headers, to prevent a CORS error. This would typically be the `Access-Control-Allow-Origin [URL-of Dashy]` on your Keycloak instance. See the [Setting Headers](/docs/management#setting-headers) guide in the management docs for more info.
 
 Your app is now secured :) When you load Dashy, it will redirect to your Keycloak login page, and any user without valid credentials will be prevented from accessing your dashboard.
 
@@ -647,4 +645,4 @@ There are also authentication services, such as [Ory.sh](https://www.ory.sh/), [
 
 If you are hosting Dashy on a cloud platform, you will probably find that it has built-in support for password protected access to web apps. For more info, see the relevant docs for your provider, for example: [Netlify Password Protection](https://docs.netlify.com/visitor-access/password-protection/), [Cloudflare Access](https://www.cloudflare.com/teams/access/), [AWS Cognito](https://aws.amazon.com/cognito/), [Azure Authentication](https://docs.microsoft.com/en-us/azure/app-service/scenario-secure-app-authentication-app-service) and [Vercel Password Protection](https://vercel.com/docs/platform/projects#password-protection).
 
-**[⬆️ Back to Top](#top)**
+****[⬆️ Back to Top](#)****

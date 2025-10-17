@@ -34,11 +34,11 @@ html[data-theme='tiger'] {
 }
 ```
 
-Then you can go ahead and write your own custom CSS. Although all CSS is supported here, the best way to define your theme is by setting the CSS variables. You can find a [list of all CSS variables, here](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#css-variables).
+Then you can go ahead and write your own custom CSS. Although all CSS is supported here, the best way to define your theme is by setting the CSS variables. You can find a [list of all CSS variables, here](/docs/theming#css-variables).
 
 For a full guide on styling, see [Theming Docs](./theming).
 
-Note that if your theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](https://github.com/Lissy93/dashy/blob/master/docs/theming.md#adding-your-own-theme).
+Note that if your theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](/docs/theming#adding-your-own-theme).
 
 ## Writing Translations
 
@@ -260,7 +260,7 @@ If add any new variables, ensure that there is always a fallback (define it in [
 
 ### Step 0 - Prerequisites
 
-If this is your first time working on Dashy, then the [Developing Docs](https://github.com/Lissy93/dashy/blob/master/docs/developing.md) instructions for project setup and running. In short, you just need to clone the project, cd into it, install dependencies (`yarn`) and then start the development server (`yarn dev`).
+If this is your first time working on Dashy, then the [Developing Docs](/docs/developing) instructions for project setup and running. In short, you just need to clone the project, cd into it, install dependencies (`yarn`) and then start the development server (`yarn dev`).
 
 To build a widget, you'll also need some basic knowledge of Vue.js. The [official Vue docs](https://vuejs.org/v2/guide/) provides a good starting point, as does [this guide](https://www.taniarascia.com/getting-started-with-vue/) by Tania Rascia
 
@@ -439,7 +439,7 @@ Here, the `example-widget` property name will be used to identify the widget whe
 
 ### Step 4 - Docs
 
-Finally, add some documentation for your widget in the [Widget Docs](https://github.com/Lissy93/dashy/blob/master/docs/widgets.md), so that others know how to use it. Include the following information: Title, short description, screenshot, config options and some example YAML.
+Finally, add some documentation for your widget in the [Widget Docs](/docs/widgets), so that others know how to use it. Include the following information: Title, short description, screenshot, config options and some example YAML.
 
 **Summary**: For a complete example of everything discussed here, see: [`3da76ce`](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e)
 
