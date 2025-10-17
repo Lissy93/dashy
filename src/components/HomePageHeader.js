@@ -46,6 +46,18 @@ export default function HomepageHeader() {
         </span>
         <div className={styles.sponsor}>
           <span>
+            Browser testing via{' '}
+            <a href="https://www.lambdatest.com/?utm_source=dashy&utm_medium=sponsor" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'underline'}}>
+              LambdaTest
+            </a>
+          </span>
+          <a href="https://www.lambdatest.com/?utm_source=dashy&utm_medium=sponsor" target="_blank" rel="noopener noreferrer" style={{margin: '0 auto'}}>
+            <img src="https://www.lambdatest.com/blue-logo.png" alt="LambdaTest Logo" style={{width: '30rem', height: 'auto'}} />
+          </a>
+        </div>
+
+        <div className={styles.sponsor}>
+          <span>
             Dashy is kindly sponsored by <a href="https://umbrel.com?ref=dashy" target="_blank">Umbrel</a> -
             the personal home cloud and OS for self-hosting
           </span>
@@ -53,6 +65,7 @@ export default function HomepageHeader() {
             <img src="/umbrel-banner.jpg" />
           </a>
         </div>
+
       </div>
       <CarbonAd />
       {(!showMore) &&
