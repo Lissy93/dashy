@@ -1,5 +1,5 @@
 /* Helper functions for Sections and Items */
-
+import sha256 from 'crypto-js/sha256';
 import { hideFurnitureOn } from '@/utils/defaults';
 
 /* Returns false if page furniture should be hidden on said route */
@@ -38,4 +38,9 @@ export const applyItemId = (inputSections) => {
     }
   });
   return sections;
+};
+
+export const pinHash = (pin) => {
+  if (!pin) return null;
+  return sha256(pin).toString().toUpperCase();
 };
