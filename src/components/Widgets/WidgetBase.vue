@@ -128,6 +128,7 @@ const COMPAT = {
   weather: 'Weather',
   'weather-forecast': 'WeatherForecast',
   'xkcd-comic': 'XkcdComic',
+  'gl-compact-metrics': 'GlCompactMetrics',
 };
 
 export default {
