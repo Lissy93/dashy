@@ -14,63 +14,77 @@
     :id="sectionRef"
     :ref="sectionRef"
   >
-    <!-- If no items, show message -->
-    <div v-if="isEmpty" class="no-items">
-      {{ $t('home.no-items-section') }}
-    </div>
-    <!-- Item Container -->
-    <div v-if="hasItems"
-      :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
-      :style="gridStyle" :id="`section-${groupId}`"
-    > <!-- Show for each item -->
-      <template v-for="(item) in sortedItems">
-        <SubItemGroup
-          v-if="item.subItems"
-          :key="item.id"
-          :itemId="item.id"
-          :title="item.title"
-          :subItems="item.subItems"
-          @triggerModal="triggerModal"
-        />
-        <Item
-          v-else
-          :item="item"
-          :key="item.id"
-          :itemSize="itemSize"
+    <PinInput
+      v-if="showPinRequired"
+      :id = "sectionRef"
+      :errorMessage="pinError"
+      @unlock_attempt="saveUnlockPins"
+    />
+    <div v-if="!showPinRequired">
+      <!-- If no items, show message -->
+      <div v-if="isEmpty" class="no-items">
+        {{ $t('home.no-items-section') }}
+      </div>
+      <!-- Item Container -->
+      <div v-if="hasItems"
+        :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
+        :style="gridStyle" :id="`section-${groupId}`"
+      > <!-- Show for each item -->
+        <template v-for="(item) in sortedItems">
+          <SubItemGroup
+            v-if="item.subItems"
+            :key="item.id"
+            :itemId="item.id"
+            :title="item.title"
+            :subItems="item.subItems"
+            @triggerModal="triggerModal"
+          />
+          <Item
+            v-else
+            :item="item"
+            :key="item.id"
+            :itemSize="itemSize"
+            :parentSectionTitle="title"
+            @itemClicked="$emit('itemClicked')"
+            @triggerModal="triggerModal"
+            :isAddNew="false"
+            :sectionWidth="sectionWidth"
+            :sectionDisplayData="displayData"
+          />
+        </template>
+        <!-- When in edit mode, show additional item, for Add New item -->
+        <Item v-if="isEditMode"
+          :item="{
+            icon: ':heavy_plus_sign:',
+            title: 'Add New Item',
+            description: 'Click to add new item',
+            id: 'add-new',
+          }"
+          :isAddNew="true"
           :parentSectionTitle="title"
-          @itemClicked="$emit('itemClicked')"
-          @triggerModal="triggerModal"
-          :isAddNew="false"
+          key="add-new"
+          class="add-new-item"
           :sectionWidth="sectionWidth"
-          :sectionDisplayData="displayData"
+          :itemSize="itemSize"
         />
-      </template>
-      <!-- When in edit mode, show additional item, for Add New item -->
-      <Item v-if="isEditMode"
-        :item="{
-          icon: ':heavy_plus_sign:',
-          title: 'Add New Item',
-          description: 'Click to add new item',
-          id: 'add-new',
-        }"
-        :isAddNew="true"
-        :parentSectionTitle="title"
-        key="add-new"
-        class="add-new-item"
-        :sectionWidth="sectionWidth"
-        :itemSize="itemSize"
-      />
-    </div>
-    <div
-      v-if="hasWidgets"
-      :class="`widget-list ${isWide? 'wide' : ''}`">
-      <WidgetBase
-        v-for="(widget, widgetIndx) in widgets"
-        :key="widgetIndx"
-        :widget="widget"
-        :index="index"
-        @navigateToSection="navigateToSection"
-      />
+      </div>
+      <div
+        v-if="hasWidgets"
+        :class="`widget-list ${isWide? 'wide' : ''}`">
+        <WidgetBase
+          v-for="(widget, widgetIndx) in widgets"
+          :key="widgetIndx"
+          :widget="widget"
+          :index="index"
+          @navigateToSection="navigateToSection"
+        />
+      </div>
+      <div v-if="unLockedWithPin" class="pin-unlocked-bar">
+        <button class="pin-reset" @click="lockAgain" type="button">
+          <i class="fas fa-lock btn-icon" aria-hidden="true"></i>
+          {{ $t('pin.lock') }}
+        </button>
+      </div>
     </div>
     <!-- Modal for opening in modal view -->
     <IframeModal
@@ -109,13 +123,18 @@ import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import EditSection from '@/components/InteractiveEditor/EditSection.vue';
 import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
+import PinInput from '@/components/InteractiveEditor/PinInput.vue';
 import ErrorHandler from '@/utils/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
+import { pinHash } from '@/utils/SectionHelpers';
 import {
   sortOrder as defaultSortOrder,
   localStorageKeys,
   modalNames,
 } from '@/utils/defaults';
+
+const SECRET_UNLOCKED_KEY = 'dashy.secret.unlocked';
+const SECRET_PINS_KEY = 'dashy.secret.expectedPins';
 
 export default {
   name: 'Section',
@@ -123,6 +142,7 @@ export default {
     groupId: String,
     title: String,
     icon: String,
+    pin: [String, Number],
     displayData: Object,
     items: Array,
     widgets: Array,
@@ -137,6 +157,7 @@ export default {
     WidgetBase,
     IframeModal,
     EditSection,
+    PinInput,
   },
   data() {
     return {
@@ -148,9 +169,12 @@ export default {
       },
       sectionWidth: 0,
       resizeObserver: null,
+      isUnlocked: true,
+      pinError: '',
     };
   },
   computed: {
+
     appConfig() {
       return this.$store.getters.appConfig;
     },
@@ -208,6 +232,14 @@ export default {
           ? `grid-template-rows: repeat(${this.displayData.itemCountY}, minmax(0, 1fr));` : '';
       }
       return styles;
+    },
+    showPinRequired() {
+      if (this.isEditMode) return false;
+      return this.displayData.secret === true && !this.isUnlocked;
+    },
+    unLockedWithPin() {
+      if (this.isEditMode) return false;
+      return this.displayData.secret === true && this.isUnlocked;
     },
   },
   methods: {
@@ -300,12 +332,53 @@ export default {
       const secElem = this.$refs[this.sectionRef];
       if (secElem && secElem.$el.clientWidth) this.sectionWidth = secElem.$el.clientWidth;
     },
+    saveUnlockPins({ pin, id }) {
+      const map = JSON.parse(sessionStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
+      map[id] = pin;
+      sessionStorage.setItem(SECRET_UNLOCKED_KEY, JSON.stringify(map));
+      const unlockPins = JSON.parse(sessionStorage.getItem(SECRET_PINS_KEY) || '{}');
+      const sectionKey = this.sectionRef;
+      const savedPin = unlockPins[sectionKey];
+
+      if (savedPin === pinHash(pin) || savedPin === pin.toString()) {
+        this.pinError = '';
+        this.isUnlocked = true;
+      } else {
+        this.pinError = this.$t('pin.incorrect-pin');
+        this.isUnlocked = false;
+      }
+    },
+    lockAgain() {
+      const unlockPins = JSON.parse(sessionStorage.getItem(SECRET_UNLOCKED_KEY) || '{}');
+      const sectionKey = this.sectionRef;
+      if (unlockPins[sectionKey]) {
+        delete unlockPins[sectionKey];
+        sessionStorage.setItem(SECRET_UNLOCKED_KEY, JSON.stringify(unlockPins));
+      }
+      this.pinError = '';
+      this.isUnlocked = false;
+    },
   },
   mounted() {
     // Set the section width, and recalculate when section resized
     if (this.$refs[this.sectionRef]) {
       this.resizeObserver = new ResizeObserver(this.calculateSectionWidth)
         .observe(this.$refs[this.sectionRef].$el);
+    }
+    if (this.displayData?.collapsed) {
+      this.isCollapsed = this.displayData.collapsed;
+    }
+    if (this.displayData?.secret) {
+      if (this.displayData.secret) this.isUnlocked = false;
+
+      const secretPin = String(this.pin || '0000');
+      const sectionKey = this.sectionRef;
+      console.log('Section Key', sectionKey, secretPin);
+      const pins = JSON.parse(sessionStorage.getItem(SECRET_PINS_KEY) || '{}');
+      if (pins[sectionKey] !== secretPin) {
+        pins[sectionKey] = secretPin;
+        sessionStorage.setItem(SECRET_PINS_KEY, JSON.stringify(pins));
+      }
     }
   },
   beforeDestroy() {
@@ -320,6 +393,7 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/media-queries.scss';
 @import '@/styles/style-helpers.scss';
+@import '@/styles/pin-input.scss';
 
 .no-items {
     width: 100px;

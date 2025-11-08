@@ -26,6 +26,7 @@
           :index="index"
           :title="section.name"
           :icon="section.icon || undefined"
+          :pin="section.pin || undefined"
           :displayData="getDisplayData(section)"
           :groupId="makeSectionId(section)"
           :items="section.filteredItems"
