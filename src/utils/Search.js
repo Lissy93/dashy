@@ -35,22 +35,31 @@ const filterHelper = (compareStr, searchStr) => {
  * @param {array} allTiles An array of tiles
  * @param {string} searchTerm The users search term
  * @returns A filtered array of tiles
+ * if widgets are sent as allTiles, then the search is done based on options.category
  */
-export const searchTiles = (allTiles, searchTerm) => {
+export const searchTiles = (allTiles, searchTerm, isWidgets) => {
   if (!searchTerm) return allTiles; // If no search term, then return all
   if (!allTiles) return []; // If no data, then skip
-  return allTiles.filter((tile) => {
-    const {
-      title, description, provider, url, tags,
-    } = tile;
-    return filterHelper(title, searchTerm)
-      || filterHelper(provider, searchTerm)
-      || filterHelper(description, searchTerm)
-      || filterHelper(tags, searchTerm)
-      || filterHelper(getDomainFromUrl(url), searchTerm);
-  });
+  if (!isWidgets) {
+    return allTiles.filter((tile) => {
+      const {
+        title, description, provider, url, tags,
+      } = tile;
+      return filterHelper(title, searchTerm)
+        || filterHelper(provider, searchTerm)
+        || filterHelper(description, searchTerm)
+        || filterHelper(tags, searchTerm)
+        || filterHelper(getDomainFromUrl(url), searchTerm);
+    });
+  } else {
+    return allTiles.filter((tile) => {
+      const {
+        category,
+      } = tile;
+      return filterHelper(category, searchTerm);
+    });
+  }
 };
-
 /* From a list of search bangs, return the URL associated with it */
 export const getSearchEngineFromBang = (searchQuery, bangList) => {
   const bangNames = Object.keys(bangList);

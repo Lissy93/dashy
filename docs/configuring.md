@@ -294,6 +294,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`timeout`** | `number` | _Optional_ | Request timeout in milliseconds, defaults to ½ a second (`500`)
 **`ignoreErrors`** | `boolean` | _Optional_ | Prevent an error message being displayed, if a network request or something else fails. Useful for false-positives
 **`label`** | `string` | _Optional_ | Add custom label to a given widget. Useful for identification, if there are multiple of the same type of widget in a single section
+**`category`** | string | _Optional_ | Free-text category for this widget (e.g., Monitoring, CI/CD). Used by category filtering/search. Up to the user whatever category they want to set for a widget.
 
 **[⬆️ Back to Top](#configuring)**
 
@@ -317,6 +318,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`hideForGuests`** | `boolean` | _Optional_ | Current section will be visible for logged in users, but not for guests (see `appConfig.enableGuestAccess`). Defaults to `false`
 **`hideForKeycloakUsers`** | `object`  | _Optional_ | Current section will be visible to all keycloak users, except for those configured via these groups and roles. See `hideForKeycloakUsers`
 **`showForKeycloakUsers`** | `object`  | _Optional_ | Current section will be hidden from all keycloak users, except for those configured via these groups and roles. See `showForKeycloakUsers`
+**`widgetCategories`** | string[] | _Optional_ | Free-text tags for this section, used for category filtering/search of widgets `section.widgets` from within the UI. Editable in the Edit Section modal. Example: ["DevOps", "Monitoring"]. This will work only if corrosponding widget category is setup in the widgets 'category' field.
 
 **[⬆️ Back to Top](#configuring)**
 
