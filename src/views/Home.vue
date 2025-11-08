@@ -19,7 +19,8 @@
       </router-link>
     </div>
     <!-- Main content, section for each group of items -->
-    <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass">
+    <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass"
+    ref="sectionsContainer">
       <template v-for="(section, index) in filteredSections">
         <Section
           :key="index"
@@ -36,6 +37,7 @@
           @change-modal-visibility="updateModalVisibility"
           :isWide="!!singleSectionView || layoutOrientation === 'horizontal'"
           :class="(searchValue && section.filteredItems.length === 0) ? 'no-results' : ''"
+          :activeColCount="activeColCount"
         />
       </template>
       <!-- Show add new section button, in edit mode -->
@@ -83,6 +85,7 @@ export default {
     layout: '',
     itemSizeBound: '',
     addNewSectionOpen: false,
+    activeColCount: '1',
   }),
   computed: {
     singleSectionView() {
@@ -172,12 +175,20 @@ export default {
       availibleThemes.Default = '#';
       return availibleThemes;
     },
+    readActiveColCount() {
+      const { sectionsContainer } = this.$refs;
+      if (!sectionsContainer) return;
+      const cs = getComputedStyle(sectionsContainer);
+      const varVal = cs.getPropertyValue('--col-count').trim();
+      this.activeColCount = varVal;
+    },
   },
   mounted() {
     this.initiateFontAwesome();
     this.initiateMaterialDesignIcons();
     this.layout = this.layoutOrientation;
     this.itemSizeBound = this.iconSize;
+    this.readActiveColCount();
   },
 };
 </script>
