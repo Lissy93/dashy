@@ -1889,7 +1889,7 @@ html[data-theme='neomorphic'] {
 
   div.edit-mode-bottom-banner, .add-new-section {
     background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(50px);
+    //backdrop-filter: blur(50px);
   }
 
   .critical-error-wrap {
@@ -1910,7 +1910,7 @@ html[data-theme='glass'] {
 }
 
 html[data-theme='glass-2'] {
-    body {
+  body {
     background: url('https://i.ibb.co/FnLH6bj/dashy-glass.jpg') center center no-repeat;
     background-size: cover;
     background-color: #090317;
