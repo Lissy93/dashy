@@ -32,7 +32,7 @@ const getUsers = () => {
   }
   // Otherwise, return the users array, if available
 
-  const users = auth.users || [];
+  const users = auth.users ? [...auth.users] : [];
   if (isOidcEnabled()) {
     if (localStorage[localStorageKeys.USERNAME]) {
       const user = {
