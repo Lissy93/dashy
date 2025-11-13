@@ -578,6 +578,13 @@ export default {
       border-radius: var(--curve-factor);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       z-index: 10;
+      // Add vertical spacing between option rows (no borders as requested)
+      > .theme-label {
+        margin: 0.35rem 0; // top & bottom margin only
+      }
+      .advanced-fields { // keep advanced section consistent spacing from previous option
+        margin-top: 0.4rem;
+      }
     }
   }
 
