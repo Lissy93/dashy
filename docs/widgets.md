@@ -72,6 +72,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Drone CI Build](#drone-ci-builds)
   - [Linkding](#linkding)
   - [Uptime Kuma](#uptime-kuma)
+  - [Uptime Kuma Status Page](#uptime-kuma-status-page)
   - [Tactical RMM](#tactical-rmm)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
@@ -1491,6 +1492,7 @@ Allows web search using multiple user-defined search engines and other websites.
 --- | --- | --- | ---
 **`engines`** | `array` |  required | An array of search engine objects. Each search engine object should have two required properties: **title** and **url**. See the example below.
 **`placeholder`** | `string` |  optional | Placeholder text in the search box.
+**`openingMethod`** | `string` |  optional | Open search in one of `newtab`, `sametab` or `workspace`.
 
 #### Notes
 - The first search engine in the engines array will be treated as the default search engine, and used when the user presses `Enter` in the search box.
@@ -2664,6 +2666,40 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Uptime Kuma](https://github.com/louislam/uptime-kuma) )
+- **Privacy**: _See [Uptime Kuma](https://github.com/louislam/uptime-kuma)_
+
+---
+
+### Uptime Kuma Status Page
+
+[Uptime Kuma](https://github.com/louislam/uptime-kuma) is an easy-to-use self-hosted monitoring tool.
+
+#### Options
+
+| **Field**          | **Type** | **Required** | **Description**                                                                   |
+| ------------------ | -------- | ------------ | --------------------------------------------------------------------------------- |
+| **`host`**         | `string` | Required     | The URL of the Uptime Kuma instance                                               |
+| **`slug`**         | `string` | Required     | The slug of the status page                                                       |
+| **`monitorNames`** | `strins` | _Optional_   | Names of monitored services (in the same order as on the kuma uptime status page) |
+
+#### Example
+
+```yaml
+- type: uptime-kuma-status-page
+  options:
+    host: http://localhost:3001
+    slug: another-beautiful-status-page
+    monitorNames:
+      - "Name1"
+      - "Name2"
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Needed
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Uptime Kuma](https://github.com/louislam/uptime-kuma) )
 - **Privacy**: _See [Uptime Kuma](https://github.com/louislam/uptime-kuma)_

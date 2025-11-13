@@ -123,6 +123,7 @@ const COMPAT = {
   'tfl-status': 'TflStatus',
   trmm: 'TacticalRMM',
   'uptime-kuma': 'UptimeKuma',
+  'uptime-kuma-status-page': 'UptimeKumaStatusPage',
   'wallet-balance': 'WalletBalance',
   weather: 'Weather',
   'weather-forecast': 'WeatherForecast',
