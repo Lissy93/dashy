@@ -73,6 +73,10 @@ const store = new Vuex.Store({
       if (!state.config) return {};
       return state.config.appConfig || {};
     },
+    goToLinkEnabled(state, getters) {
+      // Default to true if not set
+      return typeof getters.appConfig.goToLinkEnabled === 'boolean' ? getters.appConfig.goToLinkEnabled : true;
+    },
     sections(state) {
       return filterUserSections(state.config.sections || []);
     },
@@ -88,6 +92,9 @@ const store = new Vuex.Store({
     },
     webSearch(state, getters) {
       return getters.appConfig.webSearch || {};
+    },
+    advancedSearch(state, getters) {
+      return getters.appConfig.advancedSearch || {};
     },
     visibleComponents(state, getters) {
       return componentVisibility(getters.appConfig);
@@ -231,6 +238,22 @@ const store = new Vuex.Store({
       newConfig.sections = newSections;
       state.config = newConfig;
       InfoHandler('Sections updated', InfoKeys.EDITOR);
+    },
+    // Dynamically update disableWebSearch in appConfig
+    setDisableWebSearch(state, value) {
+      if (!state.config.appConfig) state.config.appConfig = {};
+      state.config.appConfig.disableWebSearch = value;
+    },
+    // Dynamically update goToLinkEnabled in appConfig
+    setGoToLinkEnabled(state, value) {
+      if (!state.config.appConfig) state.config.appConfig = {};
+      state.config.appConfig.goToLinkEnabled = value;
+    },
+    // Update advanced search settings (partial merge)
+    setAdvancedSearch(state, value) {
+      if (!state.config.appConfig) state.config.appConfig = {};
+      const current = state.config.appConfig.advancedSearch || {};
+      state.config.appConfig.advancedSearch = { ...current, ...value };
     },
     [UPDATE_SECTION](state, payload) {
       const { sectionIndex, sectionData } = payload;

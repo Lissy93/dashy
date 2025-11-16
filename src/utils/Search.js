@@ -51,6 +51,37 @@ export const searchTiles = (allTiles, searchTerm) => {
   });
 };
 
+/**
+ * Advanced search: filter only within selected fields
+ * @param {array} allTiles tiles
+ * @param {string} searchTerm user query
+ * @param {object} fieldSelection map of fieldName -> boolean
+ *  Supported keys: title, description, provider, url, tags, domain
+ * @returns filtered tiles
+ */
+export const searchTilesWithFields = (allTiles, searchTerm, fieldSelection = {}) => {
+  if (!searchTerm) return allTiles;
+  if (!allTiles) return [];
+  // If no fields explicitly selected (all false), fall back to original behavior
+  const anySelected = Object.values(fieldSelection).some(Boolean);
+  if (!anySelected) return searchTiles(allTiles, searchTerm);
+
+  return allTiles.filter((tile) => {
+    const {
+      title, description, provider, url, tags,
+    } = tile;
+    const domain = getDomainFromUrl(url);
+    return (
+      (fieldSelection.title && filterHelper(title, searchTerm))
+      || (fieldSelection.description && filterHelper(description, searchTerm))
+      || (fieldSelection.provider && filterHelper(provider, searchTerm))
+      || (fieldSelection.url && filterHelper(url, searchTerm))
+      || (fieldSelection.tags && filterHelper(tags, searchTerm))
+      || (fieldSelection.domain && filterHelper(domain, searchTerm))
+    );
+  });
+};
+
 /* From a list of search bangs, return the URL associated with it */
 export const getSearchEngineFromBang = (searchQuery, bangList) => {
   const bangNames = Object.keys(bangList);

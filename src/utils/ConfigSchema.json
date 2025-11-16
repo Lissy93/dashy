@@ -183,6 +183,12 @@
     "appConfig": {
       "type": "object",
       "properties": {
+        "goToLinkEnabled": {
+          "title": "Go To Link Enabled",
+          "type": "boolean",
+          "default": true,
+          "description": "If true, enables Go to Link (auto-detect links) in the search bar."
+        },
         "startingView": {
           "title": "Starting View",
           "type": "string",
@@ -351,6 +357,12 @@
               "default": "false",
               "description": "If set to true, web search will be disabled all together"
             },
+            "enableCtrlEnterWebSearch": {
+              "title": "Enable Ctrl/Cmd+Enter Web Search",
+              "type": "boolean",
+              "default": false,
+              "description": "When true and web search is enabled, pressing Ctrl+Enter (Cmd+Enter on macOS) will force a web search using the configured engine, ignoring advanced selection or link detection"
+            },
             "searchEngine": {
               "title": "Search Engine",
               "type": "string",
@@ -401,6 +413,34 @@
                 }
               ],
               "description": "A KV-pair of custom search bangs. The key should be the shortcut to type, and the value is the search engine, specified either by key or full URL"
+            }
+          }
+        },
+        "advancedSearch": {
+          "title": "Advanced Search",
+          "type": "object",
+          "description": "Enable filtering search by specific fields",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "title": "Advanced Search Enabled",
+              "type": "boolean",
+              "default": false,
+              "description": "If true, only selected fields will be searched"
+            },
+            "fields": {
+              "title": "Advanced Search Fields",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title": { "type": "boolean", "default": false },
+                "description": { "type": "boolean", "default": false },
+                "provider": { "type": "boolean", "default": false },
+                "url": { "type": "boolean", "default": false },
+                "tags": { "type": "boolean", "default": false },
+                "domain": { "type": "boolean", "default": false }
+              },
+              "description": "Which fields to include in advanced search filtering"
             }
           }
         },
