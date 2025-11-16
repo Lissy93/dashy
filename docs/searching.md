@@ -55,6 +55,21 @@ In the above example, pressing <kbd>2</kbd> will launch Bookstack. Or hitting <k
 
 It's possible to search the web directly from Dashy, which might be useful if you're using Dashy as your start page. This can be done by typing your query as normal, and then pressing <kbd>⏎</kbd>. Web search options are configured under `appConfig.webSearch`.
 
+### Go To Link
+
+Dashy can detect link-like input and open it directly when you press <kbd>Enter</kbd>.
+
+- Configure with: `appConfig.goToLinkEnabled` (default: `true`).
+- Behavior: If the text looks like a URL (starts with `http://` or `https://`), begins with `www.`, or matches a domain pattern like `example.com` or `service.internal/path`, Dashy opens it immediately instead of doing a web search.
+- Dashy will automatically add `https://` if no protocol is provided.
+
+Example:
+
+```yaml
+appConfig:
+  goToLinkEnabled: true
+```
+
 ### Setting Search Engine
 
 Set your default search engine using the `webSearch.searchEngine` property. This defaults to DuckDuckGo. Search engine must be referenced by their key, the following providers are supported:
@@ -114,7 +129,58 @@ appConfig:
   webSearch: { disableWebSearch: true }
 ```
 
+### Ctrl/Cmd+Enter Web Search
+
+When web search is enabled, you can optionally force a web search using a shortcut, even if an app is selected or a link is detected.
+
+- Configure with: `appConfig.webSearch.enableCtrlEnterWebSearch` (default: `false`)
+- Effect: Pressing <kbd>Ctrl</kbd> + <kbd>Enter</kbd> (or <kbd>Cmd</kbd> + <kbd>Enter</kbd> on macOS) triggers a web search with your configured engine, ignoring advanced selection or link detection.
+
+Example:
+
+```yaml
+appConfig:
+  webSearch:
+    enableCtrlEnterWebSearch: true
+```
+
+Note: This only affects the search bar context. Standard item launching shortcuts remain unchanged elsewhere.
+
 ## Clearing Search
 
 You can clear your search term at any time, resting the UI to it's initial state, by pressing <kbd>Esc</kbd>.
 This can also be used to close any open pop-up modals.
+
+## Advanced Search
+
+If you prefer more precise results, you can limit searching to specific item fields. When enabled, only selected fields will be considered in matching.
+
+- Configure root: `appConfig.advancedSearch.enabled` (default: `false`)
+- Configure fields: `appConfig.advancedSearch.fields`
+- Available fields: `title`, `description`, `provider`, `url`, `tags`, `domain`
+
+Examples:
+
+Only search titles and tags:
+
+```yaml
+appConfig:
+  advancedSearch:
+    enabled: true
+    fields:
+      title: true
+      tags: true
+```
+
+Search by provider and domain only:
+
+```yaml
+appConfig:
+  advancedSearch:
+    enabled: true
+    fields:
+      provider: true
+      domain: true
+```
+
+Tip: Leave `enabled: false` to keep the default broad search across common fields.
