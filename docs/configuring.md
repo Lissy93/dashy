@@ -32,6 +32,7 @@ The following file provides a reference of all supported configuration options.
 - [**`pages`**](#pages-optional) - List of additional config files, for multi-page dashboards
 - [**`appConfig`**](#appconfig-optional) - Main application settings
   - [`webSearch`](#appconfigwebsearch-optional) - Configure web search engine options
+  - [`advancedSearch`](#appconfigadvancedsearch-optional) - Limit search to specific fields
   - [`hideComponents`](#appconfighidecomponents-optional) - Show/ hide page components
   - [`auth`](#appconfigauth-optional) - Built-in authentication setup
     - [`users`](#appconfigauthusers-optional) - List or users (for simple auth)
@@ -103,12 +104,14 @@ For more info, see the[Multi-Page docs](/docs/pages-and-sections.md#multi-page-s
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
+**`goToLinkEnabled`** | `boolean` | _Optional_ | If `true`, typing a URL/hostname/IP in the search bar and pressing <kbd>Enter</kbd> will navigate directly instead of web searching. Defaults to `true`.
 **`language`** | `string` | _Optional_ | The 2 (or 4-digit) [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language, e.g. `en` or `en-GB`. This must be a language that the app has already been [translated](https://github.com/Lissy93/dashy/tree/master/src/assets/locales) into. If your language is unavailable, Dashy will fallback to English. By default Dashy will attempt to auto-detect your language, although this may not work on some privacy browsers.
 ~~**`startingView`**~~ | `enum` | _Optional_ | Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI. Can be either `default`, `minimal` or `workspace`. Defaults to `default`. NOTE: This has been replaced by an environmental variable: `VUE_APP_STARTING_VIEW` in V3 onwards
 **`defaultOpeningMethod`** | `enum` | _Optional_ | The default opening method for items, if no `target` is specified for a given item. Can be either `newtab`, `sametab`, `modal`, `workspace`, `clipboard`, `top` or `parent`. Defaults to `newtab`
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping each of your services and display their status as a dot next to each item. This can be overridden by setting `statusCheck` under each item. Defaults to `false`
 **`statusCheckInterval`** | `number` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
 **`webSearch`** | `object` | _Optional_ | Configuration options for the web search feature, set your default search engine, opening method or disable web search. See [`webSearch`](#appconfigwebsearch-optional)
+**`advancedSearch`** | `object` | _Optional_ | Limit searching to selected fields only. See [`advancedSearch`](#appconfigadvancedsearch-optional)
 **`backgroundImg`** | `string` | _Optional_ | Path to an optional full-screen app background image. This can be either remote (http) or local (relative to /app/public/item-icons/ inside the container). Note that this will slow down initial load
 **`enableFontAwesome`** | `boolean` | _Optional_ | If set to `true` font-awesome will be loaded, if set to `false` they will not be. if left blank font-awesome will be enabled only if required by 1 or more icons
 **`enableMaterialDesignIcons`** | `boolean` | _Optional_ | If set to `true` mdi icons will be loaded, if set to `false` they will not be. Where `true` is enabled, if left blank material design icons will be enabled only if required by 1 or more icons
@@ -219,6 +222,29 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`customSearchEngine`** | `string` | _Optional_ | You can also use a custom search engine, or your own self-hosted instance. This requires `searchEngine: custom` to be set. Then add the URL of your service, with GET query string included here
 **`openingMethod`** | `string` | _Optional_ | Set your preferred opening method for search results: `newtab`, `sametab`, `workspace`. Defaults to `newtab`
 **`searchBangs`** | `object` | _Optional_ | A key-value-pair set of custom search _bangs_ for redirecting query to a specific app or search engine. The key of each should be the bang you will type (typically starting with `/`, `!` or `:`), and value is the destination, either as a search engine key (e.g. `reddit`) or a URL with search parameters (e.g. `https://en.wikipedia.org/w/?search=`)
+**`enableCtrlEnterWebSearch`** | `boolean` | _Optional_ | When `true`, pressing <kbd>Ctrl</kbd> + <kbd>Enter</kbd> (or <kbd>Cmd</kbd> + <kbd>Enter</kbd> on macOS) forces a web search using the configured engine, ignoring advanced selection or link detection. Defaults to `false`.
+
+**[⬆️ Back to Top](#configuring)**
+
+## `appConfig.advancedSearch` _(optional)_
+
+Configure search to consider only specific fields when matching queries.
+
+**Field** | **Type** | **Required**| **Description**
+--- | --- | --- | ---
+**`enabled`** | `boolean` | _Optional_ | If `true`, only the fields set to `true` under `fields` will be searched. Defaults to `false`.
+**`fields`** | `object` | _Optional_ | Field toggles for advanced search. Keys: `title`, `description`, `provider`, `url`, `tags`, `domain`. Each value is a boolean, default `false`.
+
+Example:
+
+```yaml
+appConfig:
+  advancedSearch:
+    enabled: true
+    fields:
+      title: true
+      tags: true
+```
 
 **[⬆️ Back to Top](#configuring)**
 
