@@ -28,7 +28,7 @@
     "express": "^4.17.2",
     "express-basic-auth": "^1.2.1",
     "frappe-charts": "^1.6.2",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "keycloak-js": "^20.0.3",
     "oidc-client-ts": "^3.0.1",
     "register-service-worker": "^1.7.2",
