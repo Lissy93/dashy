@@ -46,15 +46,15 @@ export default {
         const alerts = [];
         alertData.forEach((alert) => {
           alerts.push({
-            time: timestampToDateTime(alert["begin"] * 1000),
-            ongoing: (alert['end'] === -1),
-            timeAgo: getTimeAgo(alert["begin"] * 1000),
-            lasted: alert['begin'] ? getTimeDifference(alert['begin'] * 1000, alert['end'] * 1000) : 'Ongoing',
-            severity: alert['state'],
-            category: alert['type'],
-            value: round(alert['sum']),
-            minMax: `Min: ${round(alert['min'])}%<br>Avg: `
-              + `${round(alert['avg'])}%<br>Max: ${round(alert['max'])}%`,
+            time: timestampToDateTime(alert.begin * 1000),
+            ongoing: (alert.end === -1),
+            timeAgo: getTimeAgo(alert.begin * 1000),
+            lasted: alert.begin ? getTimeDifference(alert.begin * 1000, alert.end * 1000) : 'Ongoing',
+            severity: alert.state,
+            category: alert.type,
+            value: round(alert.sum),
+            minMax: `Min: ${round(alert.min)}%<br>Avg: `
+              + `${round(alert.avg)}%<br>Max: ${round(alert.max)}%`,
           });
         });
         this.alerts = alerts;
