@@ -1,47 +1,529 @@
----
-# Page meta info, like heading, footer text and nav links
+appConfig:
+  theme: dashy-docs
+  customCss: >-
+    @media (min-width: 1780px) { .home
+    .item-group-container:not(.item-size-large) { grid-template-columns:
+    repeat(3, 1fr); } } .home .item-group-container.item-size-large
+    .item-group-grid, .home .item-group-container.orientation-vertical
+    .item-group-grid { display: flex !important; }
+  auth:
+    enableGuestAccess: true
+    users:
+      - user: alicia
+        hash: 4D1E58C90B3B94BCAD9848ECCACD6D2A8C9FBC5CA913304BBA5CDEAB36FEEFA3
+        type: admin
+  webSearch:
+    searchEngine: duckduckgo
+    openingMethod: newtab
+  enableErrorReporting: true
+  allowConfigEdit: false
+  enableFontAwesome: true
+  fontAwesomeKey: 2e949c5bf4
+  faviconApi: allesedv
+  workspaceLandingUrl: https://dashy.to
+  enableMultiTasking: false
+  layout: auto
+  iconSize: medium
 pageInfo:
   title: Dashy
-  description: Welcome to your new dashboard!
+  description: Project Management Panel
   navLinks:
-  - title: GitHub
-    path: https://github.com/Lissy93/dashy
-  - title: Documentation
-    path: https://dashy.to/docs
-
-# Optional app settings and configuration
-appConfig:
-  theme: colorful
-
-# Main content - An array of sections, each containing an array of items
+    - title: GitHub
+      path: https://github.com/Lissy93/dashy
+    - title: Quick Start
+      path: https://dashy.to/docs/quick-start
+    - title: Documentation
+      path: https://dashy.to/docs
+    - title: Live Demo
+      path: https://demo.dashy.to
+  footerText: ''
+  logo: https://i.ibb.co/qWWpD0v/astro-dab-128.png
 sections:
-- name: Getting Started
-  icon: fas fa-rocket
-  items:
-  - title: Dashy Live
-    description: Development a project management links for Dashy
-    icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
-    url: https://live.dashy.to/
-    target: newtab
-  - title: GitHub
-    description: Source Code, Issues and Pull Requests
-    url: https://github.com/lissy93/dashy
-    icon: favicon
-  - title: Docs
-    description: Configuring & Usage Documentation
-    provider: Dashy.to
-    icon: far fa-book
-    url: https://dashy.to/docs
-  - title: Showcase
-    description: See how others are using Dashy
-    url: https://github.com/Lissy93/dashy/blob/master/docs/showcase.md
-    icon: far fa-grin-hearts
-  - title: Config Guide
-    description: See full list of configuration options
-    url: https://github.com/Lissy93/dashy/blob/master/docs/configuring.md
+  - name: Code Analysis & Monitoring
+    icon: fas fa-code
+    displayData:
+      sortBy: default
+      sectionLayout: grid
+      itemCountX: 5
+      cols: 2
+    items:
+      - title: Snyk
+        description: Dependency vulnerability scanning
+        icon: favicon
+        url: https://snyk.io/test/github/Lissy93/dashy
+        id: 0_2411_snyk
+      - title: Code Beat
+        description: Quality and complexity checking
+        icon: favicon
+        url: https://codebeat.co/projects/github-com-lissy93-dashy-master
+        id: 1_2411_codebeat
+      - title: Is Maintained
+        description: Issue status and response times
+        url: https://isitmaintained.com/project/lissy93/dashy
+        icon: favicon
+        id: 2_2411_ismaintained
+      - title: FOSSA
+        description: Dependency license checking
+        url: https://app.fossa.com/reports/f57fe27a-cc0d-496d-a48f-bdc50147199b
+        icon: favicon
+        id: 3_2411_fossa
+      - title: Sonatype
+        description: Automated code security scanning
+        icon: favicon
+        url: >-
+          https://lift.sonatype.com/result/Lissy93/dashy/01FBPFJZ4H6ANMK8BEE9A15R5V?tab=results
+        id: 4_2411_sonatype
+      - title: DeepSource
+        description: Source code analysis
+        icon: favicon
+        url: https://deepsource.io/gh/Lissy93/dashy/issues
+        id: 5_2411_deepsource
+      - title: DeepScan
+        description: Static analysis for finding runtime errors and quality issues
+        url: >-
+          https://deepscan.io/dashboard#view=project&tid=12411&pid=18128&bid=437203
+        icon: favicon
+        id: 6_2411_deepscan
+      - title: LGTM
+        description: Prevention of zero-days through static analysis
+        url: https://lgtm.com/projects/g/Lissy93/dashy
+        icon: favicon
+        id: 7_2411_lgtm
+      - title: CodeSense
+        description: Project stats and trends
+        url: https://codescene.io/projects/17448/jobs/223149/results
+        icon: favicon
+        id: 8_2411_codesense
+      - title: David-DM
+        description: Dependency Update Checking
+        url: https://david-dm.org/lissy93/dashy
+        icon: favicon
+        id: 9_2411_daviddm
+  - name: Project Stats & Metrics
+    icon: fas fa-analytics
+    displayData:
+      hideForUsers:
+        - alicia
+      sortBy: most-used
+    items:
+      - title: Repo Analytics
+        description: Recent traffic and clone stats
+        url: https://repo-analytics.github.io/Lissy93/dashy
+        icon: favicon
+        id: 0_2115_repoanalytics
+      - title: Visual Source
+        description: Historical code and contributor graphic
+        url: https://www.visualsource.net/repo/github.com/Lissy93/dashy
+        icon: favicon
+        id: 1_2115_visualsource
+      - title: StarTrack
+        description: GitHub Stars over Time
+        url: https://seladb.github.io/StarTrack-js/#/preload?r=Lissy93,dashy
+        icon: https://seladb.github.io/StarTrack-js/star-icon.png
+        id: 2_2115_startrack
+      - title: GitFlowChart
+        description: Branch Topology
+        url: https://app.gfc.io/github/Lissy93/dashy
+        icon: https://app.gfc.io/66ca1ebe6993cbfabdfba26cb9534b76.svg
+        id: 3_2115_gitflowchart
+      - title: GitMemory
+        description: Repo activity archive
+        url: https://githubmemory.com/repo/lissy93/dashy
+        icon: favicon
+        id: 4_2115_gitmemory
+      - title: Cauldron
+        description: Development community stats
+        url: https://cauldron.io/project/4857
+        icon: favicon
+        id: 5_2115_cauldron
+  - name: Deployment & Monitoring
+    icon: fas fa-rocket-launch
+    items:
+      - title: Netlify
+        description: Dev Demo CI and Deployment
+        url: https://app.netlify.com/sites/dashy-dev/deploys
+        icon: favicon
+        id: 0_2221_netlify
+      - title: MeerCode
+        description: Build status for GH actions
+        icon: https://meercode.io/favicon/android-icon-144x144.png
+        url: >-
+          https://meercode.io/public/dashboard/0a73f116846f6954ba6f3a0b65b13e77:e7f5a35dc463db291e70dffc0c05fc7a945bc571bdc889cd1c64b2f99fb2a5249d93250bbf4655c59db10095f9c9c051
+        id: 1_2221_meercode
+      - title: Status Page
+        description: Uptime Monitoring
+        provider: Up Down
+        url: https://updown.io/p/b0bkd
+        icon: favicon
+        id: 2_2221_statuspage
+      - title: GitLocalize
+        description: Localisation tool
+        icon: https://avatars.githubusercontent.com/u/25833116
+        url: https://gitlocalize.com/repo/6279
+        id: 3_2221_gitlocalize
+      - title: Viezly
+        description: Tool for analyzing pull requests
+        url: https://viezly.com/change_requests/3417
+        icon: favicon
+        id: 4_2221_viezly
+      - title: VS Code
+        description: Open Dashy's source code in the VS Code IDE
+        url: https://open.vscode.dev/Lissy93/Dashy
+        icon: favicon
+        id: 5_2221_vscode
+  - name: Socials & Review Sites
+    icon: fas fa-sparkles
+    items:
+      - title: Product Hunt
+        icon: favicon
+        url: https://www.producthunt.com/posts/dashy
+        id: 0_1998_producthunt
+      - title: Bounty Source
+        url: https://www.bountysource.com/teams/dashy
+        icon: favicon
+        id: 1_1998_bountysource
+      - title: Alternative To
+        icon: favicon
+        url: https://alternativeto.net/software/dashy/about/
+        id: 2_1998_alternativeto
+      - title: StackShare
+        url: https://stackshare.io/Lissy93/dashy
+        icon: favicon
+        id: 3_1998_stackshare
+      - title: Slant
+        icon: favicon
+        url: >-
+          https://www.slant.co/improve/topics/27783/viewpoints/1/~self-hosted-homelab-startpage~dashy
+        id: 4_1998_slant
+      - title: GH Sponsors
+        description: Support Dashy's future development
+        icon: favicon
+        url: https://github.com/sponsors/Lissy93
+        id: 5_1998_ghsponsors
+  - name: Environments
+    icon: fas fa-traffic-light-go
+    displayData:
+      itemSize: large
+      sortBy: default
+      sectionLayout: grid
+      itemCountX: 2
+    items:
+      - title: ''
+        description: Deployment of master branch
+        icon: https://i.ibb.co/cLfVCQP/dev-env.png
+        url: https://dev.dashy.to
+        statusCheck: true
+        id: 0_1288_
+      - title: ''
+        description: Example instance with demo data
+        icon: https://i.ibb.co/bzVTYMx/live-demo.png
+        url: https://demo.dashy.to
+        statusCheck: true
+        statusCheckAllowInsecure: true
+        id: 1_1288_
+      - title: ''
+        description: Documentation and info website
+        icon: https://i.ibb.co/f8GxrfC/docs-site.png
+        url: https://dashy.to
+        statusCheck: true
+        id: 2_1288_
+      - title: ''
+        description: Source code, issues and PRs
+        icon: https://i.ibb.co/Lz29Q58/git-hub.png
+        url: https://github.com/lissy93/dashy
+        statusCheck: true
+        id: 3_1288_
+  - name: Repo
+    icon: fab fa-github-alt
+    displayData:
+      itemSize: small
+      sectionLayout: grid
+      itemCountX: 2
+    items:
+      - title: Issues
+        url: https://github.com/Lissy93/dashy/issues
+        icon: generative
+        id: 0_406_issues
+      - title: Pull Requests
+        url: https://github.com/Lissy93/dashy/pulls
+        icon: generative
+        id: 1_406_pullrequests
+      - title: Releases
+        url: https://github.com/Lissy93/dashy/releases
+        icon: generative
+        id: 2_406_releases
+      - title: Discussions
+        url: https://github.com/Lissy93/dashy/discussions
+        icon: generative
+        id: 3_406_discussions
+      - title: Packages
+        url: https://github.com/Lissy93?tab=packages&repo_name=dashy
+        icon: generative
+        id: 4_406_packages
+      - title: Insights
+        url: https://github.com/Lissy93/dashy/pulse
+        icon: generative
+        id: 5_406_insights
+      - title: Wiki
+        url: https://github.com/Lissy93/dashy/wiki
+        icon: generative
+        id: 6_406_wiki
+      - title: Security
+        url: https://github.com/Lissy93/dashy/security
+        icon: generative
+        id: 7_406_security
+      - title: Contributors
+        url: https://github.com/Lissy93/dashy/graphs/contributors
+        icon: generative
+        id: 8_406_contributors
+      - title: Actions
+        url: https://github.com/Lissy93/dashy/actions
+        icon: generative
+        id: 9_406_actions
+  - name: Usage Docs
+    icon: fas fa-book
+    displayData:
+      itemSize: small
+      sectionLayout: grid
+      itemCountX: 2
+    items:
+      - title: Quick Start
+        icon: 💨
+        url: https://github.com/Lissy93/dashy/blob/master/docs/quick-start.md
+        id: 0_926_quickstart
+      - title: Deployment
+        icon: 🚀
+        url: https://github.com/Lissy93/dashy/blob/master/docs/deployment.md
+        id: 1_926_deployment
+      - title: Configuring
+        icon: 🔧
+        url: https://github.com/Lissy93/dashy/blob/master/docs/configuring.md
+        id: 2_926_configuring
+      - title: Management
+        icon: 💻
+        url: https://github.com/Lissy93/dashy/blob/master/docs/management.md
+        id: 3_926_management
+      - title: Troubleshooting
+        icon: 🚒
+        url: https://github.com/Lissy93/dashy/blob/master/docs/troubleshooting.md
+        id: 4_926_troubleshooting
+      - title: Developing
+        icon: 🧱
+        url: https://github.com/Lissy93/dashy/blob/master/docs/developing.md
+        id: 5_926_developing
+      - title: Dev Guides
+        icon: 🛎️
+        url: >-
+          https://github.com/Lissy93/dashy/blob/master/docs/development-guides.md
+        id: 6_926_devguides
+      - title: Contributing
+        icon: 💖
+        url: https://github.com/Lissy93/dashy/blob/master/docs/contributing.md
+        id: 7_926_contributing
+      - title: Showcase
+        icon: 🌟
+        url: https://github.com/Lissy93/dashy/blob/master/docs/showcase.md
+        id: 8_926_showcase
+      - title: Credits
+        icon: 🏆
+        url: https://github.com/Lissy93/dashy/blob/master/docs/credits.md
+        id: 9_926_credits
+  - name: Feature Docs
+    icon: fas fa-book-spells
+    displayData:
+      itemSize: small
+      sectionLayout: grid
+      itemCountX: 2
+    items:
+      - title: Authentication
+        icon: 🛡️
+        url: https://github.com/Lissy93/dashy/blob/master/docs/authentication.md
+        id: 0_1141_authentication
+      - title: Alternate Views
+        icon: 🧿
+        url: https://github.com/Lissy93/dashy/blob/master/docs/alternate-views.md
+        id: 1_1141_alternateviews
+      - title: Backup & Restore
+        icon: 💾
+        url: https://github.com/Lissy93/dashy/blob/master/docs/backup-restore.md
+        id: 2_1141_backuprestore
+      - title: Icons
+        icon: 🧸
+        url: https://github.com/Lissy93/dashy/blob/master/docs/icons.md
+        id: 3_1141_icons
+      - title: Language Switching
+        icon: 🌐
+        url: >-
+          https://github.com/Lissy93/dashy/blob/master/docs/multi-language-support.md
+        id: 4_1141_languageswitching
+      - title: Status Indicators
+        icon: 🚦
+        url: https://github.com/Lissy93/dashy/blob/master/docs/status-indicators.md
+        id: 5_1141_statusindicators
+      - title: Searching  & Shortcuts
+        icon: 🔍
+        url: https://github.com/Lissy93/dashy/blob/master/docs/searching.md
+        id: 6_1141_searchingshortcuts
+      - title: Theming
+        icon: 🎨
+        url: https://github.com/Lissy93/dashy/blob/master/docs/theming.md
+        id: 7_1141_theming
+  - name: Internal Tools (Private)
+    icon: fas fa-lock-alt
+    displayData:
+      collapsed: true
+    items:
+      - title: GitGuardian
+        description: Secret detection
+        icon: favicon
+        url: https://dashboard.gitguardian.com/workspace/145153/analytics
+        id: 0_2234_gitguardian
+      - title: GitDailies
+        description: Repo summary and change notifications
+        url: https://app.gitdailies.com/install/18696733
+        icon: favicon
+        id: 1_2234_gitdailies
+      - title: GitEntial
+        description: PR Info and Stats
+        icon: favicon
+        url: https://app.gitential.com/accounts/2907/projects/1
+        id: 2_2234_gitential
+      - title: PullChecklist
+        description: Conditional checklists in PRs
+        url: https://app.pullchecklist.com/organization/663/repository/18138
+        icon: favicon
+        id: 3_2234_pullchecklist
+      - title: Octostats
+        description: Repo traffic and clones
+        icon: favicon
+        url: https://octostats.netlify.app/details/343078060
+        id: 4_2234_octostats
+      - title: Release Notifier
+        description: Summary and notifications of new releases
+        icon: favicon
+        url: https://newreleases.io/github/Lissy93/dashy
+        id: 5_2234_releasenotifier
+  - name: 1-Click Cloud Deploy
+    icon: fas fa-traffic-light-go
+    displayData:
+      collapsed: true
+      itemSize: small
+      sortBy: default
+      itemCountX: 4
+      cols: 2
+      rows: 2
+    items:
+      - title: Netlify
+        description: Deploy to Netlify with 1-Click
+        icon: favicon
+        url: >-
+          https://app.netlify.com/start/deploy?repository=https://github.com/lissy93/dashy
+        provider: Netlify
+        statusCheck: true
+        id: 0_1768_netlify
+      - title: Heroku
+        description: Heroku Element App
+        provider: Heroku
+        icon: favicon
+        url: https://elements.heroku.com/buttons/lissy93/dashy
+        statusCheck: true
+        id: 1_1768_heroku
+      - title: DockerHub
+        description: Docker container
+        icon: favicon
+        url: https://hub.docker.com/r/lissy93/dashy
+        statusCheck: true
+        id: 2_1768_dockerhub
+      - title: PWD
+        description: Sandbox environment
+        icon: https://www.docker.com/sites/default/files/Whale%20Logo332_5.png
+        url: >-
+          https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml
+        statusCheck: true
+        id: 3_1768_pwd
+      - title: CloudFlare Workers
+        description: Deploy Dashy to a Cloudflare Worker
+        provider: Cloudflare
+        icon: https://dash.cloudflare.com/favicon.ico
+        url: >-
+          https://deploy.workers.cloudflare.com/?url=https://github.com/lissy93/dashy/tree/deploy_cloudflare
+        statusCheck: true
+        id: 4_1768_cloudflareworkers
+      - title: Vercel
+        description: Deploy Dashy to Vercel
+        provider: Vercel
+        icon: favicon
+        url: >-
+          https://vercel.com/new/project?template=https://github.com/lissy93/dashy
+        statusCheck: true
+        id: 5_1768_vercel
+      - title: Digital Ocean App
+        description: Deploy Dashy to DO
+        provider: Digital Ocean
+        icon: favicon
+        url: >-
+          https://cloud.digitalocean.com/apps/new?repo=https://github.com/lissy93/dashy/tree/deploy_digital-ocean
+        statusCheck: true
+        id: 6_1768_digitaloceanapp
+      - title: GCP Deploy
+        description: Deploy Dashy to GCP
+        provider: Google
+        icon: https://cloud.google.com/favicon.ico
+        url: >-
+          https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git
+        statusCheck: true
+        id: 7_1768_gcpdeploy
+      - title: Render
+        description: Deploy Dashy to Render
+        provider: Render
+        icon: favicon
+        url: >-
+          https://render.com/deploy?repo=https://github.com/lissy93/dashy/tree/deploy_render
+        statusCheck: true
+        id: 8_1768_render
+      - title: Scalingo
+        description: Deploy Dashy to Scalingo
+        provider: Scalingo
+        icon: favicon
+        url: >-
+          https://my.scalingo.com/deploy?source=https://github.com/lissy93/dashy#master
+        statusCheck: true
+        id: 9_1768_scalingo
+      - title: View More
+        description: See full list of deployment services
+        icon: https://i.ibb.co/fGnr01r/astro-dab.png
+        url: https://dashy.to/docs/deployment#deploy-to-cloud-service
+        id: 10_1768_viewmore
+  - name: Config Helpers
     icon: fas fa-wrench
-  - title: Support
-    description: Get help with Dashy, raise a bug, or get in contact
-    url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
-    icon: far fa-hands-helping
-  
+    displayData:
+      collapsed: true
+      itemSize: small
+      sectionLayout: grid
+      itemCountX: 2
+    items:
+      - title: Schema Example
+        url: >-
+          https://json-schema.app/view/%23?url=https%3A%2F%2Fraw.githubusercontent.com%2FLissy93%2Fdashy%2Fmaster%2Fsrc%2Futils%2FConfigSchema.json
+        icon: generative
+        id: 0_1353_schemaexample
+      - title: Config Validator
+        url: https://www.jsonschemavalidator.net/s/JFUj7X9J
+        icon: generative
+        id: 1_1353_configvalidator
+      - title: JSON to YAML
+        url: https://jsonformatter.org/json-to-yaml
+        icon: generative
+        id: 2_1353_jsontoyaml
+      - title: YAML to JSON
+        url: https://jsonformatter.org/yaml-to-json
+        icon: generative
+        id: 3_1353_yamltojson
+      - title: Example Configs
+        url: https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10
+        icon: generative
+        id: 4_1353_exampleconfigs
+      - title: Config Docs
+        url: https://dashy.to/docs/configuring
+        icon: generative
+        id: 5_1353_configdocs
