@@ -2,6 +2,8 @@ name: Add your Dashboard to the Showcase 🌟
 description: Share a screenshot of your dashboard to the Readme showcase!
 title: '[SHOWCASE] <title>'
 labels: ['💯 Showcase']
+assignees:
+  - lissy93
 
 body:
 # 1 - Title

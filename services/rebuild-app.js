@@ -5,7 +5,7 @@
 const { exec } = require('child_process');
 
 module.exports = () => new Promise((resolve, reject) => {
-  const buildProcess = exec('npm run build'); // Trigger the build command
+  const buildProcess = exec('NODE_OPTIONS="--max-old-space-size=512" npm run build'); // Trigger the build command
 
   let output = ''; // Will store console output
 

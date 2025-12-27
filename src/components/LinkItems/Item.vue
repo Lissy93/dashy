@@ -34,6 +34,8 @@
         :statusSuccess="statusResponse ? statusResponse.successStatus : undefined"
         :statusText="statusResponse ? statusResponse.message : undefined"
       />
+      <!-- URL of the item (shown on hover, only on some themes) -->
+      <p class="item-url">{{ item.url | shortUrl }}</p>
       <!-- Edit icon (displayed only when in edit mode) -->
       <EditModeIcon v-if="isEditMode" class="edit-mode-item" @click="openItemSettings()" />
     </a>
@@ -119,6 +121,26 @@ export default {
         case 'workspace': return '"\\f0b1"';
         case 'clipboard': return '"\\f0ea"';
         default: return '"\\f054"';
+      }
+    },
+  },
+  filters: {
+    shortUrl(value) {
+      if (!value || typeof value !== 'string') {
+        return '';
+      }
+      try {
+        // Use URL constructor to parse the input
+        const url = new URL(value);
+        return url.hostname;
+      } catch (e) {
+        // If the input is not a valid URL, try to handle it as an IP address
+        const ipPattern = /^(\d{1,3}\.){3}\d{1,3}/;
+        const match = value.match(ipPattern);
+        if (match) {
+          return match[0];
+        }
+        return '';
       }
     },
   },
@@ -208,6 +230,9 @@ export default {
     &.span-6 { min-width: 16%; }
     &.span-7 { min-width: 14%; }
     &.span-8 { min-width: 12.5%; }
+  }
+  .item-url {
+    display: none;
   }
 }
 

@@ -147,6 +147,7 @@ const app = express()
   .use(ENDPOINTS.statusCheck, (req, res) => {
     try {
       statusCheck(req.url, async (results) => {
+        res.setHeader('Content-Type', 'application/json');
         await res.end(results);
       });
     } catch (e) {

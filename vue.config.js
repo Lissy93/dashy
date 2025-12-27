@@ -96,5 +96,8 @@ module.exports = {
   devServer,
   chainWebpack: config => {
     config.module.rules.delete('svg');
+    config.cache({
+      type: 'filesystem',
+    });
   },
 };

@@ -31,7 +31,19 @@ const getUsers = () => {
     return []; // Support for old data structure now removed
   }
   // Otherwise, return the users array, if available
-  return auth.users || [];
+
+  const users = auth.users || [];
+  if (isOidcEnabled()) {
+    if (localStorage[localStorageKeys.USERNAME]) {
+      const user = {
+        user: localStorage[localStorageKeys.USERNAME],
+        type: localStorage[localStorageKeys.ISADMIN] === 'true' ? 'admin' : 'normal',
+      };
+      users.push(user);
+    }
+  }
+
+  return users;
 };
 
 /**
@@ -80,6 +92,17 @@ export const makeBasicAuthHeaders = () => {
 export const isLoggedIn = () => {
   const users = getUsers();
   const cookieToken = getCookieToken();
+
+  if (isOidcEnabled()) {
+    const username = localStorage[localStorageKeys.USERNAME]; // Get username
+    if (!username) return false; // No username
+    return users.some((user) => {
+      if (user.user === username || generateUserToken(user) === cookieToken) {
+        return true;
+      } else return false;
+    });
+  }
+
   return users.some((user) => {
     if (generateUserToken(user) === cookieToken) {
       localStorage.setItem(localStorageKeys.USERNAME, user.user);

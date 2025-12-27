@@ -8,9 +8,9 @@ You can edit additional pages using the interactive editor, exactly the same was
 
 ### Using Local Sub-Pages
 
-To get started, create a new `.yml` config file for your sub-page, placing it within `/app/public`. Then within your primary `conf.yml`, choose a name, and specify the path to the new file.
+To get started, create a new `.yml` config file for your sub-page, placing it within `/app/user-data`. Then within your primary `conf.yml`, choose a name, and specify the path to the new file.
 
-For example:
+This is an example. Make sure to add this to the topmost line above appConfig:, or anywhere else appropriately, to match the yml syntax.
 
 ```yaml
 pages:
@@ -20,7 +20,17 @@ pages:
   path: 'work.yml'
 ```
 
-If you're sub-page is located within `/app/public`, then you only need to specify the filename, but if it's anywhere else, then the full path is required.
+The next step is to create the new page, if you mounted `/app/user-data` in the docker command and not a volume, you can simply create the new page into that folder on the host.
+
+If you mounted `/app/user-data/conf.yml` in docker, you can either switch to the volume or create another bind mount to your new additional page.
+
+If you're sub-page is located within `/app/user-data`, then you only need to specify the filename, but if it's anywhere else, then the full path is required.
+
+A default template a page can be found here: [https://github.com/lissy93/dashy/blob/master/user-data/conf.yml](https://github.com/lissy93/dashy/blob/master/user-data/conf.yml) Keep in mind the appConfig cannot be used on subpages and should be removed, for further info see [Restrictions](#restrictions)
+
+The last very important step is to rebuild dashy, this can be easily done through to UI, by opening the settings menu on the top right, navigato to update config and then recompile application.
+
+Now if you reload the page, on the top right there should be a new button to navigate to the new page. 🎉
 
 ### Using Remote Sub-Pages
 
@@ -71,7 +81,7 @@ A normal section will contain zero or more items, for example:
     url: http://stackoverflow.com/
 ```
 
-But items can also be grouped together, referred to as sub-items. This is useful for a group of less frequently used items, which you don't want to take up too much space, or for action buttons (_coming soon_).
+But items can also be grouped together, referred to as sub-items. This is useful for a group of less frequently used items, which you don't want to take up too much space.
 
 Item groups may also have an optional title.
 

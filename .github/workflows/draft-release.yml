@@ -1,0 +1,36 @@
+name: 🏗️ Draft New Release
+
+on:
+  push:
+    tags:
+      - '^[0-9]+\.[0-9]+\.[0-9]+$'
+      - '**'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to draft a release for (must already exist)'
+        required: true
+
+jobs:
+  create-draft-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code 🛎️
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # We need all history for generating release notes
+
+      - name: Create Draft Release 📝
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          release_name: Release ${{ github.event.inputs.tag || github.ref_name }}
+          draft: true
+          prerelease: false
+          generate_release_notes: true
+
+      - name: Output new release URL ↗️
+        run: 'echo "Draft release URL: ${{ steps.create_release.outputs.html_url }}"'

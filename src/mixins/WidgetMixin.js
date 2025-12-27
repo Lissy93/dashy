@@ -72,9 +72,9 @@ const WidgetMixin = {
       this.updater = setInterval(() => { this.update(); }, this.updateInterval);
     },
     /* Called when an error occurs. Logs to handler, and passes to parent component */
-    error(msg, stackTrace) {
+    error(msg, stackTrace, quite = false) {
       ErrorHandler(msg, stackTrace);
-      if (!this.options.ignoreErrors) {
+      if (!this.options.ignoreErrors && !quite) {
         this.$emit('error', msg);
       }
     },

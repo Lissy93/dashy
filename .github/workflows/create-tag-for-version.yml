@@ -1,0 +1,55 @@
+# When Dashy's version in package.json is updated
+# this workflow will create a new tag
+# And then publish it to the repository
+name: 🏗️ Tag on Version Change
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'package.json'
+
+jobs:
+  tag-if-version-updated:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Out Repository 🛎️
+        uses: actions/checkout@v2
+      
+      - name: Set Up Python 🐍
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Extract Version from package.json 🔢
+        id: package_version
+        run: |
+          import json
+          with open('package.json', 'r') as f:
+            version = json.load(f)['version']
+          print(f"::set-output name=VERSION::{version}")
+        shell: python
+      
+      - name: Get Latest Tag 🏷️
+        id: latest_tag
+        run: |
+          git fetch --tags
+          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1` 2>/dev/null)
+          echo "::set-output name=TAG::${latest_tag:-0}"
+      
+      - name: Create and Push Tag ⤴️
+        if: steps.package_version.outputs.VERSION != steps.latest_tag.outputs.TAG && steps.latest_tag.outputs.TAG != '0'
+        run: |
+          git config --local user.email "liss-bot@d0h.co"
+          git config --local user.name "Liss-Bot"
+          git tag -a ${{ steps.package_version.outputs.VERSION }} -m "Release v${{ steps.package_version.outputs.VERSION }}"
+          git push origin ${{ steps.package_version.outputs.VERSION }}
+        env:
+          GIT_AUTHOR_NAME: Liss-Bot
+          GIT_AUTHOR_EMAIL: liss-bot@d0h.co
+          GIT_COMMITTER_NAME: Liss-Bot
+          GIT_COMMITTER_EMAIL: liss-bot@d0h.co
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

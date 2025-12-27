@@ -112,7 +112,7 @@ services:
     # volumes:
       # - /root/my-config.yml:/app/user-data/conf.yml
     ports:
-      - 4000:8080
+      - 8080:8080
     # Set any environmental variables
     environment:
       - NODE_ENV=production
@@ -182,7 +182,7 @@ dashy should be up within 1-2min after you've started the install task procedure
 If you do not want to use Docker, you can run Dashy directly on your host system. For this, you will need both [git](https://git-scm.com/downloads) and the latest or LTS version of [Node.js](https://nodejs.org/) installed, and optionally [yarn](https://yarnpkg.com/)
 
 1. Get Code: `git clone https://github.com/Lissy93/dashy.git` and `cd dashy`
-2. Configuration: Fill in you're settings in `./user-data/conf.yml`
+2. Configuration: Fill in your settings in `./user-data/conf.yml`
 3. Install dependencies: `yarn`
 4. Build: `yarn build`
 5. Run: `yarn start`

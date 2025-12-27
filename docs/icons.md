@@ -7,6 +7,7 @@ Both sections and items can have an icon, which is specified using the `icon` at
 - [Simple Icons](#simple-icons)
 - [Generative Icons](#generative-icons)
 - [Emoji Icons](#emoji-icons)
+- [selfh.st Icons](#selfhst-icons)
 - [Home-Lab Icons](#home-lab-icons)
 - [Material Icons](#material-design-icons)
 - [Icons by URL](#icons-by-url)
@@ -63,7 +64,7 @@ Font-Awesome has a wide variety of free icons, but you can also use their pro ic
 
 ## Simple Icons
 
-[SimpleIcons.org](https://simpleicons.org/) is a collection of 2000+ high quality, free and open source brand and logo SVG icons. Usage of which is very similar to font-awesome icons. First find the glyph you want to use on the [website](https://simpleicons.org/), then just set your icon the the simple icon slug, prefixed with `si-`.
+[SimpleIcons.org](https://simpleicons.org/) is a collection of 2000+ high quality, free and open source brand and logo SVG icons. Usage of which is very similar to font-awesome icons. First find the glyph you want to use on the [website](https://simpleicons.org/), then just set your icon to the simple icon slug, prefixed with `si-`.
 
 <p align="center">
   <img width="580" src="https://i.ibb.co/MVhkXfC/simple-icons-example.png" />
@@ -109,9 +110,21 @@ For example, these will all render the same rocket (🚀) emoji: `icon: ':rocket
 
 ---
 
+## selfh.st Icons
+
+The [selfh.st](https://selfh.st/) project provides a set of icons, originally for self-hosted services, but now expanded to include a wide variety of services. These icons can be used by specifying the icon name (without extension and with all spaces replaced with -) preceded by `sh-`. See https://selfh.st/icons/ for a full list of all available icons. For example, the Home Assistant icon is `sh-home-assistant`.
+
+Note: These icons are fetched from the jsdelivr CDN, so if you require offline access, the [Local Icons](#local-icons) method may be a better option for you.
+
+<p align="center">
+  <img width="580" src="https://i.ibb.co/pfy09LH/Screenshot-from-2025-01-08-22-04-21.png" />
+</p>
+
+---
+
 ## Home-Lab Icons
 
-The [dashboard-icons](https://github.com/walkxcode/Dashboard-Icons) repo by [@WalkxCode](https://github.com/WalkxCode) provides a comprehensive collection of 360+ high-quality PNG icons for commonly self-hosted services. Dashy natively supports these icons, and you can use them just by specifying the icon name (without extension) preceded by `hl-`. See [here](https://github.com/walkxcode/Dashboard-Icons/tree/main/png) for a full list of all available icons. Note that these are fetched and cached strait from GitHub, so if you require offline access, the [Local Icons](#local-icons) method may be a better option for you.
+The [dashboard-icons](https://github.com/walkxcode/Dashboard-Icons) repo by [@WalkxCode](https://github.com/WalkxCode) provides a comprehensive collection of 360+ high-quality PNG icons for commonly self-hosted services. Dashy natively supports these icons, and you can use them just by specifying the icon name (without extension) preceded by `hl-`. See [here](https://github.com/walkxcode/Dashboard-Icons/tree/main/png) for a full list of all available icons. Note that these are fetched and cached straight from GitHub, so if you require offline access, the [Local Icons](#local-icons) method may be a better option for you.
 
 For example:
 
