@@ -433,6 +433,7 @@ Dashy supports multiple languages and locales. When available, your language sho
 - 🇷🇺 **Russian**: `ru` -Contributed by **[@sasetz](https://github.com/sasetz)**
 - 🇸🇰 **Slovak**: `sk` - Contributed by **[@Smexhy](https://github.com/Smexhy)**
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
+- 🇰🇬 **Kyrgyz**: `ky` - Contributed by **[@noblepower1337](https://github.com/noblepower1337)**
 - 🇪🇸 **Spanish**: `es` - Contributed by **[@lu4t](https://github.com/lu4t)**
 - 🇸🇪 **Swedish**: `sv` - Contributed by **[@BOZG](https://github.com/BOZG)**
 - 🇹🇼 **Traditional Chinese**: `zh-TW` - Contributed by **[@stanly0726](https://github.com/stanly0726)**
