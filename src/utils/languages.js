@@ -26,6 +26,7 @@ import sl from '@/assets/locales/sl.json';
 import sv from '@/assets/locales/sv.json';
 import tr from '@/assets/locales/tr.json';
 import uk from '@/assets/locales/uk.json';
+import ky from '@/assets/locales/ky.json';
 import zhCN from '@/assets/locales/zh-CN.json';
 import zhTW from '@/assets/locales/zh-TW.json';
 import pirate from '@/assets/locales/zz-pirate.json';
@@ -206,6 +207,12 @@ export const languages = [
     code: 'zh-TW',
     locale: zhTW,
     flag: '🇹🇼',
+  },
+  { // Kyrgyz
+    name: 'Кыргызский',
+    code: 'ky',
+    locale: ky,
+    flag: '🇰🇬',
   },
   { // Joke Language - Pirate
     name: 'Pirate',
