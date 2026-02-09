@@ -4,6 +4,10 @@
     <span class="lbl">{{ $t('widgets.gluetun-status.vpn-ip') }}</span>
     <span class="val">{{ public_ip }}</span>
   </div>
+  <div class="ip-row" v-if="forwarded_port">
+    <span class="lbl">Forwarded Port</span>
+    <span class="val">{{ forwarded_port }}</span>
+  </div>
   <div class="ip-row" v-if="country">
     <span class="lbl">{{ $t('widgets.gluetun-status.country') }}</span>
     <span class="val">{{ country }}</span>
@@ -50,6 +54,7 @@ export default {
       organization: null,
       postal_code: null,
       timezone: null,
+      forwarded_port: null,
     };
   },
   computed: {
@@ -65,6 +70,12 @@ export default {
     /* Make GET request to Gluetun publicip API endpoint */
     fetchData() {
       this.makeRequest(`${this.hostname}/v1/publicip/ip`).then(this.processData);
+
+      this.makeRequest(`${this.hostname}/v1/portforward`)
+      .then(this.processPortData)
+      .catch(() => {
+      this.forwarded_port = null;
+      });
     },
     /* Assign data variables to the returned data */
     processData(ipInfo) {
@@ -77,6 +88,12 @@ export default {
       this.organization = fields.includes('organization') ? ipInfo.organization : null;
       this.postal_code = fields.includes('postal_code') ? ipInfo.postal_code : null;
       this.timezone = fields.includes('timezone') ? ipInfo.timezone : null;
+    },
+    processPortData(portInfo) {
+      const fields = this.visibleFields.split(',');
+      this.forwarded_port = fields.includes('forwarded_port')
+        ? portInfo.port
+        : null;
     },
   },
 };
