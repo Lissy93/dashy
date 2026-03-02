@@ -4,7 +4,12 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import yaml from 'js-yaml';
 import Keys from '@/utils/StoreMutations';
-import { makePageName, formatConfigPath, getConfigFilePath, componentVisibility } from '@/utils/ConfigHelpers';
+import {
+  makePageName,
+  formatConfigPath,
+  getConfigFilePath,
+  componentVisibility,
+} from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
