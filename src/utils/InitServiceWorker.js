@@ -2,6 +2,7 @@ import axios from 'axios';
 import yaml from 'js-yaml';
 import { register } from 'register-service-worker';
 import { sessionStorageKeys } from '@/utils/defaults';
+import { getConfigFilePath } from '@/utils/ConfigHelpers';
 import { statusMsg, statusErrorMsg } from '@/utils/CoolConsole';
 
 /* Sets a local storage item with the state from the SW lifecycle */
@@ -33,7 +34,7 @@ const setSwStatus = (swStateToSet) => {
  * Or disable if user specified to disable
  */
 const shouldEnableServiceWorker = async () => {
-  const configFilePath = process.env.VUE_APP_CONFIG_PATH || './conf.yml';
+  const configFilePath = getConfigFilePath('/conf.yml');
   const conf = yaml.load((await axios.get(configFilePath)).data);
   if (conf && conf.appConfig && conf.appConfig.enableServiceWorker) {
     setSwStatus({ disabledByUser: false });

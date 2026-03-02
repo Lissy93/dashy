@@ -34,6 +34,19 @@ export const formatConfigPath = (configPath) => {
 };
 
 /**
+ * Resolves the complete config file path by combining BASE_URL with the config path.
+ * If VUE_APP_CONFIG_PATH is a full URL (http:// or https://), returns it as-is.
+ * Otherwise, joins BASE_URL with the config path. Defaults to '/conf.yml' if no path is set.
+ * @param {string} configDefault - Default config path if VUE_APP_CONFIG_PATH is not set
+ * @returns {string} The complete config file path
+ */
+export const getConfigFilePath = (configDefault = '/conf.yml') => {
+  const baseUrl = (process.env.BASE_URL || '/').replace(/\/$/, '') || '/';
+  const configPath = process.env.VUE_APP_CONFIG_PATH || configDefault;
+  return /^https?:\/\//.test(configPath) ? configPath : baseUrl + formatConfigPath(configPath);
+};
+
+/**
  * Initiates the Accumulator class and generates a complete config object
  * Self-executing function, returns the full user config as a JSON object
  */
