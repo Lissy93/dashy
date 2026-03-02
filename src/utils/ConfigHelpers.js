@@ -40,7 +40,7 @@ export const formatConfigPath = (configPath) => {
  * @param {string} configDefault - Default config path if VUE_APP_CONFIG_PATH is not set
  * @returns {string} The complete config file path
  */
-export const getConfigFilePath = (configDefault = '/conf.yml') => {
+export const getConfigFilePath = (configDefault = './conf.yml') => {
   const baseUrl = (process.env.BASE_URL || '/').replace(/\/$/, '') || '/';
   const configPath = process.env.VUE_APP_CONFIG_PATH || configDefault;
   return /^https?:\/\//.test(configPath) ? configPath : baseUrl + formatConfigPath(configPath);
