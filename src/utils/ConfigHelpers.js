@@ -43,35 +43,23 @@ export const formatConfigPath = (configPath) => {
  */
 export const getConfigFilePath = (configDefault = './conf.yml') => {
   const configPath = process.env.VUE_APP_CONFIG_PATH || configDefault;
-  
+
   // If it's already a full URL, return as-is
   if (/^https?:\/\//.test(configPath)) {
     return configPath;
   }
-  
+
   // Get BASE_URL and ensure it's valid
-  let baseUrl = (process.env.BASE_URL || '/').replace(/\/$/, '');
-  
+  const baseUrl = (process.env.BASE_URL || '/').replace(/\/$/, '');
+
   // If BASE_URL is incomplete (just protocol or empty), fall back to relative path
   if (!baseUrl || /^https?:$/.test(baseUrl)) {
     return formatConfigPath(configPath);
   }
-  
+
   // Combine baseUrl with the formatted config path
   const normalizedPath = formatConfigPath(configPath);
-  
-  const rawBase = process.env.BASE_URL || '/';
-  if (rawBase.startsWith('./') || rawBase.startsWith('/')) {
-    // Join and clean: 
-    // 1. Replaces /./ with /
-    // 2. Replaces // with /
-    // 3. Removes leading . if the path starts with ./
-    return (baseUrl + '/' + normalizedPath)
-      .replace(/\/\.\//g, '/')
-      .replace(/\/+/g, '/');
-  }
-  
-  return normalizedPath;
+  return `${baseUrl}${normalizedPath}`;
 };
 
 /**
