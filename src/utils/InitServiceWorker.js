@@ -33,7 +33,8 @@ const setSwStatus = (swStateToSet) => {
  * Or disable if user specified to disable
  */
 const shouldEnableServiceWorker = async () => {
-  const conf = yaml.load((await axios.get('/conf.yml')).data);
+  const configFilePath = process.env.VUE_APP_CONFIG_PATH || './conf.yml';
+  const conf = yaml.load((await axios.get(configFilePath)).data);
   if (conf && conf.appConfig && conf.appConfig.enableServiceWorker) {
     setSwStatus({ disabledByUser: false });
     return true;
