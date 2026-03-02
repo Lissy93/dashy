@@ -36,14 +36,42 @@ export const formatConfigPath = (configPath) => {
 /**
  * Resolves the complete config file path by combining BASE_URL with the config path.
  * If VUE_APP_CONFIG_PATH is a full URL (http:// or https://), returns it as-is.
- * Otherwise, joins BASE_URL with the config path. Defaults to '/conf.yml' if no path is set.
+ * Otherwise, joins BASE_URL with the config path. Defaults to './conf.yml' if no path is set.
+ * If BASE_URL is incomplete, falls back to a relative path.
  * @param {string} configDefault - Default config path if VUE_APP_CONFIG_PATH is not set
  * @returns {string} The complete config file path
  */
 export const getConfigFilePath = (configDefault = './conf.yml') => {
-  const baseUrl = (process.env.BASE_URL || '/').replace(/\/$/, '') || '/';
   const configPath = process.env.VUE_APP_CONFIG_PATH || configDefault;
-  return /^https?:\/\//.test(configPath) ? configPath : baseUrl + formatConfigPath(configPath);
+  
+  // If it's already a full URL, return as-is
+  if (/^https?:\/\//.test(configPath)) {
+    return configPath;
+  }
+  
+  // Get BASE_URL and ensure it's valid
+  let baseUrl = (process.env.BASE_URL || '/').replace(/\/$/, '');
+  
+  // If BASE_URL is incomplete (just protocol or empty), fall back to relative path
+  if (!baseUrl || /^https?:$/.test(baseUrl)) {
+    return formatConfigPath(configPath);
+  }
+  
+  // Combine baseUrl with the formatted config path
+  const normalizedPath = formatConfigPath(configPath);
+  
+  const rawBase = process.env.BASE_URL || '/';
+  if (rawBase.startsWith('./') || rawBase.startsWith('/')) {
+    // Join and clean: 
+    // 1. Replaces /./ with /
+    // 2. Replaces // with /
+    // 3. Removes leading . if the path starts with ./
+    return (baseUrl + '/' + normalizedPath)
+      .replace(/\/\.\//g, '/')
+      .replace(/\/+/g, '/');
+  }
+  
+  return normalizedPath;
 };
 
 /**
