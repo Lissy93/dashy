@@ -94,7 +94,7 @@ export const languages = [
     flag: '🇲🇫',
   },
   { // Hindi
-    name: 'नहीं',
+    name: 'हिन्दी',
     code: 'hi',
     locale: hi,
     flag: '🇮🇳',

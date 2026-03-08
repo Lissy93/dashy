@@ -29,6 +29,7 @@
     "axios": "^1.12.0",
     "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.2.0",
+    "dompurify": "^3.0.8",
     "express": "^4.21.0",
     "express-basic-auth": "^1.2.1",
     "frappe-charts": "^1.6.2",
@@ -140,5 +141,6 @@
     "ip": "^2.0.1",
     "postcss": "^8.4.31",
     "tar": "^6.2.1"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
