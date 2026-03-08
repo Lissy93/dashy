@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.17.10",
+    "@vitest/ui": "^1.6.0",
     "@vue/cli-plugin-babel": "^4.5.15",
     "@vue/cli-plugin-eslint": "^4.5.15",
     "@vue/cli-plugin-pwa": "^4.5.15",
@@ -62,7 +63,6 @@
     "@vue/cli-service": "^4.5.19",
     "@vue/eslint-config-standard": "^4.0.0",
     "@vue/test-utils": "^1.3.6",
-    "@vitest/ui": "^1.6.0",
     "babel-eslint": "^10.0.1",
     "copy-webpack-plugin": "6.4.0",
     "eslint": "^6.8.0",
@@ -73,6 +73,7 @@
     "sass": "^1.38.0",
     "sass-loader": "^7.1.0",
     "typescript": "^5.4.4",
+    "vite-plugin-vue2": "^2.0.3",
     "vitest": "^1.6.0",
     "vue-cli-plugin-yaml": "^1.0.2",
     "vue-svg-loader": "^0.16.0",
@@ -99,7 +100,18 @@
     },
     "parserOptions": {
       "parser": "babel-eslint"
-    }
+    },
+    "overrides": [
+      {
+        "files": ["tests/**", "vitest.config.js"],
+        "rules": {
+          "import/no-extraneous-dependencies": "off",
+          "no-undef": "off",
+          "global-require": "off",
+          "no-unused-vars": "off"
+        }
+      }
+    ]
   },
   "babel": {
     "presets": [

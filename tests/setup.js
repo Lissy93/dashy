@@ -3,14 +3,16 @@
  * This file is run before all tests to configure the testing environment
  */
 
-import { config } from '@vue/test-utils';
+import Vue from 'vue';
 
 // Suppress Vue warnings in tests
-config.silent = true;
+Vue.config.silent = true;
 
-// Mock console methods to avoid noise in test output
+// Suppress noisy console methods in test output
+// Vue dev mode prints info messages (devtools, production tips) that clutter results
 global.console = {
   ...console,
+  info: vi.fn(),
   // Uncomment to suppress console.log in tests
   // log: vi.fn(),
   // Uncomment to suppress console.debug in tests

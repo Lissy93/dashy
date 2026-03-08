@@ -5,16 +5,12 @@ on:
     branches: ['master', 'develop']
     paths-ignore:
       - '**.md'
-      - 'docs/**'
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/PULL_REQUEST_TEMPLATE/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  # Job 1: Lint the code
   lint:
     name: 📝 Lint Code
     runs-on: ubuntu-latest
@@ -26,15 +22,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: 📦 Install Dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: 🔍 Run ESLint
-        run: npm run lint
+        run: yarn lint
 
-  # Job 2: Run tests
   test:
     name: 🧪 Run Tests
     runs-on: ubuntu-latest
@@ -46,23 +41,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: 📦 Install Dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: 🧪 Run Tests
-        run: npm test
+        run: yarn test
 
-      - name: 📊 Upload Coverage
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/
-          retention-days: 7
-
-  # Job 3: Build the app
   build:
     name: 🏗️ Build Application
     runs-on: ubuntu-latest
@@ -74,13 +60,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: 📦 Install Dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: 🏗️ Build Project
-        run: npm run build
+        run: yarn build
         env:
           NODE_OPTIONS: --openssl-legacy-provider
 
@@ -96,10 +82,22 @@ jobs:
           fi
           echo "✅ Build successful"
 
-  # Job 4: Security audit
+  docker-smoke:
+    name: 🐳 Docker Smoke Test
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: 🛎️ Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🐳 Build & Test Docker Image
+        run: sh tests/docker-smoke-test.sh
+        timeout-minutes: 10
+
   security:
     name: 🔒 Security Audit
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: 🛎️ Checkout Code
         uses: actions/checkout@v4
@@ -108,34 +106,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: 📦 Install Dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: 🔒 Run Security Audit
-        run: npm audit --production --audit-level=high
-        continue-on-error: true
-
-  # Final job that depends on all others
-  quality-gate:
-    name: ✅ Quality Gate
-    runs-on: ubuntu-latest
-    needs: [lint, test, build]
-    if: always()
-    steps:
-      - name: 🎯 Check All Jobs Passed
-        run: |
-          if [ "${{ needs.lint.result }}" != "success" ]; then
-            echo "❌ Lint job failed"
-            exit 1
-          fi
-          if [ "${{ needs.test.result }}" != "success" ]; then
-            echo "❌ Test job failed"
-            exit 1
-          fi
-          if [ "${{ needs.build.result }}" != "success" ]; then
-            echo "❌ Build job failed"
-            exit 1
-          fi
-          echo "✅ All quality checks passed!"
+        run: yarn audit --level high

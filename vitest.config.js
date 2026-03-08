@@ -1,7 +1,9 @@
 import { defineConfig } from 'vitest/config';
+import { createVuePlugin } from 'vite-plugin-vue2';
 import path from 'path';
 
 export default defineConfig({
+  plugins: [createVuePlugin()],
   test: {
     // Use happy-dom for faster DOM simulation
     environment: 'happy-dom',
@@ -31,10 +33,11 @@ export default defineConfig({
   },
 
   resolve: {
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     // Match the alias configuration from vue.config.js
     alias: {
       '@': path.resolve(__dirname, './src'),
-      'vue': 'vue/dist/vue.esm.js', // Use the full build for tests
+      vue: 'vue/dist/vue.esm.js', // Use the full build for tests
     },
   },
 });
