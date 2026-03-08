@@ -1,6 +1,6 @@
 {
   "name": "dashy",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "license": "MIT",
   "main": "server",
   "author": "Alicia Sykes <alicia@omg.lol> (https://aliciasykes.com)",
@@ -104,7 +104,10 @@
     },
     "overrides": [
       {
-        "files": ["tests/**", "vitest.config.js"],
+        "files": [
+          "tests/**",
+          "vitest.config.js"
+        ],
         "rules": {
           "import/no-extraneous-dependencies": "off",
           "no-undef": "off",
