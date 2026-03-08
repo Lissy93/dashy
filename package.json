@@ -21,7 +21,7 @@
     "dependency-audit": "npx improved-yarn-audit --ignore-dev-deps"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.26.0",
     "@formschema/native": "^2.0.0-beta.6",
     "@sentry/tracing": "^7.102.1",
     "@sentry/vue": "^7.102.1",
@@ -29,7 +29,7 @@
     "axios": "^1.12.0",
     "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.2.0",
-    "express": "^4.17.2",
+    "express": "^4.21.0",
     "express-basic-auth": "^1.2.1",
     "frappe-charts": "^1.6.2",
     "js-yaml": "^4.1.0",
@@ -54,24 +54,24 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-env": "^7.26.0",
     "@vitest/ui": "^1.6.0",
-    "@vue/cli-plugin-babel": "^4.5.15",
-    "@vue/cli-plugin-eslint": "^4.5.15",
-    "@vue/cli-plugin-pwa": "^4.5.15",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-plugin-pwa": "^5.0.8",
     "@vue/cli-plugin-typescript": "^5.0.8",
-    "@vue/cli-service": "^4.5.19",
+    "@vue/cli-service": "^5.0.8",
+    "@babel/eslint-parser": "^7.25.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "@vue/test-utils": "^1.3.6",
-    "babel-eslint": "^10.0.1",
     "copy-webpack-plugin": "6.4.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-vue": "^7.9.0",
-    "happy-dom": "^14.12.0",
+    "happy-dom": "^17.4.0",
     "npm-run-all": "^4.1.5",
-    "sass": "^1.38.0",
-    "sass-loader": "^7.1.0",
+    "sass": "^1.77.0",
+    "sass-loader": "^12.0.0",
     "typescript": "^5.4.4",
     "vite-plugin-vue2": "^2.0.3",
     "vitest": "^1.6.0",
@@ -99,7 +99,7 @@
       "no-else-return": 0
     },
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser"
     },
     "overrides": [
       {
@@ -115,7 +115,7 @@
   },
   "babel": {
     "presets": [
-      "@vue/app",
+      "@vue/cli-plugin-babel/preset",
       "@babel/preset-env"
     ]
   },
@@ -127,5 +127,18 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "resolutions": {
+    "ejs": "^3.1.10",
+    "loader-utils": "^2.0.4",
+    "minimatch": "^3.1.2",
+    "braces": "^3.0.3",
+    "micromatch": "^4.0.8",
+    "serialize-javascript": "^6.0.2",
+    "node-forge": "^1.3.1",
+    "nth-check": "^2.1.1",
+    "ip": "^2.0.1",
+    "postcss": "^8.4.31",
+    "tar": "^6.2.1"
+  }
 }
