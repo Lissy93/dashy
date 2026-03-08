@@ -1,7 +1,6 @@
 import {
-  describe, it, expect, beforeEach, vi,
+  describe, it, expect, beforeEach,
 } from 'vitest';
-import fs from 'fs';
 import path from 'path';
 
 describe('Config Validator', () => {
@@ -12,7 +11,6 @@ describe('Config Validator', () => {
   });
 
   it('validates a correct config file', () => {
-    const yaml = require('js-yaml');
     const Ajv = require('ajv');
     const schema = require('../../src/utils/ConfigSchema.json');
 
