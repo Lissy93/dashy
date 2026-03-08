@@ -1,0 +1,108 @@
+# When a PR is merged into master, this workflow handles versioning:
+# - If code files changed but version wasn't bumped: auto-increments patch version
+# - Creates and pushes a git tag for the new version
+# - The tag then triggers Docker publishing and release drafting
+name: 🔖 Auto Version & Tag
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [master]
+
+concurrency:
+  group: auto-version-and-tag
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  version-and-tag:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR for code changes and version bump 📂
+        id: check_pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pull_number = context.payload.pull_request.number;
+
+            const files = await github.paginate(
+              github.rest.pulls.listFiles, { owner, repo, pull_number }
+            );
+            const codePatterns = [
+              /^src\//, /^services\//, /^public\//, /^Dockerfile$/, /^[^/]+\.js$/,
+            ];
+            const codeChanged = files.some(f =>
+              codePatterns.some(p => p.test(f.filename))
+            );
+            const pkgChanged = files.some(f => f.filename === 'package.json');
+
+            if (!codeChanged && !pkgChanged) {
+              core.info('No code or package.json changes, skipping');
+              core.setOutput('needs_bump', 'false');
+              core.setOutput('needs_tag', 'false');
+              return;
+            }
+
+            let versionBumped = false;
+            if (pkgChanged) {
+              const mergeSha = context.payload.pull_request.merge_commit_sha;
+              const { data: mergeCommit } = await github.rest.git.getCommit({
+                owner, repo, commit_sha: mergeSha,
+              });
+              const parentSha = mergeCommit.parents[0].sha;
+              const getVersion = async (ref) => {
+                const { data } = await github.rest.repos.getContent({
+                  owner, repo, path: 'package.json', ref,
+                });
+                return JSON.parse(Buffer.from(data.content, 'base64').toString()).version;
+              };
+              const [prevVersion, mergeVersion] = await Promise.all([
+                getVersion(parentSha), getVersion(mergeSha),
+              ]);
+              versionBumped = prevVersion !== mergeVersion;
+              core.info(`Version: ${prevVersion} → ${mergeVersion}`);
+            }
+
+            const needsBump = codeChanged && !versionBumped;
+            const needsTag = codeChanged || versionBumped;
+            core.info(`Needs bump: ${needsBump}, Needs tag: ${needsTag}`);
+            core.setOutput('needs_bump', needsBump.toString());
+            core.setOutput('needs_tag', needsTag.toString());
+
+      - name: Checkout repository 🛎️
+        if: steps.check_pr.outputs.needs_tag == 'true'
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+
+      - name: Configure git identity 👤
+        if: steps.check_pr.outputs.needs_tag == 'true'
+        run: |
+          git config user.name "Liss-Bot"
+          git config user.email "liss-bot@d0h.co"
+
+      - name: Bump patch version ⬆️
+        if: steps.check_pr.outputs.needs_bump == 'true'
+        run: |
+          npm version patch --no-git-tag-version
+          git add package.json
+          git commit -m "⬆️ Bump version to $(node -p "require('./package.json').version")"
+          git push
+
+      - name: Create and push tag 🏷️
+        if: steps.check_pr.outputs.needs_tag == 'true'
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          git fetch --tags
+          if git rev-parse "refs/tags/$VERSION" >/dev/null 2>&1; then
+            echo "Tag $VERSION already exists, skipping"
+            exit 0
+          fi
+          git tag -a "$VERSION" -m "Release v$VERSION"
+          git push origin "$VERSION"
