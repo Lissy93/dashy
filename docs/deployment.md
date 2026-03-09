@@ -101,7 +101,6 @@ The following is a complete example of a [`docker-compose.yml`](https://github.c
 
 ```yaml
 ---
-version: "3.8"
 services:
   dashy:
     # To build from source, replace 'image: lissy93/dashy' with 'build: .'

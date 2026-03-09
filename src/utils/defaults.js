@@ -325,6 +325,8 @@ module.exports = {
     mode: 'production',
     manifestCrossorigin: 'use-credentials',
     iconPaths: {
+      faviconSVG: null,
+      appleTouchIcon: null,
       favicon64: './web-icons/favicon-64x64.png',
       favicon32: './web-icons/favicon-32x32.png',
       favicon16: './web-icons/favicon-16x16.png',
