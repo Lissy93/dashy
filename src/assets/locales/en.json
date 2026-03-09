@@ -379,7 +379,8 @@
       "post-code": "Post Code",
       "location": "Location",
       "timezone": "Timezone",
-      "organization": "Organization"
+      "organization": "Organization",
+      "forwarded-port": "Forwarded Port"
     },
     "nextcloud": {
       "active": "active",

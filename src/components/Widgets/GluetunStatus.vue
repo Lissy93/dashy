@@ -5,7 +5,7 @@
     <span class="val">{{ public_ip }}</span>
   </div>
   <div class="ip-row" v-if="forwarded_port">
-    <span class="lbl">Forwarded Port</span>
+    <span class="lbl">{{ $t('widgets.gluetun-status.forwarded-port') }}</span>
     <span class="val">{{ forwarded_port }}</span>
   </div>
   <div class="ip-row" v-if="country">
@@ -72,10 +72,10 @@ export default {
       this.makeRequest(`${this.hostname}/v1/publicip/ip`).then(this.processData);
 
       this.makeRequest(`${this.hostname}/v1/portforward`)
-      .then(this.processPortData)
-      .catch(() => {
-      this.forwarded_port = null;
-      });
+        .then(this.processPortData)
+        .catch(() => {
+          this.forwarded_port = null;
+        });
     },
     /* Assign data variables to the returned data */
     processData(ipInfo) {
