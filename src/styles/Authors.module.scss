@@ -1,0 +1,134 @@
+.authorsSection {
+  background: var(--hero-background);
+  padding: 3rem 1rem;
+}
+
+.inner {
+  width: 80%;
+  margin: 0.5rem auto;
+}
+
+.heading {
+  font-size: 2rem;
+  color: var(--text-color);
+}
+
+.enjoyingWrap {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    .enjoyingWrapPart {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        box-shadow: var(--feature-img-shadow);
+        background: var(--background);
+        width: 50%;
+        p { margin: 0 0 0.5rem 0; }
+        .authorInnerWrap {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+    }
+}
+
+.subHeading {
+  font-size: 1.2rem;
+  margin: 0.25rem 0;
+  color: var(--text-color);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.75rem;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem;
+  border-radius: 8px;
+  background: var(--background);
+  text-decoration: none;
+  color: var(--text-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--feature-img-shadow);
+    text-decoration: none;
+    color: var(--text-color);
+  }
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.name {
+  font-size: 0.9rem;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--mid-grey);
+}
+
+.star {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.fallback {
+  max-width: 100%;
+  margin: 0 auto;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.ctaSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.builtBy {
+  font-size: 0.9rem;
+  color: var(--mid-grey);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 966px) {
+.inner {
+    width: 100%;
+}
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  .ctaSection {
+    flex-direction: column;
+  }
+
+  .enjoyingWrap {
+    flex-direction: column;
+    .enjoyingWrapPart { width: 100%; }
+  }
+}

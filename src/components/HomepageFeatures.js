@@ -200,7 +200,7 @@ function Feature({ title, description, icon, demo, index, link }) {
       </div>
       <div className="feature-half assets">
         {demo
-          ? <img className="demo" src={demo} />
+          ? <img className="demo" src={demo} alt={`Demo of ${title} feature in Dashy`} loading="lazy" />
           : <span className="not-demo">Screenshot Coming Soon</span>
         }
       </div>

@@ -27,6 +27,18 @@
     margin-right: 0.5rem;
   }
 
+  &.btn-small {
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+    min-width: auto;
+    width: 100%;
+    max-width: 12rem;
+    svg {
+      width: 1.2rem;
+      margin-right: 0.35rem;
+    }
+  }
+
   &.color-btn:hover {
     color: #000000b3;
     top: 2px;

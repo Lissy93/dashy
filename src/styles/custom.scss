@@ -54,6 +54,17 @@
 
 nav.navbar {
   box-shadow: var(--feature-img-shadow);
+  a.navbar__brand .navbar__logo, a.navbar__brand b {
+    transition: all 0.3s ease;
+  }
+  a.navbar__brand:hover {
+    .navbar__logo {
+      transform: scale(1.1) rotate(-3deg);
+    }
+    b {
+      color: #00eed6;
+    }
+  }
   a.navbar__brand b {
     font-weight: bold;
     font-size: 1.5rem;
@@ -169,7 +180,7 @@ html[data-theme='light'] {
   padding: initial;
   line-height: initial;
 }
-   
+
 #carbonads {
   --carbon-font-family: -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,

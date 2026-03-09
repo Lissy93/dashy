@@ -1,0 +1,153 @@
+@use "sass:math";
+
+.notFoundPage {
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hero-background);
+  overflow: hidden;
+  position: relative;
+}
+
+.container {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  padding: 2rem;
+}
+
+.glitchCode {
+  font-size: 10rem;
+  font-family: 'Racing Sans One', monospace;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1;
+  position: relative;
+  animation: pulse 3s ease-in-out infinite;
+  text-shadow:
+    0 0 20px color-mix(in srgb, var(--primary) 40%, transparent),
+    0 0 60px color-mix(in srgb, var(--primary) 20%, transparent);
+
+  @media (max-width: 768px) {
+    font-size: 6rem;
+  }
+}
+
+.title {
+  font-size: 2rem;
+  margin: 1rem 0 0.5rem;
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--mid-grey);
+  margin-bottom: 2.5rem;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.navLinks {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+}
+
+.primaryLink {
+  background: var(--primary);
+  color: var(--hero-background);
+
+  &:hover {
+    box-shadow: 0 4px 20px color-mix(in srgb, var(--primary) 50%, transparent);
+    color: var(--hero-background);
+  }
+}
+
+.secondaryLink {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+
+  &:hover {
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    color: var(--primary);
+  }
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.3;
+  animation: float linear infinite;
+}
+
+@for $i from 1 through 20 {
+  .particle:nth-child(#{$i}) {
+    left: math.random(100) * 1%;
+    top: math.random(100) * 1%;
+    animation-duration: 8s + math.random(12) * 1s;
+    animation-delay: math.random(5) * -1s;
+    width: 2px + math.random(4) * 1px;
+    height: 2px + math.random(4) * 1px;
+    opacity: 0.1 + math.random(30) * 0.01;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-100px) translateX(30px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}

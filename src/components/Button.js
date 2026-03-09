@@ -3,9 +3,9 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import './../styles/Button.scss';
 
-export default function Button({ children, to, color }) {
+export default function Button({ children, to, color, size }) {
   return (
-    <Link to={to} className={clsx('button', color && 'color-btn', `btn-${color}`)}>
+    <Link to={to} className={clsx('button', color && 'color-btn', `btn-${color}`, size && `btn-${size}`)}>
       {children}
     </Link>
   );

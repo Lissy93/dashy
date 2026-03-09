@@ -24,10 +24,40 @@ module.exports = {
   onBrokenMarkdownLinks: 'warn',
   markdown: {
     format: 'md',
+    mermaid: true,
+  },
+  customFields: {
+    githubToken: process.env.GITHUB_TOKEN || '',
   },
   favicon: 'img/favicon.ico',
   organizationName: 'lissy93', // Usually your GitHub org/user name.
   projectName: 'dashy', // Usually your repo name.
+  headTags: [
+    {
+      tagName: 'script',
+      attributes: { type: 'application/ld+json' },
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Dashy',
+        url: 'https://dashy.to',
+        description: 'The Ultimate Homepage for your Homelab',
+        publisher: {
+          '@type': 'Person',
+          name: 'Alicia Sykes',
+          url: 'https://aliciasykes.com',
+        },
+      }),
+    },
+    {
+      tagName: 'link',
+      attributes: { rel: 'manifest', href: '/manifest.json' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { name: 'theme-color', content: '#54bff7' },
+    },
+  ],
   plugins: ['docusaurus-plugin-sass'],
   themes: [
     [
@@ -38,8 +68,21 @@ module.exports = {
         docsRouteBasePath: '/docs',
       },
     ],
+    '@docusaurus/theme-mermaid',
   ],
   themeConfig: {
+    metadata: [
+      { name: 'keywords', content: 'dashy, dashboard, homelab, self-hosted, docker, homepage' },
+      { property: 'og:title', content: 'Dashy — The Ultimate Homepage for your Homelab' },
+      { property: 'og:description', content: 'Dashy is a self-hosted dashboard app for your homelab. Manage all your services, with status checks, widgets, themes and more.' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: 'https://dashy.to' },
+      { property: 'og:image', content: 'https://dashy.to/img/dashy.png' },
+      { name: 'twitter:card', content: 'summary' },
+      { name: 'twitter:title', content: 'Dashy — The Ultimate Homepage for your Homelab' },
+      { name: 'twitter:description', content: 'Dashy is a self-hosted dashboard app for your homelab. Manage all your services, with status checks, widgets, themes and more.' },
+      { name: 'twitter:image', content: 'https://dashy.to/img/dashy.png' },
+    ],
     // Dark & Light Mode
     colorMode: {
       defaultMode: 'dark',
@@ -119,8 +162,8 @@ module.exports = {
             { label: 'Privacy & Security', to: '/docs/privacy' },
             { label: 'License', to: '/docs/license' },
             { label: 'Legal', href: 'https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md' },
-            { label: 'Code of Conduct', to: '/docs/code-of-conduct' },
-            { label: 'Changelog', to: '/docs/changelog' },
+            { label: 'Code of Conduct', href: 'https://github.com/Lissy93/dashy/blob/master/.github/CODE_OF_CONDUCT.md' },
+            { label: 'Changelog', href: 'https://github.com/Lissy93/dashy/blob/master/.github/CHANGELOG.md' },
           ],
         },
       ],
@@ -134,6 +177,12 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: externalUrl.editUrl,
+          showLastUpdateTime: true,
+        },
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+          filename: 'sitemap.xml',
         },
         theme: {
           customCss: [
