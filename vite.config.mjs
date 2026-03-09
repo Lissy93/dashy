@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import svgLoader from 'vite-svg-loader';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { readFileSync } from 'fs';
+import { readFileSync, copyFileSync, existsSync, readdirSync } from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(readFileSync(path.resolve(__dirname, 'package.json'), 'utf-8'));
@@ -31,11 +31,28 @@ function serveUserData() {
   };
 }
 
+function copyUserDataConfig() {
+  return {
+    name: 'copy-user-data-config',
+    closeBundle() {
+      const outDir = path.resolve(__dirname, 'dist');
+      if (!existsSync(userDataDir)) return;
+      const ymlFiles = readdirSync(userDataDir).filter(f => f.endsWith('.yml') || f.endsWith('.yaml'));
+      for (const file of ymlFiles) {
+        const src = path.join(userDataDir, file);
+        const dest = path.join(outDir, file);
+        copyFileSync(src, dest);
+      }
+    },
+  };
+}
+
 export default defineConfig({
   plugins: [
     vue(),
     svgLoader(),
     serveUserData(),
+    copyUserDataConfig(),
     VitePWA({
       registerType: 'prompt',
       manifest: {

@@ -12,7 +12,7 @@
 # Environmental variables for build command
 [build.environment]
   NODE_VERSION = "20.11.1"
-  NODE_OPTIONS = "--openssl-legacy-provider"
+
   YARN_FLAGS = "--ignore-engines"
 
 # Redirect the Node endpoints to serverless functions
