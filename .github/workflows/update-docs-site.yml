@@ -54,6 +54,8 @@ jobs:
 
       - name: Run script to update documentation 🪄
         working-directory: website-docs
+        env:
+          NODE_OPTIONS: '--openssl-legacy-provider'
         run: |
           cp -r ../master-docs/docs ./
           python ./do-doc-updaty-magic.py
