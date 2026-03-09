@@ -1,5 +1,6 @@
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-const lightCodeTheme = require('prism-react-renderer/themes/github');
+const { themes } = require('prism-react-renderer');
+const darkCodeTheme = themes.dracula;
+const lightCodeTheme = themes.github;
 
 /* External URLs */
 const externalUrl = {
@@ -21,26 +22,27 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    format: 'md',
+  },
   favicon: 'img/favicon.ico',
   organizationName: 'lissy93', // Usually your GitHub org/user name.
   projectName: 'dashy', // Usually your repo name.
   plugins: ['docusaurus-plugin-sass'],
+  themes: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        indexBlog: false,
+        docsRouteBasePath: '/docs',
+      },
+    ],
+  ],
   themeConfig: {
     // Dark & Light Mode
     colorMode: {
       defaultMode: 'dark',
-      switchConfig: {
-        darkIcon: '🌙',
-        lightIcon: '☀️',
-      },
-    },
-    // Algolia Web Search
-    algolia: {
-      apiKey: '97d967bd42096f2c69f015214ff36176',
-      indexName: 'main',
-      // contextualSearch: true,
-      // appId: '9NYB4LE3DS',
-      // searchParameters: {},
     },
     // Prism Code Highlighting
     prism: {
@@ -55,8 +57,8 @@ module.exports = {
         src: 'img/dashy.png',
       },
       items: [
-        { label: 'GitHub', to: 'https://github.com/lissy93/dashy' },
-        { label: 'Live Demo', to: 'https://demo.dashy.to' },
+        { label: 'GitHub', href: 'https://github.com/lissy93/dashy' },
+        { label: 'Live Demo', href: 'https://demo.dashy.to' },
         { label: 'Quick Start', to: '/docs/quick-start' },
         { label: 'Documentation', to: '/docs' },
       ],
@@ -68,8 +70,8 @@ module.exports = {
         {
           title: 'Intro',
           items: [
-            { label: 'GitHub', to: 'https://github.com/lissy93/dashy' },
-            { label: 'Live Demo', to: 'https://demo.dashy.to' },
+            { label: 'GitHub', href: 'https://github.com/lissy93/dashy' },
+            { label: 'Live Demo', href: 'https://demo.dashy.to' },
             { label: 'Quick Start', to: '/docs/quick-start' },
             { label: 'Documentation', to: '/docs' },
           ],
@@ -116,7 +118,7 @@ module.exports = {
           items: [
             { label: 'Privacy & Security', to: '/docs/privacy' },
             { label: 'License', to: '/docs/license' },
-            { label: 'Legal', to: 'https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md' },
+            { label: 'Legal', href: 'https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md' },
             { label: 'Code of Conduct', to: '/docs/code-of-conduct' },
             { label: 'Changelog', to: '/docs/changelog' },
           ],
