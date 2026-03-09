@@ -106,6 +106,7 @@ module.exports = {
         { label: 'Live Demo', href: 'https://demo.dashy.to' },
         { label: 'Quick Start', to: '/docs/quick-start' },
         { label: 'Documentation', to: '/docs' },
+        // { label: 'Updates', to: '/updates' },
       ],
     },
     // Page Footer Links
@@ -119,6 +120,7 @@ module.exports = {
             { label: 'Live Demo', href: 'https://demo.dashy.to' },
             { label: 'Quick Start', to: '/docs/quick-start' },
             { label: 'Documentation', to: '/docs' },
+            // { label: 'Updates', to: '/updates' },
           ],
         },
         {

@@ -110,6 +110,7 @@ const FeatureList = [
     ),
     link: '/docs/alternate-views',
     icon: (<IconLaunching />),
+    demo: 'https://cdn.as93.net/project-screens/launch/w1024',
   },
   {
     title: 'Search & Shortcuts',

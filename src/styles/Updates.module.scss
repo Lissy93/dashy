@@ -1,0 +1,362 @@
+.updatesPage {
+  background: var(--hero-background);
+  min-height: 80vh;
+  padding: 2rem 1rem 4rem;
+}
+
+.pageHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+
+  h1 {
+    font-family: "Racing Sans One", cursive;
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    font-family: "Raleway", sans-serif;
+    color: var(--mid-grey);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+}
+
+.timeline {
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-left: 2.5rem;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--mid-grey);
+    opacity: 0.4;
+  }
+}
+
+.monthHeader {
+  font-family: "Roboto Mono", monospace;
+  font-size: 1rem;
+  color: var(--mid-grey);
+  position: sticky;
+  top: 60px;
+  z-index: 1;
+  padding: 0.75rem 0 0.5rem;
+  margin: 0;
+  background: var(--hero-background);
+}
+
+.entry {
+  position: relative;
+  margin-bottom: 1rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    z-index: 1;
+  }
+}
+
+.releaseEntry {
+  &::before {
+    width: 14px;
+    height: 14px;
+    background: #db78fc;
+    left: -2.5rem;
+    top: 1rem;
+    margin-left: -6px;
+  }
+}
+
+.tagEntry {
+  &::before {
+    width: 10px;
+    height: 10px;
+    background: #5c85f7;
+    left: -2.5rem;
+    top: 1rem;
+    margin-left: -4px;
+  }
+}
+
+.commitEntry {
+  &::before {
+    width: 6px;
+    height: 6px;
+    background: var(--mid-grey);
+    left: -2.5rem;
+    top: 0.9rem;
+    margin-left: -2px;
+  }
+}
+
+.releaseCard {
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  background: var(--background);
+  box-shadow: var(--feature-img-shadow);
+  border-left: 4px solid #db78fc;
+
+  .entryTitle {
+    font-family: "Roboto Mono", monospace;
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin: 0 0 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+}
+
+.tagCard {
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  background: var(--background);
+  box-shadow: var(--feature-img-shadow);
+  border-left: 4px solid #5c85f7;
+
+  .entryTitle {
+    font-family: "Roboto Mono", monospace;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin: 0 0 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.commitRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  text-decoration: none;
+  color: var(--text-color);
+  transition: background 0.15s;
+
+  &:hover {
+    background: var(--background);
+    text-decoration: none;
+    color: var(--text-color);
+  }
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-family: "Roboto Mono", monospace;
+  border-radius: 4px;
+  padding: 0.1rem 0.5rem;
+  color: #fff;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.badgeRelease {
+  background: #db78fc;
+}
+
+.badgeTag {
+  background: #5c85f7;
+}
+
+.tagPill {
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.8rem;
+  border: 1px solid var(--mid-grey);
+  border-radius: 4px;
+  padding: 0.05rem 0.4rem;
+  color: var(--mid-grey);
+}
+
+.bodyPreview {
+  color: var(--mid-grey);
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--mid-grey);
+  font-size: 0.85rem;
+  flex-wrap: wrap;
+
+  a {
+    color: var(--mid-grey);
+    text-decoration: underline;
+
+    &:hover {
+      color: var(--text-color);
+    }
+  }
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.sha {
+  font-family: "Roboto Mono", monospace;
+  color: var(--mid-grey);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.commitMsg {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 500px;
+  font-size: 0.95rem;
+}
+
+.avatarSmall {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 0.2rem;
+}
+
+.commitMeta {
+  margin-left: auto;
+  color: var(--mid-grey);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.skeleton {
+  border-radius: 8px;
+  background: var(--background);
+  height: 80px;
+  margin-bottom: 1rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.loadMore {
+  display: flex;
+  justify-content: center;
+  margin: 2rem auto;
+}
+
+.fetchErrorCard {
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  background: var(--background);
+  box-shadow: var(--feature-img-shadow);
+  width: 80%;
+  max-width: 1000px;
+  margin: 1.5rem auto;
+  text-align: center;
+  color: var(--mid-grey);
+  font-size: 0.95rem;
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: #5c85f7;
+    text-decoration: underline;
+
+    &:hover {
+      color: var(--text-color);
+    }
+  }
+}
+
+.errorMessage {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--mid-grey);
+  font-size: 1.1rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  background: var(--background);
+  box-shadow: var(--feature-img-shadow);
+  width: fit-content;
+  margin: 0 auto;
+  p {
+    margin: 0.25rem 0;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 966px) {
+  .timeline {
+    width: 100%;
+    padding-left: 2rem;
+  }
+
+  .releaseEntry::before {
+    left: -2rem;
+  }
+
+  .tagEntry::before {
+    left: -2rem;
+  }
+
+  .commitEntry::before {
+    left: -2rem;
+  }
+
+  .commitRow {
+    flex-wrap: wrap;
+  }
+
+  .commitMsg {
+    max-width: 100%;
+  }
+
+  .commitMeta {
+    margin-left: 0;
+  }
+
+  .bodyPreview {
+    -webkit-line-clamp: 2;
+  }
+}

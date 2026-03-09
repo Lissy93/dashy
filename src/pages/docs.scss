@@ -9,6 +9,7 @@ main.docs {
   h1.docs-title {
     margin: 0;
     font-size: 5rem;
+    text-align: center;
   }
 
   p.see-repo-note {
@@ -16,7 +17,8 @@ main.docs {
     width: fit-content;
     padding: 0.25rem 1rem;
     border-radius: 3px;
-    
+    display: none;
+
     a, b, span {
       color: #000;
       font-size: 1rem;

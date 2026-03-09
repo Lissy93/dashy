@@ -218,7 +218,7 @@ const DocsSections = [
       {
         title: 'Changelog',
         description: 'View the latest changes and updates',
-        link: '/docs/changelog',
+        link: '/updates',
         icon: (<IconChangelog />),
       },
     ]
@@ -247,7 +247,7 @@ export default function Docs() {
       <main className="docs">
         <h1 className="docs-title">Dashy Docs</h1>
         <p className="see-repo-note">
-          <span>Note, for the most up-to-date documentation, please see the </span> 
+          <span>Note, for the most up-to-date documentation, please see the </span>
           <a href="https://github.com/Lissy93/dashy/tree/master/docs">GitHub repository</a>
         </p>
         <div className="docs-contents">
