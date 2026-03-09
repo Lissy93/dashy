@@ -13,10 +13,9 @@
 <p align="center">
 <sup>Dashy is kindly sponsored by <a href="https://ssdnodes.com/dashy">SSD Nodes</a> - Affordable VPS hosting for self-hosters</sup><br>
   <a href="https://ssdnodes.com/dashy" target="_blank">
-    <img src="https://cdn.as93.net/sponsors/ssd-nodes.svg" width="340" alt="SSD Nodes" />
+    <img src="https://pixelflare.cc/alicia/sponsors/ssd-nodes-sponsorship.png" width="400" alt="SSD Nodes" />
   </a>
 </p>
-<br>
 
 <p align="center">
 <br>
@@ -27,16 +26,11 @@
 </p>
 
 <p align="center">
-<sup>Dashy is kindly sponsored by <a href="https://www.testmu.ai/?utm_source=dashy&utm_medium=sponsor">TestMu AI</a> - The world’s first full-stack Agentic AI Quality Engineering platform</sup><br>
-  <a href="https://www.testmu.ai/?utm_source=dashy&utm_medium=sponsor" target="_blank">
+<sup>Dashy is kindly sponsored by <a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=dashy">TestMu AI</a> - The world’s first full-stack Agentic AI Quality Engineering platform</sup><br>
+  <a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=dashy" target="_blank">
     <img src="https://cdn.as93.net/sponsors/test-mu-ai.png" width="400" alt="LambdaTest" />
   </a>
 </p>
-
-
-> [!NOTE]
-> Version [3.0.0](https://github.com/Lissy93/dashy/releases/tag/3.0.0) has been released, and requires some changes to your setup, see [#1529](https://github.com/Lissy93/dashy/discussions/1529) for details.
-
 
 <details>
   <summary><b>Table of Contents</b></summary>
