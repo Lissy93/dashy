@@ -5,7 +5,7 @@
 name: 🔖 Auto Version & Tag
 
 on:
-  pull_request:
+  pull_request_target:
     types: [closed]
     branches: [master]
 
@@ -79,7 +79,7 @@ jobs:
         if: steps.check_pr.outputs.needs_tag == 'true'
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Configure git identity 👤
         if: steps.check_pr.outputs.needs_tag == 'true'

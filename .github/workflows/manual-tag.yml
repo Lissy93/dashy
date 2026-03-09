@@ -1,6 +1,6 @@
 # Manual fallback for creating a tag with optional version bump.
 # The automated flow is handled by bump-and-tag.yml on PR merge.
-name: 🏗️ Tag on Version Change
+name: 🏷️ Tag on Version Change
 
 on:
   workflow_dispatch:
