@@ -56,7 +56,7 @@ jobs:
         env:
           TAG: ${{ steps.version.outputs.TARGET }}
         run: |
-          git fetch --tags
+          git fetch --tags --force
           if git rev-parse "refs/tags/$TAG" >/dev/null 2>&1; then
             echo "Tag $TAG already exists, skipping"
           else
