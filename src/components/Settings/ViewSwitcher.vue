@@ -10,6 +10,7 @@
       <router-link :to="`/minimal/${subPagePath}`">
         <IconMinimalView /><span>{{ $t('alternate-views.minimal') }}</span>
       </router-link>
+    </li>
     <li>
       <router-link :to="`/workspace/${subPagePath}`">
         <IconWorkspaceView /><span>{{ $t('alternate-views.workspace') }}</span>

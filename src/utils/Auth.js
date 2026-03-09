@@ -56,7 +56,8 @@ const generateUserToken = (user) => {
     ErrorHandler('Invalid user object. Must have `user` and either a `hash` or `password` param');
     return undefined;
   }
-  const passHash = user.hash || sha256(process.env[user.password]).toString().toUpperCase();
+  const envKey = (user.password || '').replace(/^VUE_APP_/, 'VITE_APP_');
+  const passHash = user.hash || sha256(import.meta.env[envKey]).toString().toUpperCase();
   const strAndUpper = (input) => input.toString().toUpperCase();
   const sha = sha256(strAndUpper(user.user) + strAndUpper(passHash));
   return strAndUpper(sha);
@@ -73,10 +74,10 @@ export const makeBasicAuthHeaders = () => {
   const token = getCookieToken();
   const bearerAuth = (token && token.length > 5) ? `Bearer ${token}` : null;
 
-  const username = process.env.VUE_APP_BASIC_AUTH_USERNAME
+  const username = import.meta.env.VITE_APP_BASIC_AUTH_USERNAME
     || localStorage[localStorageKeys.USERNAME]
     || 'user';
-  const password = process.env.VUE_APP_BASIC_AUTH_PASSWORD || bearerAuth;
+  const password = import.meta.env.VITE_APP_BASIC_AUTH_PASSWORD || bearerAuth;
   const basicAuth = `Basic ${btoa(`${username}:${password}`)}`;
 
   const headers = password
@@ -146,12 +147,13 @@ export const checkCredentials = (username, pass, users, messages) => {
     users.forEach((user) => {
       if (user.user.toLowerCase() === username.toLowerCase()) { // User found
         if (user.password) {
-          if (!user.password.startsWith('VUE_APP_')) {
-            ErrorHandler('Invalid password format. Please use VUE_APP_ prefix');
+          const credEnvKey = user.password.replace(/^VUE_APP_/, 'VITE_APP_');
+          if (!user.password.startsWith('VUE_APP_') && !user.password.startsWith('VITE_APP_')) {
+            ErrorHandler('Invalid password format. Please use VITE_APP_ prefix');
             response = { correct: false, msg: messages.incorrectPassword };
-          } else if (!process.env[user.password]) {
-            ErrorHandler(`Missing environmental variable for ${user.password}`);
-          } else if (process.env[user.password] === pass) {
+          } else if (!import.meta.env[credEnvKey]) {
+            ErrorHandler(`Missing environmental variable for ${credEnvKey}`);
+          } else if (import.meta.env[credEnvKey] === pass) {
             response = { correct: true, msg: messages.successMsg };
           } else {
             response = { correct: false, msg: messages.incorrectPassword };

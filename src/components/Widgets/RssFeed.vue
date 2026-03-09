@@ -30,7 +30,7 @@
         <div class="post-title-wrap">
           <p class="post-title">{{ post.title }}</p>
           <p class="post-date">
-            {{ post.date | formatDate }} {{ post.author | formatAuthor }}
+            {{ formatDate(post.date) }} {{ formatAuthor(post.author) }}
           </p>
         </div>
       </component>
@@ -106,7 +106,7 @@ export default {
       }
     },
   },
-  filters: {
+  methods: {
     formatDate(timestamp) {
       if (!timestamp) return '';
       const date = new Date(timestamp);
@@ -119,8 +119,6 @@ export default {
     formatAuthor(author) {
       return author ? `by ${author}` : '';
     },
-  },
-  methods: {
     /* Make GET request to whatever endpoint we are using */
     fetchData() {
       this.makeRequest(this.endpoint).then(this.processData);

@@ -95,7 +95,7 @@ export default {
       const encode = (str) => encodeURIComponent(str);
       this.statusResponse = undefined;
       // Find base URL, where the API is hosted
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       // Find correct URL to check, and encode
       const urlToCheck = `?&url=${encode(statusCheckUrl || url)}`;
       // Get, stringify and encode any headers

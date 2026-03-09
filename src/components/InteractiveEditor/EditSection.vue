@@ -8,12 +8,38 @@
     <h3>
       {{ $t(`interactive-editor.edit-section.${isAddNew ? 'add' : 'edit'}-section-title`) }}
     </h3>
-    <FormSchema
-      :schema="customSchema"
-      v-model="sectionData"
-      name="editSectionForm"
-      class="edit-section-form"
-    />
+    <form @submit.prevent="saveSection" class="edit-section-form">
+      <Input v-model="sectionData.name" label="Section Name" layout="horizontal" />
+      <Input v-model="sectionData.icon" label="Section Icon" layout="horizontal" />
+      <Select
+        :options="sortByOptions"
+        :initialOption="displayData.sortBy"
+        label="Sort By"
+        @update:modelValue="(val) => setDisplayData('sortBy', val)"
+      />
+      <Input
+        :modelValue="displayData.rows"
+        @update:modelValue="(val) => setDisplayData('rows', Number(val))"
+        label="Rows" type="number" layout="horizontal"
+      />
+      <Input
+        :modelValue="displayData.cols"
+        @update:modelValue="(val) => setDisplayData('cols', Number(val))"
+        label="Cols" type="number" layout="horizontal"
+      />
+      <Radio
+        :options="boolOptions"
+        :initialOption="String(!!displayData.collapsed)"
+        label="Collapsed"
+        @update:modelValue="(val) => setDisplayData('collapsed', val === 'true')"
+      />
+      <Radio
+        :options="boolOptions"
+        :initialOption="String(!!displayData.hideForGuests)"
+        label="Hide for Guests"
+        @update:modelValue="(val) => setDisplayData('hideForGuests', val === 'true')"
+      />
+    </form>
     <SaveCancelButtons
       :saveClick="saveSection"
       :cancelClick="modalClosed"
@@ -24,10 +50,11 @@
 </template>
 
 <script>
-import FormSchema from '@formschema/native';
 import StoreKeys from '@/utils/StoreMutations';
-import DashySchema from '@/utils/ConfigSchema';
 import { modalNames } from '@/utils/defaults';
+import Input from '@/components/FormElements/Input';
+import Select from '@/components/FormElements/Select';
+import Radio from '@/components/FormElements/Radio';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 import AccessError from '@/components/Configuration/AccessError';
 
@@ -38,62 +65,50 @@ export default {
     isAddNew: Boolean,
   },
   components: {
+    Input,
+    Select,
+    Radio,
     SaveCancelButtons,
-    FormSchema,
     AccessError,
   },
   data() {
     return {
       modalName: modalNames.EDIT_SECTION,
-      schema: DashySchema.properties.sections.items.properties,
       sectionData: {},
+      sortByOptions: [
+        'default', 'most-used', 'last-used',
+        'alphabetical', 'reverse-alphabetical', 'random',
+      ],
+      boolOptions: [
+        { label: 'Yes', value: 'true' },
+        { label: 'No', value: 'false' },
+      ],
     };
   },
   computed: {
-    /* Make a custom schema object, using fields from ConfigSchema */
-    customSchema() {
-      const sectionSchema = this.schema;
-      const displayDataSchema = this.schema.displayData.properties;
-      return {
-        type: 'object',
-        properties: {
-          name: sectionSchema.name,
-          icon: sectionSchema.icon,
-          displayData: {
-            title: '',
-            description: '',
-            type: 'object',
-            properties: {
-              sortBy: displayDataSchema.sortBy,
-              rows: displayDataSchema.rows,
-              cols: displayDataSchema.cols,
-              collapsed: displayDataSchema.collapsed,
-              hideForGuests: displayDataSchema.hideForGuests,
-            },
-          },
-        },
-      };
+    displayData() {
+      return this.sectionData.displayData || {};
     },
     allowViewConfig() {
       return this.$store.getters.permissions.allowViewConfig;
     },
   },
   mounted() {
-    this.sectionData = this.$store.getters.getSectionByIndex(this.sectionIndex);
+    const section = this.$store.getters.getSectionByIndex(this.sectionIndex);
+    this.sectionData = section ? { ...section, displayData: { ...(section.displayData || {}) } } : {};
     this.$modal.show(modalNames.EDIT_SECTION);
   },
   methods: {
-    /* From the current index, return section data */
-    getSectionFromState(index) {
-      if (this.isAddNew) return {};
-      return this.$store.getters.getSectionByIndex(index);
+    setDisplayData(key, value) {
+      if (!this.sectionData.displayData) {
+        this.sectionData.displayData = {};
+      }
+      this.sectionData.displayData[key] = value;
     },
-    /* Clean up work, triggered when modal closed */
     modalClosed() {
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
       this.$emit('closeEditSection');
     },
-    /* Either update existing section, or insert new one, then close modal */
     saveSection() {
       const { sectionIndex, sectionData } = this;
       if (this.isAddNew) {
@@ -111,7 +126,6 @@ export default {
 <style lang="scss">
 @import '@/styles/style-helpers.scss';
 @import '@/styles/media-queries.scss';
-@import '@/styles/schema-editor.scss';
 
 .edit-section-inner {
   padding: 1rem;
@@ -125,11 +139,19 @@ export default {
     margin: 0.5rem;
   }
   .edit-section-form {
-    @extend .schema-form;
     margin-bottom: 2.5rem;
-  }
-  .edit-section-save-btn {
-    margin-bottom: 2rem;
+    .input-container {
+      margin: 0.5rem 0;
+      input.input-field {
+        color: var(--interactive-editor-color);
+        border-color: var(--interactive-editor-color);
+        background: var(--interactive-editor-background);
+      }
+    }
+    .select-container, .radio-container {
+      margin: 0.5rem 0;
+      color: var(--interactive-editor-color);
+    }
   }
 }
 </style>

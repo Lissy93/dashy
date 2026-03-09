@@ -11,14 +11,14 @@
       class="exchange-rate-row"
     >
       <p class="country" @click="updateInputCurrency(exchange.currency)">
-        <img :src="exchange.currency | flagUrl" alt="Flag" class="flag" />
+        <img :src="flagUrl(exchange.currency)" alt="Flag" class="flag" />
         {{ exchange.currency }}
       </p>
       <p class="value">
         <span class="input-currency">
-          {{ 1 | applySymbol(newInputCurrency || inputCurrency) }} =
+          {{ applySymbol(1, newInputCurrency || inputCurrency) }} =
         </span>
-        {{ exchange.value | applySymbol(exchange.currency) }}
+        {{ applySymbol(exchange.value, exchange.currency) }}
       </p>
     </div>
     <p class="last-updated">Updated on {{ lastUpdated }}</p>
@@ -60,7 +60,7 @@ export default {
       return `${widgetApiEndpoints.exchangeRates}${this.apiKey}/latest/${currency}`;
     },
   },
-  filters: {
+  methods: {
     /* Appends currency symbol onto price */
     applySymbol(price, inputCurrency) {
       return `${findCurrencySymbol(inputCurrency)}${price}`;
@@ -68,8 +68,6 @@ export default {
     flagUrl(currency) {
       return getCurrencyFlag(currency);
     },
-  },
-  methods: {
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       axios.get(this.endpoint)

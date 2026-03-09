@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
+import { createApp, h } from 'vue';
 import WebContent from '@/components/Workspace/WebContent';
 
 export default {
@@ -13,10 +13,14 @@ export default {
   },
   data: () => ({
     openApps: [], // List of all currently open apps
+    appInstances: [], // Track mounted app instances for cleanup
   }),
   watch: {
     /* Update the currently open app, when URL changes */
     url() { this.launchApp(); },
+  },
+  beforeUnmount() {
+    this.appInstances.forEach(instance => instance.unmount());
   },
   methods: {
     /* Check if app already open or not, and call appropriate opener */
@@ -30,12 +34,14 @@ export default {
     },
     /* Opens a new app */
     appendNewApp() {
-      const ComponentClass = Vue.extend(WebContent);
-      const instance = new ComponentClass({
-        propsData: { url: this.url, id: btoa(this.url) },
+      const wrapper = document.createElement('div');
+      this.$refs.container.appendChild(wrapper);
+      const appUrl = this.url;
+      const instance = createApp({
+        render() { return h(WebContent, { url: appUrl, id: btoa(appUrl) }); },
       });
-      instance.$mount(); // pass nothing
-      this.$refs.container.appendChild(instance.$el);
+      instance.mount(wrapper);
+      this.appInstances.push(instance);
     },
     /* Switches visibility to an already open app */
     openExistingApp() {

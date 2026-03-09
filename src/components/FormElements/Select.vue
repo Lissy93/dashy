@@ -2,8 +2,8 @@
   <div class="select-container">
     <label v-if="label" class="select-label">{{ label }}</label>
     <v-select
-      @input="updateValue"
-      :value="selectedOption"
+      @option:selected="updateValue"
+      v-model="selectedOption"
       :selectOnTab="true"
       :options="options"
       class="form-dropdown"
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     updateValue(value) {
-      this.$emit('input', value);
+      this.$emit('update:modelValue', value);
       this.selectedOption = value;
     },
   },

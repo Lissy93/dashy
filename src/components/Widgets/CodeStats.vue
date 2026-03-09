@@ -7,8 +7,8 @@
       <p class="user-level">{{ basicInfo.level }}</p>
     </div>
     <div class="total-xp-wrap">
-      <p class="total-xp">{{ basicInfo.totalXp | formatTotalXp }}</p>
-      <p class="new-xp">{{ basicInfo.newXp | formatNewXp }}</p>
+      <p class="total-xp">{{ formatTotalXp(basicInfo.totalXp) }}</p>
+      <p class="new-xp">{{ formatNewXp(basicInfo.newXp) }}</p>
     </div>
   </div>
   <!-- XP History Heatmap -->
@@ -68,15 +68,13 @@ export default {
       return new Date((now.setMonth(now.getMonth() - this.monthsToShow)));
     },
   },
-  filters: {
+  methods: {
     formatTotalXp(bigNum) {
       return showNumAsThousand(bigNum);
     },
     formatNewXp(newXp) {
       return `+${putCommasInBigNum(newXp)} XP`;
     },
-  },
-  methods: {
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       axios.get(this.endpoint)

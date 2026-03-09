@@ -71,7 +71,7 @@ export default {
       return (parseInt(this.options.capabilitiesTtl, 10) || 3600) * 1000;
     },
     proxyReqEndpoint() {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
   },

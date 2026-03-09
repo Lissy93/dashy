@@ -1,4 +1,4 @@
-module.exports = {
+const defaults = {
   /* Default pageInfo object, used if user does not specify their own */
   pageInfo: {
     title: 'Dashy',
@@ -183,14 +183,17 @@ module.exports = {
   },
   /* Default tooltip options */
   tooltipOptions: {
-    defaultTrigger: 'hover focus',
-    defaultHideOnTargetClick: true,
-    autoHide: true,
-    defaultHtml: false,
-    defaultPlacement: 'auto',
-    defaultLoadingContent: 'Loading...',
-    defaultDelay: { show: 380, hide: 0 },
-    // delay: { show: 380, hide: 0 },
+    themes: {
+      tooltip: {
+        triggers: ['hover', 'focus'],
+        hideOnTargetClick: true,
+        autoHide: true,
+        html: false,
+        placement: 'auto',
+        loadingContent: 'Loading...',
+        delay: { show: 380, hide: 0 },
+      },
+    },
   },
   /* Server location of the Backup & Sync cloud function */
   backupEndpoint: 'https://sync-service.dashy.to',
@@ -356,3 +359,46 @@ module.exports = {
     },
   },
 };
+
+export const {
+  pageInfo,
+  appConfig,
+  language,
+  startingView,
+  iconSize,
+  layout,
+  theme,
+  fontAwesomeKey,
+  faviconApi,
+  sortOrder,
+  openingMethod,
+  routePaths,
+  serviceEndpoints,
+  builtInThemes,
+  swatches,
+  mainCssVars,
+  visibleComponents,
+  hideFurnitureOn,
+  localStorageKeys,
+  cookieKeys,
+  sessionStorageKeys,
+  modalNames,
+  topLevelConfKeys,
+  splashScreenTime,
+  metaTagData,
+  toastedOptions,
+  tooltipOptions,
+  backupEndpoint,
+  faviconApiEndpoints,
+  iconCdns,
+  widgetApiEndpoints,
+  searchEngineUrls,
+  defaultSearchEngine,
+  defaultSearchOpeningMethod,
+  searchBangs,
+  sentryDsn,
+  userStateEnum,
+  pwa,
+} = defaults;
+
+export default defaults;

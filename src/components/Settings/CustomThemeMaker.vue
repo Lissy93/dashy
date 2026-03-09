@@ -7,24 +7,16 @@
         <label :for="`color-input-${colorName}`" class="color-name">
           {{colorName.replaceAll('-', ' ')}}
         </label>
-        <v-swatches
+        <input
           v-if="isColor(colorName, customColors[colorName])"
-          v-model="customColors[colorName]"
-          show-fallback
-          fallback-input-type="color"
-          popover-x="left"
-          :swatches="swatches"
-          @input="setVariable(colorName, customColors[colorName])"
-        >
-          <input
-            :id="`color-input-${colorName}`"
-            slot="trigger"
-            :value="customColors[colorName]"
-            class="swatch-input form__input__element"
-            readonly
-            :style="makeSwatchStyles(colorName)"
-          />
-        </v-swatches>
+          :id="`color-input-${colorName}`"
+          type="color"
+          :value="customColors[colorName]"
+          class="swatch-input form__input__element"
+          :style="makeSwatchStyles(colorName)"
+          @input="customColors[colorName] = $event.target.value;
+            setVariable(colorName, $event.target.value)"
+        />
         <input v-else
           :id="`color-input-${colorName}`"
           v-model="customColors[colorName]"
@@ -59,10 +51,8 @@
 </template>
 
 <script>
-import VSwatches from 'vue-swatches';
-import 'vue-swatches/dist/vue-swatches.css';
 import StoreKeys from '@/utils/StoreMutations';
-import { localStorageKeys, mainCssVars, swatches } from '@/utils/defaults';
+import { localStorageKeys, mainCssVars } from '@/utils/defaults';
 import Button from '@/components/FormElements/Button';
 import SaveIcon from '@/assets/interface-icons/save-config.svg';
 import CancelIcon from '@/assets/interface-icons/config-cancel.svg';
@@ -70,7 +60,6 @@ import CancelIcon from '@/assets/interface-icons/config-cancel.svg';
 export default {
   name: 'ThemeMaker',
   components: {
-    VSwatches,
     Button,
     SaveIcon,
     CancelIcon,
@@ -79,7 +68,6 @@ export default {
     return {
       customColors: this.makeInitialData(mainCssVars),
       showingAllVars: false,
-      swatches,
     };
   },
   props: {

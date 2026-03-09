@@ -2,14 +2,14 @@
 <div class="mvg-wrapper" v-if="departures">
   <template
     v-for="departure in departures"
+    :key="departure.key"
   >
-    <div class="departure" v-bind:key="departure.key" v-tooltip="mvgTooltipDeparture(departure)">
+    <div class="departure" v-tooltip="mvgTooltipDeparture(departure)">
       <span :class="{live: departure.live}">
-        {{ departure.realtimeDepartureTime | formatDepartureTime }}
+        {{ formatDepartureTime(departure.realtimeDepartureTime) }}
       </span>
     </div>
     <div class='line'
-      v-bind:key="departure.key + 'line'"
       >
       <div
         class="transport"
@@ -66,13 +66,6 @@ export default {
       this.location = this.options.location;
     }
   },
-  filters: {
-    formatDepartureTime(timestamp) {
-      const msDifference = new Date(timestamp).getTime() - new Date().getTime();
-      const diff = Math.max(0, Math.round(msDifference / 60000));
-      return diff;
-    },
-  },
   computed: {
     isLocationId() {
       if (!this.options.location) {
@@ -97,6 +90,11 @@ export default {
     },
   },
   methods: {
+    formatDepartureTime(timestamp) {
+      const msDifference = new Date(timestamp).getTime() - new Date().getTime();
+      const diff = Math.max(0, Math.round(msDifference / 60000));
+      return diff;
+    },
     update() {
       this.startLoading();
       this.fetchData();

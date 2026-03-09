@@ -12,12 +12,12 @@
       ]" />
     <p class="info">
       <strong>{{ $t('widgets.synology-download.downloaded') }}</strong>:
-       {{ task.Downloaded | formatSize }}
-      / {{ task.TotalSize | formatSize }} ({{ task.Progress }}%)
-      ({{ task.DownSpeed | formatSize }}/s)<br/>
+       {{ formatSize(task.Downloaded) }}
+      / {{ formatSize(task.TotalSize) }} ({{ task.Progress }}%)
+      ({{ formatSize(task.DownSpeed) }}/s)<br/>
       <strong>{{ $t('widgets.synology-download.uploaded') }}</strong>:
-       {{ task.Uploaded | formatSize }}
-      ({{ task.UpSpeed | formatSize }}/s)
+       {{ formatSize(task.Uploaded) }}
+      ({{ formatSize(task.UpSpeed) }}/s)
       (ratio : {{ Math.floor( task.Uploaded / task.Downloaded * 100 ) / 100 }})
     </p>
   </div>
@@ -65,16 +65,14 @@ export default {
       return `${this.hostname}/webapi/auth.cgi?api=SYNO.API.Auth&version=3&method=logout&session=DownloadStation&_sid=${this.sid}`;
     },
     proxyReqEndpoint() {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
   },
-  filters: {
+  methods: {
     formatSize(byteValue) {
       return convertBytes(byteValue);
     },
-  },
-  methods: {
     login() {
       axios.request({
         method: 'GET',

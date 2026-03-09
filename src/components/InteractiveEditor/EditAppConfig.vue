@@ -9,7 +9,6 @@
   >
   <div class="edit-app-config-inner" v-if="allowViewConfig">
   <h3>{{ $t('interactive-editor.menu.edit-app-config-btn') }}</h3>
-  <!-- Show caution message -->
   <div class="app-config-intro">
     <p class="use-caution">
       {{ $t('interactive-editor.edit-app-config.warning-msg-title') }}
@@ -21,18 +20,15 @@
     </a>
     {{ $t('interactive-editor.edit-app-config.warning-msg-l3') }}
   </div>
-  <!-- Save Button, upper -->
   <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
-  <!-- The main form -->
-  <FormSchema
-    :schema="schema"
-    v-model="formData"
-    @submit.prevent="saveToState"
-    :search="true"
-    class="app-config-form"
-    name="appConfigForm"
-  ></FormSchema>
-  <!-- Save Button, lower -->
+  <div class="json-editor-wrap">
+    <textarea
+      v-model="jsonString"
+      class="app-config-editor"
+      spellcheck="false"
+    />
+    <p v-if="jsonError" class="json-error">{{ jsonError }}</p>
+  </div>
   <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
   </div>
   <AccessError v-else />
@@ -40,8 +36,6 @@
 </template>
 
 <script>
-import FormSchema from '@formschema/native';
-import DashySchema from '@/utils/ConfigSchema';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
 import AccessError from '@/components/Configuration/AccessError';
@@ -51,19 +45,17 @@ export default {
   name: 'EditAppConfig',
   data() {
     return {
-      formData: {},
-      schema: DashySchema.properties.appConfig,
+      jsonString: '',
+      jsonError: '',
       modalName: modalNames.EDIT_APP_CONFIG,
     };
   },
-  props: {},
   components: {
-    FormSchema,
     SaveCancelButtons,
     AccessError,
   },
   mounted() {
-    this.formData = this.appConfig;
+    this.jsonString = JSON.stringify(this.appConfig, null, 2);
   },
   computed: {
     appConfig() {
@@ -74,10 +66,16 @@ export default {
     },
   },
   methods: {
-    /* When form submitteed, update VueX store with new appConfig, and close modal */
     saveToState() {
-      const processedFormData = this.removeUndefinedValues(this.formData);
-      this.$store.commit(StoreKeys.SET_APP_CONFIG, processedFormData);
+      this.jsonError = '';
+      let parsed;
+      try {
+        parsed = JSON.parse(this.jsonString);
+      } catch (e) {
+        this.jsonError = `Invalid JSON: ${e.message}`;
+        return;
+      }
+      this.$store.commit(StoreKeys.SET_APP_CONFIG, parsed);
       this.$modal.hide(this.modalName);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
       this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
@@ -85,24 +83,8 @@ export default {
     cancelEditing() {
       this.$modal.hide(this.modalName);
     },
-    /* Called when modal manually closed, updates state to allow searching again */
     modalClosed() {
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-    },
-    /* Remove any attribute which has an undefined value before saving */
-    removeUndefinedValues(rawAppConfig) {
-      const raw = rawAppConfig;
-      const isEmptyObject = (obj) => (typeof obj === 'object' && Object.keys(obj).length === 0);
-      const isEmpty = (value) => (value === undefined || isEmptyObject(value));
-
-      // Delete empty values
-      Object.keys(raw).forEach(key => {
-        if (isEmpty(raw[key])) delete raw[key];
-      });
-      // If KC config empty, delete it
-      const kcConfig = raw.auth.keycloak;
-      if (!kcConfig.clientId && !kcConfig.realm && !kcConfig.serverUrl) delete raw.auth.keycloak;
-      return raw;
     },
   },
 };
@@ -111,7 +93,6 @@ export default {
 <style lang="scss">
 @import '@/styles/style-helpers.scss';
 @import '@/styles/media-queries.scss';
-@import '@/styles/schema-editor.scss';
 
 .edit-app-config-inner {
   padding: 1rem;
@@ -124,9 +105,26 @@ export default {
     font-size: 1.4rem;
     margin: 0.5rem;
   }
-  .app-config-form {
-    @extend .schema-form;
-    border-top: 1px dashed var(--interactive-editor-color);
+  .json-editor-wrap {
+    margin: 0.5rem 0;
+    .app-config-editor {
+      width: 100%;
+      min-height: 20rem;
+      padding: 0.5rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: var(--interactive-editor-color);
+      background: var(--interactive-editor-background);
+      border: 1px solid var(--interactive-editor-color);
+      border-radius: var(--curve-factor);
+      resize: vertical;
+      tab-size: 2;
+    }
+    .json-error {
+      color: var(--warning);
+      margin: 0.25rem 0;
+      font-size: 0.85rem;
+    }
   }
   .app-config-intro {
     padding: 0.5rem;
@@ -144,5 +142,4 @@ export default {
     }
   }
 }
-
 </style>

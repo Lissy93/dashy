@@ -1,7 +1,13 @@
 <template>
   <div class="json-editor-outer" v-if="allowViewConfig">
     <!-- Main JSON editor -->
-    <v-jsoneditor v-model="jsonData" :options="options" />
+    <div class="jsoneditor-container min-box">
+      <textarea
+        class="json-textarea"
+        :value="jsonString"
+        @input="onJsonInput($event.target.value)"
+      />
+    </div>
     <!-- Options raido, and save button -->
     <Radio class="save-options"
       v-model="saveMode"
@@ -51,10 +57,8 @@
 
 <script>
 
-import VJsoneditor from 'v-jsoneditor';
 import ConfigSavingMixin from '@/mixins/ConfigSaving';
 import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
-import configSchema from '@/utils/ConfigSchema.json';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
 import Button from '@/components/FormElements/Button';
@@ -65,7 +69,6 @@ export default {
   name: 'JsonEditor',
   mixins: [ConfigSavingMixin],
   components: {
-    VJsoneditor,
     Button,
     Radio,
     AccessError,
@@ -75,13 +78,6 @@ export default {
       jsonData: {},
       errorMessages: [],
       saveMode: '',
-      options: {
-        schema: configSchema,
-        mode: 'tree',
-        modes: ['tree', 'code', 'preview'],
-        name: 'config',
-        onValidationError: this.validationErrors,
-      },
       saveOptions: [
         { label: this.$t('config-editor.location-disk-label'), value: 'file' },
         { label: this.$t('config-editor.location-local-label'), value: 'local' },
@@ -91,6 +87,9 @@ export default {
   computed: {
     config() {
       return this.$store.state.config;
+    },
+    jsonString() {
+      return JSON.stringify(this.jsonData, null, 2);
     },
     isValid() {
       return this.errorMessages.length < 1;
@@ -122,6 +121,14 @@ export default {
     if (!this.allowWriteToDisk) this.saveMode = 'local';
   },
   methods: {
+    onJsonInput(value) {
+      try {
+        this.jsonData = JSON.parse(value);
+        this.errorMessages = [];
+      } catch (e) {
+        this.errorMessages = [{ type: 'error', msg: e.message }];
+      }
+    },
     /* Calls appropriate save method, based on save-type radio selected */
     save() {
       if (this.saveMode === 'local' || !this.allowWriteToDisk) {
@@ -308,52 +315,17 @@ div.save-options.radio-container {
   height: 58vh;
 }
 
-.jsoneditor, .jsoneditor-menu {
-  border-color: var(--primary);
-}
-.jsoneditor {
-  border-bottom: none;
-}
-
-.jsoneditor-menu, .pico-modal-header {
-  background: var(--config-settings-background) !important;
-  color: var(--config-settings-color) !important;
-}
-.jsoneditor-contextmenu .jsoneditor-menu li button {
-  background: var(--config-settings-background);
-  color: var(--config-settings-color);
-  &.jsoneditor-selected, &.jsoneditor-selected:focus, &.jsoneditor-selected:hover {
-    background: var(--config-settings-color);
-    color: var(--config-settings-background);
-  }
-}
-div.jsoneditor-search div.jsoneditor-frame {
+textarea.json-textarea {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--primary);
   border-radius: var(--curve-factor);
-}
-.jsoneditor-poweredBy {
-  display: none;
-}
-.jsoneditor-tree, pre.jsoneditor-preview {
   background: var(--code-editor-background);
-  text-align: left;
-}
-
-.jsoneditor-jmespath-label {
-  color: var(--config-settings-color) !important;
-}
-.jsoneditor-jmespath-block.jsoneditor-modal-actions input {
-  background: var(--config-settings-color);
-  color: var(--config-settings-background);
-  border: 1px solid var(--config-settings-background);
-  border-radius: var(--curve-factor);
-  &:hover {
-    background: var(--config-settings-background);
-    color: var(--config-settings-color);
-    border-color: var(--config-settings-color);
-  }
-}
-textarea.jsoneditor-transform-preview, div.jsoneditor-jmespath-block textarea#query {
-  border: 1px solid var(--config-settings-color);
-  border-radius: var(--curve-factor);
+  color: var(--code-editor-color);
+  font-family: var(--font-monospace);
+  font-size: 0.85rem;
+  padding: 0.5rem;
+  resize: vertical;
+  tab-size: 2;
 }
 </style>

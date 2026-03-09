@@ -5,94 +5,101 @@
     classes="dashy-modal edit-multi-pages"
   >
   <div class="edit-multi-pages-inner" v-if="allowViewConfig">
-  <h3>{{ $t('interactive-editor.menu.edit-page-info-btn') }}</h3>
-  <FormSchema
-    :schema="customSchema"
-    v-model="formData"
-    @submit.prevent="saveToState"
-    class="multi-page-form"
-    name="multiPageForm"
-  >
+  <h3>{{ $t('interactive-editor.menu.edit-pages-btn') }}</h3>
+  <div class="pages-list">
+    <div v-for="(page, index) in formData" :key="index" class="page-entry">
+      <div class="page-fields">
+        <Input v-model="page.name" label="Name" layout="horizontal" />
+        <Input v-model="page.path" label="Path" layout="horizontal" />
+        <Radio
+          :options="boolOptions"
+          :initialOption="String(!!getHideForGuests(page))"
+          label="Hide for Guests"
+          @update:modelValue="(val) => setHideForGuests(page, val === 'true')"
+        />
+      </div>
+      <div class="page-actions">
+        <button @click="movePage(index, -1)" :disabled="index === 0" class="action-btn">▲</button>
+        <button @click="movePage(index, 1)" :disabled="index === formData.length - 1" class="action-btn">▼</button>
+        <button @click="removePage(index)" class="action-btn delete-btn">✕</button>
+      </div>
+    </div>
+  </div>
+  <button @click="addPage" class="add-page-btn">+ Add Page</button>
   <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
-  </FormSchema>
   </div>
   <AccessError v-else />
   </modal>
 </template>
 
 <script>
-import FormSchema from '@formschema/native';
-import DashySchema from '@/utils/ConfigSchema';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
+import Input from '@/components/FormElements/Input';
+import Radio from '@/components/FormElements/Radio';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 import AccessError from '@/components/Configuration/AccessError';
 
 export default {
-  name: 'EditPageInfo',
+  name: 'EditMultiPages',
   data() {
     return {
-      formData: {},
-      schema: DashySchema.properties.pages,
+      formData: [],
       modalName: modalNames.EDIT_MULTI_PAGES,
+      boolOptions: [
+        { label: 'Yes', value: 'true' },
+        { label: 'No', value: 'false' },
+      ],
     };
   },
   components: {
-    FormSchema,
+    Input,
+    Radio,
     SaveCancelButtons,
     AccessError,
   },
   mounted() {
-    this.formData = this.pages;
+    const pages = this.$store.getters.pages;
+    this.formData = pages ? pages.map(p => ({
+      ...p,
+      displayData: { ...(p.displayData || {}) },
+    })) : [];
   },
   computed: {
-    pages() {
-      return this.$store.getters.pages;
-    },
-    /* Make a custom schema object, using fields from ConfigSchema */
-    customSchema() {
-      return {
-        type: 'array',
-        title: this.schema.title,
-        description: this.schema.description,
-        items: {
-          title: this.schema.items.title,
-          type: this.schema.items.type,
-          additionalProperties: this.schema.items.additionalProperties,
-          required: this.schema.items.required,
-          properties: {
-            name: this.schema.items.properties.name,
-            path: this.schema.items.properties.path,
-            displayData: {
-              title: 'Display (see documentation for more options)',
-              description: '',
-              type: 'object',
-              properties: {
-                hideForGuests: this.schema.items.properties.displayData.properties.hideForGuests,
-              },
-            },
-          },
-        },
-      };
-    },
     allowViewConfig() {
       return this.$store.getters.permissions.allowViewConfig;
     },
   },
   methods: {
-    /* When form submitted, update VueX store with new pageInfo, and close modal */
+    getHideForGuests(page) {
+      return page.displayData && page.displayData.hideForGuests;
+    },
+    setHideForGuests(page, value) {
+      if (!page.displayData) page.displayData = {};
+      page.displayData.hideForGuests = value;
+    },
+    addPage() {
+      this.formData.push({ name: '', path: '', displayData: {} });
+    },
+    removePage(index) {
+      this.formData.splice(index, 1);
+    },
+    movePage(index, direction) {
+      const target = index + direction;
+      const item = this.formData.splice(index, 1)[0];
+      this.formData.splice(target, 0, item);
+    },
     saveToState() {
       this.$store.commit(StoreKeys.SET_PAGES, this.formData);
       this.$modal.hide(this.modalName);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
       this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
     },
-    /* Called when modal manually closed, updates state to allow searching again */
-    modalClosed() {
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-    },
     cancelEditing() {
       this.$modal.hide(this.modalName);
+    },
+    modalClosed() {
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
     },
   },
 };
@@ -101,7 +108,6 @@ export default {
 <style lang="scss">
 @import '@/styles/style-helpers.scss';
 @import '@/styles/media-queries.scss';
-@import '@/styles/schema-editor.scss';
 
 .edit-multi-pages-inner {
   padding: 1rem;
@@ -114,44 +120,71 @@ export default {
     font-size: 1.4rem;
     margin: 0.5rem;
   }
-  .multi-page-form {
-    @extend .schema-form;
-    margin-bottom: 2.5rem;
-    fieldset div[data-fs-wrapper], fieldset div[data-fs-kind=object] {
-      flex-direction: row;
-    }
-    [name=multiPageForm] button {
-      width: 8rem;
-      margin: 0 0.5rem 0.5rem 0.5rem;
-      padding: 0.25rem 0.5rem;
-      &[data-fs-button=push]::after { content: " Add New"; }
-      &[data-fs-button=moveUp]::after { content: " Move Up"; }
-      &[data-fs-button=moveDown]::after { content: " Move Down"; }
-      &[data-fs-button=delete]::after { content: " Delete"; }
-    }
-    div[data-fs-type=object] div[data-fs-type=object] {
-      div[data-fs-input=object] { border: none; }
-      label { display: none; }
-      div[data-fs-input=object] label { display: block; }
-    }
-    fieldset div[data-fs-kind=object] span {
-      text-align: right;
-    }
-    fieldset button[data-fs-button=push] {
-      min-width: 15rem;
-      padding: 0.5rem 0.75rem;
+  .pages-list {
+    margin-bottom: 1rem;
+    .page-entry {
+      display: flex;
+      align-items: flex-start;
+      padding: 0.75rem;
       margin: 0.5rem 0;
-      font-size: 1rem;
-      color: var(--interactive-editor-color);
-      background: var(--interactive-editor-background);
       border: 1px solid var(--interactive-editor-color);
       border-radius: var(--curve-factor);
-      &:hover {
-        color: var(--interactive-editor-background);
-        background: var(--interactive-editor-color);
+      .page-fields {
+        flex: 1;
+        .input-container {
+          margin: 0.25rem 0;
+          input.input-field {
+            color: var(--interactive-editor-color);
+            border-color: var(--interactive-editor-color);
+            background: var(--interactive-editor-background);
+          }
+        }
+        .radio-container {
+          color: var(--interactive-editor-color);
+        }
+      }
+      .page-actions {
+        display: flex;
+        flex-direction: column;
+        margin-left: 0.5rem;
+        gap: 0.25rem;
+        .action-btn {
+          padding: 0.25rem 0.5rem;
+          cursor: pointer;
+          color: var(--interactive-editor-color);
+          background: var(--interactive-editor-background);
+          border: 1px solid var(--interactive-editor-color);
+          border-radius: var(--curve-factor);
+          &:hover:not(:disabled) {
+            color: var(--interactive-editor-background);
+            background: var(--interactive-editor-color);
+          }
+          &:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+          }
+          &.delete-btn:hover:not(:disabled) {
+            background: var(--danger);
+            border-color: var(--danger);
+          }
+        }
       }
     }
   }
+  .add-page-btn {
+    min-width: 15rem;
+    padding: 0.5rem 0.75rem;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--interactive-editor-color);
+    background: var(--interactive-editor-background);
+    border: 1px solid var(--interactive-editor-color);
+    border-radius: var(--curve-factor);
+    &:hover {
+      color: var(--interactive-editor-background);
+      background: var(--interactive-editor-color);
+    }
+  }
 }
-
 </style>

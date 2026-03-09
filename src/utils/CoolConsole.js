@@ -2,7 +2,7 @@
 
 /* Prints the app name and version, helpful for debugging */
 export const welcomeMsg = () => {
-  const v = process.env.VUE_APP_VERSION ? `V${process.env.VUE_APP_VERSION}` : '';
+  const v = import.meta.env.VITE_APP_VERSION ? `V${import.meta.env.VITE_APP_VERSION}` : '';
   console.log(`\n%cDashy  ${v} 🚀`, 'color:#0dd8d8; background:#0b1021; font-size:1.5rem; padding:0.15rem 0.25rem; margin: 1rem auto; font-family: Rockwell; border: 2px solid #0dd8d8; border-radius: 4px;font-weight: bold; text-shadow: 1px 1px 1px #00af87bf;');
 };
 

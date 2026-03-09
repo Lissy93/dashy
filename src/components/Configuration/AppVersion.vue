@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      appVersion: process.env.VUE_APP_VERSION, // Current version, from package.json
+      appVersion: import.meta.env.VITE_APP_VERSION, // Current version, from package.json
       progress: new Progress({ color: 'var(--progress-bar)' }),
       latestVersion: '', // Will store latest version, when request returns
       checksEnabled: true, // Should we check for updates

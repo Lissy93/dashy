@@ -571,6 +571,8 @@ export NODE_OPTIONS=--openssl-legacy-provider
 
 This will be fixed once [webpack/webpack#17659](https://github.com/webpack/webpack/pull/17659) is merged.
 
+**Update:** This should be fully resolved. Raise a ticket if you're still needing to use those NODE_OPTIONS after upgrade.
+
 ---
 
 ## How to Reset Local Settings

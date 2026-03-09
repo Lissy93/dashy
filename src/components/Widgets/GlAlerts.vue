@@ -36,7 +36,6 @@ export default {
       return this.makeGlancesUrl('alert');
     },
   },
-  filters: {},
   methods: {
     processData(alertData) {
       const round = (num) => ((num && typeof num === 'number') ? Math.round(num) : num);

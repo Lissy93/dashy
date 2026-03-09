@@ -60,8 +60,8 @@
         {{ match.league }}, {{ match.season }}
       </p>
       <p>
-        <a :href="match.venue | mapsUrl">{{ match.venue }}</a>
-        on {{ match.date | formatDate }} ({{ match.time | formatTime }})</p>
+        <a :href="mapsUrl(match.venue)">{{ match.venue }}</a>
+        on {{ formatDate(match.date) }} ({{ formatTime(match.time) }})</p>
     </div>
   </div>
 </div>
@@ -121,7 +121,7 @@ export default {
       }
     },
   },
-  filters: {
+  methods: {
     formatDate(dateStr) {
       return timestampToDate(dateStr);
     },
@@ -132,8 +132,6 @@ export default {
     mapsUrl(placeName) {
       return getPlaceUrl(placeName);
     },
-  },
-  methods: {
     initiate() {
       if (!this.initiated) {
         this.currentTeamId = this.teamId;

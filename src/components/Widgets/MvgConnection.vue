@@ -13,7 +13,7 @@
       >
         <span class="time"
         >
-          {{connection.parts[0].from.plannedDeparture | formatTime}}
+          {{formatTime(connection.parts[0].from.plannedDeparture)}}
         </span>
         <span class="delay"
           :class="{'has-delay': connection.parts[0].from.departureDelayInMinutes > 0}"
@@ -45,9 +45,9 @@
         </template>
       </div>
       <span class="time">
-        {{Date.parse(connection.parts[connection.parts.length-1]
+        {{formatDuration(Date.parse(connection.parts[connection.parts.length-1]
             .to.plannedDeparture) - Date.parse(connection.parts[0]
-              .from.plannedDeparture) | formatDuration}}
+              .from.plannedDeparture))}}
       </span>
     </div>
   </div>
@@ -84,30 +84,6 @@ export default {
       },
     );
   },
-  filters: {
-    formatDepartureTime(timestamp) {
-      const msDifference = new Date(timestamp).getTime() - new Date().getTime();
-      const diff = Math.max(0, Math.round(msDifference / 60000));
-      return diff;
-    },
-    formatTime(str) {
-      const d = new Date(Date.parse(str));
-      function ii(i) {
-        let s = `${i}`;
-        if (s.length < 2) s = `0${s}`;
-        return s;
-      }
-      return `${ii(d.getHours())}:${ii(d.getMinutes())}`;
-    },
-    formatDuration(val) {
-      function ii(i) {
-        let s = `${i}`;
-        if (s.length < 2) s = `0${s}`;
-        return s;
-      }
-      return `${Math.floor(val / 3600000)}:${ii(Math.floor(val / 60000))}`;
-    },
-  },
   computed: {
     start() {
       return this.options.from || this.options.start || this.options.origin || 'Marienplatz';
@@ -132,6 +108,28 @@ export default {
     },
   },
   methods: {
+    formatDepartureTime(timestamp) {
+      const msDifference = new Date(timestamp).getTime() - new Date().getTime();
+      const diff = Math.max(0, Math.round(msDifference / 60000));
+      return diff;
+    },
+    formatTime(str) {
+      const d = new Date(Date.parse(str));
+      function ii(i) {
+        let s = `${i}`;
+        if (s.length < 2) s = `0${s}`;
+        return s;
+      }
+      return `${ii(d.getHours())}:${ii(d.getMinutes())}`;
+    },
+    formatDuration(val) {
+      function ii(i) {
+        let s = `${i}`;
+        if (s.length < 2) s = `0${s}`;
+        return s;
+      }
+      return `${Math.floor(val / 3600000)}:${ii(Math.floor(val / 60000))}`;
+    },
     formatPoint(point, typ) {
       if (point.type === 'ADDRESS' || point.type === 'POI') {
         return `${typ}Latitude=${point.latitude}&${typ}Longitude=${point.longitude}`;
@@ -181,7 +179,7 @@ export default {
       let connectionDetails = '';
       const self = this;
       function addStep(step) {
-        connectionDetails += `<b>${self.$options.filters.formatTime(step.plannedDeparture)}</b>
+        connectionDetails += `<b>${self.formatTime(step.plannedDeparture)}</b>
           <span class="delay">+${Math.max(parseInt(step.departureDelayInMinutes, 10) || 0, 0)}</span>
           <span>${step.name}</span>`;
       }

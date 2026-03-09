@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign, prefer-destructuring */
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import axios from 'axios';
 import yaml from 'js-yaml';
 import Keys from '@/utils/StoreMutations';
@@ -10,8 +9,6 @@ import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import { isUserAdmin, makeBasicAuthHeaders, isLoggedInAsGuest } from '@/utils/Auth';
 import { localStorageKeys, theme as defaultTheme } from './utils/defaults';
-
-Vue.use(Vuex);
 
 const {
   INITIALIZE_CONFIG,
@@ -50,7 +47,7 @@ const emptyConfig = {
   sections: [],
 };
 
-const store = new Vuex.Store({
+const store = createStore({
   state: {
     config: {}, // The current config being used, and rendered to the UI
     rootConfig: null, // Always the content of main config file, never used directly
@@ -353,7 +350,7 @@ const store = new Vuex.Store({
   actions: {
     /* Fetches the root config file, only ever called by INITIALIZE_CONFIG */
     async [INITIALIZE_ROOT_CONFIG]({ commit }) {
-      const configFilePath = process.env.VUE_APP_CONFIG_PATH || '/conf.yml';
+      const configFilePath = import.meta.env.VITE_APP_CONFIG_PATH || '/conf.yml';
       try {
         // Attempt to fetch the YAML file
         const response = await axios.get(configFilePath, makeBasicAuthHeaders());

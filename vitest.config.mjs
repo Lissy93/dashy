@@ -1,22 +1,17 @@
 import { defineConfig } from 'vitest/config';
-import { createVuePlugin } from 'vite-plugin-vue2';
+import vue from '@vitejs/plugin-vue';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  plugins: [createVuePlugin()],
+  plugins: [vue()],
   test: {
-    // Use happy-dom for faster DOM simulation
-    environment: 'happy-dom',
-
-    // Make test functions available globally (describe, it, expect, etc.)
-    globals: true,
-
-    // Setup file for global test configuration
+    environment: 'happy-dom', // Use happy-dom for faster DOM simulation
+    globals: true, // Makes test funcs available globally (describe, it, expect, etc.)
     setupFiles: ['./tests/setup.js'],
-
-    // Include patterns
     include: ['tests/**/*.{test,spec}.{js,ts}', 'src/**/*.{test,spec}.{js,ts}'],
-
     // Coverage configuration
     coverage: {
       provider: 'v8',
@@ -31,13 +26,10 @@ export default defineConfig({
       ],
     },
   },
-
   resolve: {
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
-    // Match the alias configuration from vue.config.js
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      vue: 'vue/dist/vue.esm.js', // Use the full build for tests
+      '@': path.resolve(__dirname, './src'), // same as the vite.config.ts
     },
   },
 });

@@ -32,7 +32,7 @@
     </div>
     <!-- View Config in Tree Mode Section -->
     <h3>{{ $t('interactive-editor.export.view-title') }}</h3>
-    <tree-view :data="config" class="config-tree-view" />
+    <json-viewer :value="config" class="config-tree-view" />
   </div>
   <AccessError v-else />
   </modal>
@@ -71,7 +71,7 @@ export default {
     },
     configPath() {
       return this.$store.state.currentConfigInfo?.confPath
-      || process.env.VUE_APP_CONFIG_PATH
+      || import.meta.env.VITE_APP_CONFIG_PATH
       || '/conf.yml';
     },
   },

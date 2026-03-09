@@ -44,7 +44,7 @@ export default {
   mounted() {
     window.addEventListener('keydown', this.startFiltering);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('keydown', this.startFiltering);
   },
 };
