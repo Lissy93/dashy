@@ -6,6 +6,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import HomePageHeader from '../components/HomePageHeader';
 import HomePageFeatures from '../components/HomepageFeatures';
 import Authors from '../components/Authors';
+import Stats from '../components/Stats';
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
@@ -19,6 +20,7 @@ export default function Home() {
         <link rel="canonical" href="https://dashy.to" />
       </Head>
       <HomePageHeader />
+      <Stats />
       <HomePageFeatures />
       <main id="top">
       </main>

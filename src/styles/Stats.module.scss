@@ -1,0 +1,66 @@
+.statsSection {
+  background: var(--hero-background);
+  padding: 0.25rem 1rem 3rem 1rem;
+}
+
+.inner {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 1000px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  background: var(--background);
+  box-shadow: var(--feature-img-shadow);
+  flex: 1 1 180px;
+  max-width: 240px;
+}
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.25rem;
+  color: var(--stat-color);
+}
+
+.count {
+  font-family: "Roboto Mono", monospace;
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: var(--stat-color);
+  line-height: 1.1;
+}
+
+.label {
+  font-size: 1rem;
+  color: var(--mid-grey);
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 966px) {
+  .inner {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .statItem {
+    max-width: none;
+    padding: 1.25rem 1rem;
+  }
+
+  .count {
+    font-size: 2.2rem;
+  }
+}

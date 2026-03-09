@@ -21,10 +21,12 @@ module.exports = {
   url: externalUrl.dashyUrl,
   baseUrl: '/',
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
   markdown: {
     format: 'md',
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
   customFields: {
     githubToken: process.env.GITHUB_TOKEN || '',

@@ -6,6 +6,7 @@ import IconDino from '../../static/icons/about_dino.svg';
 import styles from '../styles/Authors.module.scss';
 
 const CONTRIBUTORS_API = 'https://api.github.com/repos/lissy93/dashy/contributors';
+const SPONSORS_API = 'https://github-sponsors-api.as93.net/lissy93';
 const PER_PAGE = 100;
 
 const FALLBACK_IMG = (
@@ -59,6 +60,8 @@ export default function Authors() {
 
   const [contributors, setContributors] = useState(null);
   const [error, setError] = useState(false);
+  const [sponsors, setSponsors] = useState(null);
+  const [sponsorsError, setSponsorsError] = useState(false);
 
   useEffect(() => {
     fetchAllContributors(githubToken)
@@ -70,13 +73,24 @@ export default function Authors() {
         }
       })
       .catch(() => setError(true));
+
+    fetch(SPONSORS_API)
+      .then((res) => res.ok ? res.json() : Promise.reject())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setSponsors(data);
+        } else {
+          setSponsorsError(true);
+        }
+      })
+      .catch(() => setSponsorsError(true));
   }, [githubToken]);
 
   return (
     <section className={styles.authorsSection} aria-label="Contributors">
       <div className={styles.inner}>
 
-        <h2 className={styles.heading}>Enjoying Dashy?</h2>
+        <h2 className={styles.heading}>Powered by You</h2>
         <div className={styles.enjoyingWrap}>
           <div className={styles.enjoyingWrapPart}>
             <h3 className={styles.subHeading}>Support us</h3>
@@ -84,10 +98,10 @@ export default function Authors() {
               If you've found Dashy useful, consider <a href="https://codeberg.org/alicia/dashy/src/branch/master/docs/contributing.md" target="_blank">contributing</a>,
               or dropping us a star!
             </p>
-            <ul>
-              <li><a href="https://github.com/lissy93/dashy" target="_blank">GitHub</a> (source)</li>
-              <li><a href="https://codeberg.org/alicia/dashy" target="_blank">Codeberg</a> (mirror)</li>
-              <li><a href="https://hub.docker.com/r/lissy93/dashy" target="_blank">DockerHub</a> (container)</li>
+            <ul className={styles.linksList}>
+              <li><a href="https://github.com/lissy93/dashy" target="_blank"><img src="https://cdn.as93.net/k1pcts?w=32" />GitHub</a> (source)</li>
+              <li><a href="https://codeberg.org/alicia/dashy" target="_blank"><img src="https://cdn.as93.net/7c72qs?w=32" />Codeberg</a> (mirror)</li>
+              <li><a href="https://hub.docker.com/r/lissy93/dashy" target="_blank"><img src="https://cdn.as93.net/t2hnw4?w=32" />DockerHub</a> (container)</li>
             </ul>
           </div>
           <div className={styles.enjoyingWrapPart}>
@@ -105,6 +119,47 @@ export default function Authors() {
             </div>
           </div>
         </div>
+
+      <h2 className={styles.heading}>Sponsors</h2>
+      <p>Huge thanks to the following sponsors for supporting Dashy's development 💖</p>
+
+      {sponsorsError && (
+        <div className={styles.fallback}>
+          <a href="https://github.com/sponsors/Lissy93" target="_blank" rel="noopener noreferrer">
+            <img
+              src="https://readme-contribs.as93.net/sponsors/lissy93?perRow=12&shape=squircle&textColor=999999&limit=96"
+              alt="Dashy sponsors"
+              loading="lazy"
+            />
+          </a>
+        </div>
+      )}
+
+      {sponsors && (
+        <div className={styles.grid} role="list">
+          {sponsors.map((s, i) => (
+            <a
+              key={`${s.login}-${i}`}
+              className={styles.tile}
+              href={`https://github.com/${s.login}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              role="listitem"
+            >
+              <img
+                className={styles.avatar}
+                src={`${s.avatarUrl}&s=80`}
+                alt={`${s.login}'s avatar`}
+                width="48"
+                loading="lazy"
+              />
+              <span className={styles.name}>
+                {s.name || s.login}
+              </span>
+            </a>
+          ))}
+        </div>
+      )}
 
       <h2 className={styles.heading}>Contributors</h2>
       <p>Dashy was made possible, thanks to these wonderful contributors 🩵</p>

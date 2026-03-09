@@ -13,7 +13,7 @@ import IconBannerDocs from '../../static/icons/banner_docs.svg';
 import IconDownArrow from '../../static/icons/interface_down.svg';
 
 const scrollToFeatures = () => {
-  document.querySelector('#go-down').scrollIntoView({ behavior: 'smooth' });
+  document.querySelector('#features-wrap').scrollIntoView({ behavior: 'smooth' });
 };
 
 export default function HomepageHeader() {
@@ -86,13 +86,13 @@ export default function HomepageHeader() {
         </div>
       </div>
       <CarbonAd />
-      {(!showMore) &&
-        <a onClick={scrollToFeatures} className={styles.scrollDown} id="go-down">
+      {/* {(!showMore) &&
+        <a onClick={scrollToFeatures} className={styles.scrollDown}>
           <IconDownArrow className={styles.scrollDownIcon} />
           <span className={styles.scrollDownText}>Feature List</span>
           <IconDownArrow className={styles.scrollDownIcon} />
         </a>
-      }
+      }*/}
       <a href="https://github.com/lissy93/dashy">
         <img className={styles.starButton}
           src="https://img.shields.io/github/stars/Lissy93/Dashy?label=Dashy%20on%20GitHub&logo=github&style=social"

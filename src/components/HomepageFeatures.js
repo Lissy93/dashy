@@ -29,7 +29,8 @@ const FeatureList = [
     ),
     link: '/docs/theming',
     icon: (<IconThemes />),
-    demo: '/img/homepage-assets/theme-slideshow.gif',
+    // demo: '/img/homepage-assets/theme-slideshow.gif',
+    demo: 'https://pixelflare.cc/alicia/project-screens/theme-slideshow/w1024',
   },
   {
     title: 'Icons',
@@ -41,7 +42,9 @@ const FeatureList = [
       </>
     ),
     link: '/docs/icons',
-    icon: (<IconIconography />),
+      icon: (<IconIconography />),
+    // demo: '/img/homepage-assets/icons-demo.gif',
+    demo: 'https://pixelflare.cc/alicia/project-screens/icons/w1024',
   },
   {
     title: 'Status Indicators',
@@ -54,7 +57,8 @@ const FeatureList = [
     ),
     link: '/docs/status-indicators',
     icon: (<IconStatusIndicators />),
-    demo: '/img/homepage-assets/status-check-demo.gif',
+    // demo: '/img/homepage-assets/status-check-demo.gif',
+    demo: 'https://pixelflare.cc/alicia/project-screens/status-check-demo/w1024',
   },
   {
     title: 'Authentication',
@@ -78,7 +82,8 @@ const FeatureList = [
     ),
     link: '/docs/widgets',
     icon: (<IconWidgets />),
-    demo: 'https://i.ibb.co/GFjXVHy/dashy-widgets.png',
+    // demo: 'https://i.ibb.co/GFjXVHy/dashy-widgets.png',
+    demo: 'https://pixelflare.cc/alicia/project-screens/dashy-widgets/w1024',
   },
   {
     title: 'Alternate Views',
@@ -91,7 +96,8 @@ const FeatureList = [
     ),
     link: '/docs/alternate-views',
     icon: (<IconOpeningMethods />),
-    demo: '/img/homepage-assets/workspace-demo.gif',
+    // demo: '/img/homepage-assets/workspace-demo.gif',
+    demo: 'https://pixelflare.cc/alicia/project-screens/workspace-demo/w1024',
   },
   {
     title: 'Launching Methods',
@@ -118,7 +124,8 @@ const FeatureList = [
     ),
     link: '/docs/searching',
     icon: (<IconShortcuts />),
-    demo: '/img/homepage-assets/searching-demo.gif',
+    // demo: '/img/homepage-assets/searching-demo.gif',
+    demo: 'https://pixelflare.cc/alicia/project-screens/searching-demo/w1024',
   },
   {
     title: 'Cloud Backup & Sync',
@@ -143,7 +150,8 @@ const FeatureList = [
     ),
     link: '/docs/configuring',
     icon: (<IconUiConfig />),
-    demo: '/img/homepage-assets/config-editor-demo.gif',
+    // demo: '/img/homepage-assets/config-editor-demo.gif',
+    demo: 'https://pixelflare.cc/alicia/project-screens/config-editor-demo/w1024',
   },
   {
     title: 'Multi-Language Support',

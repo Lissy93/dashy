@@ -32,6 +32,14 @@
     }
 }
 
+.linksList {
+    img {
+        vertical-align: middle;
+        margin-right: 0.25rem;
+        width: 1.35rem;
+    }
+}
+
 .subHeading {
   font-size: 1.2rem;
   margin: 0.25rem 0;
@@ -43,7 +51,7 @@
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 0.75rem;
   max-width: 1800px;
-  margin: 0 auto;
+  margin: 0 auto 2rem auto;
   padding: 0;
   list-style: none;
 }
