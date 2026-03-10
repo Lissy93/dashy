@@ -1,0 +1,21 @@
+{
+  "name": "Dashy Documentation",
+  "short_name": "Dashy Docs",
+  "theme_color": "#54bff7",
+  "background_color": "#121212",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/img/dashy.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/dashy.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

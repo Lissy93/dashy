@@ -1,1 +1,0 @@
-/*! algoliasearch-lite.umd.js | 4.26.0 | © Algolia, inc. | https://github.com/algolia/algoliasearch-client-javascript */
