@@ -28,9 +28,7 @@ module.exports = {
       onBrokenMarkdownLinks: 'warn',
     },
   },
-  customFields: {
-    githubToken: process.env.GITHUB_TOKEN || '',
-  },
+  customFields: {},
   favicon: 'img/favicon.ico',
   organizationName: 'lissy93', // Usually your GitHub org/user name.
   projectName: 'dashy', // Usually your repo name.

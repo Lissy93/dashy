@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { usePluginData } from '@docusaurus/useGlobalData';
 import styles from '../styles/Updates.module.scss';
 
@@ -193,8 +192,6 @@ function TimelineEntry({ entry }) {
 }
 
 export default function UpdatesTimeline() {
-  const { siteConfig } = useDocusaurusContext();
-  const githubToken = siteConfig.customFields?.githubToken || '';
   const pluginData = usePluginData('github-data');
 
   const initialReleases = useMemo(() => {
@@ -239,11 +236,7 @@ export default function UpdatesTimeline() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [loadMoreError, setLoadMoreError] = useState(false);
 
-  const headers = useMemo(() => {
-    const h = { 'User-Agent': 'dashy-docs' };
-    if (githubToken) h['Authorization'] = `token ${githubToken}`;
-    return h;
-  }, [githubToken]);
+  const headers = useMemo(() => ({ 'User-Agent': 'dashy-docs' }), []);
 
   const fetchJson = useCallback(async (url) => {
     const res = await fetch(url, { headers });

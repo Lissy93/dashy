@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { usePluginData } from '@docusaurus/useGlobalData';
 import Button from './Button';
 import IconHeart from '../../static/icons/about_heart.svg';
@@ -30,12 +29,8 @@ function isBot(contributor) {
   return contributor.type !== 'User' || contributor.login.endsWith('[bot]');
 }
 
-async function fetchAllContributors(token) {
+async function fetchAllContributors() {
   const headers = { 'User-Agent': 'dashy-docs' };
-  if (token) {
-    headers['Authorization'] = `token ${token}`;
-  }
-
   const allContributors = [];
   let page = 1;
 
@@ -56,8 +51,6 @@ async function fetchAllContributors(token) {
 }
 
 export default function Authors() {
-  const { siteConfig } = useDocusaurusContext();
-  const githubToken = siteConfig.customFields?.githubToken || '';
   const pluginData = usePluginData('github-data');
 
   const [contributors, setContributors] = useState(pluginData?.contributors || null);
@@ -66,7 +59,7 @@ export default function Authors() {
   const [sponsorsError, setSponsorsError] = useState(false);
 
   useEffect(() => {
-    fetchAllContributors(githubToken)
+    fetchAllContributors()
       .then((data) => {
         if (data.length === 0) {
           // Only show error if we have no build-time data
@@ -91,7 +84,7 @@ export default function Authors() {
       .catch(() => {
         if (!sponsors) setSponsorsError(true);
       });
-  }, [githubToken]);
+  }, []);
 
   return (
     <section className={styles.authorsSection} aria-label="Contributors">

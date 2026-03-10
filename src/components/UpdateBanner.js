@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { usePluginData } from '@docusaurus/useGlobalData';
 import styles from '../styles/UpdateBanner.module.scss';
 
@@ -9,8 +8,6 @@ const STORAGE_KEY = 'dashy-update-dismissed';
 const MAX_AGE_DAYS = 14;
 
 export default function UpdateBanner() {
-  const { siteConfig } = useDocusaurusContext();
-  const githubToken = siteConfig.customFields?.githubToken || '';
   const pluginData = usePluginData('github-data');
 
   const buildTag = pluginData?.latestTag || null;
@@ -28,11 +25,7 @@ export default function UpdateBanner() {
   const [dismissing, setDismissing] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 
-  const headers = useMemo(() => {
-    const h = { 'User-Agent': 'dashy-docs' };
-    if (githubToken) h['Authorization'] = `token ${githubToken}`;
-    return h;
-  }, [githubToken]);
+  const headers = useMemo(() => ({ 'User-Agent': 'dashy-docs' }), []);
 
   const fetchJson = useCallback(async (url) => {
     const res = await fetch(url, { headers });

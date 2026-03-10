@@ -41,7 +41,7 @@ module.exports = function githubDataPlugin(context) {
     name: 'github-data',
 
     async loadContent() {
-      const token = context.siteConfig.customFields?.githubToken || process.env.GITHUB_TOKEN || '';
+      const token = process.env.GITHUB_TOKEN || '';
       const headers = { 'User-Agent': 'dashy-docs' };
       if (token) headers['Authorization'] = `token ${token}`;
 

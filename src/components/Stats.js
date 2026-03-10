@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { usePluginData } from '@docusaurus/useGlobalData';
 import IconUsers from '../../static/icons/stats_users.svg';
 import IconStars from '../../static/icons/stats_stars.svg';
@@ -101,8 +100,6 @@ function StatItem({ label, value, Icon, color }) {
 }
 
 function StatsInner() {
-  const { siteConfig } = useDocusaurusContext();
-  const githubToken = siteConfig.customFields?.githubToken || '';
   const pluginData = usePluginData('github-data');
 
   const initialStats = useMemo(() => {
@@ -123,7 +120,6 @@ function StatsInner() {
 
   useEffect(() => {
     const headers = { 'User-Agent': 'dashy-docs' };
-    if (githubToken) headers['Authorization'] = `token ${githubToken}`;
 
     const fetchStats = async () => {
       const results = await Promise.allSettled([
@@ -166,7 +162,7 @@ function StatsInner() {
     };
 
     fetchStats();
-  }, [githubToken]);
+  }, []);
 
   return (
     <section className={styles.statsSection} aria-label="Dashy project statistics">
