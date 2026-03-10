@@ -79,7 +79,10 @@ module.exports = {
       attributes: { name: 'theme-color', content: '#54bff7' },
     },
   ],
-  plugins: ['docusaurus-plugin-sass'],
+  plugins: [
+    'docusaurus-plugin-sass',
+    require.resolve('./plugins/github-data'),
+  ],
   themes: [
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),

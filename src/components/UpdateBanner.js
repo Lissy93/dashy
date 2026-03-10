@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { usePluginData } from '@docusaurus/useGlobalData';
 import styles from '../styles/UpdateBanner.module.scss';
 
 const REPO = 'lissy93/dashy';
@@ -10,8 +11,20 @@ const MAX_AGE_DAYS = 14;
 export default function UpdateBanner() {
   const { siteConfig } = useDocusaurusContext();
   const githubToken = siteConfig.customFields?.githubToken || '';
+  const pluginData = usePluginData('github-data');
 
-  const [version, setVersion] = useState(null);
+  const buildTag = pluginData?.latestTag || null;
+
+  // Derive initial version from build data (no localStorage — unavailable during SSR)
+  const initialVersion = useMemo(() => {
+    if (!buildTag?.name || !buildTag?.date) return null;
+    const tagDate = new Date(buildTag.date);
+    const ageDays = (Date.now() - tagDate.getTime()) / (1000 * 60 * 60 * 24);
+    if (ageDays > MAX_AGE_DAYS) return null;
+    return buildTag.name;
+  }, [buildTag]);
+
+  const [version, setVersion] = useState(initialVersion);
   const [dismissing, setDismissing] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 
@@ -28,6 +41,12 @@ export default function UpdateBanner() {
   }, [headers]);
 
   useEffect(() => {
+    // Client-only: clear build-time version if user already dismissed it
+    if (initialVersion && localStorage.getItem(STORAGE_KEY) === initialVersion) {
+      setVersion(null);
+      return; // No need to fetch — user dismissed this version
+    }
+
     let cancelled = false;
 
     async function check() {
@@ -44,8 +63,7 @@ export default function UpdateBanner() {
         if (cancelled) return;
 
         const tagDate = new Date(commitData.commit.author.date);
-        const ageMs = Date.now() - tagDate.getTime();
-        const ageDays = ageMs / (1000 * 60 * 60 * 24);
+        const ageDays = (Date.now() - tagDate.getTime()) / (1000 * 60 * 60 * 24);
 
         if (ageDays > MAX_AGE_DAYS) return;
 
@@ -54,13 +72,13 @@ export default function UpdateBanner() {
 
         setVersion(tag.name);
       } catch {
-        // Graceful degradation — show nothing on error
+        // Graceful degradation — keep build-time version if set, show nothing otherwise
       }
     }
 
     check();
     return () => { cancelled = true; };
-  }, [fetchJson]);
+  }, [fetchJson, initialVersion]);
 
   const handleDismiss = useCallback((e) => {
     e.preventDefault();

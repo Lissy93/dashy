@@ -290,3 +290,9 @@ html[data-theme='light'] {
   font-size: 0.7rem;
   }
 }
+
+::selection {
+  background: var(--primary);
+  color: var(--background);
+  text-shadow: none;
+}

@@ -204,6 +204,12 @@
     color: var(--mid-grey);
     text-decoration: underline;
 
+    .providerIcon {
+      margin-right: .25rem;
+      vertical-align: middle;
+      width: 1.35rem;
+    }
+
     &:hover {
       color: var(--text-color);
     }
@@ -238,12 +244,25 @@
   font-size: 0.95rem;
 }
 
+.authorLink {
+  color: var(--text-color);
+  opacity: 0.75;
+  transition: all ease 0.2s;
+  &:hover {
+    color: var(--primary);
+    .avatarSmall {
+        transform: scale(1.08);
+    }
+  }
+}
+
 .avatarSmall {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   vertical-align: middle;
   margin-right: 0.2rem;
+  transition: all ease 0.2s;
 }
 
 .commitMeta {
@@ -256,6 +275,8 @@
   align-items: center;
   gap: 0.3rem;
 }
+
+.viewOnLabel {}
 
 .skeleton {
   border-radius: 8px;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { usePluginData } from '@docusaurus/useGlobalData';
 import styles from '../styles/Updates.module.scss';
 
 const REPO = 'lissy93/dashy';
@@ -98,18 +99,28 @@ function TimelineEntry({ entry }) {
           <div className={styles.meta}>
             {entry.avatarUrl && (
               <span className={styles.authorInfo}>
-                <img
-                  src={entry.avatarUrl}
-                  alt={entry.author}
-                  className={styles.avatar}
-                  loading="lazy"
-                />
-                {entry.author}
+                <a href={`https://github.com/${entry.author}`} target="_blank" rel="noopener noreferrer" className={styles.authorLink}>
+                  {entry.avatarUrl && (
+                    <img
+                      src={entry.avatarUrl}
+                      alt={entry.author}
+                      className={styles.avatarSmall}
+                      loading="lazy"
+                    />
+                  )}
+                {entry.author && <span>{entry.author}</span>}
+                </a>
               </span>
             )}
             <time dateTime={entry.date.toISOString()}>{relativeDate(entry.date)}</time>
+            <span className={styles.viewOnLabel}>View on:</span>
             <a href={entry.url} target="_blank" rel="noopener noreferrer">
-              View on GitHub
+              <img className={styles.providerIcon} src="https://cdn.as93.net/k1pcts?w=32" />
+              GitHub
+            </a>
+            <a href={`https://hub.docker.com/layers/lissy93/dashy/${entry.title}`} target="_blank" rel="noopener noreferrer">
+                <img className={styles.providerIcon} src="https://cdn.as93.net/t2hnw4?w=32" />
+                DockerHub
             </a>
           </div>
         </div>
@@ -131,8 +142,14 @@ function TimelineEntry({ entry }) {
           </div>
           <div className={styles.meta}>
             <time dateTime={entry.date.toISOString()}>{relativeDate(entry.date)}</time>
+            <span className={styles.viewOnLabel}>View on:</span>
             <a href={entry.url} target="_blank" rel="noopener noreferrer">
-              View on GitHub
+            <img className={styles.providerIcon} src="https://cdn.as93.net/k1pcts?w=32" />
+              GitHub
+            </a>
+            <a href={`https://hub.docker.com/layers/lissy93/dashy/${entry.title}`} target="_blank" rel="noopener noreferrer">
+                <img className={styles.providerIcon} src="https://cdn.as93.net/t2hnw4?w=32" />
+                DockerHub
             </a>
           </div>
         </div>
@@ -156,15 +173,17 @@ function TimelineEntry({ entry }) {
         <span className={styles.sha}>{entry.sha}</span>
         <span className={styles.commitMsg}>{entry.title}</span>
         <span className={styles.commitMeta}>
-          {entry.avatarUrl && (
-            <img
-              src={entry.avatarUrl}
-              alt={entry.author}
-              className={styles.avatarSmall}
-              loading="lazy"
-            />
-          )}
+          <a href={`https://github.com/${entry.author}`} target="_blank" rel="noopener noreferrer" className={styles.authorLink}>
+            {entry.avatarUrl && (
+              <img
+                src={entry.avatarUrl}
+                alt={entry.author}
+                className={styles.avatarSmall}
+                loading="lazy"
+              />
+            )}
           {entry.author && <span>{entry.author}</span>}
+          </a>
           {entry.author && ' · '}
           <time dateTime={entry.date.toISOString()}>{relativeDate(entry.date)}</time>
         </span>
@@ -176,14 +195,46 @@ function TimelineEntry({ entry }) {
 export default function UpdatesTimeline() {
   const { siteConfig } = useDocusaurusContext();
   const githubToken = siteConfig.customFields?.githubToken || '';
+  const pluginData = usePluginData('github-data');
 
-  const [releases, setReleases] = useState([]);
-  const [tags, setTags] = useState([]);
-  const [commits, setCommits] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const initialReleases = useMemo(() => {
+    if (!pluginData?.releases) return [];
+    return pluginData.releases.map(r => normalizeRelease({
+      tag_name: r.tag_name,
+      name: r.name,
+      published_at: r.published_at,
+      body: r.body,
+      html_url: r.html_url,
+      author: r.author_login ? { login: r.author_login, avatar_url: r.author_avatar } : null,
+    }));
+  }, [pluginData]);
+
+  const initialTags = useMemo(() => {
+    if (!pluginData?.tags) return [];
+    return pluginData.tags.map(t => normalizeTag({ name: t.name }, new Date(t.date)));
+  }, [pluginData]);
+
+  const initialCommits = useMemo(() => {
+    if (!pluginData?.commits) return [];
+    return pluginData.commits.map(c => normalizeCommit({
+      sha: c.sha,
+      commit: { message: c.message, author: { date: c.date } },
+      author: c.author_login ? { login: c.author_login, avatar_url: c.author_avatar } : null,
+      html_url: c.html_url,
+    }));
+  }, [pluginData]);
+
+  const hasBuildData = initialReleases.length > 0 || initialTags.length > 0 || initialCommits.length > 0;
+
+  const [releases, setReleases] = useState(initialReleases);
+  const [tags, setTags] = useState(initialTags);
+  const [commits, setCommits] = useState(initialCommits);
+  const [loading, setLoading] = useState(!hasBuildData);
   const [error, setError] = useState(false);
   const [fetchErrors, setFetchErrors] = useState([]);
-  const [commitPage, setCommitPage] = useState(1);
+  const [commitPage, setCommitPage] = useState(
+    initialCommits.length > 0 ? Math.ceil(initialCommits.length / PER_PAGE_COMMITS) : 1
+  );
   const [hasMoreCommits, setHasMoreCommits] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [loadMoreError, setLoadMoreError] = useState(false);
@@ -202,24 +253,35 @@ export default function UpdatesTimeline() {
 
   useEffect(() => {
     let cancelled = false;
+    const haveBuildReleases = initialReleases.length > 0;
+    const haveBuildTags = initialTags.length > 0;
+    const haveBuildCommits = initialCommits.length > 0;
 
     async function loadInitial() {
-      const results = await Promise.allSettled([
+      // Always refresh releases + tags (small payloads, catches new activity).
+      // Only fetch commits if we have no build-time data — otherwise "Load More"
+      // handles older pages incrementally.
+      const fetches = [
         fetchJson(`https://api.github.com/repos/${REPO}/releases?per_page=100`),
         fetchJson(`https://api.github.com/repos/${REPO}/tags?per_page=100`),
-        fetchJson(`https://api.github.com/repos/${REPO}/commits?per_page=${PER_PAGE_COMMITS}&page=1`),
-      ]);
+      ];
+      if (!haveBuildCommits) {
+        fetches.push(
+          fetchJson(`https://api.github.com/repos/${REPO}/commits?per_page=${PER_PAGE_COMMITS}&page=1`),
+        );
+      }
+
+      const results = await Promise.allSettled(fetches);
 
       if (cancelled) return;
 
-      let allFailed = true;
+      let anySucceeded = haveBuildReleases || haveBuildTags || haveBuildCommits;
       const errors = [];
 
       // Releases
       if (results[0].status === 'fulfilled') {
-        allFailed = false;
-        const normalized = results[0].value.map(normalizeRelease);
-        setReleases(normalized);
+        anySucceeded = true;
+        setReleases(results[0].value.map(normalizeRelease));
 
         // Resolve tag dates for non-release tags
         if (results[1].status === 'fulfilled') {
@@ -240,17 +302,18 @@ export default function UpdatesTimeline() {
               const resolvedTags = tagResults
                 .filter(r => r.status === 'fulfilled')
                 .map(r => normalizeTag(r.value.tag, r.value.date));
-              setTags(resolvedTags);
+              // Only overwrite if we resolved at least one — don't wipe build-time tags
+              if (resolvedTags.length > 0) setTags(resolvedTags);
             }
           }
         }
-      } else {
+      } else if (!haveBuildReleases) {
         errors.push('releases');
       }
 
+      // Tags succeeded but releases failed — resolve all tag dates
       if (results[1].status === 'fulfilled' && results[0].status !== 'fulfilled') {
-        // Releases failed, but tags succeeded — still resolve tag dates
-        allFailed = false;
+        anySucceeded = true;
         const tagsToResolve = results[1].value.slice(0, MAX_TAG_DATE_FETCHES);
         const tagResults = await Promise.allSettled(
           tagsToResolve.map(t =>
@@ -262,32 +325,34 @@ export default function UpdatesTimeline() {
           const resolvedTags = tagResults
             .filter(r => r.status === 'fulfilled')
             .map(r => normalizeTag(r.value.tag, r.value.date));
-          setTags(resolvedTags);
+          if (resolvedTags.length > 0) setTags(resolvedTags);
         }
       }
 
-      if (results[1].status === 'rejected' && results[0].status !== 'fulfilled') {
+      if (results[1].status === 'rejected' && !haveBuildTags) {
         errors.push('tags');
       }
 
-      // Commits
-      if (results[2].status === 'fulfilled') {
-        allFailed = false;
-        const data = results[2].value;
-        setCommits(data.map(normalizeCommit));
-        if (data.length < PER_PAGE_COMMITS) setHasMoreCommits(false);
-      } else {
-        errors.push('commits');
+      // Commits — only fetched when no build-time data
+      if (results[2]) {
+        if (results[2].status === 'fulfilled') {
+          anySucceeded = true;
+          const data = results[2].value;
+          setCommits(data.map(normalizeCommit));
+          if (data.length < PER_PAGE_COMMITS) setHasMoreCommits(false);
+        } else if (!haveBuildCommits) {
+          errors.push('commits');
+        }
       }
 
-      if (errors.length > 0 && !allFailed) setFetchErrors(errors);
-      if (allFailed) setError(true);
+      if (errors.length > 0 && anySucceeded) setFetchErrors(errors);
+      if (!anySucceeded) setError(true);
       setLoading(false);
     }
 
     loadInitial();
     return () => { cancelled = true; };
-  }, [fetchJson]);
+  }, [fetchJson, initialReleases, initialTags, initialCommits]);
 
   const loadMoreCommits = useCallback(async () => {
     setLoadingMore(true);
@@ -307,7 +372,9 @@ export default function UpdatesTimeline() {
   }, [commitPage, fetchJson]);
 
   const grouped = useMemo(() => {
-    const all = [...releases, ...tags, ...commits].sort((a, b) => b.date - a.date);
+    const all = [...releases, ...tags, ...commits]
+      .filter(e => e.date instanceof Date && !isNaN(e.date))
+      .sort((a, b) => b.date - a.date);
     const groups = [];
     let currentKey = null;
     let currentEntries = [];

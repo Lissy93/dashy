@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { usePluginData } from '@docusaurus/useGlobalData';
 import Button from './Button';
 import IconHeart from '../../static/icons/about_heart.svg';
 import IconDino from '../../static/icons/about_dino.svg';
@@ -57,33 +58,39 @@ async function fetchAllContributors(token) {
 export default function Authors() {
   const { siteConfig } = useDocusaurusContext();
   const githubToken = siteConfig.customFields?.githubToken || '';
+  const pluginData = usePluginData('github-data');
 
-  const [contributors, setContributors] = useState(null);
+  const [contributors, setContributors] = useState(pluginData?.contributors || null);
   const [error, setError] = useState(false);
-  const [sponsors, setSponsors] = useState(null);
+  const [sponsors, setSponsors] = useState(pluginData?.sponsors || null);
   const [sponsorsError, setSponsorsError] = useState(false);
 
   useEffect(() => {
     fetchAllContributors(githubToken)
       .then((data) => {
         if (data.length === 0) {
-          setError(true);
+          // Only show error if we have no build-time data
+          if (!contributors) setError(true);
         } else {
           setContributors(data.filter((c) => !isBot(c)));
         }
       })
-      .catch(() => setError(true));
+      .catch(() => {
+        if (!contributors) setError(true);
+      });
 
     fetch(SPONSORS_API)
       .then((res) => res.ok ? res.json() : Promise.reject())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
           setSponsors(data);
-        } else {
+        } else if (!sponsors) {
           setSponsorsError(true);
         }
       })
-      .catch(() => setSponsorsError(true));
+      .catch(() => {
+        if (!sponsors) setSponsorsError(true);
+      });
   }, [githubToken]);
 
   return (

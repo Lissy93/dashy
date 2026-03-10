@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { usePluginData } from '@docusaurus/useGlobalData';
 import IconUsers from '../../static/icons/stats_users.svg';
 import IconStars from '../../static/icons/stats_stars.svg';
 import IconDownloads from '../../static/icons/stats_downloads.svg';
@@ -9,7 +10,7 @@ import styles from '../styles/Stats.module.scss';
 const DEFAULTS = [
   { label: 'Contributors', value: '160', Icon: IconUsers, color: 'var(--accent-pink)' },
   { label: 'GitHub Stars', value: '24k', Icon: IconStars, color: 'var(--accent-blue)' },
-  { label: 'Docker Downloads', value: '15M', Icon: IconDownloads, color: 'var(--accent-green)' },
+  { label: 'Docker Downloads', value: '10M', Icon: IconDownloads, color: 'var(--accent-green)' },
   { label: 'Doc Site Views', value: '5M', Icon: IconDocs, color: 'var(--accent-yellow)' },
 ];
 
@@ -102,47 +103,66 @@ function StatItem({ label, value, Icon, color }) {
 function StatsInner() {
   const { siteConfig } = useDocusaurusContext();
   const githubToken = siteConfig.customFields?.githubToken || '';
-  const [stats, setStats] = useState(DEFAULTS);
+  const pluginData = usePluginData('github-data');
+
+  const initialStats = useMemo(() => {
+    const s = [...DEFAULTS];
+    if (pluginData?.contributorCount) {
+      s[0] = { ...s[0], value: formatNumber(pluginData.contributorCount) };
+    }
+    if (pluginData?.starCount) {
+      s[1] = { ...s[1], value: formatNumber(pluginData.starCount) };
+    }
+    if (pluginData?.dockerPulls) {
+      s[2] = { ...s[2], value: formatNumber(pluginData.dockerPulls) };
+    }
+    return s;
+  }, [pluginData]);
+
+  const [stats, setStats] = useState(initialStats);
 
   useEffect(() => {
     const headers = { 'User-Agent': 'dashy-docs' };
     if (githubToken) headers['Authorization'] = `token ${githubToken}`;
 
     const fetchStats = async () => {
-      const updates = [...DEFAULTS];
-
       const results = await Promise.allSettled([
         fetch('https://api.github.com/repos/lissy93/dashy', { headers }).then(r => r.ok ? r.json() : null),
         fetch('https://hub.docker.com/v2/repositories/lissy93/dashy/').then(r => r.ok ? r.json() : null),
         fetch('https://api.github.com/repos/lissy93/dashy/contributors?per_page=1&anon=true', { headers }),
       ]);
 
-      // Stars
-      if (results[0].status === 'fulfilled' && results[0].value) {
-        const stars = results[0].value.stargazers_count;
-        if (stars) updates[1] = { ...updates[1], value: formatNumber(stars) };
-      }
+      // Only update individual stats when live data is valid
+      setStats(prev => {
+        const updates = [...prev];
 
-      // Docker pulls
-      if (results[1].status === 'fulfilled' && results[1].value) {
-        const pulls = results[1].value.pull_count;
-        if (pulls) updates[2] = { ...updates[2], value: formatNumber(pulls) };
-      }
+        // Stars
+        if (results[0].status === 'fulfilled' && results[0].value) {
+          const stars = results[0].value.stargazers_count;
+          if (stars) updates[1] = { ...updates[1], value: formatNumber(stars) };
+        }
 
-      // Contributors count from Link header
-      if (results[2].status === 'fulfilled') {
-        try {
-          const linkHeader = results[2].value.headers.get('Link');
-          if (linkHeader) {
-            const lastMatch = linkHeader.match(/&page=(\d+)>;\s*rel="last"/);
-            if (lastMatch) {
-              updates[0] = { ...updates[0], value: formatNumber(parseInt(lastMatch[1], 10)) };
+        // Docker pulls
+        if (results[1].status === 'fulfilled' && results[1].value) {
+          const pulls = results[1].value.pull_count;
+          if (pulls) updates[2] = { ...updates[2], value: formatNumber(pulls) };
+        }
+
+        // Contributors count from Link header
+        if (results[2].status === 'fulfilled') {
+          try {
+            const linkHeader = results[2].value.headers.get('Link');
+            if (linkHeader) {
+              const lastMatch = linkHeader.match(/&page=(\d+)>;\s*rel="last"/);
+              if (lastMatch) {
+                updates[0] = { ...updates[0], value: formatNumber(parseInt(lastMatch[1], 10)) };
+              }
             }
-          }
-        } catch {}
-      }
+          } catch {}
+        }
 
-      setStats(updates);
+        return updates;
+      });
     };
 
     fetchStats();
