@@ -11,17 +11,28 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/WEBSITE/docs-site-source'
     steps:
-      - uses: actions/checkout@v4
+      - name: Check check checkin it out
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node 22 with yarn
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
+          cache: yarn
 
-      - run: npm ci
-      - run: npm run build
+      - name: Enable Corepack so we can yarn
+        run: corepack enable
 
-      - uses: peaceiris/actions-gh-pages@v4
+      - name: Install a shit ton of crap
+        run: yarn install --frozen-lockfile
+
+      - name: Build everything
+        run: yarn build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to the world
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
