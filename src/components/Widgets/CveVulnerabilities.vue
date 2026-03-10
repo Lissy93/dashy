@@ -40,11 +40,6 @@ export default {
     formatDescription(description) {
       return truncateStr(description, 350);
     },
-    formatExploitCount(numExploits) {
-      if (!numExploits) return 'Number of exploits not known';
-      if (numExploits === '0') return 'No published exploits';
-      return `${numExploits} known exploit${numExploits !== '1' ? 's' : ''}`;
-    },
   },
   computed: {
     endpointTotal() {
@@ -100,7 +95,7 @@ export default {
       return url;
     },
 
-    /* Make GET request to CoinGecko API endpoint */
+    /* Make GET request to NIST NVD API endpoint */
     fetchData() {
       this.defaultTimeout = 12000;
       this.makeRequest(this.endpointTotal)
@@ -131,27 +126,27 @@ export default {
       }
       if (metrics.cvssMetricV40 !== undefined) {
         for (let i = 0; i < metrics.cvssMetricV40.length; i += 1) {
-          if (metrics.cvssMetricV40[i].cvssData !== undefined &&
-              metrics.cvssMetricV40[i].cvssData.baseSeverity !== undefined &&
-              metrics.cvssMetricV40[i].cvssData.baseSeverity !== '') {
+          if (metrics.cvssMetricV40[i].cvssData !== undefined
+              && metrics.cvssMetricV40[i].cvssData.baseSeverity !== undefined
+              && metrics.cvssMetricV40[i].cvssData.baseSeverity !== '') {
             return metrics.cvssMetricV40[i].cvssData.baseSeverity;
           }
         }
       }
       if (metrics.cvssMetricV31 !== undefined) {
         for (let i = 0; i < metrics.cvssMetricV31.length; i += 1) {
-          if (metrics.cvssMetricV31[i].cvssData !== undefined &&
-              metrics.cvssMetricV31[i].cvssData.baseSeverity !== undefined &&
-              metrics.cvssMetricV31[i].cvssData.baseSeverity !== '') {
+          if (metrics.cvssMetricV31[i].cvssData !== undefined
+              && metrics.cvssMetricV31[i].cvssData.baseSeverity !== undefined
+              && metrics.cvssMetricV31[i].cvssData.baseSeverity !== '') {
             return metrics.cvssMetricV31[i].cvssData.baseSeverity;
           }
         }
       }
       if (metrics.cvssMetricV30 !== undefined) {
         for (let i = 0; i < metrics.cvssMetricV30.length; i += 1) {
-          if (metrics.cvssMetricV30[i].cvssData !== undefined &&
-              metrics.cvssMetricV30[i].cvssData.baseSeverity !== undefined &&
-              metrics.cvssMetricV30[i].cvssData.baseSeverity !== '') {
+          if (metrics.cvssMetricV30[i].cvssData !== undefined
+              && metrics.cvssMetricV30[i].cvssData.baseSeverity !== undefined
+              && metrics.cvssMetricV30[i].cvssData.baseSeverity !== '') {
             return metrics.cvssMetricV30[i].cvssData.baseSeverity;
           }
         }
@@ -198,12 +193,6 @@ export default {
       &.bg-red { background: var(--danger); }
       &.bg-blue { background: var(--info); }
       &.bg-grey { background: var(--neutral); }
-      &.fg-green { color: var(--success); }
-      &.fg-yellow { color: var(--warning); }
-      &.fg-orange { color: var(--error); }
-      &.fg-red { color: var(--danger); }
-      &.fg-blue { color: var(--info); }
-      &.fg-grey { color: var(--neutral); }
     }
     a.upper {
       display: flex;
@@ -212,9 +201,9 @@ export default {
       text-decoration: none;
     }
     .score {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: bold;
-      padding: 0.45rem 0.25rem 0.25rem 0.25rem;
+      padding: 0.25rem 0.5rem;
       margin-right: 0.5rem;
       border-radius: 30px;
       font-family: var(--font-monospace);
@@ -232,14 +221,6 @@ export default {
       margin: 0;
       opacity: var(--dimming-factor);
       padding-right: 0.5rem;
-    }
-    .exploit-count {
-      display: none;
-      font-size: 0.8rem;
-      margin: 0;
-      padding-left: 0.5rem;
-      opacity: var(--dimming-factor);
-      border-left: 1px solid var(--widget-text-color);
     }
     .seperator {
       font-size: 0.8rem;
@@ -261,7 +242,7 @@ export default {
     }
     &:hover {
       .date { display: none; }
-      .exploit-count, .last-updated { display: inline; }
+      .last-updated { display: inline; }
     }
   }
 }
