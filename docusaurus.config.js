@@ -35,6 +35,25 @@ module.exports = {
   organizationName: 'lissy93', // Usually your GitHub org/user name.
   projectName: 'dashy', // Usually your repo name.
   headTags: [
+    // Preconnect to image CDNs (used for above-the-fold content)
+    {
+      tagName: 'link',
+      attributes: { rel: 'preconnect', href: 'https://pixelflare.cc' },
+    },
+    {
+      tagName: 'link',
+      attributes: { rel: 'preconnect', href: 'https://cdn.as93.net' },
+    },
+    // DNS-prefetch for API and third-party domains used client-side
+    {
+      tagName: 'link',
+      attributes: { rel: 'dns-prefetch', href: 'https://api.github.com' },
+    },
+    {
+      tagName: 'link',
+      attributes: { rel: 'dns-prefetch', href: 'https://no-track.as93.net' },
+    },
+    // Structured data
     {
       tagName: 'script',
       attributes: { type: 'application/ld+json' },
@@ -80,7 +99,7 @@ module.exports = {
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: 'https://dashy.to' },
       { property: 'og:image', content: 'https://dashy.to/img/dashy.png' },
-      { name: 'twitter:card', content: 'summary' },
+      { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: 'Dashy — The Ultimate Homepage for your Homelab' },
       { name: 'twitter:description', content: 'Dashy is a self-hosted dashboard app for your homelab. Manage all your services, with status checks, widgets, themes and more.' },
       { name: 'twitter:image', content: 'https://dashy.to/img/dashy.png' },

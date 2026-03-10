@@ -1,18 +1,29 @@
-# Builds and published Dashy's documentation website
-name: Build Docs Site
+# Builds the dashy docs website (docusrus), and puts the compiled output into the gh-pages branch
+# From there, it can be served/deployed to GitHub Pages, or any other static CDN or hosting provider
+name: 💼 Build Docs Site
 on:
   workflow_dispatch:
   push:
-    branches: [ WEBSITE/docs-site-source ]
+    branches: [WEBSITE/docs-site-source]
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/WEBSITE/docs-site-source'
     steps:
-      - uses: actions/checkout@master
-      - uses: redkubes/docusaurus-deploy-action@v1
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          source-folder: ./
-          git-user: ${{ github.actor }}
-          git-password: ${{ secrets.GITHUB_TOKEN }}
-          deployment-branch: gh-pages
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          publish_branch: gh-pages
+          cname: dashy.to

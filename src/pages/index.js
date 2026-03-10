@@ -12,7 +12,7 @@ export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title="Dashy -- The Ultimate Homepage for your Homelab"
+      title="Dashy - The Ultimate Homepage for your Homelab"
       description="Dashy is an open-source, self-hosted dashboard for your homelab. Features include status checks, widgets, themes, icon packs, a UI editor, and more.">
       <Head>
         <meta property="og:title" content="Dashy — The Ultimate Homepage for your Homelab" />

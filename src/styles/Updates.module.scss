@@ -70,7 +70,7 @@
   &::before {
     width: 14px;
     height: 14px;
-    background: #db78fc;
+    background: var(--accent-pink);
     left: -2.5rem;
     top: 1rem;
     margin-left: -6px;
@@ -81,7 +81,7 @@
   &::before {
     width: 10px;
     height: 10px;
-    background: #5c85f7;
+    background: var(--accent-blue);
     left: -2.5rem;
     top: 1rem;
     margin-left: -4px;
@@ -104,7 +104,7 @@
   border-radius: 8px;
   background: var(--background);
   box-shadow: var(--feature-img-shadow);
-  border-left: 4px solid #db78fc;
+  border-left: 4px solid var(--accent-pink);
 
   .entryTitle {
     font-family: "Roboto Mono", monospace;
@@ -123,7 +123,7 @@
   border-radius: 8px;
   background: var(--background);
   box-shadow: var(--feature-img-shadow);
-  border-left: 4px solid #5c85f7;
+  border-left: 4px solid var(--accent-blue);
 
   .entryTitle {
     font-family: "Roboto Mono", monospace;
@@ -165,11 +165,11 @@
 }
 
 .badgeRelease {
-  background: #db78fc;
+  background: var(--accent-pink);
 }
 
 .badgeTag {
-  background: #5c85f7;
+  background: var(--accent-blue);
 }
 
 .tagPill {
@@ -293,7 +293,7 @@
   }
 
   a {
-    color: #5c85f7;
+    color: var(--accent-blue);
     text-decoration: underline;
 
     &:hover {

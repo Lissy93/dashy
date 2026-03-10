@@ -1,13 +1,13 @@
-.color-pink { --feature-color: #db78fc; }
-.color-blue { --feature-color: #5c85f7; }
-.color-green { --feature-color: #41ef90; }
-.color-yellow { --feature-color: #dcff5a; }
+.color-pink { --feature-color: var(--accent-pink); }
+.color-blue { --feature-color: var(--accent-blue); }
+.color-green { --feature-color: var(--accent-green); }
+.color-yellow { --feature-color: var(--accent-yellow); }
 .color-white { --feature-color: white; }
 html[data-theme='light'] { /* Dark Theme */
-  .color-pink { --feature-color: #b83ddd; }
-  .color-blue { --feature-color: #6b3cd6; }
-  .color-green { --feature-color: #1e9554; }
-  .color-yellow { --feature-color: #ceb73f; }
+  .color-pink { --feature-color: var(--accent-pink-dark); }
+  .color-blue { --feature-color: var(--accent-purple-dark); }
+  .color-green { --feature-color: var(--accent-green-dark); }
+  .color-yellow { --feature-color: var(--accent-yellow-dark); }
   .color-white { --feature-color: #000; }
 }
 .home-page-features-wrapper {

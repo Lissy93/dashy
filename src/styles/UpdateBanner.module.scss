@@ -1,0 +1,86 @@
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.25rem 1rem;
+  background: var(--accent-green);
+  color: var(--bright-white);
+  font-size: 0.95rem;
+  font-weight: 600;
+  position: relative;
+  z-index: 100;
+  animation: slideDown 0.3s ease-out;
+  text-decoration: none;
+  display: flex;
+  gap: 0.25rem 1.25rem;
+  flex-wrap: wrap;
+}
+
+.dismissing {
+  animation: fadeOut 0.25s ease-in forwards;
+}
+
+.link, .link2 {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 400;
+  color: var(--black);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  &:hover { text-decoration: none; }
+  &.link2 { text-decoration: underline; opacity: 0.85; }
+  &.link2:hover { transform: scale(1.03); opacity: 1; text-decoration: underline; }
+}
+
+.closeBtn {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--black);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0 0.25rem;
+  line-height: 1;
+  opacity: 0.8;
+  padding: 0 0.25rem 0.1rem 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  &:hover {
+    opacity: 1;
+    background: #1d8c4f;
+  }
+}
+
+@media (max-width: 600px) {
+  .banner {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .closeBtn {
+    right: 0.5rem;
+    font-size: 1.1rem;
+  }
+}

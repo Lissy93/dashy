@@ -8,7 +8,7 @@ export default function Survey() {
       title="Dashy Survey"
       description="Documentation | Dashy, a self-hosted dashboard for your homelab">
       <main className="survey">
-        <iframe id="dashy-survey" src="https://n9fy6xak9yd.typeform.com/to/gl0L68ou"></iframe>
+        <iframe id="dashy-survey" src="https://n9fy6xak9yd.typeform.com/to/gl0L68ou" loading="lazy" title="Dashy User Survey"></iframe>
       </main>
     </Layout>
   );

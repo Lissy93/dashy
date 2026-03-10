@@ -1,0 +1,3 @@
+Contact: mailto:security@as93.net
+Encryption: https://keys.openpgp.org/vks/v1/by-fingerprint/E10EE533A8E5D6F6E231BBCD4C8DEAFFCE3B8D03
+Preferred-Languages: en

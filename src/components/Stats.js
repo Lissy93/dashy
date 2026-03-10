@@ -7,10 +7,10 @@ import IconDocs from '../../static/icons/stats_docs.svg';
 import styles from '../styles/Stats.module.scss';
 
 const DEFAULTS = [
-  { label: 'Contributors', value: '160', Icon: IconUsers, color: '#db78fc' },
-  { label: 'GitHub Stars', value: '24k', Icon: IconStars, color: '#5c85f7' },
-  { label: 'Docker Downloads', value: '15M', Icon: IconDownloads, color: '#41ef90' },
-  { label: 'Doc Site Views', value: '5M', Icon: IconDocs, color: '#dcff5a' },
+  { label: 'Contributors', value: '160', Icon: IconUsers, color: 'var(--accent-pink)' },
+  { label: 'GitHub Stars', value: '24k', Icon: IconStars, color: 'var(--accent-blue)' },
+  { label: 'Docker Downloads', value: '15M', Icon: IconDownloads, color: 'var(--accent-green)' },
+  { label: 'Doc Site Views', value: '5M', Icon: IconDocs, color: 'var(--accent-yellow)' },
 ];
 
 function formatNumber(n) {

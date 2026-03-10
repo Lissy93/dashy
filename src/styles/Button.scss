@@ -50,38 +50,38 @@
   }
 
   &.color-btn.btn-pink {
-    background: #db78fc;
-    box-shadow: 0 4px #b83ddd;
+    background: var(--accent-pink);
+    box-shadow: 0 4px var(--accent-pink-dark);
     &:hover {
-      box-shadow: 0 2px #b83ddd;
+      box-shadow: 0 2px var(--accent-pink-dark);
     }
   }
   &.color-btn.btn-purple {
-    background: #9083ed;
-    box-shadow: 0 4px #6b3cd6;
+    background: var(--accent-purple);
+    box-shadow: 0 4px var(--accent-purple-dark);
     &:hover {
-      box-shadow: 0 2px #6b3cd6;
+      box-shadow: 0 2px var(--accent-purple-dark);
     }
   }
   &.color-btn.btn-blue {
-    background: #5c85f7;
-    box-shadow: 0 4px #3d48dd;
+    background: var(--accent-blue);
+    box-shadow: 0 4px var(--accent-blue-dark);
     &:hover {
-      box-shadow: 0 2px #3d48dd;
+      box-shadow: 0 2px var(--accent-blue-dark);
     }
   }
   &.color-btn.btn-green {
-    background: #41ef90;
-    box-shadow: 0 4px #1e9554;
+    background: var(--accent-green);
+    box-shadow: 0 4px var(--accent-green-dark);
     &:hover {
-      box-shadow: 0 2px #1e9554;
+      box-shadow: 0 2px var(--accent-green-dark);
     }
   }
   &.color-btn.btn-yellow {
-    background: #dcff5a;
-    box-shadow: 0 4px #ceb73f;
+    background: var(--accent-yellow);
+    box-shadow: 0 4px var(--accent-yellow-dark);
     &:hover {
-      box-shadow: 0 2px #ceb73f;
+      box-shadow: 0 2px var(--accent-yellow-dark);
     }
   }
 }
