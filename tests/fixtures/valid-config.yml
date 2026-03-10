@@ -1,0 +1,23 @@
+---
+# Valid test configuration for Dashy
+pageInfo:
+  title: Test Dashboard
+  description: A test configuration
+
+appConfig:
+  theme: default
+  language: en
+
+sections:
+  - name: Test Section
+    icon: fas fa-rocket
+    items:
+      - title: Test Item 1
+        description: First test item
+        url: https://example.com
+        icon: favicon
+
+      - title: Test Item 2
+        description: Second test item
+        url: https://example.org
+        icon: fas fa-star
