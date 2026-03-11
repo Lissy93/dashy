@@ -734,7 +734,7 @@ Note, config for this widget is case-sensitive (see [#1268](https://github.com/L
 - type: public-holidays
   options:
     country: GB
-    region: LND
+    state: LND
     holidayType: all
     monthsToShow: 12
     lang: en
@@ -2590,7 +2590,7 @@ Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self
 #### Example
 
 ```yaml
-- type: drone-io
+- type: drone-ci
   updateInterval: 30
   options:
     host: https://drone.somedomain.com

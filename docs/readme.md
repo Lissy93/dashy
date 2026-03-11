@@ -34,6 +34,4 @@
 
 - [Privacy & Security](/docs/privacy.md) - List of requests, potential issues, and security resources
 - [License](/LICENSE) - Copy of the MIT License
-- [Legal](/.github/LEGAL.md) - Licenses of direct dependencies
 - [Code of Conduct](/.github/CODE_OF_CONDUCT.md) - Contributor Covenant Code of Conduct
-- [Changelog](/.github/CHANGELOG.md) - Details of recent changes, and historical versions
