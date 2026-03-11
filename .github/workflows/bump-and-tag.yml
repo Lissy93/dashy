@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: read
 
 jobs:
@@ -104,5 +104,12 @@ jobs:
             echo "Tag $VERSION already exists, skipping"
             exit 0
           fi
-          git tag -a "$VERSION" -m "Release v$VERSION"
+
+          printf 'Published Dashy v%s 🚀\n\nPR #%s: %s\nMerge commit: %s\n' \
+            "$VERSION" \
+            "$PR_NUMBER" \
+            "$PR_TITLE" \
+            "$MERGE_SHA" > tag-message.txt
+
+          git tag -a "$VERSION" -F tag-message.txt
           git push origin "$VERSION"

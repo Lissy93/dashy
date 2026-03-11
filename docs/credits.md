@@ -19,7 +19,7 @@
 
 ## Dependencies
 
-This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them. For a full breakdown of dependency licenses, please see [Legal](https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md)
+This app definitely wouldn't have been quite so possible without the making use of the following package and components. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them. Full credit and big kudos to their respective authors, who've done an amazing job in building and maintaining them
 
 ### Core
 
