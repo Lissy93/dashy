@@ -29,13 +29,15 @@
           :displayData="getDisplayData(section)"
           :groupId="makeSectionId(section)"
           :items="section.filteredItems"
-          :widgets="section.widgets"
+          :widgets="section.filteredWidgets"
           :searchTerm="searchValue"
           :itemSize="itemSizeBound"
           @itemClicked="finishedSearching()"
           @change-modal-visibility="updateModalVisibility"
           :isWide="!!singleSectionView || layoutOrientation === 'horizontal'"
-          :class="(searchValue && section.filteredItems.length === 0) ? 'no-results' : ''"
+          :class="(searchValue &&
+            (section.filteredItems.length === 0 &&
+            section.filteredWidgets.length === 0)) ? 'no-results' : ''"
         />
       </template>
       <!-- Show add new section button, in edit mode -->
@@ -102,6 +104,15 @@ export default {
       return sections.map((_section) => {
         const section = _section;
         section.filteredItems = this.filterTiles(section.items, this.searchValue);
+
+        const searchedWidgets = this.filterTiles(section.widgets, this.searchValue);
+        const widgetCategoriesArray = this.normalizeWidgetCats(
+          this.getDisplayData(section).widgetCategories,
+        );
+        section.filteredWidgets = this.filterWidgetsByCategories(
+          searchedWidgets, widgetCategoriesArray,
+        );
+
         return section;
       });
     },
@@ -123,6 +134,18 @@ export default {
     },
   },
   methods: {
+    /* returns only widgets that have category that are present in
+    widgetCategories array in section config displayData */
+    filterWidgetsByCategories(widgets, cats) {
+      if (!cats.length) return widgets || [];
+      return (widgets || []).filter(w => (typeof w.category === 'string'
+      && cats.includes(w.category.toLowerCase().trim())));
+    },
+    /* Normalization of widget categories text inputs by user */
+    normalizeWidgetCats(cats) {
+      if (!Array.isArray(cats)) return [];
+      return cats.map(c => String(c).toLowerCase().trim()).filter(Boolean);
+    },
     /* Clears input field, once a searched item is opened */
     finishedSearching() {
       if (this.$refs.filterComp) this.$refs.filterComp.clearFilterInput();

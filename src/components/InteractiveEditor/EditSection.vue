@@ -69,6 +69,7 @@ export default {
               cols: displayDataSchema.cols,
               collapsed: displayDataSchema.collapsed,
               hideForGuests: displayDataSchema.hideForGuests,
+              widgetCategories: displayDataSchema.widgetCategories,
             },
           },
         },
