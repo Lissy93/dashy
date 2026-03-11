@@ -1,0 +1,66 @@
+# Manual fallback for creating a tag with optional version bump.
+# The automated flow is handled by bump-and-tag.yml on PR merge.
+name: 🏷️ Tag on Version Change
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to tag (e.g. 3.2.0). Leave empty to auto-bump patch.'
+        required: false
+
+concurrency:
+  group: manual-tag-version
+  cancel-in-progress: false
+
+jobs:
+  tag-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Out Repository 🛎️
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configure Git Identity 🤖
+        run: |
+          git config user.name "Liss-Bot"
+          git config user.email "liss-bot@d0h.co"
+
+      - name: Determine and Apply Version 🔢
+        id: version
+        env:
+          INPUT_VERSION: ${{ github.event.inputs.version }}
+        run: |
+          CURRENT=$(node -p "require('./package.json').version")
+          if [ -n "$INPUT_VERSION" ]; then
+            TARGET="${INPUT_VERSION#v}"
+          else
+            npm version patch --no-git-tag-version > /dev/null
+            TARGET=$(node -p "require('./package.json').version")
+          fi
+          if [ "$TARGET" != "$CURRENT" ]; then
+            npm version "$TARGET" --no-git-tag-version --allow-same-version
+            git add package.json
+            git commit -m "🔖 Bump version to $TARGET [skip ci]"
+            git push
+            echo "Committed version bump to $TARGET"
+          else
+            echo "package.json already at $CURRENT, skipping commit"
+          fi
+          echo "TARGET=$TARGET" >> $GITHUB_OUTPUT
+
+      - name: Create and Push Tag ⤴️
+        env:
+          TAG: ${{ steps.version.outputs.TARGET }}
+        run: |
+          git fetch --tags --force
+          if git rev-parse "refs/tags/$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists, skipping"
+          else
+            git tag -a "$TAG" -m "Release v$TAG"
+            git push origin "$TAG"
+            echo "Created and pushed tag $TAG"
+          fi

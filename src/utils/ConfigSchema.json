@@ -351,6 +351,12 @@
               "default": "false",
               "description": "If set to true, web search will be disabled all together"
             },
+            "openUrlsDirectly": {
+              "title": "Open URLs Directly",
+              "type": "boolean",
+              "default": false,
+              "description": "If enabled, when the search query looks like a URL it will be opened directly instead of being passed to the search engine"
+            },
             "searchEngine": {
               "title": "Search Engine",
               "type": "string",

@@ -38,6 +38,7 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
     - [Play-with-Docker](#play-with-docker)
     - [Surge.sh](#surgesh)
     - [Easypanel](#easypanel)
+    - [EdgeOne Pages](#edgeone-pages)
   - [Hosting with CDN](#hosting-with-cdn)
   - [Requirements](#requirements)
     - [System Requirements](#system-requirements)
@@ -101,7 +102,6 @@ The following is a complete example of a [`docker-compose.yml`](https://github.c
 
 ```yaml
 ---
-version: "3.8"
 services:
   dashy:
     # To build from source, replace 'image: lissy93/dashy' with 'build: .'
@@ -339,6 +339,17 @@ To deploy Dashy to Easypanel, use the following link
 
 ```text
 https://easypanel.io/docs/templates/dashy
+```
+
+### EdgeOne Pages
+
+[![Deploy to EdgeOne](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?repository-url=https://github.com/lissy93/dashy)
+
+[EdgeOne Pages](https://pages.edgeone.ai) it's a is built on a cloud-edge integrated architecture, combining hosting, acceleration, computing, and integration to enable faster and more efficient deployments.
+To deploy Dashy to EdgeOne, use the following link
+
+```text
+https://edgeone.ai/pages/new?repository-url=https://github.com/lissy93/dashy
 ```
 
 ---

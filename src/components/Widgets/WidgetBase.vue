@@ -63,6 +63,7 @@ const COMPAT = {
   embed: 'EmbedWidget',
   'eth-gas-prices': 'EthGasPrices',
   'exchange-rates': 'ExchangeRates',
+  filebrowser: 'Filebrowser',
   'flight-data': 'Flights',
   'github-profile-stats': 'GitHubProfile',
   'github-trending-repos': 'GitHubTrending',

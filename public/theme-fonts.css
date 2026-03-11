@@ -1,0 +1,44 @@
+/* Optional fonts for specific themes, served statically from public/ */
+
+@font-face {
+  font-family: 'Cutive Mono';
+  src: url('/fonts/CutiveMono-Regular.ttf');
+}
+@font-face {
+  font-family: 'Francois One';
+  src: url('/fonts/FrancoisOne-Regular.ttf');
+}
+@font-face {
+  font-family: 'Podkova';
+  src: url('/fonts/Podkova-Medium.ttf');
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Light.ttf');
+}
+@font-face {
+  font-family: 'Sniglet';
+  src: url('/fonts/Sniglet-Regular.ttf');
+}
+@font-face {
+  font-family: 'VT323';
+  src: url('/fonts/VT323-Regular.ttf');
+}
+@font-face {
+  font-family: 'Audiowide';
+  src: url('/fonts/Audiowide-Regular.ttf');
+}
+@font-face {
+  font-family: 'Shrikhand';
+  src: url('/fonts/Shrikhand-Regular.ttf');
+}
+@font-face {
+  font-family: 'Digital';
+  src: url('/fonts/Digital-Regular.ttf');
+}
+@font-face {
+  font-family: 'OpenWeatherIcons';
+  src: url('/widget-resources/WeatherIcons.woff2');
+  font-style: normal;
+  font-weight: 400;
+}
