@@ -129,6 +129,7 @@ const COMPAT = {
   weather: 'Weather',
   'weather-forecast': 'WeatherForecast',
   'xkcd-comic': 'XkcdComic',
+  'glances-uptime': 'GlancesUptime',
 };
 
 export default {
