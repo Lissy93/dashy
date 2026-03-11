@@ -1,6 +1,6 @@
 # Manual fallback for creating a tag with optional version bump.
 # The automated flow is handled by bump-and-tag.yml on PR merge.
-name: 🏗️ Tag on Version Change
+name: 🏷️ Tag on Version Change
 
 on:
   workflow_dispatch:
@@ -56,7 +56,7 @@ jobs:
         env:
           TAG: ${{ steps.version.outputs.TARGET }}
         run: |
-          git fetch --tags
+          git fetch --tags --force
           if git rev-parse "refs/tags/$TAG" >/dev/null 2>&1; then
             echo "Tag $TAG already exists, skipping"
           else

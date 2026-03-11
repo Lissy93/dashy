@@ -23,7 +23,7 @@ jobs:
         id: version_check
         run: |
           CURRENT_TAG="${{ github.event.inputs.tag || github.ref_name }}"
-          git fetch --tags
+          git fetch --tags --force
           PREVIOUS_TAG=$(git tag --sort=-version:refname | grep -v "^${CURRENT_TAG}$" | head -1)
           if [ -z "$PREVIOUS_TAG" ]; then
             echo "No previous tag found, creating release"
