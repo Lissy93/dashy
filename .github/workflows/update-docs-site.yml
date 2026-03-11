@@ -46,7 +46,7 @@ jobs:
       - name: Setup Node.js 🟢
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Install website dependencies 📦
         working-directory: website-docs
@@ -59,7 +59,7 @@ jobs:
         run: |
           cp -r ../master-docs/docs ./
           python ./do-doc-updaty-magic.py
-        
+
       - name: Commit changes 🚀
         run: |
           cd website-docs
