@@ -49,7 +49,7 @@ export default {
             time: timestampToDateTime(alert.begin * 1000),
             ongoing: (alert.end === -1),
             timeAgo: getTimeAgo(alert.begin * 1000),
-            lasted: alert.begin ? getTimeDifference(alert.begin * 1000, alert.end * 1000) : 'Ongoing',
+            lasted: alert.end !== -1 ? getTimeDifference(alert.begin * 1000, alert.end * 1000) : 'Ongoing',
             severity: alert.state,
             category: alert.type,
             value: round(alert.sum),
