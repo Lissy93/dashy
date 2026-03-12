@@ -38,7 +38,7 @@ export default {
       const jsonObj = JSON.parse(strjsonConfig);
       const yaml = jsYaml.dump(jsonObj, yamlOptions);
       // 3. Prepare the request
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       const endpoint = `${baseUrl}${serviceEndpoints.save}`;
       const headers = { 'Content-Type': 'text/plain' };
       const filename = isSubPag

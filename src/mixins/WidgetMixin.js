@@ -30,14 +30,14 @@ const WidgetMixin = {
       this.disableLoader = true;
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.updater) {
       clearInterval(this.updater);
     }
   },
   computed: {
     proxyReqEndpoint() {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
     useProxy() {
@@ -134,10 +134,11 @@ const WidgetMixin = {
     /* Check if a value is an environment variable, return its value if so. */
     parseAsEnvVar(str) {
       if (typeof str !== 'string') return str;
-      if (str.includes('VUE_APP_')) {
-        const envVar = process.env[str];
+      if (str.includes('VUE_APP_') || str.includes('VITE_APP_')) {
+        const envKey = str.replace(/^VUE_APP_/, 'VITE_APP_');
+        const envVar = import.meta.env[envKey];
         if (!envVar) {
-          this.error(`Environment variable ${str} not found`);
+          this.error(`Environment variable ${envKey} not found`);
         } else {
           return envVar;
         }

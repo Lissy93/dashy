@@ -4,9 +4,9 @@
  * Note that the page paths are defined in @/utils/defaults.js
  */
 
-// Import Vue.js and vue router
-import Vue from 'vue';
-import Router from 'vue-router';
+// Import vue router
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
+import { nextTick } from 'vue';
 import { Progress } from 'rsup-progress';
 
 // Import views, that are not lazy-loaded
@@ -17,7 +17,6 @@ import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/Auth';
 import { metaTagData, startingView as defaultStartingView, routePaths } from '@/utils/defaults';
 import ErrorHandler from '@/utils/ErrorHandler';
 
-Vue.use(Router);
 const progress = new Progress({ color: 'var(--progress-bar)' });
 
 /* Returns true if user is already authenticated, or if auth is not enabled */
@@ -29,7 +28,7 @@ const isAuthenticated = () => {
 };
 
 // Get the default starting view from environmental variable
-const startingView = process.env.VUE_APP_STARTING_VIEW || defaultStartingView;
+const startingView = import.meta.env.VITE_APP_STARTING_VIEW || defaultStartingView;
 
 /**
  * Returns the component that should be rendered at the base path,
@@ -45,17 +44,22 @@ const getStartingComponent = () => {
 
 /* Returns the meta tags for each route */
 const makeMetaTags = (defaultTitle) => {
-  const userTitle = process.env.VUE_APP_TITLE || '';
+  const userTitle = import.meta.env.VITE_APP_TITLE || '';
   const title = userTitle ? `${userTitle} | ${defaultTitle}` : defaultTitle;
   return { title, metaTags: metaTagData };
 };
 
 /* Routing mode, can be either 'hash', 'history' or 'abstract' */
-const mode = process.env.VUE_APP_ROUTING_MODE || 'history';
+const mode = import.meta.env.VITE_APP_ROUTING_MODE || 'history';
+
+/* Map mode string to Vue Router 4 history function */
+const history = mode === 'hash'
+  ? createWebHashHistory(import.meta.env.BASE_URL)
+  : createWebHistory(import.meta.env.BASE_URL);
 
 /* List of all routes, props, components and metadata */
-const router = new Router({
-  mode,
+const router = createRouter({
+  history,
   routes: [
     // ...makeMultiPageRoutes(pages),
     { // The default view can be customized by the user
@@ -117,13 +121,13 @@ const router = new Router({
       meta: makeMetaTags('404 Not Found'),
       beforeEnter: (to, from, next) => {
         if (to.redirectedFrom) { // Log error, if redirected here from another route
-          ErrorHandler(`Route not found: '${to.redirectedFrom}'`);
+          ErrorHandler(`Route not found: '${to.redirectedFrom.fullPath}'`);
         }
         next();
       },
     },
     { // Redirect any not-found routed to the 404 view
-      path: '*',
+      path: '/:pathMatch(.*)*',
       redirect: '/404',
     },
   ],
@@ -143,7 +147,7 @@ router.beforeEach(async (to, from, next) => {
 /* If title is missing, then apply default page title */
 router.afterEach((to) => {
   progress.end();
-  Vue.nextTick(() => {
+  nextTick(() => {
     document.title = to.meta.title || 'Dashy';
   });
 });

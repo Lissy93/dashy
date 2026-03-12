@@ -28,6 +28,7 @@ export const makePageSlug = (pageName, pageType) => {
 
 /* Put fetch path for additional configs in correct format */
 export const formatConfigPath = (configPath) => {
+  if (!configPath) return null;
   if (configPath.includes('http')) return configPath;
   if (configPath.substring(0, 1) !== '/') return `/${configPath}`;
   return configPath;

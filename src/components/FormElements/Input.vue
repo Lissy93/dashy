@@ -9,7 +9,7 @@
     </label>
     <input
       :type="type"
-      :value="value"
+      :value="modelValue"
       v-on:input="updateValue($event.target.value)"
       :name="name"
       :id="name"
@@ -31,7 +31,7 @@
 export default {
   name: 'Input',
   props: {
-    value: [String, Number], // The value bound to v-model
+    modelValue: [String, Number], // The value bound to v-model
     label: String, // An optional label to display above
     name: String, // Required unique ID value, for accessibility
     placeholder: String, // Optional placeholder value
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     updateValue(value) {
-      this.$emit('input', value);
+      this.$emit('update:modelValue', value);
     },
   },
 };

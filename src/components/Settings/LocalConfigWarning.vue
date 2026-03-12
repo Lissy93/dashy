@@ -90,9 +90,6 @@ export default {
     if (!shouldHide) {
       window.setTimeout(() => { this.shouldHide = shouldHide; }, this.timeDelay);
       window.addEventListener('keyup', this.keyPressEvent);
-    } else { // Meh, component not needed.
-      // No point wasting valuable bytes of your 32GB Ram, lets kill it
-      this.$destroy();
     }
   },
 };

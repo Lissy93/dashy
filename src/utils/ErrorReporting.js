@@ -7,26 +7,24 @@
  * as access to the console errors enable it to be triaged an fixed effectively
  */
 
-/* eslint-disable global-require */
-
 import $store from '@/store';
 import { sentryDsn } from '@/utils/defaults';
 
-const ErrorReporting = (Vue, router) => {
+const ErrorReporting = async (app, router) => {
   // Fetch users config
   const appConfig = $store.getters.appConfig || {};
   // Check if error reporting is enabled. Only proceed if user has turned it on.
   if (appConfig.enableErrorReporting) {
     // Get current app version
-    const appVersion = process.env.VUE_APP_VERSION ? `Dashy@${process.env.VUE_APP_VERSION}` : '';
+    const appVersion = import.meta.env.VITE_APP_VERSION ? `Dashy@${import.meta.env.VITE_APP_VERSION}` : '';
     // Import Sentry
-    const Sentry = require('@sentry/vue');
-    const { Integrations } = require('@sentry/tracing');
+    const { default: Sentry } = await import('@sentry/vue');
+    const { Integrations } = await import('@sentry/tracing');
     // Get the Data Source Name for your or Dashy's Sentry instance
     const dsn = appConfig.sentryDsn || sentryDsn;
     // Initialize Sentry
     Sentry.init({
-      Vue,
+      app,
       dsn,
       integrations: [
         new Integrations.BrowserTracing({

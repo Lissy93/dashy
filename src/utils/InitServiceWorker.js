@@ -37,7 +37,7 @@ const shouldEnableServiceWorker = async () => {
   if (conf && conf.appConfig && conf.appConfig.enableServiceWorker) {
     setSwStatus({ disabledByUser: false });
     return true;
-  } else if (process.env.NODE_ENV !== 'production') {
+  } else if (import.meta.env.DEV) {
     setSwStatus({ devMode: true });
     return false;
   }
@@ -50,7 +50,7 @@ const printSwStatus = (msg) => {
   statusMsg('Service Worker Status', msg);
 };
 
-const swUrl = `${process.env.BASE_URL || '/'}service-worker.js`;
+const swUrl = `${import.meta.env.BASE_URL || '/'}service-worker.js`;
 
 /* If service worker enabled, then register it, and print message when status changes */
 const registerServiceWorker = async () => {

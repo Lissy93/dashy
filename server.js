@@ -39,7 +39,18 @@ const getUser = require('./services/get-user'); // Enables server side user look
 
 /* Helper functions, and default config */
 const printMessage = require('./services/print-message'); // Function to print welcome msg on start
-const ENDPOINTS = require('./src/utils/defaults').serviceEndpoints; // API endpoint URL paths
+// Service endpoints
+// TODO: We already got these defined in './src/utils/defaults' under `serviceEndpoints`
+// Need a way to import from there, without getting stupid ESM import issues from defaults.js
+const ENDPOINTS = {
+  statusPing: '/status-ping',
+  statusCheck: '/status-check',
+  save: '/config-manager/save',
+  rebuild: '/config-manager/rebuild',
+  systemInfo: '/system-info',
+  corsProxy: '/cors-proxy',
+  getUser: '/get-user',
+};
 
 /* Checks if app is running within a container, from env var */
 const isDocker = !!process.env.IS_DOCKER;

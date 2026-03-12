@@ -5,14 +5,14 @@
     <!-- Read Data -->
     <div class="io-data read" v-tooltip="disk.readC ? `Count: ${disk.readC}` : ''">
       <span class="lbl">{{ $t('widgets.glances.disk-io-read') }}:</span>
-      <span class="val">{{ disk.readB | formatSize }}</span>
-      <span :class="`direction ${disk.readD}`">{{ disk.readD | getArrow }}</span>
+      <span class="val">{{ formatSize(disk.readB) }}</span>
+      <span :class="`direction ${disk.readD}`">{{ getArrow(disk.readD) }}</span>
     </div>
     <!-- Write Data -->
     <div class="io-data write" v-tooltip="disk.writeC ? `Count: ${disk.writeC}` : ''">
       <span class="lbl">{{ $t('widgets.glances.disk-io-write') }}:</span>
-      <span class="val">{{ disk.writeB | formatSize }}</span>
-      <span :class="`direction ${disk.writeD}`">{{ disk.writeD | getArrow }}</span>
+      <span class="val">{{ formatSize(disk.writeB) }}</span>
+      <span :class="`direction ${disk.writeD}`">{{ getArrow(disk.writeD) }}</span>
     </div>
   </div>
 </div>
@@ -36,7 +36,7 @@ export default {
       return this.makeGlancesUrl('diskio');
     },
   },
-  filters: {
+  methods: {
     formatSize(byteValue) {
       if (!byteValue) return 'Idle';
       return `${convertBytes(byteValue)}/s`;
@@ -46,8 +46,6 @@ export default {
       if (direction === 'down') return '↓';
       return '';
     },
-  },
-  methods: {
     processData(diskData) {
       this.previous = this.disks;
       const disks = [];

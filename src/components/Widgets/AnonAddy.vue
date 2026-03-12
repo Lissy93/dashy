@@ -12,7 +12,7 @@
     <div class="meta-item">
       <span class="lbl">Bandwidth</span>
       <span class="val">
-        {{ meta.bandwidth | formatBytes }} out of
+        {{ formatBytes(meta.bandwidth) }} out of
         {{ meta.bandwidthLimit !== 100000000 ? (formatBytes(meta.bandwidthLimit)) : '∞'}}
       </span>
     </div>
@@ -66,8 +66,8 @@
       <!-- Date created / updated -->
       <div class="row-4">
         <span class="lbl">Created</span>
-        <span class="val as-date">{{ alias.createdAt | formatDate }}</span>
-        <span class="val as-time-ago">{{ alias.createdAt | formatTimeAgo }}</span>
+        <span class="val as-date">{{ formatDate(alias.createdAt) }}</span>
+        <span class="val as-time-ago">{{ formatTimeAgo(alias.createdAt) }}</span>
       </div>
     </div>
   </div>
@@ -167,7 +167,10 @@ export default {
       return arrOfRange(1, maxNumbers);
     },
   },
-  filters: {
+  created() {
+    this.fetchAccountInfo();
+  },
+  methods: {
     formatDate(timestamp) {
       return timestampToDate(timestamp);
     },
@@ -177,11 +180,6 @@ export default {
     formatBytes(bytes) {
       return convertBytes(bytes);
     },
-  },
-  created() {
-    this.fetchAccountInfo();
-  },
-  methods: {
     copyToClipboard(text) {
       navigator.clipboard.writeText(text);
       this.$toasted.show('Email address copied to clipboard');

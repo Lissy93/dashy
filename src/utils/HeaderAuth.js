@@ -24,7 +24,7 @@ class HeaderAuth {
 
   login() {
     return new Promise((resolve, reject) => {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       axios.get(`${baseUrl}${serviceEndpoints.getUser}`).then((response) => {
         if (!response.data) {
           reject(Error('Error, expected data nout returned'));

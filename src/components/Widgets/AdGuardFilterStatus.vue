@@ -20,7 +20,7 @@
       </div>
       <!-- Date of last update, and link to list -->
       <div class="row-2">
-        <span class="updated">Updated {{ filter.last_updated | formatDate }}</span>
+        <span class="updated">Updated {{ formatDate(filter.last_updated) }}</span>
         <a class="filter-link" v-if="filter.url" :href="filter.url">View List</a>
       </div>
     </div>
@@ -62,13 +62,11 @@ export default {
       filters: null,
     };
   },
-  filters: {
+  methods: {
     formatDate(date) {
       if (!date) return 'Never';
       return getTimeAgo(date);
     },
-  },
-  methods: {
     /* Make GET request to AdGuard endpoint */
     fetchData() {
       this.makeRequest(this.endpoint, this.authHeaders).then(this.processData);

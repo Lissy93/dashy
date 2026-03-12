@@ -5,12 +5,15 @@
       <p :class="`score ${makeScoreColor(cve.score)}`">{{ cve.score }}</p>
       <div class="title-wrap">
         <p class="title">{{ cve.id }}</p>
-        <span class="date">{{ cve.publishDate | formatDate }}</span>
-        <span class="last-updated">Last Updated: {{ cve.updateDate | formatDate }}</span>
+        <span class="date">{{ formatDate(cve.publishDate) }}</span>
+        <span class="last-updated">Last Updated: {{ formatDate(cve.updateDate) }}</span>
+        <span :class="`exploit-count ${makeExploitColor(cve.numExploits)}`">
+          {{ formatExploitCount(cve.numExploits) }}
+        </span>
       </div>
     </a>
     <p class="cve-description">
-      {{ cve.description | formatDescription }}
+      {{ formatDescription(cve.description) }}
       <a v-if="cve.description.length > 350" class="read-more" :href="cve.url" target="_blank">
         {{ $t('widgets.general.open-link') }}
       </a>
@@ -32,14 +35,6 @@ export default {
       cveList: null,
       total: 10,
     };
-  },
-  filters: {
-    formatDate(date) {
-      return timestampToDate(date);
-    },
-    formatDescription(description) {
-      return truncateStr(description, 350);
-    },
   },
   computed: {
     endpointTotal() {
@@ -70,11 +65,22 @@ export default {
       return apiUrl;
     },
     proxyReqEndpoint() {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
   },
   methods: {
+    formatDate(date) {
+      return timestampToDate(date);
+    },
+    formatDescription(description) {
+      return truncateStr(description, 350);
+    },
+    formatExploitCount(numExploits) {
+      if (!numExploits) return 'Number of exploits not known';
+      if (numExploits === '0') return 'No published exploits';
+      return `${numExploits} known exploit${numExploits !== '1' ? 's' : ''}`;
+    },
     appendQuery(url = '', opts = {}, property = '', paramUrl = '') {
       const allowedKeys = [
         'cveTag',
@@ -94,7 +100,6 @@ export default {
 
       return url;
     },
-
     /* Make GET request to NIST NVD API endpoint */
     fetchData() {
       this.defaultTimeout = 12000;

@@ -34,7 +34,7 @@ export default {
   mounted() {
     this.initiate();
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('load', this.injectHtml);
   },
   methods: {

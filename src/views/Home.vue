@@ -20,9 +20,8 @@
     </div>
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass">
-      <template v-for="(section, index) in filteredSections">
+      <template v-for="(section, index) in filteredSections" :key="index">
         <Section
-          :key="index"
           :index="index"
           :title="section.name"
           :icon="section.icon || undefined"

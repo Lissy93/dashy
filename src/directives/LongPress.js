@@ -11,7 +11,7 @@ const longPressEvent = new CustomEvent('long-press');
 let startTime = null;
 
 export default {
-  bind(element, binding, vnode) {
+  mounted(element, binding) {
     const el = element;
     el.dataset.longPressTimeout = null;
 
@@ -29,7 +29,7 @@ export default {
 
     /* Emit event to component */
     const triggerEvent = () => {
-      if (vnode.componentInstance) vnode.componentInstance.$emit('long-press');
+      if (binding.instance) binding.instance.$emit('long-press');
       else el.dispatchEvent(longPressEvent);
       el.dataset.elapsed = true;
     };
@@ -60,7 +60,7 @@ export default {
     el.$longPressHandler = onPointerDown;
     el.addEventListener('pointerdown', onPointerDown);
   },
-  unbind(el) {
+  unmounted(el) {
     startTime = null;
     clearTimeout(parseInt(el.dataset.longPressTimeout, 10));
     el.removeEventListener('pointerdown', el.$longPressHandler);

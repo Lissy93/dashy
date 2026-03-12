@@ -5,10 +5,9 @@
     <v-select
       :options="themeNames"
       v-model="selectedTheme"
-      :value="$store.getters.theme"
       class="theme-dropdown"
       :tabindex="-2"
-      @input="themeChangedInUI"
+      @option:selected="themeChangedInUI"
     />
     </div>
     <IconPalette
@@ -70,7 +69,7 @@ export default {
 
 <style lang="scss">
 
-@import 'vue-select/src/scss/vue-select.scss';
+@import 'vue-select/dist/vue-select.css';
 @import '@/styles/style-helpers.scss';
 
 .theme-dropdown {

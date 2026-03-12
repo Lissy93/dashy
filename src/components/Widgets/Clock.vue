@@ -77,7 +77,7 @@ export default {
     // Update the time and date every second (1000 ms)
     this.timeUpdateInterval = setInterval(this.update, 1000);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     // Remove the clock interval listener
     clearInterval(this.timeUpdateInterval);
   },

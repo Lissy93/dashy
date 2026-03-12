@@ -9,9 +9,9 @@
     >
       <img class="icon" :src="asset.image" :alt="`${asset} icon`" />
       <p class="name">{{ asset.name }}</p>
-      <p class="price">{{ asset.price | formatPrice(currency) }}</p>
+      <p class="price">{{ formatPrice(asset.price, currency) }}</p>
       <p :class="`percent ${asset.percentChange > 0 ? 'up' : 'down'}`">
-        {{ asset.percentChange | formatPercentage }}
+        {{ formatPercentage(asset.percentChange) }}
       </p>
     </div>
   </template>
@@ -68,7 +68,7 @@ export default {
       + `ids=${this.assets}&vs_currency=${this.currency}&order=${this.order}&per_page=${this.limit}`;
     },
   },
-  filters: {
+  methods: {
     /* Append currency symbol to price */
     formatPrice(price, currency) {
       if (currency === undefined) return '';
@@ -80,8 +80,6 @@ export default {
       const symbol = change > 0 ? '↑' : '↓';
       return `${symbol} ${change.toFixed(2)}%`;
     },
-  },
-  methods: {
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       axios.get(this.endpoint)
@@ -121,7 +119,7 @@ export default {
     tooltip(info) {
       const maxSupply = info.maxSupply ? ` out of max supply of <b>${info.maxSupply}</b>` : '';
       const content = `Rank: <b>${info.rank}</b> with market cap of `
-        + `<b>${this.$options.filters.formatPrice(info.marketCap)}</b>`
+        + `<b>${this.formatPrice(info.marketCap)}</b>`
         + `<br>Circulating Supply: <b>${info.supply} ${info.symbol.toUpperCase()}</b>${maxSupply}`
         + `<br>All-time-high of <b>${info.allTimeHigh}</b> `
         + `at <b>${timestampToDate(info.allTimeHighDate)}</b>`;

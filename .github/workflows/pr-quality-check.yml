@@ -67,8 +67,6 @@ jobs:
 
       - name: 🏗️ Build Project
         run: yarn build
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: ✅ Verify Build Output
         run: |

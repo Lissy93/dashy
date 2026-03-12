@@ -17,7 +17,7 @@ function onDocumentClick(event, elem, action) {
 
 export default {
   /* Add event listeners */
-  bind(element, binding) {
+  mounted(element, binding) {
     const elem = element;
     elem.dataset.outsideClickIndex = instances.length;
 
@@ -31,7 +31,7 @@ export default {
     instances.push(click);
   },
   /* Remove event listeners */
-  unbind(elem) {
+  unmounted(elem) {
     if (!elem.dataset) return;
     const index = elem.dataset.outsideClickIndex;
     const handler = instances[index];

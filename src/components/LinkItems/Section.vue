@@ -308,7 +308,7 @@ export default {
         .observe(this.$refs[this.sectionRef].$el);
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     // If resize observer set, and element still present, then de-register
     if (this.resizeObserver && this.$refs[this.sectionRef]) {
       this.resizeObserver.unobserve(this.$refs[this.sectionRef].$el);

@@ -1,8 +1,8 @@
 <template>
 <div class="glances-temp-wrapper" v-if="tempData">
   <div class="temp-row" v-for="sensor in tempData" :key="sensor.label">
-    <p class="label">{{ sensor.label | formatLbl }}</p>
-    <p :class="`temp range-${sensor.color}`">{{ sensor.value | formatVal(sensor.unit) }}</p>
+    <p class="label">{{ formatLbl(sensor.label) }}</p>
+    <p :class="`temp range-${sensor.color}`">{{ formatVal(sensor.value, sensor.unit) }}</p>
   </div>
 </div>
 </template>
@@ -25,7 +25,7 @@ export default {
       return this.makeGlancesUrl('sensors');
     },
   },
-  filters: {
+  methods: {
     formatLbl(lbl) {
       return capitalize(lbl);
     },
@@ -39,8 +39,6 @@ export default {
           return `${Math.round(val)}°${unit}`;
       }
     },
-  },
-  methods: {
     getDesiredUnits() {
       return this.options.units ?? 'C';
     },

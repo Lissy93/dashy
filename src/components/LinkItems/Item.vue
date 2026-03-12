@@ -35,7 +35,7 @@
         :statusText="statusResponse ? statusResponse.message : undefined"
       />
       <!-- URL of the item (shown on hover, only on some themes) -->
-      <p class="item-url">{{ item.url | shortUrl }}</p>
+      <p class="item-url">{{ shortUrl(item.url) }}</p>
       <!-- Edit icon (displayed only when in edit mode) -->
       <EditModeIcon v-if="isEditMode" class="edit-mode-item" @click="openItemSettings()" />
     </a>
@@ -124,7 +124,12 @@ export default {
       }
     },
   },
-  filters: {
+  data() {
+    return {
+      editMenuOpen: false,
+    };
+  },
+  methods: {
     shortUrl(value) {
       if (!value || typeof value !== 'string') {
         return '';
@@ -143,13 +148,6 @@ export default {
         return '';
       }
     },
-  },
-  data() {
-    return {
-      editMenuOpen: false,
-    };
-  },
-  methods: {
     /* Returns configuration object for the tooltip */
     getTooltipOptions() {
       if (!this.item.description && !this.item.provider) return {}; // If no description, then skip
@@ -205,7 +203,7 @@ export default {
       }
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     // Stop periodic status-check when item is destroyed (e.g. navigating in multi-page setup)
     if (this.intervalId) clearInterval(this.intervalId);
   },

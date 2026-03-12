@@ -31,7 +31,7 @@
             <CloudIcon class="button-icon"/>
           </Button>
           <!-- Rebuild app button -->
-          <Button class="config-button" :disallow="!enableConfig" :click="openRebuildAppModal">
+          <Button class="config-button" :disallow="!enableConfig" :click="openRebuildAppTab">
             {{ $t('config.rebuild-app-button') }}
             <RebuildIcon class="button-icon"/>
           </Button>
@@ -41,7 +41,7 @@
             <DeleteIcon class="button-icon"/>
           </Button>
           <!-- About modal button -->
-          <Button class="config-button" :click="openAboutModal">
+          <Button class="config-button" :click="openAboutTab">
             {{ $t('config.app-info-button') }}
             <IconAbout class="button-icon" />
           </Button>
@@ -61,8 +61,6 @@
           <span>{{ $t('config.backup-note') }}</span>
         </div>
       </div>
-      <!-- Rebuild App Modal -->
-      <RebuildApp />
     </TabItem>
     <TabItem :name="$t('config.edit-config-tab')" v-if="enableConfig">
       <JsonEditor />
@@ -72,6 +70,12 @@
     </TabItem>
     <TabItem :name="$t('config.custom-css-tab')" v-if="enableConfig">
       <CustomCssEditor />
+    </TabItem>
+    <TabItem :name="$t('config.rebuild-app-button')" v-if="enableConfig">
+      <RebuildApp />
+    </TabItem>
+    <TabItem :name="$t('config.app-info-button')">
+      <AppInfo />
     </TabItem>
   </Tabs>
 </template>
@@ -86,8 +90,11 @@ import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
 import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
 import RebuildApp from '@/components/Configuration/RebuildApp';
+import AppInfo from '@/components/Configuration/AppInfo';
 import AppVersion from '@/components/Configuration/AppVersion';
 import Button from '@/components/FormElements/Button';
+import Tabs from '@/components/FormElements/Tabs';
+import TabItem from '@/components/FormElements/TabItem';
 
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
@@ -103,7 +110,7 @@ export default {
   data() {
     return {
       backupId: localStorage[localStorageKeys.BACKUP_ID] || '',
-      appVersion: process.env.VUE_APP_VERSION,
+      appVersion: import.meta.env.VITE_APP_VERSION,
       latestVersion: '',
     };
   },
@@ -119,16 +126,19 @@ export default {
     },
     configPath() {
       return this.$store.state.currentConfigInfo?.confPath
-      || process.env.VUE_APP_CONFIG_PATH
+      || import.meta.env.VITE_APP_CONFIG_PATH
       || '/conf.yml';
     },
   },
   components: {
+    Tabs,
+    TabItem,
     Button,
     JsonEditor,
     CustomCssEditor,
     CloudBackupRestore,
     RebuildApp,
+    AppInfo,
     AppVersion,
     DownloadIcon,
     DeleteIcon,
@@ -145,15 +155,16 @@ export default {
       const itemToSelect = this.$refs.tabView.navItems[tabInxex];
       this.$refs.tabView.activeTabItem(itemToSelect);
     },
-    openRebuildAppModal() {
+    openRebuildAppTab() {
       if (this.enableConfig) {
-        this.$modal.show(modalNames.REBUILD_APP);
+        this.navigateToTab(4);
       } else {
         this.unauthorized();
       }
     },
-    openAboutModal() {
-      this.$modal.show(modalNames.ABOUT_APP);
+    openAboutTab() {
+      const lastIndex = this.$refs.tabView.navItems.length - 1;
+      this.navigateToTab(lastIndex);
     },
     openLanguageSwitchModal() {
       this.$modal.show(modalNames.LANG_SWITCHER);
@@ -379,46 +390,8 @@ p.small-screen-note {
   display: none !important;
 }
 
-.tabs__content {
-  height: -webkit-fill-available;
-  height: -moz-available;
-  height: stretch;
-  height: 100%; // Firefox
-}
-
 .tab-item {
   background: var(--config-settings-background) !important;
-}
-
-.tab__pagination {
-  background: var(--config-settings-background) !important;
-  color: var(--config-settings-color) !important;
-  .tab__nav__items .tab__nav__item {
-    span {
-      color: var(--config-settings-color) !important;
-    }
-    &:hover {
-      background: var(--config-settings-color) !important;
-      span {
-        color: var(--config-settings-background) !important;
-      }
-    }
-    &.active {
-      span {
-        font-weight: bold !important;
-        color: var(--config-settings-color) !important;
-      }
-      &:hover span {
-        color: var(--config-settings-background) !important;
-      }
-    }
-  }
-  .tab__nav__items .tab__nav__item.active {
-    border-bottom: 2px solid var(--config-settings-color) !important;
-  }
-  hr.tab__slider {
-    background: var(--config-settings-color) !important;
-  }
 }
 
 </style>

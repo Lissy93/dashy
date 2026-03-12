@@ -125,7 +125,7 @@ To disable all UI config features, including View Config, set `disableConfigurat
 
 If you don't want to hash your password, you can instead leave out the `hash` attribute, and replace it with `password` which should have the value of an environmental variable name you wish to use.
 
-Note that env var must begin with `VUE_APP_`, and you must set this variable before building the app.
+Note that env var must begin with `VITE_APP_`, and you must set this variable before building the app.
 
 For example:
 
@@ -133,10 +133,10 @@ For example:
   auth:
     users:
     - user: bob
-      password: VUE_APP_BOB
+      password: VITE_APP_BOB
 ```
 
-Just be sure to set `VUE_APP_BOB='my super secret password'` before build-time.
+Just be sure to set `VITE_APP_BOB='my super secret password'` before build-time.
 
 ### Adding HTTP Auth to Configuration
 
@@ -154,7 +154,7 @@ With basic auth, all logic is happening on the client-side, which could mean a s
 
 If you'd like to protect all your config files from direct access, you can set the `BASIC_AUTH_USERNAME` and `BASIC_AUTH_PASSWORD` environmental variables. You'll then be prompted to enter these credentials when visiting Dashy.
 
-Then, if you'd like your frontend to automatically log you in, without prompting you for credentials (insecure, so only use on a trusted environment), then also specify `VUE_APP_BASIC_AUTH_USERNAME` and `VUE_APP_BASIC_AUTH_PASSWORD`. This is useful for when you're hosting Dashy on a private server, and just want to use auth for user management and to prevent direct access to your config files, while still allowing the frontend to access them. Note that a rebuild is required for these changes to take effect.
+Then, if you'd like your frontend to automatically log you in, without prompting you for credentials (insecure, so only use on a trusted environment), then also specify `VITE_APP_BASIC_AUTH_USERNAME` and `VITE_APP_BASIC_AUTH_PASSWORD`. This is useful for when you're hosting Dashy on a private server, and just want to use auth for user management and to prevent direct access to your config files, while still allowing the frontend to access them. Note that a rebuild is required for these changes to take effect.
 
 **[⬆️ Back to Top](#authentication)**
 

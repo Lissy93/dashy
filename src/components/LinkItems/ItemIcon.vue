@@ -28,7 +28,7 @@ import emojiLookup from '@/utils/emojis.json';
 import { asciiHash } from '@/utils/MiscHelpers';
 import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/defaults';
 
-const simpleicons = require('simple-icons');
+import * as simpleicons from 'simple-icons';
 
 export default {
   name: 'Icon',

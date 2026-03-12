@@ -1785,13 +1785,13 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 ```
 
 > [!TIP]
-> In order to avoid leaking secret data, both `hostname` and `apiKey` can leverage environment variables. Simply pass the name of the variable, which MUST start with `VUE_APP_`.
+> In order to avoid leaking secret data, both `hostname` and `apiKey` can leverage environment variables. Simply pass the name of the variable, which MUST start with `VITE_APP_`.
 
 ```yaml
 - type: pi-hole-stats
   options:
-    hostname: VUE_APP_pihole_ip
-    apiKey: VUE_APP_pihole_key
+    hostname: VITE_APP_pihole_ip
+    apiKey: VITE_APP_pihole_key
 ```
 
 > [!IMPORTANT]
@@ -1831,13 +1831,13 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/). Use t
 ```
 
 > [!TIP]
-> In order to avoid leaking secret data, both `hostname` and `apiKey` can leverage environment variables. Simply pass the name of the variable, which MUST start with `VUE_APP_`.
+> In order to avoid leaking secret data, both `hostname` and `apiKey` can leverage environment variables. Simply pass the name of the variable, which MUST start with `VITE_APP_`.
 
 ```yaml
 - type: pi-hole-stats-v6
   options:
-    hostname: VUE_APP_pihole_ip
-    apiKey: VUE_APP_pihole_key
+    hostname: VITE_APP_pihole_ip
+    apiKey: VITE_APP_pihole_key
 ```
 
 > [!IMPORTANT]
@@ -2638,7 +2638,7 @@ Displays storage statistics and file listings from a [Filebrowser Quantum](https
   useProxy: true
   options:
     hostname: http://filebrowser.local:8080
-    apiKey: VUE_APP_FILEBROWSER_KEY
+    apiKey: VITE_APP_FILEBROWSER_KEY
     source: Documents
     path: /
     showRecent: 5
@@ -2654,7 +2654,7 @@ Displays storage statistics and file listings from a [Filebrowser Quantum](https
   useProxy: true
   options:
     hostname: http://filebrowser.local:8080
-    apiKey: VUE_APP_FILEBROWSER_KEY
+    apiKey: VITE_APP_FILEBROWSER_KEY
     source: Downloads
     showDetailedStats: true
     showRecent: 10
@@ -3373,7 +3373,7 @@ Instead, for secrets you should use environmental vairables.
 
 You can do this, by setting the environmental variable name as the value, instead of the actual key, and then setting that env var in your container or local environment.
 
-The key can be named whatever you like, but it must start with `VUE_APP_` (to be picked up by Vue). If you need to update any of these values, a rebuild is required (this can be done under the Config menu in the UI, or by running `yarn build` then restarting the container).
+The key can be named whatever you like, but it must start with `VITE_APP_` (to be picked up by Vite). If you need to update any of these values, a rebuild is required (this can be done under the Config menu in the UI, or by running `yarn build` then restarting the container).
 
 For more infomation about setting and managing your environmental variables, see [Management Docs --> Environmental Variables](/docs/management.md#passing-in-environmental-variables).
 
@@ -3382,13 +3382,13 @@ For example:
 ```yaml
 - type: weather
   options:
-    apiKey: VUE_APP_WEATHER_TOKEN
+    apiKey: VITE_APP_WEATHER_TOKEN
     city: London
     units: metric
     hideDetails: true
 ```
 
-Then, set `VUE_APP_WEATHER_TOKEN='xxx'`
+Then, set `VITE_APP_WEATHER_TOKEN='xxx'`
 
 ---
 

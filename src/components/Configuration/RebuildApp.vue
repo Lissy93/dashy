@@ -1,6 +1,5 @@
 <template>
-  <modal :name="modalName" :resizable="true" width="50%" height="60%" classes="dashy-modal">
-    <div class="rebuild-app-container">
+  <div class="rebuild-app-container">
       <!-- Title, intro and start button -->
       <h3 class="rebuild-app-title">{{ $t('app-rebuild.title') }}</h3>
       <p>
@@ -40,8 +39,7 @@
           <template v-slot:icon><ReloadIcon /></template>
         </Button>
       </div>
-    </div>
-  </modal>
+  </div>
 </template>
 
 <script>
@@ -52,7 +50,7 @@ import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
 import ReloadIcon from '@/assets/interface-icons/application-reload.svg';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
 import ErrorHandler from '@/utils/ErrorHandler';
-import { modalNames, serviceEndpoints } from '@/utils/defaults';
+import { serviceEndpoints } from '@/utils/defaults';
 import { isUserAdmin } from '@/utils/Auth';
 
 export default {
@@ -69,7 +67,6 @@ export default {
     LoadingAnimation,
   },
   data: () => ({
-    modalName: modalNames.REBUILD_APP,
     loading: false,
     success: undefined,
     error: '',
@@ -85,7 +82,7 @@ export default {
         ErrorHandler('Unable to trigger rebuild, insufficient permission');
         return;
       }
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       const endpoint = `${baseUrl}${serviceEndpoints.rebuild}`;
       this.loading = true;
       this.progress.start();

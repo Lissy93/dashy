@@ -2,17 +2,17 @@
 /* Fonts used by the default theme, and bundled within the app */
 @font-face {
   font-family: 'Inconsolata';
-  src: url('./assets/fonts/Inconsolata-Light.ttf');
+  src: url('@/assets/fonts/Inconsolata-Light.ttf');
 }
 
 @font-face {
   font-family: 'Raleway';
-  src: url('./assets/fonts/Raleway-Variable.ttf');
+  src: url('@/assets/fonts/Raleway-Variable.ttf');
 }
 
 @font-face {
   font-family: 'PTMono';
-  src: url('./assets/fonts/PTMono-Regular.ttf');
+  src: url('@/assets/fonts/PTMono-Regular.ttf');
 }
 
 html {

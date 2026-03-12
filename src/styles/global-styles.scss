@@ -31,6 +31,13 @@ html {
 [v-cloak] > * { display:none }
 [v-cloak]::before { content: "loading…" }
 
+/* Default size for inline SVG icons (vite-svg-loader renders them without dimensions) */
+button svg, a svg {
+  width: 1rem;
+  height: 1rem;
+  vertical-align: middle;
+}
+
 /* Overriding styles for the modal component */
 .vm--modal, .dashy-modal {
   box-shadow: 0 40px 70px -2px hsl(0deg 0% 0% / 60%), 1px 1px 6px var(--primary) !important;
