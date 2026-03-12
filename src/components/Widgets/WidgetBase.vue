@@ -63,6 +63,7 @@ const COMPAT = {
   embed: 'EmbedWidget',
   'eth-gas-prices': 'EthGasPrices',
   'exchange-rates': 'ExchangeRates',
+  filebrowser: 'Filebrowser',
   'flight-data': 'Flights',
   'github-profile-stats': 'GitHubProfile',
   'github-trending-repos': 'GitHubTrending',
@@ -123,10 +124,12 @@ const COMPAT = {
   'tfl-status': 'TflStatus',
   trmm: 'TacticalRMM',
   'uptime-kuma': 'UptimeKuma',
+  'uptime-kuma-status-page': 'UptimeKumaStatusPage',
   'wallet-balance': 'WalletBalance',
   weather: 'Weather',
   'weather-forecast': 'WeatherForecast',
   'xkcd-comic': 'XkcdComic',
+  'gl-compact-metrics': 'GlCompactMetrics',
 };
 
 export default {

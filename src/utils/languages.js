@@ -10,6 +10,7 @@ import el from '@/assets/locales/el.json';
 import es from '@/assets/locales/es.json';
 import fr from '@/assets/locales/fr.json';
 import hi from '@/assets/locales/hi.json';
+import hu from '@/assets/locales/hu.json';
 import it from '@/assets/locales/it.json';
 import ja from '@/assets/locales/ja.json';
 import ko from '@/assets/locales/ko.json';
@@ -93,10 +94,16 @@ export const languages = [
     flag: '🇲🇫',
   },
   { // Hindi
-    name: 'नहीं',
+    name: 'हिन्दी',
     code: 'hi',
     locale: hi,
     flag: '🇮🇳',
+  },
+  { // Hungarian
+    name: 'Magyar',
+    code: 'hu',
+    locale: hu,
+    flag: '🇭🇺',
   },
   { // Italian
     name: 'Italiano',
