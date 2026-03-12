@@ -108,6 +108,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { convertBytes } from '@/utils/MiscHelpers';
 
@@ -124,7 +125,9 @@ export default {
   computed: {
     systems() {
       if (!this.options.systems || !Array.isArray(this.options.systems)) {
-        this.error('You must specify a \'systems\' array for GlCompactMetrics');
+        this.error(
+          'You must specify a \'systems\' array for GlCompactMetrics',
+        );
         return [];
       }
       return this.options.systems;
@@ -146,15 +149,14 @@ export default {
       ];
     },
     uptimeDisplay() {
-      if (this.detailData.uptime && typeof this.detailData.uptime === 'string') {
-        return this.detailData.uptime;
-      }
+      const { uptime } = this.detailData;
+      if (uptime && typeof uptime === 'string') return uptime;
       return '-';
     },
   },
   filters: {
     formatSize(bytes) {
-      if (!bytes || bytes === 0) return '0 Bytes';
+      if (!bytes) return '0 Bytes';
       return convertBytes(bytes);
     },
   },
@@ -173,30 +175,50 @@ export default {
       return `${systemUrl.replace(/\/$/, '')}/api/${this.apiVersion}/${path}`;
     },
 
-    authHeaders() {
+    requestConfig(endpoint) {
+      const headers = {};
       if (this.options.username && this.options.password) {
         const creds = `${this.options.username}:${this.options.password}`;
-        return { Authorization: `Basic ${window.btoa(creds)}` };
+        headers.Authorization = `Basic ${window.btoa(creds)}`;
       }
-      return null;
+      if (this.useProxy) {
+        return {
+          url: this.proxyReqEndpoint,
+          headers: { 'Target-URL': endpoint, CustomHeaders: JSON.stringify(headers) },
+        };
+      }
+      return { url: endpoint, headers };
+    },
+
+    async fetchSystemData(endpoint) {
+      const config = this.requestConfig(endpoint);
+      const response = await axios.get(config.url, {
+        headers: config.headers,
+        timeout: this.options.timeout || 8000,
+      });
+      return response.data;
     },
 
     async fetchAllMetrics() {
-      const promises = this.systems.map((system) => this.fetchSystemMetrics(system));
+      const promises = this.systems.map(
+        (system) => this.fetchSystemMetrics(system),
+      );
       await Promise.allSettled(promises);
+      this.finishLoading();
     },
 
     async fetchSystemMetrics(system) {
       const { url } = system;
       try {
-        const data = await this.makeRequest(this.makeSystemUrl(url, 'all'), this.authHeaders());
+        const data = await this.fetchSystemData(
+          this.makeSystemUrl(url, 'all'),
+        );
         this.processMetricsData(url, data);
         this.$set(this.errors, url, false);
         if (this.selectedSystem && this.selectedSystem.url === url) {
           this.detailData = data;
         }
-      } catch (e) {
-        this.error(`Failed to fetch metrics for ${system.header}`, e, true);
+      } catch (_) {
         this.$set(this.errors, url, true);
         if (this.selectedSystem && this.selectedSystem.url === url) {
           this.detailData = {};
@@ -217,7 +239,8 @@ export default {
             totalUsed += disk.used;
           }
         });
-        processed.disk = totalSize > 0 ? Math.round((totalUsed / totalSize) * 100) : 0;
+        processed.disk = totalSize > 0
+          ? Math.round((totalUsed / totalSize) * 100) : 0;
       }
       this.$set(this.metricsData, systemUrl, processed);
     },
@@ -227,12 +250,14 @@ export default {
     },
 
     getMetricDisplay(systemUrl, metric) {
-      if (this.errors[systemUrl] || this.getMetricValue(systemUrl, metric) === null) return '-';
+      if (this.errors[systemUrl]
+        || this.getMetricValue(systemUrl, metric) === null) return '-';
       return `${this.getMetricValue(systemUrl, metric)}%`;
     },
 
     getMetricClass(metric, systemUrl) {
-      if (this.errors[systemUrl] || this.getMetricValue(systemUrl, metric) === null) return 'error';
+      if (this.errors[systemUrl]
+        || this.getMetricValue(systemUrl, metric) === null) return 'error';
       return this.usageClass(this.getMetricValue(systemUrl, metric));
     },
 
@@ -249,7 +274,8 @@ export default {
     },
 
     diskPercent(disk) {
-      return disk.size > 0 ? Math.round(((disk.used || 0) / disk.size) * 100) : 0;
+      return disk.size > 0
+        ? Math.round(((disk.used || 0) / disk.size) * 100) : 0;
     },
 
     showSystemDetails(system) {
@@ -260,13 +286,12 @@ export default {
 
     async fetchSystemDetails(system) {
       try {
-        const data = await this.makeRequest(
-          this.makeSystemUrl(system.url, 'all'), this.authHeaders(),
+        const data = await this.fetchSystemData(
+          this.makeSystemUrl(system.url, 'all'),
         );
         this.detailData = data;
         this.$set(this.errors, system.url, false);
-      } catch (e) {
-        this.error(`Failed to fetch details for ${system.header}`, e, true);
+      } catch (_) {
         this.$set(this.errors, system.url, true);
         this.detailData = {};
       }
