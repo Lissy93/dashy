@@ -29,6 +29,7 @@ class OidcAuth {
       scope: scope || 'openid profile email roles groups',
       response_mode: 'query',
       filterProtocolClaims: true,
+      loadUserInfo: true,
     };
 
     this.adminGroup = adminGroup;

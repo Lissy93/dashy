@@ -70,8 +70,10 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Sabnzbd](#sabnzbd)
   - [Gluetun VPN Info](#gluetun-vpn-info)
   - [Drone CI Build](#drone-ci-builds)
+  - [Filebrowser](#filebrowser)
   - [Linkding](#linkding)
   - [Uptime Kuma](#uptime-kuma)
+  - [Uptime Kuma Status Page](#uptime-kuma-status-page)
   - [Tactical RMM](#tactical-rmm)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
@@ -628,18 +630,21 @@ This widget display email addresses / aliases from addy.io. Click an email addre
 
 Keep track of recent security advisories and vulnerabilities, with optional filtering by score, exploits, vendor and product. All fields are optional.
 
+Sources from: https://services.nvd.nist.gov/rest/json/cves/2.0
+Docs: https://nvd.nist.gov/developers/vulnerabilities
+
 <p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/cve.png" /></p>
 
 #### Options
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`sortBy`** | `string` |  _Optional_ | The sorting method. Can be either `publish-date`, `last-update` or `cve-code`. Defaults to `publish-date`
-**`limit`** | `number` |  _Optional_ | The number of results to fetch. Can be between `5` and `30`, defaults to `10`
-**`minScore`** | `number` |  _Optional_ | If set, will only display results with a CVE score higher than the number specified. Can be a number between `0` and `9.9`. By default, vulnerabilities of all CVE scores are shown
-**`hasExploit`** | `boolean` |  _Optional_ | If set to `true`, will only show results with active exploits. Defaults to `false`
-**`vendorId`** | `number` |  _Optional_ | Only show results from a specific vendor, specified by ID. See [Vendor Search](https://www.cvedetails.com/vendor-search.php) for list of vendors. E.g. `23` (Debian), `26` (Microsoft), `23682` (CloudFlare)
-**`productId`** | `number` |  _Optional_ | Only show results from a specific app or product, specified by ID. See [Product Search](https://www.cvedetails.com/product-search.php) for list of products. E.g. `28125` (Docker), `34622` (NextCloud), `50211` (Portainer), `95391` (ProtonMail)
+**`cveTag`** | `string` |  _Optional_ | This parameter returns only the CVE records that include the provided cveTag. Options are **disputed**, **unsupported-when-assigned** or **exclusively-hosted-service**
+**`limit`** | `number` |  _Optional_ | The number of results to fetch. Can be between `5` and `30`, defaults to `5`
+**`cvssV2Severity`** | `string` |  _Optional_ | This parameter returns only the CVEs that match the provided CVSSv2 qualitative severity rating. Options are **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**
+**`cvssV3Severity`** | `string` |  _Optional_ | This parameter returns only the CVEs that match the provided CVSSv3 qualitative severity rating. Options are **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**
+**`cvssV4Severity`** | `string` |  _Optional_ | This parameter returns only the CVEs that match the provided CVSSv4 qualitative severity rating. Options are **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**
+**`keywordSearch`** | `string` |  _Optional_ | This parameter returns only the CVEs where a word or phrase is found in the current description
 
 #### Example
 
@@ -652,10 +657,8 @@ or
 ```yaml
 - type: cve-vulnerabilities
   options:
-    sortBy: publish-date
-    productId: 28125
-    hasExploit: false
-    minScore: 5
+    cveTag: disputed
+    cvssV2Severity: CRITICAL
     limit: 30
 ```
 
@@ -731,7 +734,7 @@ Note, config for this widget is case-sensitive (see [#1268](https://github.com/L
 - type: public-holidays
   options:
     country: GB
-    region: LND
+    state: LND
     holidayType: all
     monthsToShow: 12
     lang: en
@@ -1491,6 +1494,7 @@ Allows web search using multiple user-defined search engines and other websites.
 --- | --- | --- | ---
 **`engines`** | `array` |  required | An array of search engine objects. Each search engine object should have two required properties: **title** and **url**. See the example below.
 **`placeholder`** | `string` |  optional | Placeholder text in the search box.
+**`openingMethod`** | `string` |  optional | Open search in one of `newtab`, `sametab` or `workspace`.
 
 #### Notes
 - The first search engine in the engines array will be treated as the default search engine, and used when the user presses `Enter` in the search box.
@@ -2586,7 +2590,7 @@ Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self
 #### Example
 
 ```yaml
-- type: drone-io
+- type: drone-ci
   updateInterval: 30
   options:
     host: https://drone.somedomain.com
@@ -2601,6 +2605,77 @@ Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Drone](https://www.drone.io))
 - **Privacy**: _See [Drone](https://www.drone.io)_
+
+---
+
+### Filebrowser
+
+Displays storage statistics and file listings from a [Filebrowser Quantum](https://github.com/gtsteffaniak/filebrowser) instance. Shows directory size, file/folder counts, favorite files, and recently modified files with quick-access links.
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` | Required | The URL of your Filebrowser instance
+**`apiKey`** | `string` | Required | A long-lived API key (create in Settings → API Keys)
+**`source`** | `string` | _Optional_ | The source/scope name to browse. Defaults to the first available source
+**`path`** | `string` | _Optional_ | The directory path to display. Defaults to `/`
+**`favorites`** | `array` | _Optional_ | List of filenames to show as quick-access favorites
+**`showRecent`** | `number` | _Optional_ | Number of recently modified files to display. Defaults to `5`, set to `0` to disable
+**`limit`** | `number` | _Optional_ | Maximum number of files to display per section. Defaults to `10`
+**`hideStats`** | `boolean` | _Optional_ | If `true`, hides the storage statistics section
+**`hideFavorites`** | `boolean` | _Optional_ | If `true`, hides the favorites section
+**`hideRecent`** | `boolean` | _Optional_ | If `true`, hides the recent files section
+**`showDetailedStats`** | `boolean` | _Optional_ | If `true`, shows additional statistics including last modified date, largest file, hidden file count, total items, and file type breakdown. Defaults to `false`
+
+#### Example
+
+**Basic usage:**
+
+```yaml
+- type: filebrowser
+  useProxy: true
+  options:
+    hostname: http://filebrowser.local:8080
+    apiKey: VUE_APP_FILEBROWSER_KEY
+    source: Documents
+    path: /
+    showRecent: 5
+    favorites:
+      - important-notes.txt
+      - config.yaml
+```
+
+**With detailed statistics:**
+
+```yaml
+- type: filebrowser
+  useProxy: true
+  options:
+    hostname: http://filebrowser.local:8080
+    apiKey: VUE_APP_FILEBROWSER_KEY
+    source: Downloads
+    showDetailedStats: true
+    showRecent: 10
+    limit: 15
+```
+
+#### Widget Sections
+
+The widget displays up to four sections:
+
+1. **Storage Stats** - Directory name, total size, file and folder counts
+2. **Detailed Stats** (optional) - Last modified date, largest file, hidden file count, total items, and file type breakdown with badges
+3. **Favorites** - Quick-access links to user-specified files
+4. **Recent Files** - Most recently modified files sorted by date
+
+#### Info
+
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Filebrowser Quantum](https://github.com/gtsteffaniak/filebrowser))
+- **Privacy**: _Self-Hosted_
 
 ---
 
@@ -2664,6 +2739,40 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 
 - **CORS**: 🟢 Enabled
 - **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Uptime Kuma](https://github.com/louislam/uptime-kuma) )
+- **Privacy**: _See [Uptime Kuma](https://github.com/louislam/uptime-kuma)_
+
+---
+
+### Uptime Kuma Status Page
+
+[Uptime Kuma](https://github.com/louislam/uptime-kuma) is an easy-to-use self-hosted monitoring tool.
+
+#### Options
+
+| **Field**          | **Type** | **Required** | **Description**                                                                   |
+| ------------------ | -------- | ------------ | --------------------------------------------------------------------------------- |
+| **`host`**         | `string` | Required     | The URL of the Uptime Kuma instance                                               |
+| **`slug`**         | `string` | Required     | The slug of the status page                                                       |
+| **`monitorNames`** | `strins` | _Optional_   | Names of monitored services (in the same order as on the kuma uptime status page) |
+
+#### Example
+
+```yaml
+- type: uptime-kuma-status-page
+  options:
+    host: http://localhost:3001
+    slug: another-beautiful-status-page
+    monitorNames:
+      - "Name1"
+      - "Name2"
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Needed
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Uptime Kuma](https://github.com/louislam/uptime-kuma) )
 - **Privacy**: _See [Uptime Kuma](https://github.com/louislam/uptime-kuma)_
