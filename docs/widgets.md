@@ -90,6 +90,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Resource Usage Alerts](#resource-usage-alerts)
   - [Public & Private IP](#ip-address)
   - [CPU Temperature](#cpu-temp)
+  - [Compact Metrics](#compact-metrics)
 - **[Dynamic Widgets](#dynamic-widgets)**
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -3143,6 +3144,35 @@ You'll need to enable the sensors plugin to use this widget, using: `--enable-pl
   options:
     hostname: http://192.168.130.2:61208
     units: C
+```
+
+---
+
+### Compact Metrics
+
+A multi-system overview widget that displays CPU, memory and disk usage for multiple Glances instances in a compact table. Click on a row to see detailed metrics for that system.
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`systems`** | `array` | Required | An array of systems to monitor, each with `header` (display name) and `url` (Glances base URL)
+**`apiVersion`** | `number` | _Optional_ | Glances API version. Defaults to `4`
+**`username`** | `string` | _Optional_ | If Glances is password-protected, specify the username
+**`password`** | `string` | _Optional_ | If Glances is password-protected, specify the password
+
+#### Example
+
+```yaml
+- type: gl-compact-metrics
+  options:
+    systems:
+      - header: Server 1
+        url: http://192.168.1.10:61208
+      - header: Server 2
+        url: http://192.168.1.11:61208
+      - header: NAS
+        url: http://192.168.1.20:61208
 ```
 
 ---
