@@ -128,7 +128,7 @@ export default {
     widgets: Array,
     index: Number,
     isWide: Boolean,
-    activeColCount: String,
+    activeColCount: Number,
   },
   components: {
     Collapsable,
@@ -211,7 +211,9 @@ export default {
       return styles;
     },
     effectiveColsSpan() {
-      return Math.min(this.activeColCount, this.displayData.cols);
+      const { cols } = this.displayData;
+      if (!cols) return cols;
+      return Math.min(this.activeColCount, cols);
     },
   },
   methods: {

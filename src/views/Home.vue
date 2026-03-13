@@ -85,7 +85,7 @@ export default {
     layout: '',
     itemSizeBound: '',
     addNewSectionOpen: false,
-    activeColCount: '1',
+    activeColCount: 1,
   }),
   computed: {
     singleSectionView() {
@@ -179,8 +179,10 @@ export default {
       const { sectionsContainer } = this.$refs;
       if (!sectionsContainer) return;
       const cs = getComputedStyle(sectionsContainer);
-      const varVal = cs.getPropertyValue('--col-count').trim();
-      this.activeColCount = varVal;
+      const varVal = parseInt(cs.getPropertyValue('--col-count'), 10);
+      if (!Number.isNaN(varVal) && varVal > 0) {
+        this.activeColCount = varVal;
+      }
     },
   },
   mounted() {
@@ -189,6 +191,10 @@ export default {
     this.layout = this.layoutOrientation;
     this.itemSizeBound = this.iconSize;
     this.readActiveColCount();
+    window.addEventListener('resize', this.readActiveColCount);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.readActiveColCount);
   },
 };
 </script>
