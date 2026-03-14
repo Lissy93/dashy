@@ -90,6 +90,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Resource Usage Alerts](#resource-usage-alerts)
   - [Public & Private IP](#ip-address)
   - [CPU Temperature](#cpu-temp)
+  - [Compact Metrics](#compact-metrics)
 - **[Dynamic Widgets](#dynamic-widgets)**
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -630,18 +631,21 @@ This widget display email addresses / aliases from addy.io. Click an email addre
 
 Keep track of recent security advisories and vulnerabilities, with optional filtering by score, exploits, vendor and product. All fields are optional.
 
+Sources from: https://services.nvd.nist.gov/rest/json/cves/2.0
+Docs: https://nvd.nist.gov/developers/vulnerabilities
+
 <p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/cve.png" /></p>
 
 #### Options
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`sortBy`** | `string` |  _Optional_ | The sorting method. Can be either `publish-date`, `last-update` or `cve-code`. Defaults to `publish-date`
-**`limit`** | `number` |  _Optional_ | The number of results to fetch. Can be between `5` and `30`, defaults to `10`
-**`minScore`** | `number` |  _Optional_ | If set, will only display results with a CVE score higher than the number specified. Can be a number between `0` and `9.9`. By default, vulnerabilities of all CVE scores are shown
-**`hasExploit`** | `boolean` |  _Optional_ | If set to `true`, will only show results with active exploits. Defaults to `false`
-**`vendorId`** | `number` |  _Optional_ | Only show results from a specific vendor, specified by ID. See [Vendor Search](https://www.cvedetails.com/vendor-search.php) for list of vendors. E.g. `23` (Debian), `26` (Microsoft), `23682` (CloudFlare)
-**`productId`** | `number` |  _Optional_ | Only show results from a specific app or product, specified by ID. See [Product Search](https://www.cvedetails.com/product-search.php) for list of products. E.g. `28125` (Docker), `34622` (NextCloud), `50211` (Portainer), `95391` (ProtonMail)
+**`cveTag`** | `string` |  _Optional_ | This parameter returns only the CVE records that include the provided cveTag. Options are **disputed**, **unsupported-when-assigned** or **exclusively-hosted-service**
+**`limit`** | `number` |  _Optional_ | The number of results to fetch. Can be between `5` and `30`, defaults to `5`
+**`cvssV2Severity`** | `string` |  _Optional_ | This parameter returns only the CVEs that match the provided CVSSv2 qualitative severity rating. Options are **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**
+**`cvssV3Severity`** | `string` |  _Optional_ | This parameter returns only the CVEs that match the provided CVSSv3 qualitative severity rating. Options are **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**
+**`cvssV4Severity`** | `string` |  _Optional_ | This parameter returns only the CVEs that match the provided CVSSv4 qualitative severity rating. Options are **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**
+**`keywordSearch`** | `string` |  _Optional_ | This parameter returns only the CVEs where a word or phrase is found in the current description
 
 #### Example
 
@@ -654,10 +658,8 @@ or
 ```yaml
 - type: cve-vulnerabilities
   options:
-    sortBy: publish-date
-    productId: 28125
-    hasExploit: false
-    minScore: 5
+    cveTag: disputed
+    cvssV2Severity: CRITICAL
     limit: 30
 ```
 
@@ -733,7 +735,7 @@ Note, config for this widget is case-sensitive (see [#1268](https://github.com/L
 - type: public-holidays
   options:
     country: GB
-    region: LND
+    state: LND
     holidayType: all
     monthsToShow: 12
     lang: en
@@ -2589,7 +2591,7 @@ Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self
 #### Example
 
 ```yaml
-- type: drone-io
+- type: drone-ci
   updateInterval: 30
   options:
     host: https://drone.somedomain.com
@@ -3149,6 +3151,35 @@ You'll need to enable the sensors plugin to use this widget, using: `--enable-pl
   options:
     hostname: http://192.168.130.2:61208
     units: C
+```
+
+---
+
+### Compact Metrics
+
+A multi-system overview widget that displays CPU, memory and disk usage for multiple Glances instances in a compact table. Click on a row to see detailed metrics for that system.
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`systems`** | `array` | Required | An array of systems to monitor, each with `header` (display name) and `url` (Glances base URL)
+**`apiVersion`** | `number` | _Optional_ | Glances API version. Defaults to `4`
+**`username`** | `string` | _Optional_ | If Glances is password-protected, specify the username
+**`password`** | `string` | _Optional_ | If Glances is password-protected, specify the password
+
+#### Example
+
+```yaml
+- type: gl-compact-metrics
+  options:
+    systems:
+      - header: Server 1
+        url: http://192.168.1.10:61208
+      - header: Server 2
+        url: http://192.168.1.11:61208
+      - header: NAS
+        url: http://192.168.1.20:61208
 ```
 
 ---

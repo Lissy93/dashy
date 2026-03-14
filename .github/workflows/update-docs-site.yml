@@ -16,36 +16,50 @@ on:
 # Jobs to be run:
 # 1. Checkout master branch
 # 2. Checkout website source code branch
-# 3. Install Python
-# 4. Copy /docs from master to website branch
-# 5. Run the script which processes documentation
-# 6. Commit and push updated docs to the website source code branch
+# 3. Install Python and Node.js
+# 4. Install website dependencies (Docusaurus)
+# 5. Copy /docs from master to website branch
+# 6. Run the script which processes documentation and tests the build
+# 7. Commit and push updated docs to the website source code branch
 jobs:
   update-docs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master branch 🛎️
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           path: 'master-docs'
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Checkout WEBSITE/docs-site-source branch 🛎️
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ref: 'WEBSITE/docs-site-source'
           path: 'website-docs'
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Install Python 🐍
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
+      - name: Setup Node.js 🟢
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install website dependencies 📦
+        working-directory: website-docs
+        run: yarn install --frozen-lockfile
+
       - name: Run script to update documentation 🪄
         working-directory: website-docs
+        env:
+          NODE_OPTIONS: '--openssl-legacy-provider'
         run: |
           cp -r ../master-docs/docs ./
-          python ./do-markdown-magic.py
-        
+          python ./do-doc-updaty-magic.py
+
       - name: Commit changes 🚀
         run: |
           cd website-docs
