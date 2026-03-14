@@ -114,6 +114,18 @@ appConfig:
   webSearch: { disableWebSearch: true }
 ```
 
+### Opening URLs Directly
+
+When enabled, if your search query looks like a URL (e.g. `github.com`, `https://example.org/path`), pressing <kbd>Enter</kbd> will navigate directly to that URL instead of searching for it.
+
+Set `appConfig.webSearch.openUrlsDirectly` to `true`:
+
+```yaml
+appConfig:
+  webSearch:
+    openUrlsDirectly: true
+```
+
 ## Clearing Search
 
 You can clear your search term at any time, resting the UI to it's initial state, by pressing <kbd>Esc</kbd>.

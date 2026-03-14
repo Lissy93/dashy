@@ -163,6 +163,7 @@ Dashy supports **1-Click deployments** on several popular cloud platforms. To sp
 - [<img src="https://i.ibb.co/J7MGymY/googlecloud.png" width="18"/> Deploy to GCP](https://deploy.cloud.run/?git_repo=https://github.com/lissy93/dashy.git)
 - [<img src="https://i.ibb.co/HVWVYF7/docker.png" width="18"/> Deploy to PWD](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/Lissy93/dashy/master/docker-compose.yml)
 - [<img src="https://i.ibb.co/7NxnM2P/easypanel.png" width="18"/> Deploy to Easypanel](https://easypanel.io/docs/templates/dashy)
+- [<img src="https://cloudcache.tencent-cloud.com/qcloud/ui/static/other_external_resource/af4a7321-0f56-47ae-a39e-3fd1d162d8e6.jpeg" width="18"/> Deploy to EdgeOne](https://edgeone.ai/pages/new?repository-url=https://github.com/lissy93/dashy)
 
 > For more 1-click cloud deployments, see [Cloud Deployment](./docs/deployment.md#deploy-to-cloud-service)
 
@@ -434,6 +435,7 @@ Dashy supports multiple languages and locales. When available, your language sho
 - 🇷🇺 **Russian**: `ru` -Contributed by **[@sasetz](https://github.com/sasetz)**
 - 🇸🇰 **Slovak**: `sk` - Contributed by **[@Smexhy](https://github.com/Smexhy)**
 - 🇸🇮 **Slovenian**: `sl` - Contributed by **[@UrekD](https://github.com/UrekD)**
+- 🇰🇬 **Kyrgyz**: `ky` - Contributed by **[@noblepower1337](https://github.com/noblepower1337)**
 - 🇪🇸 **Spanish**: `es` - Contributed by **[@lu4t](https://github.com/lu4t)**
 - 🇸🇪 **Swedish**: `sv` - Contributed by **[@BOZG](https://github.com/BOZG)**
 - 🇹🇼 **Traditional Chinese**: `zh-TW` - Contributed by **[@stanly0726](https://github.com/stanly0726)**
@@ -478,9 +480,9 @@ pages:
 
 ## System Requirements 📊
 
-If running on bare metal, Dashy requires [Node](https://nodejs.org/en/) V 16.0.0 or later, LTS (16.13.2) is recommended.
+If running on bare metal, Dashy requires [Node](https://nodejs.org/en/) V 18.0.0 or later, LTS (20.x) is recommended.
 
-If running in Docker container, the recommended base image is Alpine (3.15)
+If running in Docker container, the recommended base image is Alpine (3.19)
 
 The hardware requirements vary depending on where and how you are running Dashy. Generally speaking, on a bare-metal system or Docker container, 1GB of memory should be more than enough, and depending on whether you are using your own assets, then 1GB of disk space should be sufficient. 
 
@@ -612,9 +614,7 @@ If you're new to web development, I've put together a short [list of resources](
 #### Misc
 - 🔐 [Privacy & Security](/docs/privacy.md) - List of requests, potential issues, and security resources
 - 📄 [License](/LICENSE) - Copy of the MIT License
-- ⚖️ [Legal](/.github/LEGAL.md) - Licenses of direct dependencies
 - 📏 [Code of Conduct](/.github/CODE_OF_CONDUCT.md) - Contributor Covenant Code of Conduct
-- 🌳 [Changelog](/.github/CHANGELOG.md) - Details of recent changes, and historical versions
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -624,7 +624,7 @@ If you're new to web development, I've put together a short [list of resources](
 
 For upcoming features that will be released in the near future, see the [**Current Roadmap**](https://github.com/Lissy93/dashy/discussions/405)
 
-For past updates, see the [**Changelog**](/.github/CHANGELOG.md)
+For past updates, see the [**Releases Page**](https://github.com/Lissy93/dashy/releases)
 
 **[⬆️ Back to Top](#dashy)**
 

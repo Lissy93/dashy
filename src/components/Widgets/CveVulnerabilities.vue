@@ -7,9 +7,6 @@
         <p class="title">{{ cve.id }}</p>
         <span class="date">{{ cve.publishDate | formatDate }}</span>
         <span class="last-updated">Last Updated: {{ cve.updateDate | formatDate }}</span>
-        <span :class="`exploit-count ${makeExploitColor(cve.numExploits)}`">
-          {{ cve.numExploits | formatExploitCount }}
-        </span>
       </div>
     </a>
     <p class="cve-description">
@@ -33,6 +30,7 @@ export default {
   data() {
     return {
       cveList: null,
+      total: 10,
     };
   },
   filters: {
@@ -42,57 +40,34 @@ export default {
     formatDescription(description) {
       return truncateStr(description, 350);
     },
-    formatExploitCount(numExploits) {
-      if (!numExploits) return 'Number of exploits not known';
-      if (numExploits === '0') return 'No published exploits';
-      return `${numExploits} known exploit${numExploits !== '1' ? 's' : ''}`;
-    },
   },
   computed: {
-    /* Get sort order, defaults to publish date */
-    sortBy() {
-      const usersChoice = this.options.sortBy;
-      let sortCode;
-      switch (usersChoice) {
-        case ('publish-date'): sortCode = 1; break;
-        case ('last-update'): sortCode = 2; break;
-        case ('cve-code'): sortCode = 3; break;
-        default: sortCode = 1;
-      }
-      return `&orderby=${sortCode}`;
+    endpointTotal() {
+      let apiUrl = `${widgetApiEndpoints.cveVulnerabilities}?resultsPerPage=1&startIndex=1&noRejected`;
+      apiUrl = this.appendQuery(apiUrl, this.options, 'cveTag', 'cveTag');
+      apiUrl = this.appendQuery(apiUrl, this.options, 'cvssV2Severity', 'cvssV2Severity');
+      apiUrl = this.appendQuery(apiUrl, this.options, 'cvssV3Severity', 'cvssV3Severity');
+      apiUrl = this.appendQuery(apiUrl, this.options, 'cvssV4Severity', 'cvssV4Severity');
+      apiUrl = this.appendQuery(apiUrl, this.options, 'keywordSearch', 'keywordSearch');
+      apiUrl = this.appendQuery(apiUrl, this.options, 'sourceIdentifier', 'sourceIdentifier');
+
+      return apiUrl;
     },
-    /* The minimum CVE score to fetch/ show, defaults to 4 */
-    minScore() {
-      const usersChoice = this.options.minScore;
-      let minScoreVal = 4;
-      if (usersChoice && (usersChoice >= 0 || usersChoice <= 10)) {
-        minScoreVal = usersChoice;
-      }
-      return `&cvssscoremin=${minScoreVal}`;
-    },
-    vendorId() {
-      return (this.options.vendorId) ? `&vendor_id=${this.options.vendorId}` : '';
-    },
-    productId() {
-      return (this.options.productId) ? `&product_id=${this.options.productId}` : '';
-    },
-    /* Should only show results with exploits, defaults to false */
-    hasExploit() {
-      const shouldShow = this.options.hasExploit ? 1 : 0;
-      return `&hasexp=${shouldShow}`;
-    },
-    /* The number of results to fetch/ show, defaults to 10 */
-    limit() {
-      const usersChoice = this.options.limit;
-      let numResults = 10;
-      if (usersChoice && (usersChoice >= 5 || usersChoice <= 30)) {
-        numResults = usersChoice;
-      }
-      return `&numrows=${numResults}`;
-    },
-    endpoint() {
-      return `${widgetApiEndpoints.cveVulnerabilities}?${this.sortBy}${this.limit}`
-        + `${this.minScore}${this.vendorId}${this.productId}${this.hasExploit}`;
+    endpointPage() {
+      const page = Math.max(this.total - (this.options.limit ?? 5), 1);
+      let apiUrl = `${widgetApiEndpoints.cveVulnerabilities}`
+      + `?resultsPerPage=${(this.options.limit ?? 5)}`
+      + `&startIndex=${page}`
+      + '&noRejected';
+
+      apiUrl = this.appendQuery(apiUrl, this.options, 'cveTag', 'cveTag');
+      apiUrl = this.appendQuery(apiUrl, this.options, 'cvssV2Severity', 'cvssV2Severity');
+      apiUrl = this.appendQuery(apiUrl, this.options, 'cvssV3Severity', 'cvssV3Severity');
+      apiUrl = this.appendQuery(apiUrl, this.options, 'cvssV4Severity', 'cvssV4Severity');
+      apiUrl = this.appendQuery(apiUrl, this.options, 'keywordSearch', 'keywordSearch');
+      apiUrl = this.appendQuery(apiUrl, this.options, 'sourceIdentifier', 'sourceIdentifier');
+
+      return apiUrl;
     },
     proxyReqEndpoint() {
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
@@ -100,42 +75,105 @@ export default {
     },
   },
   methods: {
-    /* Make GET request to CoinGecko API endpoint */
+    appendQuery(url = '', opts = {}, property = '', paramUrl = '') {
+      const allowedKeys = [
+        'cveTag',
+        'cvssV2Severity',
+        'cvssV3Severity',
+        'cvssV4Severity',
+        'keywordSearch',
+        'sourceIdentifier',
+      ];
+
+      if (allowedKeys.includes(property)) {
+        // eslint-disable-next-line no-prototype-builtins
+        if (opts.hasOwnProperty(property)) {
+          return `${url}&${paramUrl}=${opts[property]}`;
+        }
+      }
+
+      return url;
+    },
+
+    /* Make GET request to NIST NVD API endpoint */
     fetchData() {
       this.defaultTimeout = 12000;
-      this.makeRequest(this.endpoint).then(this.processData);
+      this.makeRequest(this.endpointTotal)
+        .then(sample => {
+          this.total = sample.totalResults;
+          this.makeRequest(this.endpointPage)
+            .then(this.processData);
+        });
     },
     /* Assign data variables to the returned data */
     processData(data) {
       const cveList = [];
-      data.forEach((cve) => {
+      data.vulnerabilities.forEach(({ cve = {} }) => {
         cveList.push({
-          id: cve.cve_id,
-          score: cve.cvss_score,
-          url: cve.url,
-          description: cve.summary,
-          numExploits: cve.exploit_count,
-          publishDate: cve.publish_date,
-          updateDate: cve.update_date,
+          id: cve.id,
+          score: this.parseScore(cve.metrics),
+          url: `https://nvd.nist.gov/vuln/detail/${cve.id}`,
+          description: this.parseDescriptions(cve.descriptions),
+          publishDate: cve.published,
+          updateDate: cve.lastModified,
         });
       });
       this.cveList = cveList;
     },
-    makeExploitColor(numExploits) {
-      if (!numExploits || Number.isNaN(parseInt(numExploits, 10))) return 'fg-grey';
-      const count = parseInt(numExploits, 10);
-      if (count === 0) return 'fg-green';
-      if (count === 1) return 'fg-orange';
-      if (count > 1) return 'fg-red';
-      return 'fg-grey';
+    parseScore(metrics = {}) {
+      if (!metrics) {
+        return 'Unset';
+      }
+      if (metrics.cvssMetricV40 !== undefined) {
+        for (let i = 0; i < metrics.cvssMetricV40.length; i += 1) {
+          if (metrics.cvssMetricV40[i].cvssData !== undefined
+              && metrics.cvssMetricV40[i].cvssData.baseSeverity !== undefined
+              && metrics.cvssMetricV40[i].cvssData.baseSeverity !== '') {
+            return metrics.cvssMetricV40[i].cvssData.baseSeverity;
+          }
+        }
+      }
+      if (metrics.cvssMetricV31 !== undefined) {
+        for (let i = 0; i < metrics.cvssMetricV31.length; i += 1) {
+          if (metrics.cvssMetricV31[i].cvssData !== undefined
+              && metrics.cvssMetricV31[i].cvssData.baseSeverity !== undefined
+              && metrics.cvssMetricV31[i].cvssData.baseSeverity !== '') {
+            return metrics.cvssMetricV31[i].cvssData.baseSeverity;
+          }
+        }
+      }
+      if (metrics.cvssMetricV30 !== undefined) {
+        for (let i = 0; i < metrics.cvssMetricV30.length; i += 1) {
+          if (metrics.cvssMetricV30[i].cvssData !== undefined
+              && metrics.cvssMetricV30[i].cvssData.baseSeverity !== undefined
+              && metrics.cvssMetricV30[i].cvssData.baseSeverity !== '') {
+            return metrics.cvssMetricV30[i].cvssData.baseSeverity;
+          }
+        }
+      }
+      if (metrics.cvssMetricV2 !== undefined) {
+        for (let i = 0; i < metrics.cvssMetricV2.length; i += 1) {
+          if (metrics.cvssMetricV2[i].baseSeverity !== undefined && metrics.cvssMetricV2[i].baseSeverity !== '') {
+            return metrics.cvssMetricV2[i].baseSeverity;
+          }
+        }
+      }
+      return 'Unset';
+    },
+    parseDescriptions(cveDescriptions = []) {
+      for (let i = 0; i < cveDescriptions.length; i += 1) {
+        if (cveDescriptions[i].lang === 'en') {
+          return cveDescriptions[i].value;
+        }
+      }
+      return 'Unset';
     },
     makeScoreColor(inputScore) {
-      if (!inputScore || Number.isNaN(parseFloat(inputScore))) return 'bg-grey';
-      const score = parseFloat(inputScore);
-      if (score >= 9) return 'bg-red';
-      if (score >= 7) return 'bg-orange';
-      if (score >= 4) return 'bg-yellow';
-      if (score >= 0.1) return 'bg-green';
+      if (!inputScore) return 'bg-grey';
+      if (inputScore === 'CRITICAL') return 'bg-red';
+      if (inputScore === 'HIGH') return 'bg-orange';
+      if (inputScore === 'MEDIUM') return 'bg-yellow';
+      if (inputScore === 'LOW') return 'bg-green';
       return 'bg-blue';
     },
   },
@@ -155,12 +193,6 @@ export default {
       &.bg-red { background: var(--danger); }
       &.bg-blue { background: var(--info); }
       &.bg-grey { background: var(--neutral); }
-      &.fg-green { color: var(--success); }
-      &.fg-yellow { color: var(--warning); }
-      &.fg-orange { color: var(--error); }
-      &.fg-red { color: var(--danger); }
-      &.fg-blue { color: var(--info); }
-      &.fg-grey { color: var(--neutral); }
     }
     a.upper {
       display: flex;
@@ -169,9 +201,9 @@ export default {
       text-decoration: none;
     }
     .score {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: bold;
-      padding: 0.45rem 0.25rem 0.25rem 0.25rem;
+      padding: 0.25rem 0.5rem;
       margin-right: 0.5rem;
       border-radius: 30px;
       font-family: var(--font-monospace);
@@ -189,14 +221,6 @@ export default {
       margin: 0;
       opacity: var(--dimming-factor);
       padding-right: 0.5rem;
-    }
-    .exploit-count {
-      display: none;
-      font-size: 0.8rem;
-      margin: 0;
-      padding-left: 0.5rem;
-      opacity: var(--dimming-factor);
-      border-left: 1px solid var(--widget-text-color);
     }
     .seperator {
       font-size: 0.8rem;
@@ -218,7 +242,7 @@ export default {
     }
     &:hover {
       .date { display: none; }
-      .exploit-count, .last-updated { display: inline; }
+      .last-updated { display: inline; }
     }
   }
 }
