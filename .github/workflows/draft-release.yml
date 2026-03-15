@@ -3,8 +3,7 @@ name: 🏗️ Draft New Release
 on:
   push:
     tags:
-      - '^[0-9]+\.[0-9]+\.[0-9]+$'
-      - '**'
+      - '*.*.*'
   workflow_dispatch:
     inputs:
       tag:
@@ -16,21 +15,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code 🛎️
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # We need all history for generating release notes
+          fetch-depth: 0
+
+      - name: Check if major or minor version changed 🔍
+        id: version_check
+        run: |
+          CURRENT_TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          git fetch --tags --force
+          PREVIOUS_TAG=$(git tag --sort=-version:refname | grep -v "^${CURRENT_TAG}$" | head -1)
+          if [ -z "$PREVIOUS_TAG" ]; then
+            echo "No previous tag found, creating release"
+            echo "should_release=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          CURRENT_MM=$(echo "$CURRENT_TAG" | sed 's/^v//; s/\([0-9]*\.[0-9]*\)\..*/\1/')
+          PREVIOUS_MM=$(echo "$PREVIOUS_TAG" | sed 's/^v//; s/\([0-9]*\.[0-9]*\)\..*/\1/')
+          if [ "$CURRENT_MM" = "$PREVIOUS_MM" ]; then
+            echo "Patch-only bump ($PREVIOUS_TAG -> $CURRENT_TAG), skipping release"
+            echo "should_release=false" >> $GITHUB_OUTPUT
+          else
+            echo "Major or minor bump ($PREVIOUS_TAG -> $CURRENT_TAG), creating release"
+            echo "should_release=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Create Draft Release 📝
+        if: steps.version_check.outputs.should_release == 'true' || github.event_name == 'workflow_dispatch'
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.inputs.tag || github.ref_name }}
-          release_name: Release ${{ github.event.inputs.tag || github.ref_name }}
+          name: Release ${{ github.event.inputs.tag || github.ref_name }}
           draft: true
           prerelease: false
           generate_release_notes: true
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Output new release URL ↗️
-        run: 'echo "Draft release URL: ${{ steps.create_release.outputs.html_url }}"'
+        if: steps.create_release.outputs.url
+        run: 'echo "Draft release URL: ${{ steps.create_release.outputs.url }}"'
