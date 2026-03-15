@@ -7,20 +7,20 @@
       <nav id="nav" v-if="navVisible">
         <!-- Render either router-link or anchor, depending if internal / external link -->
         <template v-for="(link, index) in allLinks">
-          <router-link v-if="!isUrl(link.path)"
+          <router-link
+            v-if="!isUrl(link.path)"
             :key="index"
             :to="link.path"
-            class="nav-item"
-          >{{link.title}}
-          </router-link>
-          <a v-else
+            :class="['nav-item', link._isHome ? 'home-button' : '']"
+          >{{ link.title }}</router-link>
+          <a
+            v-else
             :key="index"
             :href="link.path"
             :target="determineTarget(link)"
-            class="nav-item"
+            :class="['nav-item', link._isHome ? 'home-button' : '']"
             rel="noopener noreferrer"
-          >{{link.title}}
-          </a>
+          >{{ link.title }}</a>
         </template>
       </nav>
     </div>
@@ -44,15 +44,22 @@ export default {
     isMobile: false,
   }),
   computed: {
-    /* Get links to sub-pages, and combine with nav-links */
+    /* Build nav links: custom links + sub-pages (excluding current) + optional Home button */
     allLinks() {
-      const subPages = this.$store.getters.pages.filter((page) => checkPageVisibility(page))
+      const currentSubPageId = this.$store.state.currentConfigInfo?.confId || null;
+      let subPages = this.$store.getters.pages
+        .filter((page) => checkPageVisibility(page))
         .map((subPage) => ({
           path: makePageSlug(subPage.name, 'home'),
           title: subPage.name,
+          _isSubPage: true,
         }));
+      if (currentSubPageId) {
+        subPages = subPages.filter(p => !p.path.endsWith(`/${currentSubPageId}`));
+      }
       const navLinks = this.links || [];
-      return [...navLinks, ...subPages];
+      const homeButton = currentSubPageId ? [{ path: '/home/', title: 'Home', _isHome: true }] : [];
+      return [...navLinks, ...subPages, ...homeButton];
     },
   },
   created() {
@@ -106,6 +113,9 @@ export default {
         background: var(--nav-link-background-color-hover);
         border: 1px solid var(--nav-link-border-color-hover);
         box-shadow: var(--nav-link-shadow-hover);
+      }
+      &.home-button {
+        font-weight: 600;
       }
     }
   }
