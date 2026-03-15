@@ -10,6 +10,7 @@
       @click="showMoreInfo(weather.info)"
     >
       <p class="date">{{ weather.date }}</p>
+      <p class="date">{{ weather.time }}</p>
       <p class="description">{{ weather.main }}</p>
       <p class="temp">{{ weather.temp }}</p>
       <i :class="`owi owi-${weather.icon}`"></i>
@@ -86,6 +87,11 @@ export default {
       const dateFormat = { weekday: 'short', day: 'numeric', month: 'short' };
       return new Date(timestamp * 1000).toLocaleDateString(localFormat, dateFormat);
     },
+    timeFromStamp(timestamp) {
+      const localFormat = navigator.language;
+      const timeFormat = { hour: 'numeric', minute: 'numeric' };
+      return new Date(timestamp * 1000).toLocaleTimeString(localFormat, timeFormat);
+    },
     fetchData() {
       this.makeRequest(this.endpoint).then(this.processData);
     },
@@ -96,6 +102,7 @@ export default {
         uiWeatherData.push({
           index,
           date: this.dateFromStamp(day.dt),
+          time: this.timeFromStamp(day.dt),
           icon: day.weather[0].icon,
           main: day.weather[0].main,
           description: day.weather[0].description,
