@@ -931,6 +931,12 @@
                     }
                   }
                 }
+              },
+              "hideFromWorkspace": {
+                "title": "Hide from Workspace",
+                "type": "boolean",
+                "default": false,
+                "description": "If set to true, section will be visible in the default view but not in the Workspace view sidebar"
               }
             }
           },
@@ -1048,6 +1054,12 @@
                           }
                         }
                       }
+                    },
+                    "hideFromWorkspace": {
+                      "title": "Hide from Workspace",
+                      "type": "boolean",
+                      "default": false,
+                      "description": "If set to true, item will be visible in the default view but not in the Workspace view sidebar"
                     }
                   }
                 },
