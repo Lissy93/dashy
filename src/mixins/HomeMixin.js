@@ -65,15 +65,6 @@ const HomeMixin = {
       const subPageName = isSubPage ? pagePath.split('/').pop() : null;
       return subPageName;
     },
-    /* TEMPORARY: If on sub-page, check if custom theme is set and return it */
-    getSubPageTheme() {
-      if (!this.pageId || this.pageId === 'home') {
-        return null;
-      } else {
-        const themeStoreKey = `${localStorageKeys.THEME}-${this.pageId}`;
-        return localStorage[themeStoreKey] || null;
-      }
-    },
     setTheme() {
       this.initializeTheme();
     },

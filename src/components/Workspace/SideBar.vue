@@ -53,10 +53,7 @@ export default {
     /* Return a list of sections that should be visible in workspace */
     filteredSections() {
       if (!this.sections) return [];
-      return this.sections.filter((section) => {
-        const hideFromWorkspace = section.displayData?.hideFromWorkspace || false;
-        return !hideFromWorkspace;
-      });
+      return this.sections.filter((section) => !section.displayData?.hideFromWorkspace);
     },
   },
   watch: {
@@ -104,12 +101,8 @@ export default {
       if (!allTiles) {
         return [];
       }
-      return allTiles.filter((tile) => {
-        // Check user visibility and also check if item should be hidden from workspace
-        const isVisible = checkItemVisibility(tile);
-        const hideFromWorkspace = tile.displayData?.hideFromWorkspace || false;
-        return isVisible && !hideFromWorkspace;
-      });
+      return allTiles.filter((tile) => checkItemVisibility(tile)
+        && !tile.displayData?.hideFromWorkspace);
     },
   },
   mounted() {
