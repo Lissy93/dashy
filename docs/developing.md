@@ -50,7 +50,7 @@ Dashy should now be being served on <http://localhost:8080/>. Hot reload is enab
 
 #### Utils and Checks
 
-- **`yarn validate-config`** - If you have quite a long configuration file, you may wish to check that it's all good to go, before deploying the app. This can be done with `yarn validate-config` or `docker exec -it [container-id] yarn validate-config`. Your config file needs to be in `/user-data/conf.yml` (or within your Docker container at `/app/user-data/conf.yml`). This will first check that your YAML is valid, and then validates it against Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js).
+- **`yarn validate-config`** - If you have quite a long configuration file, you may wish to check that it's all good to go, before deploying the app. This can be done with `yarn validate-config` or `docker exec -it [container-id] yarn validate-config`. Your config file needs to be in `/user-data/conf.yml` (or within your Docker container at `/app/user-data/conf.yml`). This will first check that your YAML is valid, and then validates it against Dashy's [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json).
 - **`yarn health-check`** - Checks that the application is up and running on it's specified port, and outputs current status and response times. Useful for integrating into your monitoring service, if you need to maintain high system availability
 
 #### Alternate Start Commands
@@ -329,7 +329,7 @@ Styleguides:
 │  ├── CloudBackup.js             # Functionality for encrypting, processing and network calls
 │  ├── ConfigSchema.json          # The schema, used to validate the users conf.yml file
 │  ├── ConfigAccumulator.js       # Central place for managing and combining config
-│  ├── ConfigHelpers.json         # Collection of helper functions to process config using accumulator
+│  ├── ConfigHelpers.js            # Collection of helper functions to process config using accumulator
 │  ├── ConfigValidator.js         # A helper script that validates the config file against schema
 │  ├── CoolConsole.js             # Prints info, warning and error messages to browser console, with a cool style
 │  ├── defaults.js                # Global constants and their default values
@@ -340,14 +340,18 @@ Styleguides:
 │  ├── Search.js                  # Helper functions for searching/ filtering items in all views
 │  ├── JsonToYaml.js              # Function that parses and converts raw JSON into valid YAML
 │  ├── KeycloakAuth.js            # Singleton class to manage Keycloak authentication
+│  ├── OidcAuth.js               # Manages OIDC authentication with external providers
+│  ├── HeaderAuth.js             # Handles header-based authentication via reverse proxy
 │  ├── languages.js               # Handles fetching, switching and validating languages
 │  ╰── ThemeHelper.js             # Function that handles the fetching and setting of user themes
 ╰── views                         # Directory of available pages, corresponding to available routes
    ├── Home.vue                   # The home page container
    ├── About.vue                  # About page
-   ├── Login.vue                  # TAuthentication page
+   ├── Login.vue                  # Authentication page
    ├── Minimal.vue                # The minimal view
-   ╰── Workspace.vue              # The workspace view with apps in sidebar
+   ├── Workspace.vue              # The workspace view with apps in sidebar
+   ├── DownloadConfig.vue         # Config export page
+   ╰── 404.vue                    # Not found page
 ```
 
 #### Visualisation of Source Directory

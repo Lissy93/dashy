@@ -14,7 +14,7 @@
   - [Deploying Keycloak](#1-deploy-keycloak)
   - [Setting up Keycloak](#2-setup-keycloak-users)
   - [Configuring Dashy for Keycloak](#3-enable-keycloak-in-dashy-config-file)
-  - [Toubleshooting Keycloak](#troubleshooting-keycloak)
+  - [Troubleshooting Keycloak](#troubleshooting-keycloak)
 - [OIDC Auth](#oidc)
   - [authentik](#authentik)
 - [Alternative Authentication Methods](#alternative-authentication-methods)
@@ -25,7 +25,7 @@
   - [Auth on Cloud Hosting Services](#static-site-hosting-providers)
 
 > [!IMPORTANT]
-> Dashy's built-in auth is not indented to protect a publicly hosted instance against unauthorized access. Instead you should use an auth provider compatible with your reverse proxy, or access Dashy via your VPN, or implement your own SSO logic. 
+> Dashy's built-in auth is not intended to protect a publicly hosted instance against unauthorized access. Instead you should use an auth provider compatible with your reverse proxy, or access Dashy via your VPN, or implement your own SSO logic. 
 >
 > In cases where Dashy is only accessibly within your home network, and you just want to add a login page, then the built-in auth may be sufficient, but keep in mind that configuration can still be accessed.
 
