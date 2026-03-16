@@ -62,6 +62,15 @@ const configureWebpack = {
       },
     ],
   },
+  resolve: {
+    fallback: {
+      http: false,
+      https: false,
+      url: false,
+      timers: false,
+      stream: false,
+    },
+  },
   performance: {
     maxEntrypointSize: 10000000,
     maxAssetSize: 10000000,
@@ -69,18 +78,19 @@ const configureWebpack = {
 };
 
 // Development server config
+const userDataDir = path.join(__dirname, process.env.USER_DATA_DIR || 'user-data');
 const devServer = {
-  contentBase: [
-    path.join(__dirname, 'public'),
-    path.join(__dirname, process.env.USER_DATA_DIR || 'user-data'),
-  ],
-  watchContentBase: true,
-  publicPath: '/',
+  static: {
+    directory: path.join(__dirname, 'public'),
+  },
+  watchFiles: {
+    paths: [userDataDir],
+  },
 };
 
 // Application pages
 const pages = {
-  dashy: {
+  index: {
     entry: 'src/main.js',
     filename: 'index.html',
   },

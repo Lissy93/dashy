@@ -6,7 +6,7 @@ export default {
       if (!this.options.hostname) this.error('You must specify a \'hostname\' for Glances');
       return this.options.hostname;
     },
-    /* Optionally specify the API version, defaults to V 3 */
+    /* Optionally specify the API version, defaults to V 4 */
     apiVersion() {
       return this.options.apiVersion || 4;
     },

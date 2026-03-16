@@ -10,9 +10,11 @@ import el from '@/assets/locales/el.json';
 import es from '@/assets/locales/es.json';
 import fr from '@/assets/locales/fr.json';
 import hi from '@/assets/locales/hi.json';
+import hu from '@/assets/locales/hu.json';
 import it from '@/assets/locales/it.json';
 import ja from '@/assets/locales/ja.json';
 import ko from '@/assets/locales/ko.json';
+import ky from '@/assets/locales/ky.json';
 import nb from '@/assets/locales/nb.json';
 import nl from '@/assets/locales/nl.json';
 import pl from '@/assets/locales/pl.json';
@@ -93,10 +95,16 @@ export const languages = [
     flag: '🇲🇫',
   },
   { // Hindi
-    name: 'नहीं',
+    name: 'हिन्दी',
     code: 'hi',
     locale: hi,
     flag: '🇮🇳',
+  },
+  { // Hungarian
+    name: 'Magyar',
+    code: 'hu',
+    locale: hu,
+    flag: '🇭🇺',
   },
   { // Italian
     name: 'Italiano',
@@ -115,6 +123,12 @@ export const languages = [
     code: 'ko',
     locale: ko,
     flag: '🇰🇷',
+  },
+  { // Kyrgyz
+    name: 'Кыргызча',
+    code: 'ky',
+    locale: ky,
+    flag: '🇰🇬',
   },
   { // Norwegian
     name: 'Norsk',
