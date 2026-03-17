@@ -3041,6 +3041,20 @@ Shows the number of processes waiting in the run-queue, averaged across all core
 
 ---
 
+### Uptime
+
+Displays the system uptime fetched from Glances.
+
+#### Example
+
+```yaml
+- type: gl-uptime
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
 ### System Load History
 
 Shows recent historical system load, calculated from the number of processes waiting in the run-queue, in 1, 5 and 15 minute intervals, and averaged across all cores. Optionally specify `limit` to set number of results returned, defaults to `500`, max `100000`, but the higher the number the longer the load and render times will be.
