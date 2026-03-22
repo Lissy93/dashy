@@ -25,13 +25,14 @@ export default {
   computed: {
     /* Let user select which comic to display: random, latest or a specific number */
     hostname() {
-      const usersChoice = this.options.hostname;
+      const usersChoice = this.parseAsEnvVar(this.options.hostname);
       if (!usersChoice) this.error('You must specify the hostname for your Pi-Hole server');
-      return usersChoice || 'http://pi.hole';
+      return usersChoice;
     },
     apiKey() {
-      if (!this.options.apiKey) this.error('API Key is required, please see the docs');
-      return this.options.apiKey;
+      const usersChoice = this.parseAsEnvVar(this.options.apiKey);
+      if (!usersChoice) this.error('API Key is required, please see the docs');
+      return usersChoice;
     },
     count() {
       const usersChoice = this.options.count;
