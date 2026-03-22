@@ -25,9 +25,9 @@ export default {
   computed: {
     /* Let user select which comic to display: random, latest or a specific number */
     hostname() {
-      const usersChoice = this.parseAsEnvVar(this.options.hostname);
+      const usersChoice = this.options.hostname;
       if (!usersChoice) this.error('You must specify the hostname for your Pi-Hole server');
-      return usersChoice;
+      return usersChoice || 'http://pi.hole';
     },
     apiKey() {
       const usersChoice = this.parseAsEnvVar(this.options.apiKey);
