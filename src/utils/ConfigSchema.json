@@ -266,7 +266,6 @@
           "enum": [
             "local",
             "allesedv",
-            "clearbit",
             "iconhorse",
             "faviconkit",
             "duckduckgo",
