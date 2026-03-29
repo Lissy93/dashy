@@ -27,13 +27,12 @@ Dashy can auto-fetch an icon for a given service, using it's favicon. Just set `
 
 Since different websites host their favicons at different paths, for the best results Dashy can use an API to resolve a websites icon.
 
-The default favicon API is  [allesedv.com](https://favicon.allesedv.com/), but you can change this under `appConfig.faviconApi`. If you'd prefer not to use an API, just set this value to `local`. You can also use different APIs for individual items, by setting `icon: favicon-[api]`, e.g. `favicon-clearbit`.
+The default favicon API is  [allesedv.com](https://favicon.allesedv.com/), but you can change this under `appConfig.faviconApi`. If you'd prefer not to use an API, just set this value to `local`. You can also use different APIs for individual items, by setting `icon: favicon-[api]`, e.g. `favicon-iconhorse`.
 
 The following favicon APIs are supported:
 
 - `allesedv` - [allesedv.com](https://favicon.allesedv.com/) is a highly efficient IPv6-enabled service
 - `iconhorse` - [Icon.Horse](https://icon.horse/) returns quality icons for any site, with caching for speed and fallbacks for sites without an icon
-- `clearbit` - [Clearbit](https://clearbit.com/logo) returns high-quality square logos from mainstream websites
 - `faviconkit` - [faviconkit.com](https://faviconkit.com/) good quality icons and most sites supported (Note: down as of Nov '21)
 - `besticon` - [BestIcon](https://github.com/mat/besticon) fetches websites icons from manifest
 - `mcapi` - [MC-API](https://eu.mc-api.net/) fetches default website favicon, originally a Minecraft util
