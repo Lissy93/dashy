@@ -58,7 +58,7 @@ const HomeMixin = {
     },
     /* Based on the current route, get which config to display, null will use default */
     determineConfigFile() {
-      const pagePath = this.$router.currentRoute.path;
+      const pagePath = this.$route.path;
       const isSubPage = new RegExp((/(home|workspace|minimal)\/[a-zA-Z0-9-]+/g)).test(pagePath);
       const subPageName = isSubPage ? pagePath.split('/').pop() : null;
       return subPageName;
@@ -78,7 +78,7 @@ const HomeMixin = {
       // ApplyCustomVariables(theme);
     },
     updateModalVisibility(modalState) {
-      this.$store.commit('SET_MODAL_OPEN', modalState);
+      this.$store.commit(Keys.SET_MODAL_OPEN, modalState);
     },
     /* Updates local data with search value, triggered from filter comp */
     searching(searchValue) {

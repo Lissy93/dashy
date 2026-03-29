@@ -8,7 +8,7 @@ import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import { isUserAdmin, makeBasicAuthHeaders, isLoggedInAsGuest } from '@/utils/Auth';
-import { localStorageKeys, theme as defaultTheme } from './utils/defaults';
+import { localStorageKeys, theme as defaultTheme } from '@/utils/defaults';
 
 const {
   INITIALIZE_CONFIG,
@@ -423,9 +423,15 @@ const store = createStore({
           commit(CRITICAL_ERROR_MSG, `Unable to find config for '${subConfigId}'`);
           return { ...emptyConfig };
         }
-        axios.get(subConfigPath, makeBasicAuthHeaders()).then((response) => {
-          // Parse the YAML
-          const configContent = yaml.load(response.data) || {};
+        try {
+          const response = await axios.get(subConfigPath, makeBasicAuthHeaders());
+          let configContent;
+          try {
+            configContent = yaml.load(response.data) || {};
+          } catch (parseError) {
+            commit(CRITICAL_ERROR_MSG, `Failed to parse sub-config YAML: ${parseError.message}`);
+            return { ...emptyConfig };
+          }
           // Certain values must be inherited from root config
           const theme = configContent?.appConfig?.theme || rootConfig.appConfig?.theme || 'default';
           configContent.appConfig = rootConfig.appConfig;
@@ -448,11 +454,13 @@ const store = createStore({
           // Set the config
           commit(SET_CONFIG, configContent);
           commit(SET_CURRENT_CONFIG_INFO, { confPath: subConfigPath, confId: subConfigId });
-        }).catch((err) => {
-          commit(CRITICAL_ERROR_MSG, `Unable to load config from '${subConfigPath}'`, err);
-        });
+          return configContent;
+        } catch (err) {
+          commit(CRITICAL_ERROR_MSG, `Unable to load config from '${subConfigPath}'`);
+          ErrorHandler(`Sub-config load failed: ${subConfigPath}`, err);
+          return { ...emptyConfig };
+        }
       }
-      return { ...emptyConfig };
     },
   },
   modules: {},

@@ -15,11 +15,11 @@ comment:
         - Your spelling and grammar is correct
         - Any markdown formatting is valid 
 
-    - id: vue-config
+    - id: vite-config
       files:
-      - vue.config.js
+      - vite.config.mjs
       body: >
-        You're making changes to the main Vue app config. Please test the app thoroughly,
+        You're making changes to the main Vite build config. Please test the app thoroughly,
         as any misconfigurations here may cause the app to stop functioning.
 
     - id: server-entry

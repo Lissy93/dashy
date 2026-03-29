@@ -46,6 +46,6 @@ export const restore = (backupId, password) => {
         const decryptedData = decryptData(response.data.userData.userData, password);
         try { resolve(JSON.parse(decryptedData)); } catch (e) { reject(e); }
       }
-    });
+    }).catch(reject);
   });
 };

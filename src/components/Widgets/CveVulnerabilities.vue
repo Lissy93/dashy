@@ -25,7 +25,7 @@
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { timestampToDate, truncateStr } from '@/utils/MiscHelpers';
-import { widgetApiEndpoints, serviceEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/defaults';
 
 export default {
   mixins: [WidgetMixin],
@@ -63,10 +63,6 @@ export default {
       apiUrl = this.appendQuery(apiUrl, this.options, 'sourceIdentifier', 'sourceIdentifier');
 
       return apiUrl;
-    },
-    proxyReqEndpoint() {
-      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
-      return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
   },
   methods: {

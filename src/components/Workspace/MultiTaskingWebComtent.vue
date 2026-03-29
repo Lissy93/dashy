@@ -48,7 +48,8 @@ export default {
       Array.from(document.getElementsByClassName('web-content')).forEach((frame) => {
         frame.classList.add('hide');
       });
-      document.getElementById(btoa(this.url)).classList.remove('hide');
+      const el = document.getElementById(btoa(this.url));
+      if (el) el.classList.remove('hide');
     },
   },
 };

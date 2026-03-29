@@ -1,7 +1,7 @@
 <template>
   <footer v-if="visible">
     <!-- User-defined footer -->
-    <span v-if="text" v-html="text"></span>
+    <span v-if="text" v-html="sanitizedText"></span>
     <!-- Default footer -->
     <span v-else>
       <a :href="defaultInfo.projectUrl">Dashy</a> is free & open source
@@ -15,6 +15,7 @@
 <script>
 
 import { shouldBeVisible } from '@/utils/SectionHelpers';
+import { sanitizeHtml } from '@/utils/Sanitizer';
 
 export default {
   name: 'Footer',
@@ -38,6 +39,9 @@ export default {
   computed: {
     visible() {
       return shouldBeVisible(this.$route.name);
+    },
+    sanitizedText() {
+      return this.text ? sanitizeHtml(this.text) : '';
     },
   },
 };

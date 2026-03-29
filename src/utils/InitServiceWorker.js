@@ -33,11 +33,17 @@ const setSwStatus = (swStateToSet) => {
  * Or disable if user specified to disable
  */
 const shouldEnableServiceWorker = async () => {
-  const conf = yaml.load((await axios.get('/conf.yml')).data);
-  if (conf && conf.appConfig && conf.appConfig.enableServiceWorker) {
-    setSwStatus({ disabledByUser: false });
-    return true;
-  } else if (import.meta.env.DEV) {
+  try {
+    const response = await axios.get('/conf.yml');
+    const conf = yaml.load(response.data);
+    if (conf && conf.appConfig && conf.appConfig.enableServiceWorker) {
+      setSwStatus({ disabledByUser: false });
+      return true;
+    }
+  } catch (e) {
+    statusErrorMsg('Service Worker Status', 'Failed to load config for SW check', e);
+  }
+  if (import.meta.env.DEV) {
     setSwStatus({ devMode: true });
     return false;
   }

@@ -5,7 +5,7 @@
 const { exec } = require('child_process');
 
 module.exports = () => new Promise((resolve, reject) => {
-  const buildProcess = exec('NODE_OPTIONS="--max-old-space-size=512" npm run build'); // Trigger the build command
+  const buildProcess = exec('yarn build'); // Trigger the build command
 
   let output = ''; // Will store console output
 
@@ -17,11 +17,7 @@ module.exports = () => new Promise((resolve, reject) => {
 
   // Handle errors, by sending the reject
   buildProcess.on('error', (error) => {
-    reject(Error({
-      success: false,
-      error,
-      output,
-    }));
+    reject({ success: false, error, output });
   });
 
   // When finished, check success, make message and resolve response

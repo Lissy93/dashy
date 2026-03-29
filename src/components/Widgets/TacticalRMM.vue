@@ -63,7 +63,6 @@
 <script>
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { serviceEndpoints } from '@/utils/defaults';
 
 export default {
   mixins: [WidgetMixin],
@@ -97,10 +96,6 @@ export default {
       return {
         'Content-Type': 'application/json',
       };
-    },
-    proxyReqEndpoint() {
-      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
-      return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
   },
   methods: {

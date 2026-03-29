@@ -60,7 +60,7 @@ export default {
         this.progress.end();
         this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
       })
-        .catch((error) => { // fucking hell
+        .catch((error) => {
           this.saveSuccess = false;
           this.responseText = error;
           this.showToast(error, false);

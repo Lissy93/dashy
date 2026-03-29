@@ -125,7 +125,7 @@ nav.side-bar {
 .slide-enter-active {
   transition: all 0.1s ease-in-out;
 }
-.slide-enter {
+.slide-enter-from {
   transform: translate(0, -80%);
 }
 .slide-leave-to {

@@ -1,7 +1,7 @@
 # Files specified here are not required for Docker
 # so ignoring them helps to reduce the container size
 # The Docker container MUST have the following files:
-# package.json yarn.lock server.js vue.config.js src/ services/ 
+# package.json yarn.lock server.js vite.config.mjs src/ services/
 
 node_modules
 docs

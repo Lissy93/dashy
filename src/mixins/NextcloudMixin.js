@@ -1,4 +1,3 @@
-import { serviceEndpoints } from '@/utils/defaults';
 import {
   convertBytes, formatNumber, getTimeAgo, timestampToDateTime,
 } from '@/utils/MiscHelpers';
@@ -69,10 +68,6 @@ export default {
     /* TTL for data delivered by the capabilities endpoint, ms */
     capabilitiesTtl() {
       return (parseInt(this.options.capabilitiesTtl, 10) || 3600) * 1000;
-    },
-    proxyReqEndpoint() {
-      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
-      return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
   },
   methods: {

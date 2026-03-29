@@ -44,10 +44,14 @@ export const isVisibleToUser = (displayData, currentUser) => {
     if (showForUsers.length < 1) return true;
     return determineVisibility(showForUsers, cUsername);
   };
+  const getKeycloakInfo = () => {
+    try { return JSON.parse(localStorage.getItem(localStorageKeys.KEYCLOAK_INFO) || '{}'); }
+    catch (e) { return {}; }
+  };
   const checkKeycloakVisibility = () => {
     if (!displayData.hideForKeycloakUsers) return true;
 
-    const { groups, roles } = JSON.parse(localStorage.getItem(localStorageKeys.KEYCLOAK_INFO) || '{}');
+    const { groups, roles } = getKeycloakInfo();
     const hideForGroups = displayData.hideForKeycloakUsers.groups || [];
     const hideForRoles = displayData.hideForKeycloakUsers.roles || [];
 
@@ -57,7 +61,7 @@ export const isVisibleToUser = (displayData, currentUser) => {
   const checkKeycloakHiddenability = () => {
     if (!displayData.showForKeycloakUsers) return true;
 
-    const { groups, roles } = JSON.parse(localStorage.getItem(localStorageKeys.KEYCLOAK_INFO) || '{}');
+    const { groups, roles } = getKeycloakInfo();
     const showForGroups = displayData.showForKeycloakUsers.groups || [];
     const showForRoles = displayData.showForKeycloakUsers.roles || [];
 

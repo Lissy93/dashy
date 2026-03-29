@@ -29,7 +29,6 @@ import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import PercentageChart from '@/components/Charts/PercentageChart';
 import { getValueFromCss, convertBytes } from '@/utils/MiscHelpers';
-import { serviceEndpoints } from '@/utils/defaults';
 
 export default {
   mixins: [WidgetMixin],
@@ -63,10 +62,6 @@ export default {
     },
     endpointLogout() {
       return `${this.hostname}/webapi/auth.cgi?api=SYNO.API.Auth&version=3&method=logout&session=DownloadStation&_sid=${this.sid}`;
-    },
-    proxyReqEndpoint() {
-      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
-      return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
   },
   methods: {

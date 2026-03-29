@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import { serviceEndpoints } from '@/utils/defaults';
 import { showNumAsThousand, getTimeAgo } from '@/utils/MiscHelpers';
 import WidgetMixin from '@/mixins/WidgetMixin';
 
@@ -69,10 +68,6 @@ export default {
     },
     limit() {
       return this.options.limit;
-    },
-    proxyReqEndpoint() {
-      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
-      return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
     endpoint() {
       return `${this.hostname}/api/services`;

@@ -42,7 +42,7 @@ export default {
     injectHtml() {
       if (this.html) {
         const element = document.getElementById(this.elementId);
-        element.innerHTML = this.html;
+        if (element) element.innerHTML = this.html;
       }
       if (this.css) {
         const styleElem = document.createElement('style');

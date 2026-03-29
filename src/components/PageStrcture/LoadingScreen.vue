@@ -107,7 +107,7 @@ div#loading {
 .slide-fade-leave-active {
   transition: all .2s cubic-bezier(1, 0.9, 0.7, 0.4);
 }
-.slide-fade-enter, .slide-fade-leave-to  {
+.slide-fade-enter-from, .slide-fade-leave-to  {
   transform: translateY(-200px);
   opacity: 0;
 }

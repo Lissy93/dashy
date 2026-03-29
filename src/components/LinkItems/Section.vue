@@ -285,7 +285,8 @@ export default {
       this.contextMenuOpen = true; // Open context menu
       // If mouse position not set, use section coordinates
       const sectionOuterId = `section-outer-${this.groupId}`;
-      const sectionPosition = document.getElementById(sectionOuterId).getBoundingClientRect();
+      const sectionEl = document.getElementById(sectionOuterId);
+      const sectionPosition = sectionEl ? sectionEl.getBoundingClientRect() : { right: 0, top: 0 };
       this.contextPos = {
         posX: (e.clientX || sectionPosition.right - 10) + window.pageXOffset,
         posY: (e.clientY || sectionPosition.top + 30) + window.pageYOffset,

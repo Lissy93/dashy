@@ -140,8 +140,12 @@ const router = createRouter({
  * */
 router.beforeEach(async (to, from, next) => {
   progress.start();
-  if (to.name !== 'login' && !isAuthenticated()) next({ name: 'login' });
-  else next();
+  try {
+    if (to.name !== 'login' && !isAuthenticated()) next({ name: 'login' });
+    else next();
+  } catch (e) {
+    next();
+  }
 });
 
 /* If title is missing, then apply default page title */

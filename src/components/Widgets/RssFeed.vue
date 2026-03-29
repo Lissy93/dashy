@@ -231,27 +231,27 @@ export default {
       color: var(--widget-text-color);
       max-height: 400px;
       overflow: hidden;
-      ::v-deep p {
+      :deep(p) {
         margin: 0.5rem 0;
       }
-      ::v-deep img {
+      :deep(img) {
         max-width: 80%;
         display: flex;
         margin: 0 auto;
         border-radius: var(--curve-factor);
       }
-      ::v-deep a {
+      :deep(a) {
         color: var(--widget-text-color);
       }
-      ::v-deep svg path {
+      :deep(svg path) {
         fill: var(--widget-text-color);
       }
-      ::v-deep blockquote {
+      :deep(blockquote) {
         margin-left: 0.5rem;
         padding-left: 0.5rem;
         border-left: 4px solid var(--widget-text-color);
       }
-      ::v-deep .avatar.avatar-user { display: none; }
+      :deep(.avatar.avatar-user) { display: none; }
     }
     a.continue-reading-btn {
       width: 100%;

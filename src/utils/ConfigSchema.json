@@ -525,8 +525,8 @@
                   "password": {
                     "title": "Password",
                     "type": "string",
-                    "description": "The environmental variable pointing to a plaintext password for that user. Must start with VUE_APP_",
-                    "pattern": "^VUE_APP_.*"
+                    "description": "The environmental variable pointing to a plaintext password for that user. Must start with VITE_APP_",
+                    "pattern": "^VITE_APP_.*"
                   },
                   "type": {
                     "title": "Privileges",

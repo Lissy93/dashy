@@ -84,7 +84,9 @@ export default {
     },
     /* Updates browser storage, and srore with new color settings, and shows success msg */
     saveChanges() {
-      const priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
+      let priorSettings = {};
+      try { priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}'); }
+      catch (e) { /* ignore corrupt data */ }
       priorSettings[this.themeToEdit] = this.customColors;
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
       this.$store.commit(StoreKeys.SET_CUSTOM_COLORS, priorSettings);
@@ -102,7 +104,9 @@ export default {
     },
     /* Resets styles, and removes data for current theme from local storage */
     resetAndSave() {
-      const priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
+      let priorSettings = {};
+      try { priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}'); }
+      catch (e) { /* ignore corrupt data */ }
       delete priorSettings[this.themeToEdit];
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
       this.resetUnsavedColors();

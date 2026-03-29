@@ -67,11 +67,17 @@ app.config.globalProperties.$toasted = {
 };
 /* eslint-enable object-property-newline */
 
-// When running in dev mode, enable Vue performance tools
+app.config.errorHandler = (err, instance, info) => {
+  ErrorHandler(`Vue error in ${info}`, err);
+};
+
+window.addEventListener('unhandledrejection', (event) => {
+  ErrorHandler('Unhandled promise rejection', event.reason);
+});
+
 const isDevMode = import.meta.env.DEV;
 app.config.performance = isDevMode;
 
-// Checks if service worker not disable, and if so will registers it
 serviceWorker();
 
 // Checks if user enabled error reporting, and if so will initialize it

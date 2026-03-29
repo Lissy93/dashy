@@ -169,7 +169,7 @@ export default {
 .slide-fade-leave-active {
   transition: all .8s cubic-bezier(.93,.01,.89,.5);
 }
-.slide-fade-enter, .slide-fade-leave-to {
+.slide-fade-enter-from, .slide-fade-leave-to {
   transform: translateY(35em);
   opacity: 0;
 }

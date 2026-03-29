@@ -18,7 +18,6 @@
 </template>
 
 <script>
-// import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 

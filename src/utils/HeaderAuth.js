@@ -27,13 +27,13 @@ class HeaderAuth {
       const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       axios.get(`${baseUrl}${serviceEndpoints.getUser}`).then((response) => {
         if (!response.data) {
-          reject(Error('Error, expected data nout returned'));
+          reject(Error('Error, expected data not returned'));
         } else if (response.data.errorMsg) {
           reject(response.data.errorMsg);
         } else {
           try {
             this.users.forEach((user) => {
-              if (user.user.toLowerCase() === response.data.user.toLowerCase()) { // User found
+              if (user.user.toLowerCase() === response.data.user.toLowerCase()) {
                 const strAndUpper = (input) => input.toString().toUpperCase();
                 const sha = strAndUpper(sha256(strAndUpper(user.user) + strAndUpper(user.hash)));
                 document.cookie = `${cookieKeys.AUTH_TOKEN}=${sha};`;
@@ -47,7 +47,7 @@ class HeaderAuth {
             reject(e);
           }
         }
-      });
+      }).catch(reject);
     });
   }
 

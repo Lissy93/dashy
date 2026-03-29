@@ -137,13 +137,15 @@ export default {
     },
     /* Returns local storage collapse state data, and if not yet set then initialized is */
     locallyStoredCollapseStates() {
-      // If not yet set, then call initialize
       if (!localStorage[localStorageKeys.COLLAPSE_STATE]) {
         localStorage.setItem(localStorageKeys.COLLAPSE_STATE, JSON.stringify({}));
         return {};
       }
-      // Otherwise, return value of local storage
-      return JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
+      try {
+        return JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
+      } catch (e) {
+        return {};
+      }
     },
     openEditModal() {
       this.$emit('openEditSection');
