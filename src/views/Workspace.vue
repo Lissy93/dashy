@@ -48,6 +48,16 @@ export default {
     launchApp(options) {
       if (options.target === 'newtab') {
         window.open(options.url, '_blank');
+      } else if (options.target === 'newwindow') {
+        window.open(options.url, '_blank', 'noopener,noreferrer');
+      } else if (options.target === 'clipboard') {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(options.url);
+          this.$toasted.show(this.$t('context-menus.item.copied-toast'), { className: 'toast-success' });
+        } else {
+          this.$toasted.show('Unable to copy, see log', { className: 'toast-error' });
+        }
+        return;
       } else {
         this.url = options.url;
       }
