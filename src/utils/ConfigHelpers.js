@@ -89,13 +89,16 @@ export const getCustomKeyShortcuts = (sections) => {
 
 /**
  * Gets the users chosen language. Defaults to English.
+ * If for any reason a lang code changes, add to legacyAliases for backwards compat
  * @returns {object} Language, including code, name and flag
  */
 export const getUsersLanguage = () => {
   const langCode = localStorage[localStorageKeys.LANGUAGE]
     || config.appConfig.language
     || defaultLanguage;
-  const langObj = languages.find(lang => lang.code === langCode);
+  const legacyAliases = { cn: 'zh-CN' };
+  const resolvedCode = legacyAliases[langCode] || langCode;
+  const langObj = languages.find(lang => lang.code === resolvedCode);
   return langObj;
 };
 
@@ -106,6 +109,7 @@ export const getUsersLanguage = () => {
  * @returns {Boolean} isValid
  */
 export const targetValidator = (target) => {
+  if (!target) return true;
   const acceptedTargets = ConfigSchema.properties.sections.items
     .properties.items.items.properties.target.enum;
   const isTargetValid = acceptedTargets.indexOf(target) !== -1;
