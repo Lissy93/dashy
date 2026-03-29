@@ -79,7 +79,7 @@ export default {
       const nothing = '#';
       const url = this.url || this.item.url || nothing;
       if (this.isEditMode) return nothing;
-      const noAnchorNeeded = ['modal', 'workspace', 'clipboard'];
+      const noAnchorNeeded = ['modal', 'workspace', 'clipboard', 'newwindow'];
       return noAnchorNeeded.includes(this.accumulatedTarget) ? nothing : url;
     },
     /* Pulls together all user options, returns URL + Get params for ping endpoint */
@@ -180,6 +180,9 @@ export default {
           break;
         case 'clipboard':
           this.copyToClipboard(url);
+          break;
+        case 'newwindow':
+          window.open(url, '_blank', 'noopener,noreferrer');
           break;
         default: window.open(url, '_blank');
       }
