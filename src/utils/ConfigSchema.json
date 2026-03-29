@@ -146,7 +146,7 @@
               },
               "target": {
                 "title": "Opening Method",
-                "type": "string",
+                "type": ["string", "null"],
                 "enum": [
                   "newtab",
                   "sametab",
