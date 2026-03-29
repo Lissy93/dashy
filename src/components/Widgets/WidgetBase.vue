@@ -82,6 +82,7 @@ const COMPAT = {
   'gl-network-interfaces': 'GlNetworkInterfaces',
   'gl-network-traffic': 'GlNetworkTraffic',
   'gl-system-load': 'GlSystemLoad',
+  'gl-uptime': 'GlancesUptime',
   'gl-cpu-temp': 'GlCpuTemp',
   'gluetun-status': 'GluetunStatus',
   'health-checks': 'HealthChecks',
@@ -129,6 +130,7 @@ const COMPAT = {
   weather: 'Weather',
   'weather-forecast': 'WeatherForecast',
   'xkcd-comic': 'XkcdComic',
+  'gl-compact-metrics': 'GlCompactMetrics',
 };
 
 export default {

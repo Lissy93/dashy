@@ -3293,10 +3293,10 @@ graphemer@^1.4.0:
   resolved "https://registry.yarnpkg.com/graphemer/-/graphemer-1.4.0.tgz#fb2f1d55e0e3a1849aeffc90c4fa0dd53a0e66c6"
   integrity sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==
 
-happy-dom@^20.0.0:
-  version "20.8.3"
-  resolved "https://registry.yarnpkg.com/happy-dom/-/happy-dom-20.8.3.tgz#aa59a13c0e43c48819190d913ab5e36800e87431"
-  integrity sha512-lMHQRRwIPyJ70HV0kkFT7jH/gXzSI7yDkQFe07E2flwmNDFoWUTRMKpW2sglsnpeA7b6S2TJPp98EbQxai8eaQ==
+happy-dom@^20.8.9:
+  version "20.8.9"
+  resolved "https://registry.yarnpkg.com/happy-dom/-/happy-dom-20.8.9.tgz#aeacc9ab9aacada379bce0ba37b2f02dabbba286"
+  integrity sha512-Tz23LR9T9jOGVZm2x1EPdXqwA37G/owYMxRwU0E4miurAtFsPMQ1d2Jc2okUaSjZqAFz2oEn3FLXC5a0a+siyA==
   dependencies:
     "@types/node" ">=20.0.0"
     "@types/whatwg-mimetype" "^3.0.2"
@@ -4767,10 +4767,10 @@ signal-exit@^4.0.1:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-4.1.0.tgz#952188c1cbd546070e2dd20d0f41c0ae0530cb04"
   integrity sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==
 
-simple-icons@^14.4.0:
-  version "14.15.0"
-  resolved "https://registry.yarnpkg.com/simple-icons/-/simple-icons-14.15.0.tgz#c19e9ba5c9618d427491eaf8a47f9b0e803a871f"
-  integrity sha512-yjlJ8skP4isCd4dQTDGFbv0hQgDIr57DbWaovEeHADPAZa5DBEAs+3ZnBb76ti+yz7/OzFI3SqTP1SKku1uhCw==
+simple-icons@^16.6.0:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/simple-icons/-/simple-icons-16.14.0.tgz#d22f89f65d5e9bae73be946ad6ebc966910e45b2"
+  integrity sha512-2Nvs3jJpCfMWQerD4zdv91g/MpnWn81a7uhyAC0reuhrjmS2MtSmwIKwewOJR6Xe97ZmfltDntCDqKJIBawQOw==
 
 sirv@^3.0.2:
   version "3.0.2"

@@ -1,4 +1,6 @@
-# Pushes the contents of the repo to the Codeberg mirror
+# Syncs the full source of the Dashy repo over to our Codeberg mirror
+# For all you non-Microsoft babes!
+# This is then accessible over at https://codeberg.org/alicia/dashy
 name: 🪞 Mirror to Codeberg
 on:
   workflow_dispatch:
@@ -8,9 +10,10 @@ jobs:
   codeberg:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with: { fetch-depth: 0 }
-      - uses: pixta-dev/repository-mirroring-action@v1
+      - uses: lissy93/repo-mirror-action@v1.5.0
         with:
-          target_repo_url: git@codeberg.org:alicia/dashy.git
-          ssh_private_key: ${{ secrets.CODEBERG_SSH }}
+          ssh_key: ${{ secrets.CODEBERG_SSH }}
+          host: git@codeberg.org
+          user: alicia
+          repo: dashy
+          force_push: false

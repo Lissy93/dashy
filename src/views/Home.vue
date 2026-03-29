@@ -19,7 +19,8 @@
       </router-link>
     </div>
     <!-- Main content, section for each group of items -->
-    <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass">
+    <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass"
+      ref="sectionsContainer">
       <template v-for="(section, index) in filteredSections" :key="index">
         <Section
           :index="index"
@@ -35,6 +36,7 @@
           @change-modal-visibility="updateModalVisibility"
           :isWide="!!singleSectionView || layoutOrientation === 'horizontal'"
           :class="(searchValue && section.filteredItems.length === 0) ? 'no-results' : ''"
+          :activeColCount="activeColCount"
         />
       </template>
       <!-- Show add new section button, in edit mode -->
@@ -82,6 +84,7 @@ export default {
     layout: '',
     itemSizeBound: '',
     addNewSectionOpen: false,
+    activeColCount: 1,
   }),
   computed: {
     singleSectionView() {
@@ -171,12 +174,26 @@ export default {
       availibleThemes.Default = '#';
       return availibleThemes;
     },
+    readActiveColCount() {
+      const { sectionsContainer } = this.$refs;
+      if (!sectionsContainer) return;
+      const cs = getComputedStyle(sectionsContainer);
+      const varVal = parseInt(cs.getPropertyValue('--col-count'), 10);
+      if (!Number.isNaN(varVal) && varVal > 0) {
+        this.activeColCount = varVal;
+      }
+    },
   },
   mounted() {
     this.initiateFontAwesome();
     this.initiateMaterialDesignIcons();
     this.layout = this.layoutOrientation;
     this.itemSizeBound = this.iconSize;
+    this.readActiveColCount();
+    window.addEventListener('resize', this.readActiveColCount);
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.readActiveColCount);
   },
 };
 </script>

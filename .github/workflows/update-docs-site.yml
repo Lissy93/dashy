@@ -36,6 +36,7 @@ jobs:
         with:
           ref: 'WEBSITE/docs-site-source'
           path: 'website-docs'
+          fetch-depth: 0
           token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Install Python 🐍
@@ -46,7 +47,7 @@ jobs:
       - name: Setup Node.js 🟢
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Install website dependencies 📦
         working-directory: website-docs
@@ -57,7 +58,7 @@ jobs:
         run: |
           cp -r ../master-docs/docs ./
           python ./do-doc-updaty-magic.py
-        
+
       - name: Commit changes 🚀
         run: |
           cd website-docs
@@ -65,6 +66,7 @@ jobs:
           git config --local user.name "Liss-Bot"
           git add docs
           git commit -m "Update documentation" || echo "No changes to commit"
+          git pull --rebase || (git rebase --abort && exit 1)
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

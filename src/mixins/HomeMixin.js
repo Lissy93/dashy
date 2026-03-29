@@ -6,8 +6,10 @@ import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
 import Keys from '@/utils/StoreMutations';
 import { searchTiles } from '@/utils/Search';
 import { checkItemVisibility } from '@/utils/CheckItemVisibility';
+import ThemingMixin from '@/mixins/ThemingMixin';
 
 const HomeMixin = {
+  mixins: [ThemingMixin],
   props: {
     subPageInfo: Object,
   },
@@ -63,19 +65,8 @@ const HomeMixin = {
       const subPageName = isSubPage ? pagePath.split('/').pop() : null;
       return subPageName;
     },
-    /* TEMPORARY: If on sub-page, check if custom theme is set and return it */
-    getSubPageTheme() {
-      if (!this.pageId || this.pageId === 'home') {
-        return null;
-      } else {
-        const themeStoreKey = `${localStorageKeys.THEME}-${this.pageId}`;
-        return localStorage[themeStoreKey] || null;
-      }
-    },
     setTheme() {
-      // const theme = this.getSubPageTheme() || GetTheme();
-      // ApplyLocalTheme(theme);
-      // ApplyCustomVariables(theme);
+      this.initializeTheme();
     },
     updateModalVisibility(modalState) {
       this.$store.commit(Keys.SET_MODAL_OPEN, modalState);

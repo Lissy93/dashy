@@ -229,7 +229,7 @@
         "theme": {
           "title": "Theme",
           "type": "string",
-          "default": "callisto",
+          "default": "default",
           "description": "A theme to be applied by default on first load",
           "examples": [
             "callisto",
@@ -266,13 +266,14 @@
           "enum": [
             "local",
             "allesedv",
-            "clearbit",
             "iconhorse",
             "faviconkit",
             "duckduckgo",
             "yandex",
             "google",
-            "besticon"
+            "besticon",
+            "webmasterapi",
+            "mcapi"
           ],
           "default": "allesedv",
           "description": "Which service to use to resolve favicons. Set to local to do this locally instead"
@@ -413,7 +414,6 @@
         "enableFontAwesome": {
           "title": "Enable Font-Awesome?",
           "type": "boolean",
-          "default": true,
           "description": "If true, font-awesome will be loaded, if false they will not be. If left empty, icons will only be loaded if needed"
         },
         "enableMaterialDesignIcons": {
@@ -846,14 +846,14 @@
                 "type": "number",
                 "minimum": 1,
                 "maximum": 12,
-                "description": "Number of items per column"
+                "description": "Number of items per row"
               },
               "itemCountY": {
                 "title": "Item Count Y",
                 "type": "number",
                 "minimum": 1,
                 "maximum": 12,
-                "description": "Number of items per row"
+                "description": "Number of items per column"
               },
               "hideForUsers": {
                 "title": "Hide for Users",
@@ -930,6 +930,12 @@
                     }
                   }
                 }
+              },
+              "hideFromWorkspace": {
+                "title": "Hide from Workspace",
+                "type": "boolean",
+                "default": false,
+                "description": "If set to true, section will be visible in the default view but not in the Workspace view sidebar"
               }
             }
           },
@@ -1047,6 +1053,12 @@
                           }
                         }
                       }
+                    },
+                    "hideFromWorkspace": {
+                      "title": "Hide from Workspace",
+                      "type": "boolean",
+                      "default": false,
+                      "description": "If set to true, item will be visible in the default view but not in the Workspace view sidebar"
                     }
                   }
                 },
@@ -1127,6 +1139,11 @@
                   "type": "string",
                   "description": "A custom fill color of the item, expressed either as hex code or color name"
                 },
+                "backgroundColor": {
+                  "title": "Background Color",
+                  "type": "string",
+                  "description": "A custom background fill color for the item, expressed either as hex code or color name"
+                },
                 "id": {
                   "title": "Item ID",
                   "type": "string",
@@ -1176,6 +1193,16 @@
                   "title": "Widget Options",
                   "type": "object",
                   "description": "Configuration options for widget. Varies depending on widget type, see docs for all options"
+                },
+                "label": {
+                  "title": "Widget Label",
+                  "type": "string",
+                  "description": "A label to display above the widget"
+                },
+                "ignoreErrors": {
+                  "title": "Ignore Errors",
+                  "type": "boolean",
+                  "description": "If set to true, widget errors will not be displayed"
                 }
               }
             }

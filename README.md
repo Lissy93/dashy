@@ -428,6 +428,7 @@ Dashy supports multiple languages and locales. When available, your language sho
 - 🇮🇹 **Italian**: `it` - Contributed by **[@alexdelprete](https://github.com/alexdelprete)**
 - 🇯🇵 **Japanese**: `ja` - _Auto-generated_
 - 🇰🇷 **Korean**: `ko` - Contributed by **[@boggy-cs](https://github.com/boggy-cs)**
+- 🇰🇬 **Kyrgyz**: `ky` - Contributed by **[@noblepower1337](https://github.com/noblepower1337)**
 - 🇳🇴 **Norwegian Bokmål**: `nb` - Contributed by **[@rubjo](https://github.com/rubjo)**
 - 🇵🇱 **Polish**: `pl` - Contributed by **[@skaarj1989](https://github.com/skaarj1989)**
 - 🇵🇹 **Portuguese**: `pt` - Contributed by **[@LeoColman](https://github.com/LeoColman)**
@@ -480,9 +481,9 @@ pages:
 
 ## System Requirements 📊
 
-If running on bare metal, Dashy requires [Node](https://nodejs.org/en/) V 16.0.0 or later, LTS (16.13.2) is recommended.
+If running on bare metal, Dashy requires [Node](https://nodejs.org/en/) V 18.0.0 or later, LTS (20.x) is recommended.
 
-If running in Docker container, the recommended base image is Alpine (3.15)
+If running in Docker container, the recommended base image is Alpine (3.19)
 
 The hardware requirements vary depending on where and how you are running Dashy. Generally speaking, on a bare-metal system or Docker container, 1GB of memory should be more than enough, and depending on whether you are using your own assets, then 1GB of disk space should be sufficient. 
 
@@ -614,9 +615,7 @@ If you're new to web development, I've put together a short [list of resources](
 #### Misc
 - 🔐 [Privacy & Security](/docs/privacy.md) - List of requests, potential issues, and security resources
 - 📄 [License](/LICENSE) - Copy of the MIT License
-- ⚖️ [Legal](/.github/LEGAL.md) - Licenses of direct dependencies
 - 📏 [Code of Conduct](/.github/CODE_OF_CONDUCT.md) - Contributor Covenant Code of Conduct
-- 🌳 [Changelog](/.github/CHANGELOG.md) - Details of recent changes, and historical versions
 
 **[⬆️ Back to Top](#dashy)**
 
@@ -626,7 +625,7 @@ If you're new to web development, I've put together a short [list of resources](
 
 For upcoming features that will be released in the near future, see the [**Current Roadmap**](https://github.com/Lissy93/dashy/discussions/405)
 
-For past updates, see the [**Changelog**](/.github/CHANGELOG.md)
+For past updates, see the [**Releases Page**](https://github.com/Lissy93/dashy/releases)
 
 **[⬆️ Back to Top](#dashy)**
 
