@@ -4,7 +4,12 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import yaml from 'js-yaml';
 import Keys from '@/utils/StoreMutations';
-import { makePageName, formatConfigPath, componentVisibility } from '@/utils/ConfigHelpers';
+import {
+  makePageName,
+  formatConfigPath,
+  getConfigFilePath,
+  componentVisibility,
+} from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
@@ -353,7 +358,7 @@ const store = new Vuex.Store({
   actions: {
     /* Fetches the root config file, only ever called by INITIALIZE_CONFIG */
     async [INITIALIZE_ROOT_CONFIG]({ commit }) {
-      const configFilePath = process.env.VUE_APP_CONFIG_PATH || '/conf.yml';
+      const configFilePath = getConfigFilePath();
       try {
         // Attempt to fetch the YAML file
         const response = await axios.get(configFilePath, makeBasicAuthHeaders());

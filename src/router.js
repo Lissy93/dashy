@@ -59,7 +59,7 @@ const router = new Router({
   routes: [
     // ...makeMultiPageRoutes(pages),
     { // The default view can be customized by the user
-      path: '/',
+      path: process.env.BASE_URL || '/',
       name: `landing-page-${startingView}`,
       component: getStartingComponent(),
       meta: makeMetaTags('Home Page'),
