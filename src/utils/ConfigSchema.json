@@ -146,12 +146,15 @@
               },
               "target": {
                 "title": "Opening Method",
-                "type": "string",
+                "type": ["string", "null"],
                 "enum": [
                   "newtab",
                   "sametab",
                   "parent",
-                  "top"
+                  "top",
+                  "newwindow",
+                  "",
+                  null
                 ],
                 "default": "newtab",
                 "description": "Where / how the item is opened when it's clicked"
@@ -546,7 +549,7 @@
                   { "required": ["password"] }
                 ]
               }
-            },            
+            },
             "enableOidc": {
               "title": "Enable OIDC?",
               "type": "boolean",
@@ -1064,7 +1067,7 @@
                 },
                 "target": {
                   "title": "Opening Method",
-                  "type": "string",
+                  "type": ["string", "null"],
                   "enum": [
                     "newtab",
                     "sametab",
@@ -1072,7 +1075,10 @@
                     "top",
                     "modal",
                     "workspace",
-                    "clipboard"
+                    "clipboard",
+                    "newwindow",
+                    "",
+                    null
                   ],
                   "default": "newtab",
                   "description": "Where / how the item is opened when it's clicked"

@@ -148,7 +148,8 @@ export default {
         const searchEngine = searchPrefs.searchEngine || defaultSearchEngine;
         // Use either search bang, or preffered search engine
         const desiredSearchEngine = searchBang || searchEngine;
-        const isCustomSearch = (searchPrefs.searchEngine === 'custom' && searchPrefs.customSearchEngine);
+        const isCustomSearch = !searchBang
+          && searchPrefs.searchEngine === 'custom' && searchPrefs.customSearchEngine;
         let searchUrl = isCustomSearch
           ? searchPrefs.customSearchEngine
           : findUrlForSearchEngine(desiredSearchEngine, searchEngineUrls);

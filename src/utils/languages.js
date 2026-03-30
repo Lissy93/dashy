@@ -204,7 +204,7 @@ export const languages = [
   },
   { // Chinese
     name: '简体中文',
-    code: 'cn',
+    code: 'zh-CN',
     locale: zhCN,
     flag: '🇨🇳',
   },
