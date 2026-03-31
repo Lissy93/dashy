@@ -1,6 +1,6 @@
-import axios from 'axios';
 import yaml from 'js-yaml';
 import { register } from 'register-service-worker';
+import request from '@/utils/request';
 import { sessionStorageKeys } from '@/utils/defaults';
 import { statusMsg, statusErrorMsg } from '@/utils/CoolConsole';
 
@@ -33,7 +33,7 @@ const setSwStatus = (swStateToSet) => {
  * Or disable if user specified to disable
  */
 const shouldEnableServiceWorker = async () => {
-  const conf = yaml.load((await axios.get('/conf.yml')).data);
+  const conf = yaml.load((await request.get('/conf.yml')).data);
   if (conf && conf.appConfig && conf.appConfig.enableServiceWorker) {
     setSwStatus({ disabledByUser: false });
     return true;

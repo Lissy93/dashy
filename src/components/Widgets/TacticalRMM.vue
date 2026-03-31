@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { serviceEndpoints } from '@/utils/defaults';
 
@@ -120,7 +120,7 @@ export default {
       const targetURL = url;
       const customHeaders = JSON.stringify(authHeaders);
 
-      axios.post(
+      request.post(
         proxyReqEndpoint,
         { auth: token },
         {

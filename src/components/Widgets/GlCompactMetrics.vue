@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { convertBytes } from '@/utils/MiscHelpers';
 
@@ -192,7 +192,7 @@ export default {
 
     async fetchSystemData(endpoint) {
       const config = this.requestConfig(endpoint);
-      const response = await axios.get(config.url, {
+      const response = await request.get(config.url, {
         headers: config.headers,
         timeout: this.options.timeout || 8000,
       });

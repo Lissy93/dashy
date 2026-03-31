@@ -1,5 +1,5 @@
 /** Reusable mixin for items */
-import axios from 'axios';
+import request from '@/utils/request';
 import router from '@/router';
 import longPress from '@/directives/LongPress';
 import ErrorHandler from '@/utils/ErrorHandler';
@@ -119,7 +119,7 @@ export default {
     /* Checks if a given service is currently online */
     checkWebsiteStatus() {
       const endpoint = this.statusCheckApiUrl;
-      axios.get(endpoint)
+      request.get(endpoint)
         .then((response) => {
           if (response.data) this.statusResponse = response.data;
         })
