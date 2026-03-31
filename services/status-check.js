@@ -106,7 +106,10 @@ module.exports = (paramStr, render) => {
     const maxRedirects = decodeURIComponent(params.get('maxRedirects')) || 0;
     const headers = decodeHeaders(params.get('headers'));
     const enableInsecure = !!params.get('enableInsecure');
-    if (!url || url === 'undefined') immediateError(render);
+    if (!url || url === 'undefined') {
+      immediateError(render);
+      return;
+    }
     const options = {
       headers, enableInsecure, acceptCodes, maxRedirects,
     };
