@@ -1,6 +1,6 @@
-import axios from 'axios';
 import jsYaml from 'js-yaml';
 import { Progress } from 'rsup-progress';
+import request from '@/utils/request';
 
 import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
 import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
@@ -40,14 +40,13 @@ export default {
       // 3. Prepare the request
       const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
       const endpoint = `${baseUrl}${serviceEndpoints.save}`;
-      const headers = { 'Content-Type': 'text/plain' };
       const filename = isSubPag
         ? (this.$store.state.currentConfigInfo.confPath || '') : '';
       const body = { config: yaml, timestamp: new Date(), filename };
-      const request = axios.post(endpoint, body, headers);
+      const saveRequest = request.post(endpoint, body);
       // 4. Make the request, and handle response
       this.progress.start();
-      request.then((response) => {
+      saveRequest.then((response) => {
         this.saveSuccess = response.data.success || false;
         this.responseText = response.data.message;
         if (this.saveSuccess) {

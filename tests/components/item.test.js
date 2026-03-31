@@ -6,7 +6,13 @@ import Vuex from 'vuex';
 import Item from '@/components/LinkItems/Item.vue';
 import router from '@/router';
 
-vi.mock('axios', () => ({ default: { get: vi.fn(() => Promise.resolve({ data: {} })) } }));
+vi.mock('@/utils/request', () => {
+  const fn = vi.fn(() => Promise.resolve({ data: {} }));
+  fn.get = vi.fn(() => Promise.resolve({ data: {} }));
+  fn.post = vi.fn(() => Promise.resolve({ data: {} }));
+  fn.put = vi.fn(() => Promise.resolve({ data: {} }));
+  return { default: fn };
+});
 vi.mock('@/router', () => ({ default: { push: vi.fn() } }));
 vi.mock('@/utils/ErrorHandler', () => ({ default: vi.fn() }));
 vi.mock('@/assets/interface-icons/interactive-editor-edit-mode.svg', () => ({

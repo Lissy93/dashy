@@ -146,9 +146,11 @@ const app = express()
   // GET endpoint to run status of a given URL with GET request
   .use(ENDPOINTS.statusCheck, (req, res) => {
     try {
-      statusCheck(req.url, async (results) => {
-        res.setHeader('Content-Type', 'application/json');
-        await res.end(results);
+      statusCheck(req.url, (results) => {
+        if (!res.headersSent) {
+          res.setHeader('Content-Type', 'application/json');
+          res.end(results);
+        }
       });
     } catch (e) {
       printWarning(`Error running status check for ${req.url}\n`, e);
