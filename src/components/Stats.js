@@ -125,7 +125,7 @@ function StatsInner() {
       const results = await Promise.allSettled([
         fetch('https://api.github.com/repos/lissy93/dashy', { headers }).then(r => r.ok ? r.json() : null),
         fetch('https://hub.docker.com/v2/repositories/lissy93/dashy/').then(r => r.ok ? r.json() : null),
-        fetch('https://api.github.com/repos/lissy93/dashy/contributors?per_page=1&anon=true', { headers }),
+        fetch('https://api.github.com/repos/lissy93/dashy/contributors?per_page=1', { headers }),
       ]);
 
       // Only update individual stats when live data is valid
