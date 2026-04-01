@@ -102,13 +102,20 @@ jobs:
         with:
           script: |
             const body = context.payload.pull_request.body || '';
+            const prNumber = String(context.payload.pull_request.number);
             const matches = body.match(/#(\d+)/g);
             if (!matches) {
               core.info('No issue references found in PR body');
               core.setOutput('numbers', '');
               return;
             }
-            const unique = [...new Set(matches.map(m => m.replace('#', '')))];
+            const unique = [...new Set(matches.map(m => m.replace('#', '')))]
+              .filter(n => n !== prNumber);
+            if (unique.length === 0) {
+              core.info('No issue references after filtering');
+              core.setOutput('numbers', '');
+              return;
+            }
             core.info(`Found issue references: ${unique.join(', ')}`);
             core.setOutput('numbers', unique.join(','));
 
@@ -180,16 +187,38 @@ jobs:
               }
             }
 
+            const prNumber = context.payload.pull_request.number;
+            const marker = `released-${version}`;
             for (const num of issues) {
+              const issue_number = parseInt(num, 10);
               try {
-                await github.rest.issues.addLabels({
-                  owner, repo,
-                  issue_number: parseInt(num, 10),
-                  labels: [labelName],
+                const comments = await github.rest.issues.listComments({
+                  owner, repo, issue_number, per_page: 100,
                 });
-                core.info(`Labeled issue #${num}`);
+                const alreadyCommented = comments.data.some(
+                  c => c.body?.includes(marker)
+                );
+                await github.rest.issues.addLabels({
+                  owner, repo, issue_number, labels: [labelName],
+                });
+                if (!alreadyCommented) {
+                  const body = [
+                    `An implementation for this ticket was`,
+                    `merged in #${prNumber} and released in`,
+                    `version ${version}. To receive this fix,`,
+                    `ensure you've updated your Dashy instance`,
+                    `to the ${version} tag or later 😇`,
+                    `<!-- ${marker} -->`,
+                  ].join(' ');
+                  await github.rest.issues.createComment({
+                    owner, repo, issue_number, body,
+                  });
+                  core.info(`Labeled and commented on #${num}`);
+                } else {
+                  core.info(`Already commented on #${num}, skipped`);
+                }
               } catch (e) {
-                core.warning(`Failed to label issue #${num}: ${e.message}`);
+                core.warning(`Failed to process #${num}: ${e.message}`);
               }
             }
 
