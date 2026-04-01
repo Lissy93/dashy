@@ -43,6 +43,38 @@ function monthYearLabel(key) {
   return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 }
 
+const EMOJI_RE = /^[\p{Emoji_Presentation}\p{Extended_Pictographic}]/u;
+const COMMIT_EMOJIS = [
+  [/\b(i18n|translat|locale|lang)/i, '🌐'],
+  [/\b(fix|bug|patch|resolve|close)\b/i, '🐛'],
+  [/\bbump\b/i, '⬆️'],
+  [/\b(add|new|feat|introduc)/i, '✨'],
+  [/\b(refactor|clean|tidy)/i, '♻️'],
+  [/\b(doc|readme|comment)/i, '📝'],
+  [/\b(style|css|scss|format|lint)/i, '🎨'],
+  [/\b(perf|speed|optimi)/i, '⚡'],
+  [/\b(secur|auth|vulnerab|cve)/i, '🔒'],
+  [/\b(remov|delet|deprecat)/i, '🗑️'],
+  [/\b(ci|pipeline|workflow|action)/i, '👷'],
+  [/\b(build|compil|webpack|bundle)/i, '📦'],
+  [/\b(merg|branch)/i, '🔀'],
+  [/\b(config|setting|env)/i, '🔧'],
+  [/\b(deploy|release|publish)/i, '🚀'],
+  [/\b(test|spec|coverage)/i, '✅'],
+  [/\b(typo|spell)/i, '✏️'],
+  [/\b(revert)/i, '⏪'],
+  [/\b(move|rename|migrat)/i, '🚚'],
+  [/\b(docker|container)/i, '🐳'],
+];
+
+function getEmoji(msg) {
+  if (EMOJI_RE.test(msg)) return '';
+  for (const [re, emoji] of COMMIT_EMOJIS) {
+    if (re.test(msg)) return emoji;
+  }
+  return '💎';
+}
+
 function normalizeRelease(r) {
   const body = r.body ? stripMarkdown(r.body).slice(0, 200) : '';
   return {
@@ -69,10 +101,12 @@ function normalizeTag(tag, date) {
 
 function normalizeCommit(c) {
   const message = c.commit?.message || '';
+  const title = message.split('\n')[0];
+  const emoji = getEmoji(title);
   return {
     type: 'commit',
     date: new Date(c.commit?.author?.date || c.commit?.committer?.date),
-    title: message.split('\n')[0],
+    title: emoji ? `${emoji} ${title}` : title,
     url: c.html_url,
     author: c.author?.login || c.commit?.author?.name,
     avatarUrl: c.author?.avatar_url,
