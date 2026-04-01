@@ -49,7 +49,8 @@ export default {
       if (options.target === 'newtab') {
         window.open(options.url, '_blank');
       } else if (options.target === 'newwindow') {
-        window.open(options.url, '_blank', 'noopener,noreferrer');
+        const { width, height } = window.screen;
+        window.open(options.url, '_blank', `width=${width},height=${height},noopener,noreferrer`);
       } else if (options.target === 'clipboard') {
         if (navigator.clipboard) {
           navigator.clipboard.writeText(options.url);

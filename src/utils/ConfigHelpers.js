@@ -109,7 +109,6 @@ export const getUsersLanguage = () => {
  * @returns {Boolean} isValid
  */
 export const targetValidator = (target) => {
-  if (!target) return true;
   const acceptedTargets = ConfigSchema.properties.sections.items
     .properties.items.items.properties.target.enum;
   const isTargetValid = acceptedTargets.indexOf(target) !== -1;
