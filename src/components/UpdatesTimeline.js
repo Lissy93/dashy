@@ -117,7 +117,7 @@ function TimelineEntry({ entry }) {
               <img className={styles.providerIcon} src="https://cdn.as93.net/k1pcts?w=32" />
               GitHub
             </a>
-            <a href={`https://hub.docker.com/layers/lissy93/dashy/${entry.title}`} target="_blank" rel="noopener noreferrer">
+            <a href={`https://hub.docker.com/layers/lissy93/dashy/${entry.tagName || entry.title}`} target="_blank" rel="noopener noreferrer">
                 <img className={styles.providerIcon} src="https://cdn.as93.net/t2hnw4?w=32" />
                 DockerHub
             </a>
