@@ -170,7 +170,7 @@ export default function Authors() {
         <div className={styles.grid} role="list">
           {contributors.map((c, i) => (
             <a
-              key={c.id}
+              key={`${c.id}-${i}`}
               className={styles.tile}
               href={c.html_url}
               target="_blank"
