@@ -82,13 +82,22 @@ def fix_markdown_file(filepath):
     # GitHub blob links to relative
     content = re.sub(r'https://github\.com/[^/]+/[^/]+/blob/[^/]+/docs/([^)]+)', r'/docs/\1', content)
 
-    # Fix links: remove .md extension first
+    # Fix links: remove .md extension (including before anchors like .md# and .md/#)
+    content = re.sub(r'\]\(([^)]+)\.md/#', r'](\1#', content)
+    content = re.sub(r'\]\(([^)]+)\.md#', r'](\1#', content)
     content = re.sub(r'\]\(([^)]+)\.md\)', r'](\1)', content)
 
     # Fix relative links - convert ./X and ../X to /docs/X
     content = re.sub(r'\]\(\./([^)]+)\)', r'](/docs/\1)', content)
     content = re.sub(r'\]\(\.\./([^)]+)\)', r'](/docs/\1)', content)
     content = re.sub(r'\]\(docs/([^)]+)\)', r'](/docs/\1)', content)
+
+    # Fix bare URLs missing protocol (e.g., app.netlify.com/login/)
+    content = re.sub(
+        r'\]\((?!https?://)(\w[\w.-]*\.(?:com|org|net|io|dev|co)\b[^)]*)\)',
+        r'](https://\1)',
+        content,
+    )
 
     # Fix bare links that should be docs (e.g., backup-restore -> /docs/backup-restore)
     def fix_doc_link(m):
@@ -103,6 +112,45 @@ def fix_markdown_file(filepath):
 
     # Clean up any /docs/docs/ that might have been created
     content = re.sub(r'/docs/docs/', '/docs/', content)
+
+    # Convert repo-relative paths to full GitHub URLs
+    content = re.sub(
+        r'\]\(/(\.github|actions|README|LICENSE)([^)]*)\)',
+        r'](https://github.com/Lissy93/dashy/blob/master/\1\2)',
+        content,
+    )
+
+    # Remove GitHub Wiki 'user-content-' prefix from anchors
+    content = re.sub(r'#user-content-', '#', content)
+
+    # Remove trailing dashes from anchor links (left over from emoji removal)
+    content = re.sub(r'(#[^)]*\w)-+\)', r'\1)', content)
+
+    # Lowercase anchor fragments to match Docusaurus slug generation
+    def lowercase_anchor(m):
+        pre, anchor = m.group(1), m.group(2)
+        return f'{pre}#{anchor.lower()})'
+    content = re.sub(r'(\]\([^)]*?)#([^)]+)\)', lowercase_anchor, content)
+
+    # Fix known upstream anchor mismatches
+    anchor_fixes = {
+        '#sectionwidget-optional': '#sectionwidgets-optional',
+        '#chucknorris': '#chuck-norris-quotes',
+        '/docs/showcase#dashy-showcase': '/docs/showcase',
+    }
+    for old, new in anchor_fixes.items():
+        content = content.replace(old, new)
+
+    # Remove self-referencing H1 TOC links (Docusaurus strips the H1 from page body)
+    h1_match = re.match(r'^#\s+(.+)', content)
+    if h1_match:
+        h1_slug = re.sub(r'[^a-zA-Z0-9\s-]', '', h1_match.group(1)).strip()
+        h1_slug = re.sub(r'\s+', '-', h1_slug).lower().rstrip('-')
+        content = re.sub(
+            r'\[([^\]]*)\]\(#' + re.escape(h1_slug) + r'\)',
+            r'[\1](#)',
+            content,
+        )
 
     # Cleanup whitespace
     content = re.sub(r'\n\n\n+', '\n\n', content).strip() + '\n'
