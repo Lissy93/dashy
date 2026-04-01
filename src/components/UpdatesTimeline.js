@@ -121,6 +121,12 @@ function TimelineEntry({ entry }) {
                 <img className={styles.providerIcon} src="https://cdn.as93.net/t2hnw4?w=32" />
                 DockerHub
             </a>
+            {Date.now() - entry.date > 7 * 86400000 && (
+              <a href={`https://codeberg.org/alicia/dashy/releases/tag/${entry.tagName || entry.title}`} target="_blank" rel="noopener noreferrer">
+                <img className={styles.providerIcon} src="https://cdn.as93.net/7c72qs?w=32" />
+                Codeberg
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -150,6 +156,12 @@ function TimelineEntry({ entry }) {
                 <img className={styles.providerIcon} src="https://cdn.as93.net/t2hnw4?w=32" />
                 DockerHub
             </a>
+            {Date.now() - entry.date > 7 * 86400000 && (
+              <a href={`https://codeberg.org/alicia/dashy/releases/tag/${entry.title}`} target="_blank" rel="noopener noreferrer">
+                <img className={styles.providerIcon} src="https://cdn.as93.net/7c72qs?w=32" />
+                Codeberg
+              </a>
+            )}
           </div>
         </div>
       </div>
