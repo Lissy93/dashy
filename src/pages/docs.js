@@ -212,7 +212,7 @@ const DocsSections = [
       {
         title: 'Code of Conduct',
         description: 'Guidelines around Dashy',
-        link: '/docs/code-of-conduct',
+        link: 'https://github.com/Lissy93/dashy/blob/master/.github/CODE_OF_CONDUCT.md',
         icon: (<IconConduct />),
       },
       {
