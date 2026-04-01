@@ -16,7 +16,7 @@ Once you've got Dashy up and running, you'll want to configure it with your own 
 
 ## Deployment Methods
 
-- [Deployment](#deployment)
+- [Deployment](#)
   - [Quick Start](#quick-start)
   - [Deployment Methods](#deployment-methods)
   - [Deploy with Docker](#deploy-with-docker)
@@ -378,7 +378,7 @@ Minimum 526mb mem, 2GB disk space.
 
 ### CDN / Cloud Deploy
 
-No specific requirements. The built application alone (without the Node server) is very light-weight, and can be handled smoothly by pretty much any CDN or cloud deployment service (see [this list](/docs/deployment.md#deploy-to-cloud-service) or natively supported cloud providers).
+No specific requirements. The built application alone (without the Node server) is very light-weight, and can be handled smoothly by pretty much any CDN or cloud deployment service (see [this list](/docs/deployment#deploy-to-cloud-service) or natively supported cloud providers).
 
 If you're using your own icons, or other assets, additional disk space will be required for those resources.
 

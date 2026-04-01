@@ -88,7 +88,7 @@ export const languages = [
 ];
 ```
 
-You can also add your new language to the readme, under the [Language Switching](https://github.com/Lissy93/dashy#language-switching-) section and optionally include your name/ username if you'd like to be credited for your work. Done!
+You can also add your new language to the readme, under the [Language Switching](https://github.com/Lissy93/dashy#language-switching) section and optionally include your name/ username if you'd like to be credited for your work. Done!
 
 If you are not comfortable with making pull requests, or do not want to modify the code, then feel free to instead send the translated file to me, and I can add it into the application. I will be sure to credit you appropriately.
 

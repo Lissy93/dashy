@@ -29,7 +29,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Stock Price History](#stock-price-history)
   - [ETH Gas Prices](#eth-gas-prices)
   - [Joke of the Day](#joke)
-  - [Chuck Norris quotes](#chucknorris)
+  - [Chuck Norris quotes](#chuck-norris-quotes)
   - [XKCD Comics](#xkcd-comics)
   - [Flight Data](#flight-data)
   - [NASA APOD](#astronomy-picture-of-the-day)
@@ -1097,7 +1097,7 @@ Displays airport departure and arrival flights, using data from [AeroDataBox](ht
 - **Auth**: 🔴 Required
 - **Price**: 🟠 Free plan (up to 150 requests / month)
 - **Host**: Managed Instance Only
-- **Privacy**: _See [AeroDataBox](https://www.aerodatabox.com/#h.p_CXtIYZWF_WQd) and [RapidAPI Policy](https://rapidapi.com/privacy/)_
+- **Privacy**: _See [AeroDataBox](https://www.aerodatabox.com/#h.p_cxtiyzwf_wqd) and [RapidAPI Policy](https://rapidapi.com/privacy/)_
 
 ---
 
@@ -3382,7 +3382,7 @@ You can do this, by setting the environmental variable name as the value, instea
 
 The key can be named whatever you like, but it must start with `VUE_APP_` (to be picked up by Vue). If you need to update any of these values, a rebuild is required (this can be done under the Config menu in the UI, or by running `yarn build` then restarting the container).
 
-For more infomation about setting and managing your environmental variables, see [Management Docs --> Environmental Variables](/docs/management.md#passing-in-environmental-variables).
+For more infomation about setting and managing your environmental variables, see [Management Docs --> Environmental Variables](/docs/management#passing-in-environmental-variables).
 
 For example:
 
@@ -3465,7 +3465,7 @@ Widgets use the following color variables, which can be overridden if desired:
 - `--widget-background-color` - Background color, defaults to `--background-darker`
 - `--widget-accent-color` - Accent color, defaults to `--background`
 
-For more info on how to apply custom variables, see the [Theming Docs](/docs/theming.md#setting-custom-css-in-the-ui)
+For more info on how to apply custom variables, see the [Theming Docs](/docs/theming#setting-custom-css-in-the-ui)
 
 ---
 
@@ -3501,7 +3501,7 @@ Widgets can be opened in full-page view, by clicking the Arrow icon (top-right).
 
 You can reload the data of any widget, by clicking the Refresh Data icon (also in top-right). This will only affect the widget where the action was triggered from.
 
-All [config options](/docs/configuring.md#section) that can be applied to sections, can also be applied to widget sections. For example, to make a widget section double the width, set `displayData.cols: 2` within the parent section. You can collapse a widget (by clicking the section title), and collapse state will be saved locally.
+All [config options](/docs/configuring#section) that can be applied to sections, can also be applied to widget sections. For example, to make a widget section double the width, set `displayData.cols: 2` within the parent section. You can collapse a widget (by clicking the section title), and collapse state will be saved locally.
 
 Widgets cannot currently be edited through the UI. This feature is in development, and will be released soon.  In the meantime, you can either use the JSON config editor, or use [VS Code Server](https://github.com/coder/code-server), or just SSH into your box and edit the conf.yml file directly.
 
@@ -3511,7 +3511,7 @@ Widgets cannot currently be edited through the UI. This feature is in developmen
 
 Widgets are built in a modular fashion, making it easy for anyone to create their own custom components.
 
-For a full tutorial on creating your own widget, you can follow [this guide](/docs/development-guides.md/#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example.
+For a full tutorial on creating your own widget, you can follow [this guide](/docs/development-guides#building-a-widget), or take a look at [here](https://github.com/Lissy93/dashy/commit/3da76ce2999f57f76a97454c0276301e39957b8e) for a code example.
 
 Alternatively, for displaying simple data, you could also just use the either the [iframe](#iframe-widget), [embed](#html-embedded-widget), [data feed](#data-feed) or [API response](#api-response) widgets.
 
@@ -3531,13 +3531,13 @@ Please only request widgets for services that:
 
 You can suggest a widget [here](https://git.io/Jygo3), please star the repo before submitting a ticket. If you are a monthly GitHub sponsor, I will happily build out a custom widget for any service that meets the above criteria, usually within 2 weeks of initial request.
 
-For services that are not officially supported, it is likely still possible to display data using either the [iframe](#iframe-widget), [embed](#html-embedded-widget) or [API response](#api-response) widgets. For more advanced features, like charts and action buttons, you could also build your own widget, using [this tutorial](/docs/development-guides.md/#building-a-widget), it's fairly straight forward, and you can use an [existing widget](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets) (or [this example](https://git.io/JygKI)) as a template.
+For services that are not officially supported, it is likely still possible to display data using either the [iframe](#iframe-widget), [embed](#html-embedded-widget) or [API response](#api-response) widgets. For more advanced features, like charts and action buttons, you could also build your own widget, using [this tutorial](/docs/development-guides#building-a-widget), it's fairly straight forward, and you can use an [existing widget](https://github.com/Lissy93/dashy/tree/master/src/components/Widgets) (or [this example](https://git.io/JygKI)) as a template.
 
 ---
 
 ### Troubleshooting Widget Errors
 
-If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't adequately explain the problem, then you can [open the browser console](/docs/troubleshooting.md#how-to-open-browser-console) to see more details.
+If an error occurs when fetching or rendering results, you will see a short message in the UI. If that message doesn't adequately explain the problem, then you can [open the browser console](/docs/troubleshooting#how-to-open-browser-console) to see more details.
 
 Before proceeding, ensure that if the widget requires auth your API is correct, and for custom widgets, double check that the URL and protocol is correct.
 
@@ -3582,4 +3582,4 @@ For testing purposes, you can use an addon, which will disable the CORS checks. 
 
 ### Raising an Issue
 
-If you need to submit a bug report for a failing widget, then please include the full console output (see [how](/docs/troubleshooting.md#how-to-open-browser-console)) as well as the relevant parts of your config file. Before sending the request, ensure you've read the docs. If you're new to GitHub, an haven't previously contributed to the project, then please fist star the repo to avoid your ticket being closed by the anti-spam bot.
+If you need to submit a bug report for a failing widget, then please include the full console output (see [how](/docs/troubleshooting#how-to-open-browser-console)) as well as the relevant parts of your config file. Before sending the request, ensure you've read the docs. If you're new to GitHub, an haven't previously contributed to the project, then please fist star the repo to avoid your ticket being closed by the anti-spam bot.

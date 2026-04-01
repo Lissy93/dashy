@@ -20,7 +20,7 @@ Adding a new theme is really easy. There're two things you need to do: Pass the 
 
 ### 1. Add Theme Name
 
-Choose a snappy name for your theme, and add it to the `builtInThemes` array inside [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L27).
+Choose a snappy name for your theme, and add it to the `builtInThemes` array inside [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#l27).
 
 ### 2. Write some Styles
 
@@ -34,11 +34,11 @@ html[data-theme='tiger'] {
 }
 ```
 
-Then you can go ahead and write your own custom CSS. Although all CSS is supported here, the best way to define your theme is by setting the CSS variables. You can find a [list of all CSS variables, here](/docs/theming.md#css-variables).
+Then you can go ahead and write your own custom CSS. Although all CSS is supported here, the best way to define your theme is by setting the CSS variables. You can find a [list of all CSS variables, here](/docs/theming#css-variables).
 
 For a full guide on styling, see [Theming Docs](/docs/theming).
 
-Note that if your theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](/docs/theming.md#adding-your-own-theme).
+Note that if your theme is just for yourself, and you're not submitting a PR, then you can instead just pass it under `appConfig.cssThemes` inside your config file. And then put your theme in your own stylesheet, and pass it into the Docker container - [see how](/docs/theming#adding-your-own-theme).
 
 ## Writing Translations
 
@@ -96,7 +96,7 @@ export const languages = [
 ];
 ```
 
-You can also add your new language to the readme file, under the [Language Switching](https://github.com/Lissy93/dashy#language-switching-) section, and optionally include your name/ username if you'd like to be credited for your work. Done!
+You can also add your new language to the readme file, under the [Language Switching](https://github.com/Lissy93/dashy#language-switching) section, and optionally include your name/ username if you'd like to be credited for your work. Done!
 
 If you are not comfortable with making pull requests, or do not want to modify the code, then feel free to instead send the translated file to me, and I can add it into the application. I will be sure to credit you appropriately.
 
@@ -341,7 +341,7 @@ computed: {
 
 #### **Adding an API Endpoint**
 
-If your widget makes a data request, then add the URL for the API endpoint to the `widgetApiEndpoints` array in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L207)
+If your widget makes a data request, then add the URL for the API endpoint to the `widgetApiEndpoints` array in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#l207)
 
 ```javascript
 widgetApiEndpoints: {

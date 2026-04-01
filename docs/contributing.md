@@ -12,7 +12,7 @@ Help improve Dashy by taking a very short, 6-question survey. This will give me 
 
 ## Share your dashboard
 
-Dashy now has a [Showcase](/docs/showcase.md#dashy-showcase-) where you can show off a screenshot of your dashboard, and get inspiration from other users (and I really love seeing how people are using Dashy). To [submit your dashboard](/docs/showcase.md#submitting-your-dashboard), either open a PR or raise an issue.
+Dashy now has a [Showcase](/docs/showcase) where you can show off a screenshot of your dashboard, and get inspiration from other users (and I really love seeing how people are using Dashy). To [submit your dashboard](/docs/showcase#submitting-your-dashboard), either open a PR or raise an issue.
 
 [![Add your Dashboard to the Showcase](https://img.shields.io/badge/Add_your_Dashboard-Showcase-%238616ee?style=for-the-badge&logo=feathub&logoColor=8616ee)](https://github.com/Lissy93/dashy/issues/new?assignees=&labels=%F0%9F%92%AF+Showcase&template=showcase-addition.yml&title=%5BSHOWCASE%5D+%3Ctitle%3E)
 
@@ -59,7 +59,7 @@ Contributing to the code or docs is super helpful. You can fix a bug, add a new 
 ## Improve the Docs
 
 Found a typo, or something that isn't as clear as it could be? Maybe I've missed something off altogether, or you hit a roadblock that took you a while to figure out. Submitting a pull request to add to or improve the documentation will help future users get Dashy up and running more easily.
-All content is located either in the [`./README.md`](/README) or [`/docs/`](/docs) directory, and synced to the Wiki and website using a GH [action](/actions/workflows/wiki-sync.yml).
+All content is located either in the [`./README.md`](https://github.com/Lissy93/dashy/blob/master/README) or [`/docs/`](/docs) directory, and synced to the Wiki and website using a GH [action](https://github.com/Lissy93/dashy/blob/master/actions/workflows/wiki-sync.yml).
 
 ## Raise a bug
 
@@ -128,4 +128,4 @@ For a full list of Dashy's contributors, see the [Credits Page](/docs/credits)
 
 ### Star-Gazers Over Time
 
-](https://seladb.github.io/StarTrack-js/#/preload?r=Lissy93,dashy)
+](https://seladb.github.io/StarTrack-js/#/preload?r=lissy93,dashy)
