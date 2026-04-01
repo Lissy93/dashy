@@ -7,8 +7,6 @@ import {
   localStorageKeys,
   language as defaultLanguage,
 } from '@/utils/defaults';
-import ErrorHandler from '@/utils/ErrorHandler';
-import ConfigSchema from '@/utils/ConfigSchema.json';
 
 /* Given a page name, converts to lowercase, removes special characters and extension */
 export const makePageName = (pageName) => {
@@ -100,18 +98,4 @@ export const getUsersLanguage = () => {
   const resolvedCode = legacyAliases[langCode] || langCode;
   const langObj = languages.find(lang => lang.code === resolvedCode);
   return langObj;
-};
-
-/**
- * validator for item target attribute
- * Uses enum values from config schema, and shows warning if invalid
- * @param {String} target
- * @returns {Boolean} isValid
- */
-export const targetValidator = (target) => {
-  const acceptedTargets = ConfigSchema.properties.sections.items
-    .properties.items.items.properties.target.enum;
-  const isTargetValid = acceptedTargets.indexOf(target) !== -1;
-  if (!isTargetValid) ErrorHandler(`Unknown target value: ${target}`);
-  return isTargetValid;
 };

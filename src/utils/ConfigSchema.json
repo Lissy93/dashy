@@ -393,7 +393,6 @@
               "enum": [
                 "newtab",
                 "sametab",
-                "modal",
                 "workspace"
               ],
               "default": "newtab",
