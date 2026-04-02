@@ -29,7 +29,7 @@
     "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.2.0",
     "dompurify": "^3.0.8",
-    "express": "^4.21.0",
+    "express": "^5.2.1",
     "express-basic-auth": "^1.2.1",
     "frappe-charts": "^1.6.2",
     "js-yaml": "^4.1.0",
