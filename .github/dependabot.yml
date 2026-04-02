@@ -1,12 +1,95 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for more information:
-# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-# https://containers.dev/guide/dependabot
-
 version: 2
 updates:
- - package-ecosystem: "devcontainers"
-   directory: "/"
-   schedule:
-     interval: weekly
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: friday
+    open-pull-requests-limit: 8
+    labels:
+      - "📦 Dependencies"
+    assignees:
+      - Lissy93
+    commit-message:
+      prefix: "⬆️"
+      prefix-development: "⬆️"
+      include: scope
+    versioning-strategy: increase
+    groups:
+      vue-ecosystem:
+        patterns:
+          - "vue*"
+          - "@vue/*"
+          - "v-*"
+        update-types:
+          - minor
+          - patch
+      babel:
+        patterns:
+          - "@babel/*"
+        update-types:
+          - minor
+          - patch
+      eslint:
+        patterns:
+          - "eslint*"
+          - "@vue/eslint-*"
+        update-types:
+          - minor
+          - patch
+      sentry:
+        patterns:
+          - "@sentry/*"
+        update-types:
+          - minor
+          - patch
+      vitest:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+        update-types:
+          - minor
+          - patch
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: friday
+    labels:
+      - "📦 Dependencies"
+    assignees:
+      - Lissy93
+    commit-message:
+      prefix: "⬆️"
+      include: scope
+
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+      day: friday
+    labels:
+      - "📦 Dependencies"
+    assignees:
+      - Lissy93
+    commit-message:
+      prefix: "⬆️"
+      include: scope
+
+  - package-ecosystem: devcontainers
+    directory: /
+    schedule:
+      interval: monthly
+    labels:
+      - "📦 Dependencies"
+    assignees:
+      - Lissy93
+    commit-message:
+      prefix: "⬆️"
+      include: scope
