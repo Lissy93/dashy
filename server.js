@@ -144,7 +144,7 @@ const app = express()
   // Load middlewares for parsing JSON, and supporting HTML5 history routing
   .use(express.json({ limit: '1mb' }))
   // GET endpoint to run status of a given URL with GET request
-  .use(ENDPOINTS.statusCheck, (req, res) => {
+  .use(ENDPOINTS.statusCheck, protectConfig, (req, res) => {
     try {
       statusCheck(req.url, (results) => {
         if (!res.headersSent) {
@@ -157,7 +157,7 @@ const app = express()
     }
   })
   // POST Endpoint used to save config, by writing config file to disk
-  .use(ENDPOINTS.save, method('POST', (req, res) => {
+  .use(ENDPOINTS.save, protectConfig, method('POST', (req, res) => {
     try {
       saveConfig(req.body, (results) => { res.end(results); });
       config = req.body.config; // update the config
@@ -167,7 +167,7 @@ const app = express()
     }
   }))
   // GET endpoint to trigger a build, and respond with success status and output
-  .use(ENDPOINTS.rebuild, (req, res) => {
+  .use(ENDPOINTS.rebuild, protectConfig, (req, res) => {
     rebuild().then((response) => {
       res.end(JSON.stringify(response));
     }).catch((response) => {
@@ -175,7 +175,7 @@ const app = express()
     });
   })
   // GET endpoint to return system info, for widget
-  .use(ENDPOINTS.systemInfo, (req, res) => {
+  .use(ENDPOINTS.systemInfo, protectConfig, (req, res) => {
     try {
       const results = systemInfo();
       systemInfo.success = true;
@@ -185,7 +185,7 @@ const app = express()
     }
   })
   // GET for accessing non-CORS API services
-  .use(ENDPOINTS.corsProxy, (req, res) => {
+  .use(ENDPOINTS.corsProxy, protectConfig, (req, res) => {
     try {
       corsProxy(req, res);
     } catch (e) {
@@ -193,7 +193,7 @@ const app = express()
     }
   })
   // GET endpoint to return user info
-  .use(ENDPOINTS.getUser, (req, res) => {
+  .use(ENDPOINTS.getUser, protectConfig, (req, res) => {
     try {
       const user = getUser(config, req);
       res.end(JSON.stringify(user));
