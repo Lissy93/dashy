@@ -8996,10 +8996,10 @@ vue-loader@^17.0.0:
     hash-sum "^2.0.0"
     watchpack "^2.4.0"
 
-vue-material-tabs@0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/vue-material-tabs/-/vue-material-tabs-0.1.5.tgz#255fc0beb27c005eaae61c1534d782a94c30c525"
-  integrity sha512-ZLFRCxaCS3TM8IwnxQA4S2CVj+tBaILb8fQZDg+Ix+9Zu+k16udrdhLU2GWvJEVPLspuCzKhCEXW4cIg59YkVw==
+vue-material-tabs@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/vue-material-tabs/-/vue-material-tabs-1.1.2.tgz#f05d0965f1871ccdb09d853a8fe62948bd12bb9f"
+  integrity sha512-zJwAMZrPvPu0UTam36tYsEHADb7KaS83Eps7zeXdpQAPP99QmQOk/xWVLA+i5tBOGbYPP7MD5F0tN7m/yGvR6Q==
 
 vue-resize@^1.0.1:
   version "1.0.1"
