@@ -444,8 +444,8 @@
         },
         "externalStyleSheet": {
           "title": "External Stylesheets",
-          "description": "List of URLs of external stylesheets to add to dropdown/ load",
-          "type": "array",
+          "description": "URL or list of URLs of external stylesheets to load",
+          "type": ["string", "array"],
           "items": {
             "type": "string"
           }
