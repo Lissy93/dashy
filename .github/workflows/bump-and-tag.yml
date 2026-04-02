@@ -124,7 +124,7 @@ jobs:
         run: |
           npm version patch --no-git-tag-version
           git add package.json
-          git commit -m "⬆️ Bump version to $(node -p "require('./package.json').version")"
+          git commit -m "🔖 Bump version to $(node -p "require('./package.json').version")"
           git push
 
       - name: Create and push tag 🏷️

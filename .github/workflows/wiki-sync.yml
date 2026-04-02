@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Upload Docs to GH Wiki
       uses: docker://decathlon/wiki-page-creator-action:2.0.3
       env:
