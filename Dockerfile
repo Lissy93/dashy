@@ -1,4 +1,4 @@
-FROM node:18.19.1-alpine AS BUILD_IMAGE
+FROM node:25.8.2-alpine AS BUILD_IMAGE
 
 # Set the platform to build image for
 ARG TARGETPLATFORM
@@ -25,7 +25,7 @@ COPY . ./
 RUN yarn build --mode production --no-clean
 
 # Production stage
-FROM node:20.11.1-alpine3.19
+FROM node:23.3.0-alpine3.19
 
 # Define some ENV Vars
 ENV PORT=8080 \
