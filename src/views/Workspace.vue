@@ -19,6 +19,7 @@ import WebContent from '@/components/Workspace/WebContent';
 import WidgetView from '@/components/Workspace/WidgetView';
 import MultiTaskingWebComtent from '@/components/Workspace/MultiTaskingWebComtent';
 import Defaults from '@/utils/defaults';
+import ErrorHandler from '@/utils/ErrorHandler';
 
 export default {
   name: 'Workspace',
@@ -56,6 +57,7 @@ export default {
           navigator.clipboard.writeText(options.url);
           this.$toasted.show(this.$t('context-menus.item.copied-toast'), { className: 'toast-success' });
         } else {
+          ErrorHandler('Clipboard access requires HTTPS. See: https://bit.ly/3N5WuAA');
           this.$toasted.show('Unable to copy, see log', { className: 'toast-error' });
         }
         return;
