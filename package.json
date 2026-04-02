@@ -24,7 +24,7 @@
     "@babel/core": "^7.26.0",
     "@formschema/native": "^2.0.0-beta.6",
     "@sentry/tracing": "^7.102.1",
-    "@sentry/vue": "^7.102.1",
+    "@sentry/vue": "^10.47.0",
     "ajv": "^8.10.0",
     "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.2.0",
