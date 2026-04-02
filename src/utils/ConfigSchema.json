@@ -146,15 +146,13 @@
               },
               "target": {
                 "title": "Opening Method",
-                "type": ["string", "null"],
+                "type": "string",
                 "enum": [
                   "newtab",
                   "sametab",
                   "parent",
                   "top",
-                  "newwindow",
-                  "",
-                  null
+                  "newwindow"
                 ],
                 "default": "newtab",
                 "description": "Where / how the item is opened when it's clicked"
@@ -207,7 +205,8 @@
             "top",
             "modal",
             "workspace",
-            "clipboard"
+            "clipboard",
+            "newwindow"
           ],
           "default": "newtab",
           "description": "The default opening method for items. Only used if no item.target is specified"
@@ -394,7 +393,6 @@
               "enum": [
                 "newtab",
                 "sametab",
-                "modal",
                 "workspace"
               ],
               "default": "newtab",
@@ -1067,7 +1065,7 @@
                 },
                 "target": {
                   "title": "Opening Method",
-                  "type": ["string", "null"],
+                  "type": "string",
                   "enum": [
                     "newtab",
                     "sametab",
@@ -1076,9 +1074,7 @@
                     "modal",
                     "workspace",
                     "clipboard",
-                    "newwindow",
-                    "",
-                    null
+                    "newwindow"
                   ],
                   "default": "newtab",
                   "description": "Where / how the item is opened when it's clicked"

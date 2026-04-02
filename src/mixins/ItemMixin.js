@@ -152,6 +152,10 @@ export default {
       } else if (this.accumulatedTarget === 'clipboard') {
         e.preventDefault();
         this.copyToClipboard(url);
+      } else if (this.accumulatedTarget === 'newwindow') {
+        e.preventDefault();
+        const { width, height } = window.screen;
+        window.open(url, '_blank', `width=${width},height=${height},noopener,noreferrer`);
       }
       // Emit event to clear search field, etc
       this.$emit('itemClicked');
@@ -172,6 +176,12 @@ export default {
         case 'sametab':
           window.open(url, '_self');
           break;
+        case 'parent':
+          window.open(url, '_parent');
+          break;
+        case 'top':
+          window.open(url, '_top');
+          break;
         case 'modal':
           this.$emit('triggerModal', url);
           break;
@@ -181,9 +191,11 @@ export default {
         case 'clipboard':
           this.copyToClipboard(url);
           break;
-        case 'newwindow':
-          window.open(url, '_blank', 'noopener,noreferrer');
+        case 'newwindow': {
+          const { width, height } = window.screen;
+          window.open(url, '_blank', `width=${width},height=${height},noopener,noreferrer`);
           break;
+        }
         default: window.open(url, '_blank');
       }
     },
