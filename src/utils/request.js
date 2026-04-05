@@ -7,6 +7,15 @@
  * Throws on non-2xx responses (matching axios behavior)
  */
 
+/** Check if a request URL targets the local Dashy server */
+function isLocalRequest(url) {
+  if (!url) return false;
+  if (url.startsWith('/') && !url.startsWith('//')) return true;
+  const { origin } = window.location;
+  const domain = process.env.VUE_APP_DOMAIN;
+  return url.startsWith(origin) || (domain && url.startsWith(domain));
+}
+
 class RequestError extends Error {
   constructor(message, opts = {}) {
     super(message);
@@ -51,6 +60,15 @@ async function makeRequest(config) {
     headers: { ...headers },
     signal: controller.signal,
   };
+
+  // For local API requests, include basic auth headers when configured
+  if (isLocalRequest(fullUrl) && !fetchOptions.headers.Authorization) {
+    const { makeBasicAuthHeaders } = await import('@/utils/Auth');
+    const authConfig = makeBasicAuthHeaders();
+    if (authConfig.headers) {
+      Object.assign(fetchOptions.headers, authConfig.headers);
+    }
+  }
 
   // Attach body for non-GET/HEAD requests
   if (data != null && method.toUpperCase() !== 'GET' && method.toUpperCase() !== 'HEAD') {
