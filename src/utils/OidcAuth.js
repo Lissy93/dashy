@@ -10,6 +10,11 @@ const getAppConfig = () => {
   return config.appConfig || {};
 };
 
+const isOidcGuestAccessEnabled = () => {
+  const { auth } = getAppConfig();
+  return auth && auth.enableGuestAccess;
+};
+
 class OidcAuth {
   constructor() {
     const { auth } = getAppConfig();
@@ -50,7 +55,9 @@ class OidcAuth {
     const user = await this.userManager.getUser();
 
     if (user === null) {
-      await this.userManager.signinRedirect();
+      if (!isOidcGuestAccessEnabled()) {
+        await this.userManager.signinRedirect();
+      }
     } else {
       const { roles = [], groups = [] } = user.profile;
       const info = {
