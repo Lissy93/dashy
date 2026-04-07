@@ -9,6 +9,11 @@ const getAppConfig = () => {
   return config.appConfig || {};
 };
 
+const isKeycloakGuestAccessEnabled = () => {
+  const { auth } = getAppConfig();
+  return auth && auth.enableGuestAccess;
+};
+
 class KeycloakAuth {
   constructor() {
     const { auth } = getAppConfig();
@@ -29,6 +34,9 @@ class KeycloakAuth {
         .then((auth) => {
           if (auth) {
             this.storeKeycloakInfo();
+            return resolve();
+          } else if (isKeycloakGuestAccessEnabled()) {
+            // Don't redirect, allow guest access
             return resolve();
           } else {
             return this.keycloakClient.login(this.loginOptions);

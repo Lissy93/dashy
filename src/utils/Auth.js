@@ -120,7 +120,7 @@ export const isAuthEnabled = () => {
 /* Returns true if guest access is enabled */
 export const isGuestAccessEnabled = () => {
   const appConfig = getAppConfig();
-  if (appConfig.auth && typeof appConfig.auth === 'object' && !isKeycloakEnabled() && !isOidcEnabled()) {
+  if (appConfig.auth && typeof appConfig.auth === 'object') {
     return appConfig.auth.enableGuestAccess || false;
   }
   return false;
@@ -255,8 +255,16 @@ export const getUserState = () => {
     keycloakEnabled,
     oidcEnabled,
   } = userStateEnum; // Numeric enum options
-  if (isKeycloakEnabled()) return keycloakEnabled; // Keycloak auth configured
-  if (isOidcEnabled()) return oidcEnabled;
+  if (isKeycloakEnabled()) {
+    if (isLoggedIn()) return keycloakEnabled;
+    if (isGuestAccessEnabled()) return guestAccess;
+    return keycloakEnabled; // not logged in, no guest — preserve login button
+  }
+  if (isOidcEnabled()) {
+    if (isLoggedIn()) return oidcEnabled; // OIDC user logged in (show OIDC logout button)
+    if (isGuestAccessEnabled()) return guestAccess; // Guest viewing with OIDC enabled
+    return oidcEnabled; // OIDC enabled, not logged in, no guest access
+  }
   if (!isAuthEnabled()) return notConfigured; // No auth enabled
   if (isLoggedIn()) return loggedIn; // User is logged in
   if (isGuestAccessEnabled()) return guestAccess; // Guest is viewing
