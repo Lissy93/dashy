@@ -14,6 +14,7 @@ _The following article is a primer on managing self-hosted apps. It covers every
 - [Scheduling](#scheduling)
 - [SSL Certificates](#ssl-certificates)
 - [Authentication](#authentication)
+- [Network Exposure](#network-exposure)
 - [Managing with Compose](#managing-containers-with-docker-compose)
 - [Environmental Variables](#passing-in-environmental-variables)
 - [Setting Headers](#setting-headers)
@@ -163,7 +164,6 @@ Note that this will not include any data in docker volumes, and the process here
 To get started, create a docker-compose similar to the example below, and then start the container. For more info, check out their [documentation](https://github.com/offen/docker-volume-backup), which is very clear.
 
 ```yaml
-version: '3'
 services:
   backup:
     image: offen/docker-volume-backup:latest
@@ -198,6 +198,8 @@ docker run --rm -v some_volume:/volume -v /tmp:/backup alpine sh -c "rm -rf /vol
 ### Dashy-Specific Backup
 
 All configuration and dashboard settings are stored in your `user-data/conf.yml` file. If you provide additional assets (like icons, fonts, themes, etc), these will also live in the `user-data` directory. So to backup all Dashy data, this is the only directory you need to backup.
+
+When you save config through the UI, Dashy automatically creates a timestamped backup in `user-data/config-backups/` (configurable via the `BACKUP_DIR` env var). If you break your config, check that directory for a recent copy.
 
 Since Dashy is open source, there shouldn't be any need to backup the main container.
 
@@ -262,6 +264,20 @@ Dashy natively supports secure authentication using KeyCloak. There is also a Si
 
 ---
 
+## Network Exposure
+
+Dashy is designed to run on your local network, behind your firewall. If you only access it from within your home or over a VPN, the defaults are fine.
+
+If you do need to expose Dashy to the internet, you should put it behind a reverse proxy with its own authentication layer (e.g. Authelia, Authentik, Cloudflare Access, or your proxy's built-in auth). Don't rely solely on Dashy's built-in auth for internet-facing instances - it's a convenience feature for private networks, not a hardened perimeter control. See the [Authentication Docs](/docs/authentication.md) for setup options.
+
+When Dashy runs in server mode (the default Docker setup), it exposes several API endpoints for things like status checks, config saving, system info, and a CORS proxy used by widgets. When authentication is enabled (via `ENABLE_HTTP_AUTH=true` or `BASIC_AUTH_USERNAME`/`BASIC_AUTH_PASSWORD` env vars), all of these endpoints require valid credentials. Without auth configured, they are open. That's fine for private networks, but not appropriate for public access.
+
+The CORS proxy (`/cors-proxy`) is worth calling out specifically: it forwards requests from the Dashy server to external URLs, so widgets can reach APIs that don't set CORS headers. On a private network this is harmless, but on an internet-exposed instance without auth, it could be abused as an open proxy. Always enable authentication if your instance is reachable from untrusted networks.
+
+**[⬆️ Back to Top](#management)**
+
+---
+
 ## Managing Containers with Docker Compose
 
 When you have a lot of containers, it quickly becomes hard to manage with `docker run` commands. The solution to this is [docker compose](https://docs.docker.com/compose/), a handy tool for defining all a containers run settings in a single YAML file, and then spinning up that container with a single short command - `docker compose up`. A good example of which can be seen in [@abhilesh's docker compose collection](https://github.com/abhilesh/self-hosted_docker_setups).
@@ -272,7 +288,6 @@ An example Docker compose, using the default base image from DockerHub, might lo
 
 ```yaml
 ---
-version: "3.8"
 services:
   dashy:
     container_name: Dashy
@@ -531,8 +546,8 @@ It's worth noting that Ngrok isn't the only option here, other options include: 
 
 ## Custom Domain
 
-- [Using DNS](#using-nginx)
-- [Using NGINX](#using-dns)
+- [Using DNS](#using-dns)
+- [Using NGINX](#using-nginx)
 
 ### Using DNS
 
@@ -558,7 +573,7 @@ server {
   # Setup SSL
   ssl_certificate             /var/www/mydomain/sslcert.pem;
   ssl_certificate_key         /var/www/mydomain/sslkey.pem;
-  ssl_protocols               TLSv1 TLSv1.1 TLSv1.2;
+  ssl_protocols               TLSv1.2 TLSv1.3;
   ssl_ciphers                 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
   ssl_session_timeout         5m;
   ssl_prefer_server_ciphers   on;
@@ -620,23 +635,21 @@ For example, to run Dashy with max of 1GB ram, and max of 50% of 1 CP core:
 
 ### Don't Run as Root
 
-Running a container with admin privileges gives it more power than it needs, and can be abused. Dashy does not need any root privileges, and Docker by default doesn't run containers as root, so providing you don't specifically type sudo, you should be all good here.
+Running Docker commands with `sudo` gives the container more host-level access than it needs. You should run Docker as a non-root host user instead.
 
-Note that if you're facing permission issues on Debian-based systems, you may need to add your user to the Docker group. First create the group: `sudo groupadd docker`,  then add your (non-root) user: `sudo usermod −aG docker [my-username]`, finally `newgrp docker` to refresh.
+If you're facing permission issues on Debian-based systems when running Docker commands without `sudo`, you may need to add your user to the Docker group. First create the group: `sudo groupadd docker`,  then add your (non-root) user: `sudo usermod −aG docker [my-username]`, finally `newgrp docker` to refresh.
 
 ### Specify a User
 
-One of the best ways to prevent privilege escalation attacks, is to configure the container to use an unprivileged user. This also means that any files created by the container and mounted, will be owned by the specified user (and not root), which makes things much easier.
+For containers in general, running as an unprivileged user is one of the best ways to prevent privilege escalation attacks. You can specify a user with the [`--user` param](https://docs.docker.com/engine/reference/run/#user), using the user ID (`UID`) from `id -u` and group ID (`GID`) from `id -g`.
 
-You can specify a user, using the [`--user` param](https://docs.docker.com/engine/reference/run/#user), and should include the user ID (`UID`), which can be found by running `id -u`, and the and the group ID (`GID`), using `id -g`.
+**Note for Dashy:** If you use features that write to disk (saving config through the UI, triggering a rebuild), the process needs write access to `/app/user-data/` and `/app/dist/`. Since the default image creates these directories as root, running with `--user` will cause those features to fail with permission errors unless you also fix ownership of the mounted volumes. If you only use Dashy in read-only mode, running as a non-root user works fine:
 
-With Docker run, you specify it like:
 `docker run --user 1000:1000 -p 8080:8080 lissy93/dashy`
 
-Of if you're using Docker-compose, you could use an environmental variable
+Or with Docker Compose, using an environmental variable:
 
 ```yaml
-version: "3.8"
 services:
   dashy:
     image: lissy93/dashy
@@ -657,7 +670,6 @@ Note that dropping privileges and capabilities on runtime is not fool-proof, and
 Here's an example using docker-compose, removing privileges that are not required for Dashy to run:
 
 ```yaml
-version: "3.8"
 services:
   dashy:
     image: lissy93/dashy

@@ -10,6 +10,8 @@
   - [Adding HTTP Auth to Configuration](#adding-http-auth-to-configuration)
   - [Security Considerations](#security)
 - [HTTP Auth](#http-auth)
+  - [Using Config-File Users](#using-config-file-users-recommended)
+  - [Using Static Credentials](#using-static-credentials)
 - [Keycloak Auth](#keycloak)
   - [Deploying Keycloak](#1-deploy-keycloak)
   - [Setting up Keycloak](#2-setup-keycloak-users)
@@ -28,16 +30,11 @@
 > [!IMPORTANT]
 > Dashy's built-in auth is not intended to protect a publicly hosted instance against unauthorized access. Instead you should use an auth provider compatible with your reverse proxy, or access Dashy via your VPN, or implement your own SSO logic. 
 >
-> In cases where Dashy is only accessibly within your home network, and you just want to add a login page, then the built-in auth may be sufficient, but keep in mind that configuration can still be accessed.
+> If Dashy is only accessible within your home network and you just want a login page, then the built-in auth may be sufficient. To also protect server-side endpoints and config files, set `ENABLE_HTTP_AUTH=true` (see [Adding HTTP Auth to Configuration](#adding-http-auth-to-configuration)).
 
 ## Built-In Auth
 
-Dashy has a basic login page included, and frontend authentication. You can enable this by adding users to the `auth` section under `appConfig` in your `conf.yml`. If this section is not specified, then no authentication will be required to access the app, and the homepage will resolve to your dashboard.
-
-> [!NOTE]
-> Since the auth is initiated in the main app entry point (for security), a rebuild is required to apply changes to the auth configuration.
-> You can trigger a rebuild through the UI, under Config --> Rebuild, or by running `yarn build` in the root directory.
-
+Dashy has a basic login page included, and frontend authentication. You can enable this by adding users to the `auth` section under `appConfig` in your `conf.yml`. If this section is not specified, then no authentication will be required to access the app, and the homepage will resolve to your dashboard. To also enable HTTP Authorization, set the `ENABLE_HTTP_AUTH` env var to `true`.
 
 ### Setting Up Authentication
 
@@ -58,7 +55,7 @@ appConfig:
 
 ### Hash Password
 
-Dashy uses [SHA-256 Hash](https://en.wikipedia.org/wiki/Sha-256), a 64-character string, which you can generate using an online tool, such as [this one](https://passwordsgenerator.net/sha256-hash-generator/) or [CyberChef](https://gchq.github.io/CyberChef/) (which can be self-hosted/ ran locally).
+Dashy uses [SHA-256 Hash](https://en.wikipedia.org/wiki/Sha-256), a 64-character string, which you can generate by running `echo -n "my-super-secure-password" | sha256sum`, or using an online tool, such as [this one](https://passwordsgenerator.net/sha256-hash-generator/) or [CyberChef](https://gchq.github.io/CyberChef/) (which can be self-hosted/ ran locally).
 
 A hash is a one-way cryptographic function, meaning that it is easy to generate a hash for a given password, but very hard to determine the original password for a given hash. This means, that so long as your password is long, strong and unique, it is safe to store its hash in the clear. Having said that, you should never reuse passwords, hashes can be cracked by iterating over known password lists, generating a hash of each.
 
@@ -140,11 +137,32 @@ Just be sure to set `VUE_APP_BOB='my super secret password'` before build-time.
 
 ### Adding HTTP Auth to Configuration
 
-If you'd also like to prevent direct visit access to your configuration file, you can set the `ENABLE_HTTP_AUTH` environmental variable.
+Without this, the built-in auth is just a client-side login page — your config and API endpoints can still be accessed directly. Set `ENABLE_HTTP_AUTH=true` to protect them.
+
+> [!NOTE]
+> HTTP Auth and guest access (`enableGuestAccess`) are incompatible. Guests have no credentials, so they can't fetch the config file when HTTP auth is active.
+
+This uses the same users you've already defined in `appConfig.auth.users` to authenticate all server-side requests (config files, status checks, system info, CORS proxy, etc.) via HTTP Basic Auth.
+
+**How it works:** When a user logs in through the Dashy UI, a session token is stored in a cookie. The frontend automatically includes this token in requests to local API endpoints. On the server side, the token is validated against your configured users. If someone tries to access an endpoint directly (e.g. with curl), the server will respond with a `401` and a Basic Auth challenge — they'll need to provide a valid username and password.
+
+**Setup:**
+
+1. Make sure you have users configured in your `conf.yml` (see [Setting Up Authentication](#setting-up-authentication) above)
+2. Set the `ENABLE_HTTP_AUTH=true` environment variable (e.g. in your `docker-compose.yml` or `.env` file)
+3. Restart the container - the auth mode is determined at startup, so env var changes need a restart
+
+Adding or removing users in `conf.yml` takes effect immediately without a restart, since the user list is read from disk on each request.
+
+For full protection, you'll want both the client-side login page (via `appConfig.auth.users`) and server-side auth (via `ENABLE_HTTP_AUTH=true`).
 
 ### Security
 
-With basic auth, all logic is happening on the client-side, which could mean a skilled user could manipulate the code to view parts of your configuration, including the hash. If the SHA-256 hash is of a common password, it may be possible to determine it, using a lookup table, in order to find the original password. Which can be used to manually generate the auth token, that can then be inserted into session storage, to become a valid logged in user. Therefore, you should always use a long, strong and unique password, and if you instance contains security-critical info and/ or is exposed directly to the internet, and alternative authentication method may be better. The purpose of the login page is merely to prevent immediate unauthorized access to your homepage.
+With basic auth (and without HTTP auth), the login logic runs on the client-side. A technical user could inspect the code and view parts of your configuration, including password hashes. If the SHA-256 hash is of a common password, it may be possible to determine it using a lookup table, and then use that to generate a valid auth token. Therefore, you should always use a long, strong and unique password.
+
+If your instance is exposed to the internet, the built-in auth alone is not sufficient - use a reverse proxy with its own authentication layer (see [Alternative Authentication Methods](#alternative-authentication-methods)), or access Dashy over a VPN. See the [Network Exposure](/docs/management.md#network-exposure) section in the management docs for more on this.
+
+The built-in login page prevents casual unauthorized access on a private network. It's not a security perimeter.
 
 **[⬆️ Back to Top](#authentication)**
 
@@ -152,9 +170,24 @@ With basic auth, all logic is happening on the client-side, which could mean a s
 
 ## HTTP Auth
 
-If you'd like to protect all your config files from direct access, you can set the `BASIC_AUTH_USERNAME` and `BASIC_AUTH_PASSWORD` environmental variables. You'll then be prompted to enter these credentials when visiting Dashy.
+If you'd like to protect server-side endpoints with HTTP Basic Auth, there are two approaches. They protect the same endpoints but use different credential sources, so pick one - don't combine them.
 
-Then, if you'd like your frontend to automatically log you in, without prompting you for credentials (insecure, so only use on a trusted environment), then also specify `VUE_APP_BASIC_AUTH_USERNAME` and `VUE_APP_BASIC_AUTH_PASSWORD`. This is useful for when you're hosting Dashy on a private server, and just want to use auth for user management and to prevent direct access to your config files, while still allowing the frontend to access them. Note that a rebuild is required for these changes to take effect.
+### Using config-file users (recommended)
+
+This is the approach described in [Adding HTTP Auth to Configuration](#adding-http-auth-to-configuration) above. Set `ENABLE_HTTP_AUTH=true` and it uses the same `appConfig.auth.users` from your `conf.yml`. The frontend handles authentication automatically using the session token from the login page, so no extra setup is needed.
+
+This is the recommended approach because it keeps credentials in one place and works together with the client-side login page. But the drawback is that your credentials will be stored in your config file.
+
+### Using static credentials
+
+If you don't have users in your `conf.yml` (e.g. you handle user management externally, or just want a single shared password for server-side access), you can set the `BASIC_AUTH_USERNAME` and `BASIC_AUTH_PASSWORD` environmental variables instead.
+
+With this approach, there is no Dashy login page. When the browser first requests the config file, the server responds with a `401` and the browser shows its native HTTP auth prompt. Once the user enters the correct credentials, the browser caches them for the session and all subsequent requests work.
+
+To skip the browser prompt and have the frontend authenticate automatically, also set `VUE_APP_BASIC_AUTH_USERNAME` and `VUE_APP_BASIC_AUTH_PASSWORD` to the same values. These are baked in at build time, so a rebuild is required, and you should only do this on a trusted network.
+
+> [!WARNING]
+> Do not combine `BASIC_AUTH_USERNAME`/`BASIC_AUTH_PASSWORD` with conf.yml users. If both are present, the server will log a warning at startup. With `ENABLE_HTTP_AUTH` set, config-file users take priority and the static credentials are ignored. Without it, the static credentials protect the server but the Dashy login page will use conf.yml credentials, and the frontend will send the wrong credentials to server endpoints. Pick one approach or the other.
 
 **[⬆️ Back to Top](#authentication)**
 
