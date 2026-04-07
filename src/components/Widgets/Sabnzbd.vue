@@ -50,8 +50,10 @@ export default {
   },
   computed: {
     endpoint() {
-      const { apiKey, sabnzbdUrl } = this.options;
-      return `${sabnzbdUrl}/sabnzbd/api?output=json&apikey=${apiKey}&mode=queue`;
+      const { apiKey, sabnzbdUrl, pathPrefix } = this.options;
+      const base = (sabnzbdUrl || '').replace(/\/+$/, '');
+      const prefix = (pathPrefix !== undefined ? pathPrefix : '/sabnzbd').replace(/\/+$/, '');
+      return `${base}${prefix}/api?output=json&apikey=${apiKey}&mode=queue`;
     },
   },
   methods: {

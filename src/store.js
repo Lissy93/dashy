@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign, prefer-destructuring */
 import { createStore } from 'vuex';
-import axios from 'axios';
 import yaml from 'js-yaml';
+import request from '@/utils/request';
 import Keys from '@/utils/StoreMutations';
 import { makePageName, formatConfigPath, componentVisibility } from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
@@ -353,7 +353,7 @@ const store = createStore({
       const configFilePath = import.meta.env.VITE_APP_CONFIG_PATH || '/conf.yml';
       try {
         // Attempt to fetch the YAML file
-        const response = await axios.get(configFilePath, makeBasicAuthHeaders());
+        const response = await request.get(configFilePath, makeBasicAuthHeaders());
         let data;
         try {
           data = yaml.load(response.data);
@@ -424,7 +424,7 @@ const store = createStore({
           return { ...emptyConfig };
         }
         try {
-          const response = await axios.get(subConfigPath, makeBasicAuthHeaders());
+          const response = await request.get(subConfigPath, makeBasicAuthHeaders());
           let configContent;
           try {
             configContent = yaml.load(response.data) || {};

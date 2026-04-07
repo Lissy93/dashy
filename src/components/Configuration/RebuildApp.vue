@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { Progress } from 'rsup-progress';
+import request from '@/utils/request';
 import Button from '@/components/FormElements/Button';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
 import ReloadIcon from '@/assets/interface-icons/application-reload.svg';
@@ -86,7 +86,7 @@ export default {
       const endpoint = `${baseUrl}${serviceEndpoints.rebuild}`;
       this.loading = true;
       this.progress.start();
-      axios.get(endpoint)
+      request.get(endpoint)
         .then((response) => {
           this.finished(response.data || false);
           this.progress.end();

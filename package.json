@@ -1,6 +1,6 @@
 {
   "name": "dashy",
-  "version": "3.1.14",
+  "version": "3.2.4",
   "license": "MIT",
   "main": "server",
   "author": "Alicia Sykes <alicia@omg.lol> (https://aliciasykes.com)",
@@ -25,7 +25,6 @@
     "@sentry/tracing": "^7.102.1",
     "@sentry/vue": "^7.102.1",
     "ajv": "^8.10.0",
-    "axios": "^1.12.0",
     "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.2.0",
     "dompurify": "^3.0.8",

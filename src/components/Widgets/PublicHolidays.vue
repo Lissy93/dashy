@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 import { timestampToDate, capitalize } from '@/utils/MiscHelpers';
@@ -70,7 +70,7 @@ export default {
   methods: {
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
-      axios.get(this.endpoint)
+      request.get(this.endpoint)
         .then((response) => {
           this.processData(response.data);
         })

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
@@ -49,7 +49,7 @@ export default {
     },
     /* Makes GET request to the TFL API */
     fetchData() {
-      axios.get(widgetApiEndpoints.tflStatus)
+      request.get(widgetApiEndpoints.tflStatus)
         .then((response) => {
           this.lineStatuses = this.processData(response.data);
         })

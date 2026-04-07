@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import PercentageChart from '@/components/Charts/PercentageChart';
 import { getValueFromCss, convertBytes } from '@/utils/MiscHelpers';
@@ -69,7 +69,7 @@ export default {
       return convertBytes(byteValue);
     },
     login() {
-      axios.request({
+      request({
         method: 'GET',
         url: this.proxyReqEndpoint,
         headers: { 'Target-URL': this.endpointLogin },
@@ -77,7 +77,7 @@ export default {
         .then(this.processLogin);
     },
     getTasks() {
-      axios.request({
+      request({
         method: 'GET',
         url: this.proxyReqEndpoint,
         headers: { 'Target-URL': this.endpointTasks },
@@ -85,7 +85,7 @@ export default {
         .then(this.processTask);
     },
     logout() {
-      axios.request({
+      request({
         method: 'GET',
         url: this.proxyReqEndpoint,
         headers: { 'Target-URL': this.endpointLogout },

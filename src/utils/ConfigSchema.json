@@ -151,7 +151,8 @@
                   "newtab",
                   "sametab",
                   "parent",
-                  "top"
+                  "top",
+                  "newwindow"
                 ],
                 "default": "newtab",
                 "description": "Where / how the item is opened when it's clicked"
@@ -204,7 +205,8 @@
             "top",
             "modal",
             "workspace",
-            "clipboard"
+            "clipboard",
+            "newwindow"
           ],
           "default": "newtab",
           "description": "The default opening method for items. Only used if no item.target is specified"
@@ -391,7 +393,6 @@
               "enum": [
                 "newtab",
                 "sametab",
-                "modal",
                 "workspace"
               ],
               "default": "newtab",
@@ -443,8 +444,8 @@
         },
         "externalStyleSheet": {
           "title": "External Stylesheets",
-          "description": "List of URLs of external stylesheets to add to dropdown/ load",
-          "type": "array",
+          "description": "URL or list of URLs of external stylesheets to load",
+          "type": ["string", "array"],
           "items": {
             "type": "string"
           }
@@ -546,7 +547,7 @@
                   { "required": ["password"] }
                 ]
               }
-            },            
+            },
             "enableOidc": {
               "title": "Enable OIDC?",
               "type": "boolean",
@@ -1072,7 +1073,8 @@
                     "top",
                     "modal",
                     "workspace",
-                    "clipboard"
+                    "clipboard",
+                    "newwindow"
                   ],
                   "default": "newtab",
                   "description": "Where / how the item is opened when it's clicked"

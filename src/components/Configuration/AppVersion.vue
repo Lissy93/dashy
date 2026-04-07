@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { Progress } from 'rsup-progress';
+import request from '@/utils/request';
 import ErrorHandler from '@/utils/ErrorHandler';
 
 export default {
@@ -66,7 +66,7 @@ export default {
     checkVersion() {
       const packageUrl = 'https://raw.githubusercontent.com/Lissy93/dashy/master/package.json';
       this.progress.start();
-      axios.get(packageUrl).then((response) => {
+      request.get(packageUrl).then((response) => {
         if (response && response.data && response.data.version) {
           this.latestVersion = response.data.version;
           this.isUpToDate = this.checkIfUpToDate(this.appVersion, this.latestVersion);

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import ChartingMixin from '@/mixins/ChartingMixin';
 import { serviceEndpoints } from '@/utils/defaults';
@@ -53,7 +53,7 @@ export default {
     },
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
-      axios.get(this.endpoint)
+      request.get(this.endpoint)
         .then((response) => {
           if (!response.data.success) this.error('Error generating backend data');
           this.processData(response.data);

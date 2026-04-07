@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 import { capitalize, showNumAsThousand } from '@/utils/MiscHelpers';
@@ -53,7 +53,7 @@ export default {
       return `${showNumAsThousand(numericCount) || starCount} ★`;
     },
     fetchData() {
-      axios.get(this.endpoint)
+      request.get(this.endpoint)
         .then((response) => {
           if (response.data.items) {
             this.processData(response.data.items);

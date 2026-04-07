@@ -1,7 +1,7 @@
 import sha256 from 'crypto-js/sha256';
 import aes from 'crypto-js/aes';
 import Utf8 from 'crypto-js/enc-utf8';
-import axios from 'axios';
+import request from '@/utils/request';
 import { backupEndpoint } from '@/utils/defaults';
 
 const ENDPOINT = backupEndpoint; // 'https://dashy-sync-service.as93.net';
@@ -20,13 +20,13 @@ const decryptData = (data, password) => aes.decrypt(data, password).toString(Utf
 const makeSubHash = (pass) => sha256(pass).toString().slice(0, 14);
 
 /* Makes the backup */
-export const backup = (data, password) => axios.post(ENDPOINT, {
+export const backup = (data, password) => request.post(ENDPOINT, {
   userData: encryptData(data, password),
   subHash: makeSubHash(password),
 });
 
 /* Updates and existing backup */
-export const update = (data, password, backupId) => axios.put(ENDPOINT, {
+export const update = (data, password, backupId) => request.put(ENDPOINT, {
   backupId,
   userData: encryptData(data, password),
   subHash: makeSubHash(password),
@@ -39,7 +39,7 @@ export const restore = (backupId, password) => {
   const params = encodeGetParams({ backupId, subHash: makeSubHash(password) });
   const url = `${ENDPOINT}/?${params}`;
   return new Promise((resolve, reject) => {
-    axios.get(url).then((response) => {
+    request.get(url).then((response) => {
       if (!response.data || response.data.errorMsg) {
         reject(response.data.errorMsg || 'Error');
       } else {

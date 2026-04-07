@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
@@ -115,7 +115,7 @@ export default {
           'x-rapidapi-key': this.apiKey,
         },
       };
-      axios.request(requestConfig)
+      request(requestConfig)
         .then((response) => {
           this.processData(response.data);
         }).catch((error) => {

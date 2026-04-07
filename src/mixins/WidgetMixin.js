@@ -2,8 +2,8 @@
  * Mixin that all pre-built and custom widgets extend from.
  * Manages loading state, error handling, data updates and user options
  */
-import axios from 'axios';
 import { Progress } from 'rsup-progress';
+import request from '@/utils/request';
 import ErrorHandler from '@/utils/ErrorHandler';
 import { serviceEndpoints } from '@/utils/defaults';
 
@@ -115,7 +115,7 @@ const WidgetMixin = {
       };
       // Make request
       return new Promise((resolve, reject) => {
-        axios.request(requestConfig)
+        request(requestConfig)
           .then((response) => {
             if (response.data.success === false) {
               this.error('Proxy returned error from target server', response.data.message);

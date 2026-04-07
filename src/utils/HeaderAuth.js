@@ -1,5 +1,5 @@
-import axios from 'axios';
 import sha256 from 'crypto-js/sha256';
+import request from '@/utils/request';
 import ConfigAccumulator from '@/utils/ConfigAccumalator';
 import { cookieKeys, localStorageKeys, serviceEndpoints } from '@/utils/defaults';
 import { InfoHandler, ErrorHandler, InfoKeys } from '@/utils/ErrorHandler';
@@ -25,7 +25,7 @@ class HeaderAuth {
   login() {
     return new Promise((resolve, reject) => {
       const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
-      axios.get(`${baseUrl}${serviceEndpoints.getUser}`).then((response) => {
+      request.get(`${baseUrl}${serviceEndpoints.getUser}`).then((response) => {
         if (!response.data) {
           reject(Error('Error, expected data not returned'));
         } else if (response.data.errorMsg) {
