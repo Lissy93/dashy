@@ -149,6 +149,16 @@ function getBasicAuthMiddleware() {
 
 const protectConfig = getBasicAuthMiddleware();
 
+/* Middleware to restrict write endpoints to admin users only */
+function requireAdmin(req, res, next) {
+  if (!req.auth) return next();
+  const users = loadUserConfig();
+  if (!users || users.length === 0) return next();
+  const user = users.find(u => u.user.toLowerCase() === req.auth.user.toLowerCase());
+  if (user && user.type === 'admin') return next();
+  return res.status(403).json({ success: false, message: 'Forbidden - Admin access required' });
+}
+
 /* A middleware function for Connect, that filters requests based on method type */
 const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, next) : next());
 
@@ -171,7 +181,7 @@ const app = express()
     }
   })
   // POST Endpoint used to save config, by writing config file to disk
-  .use(ENDPOINTS.save, protectConfig, method('POST', (req, res) => {
+  .use(ENDPOINTS.save, protectConfig, requireAdmin, method('POST', (req, res) => {
     try {
       saveConfig(req.body, (results) => { res.end(results); });
       config = req.body.config; // update the config
@@ -181,7 +191,7 @@ const app = express()
     }
   }))
   // GET endpoint to trigger a build, and respond with success status and output
-  .use(ENDPOINTS.rebuild, protectConfig, (req, res) => {
+  .use(ENDPOINTS.rebuild, protectConfig, requireAdmin, (req, res) => {
     rebuild().then((response) => {
       res.end(JSON.stringify(response));
     }).catch((response) => {
