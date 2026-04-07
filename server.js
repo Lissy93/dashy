@@ -77,16 +77,20 @@ const printWarning = (msg, error) => {
   console.warn(`\x1b[103m\x1b[34m${msg}\x1b[0m\n`, error || ''); // eslint-disable-line no-console
 };
 
-/* Load appConfig.auth.users from config (if present) for authorization purposes */
-function loadUserConfig() {
+/* Load appConfig.auth from config (if present) for authorization purposes */
+function loadAuthConfig() {
   try {
     const filePath = path.join(__dirname, process.env.USER_DATA_DIR || 'user-data', 'conf.yml');
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const data = yaml.load(fileContents);
-    return data?.appConfig?.auth?.users || null;
+    return data?.appConfig?.auth || {};
   } catch (e) {
-    return [];
+    return {};
   }
+}
+
+function loadUserConfig() {
+  return loadAuthConfig().users || null;
 }
 
 /* Authorizer for ENABLE_HTTP_AUTH: validates credentials against conf.yml users */
@@ -116,7 +120,8 @@ function customAuthorizer(username, password) {
 
 /* If auth is enabled, setup auth for config access, otherwise skip */
 function getBasicAuthMiddleware() {
-  const confUsers = loadUserConfig();
+  const authConfig = loadAuthConfig();
+  const confUsers = authConfig.users || null;
   const hasConfUsers = confUsers && confUsers.length > 0;
   const useConfAuth = process.env.ENABLE_HTTP_AUTH && hasConfUsers;
   const { BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD } = process.env;
@@ -142,9 +147,22 @@ function getBasicAuthMiddleware() {
       challenge: true,
       unauthorizedResponse: () => 'Unauthorized - Incorrect username or password',
     });
-  } else {
-    return (req, res, next) => next();
+  } else if (authConfig.enableHeaderAuth && authConfig.headerAuth) {
+    const { userHeader = 'REMOTE_USER', proxyWhitelist = [] } = authConfig.headerAuth;
+    return (req, res, next) => {
+      if (!proxyWhitelist.includes(req.socket.remoteAddress)) {
+        return res.status(401).json({ success: false, message: 'Unauthorized - not from trusted proxy' });
+      }
+      const user = req.headers[userHeader.toLowerCase()];
+      if (!user) {
+        return res.status(401).json({ success: false, message: 'Unauthorized - missing user header' });
+      }
+      req.auth = { user };
+      return next();
+    };
   }
+
+  return (req, res, next) => next();
 }
 
 const protectConfig = getBasicAuthMiddleware();

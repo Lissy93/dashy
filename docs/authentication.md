@@ -529,6 +529,52 @@ sections:
 ```
 ---
 
+## Header Authentication
+
+Header authentication allows Dashy to trust an upstream reverse proxy to handle authentication. The proxy authenticates users and forwards their identity to Dashy via a configurable HTTP header (e.g. `REMOTE_USER`). This is the standard pattern used by [Authelia](https://www.authelia.com/), [Authentik](https://goauthentik.io/), Traefik's `forwardAuth`, Caddy's `forward_auth`, and Nginx's `auth_request`.
+
+This is useful when you already have a central authentication layer in front of your self-hosted services and want Dashy to automatically pick up the authenticated user without requiring a separate login.
+
+### Configuration
+
+```yaml
+appConfig:
+  auth:
+    enableHeaderAuth: true
+    users:
+      - user: alice
+        hash: 0a7b1d4c2e... # SHA-256 hash of password
+        type: admin
+      - user: bob
+        hash: 3f8e2b1a9d...
+        type: normal
+    headerAuth:
+      userHeader: REMOTE_USER
+      proxyWhitelist:
+        - 172.18.0.2
+        - 127.0.0.1
+```
+
+- **`userHeader`** - The HTTP header name containing the authenticated username. Defaults to `REMOTE_USER` if not specified.
+- **`proxyWhitelist`** - Required. An array of IP addresses that Dashy will accept the header from. Only requests originating from these IPs will be trusted. This prevents clients from spoofing the header directly.
+- **`users`** - Required. The header username is matched against this list to determine the user's role (`admin` or `normal`) and to generate the session token. Users must be defined here even though authentication is handled externally.
+
+### How it Works
+
+1. User visits Dashy, which is behind a reverse proxy (e.g. Authelia)
+2. The proxy authenticates the user and forwards the request with a header like `REMOTE_USER: alice`
+3. Dashy's server checks that the request comes from a whitelisted proxy IP, then returns the username via the `/get-user` endpoint
+4. The client matches the username against the configured users, generates a session token, and sets the auth cookie
+5. From this point, standard Dashy auth applies - `isLoggedIn()`, admin checks, and granular access controls all work as normal
+
+### Notes
+
+- The `proxyWhitelist` checks `req.socket.remoteAddress`, which is the direct connection source. If your proxy connects through Docker networking, use the container's internal IP (e.g. `172.18.0.2`), not the external IP
+- Logout clears Dashy's session cookie, but the user remains authenticated at the proxy level. Revisiting the page will re-authenticate automatically
+- Server-side endpoint protection (`ENABLE_HTTP_AUTH`) is separate from header auth. If you need both the proxy-based login flow and server-side API protection, configure both
+
+---
+
 ## Alternative Authentication Methods
 
 If you are self-hosting Dashy, and require secure authentication to prevent unauthorized access, then you can either use Keycloak, or one of the following options:
