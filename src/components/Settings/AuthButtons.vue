@@ -94,7 +94,8 @@ export default {
     },
     makeUserGreeting() {
       if (this.userType === userStateEnum.loggedIn
-        || this.userType === userStateEnum.keycloakEnabled) {
+        || this.userType === userStateEnum.keycloakEnabled
+        || this.userType === userStateEnum.oidcEnabled) {
         const username = localStorage[localStorageKeys.USERNAME];
         return username ? this.$t('settings.sign-in-welcome', { username }) : '';
       }
