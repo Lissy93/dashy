@@ -89,7 +89,7 @@ function loadUserConfig() {
   }
 }
 
-/* If HTTP auth is enabled, and no username/password are pre-set, then check passed credentials */
+/* Authorizer for ENABLE_HTTP_AUTH: validates credentials against conf.yml users */
 function customAuthorizer(username, password) {
   const sha256 = (input) => crypto.createHash('sha256').update(input).digest('hex').toUpperCase();
   const generateUserToken = (user) => {
@@ -102,7 +102,9 @@ function customAuthorizer(username, password) {
   if (password.startsWith('Bearer ')) {
     const token = password.slice('Bearer '.length);
     const users = loadUserConfig();
-    return users.some(user => generateUserToken(user) === token);
+    return users.some(user => (
+      user.user.toLowerCase() === username.toLowerCase() && generateUserToken(user) === token
+    ));
   } else {
     const users = loadUserConfig();
     const userHash = sha256(password);
@@ -112,21 +114,33 @@ function customAuthorizer(username, password) {
   }
 }
 
-/* If a username and password are set, setup auth for config access, otherwise skip */
+/* If auth is enabled, setup auth for config access, otherwise skip */
 function getBasicAuthMiddleware() {
-  const configUsers = process.env.ENABLE_HTTP_AUTH ? loadUserConfig() : null;
+  const confUsers = loadUserConfig();
+  const hasConfUsers = confUsers && confUsers.length > 0;
+  const useConfAuth = process.env.ENABLE_HTTP_AUTH && hasConfUsers;
   const { BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD } = process.env;
-  if (BASIC_AUTH_USERNAME && BASIC_AUTH_PASSWORD) {
-    return basicAuth({
-      users: { [BASIC_AUTH_USERNAME]: BASIC_AUTH_PASSWORD },
-      challenge: true,
-      unauthorizedResponse: () => 'Unauthorized - Incorrect username or password',
-    });
-  } else if ((configUsers && configUsers.length > 0)) {
+  const hasStaticCreds = BASIC_AUTH_USERNAME && BASIC_AUTH_PASSWORD;
+
+  // Warn if both auth methods are configured - they don't work together
+  if (hasStaticCreds && hasConfUsers) {
+    printWarning(useConfAuth
+      ? 'BASIC_AUTH env vars are ignored because ENABLE_HTTP_AUTH is active with conf.yml users.'
+      : 'BASIC_AUTH env vars and appConfig.auth.users are both set but use different credentials.'
+        + ' This will cause auth failures. Set ENABLE_HTTP_AUTH=true, or remove users from conf.yml.');
+  }
+
+  if (useConfAuth) {
     return basicAuth({
       authorizer: customAuthorizer,
       challenge: true,
       unauthorizedResponse: () => 'Unauthorized - Incorrect token',
+    });
+  } else if (hasStaticCreds) {
+    return basicAuth({
+      users: { [BASIC_AUTH_USERNAME]: BASIC_AUTH_PASSWORD },
+      challenge: true,
+      unauthorizedResponse: () => 'Unauthorized - Incorrect username or password',
     });
   } else {
     return (req, res, next) => next();
