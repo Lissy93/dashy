@@ -81,18 +81,10 @@
 </template>
 
 <script>
-import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { serviceEndpoints } from '@/utils/defaults';
 
 export default {
   mixins: [WidgetMixin],
-  props: {
-    options: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
   data() {
     return {
       statusData: null,
@@ -119,10 +111,6 @@ export default {
         'Content-Type': 'application/json',
       };
     },
-    proxyReqEndpoint() {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      return `${baseUrl}${serviceEndpoints.corsProxy}`;
-    },
   },
   methods: {
     update() {
@@ -130,34 +118,16 @@ export default {
       this.fetchData();
     },
     fetchData() {
-      const {
-        authHeaders, url, token, proxyReqEndpoint,
-      } = this;
-
+      const { authHeaders, url, token } = this;
       if (!this.optionsValid({ url, token })) {
         return;
       }
-
-      const targetURL = url;
-      const customHeaders = JSON.stringify(authHeaders);
-
-      request.get(
-        proxyReqEndpoint,
-        {
-          headers: {
-            'Target-URL': targetURL,
-            CustomHeaders: customHeaders,
-          },
-        },
-      )
+      this.makeRequest(url, authHeaders)
         .then((response) => {
-          this.processData(response.data);
+          this.processData(response);
         })
         .catch(() => {
           this.errorMessage = 'Failed to fetch data';
-        })
-        .finally(() => {
-          this.finishLoading();
         });
     },
     processData(response) {
