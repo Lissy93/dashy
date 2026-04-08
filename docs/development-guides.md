@@ -129,7 +129,7 @@ Then, where you want to get the users value within your component, use something
 
 If you have a default fallback value, then this would typically be specified in the [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js) file.
 
-You will now need to add the definition of your new attribute into the [ConfigSchema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js). This will make it available in the UI config editor, and also ensure that the config validation check doesn't fail.
+You will now need to add the definition of your new attribute into the [ConfigSchema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json). This will make it available in the UI config editor, and also ensure that the config validation check doesn't fail.
 For example:
 
 ```json
@@ -156,7 +156,7 @@ Finally, add your new property to the [`configuring.md`](./configuring.md) API d
 Checklist:
 
 - [ ] Ensure the new attribute is actually necessary, and nothing similar already exists
-- [ ] Update the [Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.js) with the parameters for your new option
+- [ ] Update the [Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json) with the parameters for your new option
 - [ ] If required, set a default or fallback value (usually in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js))
 - [ ] Document the new value in [`configuring.md`](./configuring.md), and if required under the relevant section in the docs
 - [ ] Ensure your changes are backwards compatible, and that nothing breaks if the attribute isn't specified

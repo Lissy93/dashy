@@ -197,7 +197,6 @@ module.exports = {
   /* Available services for fetching favicon icon for user apps */
   faviconApiEndpoints: {
     allesedv: 'https://f1.allesedv.com/128/$URL',
-    clearbit: 'https://logo.clearbit.com/$URL',
     iconhorse: 'https://icon.horse/icon/$URL',
     faviconkit: 'https://api.faviconkit.com/$URL/64',
     duckduckgo: 'https://icons.duckduckgo.com/ip2/$URL.ico',
@@ -227,11 +226,12 @@ module.exports = {
     anonAddy: 'https://app.addy.io',
     astronomyPictureOfTheDay: 'https://apod.as93.net/apod',
     blacklistCheck: 'https://api.blacklistchecker.com/check',
+    chuckNorris: 'https://api.chucknorris.io/jokes/random',
     codeStats: 'https://codestats.net/',
     covidStats: 'https://disease.sh/v3/covid-19',
     cryptoPrices: 'https://api.coingecko.com/api/v3/coins/',
     cryptoWatchList: 'https://api.coingecko.com/api/v3/coins/markets/',
-    cveVulnerabilities: 'https://www.cvedetails.com/json-feed.php',
+    cveVulnerabilities: 'https://services.nvd.nist.gov/rest/json/cves/2.0',
     domainMonitor: 'https://api.whoapi.com',
     ethGasPrices: 'https://ethgas.watch/api/gas',
     ethGasHistory: 'https://ethgas.watch/api/gas/trend',
@@ -324,6 +324,8 @@ module.exports = {
     mode: 'production',
     manifestCrossorigin: 'use-credentials',
     iconPaths: {
+      faviconSVG: null,
+      appleTouchIcon: null,
       favicon64: './web-icons/favicon-64x64.png',
       favicon32: './web-icons/favicon-32x32.png',
       favicon16: './web-icons/favicon-16x16.png',
@@ -337,6 +339,18 @@ module.exports = {
         /^manifest.*\.js$/, // default value
         /\.nojekyll$/,
         /\.gitignore$/,
+        /conf\.yml$/, // ignore config for runtimeCaching
+      ],
+      // https://developer.chrome.com/docs/workbox/modules/workbox-build#type-RuntimeCaching
+      runtimeCaching: [
+        {
+          urlPattern: /conf\.yml$/,
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'config-cache',
+            networkTimeoutSeconds: 3,
+          },
+        },
       ],
     },
   },

@@ -9,8 +9,8 @@
         :placeholder="$t('search.search-placeholder')"
         v-on:input="userIsTypingSomething"
         @keydown.esc="clearFilterInput" />
-        <p v-if="(!searchPrefs.disableWebSearch) && input.length > 0" class="web-search-note">
-          {{ $t('search.enter-to-search-web') }}
+        <p v-if="searchNote && input.length > 0" class="web-search-note">
+          {{ searchNote }}
         </p>
       </div>
       <i v-if="input.length > 0"
@@ -51,6 +51,14 @@ export default {
     },
     searchPrefs() {
       return this.$store.getters.webSearch || {};
+    },
+    urlDetected() {
+      return this.searchPrefs.openUrlsDirectly && this.isUrlLike(this.input.trim());
+    },
+    searchNote() {
+      if (this.urlDetected) return this.$t('search.enter-to-open-url');
+      if (!this.searchPrefs.disableWebSearch) return this.$t('search.enter-to-search-web');
+      return '';
     },
   },
   mounted() {
@@ -126,13 +134,22 @@ export default {
       // Get search preferences from appConfig
       const { searchPrefs } = this;
       if (!searchPrefs.disableWebSearch) { // Only proceed if user hasn't disabled web search
-        const bangList = { ...defaultSearchBangs, ...(searchPrefs.searchBangs || {}) };
+        const input = this.input.trim();
         const openingMethod = searchPrefs.openingMethod || defaultSearchOpeningMethod;
+        // If openUrlsDirectly enabled and input looks like a URL, navigate directly
+        if (searchPrefs.openUrlsDirectly && input && this.isUrlLike(input)) {
+          const url = /^https?:\/\//.test(input) ? input : `https://${input}`;
+          this.launchWebSearch(url, openingMethod);
+          this.clearFilterInput();
+          return;
+        }
+        const bangList = { ...defaultSearchBangs, ...(searchPrefs.searchBangs || {}) };
         const searchBang = getSearchEngineFromBang(this.input, bangList);
         const searchEngine = searchPrefs.searchEngine || defaultSearchEngine;
         // Use either search bang, or preffered search engine
         const desiredSearchEngine = searchBang || searchEngine;
-        const isCustomSearch = (searchPrefs.searchEngine === 'custom' && searchPrefs.customSearchEngine);
+        const isCustomSearch = !searchBang
+          && searchPrefs.searchEngine === 'custom' && searchPrefs.customSearchEngine;
         let searchUrl = isCustomSearch
           ? searchPrefs.customSearchEngine
           : findUrlForSearchEngine(desiredSearchEngine, searchEngineUrls);
@@ -142,6 +159,10 @@ export default {
           this.clearFilterInput();
         }
       }
+    },
+    /* Detect if input looks like a URL (has TLD, no spaces) */
+    isUrlLike(input) {
+      return /^(https?:\/\/)?([\w-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/.test(input.trim());
     },
   },
 };

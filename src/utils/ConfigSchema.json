@@ -151,7 +151,8 @@
                   "newtab",
                   "sametab",
                   "parent",
-                  "top"
+                  "top",
+                  "newwindow"
                 ],
                 "default": "newtab",
                 "description": "Where / how the item is opened when it's clicked"
@@ -204,7 +205,8 @@
             "top",
             "modal",
             "workspace",
-            "clipboard"
+            "clipboard",
+            "newwindow"
           ],
           "default": "newtab",
           "description": "The default opening method for items. Only used if no item.target is specified"
@@ -229,7 +231,7 @@
         "theme": {
           "title": "Theme",
           "type": "string",
-          "default": "callisto",
+          "default": "default",
           "description": "A theme to be applied by default on first load",
           "examples": [
             "callisto",
@@ -266,13 +268,14 @@
           "enum": [
             "local",
             "allesedv",
-            "clearbit",
             "iconhorse",
             "faviconkit",
             "duckduckgo",
             "yandex",
             "google",
-            "besticon"
+            "besticon",
+            "webmasterapi",
+            "mcapi"
           ],
           "default": "allesedv",
           "description": "Which service to use to resolve favicons. Set to local to do this locally instead"
@@ -351,6 +354,12 @@
               "default": "false",
               "description": "If set to true, web search will be disabled all together"
             },
+            "openUrlsDirectly": {
+              "title": "Open URLs Directly",
+              "type": "boolean",
+              "default": false,
+              "description": "If enabled, when the search query looks like a URL it will be opened directly instead of being passed to the search engine"
+            },
             "searchEngine": {
               "title": "Search Engine",
               "type": "string",
@@ -384,7 +393,6 @@
               "enum": [
                 "newtab",
                 "sametab",
-                "modal",
                 "workspace"
               ],
               "default": "newtab",
@@ -407,7 +415,6 @@
         "enableFontAwesome": {
           "title": "Enable Font-Awesome?",
           "type": "boolean",
-          "default": true,
           "description": "If true, font-awesome will be loaded, if false they will not be. If left empty, icons will only be loaded if needed"
         },
         "enableMaterialDesignIcons": {
@@ -437,8 +444,8 @@
         },
         "externalStyleSheet": {
           "title": "External Stylesheets",
-          "description": "List of URLs of external stylesheets to add to dropdown/ load",
-          "type": "array",
+          "description": "URL or list of URLs of external stylesheets to load",
+          "type": ["string", "array"],
           "items": {
             "type": "string"
           }
@@ -540,7 +547,7 @@
                   { "required": ["password"] }
                 ]
               }
-            },            
+            },
             "enableOidc": {
               "title": "Enable OIDC?",
               "type": "boolean",
@@ -603,7 +610,7 @@
                   "title": "User Header",
                   "type": "string",
                   "description": "Header name which contains username",
-                  "default": "REMOTE_USER"
+                  "default": "Remote-User"
                 },
                 "proxyWhitelist": {
                   "title": "Upstream Proxy Auth Trust",
@@ -840,14 +847,14 @@
                 "type": "number",
                 "minimum": 1,
                 "maximum": 12,
-                "description": "Number of items per column"
+                "description": "Number of items per row"
               },
               "itemCountY": {
                 "title": "Item Count Y",
                 "type": "number",
                 "minimum": 1,
                 "maximum": 12,
-                "description": "Number of items per row"
+                "description": "Number of items per column"
               },
               "hideForUsers": {
                 "title": "Hide for Users",
@@ -924,6 +931,12 @@
                     }
                   }
                 }
+              },
+              "hideFromWorkspace": {
+                "title": "Hide from Workspace",
+                "type": "boolean",
+                "default": false,
+                "description": "If set to true, section will be visible in the default view but not in the Workspace view sidebar"
               }
             }
           },
@@ -1041,6 +1054,12 @@
                           }
                         }
                       }
+                    },
+                    "hideFromWorkspace": {
+                      "title": "Hide from Workspace",
+                      "type": "boolean",
+                      "default": false,
+                      "description": "If set to true, item will be visible in the default view but not in the Workspace view sidebar"
                     }
                   }
                 },
@@ -1054,7 +1073,8 @@
                     "top",
                     "modal",
                     "workspace",
-                    "clipboard"
+                    "clipboard",
+                    "newwindow"
                   ],
                   "default": "newtab",
                   "description": "Where / how the item is opened when it's clicked"
@@ -1121,6 +1141,11 @@
                   "type": "string",
                   "description": "A custom fill color of the item, expressed either as hex code or color name"
                 },
+                "backgroundColor": {
+                  "title": "Background Color",
+                  "type": "string",
+                  "description": "A custom background fill color for the item, expressed either as hex code or color name"
+                },
                 "id": {
                   "title": "Item ID",
                   "type": "string",
@@ -1170,6 +1195,16 @@
                   "title": "Widget Options",
                   "type": "object",
                   "description": "Configuration options for widget. Varies depending on widget type, see docs for all options"
+                },
+                "label": {
+                  "title": "Widget Label",
+                  "type": "string",
+                  "description": "A label to display above the widget"
+                },
+                "ignoreErrors": {
+                  "title": "Ignore Errors",
+                  "type": "boolean",
+                  "description": "If set to true, widget errors will not be displayed"
                 }
               }
             }

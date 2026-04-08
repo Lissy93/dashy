@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { timestampToDate, getPlaceUrl } from '@/utils/MiscHelpers';
 import { widgetApiEndpoints } from '@/utils/defaults';
@@ -144,7 +144,7 @@ export default {
       }
     },
     fetchData() {
-      axios.get(this.endpoint)
+      request.get(this.endpoint)
         .then((response) => {
           this.processData(response.data.results || response.data.events);
         })

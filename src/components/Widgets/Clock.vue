@@ -85,10 +85,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@font-face {
-  font-family: 'Digital';
-  src: url('/fonts/Digital-Regular.ttf');
-}
 
 .clock {
   padding: 0.5rem 0;

@@ -8,7 +8,8 @@
     "search-label": "Search",
     "search-placeholder": "Start typing to filter",
     "clear-search-tooltip": "Clear Search",
-    "enter-to-search-web": "Press enter to search the web"
+    "enter-to-search-web": "Press enter to search the web",
+    "enter-to-open-url": "Press enter to open URL"
   },
   "splash-screen": {
     "loading": "Loading"
@@ -237,6 +238,7 @@
       "modal": "Pop-Up Modal",
       "workspace": "Workspace View",
       "clipboard": "Copy to Clipboard",
+      "newwindow": "New Window",
       "options-section-title": "Options",
       "edit-item": "Edit",
       "move-item": "Copy or Move",
@@ -379,7 +381,8 @@
       "post-code": "Post Code",
       "location": "Location",
       "timezone": "Timezone",
-      "organization": "Organization"
+      "organization": "Organization",
+      "forwarded-port": "Forwarded Port"
     },
     "nextcloud": {
       "active": "active",

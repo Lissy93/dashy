@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     fetchData() {
-      axios.get(widgetApiEndpoints.astronomyPictureOfTheDay)
+      request.get(widgetApiEndpoints.astronomyPictureOfTheDay)
         .then((response) => {
           this.processData(response.data);
         })

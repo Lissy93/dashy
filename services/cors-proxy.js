@@ -4,7 +4,7 @@
  * makes request to endpoint, then responds to the frontend with the response
  */
 
-const axios = require('axios');
+const request = require('./request');
 
 module.exports = (req, res) => {
   // Apply allow-all response headers
@@ -33,12 +33,12 @@ module.exports = (req, res) => {
   const requestConfig = {
     method: req.method,
     url: targetURL,
-    json: req.body,
+    data: req.body,
     headers,
   };
 
   // Make the request, and respond with result
-  axios.request(requestConfig)
+  request(requestConfig)
     .then((response) => {
       res.status(200).send(response.data);
     }).catch((error) => {

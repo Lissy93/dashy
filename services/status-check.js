@@ -3,8 +3,7 @@
  * It accepts a single url parameter, and will make an empty GET request to that
  * endpoint, and then resolve the response status code, time taken, and short message
  */
-const axios = require('axios').default;
-const https = require('https');
+const request = require('./request');
 
 /* Determines if successful from the HTTP response code */
 const getResponseType = (code, validCodes) => {
@@ -34,21 +33,18 @@ const makeRequest = (url, options, render) => {
   } = options;
   const validCodes = acceptCodes && acceptCodes !== 'null' ? acceptCodes : null;
   const startTime = new Date();
-  const requestMaker = axios.create({
-    httpsAgent: new https.Agent({
-      rejectUnauthorized: !enableInsecure,
-    }),
-  });
-  requestMaker.request({
+  request({
     url,
     headers,
     maxRedirects,
+    httpsAgent: { rejectUnauthorized: !enableInsecure },
   })
     .then((response) => {
       const statusCode = response.status;
       const { statusText } = response;
       const successStatus = getResponseType(statusCode, validCodes);
-      const serverName = response.request.socket.servername;
+      const serverName = response.request && response.request.socket
+        ? response.request.socket.servername : undefined;
       const timeTaken = (new Date() - startTime);
       const results = {
         statusCode, statusText, serverName, successStatus, timeTaken,
@@ -110,7 +106,10 @@ module.exports = (paramStr, render) => {
     const maxRedirects = decodeURIComponent(params.get('maxRedirects')) || 0;
     const headers = decodeHeaders(params.get('headers'));
     const enableInsecure = !!params.get('enableInsecure');
-    if (!url || url === 'undefined') immediateError(render);
+    if (!url || url === 'undefined') {
+      immediateError(render);
+      return;
+    }
     const options = {
       headers, enableInsecure, acceptCodes, maxRedirects,
     };

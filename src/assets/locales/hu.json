@@ -1,0 +1,385 @@
+{
+  "home": {
+    "no-results": "Nincs találat a keresésre",
+    "no-data": "Nincs beállítva adat",
+    "no-items-section": "Még nincs mit megjeleníteni"
+  },
+  "search": {
+    "search-label": "Keresés",
+    "search-placeholder": "Kezdj el gépelni a szűréshez",
+    "clear-search-tooltip": "Keresés törlése",
+    "enter-to-search-web": "Nyomj entert a webes kereséshez"
+  },
+  "splash-screen": {
+    "loading": "Betöltés"
+  },
+  "login": {
+    "title": "Dashy",
+    "guest-label": "Vendég hozzáférés",
+    "username-label": "Felhasználónév",
+    "password-label": "Jelszó",
+    "login-button": "Bejelentkezés",
+    "remember-me-label": "Emlékezz rám",
+    "remember-me-never": "Soha",
+    "remember-me-hour": "4 óráig",
+    "remember-me-day": "1 napig",
+    "remember-me-week": "1 hétig",
+    "remember-me-long-time": "Hosszabb ideig",
+    "error-missing-username": "Hiányzó felhasználónév",
+    "error-missing-password": "Hiányzó jelszó",
+    "error-incorrect-username": "A felhasználó nem található",
+    "error-incorrect-password": "Hibás jelszó",
+    "success-message": "Bejelentkezés folyamatban...",
+    "logout-message": "Kijelentkezve",
+    "already-logged-in-title": "Már be vagy jelentkezve",
+    "already-logged-in-text": "Be vagy jelentkezve mint",
+    "proceed-to-dashboard": "Tovább az irányítópultra",
+    "log-out-button": "Kijelentkezés",
+    "proceed-guest-button": "Belépés vendégként",
+    "guest-intro-1": "Ez a rendszer engedélyezi a vendég hozzáférést.",
+    "guest-intro-2": "A vendég felhasználók csak megtekinthetik az irányítópultokat, módosításokat nem tudnak menteni.",
+    "error": "Hiba",
+    "error-no-user-configured": "A hitelesítés nincs engedélyezve, vagy nincs beállított felhasználó",
+    "error-go-home-button": "Vissza a főoldalra",
+    "logged-in-guest": "Vendégként bejelentkezve, átirányítás...",
+    "error-guest-access": "A vendég hozzáférés nem engedélyezett"
+  },
+  "app-info": {
+    "title": "App Info",
+    "error-log": "Hibanapló",
+    "no-errors": "Nem található friss hiba",
+    "help-support": "Súgó és támogatás",
+    "help-support-description" : "Ha segítségre van szükséged a Dashy futtatásához vagy beállításához, nézd meg a",
+    "help-support-discussions": "fórumot",
+    "support-dashy": "Dashy támogatása",
+    "support-dashy-description": "Ha szeretnél részt venni a projektben, nézd meg a",
+    "support-dashy-link": "közreműködők oldalát",
+    "report-bug": "Hiba bejelentése",
+    "report-bug-description": "Ha úgy gondolod, hogy hibát találtál, kérlek",
+    "report-bug-link": "jelentsd be itt",
+    "more-info": "További információ",
+    "source": "Forráskód",
+    "documentation": "Dokumentáció",
+    "privacy-and-security": "Adatvédelem és biztonság",
+    "privacy-and-security-l1": "Ha szeretnéd megtudni, hogyan kezeli a Dashy az adataidat, nézd meg az",
+    "privacy-and-security-privacy-policy": "adatvédelmi irányelveinket",
+    "privacy-and-security-advice": "Ha tanácsot keresel az irányítópultod biztonságossá tételéhez, olvasd el a",
+    "privacy-and-security-advice-link": "kezelési útmutatót",
+    "privacy-and-security-security-issue": "Ha biztonsági hibát találtál, jelezd azt a",
+    "privacy-and-security-security-policy": "biztonsági szabályzatunk alapján",
+    "license": "Licenc",
+    "license-under": "Licenc típusa:",
+    "licence-third-party": "A harmadik féltől származó modulok licenceiért látogasd meg a",
+    "licence-third-party-link": "jogi oldalunkat",
+    "list-contributors": "A teljes közreműködői lista és köszönetnyilvánítás itt található:",
+    "list-contributors-link": "Készítők", 
+    "version": "Verzió"
+  },
+  "config": {
+    "main-tab": "Főmenü",
+    "view-config-tab": "Beállítások megtekintése",
+    "edit-config-tab": "Beállítások szerkesztése",
+    "custom-css-tab": "Egyéni stílusok",
+    "heading": "Beállítási lehetőségek",
+    "download-config-button": "Megtekintés / Exportálás",
+    "edit-config-button": "Beállítások szerkesztése",
+    "edit-css-button": "Egyéni CSS szerkesztése",
+    "cloud-sync-button": "Szinkronizálás bekapcsolása",
+    "edit-cloud-sync-button": "Szinkronizálási beállítások szerkesztése",
+    "rebuild-app-button": "Alkalmazás újraépítése",
+    "change-language-button": "Nyelv módosítása",
+    "reset-settings-button": "Helyi beállítások visszaállítása",
+    "disabled-note": "Néhány beállítási lehetőséget a rendszergazda letiltott",
+    "small-screen-note": "Kis képernyőt használsz, ezért néhány menüelem nem tud jól megjelenni",
+    "app-info-button": "App infó",
+    "backup-note": "Módosítás előtt érdemes biztonsági mentést készíteni a beállításokról.",
+    "reset-config-msg-l1": "Ez törli az összes helyi beállítást, de nem módosítja a 'conf.yml' fájlt.",
+    "reset-config-msg-l2": "Mentsd el a helyi változtatásokat, ha később is használni akarod őket",
+    "reset-config-msg-l3": "Biztosan folytatod?",
+    "data-cleared-msg": "Az adatok sikeresen törölve",
+    "actions-label": "Műveletek",
+    "copy-config-label": "Beállítások másolása",
+    "data-copied-msg": "A konfiguráció a vágólapra másolva",
+    "reset-config-label": "Beállítások visszaállítása",
+    "css-save-btn": "Változtatások mentése",
+    "css-note-label": "Megjegyzés",
+    "css-note-l1": "A változtatások életbe lépéséhez frissítened kell az oldalt.",
+    "css-note-l2": "A stílusmódosítások csak helyben vannak mentve, ezért ajánlott másolatot készíteni a CSS-ről.",
+    "css-note-l3": "Az összes egyéni stílus eltávolításához töröld a tartalmat, majd mentsd a változtatásokat.",
+    "custom-css": {
+      "title": "Egyéni CSS",
+      "base-theme": "Alaptéma"
+    }
+  },
+  "alternate-views": {
+    "alternate-view-heading": "Váltás másik nézetre",
+    "default": "Alapértelmezett",
+    "workspace": "Munkaterület",
+    "minimal": "Minimalista"
+  },
+  "settings": {
+    "theme-label": "Téma",
+    "layout-label": "Elrendezés",
+    "layout-auto": "Automatikus",
+    "layout-horizontal": "Vízszintes",
+    "layout-vertical": "Függőleges",
+    "item-size-label": "Elem mérete",
+    "item-size-small": "Kicsi",
+    "item-size-medium": "Közepes",
+    "item-size-large": "Nagy",
+    "config-launcher-label": "Beállítások",
+    "config-launcher-tooltip": "Beállítások frissítése",
+    "sign-out-tooltip": "Kijelentkezés",
+    "sign-in-tooltip": "Bejelentkezés",
+    "sign-in-welcome": "Szia, {username}!",
+    "hide": "Elrejtés",
+    "open": "Megnyitás"
+  },
+  "updates": {
+    "app-version-note": "Dashy verzió",
+    "up-to-date": "Naprakész",
+    "out-of-date": "Frissítés elérhető",
+    "unsupported-version-l1": "A Dashy nem támogatott verzióját használod",
+    "unsupported-version-l2": "A legjobb élmény és a biztonsági javítások érdekében frissíts a következő verzióra"
+  },
+  "language-switcher": {
+    "title": "Alkalmazás nyelvének módosítása",
+    "dropdown-label": "Válassz nyelvet",
+    "save-button": "Mentés",
+    "success-msg": "A nyelv frissítve erre:"
+  },
+  "theme-maker": {
+    "title": "Téma szerkesztő",
+    "export-button": "Egyéni változók exportálása",
+    "reset-button": "Stílus visszaállítása ehhez:",
+    "show-all-button": "Összes változó megjelenítése",
+    "change-fonts-button": "Betűtípus módosítása",
+    "save-button": "Mentés",
+    "cancel-button": "Mégse",
+    "saved-toast": "{theme} sikeresen frissítve",
+    "copied-toast": "{theme} témához tartozó adatok a vágólapra másolva",
+    "reset-toast": "A(z) {theme} egyéni színei törölve"
+  },
+  "config-editor": {
+    "save-location-label": "Mentés helye",
+    "location-local-label": "Helyi mentés",
+    "location-disk-label": "Változások mentése a konfigurációs fájlba",
+    "save-button": "Változtatások mentése",
+    "preview-button": "Változtatások előnézete",
+    "valid-label": "A konfiguráció érvényes",
+    "status-success-msg": "Feladat sikeresen befejezve",
+    "status-fail-msg": "A feladat sikertelen volt",
+    "success-msg-disk": "A konfigurációs fájl sikeresen mentve a lemezre",
+    "success-msg-local": "A helyi változtatások sikeresen elmentve",
+    "success-note-l1": "A változtatások érvényesítéséhez frissítened kell az oldalt.",
+    "success-note-l2": "",
+    "success-note-l3": "",
+    "error-msg-save-mode": "Válaszd ki a mentés módját: helyi vagy fájlba mentés",
+    "error-msg-cannot-save": "Hiba történt a konfiguráció mentése közben",
+    "error-msg-bad-json": "Hibás JSON-formátum, valószínűleg rosszul van megadva",
+    "warning-msg-validation": "Érvényesítési figyelmeztetés",
+    "not-admin-note": "Nem írhatsz a lemezre, mert nem rendszergazdaként vagy bejelentkezve"
+  },
+  "app-rebuild": {
+    "title": "Alkalmazás újraépítése",
+    "rebuild-note-l1": "A változtatások érvényesítéséhez már nem szükséges újraépítés.",
+    "rebuild-note-l2": "Bizonyos beállítások (például a belépési pont és a hitelesítés) csak az építés során kerülnek betöltésre, ezért ezekhez újraépítést kell indítani.",
+    "rebuild-note-l3": "Ez a funkció csak Node és Docker telepítéseken érhető el, statikus verziókban nem.",
+    "rebuild-button": "Build indítása",
+    "rebuilding-status-1": "Build folyamatban...",
+    "rebuilding-status-2": "Ez néhány percet igénybe vehet",
+    "error-permission": "Nincs jogosultságod a folyamat elindításához",
+    "success-msg": "Az újraépítés sikeresen befejeződött",
+    "fail-msg": "Az újraépítés sikertelen volt",
+    "reload-note": "A változtatások érvényesítéséhez frissíteni kell az oldalt",
+    "reload-button": "Oldal újratöltése"
+  },
+  "cloud-sync": {
+    "title": "Mentés felhőbe, visszaállítás",
+    "intro-l1": "A mentés felhőbe, visszaállítás egy választható funkció, amellyel feltöltheted a beállításaidat az internetre, majd bármely másik Dashy példányban visszaállíthatod azokat.",
+    "intro-l2": "Minden adat teljes körűen AES titkosítással védett, ahol a jelszavad szolgál kulcsként.",
+    "intro-l3": "További információért lásd a",
+    "intro-docs": "dokumentációt",
+    "backup-title-setup": "Biztonsági mentés készítése",
+    "backup-title-update": "Mentés frissítése",
+    "password-label-setup": "Válassz jelszót",
+    "password-label-update": "Add meg a jelszavad",
+    "backup-button-setup": "Biztonsági mentés",
+    "backup-button-update": "Biztonsági mentés frissítése",
+    "backup-id-label": "Biztonsági mentés azonosítója",
+    "backup-id-note": "Ezt az azonosítót a későbbi visszaállításhoz használhatod, ezért őrizd meg biztonságos helyen a jelszavaddal együtt.",
+    "restore-title": "Biztonsági mentés visszaállítása",
+    "restore-id-label": "Visszaállítási azonosító",
+    "restore-password-label": "Jelszó",
+    "restore-button": "Visszaállítás",
+    "backup-missing-password": "Hiányzó jelszó",
+    "backup-error-unknown": "A kérés feldolgozása nem sikerült",
+    "backup-error-password": "Hibás jelszó. Kérlek, add meg a helyes jelszót.",
+    "backup-success-msg": "Sikeresen befejezve",
+    "restore-success-msg": "A beállítások sikeresen visszaállítva"
+  },
+  "menu": {
+    "open-section-title": "Megnyitás itt",
+    "sametab": "Jelenlegi fülön",
+    "newtab": "Új fülön",
+    "modal": "Felugró ablakban",
+    "workspace": "Munkaterület nézet",
+    "options-section-title": "Beállítások",
+    "edit-item": "Szerkesztés",
+    "move-item": "Másolás vagy áthelyezés",
+    "remove-item": "Eltávolítás"
+  },
+  "context-menus": {
+    "item": {
+      "open-section-title": "Megnyitás itt",
+      "sametab": "Jelenlegi fülön",
+      "newtab": "Új fülön",
+      "modal": "Felugró ablakban",
+      "workspace": "Munkaterület nézet",
+      "clipboard": "Másolás vágólapra",
+      "options-section-title": "Beállítások",
+      "edit-item": "Szerkesztés",
+      "move-item": "Másolás vagy áthelyezés",
+      "remove-item": "Eltávolítás",
+      "copied-toast": "Az URL a vágólapra másolva"
+    },
+    "section": {
+      "open-section": "Szakasz megnyitása",
+      "edit-section": "Szerkesztés",
+      "expand-collapse": "Kinyitás / Összecsukás",
+      "move-section": "Áthelyezés ide",
+      "remove-section": "Eltávolítás"
+    }
+  },
+  "footer": {
+    "dev-by": "Fejlesztette",
+    "licensed-under": "Licenc típusa:",
+    "get-the": "Nézd meg a",
+    "source-code": "forráskódot"
+  },
+  "interactive-editor": {
+    "menu": {
+      "start-editing-tooltip": "Belépés az interaktív szerkesztőbe",
+      "edit-site-data-subheading": "Oldaladatok szerkesztése",
+      "edit-page-info-btn": "Oldalinformációk szerkesztése",
+      "edit-page-info-tooltip": "Alkalmazás címe, leírása, menülinkek, lábléc szöveg stb.",
+      "edit-app-config-btn": "Alkalmazás beállításainak szerkesztése",
+      "edit-app-config-tooltip": "Az alkalmazás összes további beállítási lehetősége",
+      "edit-pages-btn": "Oldalak szerkesztése",
+      "edit-pages-tooltip": "További nézetek hozzáadása vagy eltávolítása",
+      "config-save-methods-subheading": "Mentési beállítások",
+      "save-locally-btn": "Mentés helyileg",
+      "save-locally-tooltip": "A konfiguráció helyi mentése a böngészőben. Ez nem módosítja a konfigurációs fájlt, és csak ezen az eszközön marad meg.",
+      "save-disk-btn": "Mentés lemezre",
+      "save-disk-tooltip": "A konfiguráció mentése a conf.yml fájlba. Biztonsági mentést készít, majd felülírja a meglévő beállításokat.",
+      "export-config-btn": "Beállítások exportálása",
+      "export-config-tooltip": "A beállítások megtekintése és exportálása fájlba vagy vágólapra",
+      "cloud-backup-btn": "Mentés felhőbe",
+      "cloud-backup-tooltip": "Titkosított konfigurációs mentés feltöltése a felhőbe",
+      "edit-raw-config-btn": "Nyers konfiguráció szerkesztése",
+      "edit-raw-config-tooltip": "A nyers konfiguráció megtekintése és módosítása JSON szerkesztőben",
+      "cancel-changes-btn": "Szerkesztés megszakítása",
+      "cancel-changes-tooltip": "A jelenlegi módosítások visszaállítása és a szerkesztési mód bezárása. A mentett beállításokat nem érinti.",
+      "edit-mode-name": "Szerkesztési mód",
+      "edit-mode-subtitle": "Jelenleg szerkesztési módban vagy",
+      "edit-mode-description": "Ez azt jelenti, hogy módosíthatod a beállításokat és megtekintheted az eredményt, de a változtatások nem lesznek automatikusan mentve, amíg kézzel el nem mented azokat.",
+      "save-stage-btn": "Mentés",
+      "cancel-stage-btn": "Mégse",
+      "save-locally-warning": "Ha folytatod, a változtatások csak a böngészőben kerülnek mentésre. Javasolt egy másolat exportálása más eszközök használatához. Szeretnéd folytatni?"
+    },
+    "edit-item": {
+      "missing-title-err": "Hiányzó elemcím"
+    },
+    "edit-section": {
+      "edit-section-title": "Szakasz szerkesztése",
+      "add-section-title": "Új szakasz hozzáadása",
+      "edit-tooltip": "Kattints a szerkesztéshez, vagy jobb klikk a további lehetőségekért",
+      "remove-confirm": "Biztosan törölni szeretnéd ezt a szakaszt? Ez a művelet később nem vonható vissza."
+    },
+    "edit-app-config": {
+      "warning-msg-title": "Csak óvatosan!",
+      "warning-msg-l1": "A következő beállítások haladó konfigurációhoz valók.",
+      "warning-msg-l2": "Ha nem vagy biztos benne, hogy melyik mező mire való, olvass utána a",
+      "warning-msg-docs": "dokumentációban,",
+      "warning-msg-l3": "hogy elkerüld a nem kívánt következményeket."
+    },
+    "export": {
+      "export-title": "Konfiguráció exportálása",
+      "copy-clipboard-btn": "Másolás vágólapra",
+      "copy-clipboard-tooltip": "Az összes beállítás másolása a vágólapra YAML formátumban",
+      "download-file-btn": "Letöltés fájlként",
+      "download-file-tooltip": "Az összes beállítás letöltése YAML fájlként az eszközre",
+      "view-title": "Beállítások megtekintése"
+    }
+  },
+  "critical-error": {
+    "title": "Konfigurációs betöltési hiba",
+    "subtitle": "A Dashy nem tudott megfelelően betöltődni a konfigurációs hiba miatt.",
+    "sub-ensure-that": "Győződj meg róla, hogy",
+    "sub-error-details": "Hiba részletei",
+    "sub-next-steps": "Következő lépések",
+    "ignore-button": "Kritikus hibák figyelmen kívül hagyása"
+  },
+  "widgets": {
+    "general": {
+      "loading": "Betöltés",
+      "show-more": "Részletek megjelenítése",
+      "cpu-details": "CPU adatai",
+      "mem-details": "Mamória adatai",
+      "show-less": "Kevesebb megjelenítése",
+      "open-link": "Tovább olvasás"
+    },
+    "pi-hole": {
+      "status-heading": "Állapot"
+    },
+    "stat-ping": {
+      "up": "Online",
+      "down": "Offline"
+    },
+    "net-data": {
+      "cpu-chart-title": "CPU-használat",
+      "mem-chart-title": "Memóriahasználat",
+      "mem-breakdown-title": "Memória-összeomlás",
+      "load-chart-title": "Rendszerterhelés"
+    },
+    "glances": {
+      "disk-space-free": "Szabad",
+      "disk-space-used": "Foglalt",
+      "disk-mount-point": "Csatolás helye",
+      "disk-file-system": "Fájlrendszer",
+      "disk-io-read": "Olvasás",
+      "disk-io-write": "Írás",
+      "system-load-desc": "A futási sorban várakozó folyamatok száma, az összes mag átlaga"
+    },
+    "system-info": {
+      "uptime": "Rendszer futási ideje"
+    },
+    "flight-data": {
+      "arrivals": "Érkezések",
+      "departures": "Indulások"
+    },
+    "tfl-status": {
+      "good-service-all": "Minden vonalon zavartalan a közlekedés",
+      "good-service-rest": "Minden más vonalon zavartalan a közlekedés"
+    },
+    "synology-download": {
+      "download": "Letöltés",
+      "upload": "Feltöltés",
+      "downloaded": "Letöltve",
+      "uploaded": "Feltöltve",
+      "remaining": "Hátralévő",
+      "up": "Feltöltés",
+      "down": "Letöltés"
+    },
+    "gluetun-status": {
+      "vpn-ip": "VPN IP-cím",
+      "country": "Ország",
+      "region": "Vármegye / Régió",
+      "city": "Város",
+      "post-code": "Irányítószám",
+      "location": "Cím / Földrajzi hely",
+      "timezone": "Időzóna",
+      "organization": "Szervezet"
+    }
+  }
+}
