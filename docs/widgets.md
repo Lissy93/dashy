@@ -2784,14 +2784,15 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 
 [Tactical RMM](https://github.com/amidaware/tacticalrmm) is a self-hosted remote monitoring & management tool.
 
-<p align="center"><a href="https://ibb.co/NVHWpD1"><img src="https://pixelflare.cc/alicia/dashy/tactical-rmm" alt="Capture" border="0"></a></p>
+<p align="center"><a href="https://github.com/user-attachments/assets/152a7205-e5de-401f-bad8-19063ddfaf3c">
+    <img src="https://github.com/user-attachments/assets/5921d46f-d84c-494d-8aaf-6b20cc592640" alt="Capture" border="0"></a></p>
 
 
 #### Options
 
 | **Field**    | **Type** | **Required** | **Description**                                                          |
 | ------------ | -------- | ------------ | ------------------------------------------------------------------------ |
-| **`url`**    | `string` | Required     | The status endpoint URL (https://api.example.com/core/status/)           |
+| **`url`**    | `string` | Required     | The status endpoint URL (https://api.example.com/core/v2/status/)           |
 | **`token`**  | `string` | Required     | The MON_TOKEN (see https://docs.tacticalrmm.com/tipsntricks/#monitor-your-trmm-instance-via-the-built-in-monitoring-endpoint). |
 
 #### Example
@@ -2801,7 +2802,7 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
   useProxy: true
   options:
     token: PkPVKMzbmXgeQDlJWb0WXYvsIk3JvZyadURud2cSTdMia6hUbQ
-    url: https://api.example.com/core/status/
+    url: https://api.example.com/core/v2/status/
 ```
 
 #### Info

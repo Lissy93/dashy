@@ -34,6 +34,26 @@
           <div class="title">Cert Expired</div>
           <div class="value">{{ statusData.cert_expired ? 'Yes' : 'No' }}</div>
         </div>
+        <div class="status-item">
+          <div class="title">Celery Queue Length</div>
+          <div class="value">{{ statusData.celery_queue_len }}</div>
+        </div>
+        <div class="status-item">
+          <div class="title">Celery Queue Health</div>
+          <div class="value">{{ statusData.celery_queue_health }}</div>
+        </div>
+        <div class="status-item">
+          <div class="title">NATS STD Ping</div>
+          <div class="value">{{ statusData.nats_std_ping ? 'Healthy' : 'Unhealthy' }}</div>
+        </div>
+        <div class="status-item">
+          <div class="title">NATS WS Ping</div>
+          <div class="value">{{ statusData.nats_ws_ping ? 'Healthy' : 'Unhealthy' }}</div>
+        </div>
+        <div class="status-item">
+          <div class="title">Mesh Ping</div>
+          <div class="value">{{ statusData.mesh_ping ? 'Healthy' : 'Unhealthy' }}</div>
+        </div>
         <div class="status-item services">
           <div class="title">Services Running</div>
           <div class="services-list">
@@ -61,18 +81,10 @@
 </template>
 
 <script>
-import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { serviceEndpoints } from '@/utils/defaults';
 
 export default {
   mixins: [WidgetMixin],
-  props: {
-    options: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
   data() {
     return {
       statusData: null,
@@ -95,12 +107,9 @@ export default {
     },
     authHeaders() {
       return {
+        'X-MON-TOKEN': this.token,
         'Content-Type': 'application/json',
       };
-    },
-    proxyReqEndpoint() {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
   },
   methods: {
@@ -109,36 +118,16 @@ export default {
       this.fetchData();
     },
     fetchData() {
-      const {
-        authHeaders, url, token, proxyReqEndpoint,
-      } = this;
-
+      const { authHeaders, url, token } = this;
       if (!this.optionsValid({ url, token })) {
         return;
       }
-
-      const targetURL = url;
-      const customHeaders = JSON.stringify(authHeaders);
-
-      request.post(
-        proxyReqEndpoint,
-        { auth: token },
-        {
-          headers: {
-            'Target-URL': targetURL,
-            CustomHeaders: customHeaders,
-            'Content-Type': 'application/json',
-          },
-        },
-      )
+      this.makeRequest(url, authHeaders)
         .then((response) => {
-          this.processData(response.data);
+          this.processData(response);
         })
         .catch(() => {
           this.errorMessage = 'Failed to fetch data';
-        })
-        .finally(() => {
-          this.finishLoading();
         });
     },
     processData(response) {
