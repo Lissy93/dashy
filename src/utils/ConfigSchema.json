@@ -610,7 +610,7 @@
                   "title": "User Header",
                   "type": "string",
                   "description": "Header name which contains username",
-                  "default": "REMOTE_USER"
+                  "default": "Remote-User"
                 },
                 "proxyWhitelist": {
                   "title": "Upstream Proxy Auth Trust",

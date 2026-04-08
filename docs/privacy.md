@@ -252,7 +252,7 @@ Native SSL support is enabled, for setup instructions, see the [Management Docs]
 
 ### Authentication
 
-Dashy supports both basic auth, as well as server-based SSO using Keycloak or any OIDC provider. Full details of which, along with alternate authentication methods can be found in the [Authentication Docs](/docs/authentication.md). If your dashboard is exposed to the internet and/ or contains any sensitive info it is strongly recommended to configure access control with Keycloak, OIDC, or another server-side method.
+Dashy supports built-in auth, server-based SSO using Keycloak or any OIDC provider, and header-based authentication for reverse proxy setups. Full details of which, along with alternate authentication methods can be found in the [Authentication Docs](/docs/authentication.md). If your dashboard is exposed to the internet and/ or contains any sensitive info it is strongly recommended to configure access control with Keycloak, OIDC, or another server-side method.
 
 ### Configuration Lockdown
 

@@ -148,7 +148,7 @@ function getBasicAuthMiddleware() {
       unauthorizedResponse: () => 'Unauthorized - Incorrect username or password',
     });
   } else if (authConfig.enableHeaderAuth && authConfig.headerAuth) {
-    const { userHeader = 'REMOTE_USER', proxyWhitelist = [] } = authConfig.headerAuth;
+    const { userHeader = 'Remote-User', proxyWhitelist = [] } = authConfig.headerAuth;
     return (req, res, next) => {
       if (!proxyWhitelist.includes(req.socket.remoteAddress)) {
         return res.status(401).json({ success: false, message: 'Unauthorized - not from trusted proxy' });

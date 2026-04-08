@@ -549,20 +549,20 @@ appConfig:
         hash: 3f8e2b1a9d...
         type: normal
     headerAuth:
-      userHeader: REMOTE_USER
+      userHeader: Remote-User
       proxyWhitelist:
         - 172.18.0.2
         - 127.0.0.1
 ```
 
-- **`userHeader`** - The HTTP header name containing the authenticated username. Defaults to `REMOTE_USER` if not specified.
+- **`userHeader`** - The HTTP header name containing the authenticated username. Defaults to `Remote-User` if not specified. Common values: `Remote-User` (Authelia), `X-authentik-username` (Authentik), or whatever your proxy forwards. Header matching is case-insensitive.
 - **`proxyWhitelist`** - Required. An array of IP addresses that Dashy will accept the header from. Only requests originating from these IPs will be trusted. This prevents clients from spoofing the header directly.
 - **`users`** - Required. The header username is matched against this list to determine the user's role (`admin` or `normal`) and to generate the session token. Users must be defined here even though authentication is handled externally.
 
 ### How it Works
 
 1. User visits Dashy, which is behind a reverse proxy (e.g. Authelia)
-2. The proxy authenticates the user and forwards the request with a header like `REMOTE_USER: alice`
+2. The proxy authenticates the user and forwards the request with a header like `Remote-User: alice`
 3. Dashy's server checks that the request comes from a whitelisted proxy IP, then returns the username via the `/get-user` endpoint
 4. The client matches the username against the configured users, generates a session token, and sets the auth cookie
 5. From this point, standard Dashy auth applies - `isLoggedIn()`, admin checks, and granular access controls all work as normal
@@ -571,7 +571,7 @@ appConfig:
 
 - The `proxyWhitelist` checks `req.socket.remoteAddress`, which is the direct connection source. If your proxy connects through Docker networking, use the container's internal IP (e.g. `172.18.0.2`), not the external IP
 - Logout clears Dashy's session cookie, but the user remains authenticated at the proxy level. Revisiting the page will re-authenticate automatically
-- Server-side endpoint protection (`ENABLE_HTTP_AUTH`) is separate from header auth. If you need both the proxy-based login flow and server-side API protection, configure both
+- When header auth is enabled, server-side API endpoints are also protected by the proxy whitelist. Requests not from a whitelisted IP will be rejected. Admin enforcement applies - only users with `type: admin` can access write endpoints (config save, rebuild)
 
 ---
 
