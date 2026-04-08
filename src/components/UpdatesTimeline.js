@@ -99,22 +99,57 @@ function normalizeTag(tag, date) {
   };
 }
 
+const MERGE_PR_RE = /^[\s\S]{0,5}?Merge pull request #\d+ from ([^/]+)\//;
+const OWNER = 'lissy93';
+
 function normalizeCommit(c) {
   const message = c.commit?.message || '';
   const title = message.split('\n')[0];
   const emoji = getEmoji(title);
+
+  let author = c.author?.login || c.commit?.author?.name;
+  let avatarUrl = c.author?.avatar_url;
+
+  // For merge commits by the repo owner, credit the PR author instead
+  const prMatch = title.match(MERGE_PR_RE);
+  if (prMatch && (!author || author.toLowerCase() === OWNER)) {
+    author = prMatch[1];
+    avatarUrl = `https://github.com/${author}.png`;
+  }
+
   return {
     type: 'commit',
     date: new Date(c.commit?.author?.date || c.commit?.committer?.date),
     title: emoji ? `${emoji} ${title}` : title,
     url: c.html_url,
-    author: c.author?.login || c.commit?.author?.name,
-    avatarUrl: c.author?.avatar_url,
+    author,
+    avatarUrl,
     sha: c.sha?.slice(0, 7),
   };
 }
 
-function TimelineEntry({ entry }) {
+function buildReleaseContributors(releases, commits, owner = 'lissy93') {
+  if (!releases.length || !commits.length) return {};
+  const sorted = [...releases].sort((a, b) => a.date - b.date);
+  const map = {};
+  for (let i = 0; i < sorted.length; i++) {
+    const from = i > 0 ? sorted[i - 1].date : new Date(0);
+    // For the latest release, also include commits after it (upcoming work)
+    const to = i === sorted.length - 1 ? new Date(8.64e15) : sorted[i].date;
+    const seen = new Set();
+    const contributors = [];
+    for (const c of commits) {
+      if (c.date > from && c.date <= to && c.author && c.author.toLowerCase() !== owner && !seen.has(c.author)) {
+        seen.add(c.author);
+        contributors.push({ login: c.author, avatarUrl: c.avatarUrl });
+      }
+    }
+    map[sorted[i].tagName] = contributors;
+  }
+  return map;
+}
+
+function TimelineEntry({ entry, contributors }) {
   if (entry.type === 'release') {
     return (
       <div
@@ -129,6 +164,15 @@ function TimelineEntry({ entry }) {
             {entry.tagName && <span className={styles.tagPill}>{entry.tagName}</span>}
           </div>
           {entry.body && <p className={styles.bodyPreview}>{entry.body}</p>}
+          {contributors && contributors.length > 0 && (
+            <div className={styles.contributors}>
+              {contributors.map(c => (
+                <a key={c.login} href={`https://github.com/${c.login}`} target="_blank" rel="noopener noreferrer" title={c.login} className={styles.contributorAvatar}>
+                  <img src={c.avatarUrl} alt={c.login} loading="lazy" />
+                </a>
+              ))}
+            </div>
+          )}
           <div className={styles.meta}>
             {entry.avatarUrl && (
               <span className={styles.authorInfo}>
@@ -209,14 +253,11 @@ function TimelineEntry({ entry }) {
       role="article"
       aria-label={`Commit: ${entry.title}`}
     >
-      <a
-        href={entry.url}
-        className={styles.commitRow}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <span className={styles.sha}>{entry.sha}</span>
-        <span className={styles.commitMsg}>{entry.title}</span>
+      <div className={styles.commitRow}>
+        <a href={entry.url} target="_blank" rel="noopener noreferrer" className={styles.commitLink}>
+          <span className={styles.sha}>{entry.sha}</span>
+          <span className={styles.commitMsg}>{entry.title}</span>
+        </a>
         <span className={styles.commitMeta}>
           <a href={`https://github.com/${entry.author}`} target="_blank" rel="noopener noreferrer" className={styles.authorLink}>
             {entry.avatarUrl && (
@@ -232,7 +273,7 @@ function TimelineEntry({ entry }) {
           {entry.author && ' · '}
           <time dateTime={entry.date.toISOString()}>{relativeDate(entry.date)}</time>
         </span>
-      </a>
+      </div>
     </div>
   );
 }
@@ -410,6 +451,11 @@ export default function UpdatesTimeline() {
     setLoadingMore(false);
   }, [commitPage, fetchJson]);
 
+  const releaseContributors = useMemo(
+    () => buildReleaseContributors(releases, commits),
+    [releases, commits],
+  );
+
   const grouped = useMemo(() => {
     const all = [...releases, ...tags, ...commits]
       .filter(e => e.date instanceof Date && !isNaN(e.date))
@@ -464,7 +510,11 @@ export default function UpdatesTimeline() {
           <div key={group.key}>
             <h2 className={styles.monthHeader}>{group.label}</h2>
             {group.entries.map((entry, i) => (
-              <TimelineEntry key={`${entry.type}-${entry.sha || entry.tagName || ''}-${i}`} entry={entry} />
+              <TimelineEntry
+                key={`${entry.type}-${entry.sha || entry.tagName || ''}-${i}`}
+                entry={entry}
+                contributors={entry.type === 'release' ? releaseContributors[entry.tagName] : undefined}
+              />
             ))}
           </div>
         ))}

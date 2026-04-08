@@ -142,12 +142,23 @@
   gap: 0.75rem;
   padding: 0.5rem 0;
   border-bottom: 1px solid rgba(128, 128, 128, 0.15);
-  text-decoration: none;
   color: var(--text-color);
   transition: background 0.15s;
 
   &:hover {
     background: var(--background);
+  }
+}
+
+.commitLink {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--text-color);
+  overflow: hidden;
+
+  &:hover {
     text-decoration: none;
     color: var(--text-color);
   }
@@ -274,6 +285,33 @@
   display: flex;
   align-items: center;
   gap: 0.3rem;
+}
+
+.contributors {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.contributorAvatar {
+  display: block;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+
+  img {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    vertical-align: middle;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.15);
+  }
 }
 
 .viewOnLabel {}

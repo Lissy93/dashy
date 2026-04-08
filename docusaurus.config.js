@@ -1,10 +1,11 @@
 const { themes } = require('prism-react-renderer');
 const darkCodeTheme = themes.dracula;
 const lightCodeTheme = themes.github;
+const remarkGithubAlerts = require('./plugins/remark-github-alerts');
 
 /* External URLs */
 const externalUrl = {
-  editUrl: 'https://github.com/Lissy93/dashy/edit/gh-pages/docs/',
+  editUrl: 'https://github.com/Lissy93/dashy/edit/master/docs/',
   licenseUrl: 'https://github.com/Lissy93/dashy/blob/master/LICENSE',
   aliciaUrl: 'https://aliciasykes.com',
   dashyUrl: 'https://dashy.to',
@@ -126,7 +127,7 @@ module.exports = {
         { label: 'Live Demo', href: 'https://demo.dashy.to' },
         { label: 'Quick Start', to: '/docs/quick-start' },
         { label: 'Documentation', to: '/docs' },
-        // { label: 'Updates', to: '/updates' },
+        { label: 'Changelog', to: '/updates' },
       ],
     },
     // Page Footer Links
@@ -202,6 +203,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: externalUrl.editUrl,
           showLastUpdateTime: true,
+          beforeDefaultRemarkPlugins: [remarkGithubAlerts],
         },
         sitemap: {
           changefreq: 'weekly',

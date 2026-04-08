@@ -74,6 +74,13 @@ nav.navbar {
   .navbar__link:hover {
     color: var(--primary);
   }
+
+  @media (min-width: 997px) and (max-width: 1200px) {
+    .navbar__item.navbar__link {
+      font-size: 1rem;
+      svg { display: none; }
+    }
+  }
 }
 
 html {

@@ -165,14 +165,20 @@ module.exports = function githubDataPlugin(context) {
           }
         }
 
-        data.commits = allRawCommits.map(c => ({
-          sha: c.sha,
-          message: (c.commit?.message || '').split('\n')[0],
-          date: c.commit?.author?.date || c.commit?.committer?.date,
-          author_login: c.author?.login || c.commit?.author?.name,
-          author_avatar: c.author?.avatar_url,
-          html_url: c.html_url,
-        }));
+        data.commits = allRawCommits.map(c => {
+          const msg = (c.commit?.message || '').split('\n')[0];
+          const prMatch = msg.match(/[\s\S]{0,5}?Merge pull request #\d+ from ([^/]+)\//);
+          const apiAuthor = c.author?.login || c.commit?.author?.name;
+          const isPrMergeByOwner = prMatch && (!apiAuthor || apiAuthor.toLowerCase() === 'lissy93');
+          return {
+            sha: c.sha,
+            message: msg,
+            date: c.commit?.author?.date || c.commit?.committer?.date,
+            author_login: isPrMergeByOwner ? prMatch[1] : apiAuthor,
+            author_avatar: isPrMergeByOwner ? `https://github.com/${prMatch[1]}.png` : c.author?.avatar_url,
+            html_url: c.html_url,
+          };
+        });
       }
 
       // Contributors — trim to what Authors component needs
