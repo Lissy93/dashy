@@ -193,8 +193,8 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
-**`userHeader`** | `string` | _Optional_ | The Header name which contains username (default: REMOTE_USER). Case insensitive
-**`proxyWhitelist`** | `array` | Required | An array of Upstream proxy servers to expect authencticated requests from
+**`userHeader`** | `string` | _Optional_ | The HTTP header name containing the authenticated username (default: `Remote-User`). Case insensitive
+**`proxyWhitelist`** | `array` | Required | An array of upstream proxy server IPs to accept authenticated requests from
 
 ****[⬆️ Back to Top](#)****
 
