@@ -1,0 +1,116 @@
+name: 🔍 PR Quality Check
+
+on:
+  pull_request:
+    branches: ['master', 'develop']
+    paths-ignore:
+      - '**.md'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: 📝 Lint Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout Code
+        uses: actions/checkout@v6
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: 📦 Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🔍 Run ESLint
+        run: yarn lint
+
+  test:
+    name: 🧪 Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout Code
+        uses: actions/checkout@v6
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: 📦 Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🧪 Run Tests
+        run: yarn test
+
+  build:
+    name: 🏗️ Build Application
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout Code
+        uses: actions/checkout@v6
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: 📦 Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🏗️ Build Project
+        run: yarn build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+
+      - name: ✅ Verify Build Output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "❌ Build failed: dist directory not created"
+            exit 1
+          fi
+          if [ ! -f "dist/index.html" ]; then
+            echo "❌ Build failed: index.html not found"
+            exit 1
+          fi
+          echo "✅ Build successful"
+
+  docker-smoke:
+    name: 🐳 Docker Smoke Test
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: 🛎️ Checkout Code
+        uses: actions/checkout@v6
+
+      - name: 🐳 Build & Test Docker Image
+        run: sh tests/docker-smoke-test.sh
+        timeout-minutes: 10
+
+  # TODO: Re-enable security audit job
+  # security:
+  #   name: 🔒 Security Audit
+  #   runs-on: ubuntu-latest
+  #   continue-on-error: true
+  #   steps:
+  #     - name: 🛎️ Checkout Code
+  #       uses: actions/checkout@v6
+  #
+  #     - name: 🔧 Setup Node.js
+  #       uses: actions/setup-node@v6
+  #       with:
+  #         node-version: '20'
+  #         cache: 'yarn'
+  #
+  #     - name: 📦 Install Dependencies
+  #       run: yarn install --frozen-lockfile
+  #
+  #     - name: 🔒 Run Security Audit
+  #       run: yarn audit --level high

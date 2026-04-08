@@ -56,8 +56,10 @@ export default {
       return this.options.numDays || 6;
     },
     endpoint() {
-      const { apiKey, city } = this.options;
-      const params = `?q=${city}&cnt=${this.numDays}&units=${this.units}&appid=${apiKey}`;
+      const apiKey = this.parseAsEnvVar(this.options.apiKey);
+      const { city } = this.options;
+      const cnt = this.numDays * 8; // API returns 3-hourly entries; request enough to cover numDays
+      const params = `?q=${city}&cnt=${cnt}&units=${this.units}&appid=${apiKey}`;
       return `${widgetApiEndpoints.weatherForecast}${params}`;
     },
     tempDisplayUnits() {
@@ -89,13 +91,17 @@ export default {
     fetchData() {
       this.makeRequest(this.endpoint).then(this.processData);
     },
-    /* Process the results from the Axios request */
+    /* Process the results from the Axios request, deduplicating by date */
     processData(dataList) {
+      const seenDates = {};
       const uiWeatherData = [];
-      dataList.list.forEach((day, index) => {
+      dataList.list.forEach((day) => {
+        const date = this.dateFromStamp(day.dt);
+        if (seenDates[date] || uiWeatherData.length >= this.numDays) return;
+        seenDates[date] = true;
         uiWeatherData.push({
-          index,
-          date: this.dateFromStamp(day.dt),
+          index: uiWeatherData.length,
+          date,
           icon: day.weather[0].icon,
           main: day.weather[0].main,
           description: day.weather[0].description,

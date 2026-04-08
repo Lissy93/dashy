@@ -70,8 +70,10 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Sabnzbd](#sabnzbd)
   - [Gluetun VPN Info](#gluetun-vpn-info)
   - [Drone CI Build](#drone-ci-builds)
+  - [Filebrowser](#filebrowser)
   - [Linkding](#linkding)
   - [Uptime Kuma](#uptime-kuma)
+  - [Uptime Kuma Status Page](#uptime-kuma-status-page)
   - [Tactical RMM](#tactical-rmm)
 - **[System Resource Monitoring](#system-resource-monitoring)**
   - [CPU Usage Current](#current-cpu-usage)
@@ -88,6 +90,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
   - [Resource Usage Alerts](#resource-usage-alerts)
   - [Public & Private IP](#ip-address)
   - [CPU Temperature](#cpu-temp)
+  - [Compact Metrics](#compact-metrics)
 - **[Dynamic Widgets](#dynamic-widgets)**
   - [Iframe Widget](#iframe-widget)
   - [HTML Embed Widget](#html-embedded-widget)
@@ -116,7 +119,7 @@ Dashy has support for displaying dynamic content in the form of widgets. There a
 
 A simple, live-updating time and date widget with time-zone support. All fields are optional.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/clock.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/clock" /></p>
 
 #### Options
 
@@ -149,7 +152,7 @@ _No external data requests._
 
 A simple, live-updating local weather component, showing temperature, conditions and more info.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/weather.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/weather" /></p>
 
 #### Options
 
@@ -186,7 +189,7 @@ A simple, live-updating local weather component, showing temperature, conditions
 
 Displays the weather (temperature and conditions) for the next few days for a given location. Note that this requires either the free [OpenWeatherMap Student Plan](https://home.openweathermap.org/students), or the Premium Plan.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/weather-forecast.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/weather-forecast" /></p>
 
 #### Options
 
@@ -222,7 +225,7 @@ Displays the weather (temperature and conditions) for the next few days for a gi
 
 Display news and updates from any RSS-enabled service.
 
-<p align="center"><img width="600" src="https://storage.googleapis.com/as93-screenshots/dashy/rss.png" /></p>
+<p align="center"><img width="600" src="https://pixelflare.cc/alicia/dashy/rss" /></p>
 
 #### Options
 
@@ -267,7 +270,7 @@ If you'd like to embed a live screenshot, of all or just part of a website, then
 
 Or what about showing a photo of the day? Try `https://source.unsplash.com/random/400x300` or `https://picsum.photos/400/300`
 
-<p align="center"><img width="300" src="https://storage.googleapis.com/as93-screenshots/dashy/image.png" /></p>
+<p align="center"><img width="300" src="https://pixelflare.cc/alicia/dashy/image" /></p>
 
 #### Options
 
@@ -295,7 +298,7 @@ Unless image fetched from remote source, no external data request is made.
 
 Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data can be fetched from either [IpApi.co](https://ipapi.co/), [IP-API.com](https://ip-api.com/), [IpGeolocation.io](https://ipgeolocation.io/) or [IP2Location.io](https://ip2location.io/).
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/public-ip.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/public-ip" /></p>
 
 #### Options
 
@@ -335,7 +338,7 @@ Or
 
 Notice certain web pages aren't loading? This widget quickly shows which blacklists your IP address (or host, or email) appears on, using data from [blacklistchecker.com](https://blacklistchecker.com/).
 
-<p align="center"><img width="600" src="https://storage.googleapis.com/as93-screenshots/dashy/ip-blacklist.png" /></p>
+<p align="center"><img width="600" src="https://pixelflare.cc/alicia/dashy/ip-blacklist" /></p>
 
 #### Options
 
@@ -367,7 +370,7 @@ Notice certain web pages aren't loading? This widget quickly shows which blackli
 
 Keep an eye on the expiry dates of your domain names, using public whois records fetched from [whoapi.com](https://whoapi.com/). Click the domain name to view additional info, like registrar, name servers and date last updated.
 
-<p align="center"><img width="600" src="https://storage.googleapis.com/as93-screenshots/dashy/domain-monitor.png" /></p>
+<p align="center"><img width="600" src="https://pixelflare.cc/alicia/dashy/domain-monitor" /></p>
 
 #### Options
 
@@ -405,7 +408,7 @@ Keep an eye on the expiry dates of your domain names, using public whois records
 
 Keep track of price changes of your favorite crypto assets. Data is fetched from [CoinGecko](https://www.coingecko.com/). All fields are optional.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/crypto-prices.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/crypto-prices" /></p>
 
 #### Options
 
@@ -453,7 +456,7 @@ Or
 
 Shows recent price history for a given crypto asset, using price data fetched from [CoinGecko](https://www.coingecko.com/)
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/crypto-price-history.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/crypto-price-history" /></p>
 
 #### Options
 
@@ -488,7 +491,7 @@ Shows recent price history for a given crypto asset, using price data fetched fr
 
 Keep track of your crypto balances and see recent transactions. Data is fetched from [BlockCypher](https://www.blockcypher.com/dev/)
 
-<p align="center"><img width="600" src="https://storage.googleapis.com/as93-screenshots/dashy/crypto-wallet.png" /></p>
+<p align="center"><img width="600" src="https://pixelflare.cc/alicia/dashy/crypto-wallet" /></p>
 
 #### Options
 
@@ -521,7 +524,7 @@ Keep track of your crypto balances and see recent transactions. Data is fetched 
 
 Display your coding summary. [Code::Stats](https://codestats.net/) is a free and open source app that aggregates statistics about your programming activity. Dashy supports both the public instance, as well as self-hosted versions.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/code-stats.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/code-stats" /></p>
 
 #### Options
 
@@ -557,7 +560,7 @@ Display your coding summary. [Code::Stats](https://codestats.net/) is a free and
 
 Shows your Mullvad VPN connection status, as well as server info. Fetched from [am.i.mullvad.net](https://mullvad.net/en/check/)
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/mullvad.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/mullvad" /></p>
 
 #### Options
 
@@ -585,7 +588,7 @@ _No Options._
 
 This widget display email addresses / aliases from addy.io. Click an email address to copy to clipboard, or use the toggle switch to enable/ disable it. Shows usage stats (bandwidth, used aliases etc), as well as total messages received, blocked and sent. Works with both self-hosted and managed instances of addy.io.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/addy.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/addy" /></p>
 
 #### Options
 
@@ -628,18 +631,21 @@ This widget display email addresses / aliases from addy.io. Click an email addre
 
 Keep track of recent security advisories and vulnerabilities, with optional filtering by score, exploits, vendor and product. All fields are optional.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/cve.png" /></p>
+Sources from: https://services.nvd.nist.gov/rest/json/cves/2.0
+Docs: https://nvd.nist.gov/developers/vulnerabilities
+
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/cve" /></p>
 
 #### Options
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`sortBy`** | `string` |  _Optional_ | The sorting method. Can be either `publish-date`, `last-update` or `cve-code`. Defaults to `publish-date`
-**`limit`** | `number` |  _Optional_ | The number of results to fetch. Can be between `5` and `30`, defaults to `10`
-**`minScore`** | `number` |  _Optional_ | If set, will only display results with a CVE score higher than the number specified. Can be a number between `0` and `9.9`. By default, vulnerabilities of all CVE scores are shown
-**`hasExploit`** | `boolean` |  _Optional_ | If set to `true`, will only show results with active exploits. Defaults to `false`
-**`vendorId`** | `number` |  _Optional_ | Only show results from a specific vendor, specified by ID. See [Vendor Search](https://www.cvedetails.com/vendor-search.php) for list of vendors. E.g. `23` (Debian), `26` (Microsoft), `23682` (CloudFlare)
-**`productId`** | `number` |  _Optional_ | Only show results from a specific app or product, specified by ID. See [Product Search](https://www.cvedetails.com/product-search.php) for list of products. E.g. `28125` (Docker), `34622` (NextCloud), `50211` (Portainer), `95391` (ProtonMail)
+**`cveTag`** | `string` |  _Optional_ | This parameter returns only the CVE records that include the provided cveTag. Options are **disputed**, **unsupported-when-assigned** or **exclusively-hosted-service**
+**`limit`** | `number` |  _Optional_ | The number of results to fetch. Can be between `5` and `30`, defaults to `5`
+**`cvssV2Severity`** | `string` |  _Optional_ | This parameter returns only the CVEs that match the provided CVSSv2 qualitative severity rating. Options are **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**
+**`cvssV3Severity`** | `string` |  _Optional_ | This parameter returns only the CVEs that match the provided CVSSv3 qualitative severity rating. Options are **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**
+**`cvssV4Severity`** | `string` |  _Optional_ | This parameter returns only the CVEs that match the provided CVSSv4 qualitative severity rating. Options are **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**
+**`keywordSearch`** | `string` |  _Optional_ | This parameter returns only the CVEs where a word or phrase is found in the current description
 
 #### Example
 
@@ -652,10 +658,8 @@ or
 ```yaml
 - type: cve-vulnerabilities
   options:
-    sortBy: publish-date
-    productId: 28125
-    hasExploit: false
-    minScore: 5
+    cveTag: disputed
+    cvssV2Severity: CRITICAL
     limit: 30
 ```
 
@@ -673,7 +677,7 @@ or
 
 Display current FX rates in your native currency. Hover over a row to view more info, or click to show rates in that currency.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/currencies.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/currencies" /></p>
 
 #### Options
 
@@ -713,7 +717,7 @@ Counting down to the next day off work? This widget displays upcoming public hol
 
 Note, config for this widget is case-sensitive (see [#1268](https://github.com/Lissy93/dashy/issues/1268))
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/holidays.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/holidays" /></p>
 
 #### Options
 
@@ -731,7 +735,7 @@ Note, config for this widget is case-sensitive (see [#1268](https://github.com/L
 - type: public-holidays
   options:
     country: GB
-    region: LND
+    state: LND
     holidayType: all
     monthsToShow: 12
     lang: en
@@ -751,7 +755,7 @@ Note, config for this widget is case-sensitive (see [#1268](https://github.com/L
 
 Keep track of the current COVID-19 status. Optionally also show cases by country, and a time-series chart. Uses live data from various sources, computed by [disease.sh](https://disease.sh/)
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/covid.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/covid" /></p>
 
 #### Options
 
@@ -798,7 +802,7 @@ Or
 
 Show recent scores and upcoming matches from your favorite sports team. Data is fetched from [TheSportsDB.com](https://www.thesportsdb.com/). From the UI, you can click any other team to view their scores and upcoming games, or click a league name to see all teams.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/sports.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/sports" /></p>
 
 #### Options
 
@@ -833,7 +837,7 @@ Show recent scores and upcoming matches from your favorite sports team. Data is 
 
 Displays the latest news, click to read full article. Date is fetched from various news sources using [Currents API](https://currentsapi.services/en)
 
-<p align="center"><img width="380" src="https://storage.googleapis.com/as93-screenshots/dashy/news.png" /></p>
+<p align="center"><img width="380" src="https://pixelflare.cc/alicia/dashy/news" /></p>
 
 #### Options
 
@@ -870,7 +874,7 @@ Displays the latest news, click to read full article. Date is fetched from vario
 
 Shows real-time tube status of the London Underground. All fields are optional.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/tfl.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/tfl" /></p>
 
 #### Options
 
@@ -911,7 +915,7 @@ Shows real-time tube status of the London Underground. All fields are optional.
 
 Shows recent price history for a given publicly-traded stock or share
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/stocks.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/stocks" /></p>
 
 #### Options
 
@@ -946,7 +950,7 @@ Shows recent price history for a given publicly-traded stock or share
 
 Renders the current Gas cost of transactions on the Ethereum network (in both GWEI and USD), along with recent historical prices. Useful for spotting a good time to transact. Uses data from [ethgas.watch](https://ethgas.watch/)
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/eth-gas.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/eth-gas" /></p>
 
 #### Options
 
@@ -972,7 +976,7 @@ _No config options._
 
 Renders a programming or generic joke. Data is fetched from the [JokesAPI](https://github.com/Sv443/JokeAPI) by @Sv443. All fields are optional.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/joke.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/joke" /></p>
 
 #### Options
 
@@ -1036,7 +1040,7 @@ Renders a Chuck Norris quote. Data is fetched from the [ChuckNorrisAPI](https://
 
 Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webcomic website covering everything from Linux, math, romance, science and language. All fields are optional.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/xkcd.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/xkcd" /></p>
 
 #### Options
 
@@ -1065,7 +1069,7 @@ Have a laugh with the daily comic from [XKCD](https://xkcd.com/). A classic webc
 
 Displays airport departure and arrival flights, using data from [AeroDataBox](https://www.aerodatabox.com/). Useful if you live near an airport and often wonder where the flight overhead is going to. Hover over a row for more flight data.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/flights.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/flights" /></p>
 
 #### Options
 
@@ -1127,7 +1131,7 @@ _No config options._
 
 Displays currently trending projects on GitHub. Optionally specify a language and time-frame. Data is fetched from [Lissy93/gh-trending-no-cors](https://github.com/Lissy93/gh-trending-no-cors) using the GitHub API. All fields are optional.
 
-<p align="center"><img width="380" src="https://storage.googleapis.com/as93-screenshots/dashy/github-trending.png" /></p>
+<p align="center"><img width="380" src="https://pixelflare.cc/alicia/dashy/github-trending" /></p>
 
 #### Options
 
@@ -1160,7 +1164,7 @@ Displays currently trending projects on GitHub. Optionally specify a language an
 
 Display stats from your GitHub profile, using embedded cards from [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats)
 
-<p align="center"><img width="380" src="https://storage.googleapis.com/as93-screenshots/dashy/github-stats.png" /></p>
+<p align="center"><img width="380" src="https://pixelflare.cc/alicia/dashy/github-stats" /></p>
 
 #### Options
 
@@ -1198,7 +1202,7 @@ Display stats from your GitHub profile, using embedded cards from [anuraghazra/g
 
 Display status of one or more HealthChecks project(s). Works with healthchecks.io and your selfhosted instance.
 
-<p align="center"><img width="380" src="https://storage.googleapis.com/as93-screenshots/dashy/healthchecks.png" /></p>
+<p align="center"><img width="380" src="https://pixelflare.cc/alicia/dashy/healthchecks" /></p>
 
 #### Options
 
@@ -1491,6 +1495,7 @@ Allows web search using multiple user-defined search engines and other websites.
 --- | --- | --- | ---
 **`engines`** | `array` |  required | An array of search engine objects. Each search engine object should have two required properties: **title** and **url**. See the example below.
 **`placeholder`** | `string` |  optional | Placeholder text in the search box.
+**`openingMethod`** | `string` |  optional | Open search in one of `newtab`, `sametab` or `workspace`.
 
 #### Notes
 - The first search engine in the engines array will be treated as the default search engine, and used when the user presses `Enter` in the search box.
@@ -1535,7 +1540,7 @@ This widget allows searching multiple search engines from dashy.
 
 Show an overview of how you have spent your time for the current day.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/rescue-time.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/rescue-time" /></p>
 
 #### Options
 
@@ -1609,7 +1614,7 @@ Show minecraft server status
 _See [MVG Datenschutz](https://www.mvg.de/datenschutz-mvg.html)_
 Displays info about the server which Dashy is hosted on. Includes user + host, operating system, uptime and basic memory & load data.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/system-info.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/system-info" /></p>
 
 #### Options
 
@@ -1633,7 +1638,7 @@ Note that this widget is not available if you are running Dashy in a container o
 
 Cron job monitoring using [Health Checks](https://github.com/healthchecks/healthchecks). Both managed and self-hosted instances are supported.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/cron-monitor.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/cron-monitor" /></p>
 
 #### Options
 
@@ -1664,7 +1669,7 @@ Cron job monitoring using [Health Checks](https://github.com/healthchecks/health
 
 Pull recent CPU usage history from NetData.
 
-<p align="center"><img width="600" src="https://storage.googleapis.com/as93-screenshots/dashy/cpu-history.png" /></p>
+<p align="center"><img width="600" src="https://pixelflare.cc/alicia/dashy/cpu-history" /></p>
 
 #### Options
 
@@ -1728,7 +1733,7 @@ Pull recent system RAM usage from NetData, and show as a breakdown of different 
 
 Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
 
-<p align="center"><img width="600" src="https://storage.googleapis.com/as93-screenshots/dashy/load-history.png" /></p>
+<p align="center"><img width="600" src="https://pixelflare.cc/alicia/dashy/load-history" /></p>
 
 #### Options
 
@@ -1760,7 +1765,7 @@ Pull recent load usage in 1, 5 and 15 minute intervals, from NetData.
 
 Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/pi-hole.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/pi-hole" /></p>
 
 #### Options
 
@@ -1852,7 +1857,7 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/). Use t
 
 Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net/).
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/pi-hole-queries.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/pi-hole-queries" /></p>
 
 #### Options
 
@@ -1918,7 +1923,7 @@ Shows top queries that were blocked and allowed by [Pi-Hole](https://pi-hole.net
 
 Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole](https://pi-hole.net/)
 
-<p align="center"><img width="500" src="https://storage.googleapis.com/as93-screenshots/dashy/pi-hole-trafic.png" /></p>
+<p align="center"><img width="500" src="https://pixelflare.cc/alicia/dashy/pi-hole-trafic" /></p>
 
 #### Options
 
@@ -1982,7 +1987,7 @@ Shows number of recent traffic, using allowed and blocked queries from [Pi-Hole]
 
 Displays the current and recent uptime of your running services, via a self-hosted instance of [StatPing](https://github.com/statping/statping)
 
-<p align="center"><img width="300" src="https://storage.googleapis.com/as93-screenshots/dashy/statping.png" /></p>
+<p align="center"><img width="300" src="https://pixelflare.cc/alicia/dashy/statping" /></p>
 
 #### Options
 
@@ -2030,7 +2035,7 @@ Note, the Group Id is not directly visible in StatPing UI, you can inspect the g
 
 Displays the current downloads/torrents tasks of your Synology NAS
 
-<p align="center"><img width="500" src="https://storage.googleapis.com/as93-screenshots/dashy/synology-downloads.png" /></p>
+<p align="center"><img width="500" src="https://pixelflare.cc/alicia/dashy/synology-downloads" /></p>
 
 #### Options
 
@@ -2067,7 +2072,7 @@ Displays the current downloads/torrents tasks of your Synology NAS
 Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) instance, and
 displays total number of allowed and blocked queries, plus a pie chart showing breakdown by block type.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/adguard-stats.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/adguard-stats" /></p>
 
 #### Options
 
@@ -2102,7 +2107,7 @@ displays total number of allowed and blocked queries, plus a pie chart showing b
 
 Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) instance, to display the current status of each of your filter lists. Includes filter name, last updated, number of items, and a link to the list.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/adguard-filters.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/adguard-filters" /></p>
 
 #### Options
 
@@ -2139,7 +2144,7 @@ Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overvi
 
 Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) instance, and displays the current status (Enabled / Disabled) of AdGuard DNS. Click show more to view detailed info, including upstream DNS provider, active ports, and the status of DNSSEC, EDNS CS, PTR and IPv6.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/adguard-dns.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/adguard-dns" /></p>
 
 #### Options
 
@@ -2176,7 +2181,7 @@ Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overvi
 
 Fetches data from your [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) instance, and displays a list of the most queried, and most blocked domains.
 
-<p align="center"><img width="600" src="https://storage.googleapis.com/as93-screenshots/dashy/adguard-domains.png" /></p>
+<p align="center"><img width="600" src="https://pixelflare.cc/alicia/dashy/adguard-domains" /></p>
 
 #### Options
 
@@ -2221,7 +2226,7 @@ Shows quota usage when quota is enabled for the user or disk usage when not enab
 
 Known issues: the User API incorrectly reports available disk space as total for admin users when quota is not enabled (which usually is the case for admins).
 
-<p align="center"><img width="450" src="https://storage.googleapis.com/as93-screenshots/dashy/nextcloud-user.png" alt="nextcloud-user" /></p>
+<p align="center"><img width="450" src="https://pixelflare.cc/alicia/dashy/nextcloud-user" alt="nextcloud-user" /></p>
 
 #### Options
 
@@ -2256,7 +2261,7 @@ Known issues: the User API incorrectly reports available disk space as total for
 
 Show user statuses for selected users.
 
-<p align="center"><img width="450" src="https://storage.googleapis.com/as93-screenshots/dashy/nextcloud-user-status.png" alt="nextcloud-userstatus" /></p>
+<p align="center"><img width="450" src="https://pixelflare.cc/alicia/dashy/nextcloud-user-status" alt="nextcloud-userstatus" /></p>
 
 #### Options
 
@@ -2294,7 +2299,7 @@ Show user statuses for selected users.
 
 Displays your notifications and allows deleting them.
 
-<p align="center"><img width="450" src="https://storage.googleapis.com/as93-screenshots/dashy/next-cloud-notifications.png" alt="nextcloud-notifications" /></p>
+<p align="center"><img width="450" src="https://pixelflare.cc/alicia/dashy/next-cloud-notifications" alt="nextcloud-notifications" /></p>
 
 #### Options
 
@@ -2331,7 +2336,7 @@ Displays your notifications and allows deleting them.
 
 Visualises overall memory utilisation and CPU load averages, shows server versions.
 
-<p align="center"><img width="450" src="https://storage.googleapis.com/as93-screenshots/dashy/next-cloud-sysyem.png" alt="nextcloud-system" /></p>
+<p align="center"><img width="450" src="https://pixelflare.cc/alicia/dashy/next-cloud-sysyem" alt="nextcloud-system" /></p>
 
 #### Options
 
@@ -2366,7 +2371,7 @@ Visualises overall memory utilisation and CPU load averages, shows server versio
 
 Shows key usage statistics about your Nextcloud server.
 
-<p align="center"><img width="450" src="https://storage.googleapis.com/as93-screenshots/dashy/nextcloud-stats.png" alt="nextcloud-stats" /></p>
+<p align="center"><img width="450" src="https://pixelflare.cc/alicia/dashy/nextcloud-stats" alt="nextcloud-stats" /></p>
 
 #### Options
 
@@ -2401,7 +2406,7 @@ Shows key usage statistics about your Nextcloud server.
 
 Shows statistics about PHP OPcache performance on your Nextcloud server.
 
-<p align="center"><img width="450" src="https://storage.googleapis.com/as93-screenshots/dashy/nextcloud-php.png" alt="nextcloud-phpopcache" /></p>
+<p align="center"><img width="450" src="https://pixelflare.cc/alicia/dashy/nextcloud-php" alt="nextcloud-phpopcache" /></p>
 
 #### Options
 
@@ -2503,7 +2508,7 @@ This will show the list of VMs, with a title and a linked fotter, hiding VM temp
 
 Shows queue information regarding your self hosted Sabnzbd server.
 
-<p align="center"><img width="450" src="https://storage.googleapis.com/as93-screenshots/dashy/sabnzbd.png" alt="Sabnzbd" /></p>
+<p align="center"><img width="450" src="https://pixelflare.cc/alicia/dashy/sabnzbd" alt="Sabnzbd" /></p>
 
 #### Options
 
@@ -2539,7 +2544,7 @@ Shows queue information regarding your self hosted Sabnzbd server.
 
 Display info from the Gluetun VPN container public IP API. This can show the IP and location data for the exit VPN node.
 
-<p align="center"><img width="380" src="https://storage.googleapis.com/as93-screenshots/dashy/guletn-vpn.png" /></p>
+<p align="center"><img width="380" src="https://pixelflare.cc/alicia/dashy/guletn-vpn" /></p>
 
 #### Options
 
@@ -2572,7 +2577,7 @@ Display info from the Gluetun VPN container public IP API. This can show the IP 
 
 Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self-hosted CI system that uses docker.
 
-<p align="center"><img width="380" src="https://storage.googleapis.com/as93-screenshots/dashy/drone-ci.png" /></p>
+<p align="center"><img width="380" src="https://pixelflare.cc/alicia/dashy/drone-ci" /></p>
 
 #### Options
 
@@ -2586,7 +2591,7 @@ Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self
 #### Example
 
 ```yaml
-- type: drone-io
+- type: drone-ci
   updateInterval: 30
   options:
     host: https://drone.somedomain.com
@@ -2601,6 +2606,77 @@ Display the last builds from a [Drone CI](https://www.drone.ci) instance. A self
 - **Price**: 🟢 Free
 - **Host**: Self-Hosted (see [Drone](https://www.drone.io))
 - **Privacy**: _See [Drone](https://www.drone.io)_
+
+---
+
+### Filebrowser
+
+Displays storage statistics and file listings from a [Filebrowser Quantum](https://github.com/gtsteffaniak/filebrowser) instance. Shows directory size, file/folder counts, favorite files, and recently modified files with quick-access links.
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`hostname`** | `string` | Required | The URL of your Filebrowser instance
+**`apiKey`** | `string` | Required | A long-lived API key (create in Settings → API Keys)
+**`source`** | `string` | _Optional_ | The source/scope name to browse. Defaults to the first available source
+**`path`** | `string` | _Optional_ | The directory path to display. Defaults to `/`
+**`favorites`** | `array` | _Optional_ | List of filenames to show as quick-access favorites
+**`showRecent`** | `number` | _Optional_ | Number of recently modified files to display. Defaults to `5`, set to `0` to disable
+**`limit`** | `number` | _Optional_ | Maximum number of files to display per section. Defaults to `10`
+**`hideStats`** | `boolean` | _Optional_ | If `true`, hides the storage statistics section
+**`hideFavorites`** | `boolean` | _Optional_ | If `true`, hides the favorites section
+**`hideRecent`** | `boolean` | _Optional_ | If `true`, hides the recent files section
+**`showDetailedStats`** | `boolean` | _Optional_ | If `true`, shows additional statistics including last modified date, largest file, hidden file count, total items, and file type breakdown. Defaults to `false`
+
+#### Example
+
+**Basic usage:**
+
+```yaml
+- type: filebrowser
+  useProxy: true
+  options:
+    hostname: http://filebrowser.local:8080
+    apiKey: VUE_APP_FILEBROWSER_KEY
+    source: Documents
+    path: /
+    showRecent: 5
+    favorites:
+      - important-notes.txt
+      - config.yaml
+```
+
+**With detailed statistics:**
+
+```yaml
+- type: filebrowser
+  useProxy: true
+  options:
+    hostname: http://filebrowser.local:8080
+    apiKey: VUE_APP_FILEBROWSER_KEY
+    source: Downloads
+    showDetailedStats: true
+    showRecent: 10
+    limit: 15
+```
+
+#### Widget Sections
+
+The widget displays up to four sections:
+
+1. **Storage Stats** - Directory name, total size, file and folder counts
+2. **Detailed Stats** (optional) - Last modified date, largest file, hidden file count, total items, and file type breakdown with badges
+3. **Favorites** - Quick-access links to user-specified files
+4. **Recent Files** - Most recently modified files sorted by date
+
+#### Info
+
+- **CORS**: 🟠 Proxied
+- **Auth**: 🟢 Required
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Filebrowser Quantum](https://github.com/gtsteffaniak/filebrowser))
+- **Privacy**: _Self-Hosted_
 
 ---
 
@@ -2670,10 +2746,43 @@ Linkding is a self-hosted bookmarking service, which has a clean interface and i
 
 ---
 
+### Uptime Kuma Status Page
+
+[Uptime Kuma](https://github.com/louislam/uptime-kuma) is an easy-to-use self-hosted monitoring tool.
+
+#### Options
+
+| **Field**          | **Type** | **Required** | **Description**                                                                   |
+| ------------------ | -------- | ------------ | --------------------------------------------------------------------------------- |
+| **`host`**         | `string` | Required     | The URL of the Uptime Kuma instance                                               |
+| **`slug`**         | `string` | Required     | The slug of the status page                                                       |
+| **`monitorNames`** | `strins` | _Optional_   | Names of monitored services (in the same order as on the kuma uptime status page) |
+
+#### Example
+
+```yaml
+- type: uptime-kuma-status-page
+  options:
+    host: http://localhost:3001
+    slug: another-beautiful-status-page
+    monitorNames:
+      - "Name1"
+      - "Name2"
+```
+
+#### Info
+
+- **CORS**: 🟢 Enabled
+- **Auth**: 🟢 Not Needed
+- **Price**: 🟢 Free
+- **Host**: Self-Hosted (see [Uptime Kuma](https://github.com/louislam/uptime-kuma) )
+- **Privacy**: _See [Uptime Kuma](https://github.com/louislam/uptime-kuma)_
+
+---
+
 ### Tactical RMM
 
 [Tactical RMM](https://github.com/amidaware/tacticalrmm) is a self-hosted remote monitoring & management tool.
-
 
 <p align="center"><a href="https://github.com/user-attachments/assets/152a7205-e5de-401f-bad8-19063ddfaf3c">
     <img src="https://github.com/user-attachments/assets/5921d46f-d84c-494d-8aaf-6b20cc592640" alt="Capture" border="0"></a></p>
@@ -2762,7 +2871,7 @@ Note that if auth is configured, requests must be proxied with `useProxy: true`
 
 #### Screenshot
 
-[![example-screenshot](https://storage.googleapis.com/as93-screenshots/dashy/monitor-board.png)](https://ibb.co/pR6dMZT)
+[![example-screenshot](https://pixelflare.cc/alicia/dashy/monitor-board)](https://ibb.co/pR6dMZT)
 
 ---
 
@@ -2770,7 +2879,7 @@ Note that if auth is configured, requests must be proxied with `useProxy: true`
 
 Live-updating current CPU usage, as a combined average across all cores
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/current-cpu.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/current-cpu" /></p>
 
 #### Example
 
@@ -2786,7 +2895,7 @@ Live-updating current CPU usage, as a combined average across all cores
 
 Speedometer styled version of the Current CPU Usage widget
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/current-cpu-speedometer.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/current-cpu-speedometer" /></p>
 
 #### Example
 
@@ -2802,7 +2911,7 @@ Speedometer styled version of the Current CPU Usage widget
 
 Live-updating CPU usage breakdown per core
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/cpu-per-core.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/cpu-per-core" /></p>
 
 #### Example
 
@@ -2818,7 +2927,7 @@ Live-updating CPU usage breakdown per core
 
 Recent CPU usage history, across all cores, and displayed by user and system
 
-<p align="center"><img width="500" src="https://storage.googleapis.com/as93-screenshots/dashy/cpu-history-chart.png" /></p>
+<p align="center"><img width="500" src="https://pixelflare.cc/alicia/dashy/cpu-history-chart" /></p>
 
 #### Options
 
@@ -2841,7 +2950,7 @@ Recent CPU usage history, across all cores, and displayed by user and system
 
 Real-time memory usage gauge, with more info visible on click
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/current-mem.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/current-mem" /></p>
 
 #### Example
 
@@ -2857,7 +2966,7 @@ Real-time memory usage gauge, with more info visible on click
 
 Speedometer styled version of the Current Memory Usage widget
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/current-mem-speedometer.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/current-mem-speedometer" /></p>
 
 #### Example
 
@@ -2873,7 +2982,7 @@ Speedometer styled version of the Current Memory Usage widget
 
 Recent memory usage chart
 
-<p align="center"><img width="500" src="https://storage.googleapis.com/as93-screenshots/dashy/mem-history-glances.png" /></p>
+<p align="center"><img width="500" src="https://pixelflare.cc/alicia/dashy/mem-history-glances" /></p>
 
 #### Options
 
@@ -2896,7 +3005,7 @@ Recent memory usage chart
 
 List connected disks, showing free / used space and other info (file system, mount point and space available)
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/diskspace-glances.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/diskspace-glances" /></p>
 
 #### Example
 
@@ -2912,7 +3021,7 @@ List connected disks, showing free / used space and other info (file system, mou
 
 Shows real-time read and write speeds and operations per sec for each disk
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/disk-io-glances.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/disk-io-glances" /></p>
 
 #### Example
 
@@ -2928,7 +3037,7 @@ Shows real-time read and write speeds and operations per sec for each disk
 
 Shows the number of processes waiting in the run-queue, averaged across all cores. Displays for past 5, 10 and 15 minutes
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/system-load-glances.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/system-load-glances" /></p>
 
 #### Example
 
@@ -2940,11 +3049,25 @@ Shows the number of processes waiting in the run-queue, averaged across all core
 
 ---
 
+### Uptime
+
+Displays the system uptime fetched from Glances.
+
+#### Example
+
+```yaml
+- type: gl-uptime
+  options:
+    hostname: http://192.168.130.2:61208
+```
+
+---
+
 ### System Load History
 
 Shows recent historical system load, calculated from the number of processes waiting in the run-queue, in 1, 5 and 15 minute intervals, and averaged across all cores. Optionally specify `limit` to set number of results returned, defaults to `500`, max `100000`, but the higher the number the longer the load and render times will be.
 
-<p align="center"><img width="500" src="https://storage.googleapis.com/as93-screenshots/dashy/system-load-history-glances.png" /></p>
+<p align="center"><img width="500" src="https://pixelflare.cc/alicia/dashy/system-load-history-glances" /></p>
 
 #### Example
 
@@ -2960,7 +3083,7 @@ Shows recent historical system load, calculated from the number of processes wai
 
 Lists visible network interfaces, including real-time upload/ download stats
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/network-interfaces-glances.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/network-interfaces-glances" /></p>
 
 #### Example
 
@@ -2976,7 +3099,7 @@ Lists visible network interfaces, including real-time upload/ download stats
 
 Shows amount of data recently uploaded/ downloaded across all network interfaces. Optionally set the `limit` option to specify number historical of data points to return
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/network-traffic-glances.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/network-traffic-glances" /></p>
 
 #### Example
 
@@ -3009,7 +3132,7 @@ Lists recent high resource usage alerts (e.g. CPU, mem, IO, load, temp)
 
 Shows public and private IP address. Note that the ip plugin is not available on all instances of Glances.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/ip-addresses-glances.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/ip-addresses-glances" /></p>
 
 #### Example
 
@@ -3028,7 +3151,7 @@ Displays temperature data from system CPUs.
 Note: This widget uses the [`sensors`](https://github.com/nicolargo/glances/blob/develop/glances/plugins/glances_sensors.py) plugin, which is disabled by default, and may cause [performance issues](https://github.com/nicolargo/glances/issues/1664#issuecomment-632063558).
 You'll need to enable the sensors plugin to use this widget, using: `--enable-plugin sensors` when you start Glances.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/cpu-temp-glances.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/cpu-temp-glances" /></p>
 
 #### Options
 
@@ -3047,13 +3170,42 @@ You'll need to enable the sensors plugin to use this widget, using: `--enable-pl
 
 ---
 
+### Compact Metrics
+
+A multi-system overview widget that displays CPU, memory and disk usage for multiple Glances instances in a compact table. Click on a row to see detailed metrics for that system.
+
+#### Options
+
+**Field** | **Type** | **Required** | **Description**
+--- | --- | --- | ---
+**`systems`** | `array` | Required | An array of systems to monitor, each with `header` (display name) and `url` (Glances base URL)
+**`apiVersion`** | `number` | _Optional_ | Glances API version. Defaults to `4`
+**`username`** | `string` | _Optional_ | If Glances is password-protected, specify the username
+**`password`** | `string` | _Optional_ | If Glances is password-protected, specify the password
+
+#### Example
+
+```yaml
+- type: gl-compact-metrics
+  options:
+    systems:
+      - header: Server 1
+        url: http://192.168.1.10:61208
+      - header: Server 2
+        url: http://192.168.1.11:61208
+      - header: NAS
+        url: http://192.168.1.20:61208
+```
+
+---
+
 ## Dynamic Widgets
 
 ### Iframe Widget
 
 Embed any webpage into your dashboard as a widget.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/iframe.gif" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/iframe" /></p>
 
 #### Options
 
@@ -3078,7 +3230,7 @@ Many websites and apps provide their own embeddable widgets. These can be used w
 
 ⚠️ **NOTE:** Use with extreme caution. Embedding a script from an untrustworthy source may have serious unintended consequences.
 
-<p align="center"><img width="400" src="https://storage.googleapis.com/as93-screenshots/dashy/html-embed.png" /></p>
+<p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/html-embed" /></p>
 
 #### Options
 
@@ -3145,7 +3297,7 @@ Display data from any service with a Prometheus exporter.
 
 Show live data from an RSS-enabled service. The only required parameter is `rssUrl`, which is the URL to the ATOM feed. See [RSS Widget](#rss-feed) for full list of available options.
 
-<p align="center"><img width="700" src="https://storage.googleapis.com/as93-screenshots/dashy/data-feed.png" /></p>
+<p align="center"><img width="700" src="https://pixelflare.cc/alicia/dashy/data-feed" /></p>
 
 #### Example
 

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-// import axios from 'axios';
+// import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import ChartingMixin from '@/mixins/ChartingMixin';
 import { capitalize } from '@/utils/MiscHelpers';

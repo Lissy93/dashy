@@ -4,7 +4,7 @@
     :icon="icon"
     :uniqueKey="groupId"
     :collapsed="displayData.collapsed"
-    :cols="displayData.cols"
+    :cols="effectiveColsSpan"
     :rows="displayData.rows"
     :color="displayData.color"
     :customStyles="displayData.customStyles"
@@ -128,6 +128,7 @@ export default {
     widgets: Array,
     index: Number,
     isWide: Boolean,
+    activeColCount: Number,
   },
   components: {
     Collapsable,
@@ -208,6 +209,11 @@ export default {
           ? `grid-template-rows: repeat(${this.displayData.itemCountY}, minmax(0, 1fr));` : '';
       }
       return styles;
+    },
+    effectiveColsSpan() {
+      const { cols } = this.displayData;
+      if (!cols) return cols;
+      return Math.min(this.activeColCount, cols);
     },
   },
   methods: {

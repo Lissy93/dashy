@@ -120,6 +120,7 @@ export default {
         case 'modal': return '"\\f2d0"';
         case 'workspace': return '"\\f0b1"';
         case 'clipboard': return '"\\f0ea"';
+        case 'newwindow': return '"\\f2d2"';
         default: return '"\\f054"';
       }
     },

@@ -70,9 +70,10 @@ export default {
       switch (link.target) {
         case 'sametab': return '_self';
         case 'newtab': return '_blank';
+        case 'newwindow': return '_blank';
         case 'parent': return '_parent';
         case 'top': return '_top';
-        default: return undefined;
+        default: return '_blank';
       }
     },
   },

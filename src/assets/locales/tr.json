@@ -1,31 +1,35 @@
 {
   "home": {
     "no-results": "Hiçbir Arama Sonucu Yok",
-    "no-data": "Henüz Gösterilecek Öğe Yok",
+    "no-data": "Yapılandırılmış Veri Yok",
     "no-items-section": "Henüz Gösterilecek Öğe Yok"
   },
   "search": {
     "search-label": "Ara",
     "search-placeholder": "Filtrelemek için yazmaya başla.",
     "clear-search-tooltip": "Aramayı Temizle",
-    "enter-to-search-web": "Web'de aramak için enter'a bas"
+    "enter-to-search-web": "Web'de aramak için enter'a bas",
+    "enter-to-open-url": "URL'yi açmak için enter'a bas"
+  },
+  "splash-screen": {
+    "loading": "Yükleniyor"
   },
   "login": {
     "title": "Dashy",
-    "guest-label": "Misafir Erisimi",
+    "guest-label": "Misafir Erişimi",
     "username-label": "Kullanıcı Adı",
-    "password-label": "Parola",
+    "password-label": "Şifre",
     "login-button": "Giriş",
     "remember-me-label": "Beni hatırla",
     "remember-me-never": "Hiçbir zaman",
     "remember-me-hour": "4 Saat",
     "remember-me-day": "1 Gün",
     "remember-me-week": "1 Hafta",
-    "remember-me-long-time": "Uzun zaman önce",
-    "error-missing-username": "Kullanıcı adı eksık",
-    "error-missing-password": "Parola Eksık",
+    "remember-me-long-time": "Uzun süre",
+    "error-missing-username": "Kullanıcı adı eksik",
+    "error-missing-password": "Şifre eksik",
     "error-incorrect-username": "Kullanıcı Bulunamadı",
-    "error-incorrect-password": "Hatalı Parola",
+    "error-incorrect-password": "Hatalı Şifre",
     "success-message": "Giriş Yapılıyor...",
     "logout-message": "Çıkış Yapıldı",
     "already-logged-in-title": "Önceden giriş yapılmış",
@@ -41,6 +45,37 @@
     "logged-in-guest": "Misafir olarak giriş yapıldı, Yönlendiriliyor...",
     "error-guest-access": "Misafir Erişimine İzin Verilmiyor"
   },
+  "app-info": {
+    "title": "Uygulama Bilgisi",
+    "error-log": "Hata Günlüğü",
+    "no-errors": "Son zamanlarda hata tespit edilmedi",
+    "help-support": "Yardım ve Destek",
+    "help-support-description": "Dashy'nin çalıştırılması veya yapılandırılması konusunda destek almak için şuraya bakın:",
+    "help-support-discussions": "Tartışmalar",
+    "support-dashy": "Dashy'yi Destekleyin",
+    "support-dashy-description": "Katkıda bulunabileceğiniz yollar için şuraya göz atın:",
+    "support-dashy-link": "Katkı sayfası",
+    "report-bug": "Hata Bildir",
+    "report-bug-description": "Bir hata bulduğunuzu düşünüyorsanız, lütfen",
+    "report-bug-link": "bir Sorun bildirin",
+    "more-info": "Daha Fazla Bilgi",
+    "source": "Kaynak",
+    "documentation": "Belgeler",
+    "privacy-and-security": "Gizlilik ve Güvenlik",
+    "privacy-and-security-l1": "Verilerinizin Dashy tarafından nasıl yönetildiğinin ayrıntıları için şuraya bakın:",
+    "privacy-and-security-privacy-policy": "Gizlilik Politikası",
+    "privacy-and-security-advice": "Kontrol panelinizi güvence altına almak için şuraya başvurabilirsiniz:",
+    "privacy-and-security-advice-link": "Yönetim Belgeleri",
+    "privacy-and-security-security-issue": "Olası bir güvenlik sorunu bulduysanız, şuradaki yönergeleri izleyerek bildirin:",
+    "privacy-and-security-security-policy": "Güvenlik Politikası",
+    "license": "Lisans",
+    "license-under": "Şu lisans altında:",
+    "licence-third-party": "Üçüncü taraf modüllerin lisansları için lütfen şuraya bakın:",
+    "licence-third-party-link": "Yasal Bilgiler",
+    "list-contributors": "Katkıda bulunanların tam listesi ve teşekkürler için şuraya bakın:",
+    "list-contributors-link": "Katkıda Bulunanlar",
+    "version": "Sürüm"
+  },
   "config": {
     "main-tab": "Ana Menü",
     "view-config-tab": "Yapılandırmayı Görüntüle",
@@ -55,6 +90,8 @@
     "rebuild-app-button": "Uygulamayı Tekrar Derle",
     "change-language-button": "Uygulama Dilini Değiştir",
     "reset-settings-button": "Yerel Ayarları Sıfırla",
+    "disabled-note": "Bazı yapılandırma özellikleri yöneticiniz tarafından devre dışı bırakılmıştır",
+    "small-screen-note": "Çok küçük bir ekran kullanıyorsunuz ve bu menüdeki bazı ekranlar en uygun şekilde görüntülenemeyebilir",
     "app-info-button": "Uygulama Bilgisi",
     "backup-note": "Değişiklik yapmadan önce yapılandırmanızın yedeğini almanız önerilir.",
     "reset-config-msg-l1": "Bu, tüm kullanıcı ayarlarını yerel depolamadan kaldıracak, ancak 'conf.yml' dosyanızı etkilemeyecektir.",
@@ -69,7 +106,11 @@
     "css-note-label": "Not",
     "css-note-l1": "Değişikliklerinizin etkili olması için sayfayı yenilemeniz gerekecek.",
     "css-note-l2": "Stil geçersiz kılmaları yalnızca yerel olarak depolanır, bu nedenle CSS'nizin bir kopyasını oluşturmanız önerilir.",
-    "css-note-l3": "Tüm özel stilleri kaldırmak için içeriği silin ve Değişiklikleri Kaydet'e basın."
+    "css-note-l3": "Tüm özel stilleri kaldırmak için içeriği silin ve Değişiklikleri Kaydet'e basın.",
+    "custom-css": {
+      "title": "Özel CSS",
+      "base-theme": "Temel Tema"
+    }
   },
   "alternate-views": {
     "alternate-view-heading": "Görünümü Değiştir",
@@ -83,7 +124,7 @@
     "layout-auto": "Oto",
     "layout-horizontal": "Yatay",
     "layout-vertical": "Dikey",
-    "item-size-label": "Item Size",
+    "item-size-label": "Öğe Boyutu",
     "item-size-small": "Küçük",
     "item-size-medium": "Orta",
     "item-size-large": "Geniş",
@@ -91,7 +132,9 @@
     "config-launcher-tooltip": "Yapılandırmayı Güncelle",
     "sign-out-tooltip": "Çıkış Yap",
     "sign-in-tooltip": "Giriş Yap",
-    "sign-in-welcome": "Merhaba {username}!"
+    "sign-in-welcome": "Merhaba {username}!",
+    "hide": "Gizle",
+    "open": "Aç"
   },
   "updates": {
     "app-version-note": "Dashy versiyon",
@@ -129,20 +172,20 @@
     "status-fail-msg": "İşlem Başarısız",
     "success-msg-disk": "Yapılandırma dosyası diske başarıyla yazıldı",
     "success-msg-local": "Yerel değişiklikler başarıyla kaydedildi",
-    "success-note-l1": "Uygulama otomatik olarak yeniden derlenmelidir.",
-    "success-note-l2": "Bu bir dakika kadar sürebilir.",
-    "success-note-l3": "Değişikliklerin etkili olması için sayfayı yenilemeniz gerekecek.",
+    "success-note-l1": "Değişikliklerin etkili olması için sayfayı yenilemeniz gerekecek.",
+    "success-note-l2": "",
+    "success-note-l3": "",
     "error-msg-save-mode": "Lütfen bir Kaydetme Modu seçin: Yerel veya Dosya",
     "error-msg-cannot-save": "Yapılandırma kaydedilirken bir hata oluştu",
     "error-msg-bad-json": "JSON'da hata, muhtemelen hatalı biçimlendirilmiş",
-    "warning-msg-validation": "Validation Warning",
+    "warning-msg-validation": "Doğrulama Uyarısı",
     "not-admin-note": "Yönetici olarak giriş yapmadığınız için değiştirilenleri diske yazamazsınız."
   },
   "app-rebuild": {
     "title": "Uygulamayı Yeniden Derle",
-    "rebuild-note-l1": "conf.yml dosyasına yazılan değişikliklerin etkili olması için yeniden derleme gereklidir.",
-    "rebuild-note-l2": "Bu otomatik olarak gerçekleşmelidir, ancak olmadıysa, buradan manuel olarak tetikleyebilirsiniz.",
-    "rebuild-note-l3": "Yerel olarak depolanan değişiklikler için bu gerekli değildir.",
+    "rebuild-note-l1": "Artık yeniden derleme gerekli değildir.",
+    "rebuild-note-l2": "Bazı değişiklikler (giriş noktası ve kimlik doğrulama ayarları) derleme sırasında okunur. Bu nedenle bunları uygulamak için buradan yeniden derleme tetiklemelisiniz.",
+    "rebuild-note-l3": "Bunun yalnızca Node ve Docker kurulumlarında kullanılabildiğini, statik olarak dağıtılan örneklerde kullanılamadığını unutmayın.",
     "rebuild-button": "Derlemeye Başla",
     "rebuilding-status-1": "Derleniyor...",
     "rebuilding-status-2": "Bu bir kaç dakika alabilir",
@@ -155,11 +198,12 @@
   "cloud-sync": {
     "title": "Bulut Yedekleme ve Geri Yükleme",
     "intro-l1": "Bulut yedekleme ve geri yükleme, yapılandırmanızı internete yüklemenizi ve ardından herhangi bir başka cihaza veya Dashy örneğine geri yüklemenizi sağlayan isteğe bağlı bir özelliktir.",
-    "intro-l2": "Tüm veriler, anahtar olarak parolanız kullanılarak AES ile tamamen uçtan uca şifrelenir.",
+    "intro-l2": "Tüm veriler, anahtar olarak şifreniz kullanılarak AES ile tamamen uçtan uca şifrelenir.",
     "intro-l3": "Daha fazla bilgi için lütfen şuraya bakın:",
+    "intro-docs": "belgeler",
     "backup-title-setup": "Yedekleme Yap",
     "backup-title-update": "Yedeği Güncelle",
-    "password-label-setup": "Bir Parola seç",
+    "password-label-setup": "Bir Şifre Seçin",
     "password-label-update": "Şifrenizi Girin",
     "backup-button-setup": "Yedekle",
     "backup-button-update": "Yedeği Güncelle",
@@ -167,24 +211,24 @@
     "backup-id-note": "Bu, daha sonra yedeklerden geri yüklemek için kullanılır. Bu yüzden onu şifrenizle birlikte güvenli bir yerde saklayın.",
     "restore-title": "Bir Yedeği Geri Yükle",
     "restore-id-label": "Kimliği geri yükle",
-    "restore-password-label": "Parola",
+    "restore-password-label": "Şifre",
     "restore-button": "Geri Yükle",
     "backup-missing-password": "Eksik Şifre",
     "backup-error-unknown": "İstek işlenemiyor",
-    "backup-error-password": "Yanlış parola. Lütfen mevcut şifrenizi giriniz.",
+    "backup-error-password": "Yanlış şifre. Lütfen mevcut şifrenizi giriniz.",
     "backup-success-msg": "Başarıyla tamamlandı",
     "restore-success-msg": "Yapılandırma Başarıyla Geri Yüklendi"
   },
   "menu": {
-    "open-section-title": "Open In",
-    "sametab": "Current Tab",
-    "newtab": "New Tab",
-    "modal": "Pop-Up Modal",
-    "workspace": "Workspace View",
-    "options-section-title": "Options",
-    "edit-item": "Edit",
-    "move-item": "Copy or Move",
-    "remove-item": "Remove"
+    "open-section-title": "Şurada Aç",
+    "sametab": "Mevcut Sekme",
+    "newtab": "Yeni Sekme",
+    "modal": "Açılır Pencere",
+    "workspace": "Çalışma Alanı Görünümü",
+    "options-section-title": "Seçenekler",
+    "edit-item": "Düzenle",
+    "move-item": "Kopyala veya Taşı",
+    "remove-item": "Kaldır"
   },
   "context-menus": {
     "item": {
@@ -194,6 +238,7 @@
       "modal": "Açılır Pencere",
       "workspace": "Çalışma Alanı Görünümü",
       "clipboard": "Panoya Kopyala",
+      "newwindow": "Yeni Pencere",
       "options-section-title": "Seçenekler",
       "edit-item": "Düzenle",
       "move-item": "Kopyala veya Taşı",
@@ -207,6 +252,12 @@
       "move-section": "Şuraya Taşı:",
       "remove-section": "Kaldır"
     }
+  },
+  "footer": {
+    "dev-by": "Geliştiren",
+    "licensed-under": "Lisans türü",
+    "get-the": "Edinin",
+    "source-code": "Kaynak Kodu"
   },
   "interactive-editor": {
     "menu": {
@@ -263,10 +314,20 @@
       "view-title": "Yapılandırmayı Görüntüle"
     }
   },
+  "critical-error": {
+    "title": "Yapılandırma Yükleme Hatası",
+    "subtitle": "Dashy bir yapılandırma hatası nedeniyle düzgün yüklenemedi.",
+    "sub-ensure-that": "Şunlardan emin olun",
+    "sub-error-details": "Hata Detayları",
+    "sub-next-steps": "Sonraki Adımlar",
+    "ignore-button": "Kritik Hataları Yoksay"
+  },
   "widgets": {
     "general": {
       "loading": "Yükleniyor...",
       "show-more": "Ayrıntıları Genişlet",
+      "cpu-details": "CPU Detayları",
+      "mem-details": "Bellek Detayları",
       "show-less": "Daha Az Göster",
       "open-link": "Okumaya Devam Et"
     },
@@ -280,7 +341,7 @@
     "net-data": {
       "cpu-chart-title": "CPU Geçmişi",
       "mem-chart-title": "Bellek Kullanımı",
-      "mem-breakdown-title": "Bellek Bozulması",
+      "mem-breakdown-title": "Bellek Dağılımı",
       "load-chart-title": "Sistem Yükü"
     },
     "glances": {
@@ -320,7 +381,8 @@
       "post-code": "Posta Kodu",
       "location": "Konum",
       "timezone": "Zaman Dilimi",
-      "organization": "Organizasyon"
+      "organization": "Organizasyon",
+      "forwarded-port": "Yönlendirilen Port"
     },
     "nextcloud": {
       "active": "aktif",
@@ -335,16 +397,16 @@
       "disabled": "pasif",
       "disk-quota": "Disk Kotası",
       "disk-space": "Disk Alanı",
-      "dnd": "Rahatsız Etme",
+      "dnd": "Rahatsız Etmeyin",
       "email": "email",
       "enabled": "aktif",
-      "federated-shares-ucfirst": "Federated shares",
-      "federated-shares": "federated shares",
+      "federated-shares-ucfirst": "Birleşik paylaşımlar",
+      "federated-shares": "birleşik paylaşımlar",
       "files": "dosya{plural}",
       "free": "boş",
       "groups": "gruplar",
-      "hit-rate": "tıklama oranı",
-      "hits": "tıklamalar",
+      "hit-rate": "isabet oranı",
+      "hits": "isabetler",
       "home": "ana sayfa",
       "in": "in",
       "keys": "anahtarlar",
@@ -353,18 +415,18 @@
       "last-hour": "son saat içerisinde",
       "last-login": "Son giriş",
       "last-restart": "Son yeniden başlatma",
-      "load-averages": "Ortalamaları tüm CPU çekirdekleri üzerinden yükleyin",
+      "load-averages": "Tüm CPU çekirdeklerindeki yük ortalamaları",
       "local-shares": "Ortak Paylaşımlar",
       "local": "yerel",
       "max-keys": "maks anahtar",
       "memory-used": "bellek kullanıldı:",
       "memory-utilisation": "bellek kullanımı",
       "memory": "bellek",
-      "misses": "misses",
+      "misses": "isabetsizler",
       "no-notifications": "Hiç bildirim yok",
       "no-pending-updates": "bekleyen güncellemeler yok",
       "nothing-to-show": "Şu anda burada gösterilecek bir şey yok",
-      "of-which": "of which",
+      "of-which": "bunlardan",
       "of": "of",
       "offline": "Çevrimdışı",
       "online": "Çevrimiçi",
@@ -379,12 +441,12 @@
       "started": "Başlatıldı",
       "storages-by-type": "Türe göre depolar",
       "storages": "depolama{plural}",
-      "strings-use": "strings use",
+      "strings-use": "dizgi kullanımı",
       "tasks": "İşlemler",
       "total-files": "tüm dosyalar",
       "total-users": "tüm kullanıcılar",
       "total": "tüm",
-      "until": "Until",
+      "until": "Kadar",
       "updates-available-for": "Şunun için güncellemeler mevcuttur:",
       "updates-available": "güncelleme {plural} için mevcut",
       "used": "kullanıldı",

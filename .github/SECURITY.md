@@ -8,7 +8,7 @@ The current versions, and previous minor versions and / or the past 5 versions a
 See [Docs: Management - Security](/docs/management.md#securing)
 
 ## Reporting a Security Issue
-If you think you've found a critical issue, please send an email to `security@mail.alicia.omg.lol`, to encrypt it, you can use [`0688 F8D3 4587 D954 E9E5 1FB8 FEDB 68F5 5C02 83A7`](https://keybase.io/aliciasykes/pgp_keys.asc?fingerprint=0688f8d34587d954e9e51fb8fedb68f55c0283a7). You should receive a response within 48 hours.
+If you think you've found a critical issue, please send an email to `security@as93.net`, to encrypt it, you can use [`E10EE533A8E5D6F6E231BBCD4C8DEAFFCE3B8D03`](https://keys.openpgp.org/vks/v1/by-fingerprint/E10EE533A8E5D6F6E231BBCD4C8DEAFFCE3B8D03). You should receive a response within 48 hours.
 
 All non-critical issues can be raised as a ticket.
 
