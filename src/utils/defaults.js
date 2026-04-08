@@ -78,6 +78,7 @@ module.exports = {
     'bee',
     'tiger',
     'glow',
+    'glow-dark',
     'vaporware',
     'cyberpunk',
     'material-original',
@@ -136,6 +137,7 @@ module.exports = {
     MOST_USED: 'mostUsed',
     LAST_USED: 'lastUsed',
     KEYCLOAK_INFO: 'keycloakInfo',
+    ISADMIN: 'isAdmin',
     DISABLE_CRITICAL_WARNING: 'disableCriticalWarning',
   },
   /* Key names for cookie identifiers */
@@ -195,7 +197,6 @@ module.exports = {
   /* Available services for fetching favicon icon for user apps */
   faviconApiEndpoints: {
     allesedv: 'https://f1.allesedv.com/128/$URL',
-    clearbit: 'https://logo.clearbit.com/$URL',
     iconhorse: 'https://icon.horse/icon/$URL',
     faviconkit: 'https://api.faviconkit.com/$URL/64',
     duckduckgo: 'https://icons.duckduckgo.com/ip2/$URL.ico',
@@ -210,6 +211,7 @@ module.exports = {
     fa: 'https://kit.fontawesome.com',
     mdi: 'https://cdn.jsdelivr.net/npm/@mdi/font@7.0.96/css/materialdesignicons.min.css',
     si: 'https://unpkg.com/simple-icons@v7/icons',
+    sh: 'https://cdn.jsdelivr.net/gh/selfhst/icons@latest/webp/{icon}.webp',
     generative: 'https://api.dicebear.com/7.x/identicon/svg?seed={icon}',
     generativeFallback: 'https://evatar.io/{icon}',
     localPath: './item-icons',
@@ -224,11 +226,12 @@ module.exports = {
     anonAddy: 'https://app.addy.io',
     astronomyPictureOfTheDay: 'https://apod.as93.net/apod',
     blacklistCheck: 'https://api.blacklistchecker.com/check',
+    chuckNorris: 'https://api.chucknorris.io/jokes/random',
     codeStats: 'https://codestats.net/',
     covidStats: 'https://disease.sh/v3/covid-19',
     cryptoPrices: 'https://api.coingecko.com/api/v3/coins/',
     cryptoWatchList: 'https://api.coingecko.com/api/v3/coins/markets/',
-    cveVulnerabilities: 'https://www.cvedetails.com/json-feed.php',
+    cveVulnerabilities: 'https://services.nvd.nist.gov/rest/json/cves/2.0',
     domainMonitor: 'https://api.whoapi.com',
     ethGasPrices: 'https://ethgas.watch/api/gas',
     ethGasHistory: 'https://ethgas.watch/api/gas/trend',
@@ -240,6 +243,10 @@ module.exports = {
     holidays: 'https://kayaposoft.com/enrico/json/v2.0/?action=getHolidaysForDateRange',
     jokes: 'https://v2.jokeapi.dev/joke/',
     news: 'https://api.currentsapi.services/v1/latest-news',
+    minecraftPlayerIcon: 'https://mc-heads.net/avatar/',
+    minecraftPlayerLink: 'https://minecraftuuid.com/?search=',
+    minecraftServerLink: 'https://mcsrvstat.us/server/',
+    minecraftStatus: 'https://api.mcsrvstat.us/',
     mullvad: 'https://am.i.mullvad.net/json',
     mvg: 'https://www.mvg.de/api/fib/v2/',
     publicIp: 'https://ipapi.co/json',
@@ -312,17 +319,39 @@ module.exports = {
   /* Progressive Web App settings, used by Vue Config */
   pwa: {
     name: 'Dashy',
-    manifestPath: './manifest.json',
     themeColor: '#00af87',
     msTileColor: '#0b1021',
     mode: 'production',
     manifestCrossorigin: 'use-credentials',
     iconPaths: {
+      faviconSVG: null,
+      appleTouchIcon: null,
       favicon64: './web-icons/favicon-64x64.png',
       favicon32: './web-icons/favicon-32x32.png',
       favicon16: './web-icons/favicon-16x16.png',
       maskIcon: './web-icons/dashy-logo.png',
       msTileImage: './web-icons/dashy-logo.png',
+    },
+    workboxOptions: {
+      exclude: [
+        // https://developer.chrome.com/docs/workbox/modules/workbox-build#properties_14
+        /\.map$/,
+        /^manifest.*\.js$/, // default value
+        /\.nojekyll$/,
+        /\.gitignore$/,
+        /conf\.yml$/, // ignore config for runtimeCaching
+      ],
+      // https://developer.chrome.com/docs/workbox/modules/workbox-build#type-RuntimeCaching
+      runtimeCaching: [
+        {
+          urlPattern: /conf\.yml$/,
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'config-cache',
+            networkTimeoutSeconds: 3,
+          },
+        },
+      ],
     },
   },
 };

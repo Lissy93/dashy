@@ -5,39 +5,36 @@
   - [Hash Password](#hash-password)
   - [Logging In and Out](#logging-in-and-out)
   - [Guest Access](#enabling-guest-access)
-  - [Per-User Access](#granular-access)
+  - [Granular Access](#granular-access)
+  - [Permissions](#permissions)
   - [Using Environment Variables for Passwords](#using-environment-variables-for-passwords)
   - [Adding HTTP Auth to Configuration](#adding-http-auth-to-configuration)
-  - [Security Considerations](#security)
+  - [Security](#security)
 - [HTTP Auth](#http-auth)
+  - [Using Config-File Users](#using-config-file-users-recommended)
+  - [Using Static Credentials](#using-static-credentials)
 - [Keycloak Auth](#keycloak)
-  - [Deploying Keycloak](#1-deploy-keycloak)
-  - [Setting up Keycloak](#2-setup-keycloak-users)
-  - [Configuring Dashy for Keycloak](#3-enable-keycloak-in-dashy-config-file)
-  - [Toubleshooting Keycloak](#troubleshooting-keycloak)
+- [Header Authentication](#header-authentication)
 - [OIDC Auth](#oidc)
-  - [authentik](#authentik)
+- [authentik](#authentik)
 - [Alternative Authentication Methods](#alternative-authentication-methods)
+  - [Reverse Proxy Auth](#reverse-proxy-auth)
+  - [Zero-Trust Tunnels](#zero-trust-tunnels)
   - [VPN](#vpn)
   - [IP-Based Access](#ip-based-access)
   - [Web Server Authentication](#web-server-authentication)
-  - [OAuth Services](#oauth-services)
-  - [Auth on Cloud Hosting Services](#static-site-hosting-providers)
+  - [SSO / OAuth Providers](#sso--oauth-providers)
+  - [Cloud Hosting Providers](#cloud-hosting-providers)
 
 
 > [!IMPORTANT]
-> Dashy's built-in auth is not indented to protect a publicly hosted instance against unauthorized access. Instead you should use an auth provider compatible with your reverse proxy, or access Dashy via your VPN, or implement your own SSO logic. 
+> Dashy's built-in auth is not intended to protect a publicly hosted instance against unauthorized access. Instead you should use an auth provider compatible with your reverse proxy, or access Dashy via your VPN, or implement your own SSO logic. 
 >
-> In cases where Dashy is only accessibly within your home network, and you just want to add a login page, then the built-in auth may be sufficient, but keep in mind that configuration can still be accessed.
+> If Dashy is only accessible within your home network and you just want a login page, then the built-in auth may be sufficient. To also protect server-side endpoints and config files, set `ENABLE_HTTP_AUTH=true` (see [Adding HTTP Auth to Configuration](#adding-http-auth-to-configuration)).
 
 ## Built-In Auth
 
-Dashy has a basic login page included, and frontend authentication. You can enable this by adding users to the `auth` section under `appConfig` in your `conf.yml`. If this section is not specified, then no authentication will be required to access the app, and the homepage will resolve to your dashboard.
-
-> [!NOTE]
-> Since the auth is initiated in the main app entry point (for security), a rebuild is required to apply changes to the auth configuration.
-> You can trigger a rebuild through the UI, under Config --> Rebuild, or by running `yarn build` in the root directory.
-
+Dashy has a basic login page included, and frontend authentication. You can enable this by adding users to the `auth` section under `appConfig` in your `conf.yml`. If this section is not specified, then no authentication will be required to access the app, and the homepage will resolve to your dashboard. To also enable HTTP Authorization, set the `ENABLE_HTTP_AUTH` env var to `true`.
 
 ### Setting Up Authentication
 
@@ -58,7 +55,7 @@ appConfig:
 
 ### Hash Password
 
-Dashy uses [SHA-256 Hash](https://en.wikipedia.org/wiki/Sha-256), a 64-character string, which you can generate using an online tool, such as [this one](https://passwordsgenerator.net/sha256-hash-generator/) or [CyberChef](https://gchq.github.io/CyberChef/) (which can be self-hosted/ ran locally).
+Dashy uses [SHA-256 Hash](https://en.wikipedia.org/wiki/Sha-256), a 64-character string, which you can generate by running `echo -n "my-super-secure-password" | sha256sum`, or using an online tool, such as [this one](https://passwordsgenerator.net/sha256-hash-generator/) or [CyberChef](https://gchq.github.io/CyberChef/) (which can be self-hosted/ ran locally).
 
 A hash is a one-way cryptographic function, meaning that it is easy to generate a hash for a given password, but very hard to determine the original password for a given hash. This means, that so long as your password is long, strong and unique, it is safe to store its hash in the clear. Having said that, you should never reuse passwords, hashes can be cracked by iterating over known password lists, generating a hash of each.
 
@@ -140,11 +137,32 @@ Just be sure to set `VUE_APP_BOB='my super secret password'` before build-time.
 
 ### Adding HTTP Auth to Configuration
 
-If you'd also like to prevent direct visit access to your configuration file, you can set the `ENABLE_HTTP_AUTH` environmental variable.
+Without this, the built-in auth is just a client-side login page — your config and API endpoints can still be accessed directly. Set `ENABLE_HTTP_AUTH=true` to protect them.
+
+> [!NOTE]
+> HTTP Auth and guest access (`enableGuestAccess`) are incompatible. Guests have no credentials, so they can't fetch the config file when HTTP auth is active.
+
+This uses the same users you've already defined in `appConfig.auth.users` to authenticate all server-side requests (config files, status checks, system info, CORS proxy, etc.) via HTTP Basic Auth.
+
+**How it works:** When a user logs in through the Dashy UI, a session token is stored in a cookie. The frontend automatically includes this token in requests to local API endpoints. On the server side, the token is validated against your configured users. If someone tries to access an endpoint directly (e.g. with curl), the server will respond with a `401` and a Basic Auth challenge — they'll need to provide a valid username and password.
+
+**Setup:**
+
+1. Make sure you have users configured in your `conf.yml` (see [Setting Up Authentication](#setting-up-authentication) above)
+2. Set the `ENABLE_HTTP_AUTH=true` environment variable (e.g. in your `docker-compose.yml` or `.env` file)
+3. Restart the container - the auth mode is determined at startup, so env var changes need a restart
+
+Adding or removing users in `conf.yml` takes effect immediately without a restart, since the user list is read from disk on each request.
+
+For full protection, you'll want both the client-side login page (via `appConfig.auth.users`) and server-side auth (via `ENABLE_HTTP_AUTH=true`).
 
 ### Security
 
-With basic auth, all logic is happening on the client-side, which could mean a skilled user could manipulate the code to view parts of your configuration, including the hash. If the SHA-256 hash is of a common password, it may be possible to determine it, using a lookup table, in order to find the original password. Which can be used to manually generate the auth token, that can then be inserted into session storage, to become a valid logged in user. Therefore, you should always use a long, strong and unique password, and if you instance contains security-critical info and/ or is exposed directly to the internet, and alternative authentication method may be better. The purpose of the login page is merely to prevent immediate unauthorized access to your homepage.
+With basic auth (and without HTTP auth), the login logic runs on the client-side. A technical user could inspect the code and view parts of your configuration, including password hashes. If the SHA-256 hash is of a common password, it may be possible to determine it using a lookup table, and then use that to generate a valid auth token. Therefore, you should always use a long, strong and unique password.
+
+If your instance is exposed to the internet, the built-in auth alone is not sufficient - use a reverse proxy with its own authentication layer (see [Alternative Authentication Methods](#alternative-authentication-methods)), or access Dashy over a VPN. See the [Network Exposure](/docs/management.md#network-exposure) section in the management docs for more on this.
+
+The built-in login page prevents casual unauthorized access on a private network. It's not a security perimeter.
 
 **[⬆️ Back to Top](#authentication)**
 
@@ -152,9 +170,24 @@ With basic auth, all logic is happening on the client-side, which could mean a s
 
 ## HTTP Auth
 
-If you'd like to protect all your config files from direct access, you can set the `BASIC_AUTH_USERNAME` and `BASIC_AUTH_PASSWORD` environmental variables. You'll then be prompted to enter these credentials when visiting Dashy.
+If you'd like to protect server-side endpoints with HTTP Basic Auth, there are two approaches. They protect the same endpoints but use different credential sources, so pick one - don't combine them.
 
-Then, if you'd like your frontend to automatically log you in, without prompting you for credentials (insecure, so only use on a trusted environment), then also specify `VUE_APP_BASIC_AUTH_USERNAME` and `VUE_APP_BASIC_AUTH_PASSWORD`. This is useful for when you're hosting Dashy on a private server, and just want to use auth for user management and to prevent direct access to your config files, while still allowing the frontend to access them. Note that a rebuild is required for these changes to take effect.
+### Using config-file users (recommended)
+
+This is the approach described in [Adding HTTP Auth to Configuration](#adding-http-auth-to-configuration) above. Set `ENABLE_HTTP_AUTH=true` and it uses the same `appConfig.auth.users` from your `conf.yml`. The frontend handles authentication automatically using the session token from the login page, so no extra setup is needed.
+
+This is the recommended approach because it keeps credentials in one place and works together with the client-side login page. But the drawback is that your credentials will be stored in your config file.
+
+### Using static credentials
+
+If you don't have users in your `conf.yml` (e.g. you handle user management externally, or just want a single shared password for server-side access), you can set the `BASIC_AUTH_USERNAME` and `BASIC_AUTH_PASSWORD` environmental variables instead.
+
+With this approach, there is no Dashy login page. When the browser first requests the config file, the server responds with a `401` and the browser shows its native HTTP auth prompt. Once the user enters the correct credentials, the browser caches them for the session and all subsequent requests work.
+
+To skip the browser prompt and have the frontend authenticate automatically, also set `VUE_APP_BASIC_AUTH_USERNAME` and `VUE_APP_BASIC_AUTH_PASSWORD` to the same values. These are baked in at build time, so a rebuild is required, and you should only do this on a trusted network.
+
+> [!WARNING]
+> Do not combine `BASIC_AUTH_USERNAME`/`BASIC_AUTH_PASSWORD` with conf.yml users. If both are present, the server will log a warning at startup. With `ENABLE_HTTP_AUTH` set, config-file users take priority and the static credentials are ignored. Without it, the static credentials protect the server but the Dashy login page will use conf.yml credentials, and the frontend will send the wrong credentials to server endpoints. Pick one approach or the other.
 
 **[⬆️ Back to Top](#authentication)**
 
@@ -254,8 +287,6 @@ Your app is now secured :) When you load Dashy, it will redirect to your Keycloa
 
 From within the Keycloak console, you can then configure things like time-outs, password policies, etc. You can also backup your full Keycloak config, and it is recommended to do this, along with your Dashy config. You can spin up both Dashy and Keycloak simultaneously and restore both applications configs using a `docker-compose.yml` file, and this is recommended.
 
----
-
 ### Troubleshooting Keycloak
 
 If you encounter issues with your Keycloak setup, follow these steps to troubleshoot and resolve common problems.
@@ -274,6 +305,52 @@ Solution: In "TC clients" -> "Access settings" -> "Root URL" https://dashy.my.do
 
 ---
 
+## Header Authentication
+
+Header authentication allows Dashy to trust an upstream reverse proxy to handle authentication. The proxy authenticates users and forwards their identity to Dashy via a configurable HTTP header (e.g. `REMOTE_USER`). This is the standard pattern used by [Authelia](https://www.authelia.com/), [Authentik](https://goauthentik.io/), Traefik's `forwardAuth`, Caddy's `forward_auth`, and Nginx's `auth_request`.
+
+This is useful when you already have a central authentication layer in front of your self-hosted services and want Dashy to automatically pick up the authenticated user without requiring a separate login.
+
+### Configuration
+
+```yaml
+appConfig:
+  auth:
+    enableHeaderAuth: true
+    users:
+      - user: alice
+        hash: 0a7b1d4c2e... # SHA-256 hash of password
+        type: admin
+      - user: bob
+        hash: 3f8e2b1a9d...
+        type: normal
+    headerAuth:
+      userHeader: Remote-User
+      proxyWhitelist:
+        - 172.18.0.2
+        - 127.0.0.1
+```
+
+- **`userHeader`** - The HTTP header name containing the authenticated username. Defaults to `Remote-User` if not specified. Common values: `Remote-User` (Authelia), `X-authentik-username` (Authentik), or whatever your proxy forwards. Header matching is case-insensitive.
+- **`proxyWhitelist`** - Required. An array of IP addresses that Dashy will accept the header from. Only requests originating from these IPs will be trusted. This prevents clients from spoofing the header directly.
+- **`users`** - Required. The header username is matched against this list to determine the user's role (`admin` or `normal`) and to generate the session token. Users must be defined here even though authentication is handled externally.
+
+### How it Works
+
+1. User visits Dashy, which is behind a reverse proxy (e.g. Authelia)
+2. The proxy authenticates the user and forwards the request with a header like `Remote-User: alice`
+3. Dashy's server checks that the request comes from a whitelisted proxy IP, then returns the username via the `/get-user` endpoint
+4. The client matches the username against the configured users, generates a session token, and sets the auth cookie
+5. From this point, standard Dashy auth applies - `isLoggedIn()`, admin checks, and granular access controls all work as normal
+
+### Notes
+
+- The `proxyWhitelist` checks `req.socket.remoteAddress`, which is the direct connection source. If your proxy connects through Docker networking, use the container's internal IP (e.g. `172.18.0.2`), not the external IP
+- Logout clears Dashy's session cookie, but the user remains authenticated at the proxy level. Revisiting the page will re-authenticate automatically
+- When header auth is enabled, server-side API endpoints are also protected by the proxy whitelist. Requests not from a whitelisted IP will be rejected. Admin enforcement applies - only users with `type: admin` can access write endpoints (config save, rebuild)
+
+---
+
 ## OIDC
 
 Dashy also supports using a general [OIDC compatible](https://openid.net/connect/) authentication server. In order to use it, the authentication section needs to be configured:
@@ -286,6 +363,7 @@ appConfig:
       clientId: [registered client id]
       endpoint: [OIDC endpoint]
       scope: [The scope(s) to request from the OIDC provider]
+      adminGroup: admin
 ```
 
 Because Dashy is a SPA, a [public client](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1) registration with PKCE is needed.
@@ -318,7 +396,7 @@ Groups and roles will be populated and available for controlling display similar
 
 ---
 
-### authentik
+## authentik
 
 This documentation is specific to `authentik`, however it may be useful in getting other idP's working with `Dashy`.
 
@@ -497,153 +575,125 @@ sections:
 
 ## Alternative Authentication Methods
 
-If you are self-hosting Dashy, and require secure authentication to prevent unauthorized access, then you can either use Keycloak, or one of the following options:
+These are alternatives to Dashy's built-in auth, Keycloak, and OIDC. Most of them sit in front of Dashy at the network or reverse proxy level, which is generally the better approach for anything internet-facing.
 
-- [Authentication Server](#authentication-server) - Put Dashy behind a self-hosted auth server
-- [VPN](#vpn) - Use a VPN to tunnel into the network where Dashy is running
-- [IP-Based Access](#ip-based-access) - Disallow access from all IP addresses, except your own
-- [Web Server Authentication](#web-server-authentication) - Enable user control within your web server or proxy
-- [OAuth Services](#oauth-services) - Implement a user management system using a cloud provider
-- [Password Protection (for cloud providers)](#static-site-hosting-providers) - Enable password-protection on your site
+- [Reverse Proxy Auth](#reverse-proxy-auth) - Authelia, Authentik, or similar sitting in front of Dashy
+- [Zero-Trust Tunnels](#zero-trust-tunnels) - Cloudflare Tunnel, Tailscale Funnel
+- [VPN](#vpn) - Keep Dashy off the internet entirely
+- [IP-Based Access](#ip-based-access) - Restrict by source IP in your web server
+- [Web Server Authentication](#web-server-authentication) - HTTP basic auth at the proxy level
+- [SSO / OAuth Providers](#sso--oauth-providers) - Cloud-hosted identity providers
+- [Cloud Hosting Providers](#cloud-hosting-providers) - Built-in auth on hosting platforms
 
-### Authentication Server
+### Reverse proxy auth
 
-#### Authelia
+The most common setup for self-hosters running multiple services. You put an auth server in front of your reverse proxy, and it handles login, 2FA, and sessions for everything behind it. You configure it once, and all your apps get protected.
 
-[Authelia](https://www.authelia.com/) is an open-source full-featured authentication server, which can be self-hosted and either on bare metal, in a Docker container or in a Kubernetes cluster. It allows for fine-grained access control rules based on IP, path, users etc, and supports 2FA, simple password access or bypass policies for your domains.
+Dashy has [Header Authentication](#header-authentication) support, so when your proxy authenticates a user and forwards their identity via a header, Dashy picks up the username and maps it to a configured user automatically. No separate Dashy login needed.
 
-- `git clone https://github.com/authelia/authelia.git`
-- `cd authelia/examples/compose/lite`
-- Modify the `users_database.yml` the default username and password is authelia
-- Modify the `configuration.yml` and `docker-compose.yml` with your respective domains and secrets
-- `docker-compose up -d`
+**Authelia** is lightweight and Docker-friendly. It supports 2FA, per-path access rules, and multiple user backends. To get started quickly:
 
-For more information, see the [Authelia docs](https://www.authelia.com/docs/)
+1. `git clone https://github.com/authelia/authelia.git`
+2. `cd authelia/examples/compose/lite`
+3. Edit `users_database.yml`, `configuration.yml`, and `docker-compose.yml` for your domain and users
+4. `docker compose up -d`
+
+See the [Authelia docs](https://www.authelia.com/docs/) for the full setup guide.
+
+**Authentik** is heavier but gives you a proper admin UI, built-in OIDC/SAML support, and user self-service (password resets, enrollment flows, etc). Good if you want a single identity provider across many apps. See the [authentik Docker Compose install](https://docs.goauthentik.io/docs/installation/docker-compose) to get started, and the [authentik section](#authentik) above for Dashy-specific OIDC config.
+
+### Zero-trust tunnels
+
+These let you expose Dashy to the internet without opening inbound ports or configuring port forwarding. Auth is handled by the tunnel provider before traffic ever reaches your server.
+
+**Cloudflare Tunnel** connects Dashy to Cloudflare's edge network via an outbound-only `cloudflared` daemon (runs nicely as a Docker sidecar). Cloudflare handles DNS, TLS, and DDoS protection. Pair it with Cloudflare Access to require identity provider login before anyone reaches Dashy. The free tier covers most home setups. See the [Cloudflare Tunnel docs](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/).
+
+**Tailscale Funnel** exposes Dashy through your Tailscale mesh to the public internet, with automatic TLS. Simpler to set up than Cloudflare but you get less control over access policies. See the [Funnel docs](https://tailscale.com/kb/1223/funnel).
 
 ### VPN
 
-A catch-all solution to accessing services running from your home network remotely is to use a VPN. It means you do not need to worry about implementing complex authentication rules, or trusting the login implementation of individual applications. However it can be inconvenient to use on a day-to-day basis, and some public and corporate WiFi block VPN connections. Two popular VPN protocols are [OpenVPN](https://openvpn.net/) and [WireGuard](https://www.wireguard.com/)
+A VPN keeps Dashy off the public internet entirely. You connect to your home network remotely and access Dashy like you're on the LAN. No auth to configure, no attack surface to worry about. The downside: you need the VPN running to see anything, and some networks (corporate WiFi, hotels) block VPN traffic.
 
-### IP-Based Access
+[WireGuard](https://www.wireguard.com/) is fast and minimal. Most self-hosters run it through a UI like [wg-easy](https://github.com/wg-easy/wg-easy), which gives you a web interface for managing peers and generating QR codes for mobile.
 
-If you have a static IP or use a VPN to access your running services, then you can use conditional access to block access to Dashy from everyone except users of your pre-defined IP address. This feature is offered by most cloud providers, and supported by most web servers.
+[Tailscale](https://tailscale.com/) wraps WireGuard and takes care of NAT traversal, key exchange, and device management. No port forwarding needed, works across networks with zero config. There's a generous free tier. [Headscale](https://github.com/juanfont/headscale) is a self-hosted coordination server if you want to keep everything on your own infrastructure.
 
-#### Apache
+[OpenVPN](https://openvpn.net/) still works fine if you already have it running, but for a new setup WireGuard or Tailscale are easier to get going.
 
-In Apache, this is configured in your `.htaccess` file in Dashy's root folder, and should look something like:
+### IP-based access
 
-```text
-Order Deny,Allow
-Deny from all
-Allow from [your-ip]
-```
+If you have a static IP or are already on a VPN, you can restrict access to Dashy by source IP at the web server level. This works well as an extra layer on top of other auth methods.
 
-#### NGINX
-
-In NGINX you can specify [control access](https://docs.nginx.com/nginx/admin-guide/security-controls/controlling-access-proxied-http/) rules for a given site in your `nginx.conf` or hosts file. For example:
-
-```text
-server {
-	listen 8080;
-	server_name www.dashy.example.com;
-	location / {
-		root /path/to/dashy/;
-		passenger_enabled on;
-		allow [your-ip];
-		deny all;
-    }
-  }
-```
-
-#### Caddy
-
-In Caddy, [Request Matchers](https://caddyserver.com/docs/caddyfile/matchers) can be used to filter requests
-
-```text
-dashy.site {
-	@public_networks not remote_ip [your-ip]
-	respond @public_networks "Access denied" 403
-}
-```
-
-### Web Server Authentication
-
-Most web servers make password protecting certain apps very easy. Note that you should also set up HTTPS and have a valid certificate in order for this to be secure.
-
-#### Apache
-
-First crate a `.htaccess` file in Dashy's route directory. Specify the auth type and path to where you want to store the password file (usually the same folder). For example:
-
-```text
-AuthType Basic
-AuthName "Please Sign into Dashy"
-AuthUserFile /path/dashy/.htpasswd
-require valid-user
-```
-
-Then create a `.htpasswd` file in the same directory. List users and their hashed passwords here, with one user on each line, and a colon between username and password (e.g. `[username]:[hashed-password]`). You will need to generate an MD5 hash of your desired password, this can be done with an [online tool](https://www.web2generators.com/apache-tools/htpasswd-generator).  Your file will look something like:
-
-```text
-alicia:$apr1$jv0spemw$RzOX5/GgY69JMkgV6u16l0
-```
-
-#### NGINX
-
-NGINX has an [authentication module](https://nginx.org/en/docs/http/ngx_http_auth_basic_module.html) which can be used to add passwords to given sites, and is fairly simple to set up. Similar to above, you will need to create a `.htpasswd` file. Then just enable auth and specify the path to that file, for example:
-
+NGINX:
 ```text
 location / {
-  auth_basic "closed site";
-  auth_basic_user_file conf/htpasswd;
+    proxy_pass http://dashy:8080;
+    allow 192.168.1.0/24;
+    allow 203.0.113.50;
+    deny all;
 }
 ```
 
-#### Caddy
-
-Caddy has a [basic-auth](https://caddyserver.com/docs/caddyfile/directives/basicauth) directive, where you specify a username and hash. The password hash needs to be base-64 encoded, the [`caddy hash-password`](https://caddyserver.com/docs/command-line#caddy-hash-password) command can help with this. For example:
-
+Caddy ([request matchers docs](https://caddyserver.com/docs/caddyfile/matchers)):
 ```text
-basicauth /secret/* {
-	alicia JDJhJDEwJEVCNmdaNEg2Ti5iejRMYkF3MFZhZ3VtV3E1SzBWZEZ5Q3VWc0tzOEJwZE9TaFlZdEVkZDhX
+dashy.example.com {
+    @blocked not remote_ip 192.168.1.0/24 203.0.113.50
+    respond @blocked "Access denied" 403
+    reverse_proxy dashy:8080
 }
 ```
 
-For more info about implementing a single sign on for all your apps with Caddy, see [this tutorial](https://joshstrange.com/securing-your-self-hosted-apps-with-single-signon/)
-
-#### Lighttpd
-
-You can use the [mod_auth](https://doc.lighttpd.net/lighttpd2/mod_auth.html) module to secure your site with Lighttpd. Like with Apache, you need to first create a password file listing your usernames and hashed passwords, but in Lighttpd, it's usually called `.lighttpdpassword`.
-
-Then in your `lighttpd.conf` file (usually in the `/etc/lighttpd/` directory), load in the mod_auth module, and configure it's directives. For example:
-
+Apache (2.4+):
 ```text
-server.modules += ( "mod_auth" )
-auth.debug = 2
-auth.backend = "plain"
-auth.backend.plain.userfile = "/home/lighttpd/.lighttpdpassword"
+<Location />
+    Require ip 192.168.1.0/24
+    Require ip 203.0.113.50
+</Location>
+```
 
-$HTTP["host"] == "dashy.my-domain.net" {
-  server.document-root = "/home/lighttpd/dashy.my-domain.net/http"
-  server.errorlog = "/var/log/lighttpd/dashy.my-domain.net/error.log"
-  accesslog.filename = "/var/log/lighttpd/dashy.my-domain.net/access.log"
-  auth.require = (
-    "/docs/" => (
-      "method" => "basic",
-      "realm" => "Password protected area",
-      "require" => "user=alicia"
-    )
-  )
+### Web server authentication
+
+Your reverse proxy can handle HTTP basic auth directly, no extra services needed. This gives you a browser login prompt in front of Dashy. Make sure you're using HTTPS, as basic auth sends credentials base64-encoded (not encrypted) with every request.
+
+NGINX ([auth module docs](https://nginx.org/en/docs/http/ngx_http_auth_basic_module.html)):
+```text
+location / {
+    auth_basic "Dashy";
+    auth_basic_user_file /etc/nginx/conf.d/.htpasswd;
+    proxy_pass http://dashy:8080;
 }
 ```
 
-Restart your web server for changes to take effect.
+Generate the password file with `htpasswd -c /etc/nginx/conf.d/.htpasswd alicia`.
 
-### OAuth Services
+Caddy ([basicauth directive](https://caddyserver.com/docs/caddyfile/directives/basicauth)):
+```text
+dashy.example.com {
+    basicauth {
+        alicia $2a$14$... # generate with: caddy hash-password
+    }
+    reverse_proxy dashy:8080
+}
+```
 
-There are also authentication services, such as [Ory.sh](https://www.ory.sh/), [Okta](https://developer.okta.com/), [Auth0](https://auth0.com/), [Firebase](https://firebase.google.com/docs/auth/). Implementing one of these solutions would involve some changes to the [`Auth.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/Auth.js) file, but should be fairly straightforward.
+Apache:
+```text
+AuthType Basic
+AuthName "Dashy"
+AuthUserFile /path/to/.htpasswd
+Require valid-user
+```
 
-### Static Site Hosting Providers
+Generate the password file with `htpasswd -c /path/to/.htpasswd alicia`.
 
-If you are hosting Dashy on a cloud platform, you will probably find that it has built-in support for password protected access to web apps. For more info, see the relevant docs for your provider, for example: [Netlify Password Protection](https://docs.netlify.com/visitor-access/password-protection/), [Cloudflare Access](https://www.cloudflare.com/teams/access/), [AWS Cognito](https://aws.amazon.com/cognito/), [Azure Authentication](https://docs.microsoft.com/en-us/azure/app-service/scenario-secure-app-authentication-app-service) and [Vercel Password Protection](https://vercel.com/docs/platform/projects#password-protection).
+### SSO / OAuth providers
+
+Cloud identity providers like [Auth0](https://auth0.com/), [Okta](https://developer.okta.com/), [Ory](https://www.ory.sh/), and [Google Cloud Identity](https://cloud.google.com/identity) can work with Dashy through its [OIDC support](#oidc). If your provider speaks OIDC (most do), just configure it as described in the OIDC section and you're set.
+
+For providers that only support OAuth2 or SAML without an OIDC layer, you'll need something in between to translate. Authentik, Keycloak, and Authelia can all bridge from SAML/OAuth2 to OIDC.
+
+### Cloud hosting providers
+
+If you're running Dashy on a cloud platform, most have their own auth options you can enable without touching Dashy's config. See your provider's docs: [Cloudflare Access](https://www.cloudflare.com/teams/access/), [Netlify Password Protection](https://docs.netlify.com/visitor-access/password-protection/), [AWS Cognito](https://aws.amazon.com/cognito/), [Azure App Service Authentication](https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization), and [Vercel Password Protection](https://vercel.com/docs/security/password-protection).
 
 **[⬆️ Back to Top](#authentication)**

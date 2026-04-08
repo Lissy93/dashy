@@ -7,6 +7,7 @@ Both sections and items can have an icon, which is specified using the `icon` at
 - [Simple Icons](#simple-icons)
 - [Generative Icons](#generative-icons)
 - [Emoji Icons](#emoji-icons)
+- [selfh.st Icons](#selfhst-icons)
 - [Home-Lab Icons](#home-lab-icons)
 - [Material Icons](#material-design-icons)
 - [Icons by URL](#icons-by-url)
@@ -30,19 +31,19 @@ Dashy can auto-fetch an icon for a given service, using it's favicon. Just set `
 
 Since different websites host their favicons at different paths, for the best results Dashy can use an API to resolve a websites icon.
 
-The default favicon API is  [allesedv.com](https://favicon.allesedv.com/), but you can change this under `appConfig.faviconApi`. If you'd prefer not to use an API, just set this value to `local`. You can also use different APIs for individual items, by setting `icon: favicon-[api]`, e.g. `favicon-clearbit`.
+The default favicon API is  [allesedv.com](https://favicon.allesedv.com/), but you can change this under `appConfig.faviconApi`. If you'd prefer not to use an API, just set this value to `local`. You can also use different APIs for individual items, by setting `icon: favicon-[api]`, e.g. `favicon-iconhorse`.
 
 The following favicon APIs are supported:
 
 - `allesedv` - [allesedv.com](https://favicon.allesedv.com/) is a highly efficient IPv6-enabled service
 - `iconhorse` - [Icon.Horse](https://icon.horse/) returns quality icons for any site, with caching for speed and fallbacks for sites without an icon
-- `clearbit` - [Clearbit](https://clearbit.com/logo) returns high-quality square logos from mainstream websites
 - `faviconkit` - [faviconkit.com](https://faviconkit.com/) good quality icons and most sites supported (Note: down as of Nov '21)
 - `besticon` - [BestIcon](https://github.com/mat/besticon) fetches websites icons from manifest
 - `mcapi` - [MC-API](https://eu.mc-api.net/) fetches default website favicon, originally a Minecraft util
 - `duckduckgo` - Returns decent quality website icons, from DuckDuckGo search
 - `google` - Official Google favicon API service, good support for all sites, but poor quality
 - `yandex` - Lower quality icons, but useful in some regions where other services are blocked
+- `webmasterapi` - [WebMasterAPI](https://www.webmasterapi.com/) fetches website favicons via their API
 - `local` - Set to local to fetch the default icon at /favicon.ico instead of using an API
 
 If for a given service none of the APIs work in your situation, and nor does local, then the best option is to find the path of the services logo or favicon, and set the icon to the URL of the raw image. For example, `icon: https://monitoring.local/faviconx128.png`- you can find this path using the browser dev tools.
@@ -63,7 +64,7 @@ Font-Awesome has a wide variety of free icons, but you can also use their pro ic
 
 ## Simple Icons
 
-[SimpleIcons.org](https://simpleicons.org/) is a collection of 2000+ high quality, free and open source brand and logo SVG icons. Usage of which is very similar to font-awesome icons. First find the glyph you want to use on the [website](https://simpleicons.org/), then just set your icon the the simple icon slug, prefixed with `si-`.
+[SimpleIcons.org](https://simpleicons.org/) is a collection of 2000+ high quality, free and open source brand and logo SVG icons. Usage of which is very similar to font-awesome icons. First find the glyph you want to use on the [website](https://simpleicons.org/), then just set your icon to the simple icon slug, prefixed with `si-`.
 
 <p align="center">
   <img width="580" src="https://i.ibb.co/MVhkXfC/simple-icons-example.png" />
@@ -106,6 +107,18 @@ You can use almost any emoji as an icon for items or sections. You can specify t
 </p>
 
 For example, these will all render the same rocket (🚀) emoji: `icon: ':rocket:'` or `icon: 'U+1F680'` or `icon: 🚀`
+
+---
+
+## selfh.st Icons
+
+The [selfh.st](https://selfh.st/) project provides a set of icons, originally for self-hosted services, but now expanded to include a wide variety of services. These icons can be used by specifying the icon name (without extension and with all spaces replaced with -) preceded by `sh-`. See https://selfh.st/icons/ for a full list of all available icons. For example, the Home Assistant icon is `sh-home-assistant`.
+
+Note: These icons are fetched from the jsdelivr CDN, so if you require offline access, the [Local Icons](#local-icons) method may be a better option for you.
+
+<p align="center">
+  <img width="580" src="https://i.ibb.co/pfy09LH/Screenshot-from-2025-01-08-22-04-21.png" />
+</p>
 
 ---
 

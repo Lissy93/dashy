@@ -1,17 +1,31 @@
 <template>
 <div class="rss-wrapper">
   <!-- Feed Meta Info -->
-  <a class="meta-container" v-if="meta" :href="meta.link" :title="meta.description">
+  <component
+    :is="meta && meta.link ? 'a' : 'div'"
+    class="meta-container"
+    v-if="meta"
+    :href="meta.link || undefined"
+    :title="meta.description"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
     <img class="feed-icon" :src="meta.image" v-if="meta.image" alt="Feed Image" />
     <div class="feed-text">
       <p class="feed-title">{{ meta.title }}</p>
       <p class="feed-author" v-if="meta.author">By {{ meta.author }}</p>
     </div>
-  </a>
+  </component>
   <!-- Feed Content -->
   <div class="post-wrapper" v-if="posts">
     <div class="post-row" v-for="(post, indx) in posts" :key="indx">
-      <a class="post-top" :href="post.link">
+      <component
+        :is="post.link ? 'a' : 'div'"
+        class="post-top"
+        :href="post.link || undefined"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <img class="post-img" :src="post.image" v-if="post.image" alt="Post Image">
         <div class="post-title-wrap">
           <p class="post-title">{{ post.title }}</p>
@@ -19,9 +33,15 @@
             {{ post.date | formatDate }} {{ post.author | formatAuthor }}
           </p>
         </div>
-      </a>
+      </component>
       <div class="post-body" v-html="post.description"></div>
-      <a class="continue-reading-btn" :href="post.link">
+      <a
+        class="continue-reading-btn"
+        v-if="post.link"
+        :href="post.link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         {{ $t('widgets.general.open-link') }}
       </a>
     </div>
@@ -34,6 +54,7 @@
 import * as Parser from 'rss-parser';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
+import { sanitizeRssItem, sanitizeRssMeta } from '@/utils/Sanitizer';
 
 export default {
   mixins: [WidgetMixin],
@@ -68,7 +89,7 @@ export default {
       return 'pubDate';
     },
     orderDirection() {
-      const usersChoice = this.options.orderBy;
+      const usersChoice = this.options.orderDirection;
       if (usersChoice && (usersChoice === 'desc' || usersChoice === 'asc')) return usersChoice;
       return 'desc';
     },
@@ -87,9 +108,13 @@ export default {
   },
   filters: {
     formatDate(timestamp) {
+      if (!timestamp) return '';
+      const date = new Date(timestamp);
+      // Check if date is valid
+      if (Number.isNaN(date.getTime())) return '';
       const localFormat = navigator.language;
       const dateFormat = { weekday: 'short', day: 'numeric', month: 'short' };
-      return new Date(timestamp).toLocaleDateString(localFormat, dateFormat);
+      return date.toLocaleDateString(localFormat, dateFormat);
     },
     formatAuthor(author) {
       return author ? `by ${author}` : '';
@@ -107,23 +132,23 @@ export default {
         const {
           link, title, items, author, description, image,
         } = await parser.parseString(data);
-        this.meta = {
+        this.meta = sanitizeRssMeta({
           title,
           link,
           author,
           description,
           image,
-        };
+        });
         this.processItems(items);
       } else {
         const { feed, items } = data;
-        this.meta = {
+        this.meta = sanitizeRssMeta({
           title: feed.title,
           link: feed.link,
           author: feed.author,
           description: feed.description,
           image: feed.image,
-        };
+        });
         this.processItems(items);
       }
     },
@@ -131,16 +156,17 @@ export default {
       const posts = [];
       let { length } = items;
       if (this.limit) {
-        length = this.limit;
+        length = Math.min(length, this.limit);
       }
       for (let i = 0; length > i; i += 1) {
+        const sanitized = sanitizeRssItem(items[i]);
         posts.push({
-          title: items[i].title,
-          description: items[i].description,
-          image: items[i].thumbnail,
-          author: items[i].author,
-          date: items[i].pubDate,
-          link: items[i].link,
+          title: sanitized.title,
+          description: sanitized.description,
+          image: sanitized.thumbnail,
+          author: sanitized.author,
+          date: sanitized.pubDate,
+          link: sanitized.link,
         });
       }
       this.posts = posts;

@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign, prefer-destructuring */
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
 import yaml from 'js-yaml';
+import request from '@/utils/request';
 import Keys from '@/utils/StoreMutations';
 import { makePageName, formatConfigPath, componentVisibility } from '@/utils/ConfigHelpers';
 import { applyItemId } from '@/utils/SectionHelpers';
@@ -356,7 +356,7 @@ const store = new Vuex.Store({
       const configFilePath = process.env.VUE_APP_CONFIG_PATH || '/conf.yml';
       try {
         // Attempt to fetch the YAML file
-        const response = await axios.get(configFilePath, makeBasicAuthHeaders());
+        const response = await request.get(configFilePath, makeBasicAuthHeaders());
         let data;
         try {
           data = yaml.load(response.data);
@@ -426,7 +426,7 @@ const store = new Vuex.Store({
           commit(CRITICAL_ERROR_MSG, `Unable to find config for '${subConfigId}'`);
           return { ...emptyConfig };
         }
-        axios.get(subConfigPath, makeBasicAuthHeaders()).then((response) => {
+        request.get(subConfigPath, makeBasicAuthHeaders()).then((response) => {
           // Parse the YAML
           const configContent = yaml.load(response.data) || {};
           // Certain values must be inherited from root config

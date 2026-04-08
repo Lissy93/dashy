@@ -10,10 +10,21 @@ const getAppConfig = () => {
   return config.appConfig || {};
 };
 
+const isOidcGuestAccessEnabled = () => {
+  const { auth } = getAppConfig();
+  return auth && auth.enableGuestAccess;
+};
+
 class OidcAuth {
   constructor() {
     const { auth } = getAppConfig();
-    const { clientId, endpoint, scope } = auth.oidc;
+    const {
+      clientId,
+      endpoint,
+      scope,
+      adminGroup,
+      adminRole,
+    } = auth.oidc;
     const settings = {
       userStore: new WebStorageStateStore({ store: window.localStorage }),
       authority: endpoint,
@@ -23,8 +34,11 @@ class OidcAuth {
       scope: scope || 'openid profile email roles groups',
       response_mode: 'query',
       filterProtocolClaims: true,
+      loadUserInfo: true,
     };
 
+    this.adminGroup = adminGroup;
+    this.adminRole = adminRole;
     this.userManager = new UserManager(settings);
   }
 
@@ -41,24 +55,31 @@ class OidcAuth {
     const user = await this.userManager.getUser();
 
     if (user === null) {
-      await this.userManager.signinRedirect();
+      if (!isOidcGuestAccessEnabled()) {
+        await this.userManager.signinRedirect();
+      }
     } else {
-      const { roles, groups } = user.profile;
+      const { roles = [], groups = [] } = user.profile;
       const info = {
         groups,
         roles,
       };
+      const isAdmin = (Array.isArray(groups) && groups.includes(this.adminGroup))
+                      || (Array.isArray(roles) && roles.includes(this.adminRole))
+                      || false;
 
-      statusMsg(`user: ${user.profile.preferred_username}`, JSON.stringify(info));
+      statusMsg(`user: ${user.profile.preferred_username}   admin: ${isAdmin}`, JSON.stringify(info));
 
       localStorage.setItem(localStorageKeys.KEYCLOAK_INFO, JSON.stringify(info));
       localStorage.setItem(localStorageKeys.USERNAME, user.profile.preferred_username);
+      localStorage.setItem(localStorageKeys.ISADMIN, isAdmin);
     }
   }
 
   async logout() {
     localStorage.removeItem(localStorageKeys.USERNAME);
     localStorage.removeItem(localStorageKeys.KEYCLOAK_INFO);
+    localStorage.removeItem(localStorageKeys.ISADMIN);
 
     try {
       await this.userManager.signoutRedirect();

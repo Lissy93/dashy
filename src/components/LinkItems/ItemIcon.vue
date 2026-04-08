@@ -72,6 +72,7 @@ export default {
       else if (img.includes('mdi-')) imgType = 'mdi';
       else if (img.includes('si-')) imgType = 'si';
       else if (img.includes('hl-')) imgType = 'home-lab-icons';
+      else if (img.includes('sh-')) imgType = 'selfhst-icons';
       else if (img.includes('favicon-')) imgType = 'custom-favicon';
       else if (img === 'favicon') imgType = 'favicon';
       else if (img === 'generative') imgType = 'generative';
@@ -90,6 +91,7 @@ export default {
         case 'mdi': return img; // Material design icons
         case 'simple-icons': return this.getSimpleIcon(img);
         case 'home-lab-icons': return this.getHomeLabIcon(img);
+        case 'selfhst-icons': return this.getSelfhstIcon(img); // selfh.st/icons
         case 'svg': return img; // Local SVG icon
         case 'emoji': return img; // Emoji/ unicode
         default: return '';
@@ -194,6 +196,10 @@ export default {
         return null;
       }
       return icon.path;
+    },
+    getSelfhstIcon(img, cdn) {
+      const imageName = img.slice(3).toLocaleLowerCase();
+      return (cdn || iconCdns.sh).replace('{icon}', imageName);
     },
     /* Gets home-lab icon from GitHub */
     getHomeLabIcon(img, cdn) {

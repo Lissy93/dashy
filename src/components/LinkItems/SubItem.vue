@@ -33,7 +33,6 @@
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ContextMenu from '@/components/LinkItems/ItemContextMenu';
 import ItemMixin from '@/mixins/ItemMixin';
-// import { targetValidator } from '@/utils/ConfigHelpers';
 
 export default {
   name: 'Item',

@@ -1,6 +1,6 @@
 # Theming
 
-By default Dashy comes with 25+ built-in themes, which can be applied from the dropdown menu in the UI.
+By default Dashy comes with 40+ built-in themes, which can be applied from the dropdown menu in the UI.
 
 ![Built-in Themes](https://i.ibb.co/GV3wRss/Dashy-Themes.png)
 
@@ -81,7 +81,7 @@ For example, if the pages name was "CFT Toolbox", and you wanted to target `.ite
 ## Loading External Stylesheets
 
 The URI of a stylesheet, either local or hosted on a remote CDN can be passed into the config file. The attribute `appConfig.externalStyleSheet` accepts either a string, or an array of strings. You can also pass custom font stylesheets here, they must be in a CSS format (for example, `https://fonts.googleapis.com/css2?family=Cutive+Mono`).
-This is handled in [`ThemeHelper.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/ThemeHelper.js).
+This is handled in [`App.vue`](https://github.com/Lissy93/dashy/blob/master/src/App.vue).
 
 For example:
 

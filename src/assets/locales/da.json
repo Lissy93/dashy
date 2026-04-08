@@ -2,7 +2,7 @@
   "home": {
     "no-results": "Ingen søgeresultater",
     "no-data": "Ingen data konfigureret",
-    "no-items-section": "Ingen genstander at vise endnu"
+    "no-items-section": "Ingen genstande at vise endnu"
   },
   "search": {
     "search-label": "Søg",
@@ -20,7 +20,7 @@
     "remember-me-hour": "4 timer",
     "remember-me-day": "1 dag",
     "remember-me-week": "1 uge",
-    "remember-me-long-time": "en lang tid",
+    "remember-me-long-time": "lang tid",
     "error-missing-username": "Mangler brugernavn",
     "error-missing-password": "Manglende adgangskode",
     "error-incorrect-username": "Bruger ikke fundet",
@@ -54,7 +54,7 @@
     "reset-config-msg-l3": "Er du sikker på at du vil fortsætte?",
     "data-cleared-msg": "Data blev succesfuldt ryddet",
     "actions-label": "Handlinger",
-    "copy-config-label": "Kopiera Config",
+    "copy-config-label": "Kopiere Config",
     "data-copied-msg": "Konfigurationen er blevet kopieret til clipboard",
     "reset-config-label": "Nulstil konfiguration",
     "css-save-btn": "Gem ændringer",
@@ -95,7 +95,7 @@
   "language-switcher": {
     "title": "Skift applikationssprog",
     "dropdown-label": "Valg en sprog",
-    "save-button": "Gemme",
+    "save-button": "Gem",
     "success-msg": "Sprog opdateret til"
   },
   "theme-maker": {
@@ -104,17 +104,17 @@
     "reset-button": "Nulstil styles for",
     "show-all-button": "Vis alle variabler",
     "change-fonts-button": "Skift skrifttyper",
-    "save-button": "Gemme",
-    "cancel-button": "Ophæve",
-    "saved-toast": "{theme} opdateret med succes",
+    "save-button": "Gem",
+    "cancel-button": "Annuller",
+    "saved-toast": "{theme} opdateret succesfuldt",
     "copied-toast": "Temadata for {theme} kopieret til udklipsholder",
     "reset-toast": "Tilpassede farver for {theme} fjernet"
   },
   "config-editor": {
-    "save-location-label": "Gemme beliggenhed",
-    "location-local-label": "Anbringe lokalt",
+    "save-location-label": "Lokation for gem",
+    "location-local-label": "Gem lokalt",
     "location-disk-label": "Skriv ændringer til konfigurationsfil",
-    "save-button": "Gemme ændringer",
+    "save-button": "Gem ændringer",
     "preview-button": "Forhåndsvisning af ændringer",
     "valid-label": "Konfigurationen er gyldig",
     "status-success-msg": "Opgave fuldført",
@@ -155,7 +155,7 @@
     "password-label-update": "Skriv dit kodeord",
     "backup-button-setup": "Sikkerhedskopiering",
     "backup-button-update": "Opdater sikkerhedskopiering",
-    "backup-id-label": "Din sikkerhedskopi-ID",
+    "backup-id-label": "Dit sikkerhedskopi-ID",
     "backup-id-note": "Dette bruges til at gendanne fra sikkerhedskopier senere. Så gem det sammen med din adgangskode et sikkert sted.",
     "restore-title": "Gendan en sikkerhedskopi",
     "restore-id-label": "Gendan-ID",
@@ -165,7 +165,7 @@
     "backup-error-unknown": "Kan ikke behandle anmodningen",
     "backup-error-password": "Forkert kodeord. Indtast venligst din nuværende adgangskode.",
     "backup-success-msg": "Afsluttet med succes",
-    "restore-success-msg": "Konfiguration gendan med succes"
+    "restore-success-msg": "Konfiguration gendannet med succes"
   },
   "menu": {
     "open-section-title": "Åbn i",
@@ -174,9 +174,9 @@
     "modal": "Pop-Up Modal",
     "workspace": "Arbejdsrumsvisning",
     "options-section-title": "Muligheder",
-    "edit-item": "Redigere",
+    "edit-item": "Rediger",
     "move-item": "Kopier eller flyt",
-    "remove-item": "Fjerne"
+    "remove-item": "Fjern"
   },
   "context-menus": {
     "item": {
@@ -187,14 +187,14 @@
       "workspace": "Arbejdsrumsvisning",
       "clipboard": "Kopier til udklipsholder",
       "options-section-title": "Muligheder",
-      "edit-item": "Redigere",
+      "edit-item": "Rediger",
       "move-item": "Kopier eller flyt",
       "remove-item": "Fjerne",
       "copied-toast": "URL er blevet kopieret til udklipsholder"
     },
     "section": {
       "open-section": "Åbn sektion",
-      "edit-section": "Redigere",
+      "edit-section": "Rediger",
       "expand-collapse": "Udvid / Skjul",
       "move-section": "Flytte til",
       "remove-section": "Fjerne"
@@ -206,35 +206,35 @@
       "edit-site-data-subheading": "Rediger webstedsdata",
       "edit-page-info-btn": "Rediger sideoplysninger",
       "edit-page-info-tooltip": "Apptitel, beskrivelse, navigationslinks, sidefodstekst osv.",
-      "edit-app-config-btn": "Redigere appkonfiguration",
+      "edit-app-config-btn": "Rediger appkonfiguration",
       "edit-app-config-tooltip": "Alle andre appkonfigurationsmuligheder",
-      "edit-pages-btn": "Redigere sider",
+      "edit-pages-btn": "Rediger sider",
       "edit-pages-tooltip": "Tilføj eller fjern yderligere visninger",
       "config-save-methods-subheading": "Indstillinger for lagring af konfiguration",
-      "save-locally-btn": "Gemme lokalt",
+      "save-locally-btn": "Gem lokalt",
       "save-locally-tooltip": "Gem konfigurationen lokalt i browserlageret. Dette vil ikke påvirke din konfigurationsfil, men ændringer vil kun blive gemt på denne enhed",
-      "save-disk-btn": "Gemme til disk",
+      "save-disk-btn": "Gem til disk",
       "save-disk-tooltip": "Gem konfigurationen i filen conf.yml på disken. Dette vil sikkerhedskopiere og derefter overskrive din eksisterende konfiguration",
-      "export-config-btn": "Exportere konfiguration",
+      "export-config-btn": "Exporter konfiguration",
       "export-config-tooltip": "Se og eksporter ny konfiguration, enten til en fil eller til udklipsholder",
       "cloud-backup-btn": "Sikkerhedskopier til cloud",
       "cloud-backup-tooltip": "Gem krypteret backup af konfiguration til cloud",
       "edit-raw-config-btn": "Rediger rå konfiguration",
       "edit-raw-config-tooltip": "Se og rediger rå config via JSON-editor",
-      "cancel-changes-btn": "Avbryd redigering",
+      "cancel-changes-btn": "Afbryd redigering",
       "cancel-changes-tooltip": "Nulstil aktuelle ændringer, og afslut redigeringstilstand. Dette vil ikke påvirke din gemte konfiguration",
       "edit-mode-name": "Redigeringstilstand",
       "edit-mode-subtitle": "Du er i redigeringstilstand",
       "edit-mode-description": "Det betyder, at du kan foretage ændringer i din konfiguration og se resultaterne, men indtil du gemmer, vil ingen af dine ændringer blive bevaret.",
-      "save-stage-btn": "Gemme",
-      "cancel-stage-btn": "Avbryd",
+      "save-stage-btn": "Gem",
+      "cancel-stage-btn": "Afbryd",
       "save-locally-warning": "Hvis du fortsætter, vil ændringer kun blive gemt i din browser. Du bør eksportere en kopi af din konfiguration til brug på andre maskiner. Vil du fortsætte?"
     },
     "edit-item": {
       "missing-title-err": "En varetitel er påkrævet"
     },
     "edit-section": {
-      "edit-section-title": "Redigere sektion",
+      "edit-section-title": "Rediger sektion",
       "add-section-title": "Tilføj ny sektion",
       "edit-tooltip": "Klik for at redigere, eller højreklik for at få flere muligheder",
       "remove-confirm": "Er du sikker på, at du vil fjerne denne sektion? Denne handling kan fortrydes senere."
@@ -273,11 +273,11 @@
       "cpu-chart-title": "CPU-historie",
       "mem-chart-title": "Hukommelsesbrug",
       "mem-breakdown-title": "Hukommelsesnedbrydning",
-      "load-chart-title": "Systeminlæsning"
+      "load-chart-title": "Systemindlæsning"
     },
     "glances": {
       "disk-space-free": "Ledig",
-      "disk-space-used": "I bruk",
+      "disk-space-used": "I brug",
       "disk-mount-point": "Mount Point",
       "disk-file-system": "Filsystem",
       "disk-io-read": "Læs",
@@ -329,7 +329,7 @@
       "disk-space": "Diskudrymme",
       "dnd": "Forstyr ikke",
       "email": "email",
-      "enabled": "aktivert",
+      "enabled": "aktiveret",
       "federated-shares-ucfirst": "Fødereret deler",
       "federated-shares": "fødereret deler",
       "files": "fil{plural}",
@@ -363,7 +363,7 @@
       "other": "andet",
       "overall": "Samlet set",
       "private-link": "privat link",
-      "public-link": "publik link",
+      "public-link": "offentlig link",
       "quota-enabled": "Diskkvote er {not} aktiveret for denne bruger",
       "received": "modtaget",
       "scripts": "scripts",
@@ -371,7 +371,7 @@
       "started": "Startede",
       "storages-by-type": "Opbevaring efter type",
       "storages": "Opbevaring{plural}",
-      "strings-use": "strings brug",
+      "strings-use": "tråde brug",
       "tasks": "Opgaver",
       "total-files": "samlede filer",
       "total-users": "samlede bruger",
@@ -379,7 +379,7 @@
       "until": "Så længe",
       "updates-available-for": "Opdateringer er tilgængelige for",
       "updates-available": "opdatering{plural} tilgængelig",
-      "used": "brugd",
+      "used": "brugt",
       "user": "bruger",
       "using": "ved brug af",
       "version": "version",

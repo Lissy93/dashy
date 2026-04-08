@@ -10,9 +10,11 @@ import el from '@/assets/locales/el.json';
 import es from '@/assets/locales/es.json';
 import fr from '@/assets/locales/fr.json';
 import hi from '@/assets/locales/hi.json';
+import hu from '@/assets/locales/hu.json';
 import it from '@/assets/locales/it.json';
 import ja from '@/assets/locales/ja.json';
 import ko from '@/assets/locales/ko.json';
+import ky from '@/assets/locales/ky.json';
 import nb from '@/assets/locales/nb.json';
 import nl from '@/assets/locales/nl.json';
 import pl from '@/assets/locales/pl.json';
@@ -24,7 +26,7 @@ import sk from '@/assets/locales/sk.json';
 import sl from '@/assets/locales/sl.json';
 import sv from '@/assets/locales/sv.json';
 import tr from '@/assets/locales/tr.json';
-import ua from '@/assets/locales/ua.json';
+import uk from '@/assets/locales/uk.json';
 import zhCN from '@/assets/locales/zh-CN.json';
 import zhTW from '@/assets/locales/zh-TW.json';
 import pirate from '@/assets/locales/zz-pirate.json';
@@ -93,10 +95,16 @@ export const languages = [
     flag: '🇲🇫',
   },
   { // Hindi
-    name: 'नहीं',
+    name: 'हिन्दी',
     code: 'hi',
     locale: hi,
     flag: '🇮🇳',
+  },
+  { // Hungarian
+    name: 'Magyar',
+    code: 'hu',
+    locale: hu,
+    flag: '🇭🇺',
   },
   { // Italian
     name: 'Italiano',
@@ -115,6 +123,12 @@ export const languages = [
     code: 'ko',
     locale: ko,
     flag: '🇰🇷',
+  },
+  { // Kyrgyz
+    name: 'Кыргызча',
+    code: 'ky',
+    locale: ky,
+    flag: '🇰🇬',
   },
   { // Norwegian
     name: 'Norsk',
@@ -184,13 +198,13 @@ export const languages = [
   },
   { // Ukrainian
     name: 'Ukrainian',
-    code: 'ua',
-    locale: ua,
+    code: 'uk',
+    locale: uk,
     flag: '🇺🇦',
   },
   { // Chinese
     name: '简体中文',
-    code: 'cn',
+    code: 'zh-CN',
     locale: zhCN,
     flag: '🇨🇳',
   },

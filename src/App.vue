@@ -101,6 +101,32 @@ export default {
       style.textContent = usersCss;
       document.head.append(style);
     },
+    /* Applies user-defined custom CSS and external stylesheets from appConfig */
+    applyCustomStyles() {
+      if (this.appConfig.customCss) {
+        const cleanedCss = this.appConfig.customCss.replace(/<\/?[^>]+(>|$)/g, '');
+        this.injectCustomStyles(cleanedCss);
+      }
+      if (this.appConfig.externalStyleSheet) {
+        // Remove any previously injected external stylesheets to avoid duplicates bug
+        document.querySelectorAll('[data-external-source]').forEach((el) => el.remove());
+        // Then add the external stylesheet(s)
+        const externals = this.appConfig.externalStyleSheet;
+        const urls = Array.isArray(externals) ? externals : [externals];
+        urls.forEach((url) => {
+          if (typeof url !== 'string' || (!url.startsWith('http') && !url.startsWith('/'))) {
+            ErrorHandler(`Invalid external stylesheet URL: ${url}`);
+            return;
+          }
+          const link = document.createElement('link');
+          link.setAttribute('rel', 'stylesheet');
+          link.setAttribute('type', 'text/css');
+          link.setAttribute('href', url);
+          link.setAttribute('data-external-source', 'dashy');
+          document.head.appendChild(link);
+        });
+      }
+    },
     /* Hide splash screen, either after 2 seconds, or immediately based on user preference */
     hideSplash() {
       if (this.shouldShowSplash) {
@@ -155,16 +181,23 @@ export default {
       e.preventDefault();
       return 'You may have unsaved edits. Are you sure you want to exit the page?';
     },
+    /* Detect and apply theme based on OS preference */
+    applyThemeBasedOnOSPreference() {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const osTheme = prefersDark ? this.appConfig.nightTheme : this.appConfig.dayTheme;
+      if (osTheme) {
+        this.$store.commit(Keys.SET_THEME, osTheme);
+        this.updateTheme(osTheme);
+      }
+    },
   },
   /* Basic initialization tasks on app load */
   async mounted() {
     await this.$store.dispatch(Keys.INITIALIZE_CONFIG); // Initialize config before moving on
     this.applyLanguage(); // Apply users local language
+    this.applyThemeBasedOnOSPreference(); // Apply theme based on OS preference
     this.hideSplash(); // Hide the splash screen, if visible
-    if (this.appConfig.customCss) { // Inject users custom CSS, if present
-      const cleanedCss = this.appConfig.customCss.replace(/<\/?[^>]+(>|$)/g, '');
-      this.injectCustomStyles(cleanedCss);
-    }
+    this.applyCustomStyles(); // Apply custom CSS and external stylesheets
     this.hideLoader(); // If initial placeholder still visible, hide it
     welcomeMsg(); // Show message in console
   },
