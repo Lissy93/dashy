@@ -70,7 +70,6 @@ export const initHeaderAuth = () => {
   return headerAuth.login();
 };
 
-// TODO: Find where this is implemented
 export const getHeaderAuth = () => {
   if (!headerAuth) {
     ErrorHandler("HeaderAuth not initialized, can't get instance of class");

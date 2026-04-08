@@ -79,10 +79,7 @@ export const makeBasicAuthHeaders = () => {
   const password = process.env.VUE_APP_BASIC_AUTH_PASSWORD || bearerAuth;
   const basicAuth = `Basic ${btoa(`${username}:${password}`)}`;
 
-  const headers = password
-    ? { headers: { Authorization: basicAuth, 'WWW-Authenticate': 'true' } }
-    : {};
-  return headers;
+  return password ? { headers: { Authorization: basicAuth } } : {};
 };
 
 /**
@@ -96,18 +93,15 @@ export const isLoggedIn = () => {
   if (isOidcEnabled()) {
     const username = localStorage[localStorageKeys.USERNAME]; // Get username
     if (!username) return false; // No username
-    return users.some((user) => {
-      if (user.user === username || generateUserToken(user) === cookieToken) {
-        return true;
-      } else return false;
-    });
+    return users.some((user) => (
+      user.user === username || generateUserToken(user) === cookieToken
+    ));
   }
 
   return users.some((user) => {
-    if (generateUserToken(user) === cookieToken) {
-      localStorage.setItem(localStorageKeys.USERNAME, user.user);
-      return true;
-    } else return false;
+    if (generateUserToken(user) !== cookieToken) return false;
+    localStorage.setItem(localStorageKeys.USERNAME, user.user);
+    return true;
   });
 };
 
@@ -151,6 +145,7 @@ export const checkCredentials = (username, pass, users, messages) => {
             response = { correct: false, msg: messages.incorrectPassword };
           } else if (!process.env[user.password]) {
             ErrorHandler(`Missing environmental variable for ${user.password}`);
+            response = { correct: false, msg: messages.incorrectPassword };
           } else if (process.env[user.password] === pass) {
             response = { correct: true, msg: messages.successMsg };
           } else {
@@ -230,13 +225,9 @@ export const isUserAdmin = () => {
   if (users.length === 0) return true; // Authentication not setup
   if (!isLoggedIn()) return false; // Auth setup, but not signed in as a valid user
   const currentUser = localStorage[localStorageKeys.USERNAME];
-  let isAdmin = false;
-  users.forEach((user) => {
-    if (user.user.toLowerCase() === currentUser.toLowerCase()) {
-      if (user.type === 'admin') isAdmin = true;
-    }
-  });
-  return isAdmin;
+  return users.some((user) => (
+    user.user.toLowerCase() === currentUser.toLowerCase() && user.type === 'admin'
+  ));
 };
 
 /**

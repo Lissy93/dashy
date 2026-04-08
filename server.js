@@ -77,19 +77,23 @@ const printWarning = (msg, error) => {
   console.warn(`\x1b[103m\x1b[34m${msg}\x1b[0m\n`, error || ''); // eslint-disable-line no-console
 };
 
-/* Load appConfig.auth.users from config (if present) for authorization purposes */
-function loadUserConfig() {
+/* Load appConfig.auth from config (if present) for authorization purposes */
+function loadAuthConfig() {
   try {
     const filePath = path.join(__dirname, process.env.USER_DATA_DIR || 'user-data', 'conf.yml');
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const data = yaml.load(fileContents);
-    return data?.appConfig?.auth?.users || null;
+    return data?.appConfig?.auth || {};
   } catch (e) {
-    return [];
+    return {};
   }
 }
 
-/* If HTTP auth is enabled, and no username/password are pre-set, then check passed credentials */
+function loadUserConfig() {
+  return loadAuthConfig().users || null;
+}
+
+/* Authorizer for ENABLE_HTTP_AUTH: validates credentials against conf.yml users */
 function customAuthorizer(username, password) {
   const sha256 = (input) => crypto.createHash('sha256').update(input).digest('hex').toUpperCase();
   const generateUserToken = (user) => {
@@ -102,7 +106,9 @@ function customAuthorizer(username, password) {
   if (password.startsWith('Bearer ')) {
     const token = password.slice('Bearer '.length);
     const users = loadUserConfig();
-    return users.some(user => generateUserToken(user) === token);
+    return users.some(user => (
+      user.user.toLowerCase() === username.toLowerCase() && generateUserToken(user) === token
+    ));
   } else {
     const users = loadUserConfig();
     const userHash = sha256(password);
@@ -112,28 +118,64 @@ function customAuthorizer(username, password) {
   }
 }
 
-/* If a username and password are set, setup auth for config access, otherwise skip */
+/* If auth is enabled, setup auth for config access, otherwise skip */
 function getBasicAuthMiddleware() {
-  const configUsers = process.env.ENABLE_HTTP_AUTH ? loadUserConfig() : null;
+  const authConfig = loadAuthConfig();
+  const confUsers = authConfig.users || null;
+  const hasConfUsers = confUsers && confUsers.length > 0;
+  const useConfAuth = process.env.ENABLE_HTTP_AUTH && hasConfUsers;
   const { BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD } = process.env;
-  if (BASIC_AUTH_USERNAME && BASIC_AUTH_PASSWORD) {
-    return basicAuth({
-      users: { [BASIC_AUTH_USERNAME]: BASIC_AUTH_PASSWORD },
-      challenge: true,
-      unauthorizedResponse: () => 'Unauthorized - Incorrect username or password',
-    });
-  } else if ((configUsers && configUsers.length > 0)) {
+  const hasStaticCreds = BASIC_AUTH_USERNAME && BASIC_AUTH_PASSWORD;
+
+  // Warn if both auth methods are configured - they don't work together
+  if (hasStaticCreds && hasConfUsers) {
+    printWarning(useConfAuth
+      ? 'BASIC_AUTH env vars are ignored because ENABLE_HTTP_AUTH is active with conf.yml users.'
+      : 'BASIC_AUTH env vars and appConfig.auth.users are both set but use different credentials.'
+        + ' This will cause auth failures. Set ENABLE_HTTP_AUTH=true, or remove users from conf.yml.');
+  }
+
+  if (useConfAuth) {
     return basicAuth({
       authorizer: customAuthorizer,
       challenge: true,
       unauthorizedResponse: () => 'Unauthorized - Incorrect token',
     });
-  } else {
-    return (req, res, next) => next();
+  } else if (hasStaticCreds) {
+    return basicAuth({
+      users: { [BASIC_AUTH_USERNAME]: BASIC_AUTH_PASSWORD },
+      challenge: true,
+      unauthorizedResponse: () => 'Unauthorized - Incorrect username or password',
+    });
+  } else if (authConfig.enableHeaderAuth && authConfig.headerAuth) {
+    const { userHeader = 'Remote-User', proxyWhitelist = [] } = authConfig.headerAuth;
+    return (req, res, next) => {
+      if (!proxyWhitelist.includes(req.socket.remoteAddress)) {
+        return res.status(401).json({ success: false, message: 'Unauthorized - not from trusted proxy' });
+      }
+      const user = req.headers[userHeader.toLowerCase()];
+      if (!user) {
+        return res.status(401).json({ success: false, message: 'Unauthorized - missing user header' });
+      }
+      req.auth = { user };
+      return next();
+    };
   }
+
+  return (req, res, next) => next();
 }
 
 const protectConfig = getBasicAuthMiddleware();
+
+/* Middleware to restrict write endpoints to admin users only */
+function requireAdmin(req, res, next) {
+  if (!req.auth) return next();
+  const users = loadUserConfig();
+  if (!users || users.length === 0) return next();
+  const user = users.find(u => u.user.toLowerCase() === req.auth.user.toLowerCase());
+  if (user && user.type === 'admin') return next();
+  return res.status(403).json({ success: false, message: 'Forbidden - Admin access required' });
+}
 
 /* A middleware function for Connect, that filters requests based on method type */
 const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, next) : next());
@@ -157,7 +199,7 @@ const app = express()
     }
   })
   // POST Endpoint used to save config, by writing config file to disk
-  .use(ENDPOINTS.save, protectConfig, method('POST', (req, res) => {
+  .use(ENDPOINTS.save, protectConfig, requireAdmin, method('POST', (req, res) => {
     try {
       saveConfig(req.body, (results) => { res.end(results); });
       config = req.body.config; // update the config
@@ -167,7 +209,7 @@ const app = express()
     }
   }))
   // GET endpoint to trigger a build, and respond with success status and output
-  .use(ENDPOINTS.rebuild, protectConfig, (req, res) => {
+  .use(ENDPOINTS.rebuild, protectConfig, requireAdmin, (req, res) => {
     rebuild().then((response) => {
       res.end(JSON.stringify(response));
     }).catch((response) => {
