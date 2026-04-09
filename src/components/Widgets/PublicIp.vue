@@ -1,6 +1,6 @@
 <template>
 <div class="ip-info-wrapper">
-  <p class="ip-address">{{ ipAddr }}</p>
+  <p class="ip-address" :class="{ 'is-long': ipAddr?.length > 16 }">{{ ipAddr }}</p>
   <div class="region-wrapper" v-if="!options.hideLocation">
     <img class="flag-image" :src="flagImg" alt="Flag" />
     <div class="info-text">
@@ -161,6 +161,10 @@ export default {
     margin: 0.5rem auto;
     color: var(--widget-text-color);
     font-family: var(--font-monospace);
+    &.is-long {
+      font-size: 0.95rem;
+      word-break: break-all;
+    }
   }
   .region-wrapper {
     display: flex;
