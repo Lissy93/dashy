@@ -37,11 +37,20 @@ module.exports = (req, res) => {
     headers,
   };
 
+  // Extract a JSON-safe summary from an axios-like error (get circular dep without this!)
+  const serializeError = (error) => ({
+    message: error.message,
+    code: error.code,
+    status: error.response && error.response.status,
+    statusText: error.response && error.response.statusText,
+    data: error.response && error.response.data,
+  });
+
   // Make the request, and respond with result
   request(requestConfig)
     .then((response) => {
       res.status(200).send(response.data);
     }).catch((error) => {
-      res.status(500).send({ error });
+      res.status(500).send({ error: serializeError(error) });
     });
 };
