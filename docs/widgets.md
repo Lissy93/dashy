@@ -306,6 +306,7 @@ Displays your public IP address, ISP and approximate location.
 --- | --- | --- | ---
 **`provider`** | `string` |  _Optional_ | One of `freeipapi` _(default)_, `ipinfo`, `ipquery`, `ip-api`, or `ipgeolocation`. See the table below
 **`apiKey`** | `string` |  _Optional_ | Required for `ipgeolocation`. Optional for `ipinfo` (a [free token](https://ipinfo.io/signup) raises the rate limit from ~1k/day to ~50k/month)
+**`hideLocation`** | `boolean` |  _Optional_ | Set to `true` to hide the flag, ISP name and city/region — only the IP address is shown. Defaults to `false`
 
 #### Example
 

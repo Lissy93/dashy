@@ -1,7 +1,7 @@
 <template>
 <div class="ip-info-wrapper">
   <p class="ip-address">{{ ipAddr }}</p>
-  <div class="region-wrapper">
+  <div class="region-wrapper" v-if="!options.hideLocation">
     <img class="flag-image" :src="flagImg" alt="Flag" />
     <div class="info-text">
       <p class="isp-name">{{ ispName }}</p>
