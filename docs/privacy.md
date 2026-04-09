@@ -176,10 +176,11 @@ Dashy supports [Widgets](/docs/widgets.md) for displaying dynamic content. Below
 |---|---|---|
 | [Weather](/docs/widgets.md#weather) / [Weather Forecast](/docs/widgets.md#weather-forecast) | `https://api.openweathermap.org` | [OWM Privacy Policy](https://openweather.co.uk/privacy-policy) |
 | [RSS Feed](/docs/widgets.md#rss-feed) | `https://api.rss2json.com/v1/api.json` | [Rss2Json Privacy Policy](https://rss2json.com/privacy-policy) |
-| [IP Address](/docs/widgets.md#public-ip) | `https://ipapi.co/json` | [IP API Privacy Policy](https://ipapi.co/privacy/) |
-| | `https://api.ipgeolocation.io/ipgeo` | [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html) |
+| [IP Address](/docs/widgets.md#public-ip) | `https://free.freeipapi.com/api/json` | [FreeIPAPI](https://freeipapi.com/) |
+| | `https://ipinfo.io/json` | [IPInfo Privacy Policy](https://ipinfo.io/privacy-policy) |
+| | `https://api.ipquery.io/` | [IPQuery](https://ipquery.io/) |
 | | `http://ip-api.com/json` | [IP-API Privacy Policy](https://ip-api.com/docs/legal) |
-| | `https://api.ip2location.io/` | [IP2Location.io Privacy Policy](https://ip2location.io/privacy-policy) |
+| | `https://api.ipgeolocation.io/ipgeo` | [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html) |
 | [IP Blacklist](/docs/widgets.md#ip-blacklist) | `https://api.blacklistchecker.com` | [Blacklist Checker Privacy Policy](https://blacklistchecker.com/privacy) |
 | [Domain Monitor](/docs/widgets.md#domain-monitor) | `https://api.whoapi.com` | [WhoAPI Privacy Policy](https://whoapi.com/privacy-policy/) |
 | [Crypto Watch List](/docs/widgets.md#crypto-watch-list) / [Token Price History](/docs/widgets.md#crypto-token-price-history) | `https://api.coingecko.com` | [CoinGecko Privacy Policy](https://www.coingecko.com/en/privacy) |

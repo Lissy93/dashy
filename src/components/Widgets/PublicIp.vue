@@ -15,30 +15,114 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints as urls } from '@/utils/defaults';
 import { getCountryFlag, getMapUrl } from '@/utils/MiscHelpers';
+
+/* Each provider's `parse` returns a normalised shape:
+ * { ip, isp, city, region, countryCode, lat, lon }
+ * `url` may be a string or a function that takes the user's apiKey. */
+const PROVIDERS = {
+  freeipapi: {
+    url: urls.publicIp4,
+    parse: (d) => ({
+      ip: d.ipAddress,
+      isp: d.asnOrganization,
+      city: d.cityName,
+      region: d.regionName,
+      countryCode: d.countryCode,
+      lat: d.latitude,
+      lon: d.longitude,
+    }),
+  },
+  ipinfo: {
+    url: (key) => (key ? `${urls.publicIp5}?token=${key}` : urls.publicIp5),
+    parse: (d) => {
+      const [lat, lon] = (d.loc || ',').split(',');
+      return {
+        ip: d.ip,
+        isp: d.org,
+        city: d.city,
+        region: d.region,
+        countryCode: d.country,
+        lat,
+        lon,
+      };
+    },
+  },
+  ipquery: {
+    url: urls.publicIp6,
+    parse: (d) => ({
+      ip: d.ip,
+      isp: d.isp && (d.isp.org || d.isp.isp),
+      city: d.location && d.location.city,
+      region: d.location && d.location.state,
+      countryCode: d.location && d.location.country_code,
+      lat: d.location && d.location.latitude,
+      lon: d.location && d.location.longitude,
+    }),
+  },
+  'ip-api': {
+    url: urls.publicIp3,
+    parse: (d) => ({
+      ip: d.query,
+      isp: d.isp,
+      city: d.city,
+      region: d.regionName,
+      countryCode: d.countryCode,
+      lat: d.lat,
+      lon: d.lon,
+    }),
+  },
+  ipgeolocation: {
+    url: (key) => `${urls.publicIp2}?apiKey=${key}`,
+    requiresKey: true,
+    parse: (d) => ({
+      ip: d.ip,
+      isp: d.organization || d.isp,
+      city: d.city,
+      region: d.state_prov,
+      countryCode: d.country_code2,
+      lat: d.latitude,
+      lon: d.longitude,
+    }),
+  },
+};
+
+/* List of deleted/depricated providers. Used to show warning if user tries to use */
+const REMOVED_PROVIDERS = {
+  'ipapi.co': 'ipapi.co now serves a Cloudflare bot challenge to many clients.',
+  'ifconfig.co': 'ifconfig.co does not send Access-Control-Allow-Origin headers.',
+  'ip2location.io': 'ip2location.io does not send Access-Control-Allow-Origin headers.',
+};
+
+const DEFAULT_PROVIDER = 'freeipapi';
 
 export default {
   mixins: [WidgetMixin],
   computed: {
-    endpoint() {
-      if (this.provider === 'ipgeolocation') {
-        return `${widgetApiEndpoints.publicIp2}?apiKey=${this.apiKey}`;
-      } else if (this.provider === 'ip2location.io') {
-        return `${widgetApiEndpoints.publicIp4}?key=${this.apiKey}`;
-      } else if (this.provider === 'ip-api') {
-        return widgetApiEndpoints.publicIp3;
+    provider() {
+      const chosen = this.parseAsEnvVar(this.options.provider);
+      if (chosen && REMOVED_PROVIDERS[chosen]) {
+        this.error(`Provider '${chosen}' is no longer supported: ${REMOVED_PROVIDERS[chosen]} `
+          + `Pick one of: ${Object.keys(PROVIDERS).join(', ')}.`);
+        return null;
       }
-      return widgetApiEndpoints.publicIp;
+      if (chosen && !PROVIDERS[chosen]) {
+        this.error(`Unknown provider '${chosen}'. Pick one of: ${Object.keys(PROVIDERS).join(', ')}.`);
+        return null;
+      }
+      return chosen || DEFAULT_PROVIDER;
+    },
+    endpoint() {
+      if (!this.provider) return null;
+      const { url } = PROVIDERS[this.provider];
+      return typeof url === 'function' ? url(this.apiKey) : url;
     },
     apiKey() {
-      if (this.provider === 'ipgeolocation' && !this.options.apiKey) this.error('Missing API Key');
-      if (this.provider === 'ip2location.io' && !this.options.apiKey) this.error('Missing API Key');
+      if (!this.provider) return null;
+      const needsKey = PROVIDERS[this.provider].requiresKey;
+      if (needsKey && !this.options.apiKey) this.error('Missing API Key');
       return this.options.apiKey;
-    },
-    provider() {
-      // Can be either `ip-api`, `ipapi.co`, `ipgeolocation` or `ip2location.io`
-      return this.parseAsEnvVar(this.options.provider) || 'ipapi.co';
     },
   },
   data() {
@@ -51,39 +135,19 @@ export default {
     };
   },
   methods: {
-    /* Make GET request to CoinGecko API endpoint */
+    /* Make GET request to selected provider */
     fetchData() {
+      if (!this.endpoint) return;
       this.makeRequest(this.endpoint).then(this.processData);
     },
-    /* Assign data variables to the returned data */
+    /* Normalise the response and assign to display fields */
     processData(ipInfo) {
-      if (this.provider === 'ipapi.co') {
-        this.ipAddr = ipInfo.ip;
-        this.ispName = ipInfo.org;
-        this.location = `${ipInfo.city}, ${ipInfo.region}`;
-        this.flagImg = getCountryFlag(ipInfo.country_code);
-        this.mapsUrl = getMapUrl({ lat: ipInfo.latitude, lon: ipInfo.longitude });
-      } else if (this.provider === 'ipgeolocation') {
-        this.ipAddr = ipInfo.ip;
-        this.ispName = ipInfo.organization || ipInfo.isp;
-        this.location = `${ipInfo.city}, ${ipInfo.country_name}`;
-        this.flagImg = ipInfo.country_flag;
-        this.mapsUrl = getMapUrl({ lat: ipInfo.latitude, lon: ipInfo.longitude });
-      } else if (this.provider === 'ip-api') {
-        this.ipAddr = ipInfo.query;
-        this.ispName = ipInfo.isp;
-        this.location = `${ipInfo.city}, ${ipInfo.regionName}`;
-        this.flagImg = getCountryFlag(ipInfo.countryCode);
-        this.mapsUrl = getMapUrl({ lat: ipInfo.lat, lon: ipInfo.lon });
-      } else if (this.provider === 'ip2location.io') {
-        this.ipAddr = ipInfo.ip;
-        this.ispName = ipInfo.isp || 'IP2Location.io Starter plan or higher required.';
-        this.location = `${ipInfo.city_name}, ${ipInfo.region_name}`;
-        this.flagImg = getCountryFlag(ipInfo.country_code);
-        this.mapsUrl = getMapUrl({ lat: ipInfo.latitude, lon: ipInfo.longitude });
-      } else {
-        this.error('Unknown API provider fo IP address');
-      }
+      const parsed = PROVIDERS[this.provider].parse(ipInfo);
+      this.ipAddr = parsed.ip;
+      this.ispName = parsed.isp;
+      this.location = [parsed.city, parsed.region].filter(Boolean).join(', ');
+      this.flagImg = parsed.countryCode ? getCountryFlag(parsed.countryCode) : null;
+      this.mapsUrl = getMapUrl({ lat: parsed.lat, lon: parsed.lon });
     },
   },
 };
