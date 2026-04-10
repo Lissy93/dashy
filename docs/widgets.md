@@ -296,26 +296,36 @@ Unless image fetched from remote source, no external data request is made.
 
 ### Public IP
 
-Often find yourself searching "What's my IP", just so you can check your VPN is still connected? This widget displays your public IP address, along with ISP name and approx location. Data can be fetched from either [IpApi.co](https://ipapi.co/), [IP-API.com](https://ip-api.com/), [IpGeolocation.io](https://ipgeolocation.io/) or [IP2Location.io](https://ip2location.io/).
+Displays your public IP address, ISP and approximate location.
 
 <p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/public-ip" /></p>
 
 #### Options
 
-_All fields are optional._
-
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`provider`** | `string` |  _Optional_ | The name of the service to fetch IP address from. Can be either `ipapi.co`, `ip-api`, `ipgeolocation` or `ip2location.io`. Defaults to `ipapi.co`. Note, `ip-api` doesn't work on HTTPS, and if you set to `ipgeolocation` or `ip2location.io` then you must also provide an API key
-**`apiKey`** | `string` |  _Optional_ | Only required if provider is set to `ipgeolocation` or `ip2location.io`. You can get a free IPGeolocation API key [here](https://ipgeolocation.io/signup.html) or a free IP2Location.io API key [here](https://ip2location.io/pricing)
+**`provider`** | `string` |  _Optional_ | One of `freeipapi` _(default)_, `ipinfo`, `ipquery`, `ip-api`, or `ipgeolocation`. See the table below
+**`apiKey`** | `string` |  _Optional_ | Required for `ipgeolocation`. Optional for `ipinfo` (a [free token](https://ipinfo.io/signup) raises the rate limit from ~1k/day to ~50k/month)
+**`hideLocation`** | `boolean` |  _Optional_ | Set to `true` to hide the flag, ISP name and city/region — only the IP address is shown. Defaults to `false`
 
 #### Example
+
+Default (no options needed)
 
 ```yaml
 - type: public-ip
 ```
 
-Or
+Using `ip-api` via the proxy (gets server IP, because of `useProxy`)
+
+```yaml
+- type: public-ip
+  useProxy: true
+  options:
+    provider: ip-api
+```
+
+Using `ipgeolocation` with a key:
 
 ```yaml
 - type: public-ip
@@ -324,13 +334,26 @@ Or
     apiKey: xxxxxxxxxxxxxxx
 ```
 
+> [!TIP]
+> Setting `useProxy: true` makes the lookup happen from Dashy's server instead of your browser, so the upstream API returns the public IP of the machine running Dashy, whereas without `useProxy` it will show your public IP.
+
+#### Supported providers
+
+**Provider** | **Key** | **Proxy** | **Notes**
+--- | --- | --- | ---
+`freeipapi` _(default)_ | 🟢 Not needed | 🟢 Not needed | Keyless, 60 req/min via [freeipapi.com](https://freeipapi.com/).
+`ipinfo` | 🟢 Not needed / 🟠 Optional | 🟢 Not needed | Service from [ipinfo.io](https://ipinfo.io/). Keyless gives ~1k/day; a [free token](https://ipinfo.io/signup) raises this to ~50k/month. Sometimes blocked by adblockers.
+`ipquery` | 🟢 Not needed | 🟢 Not needed | Modern keyless API from [ipquery.io](https://ipquery.io/). Includes VPN/Tor/datacenter risk flags in the raw response.
+`ip-api` | 🟢 Not needed | 🔴 **Required** | [ip-api.com](https://ip-api.com/) is HTTP-only on the free tier, so the proxy is needed to avoid mixed-content errors.
+`ipgeolocation` | 🔴 **Required** | 🟢 Not needed | Get a free key from [ipgeolocation.io](https://ipgeolocation.io/signup.html).
+
 #### Info
 
-- **CORS**: 🟢 Enabled
-- **Auth**: 🟠 Optional
+- **CORS**: 🟢 Enabled (only `provider: ip-api` needs the proxy)
+- **Auth**: 🟠 Optional (only `ipgeolocation` requires a key, and `ipinfo` is optional)
 - **Price**: 🟢 Free
 - **Host**: Managed Instance Only
-- **Privacy**: _See [IPGeoLocation Privacy Policy](https://ipgeolocation.io/privacy.html) or [IP-API Privacy Policy](https://ip-api.com/docs/legal) or [IP2Location.io Privacy Policy](https://ip2location.io/privacy-policy)
+- **Privacy**: See the policy for whichever provider you choose: [freeipapi.com](https://freeipapi.com/), [ipinfo.io](https://ipinfo.io/privacy-policy), [ipquery.io](https://ipquery.io/), [ip-api.com](https://ip-api.com/docs/legal), [IPGeoLocation](https://ipgeolocation.io/privacy.html).
 
 ---
 
