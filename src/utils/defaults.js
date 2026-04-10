@@ -249,7 +249,7 @@ module.exports = {
     minecraftStatus: 'https://api.mcsrvstat.us/',
     mullvad: 'https://am.i.mullvad.net/json',
     mvg: 'https://www.mvg.de/api/fib/v2/',
-    publicIp: 'https://ipapi.co/json',
+    userIpLookup: 'https://api.ipify.org?format=json',
     publicIp2: 'https://api.ipgeolocation.io/ipgeo',
     publicIp3: 'http://ip-api.com/json',
     publicIp4: 'https://free.freeipapi.com/api/json',
