@@ -18,7 +18,7 @@ jobs:
     steps:
 
       - name: Exempt actively discussed or reopened issues 💬
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
