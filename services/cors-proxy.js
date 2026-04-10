@@ -37,7 +37,7 @@ module.exports = (req, res) => {
     headers,
   };
 
-  // Make the request, and respond with result
+  // Make the request, and respond with result.
   request(requestConfig)
     .then((response) => {
       res.status(200).send(response.data);

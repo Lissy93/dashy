@@ -103,14 +103,14 @@ jobs:
           script: |
             const body = context.payload.pull_request.body || '';
             const prNumber = String(context.payload.pull_request.number);
-            const matches = body.match(/#(\d+)/g);
+            const matches = body.match(/#(\d+)(?![a-fA-F0-9])/g);
             if (!matches) {
               core.info('No issue references found in PR body');
               core.setOutput('numbers', '');
               return;
             }
             const unique = [...new Set(matches.map(m => m.replace('#', '')))]
-              .filter(n => n !== prNumber);
+              .filter(n => n !== prNumber && parseInt(n, 10) > 0);
             if (unique.length === 0) {
               core.info('No issue references after filtering');
               core.setOutput('numbers', '');
@@ -133,6 +133,7 @@ jobs:
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
           ISSUES: ${{ steps.issues.outputs.numbers }}
         run: |
@@ -143,15 +144,15 @@ jobs:
             exit 0
           fi
 
-          printf 'Published Dashy v%s 🚀\n\nPR #%s: %s\nMerge commit: %s\n' \
-            "$VERSION" \
-            "$PR_NUMBER" \
-            "$PR_TITLE" \
-            "$MERGE_SHA" > tag-message.txt
-
-          if [ -n "$ISSUES" ]; then
-            printf 'Resolves: %s\n' "$(echo "$ISSUES" | sed 's/,/, #/g; s/^/#/')" >> tag-message.txt
-          fi
+          {
+            printf 'Dashy v%s 🚀\n\n' "$VERSION"
+            printf 'PR: #%s - %s\n' "$PR_NUMBER" "$PR_TITLE"
+            if [ -n "$ISSUES" ]; then
+              printf 'Resolves: %s\n' "$(echo "$ISSUES" | sed 's/,/, #/g; s/^/#/')"
+            fi
+            printf 'Author: @%s\n' "$PR_AUTHOR"
+            printf 'Merge commit: %s\n' "$MERGE_SHA"
+          } > tag-message.txt
 
           git tag -a "$VERSION" -F tag-message.txt
           git push origin "$VERSION"
@@ -188,35 +189,46 @@ jobs:
             }
 
             const prNumber = context.payload.pull_request.number;
+            const prAuthor = context.payload.pull_request.user?.login;
+            const creditAuthor = prAuthor && prAuthor.toLowerCase() !== 'lissy93';
             const marker = `released-${version}`;
             for (const num of issues) {
               const issue_number = parseInt(num, 10);
               try {
-                const comments = await github.rest.issues.listComments({
-                  owner, repo, issue_number, per_page: 100,
-                });
+                const [{ data: issue }, comments] = await Promise.all([
+                  github.rest.issues.get({ owner, repo, issue_number }),
+                  github.rest.issues.listComments({
+                    owner, repo, issue_number, per_page: 100,
+                  }),
+                ]);
                 const alreadyCommented = comments.data.some(
                   c => c.body?.includes(marker)
                 );
-                await github.rest.issues.addLabels({
-                  owner, repo, issue_number, labels: [labelName],
-                });
                 if (!alreadyCommented) {
-                  const body = [
-                    `An implementation for this ticket was`,
-                    `merged in #${prNumber} and released in`,
-                    `version ${version}. To receive this fix,`,
-                    `ensure you've updated your Dashy instance`,
-                    `to the ${version} tag or later 😇`,
-                    `<!-- ${marker} -->`,
-                  ].join(' ');
+                  const author = issue.user?.login;
+                  const greeting = author ? `Hey @${author},` : 'Hey,';
+                  const sixMonthsAgo = new Date();
+                  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+                  const isOld = new Date(issue.created_at) < sixMonthsAgo;
+                  const byLine = creditAuthor ? ` by @${prAuthor}` : '';
+                  const parts = [
+                    greeting,
+                    `this has now been implemented${byLine} in #${prNumber},`,
+                    `and will be released shortly in ${version} 😇`,
+                  ];
+                  if (isOld) parts.push(`\n\nWe're sorry this one took so long 😔`);
+                  parts.push(`<!-- ${marker} -->`);
+                  const body = parts.join(' ');
                   await github.rest.issues.createComment({
                     owner, repo, issue_number, body,
                   });
-                  core.info(`Labeled and commented on #${num}`);
-                } else {
-                  core.info(`Already commented on #${num}, skipped`);
                 }
+                await github.rest.issues.addLabels({
+                  owner, repo, issue_number, labels: [labelName, '✅ Fixed'],
+                });
+                core.info(alreadyCommented
+                  ? `Already commented on #${num}, labels applied`
+                  : `Commented and labeled #${num}`);
               } catch (e) {
                 core.warning(`Failed to process #${num}: ${e.message}`);
               }

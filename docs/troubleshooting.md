@@ -630,6 +630,12 @@ Finally, be sure to remain respectful to other users and project maintainers, in
 
 ---
 
+## Public IP Widget not working for `ipinfo` or `ipquery` providers
+
+If you've set `options.provider` to either `ipinfo` and `ipquery` and the requests are failing, it's likley that they're being blocked. Check your adblocker (uBlock, PrivacyBadger, etc), DNS block lists (PiHole, AdGuard, etc). Or, try proxying the request (with `useProxy: true`) or just try a different provider.
+
+---
+
 ## How-To Open Browser Console
 
 When raising a bug, one crucial piece of info needed is the browser's console output. This will help the developer diagnose and fix the issue.
