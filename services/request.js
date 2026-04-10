@@ -21,6 +21,19 @@ class RequestError extends Error {
     this.code = code || undefined;
     this.errno = errno || undefined;
   }
+
+  // Return a JSON-safe summary, to prevent the any circular references
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      code: this.code,
+      errno: this.errno,
+      status: this.response && this.response.status,
+      statusText: this.response && this.response.statusText,
+      data: this.response && this.response.data,
+    };
+  }
 }
 
 /**
@@ -135,9 +148,15 @@ function request(config) {
             status: res.statusCode,
             statusText: res.statusMessage,
             headers: res.headers,
-            // Expose the raw request object for socket access (status-check.js needs this)
-            request: req,
           };
+          // Expose the raw request object for socket access (status-check.js
+          // needs this). Defined as non-enumerable so JSON.stringify() skips
+          // it — the http.ClientRequest has circular socket references that
+          // would otherwise crash any endpoint forwarding the response.
+          Object.defineProperty(response, 'request', {
+            value: req,
+            enumerable: false,
+          });
 
           if (res.statusCode >= 200 && res.statusCode < 300) {
             resolve(response);
