@@ -342,7 +342,7 @@ Using `ipgeolocation` with a key:
 **Provider** | **Key** | **Proxy** | **Notes**
 --- | --- | --- | ---
 `freeipapi` _(default)_ | 🟢 Not needed | 🟢 Not needed | Keyless, 60 req/min via [freeipapi.com](https://freeipapi.com/).
-`ipinfo` | 🟢 Not needed / 🟠 Optional | 🟢 Not needed | Industry-standard service from [ipinfo.io](https://ipinfo.io/). Keyless gives ~1k/day; a [free token](https://ipinfo.io/signup) raises this to ~50k/month. Sometimes blocked by adblockers.
+`ipinfo` | 🟢 Not needed / 🟠 Optional | 🟢 Not needed | Service from [ipinfo.io](https://ipinfo.io/). Keyless gives ~1k/day; a [free token](https://ipinfo.io/signup) raises this to ~50k/month. Sometimes blocked by adblockers.
 `ipquery` | 🟢 Not needed | 🟢 Not needed | Modern keyless API from [ipquery.io](https://ipquery.io/). Includes VPN/Tor/datacenter risk flags in the raw response.
 `ip-api` | 🟢 Not needed | 🔴 **Required** | [ip-api.com](https://ip-api.com/) is HTTP-only on the free tier, so the proxy is needed to avoid mixed-content errors.
 `ipgeolocation` | 🔴 **Required** | 🟢 Not needed | Get a free key from [ipgeolocation.io](https://ipgeolocation.io/signup.html).

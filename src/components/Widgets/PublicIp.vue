@@ -2,10 +2,10 @@
 <div class="ip-info-wrapper">
   <p class="ip-address" :class="{ 'is-long': ipAddr?.length > 16 }">{{ ipAddr }}</p>
   <div class="region-wrapper" v-if="!options.hideLocation">
-    <img class="flag-image" :src="flagImg" alt="Flag" />
+    <img class="flag-image" v-if="flagImg" :src="flagImg" alt="Flag" />
     <div class="info-text">
       <p class="isp-name">{{ ispName }}</p>
-      <a class="ip-location" :href="mapsUrl" title="🗺️ Open in Maps">
+      <a class="ip-location" v-if="location" :href="mapsUrl" title="🗺️ Open in Maps">
         {{ location }}
       </a>
     </div>
@@ -18,9 +18,7 @@ import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints as urls } from '@/utils/defaults';
 import { getCountryFlag, getMapUrl } from '@/utils/MiscHelpers';
 
-/* Each provider's `parse` returns a normalised shape:
- * { ip, isp, city, region, countryCode, lat, lon }
- * `url` may be a string or a function that takes the user's apiKey. */
+/* List of providers, with their API endpoint and response structure/parser */
 const PROVIDERS = {
   freeipapi: {
     url: urls.publicIp4,
@@ -88,41 +86,18 @@ const PROVIDERS = {
   },
 };
 
-/* List of deleted/depricated providers. Used to show warning if user tries to use */
-const REMOVED_PROVIDERS = {
-  'ipapi.co': 'ipapi.co now serves a Cloudflare bot challenge to many clients.',
-  'ifconfig.co': 'ifconfig.co does not send Access-Control-Allow-Origin headers.',
-  'ip2location.io': 'ip2location.io does not send Access-Control-Allow-Origin headers.',
-};
-
+const REMOVED_PROVIDERS = ['ipapi.co', 'ifconfig.co', 'ip2location.io'];
 const DEFAULT_PROVIDER = 'freeipapi';
 
 export default {
   mixins: [WidgetMixin],
   computed: {
     provider() {
-      const chosen = this.parseAsEnvVar(this.options.provider);
-      if (chosen && REMOVED_PROVIDERS[chosen]) {
-        this.error(`Provider '${chosen}' is no longer supported: ${REMOVED_PROVIDERS[chosen]} `
-          + `Pick one of: ${Object.keys(PROVIDERS).join(', ')}.`);
-        return null;
-      }
-      if (chosen && !PROVIDERS[chosen]) {
-        this.error(`Unknown provider '${chosen}'. Pick one of: ${Object.keys(PROVIDERS).join(', ')}.`);
-        return null;
-      }
-      return chosen || DEFAULT_PROVIDER;
-    },
-    endpoint() {
-      if (!this.provider) return null;
-      const { url } = PROVIDERS[this.provider];
-      return typeof url === 'function' ? url(this.apiKey) : url;
+      const chosen = this.parseAsEnvVar(this.options.provider) || DEFAULT_PROVIDER;
+      return PROVIDERS[chosen] ? chosen : null;
     },
     apiKey() {
-      if (!this.provider) return null;
-      const needsKey = PROVIDERS[this.provider].requiresKey;
-      if (needsKey && !this.options.apiKey) this.error('Missing API Key');
-      return this.options.apiKey;
+      return this.parseAsEnvVar(this.options.apiKey);
     },
   },
   data() {
@@ -135,19 +110,34 @@ export default {
     };
   },
   methods: {
-    /* Make GET request to selected provider */
+    /* Validate config, then fetch the user's IP from the selected provider */
     fetchData() {
-      if (!this.endpoint) return;
-      this.makeRequest(this.endpoint).then(this.processData);
+      const raw = this.parseAsEnvVar(this.options.provider);
+      if (raw && !PROVIDERS[raw]) {
+        const note = REMOVED_PROVIDERS.includes(raw) ? 'depricated' : 'unknown';
+        this.error(`Provider '${raw}' is ${note}. Pick one of: ${Object.keys(PROVIDERS).join(', ')}.`);
+        return;
+      }
+      const { url, requiresKey } = PROVIDERS[this.provider];
+      if (requiresKey && !this.apiKey) {
+        this.error('Missing API Key');
+        return;
+      }
+      this.makeRequest(typeof url === 'function' ? url(this.apiKey) : url).then(this.processData);
     },
     /* Normalise the response and assign to display fields */
     processData(ipInfo) {
       const parsed = PROVIDERS[this.provider].parse(ipInfo);
+      if (!parsed.ip) {
+        this.error(`Unexpected response from provider '${this.provider}'`);
+        return;
+      }
       this.ipAddr = parsed.ip;
       this.ispName = parsed.isp;
       this.location = [parsed.city, parsed.region].filter(Boolean).join(', ');
       this.flagImg = parsed.countryCode ? getCountryFlag(parsed.countryCode) : null;
-      this.mapsUrl = getMapUrl({ lat: parsed.lat, lon: parsed.lon });
+      this.mapsUrl = (parsed.lat && parsed.lon)
+        ? getMapUrl({ lat: parsed.lat, lon: parsed.lon }) : null;
     },
   },
 };
