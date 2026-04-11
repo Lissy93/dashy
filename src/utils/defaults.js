@@ -217,9 +217,9 @@ module.exports = {
     localPath: './item-icons',
     faviconName: 'favicon.ico',
     homeLabIcons:
-      'https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/{icon}.png',
+      'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/{icon}.svg',
     homeLabIconsFallback:
-      'https://raw.githubusercontent.com/NX211/homer-icons/master/png/{icon}.png',
+      'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/{icon}.png',
   },
   /* API endpoints for widgets that need to fetch external data */
   widgetApiEndpoints: {

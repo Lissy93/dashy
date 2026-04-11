@@ -15,6 +15,7 @@ Both sections and items can have an icon, which is specified using the `icon` at
 - [Using a Default Icon](#default-icon)
 - [No Icon](#no-icon)
 
+
 <p align="center">
   <img width="500" src="https://i.ibb.co/GTVmZnc/dashy-example-icons.png" />
 </p>
@@ -124,7 +125,7 @@ Note: These icons are fetched from the jsdelivr CDN, so if you require offline a
 
 ## Home-Lab Icons
 
-The [dashboard-icons](https://github.com/walkxcode/Dashboard-Icons) repo by [@WalkxCode](https://github.com/WalkxCode) provides a comprehensive collection of 360+ high-quality PNG icons for commonly self-hosted services. Dashy natively supports these icons, and you can use them just by specifying the icon name (without extension) preceded by `hl-`. See [here](https://github.com/walkxcode/Dashboard-Icons/tree/main/png) for a full list of all available icons. Note that these are fetched and cached straight from GitHub, so if you require offline access, the [Local Icons](#local-icons) method may be a better option for you.
+The [dashboard-icons](https://github.com/homarr-labs/dashboard-icons) repo by [Homarr Labs](https://github.com/homarr-labs) provides a comprehensive collection of high-quality icons for commonly self-hosted services. Dashy natively supports these icons, and you can use them just by specifying the icon name (without extension) preceded by `hl-`. SVG is preferred where available, with an automatic fallback to PNG for icons that aren't published as SVG. See [here](https://github.com/homarr-labs/dashboard-icons/tree/main/svg) for a full list of all available icons. Note that these are fetched and cached straight from jsDelivr, so if you require offline access, the [Local Icons](#local-icons) method may be a better option for you.
 
 For example:
 
