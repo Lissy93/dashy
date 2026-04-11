@@ -118,16 +118,16 @@ Content-Security-Policy: frame-ancestors 'self' https://[dashy-location]/
 
 If you're seeing Dashy's 404 page on initial load/ refresh, and then the main app when you go back to Home, then this is likely caused by the Vue router, and if so can be fixed in one of two ways.
 
-The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by setting `appConfig.routingMode` to `hash`.
+The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set.
 
-If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `routingMode: history` again, for neater URLs.
+If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `VUE_APP_ROUTING_MODE=history` (the default) again, for neater URLs.
 
 ---
 
 ## 404 after Launch from Mobile Home Screen
 
 Similar to the above issue, if you get a 404 after using iOS and Android's "Add to Home Screen" feature, then this is caused by Vue router.
-It can be fixed by setting `appConfig.routingMode` to `hash`
+It can be fixed by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set.
 
 See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://github.com/Lissy93/dashy/issues/762)
 
@@ -135,7 +135,7 @@ See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://gi
 
 ## 404 On Multi-Page Apps
 
-Similar to above, if you get a 404 error when visiting a page directly on multi-page apps, then this can be fixed under `appConfig`, by setting `routingMode` to `hash`. Then rebuilding, and refreshing the page.
+Similar to above, if you get a 404 error when visiting a page directly on multi-page apps, then this can be fixed by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set, then refreshing the page.
 
 See also: [#670](https://github.com/Lissy93/dashy/issues/670), [#763](https://github.com/Lissy93/dashy/issues/763)
 

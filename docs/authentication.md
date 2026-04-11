@@ -360,9 +360,9 @@ appConfig:
   auth:
     enableOidc: true
     oidc:
-      clientId: ['registered client id']
-      endpoint: [OIDC endpoint]
-      scope: [The scope(s) to request from the OIDC provider]
+      clientId: 'registered-client-id'
+      endpoint: 'https://your-oidc-provider.example.com'
+      scope: 'openid profile email'
       adminGroup: admin
 ```
 

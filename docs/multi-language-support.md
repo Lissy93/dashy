@@ -18,7 +18,7 @@ You can manually select your language in the UI. Under the Config Menu, click th
 
 ### Config File
 
-You can also set your language in the config file. Specify the ISO code of one of the supported languages, under `appConfig.lang`. For example:
+You can also set your language in the config file. Specify the ISO code of one of the supported languages, under `appConfig.language`. For example:
 
 ```yaml
 appConfig:
