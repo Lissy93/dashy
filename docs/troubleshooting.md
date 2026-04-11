@@ -18,6 +18,7 @@
 - [Auth Validation Error: "should be object"](#auth-validation-error-should-be-object)
 - [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
 - [Keycloak Redirect Error](#keycloak-redirect-error)
+- [OIDC or Keycloak failure on numeric client IDs](#oidc-or-keycloak-failure-on-numeric-client-ids)
 - [Docker Directory Error](#docker-directory)
 - [Config not Saving on Vercel / Netlify / CDN](#user-content-config-not-saving-on-vercel--netlify--cdn)
 - [Config Not Updating](#config-not-updating)
@@ -264,6 +265,29 @@ nginx.ingress.kubernetes.io/enable-cors: "true"
 ```
 
 See also: #479, #409, #507, #491, #341, #520
+
+---
+
+## OIDC or Keycloak failure on numeric client IDs
+
+If your IdP rejects the login with an *"invalid client"* / *"client not found"* error, and your `clientId` is a long numeric value, the cause is almost certainly YAML number parsing.
+
+YAML parses unquoted numeric tokens as Numbers, and JavaScript can't represent integers larger than 2^53 (~16 digits) without losing precision. So an unquoted numeric `clientId` will be silently truncated (e.g. `918756876419824312` → `918756876419824300`), or — for very large values — converted to scientific notation (e.g. `9.187568764198242e+37`), and the IdP will reject it.
+
+The fix is to wrap the `clientId` in quotes in your `conf.yml` so it gets parsed as a string:
+
+```yaml
+appConfig:
+  auth:
+    enableOidc: true
+    oidc:
+      clientId: "918756876419824312"
+      endpoint: https://idp.example.com/
+```
+
+The same applies to `auth.keycloak.clientId`. Dashy will print a warning in the [browser console](#how-to-open-browser-console) when it detects a numeric `clientId`, to help diagnose this.
+
+See also: #1941
 
 ---
 
