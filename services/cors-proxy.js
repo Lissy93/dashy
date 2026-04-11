@@ -23,11 +23,21 @@ module.exports = (req, res) => {
   // Get desired URL, from Target-URL header
   const targetURL = req.header('Target-URL');
   if (!targetURL) {
-    res.status(500).send({ error: 'There is no Target-Endpoint header in the request' });
+    res.status(400).send({ error: 'Missing required Target-URL header' });
     return;
   }
   // Apply any custom headers, if needed
-  const headers = req.header('CustomHeaders') ? JSON.parse(req.header('CustomHeaders')) : {};
+  let headers = {};
+  const rawCustomHeaders = req.header('CustomHeaders');
+  if (rawCustomHeaders) {
+    try {
+      headers = JSON.parse(rawCustomHeaders);
+    } catch (e) {
+      res.status(400).send({ error: 'CustomHeaders header contains malformed JSON' });
+      return;
+    }
+  }
+
 
   // Prepare the request
   const requestConfig = {
@@ -35,13 +45,16 @@ module.exports = (req, res) => {
     url: targetURL,
     data: req.body,
     headers,
+    timeout: 30000,
   };
 
-  // Make the request, and respond with result.
-  request(requestConfig)
-    .then((response) => {
-      res.status(200).send(response.data);
-    }).catch((error) => {
-      res.status(500).send({ error });
-    });
+  // Make the request, and respond with result
+  const send = (status, body) => {
+    if (res.headersSent) return;
+    try { res.status(status).send(body); } catch (e) { /* response stream gone */ }
+  };
+  request(requestConfig).then(
+    (response) => send(200, response.data),
+    (error) => send(500, { error }),
+  );
 };
