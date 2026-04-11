@@ -186,10 +186,6 @@ export default {
   }
   @include laptop-up {
     &.col-2 { grid-column-start: span 2; }
-    &.col-3, &.col-4, &.col-5,  &.col-6 { grid-column-start: span 3; }
-  }
-  @include monitor-up {
-    &.col-2 { grid-column-start: span 2; }
     &.col-3 { grid-column-start: span 3; }
     &.col-4 { grid-column-start: span 4; }
     &.col-5 { grid-column-start: span 5; }
