@@ -50,21 +50,25 @@ module.exports = async (newConfig, render) => {
     message: !success ? errorMsg : getSuccessMessage(),
   });
 
-  // Create a backup of current config, and if backup dir doesn't yet exist, create it
-  await fsPromises
-    .mkdir(settings.backupLocation, { recursive: true })
-    .then(() => fsPromises.copyFile(defaultFilePath, backupFilePath))
-    .catch((error) => render(
-      getRenderMessage(false, `Unable to backup ${settings.defaultFile}: ${error}`),
-    ));
+  // Create a backup of current config, and if backup dir doesn't yet exist, create it.
+  try {
+    await fsPromises.mkdir(settings.backupLocation, { recursive: true });
+    await fsPromises.copyFile(defaultFilePath, backupFilePath);
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      render(getRenderMessage(false, `Unable to backup ${settings.defaultFile}: ${error}`));
+      return;
+    }
+  }
 
   // Writes the new content to the conf.yml file
-  await fsPromises
-    .writeFile(defaultFilePath, newConfig.config.toString(), writeFileOptions)
-    .catch((error) => render(
-      getRenderMessage(false, `Unable to write to ${settings.defaultFile}: ${error}`),
-    ));
+  try {
+    await fsPromises.writeFile(defaultFilePath, newConfig.config.toString(), writeFileOptions);
+  } catch (error) {
+    render(getRenderMessage(false, `Unable to write to ${settings.defaultFile}: ${error}`));
+    return;
+  }
 
   // If successful, then render hasn't yet been called- call it
-  await render(getRenderMessage(true));
+  render(getRenderMessage(true));
 };
