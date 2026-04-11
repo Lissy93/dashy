@@ -84,17 +84,29 @@ export default {
     },
     topLevelStyleModifications() {
       const vc = this.visibleComponents;
-      if (!vc.footer && !vc.pageTitle) {
-        return '--footer-height: 1rem;';
-      } else if (!vc.footer) {
-        return '--footer-height: 5rem;';
-      } else if (!vc.pageTitle) {
-        return '--footer-height: 4rem;';
+      let styles = '';
+      if (!vc.footer && !vc.pageTitle) styles += '--footer-height: 1rem;';
+      else if (!vc.footer) styles += '--footer-height: 5rem;';
+      else if (!vc.pageTitle) styles += '--footer-height: 4rem;';
+      const maxWidth = this.parseContentMaxWidth(this.appConfig.contentMaxWidth);
+      if (maxWidth) {
+        styles += `--content-max-width: ${maxWidth};`;
       }
-      return '';
+      return styles;
     },
   },
   methods: {
+    /* Parse appConfig.contentMaxWidth into valid CSS unit */
+    parseContentMaxWidth(usersCmw) {
+      if (usersCmw === undefined || usersCmw === null || usersCmw === '') return null;
+      const maxWidthStr = String(usersCmw).trim();
+      if (/^\d+(\.\d+)?$/.test(maxWidthStr)) {
+        return Number(maxWidthStr) <= 100 ? `${maxWidthStr}%` : `${maxWidthStr}px`;
+      }
+      if (/^\d+(\.\d+)?(%|px|rem|em|vw|vh)$/.test(maxWidthStr)) return maxWidthStr;
+      ErrorHandler(`Invalid contentMaxWidth value: '${usersCmw}'`);
+      return null;
+    },
     /* Injects the users custom CSS as a style tag */
     injectCustomStyles(usersCss) {
       const style = document.createElement('style');

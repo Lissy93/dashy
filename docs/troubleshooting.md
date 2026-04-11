@@ -18,6 +18,7 @@
 - [Auth Validation Error: "should be object"](#auth-validation-error-should-be-object)
 - [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
 - [Keycloak Redirect Error](#keycloak-redirect-error)
+- [OIDC or Keycloak failure on numeric client IDs](#oidc-or-keycloak-failure-on-numeric-client-ids)
 - [Docker Directory Error](#docker-directory)
 - [Config not Saving on Vercel / Netlify / CDN](#user-content-config-not-saving-on-vercel--netlify--cdn)
 - [Config Not Updating](#config-not-updating)
@@ -117,16 +118,16 @@ Content-Security-Policy: frame-ancestors 'self' https://[dashy-location]/
 
 If you're seeing Dashy's 404 page on initial load/ refresh, and then the main app when you go back to Home, then this is likely caused by the Vue router, and if so can be fixed in one of two ways.
 
-The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by setting `appConfig.routingMode` to `hash`.
+The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set.
 
-If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `routingMode: history` again, for neater URLs.
+If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `VUE_APP_ROUTING_MODE=history` (the default) again, for neater URLs.
 
 ---
 
 ## 404 after Launch from Mobile Home Screen
 
 Similar to the above issue, if you get a 404 after using iOS and Android's "Add to Home Screen" feature, then this is caused by Vue router.
-It can be fixed by setting `appConfig.routingMode` to `hash`
+It can be fixed by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set.
 
 See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://github.com/Lissy93/dashy/issues/762)
 
@@ -134,7 +135,7 @@ See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://gi
 
 ## 404 On Multi-Page Apps
 
-Similar to above, if you get a 404 error when visiting a page directly on multi-page apps, then this can be fixed under `appConfig`, by setting `routingMode` to `hash`. Then rebuilding, and refreshing the page.
+Similar to above, if you get a 404 error when visiting a page directly on multi-page apps, then this can be fixed by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set, then refreshing the page.
 
 See also: [#670](https://github.com/Lissy93/dashy/issues/670), [#763](https://github.com/Lissy93/dashy/issues/763)
 
@@ -264,6 +265,29 @@ nginx.ingress.kubernetes.io/enable-cors: "true"
 ```
 
 See also: #479, #409, #507, #491, #341, #520
+
+---
+
+## OIDC or Keycloak failure on numeric client IDs
+
+If your IdP rejects the login with an *"invalid client"* / *"client not found"* error, and your `clientId` is a long numeric value, the cause is almost certainly YAML number parsing.
+
+YAML parses unquoted numeric tokens as Numbers, and JavaScript can't represent integers larger than 2^53 (~16 digits) without losing precision. So an unquoted numeric `clientId` will be silently truncated (e.g. `918756876419824312` → `918756876419824300`), or — for very large values — converted to scientific notation (e.g. `9.187568764198242e+37`), and the IdP will reject it.
+
+The fix is to wrap the `clientId` in quotes in your `conf.yml` so it gets parsed as a string:
+
+```yaml
+appConfig:
+  auth:
+    enableOidc: true
+    oidc:
+      clientId: "918756876419824312"
+      endpoint: https://idp.example.com/
+```
+
+The same applies to `auth.keycloak.clientId`. Dashy will print a warning in the [browser console](#how-to-open-browser-console) when it detects a numeric `clientId`, to help diagnose this.
+
+See also: #1941
 
 ---
 

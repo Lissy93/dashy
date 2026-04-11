@@ -78,7 +78,7 @@ const HomeMixin = {
     /* Returns a unique ID based on the page and section name */
     makeSectionId(section) {
       const normalize = (str) => (
-        str ? str.trim().toLowerCase().replace(/[^a-zA-Z0-9]/g, '-')
+        str ? str.trim().toLowerCase().replace(/[^\p{L}\p{N}]/gu, '-')
           : `unnamed-${(`000${Math.floor(Math.random() * 1000)}`).slice(-3)}`
       );
       return `${this.pageId || 'unknown-page'}-${normalize(section.name)}`;

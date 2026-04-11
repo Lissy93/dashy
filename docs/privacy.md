@@ -271,7 +271,7 @@ These can be combined with the `admin` and `normal` user roles to give fine-grai
 You may wish to disable features that you don't want to use, if they involve storing data in the browser or making network requests.
 - To disable smart-sort (uses local storage), set `appConfig.disableSmartSort: true`
 - To disable update checks (makes external request to GH), set `appConfig.disableUpdateChecks: true`
-- To disable web search (redirect to external / internal content), set `appConfig.disableWebSearch: true`
+- To disable web search (redirect to external / internal content), set `appConfig.webSearch.disableWebSearch: true`
 - To keep status checks disabled (external/ internal requests), set `appConfig.statusCheck: false`
 - To keep font-awesome icons disabled (external requests), set `appConfig.enableFontAwesome: false`
 - To keep error reporting disabled (external requests and data collection), set `appConfig.enableErrorReporting: false`

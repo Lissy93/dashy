@@ -413,7 +413,8 @@ Dashy supports multiple languages and locales. When available, your language sho
 
 #### Supported Languages
 - 🇬🇧 **English**: `en` - _Default_
-- 🇦🇪 **Arabic**: `ar` - _Auto-generated_
+- 🇬🇧 **English (British)**: `en-GB`
+- 🇦🇪 **Arabic**: `ar` - _Auto-generated_ (needs human review!)
 - 🇧🇩 **Bengali**: `bn` - Contributed by **[@soaibsafi](https://github.com/soaibsafi)**
 - 🇧🇬 **Bulgarian**: `bg` - Contributed by **[@asenov](https://github.com/asenov)**
 - 🇨🇳 **Chinese**: `cn` - Contributed by **[@FormatToday](https://github.com/FormatToday)**
@@ -423,10 +424,10 @@ Dashy supports multiple languages and locales. When available, your language sho
 - 🇫🇷 **French**: `fr` - Contributed by **[@EVOTk](https://github.com/EVOTk)**
 - 🇩🇪 **German**: `de` - Contributed by **[@Niklashere](https://github.com/Niklashere)**
 - 🇬🇷 **Greek**: `el` - Contributed by **[@aviolaris](https://github.com/aviolaris)**
-- 🇮🇳 **Hindi**: `hi` - _Auto-generated_
+- 🇮🇳 **Hindi**: `hi` - _Auto-generated_ (needs human review!)
 - 🇭🇺 **Hungarian**: `hu` - Contributed by **[@apgyorfi](https://github.com/apgyorfi)**
 - 🇮🇹 **Italian**: `it` - Contributed by **[@alexdelprete](https://github.com/alexdelprete)**
-- 🇯🇵 **Japanese**: `ja` - _Auto-generated_
+- 🇯🇵 **Japanese**: `ja` - _Auto-generated_ (needs human review!)
 - 🇰🇷 **Korean**: `ko` - Contributed by **[@boggy-cs](https://github.com/boggy-cs)**
 - 🇰🇬 **Kyrgyz**: `ky` - Contributed by **[@noblepower1337](https://github.com/noblepower1337)**
 - 🇳🇴 **Norwegian Bokmål**: `nb` - Contributed by **[@rubjo](https://github.com/rubjo)**
@@ -706,4 +707,3 @@ For more info, see TLDR Legal's [Explanation of MIT](https://tldrlegal.com/licen
               |     /          |     /     ~-.     ~- _
               |_____|          |_____|         ~ - . _ _~_-_
 -->
-

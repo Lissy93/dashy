@@ -360,13 +360,15 @@ appConfig:
   auth:
     enableOidc: true
     oidc:
-      clientId: [registered client id]
-      endpoint: [OIDC endpoint]
-      scope: [The scope(s) to request from the OIDC provider]
+      clientId: 'registered-client-id'
+      endpoint: 'https://your-oidc-provider.example.com'
+      scope: 'openid profile email'
       adminGroup: admin
 ```
 
 Because Dashy is a SPA, a [public client](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1) registration with PKCE is needed.
+
+Note, that if your `clientId` is numeric, you must place it in quotes. Otherwise it will be interpreted as a number and truncated to 64 chars!
 
 An example for Authelia is shared below, but other OIDC systems can be used:
 
