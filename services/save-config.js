@@ -7,68 +7,67 @@
 const fsPromises = require('fs').promises;
 const path = require('path');
 
+const MAX_CONFIG_BYTES = 256 * 1024;
+
+// Disallow paths having path separators, control chars (NUL/CR/LF), or ..
+const SAFE_FILENAME = /^(?!\.+$)[^\\/\0\r\n]+\.ya?ml$/i;
+
 module.exports = async (newConfig, render) => {
-  /* Either returns nothing (if using default path), or strips navigational characters from path */
-  const makeSafeFileName = (configObj) => {
-    if (!configObj || !configObj.filename) return undefined;
-    return configObj.filename.replaceAll('/', '').replaceAll('..', '');
-  };
+  const respond = (success, message) => render(JSON.stringify({ success, message }));
 
-  // Path to config file (with navigational characters stripped)
-  const usersFileName = makeSafeFileName(newConfig);
+  // Validate request body
+  if (!newConfig || typeof newConfig.config !== 'string' || newConfig.config.length === 0) {
+    respond(false, "Request body is missing or has an invalid 'config' field");
+    return;
+  }
+  if (newConfig.config.length > MAX_CONFIG_BYTES) {
+    respond(false, `Config exceeds maximum size of ${MAX_CONFIG_BYTES / 1024} KB`);
+    return;
+  }
 
-  // Path to user data directory
+  // If `filename` (for sub-pages) is specified validate and set it
+  let usersFileName;
+  if (typeof newConfig.filename === 'string' && newConfig.filename) {
+    const base = path.basename(newConfig.filename);
+    if (!SAFE_FILENAME.test(base)) {
+      respond(false, 'Invalid filename: must be a basename ending in .yml or .yaml');
+      return;
+    }
+    usersFileName = base;
+  }
+
+  // Resolve paths
   const userDataDirectory = process.env.USER_DATA_DIR || './user-data/';
+  const backupLocation = process.env.BACKUP_DIR || path.join(userDataDirectory, 'config-backups');
+  const targetFile = usersFileName || 'conf.yml';
+  const targetFilePath = path.join(userDataDirectory, targetFile);
 
-  // Define constants for the config file
-  const settings = {
-    defaultLocation: userDataDirectory,
-    backupLocation: process.env.BACKUP_DIR || path.join(userDataDirectory, 'config-backups'),
-    defaultFile: 'conf.yml',
-    filename: 'conf',
-    backupDenominator: '.backup.yml',
-  };
+  const backupBase = targetFile.replace(/\.ya?ml$/i, '');
+  const backupFilePath = path.join(backupLocation, `${backupBase}-${Date.now()}.backup.yml`);
 
-  // Make the full file name and path to save the backup config file
-  const backupFilePath = `${path.normalize(settings.backupLocation)
-  }/${usersFileName || settings.filename}-`
-    + `${Math.round(new Date() / 1000)}${settings.backupDenominator}`;
-
-  // The path where the main conf.yml should be read and saved to
-  const defaultFilePath = settings.defaultLocation + (usersFileName || settings.defaultFile);
-
-  // Returns a string confirming successful job
-  const getSuccessMessage = () => `Successfully backed up ${settings.defaultFile} to`
-    + ` ${backupFilePath}, and updated the contents of ${defaultFilePath}`;
-
-  // Encoding options for writing to conf file
-  const writeFileOptions = { encoding: 'utf8' };
-
-  // Prepare the response returned by the API
-  const getRenderMessage = (success, errorMsg) => JSON.stringify({
-    success,
-    message: !success ? errorMsg : getSuccessMessage(),
-  });
-
-  // Create a backup of current config, and if backup dir doesn't yet exist, create it.
+  // Backup current config before proceeding
   try {
-    await fsPromises.mkdir(settings.backupLocation, { recursive: true });
-    await fsPromises.copyFile(defaultFilePath, backupFilePath);
+    await fsPromises.mkdir(backupLocation, { recursive: true });
+    await fsPromises.copyFile(targetFilePath, backupFilePath);
   } catch (error) {
     if (error.code !== 'ENOENT') {
-      render(getRenderMessage(false, `Unable to backup ${settings.defaultFile}: ${error}`));
+      respond(false, `Unable to backup ${targetFile}: ${error}`);
       return;
     }
   }
 
-  // Writes the new content to the conf.yml file
+  // Write the new config
   try {
-    await fsPromises.writeFile(defaultFilePath, newConfig.config.toString(), writeFileOptions);
+    await fsPromises.writeFile(targetFilePath, newConfig.config, { encoding: 'utf8' });
   } catch (error) {
-    render(getRenderMessage(false, `Unable to write to ${settings.defaultFile}: ${error}`));
+    respond(false, `Unable to write to ${targetFile}: ${error}`);
     return;
   }
 
   // If successful, then render hasn't yet been called- call it
-  render(getRenderMessage(true));
+  respond(
+    true,
+    `Successfully backed up ${targetFile} to ${backupFilePath}, `
+    + `and updated the contents of ${targetFilePath}`,
+  );
 };
