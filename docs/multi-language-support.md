@@ -18,7 +18,7 @@ You can manually select your language in the UI. Under the Config Menu, click th
 
 ### Config File
 
-You can also set your language in the config file. Specify the ISO code of one of the supported languages, under `appConfig.lang`. For example:
+You can also set your language in the config file. Specify the ISO code of one of the supported languages, under `appConfig.language`. For example:
 
 ```yaml
 appConfig:
@@ -27,7 +27,7 @@ appConfig:
 
 ### Available Languages
 
-At the time of writing the following languages are supported: `en`, `ar`, `bg`, `bn`, `cs`, `da`, `de`, `el`, `es`, `fr`, `gl`, `hi`, `hu`, `it`, `ja`, `ko`, `nb`, `nl`, `pl`, `pt`, `ro`, `ru`, `sk`, `sl`, `sv`, `tr`, `uk`, `zh-CN`, `zh-TW`, but an up-to-date list of all implemented translations can be found in [`./src/utils/languages.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/languages.js).  Languages are specified by their 2-digit [ISO-639 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), or sometimes a 4-digit code if it's a regional dialect.
+At the time of writing the following languages are supported: `en`, `en-GB`, `ar`, `bg`, `bn`, `cs`, `da`, `de`, `el`, `es`, `fr`, `gl`, `hi`, `hu`, `it`, `ja`, `ko`, `nb`, `nl`, `pl`, `pt`, `ro`, `ru`, `sk`, `sl`, `sv`, `tr`, `uk`, `zh-CN`, `zh-TW`, but an up-to-date list of all implemented translations can be found in [`./src/utils/languages.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/languages.js).  Languages are specified by their 2-digit [ISO-639 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), or sometimes a 4-digit code if it's a regional dialect.
 
 ---
 
