@@ -1,5 +1,6 @@
 // Locales - Import translation files here! (sort alphabetically)
 import en from '@/assets/locales/en.json';
+import enGB from '@/assets/locales/en-GB.json';
 import ar from '@/assets/locales/ar.json';
 import bg from '@/assets/locales/bg.json';
 import bn from '@/assets/locales/bn.json';
@@ -38,6 +39,12 @@ export const languages = [
     name: 'English',
     code: 'en',
     locale: en,
+    flag: '🇬🇧',
+  },
+  { // Real English (just the overides from en.json)
+    name: 'English (British)',
+    code: 'en-GB',
+    locale: enGB,
     flag: '🇬🇧',
   },
   { // Arabic
