@@ -263,6 +263,16 @@
             "high-contrast-light"
           ]
         },
+        "dayTheme": {
+          "title": "Day Theme",
+          "type": "string",
+          "description": "Theme to apply when the OS is set to light mode. Overrides theme on initial load"
+        },
+        "nightTheme": {
+          "title": "Night Theme",
+          "type": "string",
+          "description": "Theme to apply when the OS is set to dark mode. Overrides theme on initial load"
+        },
         "backgroundImg": {
           "title": "Background Image",
           "type": "string",
@@ -331,16 +341,6 @@
             95
           ]
         },
-        "routingMode": {
-          "title": "Routing Mode",
-          "type": "string",
-          "enum": [
-            "hash",
-            "history"
-          ],
-          "default": "history",
-          "description": "The Vue routing mode to use, history mode will remove the annoying hash from the URL, but requires some extra config on some systems"
-        },
         "workspaceLandingUrl": {
           "title": "Workspace Landing URL",
           "type": "string",
@@ -367,7 +367,7 @@
             "disableWebSearch": {
               "title": "Disable Web Search?",
               "type": "boolean",
-              "default": "false",
+              "default": false,
               "description": "If set to true, web search will be disabled all together"
             },
             "openUrlsDirectly": {
@@ -479,31 +479,31 @@
             "hideHeading": {
               "title": "Hide Heading?",
               "type": "boolean",
-              "default": "false",
+              "default": false,
               "description": "If set to true, the page heading & subtitle will be hidden"
             },
             "hideNav": {
               "title": "Hide Nav Bar?",
               "type": "boolean",
-              "default": "false",
+              "default": false,
               "description": "If set to true, the navigation menu will be hidden"
             },
             "hideSearch": {
               "title": "Hide Search Bar?",
               "type": "boolean",
-              "default": "false",
+              "default": false,
               "description": "If set to true, the search bar will be hidden"
             },
             "hideSettings": {
               "title": "Hide Settings?",
               "type": "boolean",
-              "default": "false",
+              "default": false,
               "description": "If set to true, the settings buttons will be hidden"
             },
             "hideFooter": {
               "title": "Hide Footer?",
               "type": "boolean",
-              "default": "false",
+              "default": false,
               "description": "If set to true, the page footer will be hidden"
             }
           }
@@ -592,13 +592,11 @@
                 "adminRole" : {
                   "title": "Admin Role",
                   "type": "string",
-                  "default": false,
                   "description": "The role that will be considered as admin. If not set, no roles will be considered as admin"
                 },
                 "adminGroup" : {
                   "title": "Admin Group",
                   "type": "string",
-                  "default": false,
                   "description": "The group that will be considered as admin. If not set, no groups will be considered as admin"
                 },
                 "scope" : {
@@ -687,7 +685,7 @@
         "showSplashScreen": {
           "title": "Show splash screen",
           "type": "boolean",
-          "default": "false",
+          "default": false,
           "description": "If set to true, a loading screen will be shown"
         },
         "preventWriteToDisk": {
@@ -1149,7 +1147,7 @@
                 "statusCheckMaxRedirects": {
                   "title": "Status Check - Max Redirects",
                   "type": "number",
-                  "default": "0",
+                  "default": 0,
                   "description": "If your service redirects to another page, and you would like status checks to follow redirects, then specify the maximum number of redirects here"
                 },
                 "color": {
@@ -1170,10 +1168,50 @@
                 "subItems": {
                   "title": "Sub-Items",
                   "type": "array",
-                  "description": "List of sub-items",
+                  "description": "Optional list of nested sub-items, displayed as smaller icons within the parent item. Each sub-item supports the same core fields as a regular item",
                   "items": {
                     "type": "object",
-                    "properties": {}
+                    "properties": {
+                      "title": {
+                        "title": "Title",
+                        "type": "string",
+                        "description": "The title of the sub-item, shown in the tooltip"
+                      },
+                      "url": {
+                        "title": "URL",
+                        "type": "string",
+                        "description": "The URL to open when the sub-item is clicked"
+                      },
+                      "icon": {
+                        "title": "Icon",
+                        "type": "string",
+                        "description": "The icon for the sub-item. Supports the same icon types as a regular item"
+                      },
+                      "target": {
+                        "title": "Target",
+                        "type": "string",
+                        "enum": [
+                          "newtab",
+                          "sametab",
+                          "modal",
+                          "workspace",
+                          "clipboard",
+                          "top",
+                          "parent"
+                        ],
+                        "description": "The opening method for the sub-item"
+                      },
+                      "color": {
+                        "title": "Color",
+                        "type": "string",
+                        "description": "An optional color for the sub-item icon"
+                      },
+                      "backgroundColor": {
+                        "title": "Background Color",
+                        "type": "string",
+                        "description": "An optional background color for the sub-item"
+                      }
+                    }
                   }
                 }
               }
