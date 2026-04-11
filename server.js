@@ -77,6 +77,11 @@ const printWarning = (msg, error) => {
   console.warn(`\x1b[103m\x1b[34m${msg}\x1b[0m\n`, error || ''); // eslint-disable-line no-console
 };
 
+/* Catch any possible unhandled error. Shouldn't ever happen! */
+process.on('unhandledRejection', (reason) => {
+  printWarning('Unhandled promise rejection in server', reason);
+});
+
 /* Load appConfig.auth from config (if present) for authorization purposes */
 function loadAuthConfig() {
   try {
@@ -196,17 +201,26 @@ const app = express()
       });
     } catch (e) {
       printWarning(`Error running status check for ${req.url}\n`, e);
+      if (!res.headersSent) {
+        res.status(500).end(JSON.stringify({ successStatus: false, message: '❌ Status check failed badly' }));
+      }
     }
   })
   // POST Endpoint used to save config, by writing config file to disk
   .use(ENDPOINTS.save, protectConfig, requireAdmin, method('POST', (req, res) => {
-    try {
-      saveConfig(req.body, (results) => { res.end(results); });
-      config = req.body.config; // update the config
-    } catch (e) {
+    let responded = false;
+    const respond = (jsonBody) => {
+      if (responded || res.headersSent) return;
+      responded = true;
+      try { // Only update in-memory config when disk write succeeds
+        if (JSON.parse(jsonBody).success === true) config = req.body.config;
+      } catch (e) { /* unparseable body, config is unchanged */ }
+      try { res.end(jsonBody); } catch (e) { /* response stream gone */ }
+    };
+    saveConfig(req.body, respond).catch((e) => {
       printWarning('Error writing config file to disk', e);
-      res.end(JSON.stringify({ success: false, message: e }));
-    }
+      respond(JSON.stringify({ success: false, message: String(e) }));
+    });
   }))
   // GET endpoint to trigger a build, and respond with success status and output
   .use(ENDPOINTS.rebuild, protectConfig, requireAdmin, (req, res) => {
