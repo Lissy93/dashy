@@ -315,6 +315,16 @@
           "maximum": 8,
           "description": "Number of section columns for homepage. Leave blank for column count to be responsively calculated based on screen size"
         },
+        "contentMaxWidth": {
+          "title": "Content Max Width",
+          "type": ["string", "number"],
+          "description": "Max width of the main sections area on the homepage. Pass as a percentage or CSS unit. Leave blank for the responsive default",
+          "examples": [
+            "98%",
+            "1400px",
+            95
+          ]
+        },
         "routingMode": {
           "title": "Routing Mode",
           "type": "string",

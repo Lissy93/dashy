@@ -220,11 +220,11 @@ export default {
   display: grid;
   gap: 0.5rem;
   margin: 0 auto;
-  max-width: 90%;
+  max-width: var(--content-max-width, 90%);
   overflow: auto;
   @extend .scroll-bar;
   @include monitor-up {
-    max-width: 85%;
+    max-width: var(--content-max-width, 85%);
   }
 
   /* Options for alternate layouts, triggered by buttons */
