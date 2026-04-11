@@ -223,6 +223,12 @@
           "default": 0,
           "description": "How often to recheck statuses. If set to 0, status will only be checked on page load"
         },
+        "statusCheckAccessibility": {
+          "title": "Status Check Accessibility Mode",
+          "type": "boolean",
+          "default": false,
+          "description": "If enabled, status indicators will use distinct shapes (in addition to color) for better color-blind accessibility"
+        },
         "language": {
           "title": "Language",
           "type": "string",
