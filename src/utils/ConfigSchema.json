@@ -461,7 +461,7 @@
         "externalStyleSheet": {
           "title": "External Stylesheets",
           "description": "URL or list of URLs of external stylesheets to load",
-          "type": ["string", "array"],
+          "type": ["array"],
           "items": {
             "type": "string"
           }
