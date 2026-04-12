@@ -57,6 +57,7 @@ function request(config) {
     json,
     maxRedirects = 5,
     timeout = 0,
+    maxResponseSize = 0,
     httpsAgent,
   } = config;
 
@@ -134,11 +135,28 @@ function request(config) {
         }
 
         const chunks = [];
-        stream.on('data', (chunk) => chunks.push(chunk));
+        let totalSize = 0;
+        let aborted = false;
+        stream.on('data', (chunk) => {
+          if (aborted) return;
+          totalSize += chunk.length;
+          if (maxResponseSize > 0 && totalSize > maxResponseSize) {
+            aborted = true;
+            req.destroy();
+            reject(new RequestError(
+              `Response exceeds maximum size of ${maxResponseSize} bytes`,
+              { code: 'E_RESPONSE_TOO_LARGE' },
+            ));
+            return;
+          }
+          chunks.push(chunk);
+        });
         stream.on('error', (err) => {
+          if (aborted) return;
           reject(new RequestError(`Decompression failed: ${err.message}`, { code: err.code }));
         });
         stream.on('end', () => {
+          if (aborted) return;
           const raw = Buffer.concat(chunks).toString('utf8');
           let responseData;
           try { responseData = JSON.parse(raw); } catch (_) { responseData = raw; }

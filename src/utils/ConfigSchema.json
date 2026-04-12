@@ -333,7 +333,7 @@
         },
         "contentMaxWidth": {
           "title": "Content Max Width",
-          "type": ["string", "number"],
+          "type": ["string"],
           "description": "Max width of the main sections area on the homepage. Pass as a percentage or CSS unit. Leave blank for the responsive default",
           "examples": [
             "98%",
@@ -461,7 +461,7 @@
         "externalStyleSheet": {
           "title": "External Stylesheets",
           "description": "URL or list of URLs of external stylesheets to load",
-          "type": ["string", "array"],
+          "type": ["array"],
           "items": {
             "type": "string"
           }

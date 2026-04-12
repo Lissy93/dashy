@@ -40,8 +40,8 @@ const sessionStorageMock = {
 };
 global.sessionStorage = sessionStorageMock;
 
-// Mock window.matchMedia (for responsive design tests)
-Object.defineProperty(window, 'matchMedia', {
+// Mock window.matchMedia (for responsive design tests, skipped in Node environment)
+if (typeof window !== 'undefined') Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: vi.fn().mockImplementation(query => ({
     matches: false,

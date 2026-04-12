@@ -37,6 +37,7 @@ const makeRequest = (url, options, render) => {
     url,
     headers,
     maxRedirects,
+    timeout: 10000,
     httpsAgent: { rejectUnauthorized: !enableInsecure },
   })
     .then((response) => {

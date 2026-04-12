@@ -1,4 +1,4 @@
-FROM node:18.19.1-alpine AS BUILD_IMAGE
+FROM node:18.19.1-alpine AS build
 
 # Set the platform to build image for
 ARG TARGETPLATFORM
@@ -39,7 +39,7 @@ WORKDIR ${DIRECTORY}
 RUN apk add --no-cache tzdata
 
 # Copy built application from build phase
-COPY --from=BUILD_IMAGE /app ./
+COPY --from=build /app ./
 
 # Finally, run start command to serve up the built application
 CMD [ "yarn", "build-and-start" ]
