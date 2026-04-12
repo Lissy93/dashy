@@ -11,7 +11,6 @@ const os = require('os');
 const dns = require('dns');
 const http = require('http');
 const path = require('path');
-const util = require('util');
 const crypto = require('crypto');
 
 /* Import NPM dependencies */
@@ -25,8 +24,7 @@ const history = require('connect-history-api-fallback');
 /* Kick of some basic checks */
 require('./services/update-checker'); // Checks if there are any updates available, prints message
 
-let config = {}; // setup the config
-config = require('./services/config-validator'); // Include and kicks off the config file validation script
+let config = require('./services/config-validator'); // Validate config file and load result
 
 /* Include route handlers for API endpoints */
 const statusCheck = require('./services/status-check'); // Used by the status check feature, uses GET
@@ -53,29 +51,37 @@ const host = process.env.HOST || '0.0.0.0';
 /* Indicates for the webpack config, that running as a server */
 process.env.IS_SERVER = 'True';
 
-/* Attempts to get the users local IP, used as part of welcome message */
-const getLocalIp = () => {
-  const dnsLookup = util.promisify(dns.lookup);
-  return dnsLookup(os.hostname());
-};
-
 /* Gets the users local IP and port, then calls to print welcome message */
 const printWelcomeMessage = () => {
-  try {
-    getLocalIp().then(({ address }) => {
+  dns.promises.lookup(os.hostname())
+    .then(({ address }) => {
       const ip = process.env.HOST || address || 'localhost';
       console.log(printMessage(ip, port, isDocker)); // eslint-disable-line no-console
+    })
+    .catch(() => {
+      console.log(`Dashy server has started (${port})`); // eslint-disable-line no-console
     });
-  } catch (e) {
-    // No clue what could of gone wrong here, but print fallback message if above failed
-    console.log(`Dashy server has started (${port})`); // eslint-disable-line no-console
-  }
 };
 
 /* Just console.warns an error */
 const printWarning = (msg, error) => {
   console.warn(`\x1b[103m\x1b[34m${msg}\x1b[0m\n`, error || ''); // eslint-disable-line no-console
 };
+
+/* Send a response body if the stream is already closed, with optional status */
+const safeEnd = (res, body, status) => {
+  if (res.headersSent) return;
+  try {
+    if (status) res.status(status);
+    res.end(body);
+  } catch (e) { /* response stream gone */ }
+};
+
+/* Build a serialized JSON error body */
+const errBody = (e) => JSON.stringify({
+  success: false,
+  message: String(e && e.message ? e.message : e),
+});
 
 /* Catch any possible unhandled error. Shouldn't ever happen! */
 process.on('unhandledRejection', (reason) => {
@@ -191,7 +197,7 @@ const app = express()
   // Load middlewares for parsing JSON, and supporting HTML5 history routing
   .use(express.json({ limit: '1mb' }))
   // GET endpoint to run status of a given URL with GET request
-  .use(ENDPOINTS.statusCheck, protectConfig, (req, res) => {
+  .use(ENDPOINTS.statusCheck, protectConfig, method('GET', (req, res) => {
     try {
       statusCheck(req.url, (results) => {
         if (!res.headersSent) {
@@ -205,7 +211,7 @@ const app = express()
         res.status(500).end(JSON.stringify({ successStatus: false, message: '❌ Status check failed badly' }));
       }
     }
-  })
+  }))
   // POST Endpoint used to save config, by writing config file to disk
   .use(ENDPOINTS.save, protectConfig, requireAdmin, method('POST', (req, res) => {
     let responded = false;
@@ -223,44 +229,42 @@ const app = express()
     });
   }))
   // GET endpoint to trigger a build, and respond with success status and output
-  .use(ENDPOINTS.rebuild, protectConfig, requireAdmin, (req, res) => {
-    rebuild().then((response) => {
-      res.end(JSON.stringify(response));
-    }).catch((response) => {
-      res.end(JSON.stringify(response));
-    });
-  })
+  .use(ENDPOINTS.rebuild, protectConfig, requireAdmin, method('GET', (req, res) => {
+    rebuild()
+      .then((response) => safeEnd(res, JSON.stringify(response)))
+      .catch((e) => safeEnd(res, errBody(e)));
+  }))
   // GET endpoint to return system info, for widget
-  .use(ENDPOINTS.systemInfo, protectConfig, (req, res) => {
+  .use(ENDPOINTS.systemInfo, protectConfig, method('GET', (req, res) => {
     try {
-      const results = systemInfo();
-      systemInfo.success = true;
-      res.end(JSON.stringify(results));
+      safeEnd(res, JSON.stringify(systemInfo()));
     } catch (e) {
-      res.end(JSON.stringify({ success: false, message: e }));
+      safeEnd(res, errBody(e));
     }
-  })
+  }))
   // GET for accessing non-CORS API services
   .use(ENDPOINTS.corsProxy, protectConfig, (req, res) => {
     try {
       corsProxy(req, res);
     } catch (e) {
-      res.end(JSON.stringify({ success: false, message: e }));
+      safeEnd(res, errBody(e));
     }
   })
   // GET endpoint to return user info
-  .use(ENDPOINTS.getUser, protectConfig, (req, res) => {
+  .use(ENDPOINTS.getUser, protectConfig, method('GET', (req, res) => {
     try {
-      const user = getUser(config, req);
-      res.end(JSON.stringify(user));
+      safeEnd(res, JSON.stringify(getUser(config, req)));
     } catch (e) {
-      res.end(JSON.stringify({ success: false, message: e }));
+      safeEnd(res, errBody(e));
     }
-  })
+  }))
   // Middleware to serve any .yml files in USER_DATA_DIR with optional protection
   .get('/*.yml', protectConfig, (req, res) => {
     const ymlFile = req.path.split('/').pop();
-    res.sendFile(path.join(__dirname, process.env.USER_DATA_DIR || 'user-data', ymlFile));
+    const filePath = path.join(__dirname, process.env.USER_DATA_DIR || 'user-data', ymlFile);
+    res.sendFile(filePath, (err) => {
+      if (err) safeEnd(res, errBody(`Could not read ${ymlFile}`), 404);
+    });
   })
   // Serves up static files
   .use(express.static(path.join(__dirname, process.env.USER_DATA_DIR || 'user-data')))
@@ -269,7 +273,9 @@ const app = express()
   .use(history())
   // If no other route is matched, serve up the index.html with a 404 status
   .use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, 'dist', 'index.html'));
+    res.status(404).sendFile(path.join(__dirname, 'dist', 'index.html'), (err) => {
+      if (err) safeEnd(res, errBody('Not Found'));
+    });
   });
 
 /* Create HTTP server from app on port, and print welcome message */
