@@ -89,6 +89,7 @@ module.exports = (req, res) => {
     data: req.body,
     headers,
     timeout: 30000,
+    maxResponseSize: 10 * 1024 * 1024, // 10 MB
   };
 
   // Make the request, and respond with result
