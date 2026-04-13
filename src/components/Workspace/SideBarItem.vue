@@ -32,7 +32,7 @@ export default {
       tooltip: {
         disabled: !this.title,
         content: this.title,
-        trigger: 'hover focus',
+        
         placement: 'bottom-end',
       },
     };

@@ -107,7 +107,7 @@ export default {
     },
     tooltip(content) {
       return {
-        content, trigger: 'hover focus', delay: 250, classes: 'in-modal-tt',
+        content, popperClass: 'in-modal-tt',
       };
     },
   },

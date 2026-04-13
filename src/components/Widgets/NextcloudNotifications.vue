@@ -125,13 +125,13 @@ export default {
     subjectTooltip(notification) {
       const content = notification.message;
       return {
-        content, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, popperClass: 'nc-tooltip',
       };
     },
     dateTooltip(notification) {
       const content = new Date(Date.parse(notification.datetime)).toLocaleString();
       return {
-        content, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, popperClass: 'nc-tooltip',
       };
     },
   },

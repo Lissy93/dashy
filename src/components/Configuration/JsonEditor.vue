@@ -26,7 +26,7 @@
       </Button>
     </div>
     <!-- List validation warnings -->
-    <p class="errors">
+    <div class="errors">
       <ul>
         <li v-for="(error, index) in errorMessages" :key="index" :class="`type-${error.type}`">
           {{error.msg}}
@@ -35,7 +35,7 @@
           {{ $t('config-editor.valid-label') }}
         </li>
       </ul>
-    </p>
+    </div>
     <!-- Information notes -->
     <p v-if="saveSuccess !== undefined"
       :class="`response-output status-${saveSuccess ? 'success' : 'fail'}`">

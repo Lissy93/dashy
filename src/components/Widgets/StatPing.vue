@@ -101,7 +101,7 @@ export default {
         + `<b>Last Success:</b> ${lastSuccess}<br>`
         + `<b>Last Failure:</b> ${lastFailure}`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'ping-times-tt',
+        content, html: true, popperClass: 'ping-times-tt',
       };
     },
     processData(data) {

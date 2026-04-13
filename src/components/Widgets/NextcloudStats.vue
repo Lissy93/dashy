@@ -143,7 +143,7 @@ export default {
                     + `${parseFloat(this.activeUsers.last1hour).toLocaleString()}`
                     + ` ${this.tt('last-hour')}<br>`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
     appUpdatesTooltip() {
@@ -153,7 +153,7 @@ export default {
       });
       content += '</ul>';
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
     storagesTooltip() {
@@ -163,7 +163,7 @@ export default {
         + `${parseFloat(this.storage.num_storages_other).toLocaleString()} ${this.tt('other')}</li></ul>`
         + `${parseFloat(this.storage.num_files).toLocaleString()} ${this.tt('total-files')}`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
     sharesTooltip() {
@@ -178,7 +178,7 @@ export default {
         + `${parseFloat(this.shares.num_fed_shares_sent).toLocaleString()} ${this.tt('sent')}</li><li>`
         + `${parseFloat(this.shares.num_fed_shares_received).toLocaleString()} ${this.tt('received')}</li></ul>`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
   },

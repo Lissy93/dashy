@@ -171,7 +171,7 @@ export default {
         departureDetails += 'Live!<br />';
       }
       return {
-        content: departureDetails, html: true, trigger: 'hover', delay: 250, classes: 'mvg-info-tt',
+        content: departureDetails, html: true, triggers: ['hover'], popperClass: 'mvg-info-tt',
       };
     },
     mvgTooltipDestination(data) {
@@ -183,7 +183,7 @@ export default {
         departureDetails += '<b>Cancelled!</b><br />';
       }
       return {
-        content: departureDetails, html: true, trigger: 'hover', delay: 250, classes: 'mvg-info-tt',
+        content: departureDetails, html: true, triggers: ['hover'], popperClass: 'mvg-info-tt',
       };
     },
   },

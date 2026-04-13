@@ -126,13 +126,13 @@ export default {
                     + `${this.convertBytes(this.user.quota.free)} ${this.tt('free')}<br>`
                     + `${this.convertBytes(this.user.quota.total)} ${this.tt('total')}`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
     lastLoginTooltip() {
       const content = new Date(this.user.lastLogin).toLocaleString();
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
   },

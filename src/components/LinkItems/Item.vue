@@ -160,12 +160,10 @@ export default {
       const editText = this.$t('interactive-editor.edit-section.edit-tooltip');
       return {
         content: (this.isEditMode ? editText : tooltipText),
-        trigger: 'hover focus',
-        hideOnTargetClick: true,
         html: true,
         placement: this.statusResponse ? 'left' : 'auto',
         delay: { show: 600, hide: 200 },
-        classes: `item-description-tooltip tooltip-is-${this.size}`,
+        popperClass: `item-description-tooltip tooltip-is-${this.size}`,
       };
     },
     openItemSettings() {

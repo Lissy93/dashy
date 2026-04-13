@@ -100,7 +100,7 @@ export default {
       return conf;
     },
     tooltip(content) {
-      return { content, trigger: 'hover focus', delay: 250 };
+      return { content };
     },
     openChangeViewMenu() {
       this.viewSwitcherOpen = !this.viewSwitcherOpen;

@@ -31,7 +31,6 @@
     "entities": "^7.0.1",
     "express": "^4.21.0",
     "express-basic-auth": "^1.2.1",
-    "floating-vue": "^5.2.2",
     "frappe-charts": "^1.6.2",
     "js-yaml": "^4.1.0",
     "keycloak-js": "^20.0.3",

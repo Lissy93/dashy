@@ -181,20 +181,6 @@ const defaults = {
     className: 'toast-message',
     iconPack: 'fontawesome',
   },
-  /* Default tooltip options */
-  tooltipOptions: {
-    themes: {
-      tooltip: {
-        triggers: ['hover', 'focus'],
-        hideOnTargetClick: true,
-        autoHide: true,
-        html: false,
-        placement: 'auto',
-        loadingContent: 'Loading...',
-        delay: { show: 380, hide: 0 },
-      },
-    },
-  },
   /* Server location of the Backup & Sync cloud function */
   backupEndpoint: 'https://sync-service.dashy.to',
   /* Available services for fetching favicon icon for user apps */
@@ -386,7 +372,6 @@ export const {
   splashScreenTime,
   metaTagData,
   toastedOptions,
-  tooltipOptions,
   backupEndpoint,
   faviconApiEndpoints,
   iconCdns,

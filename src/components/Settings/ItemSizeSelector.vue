@@ -52,7 +52,7 @@ export default {
       this.$store.commit(StoreKeys.SET_ITEM_SIZE, iconSize);
     },
     tooltip(content) {
-      return { content, trigger: 'hover focus', delay: 250 };
+      return { content };
     },
   },
 };

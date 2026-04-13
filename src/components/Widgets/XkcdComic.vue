@@ -67,7 +67,7 @@ export default {
     toolTip(alt) {
       const content = alt;
       return {
-        content, html: false, trigger: 'hover focus', delay: 250, classes: 'xkcd-alt-tt',
+        content, html: false, popperClass: 'xkcd-alt-tt',
       };
     },
   },

@@ -142,7 +142,7 @@ export default {
     /* Display weather description and Click for more note on hover */
     tooltip(text) {
       const content = `${text ? capitalize(text) : ''}\nClick for more Info`;
-      return { content, trigger: 'hover focus', delay: 250 };
+      return { content };
     },
     /* Validate input props, and print warning if incorrect */
     checkProps() {

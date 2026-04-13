@@ -188,7 +188,7 @@ export default {
         addStep(part.to);
       });
       return {
-        content: connectionDetails, html: true, trigger: 'hover', delay: 250, classes: 'mvg-connection-detail',
+        content: connectionDetails, html: true, triggers: ['hover'], popperClass: 'mvg-connection-detail',
       };
     },
   },

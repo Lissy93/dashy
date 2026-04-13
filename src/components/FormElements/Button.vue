@@ -29,9 +29,7 @@ export default {
     /* If tooltip prop specified, then return config for v-tooltip */
     hoverText() {
       const content = this.tooltip;
-      const trigger = 'hover focus';
-      const delay = { show: 350, hide: 100 };
-      return (content) ? { content, trigger, delay } : undefined;
+      return content ? { content, delay: { show: 350, hide: 100 } } : undefined;
     },
   },
 };

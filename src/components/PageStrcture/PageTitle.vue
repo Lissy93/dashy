@@ -42,7 +42,7 @@ export default {
     /* Edit button tooltip */
     tooltip() {
       const content = this.$t('interactive-editor.menu.edit-page-info-btn');
-      return { content, trigger: 'hover focus', delay: 250 };
+      return { content };
     },
   },
 };

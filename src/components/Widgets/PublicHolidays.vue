@@ -106,7 +106,7 @@ export default {
       const observed = holiday.observed ? `<br><b>Observed On</b>: ${holiday.observed}` : '';
       const content = `<b>Type</b>: ${holiday.type}${observed}`;
       return {
-        content, trigger: 'hover focus', html: true, delay: 250, classes: 'in-modal-tt',
+        content,  html: true, popperClass: 'in-modal-tt',
       };
     },
   },

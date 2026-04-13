@@ -50,7 +50,7 @@ export default {
       this.$store.commit(StoreKeys.SET_ITEM_LAYOUT, layout);
     },
     tooltip(content) {
-      return { content, trigger: 'hover focus', delay: 250 };
+      return { content };
     },
   },
 };

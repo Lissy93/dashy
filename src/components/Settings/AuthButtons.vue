@@ -82,7 +82,7 @@ export default {
       router.push({ path: '/login' });
     },
     tooltip(content) {
-      return { content, trigger: 'hover focus', delay: 250 };
+      return { content };
     },
     makeUserGreeting() {
       if (this.userType === userStateEnum.loggedIn

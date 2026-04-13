@@ -149,7 +149,7 @@ export default {
         + `<b>Repo:</b> ${build.slug}<br>`
         + `<b>Branch:</b> ${build.build.target}<br>`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'build-info-tt',
+        content, html: true, popperClass: 'build-info-tt',
       };
     },
     formatPrId(link) {

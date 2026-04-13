@@ -36,7 +36,7 @@ export default {
   props: {
     openingMethod: String, // newtab | sametab | parent | top | modal | workspace | newwindow
     isSmall: Boolean, // If true, will apply small class
-    position: String, // Position classes: top, bottom, left, right
+    position: String, // Position popperClass: top, bottom, left, right
     isTransparent: Boolean, // If true, will apply opacity
     hotkey: Number, // Optional hotkey to also display
   },

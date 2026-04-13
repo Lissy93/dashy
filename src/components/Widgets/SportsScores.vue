@@ -213,7 +213,7 @@ export default {
     },
     tooltip(content) {
       return {
-        content, html: true, trigger: 'hover focus', delay: 250,
+        content, html: true, 
       };
     },
   },

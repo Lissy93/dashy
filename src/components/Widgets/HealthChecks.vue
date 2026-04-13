@@ -99,7 +99,7 @@ export default {
         + `<b>Last Ping:</b> ${timestampToDateTime(lastPing)}<br>`
         + `<b>Next Ping:</b>${timestampToDateTime(nextPing)}`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'ping-times-tt',
+        content, html: true, popperClass: 'ping-times-tt',
       };
     },
   },

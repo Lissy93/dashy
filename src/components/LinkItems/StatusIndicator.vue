@@ -2,7 +2,7 @@
   <div class="indicator"
     v-tooltip="{
       content: statusText || otherStatusText,
-      classes: ['status-tooltip', `tip-${color()}`],
+      popperClass: ['status-tooltip', `tip-${color()}`],
       delay: { show: 0, hide: 150 }
     }">
     <div :class="`dot dot-${color()}`">

@@ -97,7 +97,7 @@ const WidgetMixin = {
     /* Used as v-tooltip, pass text content in, and will show on hover */
     tooltip(content, html = false) {
       return {
-        content, html, trigger: 'hover focus', delay: 250,
+        content, html, 
       };
     },
     /* Makes data request, returns promise */

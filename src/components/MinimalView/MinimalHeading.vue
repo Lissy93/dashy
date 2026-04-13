@@ -26,7 +26,7 @@ export default {
     },
     tooltip() {
       return this.hideTitleText
-        ? { content: this.title, trigger: 'hover focus', delay: 250 } : null;
+        ? { content: this.title, } : null;
     },
   },
 };

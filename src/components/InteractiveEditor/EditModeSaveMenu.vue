@@ -159,7 +159,7 @@ export default {
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
     },
     tooltip(content) {
-      return { content, trigger: 'hover focus', delay: 250 };
+      return { content };
     },
     showToast(message, success) {
       this.$toasted.show(message, { className: `toast-${success ? 'success' : 'error'}` });

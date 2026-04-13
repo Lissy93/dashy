@@ -124,7 +124,7 @@ export default {
         + `<br>All-time-high of <b>${info.allTimeHigh}</b> `
         + `at <b>${timestampToDate(info.allTimeHighDate)}</b>`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250,
+        content, html: true, 
       };
     },
   },

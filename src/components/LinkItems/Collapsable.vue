@@ -155,7 +155,7 @@ export default {
     },
     editTooltip() {
       const content = this.$t('interactive-editor.edit-section.edit-tooltip');
-      return { content, trigger: 'hover focus', delay: { show: 100, hide: 0 } };
+      return { content, delay: { show: 100, hide: 0 } };
     },
   },
 };

@@ -156,7 +156,7 @@ export default {
         );
       }
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
     opcacheStatsTooltip() {
@@ -166,7 +166,7 @@ export default {
         + `${parseFloat(this.opcache_stats.num_cached_keys).toLocaleString()} ${this.tt('keys')}<br>`
         + `${parseFloat(this.opcache_stats.max_cached_keys).toLocaleString()} ${this.tt('max-keys')}<br>`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
     opcacheMemoryUsageTooltip() {
@@ -177,7 +177,7 @@ export default {
         + `${this.convertBytes(this.opcache.memory_usage.wasted_memory)} (`
         + `${parseFloat(this.opcache.memory_usage.current_wasted_percentage).toFixed(1)}%) ${this.tt('wasted')}`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
     opcacheInternedStringsTooltip() {
@@ -188,7 +188,7 @@ export default {
         + `${parseFloat(this.opcache_interned.number_of_strings).toLocaleString()}`
         + ' strings';
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
   },

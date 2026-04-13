@@ -190,7 +190,7 @@ export default {
         return null;
       }
       // eslint-disable-next-line prefer-template
-      return () => import('@/components/Widgets/' + type + '.vue').catch(() => import('@/components/Widgets/Blank.vue'));
+      return () => import(/* @vite-ignore */ '@/components/Widgets/' + type + '.vue').catch(() => import('@/components/Widgets/Blank.vue'));
     },
   },
   methods: {
