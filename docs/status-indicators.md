@@ -100,6 +100,20 @@ For further troubleshooting, use an application like [Postman](https://postman.c
 
 If you're serving Dashy though a CDN, instead of using the Node server or Docker image, then the Node endpoint that makes requests will not be available to you, and all requests will fail. A workaround for this may be implemented in the future, but in the meantime, your only option is to use the Docker or Node deployment method.
 
+## Color-Blind Accessibility
+
+The default indicators rely on color alone to illustrate status (green, yellow, red and grey). For greater visual distinction and colorblind support, the accessibility mode will use shapes instead of dots to show status. This can be enabled by setting `appConfig.statusCheckAccessibility: true`.
+
+By default, this will be: circle (online), square (offline), triangle (checking) and diamond (timed out).
+
+```yaml
+appConfig:
+  statusCheck: true
+  statusCheckAccessibility: true
+```
+
+Alternatively, you can set your own colors for status indicators, with these variables: `--success`, `--warning`, `--danger`, see: [modifying theme colors](/docs/theming.md#modifying-theme-colors).
+
 ## How it Works
 
 When the app is loaded, if `appConfig.statusCheck: true` is set, or if any items have the `statusCheck: true` enabled, then Dashy will make a request, to `https://[your-host-name]/status-check?url=[address-or-servce]` (may al include GET params for headers and the secure flag), which in turn will ping that running service, and respond with a status code. Response time is calculated from the difference between start and end time of the request.

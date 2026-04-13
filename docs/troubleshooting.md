@@ -8,18 +8,23 @@
 ## Contents
 
 - [Config not saving](#config-not-saving)
+- [Unable to write conf.yml: EACCES: permission denied](#unable-to-write-confyml-eacces-permission-denied)
 - [Refused to Connect in Web Content View](#refused-to-connect-in-modal-or-workspace-view)
 - [404 On Static Hosting](#404-on-static-hosting)
 - [404 from Mobile Home Screen](#404-after-launch-from-mobile-home-screen)
+- [404 On Multi-Page Apps](#404-on-multi-page-apps)
 - [Yarn Build or Run Error](#yarn-error)
 - [Remote Config Not Loading](#remote-config-not-loading)
+- [High CPU or RAM Usage on Startup](#high-cpu-or-ram-usage-on-startup)
 - [Heap limit Allocation failed](#ineffective-mark-compacts-near-heap-limit-allocation-failed)
 - [Command failed with signal "SIGKILL"](#command-failed-with-signal-sigkill)
+- [Container Crashes or Restart Loop After Saving Config](#container-crashes-or-restart-loop-after-saving-config)
 - [Auth Validation Error: "should be object"](#auth-validation-error-should-be-object)
 - [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
 - [Keycloak Redirect Error](#keycloak-redirect-error)
+- [OIDC or Keycloak failure on numeric client IDs](#oidc-or-keycloak-failure-on-numeric-client-ids)
 - [Docker Directory Error](#docker-directory)
-- [Config not Saving on Vercel / Netlify / CDN](#user-content-config-not-saving-on-vercel--netlify--cdn)
+- [Config not Saving on Vercel / Netlify / CDN](#config-not-saving-on-vercel--netlify--cdn)
 - [Config Not Updating](#config-not-updating)
 - [Config Still not Updating](#config-still-not-updating)
 - [Styles and Assets not Updating](#styles-and-assets-not-updating)
@@ -32,8 +37,11 @@
 - [Warnings in the Console during deploy](#warnings-in-the-console-during-deploy)
 - [Docker Login Fails on Ubuntu](#docker-login-fails-on-ubuntu)
 - [Status Checks Failing](#status-checks-failing)
+- [Healthcheck Failing in Docker](#healthcheck-failing-in-docker)
 - [Diagnosing Widget Errors](#widget-errors)
 - [Fixing Widget CORS Errors](#widget-cors-errors)
+- [CORS Proxy connect ECONNREFUSED or ENOTFOUND](#cors-proxy-connect-econnrefused--or-getaddrinfo-enotfound-)
+- [CORS Proxy Target-URL host blocked or scheme rejected](#cors-proxy-target-url-host--is-blocked--must-use-http-or-https)
 - [Widget Shows Error Incorrectly](#widget-shows-error-incorrectly)
 - [Weather Forecast Widget 401](#weather-forecast-widget-401)
 - [Widget Displaying Inaccurate Data](#widget-displaying-inaccurate-data)
@@ -42,6 +50,7 @@
 - [Unsupported Digital Envelope Routines](#unsupported-digital-envelope-routines)
 - [How to Reset Local Settings](#how-to-reset-local-settings)
 - [How to make a bug report](#how-to-make-a-bug-report)
+- [Public IP Widget not working for ipinfo or ipquery providers](#public-ip-widget-not-working-for-ipinfo-or-ipquery-providers)
 - [How-To Open Browser Console](#how-to-open-browser-console)
 - [Git Contributions not Displaying](#git-contributions-not-displaying)
 
@@ -63,6 +72,29 @@ In Docker, double check that the file isn't read-only, and that the container ac
 
 ### Possible Issue 3: Saved but not updating
 After saving, the frontend will recompile, which may take a couple seconds (or a bit longer on a Pi or low-powered device). If it doesn't recompile, you can manually trigger a re-build.
+
+---
+
+## Unable to write conf.yml: `EACCES: permission denied`
+
+Most commonly the `conf.yml` file itself is mounted read-only, or its mode is `444`. Make it writable on the host:
+
+```bash
+chmod 644 /path/to/your/conf.yml
+```
+
+As for backups, Dashy creates a timestamped backup of the existing config in `user-data/config-backups/` before writing the new one. If the host filesystem prevents that copy (read-only mount, wrong UID/GID, no execute bit on the parent directory), the save aborts before touching the live config.
+
+Check that the user-data volume is writable by the container user:
+
+```bash
+docker exec -it dashy id
+docker exec -it dashy ls -la /app/user-data
+```
+
+If you bind-mount from the host, make sure the host directory is owned by the container's UID (or world-writable). You can also override the backup location with the `BACKUP_DIR` env var.
+
+And, if you intentionally want a read-only config and don't want users to even attempt saves, set `appConfig.preventWriteToDisk: true` in `conf.yml` - Dashy will then disable both the endpoint, and the save button itself, to make the experience more explicit.
 
 ---
 
@@ -117,16 +149,16 @@ Content-Security-Policy: frame-ancestors 'self' https://[dashy-location]/
 
 If you're seeing Dashy's 404 page on initial load/ refresh, and then the main app when you go back to Home, then this is likely caused by the Vue router, and if so can be fixed in one of two ways.
 
-The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by setting `appConfig.routingMode` to `hash`.
+The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set.
 
-If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `routingMode: history` again, for neater URLs.
+If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `VUE_APP_ROUTING_MODE=history` (the default) again, for neater URLs.
 
 ---
 
 ## 404 after Launch from Mobile Home Screen
 
 Similar to the above issue, if you get a 404 after using iOS and Android's "Add to Home Screen" feature, then this is caused by Vue router.
-It can be fixed by setting `appConfig.routingMode` to `hash`
+It can be fixed by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set.
 
 See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://github.com/Lissy93/dashy/issues/762)
 
@@ -134,7 +166,7 @@ See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://gi
 
 ## 404 On Multi-Page Apps
 
-Similar to above, if you get a 404 error when visiting a page directly on multi-page apps, then this can be fixed under `appConfig`, by setting `routingMode` to `hash`. Then rebuilding, and refreshing the page.
+Similar to above, if you get a 404 error when visiting a page directly on multi-page apps, then this can be fixed by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set, then refreshing the page.
 
 See also: [#670](https://github.com/Lissy93/dashy/issues/670), [#763](https://github.com/Lissy93/dashy/issues/763)
 
@@ -175,6 +207,31 @@ If it is a remote service, that you do not have admin access to, then another op
 
 ---
 
+## High CPU or RAM Usage on Startup
+
+When the Dashy container first starts, it runs a Vue production build in parallel with the server. This is **a one-time cost per container start**, but it briefly uses around **1–1.5 GB of RAM and 100% of one CPU core** for anywhere from 30 seconds to several minutes (depending on host speed). On Pi-class hardware or VMs with less than 1 GB of RAM, this spike can be enough to lock up the host.
+
+**To work around it:**
+
+1. **Allocate at least 1 GB of RAM to the container** — 2 GB is recommended on Raspberry Pi or low-powered VMs. Anything below 512 MB is unlikely to complete the first build.
+2. **Set explicit Docker resource limits** so the build can't starve other services on the same host:
+   ```yaml
+   services:
+     dashy:
+       image: lissy93/dashy:latest
+       deploy:
+         resources:
+           limits:
+             memory: 2g
+             cpus: '1.5'
+   ```
+3. **Wait it out** — once the build completes, idle CPU drops to near zero and idle RAM is typically under 100 MB. If you watch `docker stats`, you'll see the spike taper off.
+4. If the spike never tapers (i.e., Dashy stays at 100% CPU forever and never serves the page), see [Heap limit Allocation failed](#ineffective-mark-compacts-near-heap-limit-allocation-failed) below — that usually means the build was killed mid-way and is being retried.
+
+See also: [#1585](https://github.com/Lissy93/dashy/issues/1585), [#969](https://github.com/Lissy93/dashy/issues/969), [#1500](https://github.com/Lissy93/dashy/issues/1500), [#877](https://github.com/Lissy93/dashy/issues/877)
+
+---
+
 ## Ineffective mark-compacts near heap limit Allocation failed
 
 If you see an error message, similar to:
@@ -189,7 +246,7 @@ If you see an error message, similar to:
 FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
 ```
 
-This is likely caused by insufficient memory allocation to the container. When the container first starts up, or has to rebuild, the memory usage spikes, and if there isn't enough memory, it may terminate. This can be specified with, for example: `--memory=1024m`. For more info, see [Docker: Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/).
+This is likely caused by insufficient memory allocation to the container. When the container first starts up, or has to rebuild, the memory usage spikes, and if there isn't enough memory, it may terminate. This can be specified with, for example: `--memory=1024m`. For more info, see [Docker: Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/). For more context on what the spike is, see [High CPU or RAM Usage on Startup](#high-cpu-or-ram-usage-on-startup) above.
 
 See also: [#380](https://github.com/Lissy93/dashy/issues/380), [#350](https://github.com/Lissy93/dashy/issues/350), [#297](https://github.com/Lissy93/dashy/issues/297), [#349](https://github.com/Lissy93/dashy/issues/349), [#510](https://github.com/Lissy93/dashy/issues/510), [#511](https://github.com/Lissy93/dashy/issues/511) and [#834](https://github.com/Lissy93/dashy/issues/834)
 
@@ -200,6 +257,36 @@ See also: [#380](https://github.com/Lissy93/dashy/issues/380), [#350](https://gi
 In Docker, this can be caused by not enough memory. When the container first starts up, or has to rebuild, the memory usage spikes, and so a larger allocation may be required. This can be specified with, for example: `--memory=1024m`. For more info, see [Docker: Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/)
 
 See also [#624](https://github.com/Lissy93/dashy/issues/624)
+
+---
+
+## Container Crashes or Restart Loop After Saving Config
+
+If your Dashy container crashes or enters a restart loop the moment you click **Save to Disk** in the editor — particularly with logs that include something like:
+
+```text
+node:_http_outgoing:652
+    throw new ERR_HTTP_HEADERS_SENT('set');
+```
+
+or:
+
+```text
+Error [ERR_STREAM_WRITE_AFTER_END]: write after end
+```
+
+This was a known crash in Dashy 3.1.0 and 3.1.1 where a partial-failure code path in the save handler would call `res.end()` twice on the same response, causing Node to throw an unhandled rejection and exit the process. Docker would then restart the container, the user would save again, and the loop repeated. Several users also reported it was reliably triggered by entering edit mode while `statusCheck: true` was set, because the periodic background traffic increased the chance of overlapping responses.
+
+**This is fixed in v3.2.13 and later**
+
+```bash
+docker pull lissy93/dashy:latest
+docker compose up -d --force-recreate
+```
+
+If you can't upgrade right away, the temporary workaround that worked for affected users is to set `statusCheck: false` under `appConfig` in your `conf.yml`. This reduces the trigger frequency without changing the underlying bug.
+
+See also: [#1945](https://github.com/Lissy93/dashy/issues/1945), [#1935](https://github.com/Lissy93/dashy/issues/1935), [#1494](https://github.com/Lissy93/dashy/issues/1494)
 
 ---
 
@@ -264,6 +351,29 @@ nginx.ingress.kubernetes.io/enable-cors: "true"
 ```
 
 See also: #479, #409, #507, #491, #341, #520
+
+---
+
+## OIDC or Keycloak failure on numeric client IDs
+
+If your IdP rejects the login with an *"invalid client"* / *"client not found"* error, and your `clientId` is a long numeric value, the cause is almost certainly YAML number parsing.
+
+YAML parses unquoted numeric tokens as Numbers, and JavaScript can't represent integers larger than 2^53 (~16 digits) without losing precision. So an unquoted numeric `clientId` will be silently truncated (e.g. `918756876419824312` → `918756876419824300`), or — for very large values — converted to scientific notation (e.g. `9.187568764198242e+37`), and the IdP will reject it.
+
+The fix is to wrap the `clientId` in quotes in your `conf.yml` so it gets parsed as a string:
+
+```yaml
+appConfig:
+  auth:
+    enableOidc: true
+    oidc:
+      clientId: "918756876419824312"
+      endpoint: https://idp.example.com/
+```
+
+The same applies to `auth.keycloak.clientId`. Dashy will print a warning in the [browser console](#how-to-open-browser-console) when it detects a numeric `clientId`, to help diagnose this.
+
+See also: #1941
 
 ---
 
@@ -427,6 +537,26 @@ If you're serving Dashy though a CDN, instead of using the Node server or Docker
 
 ---
 
+## Healthcheck Failing in Docker
+
+If `docker ps` shows the Dashy container as `unhealthy`, it means the periodic healthcheck (`yarn health-check`, run every 5 minutes by default) couldn't reach the local server.
+
+### SSL-enabled Dashy
+
+The healthcheck reads the same cert paths as the main server (`/etc/ssl/certs/dashy-pub.pem` and `/etc/ssl/certs/dashy-priv.key`) to detect whether to probe HTTPS or HTTP. If you've mounted certs at non-default paths via `SSL_PUB_KEY_PATH` / `SSL_PRIV_KEY_PATH`, the healthcheck will pick those up automatically as long as those env vars are set in the container environment (not just at run time).
+
+### Custom port
+
+If you've set `PORT` to override the default 8080, the healthcheck honors the same env var, so it should work without changes. Make sure `PORT` is set in the container environment, not just in the host-side Docker port mapping.
+
+### Slow startup on weak hardware
+
+The healthcheck has a `--start-period=30s` grace period before failures count against the container. If your host takes longer than 30 seconds for the initial Vue build to complete (common on Pi 3 or similar), the first few healthchecks will fail and you may briefly see `unhealthy`. After the build finishes, subsequent checks should pass — see [High CPU or RAM Usage on Startup](#high-cpu-or-ram-usage-on-startup) below.
+
+See also: [#1410](https://github.com/Lissy93/dashy/issues/1410)
+
+---
+
 ## Widget Errors
 
 ### Find Error Message
@@ -487,6 +617,31 @@ Just add the `useProxy: true` option to the failing widget.
 ### Option 4 - Use a plugin
 
 For testing purposes, you can use an addon, which will disable the CORS checks. You can get the Allow-CORS extension for [Chrome](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en-US) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/access-control-allow-origin/), more details [here](https://mybrowseraddon.com/access-control-allow-origin.html)
+
+---
+
+## CORS Proxy `connect ECONNREFUSED ...` or `getaddrinfo ENOTFOUND ...`
+
+The target host is unreachable from the Dashy container. If the target is on the same host as Dashy, **don't use `localhost`** — inside a Docker container that resolves to the container itself, not the host. Use the host's LAN IP, the Docker bridge gateway, or `host.docker.internal` (on Docker Desktop). If the target is on a different Docker network, attach Dashy to that network too.
+
+---
+
+## CORS Proxy `Target-URL host '...' is blocked` / `must use http:// or https://`
+
+To prevent the CORS proxy from being abused as a Server-Side Request Forgery vector, Dashy refuses to proxy a small number of host/scheme combinations by default:
+
+- **Cloud instance metadata services** — `169.254.169.254`, `metadata.google.internal`, and the matching IPv6 forms. These are reserved magic addresses on AWS, Azure, GCP, DigitalOcean, Hetzner, Oracle Cloud and most other providers. A widget that successfully fetches them on a cloud-hosted Dashy can leak the host's IAM credentials, so they're blocked unconditionally.
+- **Non-HTTP(S) schemes** — `file://`, `ftp://`, `gopher://`, `javascript:`, `data:`, and similar. The proxy is meant for HTTP APIs only.
+
+If you're running Dashy in a fully isolated/private environment and you've deliberately decided you want to allow these (for example, you genuinely need to query your cloud provider's metadata API from a widget), you can opt out of all proxy restrictions by setting the environment variable:
+
+```bash
+DANGEROUSLY_DISABLE_PROXY_RESTRICTIONS=true
+```
+
+The variable is named so loudly because flipping it on a Dashy instance that's exposed to anything other than fully trusted users re-opens the SSRF surface — anyone who can hit `/cors-proxy` can then use Dashy as a relay to reach internal services. **Don't set it on cloud-hosted or internet-exposed deployments.**
+
+Note that this is an all-or-nothing escape hatch, not a per-host allowlist. If you only need to reach one specific host that's currently blocked, please open a feature request describing the use case.
 
 ---
 
@@ -629,6 +784,12 @@ The timeframe for resolving your issue, will vary depending on severity of the b
 You will be notified on your ticket, when a fix has been released.
 
 Finally, be sure to remain respectful to other users and project maintainers, in line with the [Contributor Covenant Code of Conduct](https://github.com/Lissy93/dashy/blob/master/.github/CODE_OF_CONDUCT.md#contributor-covenant-code-of-conduct).
+
+---
+
+## Public IP Widget not working for `ipinfo` or `ipquery` providers
+
+If you've set `options.provider` to either `ipinfo` and `ipquery` and the requests are failing, it's likley that they're being blocked. Check your adblocker (uBlock, PrivacyBadger, etc), DNS block lists (PiHole, AdGuard, etc). Or, try proxying the request (with `useProxy: true`) or just try a different provider.
 
 ---
 

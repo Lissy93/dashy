@@ -206,9 +206,9 @@ const defaults = {
     localPath: './item-icons',
     faviconName: 'favicon.ico',
     homeLabIcons:
-      'https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/{icon}.png',
+      'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/{icon}.svg',
     homeLabIconsFallback:
-      'https://raw.githubusercontent.com/NX211/homer-icons/master/png/{icon}.png',
+      'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/{icon}.png',
   },
   /* API endpoints for widgets that need to fetch external data */
   widgetApiEndpoints: {
@@ -238,10 +238,12 @@ const defaults = {
     minecraftStatus: 'https://api.mcsrvstat.us/',
     mullvad: 'https://am.i.mullvad.net/json',
     mvg: 'https://www.mvg.de/api/fib/v2/',
-    publicIp: 'https://ipapi.co/json',
+    userIpLookup: 'https://api.ipify.org?format=json',
     publicIp2: 'https://api.ipgeolocation.io/ipgeo',
     publicIp3: 'http://ip-api.com/json',
-    publicIp4: 'https://api.ip2location.io/',
+    publicIp4: 'https://free.freeipapi.com/api/json',
+    publicIp5: 'https://ipinfo.io/json',
+    publicIp6: 'https://api.ipquery.io/?format=json',
     readMeStats: 'https://github-readme-stats.vercel.app/api',
     rescueTime: 'https://www.rescuetime.com/anapi/data',
     rssToJson: 'https://api.rss2json.com/v1/api.json',
@@ -314,7 +316,7 @@ const defaults = {
     manifestCrossorigin: 'use-credentials',
     iconPaths: {
       faviconSVG: null,
-      appleTouchIcon: null,
+      appleTouchIcon: './web-icons/dashy-pwa_192x192.png',
       favicon64: './web-icons/favicon-64x64.png',
       favicon32: './web-icons/favicon-32x32.png',
       favicon16: './web-icons/favicon-16x16.png',

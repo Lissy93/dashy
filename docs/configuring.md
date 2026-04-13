@@ -108,6 +108,7 @@ For more info, see the[Multi-Page docs](/docs/pages-and-sections.md#multi-page-s
 **`defaultOpeningMethod`** | `enum` | _Optional_ | The default opening method for items, if no `target` is specified for a given item. Can be either `newtab`, `sametab`, `modal`, `workspace`, `clipboard`, `top` or `parent`. Defaults to `newtab`
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping each of your services and display their status as a dot next to each item. This can be overridden by setting `statusCheck` under each item. Defaults to `false`
 **`statusCheckInterval`** | `number` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
+**`statusCheckAccessibility`** | `boolean` | _Optional_ | When set to `true`, status indicators will use distinct shapes to indicate status for color-blind users. Defaults to `false`
 **`webSearch`** | `object` | _Optional_ | Configuration options for the web search feature, set your default search engine, opening method or disable web search. See [`webSearch`](#appconfigwebsearch-optional)
 **`backgroundImg`** | `string` | _Optional_ | Path to an optional full-screen app background image. This can be either remote (http) or local (relative to /app/public/item-icons/ inside the container). Note that this will slow down initial load
 **`enableFontAwesome`** | `boolean` | _Optional_ | If set to `true` font-awesome will be loaded, if set to `false` they will not be. if left blank font-awesome will be enabled only if required by 1 or more icons
@@ -119,13 +120,15 @@ For more info, see the[Multi-Page docs](/docs/pages-and-sections.md#multi-page-s
 **`layout`** | `enum` | _Optional_ | Layout for homepage, either `horizontal`, `vertical` or `auto`. Defaults to `auto`. This specifies the layout and direction of how sections are positioned on the home screen. This can also be modified and overridden from the UI.
 **`iconSize`** | `enum` | _Optional_ | The size of link items / icons. Can be either `small`, `medium,` or `large`. Defaults to `medium`. This can also be set directly from the UI.
 **`colCount`** | `number` | _Optional_ | The number of columns of sections displayed on the homepage, using the default view. Should be in integer between `1` and `8`. Note that by default this is applied responsively, based on current screen size, and specifying a value here will override this behavior, which may not be desirable.
+**`contentMaxWidth`** | `string` or `number` | _Optional_ | Sets the max width of the main sections area on the homepage, overriding the responsive default. Can be a percentage, or any CSS unit
 **`theme`** | `string` | _Optional_ | The default theme for first load (you can change this later from the UI)
+**`dayTheme`** | `string` | _Optional_ | Theme to apply when the OS is set to light mode. Overrides `theme` on initial load
+**`nightTheme`** | `string` | _Optional_ | Theme to apply when the OS is set to dark mode. Overrides `theme` on initial load
 **`cssThemes`** | `string[]` | _Optional_ | An array of custom theme names which can be used in the theme switcher dropdown
 **`customColors`** | `object`| _Optional_ | Enables you to apply a custom color palette to any given theme. Use the theme name (lowercase) as the key, for an object including key-value-pairs, with the color variable name as keys, and 6-digit hex code as value. See [Theming](/docs/theming.md#modifying-theme-colors) for more info
 **`externalStyleSheet`** | `string`  or `string[]` | _Optional_ | Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
 **`customCss`** | `string` | _Optional_ | Raw CSS that will be applied to the page. This can also be set from the UI. Please minify it first.
 **`hideComponents`** | `object` | _Optional_ | A list of key page components (header, footer, search, settings, etc) that are present by default, but can be removed using this option. See [`appConfig.hideComponents`](#appconfighideComponents-optional)
-**`routingMode`** | `string` | _Optional_ | Can be either `hash` or `history`. Determines the URL format for sub-pages, hash mode will look like `/#/home` whereas with history mode available you have nice clean URLs, like `/home`. For more info, see the [Vue docs](https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations). If you're hosting Dashy with a custom BASE_URL, you will find that a bit of extra server config is necessary to get history mode working, so here you may want to instead use `hash` mode.Defaults to `history`.
 **`enableMultiTasking`** | `boolean` | _Optional_ | If set to true, will keep apps open in the background when in the workspace view. Useful for quickly switching between multiple sites, and preserving their state, but comes at the cost of performance.
 **`workspaceLandingUrl`** | `string` | _Optional_ | The URL or an app, service or website to launch when the workspace view is opened, before another service has been launched
 **`preventWriteToDisk`** | `boolean` | _Optional_ | If set to `true`, users will be prevented from saving config changes to disk through the UI
@@ -185,6 +188,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`serverUrl`** | `string` | Required | The URL (or URL/ IP + Port) where your keycloak server is running
 **`realm`** | `string` | Required | The name of the realm (must already be created) that you want to use
 **`clientId`** | `string` | Required | The Client ID of the client you created for use with Dashy
+**`idpHint`** | `string` | _Optional_ | The alias of an Identity Provider configured in your realm. If set, Keycloak will skip its login page and redirect straight to that external IdP
 **`legacySupport`** | `boolean` | _Optional_ | If using Keycloak 17 or older, then set this to `true`
 
 **[⬆️ Back to Top](#configuring)**
@@ -193,8 +197,8 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
-**`userHeader`** | `string` | _Optional_ | The Header name which contains username (default: REMOTE_USER). Case insensitive
-**`proxyWhitelist`** | `array` | Required | An array of Upstream proxy servers to expect authencticated requests from
+**`userHeader`** | `string` | _Optional_ | The HTTP header name containing the authenticated username (default: `Remote-User`). Case insensitive
+**`proxyWhitelist`** | `array` | Required | An array of upstream proxy server IPs to accept authenticated requests from
 
 **[⬆️ Back to Top](#configuring)**
 
@@ -214,7 +218,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
-**`disableWebSearch`** | `string` | _Optional_ | Web search is enabled by default, but can be disabled by setting this property to `true`
+**`disableWebSearch`** | `boolean` | _Optional_ | Web search is enabled by default, but can be disabled by setting this property to `true`. Defaults to `false`
 **`searchEngine`** | `string` | _Optional_ | Set the key name for your search engine. Can also use a custom engine by setting this property to `custom`. Currently supported: `duckduckgo`, `google`, `whoogle`, `qwant`, `startpage`, `searx-bar` and `searx-info`. Defaults to `duckduckgo`
 **`customSearchEngine`** | `string` | _Optional_ | You can also use a custom search engine, or your own self-hosted instance. This requires `searchEngine: custom` to be set. Then add the URL of your service, with GET query string included here
 **`openingMethod`** | `string` | _Optional_ | Set your preferred opening method for search results: `newtab`, `sametab`, `workspace`. Defaults to `newtab`
@@ -269,6 +273,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`backgroundColor`** | `string` | _Optional_ | An optional background fill color for the that given item. Again, this will override the current theme and so might not display well against the background
 **`provider`** | `string` | _Optional_ | The name of the provider for a given service, useful for when including hosted apps. In some themes, this is visible under the item name
 **`displayData`** | `object` | _Optional_ | Meta-data to optionally override display settings for a given item. See [`displayData`](#itemdisplaydata-optional)
+**`subItems`** | `array` | _Optional_ | An optional list of nested sub-items, rendered as smaller icons within the parent. Each sub-item supports `title`, `url`, `icon`, `target`, `color` and `backgroundColor`
 
 **[⬆️ Back to Top](#configuring)**
 
@@ -307,7 +312,7 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`collapsed`** | `boolean` | _Optional_ | If true, the section will  be collapsed initially, and will need to be clicked to open. Useful for less regularly used, or very long sections. Defaults to `false`
 **`cutToHeight`** | `boolean` | _Optional_ | By default, sections will fill available space. Set this option to true to match section height with content height
 **`rows`** | `number` | _Optional_ | Height of the section, specified as the number of rows it should span vertically, e.g. `2`. Defaults to `1`. Max is `5`.
-**`cols`** | `number` | _Optional_ | Width of the section, specified as the number of columns the section should span horizontally, e.g. `2`. Defaults to `1`. Max is `6`. Will be clamped to the page's active column count so that a section never exceeds the available grid width.
+**`cols`** | `number` | _Optional_ | Width of the section, specified as the number of columns the section should span horizontally, e.g. `2`. Defaults to `1`. Max is `5`. Will be clamped to the page's active column count so that a section never exceeds the available grid width.
 **`itemSize`** | `string` | _Optional_ | Specify the size for items within this group, either `small`, `medium` or `large`. Note that this will override any settings specified through the UI
 **`color`** | `string` | _Optional_ | A custom accent color for the section, as a hex code or HTML color (e.g. `#fff`)
 **`customStyles`** | `string` | _Optional_ | Custom CSS properties that should be applied to that section, e.g. `border: 2px dashed #ff0000;`

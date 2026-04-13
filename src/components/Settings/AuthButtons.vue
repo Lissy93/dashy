@@ -38,8 +38,8 @@
 <script>
 import router from '@/router';
 import { logout as registerLogout } from '@/utils/Auth';
-import { getKeycloakAuth } from '@/utils/KeycloakAuth';
-import { getOidcAuth } from '@/utils/OidcAuth';
+import { getKeycloakAuth, isKeycloakEnabled } from '@/utils/KeycloakAuth';
+import { getOidcAuth, isOidcEnabled } from '@/utils/OidcAuth';
 import { localStorageKeys, userStateEnum } from '@/utils/defaults';
 import IconLogout from '@/assets/interface-icons/user-logout.svg';
 
@@ -79,14 +79,23 @@ export default {
       }, 500);
     },
     goToLogin() {
-      router.push({ path: '/login' });
+      if (isOidcEnabled()) {
+        const oidc = getOidcAuth();
+        oidc.userManager.signinRedirect();
+      } else if (isKeycloakEnabled()) {
+        const keycloak = getKeycloakAuth();
+        keycloak.keycloakClient.login(keycloak.loginOptions);
+      } else {
+        router.push({ path: '/login' });
+      }
     },
     tooltip(content) {
       return { content };
     },
     makeUserGreeting() {
       if (this.userType === userStateEnum.loggedIn
-        || this.userType === userStateEnum.keycloakEnabled) {
+        || this.userType === userStateEnum.keycloakEnabled
+        || this.userType === userStateEnum.oidcEnabled) {
         const username = localStorage[localStorageKeys.USERNAME];
         return username ? this.$t('settings.sign-in-welcome', { username }) : '';
       }

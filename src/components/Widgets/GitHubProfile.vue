@@ -56,7 +56,7 @@ export default {
     },
     locale() {
       if (this.options.lang) return this.options.lang;
-      return this.$store.getters.appConfig.lang || 'en';
+      return this.$store.getters.appConfig.language || 'en';
     },
     cardConfig() {
       const c = this.colors;

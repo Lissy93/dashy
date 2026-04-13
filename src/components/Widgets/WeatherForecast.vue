@@ -56,7 +56,8 @@ export default {
       return this.options.numDays || 6;
     },
     endpoint() {
-      const { apiKey, city } = this.options;
+      const apiKey = this.parseAsEnvVar(this.options.apiKey);
+      const { city } = this.options;
       const cnt = this.numDays * 8; // API returns 3-hourly entries; request enough to cover numDays
       const params = `?q=${city}&cnt=${cnt}&units=${this.units}&appid=${apiKey}`;
       return `${widgetApiEndpoints.weatherForecast}${params}`;

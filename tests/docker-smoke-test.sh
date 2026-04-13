@@ -62,4 +62,30 @@ check "http://localhost:$PORT/" "<title>"
 check "http://localhost:$PORT/conf.yml" "pageInfo"
 check "http://localhost:$PORT/system-info" "meta"
 
+# Save a new config, and verify that changes took effect
+curl -sf -X POST -H "Content-Type: application/json" \
+  -d '{"config":"pageInfo:\n  title: Smoke Test\nsections: []\n"}' \
+  "http://localhost:$PORT/config-manager/save" | grep -q '"success":true' \
+  || fail "POST /config-manager/save did not return success"
+curl -sf "http://localhost:$PORT/conf.yml" | grep -q "Smoke Test" \
+  || fail "conf.yml does not reflect saved content"
+echo "OK: POST /config-manager/save (write verified)"
+
+# CORS proxy validates requests
+PROXY_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:$PORT/cors-proxy")
+[ "$PROXY_STATUS" = "400" ] || fail "/cors-proxy expected 400, got $PROXY_STATUS"
+echo "OK: GET /cors-proxy (validation)"
+
+# Status check endpoint responds
+curl -sf "http://localhost:$PORT/status-check/" | grep -q "successStatus" \
+  || fail "/status-check missing expected response shape"
+echo "OK: GET /status-check"
+
+# Container logs don't show any errors or no crash signatures
+LOGS=$(docker logs "$CONTAINER" 2>&1)
+for sig in "ERR_HTTP_HEADERS_SENT" "ERR_STREAM_WRITE_AFTER_END" "UnhandledPromiseRejection" "FATAL ERROR"; do
+  echo "$LOGS" | grep -qi "$sig" && fail "crash signature in logs: $sig"
+done
+echo "OK: container logs clean"
+
 echo "All smoke tests passed"

@@ -110,6 +110,7 @@ import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import EditSection from '@/components/InteractiveEditor/EditSection.vue';
 import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
 import ErrorHandler from '@/utils/ErrorHandler';
+import { makePageSlug } from '@/utils/ConfigHelpers';
 import StoreKeys from '@/utils/StoreMutations';
 import {
   sortOrder as defaultSortOrder,
@@ -252,9 +253,7 @@ export default {
         ErrorHandler('Cannot open section without a valid name');
         return;
       }
-      const parse = (section) => section.replace(' ', '-').toLowerCase().trim();
-      const sectionIdentifier = parse(this.title);
-      router.push({ path: `/home/${sectionIdentifier}` });
+      router.push({ path: makePageSlug(this.title, 'home') });
       this.closeContextMenu();
     },
     /* Toggle sections collapse state */

@@ -9,12 +9,24 @@ const getAppConfig = () => {
   return config.appConfig || {};
 };
 
+const isKeycloakGuestAccessEnabled = () => {
+  const { auth } = getAppConfig();
+  return auth && auth.enableGuestAccess;
+};
+
 class KeycloakAuth {
   constructor() {
     const { auth } = getAppConfig();
     const {
       serverUrl, realm, clientId, idpHint, legacySupport,
     } = auth.keycloak;
+    if (typeof clientId === 'number' && !Number.isSafeInteger(clientId)) {
+      ErrorHandler(
+        'Keycloak clientId appears invalid. ',
+        'You passed it as a number, and it is too long to be parsed without loosing precision. '
+        + 'Wrap it in quotes in your conf.yml (e.g. clientId: "12345") to force it to be a string.',
+      );
+    }
     const url = legacySupport ? `${serverUrl}/auth` : serverUrl;
     const initOptions = { url, realm, clientId };
     const loginOptions = idpHint ? { idpHint } : {};
@@ -29,6 +41,9 @@ class KeycloakAuth {
         .then((auth) => {
           if (auth) {
             this.storeKeycloakInfo();
+            return resolve();
+          } else if (isKeycloakGuestAccessEnabled()) {
+            // Don't redirect, allow guest access
             return resolve();
           } else {
             return this.keycloakClient.login(this.loginOptions);

@@ -10,6 +10,11 @@ const getAppConfig = () => {
   return config.appConfig || {};
 };
 
+const isOidcGuestAccessEnabled = () => {
+  const { auth } = getAppConfig();
+  return auth && auth.enableGuestAccess;
+};
+
 class OidcAuth {
   constructor() {
     const { auth } = getAppConfig();
@@ -20,10 +25,17 @@ class OidcAuth {
       adminGroup,
       adminRole,
     } = auth.oidc;
+    if (typeof clientId === 'number' && !Number.isSafeInteger(clientId)) {
+      ErrorHandler(
+        'Your OIDC appears invalid. ',
+        'You passed it as a number, and it is too long to be parsed without loosing precision. '
+        + 'Wrap it in quotes in your conf.yml (e.g. clientId: "12345") to force it be a string.',
+      );
+    }
     const settings = {
       userStore: new WebStorageStateStore({ store: window.localStorage }),
       authority: endpoint,
-      client_id: clientId,
+      client_id: String(clientId),
       redirect_uri: `${window.location.origin}`,
       response_type: 'code',
       scope: scope || 'openid profile email roles groups',
@@ -50,7 +62,9 @@ class OidcAuth {
     const user = await this.userManager.getUser();
 
     if (user === null) {
-      await this.userManager.signinRedirect();
+      if (!isOidcGuestAccessEnabled()) {
+        await this.userManager.signinRedirect();
+      }
     } else {
       const { roles = [], groups = [] } = user.profile;
       const info = {

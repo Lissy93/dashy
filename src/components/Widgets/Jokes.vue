@@ -26,7 +26,7 @@ export default {
       const supportedLanguages = ['en', 'cs', 'de', 'es', 'fr', 'pt'];
       const usersChoice = this.options.language;
       if (usersChoice && supportedLanguages.includes(usersChoice)) return usersChoice;
-      const localLanguage = this.$store.getters.appConfig.lang;
+      const localLanguage = this.$store.getters.appConfig.language;
       if (localLanguage && supportedLanguages.includes(localLanguage)) return localLanguage;
       return 'en';
     },

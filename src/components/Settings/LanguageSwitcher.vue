@@ -8,7 +8,7 @@
       :options="languageList"
       class="language-dropdown"
       label="friendlyName"
-      :input="applyLanguageLocally()"
+      @input="applyLanguageLocally"
     />
     <Button class="save-button" :click="saveLanguage" :disallow="!language">
       {{ $t('language-switcher.save-button') }}
@@ -30,6 +30,7 @@ import SaveConfigIcon from '@/assets/interface-icons/save-config.svg';
 import ErrorHandler from '@/utils/ErrorHandler';
 import Keys from '@/utils/StoreMutations';
 import { languages } from '@/utils/languages';
+import { getUsersLanguage } from '@/utils/ConfigHelpers';
 import { localStorageKeys, modalNames } from '@/utils/defaults';
 
 export default {
@@ -53,10 +54,10 @@ export default {
     appConfig() {
       return this.$store.getters.appConfig;
     },
-    /* The ISO code for the users language, synced with VueX store */
+    /* The ISO code for users current lang */
     savedLanguage: {
       get() {
-        return this.getIsoFromLangObj(this.$store.getters.appConfig.lang);
+        return getUsersLanguage();
       },
       set(newLang) {
         this.$store.commit(Keys.SET_LANGUAGE, newLang.code);
@@ -99,11 +100,6 @@ export default {
         this.$toasted.show('Unable to update language', { className: 'toast-error' });
         ErrorHandler('Unable to apply language');
       }
-    },
-    /* Gets the ISO code for a given language object */
-    getIsoFromLangObj(langObj) {
-      const getLanguageFromIso = (iso) => languages.find((lang) => lang.code === iso);
-      return getLanguageFromIso(langObj);
     },
   },
 };

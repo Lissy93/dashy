@@ -49,6 +49,7 @@ import Item from '@/components/LinkItems/Item.vue';
 import WidgetBase from '@/components/Widgets/WidgetBase';
 import SubItemGroup from '@/components/LinkItems/SubItemGroup.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
+import { makePageSlug } from '@/utils/ConfigHelpers';
 
 export default {
   name: 'ItemGroup',
@@ -102,9 +103,7 @@ export default {
     },
     /* Navigate to the section's single-section view page */
     navigateToSection() {
-      const parse = (section) => section.replace(' ', '-').toLowerCase().trim();
-      const sectionIdentifier = parse(this.title);
-      router.push({ path: `/home/${sectionIdentifier}` });
+      router.push({ path: makePageSlug(this.title, 'home') });
     },
   },
 };

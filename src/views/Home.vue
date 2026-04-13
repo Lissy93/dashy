@@ -65,6 +65,7 @@ import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.
 import NotificationThing from '@/components/Settings/LocalConfigWarning.vue';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
+import { makePageName } from '@/utils/ConfigHelpers';
 import ErrorHandler from '@/utils/ErrorHandler';
 import BackIcon from '@/assets/interface-icons/back-arrow.svg';
 
@@ -146,15 +147,10 @@ export default {
     /* If on sub-route, and section exists, then return only that section */
     findSingleSection: (allSections, sectionTitle) => {
       if (!sectionTitle) return undefined;
-      let sectionToReturn;
-      const parse = (section) => section.replaceAll(' ', '-').toLowerCase().trim();
-      allSections.forEach((section) => {
-        if (parse(sectionTitle) === parse(section.name || '')) {
-          sectionToReturn = [section];
-        }
-      });
-      if (!sectionToReturn) ErrorHandler(`No section named '${sectionTitle}' was found`);
-      return sectionToReturn;
+      const target = makePageName(sectionTitle);
+      const match = allSections.find((s) => makePageName(s.name || '') === target);
+      if (!match) ErrorHandler(`No section named '${sectionTitle}' was found`);
+      return match ? [match] : undefined;
     },
     /* Returns an array of links to external CSS from the Config */
     getExternalCSSLinks() {
@@ -223,11 +219,11 @@ export default {
   display: grid;
   gap: 0.5rem;
   margin: 0 auto;
-  max-width: 90%;
+  max-width: var(--content-max-width, 90%);
   overflow: auto;
   @extend .scroll-bar;
   @include monitor-up {
-    max-width: 85%;
+    max-width: var(--content-max-width, 85%);
   }
 
   /* Options for alternate layouts, triggered by buttons */

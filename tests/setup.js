@@ -13,8 +13,8 @@ global.console = {
   // Uncomment to suppress console.debug in tests
   // debug: vi.fn(),
   // Keep warnings and errors visible
-  warn: console.warn,
-  error: console.error,
+  warn: console.warn, // eslint-disable-line no-console
+  error: console.error, // eslint-disable-line no-console
 };
 
 // Mock localStorage for tests
@@ -35,8 +35,8 @@ const sessionStorageMock = {
 };
 global.sessionStorage = sessionStorageMock;
 
-// Mock window.matchMedia (for responsive design tests)
-Object.defineProperty(window, 'matchMedia', {
+// Mock window.matchMedia (for responsive design tests, skipped in Node environment)
+if (typeof window !== 'undefined') Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: vi.fn().mockImplementation(query => ({
     matches: false,
