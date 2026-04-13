@@ -87,7 +87,7 @@ const PROVIDERS = {
 };
 
 const REMOVED_PROVIDERS = ['ipapi.co', 'ifconfig.co', 'ip2location.io'];
-const DEFAULT_PROVIDER = 'freeipapi';
+const DEFAULT_PROVIDER = 'ipinfo';
 
 export default {
   mixins: [WidgetMixin],
