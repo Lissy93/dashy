@@ -36,7 +36,7 @@ jobs:
       - name: Setup Node.js ⚙️
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '24'
           cache: 'yarn'
 
       - name: Install dependencies 📥
@@ -57,6 +57,11 @@ jobs:
           cp -r user-data    "$STAGING/"
           cp    server.js    "$STAGING/"
           cp    yarn.lock    "$STAGING/"
+
+          # src/utils/ files referenced directly by the server at runtime
+          mkdir -p "$STAGING/src/utils"
+          cp src/utils/ConfigSchema.json "$STAGING/src/utils/"
+          cp src/utils/defaults.js       "$STAGING/src/utils/"
 
           # Strip devDependencies so `yarn install --production` stays lean
           node -e "
