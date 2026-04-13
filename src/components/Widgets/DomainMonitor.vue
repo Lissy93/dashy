@@ -97,7 +97,7 @@ export default {
     /* Assign data variables to the returned data */
     processData(domainResults) {
       if (domainResults.limit_hit) this.error('API Limit Reached');
-      if (domainResults.status !== '0') this.error(domainResults.status_desc || 'API Error');
+      if (Number(domainResults.status) !== 0) this.error(domainResults.status_desc || 'API Error');
       // Get domain name and registration status
       const domainName = domainResults.domain_name;
       const isRegistered = domainResults.registered;
