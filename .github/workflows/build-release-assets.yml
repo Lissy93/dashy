@@ -82,33 +82,3 @@ jobs:
           files: ${{ env.TARBALL }}
           token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
 
-      - name: Job summary 📋
-        if: always()
-        run: |
-          {
-            echo "## 📦 Release Asset Build"
-            echo ""
-            echo "| | |"
-            echo "|---|---|"
-            echo "| Tag | \`${TAG}\` |"
-            echo "| Artifact | \`${TARBALL}\` |"
-            if [ -f "${TARBALL}" ]; then
-              echo "| Size | $(du -sh ${TARBALL} | cut -f1) |"
-              echo "| Status | ✅ Uploaded |"
-            else
-              echo "| Status | ❌ Failed |"
-            fi
-            echo ""
-            echo "### Install instructions"
-            echo "\`\`\`bash"
-            echo "# Download and extract"
-            echo "wget https://github.com/\${{ github.repository }}/releases/download/${TAG}/${TARBALL}"
-            echo "tar -xzf ${TARBALL} -C /opt/dashy"
-            echo ""
-            echo "# Install production dependencies"
-            echo "cd /opt/dashy && yarn install --production --ignore-engines"
-            echo ""
-            echo "# Start the server (default port 8080)"
-            echo "node server"
-            echo "\`\`\`"
-          } >> "$GITHUB_STEP_SUMMARY"
