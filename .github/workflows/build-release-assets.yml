@@ -1,0 +1,84 @@
+name: 📦 Build & Upload Release Assets
+
+# Builds Dashy and uploads a pre-built tarball to the GitHub release.
+# This allows non-Docker installs (e.g. Proxmox VE community scripts) to
+# download a ready-to-run package without having to build from source.
+#
+# The tarball contains the compiled frontend (dist/) plus all server-side
+# files. Users extract it and run `yarn install --production` + `node server`.
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to build assets for (must already exist as a release)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build-release-assets:
+    name: Build app & upload tarball
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+
+    steps:
+      - name: Checkout code 🛎️
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'yarn'
+
+      - name: Install dependencies 📥
+        run: yarn install --frozen-lockfile --ignore-engines --network-timeout 300000
+
+      - name: Build app 🏗️
+        run: NODE_OPTIONS=--openssl-legacy-provider yarn build --mode production
+
+      - name: Package release artifact 📦
+        run: |
+          STAGING="dashy-release-staging"
+          mkdir -p "$STAGING"
+
+          # Runtime files
+          cp -r dist         "$STAGING/"
+          cp -r services     "$STAGING/"
+          cp -r public       "$STAGING/"
+          cp -r user-data    "$STAGING/"
+          cp    server.js    "$STAGING/"
+          cp    yarn.lock    "$STAGING/"
+
+          # src/utils/ files referenced directly by the server at runtime
+          mkdir -p "$STAGING/src/utils"
+          cp src/utils/ConfigSchema.json "$STAGING/src/utils/"
+          cp src/utils/defaults.js       "$STAGING/src/utils/"
+
+          # Strip devDependencies so `yarn install --production` stays lean
+          node -e "
+            const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
+            delete pkg.devDependencies;
+            require('fs').writeFileSync('$STAGING/package.json', JSON.stringify(pkg, null, 2));
+          "
+
+          TARBALL="dashy-${TAG}.tar.gz"
+          tar -czf "${TARBALL}" -C "${STAGING}" .
+          echo "TARBALL=${TARBALL}" >> "$GITHUB_ENV"
+          echo "Size: $(du -sh ${TARBALL} | cut -f1)"
+
+      - name: Upload tarball to GitHub Release 🚀
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          files: ${{ env.TARBALL }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+
