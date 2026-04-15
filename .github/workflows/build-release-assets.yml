@@ -36,7 +36,7 @@ jobs:
       - name: Checkout code 🛎️
         uses: actions/checkout@v6
         with:
-          ref: ${{ env.TAG }}
+          ref: refs/tags/${{ env.TAG }}
 
       - name: Setup Node.js ⚙️
         uses: actions/setup-node@v4
