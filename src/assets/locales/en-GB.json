@@ -1,0 +1,17 @@
+{
+  "app-info": {
+    "license": "Licence",
+    "licence-third-party": "For licences for third-party modules, please see"
+  },
+  "theme-maker": {
+    "reset-toast": "Custom Colours for {theme} Removed"
+  },
+  "widgets": {
+    "gluetun-status": {
+      "organization": "Organisation"
+    },
+    "nextcloud": {
+      "memory-utilisation": "memory utilisation"
+    }
+  }
+}

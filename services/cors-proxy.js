@@ -4,7 +4,45 @@
  * makes request to endpoint, then responds to the frontend with the response
  */
 
-const axios = require('axios');
+const request = require('./request');
+
+// List of hosts to disallow by default, for cloud instances
+// Covers AWS, Azure, GCP, DO, Hetzner, Oracle, etc on IPv4/6
+const BLOCKED_HOSTS = new Set([
+  '169.254.169.254',
+  '::ffff:a9fe:a9fe',
+  'fd00:ec2::254',
+  'metadata.google.internal',
+  '100.100.100.200',
+]);
+
+// Operator escape hatch, set this env var to bypass all proxy restrictions
+const restrictionsDisabled = !!process.env.DANGEROUSLY_DISABLE_PROXY_RESTRICTIONS;
+
+// Validate the target URL against scheme and host policies
+// Returns { ok: true } on success, or { ok: false, status, error } on rejection
+const validateTargetUrl = (raw) => {
+  if (restrictionsDisabled) return { ok: true };
+  let url;
+  try { url = new URL(raw); } catch (e) {
+    return { ok: false, status: 400, error: 'Target-URL is not a valid URL' };
+  }
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+    return { ok: false, status: 400, error: 'Target-URL must use http:// or https://' };
+  }
+  // url.hostname includes brackets for IPv6 (e.g. '[fd00:ec2::254]') - strip em
+  const host = url.hostname.toLowerCase().replace(/^\[|\]$/g, '');
+  if (BLOCKED_HOSTS.has(host)) {
+    return {
+      ok: false,
+      status: 403,
+      error: `Target-URL host '${host}' is blocked by the CORS proxy. `
+        + 'This address is reserved for cloud instance metadata services. '
+        + 'To bypass, set DANGEROUSLY_DISABLE_PROXY_RESTRICTIONS=true.',
+    };
+  }
+  return { ok: true };
+};
 
 module.exports = (req, res) => {
   // Apply allow-all response headers
@@ -20,28 +58,47 @@ module.exports = (req, res) => {
     return;
   }
 
-  // Get desired URL, from Target-URL header
+  // Get desired URL, from Target-URL header, and validate it against the policy
   const targetURL = req.header('Target-URL');
   if (!targetURL) {
-    res.status(500).send({ error: 'There is no Target-Endpoint header in the request' });
+    res.status(400).send({ error: 'Missing required Target-URL header' });
     return;
   }
+  const validation = validateTargetUrl(targetURL);
+  if (!validation.ok) {
+    res.status(validation.status).send({ error: validation.error });
+    return;
+  }
+
   // Apply any custom headers, if needed
-  const headers = req.header('CustomHeaders') ? JSON.parse(req.header('CustomHeaders')) : {};
+  let headers = {};
+  const rawCustomHeaders = req.header('CustomHeaders');
+  if (rawCustomHeaders) {
+    try {
+      headers = JSON.parse(rawCustomHeaders);
+    } catch (e) {
+      res.status(400).send({ error: 'CustomHeaders header contains malformed JSON' });
+      return;
+    }
+  }
 
   // Prepare the request
   const requestConfig = {
     method: req.method,
     url: targetURL,
-    json: req.body,
+    data: req.body,
     headers,
+    timeout: 30000,
+    maxResponseSize: 10 * 1024 * 1024, // 10 MB
   };
 
   // Make the request, and respond with result
-  axios.request(requestConfig)
-    .then((response) => {
-      res.status(200).send(response.data);
-    }).catch((error) => {
-      res.status(500).send({ error });
-    });
+  const send = (status, body) => {
+    if (res.headersSent) return;
+    try { res.status(status).send(body); } catch (e) { /* response stream gone */ }
+  };
+  request(requestConfig).then(
+    (response) => send(200, response.data),
+    (error) => send(500, { error }),
+  );
 };

@@ -4,7 +4,7 @@
     :icon="icon"
     :uniqueKey="groupId"
     :collapsed="displayData.collapsed"
-    :cols="displayData.cols"
+    :cols="effectiveColsSpan"
     :rows="displayData.rows"
     :color="displayData.color"
     :customStyles="displayData.customStyles"
@@ -110,6 +110,7 @@ import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import EditSection from '@/components/InteractiveEditor/EditSection.vue';
 import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
 import ErrorHandler from '@/utils/ErrorHandler';
+import { makePageSlug } from '@/utils/ConfigHelpers';
 import StoreKeys from '@/utils/StoreMutations';
 import {
   sortOrder as defaultSortOrder,
@@ -128,6 +129,7 @@ export default {
     widgets: Array,
     index: Number,
     isWide: Boolean,
+    activeColCount: Number,
   },
   components: {
     Collapsable,
@@ -209,6 +211,11 @@ export default {
       }
       return styles;
     },
+    effectiveColsSpan() {
+      const { cols } = this.displayData;
+      if (!cols) return cols;
+      return Math.min(this.activeColCount, cols);
+    },
   },
   methods: {
     /* Opens the iframe modal */
@@ -246,9 +253,7 @@ export default {
         ErrorHandler('Cannot open section without a valid name');
         return;
       }
-      const parse = (section) => section.replace(' ', '-').toLowerCase().trim();
-      const sectionIdentifier = parse(this.title);
-      router.push({ path: `/home/${sectionIdentifier}` });
+      router.push({ path: makePageSlug(this.title, 'home') });
       this.closeContextMenu();
     },
     /* Toggle sections collapse state */

@@ -19,7 +19,8 @@
       </router-link>
     </div>
     <!-- Main content, section for each group of items -->
-    <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass">
+    <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass"
+    ref="sectionsContainer">
       <template v-for="(section, index) in filteredSections">
         <Section
           :key="index"
@@ -36,6 +37,7 @@
           @change-modal-visibility="updateModalVisibility"
           :isWide="!!singleSectionView || layoutOrientation === 'horizontal'"
           :class="(searchValue && section.filteredItems.length === 0) ? 'no-results' : ''"
+          :activeColCount="activeColCount"
         />
       </template>
       <!-- Show add new section button, in edit mode -->
@@ -64,6 +66,7 @@ import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.
 import NotificationThing from '@/components/Settings/LocalConfigWarning.vue';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
+import { makePageName } from '@/utils/ConfigHelpers';
 import ErrorHandler from '@/utils/ErrorHandler';
 import BackIcon from '@/assets/interface-icons/back-arrow.svg';
 
@@ -83,6 +86,7 @@ export default {
     layout: '',
     itemSizeBound: '',
     addNewSectionOpen: false,
+    activeColCount: 1,
   }),
   computed: {
     singleSectionView() {
@@ -144,15 +148,10 @@ export default {
     /* If on sub-route, and section exists, then return only that section */
     findSingleSection: (allSections, sectionTitle) => {
       if (!sectionTitle) return undefined;
-      let sectionToReturn;
-      const parse = (section) => section.replaceAll(' ', '-').toLowerCase().trim();
-      allSections.forEach((section) => {
-        if (parse(sectionTitle) === parse(section.name || '')) {
-          sectionToReturn = [section];
-        }
-      });
-      if (!sectionToReturn) ErrorHandler(`No section named '${sectionTitle}' was found`);
-      return sectionToReturn;
+      const target = makePageName(sectionTitle);
+      const match = allSections.find((s) => makePageName(s.name || '') === target);
+      if (!match) ErrorHandler(`No section named '${sectionTitle}' was found`);
+      return match ? [match] : undefined;
     },
     /* Returns an array of links to external CSS from the Config */
     getExternalCSSLinks() {
@@ -172,12 +171,26 @@ export default {
       availibleThemes.Default = '#';
       return availibleThemes;
     },
+    readActiveColCount() {
+      const { sectionsContainer } = this.$refs;
+      if (!sectionsContainer) return;
+      const cs = getComputedStyle(sectionsContainer);
+      const varVal = parseInt(cs.getPropertyValue('--col-count'), 10);
+      if (!Number.isNaN(varVal) && varVal > 0) {
+        this.activeColCount = varVal;
+      }
+    },
   },
   mounted() {
     this.initiateFontAwesome();
     this.initiateMaterialDesignIcons();
     this.layout = this.layoutOrientation;
     this.itemSizeBound = this.iconSize;
+    this.readActiveColCount();
+    window.addEventListener('resize', this.readActiveColCount);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.readActiveColCount);
   },
 };
 </script>
@@ -207,11 +220,11 @@ export default {
   display: grid;
   gap: 0.5rem;
   margin: 0 auto;
-  max-width: 90%;
+  max-width: var(--content-max-width, 90%);
   overflow: auto;
   @extend .scroll-bar;
   @include monitor-up {
-    max-width: 85%;
+    max-width: var(--content-max-width, 85%);
   }
 
   /* Options for alternate layouts, triggered by buttons */

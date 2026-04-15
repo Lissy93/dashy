@@ -151,7 +151,8 @@
                   "newtab",
                   "sametab",
                   "parent",
-                  "top"
+                  "top",
+                  "newwindow"
                 ],
                 "default": "newtab",
                 "description": "Where / how the item is opened when it's clicked"
@@ -204,7 +205,8 @@
             "top",
             "modal",
             "workspace",
-            "clipboard"
+            "clipboard",
+            "newwindow"
           ],
           "default": "newtab",
           "description": "The default opening method for items. Only used if no item.target is specified"
@@ -221,6 +223,12 @@
           "default": 0,
           "description": "How often to recheck statuses. If set to 0, status will only be checked on page load"
         },
+        "statusCheckAccessibility": {
+          "title": "Status Check Accessibility Mode",
+          "type": "boolean",
+          "default": false,
+          "description": "If enabled, status indicators will use distinct shapes (in addition to color) for better color-blind accessibility"
+        },
         "language": {
           "title": "Language",
           "type": "string",
@@ -229,7 +237,7 @@
         "theme": {
           "title": "Theme",
           "type": "string",
-          "default": "callisto",
+          "default": "default",
           "description": "A theme to be applied by default on first load",
           "examples": [
             "callisto",
@@ -255,6 +263,16 @@
             "high-contrast-light"
           ]
         },
+        "dayTheme": {
+          "title": "Day Theme",
+          "type": "string",
+          "description": "Theme to apply when the OS is set to light mode. Overrides theme on initial load"
+        },
+        "nightTheme": {
+          "title": "Night Theme",
+          "type": "string",
+          "description": "Theme to apply when the OS is set to dark mode. Overrides theme on initial load"
+        },
         "backgroundImg": {
           "title": "Background Image",
           "type": "string",
@@ -266,13 +284,14 @@
           "enum": [
             "local",
             "allesedv",
-            "clearbit",
             "iconhorse",
             "faviconkit",
             "duckduckgo",
             "yandex",
             "google",
-            "besticon"
+            "besticon",
+            "webmasterapi",
+            "mcapi"
           ],
           "default": "allesedv",
           "description": "Which service to use to resolve favicons. Set to local to do this locally instead"
@@ -312,15 +331,15 @@
           "maximum": 8,
           "description": "Number of section columns for homepage. Leave blank for column count to be responsively calculated based on screen size"
         },
-        "routingMode": {
-          "title": "Routing Mode",
-          "type": "string",
-          "enum": [
-            "hash",
-            "history"
-          ],
-          "default": "history",
-          "description": "The Vue routing mode to use, history mode will remove the annoying hash from the URL, but requires some extra config on some systems"
+        "contentMaxWidth": {
+          "title": "Content Max Width",
+          "type": ["string"],
+          "description": "Max width of the main sections area on the homepage. Pass as a percentage or CSS unit. Leave blank for the responsive default",
+          "examples": [
+            "98%",
+            "1400px",
+            95
+          ]
         },
         "workspaceLandingUrl": {
           "title": "Workspace Landing URL",
@@ -348,8 +367,14 @@
             "disableWebSearch": {
               "title": "Disable Web Search?",
               "type": "boolean",
-              "default": "false",
+              "default": false,
               "description": "If set to true, web search will be disabled all together"
+            },
+            "openUrlsDirectly": {
+              "title": "Open URLs Directly",
+              "type": "boolean",
+              "default": false,
+              "description": "If enabled, when the search query looks like a URL it will be opened directly instead of being passed to the search engine"
             },
             "searchEngine": {
               "title": "Search Engine",
@@ -384,7 +409,6 @@
               "enum": [
                 "newtab",
                 "sametab",
-                "modal",
                 "workspace"
               ],
               "default": "newtab",
@@ -407,7 +431,6 @@
         "enableFontAwesome": {
           "title": "Enable Font-Awesome?",
           "type": "boolean",
-          "default": true,
           "description": "If true, font-awesome will be loaded, if false they will not be. If left empty, icons will only be loaded if needed"
         },
         "enableMaterialDesignIcons": {
@@ -437,8 +460,8 @@
         },
         "externalStyleSheet": {
           "title": "External Stylesheets",
-          "description": "List of URLs of external stylesheets to add to dropdown/ load",
-          "type": "array",
+          "description": "URL or list of URLs of external stylesheets to load",
+          "type": ["array"],
           "items": {
             "type": "string"
           }
@@ -456,31 +479,31 @@
             "hideHeading": {
               "title": "Hide Heading?",
               "type": "boolean",
-              "default": "false",
+              "default": false,
               "description": "If set to true, the page heading & subtitle will be hidden"
             },
             "hideNav": {
               "title": "Hide Nav Bar?",
               "type": "boolean",
-              "default": "false",
+              "default": false,
               "description": "If set to true, the navigation menu will be hidden"
             },
             "hideSearch": {
               "title": "Hide Search Bar?",
               "type": "boolean",
-              "default": "false",
+              "default": false,
               "description": "If set to true, the search bar will be hidden"
             },
             "hideSettings": {
               "title": "Hide Settings?",
               "type": "boolean",
-              "default": "false",
+              "default": false,
               "description": "If set to true, the settings buttons will be hidden"
             },
             "hideFooter": {
               "title": "Hide Footer?",
               "type": "boolean",
-              "default": "false",
+              "default": false,
               "description": "If set to true, the page footer will be hidden"
             }
           }
@@ -540,7 +563,7 @@
                   { "required": ["password"] }
                 ]
               }
-            },            
+            },
             "enableOidc": {
               "title": "Enable OIDC?",
               "type": "boolean",
@@ -569,13 +592,11 @@
                 "adminRole" : {
                   "title": "Admin Role",
                   "type": "string",
-                  "default": false,
                   "description": "The role that will be considered as admin. If not set, no roles will be considered as admin"
                 },
                 "adminGroup" : {
                   "title": "Admin Group",
                   "type": "string",
-                  "default": false,
                   "description": "The group that will be considered as admin. If not set, no groups will be considered as admin"
                 },
                 "scope" : {
@@ -603,7 +624,7 @@
                   "title": "User Header",
                   "type": "string",
                   "description": "Header name which contains username",
-                  "default": "REMOTE_USER"
+                  "default": "Remote-User"
                 },
                 "proxyWhitelist": {
                   "title": "Upstream Proxy Auth Trust",
@@ -664,7 +685,7 @@
         "showSplashScreen": {
           "title": "Show splash screen",
           "type": "boolean",
-          "default": "false",
+          "default": false,
           "description": "If set to true, a loading screen will be shown"
         },
         "preventWriteToDisk": {
@@ -840,14 +861,14 @@
                 "type": "number",
                 "minimum": 1,
                 "maximum": 12,
-                "description": "Number of items per column"
+                "description": "Number of items per row"
               },
               "itemCountY": {
                 "title": "Item Count Y",
                 "type": "number",
                 "minimum": 1,
                 "maximum": 12,
-                "description": "Number of items per row"
+                "description": "Number of items per column"
               },
               "hideForUsers": {
                 "title": "Hide for Users",
@@ -924,6 +945,12 @@
                     }
                   }
                 }
+              },
+              "hideFromWorkspace": {
+                "title": "Hide from Workspace",
+                "type": "boolean",
+                "default": false,
+                "description": "If set to true, section will be visible in the default view but not in the Workspace view sidebar"
               }
             }
           },
@@ -1041,6 +1068,12 @@
                           }
                         }
                       }
+                    },
+                    "hideFromWorkspace": {
+                      "title": "Hide from Workspace",
+                      "type": "boolean",
+                      "default": false,
+                      "description": "If set to true, item will be visible in the default view but not in the Workspace view sidebar"
                     }
                   }
                 },
@@ -1054,7 +1087,8 @@
                     "top",
                     "modal",
                     "workspace",
-                    "clipboard"
+                    "clipboard",
+                    "newwindow"
                   ],
                   "default": "newtab",
                   "description": "Where / how the item is opened when it's clicked"
@@ -1113,13 +1147,18 @@
                 "statusCheckMaxRedirects": {
                   "title": "Status Check - Max Redirects",
                   "type": "number",
-                  "default": "0",
+                  "default": 0,
                   "description": "If your service redirects to another page, and you would like status checks to follow redirects, then specify the maximum number of redirects here"
                 },
                 "color": {
                   "title": "Custom Color",
                   "type": "string",
                   "description": "A custom fill color of the item, expressed either as hex code or color name"
+                },
+                "backgroundColor": {
+                  "title": "Background Color",
+                  "type": "string",
+                  "description": "A custom background fill color for the item, expressed either as hex code or color name"
                 },
                 "id": {
                   "title": "Item ID",
@@ -1129,10 +1168,50 @@
                 "subItems": {
                   "title": "Sub-Items",
                   "type": "array",
-                  "description": "List of sub-items",
+                  "description": "Optional list of nested sub-items, displayed as smaller icons within the parent item. Each sub-item supports the same core fields as a regular item",
                   "items": {
                     "type": "object",
-                    "properties": {}
+                    "properties": {
+                      "title": {
+                        "title": "Title",
+                        "type": "string",
+                        "description": "The title of the sub-item, shown in the tooltip"
+                      },
+                      "url": {
+                        "title": "URL",
+                        "type": "string",
+                        "description": "The URL to open when the sub-item is clicked"
+                      },
+                      "icon": {
+                        "title": "Icon",
+                        "type": "string",
+                        "description": "The icon for the sub-item. Supports the same icon types as a regular item"
+                      },
+                      "target": {
+                        "title": "Target",
+                        "type": "string",
+                        "enum": [
+                          "newtab",
+                          "sametab",
+                          "modal",
+                          "workspace",
+                          "clipboard",
+                          "top",
+                          "parent"
+                        ],
+                        "description": "The opening method for the sub-item"
+                      },
+                      "color": {
+                        "title": "Color",
+                        "type": "string",
+                        "description": "An optional color for the sub-item icon"
+                      },
+                      "backgroundColor": {
+                        "title": "Background Color",
+                        "type": "string",
+                        "description": "An optional background color for the sub-item"
+                      }
+                    }
                   }
                 }
               }
@@ -1170,6 +1249,16 @@
                   "title": "Widget Options",
                   "type": "object",
                   "description": "Configuration options for widget. Varies depending on widget type, see docs for all options"
+                },
+                "label": {
+                  "title": "Widget Label",
+                  "type": "string",
+                  "description": "A label to display above the widget"
+                },
+                "ignoreErrors": {
+                  "title": "Ignore Errors",
+                  "type": "boolean",
+                  "description": "If set to true, widget errors will not be displayed"
                 }
               }
             }

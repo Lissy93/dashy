@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
@@ -117,7 +117,7 @@ export default {
           'x-rapidapi-key': this.apiKey,
         },
       };
-      axios.request(requestConfig)
+      request(requestConfig)
         .then((response) => {
           this.processData(response.data);
         }).catch((error) => {
@@ -137,12 +137,12 @@ export default {
       flights.forEach((flight) => {
         results.push({
           number: flight.number,
-          airline: flight.airline?.name ?? "unknown airline",
-          aircraft: flight.aircraft?.model ?? "unknown aircraft",
-          airport: flight.movement?.airport?.name ?? "unknown airport",
+          airline: flight.airline?.name ?? 'unknown airline',
+          aircraft: flight.aircraft?.model ?? 'unknown aircraft',
+          airport: flight.movement?.airport?.name ?? 'unknown airport',
           time: flight.movement
-                ? (flight.movement?.revisedTime?.local ?? flight.movement?.scheduledTime?.local ?? "unknown time")
-                : "unknown time"
+            ? (flight.movement?.revisedTime?.local ?? flight.movement?.scheduledTime?.local ?? 'unknown time')
+            : 'unknown time',
         });
       });
       return results;

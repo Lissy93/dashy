@@ -1,6 +1,6 @@
 <template>
   <nav class="side-bar">
-    <div v-for="(section, index) in sections" :key="index" class="side-bar-section">
+    <div v-for="(section, index) in filteredSections" :key="index" class="side-bar-section">
       <!-- Section button -->
       <div @click="openSection(index)" class="side-bar-item-container">
         <SideBarItem
@@ -46,8 +46,26 @@ export default {
   },
   data() {
     return {
-      isOpen: new Array(this.sections.length).fill(false),
+      isOpen: [],
     };
+  },
+  computed: {
+    /* Return a list of sections that should be visible in workspace */
+    filteredSections() {
+      if (!this.sections) return [];
+      return this.sections.filter((section) => !section.displayData?.hideFromWorkspace);
+    },
+  },
+  watch: {
+    /* Update isOpen array when filtered sections change */
+    filteredSections(newSections) {
+      // Resize isOpen array if needed
+      const currentLength = this.isOpen.length;
+      const newLength = newSections.length;
+      if (newLength !== currentLength) {
+        this.isOpen = new Array(newLength).fill(false);
+      }
+    },
   },
   components: {
     SideBarItem,
@@ -59,7 +77,7 @@ export default {
     /* Toggles the section clicked, and closes all other sections */
     openSection(index) {
       this.isOpen = this.isOpen.map((val, ind) => (ind !== index ? false : !val));
-      if (this.sections[index].widgets) this.$emit('launch-widget', this.sections[index].widgets);
+      if (this.filteredSections[index].widgets) this.$emit('launch-widget', this.filteredSections[index].widgets);
     },
     /* When item clicked, emit a launch event */
     launchApp(options) {
@@ -70,7 +88,7 @@ export default {
       if (!this.initUrl) return;
       const process = (url) => (url ? url.replace(/[^\w\s]/gi, '').toLowerCase() : undefined);
       const compare = (item) => (process(item.url) === process(this.initUrl));
-      this.sections.forEach((section, secIndx) => {
+      this.filteredSections.forEach((section, secIndx) => {
         if (!section.items) return; // Cancel if no items
         if (section.items.findIndex(compare) !== -1) this.openSection(secIndx);
         section.items.forEach((item) => { // Do the same for sub-items, if set
@@ -83,11 +101,14 @@ export default {
       if (!allTiles) {
         return [];
       }
-      return allTiles.filter((tile) => checkItemVisibility(tile));
+      return allTiles.filter((tile) => checkItemVisibility(tile)
+        && !tile.displayData?.hideFromWorkspace);
     },
   },
   mounted() {
-    if (this.sections.length === 1) { // If only 1 section, go ahead and open it
+    // Initialize isOpen array based on filteredSections length
+    this.isOpen = new Array(this.filteredSections.length).fill(false);
+    if (this.filteredSections.length === 1) { // If only 1 section, go ahead and open it
       this.openSection(0);
     } else { // Otherwise, see if user set a default section, and open that
       this.openDefaultSection();

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
@@ -26,7 +26,7 @@ export default {
       const supportedLanguages = ['en', 'cs', 'de', 'es', 'fr', 'pt'];
       const usersChoice = this.options.language;
       if (usersChoice && supportedLanguages.includes(usersChoice)) return usersChoice;
-      const localLanguage = this.$store.getters.appConfig.lang;
+      const localLanguage = this.$store.getters.appConfig.language;
       if (localLanguage && supportedLanguages.includes(localLanguage)) return localLanguage;
       return 'en';
     },
@@ -52,7 +52,7 @@ export default {
   methods: {
     /* Make GET request to Jokes API endpoint */
     fetchData() {
-      axios.get(this.endpoint)
+      request.get(this.endpoint)
         .then((response) => {
           if (response.data.error) {
             this.error('No matching jokes returned', response.data.additionalInfo);

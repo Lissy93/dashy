@@ -27,6 +27,10 @@
           <ClipboardOpenIcon />
           <span>{{ $t('context-menus.item.clipboard') }}</span>
         </li>
+        <li @click="launch('newwindow')">
+          <NewWindowOpenIcon />
+          <span>{{ $t('context-menus.item.newwindow') }}</span>
+        </li>
       </ul>
       <!-- Edit Options -->
       <ul class="menu-section" v-bind:class="{ disabled: !isEditAllowed }">
@@ -60,6 +64,7 @@ import NewTabOpenIcon from '@/assets/interface-icons/open-new-tab.svg';
 import IframeOpenIcon from '@/assets/interface-icons/open-iframe.svg';
 import WorkspaceOpenIcon from '@/assets/interface-icons/open-workspace.svg';
 import ClipboardOpenIcon from '@/assets/interface-icons/open-clipboard.svg';
+import NewWindowOpenIcon from '@/assets/interface-icons/open-new-window.svg';
 
 export default {
   name: 'ContextMenu',
@@ -72,6 +77,7 @@ export default {
     IframeOpenIcon,
     WorkspaceOpenIcon,
     ClipboardOpenIcon,
+    NewWindowOpenIcon,
   },
   props: {
     posX: Number, // The X coordinate for positioning

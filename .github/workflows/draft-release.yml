@@ -3,34 +3,101 @@ name: 🏗️ Draft New Release
 on:
   push:
     tags:
-      - '^[0-9]+\.[0-9]+\.[0-9]+$'
-      - '**'
+      - '*.*.*'
   workflow_dispatch:
     inputs:
       tag:
         description: 'Tag to draft a release for (must already exist)'
         required: true
 
+permissions:
+  contents: write
+
 jobs:
   create-draft-release:
     runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
     steps:
       - name: Checkout code 🛎️
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
-          fetch-depth: 0  # We need all history for generating release notes
+          fetch-depth: 0
 
-      - name: Create Draft Release 📝
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Check if major or minor version changed 🔍
+        id: version_check
         env:
-          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          CURRENT_TAG: ${{ github.event.inputs.tag || github.ref_name }}
+        run: |
+          git fetch --tags --force
+          CURRENT_MM=$(echo "$CURRENT_TAG" | sed 's/^v//; s/\([0-9]*\.[0-9]*\)\..*/\1/')
+
+          # Find the immediately previous tag (to detect patch-only bumps)
+          PREVIOUS_TAG=$(git tag --sort=-version:refname \
+            | grep -v "^${CURRENT_TAG}$" | head -1)
+
+          if [ -z "$PREVIOUS_TAG" ]; then
+            echo "No previous tag found, creating release"
+            echo "should_release=true" >> $GITHUB_OUTPUT
+            echo "previous_tag=" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          PREVIOUS_MM=$(echo "$PREVIOUS_TAG" | sed 's/^v//; s/\([0-9]*\.[0-9]*\)\..*/\1/')
+          if [ "$CURRENT_MM" = "$PREVIOUS_MM" ]; then
+            echo "Patch-only bump ($PREVIOUS_TAG -> $CURRENT_TAG), skipping"
+            echo "should_release=false" >> $GITHUB_OUTPUT
+            echo "previous_tag=" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Minor/major bump — find the last tag from the previous release
+          PREV_RELEASE_TAG=$(git tag --sort=-version:refname | while read -r t; do
+            [ "$t" = "$CURRENT_TAG" ] && continue
+            t_mm=$(echo "$t" | sed 's/^v//; s/\([0-9]*\.[0-9]*\)\..*/\1/')
+            if [ "$t_mm" != "$CURRENT_MM" ]; then echo "$t"; break; fi
+          done)
+          echo "Minor/major bump, comparing against ${PREV_RELEASE_TAG:-$PREVIOUS_TAG}"
+          echo "should_release=true" >> $GITHUB_OUTPUT
+          echo "previous_tag=${PREV_RELEASE_TAG:-$PREVIOUS_TAG}" >> $GITHUB_OUTPUT
+
+      - name: Create draft release 📝
+        if: steps.version_check.outputs.should_release == 'true' || github.event_name == 'workflow_dispatch'
+        id: create_release
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
-          release_name: Release ${{ github.event.inputs.tag || github.ref_name }}
+          tag_name: ${{ env.TAG }}
+          name: Release ${{ env.TAG }}
           draft: true
           prerelease: false
           generate_release_notes: true
+          previous_tag: ${{ steps.version_check.outputs.previous_tag }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
 
-      - name: Output new release URL ↗️
-        run: 'echo "Draft release URL: ${{ steps.create_release.outputs.html_url }}"'
+      - name: Job summary 📋
+        if: always()
+        env:
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+          SHOULD_RELEASE: ${{ steps.version_check.outputs.should_release }}
+          RELEASE_URL: ${{ steps.create_release.outputs.url }}
+          PREV_TAG: ${{ steps.version_check.outputs.previous_tag }}
+        run: |
+          {
+            echo "## 🏗️ Draft Release"
+            echo ""
+            echo "| Step | Result |"
+            echo "|------|--------|"
+            echo "| Tag | [\`${TAG}\`](${REPO_URL}/releases/tag/${TAG}) |"
+
+            if [ -n "$PREV_TAG" ]; then
+              echo "| Compared against | [\`${PREV_TAG}\`](${REPO_URL}/releases/tag/${PREV_TAG}) |"
+            fi
+
+            if [ -n "$RELEASE_URL" ]; then
+              echo "| Draft release | ✅ [Review and publish](${RELEASE_URL}) |"
+            elif [ "$SHOULD_RELEASE" = "false" ]; then
+              echo "| Draft release | ⏭️ Skipped (patch-only bump) |"
+            else
+              echo "| Draft release | ❌ Failed |"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

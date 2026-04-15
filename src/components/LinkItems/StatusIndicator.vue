@@ -5,7 +5,7 @@
       classes: ['status-tooltip', `tip-${color()}`],
       delay: { show: 0, hide: 150 }
     }">
-    <div :class="`dot dot-${color()}`">
+    <div :class="['dot', `dot-${color()}`, { 'a11y-mode': a11yMode }]">
       <span><span></span></span>
     </div>
   </div>
@@ -18,6 +18,12 @@ export default {
   props: {
     statusText: String,
     statusSuccess: Boolean,
+  },
+  computed: {
+    /* If true, will use shapes instead of dots for indicator status */
+    a11yMode() {
+      return !!this.$store.getters.appConfig.statusCheckAccessibility;
+    },
   },
   methods: {
     /* Returns a color, based on success status */
@@ -106,6 +112,20 @@ export default {
     span, span:after {
       background-color: var(--medium-grey);
       opacity: 0.4;
+    }
+  }
+
+  &.a11y-mode {
+    > span { display: none; }
+    // dot-green stays a circle
+    &.dot-red { border-radius: 0; } // square
+    &.dot-yellow { // triangle
+      border-radius: 0;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+    &.dot-grey { // diamond
+      border-radius: 0;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
     }
   }
 }

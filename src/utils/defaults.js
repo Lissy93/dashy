@@ -197,7 +197,6 @@ module.exports = {
   /* Available services for fetching favicon icon for user apps */
   faviconApiEndpoints: {
     allesedv: 'https://f1.allesedv.com/128/$URL',
-    clearbit: 'https://logo.clearbit.com/$URL',
     iconhorse: 'https://icon.horse/icon/$URL',
     faviconkit: 'https://api.faviconkit.com/$URL/64',
     duckduckgo: 'https://icons.duckduckgo.com/ip2/$URL.ico',
@@ -218,9 +217,9 @@ module.exports = {
     localPath: './item-icons',
     faviconName: 'favicon.ico',
     homeLabIcons:
-      'https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/{icon}.png',
+      'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/{icon}.svg',
     homeLabIconsFallback:
-      'https://raw.githubusercontent.com/NX211/homer-icons/master/png/{icon}.png',
+      'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/{icon}.png',
   },
   /* API endpoints for widgets that need to fetch external data */
   widgetApiEndpoints: {
@@ -232,7 +231,7 @@ module.exports = {
     covidStats: 'https://disease.sh/v3/covid-19',
     cryptoPrices: 'https://api.coingecko.com/api/v3/coins/',
     cryptoWatchList: 'https://api.coingecko.com/api/v3/coins/markets/',
-    cveVulnerabilities: 'https://www.cvedetails.com/json-feed.php',
+    cveVulnerabilities: 'https://services.nvd.nist.gov/rest/json/cves/2.0',
     domainMonitor: 'https://api.whoapi.com',
     ethGasPrices: 'https://ethgas.watch/api/gas',
     ethGasHistory: 'https://ethgas.watch/api/gas/trend',
@@ -250,10 +249,12 @@ module.exports = {
     minecraftStatus: 'https://api.mcsrvstat.us/',
     mullvad: 'https://am.i.mullvad.net/json',
     mvg: 'https://www.mvg.de/api/fib/v2/',
-    publicIp: 'https://ipapi.co/json',
+    userIpLookup: 'https://api.ipify.org?format=json',
     publicIp2: 'https://api.ipgeolocation.io/ipgeo',
     publicIp3: 'http://ip-api.com/json',
-    publicIp4: 'https://api.ip2location.io/',
+    publicIp4: 'https://free.freeipapi.com/api/json',
+    publicIp5: 'https://ipinfo.io/json',
+    publicIp6: 'https://api.ipquery.io/?format=json',
     readMeStats: 'https://github-readme-stats.vercel.app/api',
     rescueTime: 'https://www.rescuetime.com/anapi/data',
     rssToJson: 'https://api.rss2json.com/v1/api.json',
@@ -325,6 +326,8 @@ module.exports = {
     mode: 'production',
     manifestCrossorigin: 'use-credentials',
     iconPaths: {
+      faviconSVG: null,
+      appleTouchIcon: './web-icons/dashy-pwa_192x192.png',
       favicon64: './web-icons/favicon-64x64.png',
       favicon32: './web-icons/favicon-32x32.png',
       favicon16: './web-icons/favicon-16x16.png',

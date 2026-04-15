@@ -81,7 +81,7 @@ export default {
       return this.makeRequest(this.historyEndpoint, this.authHeader);
     },
     validate(data) {
-      if (!data || !Array.isArray(data['history'])) {
+      if (!data || !Array.isArray(data.history)) {
         this.error('Got success, but found no results, possible authorization error');
       } else if (data.history.length < 1) {
         this.error('Request completed succesfully, but no data in Pi-Hole yet');

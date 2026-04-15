@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/defaults';
 
@@ -23,7 +23,7 @@ export default {
       let usersChoice = this.options.categories;
       if (!usersChoice) return '';
       if (Array.isArray(usersChoice)) usersChoice = usersChoice.join(',');
-      const categories = ["animal","career","celebrity","dev","explicit","fashion","food","history","money","movie","music","political","religion","science","sport","travel"];
+      const categories = ['animal', 'career', 'celebrity', 'dev', 'explicit', 'fashion', 'food', 'history', 'money', 'movie', 'music', 'political', 'religion', 'science', 'sport', 'travel'];
       if (categories.some((cat) => usersChoice.toLowerCase().includes(cat))) return usersChoice;
       return '';
     },
@@ -36,7 +36,7 @@ export default {
   methods: {
     /* Make GET request to ChuckNorris API endpoint */
     fetchData() {
-      axios.get(this.endpoint)
+      request.get(this.endpoint)
         .then((response) => {
           this.processData(response.data);
         })
@@ -49,7 +49,7 @@ export default {
     },
     /* Assign data variables to the returned data */
     processData(data) {
-        this.chuckNorrisLine = data.value;
+      this.chuckNorrisLine = data.value;
     },
   },
 };

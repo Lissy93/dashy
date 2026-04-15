@@ -1,4 +1,4 @@
-const axios = require('axios').default;
+const request = require('./request');
 
 const currentVersion = require('../package.json').version;
 
@@ -22,7 +22,7 @@ const makeMsg = (latestVersion) => {
   return msg;
 };
 
-axios.get(packageUrl).then((response) => {
+request.get(packageUrl).then((response) => {
   if (response && response.data && response.data.version) {
     logToConsole(`\nUsing Dashy V-${currentVersion}. Update Check Complete`);
     logToConsole(makeMsg(response.data.version));

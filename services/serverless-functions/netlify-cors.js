@@ -1,5 +1,5 @@
 /* A Netlify cloud function to handle requests to CORS-disabled services */
-const axios = require('axios');
+const request = require('../request');
 
 exports.handler = (event, context, callback) => {
   // Get input data
@@ -34,12 +34,12 @@ exports.handler = (event, context, callback) => {
   const requestConfig = {
     method: 'GET',
     url: requestUrl,
-    json: body,
+    data: body,
     headers: requestHeaders,
   };
 
   // Make request
-  axios.request(requestConfig)
+  request(requestConfig)
     .then((response) => {
       callback(null, { statusCode: 200, body: JSON.stringify(response.data) });
     }).catch((error) => {

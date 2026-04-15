@@ -1,5 +1,6 @@
 // Locales - Import translation files here! (sort alphabetically)
 import en from '@/assets/locales/en.json';
+import enGB from '@/assets/locales/en-GB.json';
 import ar from '@/assets/locales/ar.json';
 import bg from '@/assets/locales/bg.json';
 import bn from '@/assets/locales/bn.json';
@@ -14,6 +15,7 @@ import hu from '@/assets/locales/hu.json';
 import it from '@/assets/locales/it.json';
 import ja from '@/assets/locales/ja.json';
 import ko from '@/assets/locales/ko.json';
+import ky from '@/assets/locales/ky.json';
 import nb from '@/assets/locales/nb.json';
 import nl from '@/assets/locales/nl.json';
 import pl from '@/assets/locales/pl.json';
@@ -37,6 +39,12 @@ export const languages = [
     name: 'English',
     code: 'en',
     locale: en,
+    flag: '🇬🇧',
+  },
+  { // Real English (just the overides from en.json)
+    name: 'English (British)',
+    code: 'en-GB',
+    locale: enGB,
     flag: '🇬🇧',
   },
   { // Arabic
@@ -94,7 +102,7 @@ export const languages = [
     flag: '🇲🇫',
   },
   { // Hindi
-    name: 'नहीं',
+    name: 'हिन्दी',
     code: 'hi',
     locale: hi,
     flag: '🇮🇳',
@@ -122,6 +130,12 @@ export const languages = [
     code: 'ko',
     locale: ko,
     flag: '🇰🇷',
+  },
+  { // Kyrgyz
+    name: 'Кыргызча',
+    code: 'ky',
+    locale: ky,
+    flag: '🇰🇬',
   },
   { // Norwegian
     name: 'Norsk',
@@ -197,7 +211,7 @@ export const languages = [
   },
   { // Chinese
     name: '简体中文',
-    code: 'cn',
+    code: 'zh-CN',
     locale: zhCN,
     flag: '🇨🇳',
   },
