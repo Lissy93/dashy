@@ -6,11 +6,12 @@ name: 📦 Build & Upload Release Assets
 #
 # The tarball contains the compiled frontend (dist/) plus all server-side
 # files. Users extract it and run `yarn install --production` + `node server`.
+#
+# Triggered whenever a new release is created, or when manually dispatched
 
 on:
-  push:
-    tags:
-      - '*.*.*'
+  release:
+    types: [created]
   workflow_dispatch:
     inputs:
       tag:
@@ -20,23 +21,27 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.release.tag_name || github.event.inputs.tag }}
+  cancel-in-progress: true
+
 jobs:
   build-release-assets:
     name: Build app & upload tarball
     runs-on: ubuntu-latest
     env:
-      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+      TAG: ${{ github.event.release.tag_name || github.event.inputs.tag }}
 
     steps:
       - name: Checkout code 🛎️
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.inputs.tag || github.ref }}
+          ref: ${{ env.TAG }}
 
       - name: Setup Node.js ⚙️
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '20'
           cache: 'yarn'
 
       - name: Install dependencies 📥
@@ -81,4 +86,3 @@ jobs:
           tag_name: ${{ env.TAG }}
           files: ${{ env.TARBALL }}
           token: ${{ secrets.BOT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
-
