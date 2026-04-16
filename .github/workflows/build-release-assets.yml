@@ -56,24 +56,16 @@ jobs:
           mkdir -p "$STAGING"
 
           # Runtime files
-          cp -r dist         "$STAGING/"
-          cp -r services     "$STAGING/"
-          cp -r public       "$STAGING/"
-          cp -r user-data    "$STAGING/"
-          cp    server.js    "$STAGING/"
-          cp    yarn.lock    "$STAGING/"
-
-          # src/utils/ files referenced directly by the server at runtime
-          mkdir -p "$STAGING/src/utils"
-          cp src/utils/ConfigSchema.json "$STAGING/src/utils/"
-          cp src/utils/defaults.js       "$STAGING/src/utils/"
-
-          # Strip devDependencies so `yarn install --production` stays lean
-          node -e "
-            const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
-            delete pkg.devDependencies;
-            require('fs').writeFileSync('$STAGING/package.json', JSON.stringify(pkg, null, 2));
-          "
+          cp -r dist          "$STAGING/"
+          cp -r services      "$STAGING/"
+          cp -r public        "$STAGING/"
+          cp -r user-data     "$STAGING/"
+          cp -r src           "$STAGING/"
+          cp    server.js     "$STAGING/"
+          cp    yarn.lock     "$STAGING/"
+          cp    vue.config.js "$STAGING/"
+          cp    tsconfig.json "$STAGING/"
+          cp    package.json  "$STAGING/"
 
           TARBALL="dashy-${TAG}.tar.gz"
           tar -czf "${TARBALL}" -C "${STAGING}" .
