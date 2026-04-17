@@ -49,8 +49,8 @@ sections:
   displayData:
     hiddenOnPurpose: true 
   items:
-  - title: s
-    description: s
+  - title: hiddentile
+    description: This is a hidden tile
     icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
     url: https://live.dashy.to/
     target: newtab
