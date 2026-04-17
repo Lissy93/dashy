@@ -73,7 +73,7 @@
     "sass": "^1.77.0",
     "sass-loader": "^12.0.0",
     "supertest": "^7.2.2",
-    "typescript": "^5.4.4",
+    "typescript": "^6.0.3",
     "vite-plugin-vue2": "^2.0.3",
     "vitest": "^1.6.0",
     "vue-cli-plugin-yaml": "^1.0.2",
