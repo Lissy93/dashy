@@ -43,37 +43,31 @@ button {
   justify-content: center;
   flex-direction: row-reverse;
   align-items: center;
+  gap: 0.5rem;
   padding: 0.5rem 0.75rem;
   margin: 0.5rem auto;
   font-size: 1.2rem;
   min-width: 10rem;
   cursor: pointer;
-  svg {
-    width: 1.2rem;
-    margin: 0 0.5rem;
-    path, g {
-      fill: currentColor;
-    }
-  }
   &.disallowed {
     cursor: not-allowed !important;
   }
 }
 
 /* Default visual settings, can be overridden when needed */
-button {
+:where(button) {
   color: var(--primary);
   background: var(--background);
   border: 1px solid var(--primary);
   border-radius: var(--curve-factor);
-  &:hover:not(:disabled):not(.disallowed) {
-    color: var(--background);
-    background: var(--primary);
-    border-color: var(--background);
-  }
-  &:disabled {
-    cursor: progress;
-    opacity: var(--dimming-factor);
-  }
+}
+:where(button:hover:not(:disabled):not(.disallowed)) {
+  color: var(--background);
+  background: var(--primary);
+  border-color: var(--background);
+}
+:where(button:disabled) {
+  cursor: progress;
+  opacity: var(--dimming-factor);
 }
 </style>

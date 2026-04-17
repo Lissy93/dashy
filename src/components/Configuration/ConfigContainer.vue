@@ -239,9 +239,6 @@ a.config-button, button.config-button {
   min-width: 15rem;
   width: 100%;
   svg.button-icon {
-    path {
-      fill: var(--config-settings-color);
-    }
     width: 1rem;
     height: 1rem;
     padding: 0.2rem;
@@ -249,9 +246,6 @@ a.config-button, button.config-button {
   &:hover:not(.disallowed) {
     background: var(--config-settings-color);
     color: var(--config-settings-background);
-    svg path {
-      fill: var(--config-settings-background);
-    }
   }
 }
 

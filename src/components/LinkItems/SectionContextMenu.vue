@@ -111,8 +111,7 @@ div.context-menu {
       }
       svg {
         width: 1rem;
-         margin-right: 0.5rem;
-          path { fill: currentColor; }
+        margin-right: 0.5rem;
       }
     }
   }

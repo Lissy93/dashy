@@ -1,13 +1,20 @@
 /**
- * Custom v-tooltip directive for Vue 3.
- * Lightweight replacement for floating-vue — zero external dependencies.
- * Supports string or object bindings, HTML content (sanitized via DOMPurify),
- * auto-positioning with viewport flip/shift, accessible keyboard + screen reader support,
- * and theme-aware styling via CSS variables.
+ * Dashy's custom zero-dependency v-tooltip directive for Vue 3
+ * Supports strings or object bindings, HTML content, auto-positioning
+ * and is designed to be accessible, responsive, performant and configurable.
+ *
+ * Usage: it's registered globally already, so no need to import.
+ * Just add the v-tooltip attribute to any element, passing in text or options
+ *
+ * Examples:
+ * <button v-tooltip="I like big buttons and I cannot lie">Sir Mix Alot says..</button>
+ * <span v-tooltip="{ content: '<b>Bold</b> & safe', html: true }">?</span>
+ * <a v-tooltip="{ content: 'nothing at all', disabled: true }">y no tooltip?</a>
+ * <i v-tooltip="{ content: 'I am a pretty tooltip', popperClass: 'in-modal-tt' }" />
+ * <i v-tooltip="{ content: 'Focus me', triggers: ['focus'], delay: { show: 500, hide: 200 }}" />
  */
 import DOMPurify from 'dompurify';
 
-/* ── Defaults ── */
 const DEFAULTS = {
   triggers: ['hover', 'focus'],
   placement: 'auto',
@@ -17,7 +24,6 @@ const GAP = 8;
 const ARROW_SIZE = 6;
 const TRANSITION_MS = 150;
 
-/* ── Style injection (once) ── */
 let stylesInjected = false;
 function injectStyles() {
   if (stylesInjected) return;
@@ -84,7 +90,6 @@ function injectStyles() {
   document.head.appendChild(style);
 }
 
-/* ── Positioning ── */
 const PLACEMENTS = ['top', 'bottom', 'right', 'left'];
 const FLIP = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' };
 
@@ -115,7 +120,12 @@ function fitsViewport(target, tip, vw, vh, placement) {
 
 function positionTooltip(targetEl, tipEl, requested) {
   const target = targetEl.getBoundingClientRect();
-  const tipEl2 = tipEl; // keep ref stable
+  if (target.width === 0 && target.height === 0) {
+    const owner = targetEl;
+    if (owner._tooltip) hide(owner);
+    return;
+  }
+  const tipEl2 = tipEl;
   tipEl2.style.visibility = 'hidden';
   tipEl2.style.display = 'block';
   const tip = tipEl2.getBoundingClientRect();
@@ -158,13 +168,12 @@ function positionTooltip(targetEl, tipEl, requested) {
   tipEl2.style.display = '';
 }
 
-/* ── Options normalizer ── */
 let idCounter = 0;
 
 function normalize(value) {
   if (!value && value !== 0) return null;
   if (typeof value === 'string' || typeof value === 'number') return { content: String(value) };
-  if (typeof value === 'object' && value !== null) {
+  if (typeof value === 'object') {
     if (value.disabled || !value.content) return null;
     return value;
   }
@@ -177,7 +186,7 @@ function resolveDelay(raw) {
   return { show: raw.show ?? DEFAULTS.delay.show, hide: raw.hide ?? DEFAULTS.delay.hide };
 }
 
-/* ── Show / Hide ── */
+/* Show / hide */
 function show(el) {
   const state = el._tooltip;
   if (!state || state.visible) return;
@@ -257,7 +266,21 @@ function hide(el) {
   }
 }
 
-/* ── Event binding ── */
+/* Global click-to-dismiss */
+let globalClickBound = false;
+function ensureGlobalClick() {
+  if (globalClickBound) return;
+  globalClickBound = true;
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.dashy-tooltip.is-visible').forEach((tip) => {
+      // Find the owner element via the tooltip id
+      const owner = document.querySelector(`[aria-describedby="${tip.id}"]`);
+      if (owner) hide(owner);
+    });
+  }, { capture: true });
+}
+
+/* Event binding */
 function bind(el) {
   const state = el._tooltip;
   const triggers = state.options?.triggers || DEFAULTS.triggers;
@@ -273,6 +296,9 @@ function bind(el) {
     el.addEventListener('focusin', state.onShow);
     el.addEventListener('focusout', state.onHide);
   }
+  // Always hide on click (e.g. opening a modal)
+  el.addEventListener('click', state.onHide);
+  ensureGlobalClick();
 }
 
 function unbind(el) {
@@ -282,9 +308,10 @@ function unbind(el) {
   el.removeEventListener('mouseleave', state.onHide);
   el.removeEventListener('focusin', state.onShow);
   el.removeEventListener('focusout', state.onHide);
+  el.removeEventListener('click', state.onHide);
 }
 
-/* ── Directive hooks ── */
+/* Directive hooks */
 export default {
   mounted(el, binding) {
     const opts = normalize(binding.value);

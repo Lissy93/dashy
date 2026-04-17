@@ -310,8 +310,8 @@ export default {
   mounted() {
     // Set the section width, and recalculate when section resized
     if (this.$refs[this.sectionRef]) {
-      this.resizeObserver = new ResizeObserver(this.calculateSectionWidth)
-        .observe(this.$refs[this.sectionRef].$el);
+      this.resizeObserver = new ResizeObserver(this.calculateSectionWidth);
+      this.resizeObserver.observe(this.$refs[this.sectionRef].$el);
     }
   },
   beforeUnmount() {

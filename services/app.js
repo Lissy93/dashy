@@ -33,8 +33,16 @@ const sslServer = require('./ssl-server'); // TLS-enabled web server
 const corsProxy = require('./cors-proxy'); // Enables API requests to CORS-blocked services
 const getUser = require('./get-user'); // Enables server side user lookup
 
-/* Helper functions, and default config */
-const ENDPOINTS = require('../src/utils/defaults').serviceEndpoints; // API endpoint URL paths
+/* Service endpoint URL paths (see also serviceEndpoints in src/utils/defaults.js) */
+const ENDPOINTS = {
+  statusPing: '/status-ping',
+  statusCheck: '/status-check',
+  save: '/config-manager/save',
+  rebuild: '/config-manager/rebuild',
+  systemInfo: '/system-info',
+  corsProxy: '/cors-proxy',
+  getUser: '/get-user',
+};
 
 /* Indicates for the webpack config, that running as a server */
 process.env.IS_SERVER = 'True';

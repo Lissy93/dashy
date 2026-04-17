@@ -263,13 +263,11 @@ div.edit-mode-bottom-banner {
       color: var(--interactive-editor-background);
       border-color: var(--interactive-editor-color);
       background: var(--interactive-editor-color);
-      svg path { fill: var(--interactive-editor-background); }
     }
     svg {
       width: 1rem;
       height: 1rem;
       margin: 0 0 -0.15rem 0.25rem;
-      path { fill: var(--interactive-editor-color); }
     }
   }
 }

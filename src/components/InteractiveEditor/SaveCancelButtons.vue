@@ -53,7 +53,6 @@ export default {
       background: var(--interactive-editor-color);
       svg {
         background: var(--interactive-editor-color);
-        path { fill: var(--interactive-editor-background); }
       }
     }
     &:focus {

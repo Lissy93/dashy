@@ -65,9 +65,6 @@ span.options-label {
 .display-options {
   color: var(--settings-text-color);
   svg {
-    path {
-      fill: var(--settings-text-color);
-    }
     width: 1rem;
     height: 1rem;
     margin: 0.2rem;
@@ -79,7 +76,7 @@ span.options-label {
     cursor: pointer;
     &:hover, &.selected {
       background: var(--settings-text-color);
-      path { fill: var(--background); }
+      color: var(--background);
     }
   }
 }

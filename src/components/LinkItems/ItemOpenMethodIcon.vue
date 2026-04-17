@@ -69,9 +69,6 @@ export default {
     position: absolute;
     width: 1rem;
     margin: 2px;
-    path {
-      fill: currentColor;
-    }
   }
   &.top svg { top: 0; }
   &.bottom svg { bottom: 0; }

@@ -90,9 +90,9 @@ export default {
     padding: 0.25rem;
     margin: 0.25rem;
     cursor: pointer;
+    color: var(--primary);
     border: 1px solid var(--background-darker);
     border-radius: var(--curve-factor);
-    path { fill: var(--primary); }
     &:hover { border: 1px solid var(--primary); }
   }
 }

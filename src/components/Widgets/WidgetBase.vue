@@ -34,12 +34,15 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 // Import form elements, icons and utils
 import ErrorHandler from '@/utils/ErrorHandler';
 import Button from '@/components/FormElements/Button';
 import UpdateIcon from '@/assets/interface-icons/widget-update.svg';
 import OpenIcon from '@/assets/interface-icons/open-new-tab.svg';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
+
+const widgetModules = import.meta.glob('./*.vue');
 
 const COMPAT = {
   'adguard-dns-info': 'AdGuardDnsInfo',
@@ -189,8 +192,13 @@ export default {
         ErrorHandler('Widget type was not found');
         return null;
       }
-      // eslint-disable-next-line prefer-template
-      return () => import(/* @vite-ignore */ '@/components/Widgets/' + type + '.vue').catch(() => import('@/components/Widgets/Blank.vue'));
+      const path = `./${type}.vue`;
+      const loader = widgetModules[path];
+      if (!loader) {
+        ErrorHandler(`Widget component not found: ${type}`);
+        return defineAsyncComponent(() => import('./Blank.vue'));
+      }
+      return defineAsyncComponent(() => loader().catch(() => import('./Blank.vue')));
     },
   },
   methods: {
