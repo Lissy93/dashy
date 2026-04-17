@@ -3,7 +3,7 @@
 {
 	"name": "Dashy",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-24-bookworm",
+	"image": "mcr.microsoft.com/devcontainers/javascript-node:latest",
 	"customizations": {
 		"vscode": {
 			"extensions": [
