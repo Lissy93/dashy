@@ -250,7 +250,8 @@
       "edit-section": "Edit",
       "expand-collapse": "Expand / Collapse",
       "move-section": "Move To",
-      "remove-section": "Remove"
+      "remove-section": "Remove",
+      "section-options": "Section Options"
     }
   },
   "footer": {

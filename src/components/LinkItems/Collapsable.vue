@@ -13,16 +13,20 @@
       v-model="checkboxState"
       tabIndex="-1"
     >
-    <label :for="sectionKey" class="lbl-toggle" tabindex="-1"
+    <div class="section-header"
       @mouseup.right="openContextMenu" @contextmenu.prevent
       @long-press="openContextMenu" v-longPress="500">
+      <label :for="sectionKey" class="collapse-toggle"
+        v-tooltip="toggleTooltip()" :aria-label="$t('context-menus.section.expand-collapse')">
+        <span class="arrow" aria-hidden="true"></span>
+      </label>
       <Icon v-if="icon" :icon="icon" size="small" :url="title" class="section-icon" />
       <h3>{{ title }}</h3>
       <EditModeIcon v-if="isEditMode" @click="openEditModal"
-        v-tooltip="editTooltip()" class="edit-mode-item" />
+        v-tooltip="editTooltip()" class="header-action" />
       <OpenIcon @click.prevent.stop="openContextMenu" @contextmenu.prevent
-        class="edit-mode-item" />
-    </label>
+        v-tooltip="optionsTooltip()" class="header-action" />
+    </div>
     <div class="collapsible-content">
       <div class="content-inner">
         <slot></slot>
@@ -157,6 +161,12 @@ export default {
       const content = this.$t('interactive-editor.edit-section.edit-tooltip');
       return { content, delay: { show: 100, hide: 0 } };
     },
+    toggleTooltip() {
+      return { content: this.$t('context-menus.section.expand-collapse'), delay: { show: 200, hide: 0 } };
+    },
+    optionsTooltip() {
+      return { content: this.$t('context-menus.section.section-options'), delay: { show: 200, hide: 0 } };
+    },
   },
 };
 </script>
@@ -198,43 +208,42 @@ export default {
     display: none;
   }
 
-  label.lbl-toggle {
-    outline: none;
-    display: block;
+  .section-header {
+    display: flex;
+    align-items: center;
     padding: 0.25rem;
-    cursor: pointer;
-    border-radius: var(--curve-factor);
-    transition: all 0.25s ease-out;
-    text-align: left;
     color: var(--item-group-heading-text-color);
-    h3 {
-      margin: 0;
-      padding: 0;
-      display: inline;
-    }
-    .section-icon {
-      display: inline;
-      margin-right: 0.5rem;
-    }
-    &:hover {
-      color: var(--item-group-heading-text-color-hover);
-    }
-    &::before {
-      content: ' ';
-      display: inline-block;
-      border-top: 5px solid transparent;
-      border-bottom: 5px solid transparent;
-      border-left: 5px solid currentColor;
-      vertical-align: middle;
-      margin-right: .7rem;
-      transform: translateY(-2px);
-      opacity: 0.3;
-      transition: all 0.4s ease-in-out;
-    }
+    border-radius: var(--curve-factor);
+    h3 { flex: 1; margin: 0; padding: 0; }
+    .section-icon { margin-right: 0.5rem; }
   }
 
-  input.toggle:checked + .lbl-toggle::before {
-    transform: rotate(90deg) translateX(-3px);
+  .collapse-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    cursor: pointer;
+    border-radius: var(--curve-factor);
+    transition: background 0.2s ease-out, opacity 0.2s ease-out;
+    .arrow {
+      width: 0;
+      height: 0;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 6px solid currentColor;
+      opacity: 0.5;
+      transition: transform 0.3s ease-in-out;
+    }
+    &:hover, &:focus-visible {
+      outline: none;
+      background: var(--primary-transparent-60);
+      .arrow { opacity: 1; }
+    }
+  }
+  input.toggle:checked + .section-header .collapse-toggle .arrow {
+    transform: rotate(90deg);
   }
 
   .collapsible-content {
@@ -245,11 +254,11 @@ export default {
     border-radius: 0 0 var(--curve-factor) var(--curve-factor);
   }
 
-  input.toggle:checked + .lbl-toggle + .collapsible-content {
+  input.toggle:checked + .section-header + .collapsible-content {
     max-height: var(--section-max-height);
   }
 
-  input.toggle:checked + .lbl-toggle {
+  input.toggle:checked + .section-header {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
@@ -258,24 +267,22 @@ export default {
     padding: 0.5rem;
   }
 
-  /* Section edit button, shown when in edit mode */
-  .edit-mode-item {
+  /* Section edit buttons, pushed to the right by the flex-1 h3.
+   * Shares hover styling with .collapse-toggle. */
+  .header-action {
+    box-sizing: content-box;
     width: 1rem;
     height: 1rem;
-    float: right;
-    right: 0.5rem;
-    top: 0.5rem;
-    margin-left: 0.2rem;
-    margin-right: 0.2rem;
+    padding: 0.3rem;
+    margin-left: 0.25rem;
+    cursor: pointer;
     opacity: 0.3;
-    transition: all 0.4s ease-in-out;
-  }
-
-  /* On section hover, set interface icons to full visible */
-  &:hover {
-    .edit-mode-item, label.lbl-toggle::before {
+    border-radius: var(--curve-factor);
+    transition: background 0.2s ease-out, opacity 0.2s ease-out;
+    &:hover, &:focus-visible {
+      outline: none;
+      background: var(--primary-transparent-60);
       opacity: 1;
-      transition: all 0.2s ease-out;
     }
   }
 

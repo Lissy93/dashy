@@ -528,7 +528,7 @@ html[data-theme='minimal-light'], html[data-theme='minimal-dark'], html[data-the
     max-width: 100px;
   }
 
-  label.lbl-toggle h3 {
+  .section-header h3 {
     font-size: 1.5rem;
   }
   .tile-title span.text {
@@ -954,7 +954,7 @@ html[data-theme='minimal-dark'] {
   --about-page-background: var(--background);
   --about-page-color: var(--primary);
 
-  label.lbl-toggle h3 {
+  .section-header h3 {
     font-size: 1.8rem;
   }
 
@@ -1029,7 +1029,7 @@ html[data-theme='vaporware'] {
   .tile-title span.text {
     font-weight: normal;
   }
-  label.lbl-toggle h3 {
+  .section-header h3 {
     font-size: 1.4rem;
   }
   footer {
@@ -1357,28 +1357,28 @@ html[data-theme="dashy-docs"] {
     &:hover { box-shadow: 0 2px $second; }
   }
   // Section headings, nav bar items and minimal tabs
-  div.collapsable:nth-child(1n) label.lbl-toggle,
+  div.collapsable:nth-child(1n) .section-header,
   .minimal-section-heading:nth-child(1n),
   a.nav-item:nth-child(1n) {
     @include make-colors(#db78fc, #b83ddd);
     --nav-link-background-color-hover: #db78fc;
     --nav-link-border-color-hover: #db78fc;
   }
-  div.collapsable:nth-child(2n) label.lbl-toggle,
+  div.collapsable:nth-child(2n) .section-header,
   .minimal-section-heading:nth-child(2n),
   a.nav-item:nth-child(2n) {
     @include make-colors(#5c85f7, #3d48dd);
     --nav-link-background-color-hover: #5c85f7;
     --nav-link-border-color-hover: #5c85f7;
   }
-  div.collapsable:nth-child(3n) label.lbl-toggle,
+  div.collapsable:nth-child(3n) .section-header,
   .minimal-section-heading:nth-child(3n),
   a.nav-item:nth-child(3n) {
     @include make-colors(#41ef90, #1e9554);
     --nav-link-background-color-hover: #41ef90;
     --nav-link-border-color-hover: #41ef90;
   }
-  div.collapsable:nth-child(4n) label.lbl-toggle,
+  div.collapsable:nth-child(4n) .section-header,
   .minimal-section-heading:nth-child(4n),
   a.nav-item:nth-child(4n) {
     @include make-colors(#dcff5a, #ceb73f);
@@ -1479,7 +1479,7 @@ html[data-theme="adventure"], html[data-theme="adventure-basic"] {
     background: none;
   }
   // Style overides
-  label.lbl-toggle h3 { font-size: 1.3rem; font-weight: bold; }
+  .section-header h3 { font-size: 1.3rem; font-weight: bold; }
   .content-inner { border-top: 1px dashed var(--primary); }
   a.item.size-large:hover { border-left: 3px solid var(--white); }
   .item.size-large .tile-title p.description { height: 3rem; }
@@ -1534,7 +1534,7 @@ html[data-theme="color-block"] {
   --widget-text-color: var(--white);
 
   // Style overrides
-  label.lbl-toggle h3 { font-size: 1.3rem; font-weight: bold; }
+  .section-header h3 { font-size: 1.3rem; font-weight: bold; }
   .content-inner { border-top: 1px dashed var(--primary); }
   .item.size-large .tile-title p.description { height: 3rem; }
   .item, .nav-outer nav .nav-item { border-radius: 0; }
@@ -1587,7 +1587,7 @@ html[data-theme="one-dark"] {
   --curve-factor-navbar: 6px;
 
   // Style overrides
-  label.lbl-toggle h3 { font-size: 1.3rem; font-weight: bold; }
+  .section-header h3 { font-size: 1.3rem; font-weight: bold; }
   .content-inner { border-top: 1px dashed var(--primary); }
   .item.size-large .tile-title p.description { height: 3rem; }
   .item, .nav-outer nav .nav-item { border-radius: 0; }
@@ -1682,7 +1682,7 @@ html[data-theme='lissy'] {
 
     transition: all 0.2s ease-in-out 0s;
     border: 1px solid #0000004d;
-    label.lbl-toggle h3 {
+    .section-header h3 {
       font-weight: normal;
     }
     a.item p.description {
@@ -1981,7 +1981,7 @@ html[data-theme="night-bat"] {
   --widget-text-color: var(--white);
 
   // Style overrides
-  label.lbl-toggle h3 { font-size: 1.3rem; font-weight: bold; }
+  .section-header h3 { font-size: 1.3rem; font-weight: bold; }
   .content-inner { border-top: 1px dashed var(--primary); }
   .item.size-large .tile-title p.description { height: 3rem; }
   .item, .nav-outer nav .nav-item { border-radius: 1px; }
@@ -2065,7 +2065,7 @@ html[data-theme='cherry-blossom'] {
     --side-bar-item-color: var(--top-color);
     --minimal-view-section-heading-background: var(--top-color);
 
-    label.lbl-toggle {
+    .section-header {
       background: var(--top-color);
       padding: 0.5rem 0.25rem;
       min-height: 1.5rem;
@@ -2164,7 +2164,7 @@ html[data-theme="tama"] {
   }
   
   // Style overides
-  label.lbl-toggle h3 { font-size: 1.3rem; font-weight: bold; }
+  .section-header h3 { font-size: 1.3rem; font-weight: bold; }
   .content-inner { border-top: 1px dashed var(--primary); }
   .item.size-large .tile-title p.description { height: 3rem; }
   .is-collapsed {

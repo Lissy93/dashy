@@ -237,27 +237,23 @@ export default {
   button.action-btn {
     height: 1rem;
     min-width: auto;
-    width: 1.75rem;
+    width: 1.25rem;
     margin: 0;
-    padding: 0.1rem 0;
+    padding: 0.25rem;
     position: absolute;
     top: 0;
     border: none;
     opacity: var(--dimming-factor);
     color: var(--widget-text-color);
+    svg { width: 0.75rem; height: 0.75rem; }
 
     &:hover {
       opacity: 1;
       color: var(--widget-background-color);
     }
 
-    &.update-btn {
-      right: -0.25rem;
-    }
-
-    &.open-btn {
-      right: 1.75rem;
-    }
+    &.update-btn { right: -0.25rem; }
+    &.open-btn { right: 1.25rem; }
   }
 
   // Optional widget label
