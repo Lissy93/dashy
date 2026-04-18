@@ -4,100 +4,61 @@
     :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-page-info"
   >
-  <div class="edit-page-info-inner" v-if="allowViewConfig">
-  <h3>{{ $t('interactive-editor.menu.edit-page-info-btn') }}</h3>
-  <form @submit.prevent="saveToState" class="page-info-form">
-    <Input v-model="formData.title" label="Title" layout="horizontal" />
-    <Input v-model="formData.description" label="Description" layout="horizontal" />
-    <Input v-model="formData.footerText" label="Footer Text" layout="horizontal" />
-    <Input v-model="formData.logo" label="Logo" layout="horizontal" />
-    <Button type="submit">
-      {{ $t('interactive-editor.menu.save-stage-btn') }}
-      <SaveIcon />
-    </Button>
-  </form>
-  </div>
-  <AccessError v-else />
+    <div class="interactive-editor-inner" v-if="allowViewConfig">
+      <h3>{{ $t('interactive-editor.menu.edit-page-info-btn') }}</h3>
+      <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
+      <SchemaForm v-model="formData" :schema="schema" />
+      <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
+    </div>
+    <AccessError v-else />
   </modal>
 </template>
 
 <script>
+import DashySchema from '@/utils/ConfigSchema.json';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
-import Button from '@/components/FormElements/Button';
-import Input from '@/components/FormElements/Input';
-import SaveIcon from '@/assets/interface-icons/save-config.svg';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import safeClone from '@/utils/safeClone';
 import AccessError from '@/components/Configuration/AccessError';
+import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
+import SchemaForm from '@/components/FormElements/SchemaForm';
 
 export default {
   name: 'EditPageInfo',
+  components: { AccessError, SaveCancelButtons, SchemaForm },
   data() {
     return {
       formData: {},
+      schema: DashySchema.properties.pageInfo,
       modalName: modalNames.EDIT_PAGE_INFO,
     };
   },
-  components: {
-    Button,
-    Input,
-    SaveIcon,
-    AccessError,
+  computed: {
+    pageInfo() { return this.$store.getters.pageInfo; },
+    allowViewConfig() { return this.$store.getters.permissions.allowViewConfig; },
   },
   mounted() {
-    this.formData = { ...this.pageInfo };
-  },
-  computed: {
-    pageInfo() {
-      return this.$store.getters.pageInfo;
-    },
-    allowViewConfig() {
-      return this.$store.getters.permissions.allowViewConfig;
-    },
+    this.formData = safeClone(this.pageInfo, {});
   },
   methods: {
     saveToState() {
-      this.$store.commit(StoreKeys.SET_PAGE_INFO, this.formData);
-      this.$modal.hide(this.modalName);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+      try {
+        this.$store.commit(StoreKeys.SET_PAGE_INFO, this.formData);
+        this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+        InfoHandler('Page info updated', InfoKeys.EDITOR);
+        this.cancelEditing();
+      } catch (e) {
+        ErrorHandler('Failed to save page info', e);
+        this.$toasted.show('Error saving changes. See Logs.', { className: 'toast-error' });
+      }
     },
-    modalClosed() {
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-    },
+    cancelEditing() { this.$modal.hide(this.modalName); },
+    modalClosed() { this.$store.commit(StoreKeys.SET_MODAL_OPEN, false); },
   },
 };
 </script>
 
 <style lang="scss">
 @import '@/styles/style-helpers.scss';
-@import '@/styles/media-queries.scss';
-
-.edit-page-info-inner {
-  padding: 1rem;
-  background: var(--interactive-editor-background);
-  color: var(--interactive-editor-color);
-  height: 100%;
-  overflow-y: auto;
-  @extend .scroll-bar;
-  h3 {
-    font-size: 1.4rem;
-    margin: 0.5rem;
-  }
-  .page-info-form {
-    margin-bottom: 2.5rem;
-    .input-container {
-      margin: 0.5rem 0;
-      input.input-field {
-        color: var(--interactive-editor-color);
-        border-color: var(--interactive-editor-color);
-        background: var(--interactive-editor-background);
-      }
-    }
-    button {
-      margin: 1rem auto;
-      display: flex;
-      svg { width: 1rem; height: 1rem; margin-left: 0.25rem; }
-    }
-  }
-}
 </style>

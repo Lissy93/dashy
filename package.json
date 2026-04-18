@@ -22,6 +22,9 @@
   },
   "dependencies": {
     "@febe95/vue-js-modal": "^3.2.0",
+    "@jsonforms/core": "^3.7.0",
+    "@jsonforms/vue": "^3.7.0",
+    "@jsonforms/vue-vanilla": "^3.7.0",
     "@sentry/tracing": "^7.102.1",
     "@sentry/vue": "^7.102.1",
     "ajv": "^8.10.0",

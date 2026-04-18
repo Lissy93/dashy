@@ -57,6 +57,20 @@
   }
 }
 
+/* Modal container shared by the interactive-editor modals */
+.interactive-editor-inner {
+  padding: 1rem;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--interactive-editor-background);
+  color: var(--interactive-editor-color);
+  @extend .scroll-bar;
+  h3 {
+    font-size: 1.4rem;
+    margin: 0.5rem;
+  }
+}
+
 /* Single-style helpers */
 .bold { font-weight: bold; }
 .light { font-weight: lighter; }

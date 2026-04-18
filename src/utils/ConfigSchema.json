@@ -536,8 +536,7 @@
                     "title": "Hashed Pass",
                     "type": "string",
                     "description": "A SHA-256 hashed password for that user",
-                    "minLength": 64,
-                    "maxLength": 64
+                    "pattern": "^[a-fA-F0-9]{64}$"
                   },
                   "password": {
                     "title": "Password",

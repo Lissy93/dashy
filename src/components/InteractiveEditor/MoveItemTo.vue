@@ -41,6 +41,7 @@ import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons'
 import AccessError from '@/components/Configuration/AccessError';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 
 export default {
   name: 'MoveItemTo',
@@ -95,16 +96,29 @@ export default {
   },
   methods: {
     save() {
-      const item = this.$store.getters.getItemById(this.itemId);
-      // Copy item to new section
-      const copyPayload = { item, toSection: this.selectedSection, appendTo: this.appendTo };
-      this.$store.commit(StoreKeys.COPY_ITEM, copyPayload);
-      // Remove item from previous section
-      if (this.operation === 'move') {
-        const payload = { itemId: this.itemId, sectionName: this.currentSection };
-        this.$store.commit(StoreKeys.REMOVE_ITEM, payload);
+      try {
+        const item = this.$store.getters.getItemById(this.itemId);
+        if (!item) throw new Error(`Item '${this.itemId}' not found`);
+        // Copy item to new section
+        this.$store.commit(StoreKeys.COPY_ITEM, {
+          item, toSection: this.selectedSection, appendTo: this.appendTo,
+        });
+        // Remove item from previous section if moving
+        if (this.operation === 'move') {
+          this.$store.commit(StoreKeys.REMOVE_ITEM, {
+            itemId: this.itemId, sectionName: this.currentSection,
+          });
+        }
+        InfoHandler(
+          `${this.operation === 'move' ? 'Moved' : 'Copied'} '${item.title}' `
+            + `from '${this.currentSection}' to '${this.selectedSection}'`,
+          InfoKeys.EDITOR,
+        );
+        this.close();
+      } catch (e) {
+        ErrorHandler(`Failed to ${this.operation} item`, e);
+        this.$toasted.show('Error. See Logs.', { className: 'toast-error' });
       }
-      this.close();
     },
     close() {
       this.$modal.hide(this.modalName);

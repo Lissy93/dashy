@@ -1,145 +1,92 @@
 <template>
   <modal
-    :name="modalName"
-    :resizable="true"
-    width="50%"
-    height="80%"
+    :name="modalName" @closed="modalClosed"
+    :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-app-config"
-    @closed="modalClosed"
   >
-  <div class="edit-app-config-inner" v-if="allowViewConfig">
-  <h3>{{ $t('interactive-editor.menu.edit-app-config-btn') }}</h3>
-  <div class="app-config-intro">
-    <p class="use-caution">
-      {{ $t('interactive-editor.edit-app-config.warning-msg-title') }}
-    </p>
-    {{ $t('interactive-editor.edit-app-config.warning-msg-l1') }}
-    {{ $t('interactive-editor.edit-app-config.warning-msg-l2') }}
-    <a href="https://dashy.to/docs/configuring#appconfig-optional">
-      {{ $t('interactive-editor.edit-app-config.warning-msg-docs') }}
-    </a>
-    {{ $t('interactive-editor.edit-app-config.warning-msg-l3') }}
-  </div>
-  <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
-  <div class="json-editor-wrap">
-    <textarea
-      v-model="jsonString"
-      class="app-config-editor"
-      spellcheck="false"
-    />
-    <p v-if="jsonError" class="json-error">{{ jsonError }}</p>
-  </div>
-  <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
-  </div>
-  <AccessError v-else />
+    <div class="interactive-editor-inner" v-if="allowViewConfig">
+      <h3>{{ $t('interactive-editor.menu.edit-app-config-btn') }}</h3>
+      <div class="app-config-intro">
+        <p class="use-caution">
+          {{ $t('interactive-editor.edit-app-config.warning-msg-title') }}
+        </p>
+        {{ $t('interactive-editor.edit-app-config.warning-msg-l1') }}
+        {{ $t('interactive-editor.edit-app-config.warning-msg-l2') }}
+        <a href="https://dashy.to/docs/configuring#appconfig-optional">
+          {{ $t('interactive-editor.edit-app-config.warning-msg-docs') }}
+        </a>
+        {{ $t('interactive-editor.edit-app-config.warning-msg-l3') }}
+      </div>
+      <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
+      <SchemaForm v-model="formData" :schema="schema" class="app-config-form" />
+      <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
+    </div>
+    <AccessError v-else />
   </modal>
 </template>
 
 <script>
+import DashySchema from '@/utils/ConfigSchema.json';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/defaults';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import safeClone from '@/utils/safeClone';
 import AccessError from '@/components/Configuration/AccessError';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
+import SchemaForm from '@/components/FormElements/SchemaForm';
 
 export default {
   name: 'EditAppConfig',
+  components: { AccessError, SaveCancelButtons, SchemaForm },
   data() {
     return {
-      jsonString: '',
-      jsonError: '',
+      formData: {},
+      schema: DashySchema.properties.appConfig,
       modalName: modalNames.EDIT_APP_CONFIG,
     };
   },
-  components: {
-    SaveCancelButtons,
-    AccessError,
+  computed: {
+    appConfig() { return this.$store.getters.appConfig; },
+    allowViewConfig() { return this.$store.getters.permissions.allowViewConfig; },
   },
   mounted() {
-    this.jsonString = JSON.stringify(this.appConfig, null, 2);
-  },
-  computed: {
-    appConfig() {
-      return this.$store.getters.appConfig;
-    },
-    allowViewConfig() {
-      return this.$store.getters.permissions.allowViewConfig;
-    },
+    this.formData = safeClone(this.appConfig, {});
   },
   methods: {
     saveToState() {
-      this.jsonError = '';
-      let parsed;
       try {
-        parsed = JSON.parse(this.jsonString);
+        this.$store.commit(StoreKeys.SET_APP_CONFIG, this.formData);
+        this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+        InfoHandler('App config updated', InfoKeys.EDITOR);
+        this.cancelEditing();
       } catch (e) {
-        this.jsonError = `Invalid JSON: ${e.message}`;
-        return;
+        ErrorHandler('Failed to save app config', e);
+        this.$toasted.show('Error saving changes, check the logs', { className: 'toast-error' });
       }
-      this.$store.commit(StoreKeys.SET_APP_CONFIG, parsed);
-      this.$modal.hide(this.modalName);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
     },
-    cancelEditing() {
-      this.$modal.hide(this.modalName);
-    },
-    modalClosed() {
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-    },
+    cancelEditing() { this.$modal.hide(this.modalName); },
+    modalClosed() { this.$store.commit(StoreKeys.SET_MODAL_OPEN, false); },
   },
 };
 </script>
 
 <style lang="scss">
 @import '@/styles/style-helpers.scss';
-@import '@/styles/media-queries.scss';
 
-.edit-app-config-inner {
-  padding: 1rem;
-  background: var(--interactive-editor-background);
+.edit-app-config .app-config-intro {
+  padding: 0.5rem;
+  font-size: 0.9rem;
   color: var(--interactive-editor-color);
-  height: 100%;
-  overflow-y: auto;
-  @extend .scroll-bar;
-  h3 {
-    font-size: 1.4rem;
-    margin: 0.5rem;
+  background: var(--interactive-editor-background-darker);
+  border-radius: var(--curve-factor);
+  p.use-caution {
+    margin: 0;
+    color: var(--warning);
+    font-weight: bold;
   }
-  .json-editor-wrap {
-    margin: 0.5rem 0;
-    .app-config-editor {
-      width: 100%;
-      min-height: 20rem;
-      padding: 0.5rem;
-      font-family: monospace;
-      font-size: 0.9rem;
-      color: var(--interactive-editor-color);
-      background: var(--interactive-editor-background);
-      border: 1px solid var(--interactive-editor-color);
-      border-radius: var(--curve-factor);
-      resize: vertical;
-      tab-size: 2;
-    }
-    .json-error {
-      color: var(--warning);
-      margin: 0.25rem 0;
-      font-size: 0.85rem;
-    }
-  }
-  .app-config-intro {
-    padding: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--interactive-editor-color);
-    background: var(--interactive-editor-background-darker);
-    border-radius: var(--interactive-editor-color);
-    p.use-caution {
-      color: var(--warning);
-      margin: 0;
-      font-weight: bold;
-    }
-    a {
-      color: var(--interactive-editor-color);
-    }
-  }
+  a { color: var(--interactive-editor-color); }
+}
+.edit-app-config .app-config-form {
+  margin: 1rem 0;
 }
 </style>

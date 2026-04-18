@@ -65,7 +65,7 @@
       </div>
     </div>
     <!-- Save to state button -->
-    <SaveCancelButtons :saveClick="saveItem" :cancelClick="modalClosed" />
+    <SaveCancelButtons :saveClick="saveItem" :cancelClick="closeModal" />
     </div>
     <AccessError v-else />
   </modal>
@@ -82,6 +82,7 @@ import Select from '@/components/FormElements/Select';
 import StoreKeys from '@/utils/StoreMutations';
 import DashySchema from '@/utils/ConfigSchema';
 import { modalNames } from '@/utils/defaults';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 
 export default {
   name: 'EditItem',
@@ -210,20 +211,24 @@ export default {
           this.$t('interactive-editor.edit-item.missing-title-err'),
           { className: 'toast-error' },
         );
-      } else {
+        return;
+      }
+      try {
         // Some attributes need a little extra formatting
         const newItem = this.formatBeforeSave(structured);
         if (this.isNew) { // Insert new item into data store
           newItem.id = `temp_${newItem.title}`;
-          const payload = { newItem, targetSection: this.parentSectionTitle };
-          this.$store.commit(StoreKeys.INSERT_ITEM, payload);
+          this.$store.commit(StoreKeys.INSERT_ITEM, { newItem, targetSection: this.parentSectionTitle });
         } else { // Update existing item from form data, in the store
           this.$store.commit(StoreKeys.UPDATE_ITEM, { newItem, itemId: this.itemId });
         }
         // If we're not already in edit mode, enable it now
         this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
-        // Close edit menu
-        this.$emit('closeEditMenu');
+        InfoHandler(`Item ${this.isNew ? 'added' : 'updated'}: ${newItem.title}`, InfoKeys.EDITOR);
+        this.closeModal();
+      } catch (e) {
+        ErrorHandler('Failed to save item', e);
+        this.$toasted.show('Error saving item. See Logs.', { className: 'toast-error' });
       }
     },
     /* Some fields require a bit of extra processing before they're saved */
@@ -247,7 +252,11 @@ export default {
       // if (newItem.hotkey) newItem.hotkey = parseInt(newItem.hotkey, 10);
       return newItem;
     },
-    /* Clean up work, triggered when modal closed */
+    /* Cleanup  work for modal, triggered by save, cancel or click-outside */
+    closeModal() {
+      this.$modal.hide(this.modalName);
+    },
+    /* Runs after the modal has finished closing. */
     modalClosed() {
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
       this.$emit('closeEditMenu');
