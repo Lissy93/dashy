@@ -23,6 +23,7 @@ import { initHeaderAuth, isHeaderAuthEnabled } from '@/utils/HeaderAuth';
 import { initOidcAuth, isOidcEnabled } from '@/utils/OidcAuth';
 import Keys from '@/utils/StoreMutations';
 import ErrorHandler from '@/utils/ErrorHandler';
+import '@/utils/patchResizeObserver';
 
 // Setup i18n translations
 const i18n = createI18n({
@@ -69,7 +70,6 @@ app.config.globalProperties.$toasted = {
 app.config.errorHandler = (err, instance, info) => {
   ErrorHandler(`Vue error in ${info}`, err);
 };
-
 
 window.addEventListener('unhandledrejection', (event) => {
   ErrorHandler('Unhandled promise rejection', event.reason);
