@@ -83,7 +83,7 @@ export default {
     },
     /* Show success toast and lot update */
     showSuccessMsg() {
-      this.$toasted.show('Changes saved successfully');
+      this.$toast('Changes saved successfully');
     },
   },
 };

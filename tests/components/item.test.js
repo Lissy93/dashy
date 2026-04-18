@@ -61,7 +61,10 @@ function mountItem(overrides = {}) {
       },
       mocks: {
         $modal: { show: vi.fn(), hide: vi.fn() },
-        $toasted: { show: vi.fn() },
+        $toast: Object.assign(vi.fn(), {
+          show: vi.fn(), success: vi.fn(), error: vi.fn(), info: vi.fn(), warning: vi.fn(),
+          dismiss: vi.fn(), clear: vi.fn(),
+        }),
         $t: (key) => key,
         ...(overrides.mocks || {}),
       },
@@ -591,7 +594,7 @@ describe('Methods: copyToClipboard', () => {
     const { wrapper } = mountItem();
     wrapper.vm.copyToClipboard('hello');
     expect(clipboardSpy).toHaveBeenCalledWith('hello');
-    expect(wrapper.vm.$toasted.show).toHaveBeenCalled();
+    expect(wrapper.vm.$toast.success).toHaveBeenCalled();
   });
 
   it('shows error when clipboard unavailable', async () => {
@@ -602,10 +605,7 @@ describe('Methods: copyToClipboard', () => {
     const { wrapper } = mountItem();
     wrapper.vm.copyToClipboard('hello');
     expect(ErrorHandler).toHaveBeenCalled();
-    expect(wrapper.vm.$toasted.show).toHaveBeenCalledWith(
-      'Unable to copy, see log',
-      expect.objectContaining({ className: 'toast-error' }),
-    );
+    expect(wrapper.vm.$toast.error).toHaveBeenCalledWith('Unable to copy, see log');
   });
 });
 

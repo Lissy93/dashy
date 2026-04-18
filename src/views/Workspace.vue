@@ -55,10 +55,10 @@ export default {
       } else if (options.target === 'clipboard') {
         if (navigator.clipboard) {
           navigator.clipboard.writeText(options.url);
-          this.$toasted.show(this.$t('context-menus.item.copied-toast'), { className: 'toast-success' });
+          this.$toast.success(this.$t('context-menus.item.copied-toast'));
         } else {
           ErrorHandler('Clipboard access requires HTTPS. See: https://bit.ly/3N5WuAA');
-          this.$toasted.show('Unable to copy, see log', { className: 'toast-error' });
+          this.$toast.error('Unable to copy, see log');
         }
         return;
       } else {

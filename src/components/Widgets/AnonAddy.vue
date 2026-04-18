@@ -182,7 +182,7 @@ export default {
     },
     copyToClipboard(text) {
       navigator.clipboard.writeText(text);
-      this.$toasted.show('Email address copied to clipboard');
+      this.$toast('Email address copied to clipboard');
     },
     fetchData() {
       this.makeRequest(this.endpoint, this.headers).then(this.processData);
@@ -239,7 +239,7 @@ export default {
     },
     toggleAlias(state, id) {
       if (this.disableControls) {
-        this.$toasted.show('Error, controls disabled', { className: 'toast-error' });
+        this.$toast.error('Error, controls disabled');
       } else {
         const method = state ? 'POST' : 'DELETE';
         const path = state ? 'active-aliases' : `active-aliases/${id}`;
@@ -247,7 +247,7 @@ export default {
         const endpoint = `${this.hostname}/api/${this.apiVersion}/${path}`;
         this.makeRequest(endpoint, this.headers, method, body).then(() => {
           const successMsg = `Alias successfully ${state ? 'enabled' : 'disabled'}`;
-          this.$toasted.show(successMsg, { className: 'toast-success' });
+          this.$toast.success(successMsg);
         });
       }
     },

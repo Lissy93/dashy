@@ -76,7 +76,7 @@ export default {
         this.cancelEditing();
       } catch (e) {
         ErrorHandler('Failed to save pages list', e);
-        this.$toasted.show('Error saving changes. See Logs.', { className: 'toast-error' });
+        this.$toast.error('Error saving changes. See Logs.');
       }
     },
     cancelEditing() { this.$modal.hide(this.modalName); },

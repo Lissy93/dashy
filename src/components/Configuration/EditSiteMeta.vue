@@ -64,7 +64,7 @@ export default {
         pageInfo.navLinks = this.formElements.navLinks.filter(link => (link.title !== ''));
       }
       localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(pageInfo));
-      this.$toasted.show('Changes saved successfully');
+      this.$toast('Changes saved successfully');
       setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
     },
     addNavLinkRow() {

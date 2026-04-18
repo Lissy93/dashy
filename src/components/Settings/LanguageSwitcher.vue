@@ -94,10 +94,10 @@ export default {
         this.savedLanguage = selectedLanguage;
         const successMsg = `${selectedLanguage.flag} `
           + `${this.$t('language-switcher.success-msg')} ${selectedLanguage.name}`;
-        this.$toasted.show(successMsg, { className: 'toast-success' });
+        this.$toast.success(successMsg);
         this.$modal.hide(this.modalName);
       } else {
-        this.$toasted.show('Unable to update language', { className: 'toast-error' });
+        this.$toast.error('Unable to update language');
         ErrorHandler('Unable to apply language');
       }
     },

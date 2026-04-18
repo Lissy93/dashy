@@ -108,10 +108,10 @@ export default {
         this.message = message;
         this.error = error;
       }
-      this.$toasted.show(
-        (this.success
-          ? `✅ ${this.$t('app-rebuild.success-msg')}` : `❌ ${this.$t('app-rebuild.fail-msg')}`),
-        { className: `toast-${this.success ? 'success' : 'error'}` },
+      this.$toast[this.success ? 'success' : 'error'](
+        this.success
+          ? `✅ ${this.$t('app-rebuild.success-msg')}`
+          : `❌ ${this.$t('app-rebuild.fail-msg')}`,
       );
     },
     refreshPage() {

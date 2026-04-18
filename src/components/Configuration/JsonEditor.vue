@@ -136,7 +136,7 @@ export default {
       } else if (this.saveMode === 'file') {
         this.writeToDisk();
       } else {
-        this.$toasted.show(this.$t('config-editor.error-msg-save-mode'));
+        this.$toast.error(this.$t('config-editor.error-msg-save-mode'));
       }
     },
     /* Applies changes to the local state, begins edit mode and closes modal */
@@ -194,7 +194,7 @@ export default {
     },
     /* Shows toast message */
     showToast(message, success) {
-      this.$toasted.show(message, { className: `toast-${success ? 'success' : 'error'}` });
+      this.$toast[success ? 'success' : 'error'](message);
     },
   },
 };

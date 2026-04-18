@@ -59,21 +59,21 @@ export default {
   methods: {
     logout() {
       registerLogout();
-      this.$toasted.show(this.$t('login.logout-message'));
+      this.$toast(this.$t('login.logout-message'));
       setTimeout(() => {
         router.push({ path: '/login' });
       }, 500);
     },
     oidcLogout() {
       const oidc = getOidcAuth();
-      this.$toasted.show(this.$t('login.logout-message'));
+      this.$toast(this.$t('login.logout-message'));
       setTimeout(() => {
         oidc.logout();
       }, 500);
     },
     keycloakLogout() {
       const keycloak = getKeycloakAuth();
-      this.$toasted.show(this.$t('login.logout-message'));
+      this.$toast(this.$t('login.logout-message'));
       setTimeout(() => {
         keycloak.logout();
       }, 500);

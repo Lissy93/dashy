@@ -207,10 +207,7 @@ export default {
       const structured = {};
       this.formData.forEach((row) => { structured[row.name] = row.value; });
       if (!structured.title) { // Missing title, show error and don't proceed
-        this.$toasted.show(
-          this.$t('interactive-editor.edit-item.missing-title-err'),
-          { className: 'toast-error' },
-        );
+        this.$toast.error(this.$t('interactive-editor.edit-item.missing-title-err'));
         return;
       }
       try {
@@ -228,7 +225,7 @@ export default {
         this.closeModal();
       } catch (e) {
         ErrorHandler('Failed to save item', e);
-        this.$toasted.show('Error saving item. See Logs.', { className: 'toast-error' });
+        this.$toast.error('Error saving item. See Logs.');
       }
     },
     /* Some fields require a bit of extra processing before they're saved */

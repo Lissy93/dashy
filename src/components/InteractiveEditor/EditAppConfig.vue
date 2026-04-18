@@ -61,7 +61,7 @@ export default {
         this.cancelEditing();
       } catch (e) {
         ErrorHandler('Failed to save app config', e);
-        this.$toasted.show('Error saving changes, check the logs', { className: 'toast-error' });
+        this.$toast.error('Error saving changes, check the logs');
       }
     },
     cancelEditing() { this.$modal.hide(this.modalName); },

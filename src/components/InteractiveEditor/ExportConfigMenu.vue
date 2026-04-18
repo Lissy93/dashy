@@ -95,10 +95,10 @@ export default {
       const config = this.convertJsonToYaml();
       if (navigator.clipboard) {
         navigator.clipboard.writeText(config);
-        this.$toasted.show(this.$t('config.data-copied-msg'));
+        this.$toast(this.$t('config.data-copied-msg'));
       } else {
         ErrorHandler('Clipboard access requires HTTPS. See: https://bit.ly/3N5WuAA');
-        this.$toasted.show('Unable to copy, see log', { className: 'toast-error' });
+        this.$toast.error('Unable to copy, see log');
       }
       InfoHandler('Config copied to clipboard', InfoKeys.EDITOR);
     },

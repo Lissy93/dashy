@@ -191,12 +191,12 @@ export default {
     /* If the server returns a warning, then show to user and log it */
     showErrorMsg(errorMsg) {
       WarningInfoHandler(errorMsg, InfoKeys.CLOUD_BACKUP);
-      this.$toasted.show(errorMsg, { className: 'toast-error' });
+      this.$toast.error(errorMsg);
     },
     /* When server returns success message, then show to user and log it */
     showSuccessMsg(msg) {
       InfoHandler(msg, InfoKeys.CLOUD_BACKUP);
-      this.$toasted.show(msg, { className: 'toast-success' });
+      this.$toast.success(msg);
     },
     /* Call to hash function, to hash the users chosen/ entered password */
     makeHash(pass) {

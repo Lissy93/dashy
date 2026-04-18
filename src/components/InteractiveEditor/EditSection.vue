@@ -94,7 +94,7 @@ export default {
         this.$emit('closeEditSection');
       } catch (e) {
         ErrorHandler('Failed to save section', e);
-        this.$toasted.show('Error saving changes. See Logs.', { className: 'toast-error' });
+        this.$toast.error('Error saving changes. See Logs.');
       }
     },
   },

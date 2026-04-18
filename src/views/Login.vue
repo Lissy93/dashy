@@ -168,11 +168,11 @@ export default {
     guestLogin() {
       const isAllowed = this.isGuestAccessEnabled;
       if (isAllowed) {
-        this.$toasted.show(this.$t('login.logged-in-guest'), { className: 'toast-success' });
+        this.$toast.success(this.$t('login.logged-in-guest'));
         InfoHandler('Logged in as Guest', InfoKeys.AUTH);
         this.goHome();
       } else {
-        this.$toasted.show(this.$t('login.error-guest-access'), { className: 'toast-error' });
+        this.$toast.error(this.$t('login.error-guest-access'));
         WarningInfoHandler('Guest Access Not Allowed', InfoKeys.AUTH);
       }
     },

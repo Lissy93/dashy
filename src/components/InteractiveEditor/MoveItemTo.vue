@@ -117,7 +117,7 @@ export default {
         this.close();
       } catch (e) {
         ErrorHandler(`Failed to ${this.operation} item`, e);
-        this.$toasted.show('Error. See Logs.', { className: 'toast-error' });
+        this.$toast.error('Error. See Logs.');
       }
     },
     close() {

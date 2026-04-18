@@ -192,7 +192,7 @@ export default {
       const isTheUserSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
       if (isTheUserSure) {
         localStorage.clear();
-        this.$toasted.show(this.$t('config.data-cleared-msg'));
+        this.$toast(this.$t('config.data-cleared-msg'));
         this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG);
       }
     },

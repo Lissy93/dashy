@@ -23,6 +23,7 @@ import { initHeaderAuth, isHeaderAuthEnabled } from '@/utils/HeaderAuth';
 import { initOidcAuth, isOidcEnabled } from '@/utils/OidcAuth';
 import Keys from '@/utils/StoreMutations';
 import ErrorHandler from '@/utils/ErrorHandler';
+import Toast from '@/utils/Toast';
 import '@/utils/patchResizeObserver';
 
 // Setup i18n translations
@@ -42,30 +43,12 @@ app.use(router);
 app.use(i18n);
 app.use(VModal);
 app.use(JsonViewer);
+app.use(Toast);
 
 // Register global components and directives
 app.component('v-select', VSelect);
 app.directive('clickOutside', clickOutside);
 app.directive('tooltip', tooltip);
-
-// Lightweight $toasted shim (replaces vue-toasted)
-/* eslint-disable object-property-newline */
-app.config.globalProperties.$toasted = {
-  show(msg, opts = {}) {
-    const el = document.createElement('div');
-    el.className = `toast-message ${opts.className || ''}`.trim();
-    el.textContent = msg;
-    el.style.cssText = 'position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);'
-      + 'padding:0.5rem 1rem;border-radius:4px;z-index:9999;'
-      + 'background:var(--background-darker,#333);color:var(--primary,#fff);'
-      + 'box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:opacity 0.3s;';
-    document.body.appendChild(el);
-    const duration = opts.duration || 2500;
-    setTimeout(() => { el.style.opacity = '0'; }, duration);
-    setTimeout(() => { el.remove(); }, duration + 300);
-  },
-};
-/* eslint-enable object-property-newline */
 
 app.config.errorHandler = (err, instance, info) => {
   ErrorHandler(`Vue error in ${info}`, err);

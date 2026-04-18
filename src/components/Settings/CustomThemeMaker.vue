@@ -90,7 +90,7 @@ export default {
       priorSettings[this.themeToEdit] = this.customColors;
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
       this.$store.commit(StoreKeys.SET_CUSTOM_COLORS, priorSettings);
-      this.$toasted.show(this.$t('theme-maker.saved-toast', { theme: this.themeToEdit }));
+      this.$toast(this.$t('theme-maker.saved-toast', { theme: this.themeToEdit }));
       this.$emit('closeThemeConfigurator');
     },
     /* Itterates over available variables, removing them from the DOM */
@@ -110,7 +110,7 @@ export default {
       delete priorSettings[this.themeToEdit];
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
       this.resetUnsavedColors();
-      this.$toasted.show(this.$t('theme-maker.reset-toast', { theme: this.themeToEdit }));
+      this.$toast(this.$t('theme-maker.reset-toast', { theme: this.themeToEdit }));
     },
     /* Generates CSS for the currently applied variables, and copys to users clipboard */
     exportToClipboard() {
@@ -120,7 +120,7 @@ export default {
         clipboardText += (`--${customVar}: ${this.customColors[customVar]};\n`);
       });
       navigator.clipboard.writeText(clipboardText);
-      this.$toasted.show(this.$t('theme-maker.copied-toast', { theme: themeName }));
+      this.$toast(this.$t('theme-maker.copied-toast', { theme: themeName }));
     },
     /* Returns a JSON object, with the variable name as key, and color as value */
     makeInitialData(variableArray) {

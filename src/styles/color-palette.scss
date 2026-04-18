@@ -6,6 +6,8 @@
   --background: #0b1021; // Page background
   --background-darker: #05070e; // Used for navigation bar, footer and fills
 
+  --primary-transparent-60: color-mix(in srgb, var(--primary), transparent 60%);
+
   /* Action Colors */
   --info: #04e4f4;
   --success: #20e253;
@@ -37,7 +39,7 @@
   * all variables are optional, since they inherit initial values from above*
   * Using specific variables makes overriding for custom themes really easy */
   --heading-text-color: var(--primary);
-  // Nav-bar links 
+  // Nav-bar links
   --nav-link-text-color: var(--primary);
   --nav-link-background-color: #607d8b33;
   --nav-link-text-color-hover: var(--primary);

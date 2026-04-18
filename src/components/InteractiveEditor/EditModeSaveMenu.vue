@@ -162,7 +162,7 @@ export default {
       return { content };
     },
     showToast(message, success) {
-      this.$toasted.show(message, { className: `toast-${success ? 'success' : 'error'}` });
+      this.$toast[success ? 'success' : 'error'](message);
     },
     saveLocally() {
       const msg = this.$t('interactive-editor.menu.save-locally-warning');
