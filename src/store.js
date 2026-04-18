@@ -47,6 +47,40 @@ const emptyConfig = {
   sections: [],
 };
 
+/* Merge any local overrides (written by "Save Locally") into a config object.
+ * On sub-pages only `sections` + `pageInfo` are per-page; the rest are root-scoped. */
+function applyLocalOverrides(config, subConfigId) {
+  const suffix = subConfigId ? `-${subConfigId}` : '';
+  const read = (key) => {
+    const raw = localStorage[`${key}${suffix}`];
+    if (!raw) return undefined;
+    try { return JSON.parse(raw); } catch (e) {
+      ErrorHandler(`Malformed local config for '${key}${suffix}'`, e);
+      return undefined;
+    }
+  };
+  let overridden = false;
+  const localSections = read(localStorageKeys.CONF_SECTIONS);
+  const localPageInfo = read(localStorageKeys.PAGE_INFO);
+  if (Array.isArray(localSections) && localSections.length) {
+    config.sections = localSections; overridden = true;
+  }
+  if (localPageInfo && typeof localPageInfo === 'object') {
+    config.pageInfo = localPageInfo; overridden = true;
+  }
+  if (!subConfigId) {
+    const localAppConfig = read(localStorageKeys.APP_CONFIG);
+    const localPages = read(localStorageKeys.CONF_PAGES);
+    if (localAppConfig && typeof localAppConfig === 'object') {
+      config.appConfig = localAppConfig; overridden = true;
+    }
+    if (Array.isArray(localPages)) {
+      config.pages = localPages; overridden = true;
+    }
+  }
+  return overridden;
+}
+
 const store = createStore({
   state: {
     config: {}, // The current config being used, and rendered to the UI
@@ -392,74 +426,49 @@ const store = createStore({
      */
     async [INITIALIZE_CONFIG]({ commit, state }, subConfigId) {
       const rootConfig = state.rootConfig || await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
+      // Apply root-level local overrides to a clone so state.rootConfig stays as the raw YAML
+      const root = { ...rootConfig };
+      const rootUsingLocal = applyLocalOverrides(root);
 
-      commit(SET_IS_USING_LOCAL_CONFIG, false);
-      if (!subConfigId) { // Use root config as config
-        commit(SET_CONFIG, rootConfig);
+      if (!subConfigId) { // Root page: commit the overridden root config directly
+        commit(SET_CONFIG, root);
         commit(SET_CURRENT_CONFIG_INFO, {});
+        commit(SET_IS_USING_LOCAL_CONFIG, rootUsingLocal);
+        return root;
+      }
 
-        let localSections = [];
-        const localSectionsRaw = localStorage[localStorageKeys.CONF_SECTIONS];
-        if (localSectionsRaw) {
-          try {
-            const json = JSON.parse(localSectionsRaw);
-            if (json.length >= 1) localSections = json;
-          } catch (e) {
-            commit(CRITICAL_ERROR_MSG, 'Malformed section data in local storage');
-          }
-        }
-        if (localSections.length > 0) {
-          rootConfig.sections = localSections;
-          commit(SET_IS_USING_LOCAL_CONFIG, true);
-        }
-        return rootConfig;
-      } else {
-        // Find and format path to fetch sub-config from
-        const subConfigPath = formatConfigPath(rootConfig?.pages?.find(
-          (page) => makePageName(page.name) === subConfigId,
-        )?.path);
-
-        if (!subConfigPath) {
-          commit(CRITICAL_ERROR_MSG, `Unable to find config for '${subConfigId}'`);
-          return { ...emptyConfig };
-        }
+      const subConfigPath = formatConfigPath(root?.pages?.find(
+        (page) => makePageName(page.name) === subConfigId,
+      )?.path);
+      if (!subConfigPath) {
+        commit(CRITICAL_ERROR_MSG, `Unable to find config for '${subConfigId}'`);
+        return { ...emptyConfig };
+      }
+      try {
+        const response = await request.get(subConfigPath, makeBasicAuthHeaders());
+        let configContent;
         try {
-          const response = await request.get(subConfigPath, makeBasicAuthHeaders());
-          let configContent;
-          try {
-            configContent = yaml.load(response.data) || {};
-          } catch (parseError) {
-            commit(CRITICAL_ERROR_MSG, `Failed to parse sub-config YAML: ${parseError.message}`);
-            return { ...emptyConfig };
-          }
-          // Certain values must be inherited from root config
-          const theme = configContent?.appConfig?.theme || rootConfig.appConfig?.theme || 'default';
-          configContent.appConfig = rootConfig.appConfig;
-          configContent.pages = rootConfig.pages;
-          configContent.appConfig.theme = theme;
-
-          // Load local sections if they exist
-          const localSectionsRaw = localStorage[`${localStorageKeys.CONF_SECTIONS}-${subConfigId}`];
-          if (localSectionsRaw) {
-            try {
-              const json = JSON.parse(localSectionsRaw);
-              if (json.length >= 1) {
-                configContent.sections = json;
-                commit(SET_IS_USING_LOCAL_CONFIG, true);
-              }
-            } catch (e) {
-              commit(CRITICAL_ERROR_MSG, 'Malformed section data in local storage for sub-config');
-            }
-          }
-          // Set the config
-          commit(SET_CONFIG, configContent);
-          commit(SET_CURRENT_CONFIG_INFO, { confPath: subConfigPath, confId: subConfigId });
-          return configContent;
-        } catch (err) {
-          commit(CRITICAL_ERROR_MSG, `Unable to load config from '${subConfigPath}'`);
-          ErrorHandler(`Sub-config load failed: ${subConfigPath}`, err);
+          configContent = yaml.load(response.data) || {};
+        } catch (parseError) {
+          commit(CRITICAL_ERROR_MSG, `Failed to parse sub-config YAML: ${parseError.message}`);
           return { ...emptyConfig };
         }
+        // Inherit shared fields from the (already overridden) root config
+        const theme = configContent?.appConfig?.theme || root.appConfig?.theme || 'default';
+        configContent.appConfig = root.appConfig;
+        configContent.pages = root.pages;
+        configContent.appConfig.theme = theme;
+        // Then apply sub-page local overrides
+        const subUsingLocal = applyLocalOverrides(configContent, subConfigId);
+
+        commit(SET_CONFIG, configContent);
+        commit(SET_CURRENT_CONFIG_INFO, { confPath: subConfigPath, confId: subConfigId });
+        commit(SET_IS_USING_LOCAL_CONFIG, subUsingLocal);
+        return configContent;
+      } catch (err) {
+        commit(CRITICAL_ERROR_MSG, `Unable to load config from '${subConfigPath}'`);
+        ErrorHandler(`Sub-config load failed: ${subConfigPath}`, err);
+        return { ...emptyConfig };
       }
     },
   },

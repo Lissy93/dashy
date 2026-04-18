@@ -4,6 +4,7 @@ import request from '@/utils/request';
 
 import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
 import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
+import { makePageName } from '@/utils/ConfigHelpers';
 import StoreKeys from '@/utils/StoreMutations';
 
 export default {
@@ -98,12 +99,12 @@ export default {
       localStorage.removeItem(localStorageKeys.PAGE_INFO);
       localStorage.removeItem(localStorageKeys.APP_CONFIG);
       localStorage.removeItem(localStorageKeys.CONF_SECTIONS);
+      localStorage.removeItem(localStorageKeys.CONF_PAGES);
       // Then, if we've got any sub-pages, delete those too
       (this.$store.getters.pages || []).forEach((page) => {
-        const localStorageKeySections = `${localStorageKeys.CONF_SECTIONS}-${page.id}`;
-        const localStorageKeyPageInfo = `${localStorageKeys.PAGE_INFO}-${page.id}`;
-        localStorage.removeItem(localStorageKeySections);
-        localStorage.removeItem(localStorageKeyPageInfo);
+        const pageId = makePageName(page.name);
+        localStorage.removeItem(`${localStorageKeys.CONF_SECTIONS}-${pageId}`);
+        localStorage.removeItem(`${localStorageKeys.PAGE_INFO}-${pageId}`);
       });
     },
   },
