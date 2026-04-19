@@ -53,14 +53,19 @@ export default {
 
 .page-titles {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
+  min-width: 0;
+  overflow: hidden;
   text-decoration: none;
   position: relative;
+  .text { min-width: 0; }
   h1 {
     color: var(--heading-text-color);
-    font-size: 2.5rem;
+    font-size: clamp(1.4rem, 0.5rem + 3vw, 2.5rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin: 0;
   }
   span.subtitle {

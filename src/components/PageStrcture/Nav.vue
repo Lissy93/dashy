@@ -9,12 +9,14 @@
         <template v-for="(link, index) in allLinks" :key="index">
           <router-link v-if="!isUrl(link.path)"
             :to="link.path"
+            :title="link.title"
             class="nav-item"
           >{{link.title}}
           </router-link>
           <a v-else
             :href="link.path"
             :target="determineTarget(link)"
+            :title="link.title"
             class="nav-item"
             rel="noopener noreferrer"
           >{{link.title}}
@@ -83,14 +85,24 @@ export default {
 @import '@/styles/media-queries.scss';
 
 .nav-outer {
+  min-width: 0;
   nav {
     display: flex;
     align-items: center;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    @extend .scroll-bar;
     .nav-item {
       display: inline-block;
       padding: 0.75rem 0.5rem;
       margin: 0.5rem;
       min-width: 5rem;
+      max-width: 12rem;
+      flex: 0 0 auto;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       text-align: center;
       outline: none;
       border: none;
@@ -112,7 +124,7 @@ export default {
   @extend .svg-button;
   @include phone {
     width: 100%;
-    nav { flex-wrap: wrap; }
+    nav { flex-wrap: wrap; overflow-x: visible; }
   }
   .burger {
     display: none;
