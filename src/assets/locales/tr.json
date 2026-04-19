@@ -253,12 +253,6 @@
       "remove-section": "Kaldır"
     }
   },
-  "footer": {
-    "dev-by": "Geliştiren",
-    "licensed-under": "Lisans türü",
-    "get-the": "Edinin",
-    "source-code": "Kaynak Kodu"
-  },
   "interactive-editor": {
     "menu": {
       "start-editing-tooltip": "Etkileşimli Düzenleyiciye girin",

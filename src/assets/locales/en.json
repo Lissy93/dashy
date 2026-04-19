@@ -50,7 +50,7 @@
     "error-log": "Error Log",
     "no-errors": "No recent errors detected",
     "help-support": "Help & Support",
-    "help-support-description" : "For getting support with running or configuring Dashy, see the",
+    "help-support-description": "For getting support with running or configuring Dashy, see the",
     "help-support-discussions": "Discussions",
     "support-dashy": "Supporting Dashy",
     "support-dashy-description": "For ways that you can get involved, check out the",
@@ -73,7 +73,7 @@
     "licence-third-party": "For licenses for third-party modules, please see",
     "licence-third-party-link": "Legal",
     "list-contributors": "For the full list of contributors and thanks, see",
-    "list-contributors-link": "Credits", 
+    "list-contributors-link": "Credits",
     "version": "Version"
   },
   "config": {
@@ -253,12 +253,6 @@
       "remove-section": "Remove",
       "section-options": "Section Options"
     }
-  },
-  "footer": {
-    "dev-by": "Developed by",
-    "licensed-under": "Licensed under",
-    "get-the": "Get the",
-    "source-code": "Source Code"
   },
   "interactive-editor": {
     "menu": {

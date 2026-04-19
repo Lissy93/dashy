@@ -251,12 +251,6 @@
       "remove-section": "削除"
     }
   },
-  "footer": {
-    "dev-by": "Developed by",
-    "licensed-under": "Licensed under",
-    "get-the": "Get the",
-    "source-code": "Source Code"
-  },
   "interactive-editor": {
     "menu": {
       "start-editing-tooltip": "インタラクティブに編集",

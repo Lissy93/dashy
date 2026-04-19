@@ -251,12 +251,6 @@
       "remove-section": "删除"
     }
   },
-  "footer": {
-    "dev-by": "开发者：",
-    "licensed-under": "许可证授权：",
-    "get-the": "获取",
-    "source-code": "源代码"
-  },
   "interactive-editor": {
     "menu": {
       "start-editing-tooltip": "进入交互编辑器",

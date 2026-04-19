@@ -49,7 +49,7 @@
     "error-log": "Журнал Ошибок",
     "no-errors": "Ошибок не зафиксировано",
     "help-support": "Помощь и Поддержка",
-    "help-support-description" : "Для получения поддержки в запуске и настройке Dashy, обратитесь за помощью на",
+    "help-support-description": "Для получения поддержки в запуске и настройке Dashy, обратитесь за помощью на",
     "help-support-discussions": "страницу Discussions",
     "support-dashy": "Поддержать Dashy",
     "support-dashy-description": "Если вы хотите поддержать проект, пожалуйста посетите страницу",
@@ -72,7 +72,7 @@
     "licence-third-party": "Лицензии на модули сторонних производителей см.",
     "licence-third-party-link": "Legal",
     "list-contributors": "Чтобы посмотреть полный список авторов и благодарностей, см.",
-    "list-contributors-link": "Credits", 
+    "list-contributors-link": "Credits",
     "version": "Версия"
   },
   "config": {
@@ -250,12 +250,6 @@
       "move-section": "Переместить в",
       "remove-section": "Удалить"
     }
-  },
-  "footer": {
-    "dev-by": "Разработано ",
-    "licensed-under": "Лицензировано под",
-    "get-the": "Получите",
-    "source-code": "Исходный код"
   },
   "interactive-editor": {
     "menu": {

@@ -49,7 +49,7 @@
     "error-log": "Journal des erreurs",
     "no-errors": "Aucune erreur récente détectée",
     "help-support": "Aide & Support",
-    "help-support-description" : "Pour obtenir de l'aide pour faire tourner ou configurer Dashy, voir les",
+    "help-support-description": "Pour obtenir de l'aide pour faire tourner ou configurer Dashy, voir les",
     "help-support-discussions": "discussions",
     "support-dashy": "Soutenir Dashy",
     "support-dashy-description": "Pour savoir comment vous pouvez vous impliquer, consultez la page",
@@ -72,7 +72,7 @@
     "licence-third-party": "Pour les licences des modules tiers, veuillez consulter",
     "licence-third-party-link": "le document juridique",
     "list-contributors": "Pour la liste complète des contributeurs et les remerciements, voir",
-    "list-contributors-link": "les crédits", 
+    "list-contributors-link": "les crédits",
     "version": "Version"
   },
   "config": {
@@ -250,12 +250,6 @@
       "move-section": "Déplacer vers",
       "remove-section": "Supprimer"
     }
-  },
-  "footer": {
-    "dev-by": "Développé par",
-    "licensed-under": "Sous licence",
-    "get-the": "Obtenir le",
-    "source-code": "code source"
   },
   "interactive-editor": {
     "menu": {

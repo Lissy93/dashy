@@ -251,12 +251,6 @@
       "remove-section": "Entfernen"
     }
   },
-  "footer": {
-    "dev-by": "Entwickelt von",
-    "licensed-under": "Lizensiert unter",
-    "get-the": "Hole dir den",
-    "source-code": "Quellcode"
-  },
   "interactive-editor": {
     "menu": {
       "start-editing-tooltip": "Interaktiven Editor starten",

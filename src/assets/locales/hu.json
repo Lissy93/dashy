@@ -49,7 +49,7 @@
     "error-log": "Hibanapló",
     "no-errors": "Nem található friss hiba",
     "help-support": "Súgó és támogatás",
-    "help-support-description" : "Ha segítségre van szükséged a Dashy futtatásához vagy beállításához, nézd meg a",
+    "help-support-description": "Ha segítségre van szükséged a Dashy futtatásához vagy beállításához, nézd meg a",
     "help-support-discussions": "fórumot",
     "support-dashy": "Dashy támogatása",
     "support-dashy-description": "Ha szeretnél részt venni a projektben, nézd meg a",
@@ -72,7 +72,7 @@
     "licence-third-party": "A harmadik féltől származó modulok licenceiért látogasd meg a",
     "licence-third-party-link": "jogi oldalunkat",
     "list-contributors": "A teljes közreműködői lista és köszönetnyilvánítás itt található:",
-    "list-contributors-link": "Készítők", 
+    "list-contributors-link": "Készítők",
     "version": "Verzió"
   },
   "config": {
@@ -250,12 +250,6 @@
       "move-section": "Áthelyezés ide",
       "remove-section": "Eltávolítás"
     }
-  },
-  "footer": {
-    "dev-by": "Fejlesztette",
-    "licensed-under": "Licenc típusa:",
-    "get-the": "Nézd meg a",
-    "source-code": "forráskódot"
   },
   "interactive-editor": {
     "menu": {

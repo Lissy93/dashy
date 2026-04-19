@@ -49,7 +49,7 @@
     "error-log": "Jurnal Erori",
     "no-errors": "Nicio eroare recentă detectată",
     "help-support": "Ajutor & Suport",
-    "help-support-description" : "Pentru suport în utilizarea sau configurarea Dashy, consultați",
+    "help-support-description": "Pentru suport în utilizarea sau configurarea Dashy, consultați",
     "help-support-discussions": "Discuțiile",
     "support-dashy": "Suport pentru Dashy",
     "support-dashy-description": "Pentru moduri în care poți contribui, verificați",
@@ -66,14 +66,14 @@
     "privacy-and-security-advice": "Pentru sfaturi în securizarea tabloului tău de bord, poți consulta",
     "privacy-and-security-advice-link": "Documentele de Management",
     "privacy-and-security-security-issue": "Dacă ați descoperit o potențială problemă de securitate, raportați-o urmând",
-  "privacy-and-security-security-policy": "Politica de Securitate",
-  "license": "Licență",
-  "license-under": "Licențiat sub",
-  "licence-third-party": "Pentru licențele modulelor terțe părți, vă rugăm să consultați",
-  "licence-third-party-link": "Legal",
-  "list-contributors": "Pentru lista completă a contribuitorilor și mulțumiri, vedeți",
-  "list-contributors-link": "Credite",
-  "version": "Versiune"
+    "privacy-and-security-security-policy": "Politica de Securitate",
+    "license": "Licență",
+    "license-under": "Licențiat sub",
+    "licence-third-party": "Pentru licențele modulelor terțe părți, vă rugăm să consultați",
+    "licence-third-party-link": "Legal",
+    "list-contributors": "Pentru lista completă a contribuitorilor și mulțumiri, vedeți",
+    "list-contributors-link": "Credite",
+    "version": "Versiune"
   },
   "config": {
     "main-tab": "Meniu Principal",
@@ -237,7 +237,7 @@
       "modal": "Modal Pop-Up",
       "workspace": "Vizualizare Spațiu de Lucru",
       "clipboard": "Copiază în Clipboard",
-      "options-section-title": "Opțiuni",      
+      "options-section-title": "Opțiuni",
       "edit-item": "Editare",
       "move-item": "Copiază sau Mută",
       "remove-item": "Șterge",
@@ -250,12 +250,6 @@
       "move-section": "Mută La",
       "remove-section": "Șterge"
     }
-  },
-  "footer": {
-    "dev-by": "Dezvoltat de",
-    "licensed-under": "Licențiat sub",
-    "get-the": "Obțineți",
-    "source-code": "Codul Sursă"
   },
   "interactive-editor": {
     "menu": {
