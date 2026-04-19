@@ -104,6 +104,7 @@ export default {
     checkboxState(newState) {
       this.isExpanded = newState;
       this.updateLocalStorage(); // Save every change immediately
+      this.$emit('collapse-change', this.checkboxState);
     },
     uniqueKey(newVal, oldVal) {
       if (newVal !== oldVal) {

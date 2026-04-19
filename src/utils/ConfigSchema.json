@@ -951,6 +951,12 @@
                 "type": "boolean",
                 "default": false,
                 "description": "If set to true, section will be visible in the default view but not in the Workspace view sidebar"
+              },
+              "hiddenOnPurpose": {
+                "title": "Hidden On Purpose",
+                "type": "boolean",
+                "default": false,
+                "description": "If true, this section is intentionally hidden"
               }
             }
           },

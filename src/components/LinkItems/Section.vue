@@ -1,5 +1,6 @@
 <template>
   <Collapsable
+    v-if="shouldRenderSection"
     :title="title"
     :icon="icon"
     :uniqueKey="groupId"
@@ -11,6 +12,7 @@
     :cutToHeight="displayData.cutToHeight"
     @openEditSection="openEditSection"
     @openContextMenu="openContextMenu"
+    @collapse-change="onCollapseChange"
     :id="sectionRef"
     :ref="sectionRef"
   >
@@ -130,6 +132,7 @@ export default {
     index: Number,
     isWide: Boolean,
     activeColCount: Number,
+    searchTerm: String,
   },
   components: {
     Collapsable,
@@ -150,6 +153,9 @@ export default {
       },
       sectionWidth: 0,
       resizeObserver: null,
+      isCollapsed: false,
+      autoOpenedBySearch: false,
+      showHiddenMode: false,
     };
   },
   computed: {
@@ -216,6 +222,51 @@ export default {
       if (!cols) return cols;
       return Math.min(this.activeColCount, cols);
     },
+    shouldRenderSection() {
+      const hidden = this.displayData?.hiddenOnPurpose === true;
+
+      // Always show in Edit Mode so the user can unhide it
+      if (this.isEditMode) return true;
+
+      // If not hidden, render as usual
+      if (!hidden || this.showHiddenMode) return true;
+
+      // If hidden, only show when search is active AND this section has hits
+      const searchActive = (this.searchTerm || '').trim().length > 0;
+      const hasHits = Array.isArray(this.items) && this.items.length > 0;
+      return searchActive && hasHits;
+    },
+  },
+  watch: {
+    searchTerm: {
+      handler(newSeachTerm) {
+        // find if special code search is used
+        const showHidden = newSeachTerm.trim().toLowerCase() === '<hidden>';
+        this.showHiddenMode = showHidden;
+
+        // check if search is active
+        let searchIsActive = false;
+        if (newSeachTerm && newSeachTerm.trim().length > 0) {
+          searchIsActive = true;
+        }
+
+        // check if search is hit
+        const hasHits = this.items.length > 0;
+
+        // action if search is active and search hits and it was collapsed
+        if (searchIsActive && hasHits && this.isCollapsed) {
+          this.expandCollapseSection();
+          this.autoOpenedBySearch = true;
+        }
+
+        // action if that search is not a hit anymore
+        if (this.autoOpenedBySearch && (!searchIsActive || !hasHits)) {
+          this.expandCollapseSection();
+          this.autoOpenedBySearch = false;
+        }
+      },
+      immediate: true,
+    },
   },
   methods: {
     /* Opens the iframe modal */
@@ -261,6 +312,10 @@ export default {
       const secElem = this.$refs[this.sectionRef];
       if (secElem) secElem.toggle();
       this.closeContextMenu();
+    },
+    /* Toggle sections collapse state tracking */
+    onCollapseChange(childExpanded) {
+      this.isCollapsed = !childExpanded;
     },
     /* Open the Section Edit Menu */
     openEditSection() {
@@ -311,6 +366,9 @@ export default {
     if (this.$refs[this.sectionRef]) {
       this.resizeObserver = new ResizeObserver(this.calculateSectionWidth)
         .observe(this.$refs[this.sectionRef].$el);
+    }
+    if (this.displayData.collapsed) {
+      this.isCollapsed = this.displayData.collapsed;
     }
   },
   beforeDestroy() {

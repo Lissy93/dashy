@@ -44,3 +44,14 @@ sections:
     description: Get help with Dashy, raise a bug, or get in contact
     url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
     icon: far fa-hands-helping
+- name: Stuff
+  icon: fas fa-rocket
+  displayData:
+    hiddenOnPurpose: true 
+  items:
+  - title: hiddentile
+    description: This is a hidden tile
+    icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
+    url: https://live.dashy.to/
+    target: newtab
+
