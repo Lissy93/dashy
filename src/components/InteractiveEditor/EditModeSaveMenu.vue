@@ -97,7 +97,7 @@ import StoreKeys from '@/utils/StoreMutations';
 import EditPageInfo from '@/components/InteractiveEditor/EditPageInfo';
 import EditAppConfig from '@/components/InteractiveEditor/EditAppConfig';
 import EditMultiPages from '@/components/InteractiveEditor/EditMultiPages';
-import { modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/config/defaults';
 import AccessError from '@/components/Configuration/AccessError';
 
 import SaveLocallyIcon from '@/assets/interface-icons/interactive-editor-save-locally.svg';
@@ -246,12 +246,19 @@ div.edit-mode-bottom-banner {
   @include tablet-down {
     display: flex;
     flex-direction: column;
-    .edit-banner-section,
-    .edit-banner-section.intro-container {
+    .edit-banner-section {
       max-width: 90%;
       width: 100%;
       margin: 0.2rem auto;
-      flex-direction: column;
+
+      &.empty-space { display: none; }
+
+      &.save-buttons-container,
+      &.edit-config-buttons-container {
+        grid-template-columns: repeat(2, 1fr);
+        p.section-sub-title { grid-column: 1 / -1; }
+        @include very-tiny-phone { grid-template-columns: 1fr; }
+      }
     }
   }
   /* Set colors for buttons */

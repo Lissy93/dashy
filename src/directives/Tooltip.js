@@ -276,6 +276,7 @@ function ensureGlobalClick() {
       // Find the owner element via the tooltip id
       const owner = document.querySelector(`[aria-describedby="${tip.id}"]`);
       if (owner) hide(owner);
+      else tip.remove(); // Orphan — owner no longer in DOM
     });
   }, { capture: true });
 }
@@ -358,7 +359,16 @@ export default {
 
   unmounted(el) {
     unbind(el);
-    hide(el);
+    const state = el._tooltip;
+    if (state) {
+      clearTimeout(state.showTimer);
+      clearTimeout(state.hideTimer);
+      if (state.tooltipEl) state.tooltipEl.remove();
+      if (state.reposition) {
+        window.removeEventListener('scroll', state.reposition, { capture: true });
+        window.removeEventListener('resize', state.reposition);
+      }
+    }
     delete el._tooltip;
   },
 };
