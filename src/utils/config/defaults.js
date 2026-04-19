@@ -4,7 +4,7 @@ const defaults = {
     title: 'Dashy',
     description: '',
     navLinks: [],
-    footerText: '',
+    footer: '',
   },
   /* Default appConfig to be used, if user does not specify their own */
   appConfig: {},
@@ -111,7 +111,6 @@ const defaults = {
     pageTitle: true,
     searchBar: true,
     settings: true,
-    footer: true,
   },
   /* A list of route names that page furniture (header, footer, etc) should be hidden on */
   hideFurnitureOn: ['minimal', 'login', 'download'],

@@ -11,8 +11,8 @@
         <input v-model="formElements.description" />
       </div>
       <div class="row">
-        <span>Footer Text</span>
-        <input v-model="formElements.footerText" />
+        <span>Footer</span>
+        <input v-model="formElements.footer" />
       </div>
     </div>
     <div class="form">
@@ -59,7 +59,7 @@ export default {
       const pageInfo = { ...this.config.pageInfo };
       pageInfo.title = this.formElements.title;
       pageInfo.description = this.formElements.description;
-      pageInfo.footerText = this.formElements.footerText;
+      pageInfo.footer = this.formElements.footer;
       if (this.formElements.navLinks) {
         pageInfo.navLinks = this.formElements.navLinks.filter(link => (link.title !== ''));
       }
@@ -76,7 +76,7 @@ export default {
       formElements: {
         title: this.config.pageInfo.title,
         description: this.config.pageInfo.description,
-        footerText: this.config.pageInfo.footerText,
+        footer: this.config.pageInfo.footer,
         navLinks: this.config.pageInfo.navLinks || [],
       },
     };

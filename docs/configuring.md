@@ -73,7 +73,7 @@ The following file provides a reference of all supported configuration options.
 **`title`** | `string` |  Required | Your dashboard title, displayed in the header and browser tab
 **`description`** | `string` | _Optional_ | Description of your dashboard, also displayed as a subtitle
 **`navLinks`** | `array` | _Optional_ | Optional list of a maximum of 6 links, which will be displayed in the navigation bar. See [`navLinks`](#pageinfonavlinks-optional)
-**`footerText`** | `string` | _Optional_ | Text to display in the footer (note that this will override the default footer content). This can also include HTML and inline CSS
+**`footer`** | `string` | _Optional_ | Text to display in the footer. When omitted, no footer is rendered. Supports inline HTML (sanitized before render)
 **`logo`** | `string` | _Optional_ | The path to an image to display in the header (to the right of the title). This can be either local, where `/` is the root of `./public`, or any remote image, such as `https://i.ibb.co/yhbt6CY/dashy.png`. It's recommended to scale your image down, so that it doesn't impact load times
 
 **[⬆️ Back to Top](#configuring)**
@@ -128,7 +128,7 @@ For more info, see the[Multi-Page docs](/docs/pages-and-sections.md#multi-page-s
 **`customColors`** | `object`| _Optional_ | Enables you to apply a custom color palette to any given theme. Use the theme name (lowercase) as the key, for an object including key-value-pairs, with the color variable name as keys, and 6-digit hex code as value. See [Theming](/docs/theming.md#modifying-theme-colors) for more info
 **`externalStyleSheet`** | `string`  or `string[]` | _Optional_ | Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
 **`customCss`** | `string` | _Optional_ | Raw CSS that will be applied to the page. This can also be set from the UI. Please minify it first.
-**`hideComponents`** | `object` | _Optional_ | A list of key page components (header, footer, search, settings, etc) that are present by default, but can be removed using this option. See [`appConfig.hideComponents`](#appconfighideComponents-optional)
+**`hideComponents`** | `object` | _Optional_ | A list of key page components (header, nav, search, settings) that are present by default, but can be removed using this option. See [`appConfig.hideComponents`](#appconfighideComponents-optional)
 **`enableMultiTasking`** | `boolean` | _Optional_ | If set to true, will keep apps open in the background when in the workspace view. Useful for quickly switching between multiple sites, and preserving their state, but comes at the cost of performance.
 **`workspaceLandingUrl`** | `string` | _Optional_ | The URL or an app, service or website to launch when the workspace view is opened, before another service has been launched
 **`preventWriteToDisk`** | `boolean` | _Optional_ | If set to `true`, users will be prevented from saving config changes to disk through the UI
@@ -235,7 +235,6 @@ For more info, see the **[Authentication Docs](/docs/authentication.md)**
 **`hideNav`** | `boolean` | _Optional_ | If set to `true`, the navigation menu will not be visible. Defaults to `false`
 **`hideSearch`** | `boolean` | _Optional_ | If set to `true`, the search bar will not be visible. Defaults to `false`
 **`hideSettings`** | `boolean` | _Optional_ | If set to `true`, the settings menu will be initially collapsed. Defaults to `false`
-**`hideFooter`** | `boolean` | _Optional_ | If set to `true`, the footer will not be visible. Defaults to `false`
 
 **[⬆️ Back to Top](#configuring)**
 

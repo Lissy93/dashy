@@ -68,8 +68,6 @@ export const componentVisibility = (appConfig) => {
       ? !usersChoice.hideSearch : visibleComponents.searchBar,
     settings: isThere(usersChoice.hideSettings)
       ? !usersChoice.hideSettings : visibleComponents.settings,
-    footer: isThere(usersChoice.hideFooter)
-      ? !usersChoice.hideFooter : visibleComponents.footer,
   };
 };
 

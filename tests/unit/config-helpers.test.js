@@ -69,7 +69,6 @@ describe('ConfigHelpers - componentVisibility', () => {
     expect(result.navigation).toBe(true);
     expect(result.searchBar).toBe(true);
     expect(result.settings).toBe(true);
-    expect(result.footer).toBe(true);
   });
 
   it('hides components based on config', () => {
@@ -88,11 +87,11 @@ describe('ConfigHelpers - componentVisibility', () => {
   it('handles partial config correctly', () => {
     const appConfig = {
       hideComponents: {
-        hideFooter: true,
+        hideSettings: true,
       },
     };
     const result = componentVisibility(appConfig);
-    expect(result.footer).toBe(false);
+    expect(result.settings).toBe(false);
     expect(result.pageTitle).toBe(true);
   });
 });

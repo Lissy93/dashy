@@ -160,9 +160,9 @@
             }
           }
         },
-        "footerText": {
-          "title": "Footer Text",
-          "description": "Content to display within the global page footer",
+        "footer": {
+          "title": "Footer",
+          "description": "Content to display within the global page footer. Supports inline HTML (sanitized before render).",
           "type": "string"
         },
         "logo": {
@@ -499,12 +499,6 @@
               "type": "boolean",
               "default": false,
               "description": "If set to true, the settings buttons will be hidden"
-            },
-            "hideFooter": {
-              "title": "Hide Footer?",
-              "type": "boolean",
-              "default": false,
-              "description": "If set to true, the page footer will be hidden"
             }
           }
         },

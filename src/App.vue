@@ -5,7 +5,7 @@
     <Header :pageInfo="pageInfo" />
     <router-view v-if="!isFetching" />
     <CriticalError v-if="hasCriticalError" />
-    <Footer :text="footerText" v-if="visibleComponents.footer && !isFetching" />
+    <Footer :text="footerText" v-if="footerVisible && !isFetching" />
   </div>
 </template>
 <script>
@@ -51,7 +51,11 @@ export default {
   computed: {
     /* If the user has specified custom text for footer - get it */
     footerText() {
-      return this.pageInfo && this.pageInfo.footerText ? this.pageInfo.footerText : '';
+      return this.pageInfo && this.pageInfo.footer ? this.pageInfo.footer : '';
+    },
+    /* Footer renders only when the user has set text/html */
+    footerVisible() {
+      return !!this.footerText;
     },
     /* Determine if splash screen should be shown */
     shouldShowSplash() {
@@ -85,8 +89,8 @@ export default {
     topLevelStyleModifications() {
       const vc = this.visibleComponents;
       let styles = '';
-      if (!vc.footer && !vc.pageTitle) styles += '--footer-height: 1rem;';
-      else if (!vc.footer) styles += '--footer-height: 5rem;';
+      if (!this.footerVisible && !vc.pageTitle) styles += '--footer-height: 1rem;';
+      else if (!this.footerVisible) styles += '--footer-height: 5rem;';
       else if (!vc.pageTitle) styles += '--footer-height: 4rem;';
       const maxWidth = this.parseContentMaxWidth(this.appConfig.contentMaxWidth);
       if (maxWidth) {

@@ -253,6 +253,7 @@ export default {
 
 /* Icon wraper */
 .item-icon {
+  border-radius: var(--curve-factor);
   &.wrapper-medium {
     min-height: 2.5rem;
   }
@@ -319,7 +320,7 @@ export default {
   i.emoji-icon {
     font-style: normal;
     font-size: 2rem;
-    margin: 0.2rem;
+    margin: 0;
     &.small {
       font-size: 1.5rem;
     }
