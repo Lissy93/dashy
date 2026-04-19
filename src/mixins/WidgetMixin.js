@@ -4,8 +4,8 @@
  */
 import { Progress } from 'rsup-progress';
 import request from '@/utils/request';
-import ErrorHandler from '@/utils/ErrorHandler';
-import { serviceEndpoints } from '@/utils/defaults';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
+import { serviceEndpoints } from '@/utils/config/defaults';
 
 const WidgetMixin = {
   props: {

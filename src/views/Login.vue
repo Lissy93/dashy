@@ -75,15 +75,15 @@
 import router from '@/router';
 import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
-import Defaults, { localStorageKeys } from '@/utils/defaults';
-import { InfoHandler, WarningInfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import Defaults, { localStorageKeys } from '@/utils/config/defaults';
+import { InfoHandler, WarningInfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import {
   checkCredentials,
   login,
   isLoggedIn,
   logout,
   isGuestAccessEnabled,
-} from '@/utils/Auth';
+} from '@/utils/auth/Auth';
 
 export default {
   name: 'login',

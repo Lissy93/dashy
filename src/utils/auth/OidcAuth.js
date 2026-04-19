@@ -1,8 +1,8 @@
 import { UserManager, WebStorageStateStore } from 'oidc-client-ts';
-import ConfigAccumulator from '@/utils/ConfigAccumalator';
-import { localStorageKeys } from '@/utils/defaults';
-import ErrorHandler from '@/utils/ErrorHandler';
-import { statusMsg, statusErrorMsg } from '@/utils/CoolConsole';
+import ConfigAccumulator from '@/utils/config/ConfigAccumalator';
+import { localStorageKeys } from '@/utils/config/defaults';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
+import { statusMsg, statusErrorMsg } from '@/utils/logging/CoolConsole';
 
 const getAppConfig = () => {
   const Accumulator = new ConfigAccumulator();

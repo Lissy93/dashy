@@ -37,9 +37,9 @@ import IconClose from '@/assets/interface-icons/config-close.svg';
 import {
   localStorageKeys,
   visibleComponents as defaultVisibleComponents,
-} from '@/utils/defaults';
+} from '@/utils/config/defaults';
 
-import { getUserState } from '@/utils/Auth';
+import { getUserState } from '@/utils/auth/Auth';
 
 export default {
   name: 'SettingsContainer',

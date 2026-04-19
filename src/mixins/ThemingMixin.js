@@ -5,8 +5,8 @@
  * */
 
 import Keys from '@/utils/StoreMutations';
-import ErrorHandler from '@/utils/ErrorHandler';
-import { builtInThemes, localStorageKeys, mainCssVars } from '@/utils/defaults';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
+import { builtInThemes, localStorageKeys, mainCssVars } from '@/utils/config/defaults';
 
 const ThemingMixin = {
   data: () => ({

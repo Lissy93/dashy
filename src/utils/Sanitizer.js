@@ -4,7 +4,7 @@
  */
 
 import DOMPurify from 'dompurify';
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 // DOMPurify settings
 const HTML_SANITIZE_CONFIG = {

@@ -63,7 +63,7 @@ async function makeRequest(config) {
 
   // For local API requests, include basic auth headers when configured
   if (isLocalRequest(fullUrl) && !fetchOptions.headers.Authorization) {
-    const { makeBasicAuthHeaders } = await import('@/utils/Auth');
+    const { makeBasicAuthHeaders } = await import('@/utils/auth/Auth');
     const authConfig = makeBasicAuthHeaders();
     if (authConfig.headers) {
       Object.assign(fetchOptions.headers, authConfig.headers);

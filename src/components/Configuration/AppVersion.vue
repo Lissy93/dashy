@@ -32,7 +32,7 @@
 <script>
 import { Progress } from 'rsup-progress';
 import request from '@/utils/request';
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 export default {
   name: 'AppInfoModal',

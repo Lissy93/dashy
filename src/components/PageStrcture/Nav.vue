@@ -26,7 +26,7 @@
 
 <script>
 import IconBurger from '@/assets/interface-icons/burger-menu.svg';
-import { makePageSlug } from '@/utils/ConfigHelpers';
+import { makePageSlug } from '@/utils/config/ConfigHelpers';
 import { checkPageVisibility } from '@/utils/CheckPageVisibility';
 
 export default {

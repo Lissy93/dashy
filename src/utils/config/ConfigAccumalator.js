@@ -11,9 +11,9 @@ import {
   pageInfo as defaultPageInfo,
   iconSize as defaultIconSize,
   layout as defaultLayout,
-} from '@/utils/defaults';
-import ErrorHandler from '@/utils/ErrorHandler';
-import { applyItemId } from '@/utils/SectionHelpers';
+} from '@/utils/config/defaults';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
+import { applyItemId } from '@/utils/config/SectionHelpers';
 import $store from '@/store';
 
 export default class ConfigAccumulator {

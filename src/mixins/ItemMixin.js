@@ -2,13 +2,13 @@
 import request from '@/utils/request';
 import router from '@/router';
 import longPress from '@/directives/LongPress';
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 import {
   openingMethod as defaultOpeningMethod,
   serviceEndpoints,
   localStorageKeys,
   iconSize as defaultSize,
-} from '@/utils/defaults';
+} from '@/utils/config/defaults';
 
 export default {
   directives: {

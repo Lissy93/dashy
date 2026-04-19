@@ -24,7 +24,7 @@
 import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import ChartingMixin from '@/mixins/ChartingMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 import { putCommasInBigNum, showNumAsThousand } from '@/utils/MiscHelpers';
 
 export default {

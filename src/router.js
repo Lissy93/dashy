@@ -1,7 +1,7 @@
 /**
  * This is the router config, which defined the location for
  * each page within the app, and how they should be loaded
- * Note that the page paths are defined in @/utils/defaults.js
+ * Note that the page paths are defined in @/utils/config/defaults.js
  */
 
 // Import vue router
@@ -13,9 +13,9 @@ import { Progress } from 'rsup-progress';
 import Home from '@/views/Home.vue';
 
 // Import helper functions, config data and defaults
-import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/Auth';
-import { metaTagData, startingView as defaultStartingView, routePaths } from '@/utils/defaults';
-import ErrorHandler from '@/utils/ErrorHandler';
+import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/auth/Auth';
+import { metaTagData, startingView as defaultStartingView, routePaths } from '@/utils/config/defaults';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 const progress = new Progress({ color: 'var(--progress-bar)' });
 

@@ -40,8 +40,8 @@ import Radio from '@/components/FormElements/Radio';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 import AccessError from '@/components/Configuration/AccessError';
 import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/defaults';
-import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import { modalNames } from '@/utils/config/defaults';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 
 export default {
   name: 'MoveItemTo',

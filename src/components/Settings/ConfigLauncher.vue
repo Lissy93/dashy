@@ -34,7 +34,7 @@
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
 import LanguageSwitcher from '@/components/Settings/LanguageSwitcher';
 import Keys from '@/utils/StoreMutations';
-import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/defaults';
+import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/config/defaults';
 import ViewSwitcher from '@/components/Settings/ViewSwitcher';
 // Import icons for config launcher buttons
 import IconSpanner from '@/assets/interface-icons/config-editor.svg';

@@ -1,4 +1,4 @@
-import ConfigAccumulator from '@/utils/ConfigAccumalator';
+import ConfigAccumulator from '@/utils/config/ConfigAccumalator';
 // import $store from '@/store';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import { languages } from '@/utils/languages';
@@ -6,7 +6,7 @@ import {
   visibleComponents,
   localStorageKeys,
   language as defaultLanguage,
-} from '@/utils/defaults';
+} from '@/utils/config/defaults';
 
 /* Given a page name, converts to lowercase, removes special characters and extension */
 export const makePageName = (pageName) => {

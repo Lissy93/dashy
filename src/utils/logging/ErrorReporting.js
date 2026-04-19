@@ -8,7 +8,7 @@
  */
 
 import $store from '@/store';
-import { sentryDsn } from '@/utils/defaults';
+import { sentryDsn } from '@/utils/config/defaults';
 
 const ErrorReporting = async (app, router) => {
   // Fetch users config

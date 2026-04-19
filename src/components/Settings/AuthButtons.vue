@@ -37,10 +37,10 @@
 
 <script>
 import router from '@/router';
-import { logout as registerLogout } from '@/utils/Auth';
-import { getKeycloakAuth, isKeycloakEnabled } from '@/utils/KeycloakAuth';
-import { getOidcAuth, isOidcEnabled } from '@/utils/OidcAuth';
-import { localStorageKeys, userStateEnum } from '@/utils/defaults';
+import { logout as registerLogout } from '@/utils/auth/Auth';
+import { getKeycloakAuth, isKeycloakEnabled } from '@/utils/auth/KeycloakAuth';
+import { getOidcAuth, isOidcEnabled } from '@/utils/auth/OidcAuth';
+import { localStorageKeys, userStateEnum } from '@/utils/config/defaults';
 import IconLogout from '@/assets/interface-icons/user-logout.svg';
 
 export default {

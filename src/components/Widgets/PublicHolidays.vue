@@ -15,7 +15,7 @@
 <script>
 import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 import { timestampToDate, capitalize } from '@/utils/MiscHelpers';
 
 export default {

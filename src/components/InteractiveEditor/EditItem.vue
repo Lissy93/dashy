@@ -80,9 +80,9 @@ import Input from '@/components/FormElements/Input';
 import Radio from '@/components/FormElements/Radio';
 import Select from '@/components/FormElements/Select';
 import StoreKeys from '@/utils/StoreMutations';
-import DashySchema from '@/utils/ConfigSchema';
-import { modalNames } from '@/utils/defaults';
-import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import DashySchema from '@/utils/config/ConfigSchema.json';
+import { modalNames } from '@/utils/config/defaults';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 
 export default {
   name: 'EditItem',

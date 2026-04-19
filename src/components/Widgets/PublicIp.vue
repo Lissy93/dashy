@@ -15,7 +15,7 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints as urls } from '@/utils/defaults';
+import { widgetApiEndpoints as urls } from '@/utils/config/defaults';
 import { getCountryFlag, getMapUrl } from '@/utils/MiscHelpers';
 
 /* List of providers, with their API endpoint and response structure/parser */

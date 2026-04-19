@@ -82,9 +82,9 @@
 
 <script>
 
-import { localStorageKeys, modalNames } from '@/utils/defaults';
-import { getUsersLanguage } from '@/utils/ConfigHelpers';
-import ErrorHandler from '@/utils/ErrorHandler';
+import { localStorageKeys, modalNames } from '@/utils/config/defaults';
+import { getUsersLanguage } from '@/utils/config/ConfigHelpers';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
 import JsonEditor from '@/components/Configuration/JsonEditor';
 import CustomCssEditor from '@/components/Configuration/CustomCss';

@@ -1,8 +1,8 @@
 import yaml from 'js-yaml';
 import { register } from 'register-service-worker';
 import request from '@/utils/request';
-import { sessionStorageKeys } from '@/utils/defaults';
-import { statusMsg, statusErrorMsg } from '@/utils/CoolConsole';
+import { sessionStorageKeys } from '@/utils/config/defaults';
+import { statusMsg, statusErrorMsg } from '@/utils/logging/CoolConsole';
 
 /* Sets a local storage item with the state from the SW lifecycle */
 const setSwStatus = (swStateToSet) => {

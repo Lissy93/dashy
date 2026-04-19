@@ -1,9 +1,9 @@
 import sha256 from 'crypto-js/sha256';
 import request from '@/utils/request';
-import ConfigAccumulator from '@/utils/ConfigAccumalator';
-import { cookieKeys, localStorageKeys, serviceEndpoints } from '@/utils/defaults';
-import { InfoHandler, ErrorHandler, InfoKeys } from '@/utils/ErrorHandler';
-import { logout as authLogout } from '@/utils/Auth';
+import ConfigAccumulator from '@/utils/config/ConfigAccumalator';
+import { cookieKeys, localStorageKeys, serviceEndpoints } from '@/utils/config/defaults';
+import { InfoHandler, ErrorHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
+import { logout as authLogout } from '@/utils/auth/Auth';
 
 const getAppConfig = () => {
   const Accumulator = new ConfigAccumulator();

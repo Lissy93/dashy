@@ -15,14 +15,14 @@ import Footer from '@/components/PageStrcture/Footer.vue';
 import EditModeTopBanner from '@/components/InteractiveEditor/EditModeTopBanner.vue';
 import CriticalError from '@/components/PageStrcture/CriticalError.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
-import { welcomeMsg } from '@/utils/CoolConsole';
-import ErrorHandler from '@/utils/ErrorHandler';
+import { welcomeMsg } from '@/utils/logging/CoolConsole';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 import Keys from '@/utils/StoreMutations';
 import {
   localStorageKeys,
   splashScreenTime,
   language as defaultLanguage,
-} from '@/utils/defaults';
+} from '@/utils/config/defaults';
 
 export default {
   name: 'app',

@@ -58,9 +58,9 @@
 <script>
 
 import ConfigSavingMixin from '@/mixins/ConfigSaving';
-import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/config/defaults';
 import Button from '@/components/FormElements/Button';
 import Radio from '@/components/FormElements/Radio';
 import AccessError from '@/components/Configuration/AccessError';

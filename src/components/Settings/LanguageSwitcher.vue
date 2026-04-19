@@ -27,11 +27,11 @@
 <script>
 import Button from '@/components/FormElements/Button';
 import SaveConfigIcon from '@/assets/interface-icons/save-config.svg';
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 import Keys from '@/utils/StoreMutations';
 import { languages } from '@/utils/languages';
-import { getUsersLanguage } from '@/utils/ConfigHelpers';
-import { localStorageKeys, modalNames } from '@/utils/defaults';
+import { getUsersLanguage } from '@/utils/config/ConfigHelpers';
+import { localStorageKeys, modalNames } from '@/utils/config/defaults';
 
 export default {
   name: 'LanguageSwitcher',

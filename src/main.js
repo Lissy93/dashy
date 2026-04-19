@@ -14,15 +14,15 @@ import store from '@/store';            // Store, for local state management
 import router from '@/router';          // Router, for navigation
 import serviceWorker from '@/utils/InitServiceWorker'; // Service worker initialization
 import { messages } from '@/utils/languages';         // Language texts
-import ErrorReporting from '@/utils/ErrorReporting';  // Error reporting initializer (off)
+import ErrorReporting from '@/utils/logging/ErrorReporting';  // Error reporting initializer (off)
 import clickOutside from '@/directives/ClickOutside'; // Directive for closing popups, modals, etc
 import tooltip from '@/directives/Tooltip';           // Custom tooltip directive
-import { language as defaultLanguage } from '@/utils/defaults';
-import { initKeycloakAuth, isKeycloakEnabled } from '@/utils/KeycloakAuth';
-import { initHeaderAuth, isHeaderAuthEnabled } from '@/utils/HeaderAuth';
-import { initOidcAuth, isOidcEnabled } from '@/utils/OidcAuth';
+import { language as defaultLanguage } from '@/utils/config/defaults';
+import { initKeycloakAuth, isKeycloakEnabled } from '@/utils/auth/KeycloakAuth';
+import { initHeaderAuth, isHeaderAuthEnabled } from '@/utils/auth/HeaderAuth';
+import { initOidcAuth, isOidcEnabled } from '@/utils/auth/OidcAuth';
 import Keys from '@/utils/StoreMutations';
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 import Toast from '@/utils/Toast';
 import '@/utils/patchResizeObserver';
 

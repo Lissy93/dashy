@@ -64,9 +64,9 @@ import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vu
 import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.vue';
 import NotificationThing from '@/components/Settings/LocalConfigWarning.vue';
 import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/defaults';
-import { makePageName } from '@/utils/ConfigHelpers';
-import ErrorHandler from '@/utils/ErrorHandler';
+import { modalNames } from '@/utils/config/defaults';
+import { makePageName } from '@/utils/config/ConfigHelpers';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 import BackIcon from '@/assets/interface-icons/back-arrow.svg';
 
 export default {

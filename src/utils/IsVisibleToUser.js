@@ -5,8 +5,8 @@
  */
 
 // Import helper functions from auth, to get current user, and check if guest
-import { localStorageKeys } from '@/utils/defaults';
-import { isLoggedInAsGuest } from '@/utils/Auth';
+import { localStorageKeys } from '@/utils/config/defaults';
+import { isLoggedInAsGuest } from '@/utils/auth/Auth';
 
 /* Helper function, checks if a given testValue is found in the visibility list */
 const determineVisibility = (visibilityList, testValue) => {

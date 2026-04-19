@@ -53,7 +53,7 @@
 <script>
 import * as Parser from 'rss-parser';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 import { sanitizeRssItem, sanitizeRssMeta } from '@/utils/Sanitizer';
 
 export default {

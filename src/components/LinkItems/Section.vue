@@ -109,14 +109,14 @@ import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import EditSection from '@/components/InteractiveEditor/EditSection.vue';
 import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
-import ErrorHandler from '@/utils/ErrorHandler';
-import { makePageSlug } from '@/utils/ConfigHelpers';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
+import { makePageSlug } from '@/utils/config/ConfigHelpers';
 import StoreKeys from '@/utils/StoreMutations';
 import {
   sortOrder as defaultSortOrder,
   localStorageKeys,
   modalNames,
-} from '@/utils/defaults';
+} from '@/utils/config/defaults';
 
 export default {
   name: 'Section',

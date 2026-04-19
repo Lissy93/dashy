@@ -69,7 +69,7 @@ import ContextMenu from '@/components/LinkItems/ItemContextMenu';
 import StoreKeys from '@/utils/StoreMutations';
 import ItemMixin from '@/mixins/ItemMixin';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
-import { modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/config/defaults';
 
 export default {
   name: 'Item',

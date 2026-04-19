@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import DashySchema from '@/utils/ConfigSchema.json';
+import DashySchema from '@/utils/config/ConfigSchema.json';
 import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/defaults';
-import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import { modalNames } from '@/utils/config/defaults';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import safeClone from '@/utils/safeClone';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 import AccessError from '@/components/Configuration/AccessError';

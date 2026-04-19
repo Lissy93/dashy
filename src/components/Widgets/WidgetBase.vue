@@ -36,7 +36,7 @@
 <script>
 import { defineAsyncComponent } from 'vue';
 // Import form elements, icons and utils
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 import Button from '@/components/FormElements/Button';
 import UpdateIcon from '@/assets/interface-icons/widget-update.svg';
 import OpenIcon from '@/assets/interface-icons/open-new-tab.svg';

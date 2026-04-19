@@ -1,7 +1,7 @@
 import Keycloak from 'keycloak-js';
-import ConfigAccumulator from '@/utils/ConfigAccumalator';
-import { localStorageKeys } from '@/utils/defaults';
-import ErrorHandler from '@/utils/ErrorHandler';
+import ConfigAccumulator from '@/utils/config/ConfigAccumalator';
+import { localStorageKeys } from '@/utils/config/defaults';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 const getAppConfig = () => {
   const Accumulator = new ConfigAccumulator();

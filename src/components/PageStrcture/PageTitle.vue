@@ -16,7 +16,7 @@
 <script>
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/config/defaults';
 
 export default {
   name: 'PageTitle',

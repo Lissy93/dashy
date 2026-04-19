@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys } from '@/utils/config/defaults';
 import Keys from '@/utils/StoreMutations';
 
 export default {

@@ -17,7 +17,7 @@
 
 <script>
 
-import { localStorageKeys, modalNames } from '@/utils/defaults';
+import { localStorageKeys, modalNames } from '@/utils/config/defaults';
 import StoreKeys from '@/utils/StoreMutations';
 import configSavingMixin from '@/mixins/ConfigSaving';
 

@@ -92,7 +92,7 @@
 import Toggle from '@/components/FormElements/Toggle';
 import PercentageChart from '@/components/Charts/PercentageChart';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 import { timestampToDate, getTimeAgo, convertBytes } from '@/utils/MiscHelpers';
 import ClipboardIcon from '@/assets/interface-icons/open-clipboard.svg';
 

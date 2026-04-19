@@ -37,7 +37,7 @@
 
 <script>
 import longPress from '@/directives/LongPress';
-import { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys } from '@/utils/config/defaults';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 import OpenIcon from '@/assets/interface-icons/config-open-settings.svg';

@@ -14,7 +14,7 @@
 
 <script>
 
-import { shouldBeVisible } from '@/utils/SectionHelpers';
+import { shouldBeVisible } from '@/utils/config/SectionHelpers';
 import { sanitizeHtml } from '@/utils/Sanitizer';
 
 export default {

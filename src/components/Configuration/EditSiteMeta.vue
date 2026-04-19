@@ -41,7 +41,7 @@
 
 <script>
 
-import { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys } from '@/utils/config/defaults';
 import AddNewIcon from '@/assets/interface-icons/add-new.svg';
 import SaveConfigIcon from '@/assets/interface-icons/save-config.svg';
 

@@ -3,12 +3,12 @@ import { createStore } from 'vuex';
 import yaml from 'js-yaml';
 import request from '@/utils/request';
 import Keys from '@/utils/StoreMutations';
-import { makePageName, formatConfigPath, componentVisibility } from '@/utils/ConfigHelpers';
-import { applyItemId } from '@/utils/SectionHelpers';
+import { makePageName, formatConfigPath, componentVisibility } from '@/utils/config/ConfigHelpers';
+import { applyItemId } from '@/utils/config/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
-import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
-import { isUserAdmin, makeBasicAuthHeaders, isLoggedInAsGuest } from '@/utils/Auth';
-import { localStorageKeys, theme as defaultTheme } from '@/utils/defaults';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
+import { isUserAdmin, makeBasicAuthHeaders, isLoggedInAsGuest } from '@/utils/auth/Auth';
+import { localStorageKeys, theme as defaultTheme } from '@/utils/config/defaults';
 
 const {
   INITIALIZE_CONFIG,

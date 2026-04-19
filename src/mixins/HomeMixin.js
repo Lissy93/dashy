@@ -2,7 +2,7 @@
  * Mixin for all homepages (default home, minimal home, workspace, etc)
  */
 
-import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
+import Defaults, { localStorageKeys, iconCdns } from '@/utils/config/defaults';
 import Keys from '@/utils/StoreMutations';
 import { searchTiles } from '@/utils/Search';
 import { checkItemVisibility } from '@/utils/CheckItemVisibility';

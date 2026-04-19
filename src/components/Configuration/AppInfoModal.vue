@@ -6,7 +6,7 @@
 
 <script>
 import AppInfo from '@/components/Configuration/AppInfo';
-import { modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/config/defaults';
 
 export default {
   name: 'AppInfoModal',

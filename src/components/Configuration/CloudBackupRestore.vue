@@ -67,8 +67,8 @@ import Input from '@/components/FormElements/Input';
 // Import utils and constants
 import StoreKeys from '@/utils/StoreMutations';
 import { backup, update, restore } from '@/utils/CloudBackup';
-import { localStorageKeys } from '@/utils/defaults';
-import { InfoHandler, WarningInfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import { localStorageKeys } from '@/utils/config/defaults';
+import { InfoHandler, WarningInfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 // Import Icons
 import IconBackup from '@/assets/interface-icons/config-backup.svg';
 import IconRestore from '@/assets/interface-icons/config-restore.svg';

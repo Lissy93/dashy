@@ -49,9 +49,9 @@ import Button from '@/components/FormElements/Button';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
 import ReloadIcon from '@/assets/interface-icons/application-reload.svg';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
-import ErrorHandler from '@/utils/ErrorHandler';
-import { serviceEndpoints } from '@/utils/defaults';
-import { isUserAdmin } from '@/utils/Auth';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
+import { serviceEndpoints } from '@/utils/config/defaults';
+import { isUserAdmin } from '@/utils/auth/Auth';
 
 export default {
   name: 'RebuildApp',

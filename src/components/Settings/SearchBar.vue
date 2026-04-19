@@ -23,15 +23,15 @@
 <script>
 import router from '@/router';
 import ArrowKeyNavigation from '@/utils/ArrowKeyNavigation';
-import ErrorHandler from '@/utils/ErrorHandler';
-import { getCustomKeyShortcuts } from '@/utils/ConfigHelpers';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
+import { getCustomKeyShortcuts } from '@/utils/config/ConfigHelpers';
 import { getSearchEngineFromBang, findUrlForSearchEngine, stripBangs } from '@/utils/Search';
 import {
   searchEngineUrls,
   defaultSearchEngine,
   defaultSearchOpeningMethod,
   searchBangs as defaultSearchBangs,
-} from '@/utils/defaults';
+} from '@/utils/config/defaults';
 
 export default {
   name: 'FilterTile',

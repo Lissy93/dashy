@@ -14,7 +14,7 @@ vi.mock('@/utils/request', () => {
   return { default: fn };
 });
 vi.mock('@/router', () => ({ default: { push: vi.fn() } }));
-vi.mock('@/utils/ErrorHandler', () => ({ default: vi.fn() }));
+vi.mock('@/utils/logging/ErrorHandler', () => ({ default: vi.fn() }));
 vi.mock('@/assets/interface-icons/interactive-editor-edit-mode.svg', () => ({
   default: { template: '<span />' },
 }));
@@ -598,7 +598,7 @@ describe('Methods: copyToClipboard', () => {
   });
 
   it('shows error when clipboard unavailable', async () => {
-    const ErrorHandler = (await import('@/utils/ErrorHandler')).default;
+    const ErrorHandler = (await import('@/utils/logging/ErrorHandler')).default;
     Object.defineProperty(navigator, 'clipboard', {
       value: undefined, writable: true, configurable: true,
     });

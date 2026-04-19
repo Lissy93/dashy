@@ -1,9 +1,9 @@
 import sha256 from 'crypto-js/sha256';
-import ConfigAccumulator from '@/utils/ConfigAccumalator';
-import ErrorHandler from '@/utils/ErrorHandler';
-import { cookieKeys, localStorageKeys, userStateEnum } from '@/utils/defaults';
-import { isKeycloakEnabled } from '@/utils/KeycloakAuth';
-import { isOidcEnabled } from '@/utils/OidcAuth';
+import ConfigAccumulator from '@/utils/config/ConfigAccumalator';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
+import { cookieKeys, localStorageKeys, userStateEnum } from '@/utils/config/defaults';
+import { isKeycloakEnabled } from '@/utils/auth/KeycloakAuth';
+import { isOidcEnabled } from '@/utils/auth/OidcAuth';
 
 /* Uses config accumulator to get and return app config */
 const getAppConfig = () => {

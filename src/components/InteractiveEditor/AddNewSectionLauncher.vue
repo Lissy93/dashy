@@ -18,7 +18,7 @@
 
 import EditSectionMenu from '@/components/InteractiveEditor/EditSection.vue';
 import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/config/defaults';
 
 export default {
   name: 'add-section-container',

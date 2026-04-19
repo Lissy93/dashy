@@ -42,11 +42,11 @@
 import JsYaml from 'js-yaml';
 import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/config/defaults';
 import AccessError from '@/components/Configuration/AccessError';
 import DownloadConfigIcon from '@/assets/interface-icons/config-download-file.svg';
 import CopyConfigIcon from '@/assets/interface-icons/interactive-editor-copy-clipboard.svg';
-import { ErrorHandler, InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import { ErrorHandler, InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 
 export default {
   name: 'ExportConfigMenu',

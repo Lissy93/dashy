@@ -28,7 +28,7 @@ import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
-import { localStorageKeys, theme as defaultTheme } from '@/utils/defaults';
+import { localStorageKeys, theme as defaultTheme } from '@/utils/config/defaults';
 
 export default {
   name: 'StyleEditor',

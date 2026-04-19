@@ -22,11 +22,11 @@
 
 <script>
 import BrokenImage from '@/assets/interface-icons/broken-icon.svg';
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 import EmojiUnicodeRegex from '@/utils/EmojiUnicodeRegex';
 import emojiLookup from '@/utils/emojis.json';
 import { asciiHash } from '@/utils/MiscHelpers';
-import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/defaults';
+import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/config/defaults';
 
 import * as simpleicons from 'simple-icons';
 

@@ -89,7 +89,7 @@
  * Heavily inspired by vue-svg-gauge by @hellocomet
  * See: https://github.com/hellocomet/vue-svg-gauge
  */
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 // Main radius of the gauge
 const RADIUS = 100;

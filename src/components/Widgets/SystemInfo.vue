@@ -20,7 +20,7 @@
 import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import ChartingMixin from '@/mixins/ChartingMixin';
-import { serviceEndpoints } from '@/utils/defaults';
+import { serviceEndpoints } from '@/utils/config/defaults';
 
 export default {
   mixins: [WidgetMixin, ChartingMixin],

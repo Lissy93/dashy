@@ -18,8 +18,8 @@ import SideBar from '@/components/Workspace/SideBar';
 import WebContent from '@/components/Workspace/WebContent';
 import WidgetView from '@/components/Workspace/WidgetView';
 import MultiTaskingWebComtent from '@/components/Workspace/MultiTaskingWebComtent';
-import Defaults from '@/utils/defaults';
-import ErrorHandler from '@/utils/ErrorHandler';
+import Defaults from '@/utils/config/defaults';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 export default {
   name: 'Workspace',

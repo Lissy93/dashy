@@ -33,7 +33,7 @@ const sslServer = require('./ssl-server'); // TLS-enabled web server
 const corsProxy = require('./cors-proxy'); // Enables API requests to CORS-blocked services
 const getUser = require('./get-user'); // Enables server side user lookup
 
-/* Service endpoint URL paths (see also serviceEndpoints in src/utils/defaults.js) */
+/* Service endpoint URL paths (see also serviceEndpoints in src/utils/config/defaults.js) */
 const ENDPOINTS = {
   statusPing: '/status-ping',
   statusCheck: '/status-check',

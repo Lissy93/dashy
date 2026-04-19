@@ -40,7 +40,7 @@
 
 <script>
 import AppVersion from '@/components/Configuration/AppVersion';
-import { sessionStorageKeys } from '@/utils/defaults';
+import { sessionStorageKeys } from '@/utils/config/defaults';
 
 export default {
   name: 'AppInfo',

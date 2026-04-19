@@ -2,9 +2,9 @@ import jsYaml from 'js-yaml';
 import { Progress } from 'rsup-progress';
 import request from '@/utils/request';
 
-import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
-import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
-import { makePageName } from '@/utils/ConfigHelpers';
+import ErrorHandler, { InfoHandler } from '@/utils/logging/ErrorHandler';
+import { localStorageKeys, serviceEndpoints } from '@/utils/config/defaults';
+import { makePageName } from '@/utils/config/ConfigHelpers';
 import StoreKeys from '@/utils/StoreMutations';
 
 export default {

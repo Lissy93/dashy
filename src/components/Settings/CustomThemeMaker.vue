@@ -52,7 +52,7 @@
 
 <script>
 import StoreKeys from '@/utils/StoreMutations';
-import { localStorageKeys, mainCssVars } from '@/utils/defaults';
+import { localStorageKeys, mainCssVars } from '@/utils/config/defaults';
 import Button from '@/components/FormElements/Button';
 import SaveIcon from '@/assets/interface-icons/save-config.svg';
 import CancelIcon from '@/assets/interface-icons/config-cancel.svg';

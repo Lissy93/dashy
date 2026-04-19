@@ -49,7 +49,7 @@ import Item from '@/components/LinkItems/Item.vue';
 import WidgetBase from '@/components/Widgets/WidgetBase';
 import SubItemGroup from '@/components/LinkItems/SubItemGroup.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
-import { makePageSlug } from '@/utils/ConfigHelpers';
+import { makePageSlug } from '@/utils/config/ConfigHelpers';
 
 export default {
   name: 'ItemGroup',

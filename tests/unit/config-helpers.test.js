@@ -5,7 +5,7 @@ import {
   formatConfigPath,
   componentVisibility,
   getCustomKeyShortcuts,
-} from '@/utils/ConfigHelpers';
+} from '@/utils/config/ConfigHelpers';
 
 describe('ConfigHelpers - makePageName', () => {
   it('converts page name to lowercase', () => {
