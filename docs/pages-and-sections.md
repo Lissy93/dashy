@@ -65,8 +65,6 @@ The following example shows creating a config, publishing it as a [Gist](https:/
 
 Only top-level fields supported by sub-pages are `pageInfo` and `sections`. The `appConfig` and `pages` will always be inherited from your main `conf.yml` file. Other than that, sub-pages behave exactly the same as your default view, and can contain sections, items, widgets and page info like nav links, title and logo.
 
-Note that since page paths are required by the router, they are set at build-time, not run-time, and so a rebuild (happens automatically) is required for changes to page paths to take effect (this only applies to changes to the `pages` array, rebuild isn't required for editing page content).
-
 ### URL Structure
 
 Every view in Dashy shares the same URL shape, so any config can be reached from any view:

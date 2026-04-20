@@ -69,26 +69,21 @@ ErrorReporting(app, router);
 // Mount the app
 const mount = () => app.mount('#app');
 
-store.dispatch(Keys.INITIALIZE_CONFIG).then(() => {
+/* Handle failures of third-party auth initialization */
+const handleAuthFailure = (provider, err) => {
+  ErrorHandler(`Failed to authenticate with ${provider}`, err);
+  store.commit(Keys.CRITICAL_ERROR_MSG, `Authentication failed (${provider}). See console for details.`);
+  mount();
+};
+
+router.isReady().then(() => {
   if (isOidcEnabled()) {
-    initOidcAuth()
-      .then(() => mount())
-      .catch((e) => {
-        ErrorHandler('Failed to authenticate with OIDC', e);
-      });
-  } else if (isKeycloakEnabled()) { // If Keycloak is enabled, initialize auth
-    initKeycloakAuth()
-      .then(() => mount())
-      .catch((e) => {
-        ErrorHandler('Failed to authenticate with Keycloak', e);
-      });
-  } else if (isHeaderAuthEnabled()) { // If header auth is enabled, initialize auth
-    initHeaderAuth()
-      .then(() => mount())
-      .catch((e) => {
-        ErrorHandler('Failed to authenticate with server', e);
-      });
-  } else { // If no third-party auth, just mount the app as normal
+    initOidcAuth().then(mount).catch((e) => handleAuthFailure('OIDC', e));
+  } else if (isKeycloakEnabled()) {
+    initKeycloakAuth().then(mount).catch((e) => handleAuthFailure('Keycloak', e));
+  } else if (isHeaderAuthEnabled()) {
+    initHeaderAuth().then(mount).catch((e) => handleAuthFailure('Header Auth', e));
+  } else {
     mount();
   }
 });

@@ -13,8 +13,11 @@ import { Progress } from 'rsup-progress';
 import Home from '@/views/Home.vue';
 
 // Import helper functions, config data and defaults
+import store from '@/store';
+import Keys from '@/utils/StoreMutations';
 import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/auth/Auth';
 import { metaTagData, startingView as defaultStartingView, routePaths } from '@/utils/config/defaults';
+import { VIEW_META } from '@/utils/config/ConfigHelpers';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 const progress = new Progress({ color: 'var(--progress-bar)' });
@@ -27,19 +30,11 @@ const isAuthenticated = () => {
   return (!authEnabled || userLoggedIn || guestEnabled);
 };
 
-// Get the default starting view from environmental variable
-const startingView = import.meta.env.VITE_APP_STARTING_VIEW || defaultStartingView;
-
-/**
- * Returns the component that should be rendered at the base path,
- * Defaults to Home, but the user can change this to Workspace of Minimal
- */
-const getStartingComponent = () => {
-  switch (startingView) {
-    case 'minimal': return () => import('./views/Minimal.vue');
-    case 'workspace': return () => import('./views/Workspace.vue');
-    default: return Home;
-  }
+/* Resolve landing view from appConfig.startingView at runtime if set */
+const resolveStartingView = () => {
+  const raw = store.state.config?.appConfig?.startingView || defaultStartingView;
+  const view = raw === 'default' ? 'home' : raw;
+  return VIEW_META[view] ? view : 'home';
 };
 
 /* Returns the meta tags for each route */
@@ -80,11 +75,17 @@ const history = mode === 'hash'
 const router = createRouter({
   history,
   routes: [
-    { // The default view can be customized by the user
+    {
       path: '/',
-      name: `landing-page-${startingView}`,
-      component: getStartingComponent(),
+      name: 'landing',
+      component: Home,
       meta: makeMetaTags('Home Page'),
+      beforeEnter: (to, from, next) => {
+        const view = resolveStartingView();
+        if (!view || view === 'home') next();
+        // If user set `startingView`, we redirect to canonical /<view> URL
+        else next(`/${view}`);
+      },
     },
     // Canonical /<view>/:page?/:section? routes for each view
     ...makeViewRoutes(routePaths.home, 'home', Home, 'Home Page'),
@@ -143,13 +144,15 @@ const router = createRouter({
 });
 
 /**
- * Before loading a route, check if the user has authentication enabled
- * if so, then ensure that they are correctly logged in as a valid user
- * If not logged in, prevent all access and redirect them to login page
- * */
+ * On first page load, initialize and wait for the the config loading
+ * Then, if auth enabled and user not logged in yet, redirect to login page
+ */
 router.beforeEach(async (to, from, next) => {
   progress.start();
   try {
+    if (!store.state.rootConfig && !store.state.criticalError) {
+      await store.dispatch(Keys.INITIALIZE_CONFIG);
+    }
     if (to.name !== 'login' && !isAuthenticated()) next({ name: 'login' });
     else next();
   } catch (e) {
@@ -163,6 +166,12 @@ router.afterEach((to) => {
   nextTick(() => {
     document.title = to.meta.title || 'Dashy';
   });
+});
+
+/* Catch navigation + lazy-import failures */
+router.onError((err) => {
+  progress.end();
+  ErrorHandler('Navigation failed. Try hard-reload (Shift + F5)', err);
 });
 
 // All done - export the now configured router

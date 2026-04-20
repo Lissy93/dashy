@@ -188,12 +188,13 @@
           "title": "Starting View",
           "type": "string",
           "enum": [
+            "home",
             "default",
             "minimal",
             "workspace"
           ],
-          "default": "default",
-          "description": "Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI"
+          "default": "home",
+          "description": "Which view to land on at /. 'home' (or legacy 'default') for the standard home page, 'minimal' for the minimal start page, or 'workspace' for the workspace view. Users can switch views at any time from the UI."
         },
         "defaultOpeningMethod": {
           "title": "Default Opening Method",
