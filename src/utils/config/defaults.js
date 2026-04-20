@@ -170,8 +170,6 @@ const defaults = {
   },
   /* Amount of time to show splash screen, when enabled, in milliseconds */
   splashScreenTime: 1000,
-  /* Page meta-data, rendered in the header of each view */
-  metaTagData: [{ name: 'description', content: "A simple static homepage for you're server" }],
   /* Server location of the Backup & Sync cloud function */
   backupEndpoint: 'https://sync-service.dashy.to',
   /* Available services for fetching favicon icon for user apps */
@@ -363,7 +361,6 @@ export const {
   modalNames,
   topLevelConfKeys,
   splashScreenTime,
-  metaTagData,
   backupEndpoint,
   faviconApiEndpoints,
   iconCdns,

@@ -38,14 +38,6 @@ const HomeMixin = {
     async $route() {
       this.loadUpConfig();
     },
-    pageInfo: {
-      handler(newPageInfo) {
-        if (newPageInfo && newPageInfo.title) {
-          document.title = newPageInfo.title;
-        }
-      },
-      immediate: true,
-    },
   },
   async created() {
     this.loadUpConfig();

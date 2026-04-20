@@ -6,7 +6,6 @@
 
 // Import vue router
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
-import { nextTick } from 'vue';
 import { Progress } from 'rsup-progress';
 
 // Import views, that are not lazy-loaded
@@ -16,7 +15,7 @@ import Home from '@/views/Home.vue';
 import store from '@/store';
 import Keys from '@/utils/StoreMutations';
 import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/auth/Auth';
-import { metaTagData, startingView as defaultStartingView, routePaths } from '@/utils/config/defaults';
+import { startingView as defaultStartingView, routePaths } from '@/utils/config/defaults';
 import { VIEW_META } from '@/utils/config/ConfigHelpers';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 
@@ -37,27 +36,19 @@ const resolveStartingView = () => {
   return VIEW_META[view] ? view : 'home';
 };
 
-/* Returns the meta tags for each route */
-const makeMetaTags = (defaultTitle) => {
-  const userTitle = import.meta.env.VITE_APP_TITLE || '';
-  const title = userTitle ? `${userTitle} | ${defaultTitle}` : defaultTitle;
-  return { title, metaTags: metaTagData };
-};
-
 /* Build the canonical /<view>/:page?/:section? routes for a given view + component.
- * withSection=false for workspace (no single-section view yet). */
-const makeViewRoutes = (basePath, viewName, component, title, withSection = true) => {
-  const meta = makeMetaTags(title);
+ * withSection=false for workspace (no single-section view yet). Page meta is
+ * owned by App.vue's watcher via PageMeta.js — routes don't carry titles. */
+const makeViewRoutes = (basePath, viewName, component, withSection = true) => {
   const routes = [
-    { path: basePath, name: viewName, component, meta },
-    { path: `${basePath}/:page`, name: `${viewName}-page`, component, meta },
+    { path: basePath, name: viewName, component },
+    { path: `${basePath}/:page`, name: `${viewName}-page`, component },
   ];
   if (withSection) {
     routes.push({
       path: `${basePath}/:page/:section`,
       name: `${viewName}-section`,
       component,
-      meta,
     });
   }
   return routes;
@@ -79,7 +70,6 @@ const router = createRouter({
       path: '/',
       name: 'landing',
       component: Home,
-      meta: makeMetaTags('Home Page'),
       beforeEnter: (to, from, next) => {
         const view = resolveStartingView();
         if (!view || view === 'home') next();
@@ -88,20 +78,9 @@ const router = createRouter({
       },
     },
     // Canonical /<view>/:page?/:section? routes for each view
-    ...makeViewRoutes(routePaths.home, 'home', Home, 'Home Page'),
-    ...makeViewRoutes(
-      routePaths.minimal,
-      'minimal',
-      () => import('./views/Minimal.vue'),
-      'Start Page',
-    ),
-    ...makeViewRoutes(
-      routePaths.workspace,
-      'workspace',
-      () => import('./views/Workspace.vue'),
-      'Workspace',
-      false,
-    ),
+    ...makeViewRoutes(routePaths.home, 'home', Home),
+    ...makeViewRoutes(routePaths.minimal, 'minimal', () => import('./views/Minimal.vue')),
+    ...makeViewRoutes(routePaths.workspace, 'workspace', () => import('./views/Workspace.vue'), false),
     { // The login page
       path: routePaths.login,
       name: 'login',
@@ -116,19 +95,16 @@ const router = createRouter({
       path: routePaths.about,
       name: 'about', // We lazy load the About page so as to not slow down the app
       component: () => import('./views/About.vue'),
-      meta: makeMetaTags('About Dashy'),
     },
     { // The export config page
       path: routePaths.download,
       name: 'download',
       component: () => import('./views/DownloadConfig.vue'),
-      meta: makeMetaTags('Download Config'),
     },
     { // Page not found, any non-defined routes will land here
       path: routePaths.notFound,
       name: '404',
       component: () => import('./views/404.vue'),
-      meta: makeMetaTags('404 Not Found'),
       beforeEnter: (to, from, next) => {
         if (to.redirectedFrom) { // Log error, if redirected here from another route
           ErrorHandler(`Route not found: '${to.redirectedFrom.fullPath}'`);
@@ -160,12 +136,9 @@ router.beforeEach(async (to, from, next) => {
   }
 });
 
-/* If title is missing, then apply default page title */
-router.afterEach((to) => {
+/* Stop the loading progress bar once navigation settles */
+router.afterEach(() => {
   progress.end();
-  nextTick(() => {
-    document.title = to.meta.title || 'Dashy';
-  });
 });
 
 /* Catch navigation + lazy-import failures */

@@ -17,6 +17,7 @@ import CriticalError from '@/components/PageStrcture/CriticalError.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
 import { welcomeMsg } from '@/utils/logging/CoolConsole';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
+import { syncPageMeta } from '@/utils/PageMeta';
 import Keys from '@/utils/StoreMutations';
 import {
   localStorageKeys,
@@ -46,6 +47,11 @@ export default {
     },
     config() {
       this.isFetching = false;
+    },
+    /* Sync document title + description whenever route or loaded config changes */
+    metaDeps: {
+      handler() { syncPageMeta(this.$route, this.$store); },
+      immediate: true,
     },
   },
   computed: {
@@ -84,6 +90,10 @@ export default {
     },
     subPageClassName() {
       return this.$store.state.currentConfigInfo?.confId || '';
+    },
+    /* Dep tuple so the metaDeps watcher tracks every reactive input */
+    metaDeps() {
+      return [this.$route.fullPath, this.pageInfo, this.sections];
     },
     topLevelStyleModifications() {
       const vc = this.visibleComponents;
