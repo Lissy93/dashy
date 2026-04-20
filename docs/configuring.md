@@ -75,6 +75,8 @@ The following file provides a reference of all supported configuration options.
 **`navLinks`** | `array` | _Optional_ | Optional list of a maximum of 6 links, which will be displayed in the navigation bar. See [`navLinks`](#pageinfonavlinks-optional)
 **`footer`** | `string` | _Optional_ | Text to display in the footer. When omitted, no footer is rendered. Supports inline HTML (sanitized before render)
 **`logo`** | `string` | _Optional_ | The path to an image to display in the header (to the right of the title). This can be either local, where `/` is the root of `./public`, or any remote image, such as `https://i.ibb.co/yhbt6CY/dashy.png`. It's recommended to scale your image down, so that it doesn't impact load times
+**`favicon`** | `string` | _Optional_ | URL or path to a custom favicon shown in the browser tab. Can be absolute (`https://...`), root-relative (`/icons/x.png`), or a `data:` URI
+**`color`** | `string` | _Optional_ | Theme colour applied to the browser chrome (mobile address bar). Any valid CSS color (e.g. `#ff00a7`) is accepted
 
 **[⬆️ Back to Top](#configuring)**
 

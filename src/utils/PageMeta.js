@@ -3,6 +3,7 @@
  */
 
 import { makePageName, viewFromPath } from '@/utils/config/ConfigHelpers';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 const FALLBACK_TITLE = 'Dashy';
 
@@ -22,6 +23,28 @@ const resolveSectionName = (sectionSlug, sections) => {
   return match?.name;
 };
 
+/* Reject bad URLs from favicon path. Only allows URLs, paths and data URI */
+const validateFavicon = (value) => {
+  if (typeof value !== 'string') return null;
+  const url = value.trim();
+  if (!url) return null;
+  if (/^(javascript|vbscript):/i.test(url)) {
+    ErrorHandler(`Unsafe favicon URL rejected: ${value}`);
+    return null;
+  }
+  return url;
+};
+
+/* Uses the browser's own CSS parser as the source of truth for valid color values. */
+const validateColor = (value) => {
+  if (typeof value !== 'string') return null;
+  const color = value.trim();
+  if (!color) return null;
+  if (window.CSS?.supports?.('color', color)) return color;
+  ErrorHandler(`Invalid theme color rejected: ${value}`);
+  return null;
+};
+
 /* Compute the metadata object for the current route + store */
 export const computePageMeta = (route, store) => {
   const staticLabel = STATIC_ROUTE_LABELS[route?.name];
@@ -33,7 +56,12 @@ export const computePageMeta = (route, store) => {
   const viewLabel = VIEW_LABELS[view];
   const sectionName = resolveSectionName(route?.params?.section, store?.getters?.sections);
   const title = [sectionName, base, viewLabel].filter(Boolean).join(' | ') || FALLBACK_TITLE;
-  return { title, description: pageInfo.description || '' };
+  return {
+    title,
+    description: pageInfo.description || '',
+    themeColor: validateColor(pageInfo.color),
+    favicon: validateFavicon(pageInfo.favicon),
+  };
 };
 
 /* Upsert a <meta name="..."> tag in the document head */
@@ -47,10 +75,26 @@ const setMetaTag = (name, content) => {
   tag.setAttribute('content', content || '');
 };
 
-/* Map of meta-field -> DOM writer. Add new entries here to extend. */
+/* Update every <link rel="icon"> href, or create one if none exist */
+const setFavicon = (href) => {
+  const links = document.querySelectorAll('link[rel~="icon"]');
+  if (links.length === 0) {
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'icon');
+    link.setAttribute('href', href);
+    document.head.appendChild(link);
+    return;
+  }
+  links.forEach((l) => l.setAttribute('href', href));
+};
+
+/* Map of meta-field to DOM writer
+ * If sub-page doesn't have an override, it will inherit from root */
 const APPLIERS = {
   title: (v) => { document.title = v || FALLBACK_TITLE; },
   description: (v) => setMetaTag('description', v),
+  themeColor: (v) => { if (v) setMetaTag('theme-color', v); },
+  favicon: (v) => { if (v) setFavicon(v); },
 };
 
 /* Side-effect: push a meta object onto the DOM */

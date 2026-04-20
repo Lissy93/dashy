@@ -1,5 +1,23 @@
 # Pages and Sections
 
+## Page Metadata
+
+Set your dashboard's branding under `pageInfo`
+
+```yaml
+pageInfo:
+  title: My Dashboard # Used for main h1 title, and browser tab text
+  description: Home server links
+  logo: /web-icons/my-logo.png # path/URL to optional logo to display next to title
+  favicon: 'https://example.com/path/to/icon' # path/URL to a favicon (shows in browser tab)
+  color: '#2a7cf0' # Hex color, to set the browser/address bar color on mobile (supported browsers only)
+  footer: '© 2026 Me' # Optional text or HTML content, to display in the pages footer
+```
+
+If you have multiple configs/pages, then these values swap automatically as you navigate between sub-pages.
+
+The only caveat being, if you install Dashy as a PWA, the installed app's name, icon, and splash-screen colour come from the bundled `manifest.webmanifest` (baked at build time) rather than `pageInfo`. Runtime values only apply when browsing in a regular tab or browser.
+
 ## Multi-Page Support
 
 You can have additional pages within your dashboard, with each having it's own config file. The config files for sub-pages can either be stored locally, or hosted separately. A link to each additional page will be displayed in the navigation bar.

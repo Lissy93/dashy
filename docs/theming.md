@@ -111,6 +111,10 @@ Fonts which are not being used by the current theme are **not** fetched on page 
 
 Full credit to the typographers behind each of the included fonts. Specifically: Matt McInerney, Christian Robertson, Haley Fiege, Peter Hull, Cyreal and the legendary Vernon Adams
 
+## Changing browser address bar / tab color
+
+Some browsers support setting a color, which will apply a tint to the address bar, and task switcher card title bar. To enable this, set `pageInfo.color` to any valid CSS color (e.g. `#ff00a7`, `rebeccapurple`, `rgb(40, 60, 120)`). Note that browser support for this is still limited (Android Chrome, Safari iOS 15+ and some recent mobile Chromium browsers). This does not apply if you've installed the PWA. For more page-specific browser and UI options, see [Pages and Sections](/docs/pages-and-sections.md).
+
 ## CSS Variables
 
 All colors as well as other variable values (such as borders, border-radius, shadows) are specified as CSS variables. This makes theming the application easy, as you only need to change a given color or value in one place. You can find all variables in [`color-palette.scss`](https://github.com/Lissy93/dashy/blob/master/src/styles/color-palette.scss) and the themes which make use of these color variables are specified in [`color-themes.scss`](https://github.com/Lissy93/dashy/blob/master/src/styles/color-themes.scss)
