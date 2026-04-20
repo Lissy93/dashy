@@ -28,7 +28,7 @@
 
 <script>
 import IconBurger from '@/assets/interface-icons/burger-menu.svg';
-import { makePageSlug } from '@/utils/config/ConfigHelpers';
+import { makePageSlug, viewFromPath } from '@/utils/config/ConfigHelpers';
 import { checkPageVisibility } from '@/utils/CheckPageVisibility';
 
 export default {
@@ -44,11 +44,13 @@ export default {
     isMobile: false,
   }),
   computed: {
-    /* Get links to sub-pages, and combine with nav-links */
+    /* Get links to sub-pages, and combine with nav-links. Sub-page links honor the
+     * current view (home/minimal/workspace) so users stay in the view they chose. */
     allLinks() {
+      const view = viewFromPath(this.$route.path);
       const subPages = this.$store.getters.pages.filter((page) => checkPageVisibility(page))
         .map((subPage) => ({
-          path: makePageSlug(subPage.name, 'home'),
+          path: makePageSlug(subPage.name, view),
           title: subPage.name,
         }));
       const navLinks = this.links || [];

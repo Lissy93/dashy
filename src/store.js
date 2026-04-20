@@ -192,10 +192,10 @@ const store = createStore({
     },
   },
   mutations: {
-    /* Set the master config */
+    /* Cache the raw root config so sub-page navigations don't re-fetch the main YAML */
     [SET_ROOT_CONFIG](state, config) {
       if (!config.appConfig) config.appConfig = {};
-      state.config = config;
+      state.rootConfig = config;
     },
     /* The config to display and edit. Will differ from ROOT_CONFIG when using multi-page */
     [SET_CONFIG](state, config) {
@@ -425,27 +425,35 @@ const store = createStore({
      * override certain fields (appConfig, pages) and update config
      */
     async [INITIALIZE_CONFIG]({ commit, state }, subConfigId) {
-      const rootConfig = state.rootConfig || await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
-      // Apply root-level local overrides to a clone so state.rootConfig stays as the raw YAML
-      const root = { ...rootConfig };
-      const rootUsingLocal = applyLocalOverrides(root);
-
-      if (!subConfigId) { // Root page: commit the overridden root config directly
-        commit(SET_CONFIG, root);
-        commit(SET_CURRENT_CONFIG_INFO, {});
-        commit(SET_IS_USING_LOCAL_CONFIG, rootUsingLocal);
-        return root;
-      }
-
-      const subConfigPath = formatConfigPath(root?.pages?.find(
-        (page) => makePageName(page.name) === subConfigId,
-      )?.path);
-      if (!subConfigPath) {
-        commit(CRITICAL_ERROR_MSG, `Unable to find config for '${subConfigId}'`);
-        return { ...emptyConfig };
-      }
       try {
-        const response = await request.get(subConfigPath, makeBasicAuthHeaders());
+        const rootConfig = state.rootConfig
+          || await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
+        // Needs deep clone, so overrides can't mutate cached root
+        const root = JSON.parse(JSON.stringify(rootConfig));
+        const rootUsingLocal = applyLocalOverrides(root);
+
+        if (!subConfigId) { // Root page: commit the overridden root config directly
+          commit(SET_CONFIG, root);
+          commit(SET_CURRENT_CONFIG_INFO, {});
+          commit(SET_IS_USING_LOCAL_CONFIG, rootUsingLocal);
+          return root;
+        }
+
+        const subConfigPath = formatConfigPath(root?.pages?.find(
+          (page) => page?.name && makePageName(page.name) === subConfigId,
+        )?.path);
+        if (!subConfigPath) {
+          commit(CRITICAL_ERROR_MSG, `Unable to find config for '${subConfigId}'`);
+          return { ...emptyConfig };
+        }
+        let response;
+        try {
+          response = await request.get(subConfigPath, makeBasicAuthHeaders());
+        } catch (fetchErr) {
+          commit(CRITICAL_ERROR_MSG, `Unable to load config from '${subConfigPath}'`);
+          ErrorHandler(`Sub-config load failed: ${subConfigPath}`, fetchErr);
+          return { ...emptyConfig };
+        }
         let configContent;
         try {
           configContent = yaml.load(response.data) || {};
@@ -453,21 +461,19 @@ const store = createStore({
           commit(CRITICAL_ERROR_MSG, `Failed to parse sub-config YAML: ${parseError.message}`);
           return { ...emptyConfig };
         }
-        // Inherit shared fields from the (already overridden) root config
+        // Inherit shared appConfig + pages from root, but override theme per sub-page
         const theme = configContent?.appConfig?.theme || root.appConfig?.theme || 'default';
-        configContent.appConfig = root.appConfig;
+        configContent.appConfig = { ...root.appConfig, theme };
         configContent.pages = root.pages;
-        configContent.appConfig.theme = theme;
-        // Then apply sub-page local overrides
         const subUsingLocal = applyLocalOverrides(configContent, subConfigId);
 
         commit(SET_CONFIG, configContent);
         commit(SET_CURRENT_CONFIG_INFO, { confPath: subConfigPath, confId: subConfigId });
         commit(SET_IS_USING_LOCAL_CONFIG, subUsingLocal);
         return configContent;
-      } catch (err) {
-        commit(CRITICAL_ERROR_MSG, `Unable to load config from '${subConfigPath}'`);
-        ErrorHandler(`Sub-config load failed: ${subConfigPath}`, err);
+      } catch (err) { // If we get here, then somethings really fucked up
+        commit(CRITICAL_ERROR_MSG, `Unexpected error loading config: ${err.message}`);
+        ErrorHandler('INITIALIZE_CONFIG failed', err);
         return { ...emptyConfig };
       }
     },

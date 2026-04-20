@@ -13,6 +13,10 @@
 - [404 On Static Hosting](#404-on-static-hosting)
 - [404 from Mobile Home Screen](#404-after-launch-from-mobile-home-screen)
 - [404 On Multi-Page Apps](#404-on-multi-page-apps)
+- [Dashy hosted at a sub-path](#dashy-hosted-at-a-sub-path-eg-examplecomdashy)
+- [Sub-page shows "Unable to find config for ..."](#sub-page-shows-unable-to-find-config-for-)
+- [Sub-page missing from nav, or won't open when clicked](#sub-page-missing-from-nav-or-wont-open-when-clicked)
+- [Sub-page ignores its theme, layout or appConfig](#sub-page-ignores-its-theme-layout-or-appconfig)
 - [Yarn Build or Run Error](#yarn-error)
 - [Remote Config Not Loading](#remote-config-not-loading)
 - [High CPU or RAM Usage on Startup](#high-cpu-or-ram-usage-on-startup)
@@ -149,16 +153,16 @@ Content-Security-Policy: frame-ancestors 'self' https://[dashy-location]/
 
 If you're seeing Dashy's 404 page on initial load/ refresh, and then the main app when you go back to Home, then this is likely caused by the Vue router, and if so can be fixed in one of two ways.
 
-The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set.
+The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by rebuilding Dashy with the `VITE_APP_ROUTING_MODE=hash` build-time environment variable set.
 
-If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `VUE_APP_ROUTING_MODE=history` (the default) again, for neater URLs.
+If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `VITE_APP_ROUTING_MODE=history` (the default) again, for neater URLs.
 
 ---
 
 ## 404 after Launch from Mobile Home Screen
 
 Similar to the above issue, if you get a 404 after using iOS and Android's "Add to Home Screen" feature, then this is caused by Vue router.
-It can be fixed by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set.
+It can be fixed by rebuilding Dashy with the `VITE_APP_ROUTING_MODE=hash` build-time environment variable set.
 
 See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://github.com/Lissy93/dashy/issues/762)
 
@@ -166,9 +170,57 @@ See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://gi
 
 ## 404 On Multi-Page Apps
 
-Similar to above, if you get a 404 error when visiting a page directly on multi-page apps, then this can be fixed by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set, then refreshing the page.
+Similar to above, if you get a 404 error when visiting a page directly on multi-page apps, then this can be fixed by rebuilding Dashy with the `VITE_APP_ROUTING_MODE=hash` build-time environment variable set, then refreshing the page.
 
 See also: [#670](https://github.com/Lissy93/dashy/issues/670), [#763](https://github.com/Lissy93/dashy/issues/763)
+
+---
+
+## Dashy hosted at a sub-path (e.g. `example.com/dashy`)
+
+If the homepage works but sub-page links 404, or assets fail to load, it's almost always the base path.
+Rebuild with `BASE_URL` set to the sub-path - leading slash, no trailing slash:
+
+Vue Router uses this to prefix every route. Without it, links resolve to `/home/...` instead of `/dashy/home/...` and skip your reverse proxy altogether. More detail in [web-server configuration](/docs/management.md#web-server-configuration).
+
+---
+
+## Sub-page shows "Unable to find config for ..."
+
+This means Dashy couldn't match the URL segment to any entry in your `pages:` list. A few causes:
+
+### Old bookmark from before an upgrade
+Slugs are now trimmed more aggressively (e.g. `🌐 Command Center` used to give `-command-center`, now gives `command-center`). Re-bookmark from the nav, or update the URL by hand.
+
+### The page was renamed or removed
+The URL no longer resolves to anything. Check the `pages:` array in `conf.yml` and confirm the sub-page still exists.
+
+### The path points at an unreachable file
+If the sub-config YAML can't be fetched (404, CORS, auth), you'll see "Unable to load config from ..." instead. Verify the `path:` is correct, reachable from the browser, and CORS-open if remote.
+
+### Page name literally "Main"
+`main` is reserved in the URL scheme to mean "the root config". A page named "Main" becomes reachable at `/home/main-page` (not `/home/main`). Rename the page if that's confusing.
+
+### Service worker is serving a stale app
+Hard-refresh (<kbd>Ctrl</kbd> + <kbd>F5</kbd>) after a major upgrade. The PWA cache may still be pointing at old routes. Also see [Styles and Assets not Updating](#styles-and-assets-not-updating).
+
+---
+
+## Sub-page missing from nav, or won't open when clicked
+
+If page defined in `pages:` is nowhere in the nav bar, or its link goes to a different page, then there's probably something wrong with the name you chose. Note that Dashy strips out any non-alphanumeric characters.
+- Ensure each page does have a valid `name` and `path` field
+- Check two pages don't have the same/similar name
+- Check each page has a name which has at least some alpha-numeric characters
+- Very long names could be being stripped/truncated
+
+---
+
+## Sub-page ignores its theme, layout or appConfig
+
+This is by design. Only the `appConfig` from your root `conf.yml` is used - theme, layout, iconSize, statusCheck, etc. are inherited globally so behaviour stays consistent across pages.
+
+If you put `appConfig` inside a sub-page YAML, it's silently dropped on load. Move the values to the root config. See [Restrictions](/docs/pages-and-sections.md#restrictions).
 
 ---
 
@@ -213,7 +265,7 @@ When the Dashy container first starts, it runs a Vue production build in paralle
 
 **To work around it:**
 
-1. **Allocate at least 1 GB of RAM to the container** — 2 GB is recommended on Raspberry Pi or low-powered VMs. Anything below 512 MB is unlikely to complete the first build.
+1. **Allocate at least 1 GB of RAM to the container** - 2 GB is recommended on Raspberry Pi or low-powered VMs. Anything below 512 MB is unlikely to complete the first build.
 2. **Set explicit Docker resource limits** so the build can't starve other services on the same host:
    ```yaml
    services:
@@ -225,8 +277,8 @@ When the Dashy container first starts, it runs a Vue production build in paralle
              memory: 2g
              cpus: '1.5'
    ```
-3. **Wait it out** — once the build completes, idle CPU drops to near zero and idle RAM is typically under 100 MB. If you watch `docker stats`, you'll see the spike taper off.
-4. If the spike never tapers (i.e., Dashy stays at 100% CPU forever and never serves the page), see [Heap limit Allocation failed](#ineffective-mark-compacts-near-heap-limit-allocation-failed) below — that usually means the build was killed mid-way and is being retried.
+3. **Wait it out** - once the build completes, idle CPU drops to near zero and idle RAM is typically under 100 MB. If you watch `docker stats`, you'll see the spike taper off.
+4. If the spike never tapers (i.e., Dashy stays at 100% CPU forever and never serves the page), see [Heap limit Allocation failed](#ineffective-mark-compacts-near-heap-limit-allocation-failed) below - that usually means the build was killed mid-way and is being retried.
 
 See also: [#1585](https://github.com/Lissy93/dashy/issues/1585), [#969](https://github.com/Lissy93/dashy/issues/969), [#1500](https://github.com/Lissy93/dashy/issues/1500), [#877](https://github.com/Lissy93/dashy/issues/877)
 
@@ -262,7 +314,7 @@ See also [#624](https://github.com/Lissy93/dashy/issues/624)
 
 ## Container Crashes or Restart Loop After Saving Config
 
-If your Dashy container crashes or enters a restart loop the moment you click **Save to Disk** in the editor — particularly with logs that include something like:
+If your Dashy container crashes or enters a restart loop the moment you click **Save to Disk** in the editor - particularly with logs that include something like:
 
 ```text
 node:_http_outgoing:652
@@ -358,7 +410,7 @@ See also: #479, #409, #507, #491, #341, #520
 
 If your IdP rejects the login with an *"invalid client"* / *"client not found"* error, and your `clientId` is a long numeric value, the cause is almost certainly YAML number parsing.
 
-YAML parses unquoted numeric tokens as Numbers, and JavaScript can't represent integers larger than 2^53 (~16 digits) without losing precision. So an unquoted numeric `clientId` will be silently truncated (e.g. `918756876419824312` → `918756876419824300`), or — for very large values — converted to scientific notation (e.g. `9.187568764198242e+37`), and the IdP will reject it.
+YAML parses unquoted numeric tokens as Numbers, and JavaScript can't represent integers larger than 2^53 (~16 digits) without losing precision. So an unquoted numeric `clientId` will be silently truncated (e.g. `918756876419824312` → `918756876419824300`), or - for very large values - converted to scientific notation (e.g. `9.187568764198242e+37`), and the IdP will reject it.
 
 The fix is to wrap the `clientId` in quotes in your `conf.yml` so it gets parsed as a string:
 
@@ -551,7 +603,7 @@ If you've set `PORT` to override the default 8080, the healthcheck honors the sa
 
 ### Slow startup on weak hardware
 
-The healthcheck has a `--start-period=30s` grace period before failures count against the container. If your host takes longer than 30 seconds for the initial Vue build to complete (common on Pi 3 or similar), the first few healthchecks will fail and you may briefly see `unhealthy`. After the build finishes, subsequent checks should pass — see [High CPU or RAM Usage on Startup](#high-cpu-or-ram-usage-on-startup) below.
+The healthcheck has a `--start-period=30s` grace period before failures count against the container. If your host takes longer than 30 seconds for the initial Vue build to complete (common on Pi 3 or similar), the first few healthchecks will fail and you may briefly see `unhealthy`. After the build finishes, subsequent checks should pass - see [High CPU or RAM Usage on Startup](#high-cpu-or-ram-usage-on-startup) below.
 
 See also: [#1410](https://github.com/Lissy93/dashy/issues/1410)
 
@@ -622,7 +674,7 @@ For testing purposes, you can use an addon, which will disable the CORS checks. 
 
 ## CORS Proxy `connect ECONNREFUSED ...` or `getaddrinfo ENOTFOUND ...`
 
-The target host is unreachable from the Dashy container. If the target is on the same host as Dashy, **don't use `localhost`** — inside a Docker container that resolves to the container itself, not the host. Use the host's LAN IP, the Docker bridge gateway, or `host.docker.internal` (on Docker Desktop). If the target is on a different Docker network, attach Dashy to that network too.
+The target host is unreachable from the Dashy container. If the target is on the same host as Dashy, **don't use `localhost`** - inside a Docker container that resolves to the container itself, not the host. Use the host's LAN IP, the Docker bridge gateway, or `host.docker.internal` (on Docker Desktop). If the target is on a different Docker network, attach Dashy to that network too.
 
 ---
 
@@ -630,8 +682,8 @@ The target host is unreachable from the Dashy container. If the target is on the
 
 To prevent the CORS proxy from being abused as a Server-Side Request Forgery vector, Dashy refuses to proxy a small number of host/scheme combinations by default:
 
-- **Cloud instance metadata services** — `169.254.169.254`, `metadata.google.internal`, and the matching IPv6 forms. These are reserved magic addresses on AWS, Azure, GCP, DigitalOcean, Hetzner, Oracle Cloud and most other providers. A widget that successfully fetches them on a cloud-hosted Dashy can leak the host's IAM credentials, so they're blocked unconditionally.
-- **Non-HTTP(S) schemes** — `file://`, `ftp://`, `gopher://`, `javascript:`, `data:`, and similar. The proxy is meant for HTTP APIs only.
+- **Cloud instance metadata services** - `169.254.169.254`, `metadata.google.internal`, and the matching IPv6 forms. These are reserved magic addresses on AWS, Azure, GCP, DigitalOcean, Hetzner, Oracle Cloud and most other providers. A widget that successfully fetches them on a cloud-hosted Dashy can leak the host's IAM credentials, so they're blocked unconditionally.
+- **Non-HTTP(S) schemes** - `file://`, `ftp://`, `gopher://`, `javascript:`, `data:`, and similar. The proxy is meant for HTTP APIs only.
 
 If you're running Dashy in a fully isolated/private environment and you've deliberately decided you want to allow these (for example, you genuinely need to query your cloud provider's metadata API from a widget), you can opt out of all proxy restrictions by setting the environment variable:
 
@@ -639,7 +691,7 @@ If you're running Dashy in a fully isolated/private environment and you've delib
 DANGEROUSLY_DISABLE_PROXY_RESTRICTIONS=true
 ```
 
-The variable is named so loudly because flipping it on a Dashy instance that's exposed to anything other than fully trusted users re-opens the SSRF surface — anyone who can hit `/cors-proxy` can then use Dashy as a relay to reach internal services. **Don't set it on cloud-hosted or internet-exposed deployments.**
+The variable is named so loudly because flipping it on a Dashy instance that's exposed to anything other than fully trusted users re-opens the SSRF surface - anyone who can hit `/cors-proxy` can then use Dashy as a relay to reach internal services. **Don't set it on cloud-hosted or internet-exposed deployments.**
 
 Note that this is an all-or-nothing escape hatch, not a per-host allowlist. If you only need to reach one specific host that's currently blocked, please open a feature request describing the use case.
 

@@ -13,7 +13,7 @@
     />
     <!-- Show back button, when on single-section view -->
     <div v-if="singleSectionView">
-      <router-link to="/home" class="back-to-all-link">
+      <router-link :to="backToAllPath" class="back-to-all-link">
         <BackIcon />
         <span>Back to All</span>
       </router-link>
@@ -65,7 +65,9 @@ import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.
 import NotificationThing from '@/components/Settings/LocalConfigWarning.vue';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/config/defaults';
-import { makePageName } from '@/utils/config/ConfigHelpers';
+import {
+  makePageName, makeRoutePath, resolveRouteIntent, viewFromPath,
+} from '@/utils/config/ConfigHelpers';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import BackIcon from '@/assets/interface-icons/back-arrow.svg';
 
@@ -89,7 +91,15 @@ export default {
   }),
   computed: {
     singleSectionView() {
-      return this.findSingleSection(this.$store.getters.sections, this.$route.params.section);
+      const { sectionSlug } = resolveRouteIntent(this.$route, this.$store);
+      if (!sectionSlug) return undefined;
+      return this.findSingleSection(this.$store.getters.sections, sectionSlug);
+    },
+    /* Back link from single-section view */
+    backToAllPath() {
+      const view = viewFromPath(this.$route.path);
+      const confId = this.$store.state.currentConfigInfo?.confId || null;
+      return makeRoutePath(view, confId);
     },
     /* Get class for num columns, if specified by user */
     colCount() {

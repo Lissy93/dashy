@@ -23,10 +23,9 @@
       :class="`there-are-items ${isGridLayout? 'item-group-grid': ''} inner-size-${itemSize}`"
       :style="gridStyle" :id="`section-${groupId}`"
     > <!-- Show for each item -->
-      <template v-for="(item) in sortedItems">
+      <template v-for="(item) in sortedItems" :key="item.id">
         <SubItemGroup
           v-if="item.subItems"
-          :key="item.id"
           :itemId="item.id"
           :title="item.title"
           :subItems="item.subItems"
@@ -35,7 +34,6 @@
         <Item
           v-else
           :item="item"
-          :key="item.id"
           :itemSize="itemSize"
           :parentSectionTitle="title"
           @itemClicked="$emit('itemClicked')"
@@ -110,7 +108,7 @@ import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import EditSection from '@/components/InteractiveEditor/EditSection.vue';
 import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
-import { makePageSlug } from '@/utils/config/ConfigHelpers';
+import { makeRoutePath, viewFromPath } from '@/utils/config/ConfigHelpers';
 import StoreKeys from '@/utils/StoreMutations';
 import {
   sortOrder as defaultSortOrder,
@@ -247,13 +245,16 @@ export default {
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);
     },
-    /* Navigate to the section's single-section view page */
+    /* Navigate to the section's single-section view. Uses loaded confId from state
+     * (not the URL) so clicks recover cleanly if the current URL is mid-error. */
     navigateToSection() {
       if (!this.title) {
         ErrorHandler('Cannot open section without a valid name');
         return;
       }
-      router.push({ path: makePageSlug(this.title, 'home') });
+      const view = viewFromPath(this.$route.path);
+      const confId = this.$store.state.currentConfigInfo?.confId || null;
+      router.push({ path: makeRoutePath(view, confId, this.title) });
       this.closeContextMenu();
     },
     /* Toggle sections collapse state */

@@ -806,7 +806,7 @@ server {
 }
 ```
 
-To use HTML5 history mode (the default - controlled via the `VUE_APP_ROUTING_MODE` build-time env var), replace the inside of the location block with: `try_files $uri $uri/ /index.html;`.
+To use HTML5 history mode (the default - controlled via the `VITE_APP_ROUTING_MODE` build-time env var), replace the inside of the location block with: `try_files $uri $uri/ /index.html;`.
 
 Then upload the build contents of Dashy's dist directory to that location.
 For example: `scp -r ./dist/* [username]@[server_ip]:/var/www/dashy/html`

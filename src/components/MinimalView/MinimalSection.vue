@@ -1,10 +1,9 @@
 <template>
   <div :class="`minimal-section-inner ${selected ? 'selected' : ''} ${showAll ? 'show-all': ''}`">
     <div class="section-items" v-if="items && (selected || showAll)">
-      <template v-for="(item) in items">
+      <template v-for="(item) in items" :key="item.id">
         <SubItemGroup
           v-if="item.subItems"
-          :key="item.id"
           :itemId="item.id"
           :title="item.title"
           :subItems="item.subItems"
@@ -13,7 +12,6 @@
         <Item
           v-else
           :item="item"
-          :key="item.id"
           :itemSize="itemSize"
           :parentSectionTitle="title"
           @itemClicked="$emit('itemClicked')"
@@ -49,7 +47,7 @@ import Item from '@/components/LinkItems/Item.vue';
 import WidgetBase from '@/components/Widgets/WidgetBase';
 import SubItemGroup from '@/components/LinkItems/SubItemGroup.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
-import { makePageSlug } from '@/utils/config/ConfigHelpers';
+import { makeRoutePath, viewFromPath } from '@/utils/config/ConfigHelpers';
 
 export default {
   name: 'ItemGroup',
@@ -101,9 +99,12 @@ export default {
       if (interval < 1) interval = 0;
       return interval;
     },
-    /* Navigate to the section's single-section view page */
+    /* Navigate to the section's single-section view page, staying within the current
+     * view and loaded sub-page context */
     navigateToSection() {
-      router.push({ path: makePageSlug(this.title, 'home') });
+      const view = viewFromPath(this.$route.path);
+      const confId = this.$store.state.currentConfigInfo?.confId || null;
+      router.push({ path: makeRoutePath(view, confId, this.title) });
     },
   },
 };

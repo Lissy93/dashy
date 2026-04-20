@@ -58,6 +58,8 @@ import MinimalSection from '@/components/MinimalView/MinimalSection.vue';
 import MinimalHeading from '@/components/MinimalView/MinimalHeading.vue';
 import MinimalSearch from '@/components/MinimalView/MinimalSearch.vue';
 import ConfigLauncher from '@/components/Settings/ConfigLauncher';
+import { makePageName, resolveRouteIntent } from '@/utils/config/ConfigHelpers';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 export default {
   name: 'home',
@@ -77,10 +79,25 @@ export default {
     searchValue() {
       this.tabbedView = !this.searchValue || this.searchValue.length === 0;
     },
+    /* Keep the selected section in sync with the URL (/minimal/:page/:section) */
+    '$route.params.section': {
+      handler() { this.syncSelectedFromRoute(); },
+      immediate: true,
+    },
+    sections() { this.syncSelectedFromRoute(); },
   },
   methods: {
     sectionSelected(index) {
       this.selectedSection = index;
+    },
+    /* If section slug present in the URL, then auto-select it if it exists */
+    syncSelectedFromRoute() {
+      if (!this.sections || !this.sections.length) return;
+      const { sectionSlug } = resolveRouteIntent(this.$route, this.$store);
+      if (!sectionSlug) { this.selectedSection = 0; return; }
+      const idx = this.sections.findIndex((s) => makePageName(s.name || '') === sectionSlug);
+      if (idx >= 0) { this.selectedSection = idx; return; }
+      ErrorHandler(`No section named '${sectionSlug}' was found in the current config`);
     },
     /* Clears input field, once a searched item is opened */
     finishedSearching() {

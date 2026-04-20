@@ -83,8 +83,7 @@ export default {
       return this.$store.state.criticalError;
     },
     subPageClassName() {
-      const currentSubPage = this.$store.state.currentConfigInfo;
-      return (currentSubPage && currentSubPage.pageId) ? currentSubPage.pageId : '';
+      return this.$store.state.currentConfigInfo?.confId || '';
     },
     topLevelStyleModifications() {
       const vc = this.visibleComponents;

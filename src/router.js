@@ -49,6 +49,25 @@ const makeMetaTags = (defaultTitle) => {
   return { title, metaTags: metaTagData };
 };
 
+/* Build the canonical /<view>/:page?/:section? routes for a given view + component.
+ * withSection=false for workspace (no single-section view yet). */
+const makeViewRoutes = (basePath, viewName, component, title, withSection = true) => {
+  const meta = makeMetaTags(title);
+  const routes = [
+    { path: basePath, name: viewName, component, meta },
+    { path: `${basePath}/:page`, name: `${viewName}-page`, component, meta },
+  ];
+  if (withSection) {
+    routes.push({
+      path: `${basePath}/:page/:section`,
+      name: `${viewName}-section`,
+      component,
+      meta,
+    });
+  }
+  return routes;
+};
+
 /* Routing mode, can be either 'hash', 'history' or 'abstract' */
 const mode = import.meta.env.VITE_APP_ROUTING_MODE || 'history';
 
@@ -61,37 +80,27 @@ const history = mode === 'hash'
 const router = createRouter({
   history,
   routes: [
-    // ...makeMultiPageRoutes(pages),
     { // The default view can be customized by the user
       path: '/',
       name: `landing-page-${startingView}`,
       component: getStartingComponent(),
       meta: makeMetaTags('Home Page'),
     },
-    { // Default home page
-      path: routePaths.home,
-      name: 'home',
-      component: Home,
-      meta: makeMetaTags('Home Page'),
-    },
-    { // View only single section
-      path: `${routePaths.home}/:section`,
-      name: 'home-section',
-      component: Home,
-      meta: makeMetaTags('Home Page'),
-    },
-    { // Workspace view page
-      path: routePaths.workspace,
-      name: 'workspace',
-      component: () => import('./views/Workspace.vue'),
-      meta: makeMetaTags('Workspace'),
-    },
-    { // Minimal view page
-      path: routePaths.minimal,
-      name: 'minimal',
-      component: () => import('./views/Minimal.vue'),
-      meta: makeMetaTags('Start Page'),
-    },
+    // Canonical /<view>/:page?/:section? routes for each view
+    ...makeViewRoutes(routePaths.home, 'home', Home, 'Home Page'),
+    ...makeViewRoutes(
+      routePaths.minimal,
+      'minimal',
+      () => import('./views/Minimal.vue'),
+      'Start Page',
+    ),
+    ...makeViewRoutes(
+      routePaths.workspace,
+      'workspace',
+      () => import('./views/Workspace.vue'),
+      'Workspace',
+      false,
+    ),
     { // The login page
       path: routePaths.login,
       name: 'login',

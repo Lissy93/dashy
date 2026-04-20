@@ -67,6 +67,34 @@ Only top-level fields supported by sub-pages are `pageInfo` and `sections`. The 
 
 Note that since page paths are required by the router, they are set at build-time, not run-time, and so a rebuild (happens automatically) is required for changes to page paths to take effect (this only applies to changes to the `pages` array, rebuild isn't required for editing page content).
 
+### URL Structure
+
+Every view in Dashy shares the same URL shape, so any config can be reached from any view:
+
+```
+/                             Landing — whichever view you set as the default
+/<view>                       Root config in <view>
+/<view>/<page>                Sub-config <page> in <view>
+/<view>/<page>/<section>      Single section of <page> in <view>
+/<view>/main/<section>        Single section of the root config (main is a reserved page id)
+```
+
+`<view>` is one of `home`, `minimal`, or `workspace`. `<page>` is the sub-config id — the sub-page's `name` (from the `pages` array) converted to lowercase-and-dashes (emoji and other non-word characters stripped). `<section>` follows the same slugging rules. Workspace has no single-section URL; it uses its sidebar instead.
+
+Examples:
+
+```
+/home                         Home view, main config
+/home/homelab                 Home view, "Homelab" sub-config
+/home/homelab/media           Home view, "Homelab" sub-config, "Media" section only
+/home/main/getting-started    Home view, main config, "Getting Started" section only
+/minimal/homelab              Minimal view, "Homelab" sub-config
+/minimal/homelab/media        Minimal view, "Homelab" sub-config, "Media" section pre-selected
+/workspace/homelab            Workspace view, "Homelab" sub-config
+```
+
+The view switcher, sub-page nav links, and section deep-links all preserve your current view and sub-page — so clicking through a single-section view and then hitting "back to all" returns you to the same sub-page you came from.
+
 ## Sub-Items
 
 A normal section will contain zero or more items, for example:

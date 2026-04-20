@@ -28,9 +28,9 @@ const defaults = {
   openingMethod: 'newtab',
   /* The page paths for each route within the app for the router */
   routePaths: {
-    home: '/home/:config?/',
-    minimal: '/minimal/:config?/',
-    workspace: '/workspace/:config?/',
+    home: '/home',
+    minimal: '/minimal',
+    workspace: '/workspace',
     about: '/about',
     login: '/login',
     download: '/download',
