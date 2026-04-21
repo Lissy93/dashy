@@ -462,6 +462,7 @@ const store = createStore({
           return { ...emptyConfig };
         }
         // Inherit shared appConfig + pages from root, but override theme per sub-page
+        // TODO: Actually, need to think about which props it is totally safe for a sub-config to inherit.
         const theme = configContent?.appConfig?.theme || root.appConfig?.theme || 'default';
         configContent.appConfig = { ...root.appConfig, theme };
         configContent.pages = root.pages;

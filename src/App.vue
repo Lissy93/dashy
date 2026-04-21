@@ -18,6 +18,7 @@ import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
 import { welcomeMsg } from '@/utils/logging/CoolConsole';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import { syncPageMeta } from '@/utils/PageMeta';
+import { viewFromPath } from '@/utils/config/ConfigHelpers';
 import Keys from '@/utils/StoreMutations';
 import {
   localStorageKeys,
@@ -59,8 +60,9 @@ export default {
     footerText() {
       return this.pageInfo && this.pageInfo.footer ? this.pageInfo.footer : '';
     },
-    /* Footer renders only when the user has set text/html */
+    /* Footer renders only when there's text AND we're not on workspace */
     footerVisible() {
+      if (viewFromPath(this.$route.path) === 'workspace') return false;
       return !!this.footerText;
     },
     /* Determine if splash screen should be shown */

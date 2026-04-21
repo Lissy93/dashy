@@ -101,7 +101,4 @@ export default {
 .work-space {
   min-height: fit-content;
 }
-:global(footer) {
-  display: none;
-}
 </style>
