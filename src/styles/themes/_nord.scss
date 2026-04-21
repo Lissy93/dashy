@@ -1,0 +1,24 @@
+html[data-theme='nord'] {
+  --primary: #D8DEE9;
+  --background: #3B4252;
+  --background-darker: #2E3440;
+  --item-background: #434C5E;
+  --item-background-hover: #4C566A;
+  .collapsable:nth-child(1n) { background: #BF616A; }
+  .collapsable:nth-child(2n) { background: #D08770; }
+  .collapsable:nth-child(3n) { background: #EBCB8B; }
+  .collapsable:nth-child(4n) { background: #A3BE8C; }
+}
+
+
+  html[data-theme='nord-frost'] {
+  --primary: #D8DEE9;
+  --background: #3B4252;
+  --background-darker: #2E3440;
+  --item-background: #434C5E;
+  --item-background-hover: #4C566A;
+  .collapsable:nth-child(1n) { background: #8FBCBB; }
+  .collapsable:nth-child(2n) { background: #88C0D0; }
+  .collapsable:nth-child(3n) { background: #81A1C1; }
+  .collapsable:nth-child(4n) { background: #5E81AC; }
+}

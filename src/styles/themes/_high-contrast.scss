@@ -1,0 +1,23 @@
+html[data-theme='high-contrast-light'] {
+  --primary: var(--black);
+  --background: var(--white);
+  --background-darker: var(--white);
+  --item-group-background: var(--background-darker);
+  --item-background: var(--background);
+  --outline-color: var(--primary);
+  --curve-factor: 0px;
+  --config-code-color:  var(--primary);
+  --font-headings: 'PTMono', 'Courier New', monospace;
+}
+
+html[data-theme='high-contrast-dark'] {
+  --primary: var(--white);
+  --background: var(--black);
+  --background-darker: var(--black);
+  --item-group-background: var(--background-darker);
+  --item-background: var(--background);
+  --outline-color: var(--primary);
+  --curve-factor: 0px;
+  --font-headings: 'PTMono', 'Courier New', monospace;
+}
+

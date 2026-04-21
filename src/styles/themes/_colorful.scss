@@ -1,0 +1,48 @@
+html[data-theme='colorful'] {
+  --font-headings: 'Podkova', monospace;
+  --primary: #e8eae1;
+  --background: #0b1021;
+  --background-darker: #05070e;
+  --item-background: var(--background-darker);
+  --item-background-hover: var(--background);
+  --item-group-background: transparent;
+  --item-group-outer-background: var(--background-darker);
+  --item-group-heading-text-color: var(--primary);
+  --item-group-heading-text-color-hover: var(--primary);
+  --item-hover-shadow: 1px 4px 6px var(--black);
+  --nav-link-background-color: var(--background);
+  --outline-color: none;
+
+  .item-wrapper, .sub-item-wrapper {
+    &:nth-child(1n) .item { --current-color: #eb5cad; }
+    &:nth-child(2n) .item { --current-color: #985ceb; }
+    &:nth-child(3n) .item { --current-color: #5c90eb; }
+    &:nth-child(4n) .item { --current-color: #5cdfeb; }
+    &:nth-child(5n) .item { --current-color: #5ceb8d; }
+    &:nth-child(6n) .item { --current-color: #afeb5c; }
+    &:nth-child(7n) .item { --current-color: #ebb75c; }
+    &:nth-child(8n) .item { --current-color: #eb615c; }
+    .item {
+      color: var(--current-color);
+      border: 1px solid var(--current-color);
+      &:hover, &:focus {
+        opacity: 0.85;
+        outline: none;
+        background: currentColor;
+        span.text, p.description { color: var(--background-darker); }
+        i.fas, i.fab, i.far, i.fal, i.fad {
+          filter: drop-shadow(1px 3px 2px var(--transparent-50));
+          color: var(--background-darker);
+        }
+        svg path { fill: var(--background-darker); }
+      }
+    }
+  }
+  h1, h2, h3, h4 {
+    font-weight: normal;
+  }
+  div.context-menu {
+    border-color: var(--primary);
+  }
+}
+
