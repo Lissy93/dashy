@@ -134,7 +134,9 @@
     "sign-in-tooltip": "Log In",
     "sign-in-welcome": "Hello {username}!",
     "hide": "Hide",
-    "open": "Open"
+    "open": "Open",
+    "options-title": "Options",
+    "options-tooltip": "Options"
   },
   "updates": {
     "app-version-note": "Dashy version",
@@ -257,6 +259,7 @@
   "interactive-editor": {
     "menu": {
       "start-editing-tooltip": "Enter the Interactive Editor",
+      "config-unavailable": "Config editor not available",
       "edit-site-data-subheading": "Edit Site Data",
       "edit-page-info-btn": "Edit Page Info",
       "edit-page-info-tooltip": "App title, description, nav links, footer text, etc.",

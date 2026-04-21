@@ -1,233 +1,161 @@
 <template>
-  <section v-bind:class="{ 'settings-hidden': !settingsVisible }">
-    <SearchBar ref="SearchBar"
-      @user-is-searchin="userIsTypingSomething"
+  <section>
+    <SearchBar
       v-if="searchVisible"
+      ref="SearchBar"
+      @user-is-searchin="userIsTypingSomething"
     />
-    <div class="options-outer">
-      <div :class="`options-container ${!settingsVisible ? 'hide' : ''}`">
-        <ThemeSelector />
-        <LayoutSelector :displayLayout="$store.getters.layout" />
-        <ItemSizeSelector :iconSize="iconSize" />
-        <ConfigLauncher />
-        <AuthButtons  v-if="userState !== 0" :userType="userState" />
-      </div>
-      <div :class="`show-hide-container ${settingsVisible? 'hide-btn' : 'show-btn'}`">
-        <button @click="toggleSettingsVisibility()"
-          v-tooltip="`${settingsVisible? 'Hide' : 'Open'} Settings Menu`" tabindex="-2">
-          <IconClose v-if="settingsVisible" />
-          <IconOpen v-else />
-        </button>
-      </div>
+    <div class="options-outer" v-click-outside="closePanel">
+      <button
+        type="button"
+        class="options-trigger"
+        :class="{ open: panelOpen }"
+        @click.stop="togglePanel"
+        v-tooltip="$t('settings.options-tooltip')"
+        :aria-label="$t('settings.options-tooltip')"
+        :aria-expanded="panelOpen"
+        tabindex="-2"
+      >
+        <IconOptions />
+      </button>
+      <transition name="panel-fade">
+        <OptionsPanel v-if="panelOpen" @close="closePanel" />
+      </transition>
     </div>
+
+    <modal
+      :name="modalNames.CONF_EDITOR"
+      :resizable="true"
+      width="60%"
+      height="85%"
+      classes="dashy-modal"
+      @closed="onConfigClosed"
+    >
+      <ConfigContainer :config="combinedConfig" />
+    </modal>
+    <modal
+      :name="modalNames.LANG_SWITCHER"
+      :resizable="true"
+      width="35%"
+      height="60%"
+      classes="dashy-modal"
+    >
+      <LanguageSwitcher />
+    </modal>
+
     <AppInfoModal />
   </section>
 </template>
 
 <script>
 import SearchBar from '@/components/Settings/SearchBar';
-import ConfigLauncher from '@/components/Settings/ConfigLauncher';
-import ThemeSelector from '@/components/Settings/ThemeSelector';
-import LayoutSelector from '@/components/Settings/LayoutSelector';
-import ItemSizeSelector from '@/components/Settings/ItemSizeSelector';
-import AuthButtons from '@/components/Settings/AuthButtons';
+import OptionsPanel from '@/components/Settings/OptionsPanel';
 import AppInfoModal from '@/components/Configuration/AppInfoModal';
-import IconOpen from '@/assets/interface-icons/config-open-settings.svg';
-import IconClose from '@/assets/interface-icons/config-close.svg';
-import {
-  localStorageKeys,
-  visibleComponents as defaultVisibleComponents,
-} from '@/utils/config/defaults';
-
-import { getUserState } from '@/utils/auth/Auth';
+import ConfigContainer from '@/components/Configuration/ConfigContainer';
+import LanguageSwitcher from '@/components/Settings/LanguageSwitcher';
+import Keys from '@/utils/StoreMutations';
+import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/config/defaults';
+import IconOptions from '@/assets/interface-icons/config-open-settings.svg';
 
 export default {
   name: 'SettingsContainer',
-  props: {
-    displayLayout: String,
-    iconSize: String,
-    externalThemes: Object,
-  },
   components: {
     SearchBar,
-    ConfigLauncher,
-    ThemeSelector,
-    LayoutSelector,
-    ItemSizeSelector,
-    AuthButtons,
+    OptionsPanel,
     AppInfoModal,
-    IconOpen,
-    IconClose,
+    ConfigContainer,
+    LanguageSwitcher,
+    IconOptions,
   },
-  data() {
-    return {
-      settingsVisible: true,
-    };
-  },
+  data: () => ({ panelOpen: false, modalNames }),
   computed: {
-    sections() {
-      return this.$store.getters.sections;
-    },
-    appConfig() {
-      return this.$store.getters.appConfig;
-    },
-    pageInfo() {
-      return this.$store.getters.pageInfo;
-    },
-    /**
-    * Determines which button should display, based on the user type
-    * 0 = Auth not configured, don't show anything
-    * 1 = Auth configured, and user logged in, show logout button
-    * 2 = Auth configured, guest access enabled, and not logged in, show login
-    * Note that if auth is enabled, but not guest access, and user not logged in,
-    * then they will never be able to view the homepage, so no button needed
-    */
-    userState() {
-      return getUserState();
-    },
-    /* Object indicating which components should be hidden, based on user preferences */
-    visibleComponents() {
-      return this.$store.getters.visibleComponents;
-    },
     searchVisible() {
       return this.$store.getters.visibleComponents.searchBar;
     },
-  },
-  mounted() {
-    this.settingsVisible = this.getSettingsVisibility();
+    combinedConfig() {
+      const app = this.$store.getters.appConfig;
+      return {
+        [topLevelConfKeys.APP_CONFIG]: {
+          ...app,
+          theme: localStorage[localStorageKeys.THEME] || app.theme,
+        },
+        [topLevelConfKeys.PAGE_INFO]: this.$store.getters.pageInfo,
+        [topLevelConfKeys.SECTIONS]: this.$store.getters.sections,
+      };
+    },
   },
   methods: {
-    /* Emit event to begin/ continue searching */
-    userIsTypingSomething(something) {
-      this.$emit('user-is-searchin', something);
-    },
-    /* Call function to clear search field, remove focus and reset results */
+    userIsTypingSomething(q) { this.$emit('user-is-searchin', q); },
     clearFilterInput() {
       if (this.$refs.SearchBar) this.$refs.SearchBar.clearFilterInput();
     },
-    getInitialTheme() {
-      return this.appConfig.theme || '';
-    },
-    /* Gets user themes if available */
-    getUserThemes() {
-      const userThemes = this.appConfig.cssThemes || [];
-      if (typeof userThemes === 'string') return [userThemes];
-      return userThemes;
-    },
-    /* Show / hide settings */
-    toggleSettingsVisibility() {
-      this.settingsVisible = !this.settingsVisible;
-      localStorage.setItem(localStorageKeys.HIDE_SETTINGS, this.settingsVisible);
-    },
-    /* Get initial settings visibility, either from appConfig, local storage or browser type */
-    getSettingsVisibility() {
-      const screenWidth = document.body.clientWidth;
-      if (screenWidth && screenWidth < 600) return false;
-      if ((this.visibleComponents || {}).settings === false) return false;
-      if (localStorage[localStorageKeys.HIDE_SETTINGS] === 'false') return false;
-      return defaultVisibleComponents.settings;
-    },
+    togglePanel() { this.panelOpen = !this.panelOpen; },
+    closePanel() { this.panelOpen = false; },
+    onConfigClosed() { this.$store.commit(Keys.SET_MODAL_OPEN, false); },
   },
 };
 </script>
 
 <style scoped lang="scss">
+section {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  background: linear-gradient(0deg, var(--background) 0%, var(--background-darker) 100%);
+  box-shadow: var(--settings-container-shadow);
+}
 
-@import '@/styles/media-queries.scss';
+.options-outer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  padding: 0.25rem 0.5rem;
+  background: var(--settings-background);
+  border-radius: var(--curve-factor-navbar) 0 0;
+}
 
-  section {
-    display: flex;
-    align-items: center;
-    align-items: stretch;
-    background: linear-gradient(0deg, var(--background) 0%, var(--background-darker) 100%);
-    box-shadow: var(--settings-container-shadow);
-  }
-  .options-outer {
-    display: flex;
-    position: relative;
-    flex: 1;
-    background: var(--settings-background);
-    border-radius: var(--curve-factor-navbar);
-  }
-  .options-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: flex-end;
-    flex: 1;
-    padding: 0.5rem 1.5rem 0.5rem 1rem;
-    border-radius: var(--curve-factor-navbar) 0 0;
-    background: var(--settings-background);
-    div {
-      margin-left: 0.5rem;
-      opacity: var(--dimming-factor);
-      opacity: 1;
-      &:hover { opacity: 1; }
-    }
-    &.hide {
-      display: none;
-    }
-    @include very-tiny-phone {
-      flex-direction: column;
-      align-items: baseline;
-      div {
-        width: 100%;
-        text-align: center;
-        .theme-selector-section { justify-content: center; }
-      }
-    }
+.options-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.3rem;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--curve-factor);
+  color: var(--settings-text-color);
+  cursor: pointer;
+  opacity: var(--dimming-factor);
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
   }
 
-  .show-hide-container {
-    display: flex;
-    // align-items: center;
-    background: var(--settings-background);
-    color: var(--settings-text-color);
-    width: 1.5rem;
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    &.show-btn {
-      width: 2rem;
-      top: 0.5rem;
-      right: 0.5rem;
-      @include phone {
-        top: -3rem !important;
-      }
-    }
-    button {
-      width: 100%;
-      padding: 2px 2px 0 2px;
-      margin: 2px;
-      border-radius: var(--curve-factor);
-      height: fit-content;
-      background: none;
-      border: none;
-      color: var(--settings-text-color);
-      cursor: pointer;
-      opacity: var(--dimming-factor);
-    }
-    &:hover button {
-      background: var(--settings-text-color);
-      color: var(--settings-background);
-    }
+  &:hover, &.open, &:focus-visible {
+    opacity: 1;
+    background: var(--primary);
+    color: var(--background);
+    outline: none;
   }
+}
 
-  @include tablet {
-    section {
-      display: block;
-      margin: 0 auto;
-      background: none;
-      .options-container {
-          justify-content: center;
-      }
-    }
-  }
+.panel-fade-enter-active,
+.panel-fade-leave-active {
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.panel-fade-enter-from,
+.panel-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-0.25rem);
+}
 
-  @include phone {
-    .options-container, .show-hide-button {
-      // display: none;
-    }
-  }
-
+@media (prefers-reduced-motion: reduce) {
+  .panel-fade-enter-active,
+  .panel-fade-leave-active { transition: none; }
+}
 </style>

@@ -55,6 +55,40 @@ button svg, a svg {
   background: #00000080;
 }
 
+/* Small uppercase label above a form control */
+.options-label,
+.theme-label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary);
+  opacity: 0.75;
+}
+
+/* Row of icon buttons used as a multi-option toggle */
+.display-options {
+  display: flex;
+  gap: 0.35rem;
+  color: var(--settings-text-color);
+  svg {
+    flex: 1;
+    height: 1.75rem;
+    padding: 0.3rem;
+    box-sizing: border-box;
+    background: var(--background);
+    border: 1px solid currentColor;
+    border-radius: var(--curve-factor);
+    cursor: pointer;
+    &:hover, &.selected {
+      background: var(--settings-text-color);
+      color: var(--background);
+    }
+  }
+}
+
 /* v-select, dropdown styles */
 .v-select {
   .vs__dropdown-toggle {

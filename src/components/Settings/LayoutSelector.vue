@@ -32,9 +32,6 @@ import IconVertical from '@/assets/interface-icons/layout-vertical.svg';
 
 export default {
   name: 'LayoutSelector',
-  props: {
-    displayLayout: String,
-  },
   components: {
     IconDeafault,
     IconHorizontal,
@@ -56,29 +53,3 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-
-span.options-label {
-  color: var(--settings-text-color);
-}
-
-.display-options {
-  color: var(--settings-text-color);
-  svg {
-    width: 1rem;
-    height: 1rem;
-    margin: 0.2rem;
-    padding: 0.2rem;
-    text-align: center;
-    background: var(--background);
-    border: 1px solid currentColor;
-    border-radius: var(--curve-factor);
-    cursor: pointer;
-    &:hover, &.selected {
-      background: var(--settings-text-color);
-      color: var(--background);
-    }
-  }
-}
-
-</style>

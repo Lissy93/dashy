@@ -31,12 +31,7 @@ import IconMedium from '@/assets/interface-icons/icon-size-medium.svg';
 import IconLarge from '@/assets/interface-icons/icon-size-large.svg';
 
 export default {
-  name: 'IconSizeSelector',
-  data() {
-    return {
-      input: '',
-    };
-  },
+  name: 'ItemSizeSelector',
   computed: {
     iconSize() {
       return this.$store.getters.iconSize;
@@ -58,29 +53,3 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-
-span.options-label {
-  color: var(--settings-text-color);
-}
-
-.display-options {
-  color: var(--settings-text-color);
-  svg {
-    width: 1rem;
-    height: 1rem;
-    margin: 0.2rem;
-    padding: 0.2rem;
-    text-align: center;
-    background: var(--background);
-    border: 1px solid currentColor;
-    border-radius: var(--curve-factor);
-    cursor: pointer;
-    &:hover, &.selected {
-      background: var(--settings-text-color);
-      color: var(--background);
-    }
-  }
-}
-
-</style>

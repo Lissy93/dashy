@@ -4,11 +4,6 @@
     <!-- Search bar, layout options and settings -->
     <SettingsContainer ref="filterComp"
       @user-is-searchin="searching"
-      @change-modal-visibility="updateModalVisibility"
-      :displayLayout="layout"
-      :iconSize="itemSizeBound"
-      :externalThemes="getExternalCSSLinks()"
-      :modalOpen="modalOpen"
       class="settings-outer"
     />
     <!-- Show back button, when on single-section view -->
@@ -161,24 +156,6 @@ export default {
       const match = allSections.find((s) => makePageName(s.name || '') === target);
       if (!match) ErrorHandler(`No section named '${sectionTitle}' was found`);
       return match ? [match] : undefined;
-    },
-    /* Returns an array of links to external CSS from the Config */
-    getExternalCSSLinks() {
-      const availibleThemes = {};
-      if (this.appConfig) {
-        if (this.appConfig.externalStyleSheet) {
-          const externals = this.appConfig.externalStyleSheet;
-          if (Array.isArray(externals)) {
-            externals.forEach((ext, i) => {
-              availibleThemes[`External Stylesheet ${i + 1}`] = ext;
-            });
-          } else {
-            availibleThemes['External Stylesheet'] = this.appConfig.externalStyleSheet;
-          }
-        }
-      }
-      availibleThemes.Default = '#';
-      return availibleThemes;
     },
     readActiveColCount() {
       const { sectionsContainer } = this.$refs;
