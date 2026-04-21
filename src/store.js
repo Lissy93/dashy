@@ -22,7 +22,6 @@ const {
   SET_ITEM_LAYOUT,
   SET_ITEM_SIZE,
   SET_THEME,
-  SET_CUSTOM_COLORS,
   UPDATE_ITEM,
   USE_MAIN_CONFIG,
   SET_EDIT_MODE,
@@ -113,8 +112,17 @@ const store = createStore({
     theme(state) {
       const localStorageKey = state.currentConfigInfo.confId
         ? `${localStorageKeys.THEME}-${state.currentConfigInfo.confId}` : localStorageKeys.THEME;
-      const configTheme = state.config?.appConfig?.theme;
-      return localStorage[localStorageKey] || configTheme || defaultTheme;
+      // Read reactive deps upfront so Vuex tracks every branch (avoids the
+      // short-circuit caching bug where unread props wouldn't invalidate).
+      const cfg = state.config?.appConfig;
+      const configTheme = cfg?.theme;
+      const dayTheme = cfg?.dayTheme;
+      const nightTheme = cfg?.nightTheme;
+      // Resolution: user's saved choice → OS preference (if configured) → config default
+      const localTheme = localStorage[localStorageKey];
+      if (localTheme) return localTheme;
+      const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+      return (prefersDark ? nightTheme : dayTheme) || configTheme || defaultTheme;
     },
     webSearch(state, getters) {
       return getters.appConfig.webSearch || {};
@@ -341,12 +349,6 @@ const store = createStore({
         ? `${localStorageKeys.THEME}-${pageId}` : localStorageKeys.THEME;
       localStorage.setItem(themeStoreKey, theme);
       InfoHandler('Theme updated', InfoKeys.VISUAL);
-    },
-    [SET_CUSTOM_COLORS](state, customColors) {
-      const newConfig = { ...state.config };
-      newConfig.appConfig.customColors = customColors;
-      state.config = newConfig;
-      InfoHandler('Color palette updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_LAYOUT](state, layout) {
       const newConfig = { ...state.config };

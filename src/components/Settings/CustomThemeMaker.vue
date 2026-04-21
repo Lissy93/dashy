@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import StoreKeys from '@/utils/StoreMutations';
 import { localStorageKeys, mainCssVars } from '@/utils/config/defaults';
 import Button from '@/components/FormElements/Button';
 import SaveIcon from '@/assets/interface-icons/save-config.svg';
@@ -82,14 +81,13 @@ export default {
     setVariable(variable, value) {
       document.documentElement.style.setProperty(`--${variable}`, value);
     },
-    /* Updates browser storage, and srore with new color settings, and shows success msg */
+    /* Persist new color settings to localStorage and notify user */
     saveChanges() {
       let priorSettings = {};
       try { priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}'); }
       catch (e) { /* ignore corrupt data */ }
       priorSettings[this.themeToEdit] = this.customColors;
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
-      this.$store.commit(StoreKeys.SET_CUSTOM_COLORS, priorSettings);
       this.$toast(this.$t('theme-maker.saved-toast', { theme: this.themeToEdit }));
       this.$emit('closeThemeConfigurator');
     },

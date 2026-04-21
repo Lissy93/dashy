@@ -42,20 +42,42 @@ const applyRemote = (href) => {
   document.head.appendChild(link);
 };
 
+/* Collect every CSS var name that appears in any theme's custom colors */
+const allKnownVarNames = (colorMap) => {
+  const names = new Set();
+  Object.values(colorMap || {}).forEach((themeVars) => {
+    Object.keys(themeVars || {}).forEach((v) => names.add(v));
+  });
+  return names;
+};
+
 const applyCustomVars = (theme, appConfig) => {
-  mainCssVars.forEach((v) => html().style.removeProperty(`--${v}`));
   let localColors = {};
   try {
     localColors = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
-  } catch (e) { /* corrupt JSON — skip */ }
-  const vars = { ...(appConfig?.customColors || {}), ...localColors }[theme];
+  } catch (e) {
+    ErrorHandler('Corrupted theme data in localstorage', e);
+  }
+  const configColors = appConfig?.customColors || {};
+
+  // Clear any and all vars set by a previous theme
+  const toClear = new Set([
+    ...mainCssVars,
+    ...allKnownVarNames(configColors),
+    ...allKnownVarNames(localColors),
+  ]);
+  toClear.forEach((v) => html().style.removeProperty(`--${v}`));
+
+  // Apply the current theme's custom colors (localStorage overrides appConfig)
+  const vars = { ...configColors, ...localColors }[theme];
   if (!vars) return;
   Object.entries(vars).forEach(([k, v]) => html().style.setProperty(`--${k}`, v));
 };
 
 /**
- * Apply a theme name to the document. Handles built-in + user-defined + external
- * stylesheets + the special "default" reset + per-theme custom CSS vars
+ * Apply a theme name to the document
+ * Handles built-in, user-defined, external stylesheets,
+ * the special "default" reset, and per-theme custom CSS vars
  */
 export const applyTheme = (theme, appConfig = {}) => {
   if (!theme) return;
