@@ -8,13 +8,16 @@
           <SameTabOpenIcon />
           <span>{{ $t('context-menus.section.open-section') }}</span>
         </li>
-        <li @click="openEditSectionMenu">
-          <EditIcon />
-          <span>{{ $t('context-menus.section.edit-section') }}</span>
-        </li>
         <li @click="expandCollapseSection">
           <ExpandCollapseIcon />
           <span>{{ $t('context-menus.section.expand-collapse') }}</span>
+        </li>
+      </ul>
+      <!-- Edit Options -->
+      <ul class="menu-section" :class="{ disabled: !isEditAllowed }">
+        <li @click="openEditSectionMenu">
+          <EditIcon />
+          <span>{{ $t('context-menus.section.edit-section') }}</span>
         </li>
         <li v-if="isEditMode" @click="removeSection">
           <BinIcon />
@@ -52,6 +55,9 @@ export default {
     isEditMode() {
       return this.$store.state.editMode;
     },
+    isEditAllowed() {
+      return this.$store.getters.permissions.allowViewConfig;
+    },
   },
   methods: {
     /* Called on item click, emits an event up to Item */
@@ -60,13 +66,13 @@ export default {
       this.$emit('navigateToSection');
     },
     openEditSectionMenu() {
-      this.$emit('openEditSection');
+      if (this.isEditAllowed) this.$emit('openEditSection');
     },
     expandCollapseSection() {
       this.$emit('expandCollapseSection');
     },
     removeSection() {
-      this.$emit('removeSection');
+      if (this.isEditAllowed) this.$emit('removeSection');
     },
     calcPosition() {
       const bounds = this.$parent.$el.getBoundingClientRect();
@@ -113,6 +119,10 @@ div.context-menu {
         width: 1rem;
         margin-right: 0.5rem;
       }
+    }
+    &.disabled li {
+      cursor: not-allowed;
+      opacity: var(--dimming-factor);
     }
   }
 }

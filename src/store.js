@@ -7,7 +7,12 @@ import { makePageName, formatConfigPath, componentVisibility } from '@/utils/con
 import { applyItemId } from '@/utils/config/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
-import { isUserAdmin, makeBasicAuthHeaders, isLoggedInAsGuest } from '@/utils/auth/Auth';
+import {
+  isUserAdmin,
+  makeBasicAuthHeaders,
+  isLoggedInAsGuest,
+  getUserState,
+} from '@/utils/auth/Auth';
 import { localStorageKeys, theme as defaultTheme } from '@/utils/config/defaults';
 
 const {
@@ -38,6 +43,7 @@ const {
   UPDATE_CUSTOM_CSS,
   CONF_MENU_INDEX,
   CRITICAL_ERROR_MSG,
+  AUTH_CHANGED,
 } = Keys;
 
 const emptyConfig = {
@@ -90,6 +96,7 @@ const store = createStore({
     isUsingLocalConfig: false, // If true, will use local config instead of fetched
     criticalError: null, // Will store a message, if a critical error occurs
     navigateConfToTab: undefined, // Used to switch active tab in config modal
+    authRevision: 0, // Bumped on login/logout so auth-dependent getters re-run
   },
   getters: {
     config(state) {
@@ -104,6 +111,7 @@ const store = createStore({
       return state.config.appConfig || {};
     },
     sections(state) {
+      void state.authRevision; // Re-filter sections when auth state changes
       return filterUserSections(state.config.sections || []);
     },
     pages(state) {
@@ -132,6 +140,7 @@ const store = createStore({
     },
     /* Make config read/ write permissions object */
     permissions(state, getters) {
+      void state.authRevision; // Re-evaluate when auth state changes
       const appConfig = getters.appConfig;
       const perms = {
         allowWriteToDisk: true,
@@ -146,10 +155,6 @@ const store = createStore({
       if (appConfig.preventWriteToDisk || !isUserAdmin()) {
         perms.allowWriteToDisk = false;
       }
-      // Legacy Option: Will be removed in V 2.1.0
-      if (appConfig.allowConfigEdit === false) {
-        perms.allowWriteToDisk = false;
-      }
       // Disable everything
       if (appConfig.disableConfiguration
         || (appConfig.disableConfigurationForNonAdmin && !isUserAdmin())
@@ -159,6 +164,10 @@ const store = createStore({
         perms.allowViewConfig = false;
       }
       return perms;
+    },
+    userState(state) {
+      void state.authRevision; // Re-evaluate when auth state changes
+      return getUserState();
     },
     // eslint-disable-next-line arrow-body-style
     getSectionByIndex: (state, getters) => (index) => {
@@ -376,6 +385,9 @@ const store = createStore({
     },
     [CONF_MENU_INDEX](state, index) {
       state.navigateConfToTab = index;
+    },
+    [AUTH_CHANGED](state) {
+      state.authRevision += 1;
     },
     /* Set config to rootConfig, by calling initialize with no params */
     async [USE_MAIN_CONFIG]() {

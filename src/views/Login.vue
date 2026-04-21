@@ -75,6 +75,7 @@
 import router from '@/router';
 import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
+import Keys from '@/utils/StoreMutations';
 import { localStorageKeys } from '@/utils/config/defaults';
 import { InfoHandler, WarningInfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import {
@@ -158,6 +159,7 @@ export default {
       this.status = response.correct ? 'success' : 'error';
       if (response.correct) { // Yay, credentials were correct :)
         login(this.username, this.password, timeout); // Login, to set the cookie
+        this.$store.commit(Keys.AUTH_CHANGED); // Trigger reactive auth-dependent getters
         this.goHome();
         InfoHandler(`Succesfully signed in as ${this.username}`, InfoKeys.AUTH);
       } else {

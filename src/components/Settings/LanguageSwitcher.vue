@@ -1,7 +1,8 @@
 <template>
-  <div class="language-switcher">
-    <h3 class="title">{{ $t('language-switcher.title') }}</h3>
-    <p class="intro">{{ $t('language-switcher.dropdown-label') }}:</p>
+  <div class="language-switcher" :class="{ mini: miniView }">
+    <h3 v-if="!miniView" class="title">{{ $t('language-switcher.title') }}</h3>
+    <p v-if="!miniView" class="intro">{{ $t('language-switcher.dropdown-label') }}:</p>
+    <span v-if="miniView" class="options-label">{{ $t('settings.language-label') }}</span>
     <v-select
       v-model="language"
       :selectOnTab="true"
@@ -9,18 +10,21 @@
       class="language-dropdown"
       label="friendlyName"
       @input="applyLanguageLocally"
+      @option:selected="onOptionSelected"
     />
-    <Button class="save-button" :click="saveLanguage" :disallow="!language">
-      {{ $t('language-switcher.save-button') }}
-      <SaveConfigIcon />
-    </Button>
-    <p v-if="language" class="current-lang">
-      🌐 {{ language.flag }} {{ language.name }}
-    </p>
-    <p v-if="$i18n.availableLocales.length <= 1" class="sad-times">
-      There are not currently any additional languages supported,
-      but stay tuned as more are on their way!
-    </p>
+    <template v-if="!miniView">
+      <Button class="save-button" :click="saveLanguage" :disallow="!language">
+        {{ $t('language-switcher.save-button') }}
+        <SaveConfigIcon />
+      </Button>
+      <p v-if="language" class="current-lang">
+        🌐 {{ language.flag }} {{ language.name }}
+      </p>
+      <p v-if="$i18n.availableLocales.length <= 1" class="sad-times">
+        There are not currently any additional languages supported,
+        but stay tuned as more are on their way!
+      </p>
+    </template>
   </div>
 </template>
 
@@ -38,6 +42,9 @@ export default {
   components: {
     Button,
     SaveConfigIcon,
+  },
+  props: {
+    miniView: Boolean, // If true, render only the dropdown and auto-save on select
   },
   data() {
     return {
@@ -95,11 +102,15 @@ export default {
         const successMsg = `${selectedLanguage.flag} `
           + `${this.$t('language-switcher.success-msg')} ${selectedLanguage.name}`;
         this.$toast.success(successMsg);
-        this.$modal.hide(this.modalName);
+        if (!this.miniView) this.$modal.hide(this.modalName);
       } else {
         this.$toast.error('Unable to update language');
         ErrorHandler('Unable to apply language');
       }
+    },
+    /* In miniView, commit immediately on selection (no save button) */
+    onOptionSelected() {
+      if (this.miniView) this.saveLanguage();
     },
   },
 };
@@ -137,6 +148,12 @@ export default {
     width: 100%;
     bottom: 0;
   }
+  &.mini {
+    height: auto;
+    padding: 0;
+    background: transparent;
+    flex: 1;
+  }
 }
 
 </style>
@@ -154,6 +171,24 @@ export default {
   }
   div, input {
     cursor: pointer;
+  }
+  button.vs__clear {
+    display: none;
+  }
+}
+
+.language-switcher.mini .language-dropdown {
+  margin: 0;
+  width: 100%;
+  div.vs__dropdown-toggle {
+    border-color: var(--primary);
+    border-radius: var(--curve-factor);
+    height: 1.8rem;
+    font-size: 0.85rem;
+  }
+  span.vs__selected { margin: 0.1rem 0 0.5rem 0; }
+  svg.vs__open-indicator {
+    fill: var(--primary);
   }
 }
 

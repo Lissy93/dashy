@@ -1,6 +1,13 @@
 <template>
-  <div class="auth-buttons" v-if="authLabel">
+  <IconLogout
+    v-if="iconOnly && authLabel"
+    @click="run"
+    v-tooltip="tooltip($t(authLabel))"
+    tabindex="-2"
+  />
+  <div v-else-if="authLabel" class="auth-buttons">
     <span v-if="greeting" class="user-type-note">{{ greeting }}</span>
+    <span v-else-if="isGuest" class="user-type-note">{{ $t('settings.please-login') }}</span>
     <button
       type="button"
       class="auth-btn"
@@ -16,6 +23,7 @@
 
 <script>
 import router from '@/router';
+import Keys from '@/utils/StoreMutations';
 import { logout as registerLogout } from '@/utils/auth/Auth';
 import { getKeycloakAuth, isKeycloakEnabled } from '@/utils/auth/KeycloakAuth';
 import { getOidcAuth, isOidcEnabled } from '@/utils/auth/OidcAuth';
@@ -33,6 +41,7 @@ export default {
   components: { IconLogout },
   props: {
     userType: Number,
+    iconOnly: Boolean, // If true, render just the icon (used by ConfigLauncher)
   },
   computed: {
     authLabel() {
@@ -44,6 +53,9 @@ export default {
       if (!SIGN_OUT_STATES.includes(this.userType)) return '';
       const username = localStorage[localStorageKeys.USERNAME];
       return username ? this.$t('settings.sign-in-welcome', { username }) : '';
+    },
+    isGuest() {
+      return this.userType === userStateEnum.guestAccess;
     },
   },
   methods: {
@@ -58,6 +70,7 @@ export default {
     },
     logout() {
       registerLogout();
+      this.$store.commit(Keys.AUTH_CHANGED);
       this.$toast(this.$t('login.logout-message'));
       setTimeout(() => router.push({ path: '/login' }), 500);
     },
@@ -115,7 +128,7 @@ export default {
   color: var(--settings-text-color);
   border: 1px solid currentColor;
   border-radius: var(--curve-factor);
-  font-size: 0.8rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
 

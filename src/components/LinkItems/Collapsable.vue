@@ -24,7 +24,7 @@
       <h3>{{ title }}</h3>
       <EditModeIcon v-if="isEditMode" @click="openEditModal"
         v-tooltip="editTooltip()" class="header-action" />
-      <OpenIcon @click.prevent.stop="openContextMenu" @contextmenu.prevent
+      <EllipseIcon @click.prevent.stop="openContextMenu" @contextmenu.prevent
         v-tooltip="optionsTooltip()" class="header-action" />
     </div>
     <div class="collapsible-content">
@@ -40,7 +40,7 @@ import longPress from '@/directives/LongPress';
 import { localStorageKeys } from '@/utils/config/defaults';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
-import OpenIcon from '@/assets/interface-icons/config-open-settings.svg';
+import EllipseIcon from '@/assets/interface-icons/ellipse.svg';
 
 export default {
   name: 'CollapsableContainer',
@@ -58,7 +58,7 @@ export default {
   components: {
     Icon,
     EditModeIcon,
-    OpenIcon,
+    EllipseIcon,
   },
   directives: {
     longPress,

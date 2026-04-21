@@ -123,7 +123,7 @@ section {
   width: 2rem;
   height: 2rem;
   padding: 0.3rem;
-  background: none;
+  background: var(--background-darker);
   border: 1px solid transparent;
   border-radius: var(--curve-factor);
   color: var(--settings-text-color);

@@ -10,6 +10,7 @@
         :class="(isEditMode || !isEditAllowed) ? 'disabled' : ''" />
       <IconViewMode @click="openChangeViewMenu()" tabindex="-2"
         v-tooltip="tooltip($t('alternate-views.alternate-view-heading'))" />
+      <AuthButtons :userType="userState" iconOnly />
     </div>
 
     <!-- Modal containing all the configuration options -->
@@ -33,6 +34,7 @@
 // Import components, and store-key identifiers
 import ConfigContainer from '@/components/Configuration/ConfigContainer';
 import LanguageSwitcher from '@/components/Settings/LanguageSwitcher';
+import AuthButtons from '@/components/Settings/AuthButtons';
 import Keys from '@/utils/StoreMutations';
 import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/config/defaults';
 import ViewSwitcher from '@/components/Settings/ViewSwitcher';
@@ -52,6 +54,7 @@ export default {
   components: {
     ConfigContainer,
     LanguageSwitcher,
+    AuthButtons,
     ViewSwitcher,
     IconSpanner,
     IconInteractiveEditor,
@@ -72,6 +75,9 @@ export default {
     },
     isEditAllowed() {
       return this.$store.getters.permissions.allowViewConfig;
+    },
+    userState() {
+      return this.$store.getters.userState;
     },
     /* Tooltip text for Edit Mode button, to change depending on it in edit mode */
     enterEditModeTooltip() {

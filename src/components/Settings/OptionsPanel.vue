@@ -17,13 +17,13 @@
       </button>
     </header>
 
-    <section class="section actions-row">
+    <section v-if="canEdit" class="section actions-row">
       <button
         type="button"
         class="action-btn"
-        :class="{ 'is-primary': !isEditMode && canEdit }"
+        :class="{ 'is-primary': !isEditMode }"
         @click="startEdit"
-        :disabled="!canEdit || isEditMode"
+        :disabled="isEditMode"
         v-tooltip="editTooltip"
       >
         <IconEdit />
@@ -38,6 +38,10 @@
         <IconConfig />
         <span>{{ $t('settings.config-launcher-label') }}</span>
       </button>
+    </section>
+
+    <section v-else class="section language-row">
+      <LanguageSwitcher miniView />
     </section>
 
     <section class="section theme-section">
@@ -74,6 +78,7 @@
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import LayoutSelector from '@/components/Settings/LayoutSelector';
 import ItemSizeSelector from '@/components/Settings/ItemSizeSelector';
+import LanguageSwitcher from '@/components/Settings/LanguageSwitcher';
 import AuthButtons from '@/components/Settings/AuthButtons';
 import Keys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/config/defaults';
@@ -92,6 +97,7 @@ export default {
     ThemeSelector,
     LayoutSelector,
     ItemSizeSelector,
+    LanguageSwitcher,
     AuthButtons,
     IconClose,
     IconEdit,
@@ -106,7 +112,6 @@ export default {
     canEdit() { return this.$store.getters.permissions.allowViewConfig; },
     userState() { return getUserState(); },
     editTooltip() {
-      if (!this.canEdit) return this.$t('interactive-editor.menu.config-unavailable');
       const key = this.isEditMode ? 'edit-mode-subtitle' : 'start-editing-tooltip';
       return this.$t(`interactive-editor.menu.${key}`);
     },
@@ -134,7 +139,7 @@ export default {
       this.close();
     },
     startEdit() {
-      if (this.isEditMode || !this.canEdit) return;
+      if (this.isEditMode) return;
       this.$store.commit(Keys.SET_EDIT_MODE, true);
       this.close();
     },
@@ -151,7 +156,7 @@ export default {
 
 .options-panel {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: 100%;
   right: 0.5rem;
   z-index: 5;
   width: 22rem;

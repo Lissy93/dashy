@@ -47,6 +47,7 @@ export default {
     /* Get links to sub-pages, and combine with nav-links. Sub-page links honor the
      * current view (home/minimal/workspace) so users stay in the view they chose. */
     allLinks() {
+      void this.$store.state.authRevision; // Re-filter pages when auth state changes
       const view = viewFromPath(this.$route.path);
       const subPages = this.$store.getters.pages.filter((page) => checkPageVisibility(page))
         .map((subPage) => ({
