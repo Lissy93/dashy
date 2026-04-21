@@ -131,7 +131,6 @@ export default {
   mounted() {
     this.initiateFontAwesome();
     this.initiateMaterialDesignIcons();
-    this.setTheme();
   },
 };
 </script>

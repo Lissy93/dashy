@@ -75,7 +75,7 @@
 import router from '@/router';
 import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
-import Defaults, { localStorageKeys } from '@/utils/config/defaults';
+import { localStorageKeys } from '@/utils/config/defaults';
 import { InfoHandler, WarningInfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import {
   checkCredentials,
@@ -199,14 +199,8 @@ export default {
         router.push({ path: '/' });
       }, 250);
     },
-    /* Since Theme setter isn't loaded at this point, we must manually get and apply users theme */
-    setTheme() {
-      const theme = localStorage[localStorageKeys.THEME] || Defaults.theme;
-      document.getElementsByTagName('html')[0].setAttribute('data-theme', theme);
-    },
   },
   created() {
-    this.setTheme();
     setTimeout(() => { this.timeout = this.dropDownMenu[0]; }, 1); //eslint-disable-line
   },
 };

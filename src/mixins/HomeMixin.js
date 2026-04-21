@@ -7,10 +7,8 @@ import Keys from '@/utils/StoreMutations';
 import { searchTiles } from '@/utils/Search';
 import { checkItemVisibility } from '@/utils/CheckItemVisibility';
 import { resolveRouteIntent, PAGE_STATUS } from '@/utils/config/ConfigHelpers';
-import ThemingMixin from '@/mixins/ThemingMixin';
 
 const HomeMixin = {
-  mixins: [ThemingMixin],
   computed: {
     sections() {
       return this.$store.getters.sections;
@@ -59,9 +57,6 @@ const HomeMixin = {
       const { status, pageId } = resolveRouteIntent(this.$route, this.$store);
       if (status === PAGE_STATUS.ROOT || status === PAGE_STATUS.LEGACY_SECTION) return null;
       return pageId; // KNOWN -> load sub-config; UNKNOWN -> store raises critical error
-    },
-    setTheme() {
-      this.initializeTheme();
     },
     updateModalVisibility(modalState) {
       this.$store.commit(Keys.SET_MODAL_OPEN, modalState);

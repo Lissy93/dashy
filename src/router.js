@@ -105,6 +105,7 @@ const router = createRouter({
       path: routePaths.notFound,
       name: '404',
       component: () => import('./views/404.vue'),
+      meta: { theme: 'dashy-docs' },
       beforeEnter: (to, from, next) => {
         if (to.redirectedFrom) { // Log error, if redirected here from another route
           ErrorHandler(`Route not found: '${to.redirectedFrom.fullPath}'`);

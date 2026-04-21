@@ -46,10 +46,6 @@ export default {
       themeConfiguratorOpen: false, // Control the opening of theme config popup
     };
   },
-  computed: {},
-  mounted() {
-    this.initializeTheme();
-  },
   methods: {
     /* Opens the theme color configurator popup */
     openThemeConfigurator() {

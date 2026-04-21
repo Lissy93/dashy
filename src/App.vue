@@ -19,6 +19,7 @@ import { welcomeMsg } from '@/utils/logging/CoolConsole';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import { syncPageMeta } from '@/utils/PageMeta';
 import { viewFromPath } from '@/utils/config/ConfigHelpers';
+import { applyTheme } from '@/utils/Theming';
 import Keys from '@/utils/StoreMutations';
 import {
   localStorageKeys,
@@ -54,6 +55,13 @@ export default {
       handler() { syncPageMeta(this.$route, this.$store); },
       immediate: true,
     },
+    /* Apply the effective theme whenever it changes — on app load, when the
+     * user picks a new theme, when navigating between sub-configs, or when
+     * a route declares its own theme via `meta.theme` (e.g. the 404 page). */
+    effectiveTheme: {
+      immediate: true,
+      handler(t) { applyTheme(t, this.appConfig); },
+    },
   },
   computed: {
     /* If the user has specified custom text for footer - get it */
@@ -71,6 +79,10 @@ export default {
     },
     config() {
       return this.$store.state.config;
+    },
+    /* Route-declared themes (e.g. 404) win over the user's saved theme */
+    effectiveTheme() {
+      return this.$route?.meta?.theme || this.$store.getters.theme;
     },
     appConfig() {
       return this.$store.getters.appConfig;
@@ -208,21 +220,19 @@ export default {
       e.preventDefault();
       return 'You may have unsaved edits. Are you sure you want to exit the page?';
     },
-    /* Detect and apply theme based on OS preference */
+    /* If dayTheme/nightTheme is configured, switch to it based on OS preference.
+     * Commits to the store — the `theme` watcher then handles DOM application. */
     applyThemeBasedOnOSPreference() {
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
       const osTheme = prefersDark ? this.appConfig.nightTheme : this.appConfig.dayTheme;
-      if (osTheme) {
-        this.$store.commit(Keys.SET_THEME, osTheme);
-        this.updateTheme(osTheme);
-      }
+      if (osTheme) this.$store.commit(Keys.SET_THEME, osTheme);
     },
   },
   /* Basic initialization tasks on app load */
   async mounted() {
     await this.$store.dispatch(Keys.INITIALIZE_CONFIG); // Initialize config before moving on
     this.applyLanguage(); // Apply users local language
-    this.applyThemeBasedOnOSPreference(); // Apply theme based on OS preference
+    this.applyThemeBasedOnOSPreference(); // Override with OS-preference theme, if configured
     this.hideSplash(); // Hide the splash screen, if visible
     this.applyCustomStyles(); // Apply custom CSS and external stylesheets
     this.hideLoader(); // If initial placeholder still visible, hide it

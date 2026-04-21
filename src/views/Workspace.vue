@@ -90,7 +90,6 @@ export default {
   mounted() {
     this.initiateFontAwesome();
     this.initiateMaterialDesignIcons();
-    this.setTheme();
     this.url = this.getInitialUrl();
   },
 };

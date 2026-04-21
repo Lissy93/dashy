@@ -113,9 +113,8 @@ const store = createStore({
     theme(state) {
       const localStorageKey = state.currentConfigInfo.confId
         ? `${localStorageKeys.THEME}-${state.currentConfigInfo.confId}` : localStorageKeys.THEME;
-      const localTheme = localStorage[localStorageKey];
-      // Return either theme from local storage, or from appConfig
-      return localTheme || state.config.appConfig.theme || defaultTheme;
+      const configTheme = state.config?.appConfig?.theme;
+      return localStorage[localStorageKey] || configTheme || defaultTheme;
     },
     webSearch(state, getters) {
       return getters.appConfig.webSearch || {};
