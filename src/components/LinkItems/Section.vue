@@ -107,13 +107,10 @@ import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import EditSection from '@/components/InteractiveEditor/EditSection.vue';
 import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
+import sortItems from '@/utils/SortItems';
 import { makeRoutePath, viewFromPath } from '@/utils/config/ConfigHelpers';
 import StoreKeys from '@/utils/StoreMutations';
-import {
-  sortOrder as defaultSortOrder,
-  localStorageKeys,
-  modalNames,
-} from '@/utils/config/defaults';
+import { sortOrder as defaultSortOrder, modalNames } from '@/utils/config/defaults';
 
 export default {
   name: 'Section',
@@ -177,22 +174,8 @@ export default {
     },
     /* If the sortBy attribute is specified, then return sorted data */
     sortedItems() {
-      const items = [...this.items];
-      if (this.appConfig.disableSmartSort) return items;
-      if (this.sortOrder === 'alphabetical') {
-        return this.sortAlphabetically(items);
-      } else if (this.sortOrder === 'reverse-alphabetical') {
-        return this.sortAlphabetically(items).reverse();
-      } else if (this.sortOrder === 'most-used') {
-        return this.sortByMostUsed(items);
-      } else if (this.sortOrder === 'last-used') {
-        return this.sortByLastUsed(items);
-      } else if (this.sortOrder === 'random') {
-        return this.sortRandomly(items);
-      } else if (this.sortOrder && this.sortOrder !== 'default') {
-        ErrorHandler(`Unknown Sort order '${this.sortOrder}' under '${this.title}'`);
-      }
-      return items;
+      if (this.appConfig.disableSmartSort) return [...this.items];
+      return sortItems(this.items, this.sortOrder, this.title);
     },
     isGridLayout() {
       return this.displayData.sectionLayout === 'grid'
@@ -216,31 +199,6 @@ export default {
     /* Opens the iframe modal */
     triggerModal(url) {
       this.$refs[`iframeModal-${this.groupId}`].show(url);
-    },
-    /* Sorts items alphabetically using the title attribute */
-    sortAlphabetically(items) {
-      return items.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1));
-    },
-    /* Sorts items by most used to least used, based on click-count */
-    sortByMostUsed(items) {
-      const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
-      const gmu = (item) => usageCount[item.id] || 0;
-      items.reverse().sort((a, b) => (gmu(a) < gmu(b) ? 1 : -1));
-      return items;
-    },
-    /* Sorts items by most recently used */
-    sortByLastUsed(items) {
-      const usageCount = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
-      const glu = (item) => usageCount[item.id] || 0;
-      items.reverse().sort((a, b) => (glu(a) < glu(b) ? 1 : -1));
-      return items;
-    },
-    /* Sorts items randomly */
-    sortRandomly(items) {
-      return items
-        .map((value) => ({ value, sort: Math.random() }))
-        .sort((a, b) => a.sort - b.sort)
-        .map(({ value }) => value);
     },
     /* Navigate to the section's single-section view */
     navigateToSection() {

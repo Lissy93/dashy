@@ -1,7 +1,9 @@
 <template>
-  <div :class="`minimal-section-inner ${selected ? 'selected' : ''} ${showAll ? 'show-all': ''}`">
-    <div class="section-items" v-if="items && (selected || showAll)">
-      <template v-for="(item) in items" :key="item.id">
+  <div
+    :class="`minimal-section-inner ${selected ? 'selected' : ''} ${showAll ? 'show-all': ''}`"
+    :style="dynamicStyle">
+    <div class="section-items" :style="gridStyle" v-if="items && (selected || showAll)">
+      <template v-for="(item) in sortedItems" :key="item.id">
         <SubItemGroup
           v-if="item.subItems"
           :itemId="item.id"
@@ -47,6 +49,7 @@ import Item from '@/components/LinkItems/Item.vue';
 import WidgetBase from '@/components/Widgets/WidgetBase';
 import SubItemGroup from '@/components/LinkItems/SubItemGroup.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
+import sortItems from '@/utils/SortItems';
 import { makeRoutePath, viewFromPath } from '@/utils/config/ConfigHelpers';
 
 export default {
@@ -58,7 +61,6 @@ export default {
     displayData: Object,
     items: Array,
     widgets: Array,
-    itemSize: String,
     modalOpen: Boolean,
     index: Number,
     selected: Boolean,
@@ -67,6 +69,33 @@ export default {
   computed: {
     appConfig() {
       return this.$store.getters.appConfig;
+    },
+    /* Mirror Section.vue: per-section override wins, otherwise the current
+     * icon size (localStorage + appConfig) chosen by the user */
+    itemSize() {
+      return (this.displayData && this.displayData.itemSize) || this.$store.getters.iconSize;
+    },
+    /* Same itemCountX/Y handling as the home view */
+    gridStyle() {
+      const d = this.displayData || {};
+      const parts = [];
+      if (d.itemCountX) parts.push(`grid-template-columns: repeat(${d.itemCountX}, minmax(0, 1fr))`);
+      if (d.itemCountY) parts.push(`grid-template-rows: repeat(${d.itemCountY}, auto)`);
+      return parts.join('; ');
+    },
+    /* Respect sortBy exactly as the home view does; `disableSmartSort` opt-out */
+    sortedItems() {
+      if (this.appConfig.disableSmartSort) return [...(this.items || [])];
+      const order = (this.displayData && this.displayData.sortBy) || undefined;
+      return sortItems(this.items || [], order, this.title);
+    },
+    /* Apply per-section `color` (background tint) and sanitized `customStyles` */
+    dynamicStyle() {
+      const d = this.displayData || {};
+      const parts = [];
+      if (d.color) parts.push(`background: ${d.color}`);
+      if (d.customStyles) parts.push(d.customStyles.replace(/[^a-zA-Z0-9- :;.]/g, ''));
+      return parts.join('; ');
     },
   },
   components: {
@@ -144,7 +173,6 @@ export default {
   }
   &.selected {
     border: 1px solid var(--minimal-view-group-color);
-    grid-column-start: span var(--col-count, 3);
     &:not(.show-all) { min-height: 300px; }
   }
   &.show-all {

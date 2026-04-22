@@ -137,7 +137,9 @@ export default {
     },
     /* Returns optional section display preferences if available */
     getDisplayData(section) {
-      return !section.displayData ? {} : section.displayData;
+      const displayData = section.displayData ? { ...section.displayData } : {};
+      if (this.singleSectionView) displayData.collapsed = false;
+      return displayData;
     },
     openAddNewSectionMenu() {
       this.addNewSectionOpen = true;

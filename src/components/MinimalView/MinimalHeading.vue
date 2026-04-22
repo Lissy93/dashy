@@ -48,7 +48,12 @@ div.minimal-section-heading {
   border-bottom: none;
   border-radius: var(--curve-factor) var(--curve-factor) 0 0;
   h3.section-title {
+    flex: 1 1 auto;
+    min-width: 0;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: var(--minimal-view-section-heading-color);
   }
   .section-icon {

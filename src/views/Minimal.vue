@@ -1,5 +1,5 @@
 <template>
-  <div class="minimal-home" :style="getBackgroundImage() + setColumnCount()">
+  <div class="minimal-home" :style="getBackgroundImage()">
     <!-- Buttons for config and home page -->
     <div class="minimal-buttons">
       <ConfigLauncher @modalChanged="updateModalVisibility" class="config-launcher" />
@@ -15,18 +15,26 @@
     </div>
     <div v-if="checkTheresData(sections)"
       :class="`item-group-container ${!tabbedView ? 'showing-all' : ''}`">
-      <!-- Section heading buttons -->
-      <MinimalHeading
-        v-for="(section, index) in sections"
-        :key="`heading-${index}`"
-        :index="index"
-        :title="section.name"
-        :icon="section.icon"
-        :selected="selectedSection === index"
-        @sectionSelected="sectionSelected"
-        class="headings"
-        :hideTitleText="sections.length > 8"
-      />
+      <!-- Section heading tabs. Equal-width, scroll horizontally with arrows when they overflow -->
+      <div class="minimal-headings-wrap">
+        <button v-if="canScrollTabs" class="tab-scroll-btn"
+          :disabled="!canScrollLeft" @click="scrollTabs(-1)" aria-label="Previous tabs">‹</button>
+        <div ref="tabsStrip" class="minimal-headings-row" @scroll="updateTabScroll">
+          <MinimalHeading
+            v-for="(section, index) in sections"
+            :key="`heading-${index}`"
+            :index="index"
+            :title="section.name"
+            :icon="section.icon"
+            :selected="selectedSection === index"
+            @sectionSelected="sectionSelected"
+            class="headings"
+            :hideTitleText="sections.length > 8"
+          />
+        </div>
+        <button v-if="canScrollTabs" class="tab-scroll-btn"
+          :disabled="!canScrollRight" @click="scrollTabs(1)" aria-label="Next tabs">›</button>
+      </div>
       <!-- Section item groups -->
       <MinimalSection
         v-for="(section, index) in sections"
@@ -37,9 +45,9 @@
         :groupId="makeSectionId(section)"
         :items="filterTiles(section.items)"
         :widgets="section.widgets"
+        :displayData="section.displayData || {}"
         :selected="selectedSection === index"
         :showAll="!tabbedView"
-        itemSize="small"
         @sectionSelected="sectionSelected"
         @itemClicked="finishedSearching()"
         @change-modal-visibility="updateModalVisibility"
@@ -74,6 +82,10 @@ export default {
     layout: '',
     selectedSection: 0, // The index of currently selected section
     tabbedView: true, // By default use tabs, when searching then show all instead
+    canScrollTabs: false, // Tabs strip is wider than its container
+    canScrollLeft: false,
+    canScrollRight: false,
+    tabResizeObserver: null,
   }),
   watch: {
     searchValue() {
@@ -116,10 +128,6 @@ export default {
         return itemsFound;
       }
     },
-    /* Make CSS to set the number of columns based on the number of sections */
-    setColumnCount() {
-      return `--col-count: ${this.sections.length};`;
-    },
     /* Make CSS styles to apply the users custom background image */
     getBackgroundImage() {
       if (this.appConfig && this.appConfig.backgroundImg) {
@@ -127,10 +135,38 @@ export default {
       }
       return '';
     },
+    /* Scroll the tab strip by ~one visible page; leaves a small overlap so
+     * the user can see where they came from */
+    scrollTabs(direction) {
+      const strip = this.$refs.tabsStrip;
+      if (!strip) return;
+      const amount = Math.max(strip.clientWidth - 64, 120);
+      strip.scrollBy({ left: amount * direction, behavior: 'smooth' });
+    },
+    updateTabScroll() {
+      const strip = this.$refs.tabsStrip;
+      if (!strip) return;
+      this.canScrollTabs = strip.scrollWidth > strip.clientWidth + 1;
+      this.canScrollLeft = strip.scrollLeft > 0;
+      this.canScrollRight = strip.scrollLeft + strip.clientWidth < strip.scrollWidth - 1;
+    },
   },
   mounted() {
     this.initiateFontAwesome();
     this.initiateMaterialDesignIcons();
+    this.$nextTick(() => {
+      this.updateTabScroll();
+      if (typeof ResizeObserver !== 'undefined' && this.$refs.tabsStrip) {
+        this.tabResizeObserver = new ResizeObserver(this.updateTabScroll);
+        this.tabResizeObserver.observe(this.$refs.tabsStrip);
+      }
+    });
+  },
+  beforeUnmount() {
+    if (this.tabResizeObserver) {
+      this.tabResizeObserver.disconnect();
+      this.tabResizeObserver = null;
+    }
   },
 };
 </script>
@@ -165,27 +201,51 @@ export default {
 
 /* Outside container wrapping the item groups*/
 .item-group-container {
-  display: grid;
-  gap: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
   margin: 3rem auto;
   width: 90%;
-  grid-template-columns: repeat(var(--col-count), 1fr);
   @extend .scroll-bar;
 
-  &.showing-all {
-    flex-direction: column;
-    display: flex;
-    .headings {
-      display: none;
-    }
+  &.showing-all .minimal-headings-wrap {
+    display: none;
   }
 }
 
- @include phone {
-   .item-group-container {
-    display: flex;
-    flex-direction: column;
-   }
+.minimal-headings-wrap {
+  display: flex;
+  align-items: stretch;
+  gap: 0.25rem;
+}
+.minimal-headings-row {
+  flex: 1 1 auto;
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+  .headings {
+    flex: 1 0 8rem;
+    max-width: 14rem;
+    min-width: 0;
+    &.center {
+      flex: 1 0 3rem;
+      max-width: 4rem;
+    }
+  }
+}
+.tab-scroll-btn {
+  flex: 0 0 auto;
+  padding: 0 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  background: var(--minimal-view-section-heading-background);
+  color: var(--minimal-view-section-heading-color);
+  border: 1px solid var(--minimal-view-section-heading-color);
+  border-radius: var(--curve-factor);
+  &:disabled { opacity: 0.3; cursor: default; }
 }
 
 .no-data {
