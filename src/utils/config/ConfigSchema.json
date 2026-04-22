@@ -856,7 +856,8 @@
                 "minimum": 1,
                 "maximum": 5,
                 "default": 1,
-                "description": "The amount of space that the section spans vertically"
+                "deprecated": true,
+                "description": "Deprecated. Section heights now follow content in the masonry layout; this value is accepted for backwards compatibility but has no effect."
               },
               "cols": {
                 "title": "Num Cols",

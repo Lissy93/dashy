@@ -5,7 +5,6 @@
     :uniqueKey="groupId"
     :collapsed="displayData.collapsed"
     :cols="effectiveColsSpan"
-    :rows="displayData.rows"
     :color="displayData.color"
     :customStyles="displayData.customStyles"
     :cutToHeight="displayData.cutToHeight"

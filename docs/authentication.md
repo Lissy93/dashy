@@ -565,7 +565,6 @@ sections:
   - name: Authentication
     displayData:
       sortBy: default
-      rows: 2
       cols: 1
       collapsed: false
       hideForGuests: false

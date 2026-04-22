@@ -1,10 +1,10 @@
 <template>
   <div
     v-bind:class="[
-    { 'is-open': isExpanded, 'full-height': cutToHeight },
-    `collapsable ${rowColSpanClass}`, sectionClassName
+    { 'is-open': isExpanded, 'full-height': cutToHeight && !isMasonry },
+    `collapsable ${colSpanClass}`, sectionClassName
     ]"
-    :style="`${color ? 'background: '+color : ''}; ${sanitizeCustomStyles(customStyles)};`"
+    :style="dynamicStyle"
   >
     <input
       :id="sectionKey"
@@ -37,6 +37,7 @@
 
 <script>
 import longPress from '@/directives/LongPress';
+import MasonryItem from '@/mixins/MasonryItem';
 import { localStorageKeys } from '@/utils/config/defaults';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
@@ -44,13 +45,13 @@ import EllipseIcon from '@/assets/interface-icons/ellipse.svg';
 
 export default {
   name: 'CollapsableContainer',
+  mixins: [MasonryItem],
   props: {
     uniqueKey: String, // Generated unique ID
     title: String, // The section title
     icon: String, // An optional section icon
     collapsed: Boolean, // Optional override collapse state
     cols: Number, // Set section horizontal col span / width
-    rows: Number, // Set section vertical row span / height
     color: String, // Optional color override
     customStyles: String, // Optional custom stylings
     cutToHeight: Boolean, // To set section height with content height
@@ -70,12 +71,16 @@ export default {
     sectionKey() {
       return `collapsible-${this.uniqueKey}`;
     },
-    collapseClass() {
-      return !this.isExpanded ? ' is-collapsed' : 'is-open';
+    colSpanClass() {
+      return this.checkSpanNum(this.cols, 'col');
     },
-    rowColSpanClass() {
-      const { rows, cols, checkSpanNum } = this;
-      return `${checkSpanNum(cols, 'col')} ${checkSpanNum(rows, 'row')}`;
+    dynamicStyle() {
+      const parts = [];
+      if (this.color) parts.push(`background: ${this.color}`);
+      const custom = this.sanitizeCustomStyles(this.customStyles);
+      if (custom) parts.push(custom);
+      if (this.masonryStyle) parts.push(this.masonryStyle);
+      return parts.join('; ');
     },
     sectionClassName() {
       if (!this.title) return 'unnamed-section';
@@ -128,7 +133,7 @@ export default {
     toggle() {
       this.checkboxState = !this.checkboxState;
     },
-    /* Check that row & column span is valid, and not over the max */
+    /* Clamp a user-supplied column-span to a sane range, returning a CSS class name */
     checkSpanNum(span, classPrefix) {
       const maxSpan = 6;
       let numSpan = /^\d*$/.test(span) ? parseInt(span, 10) : 1;
@@ -185,16 +190,10 @@ export default {
   box-shadow: var(--item-group-shadow);
   background: var(--item-group-outer-background);
 
-  /* Options allowing sections to SPAN multiple rows or columns */
-  grid-row-start: span 1;
-  &.row-2 { grid-row-start: span 2; }
-  &.row-3 { grid-row-start: span 3; }
-  &.row-4 { grid-row-start: span 4; }
-  &.row-5 { grid-row-start: span 5; }
-  &.row-6 { grid-row-start: span 6; }
+  /* Section column spanning (heights are driven by masonry / content). */
   grid-column-start: span 1;
   @include tablet-up {
-    &.col-2, &.col-3, &.col-4, &.col-5, &.col-6  { grid-column-start: span 2; }
+    &.col-2, &.col-3, &.col-4, &.col-5, &.col-6 { grid-column-start: span 2; }
   }
   @include laptop-up {
     &.col-2 { grid-column-start: span 2; }

@@ -1,6 +1,6 @@
 <!-- Main homepage for default view -->
 <template>
-  <div class="add-section">
+  <div class="add-section" :style="dynamicStyle">
   <!-- When in edit mode, show Add New Section button -->
   <div v-if="isEditMode" @click="openAddNewSectionMenu()" class="add-new-section">
     <p>➕ {{ $t('interactive-editor.edit-section.add-section-title') }}</p>
@@ -17,11 +17,13 @@
 <script>
 
 import EditSectionMenu from '@/components/InteractiveEditor/EditSection.vue';
+import MasonryItem from '@/mixins/MasonryItem';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/config/defaults';
 
 export default {
   name: 'add-section-container',
+  mixins: [MasonryItem],
   components: {
     EditSectionMenu,
   },
@@ -31,6 +33,9 @@ export default {
   computed: {
     isEditMode() {
       return this.$store.state.editMode;
+    },
+    dynamicStyle() {
+      return this.masonryStyle;
     },
   },
   methods: {

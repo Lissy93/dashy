@@ -41,7 +41,6 @@ const SECTION_SCHEMA = {
       description: sectionProps.displayData.description,
       properties: {
         sortBy: displayProps.sortBy,
-        rows: displayProps.rows,
         cols: displayProps.cols,
         collapsed: displayProps.collapsed,
         hideForGuests: displayProps.hideForGuests,

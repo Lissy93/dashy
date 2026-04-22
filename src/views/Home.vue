@@ -213,6 +213,14 @@ export default {
     max-width: var(--content-max-width, 85%);
   }
 
+  /* Default layout - A masonry grid so sections are auto-positioned to make best use of space
+  * Row span is computed per-section from content height against --masonry-row-unit */
+  &.orientation-auto {
+    grid-auto-rows: var(--masonry-row-unit, 8px);
+    grid-auto-flow: row dense;
+    row-gap: 0;
+  }
+
   /* Options for alternate layouts, triggered by buttons */
   &.orientation-horizontal {
     display: flex;
