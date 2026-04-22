@@ -276,7 +276,18 @@
             "material-dark-original",
             "vaporware",
             "high-contrast-dark",
-            "high-contrast-light"
+            "high-contrast-light",
+            "tokyo-night",
+            "gruvbox",
+            "rose-pine",
+            "parchment",
+            "aurora",
+            "zinc",
+            "solarized-dark",
+            "solarized-light",
+            "brutalist",
+            "midnight",
+            "catppuccin"
           ]
         },
         "dayTheme": {

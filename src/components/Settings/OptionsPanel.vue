@@ -164,7 +164,7 @@ export default {
   padding: 1rem;
   background: var(--config-settings-background);
   color: var(--config-settings-color);
-  border: 1px solid var(--primary);
+  border: 1px solid var(--config-settings-color);
   border-radius: var(--curve-factor);
   box-shadow: var(--settings-container-shadow);
   display: flex;
@@ -184,13 +184,13 @@ export default {
   align-items: center;
   justify-content: space-between;
   padding-bottom: 0.6rem;
-  border-bottom: 1px solid var(--primary);
+  border-bottom: 1px solid var(--config-settings-color);
 
   h3 {
     margin: 0;
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--primary);
+    color: var(--config-settings-color);
   }
 
   .close-btn {
@@ -200,7 +200,7 @@ export default {
     background: transparent;
     border: none;
     border-radius: var(--curve-factor-small);
-    color: var(--primary);
+    color: var(--config-settings-color);
     cursor: pointer;
     opacity: var(--dimming-factor);
 
@@ -208,7 +208,7 @@ export default {
 
     &:hover, &:focus-visible {
       opacity: 1;
-      background: var(--primary);
+      background: var(--config-settings-color);
       color: var(--config-settings-background);
       outline: none;
     }
@@ -293,6 +293,6 @@ export default {
 
 .auth-row {
   padding-top: 0.75rem;
-  border-top: 1px dashed var(--primary);
+  border-top: 1px dashed var(--config-settings-color);
 }
 </style>

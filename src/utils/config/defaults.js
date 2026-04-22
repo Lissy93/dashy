@@ -91,6 +91,17 @@ const defaults = {
     'neomorphic',
     'glass-2',
     'night-bat',
+    'tokyo-night',
+    'gruvbox',
+    'rose-pine',
+    'parchment',
+    'aurora',
+    'zinc',
+    'solarized-dark',
+    'solarized-light',
+    'brutalist',
+    'midnight',
+    'catppuccin',
   ],
   /* Default color options for the theme configurator swatches */
   swatches: [

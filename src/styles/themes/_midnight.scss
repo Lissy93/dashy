@@ -1,0 +1,44 @@
+/* Midnight — pure black OLED-optimized theme. Muted whites, minimal saturation,
+ * ideal for always-on wall displays and OLED screens (true-black pixels save power). */
+html[data-theme='midnight'] {
+  --primary: #e5e5e5;
+  --background: #000000;
+  --background-darker: #000000;
+  --item-group-background: #0a0a0a;
+  --item-group-outer-background: transparent;
+  --item-background: #0d0d0d;
+  --item-background-hover: #1a1a1a;
+  --item-shadow: 0 0 0 1px #1f1f1f;
+  --item-hover-shadow: 0 0 0 1px #404040;
+
+  --heading-text-color: #fafafa;
+  --item-text-color: #e5e5e5;
+  --item-text-color-hover: #ffffff;
+  --item-group-heading-text-color: #a3a3a3;
+  --item-group-heading-text-color-hover: #ffffff;
+
+  --settings-background: #000000;
+  --settings-text-color: #a3a3a3;
+  --nav-link-text-color: #a3a3a3;
+  --nav-link-text-color-hover: #ffffff;
+  --nav-link-background-color: transparent;
+  --nav-link-border-color: #1f1f1f;
+  --nav-link-border-color-hover: #737373;
+
+  --search-container-background: #000000;
+  --search-field-background: #0a0a0a;
+  --footer-background: #000000;
+  --footer-text-color: #737373;
+  --footer-text-color-link: #e5e5e5;
+
+  --outline-color: #737373;
+  --highlight-background: #ffffff;
+  --highlight-color: #000000;
+  --curve-factor: 6px;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-headings: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  h1, h2, h3 { font-weight: 300; letter-spacing: -0.01em; }
+  .item { border: 1px solid transparent; transition: border-color 0.15s ease; }
+  .item:hover { border-color: #404040; }
+}

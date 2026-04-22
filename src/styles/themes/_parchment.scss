@@ -1,0 +1,46 @@
+/* Parchment — warm editorial light theme. Aged-paper background, ink-black
+ * text, burgundy accents. Feels like a classic book layout. AAA contrast. */
+html[data-theme='parchment'] {
+  --primary: #8b2c2c;
+  --background: #f5efdc;
+  --background-darker: #e8dfc4;
+  --item-group-background: #ffffff;
+  --item-group-outer-background: #8b2c2c;
+  --item-background: #fafaf5;
+  --item-background-hover: #f0e9d0;
+  --item-shadow: 0 1px 2px #0000001a;
+  --item-hover-shadow: 2px 3px 6px #0000002e;
+  --item-group-shadow: 0 2px 4px #0000001a;
+
+  --heading-text-color: #2a2420;
+  --item-text-color: #2a2420;
+  --item-text-color-hover: #8b2c2c;
+  --item-group-heading-text-color: #f5efdc;
+  --item-group-heading-text-color-hover: #f5efdc;
+
+  --settings-background: #e8dfc4;
+  --settings-text-color: #2a2420;
+  --nav-link-text-color: #2a2420;
+  --nav-link-background-color: #ffffff;
+  --nav-link-border-color: #d4c9a6;
+  --nav-link-border-color-hover: #8b2c2c;
+  --nav-link-text-color-hover: #8b2c2c;
+
+  --search-container-background: #e8dfc4;
+  --search-field-background: #fafaf5;
+  --footer-background: #e8dfc4;
+  --footer-text-color: #2a2420;
+  --footer-text-color-link: #8b2c2c;
+
+  --outline-color: #8b2c2c;
+  --highlight-background: #8b2c2c;
+  --highlight-color: #f5efdc;
+  --curve-factor: 2px;
+  --curve-factor-navbar: 4px;
+  --font-headings: 'Podkova', Georgia, serif;
+  --font-body: Georgia, 'Times New Roman', serif;
+
+  h1, h2, h3 { font-weight: 500; letter-spacing: 0.01em; }
+  .item { border: 1px solid #d4c9a6; }
+  .item:hover { border-color: #8b2c2c; }
+}

@@ -1,0 +1,58 @@
+/* Aurora — deep-space indigo theme with cycling northern-lights accents.
+ * Each section takes on a different aurora hue (green, cyan, violet, pink, blue)
+ * with matching glow shadows, for a subtle rainbow without being gaudy. */
+html[data-theme='aurora'] {
+  --primary: #a3e4d7;
+  --background: #0c0e24;
+  --background-darker: #050617;
+  --item-group-background: #13152e;
+  --item-group-outer-background: #1b1f3d;
+  --item-background: #1b1f3d;
+  --item-background-hover: #282d52;
+  --item-shadow: 0 2px 4px #00000080;
+  --item-hover-shadow: 0 0 12px #a3e4d766;
+
+  --heading-text-color: #e0cafc;
+  --item-text-color: #e8ecf4;
+  --item-text-color-hover: #ffffff;
+  --item-group-heading-text-color: #0c0e24;
+  --item-group-heading-text-color-hover: #0c0e24;
+
+  --settings-background: #050617;
+  --settings-text-color: var(--primary);
+  --nav-link-text-color: #e8ecf4;
+  --nav-link-background-color: #13152e;
+  --nav-link-border-color: transparent;
+  --nav-link-border-color-hover: var(--primary);
+
+  --search-container-background: #050617;
+  --search-field-background: #13152e;
+  --outline-color: #a3e4d7;
+  --highlight-background: #c4a7e7;
+  --highlight-color: #050617;
+
+  --curve-factor: 6px;
+
+  body, .home, #dashy {
+    background: radial-gradient(ellipse at top, #1b1f3d 0%, #0c0e24 55%, #050617 100%);
+  }
+
+  .collapsable, .nav a.nav-item, .side-bar-section {
+    &:nth-child(1n) { --aurora: #58e3a6; }
+    &:nth-child(2n) { --aurora: #a3e4d7; }
+    &:nth-child(3n) { --aurora: #c4a7e7; }
+    &:nth-child(4n) { --aurora: #f5b5d8; }
+    &:nth-child(5n) { --aurora: #89a5ff; }
+
+    --item-group-outer-background: var(--aurora);
+    --item-group-shadow: 0 4px 14px #00000099, inset 0 1px 0 var(--aurora);
+    --item-hover-shadow: 0 0 10px var(--aurora);
+    --item-text-color-hover: var(--aurora);
+    --nav-link-text-color-hover: var(--aurora);
+    --side-bar-item-color: var(--aurora);
+  }
+
+  .item { border: 1px solid transparent; transition: border-color 0.2s ease; }
+  .item:hover { border-color: var(--aurora, var(--primary)); }
+  h1, h2, h3 { letter-spacing: 0.01em; }
+}

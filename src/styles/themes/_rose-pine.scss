@@ -1,0 +1,26 @@
+/* Rose Pine — soft dusty-purple dark theme with rose and gold accents.
+ * Understated and elegant, optimized for long viewing sessions. */
+html[data-theme='rose-pine'] {
+  --primary: #ebbcba;
+  --background: #191724;
+  --background-darker: #1f1d2e;
+  --item-group-background: #26233a;
+  --item-group-outer-background: #26233a;
+  --item-background: #1f1d2e;
+  --item-background-hover: #302d44;
+  --item-shadow: 0 1px 2px #0000004d;
+  --item-hover-shadow: 0 0 0 1px #ebbcba66;
+  --heading-text-color: #f6c177;
+  --item-text-color: #e0def4;
+  --item-text-color-hover: #eb6f92;
+  --item-group-heading-text-color: #f6c177;
+  --settings-text-color: var(--primary);
+  --nav-link-text-color: #e0def4;
+  --nav-link-text-color-hover: #eb6f92;
+  --nav-link-background-color: #1f1d2e;
+  --nav-link-border-color: transparent;
+  --nav-link-border-color-hover: #ebbcba;
+  --outline-color: #c4a7e7;
+  --highlight-background: #eb6f92;
+  --highlight-color: #191724;
+}

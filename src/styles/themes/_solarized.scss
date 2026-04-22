@@ -1,0 +1,64 @@
+/* Solarized — Ethan Schoonover's classic balanced palette. Light + dark share
+ * the same accent hues, swapping only the base tones. */
+html[data-theme='solarized-dark'] {
+  --primary: #268bd2;
+  --background: #002b36;
+  --background-darker: #001e25;
+  --item-group-background: #073642;
+  --item-group-outer-background: #073642;
+  --item-background: #003641;
+  --item-background-hover: #073642;
+  --item-shadow: 0 1px 2px #00000066;
+  --item-hover-shadow: 0 0 0 1px var(--primary);
+
+  --heading-text-color: #93a1a1;
+  --item-text-color: #93a1a1;
+  --item-text-color-hover: #fdf6e3;
+  --item-group-heading-text-color: #eee8d5;
+  --settings-text-color: #93a1a1;
+
+  --nav-link-text-color: #93a1a1;
+  --nav-link-text-color-hover: #fdf6e3;
+  --nav-link-background-color: #073642;
+  --nav-link-border-color: transparent;
+  --nav-link-border-color-hover: var(--primary);
+
+  --outline-color: var(--primary);
+  --highlight-background: #b58900;
+  --highlight-color: #002b36;
+}
+
+html[data-theme='solarized-light'] {
+  --primary: #268bd2;
+  --background: #fdf6e3;
+  --background-darker: #eee8d5;
+  --item-group-background: #ffffff;
+  --item-group-outer-background: #eee8d5;
+  --item-background: #ffffff;
+  --item-background-hover: #eee8d5;
+  --item-shadow: 0 1px 2px #93a1a140;
+  --item-hover-shadow: 0 0 0 1px var(--primary);
+
+  --heading-text-color: #073642;
+  --item-text-color: #586e75;
+  --item-text-color-hover: #073642;
+  --item-group-heading-text-color: #073642;
+  --settings-background: #eee8d5;
+  --settings-text-color: #586e75;
+
+  --nav-link-text-color: #586e75;
+  --nav-link-text-color-hover: #073642;
+  --nav-link-background-color: #ffffff;
+  --nav-link-border-color: #eee8d5;
+  --nav-link-border-color-hover: var(--primary);
+
+  --search-container-background: #eee8d5;
+  --search-field-background: #ffffff;
+  --footer-background: #eee8d5;
+  --footer-text-color: #586e75;
+  --footer-text-color-link: var(--primary);
+
+  --outline-color: var(--primary);
+  --highlight-background: #b58900;
+  --highlight-color: #fdf6e3;
+}
