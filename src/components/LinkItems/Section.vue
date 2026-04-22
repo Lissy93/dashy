@@ -200,12 +200,10 @@ export default {
     },
     gridStyle() {
       let styles = '';
-      if (document.body.clientWidth > 600) { // Only proceed if not on tiny screen
-        styles += this.displayData.itemCountX
-          ? `grid-template-columns: repeat(${this.displayData.itemCountX}, minmax(0, 1fr));` : '';
-        styles += this.displayData.itemCountY
-          ? `grid-template-rows: repeat(${this.displayData.itemCountY}, minmax(0, 1fr));` : '';
-      }
+      styles += this.displayData.itemCountX
+        ? `grid-template-columns: repeat(${this.displayData.itemCountX}, minmax(0, 1fr));` : '';
+      styles += this.displayData.itemCountY
+        ? `grid-template-rows: repeat(${this.displayData.itemCountY}, auto);` : '';
       return styles;
     },
     effectiveColsSpan() {
@@ -244,8 +242,7 @@ export default {
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);
     },
-    /* Navigate to the section's single-section view. Uses loaded confId from state
-     * (not the URL) so clicks recover cleanly if the current URL is mid-error. */
+    /* Navigate to the section's single-section view */
     navigateToSection() {
       if (!this.title) {
         ErrorHandler('Cannot open section without a valid name');
@@ -341,10 +338,15 @@ export default {
 
 .there-are-items {
   height: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(8rem, 100%), 1fr));
+  &.inner-size-small {
+    grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));
+  }
+  &.inner-size-large {
+    grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
+  }
   &.item-group-grid {
-    display: grid;
     overflow: auto;
     @extend .scroll-bar;
     @include phone { --item-col-count: 1; }

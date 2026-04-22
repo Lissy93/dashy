@@ -12,9 +12,10 @@
       :id="`link-${id}`"
       class="sub-item-link item"
     >
-      <!-- Item Icon -->
-      <Icon :icon="item.icon" :url="item.url"
+      <!-- Item Icon (shows title as fallback when no icon) -->
+      <Icon v-if="item.icon" :icon="item.icon" :url="item.url"
       size="small" v-bind:style="customStyles" class="sub-icon-img bounce" />
+      <span v-else class="sub-item-text">{{ item.title }}</span>
     </a>
     <!-- Right-click context menu -->
     <ContextMenu
@@ -66,6 +67,16 @@ export default {
     margin: 0.2rem;
     .sub-icon-img {
       margin: 0;
+    }
+    .sub-item-text {
+      display: block;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.75rem;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--item-text-color);
     }
   }
   &.wrap-size-large {

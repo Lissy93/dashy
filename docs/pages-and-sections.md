@@ -18,6 +18,8 @@ If you have multiple configs/pages, then these values swap automatically as you 
 
 The only caveat being, if you install Dashy as a PWA, the installed app's name, icon, and splash-screen colour come from the bundled `manifest.webmanifest` (baked at build time) rather than `pageInfo`. Runtime values only apply when browsing in a regular tab or browser.
 
+---
+
 ## Multi-Page Support
 
 You can have additional pages within your dashboard, with each having it's own config file. The config files for sub-pages can either be stored locally, or hosted separately. A link to each additional page will be displayed in the navigation bar.
@@ -111,7 +113,43 @@ Examples:
 
 The view switcher, sub-page nav links, and section deep-links all preserve your current view and sub-page — so clicking through a single-section view and then hitting "back to all" returns you to the same sub-page you came from.
 
-## Sub-Items
+---
+
+## Layout
+
+`appConfig.layout` controls how your sections sit on the page:
+
+- `auto` (default): masonry grid, shorter sections fill the gaps under taller ones
+- `horizontal`: sections stacked top to bottom, each full width
+- `vertical`: sections side by side in columns
+
+You can also switch between these from the settings menu. Add `appConfig.colCount` to force a specific number of columns.
+
+### Making a section wider
+
+Use `displayData.cols` (1 to 5) to make a section span extra columns:
+
+```yaml
+- name: Important Links
+  displayData:
+    cols: 2
+    collapsed: false
+  items: [...]
+```
+
+Section heights follow their content, so there's no `rows` option.
+
+### Items inside a section
+
+Items wrap responsively by default. The useful knobs on `displayData`:
+
+- `itemSize`: `small`, `medium` (default), or `large` (large tiles also show a description)
+- `sortBy`: `alphabetical`, `reverse-alphabetical`, `most-used`, `last-used`, `random`
+- `sectionLayout: grid` plus `itemCountX` and/or `itemCountY` if you want a fixed grid instead of auto wrapping
+
+See [configuring.md](./configuring.md#sectiondisplaydata-optional) for the full list of options.
+
+### Sub-Items
 
 A normal section will contain zero or more items, for example:
 

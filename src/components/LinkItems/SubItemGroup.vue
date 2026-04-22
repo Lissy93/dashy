@@ -48,7 +48,7 @@ export default {
 <style scoped lang="scss">
 .sub-items-group {
   display: grid;
-  margin: 0.5rem;
+  margin: 0.25rem;
   padding: 0.1rem;
   flex-grow: 1;
   flex-basis: 6rem;

@@ -212,8 +212,10 @@ export default {
 <style lang="scss">
 
 .item-wrapper {
+  display: flex;
   flex-grow: 1;
   flex-basis: 6rem;
+  min-width: 0;
   &.wrap-size-large {
     flex-basis: 12rem;
   }
@@ -235,6 +237,7 @@ export default {
 
 .item {
   flex-grow: 1;
+  min-width: 0;
   color: var(--item-text-color);
   vertical-align: middle;
   margin: 0.5rem;
@@ -261,7 +264,7 @@ export default {
     border: 2px dashed var(--primary) !important;
   }
   &.short:not(.size-large) {
-    height: 2rem;
+    min-height: 2rem;
   }
 }
 
@@ -269,7 +272,8 @@ export default {
 .tile-title {
   white-space: nowrap;
   text-overflow: ellipsis;
-  min-width: 120px;
+  min-width: 0;
+  flex: 1 1 auto;
   height: 30px;
   position: relative;
   padding: 0;
@@ -371,8 +375,8 @@ p.description {
       margin-bottom: 0.25rem;
     }
     .tile-title {
-      min-width: 100px;
-      max-width: 160px;
+      min-width: 0;
+      max-width: min(160px, 100%);
       &.no-icon {
         text-align: left;
         width: 100%;
