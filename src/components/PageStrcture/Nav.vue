@@ -7,7 +7,7 @@
       <nav id="nav" v-if="navVisible">
         <!-- Render either router-link or anchor, depending if internal / external link -->
         <template v-for="(link, index) in allLinks" :key="index">
-          <router-link v-if="!isUrl(link.path)"
+          <router-link v-if="!isHttpUrl(link.path)"
             :to="link.path"
             :title="link.title"
             class="nav-item"
@@ -15,7 +15,7 @@
           </router-link>
           <a v-else
             :href="link.path"
-            :target="determineTarget(link)"
+            :target="resolveLinkTarget(link)"
             :title="link.title"
             class="nav-item"
             rel="noopener noreferrer"
@@ -28,8 +28,7 @@
 
 <script>
 import IconBurger from '@/assets/interface-icons/burger-menu.svg';
-import { makePageSlug, viewFromPath } from '@/utils/config/ConfigHelpers';
-import { checkPageVisibility } from '@/utils/CheckPageVisibility';
+import { buildAllLinks, isHttpUrl, resolveLinkTarget } from '@/utils/NavLinks';
 
 export default {
   name: 'Nav',
@@ -44,18 +43,9 @@ export default {
     isMobile: false,
   }),
   computed: {
-    /* Get links to sub-pages, and combine with nav-links. Sub-page links honor the
-     * current view (home/minimal/workspace) so users stay in the view they chose. */
     allLinks() {
       void this.$store.state.authRevision; // Re-filter pages when auth state changes
-      const view = viewFromPath(this.$route.path);
-      const subPages = this.$store.getters.pages.filter((page) => checkPageVisibility(page))
-        .map((subPage) => ({
-          path: makePageSlug(subPage.name, view),
-          title: subPage.name,
-        }));
-      const navLinks = this.links || [];
-      return [...navLinks, ...subPages];
+      return buildAllLinks(this.$store, this.$route, this.links);
     },
   },
   created() {
@@ -67,18 +57,8 @@ export default {
       const screenWidth = document.body.clientWidth;
       return screenWidth && screenWidth < 600;
     },
-    isUrl: (str) => new RegExp(/(http|https):\/\/(\S+)(:[0-9]+)?/).test(str),
-    determineTarget(link) {
-      if (!link.target) return '_blank';
-      switch (link.target) {
-        case 'sametab': return '_self';
-        case 'newtab': return '_blank';
-        case 'newwindow': return '_blank';
-        case 'parent': return '_parent';
-        case 'top': return '_top';
-        default: return '_blank';
-      }
-    },
+    isHttpUrl,
+    resolveLinkTarget,
   },
 };
 </script>

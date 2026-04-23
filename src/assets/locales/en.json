@@ -131,6 +131,7 @@
     "language-label": "Language",
     "config-launcher-label": "Config",
     "config-launcher-tooltip": "Update Configuration",
+    "nav-links-tooltip": "Navigation and Configs",
     "sign-out-tooltip": "Sign Out",
     "sign-in-tooltip": "Log In",
     "sign-in-welcome": "Hello {username}!",

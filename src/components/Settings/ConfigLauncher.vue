@@ -1,5 +1,5 @@
 <template>
-  <div class="config-options" v-click-outside="closeViewSwitcher">
+  <div class="config-options" v-click-outside="closeMenus">
     <!-- Button and label -->
     <span class="config-label">{{ $t('settings.config-launcher-label') }}</span>
     <div class="config-buttons">
@@ -8,6 +8,9 @@
       <IconInteractiveEditor @click="startInteractiveEditor()" tabindex="-2"
         v-tooltip="tooltip(enterEditModeTooltip)"
         :class="(isEditMode || !isEditAllowed) ? 'disabled' : ''" />
+      <IconNavLinks v-if="hasNavLinks" @click="openNavLinksMenu()" tabindex="-2"
+        v-tooltip="tooltip($t('settings.nav-links-tooltip'))"
+        :aria-expanded="navLinksOpen" aria-haspopup="menu" />
       <IconViewMode @click="openChangeViewMenu()" tabindex="-2"
         v-tooltip="tooltip($t('alternate-views.alternate-view-heading'))" />
       <AuthButtons :userType="userState" iconOnly />
@@ -27,6 +30,9 @@
 
     <!-- Menu for switching view -->
     <ViewSwitcher v-if="viewSwitcherOpen" />
+
+    <!-- Menu listing user nav links and other configs -->
+    <NavLinksSwitcher v-if="navLinksOpen" @close="closeMenus" />
   </div>
 </template>
 
@@ -38,10 +44,13 @@ import AuthButtons from '@/components/Settings/AuthButtons';
 import Keys from '@/utils/StoreMutations';
 import { topLevelConfKeys, localStorageKeys, modalNames } from '@/utils/config/defaults';
 import ViewSwitcher from '@/components/Settings/ViewSwitcher';
+import NavLinksSwitcher from '@/components/Settings/NavLinksSwitcher.vue';
+import { buildAllLinks } from '@/utils/NavLinks';
 // Import icons for config launcher buttons
 import IconSpanner from '@/assets/interface-icons/config-editor.svg';
 import IconInteractiveEditor from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 import IconViewMode from '@/assets/interface-icons/application-change-view.svg';
+import IconNavLinks from '@/assets/interface-icons/config-pages.svg';
 
 export default {
   name: 'ConfigLauncher',
@@ -49,6 +58,7 @@ export default {
     return {
       modalNames,
       viewSwitcherOpen: false,
+      navLinksOpen: false,
     };
   },
   components: {
@@ -56,9 +66,11 @@ export default {
     LanguageSwitcher,
     AuthButtons,
     ViewSwitcher,
+    NavLinksSwitcher,
     IconSpanner,
     IconInteractiveEditor,
     IconViewMode,
+    IconNavLinks,
   },
   computed: {
     sections() {
@@ -87,6 +99,12 @@ export default {
           ? 'edit-mode-subtitle' : 'start-editing-tooltip'}`,
       );
     },
+    /* True when there's at least one nav link or visible sub-page to show */
+    hasNavLinks() {
+      void this.$store.state.authRevision;
+      const nav = (this.pageInfo && this.pageInfo.navLinks) || [];
+      return buildAllLinks(this.$store, this.$route, nav).length > 0;
+    },
   },
   methods: {
     showEditor: function show() {
@@ -110,9 +128,15 @@ export default {
     },
     openChangeViewMenu() {
       this.viewSwitcherOpen = !this.viewSwitcherOpen;
+      this.navLinksOpen = false;
     },
-    closeViewSwitcher() {
+    openNavLinksMenu() {
+      this.navLinksOpen = !this.navLinksOpen;
       this.viewSwitcherOpen = false;
+    },
+    closeMenus() {
+      this.viewSwitcherOpen = false;
+      this.navLinksOpen = false;
     },
     startInteractiveEditor() {
       if (!this.isEditMode && this.isEditAllowed) {

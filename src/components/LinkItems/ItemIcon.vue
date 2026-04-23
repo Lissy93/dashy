@@ -306,11 +306,13 @@ export default {
       fill: currentColor;
     }
   }
-  /* Simple Icons */
+  /* Simple Icons. Height is set explicitly so the global `a svg { height: 1rem }`
+   * default in global-styles.scss doesn't squash them. */
   .item-icon .simple-icons {
     width: 2rem;
-    &.small { width: 1.5rem; }
-    &.large { width: 2.5rem; }
+    height: 2rem;
+    &.small { width: 1.5rem; height: 1.5rem; }
+    &.large { width: 2.5rem; height: 2.5rem; }
   }
 
   .item-icon .simple-icons path {

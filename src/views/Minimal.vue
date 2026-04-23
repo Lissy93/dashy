@@ -58,6 +58,8 @@
     </div>
     <div v-else class="no-data"> {{ $t('home.no-data') }} </div>
   </div>
+  <!-- Interactive editor save options bottom banner  -->
+  <EditModeSaveMenu v-if="isEditMode" />
 </template>
 
 <script>
@@ -66,6 +68,7 @@ import MinimalSection from '@/components/MinimalView/MinimalSection.vue';
 import MinimalHeading from '@/components/MinimalView/MinimalHeading.vue';
 import MinimalSearch from '@/components/MinimalView/MinimalSearch.vue';
 import ConfigLauncher from '@/components/Settings/ConfigLauncher';
+import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
 import { makePageName, resolveRouteIntent } from '@/utils/config/ConfigHelpers';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 
@@ -77,6 +80,7 @@ export default {
     MinimalHeading,
     MinimalSearch,
     ConfigLauncher,
+    EditModeSaveMenu,
   },
   data: () => ({
     layout: '',
