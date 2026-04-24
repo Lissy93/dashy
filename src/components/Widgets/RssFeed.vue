@@ -51,9 +51,9 @@
 </template>
 
 <script>
-import * as Parser from 'rss-parser';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { widgetApiEndpoints } from '@/utils/config/defaults';
+import { parseRssFeed } from '@/utils/RssParser';
 import { sanitizeRssItem, sanitizeRssMeta } from '@/utils/Sanitizer';
 
 export default {
@@ -124,12 +124,18 @@ export default {
       this.makeRequest(this.endpoint).then(this.processData);
     },
     /* Assign data variables to the returned data */
-    async processData(data) {
+    processData(data) {
       if (this.parseLocally) {
-        const parser = new Parser();
+        let parsed;
+        try {
+          parsed = parseRssFeed(data);
+        } catch (err) {
+          this.error('Failed to parse RSS feed', err);
+          return;
+        }
         const {
           link, title, items, author, description, image,
-        } = await parser.parseString(data);
+        } = parsed;
         this.meta = sanitizeRssMeta({
           title,
           link,
@@ -221,7 +227,7 @@ export default {
       }
       img.post-img {
         border-radius: var(--curve-factor);
-        width: 2rem;
+        max-width: 8rem;
         height: 2rem;
         margin-right: 0.5rem;
       }
@@ -231,6 +237,7 @@ export default {
       color: var(--widget-text-color);
       max-height: 400px;
       overflow: hidden;
+      margin-top: 0.5rem;
       :deep(p) {
         margin: 0.5rem 0;
       }
