@@ -28,7 +28,8 @@ import CustomThemeMaker from '@/components/Settings/CustomThemeMaker';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
-import { localStorageKeys, theme as defaultTheme } from '@/utils/config/defaults';
+import { theme as defaultTheme } from '@/utils/config/defaults';
+import { configScope } from '@/utils/config/ConfigHelpers';
 
 export default {
   name: 'StyleEditor',
@@ -71,11 +72,12 @@ export default {
       style.textContent = cleanedCss;
       document.head.append(style);
     },
-    /* Saves custom CSS local storage */
+    /* Saves custom CSS to localStorage, scoped to the active page */
     saveToBrowser(css) {
-      const localAppConfig = JSON.parse(localStorage.getItem(localStorageKeys.APP_CONFIG) || '{}');
+      const key = configScope(this.$store.state.currentConfigInfo.confId).APP_CONFIG;
+      const localAppConfig = JSON.parse(localStorage.getItem(key) || '{}');
       localAppConfig.customCss = css;
-      localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(localAppConfig));
+      localStorage.setItem(key, JSON.stringify(localAppConfig));
     },
     /* Reload the page (only called if removing styles) */
     reloadPage() {

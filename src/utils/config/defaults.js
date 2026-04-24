@@ -137,7 +137,6 @@ const defaults = {
     CUSTOM_COLORS: 'customColors',
     CONF_SECTIONS: 'confSections',
     CONF_PAGES: 'confPages',
-    CONF_WIDGETS: 'confSections',
     PAGE_INFO: 'pageInfo',
     APP_CONFIG: 'appConfig',
     BACKUP_ID: 'backupId',

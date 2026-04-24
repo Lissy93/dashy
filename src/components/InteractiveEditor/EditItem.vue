@@ -246,7 +246,6 @@ export default {
       if (newItem.statusCheckAllowInsecure) {
         newItem.statusCheckAllowInsecure = strToBool(newItem.statusCheckAllowInsecure);
       }
-      // if (newItem.hotkey) newItem.hotkey = parseInt(newItem.hotkey, 10);
       return newItem;
     },
     /* Cleanup  work for modal, triggered by save, cancel or click-outside */

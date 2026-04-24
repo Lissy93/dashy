@@ -18,6 +18,7 @@
 <script>
 
 import { localStorageKeys, modalNames } from '@/utils/config/defaults';
+import { clearScopedLocalConfig } from '@/utils/config/ConfigHelpers';
 import StoreKeys from '@/utils/StoreMutations';
 import configSavingMixin from '@/mixins/ConfigSaving';
 
@@ -53,7 +54,7 @@ export default {
       + `${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
       const isTheUserSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
       if (isTheUserSure) {
-        localStorage.clear();
+        clearScopedLocalConfig(this.$store.getters.pages);
         this.$toast(this.$t('config.data-cleared-msg'));
         this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG);
         this.shouldHide = true;

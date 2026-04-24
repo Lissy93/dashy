@@ -34,12 +34,12 @@ export default class ConfigAccumulator {
       appConfigFile = this.conf.appConfig;
     }
     // Fill in defaults if anything missing
-    let usersAppConfig = defaultAppConfig;
+    let usersAppConfig = { ...defaultAppConfig };
     if (localStorage[localStorageKeys.APP_CONFIG]) {
       try { usersAppConfig = JSON.parse(localStorage[localStorageKeys.APP_CONFIG]); }
       catch (e) { ErrorHandler('Malformed app config in local storage'); }
     } else if (Object.keys(appConfigFile).length > 0) {
-      usersAppConfig = appConfigFile;
+      usersAppConfig = { ...appConfigFile };
     }
     // Some settings have their own local storage keys, apply them here
     usersAppConfig.layout = localStorage[localStorageKeys.LAYOUT_ORIENTATION]

@@ -60,6 +60,15 @@ export default {
       immediate: true,
       handler(t) { applyTheme(t, this.appConfig); },
     },
+    /* Keep i18n in sync with the active page's language (incl. sub-page overrides) */
+    'appConfig.language': {
+      immediate: true,
+      handler(lang) {
+        if (!lang) return;
+        this.$i18n.locale = lang;
+        document.documentElement.setAttribute('lang', lang);
+      },
+    },
   },
   computed: {
     /* If the user has specified custom text for footer - get it */

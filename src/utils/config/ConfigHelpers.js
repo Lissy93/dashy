@@ -40,6 +40,18 @@ export const configScope = (confId) => {
   };
 };
 
+/* Remove all local config settings from localStorage, leave unrelated stuff */
+export const clearScopedLocalConfig = (pages) => {
+  const clearScope = (confId) => {
+    Object.values(configScope(confId)).forEach((key) => localStorage.removeItem(key));
+  };
+  clearScope(null);
+  localStorage.removeItem(localStorageKeys.CONF_PAGES);
+  (pages || []).forEach((page) => {
+    if (page?.name) clearScope(makePageName(page.name));
+  });
+};
+
 /* Metadata for each view in the canonical /<view>/:page?/:section? URL scheme */
 export const VIEW_META = {
   home: { supportsSection: true },

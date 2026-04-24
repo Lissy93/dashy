@@ -4,7 +4,9 @@ import request from '@/utils/request';
 
 import ErrorHandler, { InfoHandler } from '@/utils/logging/ErrorHandler';
 import { localStorageKeys, serviceEndpoints } from '@/utils/config/defaults';
-import { makePageName, configScope, stripRootOwnedFields } from '@/utils/config/ConfigHelpers';
+import {
+  configScope, stripRootOwnedFields, clearScopedLocalConfig,
+} from '@/utils/config/ConfigHelpers';
 import StoreKeys from '@/utils/StoreMutations';
 
 export default {
@@ -97,13 +99,7 @@ export default {
     },
     /* After a successful disk write clear local overrides */
     carefullyClearLocalStorage() {
-      const clearScope = (confId) => {
-        const s = configScope(confId);
-        Object.values(s).forEach((key) => localStorage.removeItem(key));
-      };
-      clearScope(null); // root
-      localStorage.removeItem(localStorageKeys.CONF_PAGES);
-      (this.$store.getters.pages || []).forEach((page) => clearScope(makePageName(page.name)));
+      clearScopedLocalConfig(this.$store.getters.pages);
     },
   },
 };

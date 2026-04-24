@@ -68,6 +68,7 @@ import Input from '@/components/FormElements/Input';
 import StoreKeys from '@/utils/StoreMutations';
 import { backup, update, restore } from '@/utils/CloudBackup';
 import { localStorageKeys } from '@/utils/config/defaults';
+import { configScope, stripRootOwnedFields } from '@/utils/config/ConfigHelpers';
 import { InfoHandler, WarningInfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 // Import Icons
 import IconBackup from '@/assets/interface-icons/config-backup.svg';
@@ -155,31 +156,22 @@ export default {
         this.showErrorMsg(this.$t('cloud-sync.backup-error-password'));
       }
     },
-    /* When restored data is revieved, then save to local storage, and apply it in state */
+    /* When restored data is received, save to localStorage (scoped to active page) and apply it */
     applyRestoredData(config, backupId) {
-      const isSubPage = !!this.$store.state.currentConfigInfo.confId;
-      if (isSubPage) { // Apply to sub-page only
-        const subConfigId = this.$store.state.currentConfigInfo.confId;
-        const sectionStorageKey = `${localStorageKeys.CONF_SECTIONS}-${subConfigId}`;
-        const pageInfoStorageKey = `${localStorageKeys.PAGE_INFO}-${subConfigId}`;
-        const themeStoreKey = `${localStorageKeys.THEME}-${subConfigId}`;
-        localStorage.setItem(sectionStorageKey, JSON.stringify(config.sections));
-        localStorage.setItem(pageInfoStorageKey, JSON.stringify(config.pageInfo));
-        localStorage.setItem(themeStoreKey, config.appConfig.theme);
-      } else { // Apply to main config
-        localStorage.setItem(localStorageKeys.CONF_SECTIONS, JSON.stringify(config.sections));
-        localStorage.setItem(localStorageKeys.APP_CONFIG, JSON.stringify(config.appConfig));
-        localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(config.pageInfo));
+      const { confId } = this.$store.state.currentConfigInfo;
+      const isSubPage = !!confId;
+      const scope = configScope(confId);
+      const clean = isSubPage ? stripRootOwnedFields(config) : config;
+      const appConfig = clean.appConfig || {};
+      localStorage.setItem(scope.APP_CONFIG, JSON.stringify(appConfig));
+      localStorage.setItem(scope.PAGE_INFO, JSON.stringify(clean.pageInfo || {}));
+      localStorage.setItem(scope.CONF_SECTIONS, JSON.stringify(clean.sections || []));
+      if (appConfig.theme) localStorage.setItem(scope.THEME, appConfig.theme);
+      if (!isSubPage) {
         localStorage.setItem(localStorageKeys.CONF_PAGES, JSON.stringify(config.pages || []));
-        if (config.appConfig.theme) {
-          localStorage.setItem(localStorageKeys.THEME, config.appConfig.theme);
-        }
       }
-      // Save hashed token in local storage
       this.setBackupIdLocally(backupId, this.restorePassword);
-      // Update the current state
-      this.$store.commit(StoreKeys.SET_CONFIG, config);
-      // Show success message
+      this.$store.dispatch(StoreKeys.APPLY_EDITED_CONFIG, clean);
       this.showSuccessMsg(this.$t('cloud-sync.restore-success-msg'));
     },
     /* After backup/ update is made, then replace 'Make Backup' with 'Update Backup' */

@@ -83,7 +83,7 @@
 <script>
 
 import { localStorageKeys, modalNames } from '@/utils/config/defaults';
-import { getUsersLanguage } from '@/utils/config/ConfigHelpers';
+import { getUsersLanguage, clearScopedLocalConfig } from '@/utils/config/ConfigHelpers';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
 import { defineAsyncComponent, h } from 'vue';
@@ -193,13 +193,14 @@ export default {
     openEditCssTab() {
       this.navigateToTab(3);
     },
-    /* Checks that the user is sure, then resets site-wide local storage, and reloads current page */
+    /* Clears config-scoped localStorage entries for root + all sub-pages, then reloads config.
+     * Preserves unrelated keys (auth tokens, backup hashes, mostUsed etc) */
     resetLocalSettings() {
       const msg = `${this.$t('config.reset-config-msg-l1')} `
       + `${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
       const isTheUserSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
       if (isTheUserSure) {
-        localStorage.clear();
+        clearScopedLocalConfig(this.$store.getters.pages);
         this.$toast(this.$t('config.data-cleared-msg'));
         this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG, this.$store.state.currentConfigInfo.confId);
       }

@@ -271,13 +271,13 @@ const store = createStore({
     },
     layout(state) {
       const scope = configScope(state.currentConfigInfo.confId);
-      const fromState = state.config.appConfig.layout || 'auto';
+      const fromState = state.config?.appConfig?.layout || 'auto';
       if (state.editMode) return fromState;
       return localStorage.getItem(scope.LAYOUT) || fromState;
     },
     iconSize(state) {
       const scope = configScope(state.currentConfigInfo.confId);
-      const fromState = state.config.appConfig.iconSize || 'medium';
+      const fromState = state.config?.appConfig?.iconSize || 'medium';
       if (state.editMode) return fromState;
       return localStorage.getItem(scope.ICON_SIZE) || fromState;
     },
@@ -334,6 +334,7 @@ const store = createStore({
       // `pages` is always root-owned, regardless of the active page.
       const pages = Array.isArray(multiPages) ? multiPages : [];
       if (state.rootConfig) state.rootConfig = { ...state.rootConfig, pages };
+      else ErrorHandler('SET_PAGES called before root config loaded; change may be lost');
       state.config = { ...state.config, pages };
       if (!state.currentConfigInfo.confId) {
         state.configSource = { ...state.configSource, pages };
