@@ -98,14 +98,16 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 import router from '@/router';
 import Item from '@/components/LinkItems/Item.vue';
 import SubItemGroup from '@/components/LinkItems/SubItemGroup.vue';
 import WidgetBase from '@/components/Widgets/WidgetBase';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
-import EditSection from '@/components/InteractiveEditor/EditSection.vue';
 import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
+
+const EditSection = defineAsyncComponent(() => import('@/components/InteractiveEditor/EditSection.vue'));
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import sortItems from '@/utils/SortItems';
 import { makeRoutePath, viewFromPath } from '@/utils/config/ConfigHelpers';

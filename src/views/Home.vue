@@ -51,12 +51,10 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 import HomeMixin from '@/mixins/HomeMixin';
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
-import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
-import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vue';
-import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.vue';
 import NotificationThing from '@/components/Settings/LocalConfigWarning.vue';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/config/defaults';
@@ -65,6 +63,10 @@ import {
 } from '@/utils/config/ConfigHelpers';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import BackIcon from '@/assets/interface-icons/back-arrow.svg';
+
+const EditModeSaveMenu = defineAsyncComponent(() => import('@/components/InteractiveEditor/EditModeSaveMenu.vue'));
+const ExportConfigMenu = defineAsyncComponent(() => import('@/components/InteractiveEditor/ExportConfigMenu.vue'));
+const AddNewSection = defineAsyncComponent(() => import('@/components/InteractiveEditor/AddNewSectionLauncher.vue'));
 
 export default {
   name: 'home',

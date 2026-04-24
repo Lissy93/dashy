@@ -12,7 +12,7 @@
       <path v-if="siPath" :d="siPath" />
     </svg>
     <!-- Standard image asset icon -->
-    <img v-else-if="icon" :src="iconPath" @error="imageNotFound"
+    <img v-else-if="icon" :src="iconPath" @error="imageNotFound" loading="lazy"
       :class="`tile-icon ${size} ${broken ? 'broken' : ''}`"
     />
     <!-- Icon could not load/ broken url -->
@@ -31,7 +31,12 @@ import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '
 // simple-icons is heavy. So lazy load and then share across instances
 let simpleIconsPromise = null;
 const loadSimpleIcons = () => {
-  if (!simpleIconsPromise) simpleIconsPromise = import('simple-icons');
+  if (!simpleIconsPromise) {
+    simpleIconsPromise = import('simple-icons').catch((err) => {
+      simpleIconsPromise = null;
+      throw err;
+    });
+  }
   return simpleIconsPromise;
 };
 
@@ -196,13 +201,19 @@ export default {
       const host = encodeURI(url) || Math.random().toString();
       return (cdn || iconCdns.generative).replace('{icon}', asciiHash(host));
     },
-    /* Loads SVG path  for simple-icons ID. Only loads SI module on first use */
+    /* Loads SVG path for simple-icons ID. Only loads SI module on first use */
     async resolveSimpleIcon() {
       if (this.iconType !== 'si' || !this.icon) {
         this.siPath = '';
         return;
       }
-      const mod = await loadSimpleIcons();
+      let mod;
+      try {
+        mod = await loadSimpleIcons();
+      } catch (e) {
+        this.imageNotFound('Failed to load simple-icons module');
+        return;
+      }
       const imageName = this.icon.charAt(3).toUpperCase() + this.icon.slice(4);
       const icon = mod[`si${imageName}`];
       if (!icon) {

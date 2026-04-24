@@ -60,12 +60,14 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
-import EditItem from '@/components/InteractiveEditor/EditItem';
 import MoveItemTo from '@/components/InteractiveEditor/MoveItemTo';
 import ContextMenu from '@/components/LinkItems/ItemContextMenu';
+
+const EditItem = defineAsyncComponent(() => import('@/components/InteractiveEditor/EditItem.vue'));
 import StoreKeys from '@/utils/StoreMutations';
 import ItemMixin from '@/mixins/ItemMixin';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
