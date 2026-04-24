@@ -37,9 +37,15 @@ export const languages = [
 
 export const messages = { en };
 
+const loaders = import.meta.glob([
+  '../assets/locales/*.json',
+  '!../assets/locales/en.json', // Exclude English, needed as default + fallback
+]);
 
 export const loadLocale = async (code) => {
   if (code === 'en') return en;
-  const mod = await import(`../assets/locales/${code}.json`);
+  const loader = loaders[`../assets/locales/${code}.json`];
+  if (!loader) throw new Error(`Unsupported locale: ${code}`);
+  const mod = await loader();
   return mod.default;
 };

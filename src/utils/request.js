@@ -7,6 +7,8 @@
  * Throws on non-2xx responses (matching axios behavior)
  */
 
+import { makeBasicAuthHeaders } from '@/utils/auth/Auth';
+
 /** Check if a request URL targets the local Dashy server */
 function isLocalRequest(url) {
   if (!url) return false;
@@ -63,7 +65,6 @@ async function makeRequest(config) {
 
   // For local API requests, include basic auth headers when configured
   if (isLocalRequest(fullUrl) && !fetchOptions.headers.Authorization) {
-    const { makeBasicAuthHeaders } = await import('@/utils/auth/Auth');
     const authConfig = makeBasicAuthHeaders();
     if (authConfig.headers) {
       Object.assign(fetchOptions.headers, authConfig.headers);
