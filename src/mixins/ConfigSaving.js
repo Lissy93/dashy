@@ -5,15 +5,9 @@ import request from '@/utils/request';
 import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
 import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
 import StoreKeys from '@/utils/StoreMutations';
+import ConfigValidator, { ValidationErrorTypes } from '@/utils/ConfigValidator';
 
-export const ValidationErrorTypes = {
-  YAML_PARSE_ERROR: 'yaml_parse_error',
-  SECTIONS_EMPTY: 'sections_empty',
-  SECTIONS_NOT_ARRAY: 'sections_not_array',
-  ITEMS_NOT_ARRAY: 'items_not_array',
-  ITEM_MISSING_TITLE: 'item_missing_title',
-  ITEM_MISSING_URL: 'item_missing_url',
-};
+export { ValidationErrorTypes };
 
 export function formatValidationError(error, $t) {
   switch (error.type) {
@@ -61,11 +55,33 @@ export default {
     };
   },
   methods: {
+    validateConfigBeforeSave(config) {
+      const validator = new ConfigValidator();
+      const result = validator.validateConfig(config);
+      
+      if (!result.valid) {
+        this.validationErrors = result.errors;
+        const formattedErrors = result.errors.map(err => 
+          formatValidationError(err, this.$t.bind(this))
+        );
+        this.showToast(this.$t('config-editor.error-validation-failed'), false);
+        ErrorHandler(`Config validation failed: ${formattedErrors.join('; ')}`);
+      }
+      
+      return result.valid;
+    },
+    
     writeConfigToDisk(config) {
       if (config.appConfig.preventWriteToDisk) {
         ErrorHandler('Unable to write changed to disk, as this functionality is disabled');
         return;
       }
+      
+      if (!this.validateConfigBeforeSave(config)) {
+        this.saveSuccess = false;
+        return;
+      }
+      
       // 1. Get the config, and strip appConfig if is sub-page
       const isSubPag = !!this.$store.state.currentConfigInfo.confId;
       const jsonConfig = config;
@@ -131,6 +147,11 @@ export default {
     saveConfigLocally(config) {
       if (!this.permissions.allowSaveLocally) {
         ErrorHandler('Unable to save changes locally, this feature has been disabled');
+        return;
+      }
+      
+      if (!this.validateConfigBeforeSave(config)) {
+        this.saveSuccess = false;
         return;
       }
 

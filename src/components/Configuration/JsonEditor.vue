@@ -22,10 +22,10 @@
     <!-- List validation warnings -->
     <p class="errors">
       <ul>
-        <li v-for="(error, index) in errorMessages" :key="index" :class="`type-${error.type}`">
+        <li v-for="(error, index) in allErrorMessages" :key="index" :class="`type-${error.type}`">
           {{error.msg}}
         </li>
-        <li v-if="errorMessages.length < 1" class="type-valid">
+        <li v-if="allErrorMessages.length < 1" class="type-valid">
           {{ $t('config-editor.valid-label') }}
         </li>
       </ul>
@@ -52,7 +52,7 @@
 <script>
 
 import VJsoneditor from 'v-jsoneditor';
-import ConfigSavingMixin from '@/mixins/ConfigSaving';
+import ConfigSavingMixin, { formatValidationError, ValidationErrorTypes } from '@/mixins/ConfigSaving';
 import { InfoHandler, InfoKeys } from '@/utils/ErrorHandler';
 import configSchema from '@/utils/ConfigSchema.json';
 import StoreKeys from '@/utils/StoreMutations';
@@ -80,7 +80,7 @@ export default {
         mode: 'tree',
         modes: ['tree', 'code', 'preview'],
         name: 'config',
-        onValidationError: this.validationErrors,
+        onValidationError: this.handleEditorValidationErrors,
       },
       saveOptions: [
         { label: this.$t('config-editor.location-disk-label'), value: 'file' },
@@ -93,7 +93,41 @@ export default {
       return this.$store.state.config;
     },
     isValid() {
-      return this.errorMessages.length < 1;
+      return this.errorMessages.length < 1 && this.validationErrors.length < 1;
+    },
+    allErrorMessages() {
+      const messages = [...this.errorMessages];
+      
+      this.validationErrors.forEach((error) => {
+        const formattedMsg = formatValidationError(error, this.$t.bind(this));
+        let errorType = 'validation';
+        
+        if (error.type === ValidationErrorTypes.YAML_PARSE_ERROR) {
+          errorType = 'parse';
+        }
+        
+        let displayMsg = formattedMsg;
+        if (error.path) {
+          displayMsg += ` (path: ${error.path})`;
+        }
+        if (error.line !== null) {
+          displayMsg += ` [line ${error.line}`;
+          if (error.column !== null) {
+            displayMsg += `, col ${error.column}`;
+          }
+          displayMsg += ']';
+        }
+        if (error.snippet) {
+          displayMsg += `\n${error.snippet}`;
+        }
+        
+        messages.push({
+          type: errorType,
+          msg: displayMsg,
+        });
+      });
+      
+      return messages;
     },
     permissions() {
       // Returns: { allowWriteToDisk, allowSaveLocally, allowViewConfig }
@@ -158,7 +192,7 @@ export default {
       }
     },
     /* Convert error messages into readable format for UI */
-    validationErrors(errors) {
+    handleEditorValidationErrors(errors) {
       const errorMessages = [];
       errors.forEach((error) => {
         switch (error.type) {

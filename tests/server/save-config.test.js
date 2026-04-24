@@ -5,6 +5,14 @@ import request from 'supertest';
 const app = require('../../services/app');
 const save = (body) => request(app).post('/config-manager/save').send(body);
 
+const validConfigYaml = `pageInfo:
+  title: Test
+sections:
+  - name: Section 1
+    items:
+      - title: Item 1
+        url: https://example.com`;
+
 describe('Save config', () => {
   it('rejects empty body', async () => {
     const res = await save({});
@@ -24,37 +32,37 @@ describe('Save config', () => {
   });
 
   it('rejects non-.yml filename', async () => {
-    const res = await save({ config: 'x: 1', filename: 'evil.txt' });
+    const res = await save({ config: validConfigYaml, filename: 'evil.txt' });
     expect(JSON.parse(res.text).success).toBe(false);
     expect(JSON.parse(res.text).message).toContain('.yml');
   });
 
   it('rejects path traversal', async () => {
-    const res = await save({ config: 'x: 1', filename: '../../etc/passwd' });
+    const res = await save({ config: validConfigYaml, filename: '../../etc/passwd' });
     expect(JSON.parse(res.text).success).toBe(false);
   });
 
   it('writes valid config to disk', async () => {
-    const res = await save({ config: 'pageInfo:\n  title: Test\nsections: []\n' });
+    const res = await save({ config: validConfigYaml });
     const body = JSON.parse(res.text);
     expect(body.success).toBe(true);
     expect(body.message).toContain('conf.yml');
   });
 
   it('writes valid sub-page config', async () => {
-    const res = await save({ config: 'pageInfo:\n  title: Sub\n', filename: 'test-sub.yml' });
+    const res = await save({ config: validConfigYaml, filename: 'test-sub.yml' });
     expect(JSON.parse(res.text).success).toBe(true);
   });
 
   it('defaults to conf.yml for non-string filename', async () => {
-    const res = await save({ config: 'pageInfo:\n  title: Test\nsections: []\n', filename: 123 });
+    const res = await save({ config: validConfigYaml, filename: 123 });
     const body = JSON.parse(res.text);
     expect(body.success).toBe(true);
     expect(body.message).toContain('conf.yml');
   });
 
   it('handles concurrent saves without crashing', async () => {
-    const body = { config: 'pageInfo:\n  title: Concurrent\nsections: []\n' };
+    const body = { config: validConfigYaml };
     const results = await Promise.all([save(body), save(body), save(body), save(body), save(body)]);
     results.forEach((res) => {
       expect(() => JSON.parse(res.text)).not.toThrow();
