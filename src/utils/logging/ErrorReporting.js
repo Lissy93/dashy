@@ -9,34 +9,30 @@
 
 import $store from '@/store';
 import { sentryDsn } from '@/utils/config/defaults';
+import { setSentryInstance } from '@/utils/logging/SentryRef';
 
 const ErrorReporting = async (app, router) => {
-  // Fetch users config
   const appConfig = $store.getters.appConfig || {};
-  // Check if error reporting is enabled. Only proceed if user has turned it on.
-  if (appConfig.enableErrorReporting) {
-    // Get current app version
-    const appVersion = import.meta.env.VITE_APP_VERSION ? `Dashy@${import.meta.env.VITE_APP_VERSION}` : '';
-    // Import Sentry
-    const { default: Sentry } = await import('@sentry/vue');
-    const { Integrations } = await import('@sentry/tracing');
-    // Get the Data Source Name for your or Dashy's Sentry instance
-    const dsn = appConfig.sentryDsn || sentryDsn;
-    // Initialize Sentry
-    Sentry.init({
-      app,
-      dsn,
-      integrations: [
-        new Integrations.BrowserTracing({
-          routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-        }),
-      ],
-      tracesSampleRate: 1.0,
-      release: appVersion,
-    });
-  } else {
-    // Error reporting has not been enabled by the user. Do Nothing.
-  }
+  if (!appConfig.enableErrorReporting) return;
+
+  const appVersion = import.meta.env.VITE_APP_VERSION ? `Dashy@${import.meta.env.VITE_APP_VERSION}` : '';
+  const Sentry = await import('@sentry/vue');
+  const { Integrations } = await import('@sentry/tracing');
+  const dsn = appConfig.sentryDsn || sentryDsn;
+
+  Sentry.init({
+    app,
+    dsn,
+    integrations: [
+      new Integrations.BrowserTracing({
+        routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+      }),
+    ],
+    tracesSampleRate: 1.0,
+    release: appVersion,
+  });
+
+  setSentryInstance(Sentry);
 };
 
 export default ErrorReporting;

@@ -6,10 +6,10 @@
     <i v-else-if="iconType === 'emoji'" :class="`emoji-icon ${size}`" >{{getEmoji(iconPath)}}</i>
     <!-- Material Design Icon -->
     <span v-else-if="iconType === 'mdi'" :class=" `mdi ${icon} ${size}`"></span>
-    <!-- Simple-Icons -->
+    <!-- Simple-Icons (siPath resolved async after lazy-load) -->
     <svg v-else-if="iconType === 'si' && !broken" :class="`simple-icons ${size}`"
       role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path :d="getSimpleIcon(icon)" />
+      <path v-if="siPath" :d="siPath" />
     </svg>
     <!-- Standard image asset icon -->
     <img v-else-if="icon" :src="iconPath" @error="imageNotFound"
@@ -28,7 +28,12 @@ import emojiLookup from '@/utils/emojis.json';
 import { asciiHash } from '@/utils/MiscHelpers';
 import { faviconApi as defaultFaviconApi, faviconApiEndpoints, iconCdns } from '@/utils/config/defaults';
 
-import * as simpleicons from 'simple-icons';
+// simple-icons is heavy. So lazy load and then share across instances
+let simpleIconsPromise = null;
+const loadSimpleIcons = () => {
+  if (!simpleIconsPromise) simpleIconsPromise = import('simple-icons');
+  return simpleIconsPromise;
+};
 
 export default {
   name: 'Icon',
@@ -59,7 +64,11 @@ export default {
     return {
       broken: false, // If true, was unable to resolve icon
       attemptedFallback: false,
+      siPath: '', // Resolved SVG path for simple-icons (set async)
     };
+  },
+  watch: {
+    icon: { immediate: true, handler: 'resolveSimpleIcon' },
   },
   methods: {
     /* Determine icon type, e.g. local or remote asset, SVG, favicon, font-awesome, etc */
@@ -89,7 +98,7 @@ export default {
         case 'custom-favicon': return this.getCustomFavicon(url, img);
         case 'generative': return this.getGenerativeIcon(url);
         case 'mdi': return img; // Material design icons
-        case 'simple-icons': return this.getSimpleIcon(img);
+        // case 'simple-icons': return this.getSimpleIcon(img);
         case 'home-lab-icons': return this.getHomeLabIcon(img);
         case 'selfhst-icons': return this.getSelfhstIcon(img); // selfh.st/icons
         case 'svg': return img; // Local SVG icon
@@ -187,15 +196,21 @@ export default {
       const host = encodeURI(url) || Math.random().toString();
       return (cdn || iconCdns.generative).replace('{icon}', asciiHash(host));
     },
-    /* Returns the SVG path content  */
-    getSimpleIcon(img) {
-      const imageName = img.charAt(3).toUpperCase() + img.slice(4);
-      const icon = simpleicons[`si${imageName}`];
+    /* Loads SVG path  for simple-icons ID. Only loads SI module on first use */
+    async resolveSimpleIcon() {
+      if (this.iconType !== 'si' || !this.icon) {
+        this.siPath = '';
+        return;
+      }
+      const mod = await loadSimpleIcons();
+      const imageName = this.icon.charAt(3).toUpperCase() + this.icon.slice(4);
+      const icon = mod[`si${imageName}`];
       if (!icon) {
         this.imageNotFound(`No icon was found for '${imageName}' in Simple Icons`);
-        return null;
+        this.siPath = '';
+        return;
       }
-      return icon.path;
+      this.siPath = icon.path;
     },
     getSelfhstIcon(img, cdn) {
       const imageName = img.slice(3).toLocaleLowerCase();
@@ -306,8 +321,6 @@ export default {
       fill: currentColor;
     }
   }
-  /* Simple Icons. Height is set explicitly so the global `a svg { height: 1rem }`
-   * default in global-styles.scss doesn't squash them. */
   .item-icon .simple-icons {
     width: 2rem;
     height: 2rem;
