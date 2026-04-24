@@ -1,4 +1,3 @@
-import { UserManager, WebStorageStateStore } from 'oidc-client-ts';
 import ConfigAccumulator from '@/utils/config/ConfigAccumalator';
 import { localStorageKeys } from '@/utils/config/defaults';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
@@ -16,7 +15,7 @@ const isOidcGuestAccessEnabled = () => {
 };
 
 class OidcAuth {
-  constructor() {
+  constructor(UserManager, WebStorageStateStore) {
     const { auth } = getAppConfig();
     const {
       clientId,
@@ -105,8 +104,9 @@ export const isOidcEnabled = () => {
 
 let oidc;
 
-export const initOidcAuth = () => {
-  oidc = new OidcAuth();
+export const initOidcAuth = async () => {
+  const { UserManager, WebStorageStateStore } = await import('oidc-client-ts');
+  oidc = new OidcAuth(UserManager, WebStorageStateStore);
   return oidc.login();
 };
 

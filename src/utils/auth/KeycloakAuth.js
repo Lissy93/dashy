@@ -1,4 +1,3 @@
-import Keycloak from 'keycloak-js';
 import ConfigAccumulator from '@/utils/config/ConfigAccumalator';
 import { localStorageKeys } from '@/utils/config/defaults';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
@@ -15,7 +14,7 @@ const isKeycloakGuestAccessEnabled = () => {
 };
 
 class KeycloakAuth {
-  constructor() {
+  constructor(Keycloak) {
     const { auth } = getAppConfig();
     const {
       serverUrl, realm, clientId, idpHint, legacySupport,
@@ -97,8 +96,9 @@ export const isKeycloakEnabled = () => {
 
 let keycloak;
 
-export const initKeycloakAuth = () => {
-  keycloak = new KeycloakAuth();
+export const initKeycloakAuth = async () => {
+  const { default: Keycloak } = await import('keycloak-js');
+  keycloak = new KeycloakAuth(Keycloak);
   return keycloak.login();
 };
 
