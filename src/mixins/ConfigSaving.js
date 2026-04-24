@@ -6,11 +6,57 @@ import ErrorHandler, { InfoHandler } from '@/utils/ErrorHandler';
 import { localStorageKeys, serviceEndpoints } from '@/utils/defaults';
 import StoreKeys from '@/utils/StoreMutations';
 
+export const ValidationErrorTypes = {
+  YAML_PARSE_ERROR: 'yaml_parse_error',
+  SECTIONS_EMPTY: 'sections_empty',
+  SECTIONS_NOT_ARRAY: 'sections_not_array',
+  ITEMS_NOT_ARRAY: 'items_not_array',
+  ITEM_MISSING_TITLE: 'item_missing_title',
+  ITEM_MISSING_URL: 'item_missing_url',
+};
+
+export function formatValidationError(error, $t) {
+  switch (error.type) {
+    case ValidationErrorTypes.YAML_PARSE_ERROR:
+      if (error.line !== null && error.column !== null) {
+        return $t('config-editor.error-yaml-parse-at-line-col', { line: error.line, column: error.column });
+      } else if (error.line !== null) {
+        return $t('config-editor.error-yaml-parse-at-line', { line: error.line });
+      }
+      return $t('config-editor.error-yaml-parse');
+
+    case ValidationErrorTypes.SECTIONS_EMPTY:
+      return $t('config-editor.error-sections-empty');
+
+    case ValidationErrorTypes.SECTIONS_NOT_ARRAY:
+      return $t('config-editor.error-sections-not-array');
+
+    case ValidationErrorTypes.ITEMS_NOT_ARRAY:
+      return $t('config-editor.error-items-not-array', { index: error.sectionIndex ?? 0 });
+
+    case ValidationErrorTypes.ITEM_MISSING_TITLE:
+      return $t('config-editor.error-item-missing-title', { 
+        sectionIndex: error.sectionIndex ?? 0, 
+        itemIndex: error.itemIndex ?? 0 
+      });
+
+    case ValidationErrorTypes.ITEM_MISSING_URL:
+      return $t('config-editor.error-item-missing-url', { 
+        sectionIndex: error.sectionIndex ?? 0, 
+        itemIndex: error.itemIndex ?? 0 
+      });
+
+    default:
+      return error.message || $t('config-editor.error-msg-cannot-save');
+  }
+}
+
 export default {
   data() {
     return {
       saveSuccess: undefined,
       responseText: '',
+      validationErrors: [],
       progress: new Progress({ color: 'var(--progress-bar)' }),
     };
   },
@@ -46,22 +92,37 @@ export default {
       const saveRequest = request.post(endpoint, body);
       // 4. Make the request, and handle response
       this.progress.start();
+      this.validationErrors = [];
+      
       saveRequest.then((response) => {
         this.saveSuccess = response.data.success || false;
         this.responseText = response.data.message;
+        
         if (this.saveSuccess) {
           this.carefullyClearLocalStorage();
           this.showToast(this.$t('config-editor.success-msg-disk'), true);
+          InfoHandler('Config has been written to disk successfully', 'Config Update');
+          this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
         } else {
-          this.showToast(this.$t('config-editor.error-msg-cannot-save'), false);
+          if (response.data.errors && Array.isArray(response.data.errors)) {
+            this.validationErrors = response.data.errors;
+            const formattedErrors = response.data.errors.map(err => 
+              formatValidationError(err, this.$t.bind(this))
+            );
+            this.showToast(this.$t('config-editor.error-validation-failed'), false);
+            ErrorHandler(`Config validation failed: ${formattedErrors.join('; ')}`);
+          } else {
+            this.showToast(this.$t('config-editor.error-msg-cannot-save'), false);
+            ErrorHandler(`Failed to save config: ${this.responseText}`);
+          }
         }
-        InfoHandler('Config has been written to disk successfully', 'Config Update');
+        
         this.progress.end();
-        this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
       })
         .catch((error) => { // fucking hell
           this.saveSuccess = false;
           this.responseText = error;
+          this.validationErrors = [];
           this.showToast(error, false);
           ErrorHandler(`Failed to save config. ${error}`);
           this.progress.end();

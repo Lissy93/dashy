@@ -179,7 +179,16 @@
     "error-msg-cannot-save": "An error occurred saving config",
     "error-msg-bad-json": "Error in JSON, possibly malformed",
     "warning-msg-validation": "Validation Warning",
-    "not-admin-note": "You cannot write changes to disk because you are not logged in as an administrator"
+    "not-admin-note": "You cannot write changes to disk because you are not logged in as an administrator",
+    "error-yaml-parse": "YAML Syntax Error",
+    "error-yaml-parse-at-line": "YAML Syntax Error at line {line}",
+    "error-yaml-parse-at-line-col": "YAML Syntax Error at line {line}, column {column}",
+    "error-sections-empty": "sections cannot be empty",
+    "error-sections-not-array": "sections must be an array",
+    "error-items-not-array": "items in section[{index}] must be an array",
+    "error-item-missing-title": "Item[{itemIndex}] in Section[{sectionIndex}] is missing required field: title",
+    "error-item-missing-url": "Item[{itemIndex}] in Section[{sectionIndex}] is missing required field: url",
+    "error-validation-failed": "Config validation failed. Please fix the following issues:"
   },
   "app-rebuild": {
     "title": "Rebuild Application",

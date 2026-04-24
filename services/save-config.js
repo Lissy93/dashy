@@ -7,13 +7,19 @@
 const fsPromises = require('fs').promises;
 const path = require('path');
 
+const { ConfigValidator, formatValidationErrors } = require('./config-validator-utils');
+
 const MAX_CONFIG_BYTES = 256 * 1024;
 
 // Disallow paths having path separators, control chars (NUL/CR/LF), or ..
 const SAFE_FILENAME = /^(?!\.+$)[^\\/\0\r\n]+\.ya?ml$/i;
 
 module.exports = async (newConfig, render) => {
-  const respond = (success, message) => render(JSON.stringify({ success, message }));
+  const respond = (success, message, errors = null) => render(JSON.stringify({ 
+    success, 
+    message,
+    errors: errors || undefined,
+  }));
 
   // Validate request body
   if (!newConfig || typeof newConfig.config !== 'string' || newConfig.config.length === 0) {
@@ -22,6 +28,16 @@ module.exports = async (newConfig, render) => {
   }
   if (newConfig.config.length > MAX_CONFIG_BYTES) {
     respond(false, `Config exceeds maximum size of ${MAX_CONFIG_BYTES / 1024} KB`);
+    return;
+  }
+
+  // Validate YAML syntax and config structure before proceeding
+  const validator = new ConfigValidator();
+  const validationResult = validator.validate(newConfig.config);
+  
+  if (!validationResult.valid) {
+    const errorMessage = formatValidationErrors(validationResult.errors);
+    respond(false, `Config validation failed: ${errorMessage}`, validationResult.errors);
     return;
   }
 

@@ -65,4 +65,107 @@ describe('Save config', () => {
     const res = await request(app).get('/config-manager/save');
     expect(res.status).toBeLessThan(500);
   });
+
+  describe('Config Validation', () => {
+    it('rejects invalid YAML syntax', async () => {
+      const invalidYaml = `pageInfo:
+  title: Test
+sections:
+  - name: Test
+    items
+      - title: Item`;
+      
+      const res = await save({ config: invalidYaml });
+      const body = JSON.parse(res.text);
+      expect(body.success).toBe(false);
+      expect(body.message).toContain('YAML');
+      expect(body.errors).toBeDefined();
+      expect(Array.isArray(body.errors)).toBe(true);
+    });
+
+    it('rejects config with empty sections', async () => {
+      const config = `pageInfo:
+  title: Test
+sections: []`;
+      
+      const res = await save({ config });
+      const body = JSON.parse(res.text);
+      expect(body.success).toBe(false);
+      expect(body.message).toContain('sections');
+      expect(body.errors).toBeDefined();
+    });
+
+    it('rejects config with sections not an array', async () => {
+      const config = `pageInfo:
+  title: Test
+sections: not an array`;
+      
+      const res = await save({ config });
+      const body = JSON.parse(res.text);
+      expect(body.success).toBe(false);
+      expect(body.errors).toBeDefined();
+    });
+
+    it('rejects config with item missing title', async () => {
+      const config = `pageInfo:
+  title: Test
+sections:
+  - name: Section 1
+    items:
+      - url: https://example.com`;
+      
+      const res = await save({ config });
+      const body = JSON.parse(res.text);
+      expect(body.success).toBe(false);
+      expect(body.errors).toBeDefined();
+      expect(body.errors.length).toBeGreaterThan(0);
+    });
+
+    it('rejects config with item missing url', async () => {
+      const config = `pageInfo:
+  title: Test
+sections:
+  - name: Section 1
+    items:
+      - title: Item 1`;
+      
+      const res = await save({ config });
+      const body = JSON.parse(res.text);
+      expect(body.success).toBe(false);
+      expect(body.errors).toBeDefined();
+      expect(body.errors.length).toBeGreaterThan(0);
+    });
+
+    it('rejects config with multiple validation errors', async () => {
+      const config = `pageInfo:
+  title: Test
+sections:
+  - name: Section 1
+    items:
+      - url: https://example.com
+      - title: Item 2`;
+      
+      const res = await save({ config });
+      const body = JSON.parse(res.text);
+      expect(body.success).toBe(false);
+      expect(body.errors).toBeDefined();
+      expect(body.errors.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it('accepts valid config with proper structure', async () => {
+      const validConfig = `pageInfo:
+  title: Test
+sections:
+  - name: Section 1
+    items:
+      - title: Item 1
+        url: https://example.com
+      - title: Item 2
+        url: https://test.com`;
+      
+      const res = await save({ config: validConfig });
+      const body = JSON.parse(res.text);
+      expect(body.success).toBe(true);
+    });
+  });
 });

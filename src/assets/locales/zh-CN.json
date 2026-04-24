@@ -178,7 +178,16 @@
     "error-msg-cannot-save": "保存配置时出错",
     "error-msg-bad-json": "JSON 错误，可能格式错误",
     "warning-msg-validation": "验证警告",
-    "not-admin-note": "不能保存变更到配置文件，因为你没有以管理员身份登录"
+    "not-admin-note": "不能保存变更到配置文件，因为你没有以管理员身份登录",
+    "error-yaml-parse": "YAML 语法错误",
+    "error-yaml-parse-at-line": "YAML 语法错误，位于第 {line} 行",
+    "error-yaml-parse-at-line-col": "YAML 语法错误，位于第 {line} 行第 {column} 列",
+    "error-sections-empty": "sections 不能为空",
+    "error-sections-not-array": "sections 必须是数组",
+    "error-items-not-array": "第 {index} 个 section 的 items 必须是数组",
+    "error-item-missing-title": "第 {sectionIndex} 个 section 中的第 {itemIndex} 个 item 缺少必填字段：title",
+    "error-item-missing-url": "第 {sectionIndex} 个 section 中的第 {itemIndex} 个 item 缺少必填字段：url",
+    "error-validation-failed": "配置验证失败，请修复以下问题："
   },
   "app-rebuild": {
     "title": "重建应用",
