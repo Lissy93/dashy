@@ -31,9 +31,11 @@ import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/config/defaults';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import safeClone from '@/utils/safeClone';
+import { defineAsyncComponent } from 'vue';
 import AccessError from '@/components/Configuration/AccessError';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
-import SchemaForm from '@/components/FormElements/SchemaForm';
+
+const SchemaForm = defineAsyncComponent(() => import('@/components/FormElements/SchemaForm.vue'));
 
 export default {
   name: 'EditAppConfig',
