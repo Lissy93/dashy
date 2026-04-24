@@ -86,7 +86,7 @@ import { localStorageKeys, modalNames } from '@/utils/config/defaults';
 import { getUsersLanguage } from '@/utils/config/ConfigHelpers';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
-import JsonEditor from '@/components/Configuration/JsonEditor';
+import { defineAsyncComponent, h } from 'vue';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
 import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
 import RebuildApp from '@/components/Configuration/RebuildApp';
@@ -104,6 +104,14 @@ import CloudIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
 import LanguageIcon from '@/assets/interface-icons/config-language.svg';
 import IconAbout from '@/assets/interface-icons/application-about.svg';
+
+const EditorLoading = {
+  render: () => h('p', { class: 'editor-loading-placeholder' }, 'Loading editor…'),
+};
+const JsonEditor = defineAsyncComponent({
+  loader: () => import('@/components/Configuration/JsonEditor.vue'),
+  loadingComponent: EditorLoading,
+});
 
 export default {
   name: 'ConfigContainer',
@@ -306,12 +314,11 @@ div.code-container {
 }
 
 .tab-item {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   @extend .scroll-bar;
   background: var(--config-settings-background);
-  &.main-tab {
-    min-height: 500px;
-  }
 }
 
 .main-options-container {
@@ -386,6 +393,17 @@ p.small-screen-note {
 
 .tab-item {
   background: var(--config-settings-background) !important;
+}
+
+.editor-loading-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 55vh;
+  margin: 0;
+  font-size: 1rem;
+  color: var(--config-settings-color);
+  opacity: var(--dimming-factor);
 }
 
 </style>

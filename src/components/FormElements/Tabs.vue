@@ -84,7 +84,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.tabs-component {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .tab__pagination {
+  flex: 0 0 auto;
   display: flex;
   overflow-x: auto;
   border-bottom: 1px solid var(--config-settings-color);
@@ -123,6 +130,9 @@ export default {
 }
 
 .tabs__content {
-  height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 </style>
