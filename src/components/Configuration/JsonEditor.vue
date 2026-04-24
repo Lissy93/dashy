@@ -177,7 +177,8 @@ export default {
     };
   },
   computed: {
-    config() { return this.$store.state.config; },
+    // Uses full config for root page, partial config for sub-pages, Dashy still reads full/merged conf
+    editorSource() { return this.$store.state.configSource; },
     // Used to prevent preview/save on invalid YAML
     isValid() { return !this.errorMessages.some((e) => e.type === 'error'); },
     // For chip to show "valid", "warnings", "error"
@@ -214,9 +215,13 @@ export default {
   },
   methods: {
     initialText() {
-      const data = { ...this.config };
+      const src = this.editorSource || {};
+      const data = { ...src };
       data.sections = (data.sections || []).map(({ filteredItems: _filteredItems, ...s }) => s);
-      if (!data.pageInfo) data.pageInfo = { title: 'Dashy' };
+      const { confId } = this.$store.state.currentConfigInfo;
+      // Root config always has a pageInfo; show a sensible default if missing.
+      // Sub-pages can legitimately have an empty pageInfo (they inherit from root).
+      if (!confId && !data.pageInfo) data.pageInfo = { title: 'Dashy' };
       return jsYaml.dump(data, DUMP_OPTS);
     },
     createEditor() {
@@ -321,26 +326,18 @@ export default {
       if (data == null) return;
       const ok = await this.writeConfigToDisk(data);
       if (!ok) return;
-      this.$store.commit(StoreKeys.SET_PAGE_INFO, data.pageInfo);
-      this.$store.commit(StoreKeys.SET_SECTIONS, data.sections);
-      this.$store.commit(StoreKeys.SET_PAGES, data.pages || []);
+      this.applyConfigToStore(data);
     },
     onSaveLocally() {
       const data = this.parseCurrent();
       if (data == null) return;
       // eslint-disable-next-line no-alert, no-restricted-globals
-      if (confirm(this.$t('interactive-editor.menu.save-locally-warning'))) {
-        this.saveConfigLocally(data);
-      }
+      if (!confirm(this.$t('interactive-editor.menu.save-locally-warning'))) return;
+      this.saveConfigLocally(data);
+      this.applyConfigToStore(data);
     },
-    // Commits a full parsed config object to the Vuex store (preview / reset).
-    // Each top-level section is only committed when present, so a user saving
-    // a YAML that omits e.g. `appConfig:` can't nuke existing store state.
     applyConfigToStore(data) {
-      if (data.appConfig !== undefined) this.$store.commit(StoreKeys.SET_APP_CONFIG, data.appConfig);
-      if (data.pageInfo !== undefined) this.$store.commit(StoreKeys.SET_PAGE_INFO, data.pageInfo);
-      if (data.sections !== undefined) this.$store.commit(StoreKeys.SET_SECTIONS, data.sections);
-      this.$store.commit(StoreKeys.SET_PAGES, data.pages || []);
+      this.$store.dispatch(StoreKeys.APPLY_EDITED_CONFIG, data);
     },
     onPreview() {
       const data = this.parseCurrent();

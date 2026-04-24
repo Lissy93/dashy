@@ -64,7 +64,7 @@ export default {
   props: {},
   computed: {
     config() {
-      return this.$store.state.config;
+      return this.$store.state.configSource;
     },
     allowViewConfig() {
       return this.$store.getters.permissions.allowViewConfig;

@@ -46,11 +46,13 @@
         {{ $t('interactive-editor.menu.edit-app-config-btn') }}
         <AppConfigIcon />
       </Button>
-      <!-- Button to open pages editor -->
+      <!-- Button to open pages editor (only if not on sub-page rn) -->
       <Button
         :click="openEditMultiPages"
-        :disallow="!permissions.allowViewConfig"
-        v-tooltip="tooltip($t('interactive-editor.menu.edit-pages-tooltip'))"
+        :disallow="!permissions.allowViewConfig || isSubConfig"
+        v-tooltip="tooltip($t(isSubConfig
+          ? 'interactive-editor.menu.edit-pages-subconfig-disabled'
+          : 'interactive-editor.menu.edit-pages-tooltip'))"
       >
         {{ $t('interactive-editor.menu.edit-pages-btn') }}
         <MultiPagesIcon />
@@ -142,8 +144,8 @@ export default {
     AccessError,
   },
   computed: {
-    config() {
-      return this.$store.state.config;
+    configToSave() {
+      return this.$store.state.configSource;
     },
     permissions() {
       // Returns: { allowWriteToDisk, allowSaveLocally, allowViewConfig }
@@ -152,10 +154,13 @@ export default {
     showEditMsg() {
       return this.permissions.allowWriteToDisk || this.permissions.allowSaveLocally;
     },
+    isSubConfig() {
+      return this.$store.getters.isSubConfig;
+    },
   },
   methods: {
     reset() {
-      this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG);
+      this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG, this.$store.state.currentConfigInfo.confId);
       this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
     },
     openExportConfigMenu() {
@@ -189,11 +194,11 @@ export default {
       const msg = this.$t('interactive-editor.menu.save-locally-warning');
       const youSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
       if (youSure) {
-        this.saveConfigLocally(this.config);
+        this.saveConfigLocally(this.configToSave);
       }
     },
     writeToDisk() {
-      this.writeConfigToDisk(this.config);
+      this.writeConfigToDisk(this.configToSave);
     },
   },
 };

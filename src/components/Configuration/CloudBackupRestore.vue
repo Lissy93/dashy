@@ -76,8 +76,10 @@ import IconRestore from '@/assets/interface-icons/config-restore.svg';
 export default {
   name: 'CloudBackupRestore',
   computed: {
-    config() { // Users config from store
-      return this.$store.state.config;
+    // Back up the active page's OWN config (partial for sub-pages, full for root)
+    // so a restored sub-page file doesn't pin root's inherited values.
+    config() {
+      return this.$store.state.configSource;
     },
   },
   data() {

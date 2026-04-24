@@ -7,8 +7,7 @@
       <h1>{{ title }}</h1>
       <span class="subtitle">{{ description }}</span>
     </div>
-    <!-- When in edit mode, show Edit Title button -->
-    <EditModeIcon v-if="isEditMode" @click="editTitle()"
+    <EditModeIcon v-if="isEditMode" @click.stop.prevent="editTitle()"
       class="edit-icon" v-tooltip="tooltip()" />
   </router-link>
 </template>

@@ -193,7 +193,7 @@ export default {
     openEditCssTab() {
       this.navigateToTab(3);
     },
-    /* Checks that the user is sure, then resets site-wide local storage, and reloads page */
+    /* Checks that the user is sure, then resets site-wide local storage, and reloads current page */
     resetLocalSettings() {
       const msg = `${this.$t('config.reset-config-msg-l1')} `
       + `${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
@@ -201,7 +201,7 @@ export default {
       if (isTheUserSure) {
         localStorage.clear();
         this.$toast(this.$t('config.data-cleared-msg'));
-        this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG);
+        this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG, this.$store.state.currentConfigInfo.confId);
       }
     },
     getLanguage() {

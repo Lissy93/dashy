@@ -22,20 +22,20 @@ const makeItemId = (sectionStr, itemStr, index) => {
   return `${index}_${charSum}_${itemTitleStr}`;
 };
 
-/* Given an array of sections, apply a unique ID to each item, and return modified array */
-export const applyItemId = (inputSections) => {
-  const sections = inputSections || [];
-  sections.forEach((sec, secIdx) => {
-    if (sec.items) {
-      sec.items.forEach((item, itemIdx) => {
-        sections[secIdx].items[itemIdx].id = makeItemId(sec.name, item.title, itemIdx);
-      });
-    }
-    if (sec.widgets) {
-      sec.widgets.forEach((widget, widgetIdx) => {
-        sections[secIdx].widgets[widgetIdx].id = makeItemId(sec.name, widget.type, widgetIdx);
-      });
-    }
-  });
-  return sections;
-};
+/* Return a new array of sections with a unique id on each item and widget */
+export const applyItemId = (inputSections) => (inputSections || []).map((section) => {
+  const next = { ...section };
+  if (Array.isArray(section.items)) {
+    next.items = section.items.map((item, i) => ({
+      ...item,
+      id: makeItemId(section.name, item.title, i),
+    }));
+  }
+  if (Array.isArray(section.widgets)) {
+    next.widgets = section.widgets.map((widget, i) => ({
+      ...widget,
+      id: makeItemId(section.name, widget.type, i),
+    }));
+  }
+  return next;
+});

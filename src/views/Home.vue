@@ -107,11 +107,10 @@ export default {
     /* Return sections with filtered items, that match users search term */
     filteredSections() {
       const sections = this.singleSectionView || this.sections;
-      return sections.map((_section) => {
-        const section = _section;
-        section.filteredItems = this.filterTiles(section.items, this.searchValue);
-        return section;
-      });
+      return sections.map((section) => ({
+        ...section,
+        filteredItems: this.filterTiles(section.items, this.searchValue),
+      }));
     },
     /* Updates layout (when button clicked), and saves in local storage */
     layoutOrientation() {

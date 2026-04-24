@@ -1,6 +1,6 @@
 <template>
   <modal
-    :name="modalName" @closed="modalClosed"
+    :name="modalName" @closed="modalClosed" @before-open="initForm"
     :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-app-config"
   >
@@ -46,16 +46,19 @@ export default {
     };
   },
   computed: {
-    appConfig() { return this.$store.getters.appConfig; },
+    // Read root appConfig, for partial sub-pages to inherit from
+    ownAppConfig() { return this.$store.state.configSource.appConfig || {}; },
     allowViewConfig() { return this.$store.getters.permissions.allowViewConfig; },
   },
-  mounted() {
-    this.formData = safeClone(this.appConfig, {});
-  },
   methods: {
+    // Re-runs on each modal open so the forms reflects changes made elsewhere
+    initForm() {
+      this.formData = safeClone(this.ownAppConfig, {});
+    },
     saveToState() {
       try {
-        this.$store.commit(StoreKeys.SET_APP_CONFIG, this.formData);
+        const patched = { ...this.$store.state.configSource, appConfig: this.formData };
+        this.$store.dispatch(StoreKeys.APPLY_EDITED_CONFIG, patched);
         this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
         InfoHandler('App config updated', InfoKeys.EDITOR);
         this.cancelEditing();

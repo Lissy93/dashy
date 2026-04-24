@@ -13,6 +13,7 @@ import Home from '@/views/Home.vue';
 
 // Import helper functions, config data and defaults
 import store from '@/store';
+import i18n from '@/utils/i18n';
 import Keys from '@/utils/StoreMutations';
 import { isAuthEnabled, isLoggedIn, isGuestAccessEnabled } from '@/utils/auth/Auth';
 import { startingView as defaultStartingView, routePaths } from '@/utils/config/defaults';
@@ -121,14 +122,30 @@ const router = createRouter({
 });
 
 /**
- * On first page load, initialize and wait for the the config loading
- * Then, if auth enabled and user not logged in yet, redirect to login page
+ * On first page load, initialize and wait for the the config loading.
+ * Also guards against silently leaving an active edit session for a
+ * different config (unsaved edits would otherwise become untethered
+ * from whatever page the user switched to).
  */
 router.beforeEach(async (to, from, next) => {
   progress.start();
   try {
     if (!store.state.rootConfig && !store.state.criticalError) {
       await store.dispatch(Keys.INITIALIZE_CONFIG);
+    }
+    // If in edit mode and navigating to a DIFFERENT page, confirm + cancel edit.
+    const pageChanged = from.params?.page !== to.params?.page;
+    if (store.state.editMode && pageChanged) {
+      // eslint-disable-next-line no-alert, no-restricted-globals
+      const ok = confirm(i18n.global.t('interactive-editor.menu.leave-while-editing-confirm'));
+      if (!ok) {
+        progress.end();
+        next(false);
+        return;
+      }
+      // Discard edits for the page we're leaving and exit edit mode.
+      await store.dispatch(Keys.INITIALIZE_CONFIG, store.state.currentConfigInfo.confId);
+      store.commit(Keys.SET_EDIT_MODE, false);
     }
     if (to.name !== 'login' && !isAuthenticated()) next({ name: 'login' });
     else next();

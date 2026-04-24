@@ -1,6 +1,6 @@
 <template>
   <modal
-    :name="modalName" @closed="modalClosed"
+    :name="modalName" @closed="modalClosed" @before-open="initForm"
     :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-page-info"
   >
@@ -35,16 +35,17 @@ export default {
     };
   },
   computed: {
-    pageInfo() { return this.$store.getters.pageInfo; },
+    ownPageInfo() { return this.$store.state.configSource.pageInfo || {}; },
     allowViewConfig() { return this.$store.getters.permissions.allowViewConfig; },
   },
-  mounted() {
-    this.formData = safeClone(this.pageInfo, {});
-  },
   methods: {
+    initForm() {
+      this.formData = safeClone(this.ownPageInfo, {});
+    },
     saveToState() {
       try {
-        this.$store.commit(StoreKeys.SET_PAGE_INFO, this.formData);
+        const patched = { ...this.$store.state.configSource, pageInfo: this.formData };
+        this.$store.dispatch(StoreKeys.APPLY_EDITED_CONFIG, patched);
         this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
         InfoHandler('Page info updated', InfoKeys.EDITOR);
         this.cancelEditing();

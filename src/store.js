@@ -3,7 +3,9 @@ import { createStore } from 'vuex';
 import yaml from 'js-yaml';
 import request from '@/utils/request';
 import Keys from '@/utils/StoreMutations';
-import { makePageName, formatConfigPath, componentVisibility } from '@/utils/config/ConfigHelpers';
+import {
+  makePageName, formatConfigPath, componentVisibility, configScope, stripRootOwnedFields,
+} from '@/utils/config/ConfigHelpers';
 import { applyItemId } from '@/utils/config/SectionHelpers';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
@@ -19,6 +21,8 @@ const {
   INITIALIZE_CONFIG,
   INITIALIZE_ROOT_CONFIG,
   SET_CONFIG,
+  SET_CONFIG_SOURCE,
+  APPLY_EDITED_CONFIG,
   SET_ROOT_CONFIG,
   SET_CURRENT_CONFIG_INFO,
   SET_IS_USING_LOCAL_CONFIG,
@@ -52,43 +56,112 @@ const emptyConfig = {
   sections: [],
 };
 
-/* Merge any local overrides (written by "Save Locally") into a config object.
- * On sub-pages only `sections` + `pageInfo` are per-page; the rest are root-scoped. */
-function applyLocalOverrides(config, subConfigId) {
-  const suffix = subConfigId ? `-${subConfigId}` : '';
-  const read = (key) => {
-    const raw = localStorage[`${key}${suffix}`];
-    if (!raw) return undefined;
-    try { return JSON.parse(raw); } catch (e) {
-      ErrorHandler(`Malformed local config for '${key}${suffix}'`, e);
-      return undefined;
-    }
-  };
-  let overridden = false;
-  const localSections = read(localStorageKeys.CONF_SECTIONS);
-  const localPageInfo = read(localStorageKeys.PAGE_INFO);
-  if (Array.isArray(localSections) && localSections.length) {
-    config.sections = localSections; overridden = true;
+/* Read + JSON-parse a raw localStorage slot, returning undefined on miss/fail. */
+const readLocal = (key) => {
+  const raw = localStorage.getItem(key);
+  if (!raw) return undefined;
+  try { return JSON.parse(raw); } catch (e) {
+    ErrorHandler(`Malformed local config for '${key}'`, e);
+    return undefined;
   }
+};
+
+/* Write one top-level config field to both the merged runtime view (`config`)
+ * and the active page's source. Keeps the two from drifting.
+ * Item/widget `id`s are runtime-only — applied to `config` for rendering,
+ * kept out of `configSource` so they never land in persisted YAML. */
+const commitConfigField = (state, field, value) => {
+  const runtime = field === 'sections' ? applyItemId(value) : value;
+  state.config = { ...state.config, [field]: runtime };
+  state.configSource = { ...state.configSource, [field]: value };
+};
+
+/* Patch a single appConfig key. Optionally persists to a localStorage slot
+ * (used by the quick-pickers; omitted for pure runtime-state updates). */
+const patchAppConfigField = (state, key, value, storageKey) => {
+  state.config = { ...state.config, appConfig: { ...state.config.appConfig, [key]: value } };
+  state.configSource = {
+    ...state.configSource,
+    appConfig: { ...(state.configSource.appConfig || {}), [key]: value },
+  };
+  if (storageKey) localStorage.setItem(storageKey, value);
+};
+
+ /* Read locally saved configs/overrides from localStorage  */
+function readLocalOverrides(subConfigId) {
+  const scope = configScope(subConfigId);
+  const own = {};
+  let hasStructural = false;
+
+  const localAppConfig = readLocal(scope.APP_CONFIG);
+  const localPageInfo = readLocal(scope.PAGE_INFO);
+  const localSections = readLocal(scope.CONF_SECTIONS);
+
+  const appConfig = {};
+  if (localAppConfig && typeof localAppConfig === 'object') {
+    Object.assign(appConfig, localAppConfig);
+    hasStructural = true;
+  }
+  // Quick-picker slots layer on top for normal local stuff
+  const theme = localStorage.getItem(scope.THEME);
+  const layout = localStorage.getItem(scope.LAYOUT);
+  const iconSize = localStorage.getItem(scope.ICON_SIZE);
+  const language = localStorage.getItem(scope.LANGUAGE);
+  if (theme) appConfig.theme = theme;
+  if (layout) appConfig.layout = layout;
+  if (iconSize) appConfig.iconSize = iconSize;
+  if (language) appConfig.language = language;
+  if (Object.keys(appConfig).length) own.appConfig = appConfig;
+
   if (localPageInfo && typeof localPageInfo === 'object') {
-    config.pageInfo = localPageInfo; overridden = true;
+    own.pageInfo = localPageInfo;
+    hasStructural = true;
+  }
+  if (Array.isArray(localSections) && localSections.length) {
+    own.sections = localSections;
+    hasStructural = true;
   }
   if (!subConfigId) {
-    const localAppConfig = read(localStorageKeys.APP_CONFIG);
-    const localPages = read(localStorageKeys.CONF_PAGES);
-    if (localAppConfig && typeof localAppConfig === 'object') {
-      config.appConfig = localAppConfig; overridden = true;
-    }
+    const localPages = readLocal(localStorageKeys.CONF_PAGES);
     if (Array.isArray(localPages)) {
-      config.pages = localPages; overridden = true;
+      own.pages = localPages;
+      hasStructural = true;
     }
   }
-  return overridden;
+  return { own, hasStructural };
+}
+
+/* Root config with its own local overrides layered on */
+function buildRootEffective(state) {
+  const root = state.rootConfig || {};
+  const { own } = readLocalOverrides(null);
+  return {
+    appConfig: { ...(root.appConfig || {}), ...(own.appConfig || {}) },
+    pageInfo: { ...(root.pageInfo || {}), ...(own.pageInfo || {}) },
+    sections: own.sections || root.sections || [],
+    pages: own.pages || root.pages || [],
+  };
+}
+
+/* Merges root config and sub-page config */
+function mergeWithRoot(root, own) {
+  const rootApp = root.appConfig || {};
+  const ownApp = own.appConfig || {};
+  const appConfig = { ...rootApp, ...ownApp };
+  if (rootApp.auth !== undefined) appConfig.auth = rootApp.auth;
+  else delete appConfig.auth;
+  return {
+    appConfig,
+    pageInfo: { ...(root.pageInfo || {}), ...(own.pageInfo || {}) },
+    sections: own.sections || [],
+    pages: root.pages || [],
+  };
 }
 
 const store = createStore({
   state: {
-    config: {}, // The current config being used, and rendered to the UI
+    config: {}, // The current config being used, and rendered to the UI (merged runtime view)
+    configSource: {}, // The current config as it appears in the file (before root merges)
     rootConfig: null, // Always the content of main config file, never used directly
     editMode: false, // While true, the user can drag and edit items + sections
     modalOpen: false, // KB shortcut functionality will be disabled when modal is open
@@ -101,6 +174,12 @@ const store = createStore({
   getters: {
     config(state) {
       return state.config;
+    },
+    configSource(state) {
+      return state.configSource;
+    },
+    isSubConfig(state) {
+      return !!state.currentConfigInfo.confId;
     },
     pageInfo(state) {
       if (!state.config) return {};
@@ -118,19 +197,16 @@ const store = createStore({
       return state.config.pages || [];
     },
     theme(state) {
-      const localStorageKey = state.currentConfigInfo.confId
-        ? `${localStorageKeys.THEME}-${state.currentConfigInfo.confId}` : localStorageKeys.THEME;
       // Read reactive deps upfront so Vuex tracks every branch (avoids the
       // short-circuit caching bug where unread props wouldn't invalidate).
       const cfg = state.config?.appConfig;
       const configTheme = cfg?.theme;
       const dayTheme = cfg?.dayTheme;
       const nightTheme = cfg?.nightTheme;
-      // Resolution: user's saved choice → OS preference (if configured) → config default
-      const localTheme = localStorage[localStorageKey];
-      if (localTheme) return localTheme;
       const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-      return (prefersDark ? nightTheme : dayTheme) || configTheme || defaultTheme;
+      const fromState = (prefersDark ? nightTheme : dayTheme) || configTheme || defaultTheme;
+      if (state.editMode) return fromState;
+      return localStorage.getItem(configScope(state.currentConfigInfo.confId).THEME) || fromState;
     },
     webSearch(state, getters) {
       return getters.appConfig.webSearch || {};
@@ -174,6 +250,7 @@ const store = createStore({
       return getters.sections[index];
     },
     getItemById: (state, getters) => (id) => {
+      if (!id) return undefined;
       let item;
       getters.sections.forEach(sec => {
         if (sec.items) {
@@ -193,18 +270,16 @@ const store = createStore({
       return foundSection;
     },
     layout(state) {
-      const pageId = state.currentConfigInfo.confId;
-      const layoutStoreKey = pageId
-        ? `${localStorageKeys.LAYOUT_ORIENTATION}-${pageId}` : localStorageKeys.LAYOUT_ORIENTATION;
-      const appConfigLayout = state.config.appConfig.layout;
-      return localStorage.getItem(layoutStoreKey) || appConfigLayout || 'auto';
+      const scope = configScope(state.currentConfigInfo.confId);
+      const fromState = state.config.appConfig.layout || 'auto';
+      if (state.editMode) return fromState;
+      return localStorage.getItem(scope.LAYOUT) || fromState;
     },
     iconSize(state) {
-      const pageId = state.currentConfigInfo.confId;
-      const sizeStoreKey = pageId
-        ? `${localStorageKeys.ICON_SIZE}-${pageId}` : localStorageKeys.ICON_SIZE;
-      const appConfigSize = state.config.appConfig.iconSize;
-      return localStorage.getItem(sizeStoreKey) || appConfigSize || 'medium';
+      const scope = configScope(state.currentConfigInfo.confId);
+      const fromState = state.config.appConfig.iconSize || 'medium';
+      if (state.editMode) return fromState;
+      return localStorage.getItem(scope.ICON_SIZE) || fromState;
     },
   },
   mutations: {
@@ -215,8 +290,14 @@ const store = createStore({
     },
     /* The config to display and edit. Will differ from ROOT_CONFIG when using multi-page */
     [SET_CONFIG](state, config) {
-      if (!config.appConfig) config.appConfig = {};
-      state.config = config;
+      const next = { ...(config || {}) };
+      if (!next.appConfig) next.appConfig = {};
+      if (next.sections) next.sections = applyItemId(next.sections);
+      state.config = next;
+    },
+    /* The active page's own/intent config (partial for sub-pages). Editor reads this. */
+    [SET_CONFIG_SOURCE](state, source) {
+      state.configSource = source || {};
     },
     [SET_CURRENT_CONFIG_INFO](state, subConfigInfo) {
       state.currentConfigInfo = subConfigInfo;
@@ -225,9 +306,8 @@ const store = createStore({
       state.isUsingLocalConfig = isUsingLocalConfig;
     },
     [SET_LANGUAGE](state, lang) {
-      const newConfig = state.config;
-      newConfig.appConfig.language = lang;
-      state.config = newConfig;
+      patchAppConfigField(state, 'language', lang, configScope(state.currentConfigInfo.confId).LANGUAGE);
+      InfoHandler('Language updated', InfoKeys.VISUAL);
     },
     [SET_MODAL_OPEN](state, modalOpen) {
       state.modalOpen = modalOpen;
@@ -242,146 +322,100 @@ const store = createStore({
       if (message) ErrorHandler(message);
       state.criticalError = message;
     },
-    [UPDATE_ITEM](state, payload) {
-      const { itemId, newItem } = payload;
-      const newConfig = { ...state.config };
-      newConfig.sections.forEach((section, secIndex) => {
-        (section.items || []).forEach((item, itemIndex) => {
-          if (item.id === itemId) {
-            newConfig.sections[secIndex].items[itemIndex] = newItem;
-            InfoHandler('Item updated', InfoKeys.EDITOR);
-          }
-        });
-      });
-      state.config = newConfig;
-    },
-    [SET_PAGE_INFO](state, newPageInfo) {
-      const newConfig = state.config;
-      newConfig.pageInfo = newPageInfo;
-      state.config = newConfig;
+    [SET_PAGE_INFO](state, pageInfo) {
+      commitConfigField(state, 'pageInfo', pageInfo || {});
       InfoHandler('Page info updated', InfoKeys.EDITOR);
     },
-    [SET_APP_CONFIG](state, newAppConfig) {
-      const newConfig = state.config;
-      newConfig.appConfig = newAppConfig;
-      state.config = newConfig;
+    [SET_APP_CONFIG](state, appConfig) {
+      commitConfigField(state, 'appConfig', appConfig || {});
       InfoHandler('App config updated', InfoKeys.EDITOR);
     },
     [SET_PAGES](state, multiPages) {
-      const newConfig = state.config;
-      newConfig.pages = multiPages;
-      state.config = newConfig;
+      // `pages` is always root-owned, regardless of the active page.
+      const pages = Array.isArray(multiPages) ? multiPages : [];
+      if (state.rootConfig) state.rootConfig = { ...state.rootConfig, pages };
+      state.config = { ...state.config, pages };
+      if (!state.currentConfigInfo.confId) {
+        state.configSource = { ...state.configSource, pages };
+      }
       InfoHandler('Pages updated', InfoKeys.EDITOR);
     },
-    [SET_SECTIONS](state, newSections) {
-      const newConfig = state.config;
-      newConfig.sections = newSections;
-      state.config = newConfig;
+    [SET_SECTIONS](state, sections) {
+      commitConfigField(state, 'sections', sections || []);
       InfoHandler('Sections updated', InfoKeys.EDITOR);
     },
-    [UPDATE_SECTION](state, payload) {
-      const { sectionIndex, sectionData } = payload;
-      const newConfig = { ...state.config };
-      newConfig.sections[sectionIndex] = sectionData;
-      state.config = newConfig;
+    [UPDATE_ITEM](state, { itemId, newItem }) {
+      commitConfigField(state, 'sections', state.config.sections.map((section) => ({
+        ...section,
+        items: (section.items || []).map((item) => (item.id === itemId ? newItem : item)),
+      })));
+      InfoHandler('Item updated', InfoKeys.EDITOR);
+    },
+    [UPDATE_SECTION](state, { sectionIndex, sectionData }) {
+      commitConfigField(state, 'sections', state.config.sections.map((s, i) => (
+        i === sectionIndex ? sectionData : s
+      )));
       InfoHandler('Section updated', InfoKeys.EDITOR);
     },
     [INSERT_SECTION](state, newSection) {
-      const newConfig = { ...state.config };
-      newSection.items = [];
-      newConfig.sections.push(newSection);
-      state.config = newConfig;
+      commitConfigField(state, 'sections', [
+        ...state.config.sections,
+        { ...newSection, items: [] },
+      ]);
       InfoHandler('New section added', InfoKeys.EDITOR);
     },
-    [REMOVE_SECTION](state, payload) {
-      const { sectionIndex, sectionName } = payload;
-      const newConfig = { ...state.config };
-      if (newConfig.sections[sectionIndex].name === sectionName) {
-        newConfig.sections.splice(sectionIndex, 1);
-        InfoHandler('Section removed', InfoKeys.EDITOR);
-      }
-      state.config = newConfig;
+    [REMOVE_SECTION](state, { sectionIndex, sectionName }) {
+      const current = state.config.sections;
+      if (current[sectionIndex]?.name !== sectionName) return;
+      commitConfigField(state, 'sections', current.filter((_, i) => i !== sectionIndex));
+      InfoHandler('Section removed', InfoKeys.EDITOR);
     },
-    [INSERT_ITEM](state, payload) {
-      const { newItem, targetSection } = payload;
-      const config = { ...state.config };
-      config.sections.forEach((section) => {
-        if (section.name === targetSection) {
-          if (!section.items) section.items = [];
-          section.items.push(newItem);
-          InfoHandler('New item added', InfoKeys.EDITOR);
-        }
+    [INSERT_ITEM](state, { newItem, targetSection }) {
+      const patched = state.config.sections.map((section) => {
+        if (section.name !== targetSection) return section;
+        return { ...section, items: [...(section.items || []), newItem] };
       });
-      config.sections = applyItemId(config.sections);
-      state.config = config;
+      commitConfigField(state, 'sections', patched);
+      InfoHandler('New item added', InfoKeys.EDITOR);
     },
-    [COPY_ITEM](state, payload) {
-      const { item, toSection, appendTo } = payload;
-      const config = { ...state.config };
+    [COPY_ITEM](state, { item, toSection, appendTo }) {
       const newItem = { ...item };
-      config.sections.forEach((section) => {
-        if (section.name === toSection) {
-          if (!section.items) section.items = [];
-          if (appendTo === 'beginning') {
-            section.items.unshift(newItem);
-          } else {
-            section.items.push(newItem);
-          }
-          InfoHandler('Item copied', InfoKeys.EDITOR);
-        }
+      const patched = state.config.sections.map((section) => {
+        if (section.name !== toSection) return section;
+        const items = appendTo === 'beginning'
+          ? [newItem, ...(section.items || [])]
+          : [...(section.items || []), newItem];
+        return { ...section, items };
       });
-      config.sections = applyItemId(config.sections);
-      state.config = config;
+      commitConfigField(state, 'sections', patched);
+      InfoHandler('Item copied', InfoKeys.EDITOR);
     },
-    [REMOVE_ITEM](state, payload) {
-      const { itemId, sectionName } = payload;
-      const config = { ...state.config };
-      config.sections.forEach((section) => {
-        if (section.name === sectionName && section.items) {
-          section.items.forEach((item, index) => {
-            if (item.id === itemId) {
-              section.items.splice(index, 1);
-              InfoHandler('Item removed', InfoKeys.EDITOR);
-            }
-          });
-        }
+    [REMOVE_ITEM](state, { itemId, sectionName }) {
+      const patched = state.config.sections.map((section) => {
+        if (section.name !== sectionName) return section;
+        return {
+          ...section,
+          items: (section.items || []).filter((item) => item.id !== itemId),
+        };
       });
-      config.sections = applyItemId(config.sections);
-      state.config = config;
+      commitConfigField(state, 'sections', patched);
+      InfoHandler('Item removed', InfoKeys.EDITOR);
     },
     [SET_THEME](state, theme) {
-      const newConfig = { ...state.config };
-      newConfig.appConfig.theme = theme;
-      state.config = newConfig;
-      const pageId = state.currentConfigInfo.confId;
-      const themeStoreKey = pageId
-        ? `${localStorageKeys.THEME}-${pageId}` : localStorageKeys.THEME;
-      localStorage.setItem(themeStoreKey, theme);
+      patchAppConfigField(state, 'theme', theme, configScope(state.currentConfigInfo.confId).THEME);
       InfoHandler('Theme updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_LAYOUT](state, layout) {
-      const newConfig = { ...state.config };
-      newConfig.appConfig.layout = layout;
-      state.config = newConfig;
-      const pageId = state.currentConfigInfo.confId;
-      const layoutStoreKey = pageId
-        ? `${localStorageKeys.LAYOUT_ORIENTATION}-${pageId}` : localStorageKeys.LAYOUT_ORIENTATION;
-      localStorage.setItem(layoutStoreKey, layout);
+      patchAppConfigField(state, 'layout', layout, configScope(state.currentConfigInfo.confId).LAYOUT);
       InfoHandler('Layout updated', InfoKeys.VISUAL);
     },
     [SET_ITEM_SIZE](state, iconSize) {
-      const newConfig = { ...state.config };
-      newConfig.appConfig.iconSize = iconSize;
-      state.config = newConfig;
-      const pageId = state.currentConfigInfo.confId;
-      const sizeStoreKey = pageId
-        ? `${localStorageKeys.ICON_SIZE}-${pageId}` : localStorageKeys.ICON_SIZE;
-      localStorage.setItem(sizeStoreKey, iconSize);
+      patchAppConfigField(state, 'iconSize', iconSize, configScope(state.currentConfigInfo.confId).ICON_SIZE);
       InfoHandler('Item size updated', InfoKeys.VISUAL);
     },
     [UPDATE_CUSTOM_CSS](state, customCss) {
-      state.config.appConfig.customCss = customCss;
-      InfoHandler('Custom colors updated', InfoKeys.VISUAL);
+      patchAppConfigField(state, 'customCss', customCss);
+      InfoHandler('Custom CSS updated', InfoKeys.VISUAL);
     },
     [CONF_MENU_INDEX](state, index) {
       state.navigateConfToTab = index;
@@ -432,31 +466,28 @@ const store = createStore({
       }
     },
     /**
-     * Fetches config and updates state
-     * If not on sub-page, will trigger the fetch of main config, then use that
-     * If using sub-page config, then fetch that sub-config, then
-     * override certain fields (appConfig, pages) and update config
+     * Loads the active config. Pass a sub-page id to load that sub-page
      */
     async [INITIALIZE_CONFIG]({ commit, state }, subConfigId) {
       try {
-        const rootConfig = state.rootConfig
-          || await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
-        // Needs deep clone, so overrides can't mutate cached root
-        const root = JSON.parse(JSON.stringify(rootConfig));
-        const rootUsingLocal = applyLocalOverrides(root);
+        const targetId = subConfigId || null;
+        if (!state.rootConfig) await this.dispatch(Keys.INITIALIZE_ROOT_CONFIG);
+        const { hasStructural: rootHasStructural } = readLocalOverrides(null);
+        const rootEffective = buildRootEffective(state);
 
-        if (!subConfigId) { // Root page: commit the overridden root config directly
-          commit(SET_CONFIG, root);
+        if (!targetId) {
+          commit(SET_CONFIG, rootEffective);
+          commit(SET_CONFIG_SOURCE, rootEffective);
           commit(SET_CURRENT_CONFIG_INFO, {});
-          commit(SET_IS_USING_LOCAL_CONFIG, rootUsingLocal);
-          return root;
+          commit(SET_IS_USING_LOCAL_CONFIG, rootHasStructural);
+          return rootEffective;
         }
 
-        const subConfigPath = formatConfigPath(root?.pages?.find(
-          (page) => page?.name && makePageName(page.name) === subConfigId,
+        const subConfigPath = formatConfigPath(rootEffective.pages.find(
+          (page) => page?.name && makePageName(page.name) === targetId,
         )?.path);
         if (!subConfigPath) {
-          commit(CRITICAL_ERROR_MSG, `Unable to find config for '${subConfigId}'`);
+          commit(CRITICAL_ERROR_MSG, `Unable to find config for '${targetId}'`);
           return { ...emptyConfig };
         }
         let response;
@@ -467,29 +498,48 @@ const store = createStore({
           ErrorHandler(`Sub-config load failed: ${subConfigPath}`, fetchErr);
           return { ...emptyConfig };
         }
-        let configContent;
+        let subFile;
         try {
-          configContent = yaml.load(response.data) || {};
+          subFile = yaml.load(response.data) || {};
         } catch (parseError) {
           commit(CRITICAL_ERROR_MSG, `Failed to parse sub-config YAML: ${parseError.message}`);
           return { ...emptyConfig };
         }
-        // Inherit shared appConfig + pages from root, but override theme per sub-page
-        // TODO: Actually, need to think about which props it is totally safe for a sub-config to inherit.
-        const theme = configContent?.appConfig?.theme || root.appConfig?.theme || 'default';
-        configContent.appConfig = { ...root.appConfig, theme };
-        configContent.pages = root.pages;
-        const subUsingLocal = applyLocalOverrides(configContent, subConfigId);
+        // Sub-page's own intent: file merged with per-page localStorage, minus root-owned fields.
+        const { own: subOwnLocal, hasStructural: subHasStructural } = readLocalOverrides(targetId);
+        const subOwn = stripRootOwnedFields({
+          appConfig: { ...(subFile.appConfig || {}), ...(subOwnLocal.appConfig || {}) },
+          pageInfo: { ...(subFile.pageInfo || {}), ...(subOwnLocal.pageInfo || {}) },
+          sections: subOwnLocal.sections || subFile.sections || [],
+        });
 
-        commit(SET_CONFIG, configContent);
-        commit(SET_CURRENT_CONFIG_INFO, { confPath: subConfigPath, confId: subConfigId });
-        commit(SET_IS_USING_LOCAL_CONFIG, subUsingLocal);
-        return configContent;
+        commit(SET_CONFIG, mergeWithRoot(rootEffective, subOwn));
+        commit(SET_CONFIG_SOURCE, subOwn);
+        commit(SET_CURRENT_CONFIG_INFO, { confPath: subConfigPath, confId: targetId });
+        commit(SET_IS_USING_LOCAL_CONFIG, subHasStructural);
+        return state.config;
       } catch (err) { // If we get here, then somethings really fucked up
         commit(CRITICAL_ERROR_MSG, `Unexpected error loading config: ${err.message}`);
         ErrorHandler('INITIALIZE_CONFIG failed', err);
         return { ...emptyConfig };
       }
+    },
+
+    /* Apply edited config content (from the YAML editor or the field modals) to the store. */
+    [APPLY_EDITED_CONFIG]({ commit, state }, source) {
+      const data = source || {};
+      if (!state.currentConfigInfo.confId) {
+        commit(SET_CONFIG, data);
+        commit(SET_CONFIG_SOURCE, data);
+        return;
+      }
+      const own = stripRootOwnedFields({
+        appConfig: data.appConfig || {},
+        pageInfo: data.pageInfo || {},
+        sections: data.sections || [],
+      });
+      commit(SET_CONFIG, mergeWithRoot(buildRootEffective(state), own));
+      commit(SET_CONFIG_SOURCE, own);
     },
   },
   modules: {},

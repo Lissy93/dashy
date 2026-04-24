@@ -1,5 +1,4 @@
 import ConfigAccumulator from '@/utils/config/ConfigAccumalator';
-// import $store from '@/store';
 import filterUserSections from '@/utils/CheckSectionVisibility';
 import { languages } from '@/utils/languages';
 import {
@@ -10,6 +9,36 @@ import {
 
 /* Page id used in URLs to mean "the root config" */
 export const RESERVED_ROOT = 'main';
+
+/* Fields owned exclusively by the root config, sub-pages always inherit */
+const ROOT_OWNED_TOP_LEVEL = ['pages'];
+const ROOT_OWNED_APP_CONFIG = ['auth'];
+
+/* Return a shallow copy of `config` with root-owned fields removed */
+export const stripRootOwnedFields = (config) => {
+  if (!config || typeof config !== 'object') return config;
+  const clean = { ...config };
+  ROOT_OWNED_TOP_LEVEL.forEach((key) => delete clean[key]);
+  if (clean.appConfig && typeof clean.appConfig === 'object') {
+    clean.appConfig = { ...clean.appConfig };
+    ROOT_OWNED_APP_CONFIG.forEach((key) => delete clean.appConfig[key]);
+  }
+  return clean;
+};
+
+/* Local storage keys for local settings, if confId is set it's for a sub-page */
+export const configScope = (confId) => {
+  const suffix = confId ? `-${confId}` : '';
+  return {
+    APP_CONFIG: `${localStorageKeys.APP_CONFIG}${suffix}`,
+    PAGE_INFO: `${localStorageKeys.PAGE_INFO}${suffix}`,
+    CONF_SECTIONS: `${localStorageKeys.CONF_SECTIONS}${suffix}`,
+    THEME: `${localStorageKeys.THEME}${suffix}`,
+    LAYOUT: `${localStorageKeys.LAYOUT_ORIENTATION}${suffix}`,
+    ICON_SIZE: `${localStorageKeys.ICON_SIZE}${suffix}`,
+    LANGUAGE: `${localStorageKeys.LANGUAGE}${suffix}`,
+  };
+};
 
 /* Metadata for each view in the canonical /<view>/:page?/:section? URL scheme */
 export const VIEW_META = {

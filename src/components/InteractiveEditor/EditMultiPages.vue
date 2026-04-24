@@ -1,6 +1,6 @@
 <template>
   <modal
-    :name="modalName" @closed="modalClosed"
+    :name="modalName" @closed="modalClosed" @before-open="initForm"
     :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-multi-pages"
   >
@@ -64,10 +64,11 @@ export default {
     pages() { return this.$store.getters.pages; },
     allowViewConfig() { return this.$store.getters.permissions.allowViewConfig; },
   },
-  mounted() {
-    this.formData = safeClone(Array.isArray(this.pages) ? this.pages : [], []);
-  },
   methods: {
+    // Re-runs on each modal open so preview / save-locally elsewhere is reflected.
+    initForm() {
+      this.formData = safeClone(Array.isArray(this.pages) ? this.pages : [], []);
+    },
     saveToState() {
       try {
         this.$store.commit(StoreKeys.SET_PAGES, this.formData);
