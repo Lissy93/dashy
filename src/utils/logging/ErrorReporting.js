@@ -17,17 +17,12 @@ const ErrorReporting = async (app, router) => {
 
   const appVersion = import.meta.env.VITE_APP_VERSION ? `Dashy@${import.meta.env.VITE_APP_VERSION}` : '';
   const Sentry = await import('@sentry/vue');
-  const { Integrations } = await import('@sentry/tracing');
   const dsn = appConfig.sentryDsn || sentryDsn;
 
   Sentry.init({
     app,
     dsn,
-    integrations: [
-      new Integrations.BrowserTracing({
-        routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-      }),
-    ],
+    integrations: [Sentry.browserTracingIntegration({ router })],
     tracesSampleRate: 1.0,
     release: appVersion,
   });
