@@ -45,8 +45,7 @@ export default {
       this.shouldHide = true;
     },
     saveConfig() {
-      const localConfig = this.$store.state.config;
-      this.writeConfigToDisk(localConfig);
+      this.writeConfigToDisk(this.$store.state.configSource);
       this.shouldHide = true;
     },
     resetLocalConfig() {

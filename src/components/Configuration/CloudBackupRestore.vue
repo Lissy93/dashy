@@ -166,7 +166,14 @@ export default {
       localStorage.setItem(scope.APP_CONFIG, JSON.stringify(appConfig));
       localStorage.setItem(scope.PAGE_INFO, JSON.stringify(clean.pageInfo || {}));
       localStorage.setItem(scope.CONF_SECTIONS, JSON.stringify(clean.sections || []));
-      if (appConfig.theme) localStorage.setItem(scope.THEME, appConfig.theme);
+      const setOrClear = (key, value) => {
+        if (value) localStorage.setItem(key, value);
+        else localStorage.removeItem(key);
+      };
+      setOrClear(scope.THEME, appConfig.theme);
+      setOrClear(scope.LAYOUT, appConfig.layout);
+      setOrClear(scope.ICON_SIZE, appConfig.iconSize);
+      setOrClear(scope.LANGUAGE, appConfig.language);
       if (!isSubPage) {
         localStorage.setItem(localStorageKeys.CONF_PAGES, JSON.stringify(config.pages || []));
       }

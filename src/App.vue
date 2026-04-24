@@ -39,16 +39,12 @@ export default {
   data() {
     return {
       isLoading: true, // Set to false after mount complete
-      isFetching: true, // Set to false after the conf has been fetched
     };
   },
   watch: {
     isEditMode(isEditMode) {
       // When in edit mode, show confirmation dialog on page exit
       window.onbeforeunload = isEditMode ? this.confirmExit : null;
-    },
-    config() {
-      this.isFetching = false;
     },
     /* Sync document title + description whenever route or loaded config changes */
     metaDeps: {
@@ -84,8 +80,9 @@ export default {
     shouldShowSplash() {
       return (this.appConfig.showSplashScreen);
     },
-    config() {
-      return this.$store.state.config;
+    /* True until the root config has finished its initial load (or critically failed) */
+    isFetching() {
+      return !this.$store.state.rootConfig && !this.$store.state.criticalError;
     },
     /* Route-declared themes (e.g. 404) win over the user's saved theme */
     effectiveTheme() {
@@ -228,14 +225,13 @@ export default {
       return 'You may have unsaved edits. Are you sure you want to exit the page?';
     },
   },
-  /* Basic initialization tasks on app load */
-  async mounted() {
-    await this.$store.dispatch(Keys.INITIALIZE_CONFIG); // Initialize config before moving on
-    this.applyLanguage(); // Apply users local language
-    this.hideSplash(); // Hide the splash screen, if visible
-    this.applyCustomStyles(); // Apply custom CSS and external stylesheets
-    this.hideLoader(); // If initial placeholder still visible, hide it
-    welcomeMsg(); // Show message in console
+  /* Basic initialization tasks on app load. Config is already loaded by router.beforeEach. */
+  mounted() {
+    this.applyLanguage();
+    this.hideSplash();
+    this.applyCustomStyles();
+    this.hideLoader();
+    welcomeMsg();
   },
 };
 </script>

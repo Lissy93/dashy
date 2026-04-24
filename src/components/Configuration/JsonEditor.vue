@@ -327,6 +327,7 @@ export default {
       const ok = await this.writeConfigToDisk(data);
       if (!ok) return;
       this.applyConfigToStore(data);
+      this.initialDoc = this.currentText();
     },
     onSaveLocally() {
       const data = this.parseCurrent();
@@ -335,6 +336,7 @@ export default {
       if (!confirm(this.$t('interactive-editor.menu.save-locally-warning'))) return;
       this.saveConfigLocally(data);
       this.applyConfigToStore(data);
+      this.initialDoc = this.currentText();
     },
     applyConfigToStore(data) {
       this.$store.dispatch(StoreKeys.APPLY_EDITED_CONFIG, data);

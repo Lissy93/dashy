@@ -65,7 +65,7 @@ export default {
 @import '@/styles/media-queries.scss';
 .critical-error-wrap {
   position: absolute;
-  top: 40%;
+  top: 40vh;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
