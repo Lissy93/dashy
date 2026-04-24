@@ -283,6 +283,8 @@
       "start-editing-tooltip": "Enter the Interactive Editor",
       "config-unavailable": "Config editor not available",
       "edit-site-data-subheading": "Edit Site Data",
+      "edit-config-as-code-btn": "Edit Config as Code",
+      "edit-config-as-code-tooltip": "Open the YAML editor to edit the raw config file",
       "edit-page-info-btn": "Edit Page Info",
       "edit-page-info-tooltip": "App title, description, nav links, footer text, etc.",
       "edit-app-config-btn": "Edit App Config",

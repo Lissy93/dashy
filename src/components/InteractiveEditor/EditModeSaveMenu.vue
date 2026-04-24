@@ -12,7 +12,53 @@
     <div class="edit-banner-section intro-container" v-else>
       <AccessError class="no-permission" />
     </div>
+
+    <!-- Open Modal Buttons -->
+    <div class="edit-banner-section edit-config-buttons-container">
+      <p class="section-sub-title">
+        {{ $t('interactive-editor.menu.edit-site-data-subheading') }}
+      </p>
+      <!-- Button to open the config modal strait to YAML editor mode -->
+      <Button
+        class="edit-config-file-btn"
+        :click="openEditConfigAsCode"
+        :disallow="!permissions.allowSaveLocally"
+        v-tooltip="tooltip($t('interactive-editor.menu.edit-config-as-code-tooltip'))"
+      >
+        {{ $t('interactive-editor.menu.edit-config-as-code-btn') }}
+        <ConfigFileIcon />
+      </Button>
+      <!-- Button to open pageInfo editor -->
+      <Button
+        :click="openEditPageInfo"
+        :disallow="!permissions.allowViewConfig"
+        v-tooltip="tooltip($t('interactive-editor.menu.edit-page-info-tooltip'))"
+      >
+        {{ $t('interactive-editor.menu.edit-page-info-btn') }}
+        <PageInfoIcon />
+      </Button>
+      <!-- Button to open appConfig editor -->
+      <Button
+        :click="openEditAppConfig"
+        :disallow="!permissions.allowViewConfig"
+        v-tooltip="tooltip($t('interactive-editor.menu.edit-app-config-tooltip'))"
+      >
+        {{ $t('interactive-editor.menu.edit-app-config-btn') }}
+        <AppConfigIcon />
+      </Button>
+      <!-- Button to open pages editor -->
+      <Button
+        :click="openEditMultiPages"
+        :disallow="!permissions.allowViewConfig"
+        v-tooltip="tooltip($t('interactive-editor.menu.edit-pages-tooltip'))"
+      >
+        {{ $t('interactive-editor.menu.edit-pages-btn') }}
+        <MultiPagesIcon />
+      </Button>
+    </div>
+
     <div class="edit-banner-section empty-space"></div>
+
     <!-- Save Buttons -->
     <div class="edit-banner-section save-buttons-container">
       <p class="section-sub-title">
@@ -50,39 +96,7 @@
         <CancelIcon />
       </Button>
     </div>
-    <!-- Open Modal Buttons -->
-    <div class="edit-banner-section edit-config-buttons-container">
-      <p class="section-sub-title">
-        {{ $t('interactive-editor.menu.edit-site-data-subheading') }}
-      </p>
-      <!-- Button to open pageInfo editor -->
-      <Button
-        :click="openEditPageInfo"
-        :disallow="!permissions.allowViewConfig"
-        v-tooltip="tooltip($t('interactive-editor.menu.edit-page-info-tooltip'))"
-      >
-        {{ $t('interactive-editor.menu.edit-page-info-btn') }}
-        <PageInfoIcon />
-      </Button>
-      <!-- Button to open appConfig editor -->
-      <Button
-        :click="openEditAppConfig"
-        :disallow="!permissions.allowViewConfig"
-        v-tooltip="tooltip($t('interactive-editor.menu.edit-app-config-tooltip'))"
-      >
-        {{ $t('interactive-editor.menu.edit-app-config-btn') }}
-        <AppConfigIcon />
-      </Button>
-      <!-- Button to open pages editor -->
-      <Button
-        :click="openEditMultiPages"
-        :disallow="!permissions.allowViewConfig"
-        v-tooltip="tooltip($t('interactive-editor.menu.edit-pages-tooltip'))"
-      >
-        {{ $t('interactive-editor.menu.edit-pages-btn') }}
-        <MultiPagesIcon />
-      </Button>
-    </div>
+
     <!-- Modals for editing appConfig, pageInfo and pages -->
     <EditPageInfo />
     <EditAppConfig />
@@ -107,6 +121,7 @@ import CancelIcon from '@/assets/interface-icons/interactive-editor-cancel-chang
 import AppConfigIcon from '@/assets/interface-icons/interactive-editor-app-config.svg';
 import PageInfoIcon from '@/assets/interface-icons/interactive-editor-page-info.svg';
 import MultiPagesIcon from '@/assets/interface-icons/config-pages.svg';
+import ConfigFileIcon from '@/assets/interface-icons/config-file.svg';
 
 export default {
   name: 'EditModeSaveMenu',
@@ -123,6 +138,7 @@ export default {
     AppConfigIcon,
     PageInfoIcon,
     MultiPagesIcon,
+    ConfigFileIcon,
     AccessError,
   },
   computed: {
@@ -158,6 +174,11 @@ export default {
       this.$modal.show(modalNames.EDIT_MULTI_PAGES);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
     },
+    openEditConfigAsCode() {
+      this.$store.commit(StoreKeys.CONF_MENU_INDEX, 1);
+      this.$modal.show(modalNames.CONF_EDITOR);
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
     tooltip(content) {
       return { content };
     },
@@ -191,7 +212,8 @@ div.edit-mode-bottom-banner {
   border-top: 2px solid var(--interactive-editor-color);
   background: var(--interactive-editor-background-darker);
   box-shadow: 0 -5px 7px var(--transparent-50);
-  grid-template-columns: 45% 10% 45%;
+  grid-template-columns: 50% 0% 50%;
+
   @include laptop-up { grid-template-columns: 50% 10% 40%; }
   @include monitor-up { grid-template-columns: 40% 30% 30%; }
   @include big-screen-up { grid-template-columns: 25% 50% 25%; }
@@ -210,6 +232,7 @@ div.edit-mode-bottom-banner {
     }
     /* Intro-text container */
     &.intro-container  {
+      grid-column: 1/-1;
       p.edit-mode-intro {
         margin: 0;
         color: var(--interactive-editor-color);
@@ -220,6 +243,10 @@ div.edit-mode-bottom-banner {
         width: auto;
         padding: 0 0.5rem;
       }
+      /* Drop the intro copy when vertical space is tight */
+      @include short {
+        display: none;
+      }
     }
     button {
       margin: 0.25rem;
@@ -228,9 +255,15 @@ div.edit-mode-bottom-banner {
     }
     /* Button containers */
     &.edit-config-buttons-container {
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns: repeat(2, 1fr);
+      @include laptop-up { grid-template-columns: repeat(3, 1fr); }
       p.section-sub-title {
-        grid-column-start: span 3;
+        grid-column: 1/-1;
+      }
+      .edit-config-file-btn {
+        @include laptop-up { grid-column: 1/-1; }
+        svg { width: 1.4rem; height: 1.4rem; }
       }
     }
     &.save-buttons-container {
