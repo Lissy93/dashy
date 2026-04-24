@@ -37,7 +37,6 @@
     "@sentry/vue": "^9.0.0",
     "ajv": "^8.10.0",
     "ajv-formats": "^3.0.1",
-    "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.2.0",
     "dompurify": "^3.0.8",
     "express": "^4.21.0",

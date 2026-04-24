@@ -17,7 +17,6 @@ const yaml = require('js-yaml');
 /* Import Express + middleware functions */
 const express = require('express');
 const basicAuth = require('express-basic-auth');
-const history = require('connect-history-api-fallback');
 
 /* Kick of some basic checks */
 require('./update-checker'); // Checks if there are any updates available, prints message
@@ -254,7 +253,6 @@ const app = express()
   .use(express.static(path.join(rootDir, process.env.USER_DATA_DIR || 'user-data')))
   .use(express.static(path.join(rootDir, 'dist')))
   .use(express.static(path.join(rootDir, 'public'), { index: 'initialization.html' }))
-  .use(history())
   // If no other route is matched, serve up the index.html with a 404 status
   .use((req, res) => {
     res.status(404).sendFile(path.join(rootDir, 'dist', 'index.html'), (err) => {
