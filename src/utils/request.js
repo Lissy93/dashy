@@ -16,6 +16,70 @@ function isLocalRequest(url) {
   return url.startsWith(origin) || (domain && url.startsWith(domain));
 }
 
+const ErrorTypes = {
+  NETWORK_ERROR: 'NETWORK_ERROR',
+  HTTP_ERROR: 'HTTP_ERROR',
+  TIMEOUT_ERROR: 'TIMEOUT_ERROR',
+  JSON_PARSE_ERROR: 'JSON_PARSE_ERROR',
+  EMPTY_DATA: 'EMPTY_DATA',
+  CORS_ERROR: 'CORS_ERROR',
+  PROXY_ERROR: 'PROXY_ERROR',
+  TARGET_ERROR: 'TARGET_ERROR',
+  UNKNOWN_ERROR: 'UNKNOWN_ERROR',
+};
+
+function classifyError(err, response) {
+  if (err instanceof RequestError) {
+    if (err.code === 'ECONNABORTED') {
+      return { type: ErrorTypes.TIMEOUT_ERROR, message: err.message };
+    }
+    if (err.response) {
+      return {
+        type: ErrorTypes.HTTP_ERROR,
+        message: `HTTP ${err.response.status}: ${err.response.statusText}`,
+        status: err.response.status,
+        statusText: err.response.statusText,
+        data: err.response.data,
+      };
+    }
+    if (err.request) {
+      if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
+        return {
+          type: ErrorTypes.NETWORK_ERROR,
+          message: 'Network error: Unable to connect to the server. This may be due to CORS restrictions, network outage, or the server is unreachable.',
+          originalMessage: err.message,
+        };
+      }
+      if (err.message.includes('CORS') || err.message.includes('Access-Control')) {
+        return {
+          type: ErrorTypes.CORS_ERROR,
+          message: 'CORS error: The target server does not allow cross-origin requests. Try enabling useProxy in your widget config.',
+          originalMessage: err.message,
+        };
+      }
+      return {
+        type: ErrorTypes.NETWORK_ERROR,
+        message: err.message,
+        originalMessage: err.message,
+      };
+    }
+  }
+  
+  if (response && !response.ok) {
+    return {
+      type: ErrorTypes.HTTP_ERROR,
+      message: `HTTP ${response.status}: ${response.statusText}`,
+      status: response.status,
+      statusText: response.statusText,
+    };
+  }
+
+  return {
+    type: ErrorTypes.UNKNOWN_ERROR,
+    message: err?.message || 'Unknown error occurred',
+  };
+}
+
 class RequestError extends Error {
   constructor(message, opts = {}) {
     super(message);
@@ -23,6 +87,20 @@ class RequestError extends Error {
     this.response = opts.response || undefined;
     this.request = opts.request || undefined;
     this.code = opts.code || undefined;
+    this.errorType = opts.errorType || undefined;
+    this.details = opts.details || undefined;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      code: this.code,
+      errorType: this.errorType,
+      details: this.details,
+      status: this.response?.status,
+      statusText: this.response?.statusText,
+    };
   }
 }
 
@@ -140,4 +218,5 @@ makeRequest.put = (url, data, config = {}) => makeRequest({
   ...config, method: 'PUT', url, data,
 });
 
+export { RequestError, ErrorTypes, classifyError };
 export default makeRequest;
