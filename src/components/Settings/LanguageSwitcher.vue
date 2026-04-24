@@ -33,7 +33,7 @@ import Button from '@/components/FormElements/Button';
 import SaveConfigIcon from '@/assets/interface-icons/save-config.svg';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import Keys from '@/utils/StoreMutations';
-import { languages } from '@/utils/languages';
+import { languages, loadLocale } from '@/utils/languages';
 import { getUsersLanguage } from '@/utils/config/ConfigHelpers';
 import { localStorageKeys, modalNames } from '@/utils/config/defaults';
 
@@ -93,20 +93,28 @@ export default {
       }
     },
     /* Save language to local storage, show success msg and close modal */
-    saveLanguage() {
+    async saveLanguage() {
       const selectedLanguage = this.language;
-      if (this.checkLocale(selectedLanguage)) {
-        localStorage.setItem(localStorageKeys.LANGUAGE, selectedLanguage.code);
-        this.applyLanguageLocally();
-        this.savedLanguage = selectedLanguage;
-        const successMsg = `${selectedLanguage.flag} `
-          + `${this.$t('language-switcher.success-msg')} ${selectedLanguage.name}`;
-        this.$toast.success(successMsg);
-        if (!this.miniView) this.$modal.hide(this.modalName);
-      } else {
+      if (!this.checkLocale(selectedLanguage)) {
         this.$toast.error('Unable to update language');
         ErrorHandler('Unable to apply language');
+        return;
       }
+      try {
+        const msg = await loadLocale(selectedLanguage.code);
+        this.$i18n.setLocaleMessage(selectedLanguage.code, msg);
+      } catch (e) {
+        this.$toast.error('Unable to update language');
+        ErrorHandler(`Failed to load locale '${selectedLanguage.code}'`, e);
+        return;
+      }
+      localStorage.setItem(localStorageKeys.LANGUAGE, selectedLanguage.code);
+      this.applyLanguageLocally();
+      this.savedLanguage = selectedLanguage;
+      const successMsg = `${selectedLanguage.flag} `
+        + `${this.$t('language-switcher.success-msg')} ${selectedLanguage.name}`;
+      this.$toast.success(successMsg);
+      if (!this.miniView) this.$modal.hide(this.modalName);
     },
     /* In miniView, commit immediately on selection (no save button) */
     onOptionSelected() {

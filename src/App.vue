@@ -21,6 +21,7 @@ import { syncPageMeta } from '@/utils/PageMeta';
 import { viewFromPath } from '@/utils/config/ConfigHelpers';
 import { applyTheme } from '@/utils/Theming';
 import Keys from '@/utils/StoreMutations';
+import { loadLocale } from '@/utils/languages';
 import {
   localStorageKeys,
   splashScreenTime,
@@ -208,8 +209,14 @@ export default {
     },
 
     /* Fetch or detect users language, then apply it */
-    applyLanguage() {
+    async applyLanguage() {
       const language = this.getLanguage();
+      try {
+        const msg = await loadLocale(language);
+        this.$i18n.setLocaleMessage(language, msg);
+      } catch (e) {
+        ErrorHandler(`Failed to load locale '${language}'`, e);
+      }
       this.$store.commit(Keys.SET_LANGUAGE, language);
       this.$i18n.locale = language;
       document.getElementsByTagName('html')[0].setAttribute('lang', language);
