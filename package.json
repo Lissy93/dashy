@@ -21,13 +21,23 @@
     "dependency-audit": "npx improved-yarn-audit --ignore-dev-deps"
   },
   "dependencies": {
+    "@codemirror/autocomplete": "^6.20.1",
+    "@codemirror/commands": "^6.10.3",
+    "@codemirror/lang-yaml": "^6.1.3",
+    "@codemirror/language": "^6.12.3",
+    "@codemirror/lint": "^6.9.5",
+    "@codemirror/search": "^6.7.0",
+    "@codemirror/state": "^6.6.0",
+    "@codemirror/view": "^6.41.1",
     "@febe95/vue-js-modal": "^3.2.0",
     "@jsonforms/core": "^3.7.0",
     "@jsonforms/vue": "^3.7.0",
     "@jsonforms/vue-vanilla": "^3.7.0",
+    "@lezer/highlight": "^1.2.3",
     "@sentry/tracing": "^7.102.1",
     "@sentry/vue": "^7.102.1",
     "ajv": "^8.10.0",
+    "ajv-formats": "^3.0.1",
     "connect-history-api-fallback": "^1.6.0",
     "crypto-js": "^4.2.0",
     "dompurify": "^3.0.8",
@@ -48,7 +58,8 @@
     "vue-router": "^4.4.0",
     "vue-select": "4.0.0-beta.6",
     "vue3-json-viewer": "^2.4.1",
-    "vuex": "^4.1.0"
+    "vuex": "^4.1.0",
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.0",
