@@ -19,7 +19,7 @@ export default {
     writeConfigToDisk(config) {
       if (config.appConfig.preventWriteToDisk) {
         ErrorHandler('Unable to write changed to disk, as this functionality is disabled');
-        return;
+        return Promise.resolve(false);
       }
       // 1. Get the config, and strip appConfig if is sub-page
       const isSubPag = !!this.$store.state.currentConfigInfo.confId;
@@ -30,7 +30,7 @@ export default {
         delete jsonConfig.appConfig;
         if (this.$store.state.currentConfigInfo.confPath.includes('http')) {
           ErrorHandler('Cannot save to an external URL');
-          return;
+          return Promise.resolve(false);
         }
       }
       // 2. Convert JSON into YAML
@@ -47,7 +47,7 @@ export default {
       const saveRequest = request.post(endpoint, body);
       // 4. Make the request, and handle response
       this.progress.start();
-      saveRequest.then((response) => {
+      return saveRequest.then((response) => {
         this.saveSuccess = response.data.success || false;
         this.responseText = response.data.message;
         if (this.saveSuccess) {
@@ -59,6 +59,7 @@ export default {
         InfoHandler('Config has been written to disk successfully', 'Config Update');
         this.progress.end();
         this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
+        return this.saveSuccess;
       })
         .catch((error) => {
           this.saveSuccess = false;
@@ -66,6 +67,7 @@ export default {
           this.showToast(error, false);
           ErrorHandler(`Failed to save config. ${error}`);
           this.progress.end();
+          return false;
         });
     },
     saveConfigLocally(config) {

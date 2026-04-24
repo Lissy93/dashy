@@ -122,7 +122,7 @@ import { tags as t } from '@lezer/highlight';
 import { schemaLinter } from '@/utils/config/schemaLinter';
 import { schemaHover } from '@/utils/config/schemaHover';
 import ConfigSavingMixin from '@/mixins/ConfigSaving';
-import { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
 import Button from '@/components/FormElements/Button';
 import AccessError from '@/components/Configuration/AccessError';
@@ -220,47 +220,49 @@ export default {
       return jsYaml.dump(data, DUMP_OPTS);
     },
     createEditor() {
-      this.initialDoc = this.initialText();
-
-      const updateListener = EditorView.updateListener.of((u) => {
-        if (u.docChanged || u.transactions.some((tr) => tr.effects.length)) {
-          this.syncDiagnostics();
-        }
-      });
-
-      const state = EditorState.create({
-        doc: this.initialDoc,
-        extensions: [
-          lineNumbers(),
-          highlightActiveLineGutter(),
-          highlightActiveLine(),
-          foldGutter(),
-          history(),
-          bracketMatching(),
-          closeBrackets(),
-          indentOnInput(),
-          syntaxHighlighting(dashyHighlight, { fallback: true }),
-          highlightSelectionMatches(),
-          keymap.of([
-            ...closeBracketsKeymap,
-            ...defaultKeymap,
-            ...searchKeymap,
-            ...historyKeymap,
-            ...foldKeymap,
-            indentWithTab,
-          ]),
-          yaml(),
-          lintGutter(),
-          linter(schemaLinter, { delay: 300 }),
-          schemaHover,
-          this.wrapCompartment.of(this.wordWrap ? EditorView.lineWrapping : []),
-          EditorView.darkTheme.of(true),
-          updateListener,
-        ],
-      });
-
-      this.view = markRaw(new EditorView({ state, parent: this.$refs.editorEl }));
-      this.syncDiagnostics();
+      try {
+        this.initialDoc = this.initialText();
+        const updateListener = EditorView.updateListener.of((u) => {
+          if (u.docChanged || u.transactions.some((tr) => tr.effects.length)) {
+            this.syncDiagnostics();
+          }
+        });
+        const state = EditorState.create({
+          doc: this.initialDoc,
+          extensions: [
+            lineNumbers(),
+            highlightActiveLineGutter(),
+            highlightActiveLine(),
+            foldGutter(),
+            history(),
+            bracketMatching(),
+            closeBrackets(),
+            indentOnInput(),
+            syntaxHighlighting(dashyHighlight, { fallback: true }),
+            highlightSelectionMatches(),
+            keymap.of([
+              ...closeBracketsKeymap,
+              ...defaultKeymap,
+              ...searchKeymap,
+              ...historyKeymap,
+              ...foldKeymap,
+              indentWithTab,
+            ]),
+            yaml(),
+            lintGutter(),
+            linter(schemaLinter, { delay: 300 }),
+            schemaHover,
+            this.wrapCompartment.of(this.wordWrap ? EditorView.lineWrapping : []),
+            EditorView.darkTheme.of(true),
+            updateListener,
+          ],
+        });
+        this.view = markRaw(new EditorView({ state, parent: this.$refs.editorEl }));
+        this.syncDiagnostics();
+      } catch (e) {
+        ErrorHandler(`Editor failed to initialize: ${e.message}`);
+        this.$toast.error(this.$t('config-editor.editor-init-fail-msg', { message: e.message }));
+      }
     },
     syncDiagnostics() {
       if (!this.view) return;
@@ -294,10 +296,11 @@ export default {
     },
     jumpTo(err) {
       if (!this.view) return;
+      const pos = Math.min(err.from, this.view.state.doc.length);
       this.view.focus();
       this.view.dispatch({
-        selection: { anchor: err.from, head: err.from },
-        effects: EditorView.scrollIntoView(err.from, { y: 'center' }),
+        selection: { anchor: pos, head: pos },
+        effects: EditorView.scrollIntoView(pos, { y: 'center' }),
       });
     },
     currentText() {
@@ -307,14 +310,17 @@ export default {
       try {
         return jsYaml.load(this.currentText());
       } catch (e) {
-        this.$toast.error(e.message);
+        this.$toast.error(this.$t('config-editor.parse-fail-msg', { message: e.message }));
         return null;
       }
     },
-    onSaveToDisk() {
+    // Only sync local store with edits when the disk write actually succeeded,
+    // so a failed save leaves dashboard state matching the saved config.
+    async onSaveToDisk() {
       const data = this.parseCurrent();
       if (data == null) return;
-      this.writeConfigToDisk(data);
+      const ok = await this.writeConfigToDisk(data);
+      if (!ok) return;
       this.$store.commit(StoreKeys.SET_PAGE_INFO, data.pageInfo);
       this.$store.commit(StoreKeys.SET_SECTIONS, data.sections);
       this.$store.commit(StoreKeys.SET_PAGES, data.pages || []);
@@ -327,11 +333,13 @@ export default {
         this.saveConfigLocally(data);
       }
     },
-    // Commits a full parsed config object to the Vuex store to preview or reset
+    // Commits a full parsed config object to the Vuex store (preview / reset).
+    // Each top-level section is only committed when present, so a user saving
+    // a YAML that omits e.g. `appConfig:` can't nuke existing store state.
     applyConfigToStore(data) {
-      this.$store.commit(StoreKeys.SET_APP_CONFIG, data.appConfig);
-      this.$store.commit(StoreKeys.SET_PAGE_INFO, data.pageInfo);
-      this.$store.commit(StoreKeys.SET_SECTIONS, data.sections);
+      if (data.appConfig !== undefined) this.$store.commit(StoreKeys.SET_APP_CONFIG, data.appConfig);
+      if (data.pageInfo !== undefined) this.$store.commit(StoreKeys.SET_PAGE_INFO, data.pageInfo);
+      if (data.sections !== undefined) this.$store.commit(StoreKeys.SET_SECTIONS, data.sections);
       this.$store.commit(StoreKeys.SET_PAGES, data.pages || []);
     },
     onPreview() {
@@ -395,6 +403,7 @@ export default {
 
 .editor-toolbar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -566,7 +575,7 @@ export default {
 }
 
 p.note {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--medium-grey);
   margin: 0.5rem auto;
   text-align: center;
@@ -636,7 +645,7 @@ p.no-permission-note {
     padding: 0.4rem 0.75rem;
     margin: 0;
     min-width: unset;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     background: transparent;
     color: var(--config-settings-color);
     border: 1px solid var(--config-settings-color);
@@ -713,7 +722,6 @@ p.no-permission-note {
   }
 
   .meta {
-    font-size: 0.8rem;
     color: var(--medium-grey);
     margin-top: 0.25rem;
 

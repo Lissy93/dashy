@@ -11,7 +11,7 @@ import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 
 import schema from './ConfigSchema.json';
-import { pointerToPath, yamlNodeAt } from './schemaPath';
+import { pointerToPath, yamlNodeAt, pairRange } from './schemaPath';
 
 const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);
@@ -22,6 +22,7 @@ const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
 // Turn Ajv's raw errors into user readable strings
 const formatError = (err) => {
   const { keyword, params, message } = err;
+  const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
   switch (keyword) {
     case 'enum':
       return `must be one of: ${(params.allowedValues || []).join(', ')}`;
@@ -31,19 +32,46 @@ const formatError = (err) => {
       return `missing required field: ${params.missingProperty}`;
     case 'additionalProperties':
       return `unknown property: ${params.additionalProperty}`;
+    case 'propertyNames':
+      return `invalid property name: ${params.propertyName}`;
+    case 'dependencies':
+    case 'dependentRequired':
+      return `missing required field: ${params.missingProperty} (needed when ${params.property} is set)`;
     case 'type':
-      return `must be ${params.type}`;
+      return `must be ${Array.isArray(params.type) ? params.type.join(' or ') : params.type}`;
     case 'minLength':
-      return `must be at least ${params.limit} characters`;
+      return `must be at least ${plural(params.limit, 'character')}`;
     case 'maxLength':
-      return `must be at most ${params.limit} characters`;
+      return `must be at most ${plural(params.limit, 'character')}`;
     case 'minimum':
     case 'maximum':
       return `must be ${keyword === 'minimum' ? '≥' : '≤'} ${params.limit}`;
+    case 'exclusiveMinimum':
+    case 'exclusiveMaximum':
+      return `must be ${keyword === 'exclusiveMinimum' ? '>' : '<'} ${params.limit}`;
+    case 'multipleOf':
+      return `must be a multiple of ${params.multipleOf}`;
+    case 'minItems':
+      return `must have at least ${plural(params.limit, 'item')}`;
+    case 'maxItems':
+      return `must have at most ${plural(params.limit, 'item')}`;
+    case 'uniqueItems':
+      return 'must not contain duplicate items';
+    case 'minProperties':
+      return `must have at least ${plural(params.limit, 'property')}`;
+    case 'maxProperties':
+      return `must have at most ${plural(params.limit, 'property')}`;
     case 'pattern':
       return `must match pattern ${params.pattern}`;
     case 'format':
       return `must be a valid ${params.format}`;
+    case 'anyOf':
+    case 'oneOf':
+      return 'must match one of the allowed shapes for this field';
+    case 'not':
+      return 'must not match the disallowed shape for this field';
+    case 'if':
+      return 'does not match the conditional schema for this field';
     default:
       return message;
   }
@@ -76,10 +104,7 @@ export function schemaLinter(view) {
   if (validate(data)) return [];
 
   const doc = parseDocument(text);
-  return (validate.errors || []).map((err) => {
-    const path = pointerToPath(err.instancePath);
-    const node = yamlNodeAt(doc.contents, path);
-    const [start, end] = node?.range ?? [0, 0];
+  const diag = (err, start, end) => {
     const from = clamp(start, 0, docLen);
     const to = clamp(end || start + 1, from + 1, docLen);
     return {
@@ -89,5 +114,27 @@ export function schemaLinter(view) {
       source: 'schema',
       message: `${prefix(err.instancePath)}${formatError(err)}`,
     };
+  };
+
+  return (validate.errors || []).map((err) => {
+    const path = pointerToPath(err.instancePath);
+    const node = yamlNodeAt(doc.contents, path);
+
+    // Unknown property: Ajv reports the PARENT's path + the bad key name.
+    // Narrow the highlight to just the offending key's pair, not the parent.
+    if (err.keyword === 'additionalProperties' && err.params.additionalProperty) {
+      const range = pairRange(node, err.params.additionalProperty);
+      if (range) return diag(err, range[0], range[1]);
+    }
+
+    // Missing required: no child exists to point at, so shrink to one char
+    // at the parent's opening — the gutter icon lands on its first line only.
+    if (err.keyword === 'required') {
+      const start = node?.range?.[0] ?? 0;
+      return diag(err, start, start + 1);
+    }
+
+    const [start, end] = node?.range ?? [0, 0];
+    return diag(err, start, end);
   });
 }

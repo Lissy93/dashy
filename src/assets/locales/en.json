@@ -201,7 +201,9 @@
     "status-valid": "Valid",
     "status-invalid": "Invalid",
     "status-warning": "{n} Warning",
-    "status-warnings": "{n} Warnings"
+    "status-warnings": "{n} Warnings",
+    "parse-fail-msg": "YAML parse error: {message}",
+    "editor-init-fail-msg": "Editor failed to start: {message}"
   },
   "app-rebuild": {
     "title": "Rebuild Application",

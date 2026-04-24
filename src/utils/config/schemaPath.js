@@ -10,6 +10,22 @@ export const pointerToPath = (pointer) => (pointer
   ? pointer.split('/').slice(1).map(decodeToken)
   : []);
 
+// Return the source range [start, end] for a specific key's pair inside a map
+// (covers both the key and its value). Null if the map or key doesn't exist.
+export const pairRange = (map, key) => {
+  if (!isMap(map)) return null;
+  const pair = map.items.find((p) => {
+    const k = p.key && 'value' in p.key ? p.key.value : p.key;
+    return String(k) === String(key);
+  });
+  if (!pair) return null;
+  const keyRange = pair.key?.range;
+  const valRange = pair.value?.range;
+  const start = keyRange?.[0] ?? valRange?.[0];
+  const end = valRange?.[2] ?? valRange?.[1] ?? keyRange?.[1];
+  return (start != null && end != null) ? [start, end] : null;
+};
+
 // Walk a parsed YAML Document by path parts, returning the target Node or null.
 export const yamlNodeAt = (root, parts) => {
   let node = root;
