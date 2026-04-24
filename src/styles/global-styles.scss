@@ -55,6 +55,11 @@ button svg, a svg {
   background: #00000080;
 }
 
+// Override the vue-js-modal default z-index: 9999. Because i hate z-index: 9999999.
+.vm--container {
+  z-index: 8;
+}
+
 /* Small uppercase label above a form control */
 .options-label,
 .theme-label {

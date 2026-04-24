@@ -34,7 +34,7 @@ function injectStyles() {
 .dashy-tooltip {
   position: absolute;
   top: 0; left: 0;
-  z-index: 5;
+  z-index: 10;
   max-width: var(--tooltip-width, 250px);
   pointer-events: none;
   visibility: hidden;
@@ -82,7 +82,8 @@ function injectStyles() {
   border-left-width: 0;
   border-right-color: var(--description-tooltip-color, #7efff5);
 }
-.dashy-tooltip.in-modal-tt { z-index: 999; }
+/* Base z-index already clears modals (8); in-modal-tt nudges above other overlays. */
+.dashy-tooltip.in-modal-tt { z-index: 11; }
 @media (prefers-reduced-motion: reduce) {
   .dashy-tooltip { transition: none; }
 }

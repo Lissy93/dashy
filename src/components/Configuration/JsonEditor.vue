@@ -3,34 +3,77 @@
     <!-- Toolbar -->
     <div class="editor-toolbar">
       <div class="editor-options">
-        <label><input type="checkbox" v-model="wordWrap" /> Wrap</label>
-        <button type="button" class="format-btn" @click="formatDocument">Format</button>
+        <label>
+          <input type="checkbox" v-model="wordWrap" />
+          {{ $t('config-editor.wrap-label') }}
+        </label>
+        <button type="button" class="format-btn" @click="formatDocument">
+          {{ $t('config-editor.format-label') }}
+        </button>
+        <span class="toolbar-divider" aria-hidden="true" />
+        <button
+          type="button"
+          class="icon-btn"
+          @click="onDownload"
+          v-tooltip="$t('config-editor.download-tooltip')"
+          :aria-label="$t('config-editor.download-label')"
+        >
+          <DownloadIcon />
+        </button>
+        <button
+          type="button"
+          class="icon-btn"
+          @click="onCopy"
+          v-tooltip="$t('config-editor.copy-tooltip')"
+          :aria-label="$t('config-editor.copy-label')"
+        >
+          <CopyIcon />
+        </button>
       </div>
-      <div class="editor-status" :class="isValid ? 'ok' : 'err'">
-        {{ isValid ? $t('config-editor.valid-label') : errorMessages.length + ' issue(s)' }}
+      <div class="editor-status" :class="`chip-${status.kind}`">
+        {{ status.text }}
       </div>
     </div>
 
-    <!-- Editor mount point -->
+    <!-- Editor mount point, for actual YAML code editor part -->
     <div ref="editorEl" class="cm-container min-box"></div>
 
-    <!-- Save location -->
-    <Radio
-      class="save-options"
-      v-model="saveMode"
-      :label="$t('config-editor.save-location-label')"
-      :options="saveOptions"
-      :initialOption="initialSaveMode"
-      :disabled="!allowWriteToDisk || !allowSaveLocally"
-    />
-
-    <!-- Save / Preview -->
-    <div :class="`btn-container ${!isValid ? 'err' : ''}`">
-      <Button :click="save" :disallow="!allowWriteToDisk && !allowSaveLocally">
-        {{ $t('config-editor.save-button') }}
-      </Button>
-      <Button :click="startPreview">
-        {{ $t('config-editor.preview-button') }}
+    <!-- Action bar, for save actions -->
+    <div class="action-bar">
+      <div class="secondary-actions">
+        <Button
+          :click="onReset"
+          v-tooltip="$t('config-editor.reset-tooltip')"
+        >
+          {{ $t('config-editor.reset-label') }}
+          <ResetIcon />
+        </Button>
+        <Button
+          :click="onPreview"
+          :disallow="!isValid"
+          v-tooltip="$t('config-editor.preview-button')"
+        >
+          {{ $t('config-editor.preview-button') }}
+          <PreviewIcon />
+        </Button>
+        <Button
+          v-if="allowSaveLocally"
+          :click="onSaveLocally"
+          :disallow="!isValid"
+          v-tooltip="$t('interactive-editor.menu.save-locally-tooltip')"
+        >
+          {{ $t('interactive-editor.menu.save-locally-btn') }}
+          <SaveLocallyIcon />
+        </Button>
+      </div>
+      <Button
+        class="primary-action"
+        :click="onSaveToDisk"
+        :disallow="!isValid || !allowWriteToDisk"
+        v-tooltip="$t('interactive-editor.menu.save-disk-tooltip')"
+      >
+        {{ $t('interactive-editor.menu.save-disk-btn') }}
+        <SaveToDiskIcon />
       </Button>
     </div>
 
@@ -38,13 +81,13 @@
     <div class="errors">
       <ul>
         <li
-          v-for="(e, i) in errorMessages"
+          v-for="(error, i) in errorMessages"
           :key="i"
-          :class="`type-${e.type}`"
-          @click="jumpTo(e)"
+          :class="`type-${error.type}`"
+          @click="jumpTo(error)"
         >
-          <span class="err-loc">L{{ e.line }}</span>
-          {{ e.message }}
+          <span class="err-loc">L{{ error.line }}</span>
+          {{ error.message }}
         </li>
         <li v-if="!errorMessages.length" class="type-valid">
           {{ $t('config-editor.valid-label') }}
@@ -52,20 +95,8 @@
       </ul>
     </div>
 
-    <!-- Status / notes -->
-    <p
-      v-if="saveSuccess !== undefined"
-      :class="`response-output status-${saveSuccess ? 'success' : 'fail'}`"
-    >
-      {{ saveSuccess ? $t('config-editor.status-success-msg') : $t('config-editor.status-fail-msg') }}
-    </p>
     <p v-if="!allowWriteToDisk" class="no-permission-note">
       {{ $t('config-editor.not-admin-note') }}
-    </p>
-    <p class="response-output">{{ responseText }}</p>
-    <p v-if="saveSuccess" class="response-output">
-      {{ $t('config-editor.success-note-l1') }}
-      {{ $t('config-editor.success-note-l2') }}
     </p>
     <p class="note">{{ $t('config.backup-note') }}</p>
   </div>
@@ -93,112 +124,17 @@ import { schemaHover } from '@/utils/config/schemaHover';
 import ConfigSavingMixin from '@/mixins/ConfigSaving';
 import { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/config/defaults';
 import Button from '@/components/FormElements/Button';
-import Radio from '@/components/FormElements/Radio';
 import AccessError from '@/components/Configuration/AccessError';
 
+import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
+import CopyIcon from '@/assets/interface-icons/interactive-editor-copy-clipboard.svg';
+import SaveToDiskIcon from '@/assets/interface-icons/interactive-editor-save-disk.svg';
+import SaveLocallyIcon from '@/assets/interface-icons/interactive-editor-save-locally.svg';
+import ResetIcon from '@/assets/interface-icons/interactive-editor-cancel-changes.svg';
+import PreviewIcon from '@/assets/interface-icons/config-preview.svg';
+
 const DUMP_OPTS = { noRefs: true, lineWidth: 120 };
-
-// CodeMirror theme — uses --background / --background-darker / --primary / --config-settings-color
-// so the editor tracks the user's active theme (the dedicated --code-editor-* vars are hardcoded light).
-const MONO_FONT = 'ui-monospace, "Cascadia Mono", "Segoe UI Mono", "Liberation Mono", Menlo, Monaco, Consolas, monospace';
-
-const dashyTheme = EditorView.theme({
-  '&': {
-    color: 'var(--config-settings-color)',
-    backgroundColor: 'var(--background)',
-    height: '100%',
-  },
-  '.cm-scroller': {
-    fontFamily: MONO_FONT,
-  },
-  '.cm-content': {
-    caretColor: 'var(--primary)',
-  },
-  '.cm-cursor, .cm-dropCursor': {
-    borderLeftColor: 'var(--primary)',
-  },
-  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection': {
-    backgroundColor: 'var(--primary-transparent-60)',
-  },
-  '.cm-gutters': {
-    backgroundColor: 'var(--background-darker)',
-    color: 'var(--medium-grey)',
-    borderRight: '1px solid var(--transparent-white-10)',
-  },
-  '.cm-activeLine, .cm-activeLineGutter': {
-    backgroundColor: 'var(--transparent-white-10)',
-  },
-  '.cm-foldPlaceholder': {
-    backgroundColor: 'var(--primary-transparent-60)',
-    color: 'var(--config-settings-color)',
-    border: 'none',
-    padding: '0 0.4rem',
-  },
-  '.cm-tooltip, .cm-tooltip-autocomplete, .cm-panels': {
-    backgroundColor: 'var(--background-darker)',
-    color: 'var(--config-settings-color)',
-    border: '1px solid var(--primary)',
-  },
-  '.cm-searchMatch': {
-    backgroundColor: 'var(--primary-transparent-60)',
-  },
-  '.cm-searchMatch-selected': {
-    backgroundColor: 'var(--primary)',
-  },
-  '.cm-lint-marker-warning': {
-    color: 'var(--warning)',
-  },
-  '.cm-lint-marker-error': {
-    color: 'var(--danger)',
-  },
-  '.cm-diagnostic': {
-    borderLeft: '3px solid var(--primary)',
-    backgroundColor: 'var(--background-darker)',
-    color: 'var(--config-settings-color)',
-    padding: '0.3rem 0.5rem',
-  },
-  '.cm-diagnostic-warning': {
-    borderLeftColor: 'var(--warning)',
-  },
-  '.cm-diagnostic-error': {
-    borderLeftColor: 'var(--danger)',
-  },
-  '.cm-schema-hover': {
-    maxWidth: '22rem',
-    padding: '0.5rem 0.7rem',
-    fontSize: '0.85rem',
-    lineHeight: '1.45',
-  },
-  '.cm-schema-hover .title': {
-    fontWeight: 'bold',
-    color: 'var(--primary)',
-    marginBottom: '0.25rem',
-  },
-  '.cm-schema-hover .desc': {
-    color: 'var(--config-settings-color)',
-    marginBottom: '0.4rem',
-  },
-  '.cm-schema-hover .meta': {
-    fontSize: '0.8rem',
-    color: 'var(--medium-grey)',
-    marginTop: '0.15rem',
-  },
-  '.cm-schema-hover .meta .label': {
-    color: 'var(--primary)',
-    fontWeight: 'bold',
-    marginRight: '0.3rem',
-  },
-  '.cm-schema-hover code': {
-    fontFamily: MONO_FONT,
-    fontSize: '0.8rem',
-    padding: '0.05rem 0.25rem',
-    borderRadius: 'var(--curve-factor)',
-    background: 'var(--transparent-white-10)',
-    color: 'var(--config-settings-color)',
-  },
-}, { dark: true });
 
 const dashyHighlight = HighlightStyle.define([
   { tag: [t.propertyName, t.attributeName, t.definition(t.propertyName)], color: 'var(--info)' },
@@ -217,16 +153,21 @@ const dashyHighlight = HighlightStyle.define([
 export default {
   name: 'JsonEditor',
   mixins: [ConfigSavingMixin],
-  components: { Button, Radio, AccessError },
+  components: {
+    Button,
+    AccessError,
+    DownloadIcon,
+    CopyIcon,
+    SaveToDiskIcon,
+    SaveLocallyIcon,
+    ResetIcon,
+    PreviewIcon,
+  },
   data() {
     return {
       wordWrap: true,
       errorMessages: [],
-      saveMode: '',
-      saveOptions: [
-        { label: this.$t('config-editor.location-disk-label'), value: 'file' },
-        { label: this.$t('config-editor.location-local-label'), value: 'local' },
-      ],
+      initialDoc: '',
     };
   },
   setup() {
@@ -237,16 +178,22 @@ export default {
   },
   computed: {
     config() { return this.$store.state.config; },
+    // Used to prevent preview/save on invalid YAML
     isValid() { return !this.errorMessages.some((e) => e.type === 'error'); },
+    // For chip to show "valid", "warnings", "error"
+    status() {
+      if (!this.isValid) return { kind: 'err', text: this.$t('config-editor.status-invalid') };
+      const errorCount = this.errorMessages.length;
+      if (errorCount) {
+        const key = errorCount === 1 ? 'config-editor.status-warning' : 'config-editor.status-warnings';
+        return { kind: 'warn', text: this.$t(key, { errorCount }) };
+      }
+      return { kind: 'ok', text: this.$t('config-editor.status-valid') };
+    },
     permissions() { return this.$store.getters.permissions; },
     allowWriteToDisk() { return this.permissions.allowWriteToDisk; },
     allowSaveLocally() { return this.permissions.allowSaveLocally; },
     allowViewConfig() { return this.permissions.allowViewConfig; },
-    initialSaveMode() {
-      if (this.allowWriteToDisk) return 'file';
-      if (this.allowSaveLocally) return 'local';
-      return '';
-    },
   },
   watch: {
     wordWrap(v) {
@@ -257,7 +204,6 @@ export default {
     },
   },
   mounted() {
-    if (!this.allowWriteToDisk) this.saveMode = 'local';
     this.createEditor();
   },
   beforeUnmount() {
@@ -269,11 +215,13 @@ export default {
   methods: {
     initialText() {
       const data = { ...this.config };
-      data.sections = (data.sections || []).map(({ filteredItems, ...s }) => s);
+      data.sections = (data.sections || []).map(({ filteredItems: _filteredItems, ...s }) => s);
       if (!data.pageInfo) data.pageInfo = { title: 'Dashy' };
       return jsYaml.dump(data, DUMP_OPTS);
     },
     createEditor() {
+      this.initialDoc = this.initialText();
+
       const updateListener = EditorView.updateListener.of((u) => {
         if (u.docChanged || u.transactions.some((tr) => tr.effects.length)) {
           this.syncDiagnostics();
@@ -281,7 +229,7 @@ export default {
       });
 
       const state = EditorState.create({
-        doc: this.initialText(),
+        doc: this.initialDoc,
         extensions: [
           lineNumbers(),
           highlightActiveLineGutter(),
@@ -306,7 +254,7 @@ export default {
           linter(schemaLinter, { delay: 300 }),
           schemaHover,
           this.wrapCompartment.of(this.wordWrap ? EditorView.lineWrapping : []),
-          dashyTheme,
+          EditorView.darkTheme.of(true),
           updateListener,
         ],
       });
@@ -316,20 +264,20 @@ export default {
     },
     syncDiagnostics() {
       if (!this.view) return;
+      const { doc } = this.view.state;
       const next = [];
       forEachDiagnostic(this.view.state, (d, from) => {
         next.push({
           type: d.severity === 'error' ? 'error' : 'warning',
           message: d.message,
-          line: this.view.state.doc.lineAt(from).number,
+          line: doc.lineAt(from).number,
           from,
         });
       });
-      // Skip reassignment when nothing changed, to avoid Vue re-renders on
-      // every keystroke while the lint result is identical.
-      const same = next.length === this.errorMessages.length
-        && next.every((e, i) => e.from === this.errorMessages[i].from
-          && e.message === this.errorMessages[i].message);
+      // Skip reassignment when nothing changed, to avoid pointless re-renders.
+      const prev = this.errorMessages;
+      const same = next.length === prev.length
+        && next.every((e, i) => e.from === prev[i].from && e.message === prev[i].message);
       if (!same) this.errorMessages = next;
     },
     formatDocument() {
@@ -341,7 +289,7 @@ export default {
           changes: { from: 0, to: this.view.state.doc.length, insert: formatted },
         });
       } catch (e) {
-        this.$toast.error(`Cannot format: ${e.message}`);
+        this.$toast.error(this.$t('config-editor.format-fail-msg', { message: e.message }));
       }
     },
     jumpTo(err) {
@@ -352,42 +300,84 @@ export default {
         effects: EditorView.scrollIntoView(err.from, { y: 'center' }),
       });
     },
+    currentText() {
+      return this.view?.state.doc.toString() ?? '';
+    },
     parseCurrent() {
-      const text = this.view?.state.doc.toString() ?? '';
       try {
-        return jsYaml.load(text);
+        return jsYaml.load(this.currentText());
       } catch (e) {
         this.$toast.error(e.message);
         return null;
       }
     },
-    save() {
+    onSaveToDisk() {
       const data = this.parseCurrent();
       if (data == null) return;
-      if (this.saveMode === 'local' || !this.allowWriteToDisk) this.saveLocally(data);
-      else if (this.saveMode === 'file') this.writeToDisk(data);
-      else this.$toast.error(this.$t('config-editor.error-msg-save-mode'));
-    },
-    startPreview() {
-      const data = this.parseCurrent();
-      if (data == null) return;
-      InfoHandler('Applying changes to local state...', InfoKeys.RAW_EDITOR);
-      this.$store.commit(StoreKeys.SET_APP_CONFIG, data.appConfig);
-      this.$store.commit(StoreKeys.SET_PAGE_INFO, data.pageInfo);
-      this.$store.commit(StoreKeys.SET_SECTIONS, data.sections);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
-      this.$modal.hide(modalNames.CONF_EDITOR);
-    },
-    writeToDisk(data) {
       this.writeConfigToDisk(data);
       this.$store.commit(StoreKeys.SET_PAGE_INFO, data.pageInfo);
       this.$store.commit(StoreKeys.SET_SECTIONS, data.sections);
+      this.$store.commit(StoreKeys.SET_PAGES, data.pages || []);
     },
-    saveLocally(data) {
-      const msg = this.$t('interactive-editor.menu.save-locally-warning');
+    onSaveLocally() {
+      const data = this.parseCurrent();
+      if (data == null) return;
       // eslint-disable-next-line no-alert, no-restricted-globals
-      if (confirm(msg)) this.saveConfigLocally(data);
+      if (confirm(this.$t('interactive-editor.menu.save-locally-warning'))) {
+        this.saveConfigLocally(data);
+      }
+    },
+    // Commits a full parsed config object to the Vuex store to preview or reset
+    applyConfigToStore(data) {
+      this.$store.commit(StoreKeys.SET_APP_CONFIG, data.appConfig);
+      this.$store.commit(StoreKeys.SET_PAGE_INFO, data.pageInfo);
+      this.$store.commit(StoreKeys.SET_SECTIONS, data.sections);
+      this.$store.commit(StoreKeys.SET_PAGES, data.pages || []);
+    },
+    onPreview() {
+      const data = this.parseCurrent();
+      if (data == null) return;
+      InfoHandler('Applying changes to local state...', InfoKeys.RAW_EDITOR);
+      this.applyConfigToStore(data);
+      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+      this.$toast(this.$t('config-editor.preview-applied-msg'));
+    },
+    onReset() {
+      if (!this.view) return;
+      const dirty = this.view.state.doc.toString() !== this.initialDoc;
+      const inPreview = this.$store.state.editMode;
+      if (!dirty && !inPreview) return;
+      // eslint-disable-next-line no-alert, no-restricted-globals
+      if (!confirm(this.$t('config-editor.reset-confirm-msg'))) return;
+      if (dirty) {
+        this.view.dispatch({
+          changes: { from: 0, to: this.view.state.doc.length, insert: this.initialDoc },
+        });
+      }
+      if (inPreview) {
+        const original = jsYaml.load(this.initialDoc);
+        if (original) this.applyConfigToStore(original);
+        this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
+      }
+    },
+    onDownload() {
+      const blob = new Blob([this.currentText()], { type: 'text/yaml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'conf.yml';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    },
+    async onCopy() {
+      try {
+        await navigator.clipboard.writeText(this.currentText());
+        this.$toast.success(this.$t('config-editor.copy-success-msg'));
+      } catch (e) {
+        this.$toast.error(this.$t('config-editor.copy-fail-msg', { message: e.message }));
+      }
     },
     showToast(message, success) {
       this.$toast[success ? 'success' : 'error'](message);
@@ -442,22 +432,33 @@ export default {
   }
 
   .editor-status {
-    font-size: 0.85rem;
-    padding: 0.15rem 0.5rem;
-    border-radius: var(--curve-factor);
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 
-    &.ok {
-      color: var(--success);
+    &.chip-ok {
+      background: var(--success);
+      color: var(--black);
     }
 
-    &.err {
-      color: var(--danger);
-      font-weight: bold;
+    &.chip-warn {
+      background: var(--warning);
+      color: var(--black);
+    }
+
+    &.chip-err {
+      background: var(--danger);
+      color: var(--white);
     }
   }
 }
 
-// Structural only — colors and font live in the CodeMirror theme.
+// Structural styles for CodeMirror, the colors and font live in theme sec below
 .cm-container.min-box {
   height: 58vh;
   border: 1px solid var(--primary);
@@ -469,6 +470,50 @@ export default {
   .cm-editor {
     height: 100%;
     font-size: 0.9rem;
+    background: var(--background);
+    color: var(--config-settings-color);
+
+    &, div, span {
+      font-family: var(--font-monospace);
+    }
+    .cm-content {
+      caret-color: var(--primary);
+    }
+    .cm-cursor,
+    .cm-dropCursor {
+      border-left-color: var(--primary);
+    }
+    &.cm-focused .cm-selectionBackground,
+    .cm-selectionBackground,
+    .cm-content ::selection {
+      background: var(--primary-transparent-60);
+    }
+    .cm-gutters {
+      background: var(--background-darker);
+      color: var(--medium-grey);
+      border-right: 1px solid var(--transparent-white-10);
+    }
+    .cm-activeLine,
+    .cm-activeLineGutter {
+      background: var(--transparent-white-10);
+    }
+    .cm-foldPlaceholder {
+      background: var(--primary-transparent-60);
+      border: none;
+      padding: 0 0.25rem;
+    }
+    .cm-searchMatch {
+      background: var(--primary-transparent-60);
+    }
+    .cm-searchMatch-selected {
+      background: var(--primary);
+    }
+    .cm-lint-marker-warning {
+      color: var(--warning);
+    }
+    .cm-lint-marker-error {
+      color: var(--danger);
+    }
   }
 
   .cm-focused {
@@ -504,112 +549,186 @@ export default {
 
     &.type-warning {
       color: var(--warning);
-
-      &::before {
-        content: "⚠️ ";
-      }
+      &::before { content: "⚠️ "; }
     }
 
     &.type-error {
       color: var(--danger);
-
-      &::before {
-        content: "❌ ";
-      }
+      &::before { content: "❌ "; }
     }
 
     &.type-valid {
       color: var(--success);
       cursor: default;
-
-      &::before {
-        content: "✅ ";
-      }
+      &::before { content: "✅ "; }
     }
-  }
-}
-
-p.response-output {
-  font-size: 0.8rem;
-  text-align: left;
-  margin: 0.5rem auto;
-  width: 95%;
-  color: var(--config-settings-color);
-
-  &.status-success {
-    font-weight: bold;
-    color: var(--success);
-  }
-
-  &.status-fail {
-    font-weight: bold;
-    color: var(--danger);
   }
 }
 
 p.note {
   font-size: 0.8rem;
   color: var(--medium-grey);
-  margin: 0.2rem;
+  margin: 0.5rem auto;
+  text-align: center;
 }
 
 p.no-permission-note {
   color: var(--warning);
+  font-size: 0.85rem;
+  margin: 0.4rem auto;
+  text-align: center;
 }
 
-.btn-container {
-  display: flex;
+// Mini icon-only toolbar buttons (Download, Copy)
+.editor-toolbar .icon-btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  background: transparent;
+  color: var(--config-settings-color);
+  border: 1px solid transparent;
+  border-radius: var(--curve-factor);
+  cursor: pointer;
+
+  svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+
+  &:hover {
+    border-color: var(--config-settings-color);
+    background: var(--transparent-white-10);
+  }
+}
+
+.editor-toolbar .toolbar-divider {
+  width: 1px;
+  height: 1.2rem;
+  background: var(--transparent-white-10);
+}
+
+.action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--background-darker);
+  border-top: 1px solid var(--config-settings-background);
+  flex-wrap: wrap;
+
+  .secondary-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
   button {
-    padding: 0.5rem 1rem;
-    margin: 0.25rem;
-    font-size: 1.2rem;
-    background: var(--config-settings-background);
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    margin: 0;
+    min-width: unset;
+    font-size: 0.95rem;
+    background: transparent;
     color: var(--config-settings-color);
     border: 1px solid var(--config-settings-color);
     border-radius: var(--curve-factor);
-    &:hover {
+    cursor: pointer;
+
+    svg {
+      fill: currentColor;
+      stroke: currentColor;
+    }
+
+    &:hover:not(.disallowed):not(:disabled) {
       background: var(--config-settings-color);
-      color: var(--config-settings-background);
-      border-color: var(--config-settings-background);
+      color: var(--background-darker);
+    }
+
+    &.disallowed,
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
-  &.err button {
-    opacity: 0.8;
-    cursor: default;
-    &:hover {
-      background: var(--config-settings-background);
-      color: var(--config-settings-color);
-      border-color: var(--danger);
+
+  button.primary-action {
+    background: var(--primary);
+    color: var(--background);
+    border-color: var(--primary);
+    font-weight: bold;
+
+    &:hover:not(.disallowed) {
+      background: var(--background);
+      color: var(--primary);
+      border-color: var(--primary);
     }
   }
 }
+</style>
 
-div.save-options.radio-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-  border-top: 2px solid var(--config-settings-background);
+<!-- Color styles for CodeMirror input -->
+<style lang="scss">
+.cm-tooltip,
+.cm-tooltip-autocomplete,
+.cm-panels {
   background: var(--background-darker);
-  label.radio-label {
-    font-size: 1rem;
-    flex-grow: revert;
-    flex-basis: revert;
-    color: var(--config-settings-color);
-    padding-left: 1rem;
+  color: var(--config-settings-color);
+  border: 1px solid var(--primary);
+}
+
+.cm-diagnostic {
+  border-left: 3px solid var(--primary);
+  padding: 0.25rem 0.5rem;
+  &-warning {
+    border-left-color: var(--warning);
   }
-  .radio-wrapper {
-    margin: 0;
-    font-size: 1rem;
-    justify-content: space-around;
-    background: var(--background-darker);
-    color: var(--config-settings-color);
-    .radio-option:hover:not(.wrap-disabled) {
-      border: 1px solid var(--config-settings-color);
+  &-error {
+    border-left-color: var(--danger);
+  }
+}
+
+.cm-schema-hover {
+  max-width: 22rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+
+  .title {
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .desc {
+    margin-bottom: 0.5rem;
+  }
+
+  .meta {
+    font-size: 0.8rem;
+    color: var(--medium-grey);
+    margin-top: 0.25rem;
+
+    .label {
+      color: var(--primary);
+      font-weight: bold;
+      margin-right: 0.25rem;
     }
+  }
+
+  code {
+    font-family: var(--font-monospace);
+    padding: 0.1rem 0.25rem;
+    border-radius: var(--curve-factor);
+    background: var(--transparent-white-10);
   }
 }
 </style>

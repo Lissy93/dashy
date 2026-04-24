@@ -11,6 +11,7 @@ import {
   pageInfo as defaultPageInfo,
   iconSize as defaultIconSize,
   layout as defaultLayout,
+  theme as defaultTheme,
 } from '@/utils/config/defaults';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import { applyItemId } from '@/utils/config/SectionHelpers';
@@ -47,6 +48,9 @@ export default class ConfigAccumulator {
     usersAppConfig.iconSize = localStorage[localStorageKeys.ICON_SIZE]
       || appConfigFile.iconSize
       || defaultIconSize;
+    usersAppConfig.theme = localStorage[localStorageKeys.THEME]
+      || appConfigFile.theme
+      || defaultTheme;
     // Don't let users modify users locally
     if (appConfigFile.auth) usersAppConfig.auth = appConfigFile.auth;
     // All done, return final appConfig object
