@@ -30,7 +30,6 @@
     "@codemirror/search": "^6.7.0",
     "@codemirror/state": "^6.6.0",
     "@codemirror/view": "^6.41.1",
-    "@febe95/vue-js-modal": "^3.2.0",
     "@jsonforms/core": "^3.7.0",
     "@jsonforms/vue": "^3.7.0",
     "@jsonforms/vue-vanilla": "^3.7.0",

@@ -1,4 +1,3 @@
- 
 import { createStore } from 'vuex';
 import { load as yamlLoad } from 'js-yaml';
 import request from '@/utils/request';
@@ -245,7 +244,7 @@ const store = createStore({
       void state.authRevision; // Re-evaluate when auth state changes
       return getUserState();
     },
-     
+
     getSectionByIndex: (state, getters) => (index) => {
       return getters.sections[index];
     },
@@ -271,13 +270,13 @@ const store = createStore({
     },
     layout(state) {
       const scope = configScope(state.currentConfigInfo.confId);
-      const fromState = state.config?.appConfig?.layout || 'auto';
+      const fromState = state.configSource?.appConfig?.layout || 'auto';
       if (state.editMode) return fromState;
       return localStorage.getItem(scope.LAYOUT) || fromState;
     },
     iconSize(state) {
       const scope = configScope(state.currentConfigInfo.confId);
-      const fromState = state.config?.appConfig?.iconSize || 'medium';
+      const fromState = state.configSource?.appConfig?.iconSize || 'medium';
       if (state.editMode) return fromState;
       return localStorage.getItem(scope.ICON_SIZE) || fromState;
     },

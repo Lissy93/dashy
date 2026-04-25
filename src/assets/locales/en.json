@@ -1,4 +1,7 @@
 {
+  "general": {
+    "close-modal": "Close dialog"
+  },
   "home": {
     "no-results": "No Search Results",
     "no-data": "No Data Configured",

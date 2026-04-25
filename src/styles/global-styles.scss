@@ -38,28 +38,6 @@ button svg, a svg {
   vertical-align: middle;
 }
 
-/* Overriding styles for the modal component */
-.vm--modal, .dashy-modal {
-  box-shadow: 0 40px 70px -2px hsl(0deg 0% 0% / 60%), 1px 1px 6px var(--primary) !important;
-  min-width: 350px;
-  min-height: 200px;
-  background: var(--background-darker);
-  @include phone {
-    left: 0.5rem !important;
-    right: 0.5rem !important;
-    width: 95% !important;
-    top: 2rem !important;
-  }
-}
-.vm--overlay {
-  background: #00000080;
-}
-
-// Override the vue-js-modal default z-index: 9999. Because i hate z-index: 9999999.
-.vm--container {
-  z-index: 8;
-}
-
 /* Small uppercase label above a form control */
 .options-label,
 .theme-label {

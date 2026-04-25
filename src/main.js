@@ -3,11 +3,12 @@
 import { createApp } from 'vue';
 
 // Import component Vue plugins, used throughout the app
-import VModal from '@febe95/vue-js-modal'; // Modal component (Vue 3 fork)
 import VSelect from 'vue-select';       // Select dropdown component
 
 // Import base Dashy components and utils
 import Dashy from '@/App.vue';          // Main Dashy Vue app
+import Modal from '@/components/Modal.vue'; // In-house modal component
+import VModal from '@/plugins/modal';   // $modal.show()/hide() plugin
 import store from '@/store';            // Store, for local state management
 import router from '@/router';          // Router, for navigation
 import serviceWorker from '@/utils/InitServiceWorker'; // Service worker initialization
@@ -21,7 +22,6 @@ import { initOidcAuth, isOidcEnabled } from '@/utils/auth/OidcAuth';
 import Keys from '@/utils/StoreMutations';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import Toast from '@/utils/Toast';
-import '@/utils/patchResizeObserver';
 
 // Create the Vue 3 app instance
 const app = createApp(Dashy);
@@ -34,6 +34,7 @@ app.use(VModal);
 app.use(Toast);
 
 // Register global components and directives
+app.component('modal', Modal);
 app.component('v-select', VSelect);
 app.directive('clickOutside', clickOutside);
 app.directive('tooltip', tooltip);

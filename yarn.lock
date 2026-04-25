@@ -1082,14 +1082,6 @@
     "@eslint/core" "^1.2.1"
     levn "^0.4.1"
 
-"@febe95/vue-js-modal@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@febe95/vue-js-modal/-/vue-js-modal-3.2.0.tgz#4d0bd064553ca11f647112a08bf31ed6ec43ad8a"
-  integrity sha512-RcJpSfwTXOyE6PnvnS/Cxh6k9ygTG1D4Juna1/8eAuWXXOR1WyOf9Vm0+hXEXhfaqsHnWru6AX3mjGGNwRCt7Q==
-  dependencies:
-    resize-observer-polyfill "^1.5.1"
-    tiny-emitter "^2.1.0"
-
 "@humanfs/core@^0.19.2":
   version "0.19.2"
   resolved "https://registry.yarnpkg.com/@humanfs/core/-/core-0.19.2.tgz#a8272ca03b2acf492670222b2320b6c421bfde60"
@@ -4512,11 +4504,6 @@ require-from-string@^2.0.2:
   resolved "https://registry.yarnpkg.com/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
   integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
 
-resize-observer-polyfill@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
-  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
-
 resolve-pkg-maps@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/resolve-pkg-maps/-/resolve-pkg-maps-1.0.0.tgz#616b3dc2c57056b5588c31cdf4b3d64db133720f"
@@ -5110,11 +5097,6 @@ terser@^5.17.4:
     acorn "^8.15.0"
     commander "^2.20.0"
     source-map-support "~0.5.20"
-
-tiny-emitter@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
-  integrity sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==
 
 tinybench@^2.9.0:
   version "2.9.0"
