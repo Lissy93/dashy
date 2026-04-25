@@ -1,4 +1,4 @@
-/* eslint-disable no-multi-spaces */
+
 // Import core framework and essential utils
 import { createApp } from 'vue';
 

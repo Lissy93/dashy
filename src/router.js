@@ -136,7 +136,7 @@ router.beforeEach(async (to, from, next) => {
     // If in edit mode and navigating to a DIFFERENT page, confirm + cancel edit.
     const pageChanged = from.params?.page !== to.params?.page;
     if (store.state.editMode && pageChanged) {
-      // eslint-disable-next-line no-alert, no-restricted-globals
+       
       const ok = confirm(i18n.global.t('interactive-editor.menu.leave-while-editing-confirm'));
       if (!ok) {
         progress.end();

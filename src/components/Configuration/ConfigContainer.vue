@@ -198,7 +198,7 @@ export default {
     resetLocalSettings() {
       const msg = `${this.$t('config.reset-config-msg-l1')} `
       + `${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
-      const isTheUserSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
+      const isTheUserSure = confirm(msg);  
       if (isTheUserSure) {
         clearScopedLocalConfig(this.$store.getters.pages);
         this.$toast(this.$t('config.data-cleared-msg'));

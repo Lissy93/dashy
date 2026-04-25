@@ -192,7 +192,7 @@ export default {
     },
     saveLocally() {
       const msg = this.$t('interactive-editor.menu.save-locally-warning');
-      const youSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
+      const youSure = confirm(msg);  
       if (youSure) {
         this.saveConfigLocally(this.configToSave);
       }

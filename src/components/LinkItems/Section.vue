@@ -235,7 +235,7 @@ export default {
     /* Deletes current section, in local state */
     removeSection() {
       const confirmMsg = this.$t('interactive-editor.edit-section.remove-confirm');
-      const youSure = confirm(confirmMsg); // eslint-disable-line no-alert, no-restricted-globals
+      const youSure = confirm(confirmMsg);  
       if (youSure) {
         const payload = { sectionIndex: this.index, sectionName: this.title };
         this.$store.commit(StoreKeys.REMOVE_SECTION, payload);

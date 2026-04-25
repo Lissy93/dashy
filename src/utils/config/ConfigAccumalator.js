@@ -61,7 +61,7 @@ export default class ConfigAccumulator {
   pageInfo() {
     let localPageInfo = {};
     if (localStorage[localStorageKeys.PAGE_INFO]) {
-      // eslint-disable-next-line brace-style
+       
       try { localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]); }
       catch (e) { ErrorHandler('Malformed pageInfo data in local storage'); }
     }

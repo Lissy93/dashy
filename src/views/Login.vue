@@ -193,7 +193,7 @@ export default {
     },
     /* Refreshes the page */
     refreshPage() {
-      setTimeout(() => { location.reload(); }, 250); // eslint-disable-line no-restricted-globals
+      setTimeout(() => { location.reload(); }, 250);  
     },
     /* Redirects to the homepage */
     goHome() {
@@ -203,7 +203,7 @@ export default {
     },
   },
   created() {
-    setTimeout(() => { this.timeout = this.dropDownMenu[0]; }, 1); //eslint-disable-line
+    setTimeout(() => { this.timeout = this.dropDownMenu[0]; }, 1);  
   },
 };
 

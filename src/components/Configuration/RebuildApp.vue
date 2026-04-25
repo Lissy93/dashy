@@ -115,7 +115,7 @@ export default {
       );
     },
     refreshPage() {
-      location.reload(); // eslint-disable-line no-restricted-globals
+      location.reload();  
     },
   },
   mounted() {

@@ -332,7 +332,7 @@ export default {
     onSaveLocally() {
       const data = this.parseCurrent();
       if (data == null) return;
-      // eslint-disable-next-line no-alert, no-restricted-globals
+       
       if (!confirm(this.$t('interactive-editor.menu.save-locally-warning'))) return;
       this.saveConfigLocally(data);
       this.applyConfigToStore(data);
@@ -354,7 +354,7 @@ export default {
       const dirty = this.view.state.doc.toString() !== this.initialDoc;
       const inPreview = this.$store.state.editMode;
       if (!dirty && !inPreview) return;
-      // eslint-disable-next-line no-alert, no-restricted-globals
+       
       if (!confirm(this.$t('config-editor.reset-confirm-msg'))) return;
       if (dirty) {
         this.view.dispatch({

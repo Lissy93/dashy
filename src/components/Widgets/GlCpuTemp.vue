@@ -91,7 +91,7 @@ export default {
           default:
             // Justification: This is a recoverable error that developers
             // should nevertheless be warned about.
-            // eslint-disable-next-line
+             
             console.warn('Unrecognized unit', sensor.unit);
             return null;
         }

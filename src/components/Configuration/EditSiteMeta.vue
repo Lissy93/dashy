@@ -65,7 +65,7 @@ export default {
       }
       localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(pageInfo));
       this.$toast('Changes saved successfully');
-      setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
+      setTimeout(() => { location.reload(); }, 1500);  
     },
     addNavLinkRow() {
       this.formElements.navLinks.push({ title: '', path: '' });

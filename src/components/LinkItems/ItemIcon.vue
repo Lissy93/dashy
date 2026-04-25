@@ -78,7 +78,7 @@ export default {
   methods: {
     /* Determine icon type, e.g. local or remote asset, SVG, favicon, font-awesome, etc */
     determineImageType(img) {
-      let imgType = '';
+      let imgType;
       if (!img) imgType = 'none';
       else if (this.isUrl(img)) imgType = 'url';
       else if (this.isImage(img)) imgType = 'img';
@@ -173,7 +173,7 @@ export default {
     },
     /* Get the URL for a favicon, but using the non-default favicon API */
     getCustomFavicon(fullUrl, faviconIdentifier) {
-      let errorMsg = '';
+      let errorMsg;
       const faviconApi = faviconIdentifier.split('favicon-')[1];
       if (!faviconApi) {
         errorMsg = 'Favicon API not specified';
@@ -243,7 +243,7 @@ export default {
     },
     /* Called when the path to the image cannot be resolved */
     imageNotFound(errorMsg) {
-      let outputMessage = '';
+      let outputMessage;
       if (errorMsg && typeof errorMsg === 'string') {
         outputMessage = errorMsg;
       } else if (!this.icon) {

@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign, prefer-destructuring */
+ 
 import { createStore } from 'vuex';
 import yaml from 'js-yaml';
 import request from '@/utils/request';
@@ -245,7 +245,7 @@ const store = createStore({
       void state.authRevision; // Re-evaluate when auth state changes
       return getUserState();
     },
-    // eslint-disable-next-line arrow-body-style
+     
     getSectionByIndex: (state, getters) => (index) => {
       return getters.sections[index];
     },

@@ -51,7 +51,7 @@ class HeaderAuth {
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
+   
   logout() {
     authLogout();
   }

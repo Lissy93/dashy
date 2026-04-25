@@ -81,7 +81,7 @@ export default {
     },
     /* Reload the page (only called if removing styles) */
     reloadPage() {
-      setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
+      setTimeout(() => { location.reload(); }, 1500);  
     },
     /* Show success toast and lot update */
     showSuccessMsg() {

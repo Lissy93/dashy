@@ -1,5 +1,5 @@
 /* A collection of generic reusable functions for various string processing tasks */
-/* eslint-disable arrow-body-style */
+ 
 
 /* Very rudimentary hash function for generative icons */
 export const asciiHash = (input) => {
