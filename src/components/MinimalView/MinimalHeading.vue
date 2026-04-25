@@ -20,6 +20,7 @@ export default {
     selected: Boolean,
     hideTitleText: Boolean,
   },
+  emits: ['sectionSelected'],
   methods: {
     selectSection(index) {
       this.$emit('sectionSelected', index);

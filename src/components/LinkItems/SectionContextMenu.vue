@@ -48,6 +48,7 @@ export default {
     posY: { type: Number, default: 0 }, // The Y coordinate for positioning
     show: Boolean, // Should show or hide the menu
   },
+  emits: ['navigateToSection', 'openEditSection', 'expandCollapseSection', 'removeSection'],
   computed: {
     isMenuDisabled() {
       return !!this.$store.getters.appConfig.disableContextMenu;

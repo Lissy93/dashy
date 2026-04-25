@@ -85,6 +85,7 @@ export default {
     show: Boolean, // Should show or hide the menu
     disableEdit: Boolean, // Disable editing for certain items
   },
+  emits: ['launchItem', 'openItemSettings', 'openMoveItemMenu', 'openDeleteItem'],
   computed: {
     isMenuDisabled() {
       return !!this.$store.getters.appConfig.disableContextMenu;

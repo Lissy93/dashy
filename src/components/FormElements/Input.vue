@@ -47,6 +47,7 @@ export default {
       default: 'vertical',
     },
   },
+  emits: ['update:modelValue'],
   methods: {
     updateValue(value) {
       this.$emit('update:modelValue', value);

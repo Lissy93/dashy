@@ -35,6 +35,7 @@ export default {
   props: {
     items: { type: Array, default: () => [] },
   },
+  emits: ['launch-app'],
   components: {
     SideBarItem,
   },

@@ -31,6 +31,7 @@ export default {
     description: { type: String, default: '' }, // Optional description text
     disabled: Boolean, // Disable all radio buttons
   },
+  emits: ['update:modelValue'],
   data() {
     return {
       selectedRadio: '', // The currently radio val

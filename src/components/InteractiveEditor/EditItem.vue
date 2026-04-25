@@ -104,6 +104,7 @@ export default {
     isNew: Boolean,
     parentSectionTitle: { type: String, default: '' }, // If adding new item, which section to add it under
   },
+  emits: ['closeEditMenu'],
   computed: {
     allowViewConfig() {
       return this.$store.getters.permissions.allowViewConfig;

@@ -21,6 +21,7 @@ export default {
     title: { type: String, default: '' },
     subItemGridSize: { type: Number, default: 0 },
   },
+  emits: ['triggerModal'],
   components: {
     SubItem,
   },

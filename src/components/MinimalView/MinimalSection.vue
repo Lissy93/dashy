@@ -66,6 +66,7 @@ export default {
     selected: Boolean,
     showAll: Boolean,
   },
+  emits: ['itemClicked', 'sectionSelected'],
   computed: {
     appConfig() {
       return this.$store.getters.appConfig;

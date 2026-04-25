@@ -56,6 +56,7 @@ export default {
     customStyles: { type: String, default: '' }, // Optional custom stylings
     cutToHeight: Boolean, // To set section height with content height
   },
+  emits: ['openEditSection', 'openContextMenu'],
   components: {
     Icon,
     EditModeIcon,

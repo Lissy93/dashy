@@ -2,14 +2,14 @@
 <div class="hackernews-wrapper">
   <!-- Hackernews Trending Posts-->
   <div class="posts-wrapper" v-if="trendingPosts">
-    <div class="post-row" v-for="(trendingPosts, index) in trendingPosts" :key="index">
-      <a class="post-top" :href="trendingPosts.originURL">
+    <div class="post-row" v-for="(trendingPost, index) in trendingPosts" :key="index">
+      <a class="post-top" :href="trendingPost.originURL">
         <div class="post-title-wrap">
-          <p class="post-title">{{ trendingPosts.title }}</p>
+          <p class="post-title">{{ trendingPost.title }}</p>
             <p class="post-date">
-              {{ formatDate(trendingPosts.time) }}
+              {{ formatDate(trendingPost.time) }}
             </p>
-            <p class="post-score" v-if="trendingPosts.score">score: {{ trendingPosts.score }}</p>
+            <p class="post-score" v-if="trendingPost.score">score: {{ trendingPost.score }}</p>
         </div>
       </a>
     </div>

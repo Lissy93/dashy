@@ -36,7 +36,7 @@ export default {
       default: true,
     },
     height: {
-      number: Boolean,
+      type: Number,
       default: 1,
     },
     values: { type: Array, required: true },

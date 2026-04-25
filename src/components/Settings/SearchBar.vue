@@ -38,6 +38,7 @@ export default {
   props: {
     minimalSearch: Boolean, // If true, then keep it simple
   },
+  emits: ['user-is-searchin'],
   data() {
     return {
       input: '', // Users current search term

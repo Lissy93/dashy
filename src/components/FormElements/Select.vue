@@ -23,6 +23,7 @@ export default {
     label: { type: String, default: '' }, // Form label for element
     description: { type: String, default: '' }, // Optional description text
   },
+  emits: ['update:modelValue'],
   data() {
     return {
       selectedOption: '', // The currently selected val

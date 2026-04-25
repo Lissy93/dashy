@@ -72,6 +72,7 @@ export default {
   props: {
     themeToEdit: { type: String, required: true },
   },
+  emits: ['closeThemeConfigurator'],
   methods: {
     /* Finds the current dominent value for a given CSS variable */
     getCssVariableValue(cssVar) {

@@ -18,6 +18,7 @@ export default {
   props: {
     active: Boolean,
   },
+  emits: ['user-is-searchin'],
   data() {
     return {
       input: '', // Users current search term

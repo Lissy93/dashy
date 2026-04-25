@@ -67,6 +67,7 @@ export default {
     LanguageSwitcher,
     IconOptions,
   },
+  emits: ['user-is-searchin'],
   data: () => ({ panelOpen: false, modalNames }),
   computed: {
     searchVisible() {

@@ -127,6 +127,7 @@ export default {
     isWide: Boolean,
     activeColCount: { type: Number, required: true },
   },
+  emits: ['itemClicked'],
   components: {
     Collapsable,
     ContextMenu,

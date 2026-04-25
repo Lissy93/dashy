@@ -45,6 +45,7 @@ export default {
     sections: { type: Array, default: () => [] },
     initUrl: { type: String, default: '' },
   },
+  emits: ['launch-widget', 'launch-app'],
   data() {
     return {
       isOpen: [],

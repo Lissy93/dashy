@@ -19,6 +19,7 @@ export default {
     target: { type: String, default: '' },
     click: { type: Function, default: () => {} },
   },
+  emits: ['launch-app'],
   components: {
     Icon,
   },

@@ -16,7 +16,7 @@
           </small> <span v-tooltip="subjectTooltip(notification)">{{ notification.subject }} </span>
           <!-- notifications item: action links -->
           <span v-if="notification.actions.length">
-            <span v-for="(action, idx) in notification.actions" :key="idx">
+            <span v-for="(action, actionIdx) in notification.actions" :key="actionIdx">
               <a :href="action.link" class="action" target="_blank">{{ action.label }}</a>
             </span>
           </span>

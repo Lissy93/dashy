@@ -58,6 +58,7 @@ export default {
     sectionIndex: { type: Number, default: -1 },
     isAddNew: Boolean,
   },
+  emits: ['closeEditSection'],
   data() {
     return {
       modalName: modalNames.EDIT_SECTION,
