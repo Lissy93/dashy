@@ -7,7 +7,7 @@
     <template v-else>
       <JsonForms
         :data="formData"
-        :schema="schema"
+        :schema="renderSchema"
         :uischema="uischema"
         :renderers="renderers"
         :validation-mode="validationMode"
@@ -43,6 +43,30 @@ addFormats(ajv);
  * not gated behind focus (the vue-vanilla default). */
 const jfConfig = Object.freeze({ showUnfocusedDescription: true });
 
+/* Strip oneOf/anyOf/allOf branches that are pure AJV constraints (e.g. just
+ * `{ required: [...] }`). vue-vanilla's OneOfRenderer otherwise tries to build
+ * a tab switcher from variants that have no renderable shape, leading to
+ * `indexedOneOfRenderInfos[selectedIndex] is undefined`. Renderable variants
+ * (those with properties/items/type/etc.) are kept intact. */
+const RENDERABLE_KEYS = ['properties', 'items', 'type', '$ref', 'enum', 'const'];
+const isRenderableVariant = (v) => v && typeof v === 'object'
+  && RENDERABLE_KEYS.some((k) => Object.prototype.hasOwnProperty.call(v, k));
+
+function sanitizeSchemaForRender(node) {
+  if (Array.isArray(node)) return node.map(sanitizeSchemaForRender);
+  if (!node || typeof node !== 'object') return node;
+  const out = {};
+  for (const [k, v] of Object.entries(node)) {
+    if ((k === 'oneOf' || k === 'anyOf' || k === 'allOf') && Array.isArray(v)) {
+      if (!v.some(isRenderableVariant)) continue;
+      out[k] = v.map(sanitizeSchemaForRender);
+    } else {
+      out[k] = sanitizeSchemaForRender(v);
+    }
+  }
+  return out;
+}
+
 const dashyStyles = Object.fromEntries(
   Object.entries(defaultStyles).map(([group, map]) => [
     group,
@@ -76,6 +100,9 @@ export default {
       errorCount: 0,
       fatalError: null,
     };
+  },
+  computed: {
+    renderSchema() { return sanitizeSchemaForRender(this.schema); },
   },
   errorCaptured(err, _vm, info) {
     /* Return false to stop Vue's default handler from also logging. */

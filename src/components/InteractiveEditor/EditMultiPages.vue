@@ -21,6 +21,7 @@ import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/config/defaults';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import safeClone from '@/utils/safeClone';
+import pruneSchemaDefaults from '@/utils/config/pruneSchemaDefaults';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 import AccessError from '@/components/Configuration/AccessError';
 
@@ -73,9 +74,11 @@ export default {
     },
     saveToState() {
       try {
-        this.$store.commit(StoreKeys.SET_PAGES, this.formData);
+        const pruned = pruneSchemaDefaults(this.formData, this.customSchema);
+        const pages = Array.isArray(pruned) ? pruned : [];
+        this.$store.commit(StoreKeys.SET_PAGES, pages);
         this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
-        InfoHandler(`Pages list updated (${this.formData.length} page${this.formData.length === 1 ? '' : 's'})`, InfoKeys.EDITOR);
+        InfoHandler(`Pages list updated (${pages.length} page${pages.length === 1 ? '' : 's'})`, InfoKeys.EDITOR);
         this.cancelEditing();
       } catch (e) {
         ErrorHandler('Failed to save pages list', e);

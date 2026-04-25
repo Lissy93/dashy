@@ -22,6 +22,7 @@ import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/config/defaults';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import safeClone from '@/utils/safeClone';
+import pruneSchemaDefaults from '@/utils/config/pruneSchemaDefaults';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 import AccessError from '@/components/Configuration/AccessError';
 
@@ -82,7 +83,7 @@ export default {
     saveSection() {
       try {
         /* Form only edits metadata, so preserve the live section's items array. */
-        const payload = { ...this.sectionData };
+        const payload = pruneSchemaDefaults(this.sectionData, this.customSchema);
         if (!this.isAddNew) {
           const live = this.$store.getters.getSectionByIndex(this.sectionIndex);
           if (live?.items) payload.items = live.items;

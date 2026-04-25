@@ -32,6 +32,7 @@ import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/config/defaults';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import safeClone from '@/utils/safeClone';
+import pruneSchemaDefaults from '@/utils/config/pruneSchemaDefaults';
 import AccessError from '@/components/Configuration/AccessError';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 
@@ -59,7 +60,8 @@ export default {
     },
     saveToState() {
       try {
-        const patched = { ...this.$store.state.configSource, appConfig: this.formData };
+        const pruned = pruneSchemaDefaults(this.formData, this.schema);
+        const patched = { ...this.$store.state.configSource, appConfig: pruned };
         this.$store.dispatch(StoreKeys.APPLY_EDITED_CONFIG, patched);
         this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
         InfoHandler('App config updated', InfoKeys.EDITOR);
