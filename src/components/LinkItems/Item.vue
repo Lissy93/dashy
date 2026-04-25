@@ -171,14 +171,11 @@ export default {
     openItemSettings() {
       this.editMenuOpen = true;
       this.contextMenuOpen = false;
-      this.$modal.show(modalNames.EDIT_ITEM);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
     },
     /* Ensure conditional is updated, once menu closed */
     closeEditMenu() {
       this.editMenuOpen = false;
-      this.$modal.hide(modalNames.EDIT_ITEM);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
     },
     /* Open the modal for moving/ copying item to other section */
     openMoveItemMenu() {

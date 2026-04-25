@@ -54,8 +54,6 @@ import HomeMixin from '@/mixins/HomeMixin';
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
 import NotificationThing from '@/components/Settings/LocalConfigWarning.vue';
-import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/config/defaults';
 import {
   makePageName, makeRoutePath, resolveRouteIntent, viewFromPath,
 } from '@/utils/config/ConfigHelpers';
@@ -79,7 +77,6 @@ export default {
   data: () => ({
     layout: '',
     itemSizeBound: '',
-    addNewSectionOpen: false,
     activeColCount: 1,
   }),
   computed: {
@@ -137,16 +134,6 @@ export default {
       const displayData = section.displayData ? { ...section.displayData } : {};
       if (this.singleSectionView) displayData.collapsed = false;
       return displayData;
-    },
-    openAddNewSectionMenu() {
-      this.addNewSectionOpen = true;
-      this.$modal.show(modalNames.EDIT_SECTION);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
-    },
-    closeEditSection() {
-      this.addNewSectionOpen = false;
-      this.$modal.hide(modalNames.EDIT_SECTION);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
     },
     /* If on sub-route, and section exists, then return only that section */
     findSingleSection: (allSections, sectionTitle) => {

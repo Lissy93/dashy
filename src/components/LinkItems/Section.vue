@@ -112,7 +112,7 @@ import ErrorHandler from '@/utils/logging/ErrorHandler';
 import sortItems from '@/utils/SortItems';
 import { makeRoutePath, viewFromPath } from '@/utils/config/ConfigHelpers';
 import StoreKeys from '@/utils/StoreMutations';
-import { sortOrder as defaultSortOrder, modalNames } from '@/utils/config/defaults';
+import { sortOrder as defaultSortOrder } from '@/utils/config/defaults';
 
 export default {
   name: 'Section',
@@ -223,20 +223,17 @@ export default {
     /* Open the Section Edit Menu */
     openEditSection() {
       this.editMenuOpen = true;
-      this.$modal.show(modalNames.EDIT_SECTION);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
       this.closeContextMenu();
     },
     /* Close the section edit menu */
     closeEditSection() {
       this.editMenuOpen = false;
-      this.$modal.hide(modalNames.EDIT_SECTION);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
     },
     /* Deletes current section, in local state */
     removeSection() {
       const confirmMsg = this.$t('interactive-editor.edit-section.remove-confirm');
-      const youSure = confirm(confirmMsg);  
+      const youSure = confirm(confirmMsg);
       if (youSure) {
         const payload = { sectionIndex: this.index, sectionName: this.title };
         this.$store.commit(StoreKeys.REMOVE_SECTION, payload);

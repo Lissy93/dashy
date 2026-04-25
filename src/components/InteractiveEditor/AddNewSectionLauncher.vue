@@ -19,7 +19,6 @@
 import EditSectionMenu from '@/components/InteractiveEditor/EditSection.vue';
 import MasonryItem from '@/mixins/MasonryItem';
 import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/config/defaults';
 
 export default {
   name: 'add-section-container',
@@ -41,13 +40,10 @@ export default {
   methods: {
     openAddNewSectionMenu() {
       this.addNewSectionOpen = true;
-      this.$modal.show(modalNames.EDIT_SECTION);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
     },
     closeEditSection() {
       this.addNewSectionOpen = false;
-      this.$modal.hide(modalNames.EDIT_SECTION);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
     },
   },
 };
