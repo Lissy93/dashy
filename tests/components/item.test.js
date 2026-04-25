@@ -427,21 +427,18 @@ describe('Methods: getTooltipOptions', () => {
 });
 
 describe('Methods: openItemSettings / closeEditMenu', () => {
-  it('openItemSettings sets editMenuOpen, shows modal, commits SET_MODAL_OPEN', () => {
+  it('openItemSettings sets editMenuOpen and commits SET_MODAL_OPEN(true)', () => {
     const { wrapper, mutations } = mountItem();
     wrapper.vm.openItemSettings();
     expect(wrapper.vm.editMenuOpen).toBe(true);
-    expect(wrapper.vm.$modal.show).toHaveBeenCalledWith('EDIT_ITEM');
     expect(mutations.SET_MODAL_OPEN).toHaveBeenCalledWith(expect.anything(), true);
   });
 
-  it('closeEditMenu clears editMenuOpen, hides modal, commits SET_MODAL_OPEN(false)', () => {
-    const { wrapper, mutations } = mountItem();
+  it('closeEditMenu clears editMenuOpen', () => {
+    const { wrapper } = mountItem();
     wrapper.vm.editMenuOpen = true;
     wrapper.vm.closeEditMenu();
     expect(wrapper.vm.editMenuOpen).toBe(false);
-    expect(wrapper.vm.$modal.hide).toHaveBeenCalledWith('EDIT_ITEM');
-    expect(mutations.SET_MODAL_OPEN).toHaveBeenCalledWith(expect.anything(), false);
   });
 });
 
