@@ -9,7 +9,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint src/",
+    "lint": "eslint \"src/**/*.{js,vue}\"",
+    "typecheck": "vue-tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
@@ -55,68 +56,30 @@
     "yaml": "^2.8.3"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@vitejs/plugin-vue": "^5.0.0",
     "@vitest/ui": "^4.0.18",
     "@vue/compiler-sfc": "^3.5.0",
     "@vue/test-utils": "^2.4.0",
     "autoprefixer": "^10.4.27",
-    "eslint": "^8.57.0",
-    "eslint-plugin-vue": "^9.28.0",
+    "eslint": "^10.2.1",
+    "eslint-plugin-import-x": "^4.16.2",
+    "eslint-plugin-vue": "^10.9.0",
+    "globals": "^17.5.0",
     "happy-dom": "^20.8.9",
     "npm-run-all": "^4.1.5",
     "sass": "^1.77.0",
     "supertest": "^7.2.2",
+    "typescript": "^6.0.3",
     "vite": "^6.2.0",
     "vite-plugin-pwa": "^1.0.0",
     "vite-svg-loader": "^5.1.0",
-    "vitest": "^4.0.18"
+    "vitest": "^4.0.18",
+    "vue-eslint-parser": "^10.0.0",
+    "vue-tsc": "^3.2.7"
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true,
-      "es2022": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "rules": {
-      "import/no-unresolved": "off",
-      "import/extensions": "off",
-      "arrow-parens": 0,
-      "no-else-return": 0,
-      "no-console": "off",
-      "no-unused-vars": [
-        "warn",
-        {
-          "argsIgnorePattern": "^_"
-        }
-      ],
-      "vue/multi-word-component-names": "off",
-      "vue/no-reserved-component-names": "off"
-    },
-    "parserOptions": {
-      "ecmaVersion": 2022,
-      "sourceType": "module"
-    },
-    "overrides": [
-      {
-        "files": [
-          "tests/**",
-          "vitest.config.mjs",
-          "vite.config.mjs"
-        ],
-        "rules": {
-          "import/no-extraneous-dependencies": "off",
-          "no-undef": "off",
-          "no-unused-vars": "off"
-        }
-      }
-    ]
   },
   "postcss": {
     "plugins": {

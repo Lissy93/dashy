@@ -1,40 +1,24 @@
 {
   "compilerOptions": {
-    "incremental": true,
-    "tsBuildInfoFile": "/app/.tsbuildinfo",
-    "target": "esnext",
-    "module": "esnext",
-    "strict": false,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "strict": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "types": [
-      "vite/client",
-      "node"
-    ],
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["./src/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    "types": ["vite/client", "node"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.vue",
-    "tests/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*.js", "src/**/*.vue", "tests/**/*.js"],
+  "exclude": ["node_modules", "dist", "user-data"]
 }
