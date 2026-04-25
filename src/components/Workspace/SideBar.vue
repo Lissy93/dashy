@@ -42,8 +42,8 @@ import { makeRoutePath, resolveRouteIntent } from '@/utils/config/ConfigHelpers'
 export default {
   name: 'SideBar',
   props: {
-    sections: Array,
-    initUrl: String,
+    sections: { type: Array, default: () => [] },
+    initUrl: { type: String, default: '' },
   },
   data() {
     return {

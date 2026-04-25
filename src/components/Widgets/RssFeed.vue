@@ -34,7 +34,7 @@
           </p>
         </div>
       </component>
-      <div class="post-body" v-html="post.description"></div>
+      <div class="post-body" v-html="post.sanitizedDescription"></div>
       <a
         class="continue-reading-btn"
         v-if="post.link"
@@ -166,7 +166,7 @@ export default {
         const sanitized = sanitizeRssItem(items[i]);
         posts.push({
           title: sanitized.title,
-          description: sanitized.description,
+          sanitizedDescription: sanitized.description,
           image: sanitized.thumbnail,
           author: sanitized.author,
           date: sanitized.pubDate,

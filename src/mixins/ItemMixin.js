@@ -230,14 +230,14 @@ export default {
         const mostUsed = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
         mostUsed[itemId] = (mostUsed[itemId] || 0) + 1;
         localStorage.setItem(localStorageKeys.MOST_USED, JSON.stringify(mostUsed));
-      } catch (e) { /* ignore corrupt localStorage */ }
+      } catch { /* ignore corrupt localStorage */ }
     },
     incrementLastUsedCount(itemId) {
       try {
         const lastUsed = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
         lastUsed[itemId] = new Date().getTime();
         localStorage.setItem(localStorageKeys.LAST_USED, JSON.stringify(lastUsed));
-      } catch (e) { /* ignore corrupt localStorage */ }
+      } catch { /* ignore corrupt localStorage */ }
     },
   },
 };

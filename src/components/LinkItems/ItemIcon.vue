@@ -43,9 +43,9 @@ const loadSimpleIcons = () => {
 export default {
   name: 'Icon',
   props: {
-    icon: String, // Path to icon asset
-    url: String, // Used for fetching the favicon
-    size: String, // Either small, medium or large
+    icon: { type: String, default: '' }, // Path to icon asset
+    url: { type: String, default: '' }, // Used for fetching the favicon
+    size: { type: String, default: '' }, // Either small, medium or large
   },
   components: {
     BrokenImage, // Used when the desired image returns a 404
@@ -210,7 +210,7 @@ export default {
       let mod;
       try {
         mod = await loadSimpleIcons();
-      } catch (e) {
+      } catch {
         this.imageNotFound('Failed to load simple-icons module');
         return;
       }
@@ -236,7 +236,7 @@ export default {
     getHostName(url) {
       try {
         return new URL(url).hostname;
-      } catch (e) {
+      } catch {
         ErrorHandler('Unable to format URL');
         return url;
       }

@@ -2,8 +2,8 @@
 <div class="synology-download-wrapper" v-if="tasks">
   <div v-for="(task, key) in tasks" :key="key" class="task-row">
     <PercentageChart :title="task.DisplayTitle"
-      :showAsPercent=false
-      :showLegend=false
+      :showAsPercent="false"
+      :showLegend="false"
       :values="[
       { label: $t('widgets.synology-download.downloaded'),
         size: task.Progress, color: '#20e253' },

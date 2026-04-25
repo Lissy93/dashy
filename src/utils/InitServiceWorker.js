@@ -25,7 +25,7 @@ const unregisterAll = async () => {
     if (!regs.length) return;
     await Promise.all(regs.map(r => r.unregister().catch(() => {})));
     statusMsg(SW_LABEL, 'Service worker unregistered (opt-out).');
-  } catch (e) { /* no-op */ }
+  } catch { /* no-op */ }
 };
 
 /* Sticky toast with a Refresh action that swaps in the new SW and reloads */

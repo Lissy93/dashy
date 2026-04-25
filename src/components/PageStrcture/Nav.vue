@@ -36,7 +36,7 @@ export default {
     IconBurger,
   },
   props: {
-    links: Array,
+    links: { type: Array, default: () => [] },
   },
   data: () => ({
     navVisible: true,

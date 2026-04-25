@@ -22,7 +22,7 @@ export default {
     Nav,
   },
   props: {
-    pageInfo: Object,
+    pageInfo: { type: Object, required: true },
   },
   computed: {
     componentVisible() {

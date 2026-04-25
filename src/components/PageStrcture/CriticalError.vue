@@ -10,7 +10,7 @@
       <li>The YAML is valid, parsable and matches the schema</li>
     </ul>
     <h4>{{ $t('critical-error.sub-error-details') }}</h4>
-    <pre>{{ this.$store.state.criticalError }}</pre>
+    <pre>{{ $store.state.criticalError }}</pre>
     <h4>{{ $t('critical-error.sub-next-steps') }}</h4>
     <ul>
       <li>Check the browser console for more details

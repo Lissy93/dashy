@@ -7,7 +7,6 @@
  */
 import jsYaml from 'js-yaml';
 import { parseDocument } from 'yaml';
-
 import { compiledValidator as validate, formatIssue } from './validateConfig';
 import { pointerToPath, yamlNodeAt, pairRange } from './schemaPath';
 

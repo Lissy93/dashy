@@ -70,7 +70,7 @@ export default {
     };
   },
   props: {
-    themeToEdit: String,
+    themeToEdit: { type: String, required: true },
   },
   methods: {
     /* Finds the current dominent value for a given CSS variable */
@@ -85,7 +85,7 @@ export default {
     saveChanges() {
       let priorSettings = {};
       try { priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}'); }
-      catch (e) { /* ignore corrupt data */ }
+      catch { /* ignore corrupt data */ }
       priorSettings[this.themeToEdit] = this.customColors;
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
       this.$toast(this.$t('theme-maker.saved-toast', { theme: this.themeToEdit }));
@@ -104,7 +104,7 @@ export default {
     resetAndSave() {
       let priorSettings = {};
       try { priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}'); }
-      catch (e) { /* ignore corrupt data */ }
+      catch { /* ignore corrupt data */ }
       delete priorSettings[this.themeToEdit];
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
       this.resetUnsavedColors();

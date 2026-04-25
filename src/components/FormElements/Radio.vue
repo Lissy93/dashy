@@ -25,10 +25,10 @@ export default {
   name: 'Radio',
   components: {},
   props: {
-    options: Array, // Array of objects for available options
-    initialOption: String, // Optional default option
-    label: String, // Form label for element
-    description: String, // Optional description text
+    options: { type: Array, default: () => [] }, // Array of objects for available options
+    initialOption: { type: String, default: '' }, // Optional default option
+    label: { type: String, default: '' }, // Form label for element
+    description: { type: String, default: '' }, // Optional description text
     disabled: Boolean, // Disable all radio buttons
   },
   data() {

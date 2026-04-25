@@ -77,11 +77,11 @@ export default {
   name: 'Item',
   mixins: [ItemMixin],
   props: {
-    itemSize: String,
-    parentSectionTitle: String, // Title of parent section (for add new)
+    itemSize: { type: String, default: '' },
+    parentSectionTitle: { type: String, default: '' }, // Title of parent section (for add new)
     isAddNew: Boolean, // Only set if 'fake' item used as Add New button
-    sectionWidth: Number, // Width of parent section
-    sectionDisplayData: Object,
+    sectionWidth: { type: Number, default: undefined }, // Width of parent section
+    sectionDisplayData: { type: Object, default: () => ({}) },
   },
   components: {
     Icon,
@@ -141,7 +141,7 @@ export default {
         // Use URL constructor to parse the input
         const url = new URL(value);
         return url.hostname;
-      } catch (e) {
+      } catch {
         // If the input is not a valid URL, try to handle it as an IP address
         const ipPattern = /^(\d{1,3}\.){3}\d{1,3}/;
         const match = value.match(ipPattern);

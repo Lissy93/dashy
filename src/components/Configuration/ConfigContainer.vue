@@ -82,11 +82,11 @@
 
 <script>
 
+import { defineAsyncComponent, h } from 'vue';
 import { localStorageKeys, modalNames } from '@/utils/config/defaults';
 import { getUsersLanguage, clearScopedLocalConfig } from '@/utils/config/ConfigHelpers';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
-import { defineAsyncComponent, h } from 'vue';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
 import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
 import RebuildApp from '@/components/Configuration/RebuildApp';
@@ -95,7 +95,6 @@ import AppVersion from '@/components/Configuration/AppVersion';
 import Button from '@/components/FormElements/Button';
 import Tabs from '@/components/FormElements/Tabs';
 import TabItem from '@/components/FormElements/TabItem';
-
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
@@ -123,7 +122,7 @@ export default {
     };
   },
   props: {
-    config: Object,
+    config: { type: Object, required: true },
   },
   computed: {
     sections: function getSections() {

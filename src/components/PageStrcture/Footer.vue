@@ -10,7 +10,7 @@ import { sanitizeHtml } from '@/utils/Sanitizer';
 export default {
   name: 'Footer',
   props: {
-    text: String,
+    text: { type: String, default: '' },
   },
   computed: {
     visible() {

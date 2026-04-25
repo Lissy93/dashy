@@ -92,7 +92,7 @@ async function makeRequest(config) {
     // Parse response - try JSON first, fall back to text
     let responseData;
     const text = await res.text();
-    try { responseData = JSON.parse(text); } catch (_) { responseData = text; }
+    try { responseData = JSON.parse(text); } catch { responseData = text; }
 
     const response = {
       data: responseData,

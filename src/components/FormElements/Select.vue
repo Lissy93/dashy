@@ -18,10 +18,10 @@ export default {
   name: 'Select',
   components: {},
   props: {
-    options: Array, // Array of available options
-    initialOption: String, // Optional default option
-    label: String, // Form label for element
-    description: String, // Optional description text
+    options: { type: Array, default: () => [] }, // Array of available options
+    initialOption: { type: String, default: '' }, // Optional default option
+    label: { type: String, default: '' }, // Form label for element
+    description: { type: String, default: '' }, // Optional description text
   },
   data() {
     return {

@@ -47,13 +47,13 @@ export default {
   name: 'CollapsableContainer',
   mixins: [MasonryItem],
   props: {
-    uniqueKey: String, // Generated unique ID
-    title: String, // The section title
-    icon: String, // An optional section icon
+    uniqueKey: { type: String, required: true }, // Generated unique ID
+    title: { type: String, default: '' }, // The section title
+    icon: { type: String, default: '' }, // An optional section icon
     collapsed: Boolean, // Optional override collapse state
-    cols: Number, // Set section horizontal col span / width
-    color: String, // Optional color override
-    customStyles: String, // Optional custom stylings
+    cols: { type: Number, default: undefined }, // Set section horizontal col span / width
+    color: { type: String, default: '' }, // Optional color override
+    customStyles: { type: String, default: '' }, // Optional custom stylings
     cutToHeight: Boolean, // To set section height with content height
   },
   components: {
@@ -152,7 +152,7 @@ export default {
       }
       try {
         return JSON.parse(localStorage[localStorageKeys.COLLAPSE_STATE]);
-      } catch (e) {
+      } catch {
         return {};
       }
     },

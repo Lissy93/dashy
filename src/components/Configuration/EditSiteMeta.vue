@@ -48,7 +48,7 @@ import SaveConfigIcon from '@/assets/interface-icons/save-config.svg';
 export default {
   name: 'EditSiteMeta',
   props: {
-    config: Object,
+    config: { type: Object, required: true },
   },
   components: {
     AddNewIcon,

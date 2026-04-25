@@ -5,7 +5,6 @@
  */
 import { hoverTooltip } from '@codemirror/view';
 import { parseDocument } from 'yaml';
-
 import schema from './ConfigSchema.json';
 import { yamlPathAtOffset, schemaAt } from './schemaPath';
 

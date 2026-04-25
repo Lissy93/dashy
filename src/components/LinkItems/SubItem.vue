@@ -39,8 +39,9 @@ export default {
   name: 'Item',
   mixins: [ItemMixin],
   props: {
-    id: String, // The unique ID of a tile (e.g. 001)
-    item: Object,
+    id: { type: String, required: true }, // The unique ID of a tile (e.g. 001)
+    item: { type: Object, required: true },
+    url: { type: String, default: '' }, // Optional override for ItemMixin.hyperLinkHref
   },
   components: {
     Icon,

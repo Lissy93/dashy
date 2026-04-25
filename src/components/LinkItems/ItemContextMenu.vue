@@ -80,8 +80,8 @@ export default {
     NewWindowOpenIcon,
   },
   props: {
-    posX: Number, // The X coordinate for positioning
-    posY: Number, // The Y coordinate for positioning
+    posX: { type: Number, default: 0 }, // The X coordinate for positioning
+    posY: { type: Number, default: 0 }, // The Y coordinate for positioning
     show: Boolean, // Should show or hide the menu
     disableEdit: Boolean, // Disable editing for certain items
   },

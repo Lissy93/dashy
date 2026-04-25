@@ -18,7 +18,7 @@ export default {
     WidgetBase,
   },
   props: {
-    widgets: Array,
+    widgets: { type: Array, default: () => [] },
   },
 };
 </script>

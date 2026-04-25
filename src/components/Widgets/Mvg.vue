@@ -9,7 +9,7 @@
         {{ formatDepartureTime(departure.realtimeDepartureTime) }}
       </span>
     </div>
-    <div class='line'
+    <div class="line"
       >
       <div
         class="transport"
@@ -18,7 +18,7 @@
         ]"
       >{{ departure.label }}</div>
       <div
-      class='destination'
+      class="destination"
       v-tooltip="mvgTooltipDestination(departure)"
       :class="{cancelled: departure.cancelled}">{{ departure.destination }}</div>
       <span class="delay"

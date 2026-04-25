@@ -117,15 +117,15 @@ import { sortOrder as defaultSortOrder, modalNames } from '@/utils/config/defaul
 export default {
   name: 'Section',
   props: {
-    groupId: String,
-    title: String,
-    icon: String,
-    displayData: Object,
-    items: Array,
-    widgets: Array,
-    index: Number,
+    groupId: { type: String, required: true },
+    title: { type: String, default: '' },
+    icon: { type: String, default: '' },
+    displayData: { type: Object, required: true },
+    items: { type: Array, default: () => [] },
+    widgets: { type: Array, default: () => [] },
+    index: { type: Number, required: true },
     isWide: Boolean,
-    activeColCount: Number,
+    activeColCount: { type: Number, required: true },
   },
   components: {
     Collapsable,

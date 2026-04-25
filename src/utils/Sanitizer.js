@@ -64,7 +64,7 @@ export const sanitizeUrl = (url) => {
       return trimmedUrl;
     }
     return null;
-  } catch (error) {
+  } catch {
     return null;
   }
 };

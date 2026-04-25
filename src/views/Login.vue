@@ -38,7 +38,7 @@
         v-model="timeout"
         :selectOnTab="true"
         :options="dropDownMenu"
-        :map-keydown="(map) => ({ ...map, 13: () => this.submitLogin() })"
+        :map-keydown="(map) => ({ ...map, 13: () => submitLogin() })"
         class="login-time-dropdown"
       />
       <Button class="login-button" :click="submitLogin">

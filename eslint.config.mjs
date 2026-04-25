@@ -39,6 +39,7 @@ export default [
       'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       'vue/multi-word-component-names': 'off',
       'vue/no-reserved-component-names': 'off',
+      'vue/no-v-html': ['warn', { ignorePattern: '(?:^|\\.)(sanitized|safeHtml)' }],
 
       // TODO: Enable these rules. Once I have enough sanity to fix all issues.
       'vue/html-indent': 'off',
@@ -63,7 +64,7 @@ export default [
       'import-x/extensions': 'off',
       'import-x/order': ['warn', {
         groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-        'newlines-between': 'never',
+        'newlines-between': 'ignore',
       }],
       'import-x/newline-after-import': 'warn',
       'import-x/no-duplicates': 'error',

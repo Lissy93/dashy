@@ -216,7 +216,7 @@ export default {
         if (this.selectedSystem && this.selectedSystem.url === url) {
           this.detailData = data;
         }
-      } catch (_) {
+      } catch {
         this.errors[url] = true;
         if (this.selectedSystem && this.selectedSystem.url === url) {
           this.detailData = {};
@@ -289,7 +289,7 @@ export default {
         );
         this.detailData = data;
         this.errors[system.url] = false;
-      } catch (_) {
+      } catch {
         this.errors[system.url] = true;
         this.detailData = {};
       }

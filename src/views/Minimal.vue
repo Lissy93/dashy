@@ -10,7 +10,7 @@
         <h1>{{ pageInfo.title }}</h1>
       </router-link>
       <MinimalSearch
-        @user-is-searchin="(s) => { this.searchValue = s; }"
+        @user-is-searchin="(s) => { searchValue = s; }"
         :active="!modalOpen" ref="filterComp" />
     </div>
     <div v-if="checkTheresData(sections)"

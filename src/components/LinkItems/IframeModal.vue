@@ -15,7 +15,7 @@ import Keys from '@/utils/StoreMutations';
 export default {
   name: 'IframeModal',
   props: {
-    name: String,
+    name: { type: String, required: true },
   },
   data: () => ({
     url: '#',

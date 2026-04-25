@@ -46,7 +46,7 @@ export const isVisibleToUser = (displayData, currentUser) => {
   };
   const getKeycloakInfo = () => {
     try { return JSON.parse(localStorage.getItem(localStorageKeys.KEYCLOAK_INFO) || '{}'); }
-    catch (e) { return {}; }
+    catch { return {}; }
   };
   const checkKeycloakVisibility = () => {
     if (!displayData.hideForKeycloakUsers) return true;

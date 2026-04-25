@@ -26,12 +26,12 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 import DashySchema from '@/utils/config/ConfigSchema.json';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/config/defaults';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import safeClone from '@/utils/safeClone';
-import { defineAsyncComponent } from 'vue';
 import AccessError from '@/components/Configuration/AccessError';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 

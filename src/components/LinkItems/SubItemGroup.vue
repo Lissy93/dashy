@@ -16,10 +16,10 @@ import SubItem from '@/components/LinkItems/SubItem.vue';
 
 export default {
   props: {
-    itemId: String,
-    subItems: Array,
-    title: String,
-    subItemGridSize: Number,
+    itemId: { type: String, required: true },
+    subItems: { type: Array, required: true },
+    title: { type: String, default: '' },
+    subItemGridSize: { type: Number, default: 0 },
   },
   components: {
     SubItem,

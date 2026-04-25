@@ -19,31 +19,31 @@
       <!-- PHP opcache stats: hit/miss -->
       <p v-tooltip="opcacheStatsTooltip()">
         <i class="fal fa-bullseye-arrow"></i>
-        <em v-html="formatNumber(opcache_stats.hits)"></em>&nbsp;
+        <em v-html="safeHtmlFormatNumber(opcache_stats.hits)"></em>&nbsp;
         <small>{{ tt('hits') }}</small>&nbsp;
-        <em v-html="formatNumber(opcache_stats.misses)"></em>&nbsp;
+        <em v-html="safeHtmlFormatNumber(opcache_stats.misses)"></em>&nbsp;
         <small>{{ tt('misses') }}</small>&nbsp;
-        <em v-html="formatPercent(opcache_stats.opcache_hit_rate, 3)"></em>&nbsp;
+        <em v-html="safeHtmlFormatPercent(opcache_stats.opcache_hit_rate, 3)"></em>&nbsp;
         <small>{{ tt('hit-rate') }}</small>
       </p>
       <hr/>
       <!-- PHP opcache stats: memory -->
       <p v-tooltip="opcacheMemoryUsageTooltip()">
         <i class="fal fa-memory"></i>
-        <em v-html="formatPercent(opcache.memory_usage.used_memory_percentage, 1)"></em>&nbsp;
+        <em v-html="safeHtmlFormatPercent(opcache.memory_usage.used_memory_percentage, 1)"></em>&nbsp;
         <small>of</small>
-        <em v-html="convertBytes(opcache.memory_usage.total_memory)"></em>&nbsp;
+        <em v-html="safeHtmlConvertBytes(opcache.memory_usage.total_memory)"></em>&nbsp;
         <small>{{ tt('memory-used') }}</small>
       </p>
       <hr/>
       <!-- PHP opcache stats: interned strings -->
       <p v-tooltip="opcacheInternedStringsTooltip()">
         <i class="fal fa-puzzle-piece"></i>
-        <em v-html="formatNumber(opcache.interned_strings_usage.number_of_strings, 1, true)"></em>
+        <em v-html="safeHtmlFormatNumber(opcache.interned_strings_usage.number_of_strings, 1, true)"></em>
         &nbsp;<small>{{ tt('strings-use') }}</small>
-        <em v-html="formatPercent(opcache.interned_strings_usage.used_memory_percentage)"></em>
+        <em v-html="safeHtmlFormatPercent(opcache.interned_strings_usage.used_memory_percentage)"></em>
         &nbsp;<small>{{ tt('of') }}</small>
-        <em v-html="convertBytes(opcache.interned_strings_usage.total_memory)"></em>
+        <em v-html="safeHtmlConvertBytes(opcache.interned_strings_usage.total_memory)"></em>
       </p>
       <hr/>
     </div>
@@ -171,10 +171,10 @@ export default {
     },
     opcacheMemoryUsageTooltip() {
       const content = `PHP opcache ${this.tt('memory-utilisation')}<br><br>`
-        + `${this.convertBytes(this.opcache.memory_usage.total_memory)} ${this.tt('total')}<br>`
-        + `${this.convertBytes(this.opcache.memory_usage.used_memory)} ${this.tt('used')}<br>`
-        + `${this.convertBytes(this.opcache.memory_usage.free_memory)} ${this.tt('free')}<br><br>`
-        + `${this.convertBytes(this.opcache.memory_usage.wasted_memory)} (`
+        + `${this.safeHtmlConvertBytes(this.opcache.memory_usage.total_memory)} ${this.tt('total')}<br>`
+        + `${this.safeHtmlConvertBytes(this.opcache.memory_usage.used_memory)} ${this.tt('used')}<br>`
+        + `${this.safeHtmlConvertBytes(this.opcache.memory_usage.free_memory)} ${this.tt('free')}<br><br>`
+        + `${this.safeHtmlConvertBytes(this.opcache.memory_usage.wasted_memory)} (`
         + `${parseFloat(this.opcache.memory_usage.current_wasted_percentage).toFixed(1)}%) ${this.tt('wasted')}`;
       return {
         content, html: true, popperClass: 'nc-tooltip',
@@ -182,9 +182,9 @@ export default {
     },
     opcacheInternedStringsTooltip() {
       const content = 'PHP opcache interned strings<br><br>'
-        + `${this.convertBytes(this.opcache_interned.buffer_size)} ${this.tt('total')} ${this.tt('memory')}<br>`
-        + `${this.convertBytes(this.opcache_interned.used_memory)} ${this.tt('used')} ${this.tt('memory')}<br>`
-        + `${this.convertBytes(this.opcache_interned.free_memory)} ${this.tt('free')} ${this.tt('memory')}<br><br>`
+        + `${this.safeHtmlConvertBytes(this.opcache_interned.buffer_size)} ${this.tt('total')} ${this.tt('memory')}<br>`
+        + `${this.safeHtmlConvertBytes(this.opcache_interned.used_memory)} ${this.tt('used')} ${this.tt('memory')}<br>`
+        + `${this.safeHtmlConvertBytes(this.opcache_interned.free_memory)} ${this.tt('free')} ${this.tt('memory')}<br><br>`
         + `${parseFloat(this.opcache_interned.number_of_strings).toLocaleString()}`
         + ' strings';
       return {

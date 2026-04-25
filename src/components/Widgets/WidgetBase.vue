@@ -146,8 +146,8 @@ export default {
     LoadingAnimation,
   },
   props: {
-    widget: Object,
-    index: Number,
+    widget: { type: Object, required: true },
+    index: { type: Number, required: true },
   },
   data: () => ({
     loading: false,

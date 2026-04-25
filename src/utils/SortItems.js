@@ -3,7 +3,7 @@ import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 /* Reads a `{ itemId: count }` map out of local storage, returning {} on any error. */
 const readUsage = (key) => {
-  try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) { return {}; }
+  try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch { return {}; }
 };
 
 const byTitle = (items) => [...items].sort(

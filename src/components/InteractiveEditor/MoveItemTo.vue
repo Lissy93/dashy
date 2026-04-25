@@ -52,8 +52,8 @@ export default {
     SaveCancelButtons,
   },
   props: {
-    itemId: String, // Unique ID for item
-    initialSection: String, // The current section
+    itemId: { type: String, required: true }, // Unique ID for item
+    initialSection: { type: String, default: '' }, // The current section
   },
   data() {
     return {

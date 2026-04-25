@@ -16,7 +16,7 @@
 export default {
   name: 'StatusIndicator',
   props: {
-    statusText: String,
+    statusText: { type: String, default: '' },
     statusSuccess: Boolean,
   },
   computed: {

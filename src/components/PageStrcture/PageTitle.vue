@@ -20,9 +20,9 @@ import { modalNames } from '@/utils/config/defaults';
 export default {
   name: 'PageTitle',
   props: {
-    title: String,
-    description: String,
-    logo: String,
+    title: { type: String, default: '' },
+    description: { type: String, default: '' },
+    logo: { type: String, default: '' },
   },
   components: {
     EditModeIcon,

@@ -14,9 +14,9 @@ export default {
   name: 'MinimalHeadings',
   components: { Icon },
   props: {
-    index: Number,
-    title: String,
-    icon: String,
+    index: { type: Number, required: true },
+    title: { type: String, default: '' },
+    icon: { type: String, default: '' },
     selected: Boolean,
     hideTitleText: Boolean,
   },

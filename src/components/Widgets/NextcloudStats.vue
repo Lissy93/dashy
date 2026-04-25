@@ -5,9 +5,9 @@
     <div v-if="activeUsers">
       <p v-tooltip="activeUsersTooltip()">
         <i class="fal fa-user"></i>
-        <em v-html="formatNumber(storage.num_users)"></em>
+        <em v-html="safeHtmlFormatNumber(storage.num_users)"></em>
         <strong>{{ tt('total-users') }}</strong> <small>{{ tt('of-which') }}</small>
-        <em v-html="formatNumber(activeUsers.last24hours)"></em>
+        <em v-html="safeHtmlFormatNumber(activeUsers.last24hours)"></em>
         <strong>{{ tt('active') }}</strong> <small>({{ tt('last-24-hours') }})</small>
       </p>
     </div>
@@ -16,7 +16,7 @@
       <!-- server info: apps -->
       <p v-tooltip="appUpdatesTooltip()">
         <i class="fal fa-browser"></i>
-        <em v-html="formatNumber(apps.num_installed)"></em>
+        <em v-html="safeHtmlFormatNumber(apps.num_installed)"></em>
         <strong>{{ tt('applications') }}</strong>
         <span v-if="apps.num_updates_available" class="nc-updates">
           <i class="fal fa-download"></i><em>{{ apps.num_updates_available }}</em>
@@ -30,20 +30,20 @@
       <hr />
       <!-- server info: storage -->
       <p v-tooltip="storagesTooltip()">
-        <i class="fal fa-file"></i><em v-html="formatNumber(storage.num_files)"></em>
+        <i class="fal fa-file"></i><em v-html="safeHtmlFormatNumber(storage.num_files)"></em>
         <strong>{{ tt('files', { plural: storage.num_files > 1 ? 's' : '' }) }}</strong>&nbsp;
         <small>{{ tt('in') }}</small><em>{{ storage.num_storages }}</em>
         <strong>{{ tt('storages', { plural: storage.num_storages > 1 ? 's' : '' }) }}</strong>
-        &nbsp;•&nbsp;<strong v-html="convertBytes(system.freespace)"></strong>&nbsp;
+        &nbsp;•&nbsp;<strong v-html="safeHtmlConvertBytes(system.freespace)"></strong>&nbsp;
         <small>{{ tt('free') }}</small>
       </p>
       <hr />
       <!-- server info: shares -->
       <p v-tooltip="sharesTooltip()">
         <i class="fal fa-share"></i>
-        <em v-html="formatNumber(shares.num_shares)"></em>
+        <em v-html="safeHtmlFormatNumber(shares.num_shares)"></em>
         <strong>{{ tt('local') }}</strong> <small> {{ tt('and') }}</small>
-        <em v-html="formatNumber(shares.num_fed_shares_sent
+        <em v-html="safeHtmlFormatNumber(shares.num_fed_shares_sent
           + shares.num_fed_shares_received)"></em>
         <strong>
           {{ tt('federated-shares') }}

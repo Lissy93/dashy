@@ -3,13 +3,14 @@
 </template>
 
 <script>
+/* eslint-disable vue/one-component-per-file -- intentional: dynamically-mounted inline component */
 import { createApp, h } from 'vue';
 import WebContent from '@/components/Workspace/WebContent';
 
 export default {
   name: 'WebContent',
   props: {
-    url: String, // The URL of currently visible app
+    url: { type: String, default: '' }, // The URL of currently visible app
   },
   data: () => ({
     openApps: [], // List of all currently open apps

@@ -100,9 +100,9 @@ export default {
     };
   },
   props: {
-    itemId: String,
+    itemId: { type: String, default: '' },
     isNew: Boolean,
-    parentSectionTitle: String, // If adding new item, which section to add it under
+    parentSectionTitle: { type: String, default: '' }, // If adding new item, which section to add it under
   },
   computed: {
     allowViewConfig() {

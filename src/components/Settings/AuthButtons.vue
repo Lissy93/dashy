@@ -40,7 +40,7 @@ export default {
   name: 'AuthButtons',
   components: { IconLogout },
   props: {
-    userType: Number,
+    userType: { type: Number, required: true },
     iconOnly: Boolean, // If true, render just the icon (used by ConfigLauncher)
   },
   computed: {

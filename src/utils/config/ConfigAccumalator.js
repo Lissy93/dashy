@@ -37,7 +37,7 @@ export default class ConfigAccumulator {
     let usersAppConfig = { ...defaultAppConfig };
     if (localStorage[localStorageKeys.APP_CONFIG]) {
       try { usersAppConfig = JSON.parse(localStorage[localStorageKeys.APP_CONFIG]); }
-      catch (e) { ErrorHandler('Malformed app config in local storage'); }
+      catch { ErrorHandler('Malformed app config in local storage'); }
     } else if (Object.keys(appConfigFile).length > 0) {
       usersAppConfig = { ...appConfigFile };
     }
@@ -63,7 +63,7 @@ export default class ConfigAccumulator {
     if (localStorage[localStorageKeys.PAGE_INFO]) {
        
       try { localPageInfo = JSON.parse(localStorage[localStorageKeys.PAGE_INFO]); }
-      catch (e) { ErrorHandler('Malformed pageInfo data in local storage'); }
+      catch { ErrorHandler('Malformed pageInfo data in local storage'); }
     }
     const filePageInfo = (this.conf && this.conf.pageInfo) ? this.conf.pageInfo : {};
     return { ...defaultPageInfo, ...filePageInfo, ...localPageInfo };
@@ -78,7 +78,7 @@ export default class ConfigAccumulator {
       try {
         const json = JSON.parse(localSections);
         if (json.length >= 1) sections = json;
-      } catch (e) {
+      } catch {
         ErrorHandler('Malformed section data in local storage');
       }
     }

@@ -18,12 +18,12 @@
 export default {
   name: 'Button',
   props: {
-    text: String, // The text to be displayed in the button
-    click: Function, // Function to call when clicked
+    text: { type: String, default: '' }, // The text to be displayed in the button
+    click: { type: Function, default: () => {} }, // Function to call when clicked
     disabled: Boolean, // If true, button cannot be clicked
     disallow: Boolean, // Show not-allowed cursor when true
-    type: String, // The html button type attribute
-    tooltip: String, // Text to be displayed on hover
+    type: { type: String, default: 'button' }, // The html button type attribute
+    tooltip: { type: String, default: '' }, // Text to be displayed on hover
   },
   computed: {
     /* If tooltip prop specified, then return config for v-tooltip */
