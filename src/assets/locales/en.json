@@ -146,7 +146,9 @@
     "up-to-date": "Up-to-Date",
     "out-of-date": "Update Available",
     "unsupported-version-l1": "You are using an unsupported version of Dashy",
-    "unsupported-version-l2": "For the best experience, and recent security patches, please update to"
+    "unsupported-version-l2": "For the best experience, and recent security patches, please update to",
+    "sw-update-available": "A new version of Dashy is available.",
+    "sw-update-action": "Refresh"
   },
   "language-switcher": {
     "title": "Change Application Language",

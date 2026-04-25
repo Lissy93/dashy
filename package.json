@@ -45,7 +45,6 @@
     "js-yaml": "^4.1.0",
     "keycloak-js": "^20.0.3",
     "oidc-client-ts": "^3.0.1",
-    "register-service-worker": "^1.7.2",
     "rsup-progress": "^3.2.0",
     "simple-icons": "^16.6.0",
     "vue": "^3.5.0",

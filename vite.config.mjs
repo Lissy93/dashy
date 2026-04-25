@@ -67,22 +67,36 @@ export default defineConfig({
         ],
       },
       workbox: {
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: false,
+        navigateFallback: '/index.html',
+        navigateFallbackDenylist: [
+          /^\/(status-check|system-info|cors-proxy|get-user|config-manager)\b/,
+        ],
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
         globIgnores: [
           '**/*.map',
           '**/manifest*.js',
           '**/.nojekyll',
           '**/.gitignore',
-          '**/conf.yml',
+          '**/*.yml',
+          '**/*.yaml',
         ],
         runtimeCaching: [
           {
-            urlPattern: /conf\.yml$/,
+            urlPattern: /\.ya?ml(\?.*)?$/i,
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'config-cache',
+              cacheName: 'dashy-config',
               networkTimeoutSeconds: 3,
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 },
+              cacheableResponse: { statuses: [200] },
             },
+          },
+          {
+            urlPattern: /\/(status-check|system-info|cors-proxy|get-user|config-manager)\b/,
+            handler: 'NetworkOnly',
           },
         ],
       },

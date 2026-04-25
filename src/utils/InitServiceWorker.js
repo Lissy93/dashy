@@ -1,100 +1,70 @@
 import yaml from 'js-yaml';
-import { register } from 'register-service-worker';
 import request from '@/utils/request';
-import { sessionStorageKeys } from '@/utils/config/defaults';
+import i18n from '@/utils/i18n';
 import { statusMsg, statusErrorMsg } from '@/utils/logging/CoolConsole';
+import { toast } from '@/utils/Toast';
 
-/* Sets a local storage item with the state from the SW lifecycle */
-const setSwStatus = (swStateToSet) => {
-  const initialSwState = {
-    ready: false,
-    registered: false,
-    cached: false,
-    updateFound: false,
-    updated: false,
-    offline: false,
-    error: false,
-    devMode: false,
-    disabledByUser: false,
-  };
-  const sessionData = sessionStorage[sessionStorageKeys.SW_STATUS];
-  const currentSwState = sessionData ? JSON.parse(sessionData) : initialSwState;
+const SW_LABEL = 'Service Worker Status';
+const UPDATE_CHECK_INTERVAL_MS = 60 * 60 * 1000; // hourly
+
+/* Loads conf.yml and returns the parsed object, or null on failure */
+const loadAppConfig = async () => {
   try {
-    const newSwState = { ...currentSwState, ...swStateToSet };
-    sessionStorage.setItem(sessionStorageKeys.SW_STATUS, JSON.stringify(newSwState));
+    const { data } = await request.get('/conf.yml');
+    return yaml.load(data) || null;
   } catch (e) {
-    statusErrorMsg('Service Worker Status', 'Error Updating SW Status', e);
+    statusErrorMsg(SW_LABEL, 'Failed to load config for SW check', e);
+    return null;
   }
 };
 
-/**
- * Checks if service workers should be enabled
- * Disable if not running in production
- * Or disable if user specified to disable
- */
-const shouldEnableServiceWorker = async () => {
+/* Best-effort cleanup of any prior service worker (used when user opts out) */
+const unregisterAll = async () => {
   try {
-    const response = await request.get('/conf.yml');
-    const conf = yaml.load(response.data);
-    if (conf && conf.appConfig && conf.appConfig.enableServiceWorker) {
-      setSwStatus({ disabledByUser: false });
-      return true;
-    }
-  } catch (e) {
-    statusErrorMsg('Service Worker Status', 'Failed to load config for SW check', e);
-  }
-  if (import.meta.env.DEV) {
-    setSwStatus({ devMode: true });
-    return false;
-  }
-  setSwStatus({ disabledByUser: true });
-  return false;
+    const regs = await navigator.serviceWorker.getRegistrations();
+    if (!regs.length) return;
+    await Promise.all(regs.map(r => r.unregister().catch(() => {})));
+    statusMsg(SW_LABEL, 'Service worker unregistered (opt-out).');
+  } catch (e) { /* no-op */ }
 };
 
-/* Calls to the print status function */
-const printSwStatus = (msg) => {
-  statusMsg('Service Worker Status', msg);
+/* Sticky toast with a Refresh action that swaps in the new SW and reloads */
+const promptForUpdate = (updateSW) => {
+  const t = i18n.global.t;
+  toast(t('updates.sw-update-available'), {
+    type: 'info',
+    duration: 0,
+    dismissible: true,
+    action: { text: t('updates.sw-update-action'), onClick: () => updateSW(true) },
+  });
 };
 
-const swUrl = `${import.meta.env.BASE_URL || '/'}service-worker.js`;
+const initServiceWorker = async () => {
+  if (import.meta.env.DEV) return;
+  if (!('serviceWorker' in navigator)) return;
 
-/* If service worker enabled, then register it, and print message when status changes */
-const registerServiceWorker = async () => {
-  if (await shouldEnableServiceWorker()) {
-    register(swUrl, {
-      ready() {
-        setSwStatus({ ready: true });
-        printSwStatus(
-          'Dashy is being served from cache by a service worker.\n'
-          + 'For more details, visit https://goo.gl/AFskqB',
-        );
+  const conf = await loadAppConfig();
+  if (!conf) return; // network/parse failed — leave any existing SW alone
+
+  if (!conf.appConfig?.enableServiceWorker) {
+    await unregisterAll();
+    return;
+  }
+
+  try {
+    const { registerSW } = await import('virtual:pwa-register');
+    const updateSW = registerSW({
+      onRegisteredSW(swUrl, reg) {
+        statusMsg(SW_LABEL, `Service worker registered (${swUrl}).`);
+        if (reg) setInterval(() => reg.update().catch(() => {}), UPDATE_CHECK_INTERVAL_MS);
       },
-      registered() {
-        setSwStatus({ registered: true });
-        printSwStatus('Service worker has been registered.');
-      },
-      cached() {
-        setSwStatus({ cached: true });
-        printSwStatus('App has been cached for offline use.');
-      },
-      updatefound() {
-        setSwStatus({ updateFound: true });
-        printSwStatus('New content is downloading...');
-      },
-      updated() {
-        setSwStatus({ updated: true });
-        printSwStatus('New content is available; please refresh the page.');
-      },
-      offline() {
-        setSwStatus({ offline: true });
-        printSwStatus('No internet connection found. Dashy is running in offline mode.');
-      },
-      error(error) {
-        setSwStatus({ error: true });
-        statusErrorMsg('Service Worker Status', 'Error during SW registration', error);
-      },
+      onNeedRefresh: () => promptForUpdate(updateSW),
+      onOfflineReady: () => statusMsg(SW_LABEL, 'App is ready for offline use.'),
+      onRegisterError: (e) => statusErrorMsg(SW_LABEL, 'Error during SW registration', e),
     });
+  } catch (e) {
+    statusErrorMsg(SW_LABEL, 'Error setting up service worker', e);
   }
 };
 
-export default registerServiceWorker;
+export default initServiceWorker;

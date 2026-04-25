@@ -155,7 +155,6 @@ const defaults = {
   },
   /* Key names for session storage identifiers */
   sessionStorageKeys: {
-    SW_STATUS: 'serviceWorkerStatus',
     ERROR_LOG: 'errorLog',
   },
   /* Unique IDs of modals within the app */
