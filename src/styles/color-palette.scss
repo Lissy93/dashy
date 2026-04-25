@@ -5,6 +5,7 @@
   --primary: #5cabca; // Main accent color
   --background: #0b1021; // Page background
   --background-darker: #05070e; // Used for navigation bar, footer and fills
+  --foreground: var(--primary); // Default text color
 
   --primary-transparent-60: color-mix(in srgb, var(--primary), transparent 60%);
 

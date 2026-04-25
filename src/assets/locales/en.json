@@ -337,7 +337,27 @@
       "copy-clipboard-tooltip": "Copy all app config to system clipboard, in YAML format",
       "download-file-btn": "Download as File",
       "download-file-tooltip": "Download all app config to your device, in a YAML file",
-      "view-title": "View Config"
+      "current-config-title": "Current Config",
+      "preview-toggle": "YAML preview",
+      "issues-title": "Schema issues ({n})",
+      "config-list-title": "Config List",
+      "col-title": "Title",
+      "col-path": "Path",
+      "col-content": "Content",
+      "col-status": "Status",
+      "col-actions": "Actions",
+      "content-summary": "{sections} sections, {items} items, {widgets} widgets",
+      "status-loading": "loading",
+      "status-valid": "valid",
+      "status-warnings": "{n} warnings",
+      "status-error": "error",
+      "status-unknown": "unknown",
+      "edit-current-btn": "Edit Config",
+      "edit-current-tooltip": "Open the current config in the JSON editor",
+      "copy-fail-msg": "Unable to copy to clipboard, see log",
+      "download-row-tooltip": "Download YAML",
+      "preview-row-tooltip": "Toggle YAML Preview",
+      "apply-row-tooltip": "Apply config"
     }
   },
   "critical-error": {

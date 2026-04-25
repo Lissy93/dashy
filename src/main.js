@@ -5,7 +5,6 @@ import { createApp } from 'vue';
 // Import component Vue plugins, used throughout the app
 import VModal from '@febe95/vue-js-modal'; // Modal component (Vue 3 fork)
 import VSelect from 'vue-select';       // Select dropdown component
-import JsonViewer from 'vue3-json-viewer'; // JSON tree viewer
 
 // Import base Dashy components and utils
 import Dashy from '@/App.vue';          // Main Dashy Vue app
@@ -32,7 +31,6 @@ app.use(store);
 app.use(router);
 app.use(i18n);
 app.use(VModal);
-app.use(JsonViewer);
 app.use(Toast);
 
 // Register global components and directives

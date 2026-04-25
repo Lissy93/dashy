@@ -26,7 +26,7 @@
     <modal
       :name="modalNames.CONF_EDITOR"
       :resizable="true"
-      width="60%"
+      width="80%"
       height="85%"
       classes="dashy-modal"
       @closed="onConfigClosed"
