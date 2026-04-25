@@ -5,7 +5,7 @@
  * 1. YAML syntax checker, vie js-yaml
  * 2. Ajv schema validator using our ConfigSchema.json
  */
-import jsYaml from 'js-yaml';
+import { load as yamlLoad } from 'js-yaml';
 import { parseDocument } from 'yaml';
 import { compiledValidator as validate, formatIssue } from './validateConfig';
 import { pointerToPath, yamlNodeAt, pairRange } from './schemaPath';
@@ -19,7 +19,7 @@ export function schemaLinter(view) {
 
   let data;
   try {
-    data = jsYaml.load(text);
+    data = yamlLoad(text);
   } catch (e) {
     const line = e.mark?.line ?? 0;
     const col = e.mark?.column ?? 0;

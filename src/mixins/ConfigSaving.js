@@ -1,4 +1,4 @@
-import jsYaml from 'js-yaml';
+import { dump as yamlDump } from 'js-yaml';
 import { Progress } from 'rsup-progress';
 import request from '@/utils/request';
 import ErrorHandler, { InfoHandler } from '@/utils/logging/ErrorHandler';
@@ -35,7 +35,7 @@ export default {
         ...base,
         sections: (base.sections || []).map(({ filteredItems: _filteredItems, ...s }) => s),
       };
-      const yaml = jsYaml.dump(JSON.parse(JSON.stringify(jsonConfig)));
+      const yaml = yamlDump(JSON.parse(JSON.stringify(jsonConfig)));
       const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       const endpoint = `${baseUrl}${serviceEndpoints.save}`;
       const filename = isSubPag ? (state.currentConfigInfo.confPath || '') : '';

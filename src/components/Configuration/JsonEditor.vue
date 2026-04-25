@@ -105,7 +105,7 @@
 
 <script>
 import { shallowRef, markRaw } from 'vue';
-import jsYaml from 'js-yaml';
+import { load as yamlLoad, dump as yamlDump } from 'js-yaml';
 import { EditorView, keymap, lineNumbers, highlightActiveLine, highlightActiveLineGutter } from '@codemirror/view';
 import { EditorState, Compartment } from '@codemirror/state';
 import { yaml } from '@codemirror/lang-yaml';
@@ -219,7 +219,7 @@ export default {
       // Root config always has a pageInfo; show a sensible default if missing.
       // Sub-pages can legitimately have an empty pageInfo (they inherit from root).
       if (!confId && !data.pageInfo) data.pageInfo = { title: 'Dashy' };
-      return jsYaml.dump(data, DUMP_OPTS);
+      return yamlDump(data, DUMP_OPTS);
     },
     createEditor() {
       try {
@@ -287,8 +287,8 @@ export default {
     formatDocument() {
       if (!this.view) return;
       try {
-        const data = jsYaml.load(this.view.state.doc.toString());
-        const formatted = jsYaml.dump(data ?? {}, DUMP_OPTS);
+        const data = yamlLoad(this.view.state.doc.toString());
+        const formatted = yamlDump(data ?? {}, DUMP_OPTS);
         this.view.dispatch({
           changes: { from: 0, to: this.view.state.doc.length, insert: formatted },
         });
@@ -310,7 +310,7 @@ export default {
     },
     parseCurrent() {
       try {
-        return jsYaml.load(this.currentText());
+        return yamlLoad(this.currentText());
       } catch (e) {
         this.$toast.error(this.$t('config-editor.parse-fail-msg', { message: e.message }));
         return null;
@@ -359,7 +359,7 @@ export default {
         });
       }
       if (inPreview) {
-        const original = jsYaml.load(this.initialDoc);
+        const original = yamlLoad(this.initialDoc);
         if (original) this.applyConfigToStore(original);
         this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
       }

@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import JsYaml from 'js-yaml';
+import { load as yamlLoad, dump as yamlDump } from 'js-yaml';
 import Button from '@/components/FormElements/Button';
 import StoreKeys from '@/utils/StoreMutations';
 import { modalNames } from '@/utils/config/defaults';
@@ -169,7 +169,7 @@ export default {
       return this.$store.getters.permissions.allowViewConfig;
     },
     currentConfigYaml() {
-      return JsYaml.dump(this.config);
+      return yamlDump(this.config);
     },
     currentConfigPath() {
       return this.$store.state.currentConfigInfo?.confPath
@@ -193,7 +193,7 @@ export default {
         path: this.currentConfigPath,
         isRoot: true,
       });
-      rootRow.yamlText = JsYaml.dump(root);
+      rootRow.yamlText = yamlDump(root);
       this.applyValidation(rootRow, root);
       const pageRows = (root.pages || []).map((page) => this.makeRow({
         id: makePageName(page.name),
@@ -215,13 +215,13 @@ export default {
         const res = await request.get(formatConfigPath(row.path));
         let parsed;
         try {
-          parsed = JsYaml.load(res.data) || {};
+          parsed = yamlLoad(res.data) || {};
         } catch (parseErr) {
           row.status = 'error';
           ErrorHandler(`Sub-config parse failed: ${row.path}`, parseErr);
           return;
         }
-        row.yamlText = typeof res.data === 'string' ? res.data : JsYaml.dump(parsed);
+        row.yamlText = typeof res.data === 'string' ? res.data : yamlDump(parsed);
         row.title = parsed.pageInfo?.title || row.title || row.path;
         this.applyValidation(row, parsed);
       } catch (fetchErr) {

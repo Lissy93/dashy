@@ -1,4 +1,4 @@
-import yaml from 'js-yaml';
+import { load as yamlLoad } from 'js-yaml';
 import request from '@/utils/request';
 import i18n from '@/utils/i18n';
 import { statusMsg, statusErrorMsg } from '@/utils/logging/CoolConsole';
@@ -11,7 +11,7 @@ const UPDATE_CHECK_INTERVAL_MS = 60 * 60 * 1000; // hourly
 const loadAppConfig = async () => {
   try {
     const { data } = await request.get('/conf.yml');
-    return yaml.load(data) || null;
+    return yamlLoad(data) || null;
   } catch (e) {
     statusErrorMsg(SW_LABEL, 'Failed to load config for SW check', e);
     return null;

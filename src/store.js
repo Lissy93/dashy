@@ -1,6 +1,6 @@
  
 import { createStore } from 'vuex';
-import yaml from 'js-yaml';
+import { load as yamlLoad } from 'js-yaml';
 import request from '@/utils/request';
 import Keys from '@/utils/StoreMutations';
 import {
@@ -438,7 +438,7 @@ const store = createStore({
         const response = await request.get(configFilePath, makeBasicAuthHeaders());
         let data;
         try {
-          data = yaml.load(response.data);
+          data = yamlLoad(response.data);
         } catch (parseError) {
           commit(CRITICAL_ERROR_MSG, `Failed to parse YAML: ${parseError.message}`);
           return { ...emptyConfig };
@@ -501,7 +501,7 @@ const store = createStore({
         }
         let subFile;
         try {
-          subFile = yaml.load(response.data) || {};
+          subFile = yamlLoad(response.data) || {};
         } catch (parseError) {
           commit(CRITICAL_ERROR_MSG, `Failed to parse sub-config YAML: ${parseError.message}`);
           return { ...emptyConfig };
