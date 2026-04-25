@@ -145,7 +145,7 @@
     "options-tooltip": "Options"
   },
   "updates": {
-    "app-version-note": "Dashy version",
+    "app-version-note": "Running Dashy version",
     "up-to-date": "Up-to-Date",
     "out-of-date": "Update Available",
     "unsupported-version-l1": "You are using an unsupported version of Dashy",

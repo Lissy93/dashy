@@ -354,8 +354,16 @@ export default {
     max-width: 50rem;
     margin: 0 auto;
     width: 100%;
-    button { flex: 1 1 10rem; margin: 0; }
-    @include tablet-down { flex-direction: column; }
+    button {
+        flex: 1 1 10rem;
+        margin: 0;
+    }
+    @include tablet-down {
+        flex-direction: column;
+        button {
+            flex: none;
+        }
+    }
   }
 
   .collapsible-header {

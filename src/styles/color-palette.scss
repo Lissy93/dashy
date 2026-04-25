@@ -39,9 +39,9 @@
   /* Color variables for specific components
   * all variables are optional, since they inherit initial values from above*
   * Using specific variables makes overriding for custom themes really easy */
-  --heading-text-color: var(--primary);
+  --heading-text-color: var(--foreground);
   // Nav-bar links
-  --nav-link-text-color: var(--primary);
+  --nav-link-text-color: var(--foreground);
   --nav-link-background-color: #607d8b33;
   --nav-link-text-color-hover: var(--primary);
   --nav-link-background-color-hover: #607d8b33;
@@ -50,7 +50,7 @@
   --nav-link-shadow: 1px 1px 2px #232323;
   --nav-link-shadow-hover: 1px 1px 2px #232323;
   // Link items and sections
-  --item-text-color: var(--primary);
+  --item-text-color: var(--foreground);
   --item-text-color-hover: var(--item-text-color);
   --item-group-outer-background: var(--primary);
   --item-group-heading-text-color: var(--item-group-background);
@@ -59,14 +59,14 @@
   --settings-text-color: var(--primary);
   --settings-background: var(--background);
   // Config menu
-  --config-settings-color: var(--primary);
+  --config-settings-color: var(--foreground);
   --config-settings-background: var(--background-darker);
-  --config-code-color: var(--background);
+  --config-code-color: var(--black);
   --config-code-background: var(--white);
   --code-editor-color: var(--black);
   --code-editor-background: var(--white);
   // Widgets
-  --widget-text-color: var(--primary);
+  --widget-text-color: var(--foreground);
   --widget-background-color: var(--background-darker);
   --widget-accent-color: var(--background);
   --widget-base-background: transparent;
@@ -99,19 +99,19 @@
   // Minimal view
   --minimal-view-background-color: var(--background);
   --minimal-view-title-color: var(--primary);
-  --minimal-view-settings-color: var(--primary);
-  --minimal-view-section-heading-color: var(--primary);
+  --minimal-view-settings-color: var(--foreground);
+  --minimal-view-section-heading-color: var(--foreground);
   --minimal-view-section-heading-background: var(--background-darker);
   --minimal-view-search-background: var(--background-darker);
-  --minimal-view-search-color: var(--primary);
-  --minimal-view-group-color: var(--primary);
+  --minimal-view-search-color: var(--foreground);
+  --minimal-view-group-color: var(--foreground);
   --minimal-view-group-background: var(--background-darker);
   // Login page
   --login-form-color: var(--primary);
   --login-form-background: var(--background);
   --login-form-background-secondary: var(--background-darker);
   // About page
-  --about-page-color: var(--white);
+  --about-page-color: var(--foreground);
   --about-page-background: var(--background);
   --about-page-accent: var(--primary);
   // Webpage colors, highlight, scrollbar

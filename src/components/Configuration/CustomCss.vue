@@ -81,7 +81,7 @@ export default {
     },
     /* Reload the page (only called if removing styles) */
     reloadPage() {
-      setTimeout(() => { location.reload(); }, 1500);  
+      setTimeout(() => { location.reload(); }, 1500);
     },
     /* Show success toast and lot update */
     showSuccessMsg() {
@@ -99,6 +99,7 @@ div.css-editor-outer {
   padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
+  color: var(--foreground);
 
   .style-section {
     padding: 1rem;
@@ -158,6 +159,7 @@ p.quick-note {
 
 // Base Theme Selector
 .base-theme-wrapper {
+  margin: 0 auto;
   span.theme-label {
     display: none;
   }

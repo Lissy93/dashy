@@ -46,20 +46,23 @@
             <IconAbout class="button-icon" />
           </Button>
           <!-- Display app version and language -->
-          <p class="language">{{ getLanguage() }}</p>
-          <!-- Display location of config file -->
-          <p class="config-location">
-            Using config from
-            <a :href="configPath">{{ configPath }}</a>
-          </p>
-          <AppVersion />
+          <div class="instance-info">
+            <p class="language-and-theme">
+                {{ getLanguage() }}
+                •
+                {{ currentTheme ? `🎨 ${currentTheme}` : '' }}
+            </p>
+            <!-- Display location of config file -->
+            <p class="config-location">
+                Using config from
+                <a :href="configPath">{{ configPath }}</a>
+            </p>
+            <AppVersion :doUpdateCheck="false" />
+          </div>
         </div>
         <!-- Display note if Config disabled, or if on mobile -->
         <p v-if="!enableConfig" class="config-disabled-note">{{ $t('config.disabled-note') }}</p>
         <p class="small-screen-note" style="display: none;">{{ $t('config.small-screen-note') }}</p>
-        <div class="config-note" @click="openExportConfigModal">
-          <span>{{ $t('config.backup-note') }}</span>
-        </div>
       </div>
     </TabItem>
     <TabItem :name="$t('config.edit-config-tab')" v-if="enableConfig">
@@ -136,6 +139,9 @@ export default {
       || import.meta.env.VITE_APP_CONFIG_PATH
       || '/conf.yml';
     },
+    currentTheme() {
+        return this.$store.getters.appConfig?.theme || '';
+    }
   },
   components: {
     Tabs,
@@ -197,7 +203,7 @@ export default {
     resetLocalSettings() {
       const msg = `${this.$t('config.reset-config-msg-l1')} `
       + `${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
-      const isTheUserSure = confirm(msg);  
+      const isTheUserSure = confirm(msg);
       if (isTheUserSure) {
         clearScopedLocalConfig(this.$store.getters.pages);
         this.$toast(this.$t('config.data-cleared-msg'));
@@ -264,15 +270,25 @@ a.hyperlink-wrapper {
   width: 100%;
 }
 
-p.app-version, p.language, p.config-location {
-  margin: 0.5rem auto;
-  font-size: 1rem;
-  color: var(--config-settings-color);
-  cursor: default;
-  opacity: var(--dimming-factor);
-  a {
-    color: var(--config-settings-color);
-  }
+.instance-info {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.25rem;
+    flex-direction: column;
+    align-items: center;
+    p.app-version, p.language-and-theme, p.config-location {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--config-settings-color);
+      cursor: default;
+      opacity: var(--dimming-factor);
+      a {
+        color: var(--config-settings-color);
+      }
+    }
+    p.language-and-theme {
+        text-transform: capitalize;
+    }
 }
 
 div.code-container {

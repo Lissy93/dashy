@@ -2,6 +2,7 @@ html[data-theme='callisto'] {
   --primary: #00CCB4;
   --background: #141b33;
   --background-darker: #060913;
+  --foreground: #dedede;
   --item-group-background: #0b1021;
   --item-background: var(--background);
   --item-background-hover: var(--background-darker);
@@ -9,4 +10,3 @@ html[data-theme='callisto'] {
   --font-body: 'Inconsolata', 'Georgia', sans-serif;
   --font-headings: 'PTMono', 'Courier New', monospace;
 }
-
