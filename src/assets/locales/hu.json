@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "App Info",
-    "error-log": "Hibanapló",
-    "no-errors": "Nem található friss hiba",
-    "help-support": "Súgó és támogatás",
-    "help-support-description": "Ha segítségre van szükséged a Dashy futtatásához vagy beállításához, nézd meg a",
-    "help-support-discussions": "fórumot",
     "support-dashy": "Dashy támogatása",
     "support-dashy-description": "Ha szeretnél részt venni a projektben, nézd meg a",
     "support-dashy-link": "közreműködők oldalát",

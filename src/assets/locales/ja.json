@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "アプリ情報",
-    "error-log": "エラーログ",
-    "no-errors": "エラーはありません",
-    "help-support": "ヘルプとサポート",
-    "help-support-description": "Dashyの実行や設定についてサポートが必要な場合は、こちらをご覧ください: ",
-    "help-support-discussions": "Discussions",
     "support-dashy": "Dashyを支援",
     "support-dashy-description": "参加する方法を知るには、こちらをご覧ください: ",
     "support-dashy-link": "コントリビューションページ",

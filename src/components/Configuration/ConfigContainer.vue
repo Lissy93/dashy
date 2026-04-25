@@ -6,7 +6,7 @@
         <div class="config-buttons">
           <h2>{{ $t('config.heading') }}</h2>
           <!-- Export config button -->
-          <Button class="config-button" :disallow="!enableConfig" :click="openExportConfigModal">
+          <Button class="config-button" :disallow="!enableConfig" :click="openExportConfigTab">
             {{ $t('config.download-config-button') }}
             <DownloadIcon class="button-icon"/>
           </Button>
@@ -40,6 +40,11 @@
             {{ $t('config.reset-settings-button') }}
             <DeleteIcon class="button-icon"/>
           </Button>
+          <!-- Debug info button -->
+          <Button class="config-button" :click="openDebugTab">
+            {{ $t('config.debug-info-button') }}
+            <DebugIcon class="button-icon" />
+          </Button>
           <!-- About modal button -->
           <Button class="config-button" :click="openAboutTab">
             {{ $t('config.app-info-button') }}
@@ -49,8 +54,7 @@
           <div class="instance-info">
             <p class="language-and-theme">
                 {{ getLanguage() }}
-                •
-                {{ currentTheme ? `🎨 ${currentTheme}` : '' }}
+                {{ currentTheme ? `• 🎨 ${currentTheme}` : '' }}
             </p>
             <!-- Display location of config file -->
             <p class="config-location">
@@ -65,20 +69,26 @@
         <p class="small-screen-note" style="display: none;">{{ $t('config.small-screen-note') }}</p>
       </div>
     </TabItem>
-    <TabItem :name="$t('config.edit-config-tab')" v-if="enableConfig">
+    <TabItem id="edit" :name="$t('config.edit-config-tab')" v-if="enableConfig">
       <JsonEditor />
     </TabItem>
-    <TabItem :name="$t('cloud-sync.title')" v-if="enableConfig">
-      <CloudBackupRestore />
+    <TabItem id="export" :name="$t('config.view-config-tab')" v-if="enableConfig">
+      <ExportConfigMenu @navigate-tab="navigateToTabById" />
     </TabItem>
-    <TabItem :name="$t('config.custom-css-tab')" v-if="enableConfig">
+    <TabItem id="css" :name="$t('config.custom-css-tab')" v-if="enableConfig">
       <CustomCssEditor />
     </TabItem>
-    <TabItem :name="$t('config.rebuild-app-button')" v-if="enableConfig">
-      <RebuildApp />
+    <TabItem id="debug" :name="$t('config.debug-info-button')" hidden>
+      <DebugInfo />
     </TabItem>
-    <TabItem :name="$t('config.app-info-button')">
-      <AppInfo />
+    <TabItem id="about" :name="$t('config.app-info-button')" hidden>
+      <AppInfo @navigate-tab="navigateToTabById" />
+    </TabItem>
+    <TabItem id="cloud" :name="$t('cloud-sync.title')" v-if="enableConfig" hidden>
+      <CloudBackupRestore />
+    </TabItem>
+    <TabItem id="rebuild" :name="$t('config.rebuild-app-button')" v-if="enableConfig" hidden>
+      <RebuildApp />
     </TabItem>
   </Tabs>
 </template>
@@ -94,7 +104,9 @@ import CustomCssEditor from '@/components/Configuration/CustomCss';
 import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
 import RebuildApp from '@/components/Configuration/RebuildApp';
 import AppInfo from '@/components/Configuration/AppInfo';
+import DebugInfo from '@/components/Configuration/DebugInfo';
 import AppVersion from '@/components/Configuration/AppVersion';
+import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu';
 import Button from '@/components/FormElements/Button';
 import Tabs from '@/components/FormElements/Tabs';
 import TabItem from '@/components/FormElements/TabItem';
@@ -106,6 +118,7 @@ import CloudIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
 import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
 import LanguageIcon from '@/assets/interface-icons/config-language.svg';
 import IconAbout from '@/assets/interface-icons/application-about.svg';
+import DebugIcon from '@/assets/interface-icons/config-debug-menu.svg';
 
 const EditorLoading = {
   render: () => h('p', { class: 'editor-loading-placeholder' }, 'Loading editor…'),
@@ -152,7 +165,9 @@ export default {
     CloudBackupRestore,
     RebuildApp,
     AppInfo,
+    DebugInfo,
     AppVersion,
+    ExportConfigMenu,
     DownloadIcon,
     DeleteIcon,
     EditIcon,
@@ -161,6 +176,7 @@ export default {
     LanguageIcon,
     RebuildIcon,
     IconAbout,
+    DebugIcon,
   },
   methods: {
     /* Progamatically navigates to a given tab by index */
@@ -168,35 +184,44 @@ export default {
       const itemToSelect = this.$refs.tabView.navItems[tabInxex];
       this.$refs.tabView.activeTabItem(itemToSelect);
     },
+    /* Navigates to a tab by its id */
+    navigateToTabById(id) {
+      if (!id) return;
+      const items = this.$refs.tabView?.navItems || [];
+      const index = items.findIndex((t) => t.id === id);
+      if (index >= 0) this.navigateToTab(index);
+    },
     openRebuildAppTab() {
       if (this.enableConfig) {
-        this.navigateToTab(4);
+        this.navigateToTabById('rebuild');
       } else {
         this.unauthorized();
       }
     },
     openAboutTab() {
-      const lastIndex = this.$refs.tabView.navItems.length - 1;
-      this.navigateToTab(lastIndex);
+      this.navigateToTabById('about');
+    },
+    openDebugTab() {
+      this.navigateToTabById('debug');
     },
     openLanguageSwitchModal() {
       this.$modal.show(modalNames.LANG_SWITCHER);
     },
-    openExportConfigModal() {
+    openExportConfigTab() {
       if (this.enableConfig) {
-        this.$modal.show(modalNames.EXPORT_CONFIG_MENU);
+        this.navigateToTabById('export');
       } else {
         this.unauthorized();
       }
     },
     openEditConfigTab() {
-      this.navigateToTab(1);
+      this.navigateToTabById('edit');
     },
     openCloudSyncTab() {
-      this.navigateToTab(2);
+      this.navigateToTabById('cloud');
     },
     openEditCssTab() {
-      this.navigateToTab(3);
+      this.navigateToTabById('css');
     },
     /* Clears config-scoped localStorage entries for root + all sub-pages, then reloads config.
      * Preserves unrelated keys (auth tokens, backup hashes, mostUsed etc) */
@@ -214,11 +239,15 @@ export default {
       const lang = getUsersLanguage();
       return lang ? `${lang.flag} ${lang.name}` : '';
     },
-    /* If launching menu from editor, navigate to correct starting tab */
+    /* If launching menu from editor, navigate to correct starting tab.
+     * Accepts either a numeric index (legacy) or a stable tab id string. */
     navigateToStartingTab() {
-      const navToTab = this.$store.state.navigateConfToTab;
-      const isValidTabIndex = (indx) => typeof indx === 'number' && indx >= 0 && indx <= 5;
-      if (navToTab && isValidTabIndex(navToTab)) this.navigateToTab(navToTab);
+      const navTo = this.$store.state.navigateConfToTab;
+      if (typeof navTo === 'string' && navTo) {
+        this.navigateToTabById(navTo);
+      } else if (typeof navTo === 'number' && navTo >= 0) {
+        this.navigateToTab(navTo);
+      }
       this.$store.commit(StoreKeys.CONF_MENU_INDEX, undefined);
     },
     unauthorized() {

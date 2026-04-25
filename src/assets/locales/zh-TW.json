@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "應用程式資訊",
-    "error-log": "錯誤紀錄",
-    "no-errors": "近期未偵測到錯誤",
-    "help-support": "幫助與支援",
-    "help-support-description": "關於取得執行或設定 Dashy 的支援，請前往",
-    "help-support-discussions": "討論區",
     "support-dashy": "支持 Dashy",
     "support-dashy-description": "您也能幫助 Dashy！請參閱",
     "support-dashy-link": "貢獻頁面",

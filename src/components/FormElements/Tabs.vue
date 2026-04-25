@@ -3,6 +3,7 @@
     <div class="tab__pagination" role="tablist">
       <button
         v-for="(item, index) in navItems"
+        v-show="!item.hidden"
         :key="index"
         class="tab__nav__item"
         :class="{ active: activeIndex === index }"
@@ -37,19 +38,22 @@ export default {
       if (!defaultSlot) return [];
       const vnodes = defaultSlot();
       const items = [];
+      const push = (node) => {
+        if (!node.props?.name) return;
+        items.push({
+          name: node.props.name,
+          id: node.props.id || '',
+          hidden: node.props.hidden === '' || node.props.hidden === true,
+          vnode: { render: () => h(node) },
+        });
+      };
       vnodes.forEach((vnode) => {
         if (!vnode.type || vnode.type === Symbol.for('v-cmt')) return;
         if (vnode.type === Symbol.for('v-fgt') && Array.isArray(vnode.children)) {
-          vnode.children.forEach((child) => {
-            if (child.props?.name) {
-              items.push({ name: child.props.name, vnode: { render: () => h(child) } });
-            }
-          });
+          vnode.children.forEach(push);
           return;
         }
-        if (vnode.props?.name) {
-          items.push({ name: vnode.props.name, vnode: { render: () => h(vnode) } });
-        }
+        push(vnode);
       });
       return items;
     },
@@ -60,14 +64,19 @@ export default {
       if (index >= 0) this.activeIndex = index;
     },
     onKeydown(e, index) {
-      const len = this.navItems.length;
-      let next = -1;
-      if (e.key === 'ArrowRight') next = (index + 1) % len;
-      else if (e.key === 'ArrowLeft') next = (index - 1 + len) % len;
-      else if (e.key === 'Home') next = 0;
-      else if (e.key === 'End') next = len - 1;
-      if (next >= 0) {
+      const visible = this.navItems
+        .map((item, i) => ({ item, i }))
+        .filter(({ item }) => !item.hidden);
+      if (!visible.length) return;
+      const pos = visible.findIndex(({ i }) => i === index);
+      let nextPos = -1;
+      if (e.key === 'ArrowRight') nextPos = (pos + 1) % visible.length;
+      else if (e.key === 'ArrowLeft') nextPos = (pos - 1 + visible.length) % visible.length;
+      else if (e.key === 'Home') nextPos = 0;
+      else if (e.key === 'End') nextPos = visible.length - 1;
+      if (nextPos >= 0) {
         e.preventDefault();
+        const next = visible[nextPos].i;
         this.activeIndex = next;
         this.$el.querySelectorAll('[role="tab"]')[next]?.focus();
       }

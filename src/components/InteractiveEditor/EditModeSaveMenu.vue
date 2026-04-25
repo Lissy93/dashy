@@ -163,7 +163,8 @@ export default {
       this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
     },
     openExportConfigMenu() {
-      this.$modal.show(modalNames.EXPORT_CONFIG_MENU);
+      this.$store.commit(StoreKeys.CONF_MENU_INDEX, 2);
+      this.$modal.show(modalNames.CONF_EDITOR);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
     },
     openEditPageInfo() {

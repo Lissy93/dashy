@@ -92,11 +92,6 @@ const router = createRouter({
         next();
       },
     },
-    { // The about app page
-      path: routePaths.about,
-      name: 'about', // We lazy load the About page so as to not slow down the app
-      component: () => import('./views/About.vue'),
-    },
     { // The export config page
       path: routePaths.download,
       name: 'download',

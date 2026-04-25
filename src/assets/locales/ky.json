@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "Тиркеме жөнүндө маалымат",
-    "error-log": "Каталар журналы",
-    "no-errors": "Жакында каталар аныкталган жок",
-    "help-support": "Жардам жана колдоо",
-    "help-support-description": "Dashy'ди иштетүү же конфигурациялоо боюнча жардам алуу үчүн төмөнкүгө кайрылыңыз",
-    "help-support-discussions": "Талкуулар",
     "support-dashy": "Dashy'ди колдоо",
     "support-dashy-description": "Катышуунун жолдору жөнүндө маалымат алуу үчүн",
     "support-dashy-link": "Салым кошкондор бети",

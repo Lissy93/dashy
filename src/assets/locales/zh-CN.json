@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "应用信息",
-    "error-log": "错误日志",
-    "no-errors": "未检测到最近的错误",
-    "help-support": "帮助与支持",
-    "help-support-description": "如需有关Dashy运行或配置的支持，请查看",
-    "help-support-discussions": "讨论",
     "support-dashy": "支持Dashy",
     "support-dashy-description": "了解参与Dashy项目的方式，请查看",
     "support-dashy-link": "贡献页面",

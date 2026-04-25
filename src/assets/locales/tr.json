@@ -47,11 +47,6 @@
   },
   "app-info": {
     "title": "Uygulama Bilgisi",
-    "error-log": "Hata Günlüğü",
-    "no-errors": "Son zamanlarda hata tespit edilmedi",
-    "help-support": "Yardım ve Destek",
-    "help-support-description": "Dashy'nin çalıştırılması veya yapılandırılması konusunda destek almak için şuraya bakın:",
-    "help-support-discussions": "Tartışmalar",
     "support-dashy": "Dashy'yi Destekleyin",
     "support-dashy-description": "Katkıda bulunabileceğiniz yollar için şuraya göz atın:",
     "support-dashy-link": "Katkı sayfası",

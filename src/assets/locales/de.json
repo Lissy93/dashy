@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "App Info",
-    "error-log": "Fehlerprotokoll",
-    "no-errors": "Keine kürzlichen Fehler erkannt",
-    "help-support": "Hilfe & Support",
-    "help-support-description": "Um beim Betrieb oder der Konfiguration von Dashy Hilfe zu bekommen, siehe die",
-    "help-support-discussions": "Diskussionen",
     "support-dashy": "Dashy unterstützen",
     "support-dashy-description": "Für Wege, sich zu beteiligen, besuchen Sie die",
     "support-dashy-link": "Contributions Seite",

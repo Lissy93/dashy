@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "Información da aplicación",
-    "error-log": "Rexistro de erros",
-    "no-errors": "Non se detectaron erros recentes",
-    "help-support": "Axuda e soporte",
-    "help-support-description": "Para obter axuda sobre a execución ou configuración de Dashy, consulta as",
-    "help-support-discussions": "Discusións",
     "support-dashy": "Apoia Dashy",
     "support-dashy-description": "Para saber como participar, consulta a páxina de",
     "support-dashy-link": "Contribucións",

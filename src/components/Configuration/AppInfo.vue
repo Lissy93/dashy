@@ -1,55 +1,71 @@
 <template>
   <div class="about-modal">
-    <router-link to="/about" class="title"><h2>{{ $t('app-info.title') }}</h2></router-link>
-    <!-- Error Log -->
-    <h3>{{ $t('app-info.error-log') }}</h3>
-    <pre v-if="errorLog" class="logs"><code>{{ errorLog }}</code></pre>
-    <p v-else>{{ $t('app-info.no-errors') }} :)</p>
-    <hr />
-    <!-- Getting Help -->
-    <h3>{{ $t('app-info.help-support') }}</h3>
-    {{ $t('app-info.help-support-description') }} <a href="https://github.com/Lissy93/dashy/discussions">{{ $t('app-info.help-support-discussions') }}</a>
-    <!-- Please help out :) -->
-    <h3>{{ $t('app-info.support-dashy') }}</h3>
-    {{ $t('app-info.support-dashy-description') }} <a href="https://github.com/Lissy93/dashy/blob/master/docs/contributing.md">{{ $t('app-info.support-dashy-link') }}</a>.
-    <!-- Bug Reports -->
-    <h3>{{ $t('app-info.report-bug') }}</h3>
-    {{ $t('app-info.report-bug-description') }} <a href="https://github.com/Lissy93/dashy/issues/new/choose">{{ $t('app-info.report-bug-link') }}</a>.
+    <h2 class="title">{{ $t('app-info.title') }}</h2>
     <!-- Source and Docs Links -->
     <h3>{{ $t('app-info.more-info') }}</h3>
-    {{ $t('app-info.source') }}: <a href="https://github.com/lissy93/dashy">github.com/lissy93/dashy</a><br>
-    {{ $t('app-info.documentation') }}: <a href="https://dashy.to/docs">dashy.to/docs</a>
+    {{ $t('app-info.source') }}:
+    <a href="https://github.com/lissy93/dashy"
+      target="_blank" rel="noopener noreferrer">github.com/lissy93/dashy</a><br>
+    {{ $t('app-info.documentation') }}:
+    <a href="https://dashy.to/docs"
+      target="_blank" rel="noopener noreferrer">dashy.to/docs</a>
+    <!-- Bug Reports -->
+    <h3>{{ $t('app-info.report-bug') }}</h3>
+    {{ $t('app-info.report-bug-description') }}
+    <a href="#"
+      @click.prevent="$emit('navigate-tab', 'debug')">{{
+        $t('app-info.report-bug-debug-link') }}</a>
+    {{ $t('app-info.report-bug-middle') }}
+    <a href="https://github.com/Lissy93/dashy/issues/new/choose"
+      target="_blank" rel="noopener noreferrer">{{ $t('app-info.report-bug-link') }}</a>.
+    <!-- Please, I really need to pay my rent! -->
+    <h3>{{ $t('app-info.sponsor-heading') }}</h3>
+    {{ $t('app-info.sponsor-l1-prefix') }}
+    <a href="https://github.com/sponsors/Lissy93"
+      target="_blank" rel="noopener noreferrer">{{ $t('app-info.sponsor-l1-link') }}</a>
+    {{ $t('app-info.sponsor-l1-suffix') }}
     <!-- Privacy & Security -->
     <h3>{{ $t('app-info.privacy-and-security') }}</h3>
-    {{ $t('app-info.privacy-and-security-l1') }} <a href="https://github.com/Lissy93/dashy/blob/master/docs/privacy.md">{{ $t('app-info.privacy-and-security-privacy-policy') }}</a>.<br>
+    {{ $t('app-info.privacy-and-security-l1') }}
+    <a href="https://dashy.to/docs/privacy"
+      target="_blank" rel="noopener noreferrer">{{
+        $t('app-info.privacy-and-security-privacy-policy') }}</a>.
+    <br>
     {{ $t('app-info.privacy-and-security-advice') }}
-    <a href="https://github.com/Lissy93/dashy/blob/master/docs/management.md">{{ $t('app-info.privacy-and-security-advice-link') }}</a>.<br>
+    <a href="https://dashy.to/docs/management"
+      target="_blank" rel="noopener noreferrer">{{
+        $t('app-info.privacy-and-security-advice-link') }}</a>.
+    <br>
     {{ $t('app-info.privacy-and-security-security-issue') }}
-    <a href="https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md">{{ $t('app-info.privacy-and-security-security-policy') }}</a>
+    <a href="https://github.com/Lissy93/dashy/blob/master/.github/SECURITY.md"
+      target="_blank" rel="noopener noreferrer">{{
+        $t('app-info.privacy-and-security-security-policy') }}</a>
     <!-- License -->
     <h3>{{ $t('app-info.license') }}</h3>
-    {{ $t('app-info.license-under') }} <a href="https://github.com/Lissy93/dashy/blob/master/LICENSE">MIT X11</a>.
-    Copyright <a href="https://aliciasykes.com">Alicia Sykes</a> &copy; {{new Date().getFullYear()}}.<br>
-    {{ $t('app-info.licence-third-party') }} <a href="https://github.com/Lissy93/dashy/blob/master/.github/LEGAL.md">{{ $t('app-info.licence-third-party-link') }}</a>.<br>
-    {{ $t('app-info.list-contributors') }} <a href="https://github.com/Lissy93/dashy/blob/master/docs/credits.md">{{ $t('app-info.list-contributors-link') }}</a>.
+    {{ $t('app-info.license-under') }}
+    <a href="https://github.com/Lissy93/dashy/blob/master/LICENSE"
+      target="_blank" rel="noopener noreferrer">MIT X11</a>.
+    Copyright
+    <a href="https://aliciasykes.com"
+      target="_blank" rel="noopener noreferrer">Alicia Sykes</a>
+    &copy; {{ new Date().getFullYear() }}.<br>
+    {{ $t('app-info.list-contributors') }}
+    <a href="https://github.com/Lissy93/dashy/blob/master/docs/credits.md"
+      target="_blank" rel="noopener noreferrer">{{
+        $t('app-info.list-contributors-link') }}</a>.
     <!-- App Version -->
     <h3>{{ $t('app-info.version') }}</h3>
-    <AppVersion class="app-version" />
+    <AppVersion class="app-version" :doUpdateCheck="false" />
   </div>
 </template>
 
 <script>
 import AppVersion from '@/components/Configuration/AppVersion';
-import { sessionStorageKeys } from '@/utils/config/defaults';
 
 export default {
   name: 'AppInfo',
+  emits: ['navigate-tab'],
   components: { AppVersion },
-  data() {
-    return {
-      errorLog: sessionStorage.getItem(sessionStorageKeys.ERROR_LOG) || '',
-    };
-  },
 };
 </script>
 
@@ -61,10 +77,7 @@ div.about-modal {
   padding: 0 1rem;
   height: 100%;
   p, ul li, a { font-size: 1rem; }
-  a.title {
-    text-decoration: none;
-    h2 { font-size: 1.8rem; text-align: center; margin: 1rem; }
-  }
+  h2.title { font-size: 1.8rem; text-align: center; margin: 1rem; }
   h3 {
     font-size: 1.2rem;
     margin: 0.75rem 0 0.2rem 0;
@@ -73,17 +86,6 @@ div.about-modal {
   }
   a { color: var(--config-settings-color); }
   .app-version { text-align: left; }
-  pre.logs {
-    max-height: 200px;
-    overflow-y: auto;
-    padding: 1rem;
-    font-size: 0.75rem;
-    border-radius: var(--curve-factor-small);
-    text-align: left;
-    color: var(--white);
-    background: var(--black);
-    white-space: pre-wrap;
-  }
 }
 </style>
 
@@ -92,6 +94,10 @@ div.about-modal .app-version {
   text-align: left;
   display: flex;
   align-items: self-end;
-  p { margin: 0; }
+  p {
+      color: var(--config-settings-color);
+      font-size: 1rem;
+      margin: 0;
+  }
 }
 </style>

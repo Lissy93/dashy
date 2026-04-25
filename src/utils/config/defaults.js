@@ -31,7 +31,6 @@ const defaults = {
     home: '/home',
     minimal: '/minimal',
     workspace: '/workspace',
-    about: '/about',
     login: '/login',
     download: '/download',
     notFound: '/404',
@@ -114,7 +113,7 @@ const defaults = {
     ['#636363', '#363636', '#313941', '#0d0d0d'],
   ],
   /* Which CSS variables to show in the first view of theme configurator */
-  mainCssVars: ['primary', 'background', 'background-darker'],
+  mainCssVars: ['primary', 'foreground', 'background', 'background-darker'],
   /* Which structural components should be visible by default */
   visibleComponents: {
     splashScreen: false,
@@ -168,7 +167,6 @@ const defaults = {
     EDIT_PAGE_INFO: 'EDIT_PAGE_INFO',
     EDIT_APP_CONFIG: 'EDIT_APP_CONFIG',
     EDIT_MULTI_PAGES: 'EDIT_MULTI_PAGES',
-    EXPORT_CONFIG_MENU: 'EXPORT_CONFIG_MENU',
     MOVE_ITEM_TO: 'MOVE_ITEM_TO',
   },
   /* Key names for the top-level objects in conf.yml */

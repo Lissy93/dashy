@@ -125,6 +125,8 @@ dialog.dashy-modal {
   min-height: 200px;
   max-width: 95vw;
   max-height: 95vh;
+  max-width: 72rem;
+  max-height: 72rem;
   color: inherit;
   background: var(--background-darker);
   border: none;

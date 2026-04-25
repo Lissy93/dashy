@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "Информация о Приложении",
-    "error-log": "Журнал Ошибок",
-    "no-errors": "Ошибок не зафиксировано",
-    "help-support": "Помощь и Поддержка",
-    "help-support-description": "Для получения поддержки в запуске и настройке Dashy, обратитесь за помощью на",
-    "help-support-discussions": "страницу Discussions",
     "support-dashy": "Поддержать Dashy",
     "support-dashy-description": "Если вы хотите поддержать проект, пожалуйста посетите страницу",
     "support-dashy-link": "Contributions",

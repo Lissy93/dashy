@@ -1,13 +1,5 @@
 <template>
-  <modal
-    :name="modalName"
-    :resizable="true"
-    width="75%"
-    height="75%"
-    classes="dashy-modal export-modal"
-    @before-open="buildRows"
-    @closed="modalClosed"
-  >
+  <div class="export-config-wrapper">
     <div class="export-config-inner" v-if="allowViewConfig">
       <section class="current-config">
         <h3>{{ $t('interactive-editor.export.current-config-title') }}</h3>
@@ -108,14 +100,12 @@
       </section>
     </div>
     <AccessError v-else />
-  </modal>
+  </div>
 </template>
 
 <script>
 import { load as yamlLoad, dump as yamlDump } from 'js-yaml';
 import Button from '@/components/FormElements/Button';
-import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/config/defaults';
 import AccessError from '@/components/Configuration/AccessError';
 import DownloadConfigIcon from '@/assets/interface-icons/config-download-file.svg';
 import CopyConfigIcon from '@/assets/interface-icons/interactive-editor-copy-clipboard.svg';
@@ -142,6 +132,7 @@ const basename = (path) => {
 
 export default {
   name: 'ExportConfigMenu',
+  emits: ['navigate-tab'],
   components: {
     Button,
     AccessError,
@@ -152,11 +143,13 @@ export default {
   },
   data() {
     return {
-      modalName: modalNames.EXPORT_CONFIG_MENU,
       previewOpen: false,
       expandedRow: null,
       rows: [],
     };
+  },
+  mounted() {
+    this.buildRows();
   },
   computed: {
     config() {
@@ -285,20 +278,13 @@ export default {
     },
     openConfig(row) {
       const target = makeRoutePath('home', row.isRoot ? null : row.id);
-      // this.$modal.hide(this.modalName);
       if (this.$route.path !== target) this.$router.push(target);
     },
     editCurrent() {
-      this.$modal.hide(this.modalName);
-      this.$store.commit(StoreKeys.CONF_MENU_INDEX, 2);
-      this.$modal.show(modalNames.CONF_EDITOR);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+      this.$emit('navigate-tab', 'edit');
     },
     rawPathHref(row) {
       return formatConfigPath(row.path);
-    },
-    modalClosed() {
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
     },
     tooltip(content) {
       return { content, popperClass: 'in-modal-tt' };
@@ -479,7 +465,4 @@ export default {
   }
 }
 
-.export-modal {
-  background: var(--interactive-editor-background);
-}
 </style>

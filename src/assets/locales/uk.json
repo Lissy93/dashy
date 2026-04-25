@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "Інформація про програму",
-    "error-log": "Журнал помилок",
-    "no-errors": "Останніх помилок не виявлено",
-    "help-support": "Допомога та підтримка",
-    "help-support-description": "Щоб отримати підтримку щодо запуску чи налаштування Dashy, див.",
-    "help-support-discussions": "Обговорення",
     "support-dashy": "Підтримка Dashy",
     "support-dashy-description": "Щоб дізнатися, як ви можете взяти участь, перегляньте",
     "support-dashy-link": "Сторінка внесків",

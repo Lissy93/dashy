@@ -41,7 +41,8 @@ export default {
   },
   methods: {
     exportConfig() {
-      this.$modal.show(modalNames.EXPORT_CONFIG_MENU);
+      this.$store.commit(StoreKeys.CONF_MENU_INDEX, 2);
+      this.$modal.show(modalNames.CONF_EDITOR);
       this.shouldHide = true;
     },
     saveConfig() {

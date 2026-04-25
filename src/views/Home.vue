@@ -43,8 +43,6 @@
     </div>
     <!-- Show banner at bottom of screen, for Saving config changes -->
     <EditModeSaveMenu v-if="isEditMode" />
-    <!-- Modal for viewing and exporting configuration file -->
-    <ExportConfigMenu />
     <!-- Shows pertinent info -->
     <NotificationThing v-if="$store.state.isUsingLocalConfig"/>
   </div>
@@ -65,7 +63,6 @@ import ErrorHandler from '@/utils/logging/ErrorHandler';
 import BackIcon from '@/assets/interface-icons/back-arrow.svg';
 
 const EditModeSaveMenu = defineAsyncComponent(() => import('@/components/InteractiveEditor/EditModeSaveMenu.vue'));
-const ExportConfigMenu = defineAsyncComponent(() => import('@/components/InteractiveEditor/ExportConfigMenu.vue'));
 const AddNewSection = defineAsyncComponent(() => import('@/components/InteractiveEditor/AddNewSectionLauncher.vue'));
 
 export default {
@@ -74,7 +71,6 @@ export default {
   components: {
     SettingsContainer,
     EditModeSaveMenu,
-    ExportConfigMenu,
     AddNewSection,
     NotificationThing,
     Section,

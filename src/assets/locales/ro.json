@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "Informații Aplicație",
-    "error-log": "Jurnal Erori",
-    "no-errors": "Nicio eroare recentă detectată",
-    "help-support": "Ajutor & Suport",
-    "help-support-description": "Pentru suport în utilizarea sau configurarea Dashy, consultați",
-    "help-support-discussions": "Discuțiile",
     "support-dashy": "Suport pentru Dashy",
     "support-dashy-description": "Pentru moduri în care poți contribui, verificați",
     "support-dashy-link": "Pagina de Contribuții",

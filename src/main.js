@@ -7,7 +7,7 @@ import VSelect from 'vue-select';       // Select dropdown component
 
 // Import base Dashy components and utils
 import Dashy from '@/App.vue';          // Main Dashy Vue app
-import Modal from '@/components/Modal.vue'; // In-house modal component
+import Modal from '@/components/FormElements/Modal.vue'; // In-house modal component
 import VModal from '@/plugins/modal';   // $modal.show()/hide() plugin
 import store from '@/store';            // Store, for local state management
 import router from '@/router';          // Router, for navigation
