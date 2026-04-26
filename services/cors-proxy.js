@@ -19,6 +19,30 @@ const BLOCKED_HOSTS = new Set([
 // Operator escape hatch, set this env var to bypass all proxy restrictions
 const restrictionsDisabled = !!process.env.DANGEROUSLY_DISABLE_PROXY_RESTRICTIONS;
 
+// If reference to env var is present, substitute for env var value if set
+const PLACEHOLDER_RE = /\b(?:DASHY_|VITE_APP_|VUE_APP_)\w+/g;
+const warnedPlaceholders = new Set();
+const resolvePlaceholder = (name) => {
+  const value = process.env[name];
+  if (value !== undefined) return value;
+  if (!warnedPlaceholders.has(name)) {
+    warnedPlaceholders.add(name);
+    // eslint-disable-next-line no-console
+    console.warn(`[cors-proxy] Env-var placeholder '${name}' is referenced but not set`);
+  }
+  return name;
+};
+const substituteEnv = (val) => {
+  if (typeof val === 'string') return val.replace(PLACEHOLDER_RE, resolvePlaceholder);
+  if (Array.isArray(val)) return val.map(substituteEnv);
+  if (val && typeof val === 'object') {
+    const out = {};
+    Object.keys(val).forEach((k) => { out[k] = substituteEnv(val[k]); });
+    return out;
+  }
+  return val;
+};
+
 // Validate the target URL against scheme and host policies
 // Returns { ok: true } on success, or { ok: false, status, error } on rejection
 const validateTargetUrl = (raw) => {
@@ -44,7 +68,7 @@ const validateTargetUrl = (raw) => {
   return { ok: true };
 };
 
-module.exports = (req, res) => {
+const handler = (req, res) => {
   // Apply allow-all response headers
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, PUT, PATCH, POST, DELETE');
@@ -58,12 +82,13 @@ module.exports = (req, res) => {
     return;
   }
 
-  // Get desired URL, from Target-URL header, and validate it against the policy
-  const targetURL = req.header('Target-URL');
-  if (!targetURL) {
+  // Get desired URL, resolve env-var placeholders, then validate against the policy.
+  const rawTargetURL = req.header('Target-URL');
+  if (!rawTargetURL) {
     res.status(400).send({ error: 'Missing required Target-URL header' });
     return;
   }
+  const targetURL = substituteEnv(rawTargetURL);
   const validation = validateTargetUrl(targetURL);
   if (!validation.ok) {
     res.status(validation.status).send({ error: validation.error });
@@ -75,7 +100,7 @@ module.exports = (req, res) => {
   const rawCustomHeaders = req.header('CustomHeaders');
   if (rawCustomHeaders) {
     try {
-      headers = JSON.parse(rawCustomHeaders);
+      headers = substituteEnv(JSON.parse(rawCustomHeaders));
     } catch (e) {
       res.status(400).send({ error: 'CustomHeaders header contains malformed JSON' });
       return;
@@ -86,7 +111,7 @@ module.exports = (req, res) => {
   const requestConfig = {
     method: req.method,
     url: targetURL,
-    data: req.body,
+    data: substituteEnv(req.body),
     headers,
     timeout: 30000,
     maxResponseSize: 10 * 1024 * 1024, // 10 MB
@@ -102,3 +127,6 @@ module.exports = (req, res) => {
     (error) => send(500, { error }),
   );
 };
+
+module.exports = handler;
+module.exports.substituteEnv = substituteEnv;

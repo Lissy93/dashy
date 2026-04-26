@@ -97,7 +97,7 @@ const WidgetMixin = {
     /* Used as v-tooltip, pass text content in, and will show on hover */
     tooltip(content, html = false) {
       return {
-        content, html, 
+        content, html,
       };
     },
     /* Makes data request, returns promise */
@@ -131,19 +131,13 @@ const WidgetMixin = {
           });
       });
     },
-    /* Check if a value is an environment variable, return its value if so. */
+    /* If the string is a build-time env-var placeholder, return its value
+     * Otherwise, will pass it through to the proxy for it to resolve server-side */
     parseAsEnvVar(str) {
       if (typeof str !== 'string') return str;
-      if (str.includes('VUE_APP_') || str.includes('VITE_APP_')) {
-        const envKey = str.replace(/^VUE_APP_/, 'VITE_APP_');
-        const envVar = import.meta.env[envKey];
-        if (!envVar) {
-          this.error(`Environment variable ${envKey} not found`);
-        } else {
-          return envVar;
-        }
-      }
-      return str;
+      if (!/^(?:VITE_APP_|VUE_APP_|DASHY_)/.test(str)) return str;
+      const envKey = str.replace(/^VUE_APP_/, 'VITE_APP_');
+      return import.meta.env[envKey] ?? str;
     },
   },
 };
