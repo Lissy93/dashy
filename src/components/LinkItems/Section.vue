@@ -60,14 +60,19 @@
       />
     </div>
     <div
-      v-if="hasWidgets"
+      v-if="hasWidgets || isEditMode"
       :class="`widget-list ${isWide? 'wide' : ''}`">
       <WidgetBase
         v-for="(widget, widgetIndx) in widgets"
         :key="widgetIndx"
         :widget="widget"
         :index="index"
+        @editWidget="openEditWidget(widgetIndx)"
+        @removeWidget="confirmRemoveWidget(widgetIndx)"
       />
+      <span v-if="isEditMode" class="add-widget-launcher" @click="openAddWidget">
+        <AddIcon /> {{ $t('interactive-editor.edit-widget.add-widget-btn') }}
+      </span>
     </div>
     <!-- Modal for opening in modal view -->
     <IframeModal
@@ -101,6 +106,20 @@
       :message="$t('interactive-editor.edit-section.remove-confirm')"
       @confirm="confirmRemoveSection"
     />
+    <!-- Edit widget menu -->
+    <EditWidget v-if="editWidgetMenuOpen"
+      :sectionIndex="index"
+      :widgetIndex="editingWidgetIndex"
+      :isAddNew="addingWidget"
+      @closeEditWidget="closeEditWidget"
+    />
+    <ConfirmDialog
+      v-model:open="showRemoveWidgetConfirm"
+      danger
+      :title="$t('interactive-editor.edit-widget.remove-widget')"
+      :message="$t('interactive-editor.edit-widget.remove-confirm')"
+      @confirm="doRemoveWidget"
+    />
   </Collapsable>
 </template>
 
@@ -114,8 +133,10 @@ import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
 import ConfirmDialog from '@/components/FormElements/ConfirmDialog.vue';
+import AddIcon from '@/assets/interface-icons/interactive-editor-add.svg';
 
 const EditSection = defineAsyncComponent(() => import('@/components/InteractiveEditor/EditSection.vue'));
+const EditWidget = defineAsyncComponent(() => import('@/components/InteractiveEditor/EditWidget.vue'));
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import sortItems from '@/utils/SortItems';
 import { makeRoutePath, viewFromPath } from '@/utils/config/ConfigHelpers';
@@ -144,7 +165,9 @@ export default {
     WidgetBase,
     IframeModal,
     EditSection,
+    EditWidget,
     ConfirmDialog,
+    AddIcon,
   },
   data() {
     return {
@@ -157,6 +180,11 @@ export default {
       sectionWidth: 0,
       resizeObserver: null,
       showRemoveConfirm: false,
+      editWidgetMenuOpen: false,
+      editingWidgetIndex: -1,
+      addingWidget: false,
+      showRemoveWidgetConfirm: false,
+      pendingRemoveWidgetIndex: -1,
     };
   },
   computed: {
@@ -265,6 +293,36 @@ export default {
     closeContextMenu() {
       this.contextMenuOpen = false;
     },
+    /* Open edit modal for an existing widget */
+    openEditWidget(widgetIndx) {
+      this.editingWidgetIndex = widgetIndx;
+      this.addingWidget = false;
+      this.editWidgetMenuOpen = true;
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    /* Open edit modal for a new widget */
+    openAddWidget() {
+      this.editingWidgetIndex = -1;
+      this.addingWidget = true;
+      this.editWidgetMenuOpen = true;
+      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
+    },
+    closeEditWidget() {
+      this.editWidgetMenuOpen = false;
+      this.editingWidgetIndex = -1;
+      this.addingWidget = false;
+    },
+    confirmRemoveWidget(widgetIndx) {
+      this.pendingRemoveWidgetIndex = widgetIndx;
+      this.showRemoveWidgetConfirm = true;
+    },
+    doRemoveWidget() {
+      this.$store.commit(StoreKeys.REMOVE_WIDGET, {
+        sectionIndex: this.index,
+        widgetIndex: this.pendingRemoveWidgetIndex,
+      });
+      this.pendingRemoveWidgetIndex = -1;
+    },
     /* Calculate width of section, used to dynamically set number of columns */
     calculateSectionWidth() {
       const secElem = this.$refs[this.sectionRef];
@@ -367,6 +425,27 @@ export default {
       width: stretch;
       width: -webkit-fill-available;
       width: -moz-available;
+    }
+  }
+  .add-widget-launcher {
+    display: inline-flex;
+    align-items: center;
+    margin: 0.5rem 0;
+    padding: 0.3rem 0.75rem;
+    cursor: pointer;
+    color: var(--primary);
+    border: 1px dashed var(--primary);
+    border-radius: var(--curve-factor);
+    &:hover {
+      background: var(--primary);
+      color: var(--background);
+      svg path { fill: var(--background); }
+    }
+    svg {
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.35rem;
+      path { fill: var(--primary); }
     }
   }
 }

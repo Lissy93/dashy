@@ -43,6 +43,9 @@ const {
   COPY_ITEM,
   REMOVE_ITEM,
   INSERT_ITEM,
+  INSERT_WIDGET,
+  UPDATE_WIDGET,
+  REMOVE_WIDGET,
   UPDATE_CUSTOM_CSS,
   CONF_MENU_INDEX,
   CRITICAL_ERROR_MSG,
@@ -400,6 +403,29 @@ const store = createStore({
       });
       commitConfigField(state, 'sections', patched);
       InfoHandler('Item removed', InfoKeys.EDITOR);
+    },
+    [INSERT_WIDGET](state, { sectionIndex, widget }) {
+      commitConfigField(state, 'sections', state.config.sections.map((s, i) => (
+        i === sectionIndex ? { ...s, widgets: [...(s.widgets || []), widget] } : s
+      )));
+      InfoHandler('New widget added', InfoKeys.EDITOR);
+    },
+    [UPDATE_WIDGET](state, { sectionIndex, widgetIndex, widget }) {
+      commitConfigField(state, 'sections', state.config.sections.map((s, i) => {
+        if (i !== sectionIndex) return s;
+        return {
+          ...s,
+          widgets: (s.widgets || []).map((w, wi) => (wi === widgetIndex ? widget : w)),
+        };
+      }));
+      InfoHandler('Widget updated', InfoKeys.EDITOR);
+    },
+    [REMOVE_WIDGET](state, { sectionIndex, widgetIndex }) {
+      commitConfigField(state, 'sections', state.config.sections.map((s, i) => {
+        if (i !== sectionIndex) return s;
+        return { ...s, widgets: (s.widgets || []).filter((_, wi) => wi !== widgetIndex) };
+      }));
+      InfoHandler('Widget removed', InfoKeys.EDITOR);
     },
     [SET_THEME](state, theme) {
       patchAppConfigField(state, 'theme', theme, configScope(state.currentConfigInfo.confId).THEME);

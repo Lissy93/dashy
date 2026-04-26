@@ -4,6 +4,14 @@
     <Button :click="update" class="action-btn update-btn" v-if="!hideControls && !loading">
       <UpdateIcon />
     </Button>
+    <!-- Edit Action Button (visible in edit mode) -->
+    <Button :click="emitEdit" class="action-btn edit-btn" v-if="isEditMode && !loading">
+      <EditIcon />
+    </Button>
+    <!-- Remove Action Button (visible in edit mode) -->
+    <Button :click="emitRemove" class="action-btn remove-btn" v-if="isEditMode && !loading">
+      <BinIcon />
+    </Button>
     <!-- Loading Spinner -->
     <div v-if="loading" class="loading">
       <LoadingAnimation v-if="loading" class="loader" />
@@ -35,6 +43,8 @@ import { defineAsyncComponent } from 'vue';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import Button from '@/components/FormElements/Button';
 import UpdateIcon from '@/assets/interface-icons/widget-update.svg';
+import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
+import BinIcon from '@/assets/interface-icons/interactive-editor-remove.svg';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
 
 const widgetModules = import.meta.glob('./*.vue');
@@ -137,12 +147,15 @@ export default {
     // Register form elements
     Button,
     UpdateIcon,
+    EditIcon,
+    BinIcon,
     LoadingAnimation,
   },
   props: {
     widget: { type: Object, required: true },
     index: { type: Number, required: true },
   },
+  emits: ['editWidget', 'removeWidget'],
   data: () => ({
     loading: false,
     error: false,
@@ -151,6 +164,9 @@ export default {
   computed: {
     appConfig() {
       return this.$store.getters.appConfig;
+    },
+    isEditMode() {
+      return this.$store.state.editMode;
     },
     /* Returns the widget type, shows error if not specified */
     widgetType() {
@@ -210,6 +226,8 @@ export default {
     setLoaderState(loading) {
       this.loading = loading;
     },
+    emitEdit() { this.$emit('editWidget'); },
+    emitRemove() { this.$emit('removeWidget'); },
   },
 };
 </script>
@@ -243,6 +261,8 @@ export default {
     }
 
     &.update-btn { right: -0.25rem; }
+    &.edit-btn { right: 1rem; }
+    &.remove-btn { right: 2.25rem; }
   }
 
   // Optional widget label
