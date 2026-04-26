@@ -1,6 +1,8 @@
 {
   "general": {
-    "close-modal": "Close dialog"
+    "close-modal": "Close dialog",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   },
   "home": {
     "no-results": "No Search Results",

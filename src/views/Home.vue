@@ -16,7 +16,7 @@
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass"
       ref="sectionsContainer">
-      <template v-for="(section, index) in filteredSections" :key="index">
+      <template v-for="(section, index) in filteredSections" :key="makeSectionId(section)">
         <Section
           :index="index"
           :title="section.name"

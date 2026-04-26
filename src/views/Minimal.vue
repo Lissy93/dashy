@@ -38,7 +38,7 @@
       <!-- Section item groups -->
       <MinimalSection
         v-for="(section, index) in sections"
-        :key="`body-${index}`"
+        :key="makeSectionId(section)"
         :index="index"
         :title="section.name"
         :icon="section.icon || undefined"

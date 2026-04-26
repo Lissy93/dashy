@@ -99,6 +99,19 @@
       {{ $t('config-editor.not-admin-note') }}
     </p>
     <p class="note">{{ $t('config.backup-note') }}</p>
+    <ConfirmDialog
+      v-model:open="showSaveLocallyConfirm"
+      :title="$t('interactive-editor.menu.save-locally-btn')"
+      :message="$t('interactive-editor.menu.save-locally-warning')"
+      @confirm="confirmSaveLocally"
+    />
+    <ConfirmDialog
+      v-model:open="showResetConfirm"
+      danger
+      :title="$t('config-editor.reset-label')"
+      :message="$t('config-editor.reset-confirm-msg')"
+      @confirm="confirmReset"
+    />
   </div>
   <AccessError v-else />
 </template>
@@ -123,6 +136,7 @@ import ConfigSavingMixin from '@/mixins/ConfigSaving';
 import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
 import Button from '@/components/FormElements/Button';
+import ConfirmDialog from '@/components/FormElements/ConfirmDialog';
 import AccessError from '@/components/Configuration/AccessError';
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
 import CopyIcon from '@/assets/interface-icons/interactive-editor-copy-clipboard.svg';
@@ -152,6 +166,7 @@ export default {
   mixins: [ConfigSavingMixin],
   components: {
     Button,
+    ConfirmDialog,
     AccessError,
     DownloadIcon,
     CopyIcon,
@@ -165,6 +180,9 @@ export default {
       wordWrap: true,
       errorMessages: [],
       initialDoc: '',
+      showSaveLocallyConfirm: false,
+      showResetConfirm: false,
+      pendingSaveData: null,
     };
   },
   setup() {
@@ -329,8 +347,13 @@ export default {
     onSaveLocally() {
       const data = this.parseCurrent();
       if (data == null) return;
-       
-      if (!confirm(this.$t('interactive-editor.menu.save-locally-warning'))) return;
+      this.pendingSaveData = data;
+      this.showSaveLocallyConfirm = true;
+    },
+    confirmSaveLocally() {
+      const data = this.pendingSaveData;
+      this.pendingSaveData = null;
+      if (data == null) return;
       this.saveConfigLocally(data);
       this.applyConfigToStore(data);
       this.initialDoc = this.currentText();
@@ -351,8 +374,12 @@ export default {
       const dirty = this.view.state.doc.toString() !== this.initialDoc;
       const inPreview = this.$store.state.editMode;
       if (!dirty && !inPreview) return;
-       
-      if (!confirm(this.$t('config-editor.reset-confirm-msg'))) return;
+      this.showResetConfirm = true;
+    },
+    confirmReset() {
+      if (!this.view) return;
+      const dirty = this.view.state.doc.toString() !== this.initialDoc;
+      const inPreview = this.$store.state.editMode;
       if (dirty) {
         this.view.dispatch({
           changes: { from: 0, to: this.view.state.doc.length, insert: this.initialDoc },

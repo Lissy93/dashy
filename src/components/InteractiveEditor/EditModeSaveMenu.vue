@@ -103,12 +103,19 @@
     <EditPageInfo />
     <EditAppConfig />
     <EditMultiPages />
+    <ConfirmDialog
+      v-model:open="showSaveLocallyConfirm"
+      :title="$t('interactive-editor.menu.save-locally-btn')"
+      :message="$t('interactive-editor.menu.save-locally-warning')"
+      @confirm="confirmSaveLocally"
+    />
   </div>
 </template>
 
 <script>
 import ConfigSavingMixin from '@/mixins/ConfigSaving';
 import Button from '@/components/FormElements/Button';
+import ConfirmDialog from '@/components/FormElements/ConfirmDialog';
 import StoreKeys from '@/utils/StoreMutations';
 import EditPageInfo from '@/components/InteractiveEditor/EditPageInfo';
 import EditAppConfig from '@/components/InteractiveEditor/EditAppConfig';
@@ -129,6 +136,7 @@ export default {
   mixins: [ConfigSavingMixin],
   components: {
     Button,
+    ConfirmDialog,
     EditPageInfo,
     EditAppConfig,
     EditMultiPages,
@@ -141,6 +149,11 @@ export default {
     MultiPagesIcon,
     ConfigFileIcon,
     AccessError,
+  },
+  data() {
+    return {
+      showSaveLocallyConfirm: false,
+    };
   },
   computed: {
     configToSave() {
@@ -191,11 +204,10 @@ export default {
       this.$toast[success ? 'success' : 'error'](message);
     },
     saveLocally() {
-      const msg = this.$t('interactive-editor.menu.save-locally-warning');
-      const youSure = confirm(msg);  
-      if (youSure) {
-        this.saveConfigLocally(this.configToSave);
-      }
+      this.showSaveLocallyConfirm = true;
+    },
+    confirmSaveLocally() {
+      this.saveConfigLocally(this.configToSave);
     },
     writeToDisk() {
       this.writeConfigToDisk(this.configToSave);

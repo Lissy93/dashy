@@ -91,6 +91,13 @@
       <RebuildApp />
     </TabItem>
   </Tabs>
+  <ConfirmDialog
+    v-model:open="showResetConfirm"
+    danger
+    :title="$t('config.reset-settings-button')"
+    :message="resetConfirmMessage()"
+    @confirm="confirmResetLocalSettings"
+  />
 </template>
 
 <script>
@@ -108,6 +115,7 @@ import DebugInfo from '@/components/Configuration/DebugInfo';
 import AppVersion from '@/components/Configuration/AppVersion';
 import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu';
 import Button from '@/components/FormElements/Button';
+import ConfirmDialog from '@/components/FormElements/ConfirmDialog';
 import Tabs from '@/components/FormElements/Tabs';
 import TabItem from '@/components/FormElements/TabItem';
 import DownloadIcon from '@/assets/interface-icons/config-download-file.svg';
@@ -135,6 +143,7 @@ export default {
       backupId: localStorage[localStorageKeys.BACKUP_ID] || '',
       appVersion: import.meta.env.VITE_APP_VERSION,
       latestVersion: '',
+      showResetConfirm: false,
     };
   },
   props: {
@@ -160,6 +169,7 @@ export default {
     Tabs,
     TabItem,
     Button,
+    ConfirmDialog,
     JsonEditor,
     CustomCssEditor,
     CloudBackupRestore,
@@ -226,14 +236,16 @@ export default {
     /* Clears config-scoped localStorage entries for root + all sub-pages, then reloads config.
      * Preserves unrelated keys (auth tokens, backup hashes, mostUsed etc) */
     resetLocalSettings() {
-      const msg = `${this.$t('config.reset-config-msg-l1')} `
-      + `${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
-      const isTheUserSure = confirm(msg);
-      if (isTheUserSure) {
-        clearScopedLocalConfig(this.$store.getters.pages);
-        this.$toast(this.$t('config.data-cleared-msg'));
-        this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG, this.$store.state.currentConfigInfo.confId);
-      }
+      this.showResetConfirm = true;
+    },
+    confirmResetLocalSettings() {
+      clearScopedLocalConfig(this.$store.getters.pages);
+      this.$toast(this.$t('config.data-cleared-msg'));
+      this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG, this.$store.state.currentConfigInfo.confId);
+    },
+    resetConfirmMessage() {
+      return `${this.$t('config.reset-config-msg-l1')} `
+        + `${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
     },
     getLanguage() {
       const lang = getUsersLanguage();

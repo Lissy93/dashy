@@ -94,6 +94,13 @@
       @expandCollapseSection="expandCollapseSection"
       @removeSection="removeSection"
     />
+    <ConfirmDialog
+      v-model:open="showRemoveConfirm"
+      danger
+      :title="$t('context-menus.section.remove-section')"
+      :message="$t('interactive-editor.edit-section.remove-confirm')"
+      @confirm="confirmRemoveSection"
+    />
   </Collapsable>
 </template>
 
@@ -106,6 +113,7 @@ import WidgetBase from '@/components/Widgets/WidgetBase';
 import Collapsable from '@/components/LinkItems/Collapsable.vue';
 import IframeModal from '@/components/LinkItems/IframeModal.vue';
 import ContextMenu from '@/components/LinkItems/SectionContextMenu.vue';
+import ConfirmDialog from '@/components/FormElements/ConfirmDialog.vue';
 
 const EditSection = defineAsyncComponent(() => import('@/components/InteractiveEditor/EditSection.vue'));
 import ErrorHandler from '@/utils/logging/ErrorHandler';
@@ -136,6 +144,7 @@ export default {
     WidgetBase,
     IframeModal,
     EditSection,
+    ConfirmDialog,
   },
   data() {
     return {
@@ -147,6 +156,7 @@ export default {
       },
       sectionWidth: 0,
       resizeObserver: null,
+      showRemoveConfirm: false,
     };
   },
   computed: {
@@ -232,13 +242,12 @@ export default {
     },
     /* Deletes current section, in local state */
     removeSection() {
-      const confirmMsg = this.$t('interactive-editor.edit-section.remove-confirm');
-      const youSure = confirm(confirmMsg);
-      if (youSure) {
-        const payload = { sectionIndex: this.index, sectionName: this.title };
-        this.$store.commit(StoreKeys.REMOVE_SECTION, payload);
-      }
       this.closeContextMenu();
+      this.showRemoveConfirm = true;
+    },
+    confirmRemoveSection() {
+      const payload = { sectionIndex: this.index, sectionName: this.title };
+      this.$store.commit(StoreKeys.REMOVE_SECTION, payload);
     },
     /* Open custom context menu, and set position */
     openContextMenu(e) {
