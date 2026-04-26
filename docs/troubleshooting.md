@@ -17,7 +17,9 @@
 - [Sub-page shows "Unable to find config for ..."](#sub-page-shows-unable-to-find-config-for-)
 - [Sub-page missing from nav, or won't open when clicked](#sub-page-missing-from-nav-or-wont-open-when-clicked)
 - [Sub-page ignores its theme, layout or appConfig](#sub-page-ignores-its-theme-layout-or-appconfig)
+- [Sub-config files return 404](#sub-config-files-return-404)
 - [Yarn Build or Run Error](#yarn-error)
+- [`yarn build` fails inside the container](#yarn-build-fails-inside-the-container)
 - [Remote Config Not Loading](#remote-config-not-loading)
 - [High CPU or RAM Usage on Startup](#high-cpu-or-ram-usage-on-startup)
 - [Heap limit Allocation failed](#ineffective-mark-compacts-near-heap-limit-allocation-failed)
@@ -27,12 +29,14 @@
 - [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
 - [Keycloak Redirect Error](#keycloak-redirect-error)
 - [OIDC or Keycloak failure on numeric client IDs](#oidc-or-keycloak-failure-on-numeric-client-ids)
-- [Docker Directory Error](#docker-directory)
+- [Mount Type Mismatch](#mount-type-mismatch)
+- [Permission Denied Saving Config](#permission-denied-saving-config)
 - [Config not Saving on Vercel / Netlify / CDN](#config-not-saving-on-vercel--netlify--cdn)
 - [Config Not Updating](#config-not-updating)
 - [Config Still not Updating](#config-still-not-updating)
 - [Styles and Assets not Updating](#styles-and-assets-not-updating)
 - [DockerHub toomanyrequests](#dockerhub-toomanyrequests)
+- [Old image tags fail to pull](#old-image-tags-fail-to-pull)
 - [Config Validation Errors](#config-validation-errors)
 - [Node Sass unsupported environment](#node-sass-does-not-yet-support-your-current-environment)
 - [Unreachable Code Error](#unreachable-code-error)
@@ -51,7 +55,6 @@
 - [Widget Displaying Inaccurate Data](#widget-displaying-inaccurate-data)
 - [Font Awesome Icons not Displaying](#font-awesome-icons-not-displaying)
 - [Copy to Clipboard not Working](#copy-to-clipboard-not-working)
-- [Unsupported Digital Envelope Routines](#unsupported-digital-envelope-routines)
 - [How to Reset Local Settings](#how-to-reset-local-settings)
 - [How to make a bug report](#how-to-make-a-bug-report)
 - [Public IP Widget not working for ipinfo or ipquery providers](#public-ip-widget-not-working-for-ipinfo-or-ipquery-providers)
@@ -224,6 +227,30 @@ If you put `appConfig` inside a sub-page YAML, it's silently dropped on load. Mo
 
 ---
 
+## Sub-config files return 404
+
+If your `conf.yml` references additional pages via `pages:` and the browser shows `Sub-config load failed: /something.yml`, the cause is almost always a Docker mount that only exposes `conf.yml` and not the rest of `user-data/`.
+
+If you've done this:
+
+```yaml
+volumes:
+  - ./my-conf.yml:/app/user-data/conf.yml
+```
+
+Only `conf.yml` exists inside the container. Anything it references (sub-configs, custom icons, fonts, CSS) isn't there.
+
+Mount the directory instead:
+
+```yaml
+volumes:
+  - ./user-data:/app/user-data
+```
+
+Now everything in your `user-data` folder is reachable at the web root. Same applies to `docker run -v`.
+
+---
+
 ## Yarn Error
 
 For more info, see [Issue #1](https://github.com/Lissy93/dashy/issues/1)
@@ -241,6 +268,16 @@ Alternatively, as a workaround, you have several options:
 
 - Try using [NPM](https://www.npmjs.com/get-npm) instead: So clone, cd, then run `npm install`, `npm run build` and `npm start`
 - Try using [Docker](https://www.docker.com/get-started) instead, and all of the system setup and dependencies will already be taken care of. So from within the directory, just run `docker build -t lissy93/dashy .` to build, and then use docker start to run the project, e.g: `docker run -it -p 8080:8080 lissy93/dashy` (see the [deploying docs](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#deploy-with-docker) for more info)
+
+---
+
+## `yarn build` fails inside the container
+
+If you run `docker exec <container> yarn build` and get `vite: not found` (or similar), it's because the published image ships only production dependencies. The build toolchain (vite, vue-tsc, sass, etc.) lives in `devDependencies` and isn't installed in the runtime image.
+
+You almost certainly don't need to rebuild. Dashy's Express server reads `user-data/conf.yml` on every request, so config changes show up on a page refresh, no rebuild required.
+
+If you genuinely need a fresh build (you've patched something in `src/`), do it on the host with `yarn install && yarn build`, or build a custom image from a checkout of the repo.
 
 ---
 
@@ -429,18 +466,37 @@ See also: #1941
 
 ---
 
-## Docker Directory
+## Mount Type Mismatch
 
 ```text
-Error response from daemon: OCI runtime create failed: container_linux.go:380:
-starting container process caused: process_linux.go:545: container init caused:
-rootfs_linux.go:76: mounting "/home/ubuntu/my-conf.yml" to rootfs at
-"/app/user-data/conf.yml" caused: mount through procfd: not a directory:
-unknown: Are you trying to mount a directory onto a file (or vice-versa)?
-Check if the specified host path exists and is the expected type.
+Error response from daemon: ... mount through procfd: not a directory:
+Are you trying to mount a directory onto a file (or vice-versa)?
 ```
 
-If you get an error similar to the one above, you are mounting a directory to the config file's location, when a plain file is expected. Create a YAML file, (`touch my-conf.yml`), populate it with a sample config, then pass it as a volume: `-v ./my-local-conf.yml:/app/user-data/conf.yml`
+This means the host side and container side of your volume don't agree on whether the target is a file or a directory.
+
+Recommended pattern: mount a host directory onto `/app/user-data`. The directory must exist on the host and contain at least a `conf.yml`:
+
+```bash
+mkdir -p ~/dashy-data
+cp /path/to/your/conf.yml ~/dashy-data/conf.yml
+docker run -d -p 8080:8080 -v ~/dashy-data:/app/user-data lissy93/dashy:latest
+```
+
+If you'd rather mount a single file (`-v ~/conf.yml:/app/user-data/conf.yml`), the host path must be a file that already exists, otherwise Docker creates a directory in its place and you'll see this error.
+
+---
+
+## Permission Denied Saving Config
+
+If saving config from the UI fails with `EACCES` or `permission denied`, your mounted `user-data` directory is owned by a uid the container can't write to. Inside the container, Dashy runs as uid 1000 (the `node` user), and your host directory probably belongs to a different uid.
+
+Two fixes, pick whichever's less of a faff:
+
+1. Run the container as your own user. On `docker run`, add `--user $(id -u):$(id -g)`. In `docker-compose.yml`, uncomment the `user:` line and set it to your uid:gid (run `id -u` and `id -g` to find them).
+2. Hand the directory to uid 1000: `sudo chown -R 1000:1000 /path/to/your/user-data`.
+
+Most people are already uid 1000 on Linux and macOS, so this only tends to bite on NAS boxes, multi-user servers, or anywhere the first user isn't 1000.
 
 ---
 
@@ -501,6 +557,20 @@ You can [check your rate limit status](https://www.docker.com/blog/checking-your
 - Logging in to DockerHub will increase your rate limit from 100 requests to 200 requests per 6 hour period
 - Upgrading to a Pro for $5/month will increase your image requests to 5,000 per day, and any plans above have no rate limits
 - Since rate limits are counted based on your IP address, proxying your requests, or using a VPN may work
+
+---
+
+## Old image tags fail to pull
+
+If `docker pull` returns `manifest unknown` or `manifest for lissy93/dashy:arm32v7 not found`, the cause is a stale architecture-specific tag in your compose file or run command. Tags like `:arm32v7`, `:arm64v8`, and `:multi-arch` are no longer published.
+
+The `:latest` tag is now multi-arch and works on amd64, arm64, and arm/v7 (Raspberry Pi 2 and up) without you having to pick a variant. Just use:
+
+```yaml
+image: lissy93/dashy:latest
+```
+
+Docker fetches the right architecture for your host automatically. To pin a version, use a semver tag, e.g. `lissy93/dashy:3.2.14`.
 
 ---
 
@@ -591,7 +661,7 @@ If you're serving Dashy though a CDN, instead of using the Node server or Docker
 
 ## Healthcheck Failing in Docker
 
-If `docker ps` shows the Dashy container as `unhealthy`, it means the periodic healthcheck (`yarn health-check`, run every 5 minutes by default) couldn't reach the local server.
+If `docker ps` shows the Dashy container as `unhealthy`, the periodic healthcheck (`node services/healthcheck.js`, run every 5 minutes by default) couldn't reach the local server.
 
 ### SSL-enabled Dashy
 
@@ -601,9 +671,9 @@ The healthcheck reads the same cert paths as the main server (`/etc/ssl/certs/da
 
 If you've set `PORT` to override the default 8080, the healthcheck honors the same env var, so it should work without changes. Make sure `PORT` is set in the container environment, not just in the host-side Docker port mapping.
 
-### Slow startup on weak hardware
+### Container is unhealthy past the grace period
 
-The healthcheck has a `--start-period=30s` grace period before failures count against the container. If your host takes longer than 30 seconds for the initial Vue build to complete (common on Pi 3 or similar), the first few healthchecks will fail and you may briefly see `unhealthy`. After the build finishes, subsequent checks should pass - see [High CPU or RAM Usage on Startup](#high-cpu-or-ram-usage-on-startup) below.
+The healthcheck has a 20s `start-period` after which failures start counting. The image is prebuilt, so startup is just `node server.js` binding to a port - fast even on a Pi. If the container is still `unhealthy` past the grace period, the server has likely crashed. Check `docker logs <container>` for the real error (usually a malformed `conf.yml` or a missing `user-data` mount).
 
 See also: [#1410](https://github.com/Lissy93/dashy/issues/1410)
 
@@ -764,21 +834,6 @@ As a workaround, you could either:
 
 - Highlight the text and copy / <kbd>Ctrl</kbd> + <kbd>C</kbd>
 - Or setup SSL - [here's a guide](https://github.com/Lissy93/dashy/blob/master/docs/management.md#ssl-certificates) on doing so
-
----
-
-## Unsupported Digital Envelope Routines
-
-If you're running on GitHub Codespaces, and seeing: `Error: error:0308010C:digital envelope routines::unsupported` when using Node 17+, it can be resolved  by adding the `--openssl-legacy-provider` flag to your `NODE_OPTIONS` environmental variable.
-For example:
-
-```
-export NODE_OPTIONS=--openssl-legacy-provider
-```
-
-This will be fixed once [webpack/webpack#17659](https://github.com/webpack/webpack/pull/17659) is merged.
-
-**Update:** This should be fully resolved. Raise a ticket if you're still needing to use those NODE_OPTIONS after upgrade.
 
 ---
 

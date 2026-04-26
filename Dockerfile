@@ -1,51 +1,63 @@
-FROM node:20-alpine AS build
+FROM node:24-alpine AS build
 
-# Set the platform to build image for
-ARG TARGETPLATFORM
-ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
-
-# Install additional tools needed if on arm64 / armv7
-RUN \
-  case "${TARGETPLATFORM}" in \
-  'linux/arm64') apk add --no-cache python3 make g++ ;; \
-  'linux/arm/v7') apk add --no-cache python3 make g++ ;; \
-  esac
-
-# Create and set the working directory
 WORKDIR /app
 
-# Install app dependencies
 COPY package.json yarn.lock ./
-RUN yarn install --ignore-engines --immutable --no-cache --network-timeout 300000 --network-concurrency 1
+RUN yarn install --frozen-lockfile --network-timeout 600000
 
-# Copy over all project files and folders to the working directory
-COPY . ./
-
-# Build initial app for production
+COPY . .
 RUN yarn build
 
-# Production stage
-FROM node:20-alpine
+FROM node:24-alpine AS deps
 
-# Define some ENV Vars
-ENV PORT=8080 \
-  DIRECTORY=/app \
-  IS_DOCKER=true
+WORKDIR /app
 
-# Create and set the working directory
-WORKDIR ${DIRECTORY}
+COPY package.json yarn.lock ./
+RUN yarn install --production --frozen-lockfile --network-timeout 600000 \
+  && yarn cache clean
 
-# Update tzdata for setting timezone
-RUN apk add --no-cache tzdata
+FROM node:24-alpine
 
-# Copy built application from build phase
-COPY --from=build /app ./
+ARG VERSION=dev
+ARG REVISION
+ARG CREATED
 
-# Finally, run start command to serve up the built application
-CMD [ "yarn", "build-and-start" ]
+LABEL org.opencontainers.image.title="Dashy" \
+      org.opencontainers.image.description="The self-hosted dashboard" \
+      org.opencontainers.image.url="https://dashy.to" \
+      org.opencontainers.image.documentation="https://dashy.to/docs" \
+      org.opencontainers.image.source="https://github.com/lissy93/dashy" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.authors="Alicia Sykes <alicia@omg.lol>" \
+      org.opencontainers.image.vendor="Alicia Sykes" \
+      org.opencontainers.image.version="${VERSION}" \
+      org.opencontainers.image.revision="${REVISION}" \
+      org.opencontainers.image.created="${CREATED}"
 
-# Expose the port
-EXPOSE ${PORT}
+ENV NODE_ENV=production \
+    IS_DOCKER=true \
+    PORT=8080 \
+    HOST=0.0.0.0
 
-# Run simple healthchecks every 5 mins, to check that everythings still great
-HEALTHCHECK --interval=5m --timeout=5s --start-period=30s CMD yarn health-check
+WORKDIR /app
+
+RUN apk add --no-cache tzdata tini
+
+COPY --chown=node:node --from=deps  /app/node_modules ./node_modules
+COPY --chown=node:node --from=build /app/dist ./dist
+COPY --chown=node:node --from=build /app/public ./public
+COPY --chown=node:node --from=build /app/services ./services
+COPY --chown=node:node --from=build /app/src/utils/config/ConfigSchema.json ./src/utils/config/ConfigSchema.json
+COPY --chown=node:node --from=build /app/server.js ./server.js
+COPY --chown=node:node --from=build /app/package.json ./package.json
+COPY --chown=node:node --from=build /app/user-data/conf.yml ./user-data/conf.yml
+
+USER node
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=5m --timeout=10s --start-period=20s --retries=3 \
+  CMD node services/healthcheck.js
+
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["node", "server.js"]

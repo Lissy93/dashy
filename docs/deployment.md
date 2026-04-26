@@ -63,28 +63,29 @@ Dashy has a built container image hosted on [Docker Hub](https://hub.docker.com/
 ```bash
 docker run -d \
   -p 8080:8080 \
-  -v /root/my-local-conf.yml:/app/user-data/conf.yml \
+  -v /path/to/your/user-data:/app/user-data \
   --name my-dashboard \
   --restart=always \
   lissy93/dashy:latest
 ```
 
-Explanation of the above options:
+The `user-data` directory you mount must contain a `conf.yml` file. It can also contain any sub-config files, item icons, fonts, custom CSS, or other assets you want served from the web root. Anything you put in there is available at `/<filename>` in the browser.
 
+Explanation of the above options:
 - `-d` Detached mode (not running in the foreground of your terminal)
-- `-p` The port that should be exposed, and the port it should be mapped to in your host system `[host-port][container-port]`, leave the container port as is
-- `-v` Specify volumes, to pass data from your host system to the container, in the format of `[host-path]:[container-path]`, you can use this to pass your config file, directory of assets (like icons), custom CSS or web assets (like favicon.ico, manifest.json etc)
+- `-p` The port that should be exposed, and the port it should be mapped to in your host system `[host-port]:[container-port]`, leave the container port as `8080`
+- `-v` Mounts the host directory containing your `conf.yml` (and any other assets) into the container at `/app/user-data`
 - `--name` Give your container a human-readable name
 - `--restart=always` Spin up the container when the daemon starts, or after it has been stopped
-- `lissy93/dashy:latest` This last option is the image the container should be built from, you can also use a specific version or architecture type, by replacing `:latest` with one of the [tags](https://hub.docker.com/r/lissy93/dashy/tags)
+- `lissy93/dashy:latest` The image to run. Replace `:latest` with a specific version from the [tags](https://hub.docker.com/r/lissy93/dashy/tags) if needed
 
 For all available options, and to learn more, see the [Docker Run Docs](https://docs.docker.com/engine/reference/commandline/run/)
 
 Dashy is also available through GHCR: `docker pull ghcr.io/lissy93/dashy:latest`
 
-If you're deploying Dashy on a modern ARM-based board, such as a Raspberry Pi (2+), then you'll need to use one of Dashy's ARM images. Set the base image + tag to either `lissy93/dashy:arm64v8` or `lissy93/dashy:arm32v7`, depending on your system architecture. You can also use the `multi-arch` image, which should work on all system architectures.
+The `latest` image is multi-arch, so the same tag works on amd64, arm64, and arm/v7 (Raspberry Pi 2+). Docker selects the right variant for your host automatically.
 
-The image defaults to `:latest`, but you can instead specify a specific version, e.g. `docker pull lissy93/dashy:release-1.5.0`
+The image defaults to `:latest`, but you can instead specify a specific version, e.g. `docker pull lissy93/dashy:4.0.0`
 
 ---
 
@@ -95,38 +96,33 @@ Using Docker Compose can be useful for saving your specific config in files, wit
 The following is a complete example of a [`docker-compose.yml`](https://github.com/Lissy93/dashy/blob/master/docker-compose.yml) for Dashy. Run it as is, or uncomment the additional options you need.
 
 ```yaml
----
 services:
   dashy:
-    # To build from source, replace 'image: lissy93/dashy' with 'build: .'
-    # build: .
-    image: lissy93/dashy
-    container_name: Dashy
-    # Pass in your config file below, by specifying the path on your host machine
-    # volumes:
-      # - /root/my-config.yml:/app/user-data/conf.yml
+    # The image to pull + version. Can use `ghcr.io/lissy93/dashy` instead
+    image: lissy93/dashy:latest
+    # Optional container name
+    container_name: dashy
+    # Port to serve on (keep container port (second one) as 8080)
     ports:
       - 8080:8080
-    # Set any environmental variables
+    # Mount a directory containing your conf.yml and any other assets
+    volumes:
+      - ./user-data:/app/user-data
+    # Add any env vars for server here, if needed
     environment:
       - NODE_ENV=production
-    # Specify your user ID and group ID. You can find this by running `id -u` and `id -g`
-    #  - UID=1000
-    #  - GID=1000
-    # Specify restart policy
+    # Auto-start the container on boot
     restart: unless-stopped
-    # Configure healthchecks
+    # Healthcheck to determine when container healthy
     healthcheck:
-      test: ['CMD', 'node', '/app/services/healthcheck']
+      test: ['CMD', 'node', '/app/services/healthcheck.js']
       interval: 1m30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 30s
 ```
 
-You can use a different tag, by for example setting `image: lissy93/dashy:arm64v8`, or pull from GHCR instead by setting `image: ghcr.io/lissy93/dashy`.
-
-If you are building from source, and would like to use one of the [other Dockerfiles](https://github.com/Lissy93/dashy/tree/master/docker), then under `services.dashy` first set `context: .`, then specify the the path to the dockerfile, e.g. `dockerfile: ./docker/Dockerfile-arm32v7`
+To pull from GHCR instead of Docker Hub, set `image: ghcr.io/lissy93/dashy:latest`.
 
 ---
 
@@ -137,7 +133,7 @@ If you are building from source, and would like to use one of the [other Dockerf
 ```bash
 podman run -d \
   -p 8080:8080 \
-  -v /path/to/my-conf.yml:/app/user-data/conf.yml:Z \
+  -v /path/to/your/user-data:/app/user-data:Z \
   --name dashy \
   --restart=always \
   docker.io/lissy93/dashy:latest
@@ -172,7 +168,7 @@ Alternatively, go to Containers > Add container and use the image `lissy93/dashy
 
 Dashy is available through the [Community Applications](https://forums.unraid.net/topic/38582-plug-in-community-applications/) plugin. Search for "Dashy" in the Apps tab and install from there. The template pre-fills the Docker image, port mapping, and volume paths for you.
 
-If you'd prefer to set it up manually, go to Docker > Add Container and use `lissy93/dashy:latest` as the repository. Map port `8080` and add a path mapping for your config file to `/app/user-data/conf.yml`.
+If you'd prefer to set it up manually, go to Docker > Add Container and use `lissy93/dashy:latest` as the repository. Map port `8080`, and add a path mapping for the host directory containing your `conf.yml` to `/app/user-data`.
 
 ---
 
@@ -208,11 +204,13 @@ Installing dashy is really simply and fast:
 ```bash
 docker run -d \
   -p 4000:8080 \
-  -v /volume1/docker/dashy/my-local-conf.yml:/app/user-data/conf.yml \
+  -v /volume1/docker/dashy:/app/user-data \
   --name dashy \
   --restart=always \
   lissy93/dashy:latest
 ```
+
+(Place your `conf.yml` and any sub-configs / icons / assets inside `/volume1/docker/dashy` on the host.)
 
 dashy should be up within 1-2min after you've started the install task procedure
 
@@ -299,7 +297,7 @@ The initial build causes a spike in resource usage, but once running it's fairly
 
 ### Bare Metal
 
-Requires [Node.js](https://nodejs.org/) (v17 recommended) and [Yarn](https://yarnpkg.com/). The `engines` field in `package.json` specifies `>=16.0.0`, but the Docker image uses Node 20 and that's the best-tested version. Builds require the `--openssl-legacy-provider` flag, which the npm scripts already set.
+Requires [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com/). The `engines` field in `package.json` specifies `>=18.0.0`, but the Docker image is built and tested on Node 24, so that's the recommended version for bare-metal too.
 
 Minimum 512MB memory, 2GB disk space.
 

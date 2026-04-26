@@ -40,8 +40,8 @@ Dashy should now be being served on <http://localhost:8080/>. Hot reload is enab
 
 #### Basics
 
-- **`yarn build`** - In the interest of speed, the application is pre-compiled, this means that the config file is read during build-time, and therefore the app needs to rebuilt for any new changes to take effect. Luckily this is very straight forward. Just run `yarn build` or `docker exec -it [container-id] yarn build`
-- **`yarn start`** - Starts a web server, and serves up the production site from `./dist` (must run build command first)
+- **`yarn build`** - Builds the production bundle into `./dist`. The Vite dev/runtime server serves `user-data/conf.yml` on each request, so a rebuild is only needed when source code or assets change, not when config changes
+- **`yarn start`** - Starts the Node server, which serves the built site from `./dist` and the live config from `user-data/`. Run `yarn build` first
 
 #### Development
 
@@ -56,15 +56,13 @@ Dashy should now be being served on <http://localhost:8080/>. Hot reload is enab
 
 #### Alternate Start Commands
 
-- **`yarn build-and-start`** - Builds the app, runs checks and starts the production server. Commands are run in parallel, and so is faster than running them in independently. Uses the `yarn build` and `yarn start` commands
-- **`yarn build-watch`** - If you find yourself making frequent changes to your configuration, and do not want to have to keep manually rebuilding, then this option is for you. It will watch for changes to any files within the projects root, and then trigger a rebuild. Note that if you are developing new features, then `yarn dev` would be more appropriate, as it's significantly faster at recompiling (under 1 second), and has hot reloading, linting and testing integrated
+- **`yarn build && yarn start`** - Builds the app, then starts the production Node server. Use this for a manual production-style run on bare metal. With Vite, `conf.yml` is served from `user-data/` at runtime, so config changes only require a page refresh
 - **`yarn pm2-start`** - Starts the Node server using [PM2](https://pm2.keymetrics.io/), a process manager for Node.js applications, that helps them stay alive. PM2 has some built-in basic monitoring features, and an optional [management solution](https://pm2.io/). If you are running the app on bare metal, it is recommended to use this start command
 
 #### Notes
 
 - If you are using NPM, replace `yarn` with `npm run`
 - If you are using Docker, precede each command with `docker exec -it [container-id]`. Container ID can be found by running `docker ps`
-- You can manage the app using the [Vue-CLI Service](https://cli.vuejs.org/guide/cli-service.html), with `npx vue-cli-service [command]`. Or to start the Vue Management UI, run `npx vue ui`, and open `http://localhost:8000`
 
 ### Environmental Variables
 
