@@ -11,32 +11,42 @@
 
 # Environmental variables for build command
 [build.environment]
-  NODE_VERSION = "20.11.1"
+  NODE_VERSION = "24"
 
-  YARN_FLAGS = "--ignore-engines"
-
-# Redirect the Node endpoints to serverless functions
+# Rewrite Node endpoints to serverless functions
 [[redirects]]
   from = "/status-check"
   to = "/.netlify/functions/cloud-status-check"
-  status = 301
-  force = true
-[[redirects]]
-  from = "/config-manager/*"
-  to = "/.netlify/functions/not-supported"
-  status = 301
+  status = 200
   force = true
 [[redirects]]
   from = "/cors-proxy"
   to = "/.netlify/functions/netlify-cors"
-  status = 301
+  status = 200
   force = true
-  
+
+# Dashy's other node endpoints aren't supported on Netlify
+[[redirects]]
+  from = "/config-manager/*"
+  to = "/.netlify/functions/not-supported"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/system-info"
+  to = "/.netlify/functions/not-supported"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/get-user"
+  to = "/.netlify/functions/not-supported"
+  status = 200
+  force = true
+
 # For router history mode, ensure pages land on index
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200  
+  status = 200
 
 # Set any security headers here
 [[headers]]
@@ -44,4 +54,3 @@
   [headers.values]
   # Uncomment to enable Netlify user control. Requires premium plan.
   # Basic-Auth = "someuser:somepassword anotheruser:anotherpassword"
-
