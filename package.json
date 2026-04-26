@@ -16,7 +16,6 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "pm2-start": "npx pm2 start server.js",
-    "build-and-start": "npm-run-all --sequential build start",
     "validate-config": "node services/config-validator",
     "health-check": "node services/healthcheck",
     "dependency-audit": "npx improved-yarn-audit --ignore-dev-deps"
@@ -66,7 +65,6 @@
     "eslint-plugin-vue": "^10.9.0",
     "globals": "^17.5.0",
     "happy-dom": "^20.8.9",
-    "npm-run-all": "^4.1.5",
     "sass": "^1.77.0",
     "supertest": "^7.2.2",
     "typescript": "^6.0.3",
