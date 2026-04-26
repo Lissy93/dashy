@@ -1,12 +1,8 @@
 <template>
   <div :class="`widget-base ${ loading ? 'is-loading' : '' }`">
-    <!-- Update and Full-Page Action Buttons  -->
+    <!-- Update Action Button -->
     <Button :click="update" class="action-btn update-btn" v-if="!hideControls && !loading">
       <UpdateIcon />
-    </Button>
-    <Button :click="fullScreenWidget"
-      class="action-btn open-btn" v-if="!hideControls && !error && !loading">
-      <OpenIcon />
     </Button>
     <!-- Loading Spinner -->
     <div v-if="loading" class="loading">
@@ -39,7 +35,6 @@ import { defineAsyncComponent } from 'vue';
 import ErrorHandler from '@/utils/logging/ErrorHandler';
 import Button from '@/components/FormElements/Button';
 import UpdateIcon from '@/assets/interface-icons/widget-update.svg';
-import OpenIcon from '@/assets/interface-icons/open-new-tab.svg';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
 
 const widgetModules = import.meta.glob('./*.vue');
@@ -142,14 +137,12 @@ export default {
     // Register form elements
     Button,
     UpdateIcon,
-    OpenIcon,
     LoadingAnimation,
   },
   props: {
     widget: { type: Object, required: true },
     index: { type: Number, required: true },
   },
-  emits: ['navigateToSection'],
   data: () => ({
     loading: false,
     error: false,
@@ -213,10 +206,6 @@ export default {
       this.error = true;
       this.errorMsg = msg;
     },
-    /* Opens current widget in full-page */
-    fullScreenWidget() {
-      this.$emit('navigateToSection');
-    },
     /* Toggles loading state */
     setLoaderState(loading) {
       this.loading = loading;
@@ -254,7 +243,6 @@ export default {
     }
 
     &.update-btn { right: -0.25rem; }
-    &.open-btn { right: 1.25rem; }
   }
 
   // Optional widget label

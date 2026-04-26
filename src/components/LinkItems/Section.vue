@@ -10,6 +10,7 @@
     :cutToHeight="displayData.cutToHeight"
     @openEditSection="openEditSection"
     @openContextMenu="openContextMenu"
+    @navigateToSection="navigateToSection"
     :id="sectionRef"
     :ref="sectionRef"
   >
@@ -66,7 +67,6 @@
         :key="widgetIndx"
         :widget="widget"
         :index="index"
-        @navigateToSection="navigateToSection"
       />
     </div>
     <!-- Modal for opening in modal view -->

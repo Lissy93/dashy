@@ -22,6 +22,8 @@
       </label>
       <Icon v-if="icon" :icon="icon" size="small" :url="title" class="section-icon" />
       <h3>{{ title }}</h3>
+      <OpenIcon v-if="title" @click.prevent.stop="navigateToSection"
+        v-tooltip="openTooltip()" class="header-action" />
       <EditModeIcon v-if="isEditMode" @click="openEditModal"
         v-tooltip="editTooltip()" class="header-action" />
       <EllipseIcon @click.prevent.stop="openContextMenu" @contextmenu.prevent
@@ -42,6 +44,7 @@ import { localStorageKeys } from '@/utils/config/defaults';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
 import EllipseIcon from '@/assets/interface-icons/ellipse.svg';
+import OpenIcon from '@/assets/interface-icons/open-new-tab.svg';
 
 export default {
   name: 'CollapsableContainer',
@@ -56,11 +59,12 @@ export default {
     customStyles: { type: String, default: '' }, // Optional custom stylings
     cutToHeight: Boolean, // To set section height with content height
   },
-  emits: ['openEditSection', 'openContextMenu'],
+  emits: ['openEditSection', 'openContextMenu', 'navigateToSection'],
   components: {
     Icon,
     EditModeIcon,
     EllipseIcon,
+    OpenIcon,
   },
   directives: {
     longPress,
@@ -163,6 +167,9 @@ export default {
     openContextMenu(e) {
       this.$emit('openContextMenu', e);
     },
+    navigateToSection() {
+      this.$emit('navigateToSection');
+    },
     editTooltip() {
       const content = this.$t('interactive-editor.edit-section.edit-tooltip');
       return { content, delay: { show: 100, hide: 0 } };
@@ -172,6 +179,9 @@ export default {
     },
     optionsTooltip() {
       return { content: this.$t('context-menus.section.section-options'), delay: { show: 200, hide: 0 } };
+    },
+    openTooltip() {
+      return { content: this.$t('context-menus.section.open-section'), delay: { show: 200, hide: 0 } };
     },
   },
 };
