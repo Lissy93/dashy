@@ -6,7 +6,7 @@
         :description="pageInfo.description"
         :logo="pageInfo.logo"
       />
-      <Nav v-if="navVisible" :links="pageInfo.navLinks" class="nav" />
+      <Nav :links="pageInfo.navLinks" :user-hidden="!navVisible" class="nav" />
     </header>
 </template>
 
@@ -46,6 +46,7 @@ export default {
 @import '@/styles/media-queries.scss';
 
   header {
+    position: relative;
     margin: 0;
     padding: 0.5rem;
     display: flex;
@@ -54,7 +55,7 @@ export default {
     align-items: center;
     align-content: flex-start;
     @include phone {
-      flex-direction: column-reverse;
+      flex-direction: column;
     }
   }
 </style>
