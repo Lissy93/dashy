@@ -7,7 +7,7 @@ const fs = require('fs'); // For opening + reading files
 const yaml = require('js-yaml'); // For parsing YAML
 const Ajv = require('ajv'); // For validating with schema
 
-const schema = require('../src/utils/ConfigSchema.json');
+const schema = require('../src/utils/config/ConfigSchema.json');
 
 /* Tell AJV to use strict mode, and report all errors */
 const validatorOptions = {

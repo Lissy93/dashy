@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import { serviceEndpoints } from '@/utils/defaults';
 import { showNumAsThousand, getTimeAgo } from '@/utils/MiscHelpers';
 import WidgetMixin from '@/mixins/WidgetMixin';
 
@@ -69,10 +68,6 @@ export default {
     },
     limit() {
       return this.options.limit;
-    },
-    proxyReqEndpoint() {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
     endpoint() {
       return `${this.hostname}/api/services`;
@@ -106,7 +101,7 @@ export default {
         + `<b>Last Success:</b> ${lastSuccess}<br>`
         + `<b>Last Failure:</b> ${lastFailure}`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'ping-times-tt',
+        content, html: true, popperClass: 'ping-times-tt',
       };
     },
     processData(data) {

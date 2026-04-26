@@ -2,8 +2,8 @@
 <div class="synology-download-wrapper" v-if="tasks">
   <div v-for="(task, key) in tasks" :key="key" class="task-row">
     <PercentageChart :title="task.DisplayTitle"
-      :showAsPercent=false
-      :showLegend=false
+      :showAsPercent="false"
+      :showLegend="false"
       :values="[
       { label: $t('widgets.synology-download.downloaded'),
         size: task.Progress, color: '#20e253' },
@@ -12,12 +12,12 @@
       ]" />
     <p class="info">
       <strong>{{ $t('widgets.synology-download.downloaded') }}</strong>:
-       {{ task.Downloaded | formatSize }}
-      / {{ task.TotalSize | formatSize }} ({{ task.Progress }}%)
-      ({{ task.DownSpeed | formatSize }}/s)<br/>
+       {{ formatSize(task.Downloaded) }}
+      / {{ formatSize(task.TotalSize) }} ({{ task.Progress }}%)
+      ({{ formatSize(task.DownSpeed) }}/s)<br/>
       <strong>{{ $t('widgets.synology-download.uploaded') }}</strong>:
-       {{ task.Uploaded | formatSize }}
-      ({{ task.UpSpeed | formatSize }}/s)
+       {{ formatSize(task.Uploaded) }}
+      ({{ formatSize(task.UpSpeed) }}/s)
       (ratio : {{ Math.floor( task.Uploaded / task.Downloaded * 100 ) / 100 }})
     </p>
   </div>
@@ -29,7 +29,6 @@ import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import PercentageChart from '@/components/Charts/PercentageChart';
 import { getValueFromCss, convertBytes } from '@/utils/MiscHelpers';
-import { serviceEndpoints } from '@/utils/defaults';
 
 export default {
   mixins: [WidgetMixin],
@@ -64,17 +63,11 @@ export default {
     endpointLogout() {
       return `${this.hostname}/webapi/auth.cgi?api=SYNO.API.Auth&version=3&method=logout&session=DownloadStation&_sid=${this.sid}`;
     },
-    proxyReqEndpoint() {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      return `${baseUrl}${serviceEndpoints.corsProxy}`;
-    },
   },
-  filters: {
+  methods: {
     formatSize(byteValue) {
       return convertBytes(byteValue);
     },
-  },
-  methods: {
     login() {
       request({
         method: 'GET',

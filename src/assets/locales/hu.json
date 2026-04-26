@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "App Info",
-    "error-log": "Hibanapló",
-    "no-errors": "Nem található friss hiba",
-    "help-support": "Súgó és támogatás",
-    "help-support-description" : "Ha segítségre van szükséged a Dashy futtatásához vagy beállításához, nézd meg a",
-    "help-support-discussions": "fórumot",
     "support-dashy": "Dashy támogatása",
     "support-dashy-description": "Ha szeretnél részt venni a projektben, nézd meg a",
     "support-dashy-link": "közreműködők oldalát",
@@ -72,7 +67,7 @@
     "licence-third-party": "A harmadik féltől származó modulok licenceiért látogasd meg a",
     "licence-third-party-link": "jogi oldalunkat",
     "list-contributors": "A teljes közreműködői lista és köszönetnyilvánítás itt található:",
-    "list-contributors-link": "Készítők", 
+    "list-contributors-link": "Készítők",
     "version": "Verzió"
   },
   "config": {
@@ -86,7 +81,6 @@
     "edit-css-button": "Egyéni CSS szerkesztése",
     "cloud-sync-button": "Szinkronizálás bekapcsolása",
     "edit-cloud-sync-button": "Szinkronizálási beállítások szerkesztése",
-    "rebuild-app-button": "Alkalmazás újraépítése",
     "change-language-button": "Nyelv módosítása",
     "reset-settings-button": "Helyi beállítások visszaállítása",
     "disabled-note": "Néhány beállítási lehetőséget a rendszergazda letiltott",
@@ -180,20 +174,6 @@
     "warning-msg-validation": "Érvényesítési figyelmeztetés",
     "not-admin-note": "Nem írhatsz a lemezre, mert nem rendszergazdaként vagy bejelentkezve"
   },
-  "app-rebuild": {
-    "title": "Alkalmazás újraépítése",
-    "rebuild-note-l1": "A változtatások érvényesítéséhez már nem szükséges újraépítés.",
-    "rebuild-note-l2": "Bizonyos beállítások (például a belépési pont és a hitelesítés) csak az építés során kerülnek betöltésre, ezért ezekhez újraépítést kell indítani.",
-    "rebuild-note-l3": "Ez a funkció csak Node és Docker telepítéseken érhető el, statikus verziókban nem.",
-    "rebuild-button": "Build indítása",
-    "rebuilding-status-1": "Build folyamatban...",
-    "rebuilding-status-2": "Ez néhány percet igénybe vehet",
-    "error-permission": "Nincs jogosultságod a folyamat elindításához",
-    "success-msg": "Az újraépítés sikeresen befejeződött",
-    "fail-msg": "Az újraépítés sikertelen volt",
-    "reload-note": "A változtatások érvényesítéséhez frissíteni kell az oldalt",
-    "reload-button": "Oldal újratöltése"
-  },
   "cloud-sync": {
     "title": "Mentés felhőbe, visszaállítás",
     "intro-l1": "A mentés felhőbe, visszaállítás egy választható funkció, amellyel feltöltheted a beállításaidat az internetre, majd bármely másik Dashy példányban visszaállíthatod azokat.",
@@ -250,12 +230,6 @@
       "move-section": "Áthelyezés ide",
       "remove-section": "Eltávolítás"
     }
-  },
-  "footer": {
-    "dev-by": "Fejlesztette",
-    "licensed-under": "Licenc típusa:",
-    "get-the": "Nézd meg a",
-    "source-code": "forráskódot"
   },
   "interactive-editor": {
     "menu": {

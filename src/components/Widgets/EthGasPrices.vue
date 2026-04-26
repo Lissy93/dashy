@@ -46,7 +46,7 @@
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
 import ChartingMixin from '@/mixins/ChartingMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 import { timestampToTime, roundPrice, putCommasInBigNum } from '@/utils/MiscHelpers';
 
 export default {

@@ -5,8 +5,8 @@
     <div class="repo-info">
       <p class="repo-name">{{ repo.name }}</p>
       <div class="star-wrap">
-        <p class="all-stars" v-if="repo.stars">{{ repo.stars | formatStars }}</p>
-        <p class="new-stars" v-if="repo.newStars">↑{{ repo.newStars | formatStars }}</p>
+        <p class="all-stars" v-if="repo.stars">{{ formatStars(repo.stars) }}</p>
+        <p class="new-stars" v-if="repo.newStars">↑{{ formatStars(repo.newStars) }}</p>
       </div>
       <a class="repo-link" :href="repo.link">{{ repo.slug }}</a>
       <p class="repo-desc">{{ repo.desc }}</p>
@@ -18,7 +18,7 @@
 <script>
 import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 import { capitalize, showNumAsThousand } from '@/utils/MiscHelpers';
 
 export default {
@@ -27,14 +27,6 @@ export default {
     return {
       trendingRepos: null,
     };
-  },
-  filters: {
-    formatStars(starCount) {
-      if (!starCount) return null;
-      const numericCount = typeof starCount === 'string'
-        ? parseInt(starCount.replaceAll(',', ''), 10) : starCount;
-      return `${showNumAsThousand(numericCount) || starCount} ★`;
-    },
   },
   computed: {
     since() {
@@ -54,6 +46,12 @@ export default {
     },
   },
   methods: {
+    formatStars(starCount) {
+      if (!starCount) return null;
+      const numericCount = typeof starCount === 'string'
+        ? parseInt(starCount.replaceAll(',', ''), 10) : starCount;
+      return `${showNumAsThousand(numericCount) || starCount} ★`;
+    },
     fetchData() {
       request.get(this.endpoint)
         .then((response) => {

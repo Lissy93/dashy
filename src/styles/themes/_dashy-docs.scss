@@ -1,0 +1,138 @@
+html[data-theme="dashy-docs"] {
+  // Base
+  --primary: #f5f6f7;
+  --background: #202020;
+  --background-darker: #121212;
+  // Items
+  --item-background: var(--background);
+  --item-background-hover: var(--background);
+  --item-text-color: var(--primary);
+  // Sections
+  --item-group-background: none;
+  --item-group-outer-background: var(--background-darker);
+  --item-group-heading-text-color: var(--background);
+  --item-group-heading-text-color-hover: var(--background);
+  // Misc
+  --item-group-padding: 0;
+  --curve-factor: 3px;
+  --curve-factor-navbar: 6px;
+  --item-shadow: 4px 4px 6px #00000080, -2px -2px 4px rgb(0 0 0 / 40%);
+  --item-group-shadow: 0px 3px 2px #222222, 0px 0px 2px #3e3e3e;
+  --font-headings: 'PTMono', 'Courier New', monospace;
+  --minimal-view-section-heading-color: var(--background);
+  // Navbar Links
+  --nav-link-background-color-hover: none;
+  --nav-link-border-color-hover: none;
+  --nav-link-text-color: var(--background);
+  --nav-link-text-color-hover: var(--background-darker);
+
+  footer {
+    box-shadow: 0 -3px 4px #010101;
+  }
+
+  section.settings-outer form input {
+    box-shadow: 1px 2px 4px #0b0b0b;
+  }
+
+  @mixin make-colors($first, $second) {
+    background: $first; box-shadow: 0 4px $second;
+    &:hover { box-shadow: 0 2px $second; }
+  }
+  // Section headings, nav bar items and minimal tabs
+  div.collapsable:nth-child(1n) .section-header,
+  .minimal-section-heading:nth-child(1n),
+  a.nav-item:nth-child(1n) {
+    @include make-colors(#db78fc, #b83ddd);
+    --nav-link-background-color-hover: #db78fc;
+    --nav-link-border-color-hover: #db78fc;
+  }
+  div.collapsable:nth-child(2n) .section-header,
+  .minimal-section-heading:nth-child(2n),
+  a.nav-item:nth-child(2n) {
+    @include make-colors(#5c85f7, #3d48dd);
+    --nav-link-background-color-hover: #5c85f7;
+    --nav-link-border-color-hover: #5c85f7;
+  }
+  div.collapsable:nth-child(3n) .section-header,
+  .minimal-section-heading:nth-child(3n),
+  a.nav-item:nth-child(3n) {
+    @include make-colors(#41ef90, #1e9554);
+    --nav-link-background-color-hover: #41ef90;
+    --nav-link-border-color-hover: #41ef90;
+  }
+  div.collapsable:nth-child(4n) .section-header,
+  .minimal-section-heading:nth-child(4n),
+  a.nav-item:nth-child(4n) {
+    @include make-colors(#dcff5a, #ceb73f);
+    --nav-link-background-color-hover: #dcff5a;
+    --nav-link-border-color-hover: #dcff5a;
+  }
+
+  nav.side-bar {
+    div div.side-bar-item-container div {
+      padding: 0.15rem 0;
+      color: var(--background);
+    }
+
+    div.side-bar-section:nth-child(1n) {
+      div.side-bar-item-container div.side-bar-item {
+        @include make-colors(#db78fc, #b83ddd);
+      }
+      .sub-side-bar { background: #b83ddd80; }
+    }
+    div.side-bar-section:nth-child(2n) {
+      div.side-bar-item-container div.side-bar-item {
+        @include make-colors(#5c85f7, #3d48dd);
+      }
+      .sub-side-bar { background: #3d48dd80; }
+    }
+    div.side-bar-section:nth-child(3n) {
+      div.side-bar-item-container div.side-bar-item {
+        @include make-colors(#41ef90, #1e9554);
+      }
+      .sub-side-bar { background: #1e955480; }
+    }
+    div.side-bar-section:nth-child(4n) {
+      div.side-bar-item-container div.side-bar-item {
+        @include make-colors(#dcff5a, #ceb73f);
+      }
+      .sub-side-bar { background: #ceb73f80; }
+    }
+  }
+
+  // Section items
+  div.collapsable:nth-child(1n) { .item-wrapper:hover { .item {box-shadow: 0 2px 3px #db78fc; .tile-title { color: #db78fc; } } } }
+  div.collapsable:nth-child(2n) { .item-wrapper:hover { .item { box-shadow: 0 2px 3px #5c85f7; .tile-title { color: #5c85f7; } } } }
+  div.collapsable:nth-child(3n) { .item-wrapper:hover { .item { box-shadow: 0 2px 3px #41ef90; .tile-title { color: #41ef90; } } } }
+  div.collapsable:nth-child(4n) { .item-wrapper:hover { .item { box-shadow: 0 2px 3px #dcff5a; .tile-title { color: #dcff5a; } } } }
+
+
+  div.config-buttons {
+    .config-button {
+      border: none;
+      color: var(--background);
+      font-weight: bold;
+      svg path { fill: var(--background); }
+      &:nth-child(4n + 1) { @include make-colors(#db78fc, #b83ddd); }
+      &:nth-child(4n + 2) { @include make-colors(#41ef90, #1e9554); }
+      &:nth-child(4n + 3) { @include make-colors(#5c85f7, #3d48dd); }
+      &:nth-child(4n + 4) { @include make-colors(#dcff5a, #ceb73f); }
+    }
+  }
+  
+  a.nav-item, a.nav-item:hover, a.nav-item.router-link-active {
+    border: none;
+    color: var(--background);
+    font-weight: bold;
+    min-width: 5rem;
+    text-align: center;
+  }
+  
+  .minimal-section-heading {
+    border: none !important;
+    &.selected {
+      background: var(--primary) !important;
+    }
+  }
+}
+

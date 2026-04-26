@@ -6,14 +6,14 @@
         :description="pageInfo.description"
         :logo="pageInfo.logo"
       />
-      <Nav v-if="navVisible" :links="pageInfo.navLinks" class="nav" />
+      <Nav :links="pageInfo.navLinks" :user-hidden="!navVisible" class="nav" />
     </header>
 </template>
 
 <script>
 import PageTitle from '@/components/PageStrcture/PageTitle.vue';
 import Nav from '@/components/PageStrcture/Nav.vue';
-import { shouldBeVisible } from '@/utils/SectionHelpers';
+import { shouldBeVisible } from '@/utils/config/SectionHelpers';
 
 export default {
   name: 'Header',
@@ -22,7 +22,7 @@ export default {
     Nav,
   },
   props: {
-    pageInfo: Object,
+    pageInfo: { type: Object, required: true },
   },
   computed: {
     componentVisible() {
@@ -46,6 +46,7 @@ export default {
 @import '@/styles/media-queries.scss';
 
   header {
+    position: relative;
     margin: 0;
     padding: 0.5rem;
     display: flex;
@@ -54,7 +55,7 @@ export default {
     align-items: center;
     align-content: flex-start;
     @include phone {
-      flex-direction: column-reverse;
+      flex-direction: column;
     }
   }
 </style>

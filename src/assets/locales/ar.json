@@ -87,7 +87,6 @@
     "edit-css-button": "تحرير CSS مخصص",
     "cloud-sync-button": "تفعيل Cloud Sync",
     "edit-cloud-sync-button": "تعديل Cloud Sync",
-    "rebuild-app-button": "إعادة إنشاء التطبيق",
     "change-language-button": "تغيير لغة التطبيق",
     "reset-settings-button": "إعادة ضبط الإعدادات المحلية",
     "disabled-note": "تم تعطيل بعض ميزات التكوين بواسطة المسؤول",
@@ -180,20 +179,6 @@
     "error-msg-bad-json": "خطأ في JSON ، ربما يكون غير صحيح",
     "warning-msg-validation": "تحذير التحقق",
     "not-admin-note": "لا يمكنك الكتابة التغيير إلى القرص ، لأنك لم تقم بتسجيل الدخول كمسؤول"
-  },
-  "app-rebuild": {
-    "title": "إعادة إنشاء التطبيق",
-    "rebuild-note-l1": "إعادة بناء (Rebuild) مطلوبة حتى تصبح التغييرات المكتوبة في ملف conf.yml سارية المفعول.",
-    "rebuild-note-l2": "يجب أن يحدث هذا تلقائيًا ، ولكن إذا لم يحدث ذلك ، فيمكنك تشغيله يدويًا هنا.",
-    "rebuild-note-l3": "هذا ليس مطلوبًا للتعديلات المخزنة محليًا.",
-    "rebuild-button": "ابدأ البناء",
-    "rebuilding-status-1": "بناء...",
-    "rebuilding-status-2": "قد يستغرق هذا بضع دقائق",
-    "error-permission": "ليس لديك إذن لبدء هذا الإجراء",
-    "success-msg": "اكتمل البناء بنجاح",
-    "fail-msg": "فشلت عملية البناء",
-    "reload-note": "يلزم الآن إعادة تحميل الصفحة حتى تدخل التغييرات حيز التنفيذ",
-    "reload-button": "إعادة تحميل الصفحة"
   },
   "cloud-sync": {
     "title": "النسخ الاحتياطي والاستعادة السحابية",

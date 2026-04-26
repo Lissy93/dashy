@@ -136,7 +136,7 @@ export default {
       const content = clearAtTime ? `${this.tt('until')}`
                     + ` ${new Date(clearAtTime * 1000).toLocaleString()}` : '';
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
   },

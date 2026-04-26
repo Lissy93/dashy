@@ -60,8 +60,8 @@
         {{ match.league }}, {{ match.season }}
       </p>
       <p>
-        <a :href="match.venue | mapsUrl">{{ match.venue }}</a>
-        on {{ match.date | formatDate }} ({{ match.time | formatTime }})</p>
+        <a :href="mapsUrl(match.venue)">{{ match.venue }}</a>
+        on {{ formatDate(match.date) }} ({{ formatTime(match.time) }})</p>
     </div>
   </div>
 </div>
@@ -71,7 +71,7 @@
 import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { timestampToDate, getPlaceUrl } from '@/utils/MiscHelpers';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 
 export default {
   mixins: [WidgetMixin],
@@ -121,7 +121,7 @@ export default {
       }
     },
   },
-  filters: {
+  methods: {
     formatDate(dateStr) {
       return timestampToDate(dateStr);
     },
@@ -132,8 +132,6 @@ export default {
     mapsUrl(placeName) {
       return getPlaceUrl(placeName);
     },
-  },
-  methods: {
     initiate() {
       if (!this.initiated) {
         this.currentTeamId = this.teamId;
@@ -215,7 +213,7 @@ export default {
     },
     tooltip(content) {
       return {
-        content, html: true, trigger: 'hover focus', delay: 250,
+        content, html: true, 
       };
     },
   },

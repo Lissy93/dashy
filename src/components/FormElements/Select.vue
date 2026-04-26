@@ -2,8 +2,8 @@
   <div class="select-container">
     <label v-if="label" class="select-label">{{ label }}</label>
     <v-select
-      @input="updateValue"
-      :value="selectedOption"
+      @option:selected="updateValue"
+      v-model="selectedOption"
       :selectOnTab="true"
       :options="options"
       class="form-dropdown"
@@ -18,11 +18,12 @@ export default {
   name: 'Select',
   components: {},
   props: {
-    options: Array, // Array of available options
-    initialOption: String, // Optional default option
-    label: String, // Form label for element
-    description: String, // Optional description text
+    options: { type: Array, default: () => [] }, // Array of available options
+    initialOption: { type: String, default: '' }, // Optional default option
+    label: { type: String, default: '' }, // Form label for element
+    description: { type: String, default: '' }, // Optional description text
   },
+  emits: ['update:modelValue'],
   data() {
     return {
       selectedOption: '', // The currently selected val
@@ -35,7 +36,7 @@ export default {
   },
   methods: {
     updateValue(value) {
-      this.$emit('input', value);
+      this.$emit('update:modelValue', value);
       this.selectedOption = value;
     },
   },

@@ -32,9 +32,6 @@ import IconVertical from '@/assets/interface-icons/layout-vertical.svg';
 
 export default {
   name: 'LayoutSelector',
-  props: {
-    displayLayout: String,
-  },
   components: {
     IconDeafault,
     IconHorizontal,
@@ -50,38 +47,9 @@ export default {
       this.$store.commit(StoreKeys.SET_ITEM_LAYOUT, layout);
     },
     tooltip(content) {
-      return { content, trigger: 'hover focus', delay: 250 };
+      return { content };
     },
   },
 };
 </script>
 
-<style scoped lang="scss">
-
-span.options-label {
-  color: var(--settings-text-color);
-}
-
-.display-options {
-  color: var(--settings-text-color);
-  svg {
-    path {
-      fill: var(--settings-text-color);
-    }
-    width: 1rem;
-    height: 1rem;
-    margin: 0.2rem;
-    padding: 0.2rem;
-    text-align: center;
-    background: var(--background);
-    border: 1px solid currentColor;
-    border-radius: var(--curve-factor);
-    cursor: pointer;
-    &:hover, &.selected {
-      background: var(--settings-text-color);
-      path { fill: var(--background); }
-    }
-  }
-}
-
-</style>

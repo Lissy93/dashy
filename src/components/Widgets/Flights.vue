@@ -10,7 +10,7 @@
       {{ $t('widgets.flight-data.departures') }}
     </h3>
     <div v-for="flight in departures" :key="flight.number" class="flight" v-tooltip="tip(flight)">
-      <p class="info flight-time">{{ flight.time | formatDate }}</p>
+      <p class="info flight-time">{{ formatDate(flight.time) }}</p>
       <p class="info flight-number">{{ flight.number }}</p>
       <p class="info flight-airport">{{ flight.airport }}</p>
     </div>
@@ -21,7 +21,7 @@
       {{ $t('widgets.flight-data.arrivals') }}
     </h3>
     <div v-for="flight in arrivals" :key="flight.number" class="flight" v-tooltip="tip(flight)">
-      <p class="info flight-time">{{ flight.time | formatDate }}</p>
+      <p class="info flight-time">{{ formatDate(flight.time) }}</p>
       <p class="info flight-number">{{ flight.number }}</p>
       <p class="info flight-airport">{{ flight.airport }}</p>
     </div>
@@ -32,7 +32,7 @@
 <script>
 import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 
 export default {
   mixins: [WidgetMixin],
@@ -42,13 +42,6 @@ export default {
       departures: [],
       arrivals: [],
     };
-  },
-  filters: {
-    formatDate(date) {
-      const d = new Date(date);
-      if (Number.isNaN(d.getHours())) return '[UNKNOWN]';
-      return `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
-    },
   },
   computed: {
     /* The users desired airport, specified as a 4-digit ICAO-code */
@@ -102,6 +95,11 @@ export default {
     },
   },
   methods: {
+    formatDate(date) {
+      const d = new Date(date);
+      if (Number.isNaN(d.getHours())) return '[UNKNOWN]';
+      return `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+    },
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       const requestConfig = {
@@ -150,7 +148,7 @@ export default {
     tip(flight) {
       const content = `${flight.aircraft} | ${flight.airline}`;
       return {
-        content, trigger: 'hover focus', delay: 250, classes: 'in-modal-tt',
+        content, popperClass: 'in-modal-tt',
       };
     },
   },

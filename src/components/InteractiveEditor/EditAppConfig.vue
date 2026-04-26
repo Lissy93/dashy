@@ -1,54 +1,46 @@
 <template>
   <modal
-    :name="modalName"
-    :resizable="true"
-    width="50%"
-    height="80%"
+    :name="modalName" @closed="modalClosed" @before-open="initForm"
+    :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-app-config"
-    @closed="modalClosed"
   >
-  <div class="edit-app-config-inner" v-if="allowViewConfig">
-  <h3>{{ $t('interactive-editor.menu.edit-app-config-btn') }}</h3>
-  <!-- Show caution message -->
-  <div class="app-config-intro">
-    <p class="use-caution">
-      {{ $t('interactive-editor.edit-app-config.warning-msg-title') }}
-    </p>
-    {{ $t('interactive-editor.edit-app-config.warning-msg-l1') }}
-    {{ $t('interactive-editor.edit-app-config.warning-msg-l2') }}
-    <a href="https://dashy.to/docs/configuring#appconfig-optional">
-      {{ $t('interactive-editor.edit-app-config.warning-msg-docs') }}
-    </a>
-    {{ $t('interactive-editor.edit-app-config.warning-msg-l3') }}
-  </div>
-  <!-- Save Button, upper -->
-  <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
-  <!-- The main form -->
-  <FormSchema
-    :schema="schema"
-    v-model="formData"
-    @submit.prevent="saveToState"
-    :search="true"
-    class="app-config-form"
-    name="appConfigForm"
-  ></FormSchema>
-  <!-- Save Button, lower -->
-  <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
-  </div>
-  <AccessError v-else />
+    <div class="interactive-editor-inner" v-if="allowViewConfig">
+      <h3>{{ $t('interactive-editor.menu.edit-app-config-btn') }}</h3>
+      <div class="app-config-intro">
+        <p class="use-caution">
+          {{ $t('interactive-editor.edit-app-config.warning-msg-title') }}
+        </p>
+        {{ $t('interactive-editor.edit-app-config.warning-msg-l1') }}
+        {{ $t('interactive-editor.edit-app-config.warning-msg-l2') }}
+        <a href="https://dashy.to/docs/configuring#appconfig-optional">
+          {{ $t('interactive-editor.edit-app-config.warning-msg-docs') }}
+        </a>
+        {{ $t('interactive-editor.edit-app-config.warning-msg-l3') }}
+      </div>
+      <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
+      <SchemaForm v-model="formData" :schema="schema" class="app-config-form" />
+      <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
+    </div>
+    <AccessError v-else />
   </modal>
 </template>
 
 <script>
-import FormSchema from '@formschema/native';
-import DashySchema from '@/utils/ConfigSchema';
+import { defineAsyncComponent } from 'vue';
+import DashySchema from '@/utils/config/ConfigSchema.json';
 import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/config/defaults';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
+import safeClone from '@/utils/safeClone';
+import pruneSchemaDefaults from '@/utils/config/pruneSchemaDefaults';
 import AccessError from '@/components/Configuration/AccessError';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 
+const SchemaForm = defineAsyncComponent(() => import('@/components/FormElements/SchemaForm.vue'));
+
 export default {
   name: 'EditAppConfig',
+  components: { AccessError, SaveCancelButtons, SchemaForm },
   data() {
     return {
       formData: {},
@@ -56,93 +48,52 @@ export default {
       modalName: modalNames.EDIT_APP_CONFIG,
     };
   },
-  props: {},
-  components: {
-    FormSchema,
-    SaveCancelButtons,
-    AccessError,
-  },
-  mounted() {
-    this.formData = this.appConfig;
-  },
   computed: {
-    appConfig() {
-      return this.$store.getters.appConfig;
-    },
-    allowViewConfig() {
-      return this.$store.getters.permissions.allowViewConfig;
-    },
+    // Read root appConfig, for partial sub-pages to inherit from
+    ownAppConfig() { return this.$store.state.configSource.appConfig || {}; },
+    allowViewConfig() { return this.$store.getters.permissions.allowViewConfig; },
   },
   methods: {
-    /* When form submitteed, update VueX store with new appConfig, and close modal */
+    // Re-runs on each modal open so the forms reflects changes made elsewhere
+    initForm() {
+      this.formData = safeClone(this.ownAppConfig, {});
+    },
     saveToState() {
-      const processedFormData = this.removeUndefinedValues(this.formData);
-      this.$store.commit(StoreKeys.SET_APP_CONFIG, processedFormData);
-      this.$modal.hide(this.modalName);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+      try {
+        const pruned = pruneSchemaDefaults(this.formData, this.schema);
+        const patched = { ...this.$store.state.configSource, appConfig: pruned };
+        this.$store.dispatch(StoreKeys.APPLY_EDITED_CONFIG, patched);
+        this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+        InfoHandler('App config updated', InfoKeys.EDITOR);
+        this.cancelEditing();
+      } catch (e) {
+        ErrorHandler('Failed to save app config', e);
+        this.$toast.error('Error saving changes, check the logs');
+      }
     },
-    cancelEditing() {
-      this.$modal.hide(this.modalName);
-    },
-    /* Called when modal manually closed, updates state to allow searching again */
-    modalClosed() {
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-    },
-    /* Remove any attribute which has an undefined value before saving */
-    removeUndefinedValues(rawAppConfig) {
-      const raw = rawAppConfig;
-      const isEmptyObject = (obj) => (typeof obj === 'object' && Object.keys(obj).length === 0);
-      const isEmpty = (value) => (value === undefined || isEmptyObject(value));
-
-      // Delete empty values
-      Object.keys(raw).forEach(key => {
-        if (isEmpty(raw[key])) delete raw[key];
-      });
-      // If KC config empty, delete it
-      const kcConfig = raw.auth.keycloak;
-      if (!kcConfig.clientId && !kcConfig.realm && !kcConfig.serverUrl) delete raw.auth.keycloak;
-      return raw;
-    },
+    cancelEditing() { this.$modal.hide(this.modalName); },
+    modalClosed() { this.$store.commit(StoreKeys.SET_MODAL_OPEN, false); },
   },
 };
 </script>
 
 <style lang="scss">
 @import '@/styles/style-helpers.scss';
-@import '@/styles/media-queries.scss';
-@import '@/styles/schema-editor.scss';
 
-.edit-app-config-inner {
-  padding: 1rem;
-  background: var(--interactive-editor-background);
+.edit-app-config .app-config-intro {
+  padding: 0.5rem;
+  font-size: 0.9rem;
   color: var(--interactive-editor-color);
-  height: 100%;
-  overflow-y: auto;
-  @extend .scroll-bar;
-  h3 {
-    font-size: 1.4rem;
-    margin: 0.5rem;
+  background: var(--interactive-editor-background-darker);
+  border-radius: var(--curve-factor);
+  p.use-caution {
+    margin: 0;
+    color: var(--warning);
+    font-weight: bold;
   }
-  .app-config-form {
-    @extend .schema-form;
-    border-top: 1px dashed var(--interactive-editor-color);
-  }
-  .app-config-intro {
-    padding: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--interactive-editor-color);
-    background: var(--interactive-editor-background-darker);
-    border-radius: var(--interactive-editor-color);
-    p.use-caution {
-      color: var(--warning);
-      margin: 0;
-      font-weight: bold;
-    }
-    a {
-      color: var(--interactive-editor-color);
-    }
-  }
+  a { color: var(--interactive-editor-color); }
 }
-
+.edit-app-config .app-config-form {
+  margin: 1rem 0;
+}
 </style>

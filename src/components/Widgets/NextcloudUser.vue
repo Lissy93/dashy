@@ -28,8 +28,8 @@
         <i class="fal fa-disc-drive"></i>
         <strong v-if="user.quota.quota > 0">{{ tt('disk-quota') }}</strong>
         <strong v-else>{{ tt('disk-space') }}</strong>
-        <em v-html="formatPercent(user.quota.relative)"></em>
-        <small>{{ tt('of') }}</small><strong v-html="convertBytes(user.quota.total)"></strong>
+        <em v-html="safeHtmlFormatPercent(user.quota.relative)"></em>
+        <small>{{ tt('of') }}</small><strong v-html="safeHtmlConvertBytes(user.quota.total)"></strong>
         <span v-if="quotaChart.dataLoaded">
           <PercentageChart :values="quotaChart.data" :showLegend="false" />
         </span>
@@ -122,17 +122,17 @@ export default {
     quotaTooltip() {
       const quotaEnabled = this.user.quota.quota > 0;
       const content = `${this.tt('quota-enabled', { not: quotaEnabled ? '' : 'not ' })}`
-                    + `<br><br>${this.convertBytes(this.user.quota.used)} ${this.tt('used')}<br>`
-                    + `${this.convertBytes(this.user.quota.free)} ${this.tt('free')}<br>`
-                    + `${this.convertBytes(this.user.quota.total)} ${this.tt('total')}`;
+                    + `<br><br>${this.safeHtmlConvertBytes(this.user.quota.used)} ${this.tt('used')}<br>`
+                    + `${this.safeHtmlConvertBytes(this.user.quota.free)} ${this.tt('free')}<br>`
+                    + `${this.safeHtmlConvertBytes(this.user.quota.total)} ${this.tt('total')}`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
     lastLoginTooltip() {
       const content = new Date(this.user.lastLogin).toLocaleString();
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'nc-tooltip',
+        content, html: true, popperClass: 'nc-tooltip',
       };
     },
   },

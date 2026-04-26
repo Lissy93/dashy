@@ -2,11 +2,11 @@
 <div class="system-info-wrapper">
   <div class="some-info" v-if="info">
     <p class="host">
-      {{ info.username | isUsername }}{{ info.hostname }}
+      {{ isUsername(info.username) }}{{ info.hostname }}
     </p>
     <p class="system">
       {{ info.system }} <span class="gap">|</span>
-      {{ $t('widgets.system-info.uptime') }}: {{ info.uptime | makeUptime }}
+      {{ $t('widgets.system-info.uptime') }}: {{ makeUptime(info.uptime) }}
     </p>
   </div>
   <div class="some-charts">
@@ -20,7 +20,7 @@
 import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
 import ChartingMixin from '@/mixins/ChartingMixin';
-import { serviceEndpoints } from '@/utils/defaults';
+import { serviceEndpoints } from '@/utils/config/defaults';
 
 export default {
   mixins: [WidgetMixin, ChartingMixin],
@@ -32,11 +32,11 @@ export default {
   },
   computed: {
     endpoint() {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       return `${baseUrl}${serviceEndpoints.systemInfo}`;
     },
   },
-  filters: {
+  methods: {
     isUsername(username) {
       return username ? `${username}@` : '';
     },
@@ -51,8 +51,6 @@ export default {
       if (seconds >= 31557600) return `${(seconds / 31557600).toFixed(2)} years`;
       return '';
     },
-  },
-  methods: {
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       request.get(this.endpoint)

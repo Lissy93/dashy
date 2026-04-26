@@ -2,14 +2,14 @@
 <div class="mvg-wrapper" v-if="departures">
   <template
     v-for="departure in departures"
+    :key="departure.key"
   >
-    <div class="departure" v-bind:key="departure.key" v-tooltip="mvgTooltipDeparture(departure)">
+    <div class="departure" v-tooltip="mvgTooltipDeparture(departure)">
       <span :class="{live: departure.live}">
-        {{ departure.realtimeDepartureTime | formatDepartureTime }}
+        {{ formatDepartureTime(departure.realtimeDepartureTime) }}
       </span>
     </div>
-    <div class='line'
-      v-bind:key="departure.key + 'line'"
+    <div class="line"
       >
       <div
         class="transport"
@@ -18,7 +18,7 @@
         ]"
       >{{ departure.label }}</div>
       <div
-      class='destination'
+      class="destination"
       v-tooltip="mvgTooltipDestination(departure)"
       :class="{cancelled: departure.cancelled}">{{ departure.destination }}</div>
       <span class="delay"
@@ -37,7 +37,7 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 import { timestampToTime } from '@/utils/MiscHelpers';
 
 export default {
@@ -66,13 +66,6 @@ export default {
       this.location = this.options.location;
     }
   },
-  filters: {
-    formatDepartureTime(timestamp) {
-      const msDifference = new Date(timestamp).getTime() - new Date().getTime();
-      const diff = Math.max(0, Math.round(msDifference / 60000));
-      return diff;
-    },
-  },
   computed: {
     isLocationId() {
       if (!this.options.location) {
@@ -97,6 +90,11 @@ export default {
     },
   },
   methods: {
+    formatDepartureTime(timestamp) {
+      const msDifference = new Date(timestamp).getTime() - new Date().getTime();
+      const diff = Math.max(0, Math.round(msDifference / 60000));
+      return diff;
+    },
     update() {
       this.startLoading();
       this.fetchData();
@@ -173,7 +171,7 @@ export default {
         departureDetails += 'Live!<br />';
       }
       return {
-        content: departureDetails, html: true, trigger: 'hover', delay: 250, classes: 'mvg-info-tt',
+        content: departureDetails, html: true, triggers: ['hover'], popperClass: 'mvg-info-tt',
       };
     },
     mvgTooltipDestination(data) {
@@ -185,7 +183,7 @@ export default {
         departureDetails += '<b>Cancelled!</b><br />';
       }
       return {
-        content: departureDetails, html: true, trigger: 'hover', delay: 250, classes: 'mvg-info-tt',
+        content: departureDetails, html: true, triggers: ['hover'], popperClass: 'mvg-info-tt',
       };
     },
   },

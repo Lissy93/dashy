@@ -39,13 +39,10 @@ jobs:
           type=raw,value=latest
         flavor: |
           latest=false
-        labels: |
-          maintainer=Lissy93
-          org.opencontainers.image.title=Dashy
-          org.opencontainers.image.description=A self-hosted startpage for your server
-          org.opencontainers.image.documentation=https://dashy.to/docs
-          org.opencontainers.image.authors=Alicia Sykes
-          org.opencontainers.image.licenses=MIT
+
+    - name: ⏱️ Capture Build Timestamp
+      id: timestamp
+      run: echo "iso=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_OUTPUT"
 
     - name: 🔧 Set up QEMU
       uses: docker/setup-qemu-action@v4
@@ -71,12 +68,17 @@ jobs:
     - name: 🚦 Check Registry Status
       uses: crazy-max/ghaction-docker-status@v4
 
-    - name: ⚒️ Build and push
+    - name: ⚒️ Build and Push
       uses: docker/build-push-action@v7
       with:
         context: .
         file: ./Dockerfile
         platforms: linux/amd64,linux/arm64,linux/arm/v7
         tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+        build-args: |
+          VERSION=${{ steps.meta.outputs.version }}
+          REVISION=${{ github.sha }}
+          CREATED=${{ steps.timestamp.outputs.iso }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
         push: true

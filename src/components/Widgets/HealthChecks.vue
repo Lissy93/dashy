@@ -2,14 +2,14 @@
 <div class="health-checks-wrapper" v-if="crons">
   <template
     v-for="cron in crons"
+    :key="cron.id"
   >
-    <div class="status" v-bind:key="cron.id + 'status'">
-      <p :class="cron.status">{{ cron.status | formatStatus }}</p>
+    <div class="status">
+      <p :class="cron.status">{{ formatStatus(cron.status) }}</p>
     </div>
     <div
       class="info"
       v-tooltip="pingTimeTooltip(cron)"
-      v-bind:key="cron.id + 'info'"
     >
       <p class="cron-name">{{ cron.name }}</p>
       <p class="cron-desc">{{ cron.desc }}</p>
@@ -20,7 +20,7 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 import { capitalize, timestampToDateTime } from '@/utils/MiscHelpers';
 
 export default {
@@ -30,20 +30,6 @@ export default {
     return {
       crons: null,
     };
-  },
-  filters: {
-    formatStatus(status) {
-      let symbol = '';
-      if (status === 'up') symbol = '✔';
-      if (status === 'down') symbol = '✘';
-      if (status === 'new') symbol = '❖';
-      if (status === 'paused') symbol = '⏸';
-      if (status === 'running') symbol = '▶';
-      return `${symbol} ${capitalize(status)}`;
-    },
-    formatDate(timestamp) {
-      return timestampToDateTime(timestamp);
-    },
   },
   computed: {
     /* API endpoint, either for self-hosted or managed instance */
@@ -62,6 +48,18 @@ export default {
     },
   },
   methods: {
+    formatStatus(status) {
+      let symbol = '';
+      if (status === 'up') symbol = '✔';
+      if (status === 'down') symbol = '✘';
+      if (status === 'new') symbol = '❖';
+      if (status === 'paused') symbol = '⏸';
+      if (status === 'running') symbol = '▶';
+      return `${symbol} ${capitalize(status)}`;
+    },
+    formatDate(timestamp) {
+      return timestampToDateTime(timestamp);
+    },
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       this.overrideProxyChoice = true;
@@ -101,7 +99,7 @@ export default {
         + `<b>Last Ping:</b> ${timestampToDateTime(lastPing)}<br>`
         + `<b>Next Ping:</b>${timestampToDateTime(nextPing)}`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'ping-times-tt',
+        content, html: true, popperClass: 'ping-times-tt',
       };
     },
   },

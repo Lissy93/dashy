@@ -4,7 +4,7 @@
     <div v-for="line in filterLines" :key="line.index" class="line-row">
       <p class="row name">{{ line.line }}</p>
       <p :class="`row status ${getStatusColor(line.statusCode)}`">{{ line.status }}</p>
-      <p class="row disruption" v-if="line.disruption">{{ line.disruption | format }}</p>
+      <p class="row disruption" v-if="line.disruption">{{ format(line.disruption) }}</p>
     </div>
     <div v-if="!showAll" class="line-row">
       <p class="row all-other">
@@ -25,7 +25,7 @@
 <script>
 import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 
 export default {
   mixins: [WidgetMixin],
@@ -42,13 +42,11 @@ export default {
       return this.lineStatuses.filter((line) => line.statusCode !== 10);
     },
   },
-  filters: {
+  methods: {
     format(description) {
       const parts = description.split(':');
       return parts.length > 1 ? parts[1] : parts[0];
     },
-  },
-  methods: {
     /* Makes GET request to the TFL API */
     fetchData() {
       request.get(widgetApiEndpoints.tflStatus)

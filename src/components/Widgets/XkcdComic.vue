@@ -9,7 +9,7 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 
 export default {
   mixins: [WidgetMixin],
@@ -67,7 +67,7 @@ export default {
     toolTip(alt) {
       const content = alt;
       return {
-        content, html: false, trigger: 'hover focus', delay: 250, classes: 'xkcd-alt-tt',
+        content, html: false, popperClass: 'xkcd-alt-tt',
       };
     },
   },

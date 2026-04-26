@@ -3,26 +3,26 @@
   <div class="interface-row" v-for="network in networks" :key="network.name">
     <div class="network-info">
       <p class="network-name">{{ network.name }}</p>
-      <p class="network-speed">{{ network.speed | formatSpeed }}</p>
+      <p class="network-speed">{{ formatSpeed(network.speed) }}</p>
       <p :class="`network-online ${network.online}`">
       {{ network.online }}
       </p>
     </div>
     <div class="current" v-if="network.online === 'up'">
       <span class="upload">
-        ↑ <span class="val">{{ network.currentUpload | formatDataSize }}</span>
+        ↑ <span class="val">{{ formatDataSize(network.currentUpload) }}</span>
       </span>
       <span class="separator">|</span>
       <span class="download">
-        ↓ <span class="val">{{ network.currentDownload | formatDataSize }}</span>
+        ↓ <span class="val">{{ formatDataSize(network.currentDownload) }}</span>
       </span>
     </div>
     <div class="total">
       <b class="lbl">Total</b> Up
-      <span class="val">{{ network.totalUpload | formatDataSize }}</span>
+      <span class="val">{{ formatDataSize(network.totalUpload) }}</span>
       <span class="separator">|</span>
       Down
-      <span class="val">{{ network.totalDownload | formatDataSize }}</span>
+      <span class="val">{{ formatDataSize(network.totalDownload) }}</span>
     </div>
   </div>
 </div>
@@ -46,7 +46,7 @@ export default {
       return this.makeGlancesUrl('network');
     },
   },
-  filters: {
+  methods: {
     formatDataSize(data) {
       return convertBytes(data);
     },
@@ -59,8 +59,6 @@ export default {
       if (direction === 'down') return '↓';
       return '';
     },
-  },
-  methods: {
     processData(networkData) {
       this.previous = this.disks;
       const networks = [];

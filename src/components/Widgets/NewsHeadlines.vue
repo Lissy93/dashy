@@ -4,7 +4,7 @@
     <a class="headline" :href="article.url">{{ article.title }}</a>
     <div class="article-meta">
       <span class="publisher">{{ article.author }}</span>
-      <span class="date">{{ article.published | date }}</span>
+      <span class="date">{{ date(article.published) }}</span>
     </div>
     <p class="description">{{ article.description }}</p>
     <img class="thumbnail" v-if="article.image && !hideImages" :src="article.image" alt="Image" />
@@ -15,7 +15,7 @@
 <script>
 import request from '@/utils/request';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 import { timestampToDate } from '@/utils/MiscHelpers';
 
 export default {
@@ -54,12 +54,10 @@ export default {
       + `${this.country}${this.category}${this.lang}${this.count}`;
     },
   },
-  filters: {
+  methods: {
     date(date) {
       return timestampToDate(date);
     },
-  },
-  methods: {
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       request.get(this.endpoint)

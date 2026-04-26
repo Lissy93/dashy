@@ -5,6 +5,7 @@ _The following article is a primer on managing self-hosted apps. It covers every
 ## Contents
 
 - [Providing Assets](#providing-assets)
+- [File Ownership and Permissions](#file-ownership-and-permissions)
 - [Running Commands](#running-commands)
 - [Healthchecks](#healthchecks)
 - [Logs and Performance](#logs-and-performance)
@@ -29,16 +30,51 @@ _The following article is a primer on managing self-hosted apps. It covers every
 
 ## Providing Assets
 
-Although not essential, you will most likely want to provide several assets to your running app.
+Dashy reads everything for your dashboard from a single host directory mounted into the container at `/app/user-data`. This is done with a [Docker volume](https://docs.docker.com/storage/volumes/), e.g. `-v /path/to/your/user-data:/app/user-data`.
 
-This is easy to do using [Docker Volumes](https://docs.docker.com/storage/volumes/), which lets you share a file or directory between your host system, and the container. Volumes are specified in the Docker run command, or Docker compose file, using the `--volume` or `-v` flags. The value of which consists of the path to the file / directory on your host system, followed by the destination path within the container. Fields are separated by a colon (`:`), and must be in the correct order. For example: `-v ~/alicia/my-local-conf.yml:/app/user-data/conf.yml`
+The directory must contain a `conf.yml`. It can also contain anything else you want served from the web root: sub-config files for additional pages, item icons, favicon, fonts, custom CSS, manifest, and so on. Any file placed there is reachable at `/<filename>` in the browser, overriding files of the same name in the bundled `public/` defaults.
 
-In Dashy, commonly configured resources include:
+Typical contents:
 
-- `./user-data/conf.yml` - Your main application config file
-- `./public/item-icons` - A directory containing your own icons. This allows for offline access, and better performance than fetching from a CDN
-- Also within `./public` you'll find standard website assets, including `favicon.ico`, `manifest.json`, `robots.txt`, etc. There's no need to pass these in, but you can do so if you wish
-- `/src/styles/user-defined-themes.scss` - A stylesheet for applying custom CSS to your app. You can also write your own themes here.
+- `conf.yml` - Main config (required)
+- `*.yml` / `*.yaml` - Sub-config files for [multi-page support](/docs/pages-and-sections.md#multi-page-support)
+- `item-icons/` - Local icons referenced by `icon: ./item-icons/foo.png`
+- `favicon.ico`, `manifest.json`, `robots.txt` - Override the bundled defaults
+- `fonts/`, `widget-resources/` - Custom fonts or assets used by widgets
+
+**[⬆️ Back to Top](#management)**
+
+---
+
+## File Ownership and Permissions
+
+Inside the container, Dashy runs as a non-root user with uid/gid 1000 (the built-in `node` user from the Node base image). This is fine for the vast majority of installs, since the first user on a default Linux or macOS box is also uid 1000, so a bind-mounted `user-data` directory is read/writable straight away.
+
+It only gets fiddly if your host uid happens to be something else (NAS systems and multi-user servers being the usual culprits). In that case, config saves from the UI will fail with a permission error, because the container's uid 1000 doesn't own your directory.
+
+There are two ways to sort it. Pick whichever is less hassle:
+
+1. **Run the container as your own user.** The cleanest option, since you don't touch host file ownership.
+
+   On `docker run`:
+   ```bash
+   docker run -d -p 8080:8080 \
+     --user $(id -u):$(id -g) \
+     -v /path/to/user-data:/app/user-data \
+     lissy93/dashy:latest
+   ```
+
+   In compose, uncomment the `user:` line under the service and set it:
+   ```yaml
+   user: "1001:1001"   # whatever `id -u` and `id -g` give you
+   ```
+
+2. **Hand the directory to uid 1000.** Quicker if you don't mind changing host ownership:
+   ```bash
+   sudo chown -R 1000:1000 /path/to/user-data
+   ```
+
+Note that if you run the container as root (e.g. `--user 0:0`), Dashy will still work, but you lose the security benefit of a non-root container. Don't do that unless you've a good reason.
 
 **[⬆️ Back to Top](#management)**
 
@@ -287,24 +323,23 @@ You can use Dashy's default [`docker-compose.yml`](https://github.com/Lissy93/da
 An example Docker compose, using the default base image from DockerHub, might look something like this:
 
 ```yaml
----
 services:
   dashy:
     container_name: Dashy
-    image: lissy93/dashy
+    image: lissy93/dashy:latest
     volumes:
-      - /root/my-config.yml:/app/user-data/conf.yml
+      - ./user-data:/app/user-data
     ports:
       - 4000:8080
     environment:
       - BASE_URL=/my-dashboard
     restart: unless-stopped
     healthcheck:
-      test: ['CMD', 'node', '/app/services/healthcheck']
+      test: ['CMD', 'node', '/app/services/healthcheck.js']
       interval: 1m30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 30s
 ```
 
 **[⬆️ Back to Top](#management)**
@@ -643,7 +678,7 @@ If you're facing permission issues on Debian-based systems when running Docker c
 
 For containers in general, running as an unprivileged user is one of the best ways to prevent privilege escalation attacks. You can specify a user with the [`--user` param](https://docs.docker.com/engine/reference/run/#user), using the user ID (`UID`) from `id -u` and group ID (`GID`) from `id -g`.
 
-**Note for Dashy:** If you use features that write to disk (saving config through the UI, triggering a rebuild), the process needs write access to `/app/user-data/` and `/app/dist/`. Since the default image creates these directories as root, running with `--user` will cause those features to fail with permission errors unless you also fix ownership of the mounted volumes. If you only use Dashy in read-only mode, running as a non-root user works fine:
+**Note for Dashy:** If you use features that write to disk (saving config through the UI), the process needs write access to `/app/user-data/`. Since the default image creates these directories as root, running with `--user` will cause those features to fail with permission errors unless you also fix ownership of the mounted volumes. If you only use Dashy in read-only mode, running as a non-root user works fine:
 
 `docker run --user 1000:1000 -p 8080:8080 lissy93/dashy`
 
@@ -711,18 +746,16 @@ Similarly, never expose `/var/run/docker.sock` to other containers as a volume, 
 
 ### Use Read-Only Volumes
 
-You can specify that a specific volume should be read-only by appending `:ro` to the `-v` switch. For example, while running Dashy, if we want our config to be writable, but keep all other assets protected, we would do:
+You can specify that a volume should be read-only by appending `:ro` to the `-v` switch. If you don't need the in-app config editor, mount your `user-data` read-only:
 
 ```bash
 docker run -d \
   -p 8080:8080 \
-  -v ~/dashy-conf.yml:/app/user-data/conf.yml \
-  -v ~/dashy-icons:/app/public/item-icons:ro \
-  -v ~/dashy-theme.scss:/app/src/styles/user-defined-themes.scss:ro \
+  -v ~/dashy-data:/app/user-data:ro \
   lissy93/dashy:latest
 ```
 
-You can also prevent a container from writing any changes to volumes on your host's disk, using the `--read-only` flag. Although, for Dashy, you will not be able to write config changes to disk, when edited through the UI with this method. You could make this work, by specifying the config directory as a temp write location, with `--tmpfs /app/user-data/conf.yml` - but  that this will not write the volume back to your host.
+If you do want config changes from the UI to persist back to disk, leave the mount writable. You can also use `--read-only` to make the whole container filesystem read-only, but in that case UI-driven config edits will not be saved.
 
 ### Set the Logging Level
 
@@ -806,7 +839,7 @@ server {
 }
 ```
 
-To use HTML5 history mode (the default - controlled via the `VUE_APP_ROUTING_MODE` build-time env var), replace the inside of the location block with: `try_files $uri $uri/ /index.html;`.
+To use HTML5 history mode (the default - controlled via the `VITE_APP_ROUTING_MODE` build-time env var), replace the inside of the location block with: `try_files $uri $uri/ /index.html;`.
 
 Then upload the build contents of Dashy's dist directory to that location.
 For example: `scp -r ./dist/* [username]@[server_ip]:/var/www/dashy/html`

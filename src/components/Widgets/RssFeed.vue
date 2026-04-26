@@ -30,11 +30,11 @@
         <div class="post-title-wrap">
           <p class="post-title">{{ post.title }}</p>
           <p class="post-date">
-            {{ post.date | formatDate }} {{ post.author | formatAuthor }}
+            {{ formatDate(post.date) }} {{ formatAuthor(post.author) }}
           </p>
         </div>
       </component>
-      <div class="post-body" v-html="post.description"></div>
+      <div class="post-body" v-html="post.sanitizedDescription"></div>
       <a
         class="continue-reading-btn"
         v-if="post.link"
@@ -51,9 +51,9 @@
 </template>
 
 <script>
-import * as Parser from 'rss-parser';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
+import { parseRssFeed } from '@/utils/RssParser';
 import { sanitizeRssItem, sanitizeRssMeta } from '@/utils/Sanitizer';
 
 export default {
@@ -106,7 +106,7 @@ export default {
       }
     },
   },
-  filters: {
+  methods: {
     formatDate(timestamp) {
       if (!timestamp) return '';
       const date = new Date(timestamp);
@@ -119,19 +119,23 @@ export default {
     formatAuthor(author) {
       return author ? `by ${author}` : '';
     },
-  },
-  methods: {
     /* Make GET request to whatever endpoint we are using */
     fetchData() {
       this.makeRequest(this.endpoint).then(this.processData);
     },
     /* Assign data variables to the returned data */
-    async processData(data) {
+    processData(data) {
       if (this.parseLocally) {
-        const parser = new Parser();
+        let parsed;
+        try {
+          parsed = parseRssFeed(data);
+        } catch (err) {
+          this.error('Failed to parse RSS feed', err);
+          return;
+        }
         const {
           link, title, items, author, description, image,
-        } = await parser.parseString(data);
+        } = parsed;
         this.meta = sanitizeRssMeta({
           title,
           link,
@@ -162,7 +166,7 @@ export default {
         const sanitized = sanitizeRssItem(items[i]);
         posts.push({
           title: sanitized.title,
-          description: sanitized.description,
+          sanitizedDescription: sanitized.description,
           image: sanitized.thumbnail,
           author: sanitized.author,
           date: sanitized.pubDate,
@@ -223,7 +227,7 @@ export default {
       }
       img.post-img {
         border-radius: var(--curve-factor);
-        width: 2rem;
+        max-width: 8rem;
         height: 2rem;
         margin-right: 0.5rem;
       }
@@ -233,27 +237,28 @@ export default {
       color: var(--widget-text-color);
       max-height: 400px;
       overflow: hidden;
-      ::v-deep p {
+      margin-top: 0.5rem;
+      :deep(p) {
         margin: 0.5rem 0;
       }
-      ::v-deep img {
+      :deep(img) {
         max-width: 80%;
         display: flex;
         margin: 0 auto;
         border-radius: var(--curve-factor);
       }
-      ::v-deep a {
+      :deep(a) {
         color: var(--widget-text-color);
       }
-      ::v-deep svg path {
+      :deep(svg path) {
         fill: var(--widget-text-color);
       }
-      ::v-deep blockquote {
+      :deep(blockquote) {
         margin-left: 0.5rem;
         padding-left: 0.5rem;
         border-left: 4px solid var(--widget-text-color);
       }
-      ::v-deep .avatar.avatar-user { display: none; }
+      :deep(.avatar.avatar-user) { display: none; }
     }
     a.continue-reading-btn {
       width: 100%;

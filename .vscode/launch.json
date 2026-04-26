@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "msedge",
+        "request": "launch",
+        "name": "dashy: edge",
+        "url": "http://localhost:8080",
+        "webRoot": "${workspaceFolder}/src",
+        "preLaunchTask": "dashy start"
+      },
+      {
+        "type": "chrome",
+        "request": "launch",
+        "name": "dashy: chrome",
+        "url": "http://localhost:8080",
+        "webRoot": "${workspaceFolder}/src",
+        "preLaunchTask": "dashy start"
+      },
+      {
+        "type": "firefox",
+        "request": "launch",
+        "name": "dashy: firefox",
+        "url": "http://localhost:8080",
+        "webRoot": "${workspaceFolder}/src",
+        "preLaunchTask": "dashy start"
+      }
+    ]
+}

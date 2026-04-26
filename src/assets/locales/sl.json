@@ -42,7 +42,6 @@
     "edit-css-button": "Uredi CSS Po Meri",
     "cloud-sync-button": "Omogoči Sinhronizacijo v Oblaku",
     "edit-cloud-sync-button": "Ureditev Sinhronizacije v Oblaku",
-    "rebuild-app-button": "Obnovi Aplikacijo",
     "change-language-button": "Spremeni Jezik Aplikacije",
     "reset-settings-button": "Ponastavi Lokalne Nastavitve",
     "app-info-button": "Informacije o Aplikaciji",
@@ -127,20 +126,6 @@
     "error-msg-bad-json": "Napaka v JSON -u, morda nepravilno oblikovana",
     "warning-msg-validation": "Opozorilo o Validaciji",
     "not-admin-note": "Ne morete zapisati spremenjenega na disk, ker niste prijavljeni kot skrbnik"
-  },
-  "app-rebuild": {
-    "title": "Obnovite Aplikacijo",
-    "rebuild-note-l1": "Za uveljavitev sprememb, zapisanih v datoteki conf.yml, je potrebna obnovitev.",
-    "rebuild-note-l2": "To bi se moralo zgoditi samodejno, če pa se ne, lahko to ročno sprožite tukaj.",
-    "rebuild-note-l3": "To ni potrebno za spremembe, shranjene lokalno.",
-    "rebuild-button": "Začni Graditi",
-    "rebuilding-status-1": "Gradnja...",
-    "rebuilding-status-2": "To lahko traja nekaj minut",
-    "error-permission": "Nimate dovoljenja za izvajanje tega dejanja",
-    "success-msg": "Gradnja je bila uspešno zaključena",
-    "fail-msg": "Operacija izdelave ni uspela",
-    "reload-note": "Za uveljavitev sprememb je potrebno osvežiti stran",
-    "reload-button": "Osveži Stran"
   },
   "cloud-sync": {
     "title": "Varnostno Kopiranje & Obnovitev v Oblaku",

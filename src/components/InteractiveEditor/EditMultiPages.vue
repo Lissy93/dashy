@@ -1,157 +1,96 @@
 <template>
   <modal
-    :name="modalName" @closed="modalClosed"
+    :name="modalName" @closed="modalClosed" @before-open="initForm"
     :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-multi-pages"
   >
-  <div class="edit-multi-pages-inner" v-if="allowViewConfig">
-  <h3>{{ $t('interactive-editor.menu.edit-page-info-btn') }}</h3>
-  <FormSchema
-    :schema="customSchema"
-    v-model="formData"
-    @submit.prevent="saveToState"
-    class="multi-page-form"
-    name="multiPageForm"
-  >
-  <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
-  </FormSchema>
-  </div>
-  <AccessError v-else />
+    <div class="interactive-editor-inner" v-if="allowViewConfig">
+      <h3>{{ $t('interactive-editor.menu.edit-pages-btn') }}</h3>
+      <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
+      <SchemaForm v-model="formData" :schema="customSchema" />
+      <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
+    </div>
+    <AccessError v-else />
   </modal>
 </template>
 
 <script>
-import FormSchema from '@formschema/native';
-import DashySchema from '@/utils/ConfigSchema';
+import { defineAsyncComponent } from 'vue';
+import DashySchema from '@/utils/config/ConfigSchema.json';
 import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/config/defaults';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
+import safeClone from '@/utils/safeClone';
+import pruneSchemaDefaults from '@/utils/config/pruneSchemaDefaults';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 import AccessError from '@/components/Configuration/AccessError';
 
+const SchemaForm = defineAsyncComponent(() => import('@/components/FormElements/SchemaForm.vue'));
+
+/* Curated subset of the pages schema (name, path, and the most commonly
+ * toggled displayData flag). Full option list is in the docs. */
+const pagesSchema = DashySchema.properties.pages;
+const itemProps = pagesSchema.items.properties;
+const PAGES_SCHEMA = {
+  type: 'array',
+  title: pagesSchema.title,
+  description: pagesSchema.description,
+  items: {
+    type: 'object',
+    title: pagesSchema.items.title,
+    required: pagesSchema.items.required,
+    properties: {
+      name: itemProps.name,
+      path: itemProps.path,
+      displayData: {
+        type: 'object',
+        title: 'Display (see docs for more options)',
+        properties: {
+          hideForGuests: itemProps.displayData.properties.hideForGuests,
+        },
+      },
+    },
+  },
+};
+
 export default {
-  name: 'EditPageInfo',
+  name: 'EditMultiPages',
+  components: { SaveCancelButtons, AccessError, SchemaForm },
   data() {
     return {
-      formData: {},
-      schema: DashySchema.properties.pages,
+      formData: [],
+      customSchema: PAGES_SCHEMA,
       modalName: modalNames.EDIT_MULTI_PAGES,
     };
   },
-  components: {
-    FormSchema,
-    SaveCancelButtons,
-    AccessError,
-  },
-  mounted() {
-    this.formData = this.pages;
-  },
   computed: {
-    pages() {
-      return this.$store.getters.pages;
-    },
-    /* Make a custom schema object, using fields from ConfigSchema */
-    customSchema() {
-      return {
-        type: 'array',
-        title: this.schema.title,
-        description: this.schema.description,
-        items: {
-          title: this.schema.items.title,
-          type: this.schema.items.type,
-          additionalProperties: this.schema.items.additionalProperties,
-          required: this.schema.items.required,
-          properties: {
-            name: this.schema.items.properties.name,
-            path: this.schema.items.properties.path,
-            displayData: {
-              title: 'Display (see documentation for more options)',
-              description: '',
-              type: 'object',
-              properties: {
-                hideForGuests: this.schema.items.properties.displayData.properties.hideForGuests,
-              },
-            },
-          },
-        },
-      };
-    },
-    allowViewConfig() {
-      return this.$store.getters.permissions.allowViewConfig;
-    },
+    pages() { return this.$store.getters.pages; },
+    allowViewConfig() { return this.$store.getters.permissions.allowViewConfig; },
   },
   methods: {
-    /* When form submitted, update VueX store with new pageInfo, and close modal */
+    // Re-runs on each modal open so preview / save-locally elsewhere is reflected.
+    initForm() {
+      this.formData = safeClone(Array.isArray(this.pages) ? this.pages : [], []);
+    },
     saveToState() {
-      this.$store.commit(StoreKeys.SET_PAGES, this.formData);
-      this.$modal.hide(this.modalName);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+      try {
+        const pruned = pruneSchemaDefaults(this.formData, this.customSchema);
+        const pages = Array.isArray(pruned) ? pruned : [];
+        this.$store.commit(StoreKeys.SET_PAGES, pages);
+        this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+        InfoHandler(`Pages list updated (${pages.length} page${pages.length === 1 ? '' : 's'})`, InfoKeys.EDITOR);
+        this.cancelEditing();
+      } catch (e) {
+        ErrorHandler('Failed to save pages list', e);
+        this.$toast.error('Error saving changes. See Logs.');
+      }
     },
-    /* Called when modal manually closed, updates state to allow searching again */
-    modalClosed() {
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-    },
-    cancelEditing() {
-      this.$modal.hide(this.modalName);
-    },
+    cancelEditing() { this.$modal.hide(this.modalName); },
+    modalClosed() { this.$store.commit(StoreKeys.SET_MODAL_OPEN, false); },
   },
 };
 </script>
 
 <style lang="scss">
 @import '@/styles/style-helpers.scss';
-@import '@/styles/media-queries.scss';
-@import '@/styles/schema-editor.scss';
-
-.edit-multi-pages-inner {
-  padding: 1rem;
-  background: var(--interactive-editor-background);
-  color: var(--interactive-editor-color);
-  height: 100%;
-  overflow-y: auto;
-  @extend .scroll-bar;
-  h3 {
-    font-size: 1.4rem;
-    margin: 0.5rem;
-  }
-  .multi-page-form {
-    @extend .schema-form;
-    margin-bottom: 2.5rem;
-    fieldset div[data-fs-wrapper], fieldset div[data-fs-kind=object] {
-      flex-direction: row;
-    }
-    [name=multiPageForm] button {
-      width: 8rem;
-      margin: 0 0.5rem 0.5rem 0.5rem;
-      padding: 0.25rem 0.5rem;
-      &[data-fs-button=push]::after { content: " Add New"; }
-      &[data-fs-button=moveUp]::after { content: " Move Up"; }
-      &[data-fs-button=moveDown]::after { content: " Move Down"; }
-      &[data-fs-button=delete]::after { content: " Delete"; }
-    }
-    div[data-fs-type=object] div[data-fs-type=object] {
-      div[data-fs-input=object] { border: none; }
-      label { display: none; }
-      div[data-fs-input=object] label { display: block; }
-    }
-    fieldset div[data-fs-kind=object] span {
-      text-align: right;
-    }
-    fieldset button[data-fs-button=push] {
-      min-width: 15rem;
-      padding: 0.5rem 0.75rem;
-      margin: 0.5rem 0;
-      font-size: 1rem;
-      color: var(--interactive-editor-color);
-      background: var(--interactive-editor-background);
-      border: 1px solid var(--interactive-editor-color);
-      border-radius: var(--curve-factor);
-      &:hover {
-        color: var(--interactive-editor-background);
-        background: var(--interactive-editor-color);
-      }
-    }
-  }
-}
-
 </style>

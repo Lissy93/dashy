@@ -4,17 +4,25 @@
 	"name": "Dashy",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-24-bookworm",
+
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"Vue.volar",
 				"dbaeumer.vscode-eslint",
-				"ms-azuretools.vscode-docker",
+				"ms-azuretools.vscode-containers",
 				"EditorConfig.EditorConfig",
-				"esbenp.prettier-vscode",
 				"vitest.explorer",
 				"redhat.vscode-yaml"
-			]
+			],
+			"settings": {
+				"editor.formatOnSave": false,
+				"editor.codeActionsOnSave": {
+					"source.fixAll.eslint": "explicit"
+				},
+				"eslint.validate": ["javascript", "vue"],
+				"files.eol": "\n"
+			}
 		}
 	},
 
@@ -23,11 +31,25 @@
 		"ghcr.io/devcontainers/features/github-cli:1": {}
 	},
 
-	// Make the dev server and production server ports available locally.
-	"forwardPorts": [8080, 4000],
+	// Ports to forward to the host (Codespaces / Dev Containers will surface these).
+	"forwardPorts": [8080, 4000, 4001],
+	"portsAttributes": {
+		"8080": {
+			"label": "Vite Dev Server",
+			"onAutoForward": "openPreview"
+		},
+		"4000": {
+			"label": "Dashy (Production)",
+			"onAutoForward": "notify"
+		},
+		"4001": {
+			"label": "Dashy (SSL)",
+			"onAutoForward": "silent"
+		}
+	},
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "yarn install --ignore-engines --network-timeout 300000"
+	// Runs once after the container is created, then VS Code attaches.
+	"postCreateCommand": "yarn install --network-timeout 600000"
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"

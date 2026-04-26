@@ -1,0 +1,44 @@
+/* Zinc — modern SaaS aesthetic. Neutral warm grays with a single violet accent. */
+html[data-theme='zinc'] {
+  --primary: #8b7cff;
+  --background: #09090b;
+  --background-darker: #050506;
+  --item-group-background: #0f0f12;
+  --item-group-outer-background: transparent;
+  --item-background: #18181b;
+  --item-background-hover: #27272a;
+  --item-shadow: 0 0 0 1px #27272a;
+  --item-hover-shadow: 0 0 0 1px var(--primary), 0 8px 24px #0000007a;
+  --item-group-shadow: 0 0 0 1px #27272a;
+
+  --heading-text-color: #fafafa;
+  --item-text-color: #fafafa;
+  --item-text-color-hover: var(--primary);
+  --item-group-heading-text-color: #a1a1aa;
+  --item-group-heading-text-color-hover: #fafafa;
+
+  --settings-background: #09090b;
+  --settings-text-color: #a1a1aa;
+  --nav-link-text-color: #a1a1aa;
+  --nav-link-text-color-hover: #fafafa;
+  --nav-link-background-color: transparent;
+  --nav-link-border-color: #27272a;
+  --nav-link-border-color-hover: var(--primary);
+
+  --search-container-background: #09090b;
+  --search-field-background: #18181b;
+  --footer-background: #09090b;
+  --footer-text-color: #71717a;
+  --footer-text-color-link: var(--primary);
+
+  --outline-color: var(--primary);
+  --highlight-background: var(--primary);
+  --highlight-color: #09090b;
+  --curve-factor: 8px;
+  --curve-factor-navbar: 10px;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-headings: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  h1, h2, h3 { font-weight: 600; letter-spacing: -0.01em; }
+  .item { border: 1px solid transparent; transition: border-color 0.15s ease; }
+}

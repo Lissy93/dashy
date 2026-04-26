@@ -1,12 +1,16 @@
 <template>
   <div :class="`widget-base ${ loading ? 'is-loading' : '' }`">
-    <!-- Update and Full-Page Action Buttons  -->
+    <!-- Update Action Button -->
     <Button :click="update" class="action-btn update-btn" v-if="!hideControls && !loading">
       <UpdateIcon />
     </Button>
-    <Button :click="fullScreenWidget"
-      class="action-btn open-btn" v-if="!hideControls && !error && !loading">
-      <OpenIcon />
+    <!-- Edit Action Button (visible in edit mode) -->
+    <Button :click="emitEdit" class="action-btn edit-btn" v-if="isEditMode && !loading">
+      <EditIcon />
+    </Button>
+    <!-- Remove Action Button (visible in edit mode) -->
+    <Button :click="emitRemove" class="action-btn remove-btn" v-if="isEditMode && !loading">
+      <BinIcon />
     </Button>
     <!-- Loading Spinner -->
     <div v-if="loading" class="loading">
@@ -34,12 +38,16 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 // Import form elements, icons and utils
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 import Button from '@/components/FormElements/Button';
 import UpdateIcon from '@/assets/interface-icons/widget-update.svg';
-import OpenIcon from '@/assets/interface-icons/open-new-tab.svg';
+import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
+import BinIcon from '@/assets/interface-icons/interactive-editor-remove.svg';
 import LoadingAnimation from '@/assets/interface-icons/loader.svg';
+
+const widgetModules = import.meta.glob('./*.vue');
 
 const COMPAT = {
   'adguard-dns-info': 'AdGuardDnsInfo',
@@ -139,13 +147,15 @@ export default {
     // Register form elements
     Button,
     UpdateIcon,
-    OpenIcon,
+    EditIcon,
+    BinIcon,
     LoadingAnimation,
   },
   props: {
-    widget: Object,
-    index: Number,
+    widget: { type: Object, required: true },
+    index: { type: Number, required: true },
   },
+  emits: ['editWidget', 'removeWidget'],
   data: () => ({
     loading: false,
     error: false,
@@ -154,6 +164,9 @@ export default {
   computed: {
     appConfig() {
       return this.$store.getters.appConfig;
+    },
+    isEditMode() {
+      return this.$store.state.editMode;
     },
     /* Returns the widget type, shows error if not specified */
     widgetType() {
@@ -189,8 +202,13 @@ export default {
         ErrorHandler('Widget type was not found');
         return null;
       }
-      // eslint-disable-next-line prefer-template
-      return () => import('@/components/Widgets/' + type + '.vue').catch(() => import('@/components/Widgets/Blank.vue'));
+      const path = `./${type}.vue`;
+      const loader = widgetModules[path];
+      if (!loader) {
+        ErrorHandler(`Widget component not found: ${type}`);
+        return defineAsyncComponent(() => import('./Blank.vue'));
+      }
+      return defineAsyncComponent(() => loader().catch(() => import('./Blank.vue')));
     },
   },
   methods: {
@@ -204,14 +222,12 @@ export default {
       this.error = true;
       this.errorMsg = msg;
     },
-    /* Opens current widget in full-page */
-    fullScreenWidget() {
-      this.$emit('navigateToSection');
-    },
     /* Toggles loading state */
     setLoaderState(loading) {
       this.loading = loading;
     },
+    emitEdit() { this.$emit('editWidget'); },
+    emitRemove() { this.$emit('removeWidget'); },
   },
 };
 </script>
@@ -229,27 +245,24 @@ export default {
   button.action-btn {
     height: 1rem;
     min-width: auto;
-    width: 1.75rem;
+    width: 1.25rem;
     margin: 0;
-    padding: 0.1rem 0;
+    padding: 0.25rem;
     position: absolute;
     top: 0;
     border: none;
     opacity: var(--dimming-factor);
     color: var(--widget-text-color);
+    svg { width: 0.75rem; height: 0.75rem; }
 
     &:hover {
       opacity: 1;
       color: var(--widget-background-color);
     }
 
-    &.update-btn {
-      right: -0.25rem;
-    }
-
-    &.open-btn {
-      right: 1.75rem;
-    }
+    &.update-btn { right: -0.25rem; }
+    &.edit-btn { right: 1rem; }
+    &.remove-btn { right: 2.25rem; }
   }
 
   // Optional widget label

@@ -1,4 +1,3 @@
-import { serviceEndpoints } from '@/utils/defaults';
 import {
   convertBytes, formatNumber, getTimeAgo, timestampToDateTime,
 } from '@/utils/MiscHelpers';
@@ -69,10 +68,6 @@ export default {
     /* TTL for data delivered by the capabilities endpoint, ms */
     capabilitiesTtl() {
       return (parseInt(this.options.capabilitiesTtl, 10) || 3600) * 1000;
-    },
-    proxyReqEndpoint() {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
-      return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
   },
   methods: {
@@ -169,22 +164,22 @@ export default {
     formatDateTime(time) {
       return timestampToDateTime(time);
     },
-    /* Add additional formatting to {MiscHelpers.convertBytes()} */
-    convertBytes(bytes, decimals = 2, formatHtml = true) {
+    /* Wraps {MiscHelpers.convertBytes()} with a decorative span; returns plain text when formatHtml=false */
+    safeHtmlConvertBytes(bytes, decimals = 2, formatHtml = true) {
       const formatted = convertBytes(bytes, decimals).toString();
       if (!formatHtml) return formatted;
       const m = formatted.match(/(-?\d+)((\.\d+)?\s(([KMGTPEZY]B|Bytes)))/);
       return `${m[1]}<span class="decimals">${m[2]}</span>`;
     },
-    /* Add additional formatting to {MiscHelpers.formatNumber()} */
-    formatNumber(number, decimals = 1, formatHtml = true) {
+    /* Wraps {MiscHelpers.formatNumber()} with a decorative span; returns plain text when formatHtml=false */
+    safeHtmlFormatNumber(number, decimals = 1, formatHtml = true) {
       const formatted = formatNumber(number, decimals).toString();
       if (!formatHtml) return formatted;
       const m = formatted.match(/(\d+)((\.\d+)?([KMBT]?))/);
       return `${m[1]}<span class="decimals">${m[2]}</span>`;
     },
-    /* Format a number as percentage value */
-    formatPercent(number, decimals = 2) {
+    /* Format a number as percentage value, wrapped in a decorative span */
+    safeHtmlFormatPercent(number, decimals = 2) {
       const n = parseFloat(number).toFixed(decimals).split('.');
       const d = n.length > 1 ? `.${n[1]}` : '';
       return `${n[0]}<span class="decimals">${d}%</span>`;

@@ -54,11 +54,11 @@
     }
   }
 
-  ::v-deep span.decimals {
+  :deep(span.decimals) {
     font-size: 85%;
   }
 
-  ::v-deep div.percentage-chart {
+  :deep(div.percentage-chart) {
     margin: 0;
   }
 }

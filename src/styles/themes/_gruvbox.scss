@@ -1,0 +1,38 @@
+/* Gruvbox — warm retro dark theme with sepia greens, reds and ochres.
+ * Inspired by the classic Gruvbox palette, well-loved in developer circles. */
+html[data-theme='gruvbox'] {
+  --primary: #fabd2f;
+  --background: #282828;
+  --background-darker: #1d2021;
+  --item-group-background: #3c3836;
+  --item-group-outer-background: #504945;
+  --item-background: #32302f;
+  --item-background-hover: #504945;
+  --item-shadow: 1px 1px 2px #00000080;
+  --item-hover-shadow: 2px 3px 6px #000000b3;
+  --heading-text-color: #fabd2f;
+  --item-text-color: #ebdbb2;
+  --item-text-color-hover: #fbf1c7;
+  --item-group-heading-text-color: #1d2021;
+  --settings-text-color: var(--primary);
+  --nav-link-text-color: #ebdbb2;
+  --nav-link-background-color: #3c3836;
+  --nav-link-border-color: transparent;
+  --nav-link-border-color-hover: var(--primary);
+  --outline-color: var(--primary);
+  --curve-factor: 4px;
+
+  .collapsable, .nav a.nav-item {
+    &:nth-child(1n) { --index-color: #fb4934; }
+    &:nth-child(2n) { --index-color: #b8bb26; }
+    &:nth-child(3n) { --index-color: #83a598; }
+    &:nth-child(4n) { --index-color: #d3869b; }
+    &:nth-child(5n) { --index-color: #8ec07c; }
+    &:nth-child(6n) { --index-color: #fe8019; }
+
+    --item-group-outer-background: var(--index-color);
+    --item-group-heading-text-color: #1d2021;
+    --nav-link-text-color-hover: var(--index-color);
+    --item-hover-shadow: 0 0 4px var(--index-color);
+  }
+}

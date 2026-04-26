@@ -11,8 +11,8 @@
         <input v-model="formElements.description" />
       </div>
       <div class="row">
-        <span>Footer Text</span>
-        <input v-model="formElements.footerText" />
+        <span>Footer</span>
+        <input v-model="formElements.footer" />
       </div>
     </div>
     <div class="form">
@@ -41,14 +41,14 @@
 
 <script>
 
-import { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys } from '@/utils/config/defaults';
 import AddNewIcon from '@/assets/interface-icons/add-new.svg';
 import SaveConfigIcon from '@/assets/interface-icons/save-config.svg';
 
 export default {
   name: 'EditSiteMeta',
   props: {
-    config: Object,
+    config: { type: Object, required: true },
   },
   components: {
     AddNewIcon,
@@ -59,13 +59,13 @@ export default {
       const pageInfo = { ...this.config.pageInfo };
       pageInfo.title = this.formElements.title;
       pageInfo.description = this.formElements.description;
-      pageInfo.footerText = this.formElements.footerText;
+      pageInfo.footer = this.formElements.footer;
       if (this.formElements.navLinks) {
         pageInfo.navLinks = this.formElements.navLinks.filter(link => (link.title !== ''));
       }
       localStorage.setItem(localStorageKeys.PAGE_INFO, JSON.stringify(pageInfo));
-      this.$toasted.show('Changes saved successfully');
-      setTimeout(() => { location.reload(); }, 1500); // eslint-disable-line no-restricted-globals
+      this.$toast('Changes saved successfully');
+      setTimeout(() => { location.reload(); }, 1500);  
     },
     addNavLinkRow() {
       this.formElements.navLinks.push({ title: '', path: '' });
@@ -76,7 +76,7 @@ export default {
       formElements: {
         title: this.config.pageInfo.title,
         description: this.config.pageInfo.description,
-        footerText: this.config.pageInfo.footerText,
+        footer: this.config.pageInfo.footer,
         navLinks: this.config.pageInfo.navLinks || [],
       },
     };

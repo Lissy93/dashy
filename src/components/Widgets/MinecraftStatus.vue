@@ -30,16 +30,16 @@
       <div v-if="showMods" class="mod-list">
         <span>{{ mods.length }} Mods</span>
         <ul>
-          <li v-for="{ name, version } in mods" :key="name">
-            {{ name }}={{ version }}
+          <li v-for="{ name, version: modVersion } in mods" :key="name">
+            {{ name }}={{ modVersion }}
           </li>
         </ul>
       </div>
       <div v-if="showPlugins" class="plugin-list">
         <span>{{ plugins.length }} Plugins</span>
         <ul>
-          <li v-for="{ name, version } in plugins" :key="name">
-            {{ name }}={{ version }}
+          <li v-for="{ name, version: pluginVersion } in plugins" :key="name">
+            {{ name }}={{ pluginVersion }}
           </li>
         </ul>
       </div>
@@ -49,7 +49,7 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator.vue';
 
 export default {

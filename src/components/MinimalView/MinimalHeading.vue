@@ -14,19 +14,20 @@ export default {
   name: 'MinimalHeadings',
   components: { Icon },
   props: {
-    index: Number,
-    title: String,
-    icon: String,
+    index: { type: Number, required: true },
+    title: { type: String, default: '' },
+    icon: { type: String, default: '' },
     selected: Boolean,
     hideTitleText: Boolean,
   },
+  emits: ['sectionSelected'],
   methods: {
     selectSection(index) {
       this.$emit('sectionSelected', index);
     },
     tooltip() {
       return this.hideTitleText
-        ? { content: this.title, trigger: 'hover focus', delay: 250 } : null;
+        ? { content: this.title, } : null;
     },
   },
 };
@@ -48,7 +49,12 @@ div.minimal-section-heading {
   border-bottom: none;
   border-radius: var(--curve-factor) var(--curve-factor) 0 0;
   h3.section-title {
+    flex: 1 1 auto;
+    min-width: 0;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: var(--minimal-view-section-heading-color);
   }
   .section-icon {
