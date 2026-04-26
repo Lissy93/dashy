@@ -121,7 +121,7 @@ To disable all UI config features, including View Config, set `disableConfigurat
 
 If you don't want to hash your password, you can instead leave out the `hash` attribute, and replace it with `password` which should have the value of an environmental variable name you wish to use.
 
-Note that env var must begin with `VUE_APP_`, and you must set this variable before building the app.
+Note that env var must begin with `VITE_APP_`, and you must set this variable before building the app.
 
 For example:
 
@@ -129,10 +129,10 @@ For example:
   auth:
     users:
     - user: bob
-      password: VUE_APP_BOB
+      password: VITE_APP_BOB
 ```
 
-Just be sure to set `VUE_APP_BOB='my super secret password'` before build-time.
+Just be sure to set `VITE_APP_BOB='my super secret password'` before build-time.
 
 ### Adding HTTP Auth to Configuration
 
@@ -183,7 +183,7 @@ If you don't have users in your `conf.yml` (e.g. you handle user management exte
 
 With this approach, there is no Dashy login page. When the browser first requests the config file, the server responds with a `401` and the browser shows its native HTTP auth prompt. Once the user enters the correct credentials, the browser caches them for the session and all subsequent requests work.
 
-To skip the browser prompt and have the frontend authenticate automatically, also set `VUE_APP_BASIC_AUTH_USERNAME` and `VUE_APP_BASIC_AUTH_PASSWORD` to the same values. These are baked in at build time, so a rebuild is required, and you should only do this on a trusted network.
+To skip the browser prompt and have the frontend authenticate automatically, also set `VITE_APP_BASIC_AUTH_USERNAME` and `VITE_APP_BASIC_AUTH_PASSWORD` to the same values. These are baked in at build time, so a rebuild is required, and you should only do this on a trusted network.
 
 > [!WARNING]
 > Do not combine `BASIC_AUTH_USERNAME`/`BASIC_AUTH_PASSWORD` with conf.yml users. If both are present, the server will log a warning at startup. With `ENABLE_HTTP_AUTH` set, config-file users take priority and the static credentials are ignored. Without it, the static credentials protect the server but the Dashy login page will use conf.yml credentials, and the frontend will send the wrong credentials to server endpoints. Pick one approach or the other.
@@ -346,7 +346,7 @@ appConfig:
 
 - The `proxyWhitelist` checks `req.socket.remoteAddress`, which is the direct connection source. If your proxy connects through Docker networking, use the container's internal IP (e.g. `172.18.0.2`), not the external IP
 - Logout clears Dashy's session cookie, but the user remains authenticated at the proxy level. Revisiting the page will re-authenticate automatically
-- When header auth is enabled, server-side API endpoints are also protected by the proxy whitelist. Requests not from a whitelisted IP will be rejected. Admin enforcement applies - only users with `type: admin` can access write endpoints (config save, rebuild)
+- When header auth is enabled, server-side API endpoints are also protected by the proxy whitelist. Requests not from a whitelisted IP will be rejected. Admin enforcement applies - only users with `type: admin` can access write endpoints (config save)
 
 ---
 
@@ -564,7 +564,6 @@ sections:
   - name: Authentication
     displayData:
       sortBy: default
-      rows: 2
       cols: 1
       collapsed: false
       hideForGuests: false

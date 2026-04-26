@@ -64,27 +64,12 @@ Using [`en.json`](https://github.com/Lissy93/dashy/tree/master/src/assets/locale
 
 ### 3. Add your file to the app
 
-In [`./src/utils/languages.js`](https://github.com/Lissy93/dashy/tree/master/src/utils/languages.js), you need to do 2 small things:
-
-First import your new translation file, do this at the top of the page.
-E.g. `import de from '@/assets/locales/de.json';`
-
-Second, add it to the array of languages, e.g:
+In [`./src/utils/languages.js`](https://github.com/Lissy93/dashy/tree/master/src/utils/languages.js), add your language's metadata to the `languages` array:
 
 ```javascript
 export const languages = [
-  {
-    name: 'English',
-    code: 'en',
-    locale: en,
-    flag: '🇬🇧',
-  },
-  {
-    name: 'German', // The name of your language
-    code: 'de', // The ISO code of your language
-    locale: de, // The name of the file you imported (no quotes)
-    flag: '🇩🇪', // An optional flag emoji
-  },
+  { name: 'English', code: 'en', flag: '🇬🇧' },
+  { name: 'German', code: 'de', flag: '🇩🇪' }, // The name, ISO code, and flag emoji for your language
 ];
 ```
 

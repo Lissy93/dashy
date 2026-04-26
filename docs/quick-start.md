@@ -20,21 +20,30 @@ To pull the latest image, and build and start the app run:
 ```bash
 docker run -d \
   -p 8080:8080 \
-  -v ~/my-conf.yml:/app/user-data/conf.yml \
-  --name my-dashboard \
+  -v ~/dashy-data:/app/user-data \
+  --name dashy \
   --restart=always \
   lissy93/dashy:latest
 ```
 
-Either replace the -v path to point to your config file, or leave it out. For a full list of available options, then see [Dashy with Docker](/docs/deployment#deploy-with-docker) Docs. If you'd prefer to use Docker Compose, then see [Dashy with Docker Compose](/docs/deployment#using-docker-compose) Docs. Alternate registries, architectures and pinned versions are also supported.
+Your dashboard should now be up and running at `http://localhost:8080` (or your servers IP address/ domain, and the port that you chose) 🎉
 
-Your dashboard should now be up and running at `http://localhost:8080` (or your servers IP address/ domain, and the port that you chose). The first time you build, it may take a few minutes.
+Dashy is also available via GHCR (`ghcr.io/lissy93/dashy`).<br />
+You can either use `:latest` or pin to specific versions (like `4.0.0`).<br />
+All images are multi-arch (works on amd64, arm64, and arm/v7).<br />
+To use with compose, see our sample [`docker-compose.yml`](https://github.com/lissy93/dashy/blob/master/docker-compose.yml).<br />
+Once up and running, check the [configuring reference](https://dashy.to/docs/configuring) and [other docs](https://dashy.to/docs).<br />
+
+> [!NOTE]
+> You need to mount a directory for your Dashy settings in `/app/user-data`.
+> The only required file here is the `conf.yml`, but this is also where you can put any other page configs and assets like images/icons, stylesheets, fonts, etc.
+> Everything in this directory is served from Dashy's root (e.g. `/app/user-data/logo.png` will be accessible at `http://[dashy.local]/logo.png`).
 
 ---
 
 ## 3. User Data Directory
 
-Your config file should be placed inside `user-data/` (in Docker, that's `/app/user-data/`).
+Your config file should be placed inside `user-data` (in Docker, that's `/app/user-data/`).
 
 This directory can also contain some optional assets you wish to use within your dashboard, like icons, fonts, styles, scripts, etc.
 
@@ -97,8 +106,8 @@ sections: # An array of sections
 
 Notes:
 
-- You can use a Docker volume to pass a config file from your host system to the container
-  - E.g. `-v ./host-system/my-local-conf.yml:/app/user-data/conf.yml`
+- You can use a Docker volume to pass your `user-data` directory from the host into the container
+  - E.g. `-v ./host-system/user-data:/app/user-data`
 - It's also possible to edit your config directly through the UI, and changes will be saved in this file
 - Check your config against Dashy's schema, with `docker exec -it [container-id] yarn validate-config`
 - You might find it helpful to look at some examples, a collection of which can be [found here](https://gist.github.com/Lissy93/000f712a5ce98f212817d20bc16bab10)

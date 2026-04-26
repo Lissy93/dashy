@@ -73,8 +73,10 @@ The following file provides a reference of all supported configuration options.
 **`title`** | `string` |  Required | Your dashboard title, displayed in the header and browser tab
 **`description`** | `string` | _Optional_ | Description of your dashboard, also displayed as a subtitle
 **`navLinks`** | `array` | _Optional_ | Optional list of a maximum of 6 links, which will be displayed in the navigation bar. See [`navLinks`](#pageinfonavlinks-optional)
-**`footerText`** | `string` | _Optional_ | Text to display in the footer (note that this will override the default footer content). This can also include HTML and inline CSS
+**`footer`** | `string` | _Optional_ | Text to display in the footer. When omitted, no footer is rendered. Supports inline HTML (sanitized before render)
 **`logo`** | `string` | _Optional_ | The path to an image to display in the header (to the right of the title). This can be either local, where `/` is the root of `./public`, or any remote image, such as `https://i.ibb.co/yhbt6CY/dashy.png`. It's recommended to scale your image down, so that it doesn't impact load times
+**`favicon`** | `string` | _Optional_ | URL or path to a custom favicon shown in the browser tab. Can be absolute (`https://...`), root-relative (`/icons/x.png`), or a `data:` URI
+**`color`** | `string` | _Optional_ | Theme colour applied to the browser chrome (mobile address bar). Any valid CSS color (e.g. `#ff00a7`) is accepted
 
 ****[⬆️ Back to Top](#)****
 
@@ -104,7 +106,7 @@ For more info, see the[Multi-Page docs](/docs/pages-and-sections#multi-page-supp
 **Field** | **Type** | **Required**| **Description**
 --- | --- | --- | ---
 **`language`** | `string` | _Optional_ | The 2 (or 4-digit) [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language, e.g. `en` or `en-GB`. This must be a language that the app has already been [translated](https://github.com/Lissy93/dashy/tree/master/src/assets/locales) into. If your language is unavailable, Dashy will fallback to English. By default Dashy will attempt to auto-detect your language, although this may not work on some privacy browsers.
-~~**`startingView`**~~ | `enum` | _Optional_ | Which page to load by default, and on the base page or domain root. You can still switch to different views from within the UI. Can be either `default`, `minimal` or `workspace`. Defaults to `default`. NOTE: This has been replaced by an environmental variable: `VUE_APP_STARTING_VIEW` in V3 onwards
+**`startingView`** | `enum` | _Optional_ | Which view to land on when visiting `/`. One of `home`, `minimal` or `workspace`. Defaults to `home`. Applied at runtime, so no rebuild is needed. You can always switch views from the UI. (Legacy value `default` is accepted as an alias for `home`.)
 **`defaultOpeningMethod`** | `enum` | _Optional_ | The default opening method for items, if no `target` is specified for a given item. Can be either `newtab`, `sametab`, `modal`, `workspace`, `clipboard`, `top` or `parent`. Defaults to `newtab`
 **`statusCheck`** | `boolean` | _Optional_ | When set to `true`, Dashy will ping each of your services and display their status as a dot next to each item. This can be overridden by setting `statusCheck` under each item. Defaults to `false`
 **`statusCheckInterval`** | `number` | _Optional_ | The number of seconds between checks. If set to `0` then service will only be checked on initial page load, which is usually the desired functionality. If value is less than `10` you may experience a hit in performance. Defaults to `0`
@@ -117,7 +119,7 @@ For more info, see the[Multi-Page docs](/docs/pages-and-sections#multi-page-supp
 **`faviconApi`** | `enum` | _Optional_ | Only applicable if you are using favicons for item icons. Specifies which service to use to resolve favicons. Set to `local` to do this locally, without using an API. Services running locally will use this option always. Available options are: `local`, `allesedv`, `iconhorse`, `faviconkit`, `duckduckgo`, `yandex`, `google`, `besticon`, `webmasterapi` and `mcapi`. Defaults to `allesedv`. See [Icons](/docs/icons#favicons) for more info
 **`auth`** | `object` | _Optional_ | All settings relating to user authentication. See [`auth`](#appconfigauth-optional)
 **`defaultIcon`** | `string` | _Optional_ | An icon to be applied to any items, which don't already have an icon set. See [Icon Docs](/docs/icons#default-icon) for more info
-**`layout`** | `enum` | _Optional_ | Layout for homepage, either `horizontal`, `vertical` or `auto`. Defaults to `auto`. This specifies the layout and direction of how sections are positioned on the home screen. This can also be modified and overridden from the UI.
+**`layout`** | `enum` | _Optional_ | Layout for homepage, either `horizontal`, `vertical` or `auto`. Defaults to `auto`. This specifies the layout and direction of how sections are positioned on the home screen. `auto` uses a responsive masonry grid: sections flow into the next available slot so shorter ones fill the gaps left by taller neighbours; `section.displayData.cols` still controls width, but `rows` is ignored (heights are driven by content). This can also be modified and overridden from the UI.
 **`iconSize`** | `enum` | _Optional_ | The size of link items / icons. Can be either `small`, `medium,` or `large`. Defaults to `medium`. This can also be set directly from the UI.
 **`colCount`** | `number` | _Optional_ | The number of columns of sections displayed on the homepage, using the default view. Should be in integer between `1` and `8`. Note that by default this is applied responsively, based on current screen size, and specifying a value here will override this behavior, which may not be desirable.
 **`contentMaxWidth`** | `string` or `number` | _Optional_ | Sets the max width of the main sections area on the homepage, overriding the responsive default. Can be a percentage, or any CSS unit
@@ -128,7 +130,7 @@ For more info, see the[Multi-Page docs](/docs/pages-and-sections#multi-page-supp
 **`customColors`** | `object`| _Optional_ | Enables you to apply a custom color palette to any given theme. Use the theme name (lowercase) as the key, for an object including key-value-pairs, with the color variable name as keys, and 6-digit hex code as value. See [Theming](/docs/theming#modifying-theme-colors) for more info
 **`externalStyleSheet`** | `string`  or `string[]` | _Optional_ | Either a URL to an external stylesheet or an array or URLs, which can be applied as themes within the UI
 **`customCss`** | `string` | _Optional_ | Raw CSS that will be applied to the page. This can also be set from the UI. Please minify it first.
-**`hideComponents`** | `object` | _Optional_ | A list of key page components (header, footer, search, settings, etc) that are present by default, but can be removed using this option. See [`appConfig.hideComponents`](#appconfighidecomponents-optional)
+**`hideComponents`** | `object` | _Optional_ | A list of key page components (header, nav, search, settings) that are present by default, but can be removed using this option. See [`appConfig.hideComponents`](#appconfighidecomponents-optional)
 **`enableMultiTasking`** | `boolean` | _Optional_ | If set to true, will keep apps open in the background when in the workspace view. Useful for quickly switching between multiple sites, and preserving their state, but comes at the cost of performance.
 **`workspaceLandingUrl`** | `string` | _Optional_ | The URL or an app, service or website to launch when the workspace view is opened, before another service has been launched
 **`preventWriteToDisk`** | `boolean` | _Optional_ | If set to `true`, users will be prevented from saving config changes to disk through the UI
@@ -150,7 +152,7 @@ For more info, see the[Multi-Page docs](/docs/pages-and-sections#multi-page-supp
 
 > [!NOTE]
 > Since the auth is initiated in the main app entry point (for security), a rebuild is required to apply changes to the auth configuration.
-> You can trigger a rebuild through the UI, under Config --> Rebuild, or by running `yarn build` in the root directory.
+> Run `yarn build` in the root directory, then restart the server.
 
 > [!WARNING]
 > Built-in auth should **not be used** for security-critical applications, or if your Dashy instance is publicly accessible.
@@ -235,7 +237,6 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`hideNav`** | `boolean` | _Optional_ | If set to `true`, the navigation menu will not be visible. Defaults to `false`
 **`hideSearch`** | `boolean` | _Optional_ | If set to `true`, the search bar will not be visible. Defaults to `false`
 **`hideSettings`** | `boolean` | _Optional_ | If set to `true`, the settings menu will be initially collapsed. Defaults to `false`
-**`hideFooter`** | `boolean` | _Optional_ | If set to `true`, the footer will not be visible. Defaults to `false`
 
 ****[⬆️ Back to Top](#)****
 
@@ -311,14 +312,14 @@ For more info, see the **[Authentication Docs](/docs/authentication)**
 **`sortBy`** | `string` | _Optional_ | The sort order for items within the current section. By default items are displayed in the order in which they are listed in within the config. The following sort options are supported: `most-used` (most opened apps first), `last-used` (the most recently used apps), `alphabetical`, `reverse-alphabetical`, `random` and `default`
 **`collapsed`** | `boolean` | _Optional_ | If true, the section will  be collapsed initially, and will need to be clicked to open. Useful for less regularly used, or very long sections. Defaults to `false`
 **`cutToHeight`** | `boolean` | _Optional_ | By default, sections will fill available space. Set this option to true to match section height with content height
-**`rows`** | `number` | _Optional_ | Height of the section, specified as the number of rows it should span vertically, e.g. `2`. Defaults to `1`. Max is `5`.
+**`rows`** | `number` | _Optional_ | _Deprecated._ Previously set a section's vertical row-span. The `auto` layout now uses masonry (heights follow content) and `horizontal`/`vertical` are flex-based, so this value is accepted for config compatibility but no longer applied.
 **`cols`** | `number` | _Optional_ | Width of the section, specified as the number of columns the section should span horizontally, e.g. `2`. Defaults to `1`. Max is `5`. Will be clamped to the page's active column count so that a section never exceeds the available grid width.
 **`itemSize`** | `string` | _Optional_ | Specify the size for items within this group, either `small`, `medium` or `large`. Note that this will override any settings specified through the UI
 **`color`** | `string` | _Optional_ | A custom accent color for the section, as a hex code or HTML color (e.g. `#fff`)
 **`customStyles`** | `string` | _Optional_ | Custom CSS properties that should be applied to that section, e.g. `border: 2px dashed #ff0000;`
-**`sectionLayout`** | `string` | _Optional_ | Specify which CSS layout will be used to responsively place items. Can be either `auto` (which uses flex layout), or `grid`. If `grid` is selected, then `itemCountX` and `itemCountY` may also be set. Defaults to `auto`
-**`itemCountX`** | `number` | _Optional_ | The number of items to display per row / horizontally. If not set, it will be calculated automatically based on available space. Can only be set if `sectionLayout` is set to `grid`. Must be a whole number between `1` and `12`
-**`itemCountY`** | `number` | _Optional_ | The number of items to display per column / vertically. If not set, it will be calculated automatically based on available space. If `itemCountX` is set, then `itemCountY` can be calculated automatically. Can only be set if `sectionLayout` is set to `grid`. Must be a whole number between `1` and `12`
+**`sectionLayout`** | `string` | _Optional_ | Specify which CSS layout will be used to responsively place items. Can be either `auto` (which uses flex layout), or `grid`. Defaults to `auto`. Setting `itemCountX` or `itemCountY` below will also switch the section to grid layout automatically
+**`itemCountX`** | `number` | _Optional_ | Number of items per row / horizontally. If not set, it will be calculated automatically based on available space. Setting this switches the section to grid layout. Must be a whole number between `1` and `12`; values above `8` rely on the grid's responsive column sizing (no explicit minimum-width rule)
+**`itemCountY`** | `number` | _Optional_ | Number of explicit rows before items flow into implicit rows. Setting this switches the section to grid layout. Must be a whole number between `1` and `12`. Row heights size to their content (section heights follow content in the masonry layout)
 **`hideForUsers`** | `string[]` | _Optional_ | Current section will be visible to all users, except for those specified in this list
 **`showForUsers`** | `string[]` | _Optional_ | Current section will be hidden from all users, except for those specified in this list
 **`hideForGuests`** | `boolean` | _Optional_ | Current section will be visible for logged in users, but not for guests (see `appConfig.enableGuestAccess`). Defaults to `false`
