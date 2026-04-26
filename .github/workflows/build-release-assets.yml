@@ -64,9 +64,8 @@ jobs:
           cp    yarn.lock    "$STAGING/"
 
           # src/utils/ files referenced directly by the server at runtime
-          mkdir -p "$STAGING/src/utils"
-          cp src/utils/ConfigSchema.json "$STAGING/src/utils/"
-          cp src/utils/defaults.js       "$STAGING/src/utils/"
+          mkdir -p "$STAGING/src/utils/config"
+          cp src/utils/config/ConfigSchema.json "$STAGING/src/utils/config/"
 
           # Strip devDependencies so `yarn install --production` stays lean
           node -e "
