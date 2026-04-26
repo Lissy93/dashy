@@ -122,6 +122,25 @@
     "workspace": "Workspace",
     "minimal": "Minimal"
   },
+  "remote-config": {
+    "title": "Load Remote Config?",
+    "apply-button": "Apply Preview",
+    "intro": "You are loading a configuration from an external URL. Would you like to continue?",
+    "warning": "You should ensure that you've read the content you are loading before proceeding. Once loaded, your browser will be able to execute any client-side code specified within this config.",
+    "field-title": "Title",
+    "field-source": "Source",
+    "field-sections": "Sections",
+    "field-items": "Items",
+    "preview-note": "Preview only. This won't make any changes on disk, nor affect your Dashy instance in any way.",
+    "applied-toast": "Remote config applied (preview only)",
+    "previewing-banner": "Previewing remote config",
+    "revert-button": "Revert",
+    "error-invalid-url": "Remote config URL is not valid (must be http or https)",
+    "error-fetch": "Could not fetch remote config. Check the URL is reachable and CORS is allowed.",
+    "error-parse": "Remote config is not valid YAML",
+    "error-not-config": "Remote file does not look like a Dashy config",
+    "error-apply": "Failed to apply remote config"
+  },
   "settings": {
     "theme-label": "Theme",
     "layout-label": "Layout",
