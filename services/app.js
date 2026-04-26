@@ -26,7 +26,6 @@ let config = require('./config-validator'); // Validate config file and load res
 /* Include route handlers for API endpoints */
 const statusCheck = require('./status-check'); // Used by the status check feature, uses GET
 const saveConfig = require('./save-config'); // Saves users new conf.yml to file-system
-const rebuild = require('./rebuild-app'); // A script to programmatically trigger a build
 const systemInfo = require('./system-info'); // Basic system info, for resource widget
 const sslServer = require('./ssl-server'); // TLS-enabled web server
 const corsProxy = require('./cors-proxy'); // Enables API requests to CORS-blocked services
@@ -37,7 +36,6 @@ const ENDPOINTS = {
   statusPing: '/status-ping',
   statusCheck: '/status-check',
   save: '/config-manager/save',
-  rebuild: '/config-manager/rebuild',
   systemInfo: '/system-info',
   corsProxy: '/cors-proxy',
   getUser: '/get-user',
@@ -210,12 +208,6 @@ const app = express()
       printWarning('Error writing config file to disk', e);
       respond(JSON.stringify({ success: false, message: String(e) }));
     });
-  }))
-  // GET endpoint to trigger a build, and respond with success status and output
-  .use(ENDPOINTS.rebuild, protectConfig, requireAdmin, method('GET', (req, res) => {
-    rebuild()
-      .then((response) => safeEnd(res, JSON.stringify(response)))
-      .catch((e) => safeEnd(res, errBody(e)));
   }))
   // GET endpoint to return system info, for widget
   .use(ENDPOINTS.systemInfo, protectConfig, method('GET', (req, res) => {

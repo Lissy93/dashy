@@ -490,9 +490,10 @@ const store = createStore({
           commit(CRITICAL_ERROR_MSG, `Unable to find config for '${targetId}'`);
           return { ...emptyConfig };
         }
+        const isRemote = /^https?:\/\//i.test(subConfigPath);
         let response;
         try {
-          response = await request.get(subConfigPath, makeBasicAuthHeaders());
+          response = await request.get(subConfigPath, isRemote ? {} : makeBasicAuthHeaders());
         } catch (fetchErr) {
           commit(CRITICAL_ERROR_MSG, `Unable to load config from '${subConfigPath}'`);
           ErrorHandler(`Sub-config load failed: ${subConfigPath}`, fetchErr);

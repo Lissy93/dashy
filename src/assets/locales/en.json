@@ -91,7 +91,6 @@
     "edit-css-button": "Edit Custom CSS",
     "cloud-sync-button": "Enable Cloud Sync",
     "edit-cloud-sync-button": "Edit Cloud Sync",
-    "rebuild-app-button": "Rebuild Application",
     "change-language-button": "Change App Language",
     "reset-settings-button": "Reset Local Settings",
     "disabled-note": "Some configuration features have been disabled by your administrator",
@@ -274,20 +273,6 @@
     "status-warnings": "{n} Warnings",
     "parse-fail-msg": "YAML parse error: {message}",
     "editor-init-fail-msg": "Editor failed to start: {message}"
-  },
-  "app-rebuild": {
-    "title": "Rebuild Application",
-    "rebuild-note-l1": "A rebuild is no longer required for changes to take effect.",
-    "rebuild-note-l2": "Some changes (entry-point, and auth settings) are read at build-time. So to apply these, you should trigger a rebuild here.",
-    "rebuild-note-l3": "Note that this is only available on Node and Docker installations, not via statically deployed instances.",
-    "rebuild-button": "Start Build",
-    "rebuilding-status-1": "Building...",
-    "rebuilding-status-2": "This may take a few minutes",
-    "error-permission": "You don't have permission to trigger this action",
-    "success-msg": "Build completed successfully",
-    "fail-msg": "Build operation failed",
-    "reload-note": "A page reload is now required for changes to take effect",
-    "reload-button": "Reload Page"
   },
   "cloud-sync": {
     "title": "Cloud Backup & Restore",

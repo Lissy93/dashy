@@ -48,8 +48,6 @@ If you're sub-page is located within `/app/user-data`, then you only need to spe
 
 A default template a page can be found here: [https://github.com/lissy93/dashy/blob/master/user-data/conf.yml](https://github.com/lissy93/dashy/blob/master/user-data/conf.yml) Keep in mind the appConfig cannot be used on subpages and should be removed, for further info see [Restrictions](#restrictions)
 
-The last very important step is to rebuild dashy, this can be easily done through to UI, by opening the settings menu on the top right, navigato to update config and then recompile application.
-
 Now if you reload the page, on the top right there should be a new button to navigate to the new page. 🎉
 
 ### Using Remote Sub-Pages

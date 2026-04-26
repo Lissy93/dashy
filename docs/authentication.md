@@ -347,7 +347,7 @@ appConfig:
 
 - The `proxyWhitelist` checks `req.socket.remoteAddress`, which is the direct connection source. If your proxy connects through Docker networking, use the container's internal IP (e.g. `172.18.0.2`), not the external IP
 - Logout clears Dashy's session cookie, but the user remains authenticated at the proxy level. Revisiting the page will re-authenticate automatically
-- When header auth is enabled, server-side API endpoints are also protected by the proxy whitelist. Requests not from a whitelisted IP will be rejected. Admin enforcement applies - only users with `type: admin` can access write endpoints (config save, rebuild)
+- When header auth is enabled, server-side API endpoints are also protected by the proxy whitelist. Requests not from a whitelisted IP will be rejected. Admin enforcement applies - only users with `type: admin` can access write endpoints (config save)
 
 ---
 

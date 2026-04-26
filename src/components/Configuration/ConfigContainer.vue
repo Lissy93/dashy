@@ -30,11 +30,6 @@
             {{backupId ? $t('config.edit-cloud-sync-button') : $t('config.cloud-sync-button') }}
             <CloudIcon class="button-icon"/>
           </Button>
-          <!-- Rebuild app button -->
-          <Button class="config-button" :disallow="!enableConfig" :click="openRebuildAppTab">
-            {{ $t('config.rebuild-app-button') }}
-            <RebuildIcon class="button-icon"/>
-          </Button>
           <!-- Reset local changes button -->
           <Button class="config-button" :click="resetLocalSettings">
             {{ $t('config.reset-settings-button') }}
@@ -87,9 +82,6 @@
     <TabItem id="cloud" :name="$t('cloud-sync.title')" v-if="enableConfig" hidden>
       <CloudBackupRestore />
     </TabItem>
-    <TabItem id="rebuild" :name="$t('config.rebuild-app-button')" v-if="enableConfig" hidden>
-      <RebuildApp />
-    </TabItem>
   </Tabs>
   <ConfirmDialog
     v-model:open="showResetConfirm"
@@ -109,7 +101,6 @@ import ErrorHandler from '@/utils/logging/ErrorHandler';
 import StoreKeys from '@/utils/StoreMutations';
 import CustomCssEditor from '@/components/Configuration/CustomCss';
 import CloudBackupRestore from '@/components/Configuration/CloudBackupRestore';
-import RebuildApp from '@/components/Configuration/RebuildApp';
 import AppInfo from '@/components/Configuration/AppInfo';
 import DebugInfo from '@/components/Configuration/DebugInfo';
 import AppVersion from '@/components/Configuration/AppVersion';
@@ -123,7 +114,6 @@ import DeleteIcon from '@/assets/interface-icons/config-delete-local.svg';
 import EditIcon from '@/assets/interface-icons/config-edit-json.svg';
 import CustomCssIcon from '@/assets/interface-icons/config-custom-css.svg';
 import CloudIcon from '@/assets/interface-icons/cloud-backup-restore.svg';
-import RebuildIcon from '@/assets/interface-icons/application-rebuild.svg';
 import LanguageIcon from '@/assets/interface-icons/config-language.svg';
 import IconAbout from '@/assets/interface-icons/application-about.svg';
 import DebugIcon from '@/assets/interface-icons/config-debug-menu.svg';
@@ -173,7 +163,6 @@ export default {
     JsonEditor,
     CustomCssEditor,
     CloudBackupRestore,
-    RebuildApp,
     AppInfo,
     DebugInfo,
     AppVersion,
@@ -184,7 +173,6 @@ export default {
     CloudIcon,
     CustomCssIcon,
     LanguageIcon,
-    RebuildIcon,
     IconAbout,
     DebugIcon,
   },
@@ -200,13 +188,6 @@ export default {
       const items = this.$refs.tabView?.navItems || [];
       const index = items.findIndex((t) => t.id === id);
       if (index >= 0) this.navigateToTab(index);
-    },
-    openRebuildAppTab() {
-      if (this.enableConfig) {
-        this.navigateToTabById('rebuild');
-      } else {
-        this.unauthorized();
-      }
     },
     openAboutTab() {
       this.navigateToTabById('about');

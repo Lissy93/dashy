@@ -30,7 +30,6 @@
     "edit-css-button": "Wijzig Aangepaste CSS",
     "cloud-sync-button": "Schakel Cloud Synchronisatie In",
     "edit-cloud-sync-button": "Wijzig Cloud Synchronisatie",
-    "rebuild-app-button": "Herbouw Applicatie",
     "change-language-button": "Verander App Taal",
     "reset-settings-button": "Reset Lokale Instellingen",
     "app-info-button": "App Info",
@@ -102,20 +101,6 @@
     "error-msg-cannot-save": "Een fout trad op tijdens het opslaan van de config",
     "error-msg-bad-json": "Fout in JSON, mogelijk ongeldige structuur",
     "warning-msg-validation": "Validatie Waarschuwing"
-  },
-  "app-rebuild": {
-    "title": "Herbouw Applicatie",
-    "rebuild-note-l1": "Het is nodig de applicatie te herbouwen om de veranderingen in conf.yml toe te passen.",
-    "rebuild-note-l2": "Dit zou automatisch moeten gebeuren, mocht dit niet het geval zijn, kun je het hier handmatig starten.",
-    "rebuild-note-l3": "Dit is niet nodig voor lokaal opgeslagen aanpassingen.",
-    "rebuild-button": "Start Build",
-    "rebuilding-status-1": "Building...",
-    "rebuilding-status-2": "Dit kan een paar minuten duren",
-    "error-permission": "Je bent niet bevoegd deze actie uit te voeren",
-    "success-msg": "Build succesvol uitgevoerd",
-    "fail-msg": "Build proces gefaald",
-    "reload-note": "Herlaad de pagina om de veranderingen toe te passen",
-    "reload-button": "Herlaad Pagina"
   },
   "cloud-sync": {
     "title": "Cloud Backup & Herstel",

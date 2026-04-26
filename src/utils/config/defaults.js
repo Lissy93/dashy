@@ -40,7 +40,6 @@ const defaults = {
     statusPing: '/status-ping',
     statusCheck: '/status-check',
     save: '/config-manager/save',
-    rebuild: '/config-manager/rebuild',
     systemInfo: '/system-info',
     corsProxy: '/cors-proxy',
     getUser: '/get-user',
@@ -159,7 +158,6 @@ const defaults = {
   /* Unique IDs of modals within the app */
   modalNames: {
     CONF_EDITOR: 'CONF_EDITOR',
-    REBUILD_APP: 'REBUILD_APP',
     ABOUT_APP: 'ABOUT_APP',
     LANG_SWITCHER: 'LANG_SWITCHER',
     EDIT_ITEM: 'EDIT_ITEM',

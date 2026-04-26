@@ -678,7 +678,7 @@ If you're facing permission issues on Debian-based systems when running Docker c
 
 For containers in general, running as an unprivileged user is one of the best ways to prevent privilege escalation attacks. You can specify a user with the [`--user` param](https://docs.docker.com/engine/reference/run/#user), using the user ID (`UID`) from `id -u` and group ID (`GID`) from `id -g`.
 
-**Note for Dashy:** If you use features that write to disk (saving config through the UI, triggering a rebuild), the process needs write access to `/app/user-data/` and `/app/dist/`. Since the default image creates these directories as root, running with `--user` will cause those features to fail with permission errors unless you also fix ownership of the mounted volumes. If you only use Dashy in read-only mode, running as a non-root user works fine:
+**Note for Dashy:** If you use features that write to disk (saving config through the UI), the process needs write access to `/app/user-data/`. Since the default image creates these directories as root, running with `--user` will cause those features to fail with permission errors unless you also fix ownership of the mounted volumes. If you only use Dashy in read-only mode, running as a non-root user works fine:
 
 `docker run --user 1000:1000 -p 8080:8080 lissy93/dashy`
 

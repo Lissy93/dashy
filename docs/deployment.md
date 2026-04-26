@@ -233,7 +233,7 @@ If you do not want to use Docker, you can run Dashy directly on your host system
 Dashy can be deployed to most cloud providers. The Docker guides above work on any VPS, but these providers offer quicker setup for static or containerized deployments.
 
 > [!NOTE]
-> Static hosting providers (Netlify, Vercel, EdgeOne) won't have status checks, config writing to disk, or UI-triggered rebuilds, since those features need Dashy's Node server. Everything else works fine.
+> Static hosting providers (Netlify, Vercel, EdgeOne) won't have status checks or config writing to disk, since those features need Dashy's Node server. Everything else works fine.
 
 ### Netlify
 
@@ -281,7 +281,7 @@ URL: `https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com
 
 Once Dashy has been built, it is effectively just a static web app. This means that it can be served up with pretty much any static host, CDN or web server. To host Dashy through a CDN, the steps are very similar to building from source: clone the project, cd into it, install dependencies, write your config file and build the app. Once build is complete you will have a `./dist` directory within Dashy's root, and this is the build application which is ready to be served up.
 
-However without Dashy's node server, there are a couple of features that will be unavailable to you, including: Writing config changes to disk through the UI, triggering a rebuild through the UI and application status checks. Everything else will work fine.
+However without Dashy's node server, there are a couple of features that will be unavailable to you, including: writing config changes to disk through the UI, and application status checks. Everything else will work fine.
 
 ---
 

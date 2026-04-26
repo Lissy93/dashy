@@ -3412,7 +3412,7 @@ Instead, for secrets you should use environmental vairables.
 
 You can do this, by setting the environmental variable name as the value, instead of the actual key, and then setting that env var in your container or local environment.
 
-The key can be named whatever you like, but it must start with `VITE_APP_` (to be picked up by Vite). If you need to update any of these values, a rebuild is required (this can be done under the Config menu in the UI, or by running `yarn build` then restarting the container).
+The key can be named whatever you like, but it must start with `VITE_APP_` (to be picked up by Vite). If you need to update any of these values, a rebuild is required, by running `yarn build` then restarting the container.
 
 For more infomation about setting and managing your environmental variables, see [Management Docs --> Environmental Variables](/docs/management.md#passing-in-environmental-variables).
 

@@ -81,7 +81,6 @@
     "edit-css-button": "Editare CSS Personalizat",
     "cloud-sync-button": "Activează Sincronizarea în Cloud",
     "edit-cloud-sync-button": "Editare Sincronizare în Cloud",
-    "rebuild-app-button": "Reconstruire Aplicație",
     "change-language-button": "Schimbă Limba Aplicației",
     "reset-settings-button": "Resetează Setările Locale",
     "disabled-note": "Unele caracteristici de configurare au fost dezactivate de administratorul tău",
@@ -174,20 +173,6 @@
     "error-msg-bad-json": "Eroare în JSON, posibil malformat",
     "warning-msg-validation": "Avertisment de Validare",
     "not-admin-note": "Nu puteți scrie modificările pe disc deoarece nu sunteți conectat ca administrator"
-  },
-  "app-rebuild": {
-    "title": "Reconstruire Aplicație",
-    "rebuild-note-l1": "O reconstruire este necesară pentru ca modificările scrise în fișierul conf.yml să aibă efect.",
-    "rebuild-note-l2": "Aceasta ar trebui să se întâmple automat, dar dacă nu s-a întâmplat, o puteți declanșa manual aici.",
-    "rebuild-note-l3": "Aceasta nu este necesară pentru modificările stocate local.",
-    "rebuild-button": "Începeți Reconstruirea",
-    "rebuilding-status-1": "Se reconstruiește...",
-    "rebuilding-status-2": "Aceasta poate dura câteva minute",
-    "error-permission": "Nu aveți permisiunea de a declanșa această acțiune",
-    "success-msg": "Reconstruirea a fost completată cu succes",
-    "fail-msg": "Operațiunea de reconstruire a eșuat",
-    "reload-note": "Este necesară reîncărcarea paginii pentru ca modificările să aibă efect",
-    "reload-button": "Reîncarcă Pagina"
   },
   "cloud-sync": {
     "title": "Backup și Restaurare în Cloud",

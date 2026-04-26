@@ -152,7 +152,7 @@ For more info, see the[Multi-Page docs](/docs/pages-and-sections.md#multi-page-s
 
 > [!NOTE]
 > Since the auth is initiated in the main app entry point (for security), a rebuild is required to apply changes to the auth configuration.
-> You can trigger a rebuild through the UI, under Config --> Rebuild, or by running `yarn build` in the root directory.
+> Run `yarn build` in the root directory, then restart the server.
 
 > [!WARNING]
 > Built-in auth should **not be used** for security-critical applications, or if your Dashy instance is publicly accessible.

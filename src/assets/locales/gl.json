@@ -81,7 +81,6 @@
     "edit-css-button": "Editar CSS personalizado",
     "cloud-sync-button": "Habilitar sincronización en nube",
     "edit-cloud-sync-button": "Editar sincronización en nube",
-    "rebuild-app-button": "Reconstruír aplicación",
     "change-language-button": "Cambiar idioma da aplicación",
     "reset-settings-button": "Restablecer configuración local",
     "disabled-note": "Algúns recursos de configuración foron desactivados polo administrador",
@@ -174,20 +173,6 @@
     "error-msg-bad-json": "Erro en JSON, posiblemente malformado",
     "warning-msg-validation": "Aviso de validación",
     "not-admin-note": "Non podes gardar cambios no disco porque non iniciaches sesión como administrador"
-  },
-  "app-rebuild": {
-    "title": "Reconstruír aplicación",
-    "rebuild-note-l1": "É necesaria unha reconstrución para que se apliquen os cambios escritos no ficheiro 'conf.yml'.",
-    "rebuild-note-l2": "Isto debería ocorrer automaticamente, pero se non ocorre, podes activar manualmente aquí.",
-    "rebuild-note-l3": "Esto non é necesario para as modificacións almacenadas localmente.",
-    "rebuild-button": "Iniciar construción",
-    "rebuilding-status-1": "Construíndo...",
-    "rebuilding-status-2": "Isto pode levar uns minutos",
-    "error-permission": "Non tes permisos para iniciar esta acción",
-    "success-msg": "Construción completada con éxito",
-    "fail-msg": "A operación de construción fallou",
-    "reload-note": "Agora é necesario recargar a páxina para que se apliquen os cambios",
-    "reload-button": "Recargar páxina"
   },
   "cloud-sync": {
     "title": "Copia de seguridade e restauración en nube",

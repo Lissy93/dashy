@@ -264,7 +264,7 @@ Dashy provides several options to restrict what users can modify:
 - `appConfig.disableConfiguration` - Hides the config UI from all users
 - `appConfig.disableConfigurationForNonAdmin` - Hides the config UI for non-admin users
 
-These can be combined with the `admin` and `normal` user roles to give fine-grained control. Admin users can save config changes and trigger app rebuilds, while normal users have read-only access. For more details, see the [Authentication Docs: Permissions](/docs/authentication.md#permissions).
+These can be combined with the `admin` and `normal` user roles to give fine-grained control. Admin users can save config changes, while normal users have read-only access. For more details, see the [Authentication Docs: Permissions](/docs/authentication.md#permissions).
 
 ### Disabling Features
 
@@ -326,7 +326,7 @@ If exposed to the internet, Dashy **must** be placed behind a reverse proxy with
 | "Status checks can be used for SSRF" | Status check target URLs are set by the server admin in `conf.yml`, not by end users. If auth is enabled, the endpoint is protected. |
 | "Password hashes are stored in plaintext in conf.yml" | They are SHA-256 hashes, not plaintext passwords. The config file should be readable only by the server admin, and protected by HTTP auth when served. |
 | "localStorage/cookies are not encrypted" | Browser storage is scoped to the origin and inaccessible to other domains. On a shared device, use your browser's profile isolation. |
-| "No CSRF protection" | Dashy's state-changing operations (config save/rebuild) are protected by auth middleware. CSRF is a low risk on a private network dashboard. |
+| "No CSRF protection" | Dashy's state-changing operations (config save) are protected by auth middleware. CSRF is a low risk on a private network dashboard. |
 | "Docker container runs as root" | The container is sandboxed. For hardened deployments, override with `--user` flag or configure in your Docker Compose file as described in the [container security docs](/docs/management.md#container-security). |
 | "Auth cookie is not HttpOnly/Secure" | The token is needed by client-side JavaScript for auth state. On a private network over plain HTTP, the `Secure` flag would break auth. Use HTTPS + a reverse proxy to add these flags if needed. |
 | "Iframe/embed widget can load arbitrary URLs" | The widget config is written by the server admin, not end users. If you don't trust your config authors, disable the config editor with `disableConfiguration`. |

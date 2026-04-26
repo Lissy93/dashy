@@ -44,7 +44,6 @@
     "edit-css-button": "Upraviť vlastné CSS",
     "cloud-sync-button": "Povoliť synchronizáciu s cloudom",
     "edit-cloud-sync-button": "Upraviť synchronizáciu s cloudom",
-    "rebuild-app-button": "Prestavať aplikáciu",
     "change-language-button": "Zmeniť jazyk aplikácie",
     "reset-settings-button": "Obnoviť miestne nastavenia",
     "app-info-button": "Informácie o aplikácii",
@@ -129,20 +128,6 @@
     "error-msg-bad-json": "Chyba v JSON, možno má nesprávny formát",
     "warning-msg-validation": "Upozornenie na validáciu",
     "not-admin-note": "Nemôžete zapisovať zmeneny na disk, pretože nie ste prihlásený ako správca"
-  },
-  "app-rebuild": {
-    "title": "Prestavať aplikáciu",
-    "rebuild-note-l1": "Aby sa zmeny zapísané do súboru conf.yml prejavili, je potrebné opätovné zostavenie.",
-    "rebuild-note-l2": "Malo by sa to stať automaticky, ale ak sa tak nestalo, môžete to spustiť manuálne tu.",
-    "rebuild-note-l3": "Toto sa nevyžaduje pre lokálne uložené úpravy.",
-    "rebuild-button": "Spustite zostavovanie",
-    "rebuilding-status-1": "Zostavovanie...",
-    "rebuilding-status-2": "Môže to trvať pár minút",
-    "error-permission": "Na spustenie tejto akcie nemáte povolenie",
-    "success-msg": "Zostavba bola úspešne dokončená",
-    "fail-msg": "Operácia zostavenia zlyhala",
-    "reload-note": "Aby sa zmeny prejavili, je teraz potrebné znovu načítať stránku",
-    "reload-button": "Znovu načítať stránku"
   },
   "cloud-sync": {
     "title": "Cloud záloha & obnova",

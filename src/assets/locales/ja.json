@@ -81,7 +81,6 @@
     "edit-css-button": "カスタムCSSの編集",
     "cloud-sync-button": "クラウド同期の有効化",
     "edit-cloud-sync-button": "クラウド同期の編集",
-    "rebuild-app-button": "アプリケーションの再ビルド",
     "change-language-button": "アプリ言語の変更",
     "reset-settings-button": "ローカルの設定をリセット",
     "disabled-note": "いくつかの設定は管理者によって無効化されています",
@@ -174,20 +173,6 @@
     "error-msg-bad-json": "JSONに間違いがあります。形式が間違っているかもしれません",
     "warning-msg-validation": "バリデーション警告",
     "not-admin-note": "管理者としてログインしていないため、変更をディスクに書き込むことはできません"
-  },
-  "app-rebuild": {
-    "title": "アプリケーションを再ビルド",
-    "rebuild-note-l1": "conf.ymlファイルに書き込まれた変更を有効にするには、再ビルドが必要です。",
-    "rebuild-note-l2": "再ビルドは自動的に行われますが、もし行われていない場合はここで手動で実行できます。",
-    "rebuild-note-l3": "なお、ローカルに保存された変更には必要ありません。",
-    "rebuild-button": "再ビルドを開始",
-    "rebuilding-status-1": "ビルド...",
-    "rebuilding-status-2": "これには数分かかる場合があります",
-    "error-permission": "この操作を実行する権限がありません",
-    "success-msg": "ビルドが正常に完了しました",
-    "fail-msg": "ビルドに失敗しました",
-    "reload-note": "変更を適用するにはページの再読み込みが必要です",
-    "reload-button": "ページを再読み込み"
   },
   "cloud-sync": {
     "title": "クラウドバックアップと復元",

@@ -81,7 +81,6 @@
     "edit-css-button": "Styles personnalisés",
     "cloud-sync-button": "Activer la synchro. dans le cloud",
     "edit-cloud-sync-button": "Modifier la synchro. dans le cloud",
-    "rebuild-app-button": "Reconstruire l'application",
     "change-language-button": "Changer la langue",
     "reset-settings-button": "Réinitialiser les paramètres locaux",
     "disabled-note": "Certaines fonctionnalités de configuration ont été désactivées par votre administrateur",
@@ -174,20 +173,6 @@
     "error-msg-bad-json": "Erreur dans le fichier JSON, il est peut-être mal formé",
     "warning-msg-validation": "Attention",
     "not-admin-note": "Vous ne pouvez pas écrire les modifications sur le disque, car vous n'êtes pas connecté en tant qu'administrateur"
-  },
-  "app-rebuild": {
-    "title": "Reconstruction de l'application",
-    "rebuild-note-l1": "Une reconstruction est requise pour que les modifications écrites dans le fichier conf.yml prennent effet.",
-    "rebuild-note-l2": "Cela devrait se produire automatiquement, mais si ce n'est pas le cas, vous pouvez le déclencher manuellement ici.",
-    "rebuild-note-l3": "Ceci n'est pas nécessaire pour les modifications stockées localement.",
-    "rebuild-button": "Démarrer la reconstruction",
-    "rebuilding-status-1": "Reconstruction ...",
-    "rebuilding-status-2": "Cela peut prendre quelques minutes",
-    "error-permission": "Vous n'êtes pas autorisé à executer cette action",
-    "success-msg": "Construction terminée avec succès",
-    "fail-msg": "Échec de la construction",
-    "reload-note": "Un rechargement de la page est maintenant requis pour que les modifications prennent effet",
-    "reload-button": "Rafraîchir la page"
   },
   "cloud-sync": {
     "title": "Sauvegarde Cloud & Restauration",

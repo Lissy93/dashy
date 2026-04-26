@@ -81,7 +81,6 @@
     "edit-css-button": "CSS bearbeiten",
     "cloud-sync-button": "Cloud-Synchronisation aktivieren",
     "edit-cloud-sync-button": "Cloud-Synchronisation bearbeiten",
-    "rebuild-app-button": "Anwendung neu kompilieren",
     "change-language-button": "App-Sprache ändern",
     "reset-settings-button": "lokale Einstellungen zurücksetzen",
     "disabled-note": "Einige Konfigurationsoptionen wurden vom Administrator deaktivert",
@@ -174,20 +173,6 @@
     "error-msg-bad-json": "Fehler in JSON-Daten, möglicherweise fehlerhafter Syntax",
     "warning-msg-validation": "Validierungswarnung",
     "not-admin-note": "Änderungen können nicht auf die Festplatte gespeichert werden, da Sie nicht als Administrator angemeldet sind"
-  },
-  "app-rebuild": {
-    "title": "Applikation neu kompilieren",
-    "rebuild-note-l1": "Damit die in die Datei conf.yml geschriebenen Änderungen wirksam werden ist ein Neukompilieren erforderlich.",
-    "rebuild-note-l2": "Dies sollte automatisch passieren, aber falls nicht können Sie es hier manuell starten.",
-    "rebuild-note-l3": "Dies ist bei lokal gespeicherten Änderungen nicht erforderlich.",
-    "rebuild-button": "Starte Kompilierung",
-    "rebuilding-status-1": "Baue...",
-    "rebuilding-status-2": "Das kann ein paar Minuten dauern",
-    "error-permission": "Sie sind nicht berechtigt diese Aktion auszulösen",
-    "success-msg": "Kompilierung erfolgreich abgeschlossen",
-    "fail-msg": "Kompilierung fehlgeschlagen",
-    "reload-note": "Ein neu Laden der Seite ist erforderlich, damit die Änderungen wirksam werden.",
-    "reload-button": "Seite neu laden"
   },
   "cloud-sync": {
     "title": "Cloud Backup & Wiederherstellung",

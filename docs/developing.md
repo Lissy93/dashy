@@ -243,8 +243,7 @@ Styleguides:
 │  │  ├── ConfigContainer.vue     # Main container, wrapping all other config components
 │  │  ├── CustomCss.vue           # Form where the user can input custom CSS
 │  │  ├── EditSiteMeta.vue        # Form where the user can edit site meta data
-│  │  ├── JsonEditor.vue          # JSON editor, where the user can modify the main config file
-│  │  ╰── RebuildApp.vue          # A component allowing user to trigger a rebuild through the UI
+│  │  ╰── JsonEditor.vue          # JSON editor, where the user can modify the main config file
 │  ├── FormElements               # Basic form elements used throughout the app
 │  │  ├── Button.vue              # Standard button component
 │  │  ├── Radio.vue               # Standard radio button input

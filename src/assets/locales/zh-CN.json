@@ -81,7 +81,6 @@
     "edit-css-button": "自定义CSS",
     "cloud-sync-button": "云端同步",
     "edit-cloud-sync-button": "修改云端同步",
-    "rebuild-app-button": "重建应用",
     "change-language-button": "更改语言",
     "reset-settings-button": "恢复默认设置",
     "disabled-note": "您的管理员已禁用某些配置功能",
@@ -174,20 +173,6 @@
     "error-msg-bad-json": "JSON 错误，可能格式错误",
     "warning-msg-validation": "验证警告",
     "not-admin-note": "不能保存变更到配置文件，因为你没有以管理员身份登录"
-  },
-  "app-rebuild": {
-    "title": "重建应用",
-    "rebuild-note-l1": "写入 conf.yml 文件的更改需要重建应用才能生效。",
-    "rebuild-note-l2": "这应该是自动运行的，但如果没有生效，你可以在此处手动执行。",
-    "rebuild-note-l3": "这对于本地存储的修改不是必需的。",
-    "rebuild-button": "开始重建",
-    "rebuilding-status-1": "重建中...",
-    "rebuilding-status-2": "这将持续一段时间",
-    "error-permission": "你没有权限执行此操作",
-    "success-msg": "重建成功",
-    "fail-msg": "重建失败",
-    "reload-note": "你需要刷新页面以使变更生效",
-    "reload-button": "刷新页面"
   },
   "cloud-sync": {
     "title": "云备份&恢复",

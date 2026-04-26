@@ -82,7 +82,6 @@
     "edit-css-button": "Özel CSS Düzenle",
     "cloud-sync-button": "Bulut Senkronizasyonu Etkinleştir",
     "edit-cloud-sync-button": "Bulut Senkronizasyonu Düzenle",
-    "rebuild-app-button": "Uygulamayı Tekrar Derle",
     "change-language-button": "Uygulama Dilini Değiştir",
     "reset-settings-button": "Yerel Ayarları Sıfırla",
     "disabled-note": "Bazı yapılandırma özellikleri yöneticiniz tarafından devre dışı bırakılmıştır",
@@ -175,20 +174,6 @@
     "error-msg-bad-json": "JSON'da hata, muhtemelen hatalı biçimlendirilmiş",
     "warning-msg-validation": "Doğrulama Uyarısı",
     "not-admin-note": "Yönetici olarak giriş yapmadığınız için değiştirilenleri diske yazamazsınız."
-  },
-  "app-rebuild": {
-    "title": "Uygulamayı Yeniden Derle",
-    "rebuild-note-l1": "Artık yeniden derleme gerekli değildir.",
-    "rebuild-note-l2": "Bazı değişiklikler (giriş noktası ve kimlik doğrulama ayarları) derleme sırasında okunur. Bu nedenle bunları uygulamak için buradan yeniden derleme tetiklemelisiniz.",
-    "rebuild-note-l3": "Bunun yalnızca Node ve Docker kurulumlarında kullanılabildiğini, statik olarak dağıtılan örneklerde kullanılamadığını unutmayın.",
-    "rebuild-button": "Derlemeye Başla",
-    "rebuilding-status-1": "Derleniyor...",
-    "rebuilding-status-2": "Bu bir kaç dakika alabilir",
-    "error-permission": "Bu eylemi tetikleme izniniz yok",
-    "success-msg": "Derleme başarıyla tamamlandı",
-    "fail-msg": "Derleme başarısız oldu",
-    "reload-note": "Değişikliklerin etkili olması için sayfanın yeniden yüklenmesi gerekiyor",
-    "reload-button": "Sayfayı Yenile"
   },
   "cloud-sync": {
     "title": "Bulut Yedekleme ve Geri Yükleme",

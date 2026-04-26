@@ -42,7 +42,6 @@
     "edit-css-button": "Edytuj styl CSS",
     "cloud-sync-button": "Ustawienia chmury",
     "edit-cloud-sync-button": "Ustawienia chmury",
-    "rebuild-app-button": "Przebuduj aplikację",
     "change-language-button": "Zmień język",
     "reset-settings-button": "Zresetuj pamięć podręczną",
     "app-info-button": "Informacje o aplikacji",
@@ -125,20 +124,6 @@
     "error-msg-bad-json": "Błąd w JSON",
     "warning-msg-validation": "Ostrzeżenie",
     "not-admin-note": "Nie możesz zapisywać na dysku, wymagane uprawnienia administratora"
-  },
-  "app-rebuild": {
-    "title": "Przebuduj aplikację",
-    "rebuild-note-l1": "Przebudowanie jest koniecznne po dokonaniu zmian w pliku: conf.yml.",
-    "rebuild-note-l2": "Powinno to nastąpić automatycznie, jeśli jednak tak się nie stanie możesz je wymusić tutaj.",
-    "rebuild-note-l3": "Zmiany w pamięci podręcznej nie wymagają przebudowania aplikacji.",
-    "rebuild-button": "Rozpocznij",
-    "rebuilding-status-1": "Budowanie...",
-    "rebuilding-status-2": "Może to zająć kilka minut",
-    "error-permission": "Nie masz odpowiednich uprawnień do wykonania tej akcji",
-    "success-msg": "Budowanie zakończone pomyślnie",
-    "fail-msg": "Budowanie nie powiodło się",
-    "reload-note": "Zmiany będą widoczne po odświeżeniu strony",
-    "reload-button": "Odśwież stronę"
   },
   "cloud-sync": {
     "title": "Kopia zapasowa w chmurze",
