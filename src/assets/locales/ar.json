@@ -1,17 +1,23 @@
 {
   "home": {
     "no-results": "لا نتائج للبحث",
-    "no-data": "لا يوجد بيانات"
+    "no-data": "لا يوجد بيانات",
+    "no-items-section": "لا يوجد عناصر للعرض بعد"
   },
   "search": {
     "search-label": "بحث",
     "search-placeholder": "ابدأ الكتابة للتصفية",
     "clear-search-tooltip": "مسح البحث",
-    "enter-to-search-web": "اضغط على Enter للبحث في الويب"
+    "enter-to-search-web": "اضغط على Enter للبحث في الويب",
+    "enter-to-open-url": "اضغط على Enter لفتح الرابط"
+  },
+  "splash-screen": {
+    "loading": "جاري التحميل"
   },
   "login": {
-    "title": "داشي",
-    "username-label": "اسم المستخدم",
+    "title": "Dashy",
+    "guest-label": "دخول الضيوف",
+    "username-label": "إسم المستخدم",
     "password-label": "كلمه السر",
     "login-button": "تسجيل الدخول",
     "remember-me-label": "تذكرني ل",
@@ -19,36 +25,77 @@
     "remember-me-hour": "4 ساعات",
     "remember-me-day": "يوم 1",
     "remember-me-week": "أسبوع 1",
-    "error-missing-username": "اسم المستخدم مفقود",
+    "remember-me-long-time": "وقت طويل",
+    "error-missing-username": "إسم المستخدم مفقود",
     "error-missing-password": "كلمة المرور مفقودة",
     "error-incorrect-username": "لم يتم العثور على المستخدم",
     "error-incorrect-password": "كلمة سر خاطئة",
     "success-message": "تسجيل الدخول...",
     "logout-message": "تسجيل الخروج",
     "already-logged-in-title": "تم تسجيل الدخول بالفعل",
-    "already-logged-in-text": "لقد قمت بتسجيل الدخول باعتبارك",
-    "proceed-to-dashboard": "انتقل إلى لوحة القيادة",
+    "already-logged-in-text": "لقد قمت بتسجيل الدخول بإعتبارك",
+    "proceed-to-dashboard": "إنتقل إلى لوحة القيادة",
     "log-out-button": "تسجيل خروج",
-    "proceed-guest-button": "المضي قدما كضيف"
+    "proceed-guest-button": "المضي قدما كضيف",
+    "guest-intro-1": "تم تفعيل دخول الضيوف لهذا النظام.",
+    "guest-intro-2": "لدى الضيوف صلاحية العرض فقط للوحات التحكم، لذا لا يمكنهم حفظ أي تغييرات.",
+    "error": "خطأ",
+    "error-no-user-configured": "لم يتم تفعيل المصادقة، أو لم يتم إعداد مستخدمين",
+    "error-go-home-button": "العودة للرئيسية",
+    "logged-in-guest": "تم تسجيل الدخول كضيف، جاري إعادة التوجيه...",
+    "error-guest-access": "غير مسموح بدخول الضيوف"
+  },
+  "app-info": {
+    "title": "معلومات التطبيق",
+    "error-log": "سجل الأخطاء",
+    "no-errors": "لم يتم اكتشاف أخطاء مؤخراً",
+    "help-support": "المساعدة والدعم",
+    "help-support-description": "للحصول على دعم في تشغيل أو إعداد Dashy، راجع",
+    "help-support-discussions": "المناقشات",
+    "support-dashy": "دعم Dashy",
+    "support-dashy-description": "للمشاركة والمساهمة، تحقق من",
+    "support-dashy-link": "صفحة المساهمات",
+    "report-bug": "الإبلاغ عن خطأ",
+    "report-bug-description": "إذا كنت تعتقد أنك وجدت خطأ، يرجى",
+    "report-bug-link": "فتح Issue",
+    "more-info": "مزيد من المعلومات",
+    "source": "المصدر",
+    "documentation": "الوثائق",
+    "privacy-and-security": "الخصوصية والأمان",
+    "privacy-and-security-l1": "للاطلاع على كيفية إدارة بياناتك بواسطة Dashy، راجع",
+    "privacy-and-security-privacy-policy": "سياسة الخصوصية",
+    "privacy-and-security-advice": "للحصول على نصائح حول تأمين لوحة التحكم، يمكنك الرجوع إلى",
+    "privacy-and-security-advice-link": "وثائق الإدارة",
+    "privacy-and-security-security-issue": "إذا وجدت مشكلة أمنية محتملة، أبلغ عنها باتباع",
+    "privacy-and-security-security-policy": "سياسة الأمن",
+    "license": "الترخيص",
+    "license-under": "مرخص بموجب",
+    "licence-third-party": "لتراخيص الوحدات الخارجية، يرجى الاطلاع على",
+    "licence-third-party-link": "قانوني",
+    "list-contributors": "للقائمة الكاملة للمساهمين والشكر، انظر",
+    "list-contributors-link": "الاعتمادات",
+    "version": "الإصدار"
   },
   "config": {
     "main-tab": "القائمة الرئيسية",
-    "view-config-tab": "مشاهده ملف الإعدادات",
-    "edit-config-tab": "تغير ملف الاع",
+    "view-config-tab": "عرض الإعدادات (Config)",
+    "edit-config-tab": "تعديل الإعدادات (Config)",
     "custom-css-tab": "الأنماط المخصصة",
     "heading": "خيارات الإعداد",
     "download-config-button": "تنزيل ملف الإعدادات",
-    "edit-config-button": "تحرير التكوين",
+    "edit-config-button": "تعديل الـ Config",
     "edit-css-button": "تحرير CSS مخصص",
-    "cloud-sync-button": "قم بتمكين Cloud Sync",
-    "edit-cloud-sync-button": "تحرير Cloud Sync",
+    "cloud-sync-button": "تفعيل Cloud Sync",
+    "edit-cloud-sync-button": "تعديل Cloud Sync",
     "change-language-button": "تغيير لغة التطبيق",
     "reset-settings-button": "إعادة ضبط الإعدادات المحلية",
+    "disabled-note": "تم تعطيل بعض ميزات التكوين بواسطة المسؤول",
+    "small-screen-note": "أنت تستخدم شاشة صغيرة جداً، وقد لا تكون بعض الشاشات في هذه القائمة مثالية",
     "app-info-button": "معلومات التطبيق",
     "backup-note": "يوصى بعمل نسخة احتياطية من التكوين الخاص بك قبل إجراء التغييرات.",
-    "reset-config-msg-l1": "سيؤدي هذا إلى إزالة جميع إعدادات المستخدم من التخزين المحلي ، لكنه لن يؤثر على ملف \"conf.yml\" الخاص بك.",
+    "reset-config-msg-l1": "سيؤدي هذا إلى إزالة جميع إعدادات المستخدم من التخزين المحلي، لكنه لن يؤثر على ملف conf.yml الخاص بك.",
     "reset-config-msg-l2": "يجب عليك أولاً الاحتفاظ بنسخة احتياطية من أي تغييرات أجريتها محليًا ، إذا كنت ترغب في استخدامها في المستقبل.",
-    "reset-config-msg-l3": "هل انت متأكد انك تريد المتابعة؟",
+    "reset-config-msg-l3": "هل أنت متأكد انك تريد المتابعة؟",
     "data-cleared-msg": "تم مسح البيانات بنجاح",
     "actions-label": "أجراءات",
     "copy-config-label": "نسخ التكوين",
@@ -58,7 +105,11 @@
     "css-note-label": "ملحوظة",
     "css-note-l1": "ستحتاج إلى تحديث الصفحة حتى تصبح التغييرات سارية المفعول.",
     "css-note-l2": "يتم تخزين تجاوزات الأنماط محليًا فقط ، لذا يوصى بعمل نسخة من CSS الخاص بك.",
-    "css-note-l3": "لإزالة جميع الأنماط المخصصة ، احذف المحتويات واضغط على حفظ التغييرات"
+    "css-note-l3": "لإزالة جميع الأنماط المخصصة ، احذف المحتويات واضغط على حفظ التغييرات",
+    "custom-css": {
+      "title": "CSS مخصص",
+      "base-theme": "السمة الأساسية"
+    }
   },
   "alternate-views": {
     "alternate-view-heading": "عرض التبديل",
@@ -80,7 +131,9 @@
     "config-launcher-tooltip": "تحديث التكوين",
     "sign-out-tooltip": "خروج",
     "sign-in-tooltip": "تسجيل دخول",
-    "sign-in-welcome": "مرحبًا {username}!"
+    "sign-in-welcome": "مرحبًا {username}!",
+    "hide": "إخفاء",
+    "open": "فتح"
   },
   "updates": {
     "app-version-note": "ملاحظة نسخة التطبيق",
@@ -100,6 +153,7 @@
     "export-button": "تصدير المتغيرات المخصصة",
     "reset-button": "إعادة تعيين الأنماط لـ",
     "show-all-button": "إظهار كافة المتغيرات",
+    "change-fonts-button": "تغيير الخطوط",
     "save-button": "يحفظ",
     "cancel-button": "يلغي",
     "saved-toast": "{theme} تم التحديث بنجاح",
@@ -111,6 +165,7 @@
     "location-local-label": "تطبيق محليا",
     "location-disk-label": "اكتب التغييرات في ملف التكوين",
     "save-button": "حفظ التغييرات",
+    "preview-button": "معاينة التغييرات",
     "valid-label": "التكوين صالح",
     "status-success-msg": "اكتملت المهمة",
     "status-fail-msg": "فشلت المهمة",
@@ -130,6 +185,7 @@
     "intro-l1": "تعد ميزة النسخ الاحتياطي والاستعادة السحابية ميزة اختيارية ، تتيح لك تحميل التهيئة الخاصة بك على الإنترنت ، ثم استعادتها على أي جهاز أو مثيل آخر لـ Dashy.",
     "intro-l2": "جميع البيانات مشفرة بالكامل من طرف إلى طرف باستخدام AES ، باستخدام كلمة مرورك كمفتاح.",
     "intro-l3": "لمزيد من المعلومات ، يرجى الاطلاع على",
+    "intro-docs": "الوثائق",
     "backup-title-setup": "أصنع نسخة إحتياطية",
     "backup-title-update": "تحديث النسخ الاحتياطي",
     "password-label-setup": "اختر كلمة مرور",
@@ -149,9 +205,240 @@
     "restore-success-msg": "تمت استعادة التكوين بنجاح"
   },
   "menu": {
+    "open-section-title": "فتح في",
     "sametab": "فتح في علامة التبويب الحالية",
     "newtab": "فتح في علامة تبويب جديدة",
     "modal": "فتح في Pop-Up Modal",
-    "workspace": "فتح في عرض مساحة العمل"
+    "workspace": "فتح في عرض مساحة العمل",
+    "options-section-title": "خيارات",
+    "edit-item": "تعديل",
+    "move-item": "نسخ أو نقل",
+    "remove-item": "إزالة"
+  },
+  "context-menus": {
+    "item": {
+      "open-section-title": "فتح في",
+      "sametab": "علامة التبويب الحالية",
+      "newtab": "علامة تبويب جديدة",
+      "modal": "نافذة منبثقة",
+      "workspace": "عرض مساحة العمل",
+      "clipboard": "نسخ إلى الحافظة",
+      "newwindow": "نافذة جديدة",
+      "options-section-title": "خيارات",
+      "edit-item": "تعديل",
+      "move-item": "نسخ أو نقل",
+      "remove-item": "إزالة",
+      "copied-toast": "تم نسخ الرابط إلى الحافظة"
+    },
+    "section": {
+      "open-section": "فتح القسم",
+      "edit-section": "تعديل",
+      "expand-collapse": "توسيع / طي",
+      "move-section": "نقل إلى",
+      "remove-section": "إزالة"
+    }
+  },
+  "footer": {
+    "dev-by": "تطوير بواسطة",
+    "licensed-under": "مرخص بموجب",
+    "get-the": "احصل على",
+    "source-code": "كود المصدر"
+  },
+  "interactive-editor": {
+    "menu": {
+      "start-editing-tooltip": "الدخول إلى المحرر التفاعلي",
+      "edit-site-data-subheading": "تعديل بيانات الموقع",
+      "edit-page-info-btn": "تعديل معلومات الصفحة",
+      "edit-page-info-tooltip": "عنوان التطبيق، الوصف، روابط التنقل، نص التذييل، إلخ.",
+      "edit-app-config-btn": "تعديل إعدادات التطبيق",
+      "edit-app-config-tooltip": "جميع خيارات إعداد التطبيق الأخرى",
+      "edit-pages-btn": "تعديل الصفحات",
+      "edit-pages-tooltip": "إضافة أو إزالة طرق عرض إضافية",
+      "config-save-methods-subheading": "خيارات حفظ الإعدادات",
+      "save-locally-btn": "حفظ محلياً",
+      "save-locally-tooltip": "حفظ الإعدادات محلياً في ذاكرة المتصفح. لن يؤثر هذا على ملف الإعدادات الخاص بك، ولكن سيتم حفظ التغييرات على هذا الجهاز فقط",
+      "save-disk-btn": "حفظ على القرص",
+      "save-disk-tooltip": "حفظ الإعدادات في ملف conf.yml على القرص. سيقوم هذا بعمل نسخة احتياطية ثم الكتابة فوق الإعدادات الحالية",
+      "export-config-btn": "تصدير الإعدادات",
+      "export-config-tooltip": "عرض وتصدير الإعدادات الجديدة، إما إلى ملف أو إلى الحافظة",
+      "cloud-backup-btn": "نسخ احتياطي للسحابة",
+      "cloud-backup-tooltip": "حفظ نسخة احتياطية مشفرة من الإعدادات في السحابة",
+      "edit-raw-config-btn": "تعديل الإعدادات الخام",
+      "edit-raw-config-tooltip": "عرض وتعديل الإعدادات الخام عبر محرر JSON",
+      "cancel-changes-btn": "إلغاء التعديل",
+      "cancel-changes-tooltip": "إعادة تعيين التعديلات الحالية والخروج من وضع التعديل. لن يؤثر هذا على إعداداتك المحفوظة",
+      "edit-mode-name": "وضع التعديل",
+      "edit-mode-subtitle": "أنت في وضع التعديل",
+      "edit-mode-description": "هذا يعني أنه يمكنك إجراء تعديلات على إعداداتك ومعاينة النتائج، ولكن لن يتم حفظ أي من تغييراتك حتى تقوم بالحفظ.",
+      "save-stage-btn": "حفظ",
+      "cancel-stage-btn": "إلغاء",
+      "save-locally-warning": "إذا استمررت، سيتم حفظ التغييرات في متصفحك فقط. يجب عليك تصدير نسخة من إعداداتك لاستخدامها في أجهزة أخرى. هل تريد الاستمرار؟"
+    },
+    "edit-item": {
+      "missing-title-err": "عنوان العنصر مطلوب"
+    },
+    "edit-section": {
+      "edit-section-title": "تعديل القسم",
+      "add-section-title": "إضافة قسم جديد",
+      "edit-tooltip": "انقر للتعديل، أو انقر بزر الماوس الأيمن لمزيد من الخيارات",
+      "remove-confirm": "هل أنت متأكد أنك تريد إزالة هذا القسم؟ يمكن التراجع عن هذا الإجراء لاحقاً."
+    },
+    "edit-app-config": {
+      "warning-msg-title": "المضي بحذر",
+      "warning-msg-l1": "الخيارات التالية لإعدادات التطبيق المتقدمة.",
+      "warning-msg-l2": "إذا كنت غير متأكد من أي من الحقول، يرجى الرجوع إلى",
+      "warning-msg-docs": "الوثائق",
+      "warning-msg-l3": "لتجنب العواقب غير المقصودة."
+    },
+    "export": {
+      "export-title": "تصدير الإعدادات",
+      "copy-clipboard-btn": "نسخ إلى الحافظة",
+      "copy-clipboard-tooltip": "نسخ جميع إعدادات التطبيق إلى حافظة النظام بتنسيق YAML",
+      "download-file-btn": "تحميل كملف",
+      "download-file-tooltip": "تحميل جميع إعدادات التطبيق إلى جهازك كملف YAML",
+      "view-title": "عرض الإعدادات"
+    }
+  },
+  "critical-error": {
+    "title": "خطأ في تحميل الإعدادات",
+    "subtitle": "فشل Dashy في التحميل بشكل صحيح بسبب خطأ في الإعدادات.",
+    "sub-ensure-that": "تأكد من أن",
+    "sub-error-details": "تفاصيل الخطأ",
+    "sub-next-steps": "الخطوات التالية",
+    "ignore-button": "تجاهل الأخطاء الحرجة"
+  },
+  "widgets": {
+    "general": {
+      "loading": "جاري التحميل...",
+      "show-more": "توسيع التفاصيل",
+      "cpu-details": "تفاصيل الـ CPU",
+      "mem-details": "تفاصيل الذاكرة (RAM)",
+      "show-less": "عرض أقل",
+      "open-link": "مواصلة القراءة"
+    },
+    "pi-hole": {
+      "status-heading": "الحالة"
+    },
+    "stat-ping": {
+      "up": "متصل",
+      "down": "غير متصل"
+    },
+    "net-data": {
+      "cpu-chart-title": "سجل الـ CPU",
+      "mem-chart-title": "استخدام الذاكرة (RAM)",
+      "mem-breakdown-title": "تفصيل الذاكرة (RAM)",
+      "load-chart-title": "حمولة النظام (System Load)"
+    },
+    "glances": {
+      "disk-space-free": "حر",
+      "disk-space-used": "مستخدم",
+      "disk-mount-point": "نقطة التثبيت",
+      "disk-file-system": "نظام الملفات",
+      "disk-io-read": "قراءة",
+      "disk-io-write": "كتابة",
+      "system-load-desc": "عدد العمليات التي تنتظر في طابور التشغيل، محسوبة كمتوسط على جميع الأنوية"
+    },
+    "system-info": {
+      "uptime": "وقت التشغيل"
+    },
+    "flight-data": {
+      "arrivals": "وصول",
+      "departures": "مغادرة"
+    },
+    "tfl-status": {
+      "good-service-all": "خدمة جيدة في جميع الخطوط",
+      "good-service-rest": "خدمة جيدة في جميع الخطوط الأخرى"
+    },
+    "synology-download": {
+      "download": "تحميل",
+      "upload": "رفع",
+      "downloaded": "تم تحميله",
+      "uploaded": "تم رفعه",
+      "remaining": "متبقي",
+      "up": "أعلى",
+      "down": "أسفل"
+    },
+    "gluetun-status": {
+      "vpn-ip": "عنوان VPN IP",
+      "country": "البلد",
+      "region": "المنطقة",
+      "city": "المدينة",
+      "post-code": "الرمز البريدي",
+      "location": "الموقع",
+      "timezone": "المنطقة الزمنية",
+      "organization": "المنظمة",
+      "forwarded-port": "المنفذ الموجه"
+    },
+    "nextcloud": {
+      "active": "نشط",
+      "and": "و",
+      "applications": "تطبيقات",
+      "available": "متاح",
+      "away": "بعيد",
+      "cache-full": "الـ Cache ممتلئ",
+      "chat-room": "غرفة الدردشة",
+      "delete-all": "حذف الكل",
+      "delete-notification": "حذف الإشعار",
+      "disabled": "معطل",
+      "disk-quota": "حصة القرص (Quota)",
+      "disk-space": "مساحة القرص",
+      "dnd": "الرجاء عدم الإزعاج (DND)",
+      "email": "بريد إلكتروني",
+      "enabled": "مفعل",
+      "federated-shares-ucfirst": "المشاركات الاتحادية",
+      "federated-shares": "المشاركات الاتحادية",
+      "files": "ملف{plural}",
+      "free": "حر",
+      "groups": "مجموعات",
+      "hit-rate": "معدل الإصابة",
+      "hits": "إصابات",
+      "home": "الرئيسية",
+      "in": "في",
+      "keys": "مفاتيح",
+      "last-24-hours": "آخر 24 ساعة",
+      "last-5-minutes": "في آخر 5 دقائق",
+      "last-hour": "في الساعة الأخيرة",
+      "last-login": "آخر تسجيل دخول",
+      "last-restart": "آخر إعادة تشغيل",
+      "load-averages": "متوسطات الحمل على جميع أنوية المعالج",
+      "local-shares": "مشاركات محلية",
+      "local": "محلي",
+      "max-keys": "أقصى عدد مفاتيح",
+      "memory-used": "الذاكرة المستخدمة",
+      "memory-utilisation": "استخدام الذاكرة",
+      "memory": "ذاكرة",
+      "misses": "إخفاقات",
+      "no-notifications": "لا توجد إشعارات",
+      "no-pending-updates": "لا توجد تحديثات معلقة",
+      "nothing-to-show": "لا يوجد شيء لعرضه هنا في هذا الوقت",
+      "of-which": "منها",
+      "of": "من",
+      "offline": "غير متصل",
+      "online": "متصل",
+      "other": "أخرى",
+      "overall": "إجمالي",
+      "private-link": "رابط خاص",
+      "public-link": "رابط عام",
+      "quota-enabled": "حصة القرص {not}مفعلة لهذا المستخدم",
+      "received": "تم استلامها",
+      "scripts": "سكربتات",
+      "sent": "تم إرسالها",
+      "started": "بدأت",
+      "storages-by-type": "المخازن حسب النوع",
+      "storages": "مخزن{plural}",
+      "strings-use": "استخدام السلاسل",
+      "tasks": "مهام",
+      "total-files": "إجمالي الملفات",
+      "total-users": "إجمالي المستخدمين",
+      "total": "إجمالي",
+      "until": "حتى",
+      "updates-available-for": "التحديثات متاحة لـ",
+      "updates-available": "تحديث{plural} متاح",
+      "used": "مستخدم",
+      "user": "مستخدم",
+      "using": "يستخدم",
+      "version": "إصدار",
+      "wasted": "مهدر"
+    }
   }
 }
