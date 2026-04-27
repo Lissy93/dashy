@@ -1,5 +1,5 @@
 /**
- * Lets a direct child of `.item-group-container.orientation-auto` participate
+ * Lets a direct child of `.item-group-container.orientation-masonry` participate
  * in the masonry grid. Measures its root element's height + vertical margins,
  * converts to a `grid-row: span N` value against the container's
  * `grid-auto-rows` unit, and keeps it in sync via a ResizeObserver.
@@ -15,7 +15,7 @@ export default {
   }),
   computed: {
     isMasonry() {
-      return this.$store.getters.layout === 'auto';
+      return this.$store.getters.layout === 'masonry';
     },
     masonryStyle() {
       if (!this.isMasonry || !this.masonryRowSpan) return '';

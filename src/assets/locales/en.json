@@ -147,6 +147,7 @@
     "layout-auto": "Auto",
     "layout-horizontal": "Horizontal",
     "layout-vertical": "Vertical",
+    "layout-masonry": "Masonry",
     "item-size-label": "Item Size",
     "item-size-small": "Small",
     "item-size-medium": "Medium",

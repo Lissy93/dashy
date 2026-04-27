@@ -67,7 +67,7 @@ The following section outlines all data that is stored in the browsers, as cooki
 
 - `LANGUAGE` - The locale to show app text in
 - `HIDE_INFO_NOTIFICATION` - Set to true once user dismissed welcome message, so that it's not shown again
-- `LAYOUT_ORIENTATION` - Preferred section layout, either horizontal, vertical or auto
+- `LAYOUT_ORIENTATION` - Preferred section layout, either auto, horizontal, vertical or masonry
 - `COLLAPSE_STATE` - Remembers which sections are collapsed
 - `ICON_SIZE` - Size of items, either small, medium or large
 - `THEME` - Users applied theme
