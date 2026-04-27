@@ -335,10 +335,11 @@
             "horizontal",
             "vertical",
             "auto",
+            "masonry",
             "sidebar"
           ],
           "default": "auto",
-          "description": "Specifies sections layout orientation on the home screen"
+          "description": "Specifies sections layout orientation on the home screen. Use 'masonry' for a responsive grid where shorter sections fill gaps left by taller ones."
         },
         "iconSize": {
           "title": "Default Icon Size",
@@ -856,8 +857,7 @@
                 "minimum": 1,
                 "maximum": 5,
                 "default": 1,
-                "deprecated": true,
-                "description": "Deprecated. Section heights now follow content in the masonry layout; this value is accepted for backwards compatibility but has no effect."
+                "description": "The amount of space that the section spans vertically (applies to the default 'auto' layout; ignored by 'masonry' where heights follow content)"
               },
               "cols": {
                 "title": "Num Cols",

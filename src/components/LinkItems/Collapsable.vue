@@ -2,7 +2,7 @@
   <div
     v-bind:class="[
     { 'is-open': isExpanded, 'full-height': cutToHeight && !isMasonry },
-    `collapsable ${colSpanClass}`, sectionClassName
+    `collapsable ${rowColSpanClass}`, sectionClassName
     ]"
     :style="dynamicStyle"
   >
@@ -55,6 +55,7 @@ export default {
     icon: { type: String, default: '' }, // An optional section icon
     collapsed: Boolean, // Optional override collapse state
     cols: { type: Number, default: undefined }, // Set section horizontal col span / width
+    rows: { type: Number, default: undefined }, // Set section vertical row span / height
     color: { type: String, default: '' }, // Optional color override
     customStyles: { type: String, default: '' }, // Optional custom stylings
     cutToHeight: Boolean, // To set section height with content height
@@ -76,8 +77,8 @@ export default {
     sectionKey() {
       return `collapsible-${this.uniqueKey}`;
     },
-    colSpanClass() {
-      return this.checkSpanNum(this.cols, 'col');
+    rowColSpanClass() {
+      return `${this.checkSpanNum(this.cols, 'col')} ${this.checkSpanNum(this.rows, 'row')}`;
     },
     dynamicStyle() {
       const parts = [];
@@ -138,7 +139,7 @@ export default {
     toggle() {
       this.checkboxState = !this.checkboxState;
     },
-    /* Clamp a user-supplied column-span to a sane range, returning a CSS class name */
+    /* Clamp a user-supplied row/column-span to a sane range, returning a CSS class name */
     checkSpanNum(span, classPrefix) {
       const maxSpan = 6;
       let numSpan = /^\d*$/.test(span) ? parseInt(span, 10) : 1;
@@ -201,10 +202,16 @@ export default {
   box-shadow: var(--item-group-shadow);
   background: var(--item-group-outer-background);
 
-  /* Section column spanning (heights are driven by masonry / content). */
+  /* Options allowing sections to SPAN multiple rows or columns */
+  grid-row-start: span 1;
+  &.row-2 { grid-row-start: span 2; }
+  &.row-3 { grid-row-start: span 3; }
+  &.row-4 { grid-row-start: span 4; }
+  &.row-5 { grid-row-start: span 5; }
+  &.row-6 { grid-row-start: span 6; }
   grid-column-start: span 1;
   @include tablet-up {
-    &.col-2, &.col-3, &.col-4, &.col-5, &.col-6 { grid-column-start: span 2; }
+    &.col-2, &.col-3, &.col-4, &.col-5, &.col-6  { grid-column-start: span 2; }
   }
   @include laptop-up {
     &.col-2 { grid-column-start: span 2; }

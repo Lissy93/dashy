@@ -47,7 +47,8 @@ html[data-theme='fallout'] {
     border-radius: 1px;
     &:not(:last-child) { border-right: var(--accent-line-width, 1px) solid var(--secondary); }
   }
-  .orientation-auto .collapsable .collapsible-content {
+  .orientation-auto .collapsable .collapsible-content,
+  .orientation-masonry .collapsable .collapsible-content {
     border-top: var(--accent-line-width, 1px) solid var(--secondary);
   }
 }
