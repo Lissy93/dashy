@@ -115,25 +115,27 @@ The view switcher, sub-page nav links, and section deep-links all preserve your 
 
 `appConfig.layout` controls how your sections sit on the page:
 
-- `auto` (default): masonry grid, shorter sections fill the gaps under taller ones
+- `auto` (default): responsive CSS grid, sections size by `displayData.cols`/`rows`
 - `horizontal`: sections stacked top to bottom, each full width
 - `vertical`: sections side by side in columns
+- `masonry`: responsive grid where heights follow content so shorter sections fill gaps under taller ones (`rows` is ignored)
 
 You can also switch between these from the settings menu. Add `appConfig.colCount` to force a specific number of columns.
 
-### Making a section wider
+### Making a section wider or taller
 
-Use `displayData.cols` (1 to 5) to make a section span extra columns:
+Use `displayData.cols` (1 to 5) and `displayData.rows` (1 to 5) to control a section's footprint:
 
 ```yaml
 - name: Important Links
   displayData:
     cols: 2
+    rows: 2
     collapsed: false
   items: [...]
 ```
 
-Section heights follow their content, so there's no `rows` option.
+`rows` is honoured by the `auto` layout. Under `masonry`, section heights always follow content.
 
 ### Items inside a section
 
