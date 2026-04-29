@@ -62,6 +62,7 @@ export default {
   },
   data() {
     return {
+      overrideProxyChoice: true,
       gasInfo: null,
       gasCosts: null,
       timeOptions: [
@@ -79,32 +80,40 @@ export default {
       this.makeRequest(widgetApiEndpoints.ethGasPrices).then(this.processPriceInfo);
       this.makeRequest(this.endpoint).then(this.processHistoryData);
     },
-    processPriceInfo(data) {
+    processPriceInfo(payload) {
+      const d = (payload && payload.data) || {};
+      const oracle = d.oracle || {};
+      const ethPrice = d.ethPrice || 0;
+      const toGwei = (wei) => Math.round(((Number(wei) || 0) / 1e9) * 100) / 100;
+      const transferUsd = (gwei) => (((gwei * 1e9) * 21000 * ethPrice) / 1e18).toFixed(2);
+      const buildTier = (name, tier = {}) => {
+        const gwei = toGwei(tier.gasFee);
+        return { name, gwei, usd: transferUsd(gwei) };
+      };
       this.gasCosts = [
-        { name: 'Slow', gwei: data.slow.gwei, usd: data.slow.usd },
-        { name: 'Normal', gwei: data.normal.gwei, usd: data.normal.usd },
-        { name: 'Fast', gwei: data.fast.gwei, usd: data.fast.usd },
-        { name: 'Instant', gwei: data.instant.gwei, usd: data.instant.usd },
+        buildTier('Slow', oracle.slow),
+        buildTier('Normal', oracle.normal),
+        buildTier('Fast', oracle.fast),
       ];
-      const sources = [];
-      data.sources.forEach((sourceInfo) => {
-        const { name, source, standard } = sourceInfo;
-        sources.push({ name, source, standard });
-      });
       this.gasInfo = {
-        lastUpdated: timestampToTime(data.lastUpdated),
-        ethPrice: `$${putCommasInBigNum(roundPrice(data.ethPrice))}`,
-        sources,
+        lastUpdated: timestampToTime(d.lastUpdate),
+        ethPrice: `$${putCommasInBigNum(roundPrice(ethPrice))}`,
+        sources: [{
+          name: 'ethgastracker.com',
+          source: 'https://www.ethgastracker.com',
+          standard: this.gasCosts[1].gwei,
+        }],
       };
     },
-    processHistoryData(data) {
+    processHistoryData(payload) {
+      const blocks = ((payload && payload.data && payload.data.blocks) || []).slice().reverse();
       const chartData = {
-        labels: data.labels,
+        labels: blocks.map((b) => timestampToTime(b.timestamp * 1000)),
         datasets: [
-          { name: 'Slow', type: 'bar', values: data.slow },
-          { name: 'Normal', type: 'bar', values: data.normal },
-          { name: 'Fast', type: 'bar', values: data.fast },
-          { name: 'Instant', type: 'bar', values: data.instant },
+          { name: 'Min', type: 'bar', values: blocks.map((b) => b.min) },
+          { name: 'Median', type: 'bar', values: blocks.map((b) => b.median) },
+          { name: 'Avg', type: 'bar', values: blocks.map((b) => b.avg) },
+          { name: 'Max', type: 'bar', values: blocks.map((b) => b.max) },
         ],
       };
       return new this.Chart(`#${this.chartId}`, {
