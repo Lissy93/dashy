@@ -56,6 +56,7 @@ export default {
   components: { PercentageChart },
   data() {
     return {
+      overrideProxyChoice: true,
       user: {
         id: null,
         displayName: null,

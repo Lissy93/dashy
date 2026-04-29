@@ -62,6 +62,7 @@ export default {
   },
   data() {
     return {
+      overrideProxyChoice: true,
       topQueriedDomains: null,
       topBlockedDomains: null,
     };

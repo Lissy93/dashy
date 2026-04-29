@@ -25,6 +25,7 @@ export default {
   mixins: [WidgetMixin],
   data() {
     return {
+      overrideProxyChoice: true,
       categories: [],
     };
   },

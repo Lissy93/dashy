@@ -49,6 +49,7 @@ export default {
   },
   data() {
     return {
+      overrideProxyChoice: true,
       enabled: null,
       dnsInfo: [],
       showData: false,

@@ -29,6 +29,7 @@ export default {
   components: {},
   data() {
     return {
+      overrideProxyChoice: true,
       cveList: null,
       total: 10,
     };

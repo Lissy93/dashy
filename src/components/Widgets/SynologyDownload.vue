@@ -37,6 +37,7 @@ export default {
   },
   data() {
     return {
+      overrideProxyChoice: true,
       tasks: null,
       sid: null,
     };

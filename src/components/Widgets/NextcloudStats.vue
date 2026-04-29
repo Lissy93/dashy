@@ -70,6 +70,7 @@ export default {
   components: {},
   data() {
     return {
+      overrideProxyChoice: true,
       nextcloud: {
         system: {
           freespace: null,

@@ -50,6 +50,7 @@ export default {
   components: {},
   data() {
     return {
+      overrideProxyChoice: true,
       notifications: [],
     };
   },

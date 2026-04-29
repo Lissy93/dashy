@@ -58,6 +58,7 @@ export default {
   },
   data() {
     return {
+      overrideProxyChoice: true,
       status: null,
       filters: null,
     };

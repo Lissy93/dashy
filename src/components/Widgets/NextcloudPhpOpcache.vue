@@ -65,6 +65,7 @@ export default {
   components: {},
   data() {
     return {
+      overrideProxyChoice: true,
       opcache: {
         opcache_enabled: null,
         full: null,
