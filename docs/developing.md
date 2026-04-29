@@ -79,6 +79,7 @@ You can set variables either in your environment, or using the [`.env`](https://
 - `IS_DOCKER` - Computed automatically on build. Indicates if running in container
 - `VITE_APP_VERSION` - Again, set automatically using package.json during build time
 - `BACKUP_DIR` - Directory for conf.yml backups
+- `DISABLE_CONFIG_BACKUPS` - Set to 'true' to skip the pre-save backup step (useful on read-only filesystems or where permissions don't allow it)
 
 ### Environment Modes
 

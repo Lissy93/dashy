@@ -48,10 +48,11 @@ export default {
         if (this.saveSuccess) {
           this.carefullyClearLocalStorage();
           this.showToast(this.$t('config-editor.success-msg-disk'), true);
+          InfoHandler('Config has been written to disk successfully', 'Config Update');
         } else {
+          ErrorHandler(`Failed to save config. ${this.responseText || 'Unknown error'}`);
           this.showToast(this.$t('config-editor.error-msg-cannot-save'), false);
         }
-        InfoHandler('Config has been written to disk successfully', 'Config Update');
         this.progress.end();
         this.$store.commit(StoreKeys.SET_EDIT_MODE, false);
         return this.saveSuccess;

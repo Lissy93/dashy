@@ -235,7 +235,7 @@ docker run --rm -v some_volume:/volume -v /tmp:/backup alpine sh -c "rm -rf /vol
 
 All configuration and dashboard settings are stored in your `user-data/conf.yml` file. If you provide additional assets (like icons, fonts, themes, etc), these will also live in the `user-data` directory. So to backup all Dashy data, this is the only directory you need to backup.
 
-When you save config through the UI, Dashy automatically creates a timestamped backup in `user-data/config-backups/` (configurable via the `BACKUP_DIR` env var). If you break your config, check that directory for a recent copy.
+When you save config through the UI, Dashy automatically creates a timestamped backup in `user-data/config-backups/` (configurable via the `BACKUP_DIR` env var). If you break your config, check that directory for a recent copy. Backups can be disabled by setting `DISABLE_CONFIG_BACKUPS=true` (e.g. on read-only filesystems or where permissions don't allow it).
 
 Since Dashy is open source, there shouldn't be any need to backup the main container.
 

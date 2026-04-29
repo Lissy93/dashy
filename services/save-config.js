@@ -39,20 +39,25 @@ module.exports = async (newConfig, render) => {
   // Resolve paths
   const userDataDirectory = process.env.USER_DATA_DIR || './user-data/';
   const backupLocation = process.env.BACKUP_DIR || path.join(userDataDirectory, 'config-backups');
+  const backupsEnabled = process.env.DISABLE_CONFIG_BACKUPS !== 'true';
   const targetFile = usersFileName || 'conf.yml';
   const targetFilePath = path.join(userDataDirectory, targetFile);
 
   const backupBase = targetFile.replace(/\.ya?ml$/i, '');
   const backupFilePath = path.join(backupLocation, `${backupBase}-${Date.now()}.backup.yml`);
 
-  // Backup current config before proceeding
-  try {
-    await fsPromises.mkdir(backupLocation, { recursive: true });
-    await fsPromises.copyFile(targetFilePath, backupFilePath);
-  } catch (error) {
-    if (error.code !== 'ENOENT') {
-      respond(false, `Unable to backup ${targetFile}: ${error}`);
-      return;
+  // Backup current config before proceeding (unless disabled via DISABLE_CONFIG_BACKUPS)
+  let backedUp = false;
+  if (backupsEnabled) {
+    try {
+      await fsPromises.mkdir(backupLocation, { recursive: true });
+      await fsPromises.copyFile(targetFilePath, backupFilePath);
+      backedUp = true;
+    } catch (error) {
+      if (error.code !== 'ENOENT') {
+        respond(false, `Unable to backup ${targetFile}: ${error}`);
+        return;
+      }
     }
   }
 
@@ -65,9 +70,9 @@ module.exports = async (newConfig, render) => {
   }
 
   // If successful, then render hasn't yet been called- call it
-  respond(
-    true,
-    `Successfully backed up ${targetFile} to ${backupFilePath}, `
-    + `and updated the contents of ${targetFilePath}`,
-  );
+  let responseMsg = `Config saved successfully in ${targetFilePath}.`;
+  if (backedUp) {
+    responseMsg += ` Previous ${targetFile} was backed up to ${backupFilePath}.`;
+  }
+  respond(true, responseMsg);
 };
