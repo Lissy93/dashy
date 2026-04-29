@@ -25,6 +25,7 @@ class RequestError extends Error {
     this.response = opts.response || undefined;
     this.request = opts.request || undefined;
     this.code = opts.code || undefined;
+    this.timeout = opts.timeout === true ? true : undefined;
   }
 }
 
@@ -113,13 +114,11 @@ async function makeRequest(config) {
   } catch (err) {
     if (err instanceof RequestError) throw err;
     // Network error or abort/timeout
-    // Set request: true so callers can distinguish "no response" from other errors
-    // (mirrors axios behavior where error.request is set when no response received)
-    const error = new RequestError(err.message, { request: true });
-    if (err.name === 'AbortError') {
-      error.message = `timeout of ${timeout}ms exceeded`;
-      error.code = 'ECONNABORTED';
-    }
+    const isTimeout = err.name === 'AbortError';
+    const error = new RequestError(
+      isTimeout ? `timeout of ${timeout}ms exceeded` : err.message,
+      { request: true, code: isTimeout ? 'ECONNABORTED' : undefined, timeout: isTimeout },
+    );
     throw error;
   } finally {
     if (timeoutId) clearTimeout(timeoutId);
