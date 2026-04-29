@@ -14,12 +14,15 @@ const zlib = require('zlib');
 const { URL } = require('url');
 
 class RequestError extends Error {
-  constructor(message, { response, code, errno } = {}) {
+  constructor(message, {
+    response, code, errno, timeout,
+  } = {}) {
     super(message);
     this.name = 'RequestError';
     this.response = response || undefined;
     this.code = code || undefined;
     this.errno = errno || undefined;
+    this.timeout = timeout === true ? true : undefined;
   }
 
   // Return a JSON-safe summary, to prevent the any circular references
@@ -29,6 +32,7 @@ class RequestError extends Error {
       message: this.message,
       code: this.code,
       errno: this.errno,
+      timeout: this.timeout,
       status: this.response && this.response.status,
       statusText: this.response && this.response.statusText,
       data: this.response && this.response.data,
@@ -208,7 +212,7 @@ function request(config) {
           req.destroy();
           reject(new RequestError(
             `timeout of ${timeout}ms exceeded`,
-            { code: 'ECONNABORTED' },
+            { code: 'ECONNABORTED', timeout: true },
           ));
         });
       }
