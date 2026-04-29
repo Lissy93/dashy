@@ -99,7 +99,7 @@ docker exec -it dashy id
 docker exec -it dashy ls -la /app/user-data
 ```
 
-If you bind-mount from the host, make sure the host directory is owned by the container's UID (or world-writable). You can also override the backup location with the `BACKUP_DIR` env var.
+If you bind-mount from the host, make sure the host directory is owned by the container's UID (or world-writable). You can also override the backup location with the `BACKUP_DIR` env var. Or, if you don't need backups at all, set `DISABLE_CONFIG_BACKUPS=true` to skip the backup step entirely.
 
 And, if you intentionally want a read-only config and don't want users to even attempt saves, set `appConfig.preventWriteToDisk: true` in `conf.yml` - Dashy will then disable both the endpoint, and the save button itself, to make the experience more explicit.
 
