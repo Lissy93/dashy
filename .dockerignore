@@ -1,9 +1,15 @@
 # Files specified here are not required for Docker
-# so ignoring them helps to reduce the container size
-# The Docker container MUST have the following files:
-# package.json yarn.lock server.js vue.config.js src/ services/ 
-
+# Excluding them helps keep the build context lite
 node_modules
 docs
+tests
+dist
 .git
 .github
+
+# The only things needed to build the Dockerfile are:
+# Depens: package.json, yarn.lock
+# Setup:  tsconfig.json, vite.config.mjs
+# Client: index.html, src/, public/
+# Server: services/, server.js
+# Config: user-data/conf.yml

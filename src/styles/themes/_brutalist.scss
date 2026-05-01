@@ -1,0 +1,178 @@
+/* Brutalist — thick black borders, hard offset shadows, flat saturated colors.
+ * Loud, confident, reads at a glance. */
+html[data-theme='brutalist'] {
+  --primary: #000000;
+  --background: #fffcf0;
+  --background-darker: #000000;
+  --item-group-background: #ffffff;
+  --item-group-outer-background: #000000;
+  --item-background: #ffffff;
+  --item-background-hover: #ffe156;
+  --item-shadow: 4px 4px 0 #000000;
+  --item-hover-shadow: 6px 6px 0 #ff006e;
+  --item-group-shadow: 6px 6px 0 #000000;
+
+  --heading-text-color: #000000;
+  --item-text-color: #000000;
+  --item-text-color-hover: #ff006e;
+  --item-group-heading-text-color: #fffcf0;
+  --item-group-heading-text-color-hover: #ffe156;
+
+  --settings-background: #fffcf0;
+  --settings-text-color: #fffcf0;
+  --nav-link-text-color: #fffcf0;
+  --nav-link-text-color-hover: #000000;
+  --nav-link-background-color: #000000;
+  --nav-link-background-color-hover: #ffe156;
+  --nav-link-border-color: #fffcf0;
+  --nav-link-border-color-hover: #000000;
+
+  --search-container-background: #000000;
+  --search-field-background: #000000;
+  --search-label-color: #fffcf0;
+  --footer-background: #000000;
+  --footer-text-color: #fffcf0;
+  --footer-text-color-link: #ffe156;
+
+  --config-settings-background: #000000;
+  --config-settings-color: #fffcf0;
+  --interactive-editor-background: #000000;
+  --interactive-editor-background-darker: #1a1a1a;
+  --interactive-editor-color: #fffcf0;
+  --welcome-popup-background: #000000;
+  --welcome-popup-text-color: #fffcf0;
+  --side-bar-background: #000000;
+  --side-bar-color: #fffcf0;
+  --status-check-tooltip-background: #000000;
+  --status-check-tooltip-color: #fffcf0;
+  --scroll-bar-color: #fffcf0;
+  --scroll-bar-background: #1a1a1a;
+
+  --heading-text-color: #fffcf0;
+  --widget-background-color: #fffcf0;
+  --widget-text-color: #000000;
+  --widget-accent-color: #ff006e;
+  --description-tooltip-background: #000000;
+  --description-tooltip-color: #fffcf0;
+  --context-menu-background: #000000;
+  --context-menu-color: #fffcf0;
+  --context-menu-secondary-color: #ff006e;
+  --login-form-color: #000000;
+  --login-form-background: #fffcf0;
+  --login-form-background-secondary: #000000;
+  --loading-screen-background: #fffcf0;
+  --loading-screen-color: #000000;
+
+  --minimal-view-background-color: #fffcf0;
+  --minimal-view-title-color: #000000;
+  --minimal-view-settings-color: #000000;
+  --minimal-view-section-heading-background: #000000;
+  --minimal-view-section-heading-color: #fffcf0;
+  --minimal-view-search-background: #000000;
+  --minimal-view-search-color: #fffcf0;
+  --minimal-view-group-background: #000000;
+  --minimal-view-group-color: #fffcf0;
+
+  --dimming-factor: 1;
+  --outline-color: #ff006e;
+  --highlight-background: #ffe156;
+  --highlight-color: #000000;
+  --curve-factor: 0;
+  --curve-factor-navbar: 0;
+  --curve-factor-small: 0;
+  --font-headings: 'Francois One', Impact, sans-serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  .item {
+    border: 3px solid #000000;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .item:hover { border-color: #ff006e; }
+
+  .collapsable, .nav a.nav-item {
+    &:nth-child(1n) { --index-color: #ffe156; }
+    &:nth-child(2n) { --index-color: #00e5ff; }
+    &:nth-child(3n) { --index-color: #ff006e; }
+    &:nth-child(4n) { --index-color: #b6ff00; }
+    &:nth-child(5n) { --index-color: #ff7a00; }
+
+    --item-group-outer-background: var(--index-color);
+    --item-group-heading-text-color: #000000;
+    --item-group-shadow: 6px 6px 0 #000000;
+  }
+
+  h1, h2, h3 { text-transform: uppercase; letter-spacing: 0.02em; font-weight: 700; }
+
+  .context-menu li:hover:not(.section-title) { color: #000000; }
+
+  .nav-outer nav .nav-item {
+    border-width: 2px;
+    box-shadow: 3px 3px 0 #fffcf0;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: box-shadow 0.1s ease, transform 0.1s ease;
+    &:hover, &.router-link-active {
+      box-shadow: 5px 5px 0 #ff006e;
+      transform: translate(-1px, -1px);
+    }
+  }
+
+  .options-panel {
+    .action-btn, .auth-btn, a.view-btn {
+      background: #000000;
+      color: #fffcf0;
+      border: 2px solid #fffcf0;
+      box-shadow: 3px 3px 0 #fffcf0;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      &:hover:not(:disabled), &:focus-visible {
+        background: #ffe156;
+        color: #000000;
+        border-color: #000000;
+        box-shadow: 5px 5px 0 #ff006e;
+      }
+      &.is-active {
+        background: #ffe156;
+        color: #000000;
+        border-color: #000000;
+      }
+    }
+    .view-switch-row {
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+    .display-options {
+      color: #fffcf0;
+      svg {
+        background: #000000;
+        border: 2px solid #fffcf0;
+        &:hover, &.selected {
+          background: #ffe156;
+          color: #000000;
+          border-color: #000000;
+        }
+      }
+    }
+    svg.color-button {
+      background: #000000;
+      border: 2px solid #fffcf0;
+      path { fill: #fffcf0; }
+      &:hover {
+        background: #ffe156;
+        border-color: #000000;
+        path { fill: #000000; }
+      }
+    }
+    .theme-dropdown div.vs__dropdown-toggle {
+      background: #000000;
+      border: 2px solid #fffcf0;
+    }
+    .theme-dropdown span.vs__selected,
+    .theme-dropdown svg.vs__open-indicator { color: #fffcf0; fill: #fffcf0; }
+  }
+}

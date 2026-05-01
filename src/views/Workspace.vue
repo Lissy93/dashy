@@ -18,8 +18,8 @@ import SideBar from '@/components/Workspace/SideBar';
 import WebContent from '@/components/Workspace/WebContent';
 import WidgetView from '@/components/Workspace/WidgetView';
 import MultiTaskingWebComtent from '@/components/Workspace/MultiTaskingWebComtent';
-import Defaults from '@/utils/defaults';
-import ErrorHandler from '@/utils/ErrorHandler';
+import Defaults from '@/utils/config/defaults';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 export default {
   name: 'Workspace',
@@ -55,10 +55,10 @@ export default {
       } else if (options.target === 'clipboard') {
         if (navigator.clipboard) {
           navigator.clipboard.writeText(options.url);
-          this.$toasted.show(this.$t('context-menus.item.copied-toast'), { className: 'toast-success' });
+          this.$toast.success(this.$t('context-menus.item.copied-toast'));
         } else {
           ErrorHandler('Clipboard access requires HTTPS. See: https://bit.ly/3N5WuAA');
-          this.$toasted.show('Unable to copy, see log', { className: 'toast-error' });
+          this.$toast.error('Unable to copy, see log');
         }
         return;
       } else {
@@ -90,7 +90,6 @@ export default {
   mounted() {
     this.initiateFontAwesome();
     this.initiateMaterialDesignIcons();
-    this.setTheme();
     this.url = this.getInitialUrl();
   },
 };
@@ -100,8 +99,5 @@ export default {
 <style scoped lang="scss">
 .work-space {
   min-height: fit-content;
-}
-:global(footer) {
-  display: none;
 }
 </style>

@@ -17,7 +17,7 @@
 <script>
 import router from '@/router';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 export default {
   mixins: [WidgetMixin],

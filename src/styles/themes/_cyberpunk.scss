@@ -1,0 +1,34 @@
+  html[data-theme='cyberpunk'] {
+--pink: #ff2a6d;
+--pale:	#d1f7ff;
+--aqua:	#05d9e8;
+--teal:	#005678;
+--blue:	#01012b;
+--gold:	#ebeb0f;
+
+--primary: var(--gold);
+--background: var(--blue);
+--background-darker: var(--pink);
+--heading-text-color: var(--blue);
+--nav-link-background-color: var(--blue);
+--nav-link-background-color-hover: var(--blue);
+--nav-link-text-color: var(--pink);
+--nav-link-text-color-hover: var(--gold);
+--nav-link-border-color-hover: var(--blue);
+--config-settings-background: var(--blue);
+--config-settings-color: var(--pink);
+--interactive-editor-background: var(--blue);
+--interactive-editor-background-darker: var(--blue);
+--interactive-editor-color: var(--pink);
+--search-label-color: var(--blue);
+--item-group-background: var(--blue);
+--item-text-color: var(--pale);
+--scroll-bar-color: var(--aqua);
+--scroll-bar-background: var(--teal);
+--footer-background: var(--aqua);
+--welcome-popup-background: var(--pink);
+--welcome-popup-text-color: var(--blue);
+--status-check-tooltip-background: var(--blue);
+--description-tooltip-background: var(--blue);
+--font-headings: 'Audiowide', cursive;
+}

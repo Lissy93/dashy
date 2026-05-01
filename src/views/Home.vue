@@ -4,26 +4,20 @@
     <!-- Search bar, layout options and settings -->
     <SettingsContainer ref="filterComp"
       @user-is-searchin="searching"
-      @change-modal-visibility="updateModalVisibility"
-      :displayLayout="layout"
-      :iconSize="itemSizeBound"
-      :externalThemes="getExternalCSSLinks()"
-      :modalOpen="modalOpen"
       class="settings-outer"
     />
     <!-- Show back button, when on single-section view -->
     <div v-if="singleSectionView">
-      <router-link to="/home" class="back-to-all-link">
+      <router-link :to="backToAllPath" class="back-to-all-link">
         <BackIcon />
         <span>Back to All</span>
       </router-link>
     </div>
     <!-- Main content, section for each group of items -->
     <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass"
-    ref="sectionsContainer">
-      <template v-for="(section, index) in filteredSections">
+      ref="sectionsContainer">
+      <template v-for="(section, index) in filteredSections" :key="makeSectionId(section)">
         <Section
-          :key="index"
           :index="index"
           :title="section.name"
           :icon="section.icon || undefined"
@@ -49,26 +43,25 @@
     </div>
     <!-- Show banner at bottom of screen, for Saving config changes -->
     <EditModeSaveMenu v-if="isEditMode" />
-    <!-- Modal for viewing and exporting configuration file -->
-    <ExportConfigMenu />
     <!-- Shows pertinent info -->
     <NotificationThing v-if="$store.state.isUsingLocalConfig"/>
   </div>
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 import HomeMixin from '@/mixins/HomeMixin';
 import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
-import EditModeSaveMenu from '@/components/InteractiveEditor/EditModeSaveMenu.vue';
-import ExportConfigMenu from '@/components/InteractiveEditor/ExportConfigMenu.vue';
-import AddNewSection from '@/components/InteractiveEditor/AddNewSectionLauncher.vue';
 import NotificationThing from '@/components/Settings/LocalConfigWarning.vue';
-import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/defaults';
-import { makePageName } from '@/utils/ConfigHelpers';
-import ErrorHandler from '@/utils/ErrorHandler';
+import {
+  makePageName, makeRoutePath, resolveRouteIntent, viewFromPath,
+} from '@/utils/config/ConfigHelpers';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 import BackIcon from '@/assets/interface-icons/back-arrow.svg';
+
+const EditModeSaveMenu = defineAsyncComponent(() => import('@/components/InteractiveEditor/EditModeSaveMenu.vue'));
+const AddNewSection = defineAsyncComponent(() => import('@/components/InteractiveEditor/AddNewSectionLauncher.vue'));
 
 export default {
   name: 'home',
@@ -76,7 +69,6 @@ export default {
   components: {
     SettingsContainer,
     EditModeSaveMenu,
-    ExportConfigMenu,
     AddNewSection,
     NotificationThing,
     Section,
@@ -85,12 +77,19 @@ export default {
   data: () => ({
     layout: '',
     itemSizeBound: '',
-    addNewSectionOpen: false,
     activeColCount: 1,
   }),
   computed: {
     singleSectionView() {
-      return this.findSingleSection(this.$store.getters.sections, this.$route.params.section);
+      const { sectionSlug } = resolveRouteIntent(this.$route, this.$store);
+      if (!sectionSlug) return undefined;
+      return this.findSingleSection(this.$store.getters.sections, sectionSlug);
+    },
+    /* Back link from single-section view */
+    backToAllPath() {
+      const view = viewFromPath(this.$route.path);
+      const confId = this.$store.state.currentConfigInfo?.confId || null;
+      return makeRoutePath(view, confId);
     },
     /* Get class for num columns, if specified by user */
     colCount() {
@@ -103,11 +102,10 @@ export default {
     /* Return sections with filtered items, that match users search term */
     filteredSections() {
       const sections = this.singleSectionView || this.sections;
-      return sections.map((_section) => {
-        const section = _section;
-        section.filteredItems = this.filterTiles(section.items, this.searchValue);
-        return section;
-      });
+      return sections.map((section) => ({
+        ...section,
+        filteredItems: this.filterTiles(section.items, this.searchValue),
+      }));
     },
     /* Updates layout (when button clicked), and saves in local storage */
     layoutOrientation() {
@@ -133,17 +131,9 @@ export default {
     },
     /* Returns optional section display preferences if available */
     getDisplayData(section) {
-      return !section.displayData ? {} : section.displayData;
-    },
-    openAddNewSectionMenu() {
-      this.addNewSectionOpen = true;
-      this.$modal.show(modalNames.EDIT_SECTION);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
-    },
-    closeEditSection() {
-      this.addNewSectionOpen = false;
-      this.$modal.hide(modalNames.EDIT_SECTION);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
+      const displayData = section.displayData ? { ...section.displayData } : {};
+      if (this.singleSectionView) displayData.collapsed = false;
+      return displayData;
     },
     /* If on sub-route, and section exists, then return only that section */
     findSingleSection: (allSections, sectionTitle) => {
@@ -152,24 +142,6 @@ export default {
       const match = allSections.find((s) => makePageName(s.name || '') === target);
       if (!match) ErrorHandler(`No section named '${sectionTitle}' was found`);
       return match ? [match] : undefined;
-    },
-    /* Returns an array of links to external CSS from the Config */
-    getExternalCSSLinks() {
-      const availibleThemes = {};
-      if (this.appConfig) {
-        if (this.appConfig.externalStyleSheet) {
-          const externals = this.appConfig.externalStyleSheet;
-          if (Array.isArray(externals)) {
-            externals.forEach((ext, i) => {
-              availibleThemes[`External Stylesheet ${i + 1}`] = ext;
-            });
-          } else {
-            availibleThemes['External Stylesheet'] = this.appConfig.externalStyleSheet;
-          }
-        }
-      }
-      availibleThemes.Default = '#';
-      return availibleThemes;
     },
     readActiveColCount() {
       const { sectionsContainer } = this.$refs;
@@ -189,7 +161,7 @@ export default {
     this.readActiveColCount();
     window.addEventListener('resize', this.readActiveColCount);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('resize', this.readActiveColCount);
   },
 };
@@ -225,6 +197,14 @@ export default {
   @extend .scroll-bar;
   @include monitor-up {
     max-width: var(--content-max-width, 85%);
+  }
+
+  /* Masonry layout - sections auto-positioned to make best use of space.
+   * Row span is computed per-section from content height against --masonry-row-unit */
+  &.orientation-masonry {
+    grid-auto-rows: var(--masonry-row-unit, 8px);
+    grid-auto-flow: row dense;
+    row-gap: 0;
   }
 
   /* Options for alternate layouts, triggered by buttons */

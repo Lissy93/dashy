@@ -5,7 +5,7 @@
  */
 
 // Import helper functions from auth, to get current user, and check if guest
-import { getCurrentUser } from '@/utils/Auth';
+import { getCurrentUser } from '@/utils/auth/Auth';
 import { isVisibleToUser } from '@/utils/IsVisibleToUser';
 
 /* Putting it all together, the function to export */

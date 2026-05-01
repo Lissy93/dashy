@@ -5,10 +5,9 @@
     <v-select
       :options="themeNames"
       v-model="selectedTheme"
-      :value="$store.getters.theme"
       class="theme-dropdown"
       :tabindex="-2"
-      @input="themeChangedInUI"
+      @option:selected="themeChangedInUI"
     />
     </div>
     <IconPalette
@@ -47,10 +46,6 @@ export default {
       themeConfiguratorOpen: false, // Control the opening of theme config popup
     };
   },
-  computed: {},
-  mounted() {
-    this.initializeTheme();
-  },
   methods: {
     /* Opens the theme color configurator popup */
     openThemeConfigurator() {
@@ -70,15 +65,14 @@ export default {
 
 <style lang="scss">
 
-@import 'vue-select/src/scss/vue-select.scss';
+@import 'vue-select/dist/vue-select.css';
 @import '@/styles/style-helpers.scss';
 
 .theme-dropdown {
   div.vs__dropdown-toggle {
+    width: 100%;
     border-color: var(--settings-text-color);
     border-radius: var(--curve-factor);
-    min-width: 8rem;
-    max-width: 16rem;
     height: 1.8rem;
     font-size: 0.85rem;
     cursor: pointer;
@@ -111,31 +105,26 @@ export default {
 
 .theme-selector-section {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-  height: 100%;
-  span.theme-label {
-    font-size: 1rem;
-    color: var(--settings-text-color);
-    margin: 1px 0 2px 0;
+  align-items: flex-end;
+  gap: 0.5rem;
+  width: 100%;
+  > div {
+    flex: 1;
+    min-width: 0;
   }
 }
 
 svg.color-button {
-  path {
-    fill: var(--settings-text-color);
-  }
-  width: 1rem;
-  height: 1rem;
-  padding: 0.2rem;
-  margin: 0.5rem;
-  align-self: flex-end;
-  text-align: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0.4rem;
+  box-sizing: border-box;
+  flex-shrink: 0;
   background: var(--background);
-  border: 1px solid var(--settings-text-color);;
+  border: 1px solid var(--settings-text-color);
   border-radius: var(--curve-factor);
   cursor: pointer;
+  path { fill: var(--settings-text-color); }
   &:hover, &.selected {
     background: var(--settings-text-color);
     path { fill: var(--background); }

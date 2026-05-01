@@ -47,11 +47,6 @@
   },
   "app-info": {
     "title": "Uygulama Bilgisi",
-    "error-log": "Hata Günlüğü",
-    "no-errors": "Son zamanlarda hata tespit edilmedi",
-    "help-support": "Yardım ve Destek",
-    "help-support-description": "Dashy'nin çalıştırılması veya yapılandırılması konusunda destek almak için şuraya bakın:",
-    "help-support-discussions": "Tartışmalar",
     "support-dashy": "Dashy'yi Destekleyin",
     "support-dashy-description": "Katkıda bulunabileceğiniz yollar için şuraya göz atın:",
     "support-dashy-link": "Katkı sayfası",
@@ -87,7 +82,6 @@
     "edit-css-button": "Özel CSS Düzenle",
     "cloud-sync-button": "Bulut Senkronizasyonu Etkinleştir",
     "edit-cloud-sync-button": "Bulut Senkronizasyonu Düzenle",
-    "rebuild-app-button": "Uygulamayı Tekrar Derle",
     "change-language-button": "Uygulama Dilini Değiştir",
     "reset-settings-button": "Yerel Ayarları Sıfırla",
     "disabled-note": "Bazı yapılandırma özellikleri yöneticiniz tarafından devre dışı bırakılmıştır",
@@ -181,20 +175,6 @@
     "warning-msg-validation": "Doğrulama Uyarısı",
     "not-admin-note": "Yönetici olarak giriş yapmadığınız için değiştirilenleri diske yazamazsınız."
   },
-  "app-rebuild": {
-    "title": "Uygulamayı Yeniden Derle",
-    "rebuild-note-l1": "Artık yeniden derleme gerekli değildir.",
-    "rebuild-note-l2": "Bazı değişiklikler (giriş noktası ve kimlik doğrulama ayarları) derleme sırasında okunur. Bu nedenle bunları uygulamak için buradan yeniden derleme tetiklemelisiniz.",
-    "rebuild-note-l3": "Bunun yalnızca Node ve Docker kurulumlarında kullanılabildiğini, statik olarak dağıtılan örneklerde kullanılamadığını unutmayın.",
-    "rebuild-button": "Derlemeye Başla",
-    "rebuilding-status-1": "Derleniyor...",
-    "rebuilding-status-2": "Bu bir kaç dakika alabilir",
-    "error-permission": "Bu eylemi tetikleme izniniz yok",
-    "success-msg": "Derleme başarıyla tamamlandı",
-    "fail-msg": "Derleme başarısız oldu",
-    "reload-note": "Değişikliklerin etkili olması için sayfanın yeniden yüklenmesi gerekiyor",
-    "reload-button": "Sayfayı Yenile"
-  },
   "cloud-sync": {
     "title": "Bulut Yedekleme ve Geri Yükleme",
     "intro-l1": "Bulut yedekleme ve geri yükleme, yapılandırmanızı internete yüklemenizi ve ardından herhangi bir başka cihaza veya Dashy örneğine geri yüklemenizi sağlayan isteğe bağlı bir özelliktir.",
@@ -252,12 +232,6 @@
       "move-section": "Şuraya Taşı:",
       "remove-section": "Kaldır"
     }
-  },
-  "footer": {
-    "dev-by": "Geliştiren",
-    "licensed-under": "Lisans türü",
-    "get-the": "Edinin",
-    "source-code": "Kaynak Kodu"
   },
   "interactive-editor": {
     "menu": {

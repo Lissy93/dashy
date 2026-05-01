@@ -4,8 +4,8 @@
  */
 import { Progress } from 'rsup-progress';
 import request from '@/utils/request';
-import ErrorHandler from '@/utils/ErrorHandler';
-import { serviceEndpoints } from '@/utils/defaults';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
+import { serviceEndpoints } from '@/utils/config/defaults';
 
 const WidgetMixin = {
   props: {
@@ -30,14 +30,14 @@ const WidgetMixin = {
       this.disableLoader = true;
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.updater) {
       clearInterval(this.updater);
     }
   },
   computed: {
     proxyReqEndpoint() {
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       return `${baseUrl}${serviceEndpoints.corsProxy}`;
     },
     useProxy() {
@@ -97,7 +97,7 @@ const WidgetMixin = {
     /* Used as v-tooltip, pass text content in, and will show on hover */
     tooltip(content, html = false) {
       return {
-        content, html, trigger: 'hover focus', delay: 250,
+        content, html,
       };
     },
     /* Makes data request, returns promise */
@@ -131,18 +131,13 @@ const WidgetMixin = {
           });
       });
     },
-    /* Check if a value is an environment variable, return its value if so. */
+    /* If the string is a build-time env-var placeholder, return its value
+     * Otherwise, will pass it through to the proxy for it to resolve server-side */
     parseAsEnvVar(str) {
       if (typeof str !== 'string') return str;
-      if (str.includes('VUE_APP_')) {
-        const envVar = process.env[str];
-        if (!envVar) {
-          this.error(`Environment variable ${str} not found`);
-        } else {
-          return envVar;
-        }
-      }
-      return str;
+      if (!/^(?:VITE_APP_|VUE_APP_|DASHY_)/.test(str)) return str;
+      const envKey = str.replace(/^VUE_APP_/, 'VITE_APP_');
+      return import.meta.env[envKey] ?? str;
     },
   },
 };

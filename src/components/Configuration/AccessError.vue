@@ -9,7 +9,7 @@
 
 <script>
 
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 
 export default {
   name: 'AccessError',

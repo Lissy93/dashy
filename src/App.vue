@@ -5,7 +5,8 @@
     <Header :pageInfo="pageInfo" />
     <router-view v-if="!isFetching" />
     <CriticalError v-if="hasCriticalError" />
-    <Footer :text="footerText" v-if="visibleComponents.footer && !isFetching" />
+    <Footer :text="footerText" v-if="footerVisible && !isFetching" />
+    <RemoteConfigLoader v-if="!isFetching" />
   </div>
 </template>
 <script>
@@ -15,14 +16,19 @@ import Footer from '@/components/PageStrcture/Footer.vue';
 import EditModeTopBanner from '@/components/InteractiveEditor/EditModeTopBanner.vue';
 import CriticalError from '@/components/PageStrcture/CriticalError.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
-import { welcomeMsg } from '@/utils/CoolConsole';
-import ErrorHandler from '@/utils/ErrorHandler';
+import RemoteConfigLoader from '@/components/Configuration/RemoteConfigLoader.vue';
+import { welcomeMsg } from '@/utils/logging/CoolConsole';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
+import { syncPageMeta } from '@/utils/PageMeta';
+import { viewFromPath } from '@/utils/config/ConfigHelpers';
+import { applyTheme } from '@/utils/Theming';
 import Keys from '@/utils/StoreMutations';
+import { loadLocale } from '@/utils/languages';
 import {
   localStorageKeys,
   splashScreenTime,
   language as defaultLanguage,
-} from '@/utils/defaults';
+} from '@/utils/config/defaults';
 
 export default {
   name: 'app',
@@ -32,11 +38,11 @@ export default {
     LoadingScreen,
     EditModeTopBanner,
     CriticalError,
+    RemoteConfigLoader,
   },
   data() {
     return {
       isLoading: true, // Set to false after mount complete
-      isFetching: true, // Set to false after the conf has been fetched
     };
   },
   watch: {
@@ -44,21 +50,47 @@ export default {
       // When in edit mode, show confirmation dialog on page exit
       window.onbeforeunload = isEditMode ? this.confirmExit : null;
     },
-    config() {
-      this.isFetching = false;
+    /* Sync document title + description whenever route or loaded config changes */
+    metaDeps: {
+      handler() { syncPageMeta(this.$route, this.$store); },
+      immediate: true,
+    },
+    /* Apply the effective theme whenever it changes */
+    effectiveTheme: {
+      immediate: true,
+      handler(t) { applyTheme(t, this.appConfig); },
+    },
+    /* Keep i18n in sync with the active page's language (incl. sub-page overrides) */
+    'appConfig.language': {
+      immediate: true,
+      handler(lang) {
+        if (!lang) return;
+        this.$i18n.locale = lang;
+        document.documentElement.setAttribute('lang', lang);
+      },
     },
   },
   computed: {
     /* If the user has specified custom text for footer - get it */
     footerText() {
-      return this.pageInfo && this.pageInfo.footerText ? this.pageInfo.footerText : '';
+      return this.pageInfo && this.pageInfo.footer ? this.pageInfo.footer : '';
+    },
+    /* Footer renders only when there's text AND we're not on workspace */
+    footerVisible() {
+      if (viewFromPath(this.$route.path) === 'workspace') return false;
+      return !!this.footerText;
     },
     /* Determine if splash screen should be shown */
     shouldShowSplash() {
       return (this.appConfig.showSplashScreen);
     },
-    config() {
-      return this.$store.state.config;
+    /* True until the root config has finished its initial load (or critically failed) */
+    isFetching() {
+      return !this.$store.state.rootConfig && !this.$store.state.criticalError;
+    },
+    /* Route-declared themes (e.g. 404) win over the user's saved theme */
+    effectiveTheme() {
+      return this.$route?.meta?.theme || this.$store.getters.theme;
     },
     appConfig() {
       return this.$store.getters.appConfig;
@@ -79,14 +111,17 @@ export default {
       return this.$store.state.criticalError;
     },
     subPageClassName() {
-      const currentSubPage = this.$store.state.currentConfigInfo;
-      return (currentSubPage && currentSubPage.pageId) ? currentSubPage.pageId : '';
+      return this.$store.state.currentConfigInfo?.confId || '';
+    },
+    /* Dep tuple so the metaDeps watcher tracks every reactive input */
+    metaDeps() {
+      return [this.$route.fullPath, this.pageInfo, this.sections];
     },
     topLevelStyleModifications() {
       const vc = this.visibleComponents;
       let styles = '';
-      if (!vc.footer && !vc.pageTitle) styles += '--footer-height: 1rem;';
-      else if (!vc.footer) styles += '--footer-height: 5rem;';
+      if (!this.footerVisible && !vc.pageTitle) styles += '--footer-height: 1rem;';
+      else if (!this.footerVisible) styles += '--footer-height: 5rem;';
       else if (!vc.pageTitle) styles += '--footer-height: 4rem;';
       const maxWidth = this.parseContentMaxWidth(this.appConfig.contentMaxWidth);
       if (maxWidth) {
@@ -177,8 +212,14 @@ export default {
     },
 
     /* Fetch or detect users language, then apply it */
-    applyLanguage() {
+    async applyLanguage() {
       const language = this.getLanguage();
+      try {
+        const msg = await loadLocale(language);
+        this.$i18n.setLocaleMessage(language, msg);
+      } catch (e) {
+        ErrorHandler(`Failed to load locale '${language}'`, e);
+      }
       this.$store.commit(Keys.SET_LANGUAGE, language);
       this.$i18n.locale = language;
       document.getElementsByTagName('html')[0].setAttribute('lang', language);
@@ -193,25 +234,14 @@ export default {
       e.preventDefault();
       return 'You may have unsaved edits. Are you sure you want to exit the page?';
     },
-    /* Detect and apply theme based on OS preference */
-    applyThemeBasedOnOSPreference() {
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const osTheme = prefersDark ? this.appConfig.nightTheme : this.appConfig.dayTheme;
-      if (osTheme) {
-        this.$store.commit(Keys.SET_THEME, osTheme);
-        this.updateTheme(osTheme);
-      }
-    },
   },
-  /* Basic initialization tasks on app load */
-  async mounted() {
-    await this.$store.dispatch(Keys.INITIALIZE_CONFIG); // Initialize config before moving on
-    this.applyLanguage(); // Apply users local language
-    this.applyThemeBasedOnOSPreference(); // Apply theme based on OS preference
-    this.hideSplash(); // Hide the splash screen, if visible
-    this.applyCustomStyles(); // Apply custom CSS and external stylesheets
-    this.hideLoader(); // If initial placeholder still visible, hide it
-    welcomeMsg(); // Show message in console
+  /* Basic initialization tasks on app load. Config is already loaded by router.beforeEach. */
+  mounted() {
+    this.applyLanguage();
+    this.hideSplash();
+    this.applyCustomStyles();
+    this.hideLoader();
+    welcomeMsg();
   },
 };
 </script>

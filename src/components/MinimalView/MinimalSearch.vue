@@ -18,6 +18,7 @@ export default {
   props: {
     active: Boolean,
   },
+  emits: ['user-is-searchin'],
   data() {
     return {
       input: '', // Users current search term
@@ -44,7 +45,7 @@ export default {
   mounted() {
     window.addEventListener('keydown', this.startFiltering);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('keydown', this.startFiltering);
   },
 };

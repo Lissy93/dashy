@@ -3,7 +3,7 @@
   <!-- Current Status -->
   <div v-if="status && !hideStatus" class="status">
     <span class="status-lbl">{{ $t('widgets.pi-hole.status-heading') }}:</span>
-    <span :class="`status-val ${getStatusColor(status)}`">{{ status | capitalize }}</span>
+    <span :class="`status-val ${getStatusColor(status)}`">{{ capitalize(status) }}</span>
   </div>
   <!-- Block Pie Chart -->
   <p :id="chartId" class="block-pie"></p>
@@ -88,10 +88,8 @@ export default {
       );
     },
   },
-  filters: {
-    capitalize,
-  },
   methods: {
+    capitalize,
     fetchData() {
       this.makeRequest(
         this.authEndpoint,

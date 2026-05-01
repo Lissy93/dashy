@@ -1,0 +1,13 @@
+html[data-theme='thebe'] {
+  --background: #141b33;
+  --background-darker: #060913;
+  --item-group-background: #0b1021;
+  --item-background: #141b33;
+  --item-background-hover: var(--background-darker);
+  --item-hover-shadow: 0 1px 3px #9660ecb3, 0 1px 2px #9660ecbf;
+  --primary: #b187f5;
+  --item-group-outer-background: #9660EC
+    linear-gradient(45deg,  #9660ec 2%,#5f60ea 51%,#9660ec 100%);
+  --font-headings: 'PTMono', 'Courier New', monospace;
+}
+

@@ -42,13 +42,6 @@ describe('Get user', () => {
   });
 });
 
-describe('Rebuild', () => {
-  it('ignores POST', async () => {
-    const res = await request(app).post('/config-manager/rebuild');
-    expect(res.status).toBeLessThan(500);
-  });
-});
-
 describe('SPA fallback', () => {
   it('serves content for unknown routes', async () => {
     const res = await request(app).get('/some/nonexistent/route');

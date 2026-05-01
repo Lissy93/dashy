@@ -20,6 +20,12 @@
         :class="`layout-icon ${layout === 'vertical' ? 'selected' : ''}`"
         tabindex="-2"
       />
+      <IconMasonry
+        @click="updateDisplayLayout('masonry')"
+        v-tooltip="tooltip($t('settings.layout-masonry'))"
+        :class="`layout-icon ${layout === 'masonry' ? 'selected' : ''}`"
+        tabindex="-2"
+      />
     </div>
   </div>
 </template>
@@ -29,16 +35,15 @@ import StoreKeys from '@/utils/StoreMutations';
 import IconDeafault from '@/assets/interface-icons/layout-default.svg';
 import IconHorizontal from '@/assets/interface-icons/layout-horizontal.svg';
 import IconVertical from '@/assets/interface-icons/layout-vertical.svg';
+import IconMasonry from '@/assets/interface-icons/layout-masonry.svg';
 
 export default {
   name: 'LayoutSelector',
-  props: {
-    displayLayout: String,
-  },
   components: {
     IconDeafault,
     IconHorizontal,
     IconVertical,
+    IconMasonry,
   },
   computed: {
     layout() {
@@ -50,38 +55,9 @@ export default {
       this.$store.commit(StoreKeys.SET_ITEM_LAYOUT, layout);
     },
     tooltip(content) {
-      return { content, trigger: 'hover focus', delay: 250 };
+      return { content };
     },
   },
 };
 </script>
 
-<style scoped lang="scss">
-
-span.options-label {
-  color: var(--settings-text-color);
-}
-
-.display-options {
-  color: var(--settings-text-color);
-  svg {
-    path {
-      fill: var(--settings-text-color);
-    }
-    width: 1rem;
-    height: 1rem;
-    margin: 0.2rem;
-    padding: 0.2rem;
-    text-align: center;
-    background: var(--background);
-    border: 1px solid currentColor;
-    border-radius: var(--curve-factor);
-    cursor: pointer;
-    &:hover, &.selected {
-      background: var(--settings-text-color);
-      path { fill: var(--background); }
-    }
-  }
-}
-
-</style>

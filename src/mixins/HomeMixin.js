@@ -2,17 +2,13 @@
  * Mixin for all homepages (default home, minimal home, workspace, etc)
  */
 
-import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
+import Defaults, { localStorageKeys, iconCdns } from '@/utils/config/defaults';
 import Keys from '@/utils/StoreMutations';
 import { searchTiles } from '@/utils/Search';
 import { checkItemVisibility } from '@/utils/CheckItemVisibility';
-import ThemingMixin from '@/mixins/ThemingMixin';
+import { resolveRouteIntent, PAGE_STATUS } from '@/utils/config/ConfigHelpers';
 
 const HomeMixin = {
-  mixins: [ThemingMixin],
-  props: {
-    subPageInfo: Object,
-  },
   computed: {
     sections() {
       return this.$store.getters.sections;
@@ -40,36 +36,30 @@ const HomeMixin = {
     async $route() {
       this.loadUpConfig();
     },
-    pageInfo: {
-      handler(newPageInfo) {
-        if (newPageInfo && newPageInfo.title) {
-          document.title = newPageInfo.title;
-        }
-      },
-      immediate: true,
-    },
   },
   async created() {
     this.loadUpConfig();
   },
   methods: {
-    /* When page loaded / sub-page changed, initiate config fetch */
+    /* When page loaded / sub-page changed, initiate config fetch.
+     * For ROOT / LEGACY_SECTION intent the store loads the root config
+     * for KNOWN the store loads the matching sub-config
+     * for UNKNOWN the store triggers the critical error modal */
     async loadUpConfig() {
       const subPage = this.determineConfigFile();
+      const current = this.$store.state.currentConfigInfo?.confId || null;
+      if ((subPage || null) === current) return; // Already on this config, no reload
       await this.$store.dispatch(Keys.INITIALIZE_CONFIG, subPage);
     },
-    /* Based on the current route, get which config to display, null will use default */
+    /* Resolve which sub-config the current route targets.
+     * Returns a page id from makePageName, or null for the root config */
     determineConfigFile() {
-      const pagePath = this.$router.currentRoute.path;
-      const isSubPage = new RegExp((/(home|workspace|minimal)\/[a-zA-Z0-9-]+/g)).test(pagePath);
-      const subPageName = isSubPage ? pagePath.split('/').pop() : null;
-      return subPageName;
-    },
-    setTheme() {
-      this.initializeTheme();
+      const { status, pageId } = resolveRouteIntent(this.$route, this.$store);
+      if (status === PAGE_STATUS.ROOT || status === PAGE_STATUS.LEGACY_SECTION) return null;
+      return pageId; // KNOWN -> load sub-config; UNKNOWN -> store raises critical error
     },
     updateModalVisibility(modalState) {
-      this.$store.commit('SET_MODAL_OPEN', modalState);
+      this.$store.commit(Keys.SET_MODAL_OPEN, modalState);
     },
     /* Updates local data with search value, triggered from filter comp */
     searching(searchValue) {

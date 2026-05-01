@@ -1,87 +1,78 @@
-/* eslint-disable no-multi-spaces */
+
 // Import core framework and essential utils
-import Vue from 'vue';
-import VueI18n from 'vue-i18n'; // i18n for localization
+import { createApp } from 'vue';
 
 // Import component Vue plugins, used throughout the app
-import VTooltip from 'v-tooltip';       // A Vue directive for Popper.js, tooltip component
-import VModal from 'vue-js-modal';      // Modal component
 import VSelect from 'vue-select';       // Select dropdown component
-import VTabs from 'vue-material-tabs';  // Tab view component, used on the config page
-import Toasted from 'vue-toasted';      // Toast component, used to show confirmation notifications
-import TreeView from 'vue-json-tree-view';
 
 // Import base Dashy components and utils
 import Dashy from '@/App.vue';          // Main Dashy Vue app
+import Modal from '@/components/FormElements/Modal.vue'; // In-house modal component
+import VModal from '@/plugins/modal';   // $modal.show()/hide() plugin
 import store from '@/store';            // Store, for local state management
 import router from '@/router';          // Router, for navigation
 import serviceWorker from '@/utils/InitServiceWorker'; // Service worker initialization
-import { messages } from '@/utils/languages';         // Language texts
-import ErrorReporting from '@/utils/ErrorReporting';  // Error reporting initializer (off)
+import i18n from '@/utils/i18n';                      // i18n instance (exported so non-component callers can t())
+import ErrorReporting from '@/utils/logging/ErrorReporting';  // Error reporting initializer (off)
 import clickOutside from '@/directives/ClickOutside'; // Directive for closing popups, modals, etc
-import { toastedOptions, tooltipOptions, language as defaultLanguage } from '@/utils/defaults';
-import { initKeycloakAuth, isKeycloakEnabled } from '@/utils/KeycloakAuth';
-import { initHeaderAuth, isHeaderAuthEnabled } from '@/utils/HeaderAuth';
-import { initOidcAuth, isOidcEnabled } from '@/utils/OidcAuth';
+import tooltip from '@/directives/Tooltip';           // Custom tooltip directive
+import { initKeycloakAuth, isKeycloakEnabled } from '@/utils/auth/KeycloakAuth';
+import { initHeaderAuth, isHeaderAuthEnabled } from '@/utils/auth/HeaderAuth';
+import { initOidcAuth, isOidcEnabled } from '@/utils/auth/OidcAuth';
 import Keys from '@/utils/StoreMutations';
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
+import Toast from '@/utils/Toast';
 
-// Initialize global Vue components
-Vue.use(VueI18n);
-Vue.use(VTooltip, tooltipOptions);
-Vue.use(VModal);
-Vue.use(VTabs);
-Vue.use(TreeView);
-Vue.use(Toasted, toastedOptions);
-Vue.component('v-select', VSelect);
-Vue.directive('clickOutside', clickOutside);
+// Create the Vue 3 app instance
+const app = createApp(Dashy);
 
-// When running in dev mode, enable Vue performance tools
-const isDevMode = process.env.NODE_ENV === 'development';
-Vue.config.performance = isDevMode;
-Vue.config.productionTip = isDevMode;
+// Register plugins
+app.use(store);
+app.use(router);
+app.use(i18n);
+app.use(VModal);
+app.use(Toast);
 
-// Setup i18n translations
-const i18n = new VueI18n({
-  locale: defaultLanguage,
-  fallbackLocale: defaultLanguage,
-  messages,
+// Register global components and directives
+app.component('modal', Modal);
+app.component('v-select', VSelect);
+app.directive('clickOutside', clickOutside);
+app.directive('tooltip', tooltip);
+
+app.config.errorHandler = (err, instance, info) => {
+  ErrorHandler(`Vue error in ${info}`, err);
+};
+
+window.addEventListener('unhandledrejection', (event) => {
+  ErrorHandler('Unhandled promise rejection', event.reason);
 });
 
-// Checks if service worker not disable, and if so will registers it
+const isDevMode = import.meta.env.DEV;
+app.config.performance = isDevMode;
+
 serviceWorker();
 
 // Checks if user enabled error reporting, and if so will initialize it
-ErrorReporting(Vue, router);
+ErrorReporting(app, router);
 
-// Render function
-const render = (awesome) => awesome(Dashy);
+// Mount the app
+const mount = () => app.mount('#app');
 
-// Mount the app, with router, store i18n and render func
-const mount = () => new Vue({
-  store, router, render, i18n,
-}).$mount('#app');
+/* Handle failures of third-party auth initialization */
+const handleAuthFailure = (provider, err) => {
+  ErrorHandler(`Failed to authenticate with ${provider}`, err);
+  store.commit(Keys.CRITICAL_ERROR_MSG, `Authentication failed (${provider}). See console for details.`);
+  mount();
+};
 
-store.dispatch(Keys.INITIALIZE_CONFIG).then(() => {
+router.isReady().then(() => {
   if (isOidcEnabled()) {
-    initOidcAuth()
-      .then(() => mount())
-      .catch((e) => {
-        ErrorHandler('Failed to authenticate with OIDC', e);
-      });
-  } else if (isKeycloakEnabled()) { // If Keycloak is enabled, initialize auth
-    initKeycloakAuth()
-      .then(() => mount())
-      .catch((e) => {
-        ErrorHandler('Failed to authenticate with Keycloak', e);
-      });
-  } else if (isHeaderAuthEnabled()) { // If header auth is enabled, initialize auth
-    initHeaderAuth()
-      .then(() => mount())
-      .catch((e) => {
-        ErrorHandler('Failed to authenticate with server', e);
-      });
-  } else { // If no third-party auth, just mount the app as normal
+    initOidcAuth().then(mount).catch((e) => handleAuthFailure('OIDC', e));
+  } else if (isKeycloakEnabled()) {
+    initKeycloakAuth().then(mount).catch((e) => handleAuthFailure('Keycloak', e));
+  } else if (isHeaderAuthEnabled()) {
+    initHeaderAuth().then(mount).catch((e) => handleAuthFailure('Header Auth', e));
+  } else {
     mount();
   }
 });

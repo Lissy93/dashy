@@ -20,7 +20,7 @@ Adding a new theme is really easy. There're two things you need to do: Pass the 
 
 ### 1. Add Theme Name
 
-Choose a snappy name for your theme, and add it to the `builtInThemes` array inside [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L27).
+Choose a snappy name for your theme, and add it to the `builtInThemes` array inside [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/config/defaults.js#L27).
 
 ### 2. Write some Styles
 
@@ -127,9 +127,9 @@ computed: {
 
 Then, where you want to get the users value within your component, use something like: `this.appConfig.myProperty`. If the user hasn't specified the value, Don't forget to have a fallback or default for it.
 
-If you have a default fallback value, then this would typically be specified in the [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js) file.
+If you have a default fallback value, then this would typically be specified in the [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/config/defaults.js) file.
 
-You will now need to add the definition of your new attribute into the [ConfigSchema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json). This will make it available in the UI config editor, and also ensure that the config validation check doesn't fail.
+You will now need to add the definition of your new attribute into the [ConfigSchema](https://github.com/Lissy93/dashy/blob/master/src/utils/config/ConfigSchema.json). This will make it available in the UI config editor, and also ensure that the config validation check doesn't fail.
 For example:
 
 ```json
@@ -156,8 +156,8 @@ Finally, add your new property to the [`configuring.md`](./configuring.md) API d
 Checklist:
 
 - [ ] Ensure the new attribute is actually necessary, and nothing similar already exists
-- [ ] Update the [Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json) with the parameters for your new option
-- [ ] If required, set a default or fallback value (usually in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js))
+- [ ] Update the [Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/config/ConfigSchema.json) with the parameters for your new option
+- [ ] If required, set a default or fallback value (usually in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/config/defaults.js))
 - [ ] Document the new value in [`configuring.md`](./configuring.md), and if required under the relevant section in the docs
 - [ ] Ensure your changes are backwards compatible, and that nothing breaks if the attribute isn't specified
 
@@ -210,14 +210,14 @@ For some pages (such as the login page, the minimal start page, etc) the basic p
 
 ### 1. Add the route name to the should hide array
 
-In [`./src/utils/defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js), there's an array called `hideFurnitureOn`. Append the name of the route (the same as it appears in [`router.js`](https://github.com/Lissy93/dashy/blob/master/src/router.js)) here.
+In [`./src/utils/config/defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/config/defaults.js), there's an array called `hideFurnitureOn`. Append the name of the route (the same as it appears in [`router.js`](https://github.com/Lissy93/dashy/blob/master/src/router.js)) here.
 
 ### 2. Add the conditional to the structural component to hide
 
 First, import the helper function:
 
 ```javascript
-import { shouldBeVisible } from '@/utils/SectionHelpers';
+import { shouldBeVisible } from '@/utils/config/SectionHelpers';
 ```
 
 Then you can create a computed value, that calls this function, passing in the route name:
@@ -250,9 +250,9 @@ All environmental variables are optional. Currently there are not many environme
 
 You can set variables either in your environment, or using the [`.env`](https://github.com/Lissy93/dashy/blob/master/.env) file.
 
-Any environmental variables used by the frontend are preceded with `VUE_APP_`. Vue will merge the contents of your `.env` file into the app in a similar way to the ['dotenv'](https://github.com/motdotla/dotenv) package, where any variables that you set on your system will always take preference over the contents of any `.env` file.
+Any environmental variables used by the frontend are preceded with `VITE_APP_`. Vite will merge the contents of your `.env` file into the app in a similar way to the ['dotenv'](https://github.com/motdotla/dotenv) package, where any variables that you set on your system will always take preference over the contents of any `.env` file.
 
-If add any new variables, ensure that there is always a fallback (define it in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js)), so as to not cause breaking changes. Don't commit the contents of your `.env` file to git, but instead take a few moments to document what you've added under the appropriate section. Try and follow the concepts outlined in the [12 factor app](https://12factor.net/config).
+If add any new variables, ensure that there is always a fallback (define it in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/config/defaults.js)), so as to not cause breaking changes. Don't commit the contents of your `.env` file to git, but instead take a few moments to document what you've added under the appropriate section. Try and follow the concepts outlined in the [12 factor app](https://12factor.net/config).
 
 ---
 
@@ -280,7 +280,7 @@ Firstly, create a new `.vue` file under [`./src/components/Widgets`](https://git
 
 import axios from 'axios';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 
 export default {
   mixins: [WidgetMixin],
@@ -341,7 +341,7 @@ computed: {
 
 #### **Adding an API Endpoint**
 
-If your widget makes a data request, then add the URL for the API endpoint to the `widgetApiEndpoints` array in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/defaults.js#L207)
+If your widget makes a data request, then add the URL for the API endpoint to the `widgetApiEndpoints` array in [`defaults.js`](https://github.com/Lissy93/dashy/blob/master/src/utils/config/defaults.js#L207)
 
 ```javascript
 widgetApiEndpoints: {
@@ -353,7 +353,7 @@ widgetApiEndpoints: {
 Then in your widget file:
 
 ```javascript
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 ```
 
 For GET requests, you may need to add some parameters onto the end of the URL. We can use another computed property for this, for example:

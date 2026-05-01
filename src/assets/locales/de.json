@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "App Info",
-    "error-log": "Fehlerprotokoll",
-    "no-errors": "Keine kürzlichen Fehler erkannt",
-    "help-support": "Hilfe & Support",
-    "help-support-description": "Um beim Betrieb oder der Konfiguration von Dashy Hilfe zu bekommen, siehe die",
-    "help-support-discussions": "Diskussionen",
     "support-dashy": "Dashy unterstützen",
     "support-dashy-description": "Für Wege, sich zu beteiligen, besuchen Sie die",
     "support-dashy-link": "Contributions Seite",
@@ -86,7 +81,6 @@
     "edit-css-button": "CSS bearbeiten",
     "cloud-sync-button": "Cloud-Synchronisation aktivieren",
     "edit-cloud-sync-button": "Cloud-Synchronisation bearbeiten",
-    "rebuild-app-button": "Anwendung neu kompilieren",
     "change-language-button": "App-Sprache ändern",
     "reset-settings-button": "lokale Einstellungen zurücksetzen",
     "disabled-note": "Einige Konfigurationsoptionen wurden vom Administrator deaktivert",
@@ -180,20 +174,6 @@
     "warning-msg-validation": "Validierungswarnung",
     "not-admin-note": "Änderungen können nicht auf die Festplatte gespeichert werden, da Sie nicht als Administrator angemeldet sind"
   },
-  "app-rebuild": {
-    "title": "Applikation neu kompilieren",
-    "rebuild-note-l1": "Damit die in die Datei conf.yml geschriebenen Änderungen wirksam werden ist ein Neukompilieren erforderlich.",
-    "rebuild-note-l2": "Dies sollte automatisch passieren, aber falls nicht können Sie es hier manuell starten.",
-    "rebuild-note-l3": "Dies ist bei lokal gespeicherten Änderungen nicht erforderlich.",
-    "rebuild-button": "Starte Kompilierung",
-    "rebuilding-status-1": "Baue...",
-    "rebuilding-status-2": "Das kann ein paar Minuten dauern",
-    "error-permission": "Sie sind nicht berechtigt diese Aktion auszulösen",
-    "success-msg": "Kompilierung erfolgreich abgeschlossen",
-    "fail-msg": "Kompilierung fehlgeschlagen",
-    "reload-note": "Ein neu Laden der Seite ist erforderlich, damit die Änderungen wirksam werden.",
-    "reload-button": "Seite neu laden"
-  },
   "cloud-sync": {
     "title": "Cloud Backup & Wiederherstellung",
     "intro-l1": "Cloud-Backup und Wiederherstellung ist eine optionale Funktion mit der Sie Ihre Konfiguration in das Internet hochladen und dann auf einem anderen Gerät oder einer anderen Dashy-Instanz wiederherstellen können.",
@@ -250,12 +230,6 @@
       "move-section": "Verschieben nach",
       "remove-section": "Entfernen"
     }
-  },
-  "footer": {
-    "dev-by": "Entwickelt von",
-    "licensed-under": "Lizensiert unter",
-    "get-the": "Hole dir den",
-    "source-code": "Quellcode"
   },
   "interactive-editor": {
     "menu": {

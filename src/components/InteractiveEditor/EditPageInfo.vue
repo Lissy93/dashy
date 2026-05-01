@@ -1,39 +1,35 @@
 <template>
   <modal
-    :name="modalName" @closed="modalClosed"
+    :name="modalName" @closed="modalClosed" @before-open="initForm"
     :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-page-info"
   >
-  <div class="edit-page-info-inner" v-if="allowViewConfig">
-  <h3>{{ $t('interactive-editor.menu.edit-page-info-btn') }}</h3>
-  <FormSchema
-    :schema="schema"
-    v-model="formData"
-    @submit.prevent="saveToState"
-    class="page-info-form"
-    name="pageInfoForm"
-  >
-    <Button type="submit">
-      {{ $t('interactive-editor.menu.save-stage-btn') }}
-      <SaveIcon />
-    </Button>
-  </FormSchema>
-  </div>
-  <AccessError v-else />
+    <div class="interactive-editor-inner" v-if="allowViewConfig">
+      <h3>{{ $t('interactive-editor.menu.edit-page-info-btn') }}</h3>
+      <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
+      <SchemaForm v-model="formData" :schema="schema" />
+      <SaveCancelButtons :saveClick="saveToState" :cancelClick="cancelEditing" />
+    </div>
+    <AccessError v-else />
   </modal>
 </template>
 
 <script>
-import FormSchema from '@formschema/native';
-import DashySchema from '@/utils/ConfigSchema';
+import { defineAsyncComponent } from 'vue';
+import DashySchema from '@/utils/config/ConfigSchema.json';
 import StoreKeys from '@/utils/StoreMutations';
-import { modalNames } from '@/utils/defaults';
-import Button from '@/components/FormElements/Button';
-import SaveIcon from '@/assets/interface-icons/save-config.svg';
+import { modalNames } from '@/utils/config/defaults';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
+import safeClone from '@/utils/safeClone';
+import pruneSchemaDefaults from '@/utils/config/pruneSchemaDefaults';
 import AccessError from '@/components/Configuration/AccessError';
+import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
+
+const SchemaForm = defineAsyncComponent(() => import('@/components/FormElements/SchemaForm.vue'));
 
 export default {
   name: 'EditPageInfo',
+  components: { AccessError, SaveCancelButtons, SchemaForm },
   data() {
     return {
       formData: {},
@@ -41,59 +37,33 @@ export default {
       modalName: modalNames.EDIT_PAGE_INFO,
     };
   },
-  components: {
-    FormSchema,
-    Button,
-    SaveIcon,
-    AccessError,
-  },
-  mounted() {
-    this.formData = this.pageInfo;
-  },
   computed: {
-    pageInfo() {
-      return this.$store.getters.pageInfo;
-    },
-    allowViewConfig() {
-      return this.$store.getters.permissions.allowViewConfig;
-    },
+    ownPageInfo() { return this.$store.state.configSource.pageInfo || {}; },
+    allowViewConfig() { return this.$store.getters.permissions.allowViewConfig; },
   },
   methods: {
-    /* When form submitteed, update VueX store with new pageInfo, and close modal */
+    initForm() {
+      this.formData = safeClone(this.ownPageInfo, {});
+    },
     saveToState() {
-      this.$store.commit(StoreKeys.SET_PAGE_INFO, this.formData);
-      this.$modal.hide(this.modalName);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+      try {
+        const pruned = pruneSchemaDefaults(this.formData, this.schema);
+        const patched = { ...this.$store.state.configSource, pageInfo: pruned };
+        this.$store.dispatch(StoreKeys.APPLY_EDITED_CONFIG, patched);
+        this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+        InfoHandler('Page info updated', InfoKeys.EDITOR);
+        this.cancelEditing();
+      } catch (e) {
+        ErrorHandler('Failed to save page info', e);
+        this.$toast.error('Error saving changes. See Logs.');
+      }
     },
-    /* Called when modal manually closed, updates state to allow searching again */
-    modalClosed() {
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
-    },
+    cancelEditing() { this.$modal.hide(this.modalName); },
+    modalClosed() { this.$store.commit(StoreKeys.SET_MODAL_OPEN, false); },
   },
 };
 </script>
 
 <style lang="scss">
 @import '@/styles/style-helpers.scss';
-@import '@/styles/media-queries.scss';
-@import '@/styles/schema-editor.scss';
-
-.edit-page-info-inner {
-  padding: 1rem;
-  background: var(--interactive-editor-background);
-  color: var(--interactive-editor-color);
-  height: 100%;
-  overflow-y: auto;
-  @extend .scroll-bar;
-  h3 {
-    font-size: 1.4rem;
-    margin: 0.5rem;
-  }
-  .page-info-form {
-    @extend .schema-form;
-    margin-bottom: 2.5rem;
-  }
-}
-
 </style>

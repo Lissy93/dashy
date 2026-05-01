@@ -13,21 +13,32 @@
       </div>
     </div>
   </transition>
+  <ConfirmDialog
+    v-model:open="showResetConfirm"
+    danger
+    :title="$t('config.reset-config-label')"
+    :message="resetConfirmMessage()"
+    @confirm="confirmReset"
+  />
 </template>
 
 <script>
 
-import { localStorageKeys, modalNames } from '@/utils/defaults';
+import { localStorageKeys, modalNames } from '@/utils/config/defaults';
+import { clearScopedLocalConfig } from '@/utils/config/ConfigHelpers';
 import StoreKeys from '@/utils/StoreMutations';
 import configSavingMixin from '@/mixins/ConfigSaving';
+import ConfirmDialog from '@/components/FormElements/ConfirmDialog';
 
 export default {
   name: 'KeyboardShortcutInfo',
   mixins: [configSavingMixin],
+  components: { ConfirmDialog },
   data() {
     return {
       shouldHide: true, // False = show/ true = hide. Intuitive, eh?
       timeDelay: 2000, // Short delay in ms before popup appears
+      showResetConfirm: false,
       popupContent: {
         title: '⚠️ You\'re using a local config',
         message: `This means that your settings are saved in this browser only,
@@ -40,24 +51,26 @@ export default {
   },
   methods: {
     exportConfig() {
-      this.$modal.show(modalNames.EXPORT_CONFIG_MENU);
+      this.$store.commit(StoreKeys.CONF_MENU_INDEX, 2);
+      this.$modal.show(modalNames.CONF_EDITOR);
       this.shouldHide = true;
     },
     saveConfig() {
-      const localConfig = this.$store.state.config;
-      this.writeConfigToDisk(localConfig);
+      this.writeConfigToDisk(this.$store.state.configSource);
       this.shouldHide = true;
     },
     resetLocalConfig() {
-      const msg = `${this.$t('config.reset-config-msg-l1')} `
-      + `${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
-      const isTheUserSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
-      if (isTheUserSure) {
-        localStorage.clear();
-        this.$toasted.show(this.$t('config.data-cleared-msg'));
-        this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG);
-        this.shouldHide = true;
-      }
+      this.showResetConfirm = true;
+    },
+    resetConfirmMessage() {
+      return `${this.$t('config.reset-config-msg-l1')} `
+        + `${this.$t('config.reset-config-msg-l2')}\n\n${this.$t('config.reset-config-msg-l3')}`;
+    },
+    confirmReset() {
+      clearScopedLocalConfig(this.$store.getters.pages);
+      this.$toast(this.$t('config.data-cleared-msg'));
+      this.$store.dispatch(StoreKeys.INITIALIZE_CONFIG);
+      this.shouldHide = true;
     },
     /**
      * Returns true if the key exists in session storage, otherwise false
@@ -90,9 +103,6 @@ export default {
     if (!shouldHide) {
       window.setTimeout(() => { this.shouldHide = shouldHide; }, this.timeDelay);
       window.addEventListener('keyup', this.keyPressEvent);
-    } else { // Meh, component not needed.
-      // No point wasting valuable bytes of your 32GB Ram, lets kill it
-      this.$destroy();
     }
   },
 };
@@ -172,7 +182,7 @@ export default {
 .slide-fade-leave-active {
   transition: all .8s cubic-bezier(.93,.01,.89,.5);
 }
-.slide-fade-enter, .slide-fade-leave-to {
+.slide-fade-enter-from, .slide-fade-leave-to {
   transform: translateY(35em);
   opacity: 0;
 }

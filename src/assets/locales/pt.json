@@ -44,11 +44,9 @@
     "logged-in-guest": "Logado como convidado. Redirecionando...",
     "error-guest-access": "O acesso como convidado não foi permitido"
   },
-
   "app-info": {
     "title": "Informação do App"
   },
-
   "config": {
     "main-tab": "Menu Principal",
     "view-config-tab": "Ver configuração",
@@ -60,7 +58,6 @@
     "edit-css-button": "Modificar CSS customizado",
     "cloud-sync-button": "Habilitar Cloud Sync",
     "edit-cloud-sync-button": "Modificar Cloud Sync",
-    "rebuild-app-button": "Recriar aplicação",
     "change-language-button": "Trocar idioma do app",
     "reset-settings-button": "Reset de configurações locais",
     "app-info-button": "Informação de App",
@@ -145,20 +142,6 @@
     "error-msg-bad-json": "Erro no JSON, possivelmente mal formatado",
     "warning-msg-validation": "Erro de validação",
     "not-admin-note": "Você não pode salvar essa mudança no disco. Você não está conectado como admin"
-  },
-  "app-rebuild": {
-    "title": "Recriar aplicativo",
-    "rebuild-note-l1": "É necessário recriar o aplicativo para que alterações no arquivo conf.yml tenham efeito.",
-    "rebuild-note-l2": "Isso deveria acontecer automaticamente, mas se não aconteceu você pode fazer manualmente aqui.",
-    "rebuild-note-l3": "Isso não é necessário para alterações locais",
-    "rebuild-button": "Começando construção",
-    "rebuilding-status-1": "Construindo...",
-    "rebuilding-status-2": "Isso pode levar alguns minutos",
-    "error-permission": "Você não tem permissão para acionar esta ação",
-    "success-msg": "Construção concluída com sucesso!",
-    "fail-msg": "Operação de construção falhou",
-    "reload-note": "Uma atualização da página é necessária para aplicar as alterações.",
-    "reload-button": "Atualizar página"
   },
   "cloud-sync": {
     "title": "Backup e restauração em nuvem",

@@ -17,7 +17,6 @@ const yaml = require('js-yaml');
 /* Import Express + middleware functions */
 const express = require('express');
 const basicAuth = require('express-basic-auth');
-const history = require('connect-history-api-fallback');
 
 /* Kick of some basic checks */
 require('./update-checker'); // Checks if there are any updates available, prints message
@@ -27,14 +26,20 @@ let config = require('./config-validator'); // Validate config file and load res
 /* Include route handlers for API endpoints */
 const statusCheck = require('./status-check'); // Used by the status check feature, uses GET
 const saveConfig = require('./save-config'); // Saves users new conf.yml to file-system
-const rebuild = require('./rebuild-app'); // A script to programmatically trigger a build
 const systemInfo = require('./system-info'); // Basic system info, for resource widget
 const sslServer = require('./ssl-server'); // TLS-enabled web server
 const corsProxy = require('./cors-proxy'); // Enables API requests to CORS-blocked services
 const getUser = require('./get-user'); // Enables server side user lookup
 
-/* Helper functions, and default config */
-const ENDPOINTS = require('../src/utils/defaults').serviceEndpoints; // API endpoint URL paths
+/* Service endpoint URL paths (see also serviceEndpoints in src/utils/config/defaults.js) */
+const ENDPOINTS = {
+  statusPing: '/status-ping',
+  statusCheck: '/status-check',
+  save: '/config-manager/save',
+  systemInfo: '/system-info',
+  corsProxy: '/cors-proxy',
+  getUser: '/get-user',
+};
 
 /* Indicates for the webpack config, that running as a server */
 process.env.IS_SERVER = 'True';
@@ -204,12 +209,6 @@ const app = express()
       respond(JSON.stringify({ success: false, message: String(e) }));
     });
   }))
-  // GET endpoint to trigger a build, and respond with success status and output
-  .use(ENDPOINTS.rebuild, protectConfig, requireAdmin, method('GET', (req, res) => {
-    rebuild()
-      .then((response) => safeEnd(res, JSON.stringify(response)))
-      .catch((e) => safeEnd(res, errBody(e)));
-  }))
   // GET endpoint to return system info, for widget
   .use(ENDPOINTS.systemInfo, protectConfig, method('GET', (req, res) => {
     try {
@@ -246,7 +245,6 @@ const app = express()
   .use(express.static(path.join(rootDir, process.env.USER_DATA_DIR || 'user-data')))
   .use(express.static(path.join(rootDir, 'dist')))
   .use(express.static(path.join(rootDir, 'public'), { index: 'initialization.html' }))
-  .use(history())
   // If no other route is matched, serve up the index.html with a 404 status
   .use((req, res) => {
     res.status(404).sendFile(path.join(rootDir, 'dist', 'index.html'), (err) => {

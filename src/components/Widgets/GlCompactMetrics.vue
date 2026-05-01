@@ -76,8 +76,8 @@
           </div>
           <div class="memory-details" v-if="m.key === 'mem' && detailData.mem">
             <small>
-              Used: {{ detailData.mem.used | formatSize }} /
-              Total: {{ detailData.mem.total | formatSize }}
+              Used: {{ formatSize(detailData.mem.used) }} /
+              Total: {{ formatSize(detailData.mem.total) }}
             </small>
           </div>
         </div>
@@ -89,7 +89,7 @@
               <div class="partition-path">{{ disk.mnt_point }}</div>
               <div class="partition-usage">
                 <span class="usage-text">
-                  {{ disk.used | formatSize }} / {{ disk.size | formatSize }}
+                  {{ formatSize(disk.used) }} / {{ formatSize(disk.size) }}
                 </span>
                 <span class="usage-percent" :class="usageClass(diskPercent(disk))">
                   ({{ diskPercent(disk) }}%)
@@ -154,18 +154,16 @@ export default {
       return '-';
     },
   },
-  filters: {
+  methods: {
     formatSize(bytes) {
       if (!bytes) return '0 Bytes';
       return convertBytes(bytes);
     },
-  },
-  methods: {
     fetchData() {
       this.systems.forEach((system) => {
         if (!this.metricsData[system.url]) {
-          this.$set(this.metricsData, system.url, {});
-          this.$set(this.errors, system.url, false);
+          this.metricsData[system.url] = {};
+          this.errors[system.url] = false;
         }
       });
       this.fetchAllMetrics();
@@ -214,12 +212,12 @@ export default {
           this.makeSystemUrl(url, 'all'),
         );
         this.processMetricsData(url, data);
-        this.$set(this.errors, url, false);
+        this.errors[url] = false;
         if (this.selectedSystem && this.selectedSystem.url === url) {
           this.detailData = data;
         }
-      } catch (_) {
-        this.$set(this.errors, url, true);
+      } catch {
+        this.errors[url] = true;
         if (this.selectedSystem && this.selectedSystem.url === url) {
           this.detailData = {};
         }
@@ -242,7 +240,7 @@ export default {
         processed.disk = totalSize > 0
           ? Math.round((totalUsed / totalSize) * 100) : 0;
       }
-      this.$set(this.metricsData, systemUrl, processed);
+      this.metricsData[systemUrl] = processed;
     },
 
     getMetricValue(systemUrl, metric) {
@@ -290,9 +288,9 @@ export default {
           this.makeSystemUrl(system.url, 'all'),
         );
         this.detailData = data;
-        this.$set(this.errors, system.url, false);
-      } catch (_) {
-        this.$set(this.errors, system.url, true);
+        this.errors[system.url] = false;
+      } catch {
+        this.errors[system.url] = true;
         this.detailData = {};
       }
     },

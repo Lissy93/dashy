@@ -7,24 +7,16 @@
         <label :for="`color-input-${colorName}`" class="color-name">
           {{colorName.replaceAll('-', ' ')}}
         </label>
-        <v-swatches
+        <input
           v-if="isColor(colorName, customColors[colorName])"
-          v-model="customColors[colorName]"
-          show-fallback
-          fallback-input-type="color"
-          popover-x="left"
-          :swatches="swatches"
-          @input="setVariable(colorName, customColors[colorName])"
-        >
-          <input
-            :id="`color-input-${colorName}`"
-            slot="trigger"
-            :value="customColors[colorName]"
-            class="swatch-input form__input__element"
-            readonly
-            :style="makeSwatchStyles(colorName)"
-          />
-        </v-swatches>
+          :id="`color-input-${colorName}`"
+          type="color"
+          :value="customColors[colorName]"
+          class="swatch-input form__input__element"
+          :style="makeSwatchStyles(colorName)"
+          @input="customColors[colorName] = $event.target.value;
+            setVariable(colorName, $event.target.value)"
+        />
         <input v-else
           :id="`color-input-${colorName}`"
           v-model="customColors[colorName]"
@@ -59,10 +51,7 @@
 </template>
 
 <script>
-import VSwatches from 'vue-swatches';
-import 'vue-swatches/dist/vue-swatches.css';
-import StoreKeys from '@/utils/StoreMutations';
-import { localStorageKeys, mainCssVars, swatches } from '@/utils/defaults';
+import { localStorageKeys, mainCssVars } from '@/utils/config/defaults';
 import Button from '@/components/FormElements/Button';
 import SaveIcon from '@/assets/interface-icons/save-config.svg';
 import CancelIcon from '@/assets/interface-icons/config-cancel.svg';
@@ -70,7 +59,6 @@ import CancelIcon from '@/assets/interface-icons/config-cancel.svg';
 export default {
   name: 'ThemeMaker',
   components: {
-    VSwatches,
     Button,
     SaveIcon,
     CancelIcon,
@@ -79,12 +67,12 @@ export default {
     return {
       customColors: this.makeInitialData(mainCssVars),
       showingAllVars: false,
-      swatches,
     };
   },
   props: {
-    themeToEdit: String,
+    themeToEdit: { type: String, required: true },
   },
+  emits: ['closeThemeConfigurator'],
   methods: {
     /* Finds the current dominent value for a given CSS variable */
     getCssVariableValue(cssVar) {
@@ -94,13 +82,14 @@ export default {
     setVariable(variable, value) {
       document.documentElement.style.setProperty(`--${variable}`, value);
     },
-    /* Updates browser storage, and srore with new color settings, and shows success msg */
+    /* Persist new color settings to localStorage and notify user */
     saveChanges() {
-      const priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
+      let priorSettings = {};
+      try { priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}'); }
+      catch { /* ignore corrupt data */ }
       priorSettings[this.themeToEdit] = this.customColors;
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
-      this.$store.commit(StoreKeys.SET_CUSTOM_COLORS, priorSettings);
-      this.$toasted.show(this.$t('theme-maker.saved-toast', { theme: this.themeToEdit }));
+      this.$toast(this.$t('theme-maker.saved-toast', { theme: this.themeToEdit }));
       this.$emit('closeThemeConfigurator');
     },
     /* Itterates over available variables, removing them from the DOM */
@@ -114,11 +103,13 @@ export default {
     },
     /* Resets styles, and removes data for current theme from local storage */
     resetAndSave() {
-      const priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}');
+      let priorSettings = {};
+      try { priorSettings = JSON.parse(localStorage[localStorageKeys.CUSTOM_COLORS] || '{}'); }
+      catch { /* ignore corrupt data */ }
       delete priorSettings[this.themeToEdit];
       localStorage.setItem(localStorageKeys.CUSTOM_COLORS, JSON.stringify(priorSettings));
       this.resetUnsavedColors();
-      this.$toasted.show(this.$t('theme-maker.reset-toast', { theme: this.themeToEdit }));
+      this.$toast(this.$t('theme-maker.reset-toast', { theme: this.themeToEdit }));
     },
     /* Generates CSS for the currently applied variables, and copys to users clipboard */
     exportToClipboard() {
@@ -128,7 +119,7 @@ export default {
         clipboardText += (`--${customVar}: ${this.customColors[customVar]};\n`);
       });
       navigator.clipboard.writeText(clipboardText);
-      this.$toasted.show(this.$t('theme-maker.copied-toast', { theme: themeName }));
+      this.$toast(this.$t('theme-maker.copied-toast', { theme: themeName }));
     },
     /* Returns a JSON object, with the variable name as key, and color as value */
     makeInitialData(variableArray) {

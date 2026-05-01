@@ -8,27 +8,41 @@
 ## Contents
 
 - [Config not saving](#config-not-saving)
-- [Unable to write conf.yml: EACCES: permission denied](#unable-to-write-confyml-eacces-permission-denied)
+  - [Permission denied or read-only filesystem](#permission-denied-or-read-only-filesystem-eacces-erofs)
+  - [Kubernetes ConfigMap mount is read-only](#kubernetes-configmap-mount-is-read-only)
+  - [SELinux or AppArmor blocks the write](#selinux-or-apparmor-blocks-the-write)
+  - [Backup step fails so save aborts](#backup-step-fails-so-save-aborts)
+  - [Save button is missing or returns 403](#save-button-is-missing-or-returns-403-forbidden)
+  - [Save unavailable on Vercel, Netlify or other static hosts](#save-unavailable-on-vercel-netlify-or-other-static-hosts)
+  - [/config-manager/save returns 404 or HTML](#config-managersave-returns-404-or-html)
+  - ["Invalid filename" when saving a sub-page](#invalid-filename-when-saving-a-sub-page)
+  - ["Cannot save to an external URL"](#cannot-save-to-an-external-url)
+  - [Saved successfully but the UI shows the old config](#saved-successfully-but-the-ui-shows-the-old-config)
+  - [Container crashes or restart loop after saving](#container-crashes-or-restart-loop-after-saving-310-and-311-only)
+  - [Intentionally read-only mode](#intentionally-read-only-mode)
 - [Refused to Connect in Web Content View](#refused-to-connect-in-modal-or-workspace-view)
 - [404 On Static Hosting](#404-on-static-hosting)
 - [404 from Mobile Home Screen](#404-after-launch-from-mobile-home-screen)
 - [404 On Multi-Page Apps](#404-on-multi-page-apps)
+- [Dashy hosted at a sub-path](#dashy-hosted-at-a-sub-path-eg-examplecomdashy)
+- [Sub-page shows "Unable to find config for ..."](#sub-page-shows-unable-to-find-config-for-)
+- [Sub-page missing from nav, or won't open when clicked](#sub-page-missing-from-nav-or-wont-open-when-clicked)
+- [Sub-page ignores its theme, layout or appConfig](#sub-page-ignores-its-theme-layout-or-appconfig)
+- [Sub-config files return 404](#sub-config-files-return-404)
 - [Yarn Build or Run Error](#yarn-error)
+- [`yarn build` fails inside the container](#yarn-build-fails-inside-the-container)
 - [Remote Config Not Loading](#remote-config-not-loading)
 - [High CPU or RAM Usage on Startup](#high-cpu-or-ram-usage-on-startup)
 - [Heap limit Allocation failed](#ineffective-mark-compacts-near-heap-limit-allocation-failed)
 - [Command failed with signal "SIGKILL"](#command-failed-with-signal-sigkill)
-- [Container Crashes or Restart Loop After Saving Config](#container-crashes-or-restart-loop-after-saving-config)
 - [Auth Validation Error: "should be object"](#auth-validation-error-should-be-object)
 - [App Not Starting After Update to 2.0.4](#app-not-starting-after-update-to-204)
 - [Keycloak Redirect Error](#keycloak-redirect-error)
 - [OIDC or Keycloak failure on numeric client IDs](#oidc-or-keycloak-failure-on-numeric-client-ids)
-- [Docker Directory Error](#docker-directory)
-- [Config not Saving on Vercel / Netlify / CDN](#config-not-saving-on-vercel--netlify--cdn)
-- [Config Not Updating](#config-not-updating)
-- [Config Still not Updating](#config-still-not-updating)
+- [Mount Type Mismatch](#mount-type-mismatch)
 - [Styles and Assets not Updating](#styles-and-assets-not-updating)
 - [DockerHub toomanyrequests](#dockerhub-toomanyrequests)
+- [Old image tags fail to pull](#old-image-tags-fail-to-pull)
 - [Config Validation Errors](#config-validation-errors)
 - [Node Sass unsupported environment](#node-sass-does-not-yet-support-your-current-environment)
 - [Unreachable Code Error](#unreachable-code-error)
@@ -47,7 +61,6 @@
 - [Widget Displaying Inaccurate Data](#widget-displaying-inaccurate-data)
 - [Font Awesome Icons not Displaying](#font-awesome-icons-not-displaying)
 - [Copy to Clipboard not Working](#copy-to-clipboard-not-working)
-- [Unsupported Digital Envelope Routines](#unsupported-digital-envelope-routines)
 - [How to Reset Local Settings](#how-to-reset-local-settings)
 - [How to make a bug report](#how-to-make-a-bug-report)
 - [Public IP Widget not working for ipinfo or ipquery providers](#public-ip-widget-not-working-for-ipinfo-or-ipquery-providers)
@@ -58,43 +71,111 @@
 
 ## Config not saving
 
-### Possible Issue 1: Unable to call save endpoint from CDN/static server
-If you're running Dashy using a static hosting provider (like Vercel), then there is no Node server, and so the save config action will not work via the UI.
-You'll instead need to copy the YAML after making your changes, and paste that into your `conf.yml` directly. If you've connected Vercel to git, then these changes will take effect automatically, once you commit your changes. 
-Look here for more information: [https://dashy.to/docs/deployment#deploy-to-cloud-service](https://dashy.to/docs/deployment#deploy-to-cloud-service)
+There should be an error message, explaining the reason the config save failed. First check [browser console](#how-to-open-browser-console) (<kbd>F12</kbd> --> Console), and then your server-side logs in the terminal. Then, see the following sections for solutions to each possible error.
 
-If you're running on Netlify, there are some cloud functions which take care of all the server endpoints (like status checking), so these will work as expected.
+<a id="config-not-saving-on-vercel--netlify--cdn"></a>
+<a id="possible-issue-1-unable-to-call-save-endpoint-from-cdnstatic-server"></a>
+<a id="unable-to-write-confyml-eacces-permission-denied"></a>
+<a id="permission-denied-saving-config"></a>
+<a id="possible-issue-2-unable-to-save"></a>
+<a id="config-not-updating"></a>
+<a id="config-still-not-updating"></a>
+<a id="possible-issue-3-saved-but-not-updating"></a>
 
-See also [#1465](https://github.com/Lissy93/dashy/issues/1465)
+### Permission denied or read-only filesystem (EACCES, EROFS)
 
-### Possible Issue 2: Unable to save
-In Docker, double check that the file isn't read-only, and that the container actually has permissions to modify it. You shouldn't really be running it as a root user, and I'm not sure if it will work if you do-
+The container can't write to your `conf.yml` or its directory. Almost always an ownership mismatch: the host directory belongs to a different uid than the one Dashy runs as inside the container. Less commonly a read-only mount or an over-strict file mode.
 
-### Possible Issue 3: Saved but not updating
-After saving, the frontend will recompile, which may take a couple seconds (or a bit longer on a Pi or low-powered device). If it doesn't recompile, you can manually trigger a re-build.
+Dashy runs as UID=1000 (default non-root node user). You can see this by running `docker exec -it dashy id`. Then, check who owns the user-data directory, with: `docker exec -it dashy ls -la /app/user-data` - if it's not `1000` then that's the issue. And the solution is just to run `sudo chown -R 1000:1000 /path/to/your/user-data` to set the right owner.
 
----
+Fixes:
+1. **Hand the directory to uid 1000** (recommended). Keeps the container running as a non-root user, which is how Dashy is built to run `sudo chown -R 1000:1000 /path/to/your/user-data`
+2. **Run the container as your own user** if `chown` isn't practical (multi-user hosts, NAS appliances, host directories you don't want relabelled). Add `--user $(id -u):$(id -g)` to `docker run`, or set `user: "1000:1000"` (or your host uid:gid) on the service in `docker-compose.yml`.
+3. **Loosen a single-file mount** if its mode is `444`. Narrow case, only fixes that one symptom: `chmod 644 /path/to/conf.yml`
 
-## Unable to write conf.yml: `EACCES: permission denied`
+**Common mistakes**
+- **Using uid/gid 1001.** A common guess on Synology, Unraid and similar where 1001 is the host's first user. Dashy's container is 1000, not 1001.
+- **`chmod` alone for a UID mismatch.** Loosens permissions but doesn't change who owns the file. You need `chown`.
+- **`chmod -R 777` or `775`.** Works as a workaround, masks the real problem, weakens security. Use `chown` to the right uid instead.
 
-Most commonly the `conf.yml` file itself is mounted read-only, or its mode is `444`. Make it writable on the host:
+**Other gotchas:**
+- **Named Docker volumes** (created with `docker volume create`) inherit ownership from whatever first writes to them. If an older container set them up as root, the diagnose step will show that. Recreate the volume or `chown` the underlying directory under `/var/lib/docker/volumes/`.
+- **macOS hosts** rarely hit this. Docker Desktop transparently maps host uid to container uid through its VM. If saves are failing on macOS, look elsewhere first.
+- **Storage layers that ignore POSIX permissions** (some NAS app-data folders use FUSE, SMB or overlay mounts where `chmod` and `chgrp` are silent no-ops). Bind-mount user-data from a native filesystem path instead.
+
+### Kubernetes ConfigMap mount is read-only
+
+If you've mounted your `conf.yml` from a ConfigMap, writes will always fail with `EROFS` regardless of UID. ConfigMap volumes are read-only by design. Either treat the ConfigMap as the source of truth and edit it directly (saves through the UI won't work), or use a writable volume type like a `PersistentVolumeClaim` for `user-data/`.
+
+### SELinux or AppArmor blocks the write
+
+If you're on RHEL/Fedora, or systems with SELinux or AppArmour, and you've confirmed permissions are fine, and container's UID matches the host owner, but you still see `EACCES`.
+
+For SELinux, add the `:Z` flag to your volume mount so Docker relabels it for the container (e.g. `volumes: [ './user-data:/app/user-data:Z' ]`)
+
+For AppArmor, check `dmesg` for `apparmor="DENIED"` lines and adjust the profile. Disabling enforcement is a last resort.
+
+### Backup step fails so save aborts
+
+Before each save, Dashy backs up the current `conf.yml` to `user-data/config-backups/`. If that folder can't be written, the whole save aborts with `Unable to backup conf.yml`.
+
+Two ways out:
+1. Point `BACKUP_DIR` at a writable path
+2. Set `DISABLE_CONFIG_BACKUPS=true` to skip the backup step entirely
+
+### Save button is missing or returns 403 Forbidden
+
+Have you got auth setup? If so, make sure you are logged in as an admin, or set `type: admin` to your user in `conf.yml`.
+
+Beyond that, there's several other config options which prevent saving the config file, so if you didn't mean to add them, just remove from `conf.yml`
+- **`appConfig.preventWriteToDisk: true`** disables disk save and the button
+- **`appConfig.preventLocalSave: true`** disables the "Local" save option
+- **`appConfig.disableConfiguration: true`** hides the editor entirely. `disableConfigurationForNonAdmin: true` does the same just for non-admins.
+
+### Save unavailable on Vercel, Netlify or other static hosts
+Updating source config file on static hosts is not possible, since they have no Node server, nor have write access to modify any files.
+The "Local" save mode will still work (changes are just persisted in your browser), but the real solution is to copy/export the updated YAML and replace it in the source config file in your repo.
+
+Related: [#1465](https://github.com/Lissy93/dashy/issues/1465).
+
+### `/config-manager/save` returns 404 or HTML
+How are you running/serving Dashy?
+If you've got a reverse proxy which only forwards specific path prefixes then maybe you're missing the `/config-manager/*` API endpoints?
+Check the failed request in the browser's Network tab. If the response is HTML (a proxy error page) or a plain 404, your proxy isn't routing the path. Add `/config-manager/` to whatever you're forwarding, or simplify the rules so everything reaches Dashy.
+
+Or if you're serving up the compiled Vue app directly, instead of using the Node server, then the endpoint won't be available.
+
+### "Invalid filename" when saving a sub-page
+
+The save endpoint rejects sub-page filenames with path separators or non-yaml extensions. Check the `path:` value of the page in your `pages:` block. It needs to be a plain basename like `home.yml`, not `pages/home.yml` or `home.txt`.
+
+### "Cannot save to an external URL"
+
+The sub-page you are editing is loaded from a remote URL. Dashy can't write back to that URL.
+You will need to edit the file at it's origin yourself instead (click the Export to view the YAML).
+Or you could download the config to `user-data/something.yml`, and update `path:` to point to the local version.
+
+### Saved successfully but the UI shows the old config
+
+Two unrelated causes share this symptom:
+
+1. **Local storage overrides the file.** Dashy lets users save settings locally in browser storage, which take priority over `conf.yml`. Open Dashy in incognito to confirm. If the changes appear there, clear local settings via Config menu > "Clear Local Settings".
+2. **Docker isn't picking up file changes.** Some text editors save by replacing the inode, which breaks single-file bind mounts. Edit the file in place, or mount the parent directory rather than the single file. [More background](https://medium.com/@jonsbun/why-need-to-be-careful-when-mounting-single-files-into-a-docker-container-4f929340834).
+
+<a id="container-crashes-or-restart-loop-after-saving-config"></a>
+
+### Container crashes or restart loop after saving (3.1.0 and 3.1.1 only)
+
+If your container crashes or restart-loops right after clicking save, with logs like `ERR_HTTP_HEADERS_SENT` or `ERR_STREAM_WRITE_AFTER_END`, this was a known double-`res.end()` bug in 3.1.0 and 3.1.1. Fixed in v3.2.13 and later.
 
 ```bash
-chmod 644 /path/to/your/conf.yml
+docker pull lissy93/dashy:latest
+docker compose up -d --force-recreate
 ```
 
-As for backups, Dashy creates a timestamped backup of the existing config in `user-data/config-backups/` before writing the new one. If the host filesystem prevents that copy (read-only mount, wrong UID/GID, no execute bit on the parent directory), the save aborts before touching the live config.
+### Intentionally read-only mode
 
-Check that the user-data volume is writable by the container user:
-
-```bash
-docker exec -it dashy id
-docker exec -it dashy ls -la /app/user-data
-```
-
-If you bind-mount from the host, make sure the host directory is owned by the container's UID (or world-writable). You can also override the backup location with the `BACKUP_DIR` env var.
-
-And, if you intentionally want a read-only config and don't want users to even attempt saves, set `appConfig.preventWriteToDisk: true` in `conf.yml` - Dashy will then disable both the endpoint, and the save button itself, to make the experience more explicit.
+To stop anyone saving from the UI, set `appConfig.preventWriteToDisk: true` in `conf.yml`. This disables the endpoint and the save button. For Docker users, you can harden things further, by mounting the config and all user-data as read-only.
 
 ---
 
@@ -149,16 +230,16 @@ Content-Security-Policy: frame-ancestors 'self' https://[dashy-location]/
 
 If you're seeing Dashy's 404 page on initial load/ refresh, and then the main app when you go back to Home, then this is likely caused by the Vue router, and if so can be fixed in one of two ways.
 
-The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set.
+The first solution is to switch the routing mode, from HTML5 `history` mode to `hash` mode, by rebuilding Dashy with the `VITE_APP_ROUTING_MODE=hash` build-time environment variable set.
 
-If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `VUE_APP_ROUTING_MODE=history` (the default) again, for neater URLs.
+If this works, but you wish to continue using HTML5 history mode, then a bit of extra [server configuration](/docs/management.md#web-server-configuration) is required. This is explained in more detaail in the [Vue Docs](https://router.vuejs.org/guide/essentials/history-mode.html). Once completed, you can then use `VITE_APP_ROUTING_MODE=history` (the default) again, for neater URLs.
 
 ---
 
 ## 404 after Launch from Mobile Home Screen
 
 Similar to the above issue, if you get a 404 after using iOS and Android's "Add to Home Screen" feature, then this is caused by Vue router.
-It can be fixed by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set.
+It can be fixed by rebuilding Dashy with the `VITE_APP_ROUTING_MODE=hash` build-time environment variable set.
 
 See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://github.com/Lissy93/dashy/issues/762)
 
@@ -166,9 +247,81 @@ See also: [#628](https://github.com/Lissy93/dashy/issues/628), [#762](https://gi
 
 ## 404 On Multi-Page Apps
 
-Similar to above, if you get a 404 error when visiting a page directly on multi-page apps, then this can be fixed by rebuilding Dashy with the `VUE_APP_ROUTING_MODE=hash` build-time environment variable set, then refreshing the page.
+Similar to above, if you get a 404 error when visiting a page directly on multi-page apps, then this can be fixed by rebuilding Dashy with the `VITE_APP_ROUTING_MODE=hash` build-time environment variable set, then refreshing the page.
 
 See also: [#670](https://github.com/Lissy93/dashy/issues/670), [#763](https://github.com/Lissy93/dashy/issues/763)
+
+---
+
+## Dashy hosted at a sub-path (e.g. `example.com/dashy`)
+
+If the homepage works but sub-page links 404, or assets fail to load, it's almost always the base path.
+Rebuild with `BASE_URL` set to the sub-path - leading slash, no trailing slash:
+
+Vue Router uses this to prefix every route. Without it, links resolve to `/home/...` instead of `/dashy/home/...` and skip your reverse proxy altogether. More detail in [web-server configuration](/docs/management.md#web-server-configuration).
+
+---
+
+## Sub-page shows "Unable to find config for ..."
+
+This means Dashy couldn't match the URL segment to any entry in your `pages:` list. A few causes:
+
+### Old bookmark from before an upgrade
+Slugs are now trimmed more aggressively (e.g. `🌐 Command Center` used to give `-command-center`, now gives `command-center`). Re-bookmark from the nav, or update the URL by hand.
+
+### The page was renamed or removed
+The URL no longer resolves to anything. Check the `pages:` array in `conf.yml` and confirm the sub-page still exists.
+
+### The path points at an unreachable file
+If the sub-config YAML can't be fetched (404, CORS, auth), you'll see "Unable to load config from ..." instead. Verify the `path:` is correct, reachable from the browser, and CORS-open if remote.
+
+### Page name literally "Main"
+`main` is reserved in the URL scheme to mean "the root config". A page named "Main" becomes reachable at `/home/main-page` (not `/home/main`). Rename the page if that's confusing.
+
+### Service worker is serving a stale app
+Hard-refresh (<kbd>Ctrl</kbd> + <kbd>F5</kbd>) after a major upgrade. The PWA cache may still be pointing at old routes. Also see [Styles and Assets not Updating](#styles-and-assets-not-updating).
+
+---
+
+## Sub-page missing from nav, or won't open when clicked
+
+If page defined in `pages:` is nowhere in the nav bar, or its link goes to a different page, then there's probably something wrong with the name you chose. Note that Dashy strips out any non-alphanumeric characters.
+- Ensure each page does have a valid `name` and `path` field
+- Check two pages don't have the same/similar name
+- Check each page has a name which has at least some alpha-numeric characters
+- Very long names could be being stripped/truncated
+
+---
+
+## Sub-page ignores its theme, layout or appConfig
+
+This is by design. Only the `appConfig` from your root `conf.yml` is used - theme, layout, iconSize, statusCheck, etc. are inherited globally so behaviour stays consistent across pages.
+
+If you put `appConfig` inside a sub-page YAML, it's silently dropped on load. Move the values to the root config. See [Restrictions](/docs/pages-and-sections.md#restrictions).
+
+---
+
+## Sub-config files return 404
+
+If your `conf.yml` references additional pages via `pages:` and the browser shows `Sub-config load failed: /something.yml`, the cause is almost always a Docker mount that only exposes `conf.yml` and not the rest of `user-data/`.
+
+If you've done this:
+
+```yaml
+volumes:
+  - ./my-conf.yml:/app/user-data/conf.yml
+```
+
+Only `conf.yml` exists inside the container. Anything it references (sub-configs, custom icons, fonts, CSS) isn't there.
+
+Mount the directory instead:
+
+```yaml
+volumes:
+  - ./user-data:/app/user-data
+```
+
+Now everything in your `user-data` folder is reachable at the web root. Same applies to `docker run -v`.
 
 ---
 
@@ -189,6 +342,16 @@ Alternatively, as a workaround, you have several options:
 
 - Try using [NPM](https://www.npmjs.com/get-npm) instead: So clone, cd, then run `npm install`, `npm run build` and `npm start`
 - Try using [Docker](https://www.docker.com/get-started) instead, and all of the system setup and dependencies will already be taken care of. So from within the directory, just run `docker build -t lissy93/dashy .` to build, and then use docker start to run the project, e.g: `docker run -it -p 8080:8080 lissy93/dashy` (see the [deploying docs](https://github.com/Lissy93/dashy/blob/master/docs/deployment.md#deploy-with-docker) for more info)
+
+---
+
+## `yarn build` fails inside the container
+
+If you run `docker exec <container> yarn build` and get `vite: not found` (or similar), it's because the published image ships only production dependencies. The build toolchain (vite, vue-tsc, sass, etc.) lives in `devDependencies` and isn't installed in the runtime image.
+
+You almost certainly don't need to rebuild. Dashy's Express server reads `user-data/conf.yml` on every request, so config changes show up on a page refresh, no rebuild required.
+
+If you genuinely need a fresh build (you've patched something in `src/`), do it on the host with `yarn install && yarn build`, or build a custom image from a checkout of the repo.
 
 ---
 
@@ -213,7 +376,7 @@ When the Dashy container first starts, it runs a Vue production build in paralle
 
 **To work around it:**
 
-1. **Allocate at least 1 GB of RAM to the container** — 2 GB is recommended on Raspberry Pi or low-powered VMs. Anything below 512 MB is unlikely to complete the first build.
+1. **Allocate at least 1 GB of RAM to the container** - 2 GB is recommended on Raspberry Pi or low-powered VMs. Anything below 512 MB is unlikely to complete the first build.
 2. **Set explicit Docker resource limits** so the build can't starve other services on the same host:
    ```yaml
    services:
@@ -225,8 +388,8 @@ When the Dashy container first starts, it runs a Vue production build in paralle
              memory: 2g
              cpus: '1.5'
    ```
-3. **Wait it out** — once the build completes, idle CPU drops to near zero and idle RAM is typically under 100 MB. If you watch `docker stats`, you'll see the spike taper off.
-4. If the spike never tapers (i.e., Dashy stays at 100% CPU forever and never serves the page), see [Heap limit Allocation failed](#ineffective-mark-compacts-near-heap-limit-allocation-failed) below — that usually means the build was killed mid-way and is being retried.
+3. **Wait it out** - once the build completes, idle CPU drops to near zero and idle RAM is typically under 100 MB. If you watch `docker stats`, you'll see the spike taper off.
+4. If the spike never tapers (i.e., Dashy stays at 100% CPU forever and never serves the page), see [Heap limit Allocation failed](#ineffective-mark-compacts-near-heap-limit-allocation-failed) below - that usually means the build was killed mid-way and is being retried.
 
 See also: [#1585](https://github.com/Lissy93/dashy/issues/1585), [#969](https://github.com/Lissy93/dashy/issues/969), [#1500](https://github.com/Lissy93/dashy/issues/1500), [#877](https://github.com/Lissy93/dashy/issues/877)
 
@@ -257,36 +420,6 @@ See also: [#380](https://github.com/Lissy93/dashy/issues/380), [#350](https://gi
 In Docker, this can be caused by not enough memory. When the container first starts up, or has to rebuild, the memory usage spikes, and so a larger allocation may be required. This can be specified with, for example: `--memory=1024m`. For more info, see [Docker: Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/)
 
 See also [#624](https://github.com/Lissy93/dashy/issues/624)
-
----
-
-## Container Crashes or Restart Loop After Saving Config
-
-If your Dashy container crashes or enters a restart loop the moment you click **Save to Disk** in the editor — particularly with logs that include something like:
-
-```text
-node:_http_outgoing:652
-    throw new ERR_HTTP_HEADERS_SENT('set');
-```
-
-or:
-
-```text
-Error [ERR_STREAM_WRITE_AFTER_END]: write after end
-```
-
-This was a known crash in Dashy 3.1.0 and 3.1.1 where a partial-failure code path in the save handler would call `res.end()` twice on the same response, causing Node to throw an unhandled rejection and exit the process. Docker would then restart the container, the user would save again, and the loop repeated. Several users also reported it was reliably triggered by entering edit mode while `statusCheck: true` was set, because the periodic background traffic increased the chance of overlapping responses.
-
-**This is fixed in v3.2.13 and later**
-
-```bash
-docker pull lissy93/dashy:latest
-docker compose up -d --force-recreate
-```
-
-If you can't upgrade right away, the temporary workaround that worked for affected users is to set `statusCheck: false` under `appConfig` in your `conf.yml`. This reduces the trigger frequency without changing the underlying bug.
-
-See also: [#1945](https://github.com/Lissy93/dashy/issues/1945), [#1935](https://github.com/Lissy93/dashy/issues/1935), [#1494](https://github.com/Lissy93/dashy/issues/1494)
 
 ---
 
@@ -358,7 +491,7 @@ See also: #479, #409, #507, #491, #341, #520
 
 If your IdP rejects the login with an *"invalid client"* / *"client not found"* error, and your `clientId` is a long numeric value, the cause is almost certainly YAML number parsing.
 
-YAML parses unquoted numeric tokens as Numbers, and JavaScript can't represent integers larger than 2^53 (~16 digits) without losing precision. So an unquoted numeric `clientId` will be silently truncated (e.g. `918756876419824312` → `918756876419824300`), or — for very large values — converted to scientific notation (e.g. `9.187568764198242e+37`), and the IdP will reject it.
+YAML parses unquoted numeric tokens as Numbers, and JavaScript can't represent integers larger than 2^53 (~16 digits) without losing precision. So an unquoted numeric `clientId` will be silently truncated (e.g. `918756876419824312` → `918756876419824300`), or - for very large values - converted to scientific notation (e.g. `9.187568764198242e+37`), and the IdP will reject it.
 
 The fix is to wrap the `clientId` in quotes in your `conf.yml` so it gets parsed as a string:
 
@@ -377,41 +510,24 @@ See also: #1941
 
 ---
 
-## Docker Directory
+## Mount Type Mismatch
 
 ```text
-Error response from daemon: OCI runtime create failed: container_linux.go:380:
-starting container process caused: process_linux.go:545: container init caused:
-rootfs_linux.go:76: mounting "/home/ubuntu/my-conf.yml" to rootfs at
-"/app/user-data/conf.yml" caused: mount through procfd: not a directory:
-unknown: Are you trying to mount a directory onto a file (or vice-versa)?
-Check if the specified host path exists and is the expected type.
+Error response from daemon: ... mount through procfd: not a directory:
+Are you trying to mount a directory onto a file (or vice-versa)?
 ```
 
-If you get an error similar to the one above, you are mounting a directory to the config file's location, when a plain file is expected. Create a YAML file, (`touch my-conf.yml`), populate it with a sample config, then pass it as a volume: `-v ./my-local-conf.yml:/app/user-data/conf.yml`
+This means the host side and container side of your volume don't agree on whether the target is a file or a directory.
 
----
+Recommended pattern: mount a host directory onto `/app/user-data`. The directory must exist on the host and contain at least a `conf.yml`:
 
-## Config not Saving on Vercel / Netlify / CDN
+```bash
+mkdir -p ~/dashy-data
+cp /path/to/your/conf.yml ~/dashy-data/conf.yml
+docker run -d -p 8080:8080 -v ~/dashy-data:/app/user-data lissy93/dashy:latest
+```
 
-If you're running Dashy using a static hosting provider (like Vercel), then there is no Node server, and so the save config action will not work via the UI.
-You'll instead need to copy the YAML after making your changes, and paste that into your `conf.yml` directly. If you've connected Vercel to git, then these changes will take effect automatically, once you commit your changes.
-
-If you're running on Netlify, there are some cloud functions which take care of all the server endpoints (like status checking), so these will work as expected.
-
-See also [#1465](https://github.com/Lissy93/dashy/issues/1465)
-
----
-
-## Config Not Updating
-
-Dashy has the option to save settings and config locally, in browser storage. Anything here will take precedence over whatever is in your config file, sometimes with unintended consequences. If you've updated the config file manually, and are not seeing changes reflected in the UI, then try visiting the site in Incognito mode. If that works, then the solution is just to clear local storage. This can be done from the config menu, under "Clear Local Settings".
-
----
-
-## Config Still not Updating
-
-Sometimes your text editor updates files [inode](https://linuxhandbook.com/inode-linux/), meaning changes will not be picked up by the Docker container. This [article](https://medium.com/@jonsbun/why-need-to-be-careful-when-mounting-single-files-into-a-docker-container-4f929340834) explains things further.
+If you'd rather mount a single file (`-v ~/conf.yml:/app/user-data/conf.yml`), the host path must be a file that already exists, otherwise Docker creates a directory in its place and you'll see this error.
 
 ---
 
@@ -452,11 +568,25 @@ You can [check your rate limit status](https://www.docker.com/blog/checking-your
 
 ---
 
+## Old image tags fail to pull
+
+If `docker pull` returns `manifest unknown` or `manifest for lissy93/dashy:arm32v7 not found`, the cause is a stale architecture-specific tag in your compose file or run command. Tags like `:arm32v7`, `:arm64v8`, and `:multi-arch` are no longer published.
+
+The `:latest` tag is now multi-arch and works on amd64, arm64, and arm/v7 (Raspberry Pi 2 and up) without you having to pick a variant. Just use:
+
+```yaml
+image: lissy93/dashy:latest
+```
+
+Docker fetches the right architecture for your host automatically. To pin a version, use a semver tag, e.g. `lissy93/dashy:3.2.14`.
+
+---
+
 ## Config Validation Errors
 
-The configuration file is validated against [Dashy's Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json) using AJV.
+The configuration file is validated against [Dashy's Schema](https://github.com/Lissy93/dashy/blob/master/src/utils/config/ConfigSchema.json) using AJV.
 
-First, check that your syntax is valid, using [YAML Validator](https://codebeautify.org/yaml-validator/) or [JSON Validator](https://codebeautify.org/jsonvalidator). If the issue persists, then take a look at the [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/ConfigSchema.json), and verify that the field you are trying to add/ modify matches the required format. You can also use [this tool](https://www.jsonschemavalidator.net/s/JFUj7X9J) to validate your JSON config against the schema, or run `yarn validate-config`.
+First, check that your syntax is valid, using [YAML Validator](https://codebeautify.org/yaml-validator/) or [JSON Validator](https://codebeautify.org/jsonvalidator). If the issue persists, then take a look at the [schema](https://github.com/Lissy93/dashy/blob/master/src/utils/config/ConfigSchema.json), and verify that the field you are trying to add/ modify matches the required format. You can also use [this tool](https://www.jsonschemavalidator.net/s/JFUj7X9J) to validate your JSON config against the schema, or run `yarn validate-config`.
 
 If you're trying to use a recently released feature, and are getting a warning, this is likely because you've not yet updated the the current latest version of Dashy.
 
@@ -539,7 +669,7 @@ If you're serving Dashy though a CDN, instead of using the Node server or Docker
 
 ## Healthcheck Failing in Docker
 
-If `docker ps` shows the Dashy container as `unhealthy`, it means the periodic healthcheck (`yarn health-check`, run every 5 minutes by default) couldn't reach the local server.
+If `docker ps` shows the Dashy container as `unhealthy`, the periodic healthcheck (`node services/healthcheck.js`, run every 5 minutes by default) couldn't reach the local server.
 
 ### SSL-enabled Dashy
 
@@ -549,9 +679,9 @@ The healthcheck reads the same cert paths as the main server (`/etc/ssl/certs/da
 
 If you've set `PORT` to override the default 8080, the healthcheck honors the same env var, so it should work without changes. Make sure `PORT` is set in the container environment, not just in the host-side Docker port mapping.
 
-### Slow startup on weak hardware
+### Container is unhealthy past the grace period
 
-The healthcheck has a `--start-period=30s` grace period before failures count against the container. If your host takes longer than 30 seconds for the initial Vue build to complete (common on Pi 3 or similar), the first few healthchecks will fail and you may briefly see `unhealthy`. After the build finishes, subsequent checks should pass — see [High CPU or RAM Usage on Startup](#high-cpu-or-ram-usage-on-startup) below.
+The healthcheck has a 20s `start-period` after which failures start counting. The image is prebuilt, so startup is just `node server.js` binding to a port - fast even on a Pi. If the container is still `unhealthy` past the grace period, the server has likely crashed. Check `docker logs <container>` for the real error (usually a malformed `conf.yml` or a missing `user-data` mount).
 
 See also: [#1410](https://github.com/Lissy93/dashy/issues/1410)
 
@@ -622,7 +752,7 @@ For testing purposes, you can use an addon, which will disable the CORS checks. 
 
 ## CORS Proxy `connect ECONNREFUSED ...` or `getaddrinfo ENOTFOUND ...`
 
-The target host is unreachable from the Dashy container. If the target is on the same host as Dashy, **don't use `localhost`** — inside a Docker container that resolves to the container itself, not the host. Use the host's LAN IP, the Docker bridge gateway, or `host.docker.internal` (on Docker Desktop). If the target is on a different Docker network, attach Dashy to that network too.
+The target host is unreachable from the Dashy container. If the target is on the same host as Dashy, **don't use `localhost`** - inside a Docker container that resolves to the container itself, not the host. Use the host's LAN IP, the Docker bridge gateway, or `host.docker.internal` (on Docker Desktop). If the target is on a different Docker network, attach Dashy to that network too.
 
 ---
 
@@ -630,8 +760,8 @@ The target host is unreachable from the Dashy container. If the target is on the
 
 To prevent the CORS proxy from being abused as a Server-Side Request Forgery vector, Dashy refuses to proxy a small number of host/scheme combinations by default:
 
-- **Cloud instance metadata services** — `169.254.169.254`, `metadata.google.internal`, and the matching IPv6 forms. These are reserved magic addresses on AWS, Azure, GCP, DigitalOcean, Hetzner, Oracle Cloud and most other providers. A widget that successfully fetches them on a cloud-hosted Dashy can leak the host's IAM credentials, so they're blocked unconditionally.
-- **Non-HTTP(S) schemes** — `file://`, `ftp://`, `gopher://`, `javascript:`, `data:`, and similar. The proxy is meant for HTTP APIs only.
+- **Cloud instance metadata services** - `169.254.169.254`, `metadata.google.internal`, and the matching IPv6 forms. These are reserved magic addresses on AWS, Azure, GCP, DigitalOcean, Hetzner, Oracle Cloud and most other providers. A widget that successfully fetches them on a cloud-hosted Dashy can leak the host's IAM credentials, so they're blocked unconditionally.
+- **Non-HTTP(S) schemes** - `file://`, `ftp://`, `gopher://`, `javascript:`, `data:`, and similar. The proxy is meant for HTTP APIs only.
 
 If you're running Dashy in a fully isolated/private environment and you've deliberately decided you want to allow these (for example, you genuinely need to query your cloud provider's metadata API from a widget), you can opt out of all proxy restrictions by setting the environment variable:
 
@@ -639,7 +769,7 @@ If you're running Dashy in a fully isolated/private environment and you've delib
 DANGEROUSLY_DISABLE_PROXY_RESTRICTIONS=true
 ```
 
-The variable is named so loudly because flipping it on a Dashy instance that's exposed to anything other than fully trusted users re-opens the SSRF surface — anyone who can hit `/cors-proxy` can then use Dashy as a relay to reach internal services. **Don't set it on cloud-hosted or internet-exposed deployments.**
+The variable is named so loudly because flipping it on a Dashy instance that's exposed to anything other than fully trusted users re-opens the SSRF surface - anyone who can hit `/cors-proxy` can then use Dashy as a relay to reach internal services. **Don't set it on cloud-hosted or internet-exposed deployments.**
 
 Note that this is an all-or-nothing escape hatch, not a per-host allowlist. If you only need to reach one specific host that's currently blocked, please open a feature request describing the use case.
 
@@ -712,19 +842,6 @@ As a workaround, you could either:
 
 - Highlight the text and copy / <kbd>Ctrl</kbd> + <kbd>C</kbd>
 - Or setup SSL - [here's a guide](https://github.com/Lissy93/dashy/blob/master/docs/management.md#ssl-certificates) on doing so
-
----
-
-## Unsupported Digital Envelope Routines
-
-If you're running on GitHub Codespaces, and seeing: `Error: error:0308010C:digital envelope routines::unsupported` when using Node 17+, it can be resolved  by adding the `--openssl-legacy-provider` flag to your `NODE_OPTIONS` environmental variable.
-For example:
-
-```
-export NODE_OPTIONS=--openssl-legacy-provider
-```
-
-This will be fixed once [webpack/webpack#17659](https://github.com/webpack/webpack/pull/17659) is merged.
 
 ---
 

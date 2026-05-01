@@ -1809,17 +1809,7 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/).
 ```
 
 > [!TIP]
-> In order to avoid leaking secret data, both `hostname` and `apiKey` can leverage environment variables. Simply pass the name of the variable, which MUST start with `VUE_APP_`.
-
-```yaml
-- type: pi-hole-stats
-  options:
-    hostname: VUE_APP_pihole_ip
-    apiKey: VUE_APP_pihole_key
-```
-
-> [!IMPORTANT]
-> You will need to restart the server (or the docker image) if adding/editing an env var for this to be refreshed.
+> To avoid storing secrets in plaintext, both `hostname` and `apiKey` can be supplied via environment variables. See [Handling Secrets](#handling-secrets).
 
 #### Info
 
@@ -1855,17 +1845,7 @@ Displays the number of queries blocked by [Pi-Hole](https://pi-hole.net/). Use t
 ```
 
 > [!TIP]
-> In order to avoid leaking secret data, both `hostname` and `apiKey` can leverage environment variables. Simply pass the name of the variable, which MUST start with `VUE_APP_`.
-
-```yaml
-- type: pi-hole-stats-v6
-  options:
-    hostname: VUE_APP_pihole_ip
-    apiKey: VUE_APP_pihole_key
-```
-
-> [!IMPORTANT]
-> You will need to restart the server (or the docker image) if adding/editing an env var for this to be refreshed.
+> To avoid storing secrets in plaintext, both `hostname` and `apiKey` can be supplied via environment variables. See [Handling Secrets](#handling-secrets).
 
 #### Info
 
@@ -2662,7 +2642,7 @@ Displays storage statistics and file listings from a [Filebrowser Quantum](https
   useProxy: true
   options:
     hostname: http://filebrowser.local:8080
-    apiKey: VUE_APP_FILEBROWSER_KEY
+    apiKey: DASHY_FILEBROWSER_KEY
     source: Documents
     path: /
     showRecent: 5
@@ -2678,7 +2658,7 @@ Displays storage statistics and file listings from a [Filebrowser Quantum](https
   useProxy: true
   options:
     hostname: http://filebrowser.local:8080
-    apiKey: VUE_APP_FILEBROWSER_KEY
+    apiKey: DASHY_FILEBROWSER_KEY
     source: Downloads
     showDetailedStats: true
     showRecent: 10
@@ -3407,27 +3387,32 @@ Vary: Origin
 
 ### Handling Secrets
 
-Some widgets require you to pass potentially sensetive info such as API keys. The `conf.yml` is not ideal for this, as it's stored in plaintext.
-Instead, for secrets you should use environmental vairables.
+Some widgets require you to pass potentially sensitive info such as API keys. The `conf.yml` is not ideal for this, as it's stored in plaintext. Instead, for secrets you should use environment variables.
 
-You can do this, by setting the environmental variable name as the value, instead of the actual key, and then setting that env var in your container or local environment.
+In your widget options, set the value to the name of an environment variable starting with `DASHY_` (or `VITE_APP_` / `VUE_APP_` for backwards compatibility). The Dashy server will substitute it with the matching `process.env` value when proxying the request.
 
-The key can be named whatever you like, but it must start with `VUE_APP_` (to be picked up by Vue). If you need to update any of these values, a rebuild is required (this can be done under the Config menu in the UI, or by running `yarn build` then restarting the container).
+The widget must be set to route through the Dashy server with `useProxy: true`. Without this, the placeholder is sent directly to the upstream API and will fail. Substitution covers the request URL, headers and body, so any auth pattern (Bearer, Basic, query param, POST body) works.
 
-For more infomation about setting and managing your environmental variables, see [Management Docs --> Environmental Variables](/docs/management.md#passing-in-environmental-variables).
+For more information about setting and managing your environment variables, see [Management Docs --> Environmental Variables](/docs/management.md#passing-in-environmental-variables).
 
 For example:
 
 ```yaml
 - type: weather
+  useProxy: true
   options:
-    apiKey: VUE_APP_WEATHER_TOKEN
+    apiKey: DASHY_WEATHER_TOKEN
     city: London
     units: metric
     hideDetails: true
 ```
 
-Then, set `VUE_APP_WEATHER_TOKEN='xxx'`
+Then set `DASHY_WEATHER_TOKEN='xxx'` in your container or local environment, and restart Dashy. To rotate the value, just update the env var and restart. No rebuild required.
+
+> [!NOTE]
+> Only env vars starting with `DASHY_`, `VITE_APP_` or `VUE_APP_` are eligible for substitution. Other server-side env vars are never exposed.
+>
+> If you build Dashy from source yourself, `VITE_APP_*` and `DASHY_*` vars set at build time are also baked into the bundle by Vite, which works without `useProxy: true`.
 
 ---
 

@@ -12,25 +12,57 @@ The following content requires that you have a basic understanding of CSS. If yo
 
 ## How Theme-Switching Works
 
-The theme switching is done by simply changing the `data-theme` attribute on the root DOM element, which can then be targeted by CSS. First off, in order for the theme to show up in the theme switcher, it needs to be added to the config file, under `appConfig.cssThemes`, either as a string, or an array of strings for multiple themes. For example:
+The theme switching is done by simply changing the `data-theme` attribute on the root DOM element, which can then be targeted by CSS. All colors and styles are managed with CSS variables.
+
+The theme switcher in the UI will list all themes defined in [here](github.com/Lissy93/dashy/blob/3.3.1/src/utils/defaults.js#L50), as well as any extras that you add yourself under `appConfig.cssThemes`. Then, when a theme is selected, any CSS within `html[data-theme='my-theme']{}` will be applied.
+
+To apply a default theme to your instance, set `appConfig.theme` (or, use `dayTheme` and `nightTheme` to adjust according to your OS light/dark preferences).
+
+## Adding Your Own Theme
+
+### Option 1: Colors-only, in `conf.yml`
+
+Quickest path when you just want to change colors. Name the theme under `cssThemes` so it shows in the dropdown, then list your colors under `customColors`:
 
 ```yaml
 appConfig:
-  cssThemes: ['tiger', 'another-theme']
+  theme: mytheme
+  cssThemes: [mytheme]
+  customColors:
+    mytheme:
+      primary: '#ff6b6b'
+      background: '#1a1a2e'
+      background-darker: '#0f0f1e'
 ```
 
-You can now create a block to target you're theme with `html[data-theme='my-theme']{}` and set some styles. The easiest method is by setting CSS variables, but you can also directly override elements by their selector. As an example, see the [built-in CSS themes](https://github.com/Lissy93/dashy/blob/master/src/styles/color-themes.scss).
+Reload Dashy and `mytheme` appears in the dropdown. Any of the [CSS variables](#css-variables) can go here.
+
+### Option 2: Full CSS file
+
+Use this when you want more than colors (fonts, backgrounds, layout tweaks), or a portable file you can share between instances.
+
+Drop a CSS file into the directory you mount for `conf.yml` (usually `./user-data/`). Dashy serves that directory as static files at the site root, so the stylesheet is fetchable at `/mytheme.css`:
 
 ```css
-html[data-theme='tiger'] {
-  --primary: #f58233;
-  --background: #0b1021;
+/* user-data/mytheme.css */
+html[data-theme='mytheme'] {
+  --primary: #ff6b6b;
+  --background: #1a1a2e;
+  --background-darker: #0f0f1e;
+  /* anything inside this block only applies when mytheme is active */
 }
 ```
 
-Finally, from the UI use the theme dropdown menu to select your new theme, and your styles will be applied.
+Then wire it up:
 
-You can also set `appConfig.theme` to pre-select a default theme, which will be applied immediately after deployment.
+```yaml
+appConfig:
+  theme: mytheme
+  cssThemes: [mytheme]
+  externalStyleSheet: /mytheme.css
+```
+
+`externalStyleSheet` also takes a full `https://` URL if you'd rather host the file on a CDN or a repo, and it accepts an array to load several at once. See [Loading External Stylesheets](#loading-external-stylesheets) for more.
 
 ## Modifying Theme Colors
 
@@ -44,7 +76,7 @@ Themes can be modified either through the UI, using the color picker menu (to th
 
 By default, any color modifications made to the current theme through the UI will only be applied locally. If you need these settings to be set globally, then click the 'Export' button, to get the color codes and variable names, which can then be backed up, or saved in your config file.
 
-Custom colors are saved relative the the base theme selected. So if you switch themes after setting custom colors, then you're settings will no longer be applied. You're changes are not lost though, and switching back to the original theme will see your styles reapplied.
+Custom colors are saved relative to the base theme selected. So if you switch themes after setting custom colors, then your settings will no longer be applied. Your changes aren't lost though, and switching back to the original theme will see your styles reapplied.
 
 If these values are specified in your `conf.yml` file, then it will look something like the below example. Note that in YAML, values or keys which contain special characters, must be wrapped in quotes.
 
@@ -58,15 +90,11 @@ appConfig:
       primary: '#8be9fd'
 ```
 
-## Adding your own Theme
-
-User-defined styles and custom themes should be defined in `./src/styles/user-defined-themes.scss`. If you're using Docker, you can pass your own stylesheet in using the `--volume` flag. E.g. `v ./my-themes.scss:/app/src/styles/user-defined-themes.scss`. Don't forget to pass your theme name into `appConfig.cssThemes` so that it shows up on the theme-switcher dropdown.
-
 ## Setting Custom CSS in the UI
 
 Custom CSS can be developed, tested and applied directly through the UI. Although you will need to make note of your changes to apply them across instances.
 
-This can be done from the Config menu (spanner icon in the top-right), under the Custom Styles tab. This is then associated with `appConfig.customCss` in local storage. Styles can also be directly applied to this attribute in the config file, but this may get messy very quickly if you have a lot of CSS.
+This can be done from the Config menu (spanner icon, inside the options panel in the header), under the Custom Styles tab. This is then associated with `appConfig.customCss` in local storage. Styles can also be directly applied to this attribute in the config file, but this may get messy very quickly if you have a lot of CSS.
 
 ## Page-Specific Styles
 
@@ -111,13 +139,17 @@ Fonts which are not being used by the current theme are **not** fetched on page 
 
 Full credit to the typographers behind each of the included fonts. Specifically: Matt McInerney, Christian Robertson, Haley Fiege, Peter Hull, Cyreal and the legendary Vernon Adams
 
+## Changing browser address bar / tab color
+
+Some browsers support setting a color, which will apply a tint to the address bar, and task switcher card title bar. To enable this, set `pageInfo.color` to any valid CSS color (e.g. `#ff00a7`, `rebeccapurple`, `rgb(40, 60, 120)`). Note that browser support for this is still limited (Android Chrome, Safari iOS 15+ and some recent mobile Chromium browsers). This does not apply if you've installed the PWA. For more page-specific browser and UI options, see [Pages and Sections](/docs/pages-and-sections.md).
+
 ## CSS Variables
 
 All colors as well as other variable values (such as borders, border-radius, shadows) are specified as CSS variables. This makes theming the application easy, as you only need to change a given color or value in one place. You can find all variables in [`color-palette.scss`](https://github.com/Lissy93/dashy/blob/master/src/styles/color-palette.scss) and the themes which make use of these color variables are specified in [`color-themes.scss`](https://github.com/Lissy93/dashy/blob/master/src/styles/color-themes.scss)
 
 CSS variables are simple to use. You define them like: `--background: #fff;` and use them like: `body { background-color: var(--background); }`. For more information, see this guide on using [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
 
-You can determine the variable used by any given element, and visualize changes using the browser developer tools (Usually opened with `F12`, or Options --> More --> Developer Tools). Under the elements tab, click the Element Selector icon (usually top-left corner), you will then be able to select any DOM element on the page by hovering and clicking it. In the CSS panel you will see all styles assigned to that given element, including CSS variables. Click a variable to see it's parent value, and for color attributes, click the color square to modify the color. For more information, see this [getting started guide](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools), and these articles on [selecting elements](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Select_an_element) and [inspecting and modifying colors](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Inspect_and_select_colors).
+You can determine the variable used by any given element, and visualize changes using the browser developer tools (Usually opened with `F12`, or Options --> More --> Developer Tools). Under the elements tab, click the Element Selector icon (usually top-left corner), you will then be able to select any DOM element on the page by hovering and clicking it. In the CSS panel you will see all styles assigned to that given element, including CSS variables. Click a variable to see its parent value, and for color attributes, click the color square to modify the color. For more information, see this [getting started guide](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools), and these articles on [selecting elements](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Select_an_element) and [inspecting and modifying colors](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Inspect_and_select_colors).
 
 ### Top-Level Variables
 
@@ -149,16 +181,16 @@ You can target specific elements on the UI with these variables. All are optiona
 - `--item-text-color` - The text and icon color for items. Defaults to `--primary`
 - `--item-group-outer-background` - The background color for the outer part of a section (including section head). Defaults to `--primary`
 - `--item-group-background` - The background color for the inner part of item groups. Defaults to `#0b1021cc` (semi-transparent black)
-- `--item-group-heading-text-color` - The text color for section headings. Defaults to `--item-group-background`;
+- `--item-group-heading-text-color` - The text color for section headings. Defaults to `--item-group-background`
 - `--item-group-heading-text-color-hover` - The text color for section headings, when hovered. Defaults to `--background`
 - `--config-code-background` - Background color for the JSON editor in the config menu. Defaults to `#fff` (white)
 - `--config-code-color` - Text color for the non-highlighted code within the JSON editor. Defaults to `--background`
 - `--config-settings-color` - The background for the config/ settings pop-up modal. Defaults to `--primary`
 - `--config-settings-background` - The text color for text within the settings container. Defaults to `--background-darker`
 - `--scroll-bar-color` - Color of the scroll bar thumb. Defaults to `--primary`
-- `--scroll-bar-background` Color of the scroll bar blank space. Defaults to `--background-darker`
-- `--highlight-background` Fill color for text highlighting. Defaults to `--primary`
-- `--highlight-color` Text color for selected/ highlighted text. Defaults to `--background`
+- `--scroll-bar-background` - Color of the scroll bar blank space. Defaults to `--background-darker`
+- `--highlight-background` - Fill color for text highlighting. Defaults to `--primary`
+- `--highlight-color` - Text color for selected/ highlighted text. Defaults to `--background`
 - `--toast-background` - Background color for the toast info popup. Defaults to `--primary`
 - `--toast-color` - Text, icon and border color in the toast info popup. Defaults to `--background`
 - `--welcome-popup-background` - Background for the info pop-up shown on first load. Defaults to `--background-darker`

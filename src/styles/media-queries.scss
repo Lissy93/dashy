@@ -83,3 +83,24 @@ $extra-large: 2800px;
   }
 }
 
+/* Heights in px  for compact landscape viewports @include short to hide non-essential chrome */
+$short-height: 740px;
+$tall-height: 1000px;
+
+@mixin short {
+  @media (max-height: #{$short-height - 1px}) {
+    @content;
+  }
+}
+
+@mixin short-up {
+  @media (min-height: #{$short-height}) {
+    @content;
+  }
+}
+
+@mixin tall {
+  @media (min-height: #{$tall-height}) {
+    @content;
+  }
+}

@@ -44,7 +44,6 @@
     "edit-css-button": "Rediger tilpasset CSS",
     "cloud-sync-button": "Aktiver Cloud Sync",
     "edit-cloud-sync-button": "Aktiver Cloud Sync",
-    "rebuild-app-button": "Genopbyg applikation",
     "change-language-button": "Skift app-sprog",
     "reset-settings-button": "Nulstil lokale indstillinger",
     "app-info-button": "App Info",
@@ -129,20 +128,6 @@
     "error-msg-bad-json": "Fejl i JSON, muligvis forkert udformet",
     "warning-msg-validation": "Valideringsadvarsel",
     "not-admin-note": "Du kan ikke skrive ændringer til disk, fordi du ikke er logget ind som admin"
-  },
-  "app-rebuild": {
-    "title": "Genopbyg applikation",
-    "rebuild-note-l1": "En genopbygning er påkrævet, for at ændringer skrevet til conf.yml-filen kan træde i kraft.",
-    "rebuild-note-l2": "Dette skulle ske automatisk, men hvis det ikke er tilfældet, kan du manuelt udløse det her.",
-    "rebuild-note-l3": "Dette er ikke nødvendigt for ændringer, der er gemt lokalt.",
-    "rebuild-button": "Start byg",
-    "rebuilding-status-1": "Bygger...",
-    "rebuilding-status-2": "Dette kan tage et par minutter",
-    "error-permission": "Du har ikke tilladelse til at udløse denne handling",
-    "success-msg": "Byg fuldført med succes",
-    "fail-msg": "Byggehandling mislykkedes",
-    "reload-note": "Der kræves nu en genindlæsning af siden, for at ændringer kan træde i kraft",
-    "reload-button": "Genindlæs siden"
   },
   "cloud-sync": {
     "title": "Cloud sikkerhedskopiering og gendannelse",

@@ -9,7 +9,7 @@
     </label>
     <input
       :type="type"
-      :value="value"
+      :value="modelValue"
       v-on:input="updateValue($event.target.value)"
       :name="name"
       :id="name"
@@ -31,12 +31,12 @@
 export default {
   name: 'Input',
   props: {
-    value: [String, Number], // The value bound to v-model
-    label: String, // An optional label to display above
-    name: String, // Required unique ID value, for accessibility
-    placeholder: String, // Optional placeholder value
-    description: String, // Optional info paragraph
-    onEnter: Function,
+    modelValue: { type: [String, Number], default: '' }, // The value bound to v-model
+    label: { type: String, default: '' }, // An optional label to display above
+    name: { type: String, default: '' }, // Required unique ID value, for accessibility
+    placeholder: { type: String, default: '' }, // Optional placeholder value
+    description: { type: String, default: '' }, // Optional info paragraph
+    onEnter: { type: Function, default: () => {} },
     type: {
       default: 'text', // Input type, e.g. text, password, number
       type: String,
@@ -47,9 +47,10 @@ export default {
       default: 'vertical',
     },
   },
+  emits: ['update:modelValue'],
   methods: {
     updateValue(value) {
-      this.$emit('input', value);
+      this.$emit('update:modelValue', value);
     },
   },
 };

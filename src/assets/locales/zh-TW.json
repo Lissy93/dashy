@@ -46,11 +46,6 @@
   },
   "app-info": {
     "title": "應用程式資訊",
-    "error-log": "錯誤紀錄",
-    "no-errors": "近期未偵測到錯誤",
-    "help-support": "幫助與支援",
-    "help-support-description": "關於取得執行或設定 Dashy 的支援，請前往",
-    "help-support-discussions": "討論區",
     "support-dashy": "支持 Dashy",
     "support-dashy-description": "您也能幫助 Dashy！請參閱",
     "support-dashy-link": "貢獻頁面",
@@ -86,7 +81,6 @@
     "edit-css-button": "編輯自訂 CSS",
     "cloud-sync-button": "啟用雲端同步",
     "edit-cloud-sync-button": "編輯雲端同步",
-    "rebuild-app-button": "重新建置",
     "change-language-button": "更改語言",
     "reset-settings-button": "重設本機設定",
     "disabled-note": "某些設定功能被您的管理員停用",
@@ -180,20 +174,6 @@
     "warning-msg-validation": "驗證警告",
     "not-admin-note": "您無法將變更寫入磁碟，因為您未以系統管理員身分登入"
   },
-  "app-rebuild": {
-    "title": "重新建置應用程式",
-    "rebuild-note-l1": "寫入 conf.yml 檔案的變更需要重新建置應用程式才會生效。",
-    "rebuild-note-l2": "重新建置應該會自動發生。否則您可以在此手動執行。",
-    "rebuild-note-l3": "本機儲存的變更不需要重新建置即會生效。",
-    "rebuild-button": "開始重新建置",
-    "rebuilding-status-1": "建置中...",
-    "rebuilding-status-2": "這將持續一段時間",
-    "error-permission": "您沒有權限執行此操作",
-    "success-msg": "建置成功",
-    "fail-msg": "建置失敗",
-    "reload-note": "你需要重新載入頁面以使變更生效",
-    "reload-button": "重新載入頁面"
-  },
   "cloud-sync": {
     "title": "雲端備份 & 復原",
     "intro-l1": "雲端備份和復原是選用功能，讓您能夠把設定上傳到網路，然後在其他裝置或 Dashy 實例上復原。",
@@ -250,12 +230,6 @@
       "move-section": "移動至",
       "remove-section": "移除"
     }
-  },
-  "footer": {
-    "dev-by": "開發者",
-    "licensed-under": "授權條款為",
-    "get-the": "取得",
-    "source-code": "原始碼"
   },
   "interactive-editor": {
     "menu": {

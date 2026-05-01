@@ -1,0 +1,39 @@
+html[data-theme='dracula'] {
+  --font-headings: 'Shrikhand', sans-serif;
+  --primary: #98ace9;
+  --background: #44475a;
+  --background-darker: #282a36;
+  --item-group-background: var(--background-darker);
+  --item-background: var(--background-darker);
+  --item-background-hover: #191b22;
+  --item-shadow: 1px 1px 3px #000000e6;
+  --item-hover-shadow: none;
+  --settings-text-color: var(--primary);
+  --config-settings-color: var(--primary);
+  --nav-link-background-color: var(--background);
+  --nav-link-border-color: none;
+  --nav-link-border-color-hover: none;
+  --item-group-outer-background: var(--background-darker);
+  --login-form-background: var(--background-darker);
+  .item { border: 1px solid var(--primary); }
+  h1, h2, h3 { font-weight: normal; }
+
+  .collapsable, .nav a.nav-item {
+    &:nth-child(1n) { --index-color: #8be9fd; }
+    &:nth-child(2n) { --index-color: #50fa7b; }
+    &:nth-child(3n) { --index-color: #ffb86c; }
+    &:nth-child(4n) { --index-color: #ff79c6; }
+    &:nth-child(5n) { --index-color: #bd93f9; }
+
+    --item-group-heading-text-color: var(--index-color);
+    --item-group-heading-text-color-hover: var(--index-color);
+    --item-group-shadow: inset 0 2px 1px var(--index-color), 1px 1px 2px #000000cc;
+    --item-hover-shadow: 0 0 2px var(--index-color);
+    --item-text-color-hover: var(--index-color);
+    --nav-link-text-color-hover: var(--index-color);
+    --nav-link-shadow-hover: inset 0 2px 1px var(--index-color), 1px 1px 2px #000000cc;
+
+    .item:hover { border-color: var(--index-color); }
+  }
+}
+

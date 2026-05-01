@@ -44,7 +44,6 @@
     "edit-css-button": "Modifica CSS personalizzato",
     "cloud-sync-button": "Abilita sincronizzazione cloud",
     "edit-cloud-sync-button": "Modifica sincronizzazione cloud",
-    "rebuild-app-button": "Ricompila l'applicazione",
     "change-language-button": "Cambia la lingua dell'app",
     "reset-settings-button": "Ripristina impostazioni locali",
     "app-info-button": "Informazioni sull'app",
@@ -129,20 +128,6 @@
     "error-msg-bad-json": "Errore nella struttura JSON, probabilmente non formattata correttamente",
     "warning-msg-validation": "Avviso di convalida",
     "not-admin-note": "Non puoi scrivere le modifiche su disco, perché non sei autenticato come amministratore"
-  },
-  "app-rebuild": {
-    "title": "Ricompila l'applicazione",
-    "rebuild-note-l1": "È necessaria una ricompilazione affinché le modifiche scritte nel file conf.yml abbiano effetto.",
-    "rebuild-note-l2": "La ricompilazione dovrebbe avvenire automaticamente, in caso contrario, può essere avviata manualmente.",
-    "rebuild-note-l3": "Questo non è richiesto per le modifiche memorizzate localmente.",
-    "rebuild-button": "Inizia la ricompilazione",
-    "rebuilding-status-1": "Ricompilazione...",
-    "rebuilding-status-2": "Questo potrebbe richiedere alcuni minuti",
-    "error-permission": "Non hai l'autorizzazione per avviare questa azione",
-    "success-msg": "Build completata con successo",
-    "fail-msg": "Operazione di ricompilazione non riuscita",
-    "reload-note": "È necessario ricaricare la pagina affinché le modifiche abbiano effetto",
-    "reload-button": "Ricarica la pagina"
   },
   "cloud-sync": {
     "title": "Backup e Restore su Cloud",
@@ -292,4 +277,4 @@
       "good-service-rest": "Buon servizio su tutte le altre Linee"
     }
   }
-}		
+}

@@ -2,13 +2,13 @@
 import request from '@/utils/request';
 import router from '@/router';
 import longPress from '@/directives/LongPress';
-import ErrorHandler from '@/utils/ErrorHandler';
+import ErrorHandler from '@/utils/logging/ErrorHandler';
 import {
   openingMethod as defaultOpeningMethod,
   serviceEndpoints,
   localStorageKeys,
   iconSize as defaultSize,
-} from '@/utils/defaults';
+} from '@/utils/config/defaults';
 
 export default {
   directives: {
@@ -95,7 +95,7 @@ export default {
       const encode = (str) => encodeURIComponent(str);
       this.statusResponse = undefined;
       // Find base URL, where the API is hosted
-      const baseUrl = process.env.VUE_APP_DOMAIN || window.location.origin;
+      const baseUrl = import.meta.env.VITE_APP_DOMAIN || window.location.origin;
       // Find correct URL to check, and encode
       const urlToCheck = `?&url=${encode(statusCheckUrl || url)}`;
       // Get, stringify and encode any headers
@@ -218,28 +218,26 @@ export default {
     copyToClipboard(content) {
       if (navigator.clipboard) {
         navigator.clipboard.writeText(content);
-        this.$toasted.show(
-          this.$t('context-menus.item.copied-toast'),
-          { className: 'toast-success' },
-        );
+        this.$toast.success(this.$t('context-menus.item.copied-toast'));
       } else {
         ErrorHandler('Clipboard access requires HTTPS. See: https://bit.ly/3N5WuAA');
-        this.$toasted.show('Unable to copy, see log', { className: 'toast-error' });
+        this.$toast.error('Unable to copy, see log');
       }
     },
     /* Used for smart-sort when sorting items by most used apps */
     incrementMostUsedCount(itemId) {
-      const mostUsed = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
-      let counter = mostUsed[itemId] || 0;
-      counter += 1;
-      mostUsed[itemId] = counter;
-      localStorage.setItem(localStorageKeys.MOST_USED, JSON.stringify(mostUsed));
+      try {
+        const mostUsed = JSON.parse(localStorage.getItem(localStorageKeys.MOST_USED) || '{}');
+        mostUsed[itemId] = (mostUsed[itemId] || 0) + 1;
+        localStorage.setItem(localStorageKeys.MOST_USED, JSON.stringify(mostUsed));
+      } catch { /* ignore corrupt localStorage */ }
     },
-    /* Used for smart-sort when sorting by last used apps */
     incrementLastUsedCount(itemId) {
-      const lastUsed = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
-      lastUsed[itemId] = new Date().getTime();
-      localStorage.setItem(localStorageKeys.LAST_USED, JSON.stringify(lastUsed));
+      try {
+        const lastUsed = JSON.parse(localStorage.getItem(localStorageKeys.LAST_USED) || '{}');
+        lastUsed[itemId] = new Date().getTime();
+        localStorage.setItem(localStorageKeys.LAST_USED, JSON.stringify(lastUsed));
+      } catch { /* ignore corrupt localStorage */ }
     },
   },
 };

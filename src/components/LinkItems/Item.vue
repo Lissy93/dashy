@@ -35,7 +35,7 @@
         :statusText="statusResponse ? statusResponse.message : undefined"
       />
       <!-- URL of the item (shown on hover, only on some themes) -->
-      <p class="item-url">{{ item.url | shortUrl }}</p>
+      <p class="item-url">{{ shortUrl(item.url) }}</p>
       <!-- Edit icon (displayed only when in edit mode) -->
       <EditModeIcon v-if="isEditMode" class="edit-mode-item" @click="openItemSettings()" />
     </a>
@@ -60,26 +60,28 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 import Icon from '@/components/LinkItems/ItemIcon.vue';
 import ItemOpenMethodIcon from '@/components/LinkItems/ItemOpenMethodIcon';
 import StatusIndicator from '@/components/LinkItems/StatusIndicator';
-import EditItem from '@/components/InteractiveEditor/EditItem';
 import MoveItemTo from '@/components/InteractiveEditor/MoveItemTo';
 import ContextMenu from '@/components/LinkItems/ItemContextMenu';
+
+const EditItem = defineAsyncComponent(() => import('@/components/InteractiveEditor/EditItem.vue'));
 import StoreKeys from '@/utils/StoreMutations';
 import ItemMixin from '@/mixins/ItemMixin';
 import EditModeIcon from '@/assets/interface-icons/interactive-editor-edit-mode.svg';
-import { modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/config/defaults';
 
 export default {
   name: 'Item',
   mixins: [ItemMixin],
   props: {
-    itemSize: String,
-    parentSectionTitle: String, // Title of parent section (for add new)
+    itemSize: { type: String, default: '' },
+    parentSectionTitle: { type: String, default: '' }, // Title of parent section (for add new)
     isAddNew: Boolean, // Only set if 'fake' item used as Add New button
-    sectionWidth: Number, // Width of parent section
-    sectionDisplayData: Object,
+    sectionWidth: { type: Number, default: undefined }, // Width of parent section
+    sectionDisplayData: { type: Object, default: () => ({}) },
   },
   components: {
     Icon,
@@ -125,7 +127,12 @@ export default {
       }
     },
   },
-  filters: {
+  data() {
+    return {
+      editMenuOpen: false,
+    };
+  },
+  methods: {
     shortUrl(value) {
       if (!value || typeof value !== 'string') {
         return '';
@@ -134,7 +141,7 @@ export default {
         // Use URL constructor to parse the input
         const url = new URL(value);
         return url.hostname;
-      } catch (e) {
+      } catch {
         // If the input is not a valid URL, try to handle it as an IP address
         const ipPattern = /^(\d{1,3}\.){3}\d{1,3}/;
         const match = value.match(ipPattern);
@@ -144,13 +151,6 @@ export default {
         return '';
       }
     },
-  },
-  data() {
-    return {
-      editMenuOpen: false,
-    };
-  },
-  methods: {
     /* Returns configuration object for the tooltip */
     getTooltipOptions() {
       if (!this.item.description && !this.item.provider) return {}; // If no description, then skip
@@ -162,25 +162,20 @@ export default {
       const editText = this.$t('interactive-editor.edit-section.edit-tooltip');
       return {
         content: (this.isEditMode ? editText : tooltipText),
-        trigger: 'hover focus',
-        hideOnTargetClick: true,
         html: true,
         placement: this.statusResponse ? 'left' : 'auto',
         delay: { show: 600, hide: 200 },
-        classes: `item-description-tooltip tooltip-is-${this.size}`,
+        popperClass: `item-description-tooltip tooltip-is-${this.size}`,
       };
     },
     openItemSettings() {
       this.editMenuOpen = true;
       this.contextMenuOpen = false;
-      this.$modal.show(modalNames.EDIT_ITEM);
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, true);
     },
     /* Ensure conditional is updated, once menu closed */
     closeEditMenu() {
       this.editMenuOpen = false;
-      this.$modal.hide(modalNames.EDIT_ITEM);
-      this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
     },
     /* Open the modal for moving/ copying item to other section */
     openMoveItemMenu() {
@@ -206,7 +201,7 @@ export default {
       }
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     // Stop periodic status-check when item is destroyed (e.g. navigating in multi-page setup)
     if (this.intervalId) clearInterval(this.intervalId);
   },
@@ -216,8 +211,10 @@ export default {
 <style lang="scss">
 
 .item-wrapper {
+  display: flex;
   flex-grow: 1;
   flex-basis: 6rem;
+  min-width: 0;
   &.wrap-size-large {
     flex-basis: 12rem;
   }
@@ -239,6 +236,7 @@ export default {
 
 .item {
   flex-grow: 1;
+  min-width: 0;
   color: var(--item-text-color);
   vertical-align: middle;
   margin: 0.5rem;
@@ -265,7 +263,7 @@ export default {
     border: 2px dashed var(--primary) !important;
   }
   &.short:not(.size-large) {
-    height: 2rem;
+    min-height: 2rem;
   }
 }
 
@@ -273,7 +271,8 @@ export default {
 .tile-title {
   white-space: nowrap;
   text-overflow: ellipsis;
-  min-width: 120px;
+  min-width: 0;
+  flex: 1 1 auto;
   height: 30px;
   position: relative;
   padding: 0;
@@ -375,8 +374,8 @@ p.description {
       margin-bottom: 0.25rem;
     }
     .tile-title {
-      min-width: 100px;
-      max-width: 160px;
+      min-width: 0;
+      max-width: min(160px, 100%);
       &.no-icon {
         text-align: left;
         width: 100%;

@@ -1,6 +1,14 @@
 // @vitest-environment node
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, afterAll } from 'vitest';
 import request from 'supertest';
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
+
+// Isolate writes to a temp dir so the real user-data/conf.yml is never touched
+const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dashy-save-config-'));
+process.env.USER_DATA_DIR = tmpDir;
+afterAll(() => fs.rmSync(tmpDir, { recursive: true, force: true }));
 
 const app = require('../../services/app');
 const save = (body) => request(app).post('/config-manager/save').send(body);

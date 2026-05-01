@@ -1,0 +1,214 @@
+html[data-theme='minimal-light'], html[data-theme='minimal-dark'], html[data-theme='vaporware'] {
+  --font-body: 'Courier New', monospace;
+  --font-headings: 'Courier New', monospace;
+  --footer-height: 94px;
+  
+  .item.size-medium .tile-title {
+    max-width: 100px;
+  }
+
+  .section-header h3 {
+    font-size: 1.5rem;
+  }
+  .tile-title span.text {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  header {
+    padding: 0.1rem 0.5rem;
+    .page-titles{
+      h1 {
+        font-size: 1.25rem;
+      }
+      span.subtitle {
+        font-size: 0.8rem;
+  
+      }
+    }
+    .nav .nav-item {
+      padding: 0.2rem 0.4rem;
+      box-shadow: none;
+    }
+  }
+  .item-group-container.orientation-horizontal .collapsable {
+    border-bottom: 1px dashed #ffffff38;
+    border-radius: 0;
+  }
+  .widget-base {
+    background: var(--background-darker);
+    padding: 1rem 0.5rem;
+    margin: 0.5rem 0;
+  }
+  .minimal-widget-wrap .widget-base { box-shadow:  none; border: none; }
+}
+
+
+html[data-theme='minimal-light'] {
+  --primary: #a5a5a5;
+  --background: #ffffff;
+  --background-darker: #14171e;
+  --item-group-outer-background: none;
+  --item-group-shadow: none;
+  --item-group-background: none;
+  --item-background: none;
+  --item-background-hover: #f2f2f2;
+  --item-shadow: none;
+  --item-hover-shadow: none;
+  --item-text-color: var(--background-darker);
+  --item-group-heading-text-color-hover: var(--background-darker);
+  --settings-text-color: var(--background-darker);
+  --config-code-color: var(--background-darker);
+  --nav-link-background-color: none;
+  --search-container-background: var(--white);
+  --curve-factor: 4px;
+  --curve-factor-navbar: 8px;
+  --status-check-tooltip-background: #f2f2f2;
+  --status-check-tooltip-color: var(--black);
+  --description-tooltip-background: #f2f2f2;
+  --description-tooltip-color: var(--black);
+  --login-form-color: var(--background-darker);
+  --about-page-background: var(--background);
+  --about-page-color: var(--background-darker);
+  --context-menu-color: var(--background-darker);
+  --context-menu-secondary-color: var(--primary);
+  --widget-text-color: #4e4e4e;
+  section.filter-container {
+    background: var(--white);
+    border-bottom: 1px dashed #00000038;
+    input#filter-tiles {
+      border: 1px solid var(--background-darker);
+    }
+  }
+  .widget-base {
+    background: #f2f2f2;
+  }
+}
+
+html[data-theme='minimal-dark'] {
+  --primary: #a5a5a5;
+  --background: #14171e;
+  --background-darker: #090b0e;
+  --item-group-outer-background: none;
+  --item-group-shadow: none;
+  --item-group-background: none;
+  --item-background: none;
+  --item-background-hover: var(--background-darker);
+  --item-shadow: none;
+  --item-hover-shadow: none;
+  --item-text-color: var(--white);
+  --item-group-heading-text-color-hover: var(--white);
+  --settings-text-color: var(--white);
+  --config-code-color: var(--white);
+  --nav-link-background-color: none;
+  --search-container-background: var(--background);
+  --curve-factor: 4px;
+  --curve-factor-navbar: 8px;
+  --item-group-heading-text-color: var(--white);
+  --item-group-heading-text-color-hover: #ffffffbf;
+  --about-page-background: var(--background);
+  --about-page-color: var(--primary);
+
+  .section-header h3 {
+    font-size: 1.8rem;
+  }
+
+  section.filter-container {
+    background: #14171e;
+    border-bottom: 1px dashed #ffffff38;
+    input#filter-tiles {
+      border: 1px solid var(--white);
+    }
+  }
+
+  div.context-menu {
+    border-color: var(--primary);
+  }
+}
+
+html[data-theme='vaporware'] {
+  --primary: #09bfe6;
+  --background: #100e2c;
+  --background-darker: #7b2af1;
+  --settings-text-color: #8d51fc;
+  --item-group-outer-background: #096de6;
+  --item-group-outer-background: var(--primary);
+  --item-group-background: var(--background);
+  --item-group-heading-text-color: var(--background);
+  --item-group-heading-text-color-hover: var(--background-darker);
+  --item-text-color: var(--primary);
+  --item-background: #1a174d;
+  --item-background-hover: var(--background);;
+  --footer-text-color: var(--white);
+  --item-shadow: none;
+  --curve-factor: 2px;
+  --curve-factor-navbar: 6px;
+  --login-form-color: var(--primary);
+  --config-settings-background: var(--background);
+  --status-check-tooltip-background: var(--background);
+  --description-tooltip-background: var(--background);
+  --heading-text-color: var(--background);
+  --search-label-color: var(--background);
+  --widget-accent-color: #1d194f;
+
+  div.item-group-container {
+    gap: 0.3rem;
+    margin: 1rem auto;
+  }
+  div.collapsable {
+    margin: 0.2rem;
+    padding: 0.2rem;
+  }
+  div.content-inner {
+    padding: 0.15rem !important;
+  }
+  a.item {
+    margin: 0.1rem;
+    border: 0;
+    &.size-medium {
+      min-height: 80px;
+    }
+  }
+  section.filter-container {
+    background: linear-gradient(0deg, var(--background) 25%, #6c27ea 100%);
+    form {
+      background: #6c27ea;
+      height: 2.5rem;
+    }
+    form label, i.clear-search {
+      color: #100e2c;
+      border-color: #100e2c;
+      font-weight: bold;
+    }
+  }
+  .tile-title span.text {
+    font-weight: normal;
+  }
+  .section-header h3 {
+    font-size: 1.4rem;
+  }
+  footer {
+    color: var(--white);
+  }
+  div.login-page {
+    background: url('https://i.ibb.co/JqcJcGK/vaporwave-sunset-wallpaper.jpg');
+    background-size: cover;
+  }
+  body {
+    background: url('https://i.ibb.co/JqcJcGK/vaporwave-sunset-wallpaper.jpg');
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+    // Remove background from certain components
+    div.home, div.options-outer, div.options-container, section.filter-container,
+    section.settings-outer, div.show-hide-container.hide-btn, div.show-hide-container.show-btn  {
+      background: none;
+    }
+  }
+  .widget-base {
+    background: var(--background);
+    padding: 1rem 0.5rem;
+    margin: 0.5rem 0;
+  }
+}
+

@@ -13,12 +13,13 @@ import Icon from '@/components/LinkItems/ItemIcon.vue';
 export default {
   name: 'SideBarItem',
   props: {
-    icon: String,
-    title: String,
-    url: String,
-    target: String,
-    click: Function,
+    icon: { type: String, default: '' },
+    title: { type: String, default: '' },
+    url: { type: String, default: '' },
+    target: { type: String, default: '' },
+    click: { type: Function, default: () => {} },
   },
+  emits: ['launch-app'],
   components: {
     Icon,
   },
@@ -32,7 +33,7 @@ export default {
       tooltip: {
         disabled: !this.title,
         content: this.title,
-        trigger: 'hover focus',
+        
         placement: 'bottom-end',
       },
     };

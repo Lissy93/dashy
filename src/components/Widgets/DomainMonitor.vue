@@ -8,26 +8,26 @@
     </span>
     <span v-if="domainMeta.isRegistered"
       :class="`is-registered expire-date ${ getExpireColor(domainRegistration.expireDate) }`">
-      {{ domainRegistration.expireDate | formatDate }}
+      {{ formatDate(domainRegistration.expireDate) }}
     </span>
     <span v-if="domainMeta.isRegistered"
       :class="`is-registered time-left ${getExpireColor(domainRegistration.expireDate) }`">
-      {{ domainRegistration.expireDate | formatTimeLeft }}
+      {{ formatTimeLeft(domainRegistration.expireDate) }}
     </span>
   </div>
   <!-- Domain Info -->
   <div v-if="showDomainInfo && domainRegistration" class="domain-more-data">
     <div class="row">
       <span class="lbl">Created</span>
-      <span class="val">{{ domainRegistration.createdDate | formatDate }}</span>
+      <span class="val">{{ formatDate(domainRegistration.createdDate) }}</span>
     </div>
     <div class="row">
       <span class="lbl">Updated</span>
-      <span class="val">{{ domainRegistration.updatedDate | formatDate }}</span>
+      <span class="val">{{ formatDate(domainRegistration.updatedDate) }}</span>
     </div>
     <div class="row">
       <span class="lbl">Expires</span>
-      <span class="val">{{ domainRegistration.expireDate | formatDate }}</span>
+      <span class="val">{{ formatDate(domainRegistration.expireDate) }}</span>
     </div>
     <div class="row" v-for="(ns, inx) in domainRegistration.nameServers" :key="inx">
       <span class="lbl">NS {{ inx + 1 }}</span>
@@ -56,7 +56,7 @@
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
 import { timestampToDate, getTimeAgo } from '@/utils/MiscHelpers';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 
 export default {
   mixins: [WidgetMixin],
@@ -80,7 +80,7 @@ export default {
       showDomainInfo: false,
     };
   },
-  filters: {
+  methods: {
     formatDate(date) {
       if (!date) return 'No Date Supplied';
       return timestampToDate(date);
@@ -88,8 +88,6 @@ export default {
     formatTimeLeft(date) {
       return getTimeAgo(new Date(date)).replace('in', '');
     },
-  },
-  methods: {
     /* Make GET request to CoinGecko API endpoint */
     fetchData() {
       this.makeRequest(this.endpoint).then(this.processData);

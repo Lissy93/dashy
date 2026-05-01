@@ -10,7 +10,7 @@
       <li>The YAML is valid, parsable and matches the schema</li>
     </ul>
     <h4>{{ $t('critical-error.sub-error-details') }}</h4>
-    <pre>{{ this.$store.state.criticalError }}</pre>
+    <pre>{{ $store.state.criticalError }}</pre>
     <h4>{{ $t('critical-error.sub-next-steps') }}</h4>
     <ul>
       <li>Check the browser console for more details
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { localStorageKeys } from '@/utils/defaults';
+import { localStorageKeys } from '@/utils/config/defaults';
 import Keys from '@/utils/StoreMutations';
 
 export default {
@@ -65,7 +65,7 @@ export default {
 @import '@/styles/media-queries.scss';
 .critical-error-wrap {
   position: absolute;
-  top: 40%;
+  top: 40vh;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;

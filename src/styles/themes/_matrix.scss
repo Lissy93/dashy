@@ -1,0 +1,28 @@
+html[data-theme='matrix-red'] {
+  --background: var(--black);
+  --background-darker: var(--black);
+  --primary: #f00;
+  --outline-color: var(--primary);
+  --curve-factor: 0;
+  --font-body: 'Cutive Mono', monospace;
+  --font-headings: 'VT323', monospace;
+}
+
+html[data-theme='matrix'] {
+  --background: var(--black);
+  --background-darker: var(--black);
+  --primary: #2bca2b;
+  --outline-color: var(--primary);
+  --curve-factor: 0px;
+  --font-body: 'Cutive Mono', monospace;
+  --font-headings: 'VT323', monospace;
+  --about-page-background: var(--background);
+  --context-menu-secondary-color: var(--primary);
+  .prism-editor-wrapper.my-editor {
+    border: 1px solid var(--primary);
+  }
+  div.context-menu ul li:hover {
+    color: var(--background);
+  }
+}
+

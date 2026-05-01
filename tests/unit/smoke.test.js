@@ -109,7 +109,7 @@ describe('Smoke Tests - Core Dependencies', () => {
   });
 
   it('should have config schema file', () => {
-    const schemaPath = path.resolve(__dirname, '../../src/utils/ConfigSchema.json');
+    const schemaPath = path.resolve(__dirname, '../../src/utils/config/ConfigSchema.json');
     expect(fs.existsSync(schemaPath)).toBe(true);
   });
 });

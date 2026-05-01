@@ -38,7 +38,7 @@
         v-model="timeout"
         :selectOnTab="true"
         :options="dropDownMenu"
-        :map-keydown="(map) => ({ ...map, 13: () => this.submitLogin() })"
+        :map-keydown="(map) => ({ ...map, 13: () => submitLogin() })"
         class="login-time-dropdown"
       />
       <Button class="login-button" :click="submitLogin">
@@ -75,15 +75,16 @@
 import router from '@/router';
 import Button from '@/components/FormElements/Button';
 import Input from '@/components/FormElements/Input';
-import Defaults, { localStorageKeys } from '@/utils/defaults';
-import { InfoHandler, WarningInfoHandler, InfoKeys } from '@/utils/ErrorHandler';
+import Keys from '@/utils/StoreMutations';
+import { localStorageKeys } from '@/utils/config/defaults';
+import { InfoHandler, WarningInfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
 import {
   checkCredentials,
   login,
   isLoggedIn,
   logout,
   isGuestAccessEnabled,
-} from '@/utils/Auth';
+} from '@/utils/auth/Auth';
 
 export default {
   name: 'login',
@@ -158,6 +159,7 @@ export default {
       this.status = response.correct ? 'success' : 'error';
       if (response.correct) { // Yay, credentials were correct :)
         login(this.username, this.password, timeout); // Login, to set the cookie
+        this.$store.commit(Keys.AUTH_CHANGED); // Trigger reactive auth-dependent getters
         this.goHome();
         InfoHandler(`Succesfully signed in as ${this.username}`, InfoKeys.AUTH);
       } else {
@@ -168,11 +170,11 @@ export default {
     guestLogin() {
       const isAllowed = this.isGuestAccessEnabled;
       if (isAllowed) {
-        this.$toasted.show(this.$t('login.logged-in-guest'), { className: 'toast-success' });
+        this.$toast.success(this.$t('login.logged-in-guest'));
         InfoHandler('Logged in as Guest', InfoKeys.AUTH);
         this.goHome();
       } else {
-        this.$toasted.show(this.$t('login.error-guest-access'), { className: 'toast-error' });
+        this.$toast.error(this.$t('login.error-guest-access'));
         WarningInfoHandler('Guest Access Not Allowed', InfoKeys.AUTH);
       }
     },
@@ -191,7 +193,7 @@ export default {
     },
     /* Refreshes the page */
     refreshPage() {
-      setTimeout(() => { location.reload(); }, 250); // eslint-disable-line no-restricted-globals
+      setTimeout(() => { location.reload(); }, 250);  
     },
     /* Redirects to the homepage */
     goHome() {
@@ -199,15 +201,9 @@ export default {
         router.push({ path: '/' });
       }, 250);
     },
-    /* Since Theme setter isn't loaded at this point, we must manually get and apply users theme */
-    setTheme() {
-      const theme = localStorage[localStorageKeys.THEME] || Defaults.theme;
-      document.getElementsByTagName('html')[0].setAttribute('data-theme', theme);
-    },
   },
   created() {
-    this.setTheme();
-    setTimeout(() => { this.timeout = this.dropDownMenu[0]; }, 1); //eslint-disable-line
+    setTimeout(() => { this.timeout = this.dropDownMenu[0]; }, 1);  
   },
 };
 

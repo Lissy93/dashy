@@ -64,7 +64,7 @@ jobs:
       - name: Create draft release 📝
         if: steps.version_check.outputs.should_release == 'true' || github.event_name == 'workflow_dispatch'
         id: create_release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ env.TAG }}
           name: Release ${{ env.TAG }}

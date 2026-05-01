@@ -34,11 +34,11 @@ import UnknownIcon from '@/assets/interface-icons/unknown-icon.svg';
 export default {
   name: 'ItemOpenMethodIcon',
   props: {
-    openingMethod: String, // newtab | sametab | parent | top | modal | workspace | newwindow
+    openingMethod: { type: String, default: '' }, // newtab | sametab | parent | top | modal | workspace | newwindow
     isSmall: Boolean, // If true, will apply small class
-    position: String, // Position classes: top, bottom, left, right
+    position: { type: String, default: 'top right' }, // Position popperClass: top, bottom, left, right
     isTransparent: Boolean, // If true, will apply opacity
-    hotkey: Number, // Optional hotkey to also display
+    hotkey: { type: Number, default: 0 }, // Optional hotkey to also display
   },
   methods: {
     /* Returns custom class string, from optional props */
@@ -69,9 +69,6 @@ export default {
     position: absolute;
     width: 1rem;
     margin: 2px;
-    path {
-      fill: currentColor;
-    }
   }
   &.top svg { top: 0; }
   &.bottom svg { bottom: 0; }

@@ -129,16 +129,23 @@ Or
 ```docker
 docker run -d \
   -p 4000:8080 \
-  -v /root/my-local-conf.yml:/app/user-data/conf.yml \
+  -v /path/to/your/user-data:/app/user-data \
   --name my-dashboard \
   --restart=always \
   lissy93/dashy:latest
 ```
+
 [![Dashy on Docker Hub](https://dockeri.co/image/lissy93/dashy)](https://hub.docker.com/r/lissy93/dashy)
 
-See also: [examples with Docker Compose](./docs/deployment.md#using-docker-compose). Dashy is also available via GHCR, and tags for other architectures (`arm32v7`, `arm64v8`, etc.) and set versions are supported
+The mounted `/app/user-data` directory **must** contain at least a `conf.yml`.
+It can also hold sub-config files, item icons, fonts, custom CSS, or anything else you want served from the web root.
 
-> Once you've got Dashy running, see [App Management Docs](./docs/management.md) for info on using health checks, updating, backups, web-server configs, logs, performance, security, and more.
+Dashy is also available via GHCR (`ghcr.io/lissy93/dashy`).
+To use with compose, see our sample [`docker-compose.yml`](https://github.com/lissy93/dashy/blob/master/docker-compose.yml).
+You can either use `:latest` or pin to specific versions (like `4.0.0`).
+All images are multi-arch (works on amd64, arm64, and arm/v7).
+
+> Once you've got Dashy running, see [the docs](https://dashy.to/docs/) for configuration references and usage guides.
 
 ### Deploying from Source 🔨
 

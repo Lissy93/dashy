@@ -18,12 +18,12 @@
         />
       </transition>
     </div>
-    <!-- Show links for switching back to Home / Minimal views -->
+    <!-- Show links for switching back to Home / Minimal views, preserving sub-page -->
     <div class="switch-view-buttons">
-      <router-link to="/home/">
+      <router-link :to="pathFor('home')">
         <IconHome class="view-icon" v-tooltip="$t('alternate-views.default')" />
       </router-link>
-      <router-link to="/minimal/">
+      <router-link :to="pathFor('minimal')">
         <IconMinimalView class="view-icon" v-tooltip="$t('alternate-views.minimal')" />
       </router-link>
     </div>
@@ -37,13 +37,15 @@ import SideBarSection from '@/components/Workspace/SideBarSection.vue';
 import IconHome from '@/assets/interface-icons/application-home.svg';
 import IconMinimalView from '@/assets/interface-icons/application-minimal.svg';
 import { checkItemVisibility } from '@/utils/CheckItemVisibility';
+import { makeRoutePath, resolveRouteIntent } from '@/utils/config/ConfigHelpers';
 
 export default {
   name: 'SideBar',
   props: {
-    sections: Array,
-    initUrl: String,
+    sections: { type: Array, default: () => [] },
+    initUrl: { type: String, default: '' },
   },
+  emits: ['launch-widget', 'launch-app'],
   data() {
     return {
       isOpen: [],
@@ -104,6 +106,11 @@ export default {
       return allTiles.filter((tile) => checkItemVisibility(tile)
         && !tile.displayData?.hideFromWorkspace);
     },
+    /* Build a URL for the given view, preserving the current sub-page and section */
+    pathFor(view) {
+      const { pageId, sectionSlug } = resolveRouteIntent(this.$route, this.$store);
+      return makeRoutePath(view, pageId, sectionSlug);
+    },
   },
   mounted() {
     // Initialize isOpen array based on filteredSections length
@@ -146,7 +153,7 @@ nav.side-bar {
 .slide-enter-active {
   transition: all 0.1s ease-in-out;
 }
-.slide-enter {
+.slide-enter-from {
   transform: translate(0, -80%);
 }
 .slide-leave-to {

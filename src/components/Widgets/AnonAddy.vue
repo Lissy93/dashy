@@ -12,7 +12,7 @@
     <div class="meta-item">
       <span class="lbl">Bandwidth</span>
       <span class="val">
-        {{ meta.bandwidth | formatBytes }} out of
+        {{ formatBytes(meta.bandwidth) }} out of
         {{ meta.bandwidthLimit !== 100000000 ? (formatBytes(meta.bandwidthLimit)) : '∞'}}
       </span>
     </div>
@@ -66,8 +66,8 @@
       <!-- Date created / updated -->
       <div class="row-4">
         <span class="lbl">Created</span>
-        <span class="val as-date">{{ alias.createdAt | formatDate }}</span>
-        <span class="val as-time-ago">{{ alias.createdAt | formatTimeAgo }}</span>
+        <span class="val as-date">{{ formatDate(alias.createdAt) }}</span>
+        <span class="val as-time-ago">{{ formatTimeAgo(alias.createdAt) }}</span>
       </div>
     </div>
   </div>
@@ -92,7 +92,7 @@
 import Toggle from '@/components/FormElements/Toggle';
 import PercentageChart from '@/components/Charts/PercentageChart';
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 import { timestampToDate, getTimeAgo, convertBytes } from '@/utils/MiscHelpers';
 import ClipboardIcon from '@/assets/interface-icons/open-clipboard.svg';
 
@@ -167,7 +167,10 @@ export default {
       return arrOfRange(1, maxNumbers);
     },
   },
-  filters: {
+  created() {
+    this.fetchAccountInfo();
+  },
+  methods: {
     formatDate(timestamp) {
       return timestampToDate(timestamp);
     },
@@ -177,14 +180,9 @@ export default {
     formatBytes(bytes) {
       return convertBytes(bytes);
     },
-  },
-  created() {
-    this.fetchAccountInfo();
-  },
-  methods: {
     copyToClipboard(text) {
       navigator.clipboard.writeText(text);
-      this.$toasted.show('Email address copied to clipboard');
+      this.$toast('Email address copied to clipboard');
     },
     fetchData() {
       this.makeRequest(this.endpoint, this.headers).then(this.processData);
@@ -241,7 +239,7 @@ export default {
     },
     toggleAlias(state, id) {
       if (this.disableControls) {
-        this.$toasted.show('Error, controls disabled', { className: 'toast-error' });
+        this.$toast.error('Error, controls disabled');
       } else {
         const method = state ? 'POST' : 'DELETE';
         const path = state ? 'active-aliases' : `active-aliases/${id}`;
@@ -249,7 +247,7 @@ export default {
         const endpoint = `${this.hostname}/api/${this.apiVersion}/${path}`;
         this.makeRequest(endpoint, this.headers, method, body).then(() => {
           const successMsg = `Alias successfully ${state ? 'enabled' : 'disabled'}`;
-          this.$toasted.show(successMsg, { className: 'toast-success' });
+          this.$toast.success(successMsg);
         });
       }
     },

@@ -8,13 +8,16 @@
           <SameTabOpenIcon />
           <span>{{ $t('context-menus.section.open-section') }}</span>
         </li>
-        <li @click="openEditSectionMenu">
-          <EditIcon />
-          <span>{{ $t('context-menus.section.edit-section') }}</span>
-        </li>
         <li @click="expandCollapseSection">
           <ExpandCollapseIcon />
           <span>{{ $t('context-menus.section.expand-collapse') }}</span>
+        </li>
+      </ul>
+      <!-- Edit Options -->
+      <ul class="menu-section" :class="{ disabled: !isEditAllowed }">
+        <li @click="openEditSectionMenu">
+          <EditIcon />
+          <span>{{ $t('context-menus.section.edit-section') }}</span>
         </li>
         <li v-if="isEditMode" @click="removeSection">
           <BinIcon />
@@ -41,16 +44,20 @@ export default {
     ExpandCollapseIcon,
   },
   props: {
-    posX: Number, // The X coordinate for positioning
-    posY: Number, // The Y coordinate for positioning
+    posX: { type: Number, default: 0 }, // The X coordinate for positioning
+    posY: { type: Number, default: 0 }, // The Y coordinate for positioning
     show: Boolean, // Should show or hide the menu
   },
+  emits: ['navigateToSection', 'openEditSection', 'expandCollapseSection', 'removeSection'],
   computed: {
     isMenuDisabled() {
       return !!this.$store.getters.appConfig.disableContextMenu;
     },
     isEditMode() {
       return this.$store.state.editMode;
+    },
+    isEditAllowed() {
+      return this.$store.getters.permissions.allowViewConfig;
     },
   },
   methods: {
@@ -60,13 +67,13 @@ export default {
       this.$emit('navigateToSection');
     },
     openEditSectionMenu() {
-      this.$emit('openEditSection');
+      if (this.isEditAllowed) this.$emit('openEditSection');
     },
     expandCollapseSection() {
       this.$emit('expandCollapseSection');
     },
     removeSection() {
-      this.$emit('removeSection');
+      if (this.isEditAllowed) this.$emit('removeSection');
     },
     calcPosition() {
       const bounds = this.$parent.$el.getBoundingClientRect();
@@ -111,9 +118,12 @@ div.context-menu {
       }
       svg {
         width: 1rem;
-         margin-right: 0.5rem;
-          path { fill: currentColor; }
+        margin-right: 0.5rem;
       }
+    }
+    &.disabled li {
+      cursor: not-allowed;
+      opacity: var(--dimming-factor);
     }
   }
 }

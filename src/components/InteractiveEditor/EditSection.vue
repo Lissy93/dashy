@@ -4,105 +4,102 @@
     :resizable="true" width="50%" height="80%"
     classes="dashy-modal edit-section"
   >
-  <div class="edit-section-inner" v-if="allowViewConfig">
-    <h3>
-      {{ $t(`interactive-editor.edit-section.${isAddNew ? 'add' : 'edit'}-section-title`) }}
-    </h3>
-    <FormSchema
-      :schema="customSchema"
-      v-model="sectionData"
-      name="editSectionForm"
-      class="edit-section-form"
-    />
-    <SaveCancelButtons
-      :saveClick="saveSection"
-      :cancelClick="modalClosed"
-    />
+    <div class="interactive-editor-inner" v-if="allowViewConfig">
+      <h3>
+        {{ $t(`interactive-editor.edit-section.${isAddNew ? 'add' : 'edit'}-section-title`) }}
+      </h3>
+      <SchemaForm v-model="sectionData" :schema="customSchema" />
+      <SaveCancelButtons :saveClick="saveSection" :cancelClick="modalClosed" />
     </div>
     <AccessError v-else />
   </modal>
 </template>
 
 <script>
-import FormSchema from '@formschema/native';
+import { defineAsyncComponent } from 'vue';
+import DashySchema from '@/utils/config/ConfigSchema.json';
 import StoreKeys from '@/utils/StoreMutations';
-import DashySchema from '@/utils/ConfigSchema';
-import { modalNames } from '@/utils/defaults';
+import { modalNames } from '@/utils/config/defaults';
+import ErrorHandler, { InfoHandler, InfoKeys } from '@/utils/logging/ErrorHandler';
+import safeClone from '@/utils/safeClone';
+import pruneSchemaDefaults from '@/utils/config/pruneSchemaDefaults';
 import SaveCancelButtons from '@/components/InteractiveEditor/SaveCancelButtons';
 import AccessError from '@/components/Configuration/AccessError';
 
+const SchemaForm = defineAsyncComponent(() => import('@/components/FormElements/SchemaForm.vue'));
+
+/* Curated subset of the section schema: omits `items` (edited per-item elsewhere)
+ * and trims displayData to the commonly-tweaked attributes. */
+const sectionProps = DashySchema.properties.sections.items.properties;
+const displayProps = sectionProps.displayData.properties;
+const SECTION_SCHEMA = {
+  type: 'object',
+  required: DashySchema.properties.sections.items.required,
+  properties: {
+    name: sectionProps.name,
+    icon: sectionProps.icon,
+    displayData: {
+      type: 'object',
+      title: sectionProps.displayData.title,
+      description: sectionProps.displayData.description,
+      properties: {
+        sortBy: displayProps.sortBy,
+        rows: displayProps.rows,
+        cols: displayProps.cols,
+        collapsed: displayProps.collapsed,
+        hideForGuests: displayProps.hideForGuests,
+      },
+    },
+  },
+};
+
 export default {
   name: 'EditSection',
+  components: { SaveCancelButtons, AccessError, SchemaForm },
   props: {
-    sectionIndex: Number,
+    sectionIndex: { type: Number, default: -1 },
     isAddNew: Boolean,
   },
-  components: {
-    SaveCancelButtons,
-    FormSchema,
-    AccessError,
-  },
+  emits: ['closeEditSection'],
   data() {
     return {
       modalName: modalNames.EDIT_SECTION,
-      schema: DashySchema.properties.sections.items.properties,
+      customSchema: SECTION_SCHEMA,
       sectionData: {},
     };
   },
   computed: {
-    /* Make a custom schema object, using fields from ConfigSchema */
-    customSchema() {
-      const sectionSchema = this.schema;
-      const displayDataSchema = this.schema.displayData.properties;
-      return {
-        type: 'object',
-        properties: {
-          name: sectionSchema.name,
-          icon: sectionSchema.icon,
-          displayData: {
-            title: '',
-            description: '',
-            type: 'object',
-            properties: {
-              sortBy: displayDataSchema.sortBy,
-              rows: displayDataSchema.rows,
-              cols: displayDataSchema.cols,
-              collapsed: displayDataSchema.collapsed,
-              hideForGuests: displayDataSchema.hideForGuests,
-            },
-          },
-        },
-      };
-    },
-    allowViewConfig() {
-      return this.$store.getters.permissions.allowViewConfig;
-    },
+    allowViewConfig() { return this.$store.getters.permissions.allowViewConfig; },
   },
   mounted() {
-    this.sectionData = this.$store.getters.getSectionByIndex(this.sectionIndex);
-    this.$modal.show(modalNames.EDIT_SECTION);
+    const live = this.isAddNew ? null : this.$store.getters.getSectionByIndex(this.sectionIndex);
+    this.sectionData = safeClone(live, {});
+    this.$modal.show(this.modalName);
   },
   methods: {
-    /* From the current index, return section data */
-    getSectionFromState(index) {
-      if (this.isAddNew) return {};
-      return this.$store.getters.getSectionByIndex(index);
-    },
-    /* Clean up work, triggered when modal closed */
     modalClosed() {
       this.$store.commit(StoreKeys.SET_MODAL_OPEN, false);
       this.$emit('closeEditSection');
     },
-    /* Either update existing section, or insert new one, then close modal */
     saveSection() {
-      const { sectionIndex, sectionData } = this;
-      if (this.isAddNew) {
-        this.$store.commit(StoreKeys.INSERT_SECTION, sectionData);
-      } else {
-        this.$store.commit(StoreKeys.UPDATE_SECTION, { sectionIndex, sectionData });
+      try {
+        /* Form only edits metadata, so preserve the live section's items array. */
+        const payload = pruneSchemaDefaults(this.sectionData, this.customSchema);
+        if (!this.isAddNew) {
+          const live = this.$store.getters.getSectionByIndex(this.sectionIndex);
+          if (live?.items) payload.items = live.items;
+          this.$store.commit(StoreKeys.UPDATE_SECTION, { sectionIndex: this.sectionIndex, sectionData: payload });
+        } else {
+          this.$store.commit(StoreKeys.INSERT_SECTION, payload);
+        }
+        this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
+        const label = payload.name || '(unnamed)';
+        InfoHandler(`Section ${this.isAddNew ? 'added' : 'updated'}: ${label}`, InfoKeys.EDITOR);
+        this.$emit('closeEditSection');
+      } catch (e) {
+        ErrorHandler('Failed to save section', e);
+        this.$toast.error('Error saving changes. See Logs.');
       }
-      this.$store.commit(StoreKeys.SET_EDIT_MODE, true);
-      this.$emit('closeEditSection');
     },
   },
 };
@@ -110,26 +107,4 @@ export default {
 
 <style lang="scss">
 @import '@/styles/style-helpers.scss';
-@import '@/styles/media-queries.scss';
-@import '@/styles/schema-editor.scss';
-
-.edit-section-inner {
-  padding: 1rem;
-  background: var(--interactive-editor-background);
-  color: var(--interactive-editor-color);
-  height: 100%;
-  overflow-y: auto;
-  @extend .scroll-bar;
-  h3 {
-    font-size: 1.4rem;
-    margin: 0.5rem;
-  }
-  .edit-section-form {
-    @extend .schema-form;
-    margin-bottom: 2.5rem;
-  }
-  .edit-section-save-btn {
-    margin-bottom: 2rem;
-  }
-}
 </style>

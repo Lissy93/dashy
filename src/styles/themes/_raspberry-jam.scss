@@ -1,0 +1,11 @@
+html[data-theme='raspberry-jam'] {
+  --primary: #eb2d6c;
+  --background: #0b1021;
+  --item-background: #1c2636;
+  --item-group-background: var(--background);
+  --nav-link-background-color: var(--background);
+  --config-code-background: #1c1e24;
+  --config-code-color: var(--primary);
+  --font-headings: 'Sniglet', cursive;
+}
+

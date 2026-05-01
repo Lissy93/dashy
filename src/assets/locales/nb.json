@@ -42,7 +42,6 @@
     "edit-css-button": "Rediger tilpasset CSS",
     "cloud-sync-button": "Aktiver skysynkronisering",
     "edit-cloud-sync-button": "Rediger skysynkronisering",
-    "rebuild-app-button": "Bygg program",
     "change-language-button": "Endre språk",
     "reset-settings-button": "Tilbakestill lokale innstillinger",
     "app-info-button": "Appinfo",
@@ -125,20 +124,6 @@
     "error-msg-bad-json": "Feil i JSON, muligens feilformet",
     "warning-msg-validation": "Valideringsadvarsel",
     "not-admin-note": "Du kan ikke skrive endret til disk, fordi du ikke er logget inn som admin"
-  },
-  "app-rebuild": {
-    "title": "Ombygg applikasjon",
-    "rebuild-note-l1": "En ombygging er nødvendig for at endringer skrevet i conf.yml-filen skal tre i kraft.",
-    "rebuild-note-l2": "Dette bør skje automatisk, men hvis det ikke har blitt gjort, kan du manuelt utløse det her.",
-    "rebuild-note-l3": "Dette er ikke nødvendig for endringer som er lagret lokalt.",
-    "rebuild-button": "Start Bygging",
-    "rebuilding-status-1": "Bygger ...",
-    "rebuilding-status-2": "Dette kan ta noen minutter",
-    "error-permission": "Du har ikke tillatelse til å utføre denne handlingen",
-    "success-msg": "Byggingen er fullført",
-    "fail-msg": "Byggoperasjonen mislyktes",
-    "reload-note": "En sideinnlasting er nå nødvendig for at endringer skal tre i kraft",
-    "reload-button": "Last siden på nytt"
   },
   "cloud-sync": {
     "title": "Sikkerhetskopiering & gjenoppretting",

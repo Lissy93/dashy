@@ -1,0 +1,33 @@
+html[data-theme='blue-purple'] {
+  --primary: #54dbf8;
+  --background: #e5e8f5;
+  --background-darker: #5346f3;
+  --font-headings: 'Sniglet', cursive;
+
+  --dimming-factor: 0.8;
+  --curve-factor: 6px;
+
+  --settings-text-color: var(--background-darker);
+  --item-text-color: var(--background-darker);
+  --item-background: var(--white);
+  --item-background-hover: var(--primary);
+
+  --item-group-heading-text-color: var(--background-darker);
+  --item-group-background: var(--background);
+  --footer-text-color: var(--white);
+  --context-menu-background: var(--white);
+  --context-menu-color: var(--background-darker);
+  --context-menu-secondary-color: var(--primary);
+
+  .item {
+    box-shadow: none;
+    border: 1px solid var(--background-darker);
+  }
+  section.filter-container form label {
+    color: var(--primary);
+  }
+  footer {
+    color: var(--white);
+  }
+}
+

@@ -6,15 +6,15 @@
     v-tooltip="infoTooltip(build)"
   >
     <div class="status">
-      <p :class="build.build.status">{{ build.build.status | formatStatus }}</p>
+      <p :class="build.build.status">{{ formatStatus(build.build.status) }}</p>
       <span v-if="build.build.status == 'running'">
-        {{ build.build.started*1000 | formatTimeAgo }} ago
+        {{ formatTimeAgo(build.build.started*1000) }} ago
       </span>
       <span v-else-if="build.build.status != 'pending' ">
         {{ formatBuildDuration(build) }}
       </span>
       <span v-else>
-        {{ build.build.created*1000 | formatTimeAgo }} ago
+        {{ formatTimeAgo(build.build.created*1000) }} ago
       </span>
     </div>
     <div class="info">
@@ -68,22 +68,6 @@ export default {
       builds: null,
     };
   },
-  filters: {
-    formatStatus(status) {
-      let symbol = '';
-      if (status === 'success') symbol = '✔';
-      if (status === 'failure' || status === 'error' || status === 'killed') symbol = '✘';
-      if (status === 'running') symbol = '❖';
-      if (status === 'skipped') symbol = '↠';
-      return `${symbol}`;
-    },
-    formatDate(timestamp) {
-      return timestampToDateTime(timestamp);
-    },
-    formatTimeAgo(timestamp) {
-      return getTimeAgo(timestamp);
-    },
-  },
   computed: {
     /* API endpoint, either for self-hosted or managed instance */
     endpointBuilds() {
@@ -110,6 +94,20 @@ export default {
     },
   },
   methods: {
+    formatStatus(status) {
+      let symbol = '';
+      if (status === 'success') symbol = '✔';
+      if (status === 'failure' || status === 'error' || status === 'killed') symbol = '✘';
+      if (status === 'running') symbol = '❖';
+      if (status === 'skipped') symbol = '↠';
+      return `${symbol}`;
+    },
+    formatDate(timestamp) {
+      return timestampToDateTime(timestamp);
+    },
+    formatTimeAgo(timestamp) {
+      return getTimeAgo(timestamp);
+    },
     /* Fetch new data, configured by updateInterval */
     update() {
       this.startLoading();
@@ -151,7 +149,7 @@ export default {
         + `<b>Repo:</b> ${build.slug}<br>`
         + `<b>Branch:</b> ${build.build.target}<br>`;
       return {
-        content, html: true, trigger: 'hover focus', delay: 250, classes: 'build-info-tt',
+        content, html: true, popperClass: 'build-info-tt',
       };
     },
     formatPrId(link) {

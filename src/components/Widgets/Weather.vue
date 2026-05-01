@@ -24,7 +24,7 @@
 
 <script>
 import WidgetMixin from '@/mixins/WidgetMixin';
-import { widgetApiEndpoints } from '@/utils/defaults';
+import { widgetApiEndpoints } from '@/utils/config/defaults';
 
 export default {
   mixins: [WidgetMixin],

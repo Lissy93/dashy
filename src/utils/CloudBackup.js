@@ -2,7 +2,7 @@ import sha256 from 'crypto-js/sha256';
 import aes from 'crypto-js/aes';
 import Utf8 from 'crypto-js/enc-utf8';
 import request from '@/utils/request';
-import { backupEndpoint } from '@/utils/defaults';
+import { backupEndpoint } from '@/utils/config/defaults';
 
 const ENDPOINT = backupEndpoint; // 'https://dashy-sync-service.as93.net';
 
@@ -46,6 +46,6 @@ export const restore = (backupId, password) => {
         const decryptedData = decryptData(response.data.userData.userData, password);
         try { resolve(JSON.parse(decryptedData)); } catch (e) { reject(e); }
       }
-    });
+    }).catch(reject);
   });
 };

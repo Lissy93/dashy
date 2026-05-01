@@ -1,0 +1,56 @@
+/* Catppuccin Mocha — soft pastel dark theme, community-adopted across modern
+ * dev tooling. Pastel accents rotate per section for gentle colour variation. */
+html[data-theme='catppuccin'] {
+  --primary: #cba6f7;
+  --background: #1e1e2e;
+  --background-darker: #11111b;
+  --item-group-background: #313244;
+  --item-group-outer-background: #313244;
+  --item-background: #181825;
+  --item-background-hover: #313244;
+  --item-shadow: 0 1px 2px #00000066;
+  --item-hover-shadow: 0 0 0 1px var(--primary);
+
+  --heading-text-color: #cdd6f4;
+  --item-text-color: #cdd6f4;
+  --item-text-color-hover: #f5e0dc;
+  --item-group-heading-text-color: #1e1e2e;
+  --item-group-heading-text-color-hover: #1e1e2e;
+
+  --settings-background: #181825;
+  --settings-text-color: #bac2de;
+  --nav-link-text-color: #bac2de;
+  --nav-link-text-color-hover: #cdd6f4;
+  --nav-link-background-color: #181825;
+  --nav-link-border-color: transparent;
+  --nav-link-border-color-hover: var(--primary);
+
+  --search-container-background: #11111b;
+  --search-field-background: #313244;
+  --footer-background: #11111b;
+  --footer-text-color: #a6adc8;
+  --footer-text-color-link: var(--primary);
+
+  --outline-color: var(--primary);
+  --highlight-background: #f5c2e7;
+  --highlight-color: #1e1e2e;
+  --curve-factor: 8px;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-headings: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  .collapsable, .nav a.nav-item {
+    &:nth-child(1n) { --index-color: #cba6f7; }
+    &:nth-child(2n) { --index-color: #89dceb; }
+    &:nth-child(3n) { --index-color: #a6e3a1; }
+    &:nth-child(4n) { --index-color: #fab387; }
+    &:nth-child(5n) { --index-color: #f5c2e7; }
+    &:nth-child(6n) { --index-color: #f38ba8; }
+
+    --item-group-outer-background: var(--index-color);
+    --item-group-heading-text-color: #1e1e2e;
+    --nav-link-text-color-hover: var(--index-color);
+    --item-hover-shadow: 0 0 0 1px var(--index-color);
+  }
+
+  h1, h2, h3 { font-weight: 500; letter-spacing: -0.005em; }
+}

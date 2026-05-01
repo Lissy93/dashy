@@ -30,7 +30,7 @@ export default {
         upload: [],
         download: [],
       };
-      /* eslint-disable prefer-destructuring */
+       
       Object.keys(trafficData).forEach((keyName) => {
         let upOrDown = null;
         if (keyName.includes('_sent')) upOrDown = 'up';
