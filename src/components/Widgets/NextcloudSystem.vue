@@ -57,6 +57,7 @@ export default {
   components: { GaugeChart },
   data() {
     return {
+      overrideProxyChoice: true,
       server: {
         server: {
           database: {

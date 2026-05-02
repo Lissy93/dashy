@@ -37,6 +37,7 @@ export default {
   },
   data() {
     return {
+      overrideProxyChoice: true,
       queryCount: null,
       blockCount: null,
     };

@@ -124,7 +124,38 @@ const handler = (req, res) => {
   };
   request(requestConfig).then(
     (response) => send(200, response.data),
-    (error) => send(500, { error }),
+    (error) => {
+      // Handle unexpected or partial error objects
+      const err = (error && typeof error === 'object') ? error : {};
+      const upstream = (err.response && typeof err.response === 'object') ? err.response : null;
+      const upstreamStatus = upstream && typeof upstream.status === 'number' ? upstream.status : null;
+
+      // Make response code and error type
+      let proxyStatus;
+      let type;
+      if (upstreamStatus !== null && upstreamStatus >= 400) {
+        proxyStatus = upstreamStatus;
+        type = 'upstream_status';
+      } else if (err.timeout) {
+        proxyStatus = 504;
+        type = 'upstream_timeout';
+      } else {
+        proxyStatus = 502;
+        type = 'upstream_error';
+      }
+
+      send(proxyStatus, {
+        error: {
+          type,
+          name: err.name,
+          message: err.message,
+          code: err.code,
+          status: upstreamStatus,
+          statusText: upstream && upstream.statusText,
+          data: upstream && upstream.data,
+        },
+      });
+    },
   );
 };
 

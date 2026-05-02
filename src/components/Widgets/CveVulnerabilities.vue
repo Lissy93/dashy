@@ -7,9 +7,6 @@
         <p class="title">{{ cve.id }}</p>
         <span class="date">{{ formatDate(cve.publishDate) }}</span>
         <span class="last-updated">Last Updated: {{ formatDate(cve.updateDate) }}</span>
-        <span :class="`exploit-count ${makeExploitColor(cve.numExploits)}`">
-          {{ formatExploitCount(cve.numExploits) }}
-        </span>
       </div>
     </a>
     <p class="cve-description">
@@ -32,11 +29,18 @@ export default {
   components: {},
   data() {
     return {
+      overrideProxyChoice: true,
       cveList: null,
       total: 10,
     };
   },
   computed: {
+    apiKey() {
+      return this.options.apiKey ? this.parseAsEnvVar(this.options.apiKey) : null;
+    },
+    requestHeaders() {
+      return this.apiKey ? { apiKey: this.apiKey } : null;
+    },
     endpointTotal() {
       let apiUrl = `${widgetApiEndpoints.cveVulnerabilities}?resultsPerPage=1&startIndex=1&noRejected`;
       apiUrl = this.appendQuery(apiUrl, this.options, 'cveTag', 'cveTag');
@@ -72,11 +76,6 @@ export default {
     formatDescription(description) {
       return truncateStr(description, 350);
     },
-    formatExploitCount(numExploits) {
-      if (!numExploits) return 'Number of exploits not known';
-      if (numExploits === '0') return 'No published exploits';
-      return `${numExploits} known exploit${numExploits !== '1' ? 's' : ''}`;
-    },
     appendQuery(url = '', opts = {}, property = '', paramUrl = '') {
       const allowedKeys = [
         'cveTag',
@@ -98,13 +97,24 @@ export default {
     },
     /* Make GET request to NIST NVD API endpoint */
     fetchData() {
-      this.defaultTimeout = 12000;
-      this.makeRequest(this.endpointTotal)
+      this.defaultTimeout = 28000;
+      this.makeRequest(this.endpointTotal, this.requestHeaders)
         .then(sample => {
           this.total = sample.totalResults;
-          this.makeRequest(this.endpointPage)
-            .then(this.processData);
-        });
+          this.makeRequest(this.endpointPage, this.requestHeaders)
+            .then(this.processData)
+            .catch(this.handleApiError);
+        })
+        .catch(this.handleApiError);
+    },
+    /* Checks if there's a NIST-specific error message to return to the user */
+    handleApiError(err) {
+      const upstream = err && err.response && err.response.data && err.response.data.error;
+      if (!upstream || typeof upstream !== 'object') return;
+      const code = upstream.code || upstream.status;
+      if (code) {
+        this.error(`NIST API error ${code}: ${upstream.statusText || upstream.message || 'unknown'}`);
+      }
     },
     /* Assign data variables to the returned data */
     processData(data) {
@@ -125,37 +135,13 @@ export default {
       if (!metrics) {
         return 'Unset';
       }
-      if (metrics.cvssMetricV40 !== undefined) {
-        for (let i = 0; i < metrics.cvssMetricV40.length; i += 1) {
-          if (metrics.cvssMetricV40[i].cvssData !== undefined
-              && metrics.cvssMetricV40[i].cvssData.baseSeverity !== undefined
-              && metrics.cvssMetricV40[i].cvssData.baseSeverity !== '') {
-            return metrics.cvssMetricV40[i].cvssData.baseSeverity;
-          }
-        }
-      }
-      if (metrics.cvssMetricV31 !== undefined) {
-        for (let i = 0; i < metrics.cvssMetricV31.length; i += 1) {
-          if (metrics.cvssMetricV31[i].cvssData !== undefined
-              && metrics.cvssMetricV31[i].cvssData.baseSeverity !== undefined
-              && metrics.cvssMetricV31[i].cvssData.baseSeverity !== '') {
-            return metrics.cvssMetricV31[i].cvssData.baseSeverity;
-          }
-        }
-      }
-      if (metrics.cvssMetricV30 !== undefined) {
-        for (let i = 0; i < metrics.cvssMetricV30.length; i += 1) {
-          if (metrics.cvssMetricV30[i].cvssData !== undefined
-              && metrics.cvssMetricV30[i].cvssData.baseSeverity !== undefined
-              && metrics.cvssMetricV30[i].cvssData.baseSeverity !== '') {
-            return metrics.cvssMetricV30[i].cvssData.baseSeverity;
-          }
-        }
-      }
-      if (metrics.cvssMetricV2 !== undefined) {
-        for (let i = 0; i < metrics.cvssMetricV2.length; i += 1) {
-          if (metrics.cvssMetricV2[i].baseSeverity !== undefined && metrics.cvssMetricV2[i].baseSeverity !== '') {
-            return metrics.cvssMetricV2[i].baseSeverity;
+      const versions = ['cvssMetricV40', 'cvssMetricV31', 'cvssMetricV30', 'cvssMetricV2'];
+      for (let v = 0; v < versions.length; v += 1) {
+        const entries = metrics[versions[v]];
+        if (Array.isArray(entries)) {
+          for (let i = 0; i < entries.length; i += 1) {
+            const score = entries[i].cvssData && entries[i].cvssData.baseScore;
+            if (typeof score === 'number') return score;
           }
         }
       }
@@ -170,11 +156,12 @@ export default {
       return 'Unset';
     },
     makeScoreColor(inputScore) {
-      if (!inputScore) return 'bg-grey';
-      if (inputScore === 'CRITICAL') return 'bg-red';
-      if (inputScore === 'HIGH') return 'bg-orange';
-      if (inputScore === 'MEDIUM') return 'bg-yellow';
-      if (inputScore === 'LOW') return 'bg-green';
+      if (inputScore === undefined || inputScore === null || Number.isNaN(parseFloat(inputScore))) return 'bg-grey';
+      const score = parseFloat(inputScore);
+      if (score >= 9) return 'bg-red';
+      if (score >= 7) return 'bg-orange';
+      if (score >= 4) return 'bg-yellow';
+      if (score >= 0.1) return 'bg-green';
       return 'bg-blue';
     },
   },

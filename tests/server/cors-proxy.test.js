@@ -1,4 +1,5 @@
 // @vitest-environment node
+import http from 'http';
 import {
   describe, it, expect, afterEach, beforeAll, afterAll, vi,
 } from 'vitest';
@@ -98,6 +99,88 @@ describe('CORS proxy', () => {
     } finally {
       delete process.env.DASHY_TEST_BLOCKED_HOST;
     }
+  });
+});
+
+// Spin up a controllable target server, then drive the proxy through real
+// failure paths (upstream 4xx/5xx, network refused, port unreachable). This
+// is the only way to verify the error-classification branches end-to-end —
+// vi.mock can't reach into a `require()` graph that's already been loaded
+// by services/app at the top of this file.
+describe('CORS proxy error classification', () => {
+  let target;
+  let targetUrl;
+  let handler = (req, res) => res.status(500).end();
+
+  beforeAll(() => new Promise((resolve) => {
+    target = http.createServer((req, res) => handler(req, res));
+    target.listen(0, '127.0.0.1', () => {
+      targetUrl = `http://127.0.0.1:${target.address().port}`;
+      resolve();
+    });
+  }));
+  afterAll(() => new Promise((resolve) => target.close(resolve)));
+
+  it('mirrors upstream 4xx status (so frontend can branch on err.response.status)', async () => {
+    handler = (req, res) => {
+      res.statusCode = 429;
+      res.statusMessage = 'Too Many Requests';
+      res.end('rate limited');
+    };
+    const res = await request(app).get('/cors-proxy').set('Target-URL', targetUrl);
+    expect(res.status).toBe(429);
+    expect(res.body.error.type).toBe('upstream_status');
+    expect(res.body.error.status).toBe(429);
+    expect(res.body.error.statusText).toBe('Too Many Requests');
+  });
+
+  it('mirrors upstream 5xx status', async () => {
+    handler = (req, res) => { res.statusCode = 503; res.end('busy'); };
+    const res = await request(app).get('/cors-proxy').set('Target-URL', targetUrl);
+    expect(res.status).toBe(503);
+    expect(res.body.error.type).toBe('upstream_status');
+  });
+
+  it('returns 502 + upstream_error when upstream refuses connection', async () => {
+    // Port 1 is reserved (tcpmux) — guaranteed nothing listening, ECONNREFUSED
+    const res = await request(app).get('/cors-proxy').set('Target-URL', 'http://127.0.0.1:1');
+    expect(res.status).toBe(502);
+    expect(res.body.error.type).toBe('upstream_error');
+    // Specific cause is still preserved in the body, just not in the type label
+    expect(res.body.error.code).toBe('ECONNREFUSED');
+  });
+
+  it('does not crash when target server hangs up mid-request', async () => {
+    handler = (req, res) => { res.socket.destroy(); };
+    const res = await request(app).get('/cors-proxy').set('Target-URL', targetUrl);
+    expect(res.status).toBe(502);
+    expect(res.body.error.type).toBe('upstream_error');
+  });
+
+});
+
+// Verify the request.js → cors-proxy timeout contract end-to-end. The proxy
+// classifies via a `timeout: true` marker on the RequestError, not via the
+// 'ECONNABORTED' string (which collides with a real libuv errno).
+describe('request.js timeout marker', () => {
+  const request_ = require('../../services/request');
+
+  let target;
+  let targetUrl;
+  beforeAll(() => new Promise((resolve) => {
+    target = http.createServer(() => { /* never respond */ });
+    target.listen(0, '127.0.0.1', () => {
+      targetUrl = `http://127.0.0.1:${target.address().port}`;
+      resolve();
+    });
+  }));
+  afterAll(() => new Promise((resolve) => target.close(resolve)));
+
+  it('rejects with timeout:true (and ECONNABORTED preserved on .code for back-compat)', async () => {
+    await expect(request_({ url: targetUrl, timeout: 50 })).rejects.toMatchObject({
+      timeout: true,
+      code: 'ECONNABORTED',
+    });
   });
 });
 

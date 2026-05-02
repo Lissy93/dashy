@@ -79,6 +79,7 @@ export default {
   },
   data() {
     return {
+      overrideProxyChoice: true,
       statuses: {},
     };
   },
