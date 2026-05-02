@@ -12,7 +12,7 @@
       <path v-if="siPath" :d="siPath" />
     </svg>
     <!-- Standard image asset icon -->
-    <img v-else-if="icon" :src="iconPath" @error="imageNotFound" loading="lazy"
+    <img v-else-if="icon" :src="iconPath" @error="onImageError" loading="lazy"
       :class="`tile-icon ${size} ${broken ? 'broken' : ''}`"
     />
     <!-- Icon could not load/ broken url -->
@@ -61,7 +61,8 @@ export default {
     },
     /* Gets the icon path, dependent on icon type */
     iconPath() {
-      if (this.broken) return this.getFallbackIcon();
+      if (this.broken) return undefined;
+      if (this.attemptedFallback) return this.getFallbackIcon();
       return this.getIconPath(this.icon, this.url);
     },
   },
@@ -254,21 +255,20 @@ export default {
       ErrorHandler(outputMessage);
       this.broken = true;
     },
-    /* Called when initial icon has resulted in 404. Attempts to find new icon */
-    getFallbackIcon() {
-      if (this.attemptedFallback) return undefined; // If this is second attempt, then give up
-      const iconType = this.iconType || '';
-      const markAsAttempted = () => { this.broken = false; this.attemptedFallback = true; };
-      if (iconType.includes('favicon')) { // Specify fallback for favicon-based icons
-        markAsAttempted();
-        return this.getFavicon(this.url, 'local');
-      } else if (iconType === 'generative') {
-        markAsAttempted();
-        return this.getGenerativeIcon(this.url, iconCdns.generativeFallback);
-      } else if (iconType === 'home-lab-icons') {
-        markAsAttempted();
-        return this.getHomeLabIcon(this.icon, iconCdns.homeLabIconsFallback);
+    /* On <img> error: try fallback once; if none available or already tried, mark broken */
+    onImageError() {
+      if (this.attemptedFallback || this.getFallbackIcon() === undefined) {
+        this.imageNotFound();
+        return;
       }
+      this.attemptedFallback = true;
+    },
+    /* Returns fallback URL for icon types that have one, else undefined */
+    getFallbackIcon() {
+      const iconType = this.iconType || '';
+      if (iconType.includes('favicon')) return this.getFavicon(this.url, 'local');
+      if (iconType === 'generative') return this.getGenerativeIcon(this.url, iconCdns.generativeFallback);
+      if (iconType === 'home-lab-icons') return this.getHomeLabIcon(this.icon, iconCdns.homeLabIconsFallback);
       return undefined;
     },
   },
