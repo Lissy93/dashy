@@ -652,10 +652,7 @@ This widget display email addresses / aliases from addy.io. Click an email addre
 
 ### Vulnerability Feed
 
-Keep track of recent security advisories and vulnerabilities, with optional filtering by score, exploits, vendor and product. All fields are optional.
-
-Sources from: https://services.nvd.nist.gov/rest/json/cves/2.0
-Docs: https://nvd.nist.gov/developers/vulnerabilities
+Keep track of recent security advisories and vulnerabilities, with optional filtering by score, exploits, vendor and product. Using data from [NIST Vulnerability API](https://nvd.nist.gov/developers/vulnerabilities). All fields are optional.
 
 <p align="center"><img width="400" src="https://pixelflare.cc/alicia/dashy/cve" /></p>
 
@@ -669,6 +666,7 @@ Docs: https://nvd.nist.gov/developers/vulnerabilities
 **`cvssV3Severity`** | `string` |  _Optional_ | This parameter returns only the CVEs that match the provided CVSSv3 qualitative severity rating. Options are **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**
 **`cvssV4Severity`** | `string` |  _Optional_ | This parameter returns only the CVEs that match the provided CVSSv4 qualitative severity rating. Options are **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**
 **`keywordSearch`** | `string` |  _Optional_ | This parameter returns only the CVEs where a word or phrase is found in the current description
+**`apiKey`** | `string` |  _Optional_ | Without a key you're limited to 5 requests every 30 seconds. You can get a free API key from [here](https://nvd.nist.gov/developers/request-an-api-key)
 
 #### Example
 
@@ -689,7 +687,7 @@ or
 #### Info
 
 - **CORS**: 🟠 Proxied
-- **Auth**: 🟢 Not Required
+- **Auth**: 🟢 Not Required (free apiKey recommended for multiple widgets)
 - **Price**: 🟢 Free
 - **Host**: Managed
 - **Privacy**: _See [CVE Details Privacy Policy](https://www.cvedetails.com/privacy.php)_
