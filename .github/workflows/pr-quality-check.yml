@@ -11,6 +11,23 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changes:
+    name: 🔎 Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      lockfile: ${{ steps.filter.outputs.lockfile }}
+    steps:
+      - name: 🛎️ Checkout Code
+        uses: actions/checkout@v6
+
+      - name: 🔎 Filter Paths
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            lockfile:
+              - 'yarn.lock'
+
   lint:
     name: 📝 Lint Code
     runs-on: ubuntu-latest
@@ -111,23 +128,24 @@ jobs:
         run: sh tests/docker-smoke-test.sh
         timeout-minutes: 10
 
-  # TODO: Re-enable security audit job
-  # security:
-  #   name: 🔒 Security Audit
-  #   runs-on: ubuntu-latest
-  #   continue-on-error: true
-  #   steps:
-  #     - name: 🛎️ Checkout Code
-  #       uses: actions/checkout@v6
-  #
-  #     - name: 🔧 Setup Node.js
-  #       uses: actions/setup-node@v6
-  #       with:
-  #         node-version: '20'
-  #         cache: 'yarn'
-  #
-  #     - name: 📦 Install Dependencies
-  #       run: yarn install --frozen-lockfile
-  #
-  #     - name: 🔒 Run Security Audit
-  #       run: yarn audit --level high
+  security:
+    name: 🔒 Security Audit
+    runs-on: ubuntu-latest
+    needs: changes
+    if: needs.changes.outputs.lockfile == 'true'
+    continue-on-error: true
+    steps:
+      - name: 🛎️ Checkout Code
+        uses: actions/checkout@v6
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: 📦 Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🔒 Run Security Audit
+        run: yarn audit --level high
