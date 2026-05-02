@@ -302,44 +302,6 @@ const defaults = {
     keycloakEnabled: 4,
     oidcEnabled: 5,
   },
-  /* Progressive Web App settings, used by Vue Config */
-  pwa: {
-    name: 'Dashy',
-    themeColor: '#00af87',
-    msTileColor: '#0b1021',
-    mode: 'production',
-    manifestCrossorigin: 'use-credentials',
-    iconPaths: {
-      faviconSVG: null,
-      appleTouchIcon: './web-icons/dashy-pwa_192x192.png',
-      favicon64: './web-icons/favicon-64x64.png',
-      favicon32: './web-icons/favicon-32x32.png',
-      favicon16: './web-icons/favicon-16x16.png',
-      maskIcon: './web-icons/dashy-logo.png',
-      msTileImage: './web-icons/dashy-logo.png',
-    },
-    workboxOptions: {
-      exclude: [
-        // https://developer.chrome.com/docs/workbox/modules/workbox-build#properties_14
-        /\.map$/,
-        /^manifest.*\.js$/, // default value
-        /\.nojekyll$/,
-        /\.gitignore$/,
-        /conf\.yml$/, // ignore config for runtimeCaching
-      ],
-      // https://developer.chrome.com/docs/workbox/modules/workbox-build#type-RuntimeCaching
-      runtimeCaching: [
-        {
-          urlPattern: /conf\.yml$/,
-          handler: 'NetworkFirst',
-          options: {
-            cacheName: 'config-cache',
-            networkTimeoutSeconds: 3,
-          },
-        },
-      ],
-    },
-  },
 };
 
 export const {
@@ -377,7 +339,6 @@ export const {
   searchBangs,
   sentryDsn,
   userStateEnum,
-  pwa,
 } = defaults;
 
 export default defaults;
