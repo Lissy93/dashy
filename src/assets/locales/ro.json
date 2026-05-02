@@ -8,7 +8,8 @@
     "search-label": "Caută",
     "search-placeholder": "Începeți să tastați pentru a filtra",
     "clear-search-tooltip": "Șterge căutarea",
-    "enter-to-search-web": "Apasă enter pentru a căuta pe web"
+    "enter-to-search-web": "Apasă enter pentru a căuta pe web",
+    "enter-to-open-url": "Apasă Enter pentru a deschide URL-ul"
   },
   "splash-screen": {
     "loading": "Încărcare"
@@ -68,7 +69,13 @@
     "licence-third-party-link": "Legal",
     "list-contributors": "Pentru lista completă a contribuitorilor și mulțumiri, vedeți",
     "list-contributors-link": "Credite",
-    "version": "Versiune"
+    "version": "Versiune",
+    "sponsor-heading": "Sponsorizează Dashy",
+    "sponsor-l1-prefix": "Îți place Dashy? Ia în considerare",
+    "sponsor-l1-link": "să mă sponsorizezi pe GitHub",
+    "sponsor-l1-suffix": "pentru a susține dezvoltarea continuă 🩷",
+    "report-bug-debug-link": "verifică meniul de depanare",
+    "report-bug-middle": "și"
   },
   "config": {
     "main-tab": "Meniu Principal",
@@ -103,7 +110,8 @@
     "custom-css": {
       "title": "CSS Personalizat",
       "base-theme": "Tema de Bază"
-    }
+    },
+    "debug-info-button": "Informații de depanare"
   },
   "alternate-views": {
     "alternate-view-heading": "Schimbă Vederea",
@@ -127,14 +135,23 @@
     "sign-in-tooltip": "Conectare",
     "sign-in-welcome": "Bună {username}!",
     "hide": "Ascunde",
-    "open": "Deschide"
+    "open": "Deschide",
+    "layout-masonry": "Zidărie",
+    "language-label": "Limbă",
+    "nav-links-tooltip": "Navigare și configurări",
+    "toggle-nav-aria": "Comută meniul de navigare",
+    "please-login": "Autentifică-te pentru acces complet",
+    "options-title": "Opțiuni",
+    "options-tooltip": "Opțiuni"
   },
   "updates": {
     "app-version-note": "Versiune Dashy",
     "up-to-date": "Actualizat",
     "out-of-date": "Actualizare Disponibilă",
     "unsupported-version-l1": "Utilizați o versiune nesuportată de Dashy",
-    "unsupported-version-l2": "Pentru cea mai bună experiență și patch-uri de securitate recente, vă rugăm să actualizați la"
+    "unsupported-version-l2": "Pentru cea mai bună experiență și patch-uri de securitate recente, vă rugăm să actualizați la",
+    "sw-update-available": "O nouă versiune Dashy este disponibilă.",
+    "sw-update-action": "Reîmprospătează"
   },
   "language-switcher": {
     "title": "Schimbă Limba Aplicației",
@@ -172,7 +189,26 @@
     "error-msg-cannot-save": "A apărut o eroare la salvarea configurației",
     "error-msg-bad-json": "Eroare în JSON, posibil malformat",
     "warning-msg-validation": "Avertisment de Validare",
-    "not-admin-note": "Nu puteți scrie modificările pe disc deoarece nu sunteți conectat ca administrator"
+    "not-admin-note": "Nu puteți scrie modificările pe disc deoarece nu sunteți conectat ca administrator",
+    "preview-applied-msg": "Configurația a fost previzualizată. Închide această fereastră pentru a vedea modificările.",
+    "reset-confirm-msg": "Renunți la toate modificările nesalvate și revii la configurația originală?",
+    "wrap-label": "Încadrare text",
+    "format-label": "Formatează",
+    "reset-label": "Resetează",
+    "reset-tooltip": "Renunță la toate modificările și revino la configurația originală",
+    "download-tooltip": "Descarcă drept conf.yml",
+    "download-label": "Descarcă YAML",
+    "copy-tooltip": "Copiază YAML în clipboard",
+    "copy-label": "Copiază YAML",
+    "copy-success-msg": "Configurație copiată în clipboard",
+    "copy-fail-msg": "Copiere eșuată: {message}",
+    "format-fail-msg": "Nu se poate formata: {message}",
+    "status-valid": "Validă",
+    "status-invalid": "Invalidă",
+    "status-warning": "{n} avertisment",
+    "status-warnings": "{n} avertismente",
+    "parse-fail-msg": "Eroare la parsarea YAML: {message}",
+    "editor-init-fail-msg": "Inițializarea editorului a eșuat: {message}"
   },
   "cloud-sync": {
     "title": "Backup și Restaurare în Cloud",
@@ -221,14 +257,16 @@
       "edit-item": "Editare",
       "move-item": "Copiază sau Mută",
       "remove-item": "Șterge",
-      "copied-toast": "URL-ul a fost copiat în clipboard"
+      "copied-toast": "URL-ul a fost copiat în clipboard",
+      "newwindow": "Fereastră nouă"
     },
     "section": {
       "open-section": "Deschide Secțiunea",
       "edit-section": "Editare",
       "expand-collapse": "Extinde / Colapsează",
       "move-section": "Mută La",
-      "remove-section": "Șterge"
+      "remove-section": "Șterge",
+      "section-options": "Opțiuni secțiune"
     }
   },
   "interactive-editor": {
@@ -259,7 +297,12 @@
       "edit-mode-description": "Aceasta înseamnă că poți face modificări la configurația ta și să previzualizezi rezultatele, dar până nu salvezi, niciuna dintre modificările tale nu va fi păstrată.",
       "save-stage-btn": "Salvează",
       "cancel-stage-btn": "Anulează",
-      "save-locally-warning": "Dacă vei continua, modificările vor fi salvate doar în browserul tău. Ar trebui să exporți o copie a configurației tale pentru utilizare pe alte mașini. Dorești să continui?"
+      "save-locally-warning": "Dacă vei continua, modificările vor fi salvate doar în browserul tău. Ar trebui să exporți o copie a configurației tale pentru utilizare pe alte mașini. Dorești să continui?",
+      "config-unavailable": "Editorul de configurație nu este disponibil",
+      "edit-config-as-code-btn": "Editează configurația ca cod",
+      "edit-config-as-code-tooltip": "Deschide editorul YAML pentru a edita fișierul brut de configurare",
+      "edit-pages-subconfig-disabled": "Paginile pot fi editate doar din configurația rădăcină",
+      "leave-while-editing-confirm": "Ai modificări nesalvate. Părăsești pagina și le pierzi?"
     },
     "edit-item": {
       "missing-title-err": "Este necesar un titlu pentru element"
@@ -283,7 +326,46 @@
       "copy-clipboard-tooltip": "Copiază toată configurația aplicației în clipboard-ul sistemului, în format YAML",
       "download-file-btn": "Descarcă ca Fișier",
       "download-file-tooltip": "Descarcă toată configurația aplicației pe dispozitivul tău, într-un fișier YAML",
-      "view-title": "Vizualizează Configurația"
+      "view-title": "Vizualizează Configurația",
+      "current-config-title": "Configurația curentă",
+      "preview-toggle": "Previzualizare YAML",
+      "issues-title": "Probleme de schemă ({n})",
+      "config-list-title": "Listă de configurări",
+      "col-title": "Titlu",
+      "col-path": "Cale",
+      "col-content": "Conținut",
+      "col-status": "Status",
+      "col-actions": "Acțiuni",
+      "content-summary": "{sections} secțiuni, {items} elemente, {widgets} widgeturi",
+      "status-loading": "se încarcă",
+      "status-valid": "valid",
+      "status-warnings": "{n} avertismente",
+      "status-error": "eroare",
+      "status-unknown": "necunoscut",
+      "edit-current-btn": "Editează configurația",
+      "edit-current-tooltip": "Deschide configurația curentă în editorul JSON",
+      "copy-fail-msg": "Nu am putut copia în clipboard, vezi jurnalul",
+      "download-row-tooltip": "Descarcă YAML",
+      "preview-row-tooltip": "Comută previzualizarea YAML",
+      "apply-row-tooltip": "Aplică configurația"
+    },
+    "edit-widget": {
+      "edit-widget-title": "Editează widgetul",
+      "add-widget-title": "Adaugă widget nou",
+      "add-widget-btn": "Adaugă widget",
+      "type-label": "Tip widget",
+      "label-label": "Etichetă",
+      "update-interval-label": "Interval de actualizare (secunde)",
+      "timeout-label": "Timeout (ms)",
+      "use-proxy-label": "Folosește proxy",
+      "ignore-errors-label": "Ignoră erorile",
+      "options-heading": "Opțiuni widget",
+      "add-option-btn": "Adaugă opțiune",
+      "key-placeholder": "Cheie",
+      "value-placeholder": "Valoare",
+      "missing-type-err": "Tipul widgetului este obligatoriu",
+      "remove-widget": "Elimină widgetul",
+      "remove-confirm": "Sigur dorești să elimini acest widget? Această acțiune poate fi anulată ulterior."
     }
   },
   "widgets": {
@@ -345,7 +427,8 @@
       "post-code": "Cod Poștal",
       "location": "Locație",
       "timezone": "Fus Orar",
-      "organization": "Organizație"
+      "organization": "Organizație",
+      "forwarded-port": "Port redirecționat"
     },
     "nextcloud": {
       "active": "activ",
@@ -418,5 +501,99 @@
       "version": "versiune",
       "wasted": "pierdut"
     }
+  },
+  "general": {
+    "close-modal": "Închide dialogul",
+    "confirm": "Confirmă",
+    "cancel": "Anulează"
+  },
+  "remote-config": {
+    "title": "Încărcăm configurația de la distanță?",
+    "apply-button": "Aplică previzualizarea",
+    "intro": "Se încarcă o configurație dintr-un URL extern. Dorești să continui?",
+    "warning": "Asigură-te că ai citit conținutul pe care îl încarci înainte de a continua. După încărcare, browserul va putea executa orice cod client specificat în această configurație.",
+    "field-title": "Titlu",
+    "field-source": "Sursă",
+    "field-sections": "Secțiuni",
+    "field-items": "Elemente",
+    "preview-note": "Doar previzualizare. Aceasta nu va face modificări pe disc și nu va afecta în niciun fel instanța ta de Dashy.",
+    "applied-toast": "Configurație de la distanță aplicată (doar previzualizare)",
+    "previewing-banner": "Se previzualizează configurația de la distanță",
+    "revert-button": "Revino",
+    "error-invalid-url": "URL-ul configurației de la distanță nu este valid (trebuie să fie http sau https)",
+    "error-fetch": "Nu am putut prelua configurația de la distanță. Verifică dacă URL-ul este accesibil și dacă CORS este permis.",
+    "error-parse": "Configurația de la distanță nu este YAML valid",
+    "error-not-config": "Fișierul de la distanță nu pare să fie o configurație Dashy",
+    "error-apply": "Aplicarea configurației de la distanță a eșuat"
+  },
+  "debug": {
+    "getting-help": "Obține ajutor",
+    "getting-help-msg": "Dacă ai întâmpinat o problemă, comunitatea te poate ajuta.",
+    "resources": {
+      "troubleshooting-name": "Depanare",
+      "troubleshooting-desc": "Am descris aici soluții pentru problemele comune",
+      "docs-name": "Documentație",
+      "docs-desc": "Ghiduri de utilizare și instrucțiuni de configurare",
+      "source-name": "Cod sursă",
+      "source-desc": "Altfel, poți identifica problema direct din cod",
+      "email-name": "Suport prin email",
+      "email-note": "(doar pentru sponsori)",
+      "email-desc": "Trimite-mi un mesaj și voi încerca să te ajut"
+    },
+    "reporting-bug": "Raportează o eroare",
+    "reporting-bug-l1-prefix": "Dacă ai găsit ceva care nu funcționează cum ar trebui, te rog",
+    "reporting-bug-l1-link": "deschide un issue",
+    "reporting-bug-l1-suffix": "pe repo-ul nostru de GitHub.",
+    "reporting-bug-l2-intro": "Când raportezi o eroare, te rog include informațiile relevante, cum ar fi:",
+    "reporting-bug-list": {
+      "version": "Versiunea Dashy",
+      "deployment": "Tipul deploymentului",
+      "errors": "Jurnalele de erori",
+      "config": "Fragmente din configurație",
+      "overrides": "Suprascrierile relevante",
+      "environment": "Informații despre mediu"
+    },
+    "reporting-bug-note": "Asigură-te că redactezi orice informație sensibilă. Tichetele care nu includ suficiente informații pentru depanare, diagnosticare și remediere pot fi închise. Din lipsă de timp, suportul și solicitările de funcționalități de la sponsori sunt prioritare.",
+    "app-version": "Versiune aplicație",
+    "error-log": "Jurnal de erori",
+    "error-log-hint-prefix": "Vezi",
+    "error-log-hint-link": "aici",
+    "error-log-hint-suffix": "pentru instrucțiuni privind vizualizarea jurnalelor browserului. Pot exista informații utile și în jurnalele serverului.",
+    "no-errors": "Nicio eroare înregistrată în această sesiune.",
+    "current-config": "Configurația curentă",
+    "current-config-hint": "Când deschizi un issue, te rog include părțile relevante din fișierul de configurare.",
+    "config-render-error": "Configurația nu a putut fi afișată: {error}",
+    "local-storage": "Stocare locală",
+    "local-storage-hint": "Setări salvate în acest browser. Acestea suprascriu valorile implicite până la ștergere.",
+    "no-local-storage": "Nimic stocat local.",
+    "local-storage-error": "Nu am putut citi stocarea locală: {error}",
+    "environment": "Mediu",
+    "environment-hint": "Informații despre browser și dispozitiv pentru a fi incluse când raportezi o eroare.",
+    "env": {
+      "unknown": "Necunoscut",
+      "yes": "Da",
+      "no": "Nu",
+      "browser": "Browser",
+      "os": "Sistem de operare",
+      "viewport": "Viewport",
+      "screen": "Ecran",
+      "dpr": "Raport de pixeli",
+      "languages": "Limbi",
+      "timezone": "Fus orar",
+      "colorScheme": "Schemă de culori",
+      "reducedMotion": "Mișcare redusă",
+      "online": "Online",
+      "route": "Rută curentă",
+      "mode": "Mod de build",
+      "swActive": "Service Worker"
+    }
+  },
+  "critical-error": {
+    "title": "Eroare la încărcarea configurației",
+    "subtitle": "Dashy nu s-a încărcat corect din cauza unei erori de configurare.",
+    "sub-ensure-that": "Asigură-te că",
+    "sub-error-details": "Detalii eroare",
+    "sub-next-steps": "Pașii următori",
+    "ignore-button": "Ignoră erorile critice"
   }
 }
