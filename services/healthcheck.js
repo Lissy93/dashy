@@ -14,7 +14,6 @@ const httpsCerts = {
 /* Check if either if simular conditions exist that would of had ssl-server.js to enable ssl */
 const isSsl = !!fs.existsSync(httpsCerts.private) && !!fs.existsSync(httpsCerts.public);
 
-// eslint-disable-next-line import/no-dynamic-require
 const http = require(isSsl ? 'https' : 'http');
 
 /* Location of the server to test */
@@ -33,7 +32,7 @@ const agent = new http.Agent({
 });
 
 const requestOptions = {
-  host, port, timeout, agent,
+  host, port, timeout, agent, path: '/healthz',
 };
 
 const startTime = new Date(); // Initialize timestamp to calculate time taken

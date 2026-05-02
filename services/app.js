@@ -33,6 +33,7 @@ const getUser = require('./get-user'); // Enables server side user lookup
 
 /* Service endpoint URL paths (see also serviceEndpoints in src/utils/config/defaults.js) */
 const ENDPOINTS = {
+  health: '/healthz',
   statusPing: '/status-ping',
   statusCheck: '/status-check',
   save: '/config-manager/save',
@@ -40,6 +41,11 @@ const ENDPOINTS = {
   corsProxy: '/cors-proxy',
   getUser: '/get-user',
 };
+
+/* Read package version once at startup, so healthcheck never touches the disk per-request */
+let appVersion = 'unknown';
+try { appVersion = require(path.join(rootDir, 'package.json')).version || 'unknown'; }
+catch { /* non-fatal — fall back to 'unknown' */ }
 
 /* Indicates for the webpack config, that running as a server */
 process.env.IS_SERVER = 'True';
@@ -173,6 +179,13 @@ function requireAdmin(req, res, next) {
 const method = (m, mw) => (req, res, next) => (req.method === m ? mw(req, res, next) : next());
 
 const app = express()
+  .get(ENDPOINTS.health, (req, res) => {
+    res.set('Cache-Control', 'no-store').status(200).json({
+      status: 'ok',
+      uptime: Math.round(process.uptime()),
+      version: appVersion,
+    });
+  })
   // Load SSL redirection middleware
   .use(sslServer.middleware)
   // Load middlewares for parsing JSON, and supporting HTML5 history routing
