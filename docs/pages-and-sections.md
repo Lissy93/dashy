@@ -171,14 +171,15 @@ Item groups may also have an optional title.
   items:
   - title: Normal Item 1
   - title: Normal Item 2
-  - subItems:
+  - title: Languages
+    subItems:
     - title: JavaScript
       url: https://developer.mozilla.org
       icon: si-javascript
     - title: TypeScript
       url: https://www.typescriptlang.org/docs
       icon: si-typescript
-    - title: Svelt
+    - title: Svelte
       url: https://svelte.dev/docs
       icon: si-svelte
     - title: Go

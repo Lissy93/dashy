@@ -242,7 +242,6 @@ Styleguides:
 │  │  ├── CloudBackupRestore.vue  # Form where the user manages cloud sync options
 │  │  ├── ConfigContainer.vue     # Main container, wrapping all other config components
 │  │  ├── CustomCss.vue           # Form where the user can input custom CSS
-│  │  ├── EditSiteMeta.vue        # Form where the user can edit site meta data
 │  │  ╰── JsonEditor.vue          # JSON editor, where the user can modify the main config file
 │  ├── FormElements               # Basic form elements used throughout the app
 │  │  ├── Button.vue              # Standard button component

@@ -617,7 +617,7 @@ This widget display email addresses / aliases from addy.io. Click an email addre
 
 **Field** | **Type** | **Required** | **Description**
 --- | --- | --- | ---
-**`apiKey`** | `string` |  Required | Your addy.io API Key / Personal Access Token. You can generate this under [Account Settings](https://app.addy.io/settings)
+**`apiKey`** | `string` |  Required | Your addy.io API Key / Personal Access Token. You can generate this under [API Settings](https://app.addy.io/settings/api)
 **`hostname`** | `string` |  _Optional_ | If your self-hosting addy.io, then supply the host name. By default it will use the public hosted instance
 **`apiVersion`** | `string` |  _Optional_ | If you're using an API version that is not version `v1`, then specify it here
 **`limit`** | `number` |  _Optional_ | Limit the number of emails shown per page. Defaults to `10`
@@ -630,7 +630,7 @@ This widget display email addresses / aliases from addy.io. Click an email addre
 #### Example
 
 ```yaml
-  - type: anonaddy
+  - type: addy
     options:
       apiKey: "xxxxxxxxxxxxxxxxxxxxxxxx\
         xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\

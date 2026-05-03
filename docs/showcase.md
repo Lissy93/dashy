@@ -212,6 +212,14 @@
 
 ---
 
+## HomeLab 3.0
+
+> <sup>Re: [#1999](https://github.com/Lissy93/dashy/issues/1999)</sup>
+
+![screenshot-homelab-3](https://pixelflare.cc/alicia/dashy/12-skoogee-homelab-3)
+
+---
+
 ## Morning Dashboard
 
 > Displayed on my smart screen between 05:00 - 08:00, and includes all the info that I usually check before leaving for work
