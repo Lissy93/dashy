@@ -240,7 +240,6 @@ toast.dismiss = dismiss;
 toast.clear = clear;
 
 export { toast };
-export function useToast() { return toast; }
 
 export default {
   install(app) {
