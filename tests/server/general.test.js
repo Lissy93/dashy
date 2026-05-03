@@ -4,6 +4,25 @@ import request from 'supertest';
 
 const app = require('../../services/app');
 
+describe('Healthcheck', () => {
+  it('GET /healthz returns 200 with status, uptime and version', async () => {
+    const res = await request(app).get('/healthz');
+    expect(res.status).toBe(200);
+    expect(res.headers['cache-control']).toBe('no-store');
+    const body = JSON.parse(res.text);
+    expect(body.status).toBe('ok');
+    expect(typeof body.uptime).toBe('number');
+    expect(body.uptime).toBeGreaterThanOrEqual(0);
+    expect(typeof body.version).toBe('string');
+  });
+
+  it('ignores POST', async () => {
+    const res = await request(app).post('/healthz');
+    expect(res.status).toBeLessThan(500);
+    expect(res.status).not.toBe(200);
+  });
+});
+
 describe('Config serving', () => {
   it('GET /conf.yml returns the config', async () => {
     const res = await request(app).get('/conf.yml');

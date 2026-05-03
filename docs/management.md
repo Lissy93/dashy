@@ -105,6 +105,36 @@ docker run -d \
     willfarrell/autoheal
 ```
 
+### HTTP Healthcheck Endpoint
+
+Dashy also exposes an unauthenticated HTTP liveness endpoint at `/healthz`, which returns a `200` with a small JSON body (`status`, `uptime`, `version`). It bypasses auth and SSL redirection so probes keep working regardless of how Dashy is configured.
+
+Useful when fronting Dashy with a load balancer / reverse proxy that needs an HTTP probe for auto-failover, or when running on Kubernetes:
+
+```yaml
+# Kubernetes
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+```
+
+```yaml
+# Traefik (label on the Dashy service)
+- "traefik.http.services.dashy.loadbalancer.healthcheck.path=/healthz"
+- "traefik.http.services.dashy.loadbalancer.healthcheck.interval=30s"
+```
+
+```caddyfile
+# Caddy (reverse_proxy block)
+reverse_proxy dashy:8080 {
+    health_uri  /healthz
+    health_interval 30s
+}
+```
+
+For Nginx Proxy Manager, set the *Forward Hostname* health-check path to `/healthz` under the proxy host's *Custom locations* / advanced config.
+
 **[⬆️ Back to Top](#management)**
 
 ---

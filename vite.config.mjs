@@ -56,6 +56,7 @@ export default defineConfig({
     copyUserDataConfig(),
     VitePWA({
       registerType: 'prompt',
+      useCredentials: true,
       manifest: {
         name: 'Dashy',
         theme_color: '#00af87',

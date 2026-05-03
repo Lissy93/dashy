@@ -1,5 +1,5 @@
 /* A collection of generic reusable functions for various string processing tasks */
- 
+
 
 /* Very rudimentary hash function for generative icons */
 export const asciiHash = (input) => {

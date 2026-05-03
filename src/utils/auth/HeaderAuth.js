@@ -69,10 +69,3 @@ export const initHeaderAuth = () => {
   headerAuth = new HeaderAuth();
   return headerAuth.login();
 };
-
-export const getHeaderAuth = () => {
-  if (!headerAuth) {
-    ErrorHandler("HeaderAuth not initialized, can't get instance of class");
-  }
-  return headerAuth;
-};
